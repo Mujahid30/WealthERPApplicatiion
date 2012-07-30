@@ -60,16 +60,26 @@
         }
     }
 </script>
-
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+            <td class="HeaderCell">
+                <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                    class="flip" />
+                <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Upload History"></asp:Label>
+            </td>
+        </tr>
+    </table>
+</div>
 <table width="100%" class="TableBackground">
-    <tr>
+   <%-- <tr>
         <td class="HeaderCell">
             <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
                 class="flip" />
             <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Upload History"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="4">
             <div class="panel">

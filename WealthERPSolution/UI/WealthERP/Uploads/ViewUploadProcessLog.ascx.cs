@@ -52,7 +52,7 @@ namespace WealthERP.Uploads
         string xmlPath;
         string xmlFileName = string.Empty;
         string configPath;
-      
+
 
 
         //protected override void OnInit(EventArgs e)
@@ -4297,8 +4297,12 @@ namespace WealthERP.Uploads
                 lbl = (Label)e.Item.FindControl("lblFiletypeId");
                 if (lbl.Text == "8" || lbl.Text == "19" || lbl.Text == "10" || lbl.Text == "11")
                 {
+
                     rcb = (RadComboBox)e.Item.FindControl("ddlAction");
-                    rcb.Items.FindItemByValue("Manage Rejects").Remove();
+                    if (rcb != null)
+                    {
+                        rcb.Items.FindItemByValue("Manage Rejects").Remove();
+                    }
                 }
 
 
