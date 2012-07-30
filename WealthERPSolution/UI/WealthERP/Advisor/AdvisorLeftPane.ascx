@@ -458,16 +458,19 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Order Query/MIS"
+                                                    <%--<telerik:RadPanelItem runat="server" Text="Order Query/MIS"
                                                         Value="OrderMIS">
+                                                    </telerik:RadPanelItem>--%>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Entry" Value="OrderEntry">
+                                                          <Items>
+                                                           <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS">
+                                                           </telerik:RadPanelItem>
+                                                        </Items>
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Order Entry"
-                                                        Value="OrderEntry">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="LI Order" Visible="false"
+                                                    <telerik:RadPanelItem runat="server" Text="LI Order" 
                                                         Value="LI_Order">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Order List" Visible="false"
+                                                    <telerik:RadPanelItem runat="server" Text="Order List" 
                                                         Value="Order_List">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Order Recon"
