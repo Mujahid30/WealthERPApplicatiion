@@ -1,18 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewEquityPortfolioTransactions.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.ViewEquityTransactions" %>
-<asp:Panel runat="server" ScrollBars="Horizontal" >
-    <table style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
-        <td>
-            &nbsp;
-        </td>
-        <td align="left" class="HeaderTextBig">
-            Equity Transactions Valuation Details
-        </td>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
+            <td align="left">
+                <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text=" Equity Transactions Valuation Details"></asp:Label>
+            </td>
+        </tr>
+    </table>
+</div>
+<asp:Panel runat="server" ScrollBars="Horizontal">
+    <table style="width: 100%;">
         <tr>
             <td colspan="3">
                 <asp:LinkButton ID="lnkBack" CssClass="LinkButtons" runat="server" Text="Back" OnClick="lnkBack_Click"></asp:LinkButton>
