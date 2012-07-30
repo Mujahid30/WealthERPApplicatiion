@@ -4189,7 +4189,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "DTD.dbf";
+                        string filename = "DTU.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -4252,7 +4252,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "DTD.dbf";
+                        string filename = "SUTP.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -4390,7 +4390,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "CMFT.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -4399,10 +4399,10 @@ namespace WealthERP.Uploads
                         {
                             for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
                             {
-                                if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS")
+                                if (ds.Tables[0].Columns[i].ColumnName == "CMFT#dbf.TAX_STATUS")
                                     ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS";
 
-                                if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS1")
+                                if (ds.Tables[0].Columns[i].ColumnName == "CMFT#dbf.TAX_STATUS1")
                                     ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS1";
                             }
 
@@ -4466,7 +4466,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "CSU.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -4521,7 +4521,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "CSS.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -4938,7 +4938,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "SKU.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -5253,7 +5253,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "SMFT.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -5531,7 +5531,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "SETA.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -5583,7 +5583,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "SMFF.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -5649,7 +5649,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "SEQT.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -5712,7 +5712,7 @@ namespace WealthERP.Uploads
 
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "IIFLT.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -6094,7 +6094,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "STDP.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -6150,7 +6150,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "CTD.dbf";
+                        string filename = "WMFWT.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
@@ -6266,7 +6266,7 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "dbf")
                     {
-                        string filename = "DPD.dbf";
+                        string filename = "SMFP.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
