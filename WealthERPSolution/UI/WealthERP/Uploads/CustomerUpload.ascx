@@ -11,14 +11,12 @@
 
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
 
-
-
 <script language="javascript" type="text/javascript">
 
     function DownloadScript() {
         btn = document.getElementById('<%= btnExportExcel.ClientID %>');
         btn.click();
-        
+
     }
     function checkDate(sender, args) {
 
@@ -42,9 +40,10 @@
     <ContentTemplate>--%>
 <%--This are the linkrels for the Jquery files and CSS files abt the screen tips and info's--%>
 
-
 <script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
@@ -55,7 +54,6 @@
 <link href="../App_Themes/Maroon/Images/bubbletip-IE.css" rel="stylesheet" type="text/css" />
 <%--End--%>
 <%--This scripts includes the JQuery coding about the Screen Tips and screen info   --%>
-
 <%--This scripts includes the JQuery coding about the Screen Tips and screen info   --%>
 
 <script type="text/javascript">
@@ -72,7 +70,7 @@
 
 <script type="text/javascript">
 
-       
+
     function pageLoad() {
         InitDialogs();
         Loading(false);
@@ -106,7 +104,8 @@
         btn.click();
     }
 </script>
-<table width="100%" class="TableBackground">
+
+<%--<table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
             <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
@@ -115,15 +114,26 @@
             <hr />
         </td>
     </tr>
-</table>
+</table>--%>
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+            <td class="HeaderCell">
+                <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                    class="flip" />
+                <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Uploads"></asp:Label>
+            </td>
+        </tr>
+    </table>
+</div>
 <table width="100%">
     <tr>
         <td colspan="3">
             <div class="panel">
                 <p>
                     Using this feature you can upload your client profiles and other financial data
-                    (MF Transactions, Equity Transactions etc.) provided by your institution or you can
-                    use our standard templates to do so.
+                    (MF Transactions, Equity Transactions etc.) provided by your institution or you
+                    can use our standard templates to do so.
                 </p>
             </div>
         </td>
@@ -140,7 +150,7 @@
     <tr>
         <td align="center">
             <div id="uploadError" runat="server" class="failure-msg" align="center" visible="false">
-                    <asp:Label ID="Message_lbl" runat="server" Text="Label" Font-Bold="False"></asp:Label>
+                <asp:Label ID="Message_lbl" runat="server" Text="Label" Font-Bold="False"></asp:Label>
             </div>
         </td>
     </tr>
@@ -150,7 +160,8 @@
         <td colspan="4" align="right" runat="server">
             <asp:Label ID="lblLastUploadDateText" runat="server" Text="Last Upload Date:" CssClass="UploadDateLbl"
                 Visible="false"></asp:Label>
-            <asp:Label ID="lblLastUploadDate" runat="server" Text="" Font-Bold="true" CssClass="UploadDateLbl" Visible="false"></asp:Label>
+            <asp:Label ID="lblLastUploadDate" runat="server" Text="" Font-Bold="true" CssClass="UploadDateLbl"
+                Visible="false"></asp:Label>
         </td>
     </tr>
     <tr id="trError" visible="false" runat="server">
@@ -164,11 +175,9 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4">
-            <asp:Label ID="lblSelection" runat="server" Text="Source Selection" CssClass="HeaderTextSmall">
-            </asp:Label>
-            <hr />
-        </td>
+        <div class="divSectionHeading" style="vertical-align: text-bottom">
+            Source Selection
+        </div>
     </tr>
     <tr>
         <td class="leftField">
@@ -179,15 +188,15 @@
                 AutoPostBack="true" CssClass="cmbField">
                 <asp:ListItem Value="0">Select an Extract Type</asp:ListItem>
                 <asp:ListItem Value="P">Profile Only</asp:ListItem>
-               <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
+                <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
                 <asp:ListItem Value="PMFF">Profile & MF Folio</asp:ListItem>
                 <asp:ListItem Value="MFT">MF Transaction</asp:ListItem>
-            <%--    <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem> --%>     
+                <%--    <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem> --%>
                 <asp:ListItem Value="EQTA">Equity Trade Account Only</asp:ListItem>
-               <%-- <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>--%>
+                <%-- <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>--%>
                 <asp:ListItem Value="EQT">Equity Transaction</asp:ListItem>
                 <asp:ListItem Value="MFSS">Systematic</asp:ListItem>
-                <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>                
+                <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">
@@ -196,7 +205,6 @@
                     (eg: Client Profiles or MF Transactions etc)
                 </p>
             </div>
-
             <asp:RequiredFieldValidator ID="ddlUploadType_RequiredFieldValidator" ControlToValidate="ddlUploadType"
                 ValidationGroup="btn_Upload" ErrorMessage="Please select an Extract type" InitialValue="0"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
@@ -243,48 +251,45 @@
             </asp:RequiredFieldValidator>
         </td>
         <td style="float: right; vertical-align: top;" width="350px">
-            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" 
-                CausesValidation="False" onclick="lnkbtnpup_Click1">click here to download standard file formats</asp:LinkButton>
+            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" CausesValidation="False"
+                OnClick="lnkbtnpup_Click1">click here to download standard file formats</asp:LinkButton>
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="lnkbtnpup" DynamicServicePath="" BackgroundCssClass="modalBackground"
-                Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="Panel1" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();">
+                Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="Panel1" CancelControlID="btnCancel"
+                Drag="true" OnOkScript="DownloadScript();">
             </cc1:ModalPopupExtender>
         </td>
     </tr>
-    <tr id="datevisible" runat="server" Visible="false">
-    
-     <td class="leftField">
+    <tr id="datevisible" runat="server" visible="false">
+        <td class="leftField">
             <asp:Label ID="lbldate" runat="server" CssClass="FieldName" Text="Select Date:"></asp:Label>
         </td>
-         <td class="rightField">
-                    <asp:TextBox ID="txtUploadDate"  runat="server" CssClass="txtField" ></asp:TextBox>
-                     <ajaxToolkit:CalendarExtender ID="txtUploadDate_CalendarExtender" runat="server"
-                        Format="dd/MM/yyyy" TargetControlID="txtUploadDate" OnClientDateSelectionChanged="checkDate">
-                    </ajaxToolkit:CalendarExtender>
-                    <ajaxToolkit:TextBoxWatermarkExtender ID="txtUploadDate_TextBoxWatermarkExtender"
-                        runat="server" TargetControlID="txtUploadDate" WatermarkText="dd/mm/yyyy">
-                    </ajaxToolkit:TextBoxWatermarkExtender>
-                    <span id="Span4" class="spnRequiredField" >*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtUploadDate"
-                        CssClass="rfvPCG" ValidationGroup="btn_Upload" ErrorMessage="<br />Please select a Transaction Date"
-                        Display="Dynamic" runat="server" InitialValue="">
-                    </asp:RequiredFieldValidator>
-                </td>
-    
+        <td class="rightField">
+            <asp:TextBox ID="txtUploadDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <ajaxToolkit:CalendarExtender ID="txtUploadDate_CalendarExtender" runat="server"
+                Format="dd/MM/yyyy" TargetControlID="txtUploadDate" OnClientDateSelectionChanged="checkDate">
+            </ajaxToolkit:CalendarExtender>
+            <ajaxToolkit:TextBoxWatermarkExtender ID="txtUploadDate_TextBoxWatermarkExtender"
+                runat="server" TargetControlID="txtUploadDate" WatermarkText="dd/mm/yyyy">
+            </ajaxToolkit:TextBoxWatermarkExtender>
+            <span id="Span4" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtUploadDate"
+                CssClass="rfvPCG" ValidationGroup="btn_Upload" ErrorMessage="<br />Please select a Transaction Date"
+                Display="Dynamic" runat="server" InitialValue="">
+            </asp:RequiredFieldValidator>
+        </td>
     </tr>
-     <tr id="upload" runat="server" Visible="false">
-    
-     <td class="leftField">
+    <tr id="upload" runat="server" visible="false">
+        <td class="leftField">
             <asp:Label ID="lbluploadtype" runat="server" CssClass="FieldName" Text="Upload Type:"></asp:Label>
         </td>
-        <td>                          
-                                <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="cmbField" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged">
-                                    <asp:ListItem Text="NSE" />
-                                    <asp:ListItem Text="BSE" /> 
-                                </asp:DropDownList>
-                          
-        </td>          
-         
+        <td>
+            <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged">
+                <asp:ListItem Text="NSE" />
+                <asp:ListItem Text="BSE" />
+            </asp:DropDownList>
+        </td>
     </tr>
     <%--<tr id="trFileTypeRow" runat="server">
         <td class="leftField">
@@ -295,7 +300,7 @@
             </asp:DropDownList>
         </td>
     </tr>--%>
-    <tr id="SkiprowsVisible" runat="server" Visible="False" >
+    <tr id="SkiprowsVisible" runat="server" visible="False">
         <td class="leftField">
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Do you wish to skip rows?:"></asp:Label>
         </td>
@@ -331,9 +336,11 @@
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Browse:"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-        <asp:FileUpload ID="FileUpload" runat="server" Height="22px"/>      
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="FileUpload" Runat="Server"  ValidationGroup="btn_Upload" ErrorMessage="Only .dbf, .xls and.xlsx File allowed" Display="Dynamic"
-                ValidationExpression="^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F)|(t|T)(x|X)(t|T))$" CssClass="rfvPCG"/>
+            <asp:FileUpload ID="FileUpload" runat="server" Height="22px" />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="FileUpload"
+                runat="Server" ValidationGroup="btn_Upload" ErrorMessage="Only .dbf, .xls and.xlsx File allowed"
+                Display="Dynamic" ValidationExpression="^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F)|(t|T)(x|X)(t|T))$"
+                CssClass="rfvPCG" />
             <br />
             <asp:RequiredFieldValidator ID="FileUpload_RequiredFieldValidator" ControlToValidate="FileUpload"
                 ValidationGroup="btn_Upload" ErrorMessage="Please select a file for upload" Display="Dynamic"
@@ -342,15 +349,12 @@
         </td>
     </tr>
     <tr>
-    <td></td>
-       <td colspan="3">
+        <td>
+        </td>
+        <td colspan="3">
             <%--<asp:label ID="FileType_lbl" runat="server" Font-Bold="false" CssClass="MsgInfo" text="Label"></asp:label>--%>
             <asp:Label ID="lblFileType" runat="server" Font-Bold="false" CssClass="MsgInfo" Text="Label"></asp:Label>
-             
-            
-       
             <%--<asp:label ID="FileType_lbl" runat="server" Font-Bold="false" CssClass="MsgInfo" text="Label"></asp:label>--%>
-            
             <%-- <asp:Label ID="lblErrorFileType" runat="server"  CssClass="rfvPCG" Text="Please Upload Correct Format of file.."></asp:Label>
             --%>
         </td>
@@ -366,7 +370,7 @@
     </tr>
     <tr>
         <td>
-            <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup"  Visible="false">
+            <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup" Visible="false">
                 <asp:RadioButton ID="File1" Text="EquityTradeAccount" Checked="True" GroupName="colors"
                     runat="server" />
                 <br />
@@ -384,21 +388,22 @@
                 <asp:RadioButton ID="File6" Text="SystematicStandard" Checked="True" GroupName="colors"
                     runat="server" />
                 <br />
-                 <asp:RadioButton ID="File7" Text="NSE Upload Files" Checked="True" GroupName="colors"
+                <asp:RadioButton ID="File7" Text="NSE Upload Files" Checked="True" GroupName="colors"
                     runat="server" />
-                <br /> 
+                <br />
                 <asp:RadioButton ID="File8" Text="BSE Upload Files" Checked="True" GroupName="colors"
-                    runat="server" />                                   
-                <br />                 
+                    runat="server" />
+                <br />
                 <asp:RadioButton ID="AllFiles" Text="All Standard Upload Files" Checked="True" GroupName="colors"
                     runat="server" />
                 <br />
                 <asp:Button ID="btnOk" runat="server" Text="Download" CausesValidation="false" CssClass="PCGButton" />
                 &nbsp;
-                <asp:Button ID="btnCancel"  CausesValidation="false" runat="server" Text="Cancel" CssClass="PCGButton" />
+                <asp:Button ID="btnCancel" CausesValidation="false" runat="server" Text="Cancel"
+                    CssClass="PCGButton" />
             </asp:Panel>
             <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
-                OnClick="btnExportExcel_Click"  CausesValidation="false" Height="31px" Width="35px" />
+                OnClick="btnExportExcel_Click" CausesValidation="false" Height="31px" Width="35px" />
         </td>
     </tr>
 </table>
@@ -413,7 +418,7 @@
         <tr>
             <td>
                 <asp:GridView ID="gvInputError" runat="server" CssClass="GridViewStyle" ShowFooter="true"
-                    AllowPaging="false" >
+                    AllowPaging="false">
                     <FooterStyle CssClass="FieldName" />
                     <RowStyle CssClass="RowStyle" />
                     <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -598,15 +603,18 @@
                 <asp:TextBox ID="txtRejectedRecords" CssClass="txtField" runat="server" Enabled="false">
                 </asp:TextBox>
             </td>
-           <td colspan="2" class="rightField"></td>
+            <td colspan="2" class="rightField">
+            </td>
         </tr>
-         <tr>
+        <tr>
             <td class="leftField">
-                <asp:Label runat="server" ID="lblTotalInputRecordsRejected" Visible="false" Text="Total Input Records Rejected:" CssClass="FieldName">
+                <asp:Label runat="server" ID="lblTotalInputRecordsRejected" Visible="false" Text="Total Input Records Rejected:"
+                    CssClass="FieldName">
                 </asp:Label>
             </td>
             <td class="rightField">
-                <asp:TextBox ID="txtInputRejectedRecords" CssClass="txtField" runat="server" Visible="false" Enabled="false">
+                <asp:TextBox ID="txtInputRejectedRecords" CssClass="txtField" runat="server" Visible="false"
+                    Enabled="false">
                 </asp:TextBox>
             </td>
             <td colspan="2" class="rightField">
