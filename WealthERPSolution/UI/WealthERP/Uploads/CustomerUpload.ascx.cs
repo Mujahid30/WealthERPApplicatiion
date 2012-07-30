@@ -6831,18 +6831,18 @@ namespace WealthERP.Uploads
 
         #region GUID CREATION
 
-        protected void btnGenerateGuid_OnClick(object sender, EventArgs e)
-        {
-            GenerateGUID();
-        }
+        //protected void btnGenerateGuid_OnClick(object sender, EventArgs e)
+        //{
+        //    GenerateGUID();
+        //}
 
 
-        public void GenerateGUID()
-        {
-            string strGUID = string.Empty;
-            strGUID= System.Guid.NewGuid().ToString();
-            lblGUID.Text = strGUID;
-        }
+        //public void GenerateGUID()
+        //{
+        //    string strGUID = string.Empty;
+        //    strGUID= System.Guid.NewGuid().ToString();
+        //    lblGUID.Text = strGUID;
+        //}
 
         #endregion
 

@@ -179,14 +179,7 @@
             Source Selection
         </div>
     </tr>
-    <tr>
-        <td>
-            <asp:Button runat="server" Text="generate guid" ID="btnGenerateGuid" OnClick="btnGenerateGuid_OnClick"/>
-        </td>
-        <td>
-            <asp:Label ID="lblGUID" runat="server"></asp:Label>
-        </td>
-    </tr>
+   
     <tr>
         <td class="leftField">
             <asp:Label ID="Label4" CssClass="FieldName" runat="server" Text="Extract Type:"></asp:Label>
