@@ -3998,7 +3998,7 @@ namespace WealthERP.Uploads
             }
             //***Dropdown screen info coding***
 
-            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT" || ddlUploadType.SelectedValue == "TRAIL" || ddlUploadType.SelectedValue == "ODIN" || ddlUploadType.SelectedValue == "EQT")
+            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT" || ddlUploadType.SelectedValue == "TRAIL" || ddlUploadType.SelectedValue == "ODIN" || ddlUploadType.SelectedValue == "EQT" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "MFSS")
             {
                 lblFileType.Visible = true;
                 message = Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);
@@ -4092,7 +4092,11 @@ namespace WealthERP.Uploads
             {
                 msg = "MFSD-221 Combo";
             }
-            else if ((ddlUploadType == "MFT" && ddlCompanyType == "TN") || (ddlUploadType == "PMFF" && ddlCompanyType == "TN"))
+            else if ((ddlUploadType == "MFT" && ddlCompanyType == "TN"))
+            {
+                msg = "My transaction for a period";
+            }
+            else if ((ddlUploadType == "PMFF" && ddlCompanyType == "TN"))
             {
                 msg = "Standard Combo";
             }
@@ -4103,7 +4107,7 @@ namespace WealthERP.Uploads
 
             else if ((ddlUploadType == "MFT" && ddlCompanyType == "DT"))
             {
-                msg = "Deautsche Transaction file";
+                msg = "Deutsche-1";
             }
             else if (ddlUploadType == "TRAIL")
             {
@@ -4111,7 +4115,7 @@ namespace WealthERP.Uploads
             }
             else if ((ddlUploadType == "MFT" && ddlCompanyType == "SU"))
             {
-                msg = "ER-02";
+                msg = "ER-02 or ER-17";
             }
             else if ((ddlUploadType == "PMFF" && ddlCompanyType == "SU"))
             {
@@ -4124,6 +4128,26 @@ namespace WealthERP.Uploads
             else if ((ddlUploadType == "ODIN" && ddlCompanyType == "BSE"))
             {
                 msg = "TR10022012";
+            }
+            else if ((ddlUploadType == "MFT" && ddlCompanyType == "WPT"))
+            {
+                msg = "Standard";
+            }
+            else if ((ddlUploadType == "P" && ddlCompanyType == "WP"))
+            {
+                msg = "Standard Profile";
+            }
+            else if ((ddlUploadType == "MFSS" && ddlCompanyType == "CA"))
+            {
+                msg = "WBR-49";
+            }
+            else if ((ddlUploadType == "MFSS" && ddlCompanyType == "KA"))
+            {
+                msg = "MFSD-230";
+            }
+            else if ((ddlUploadType == "MFSS" && ddlCompanyType == "WPT"))
+            {
+                msg = "Standard";
             }
             else if ((ddlUploadType == "EQT" && ddlCompanyType == "ODIN"))
             {
