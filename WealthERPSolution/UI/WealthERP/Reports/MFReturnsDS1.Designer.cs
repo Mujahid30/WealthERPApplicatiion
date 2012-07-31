@@ -1361,6 +1361,8 @@ namespace WealthERP.Reports {
             
             private global::System.Data.DataColumn columnPortfolioName;
             
+            private global::System.Data.DataColumn columnAbsoluteReturn;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public PortfolioXIRRDataTable() {
                 this.TableName = "PortfolioXIRR";
@@ -1427,6 +1429,13 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn AbsoluteReturnColumn {
+                get {
+                    return this.columnAbsoluteReturn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1455,14 +1464,15 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PortfolioXIRRRow AddPortfolioXIRRRow(int CustomerId, string CustomerName, int PortfolioId, decimal XIRR, string PortfolioName) {
+            public PortfolioXIRRRow AddPortfolioXIRRRow(int CustomerId, string CustomerName, int PortfolioId, decimal XIRR, string PortfolioName, decimal AbsoluteReturn) {
                 PortfolioXIRRRow rowPortfolioXIRRRow = ((PortfolioXIRRRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CustomerId,
                         CustomerName,
                         PortfolioId,
                         XIRR,
-                        PortfolioName};
+                        PortfolioName,
+                        AbsoluteReturn};
                 rowPortfolioXIRRRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPortfolioXIRRRow);
                 return rowPortfolioXIRRRow;
@@ -1487,6 +1497,7 @@ namespace WealthERP.Reports {
                 this.columnPortfolioId = base.Columns["PortfolioId"];
                 this.columnXIRR = base.Columns["XIRR"];
                 this.columnPortfolioName = base.Columns["PortfolioName"];
+                this.columnAbsoluteReturn = base.Columns["AbsoluteReturn"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1501,6 +1512,8 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnXIRR);
                 this.columnPortfolioName = new global::System.Data.DataColumn("PortfolioName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPortfolioName);
+                this.columnAbsoluteReturn = new global::System.Data.DataColumn("AbsoluteReturn", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAbsoluteReturn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1670,7 +1683,7 @@ namespace WealthERP.Reports {
             
             private global::System.Data.DataColumn columnCustomerName;
             
-            private global::System.Data.DataColumn columnFolioStartDate;
+            private global::System.Data.DataColumn columnCMFA_AccountOpeningDate;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public MFReturnHoldingsDataTable() {
@@ -1857,9 +1870,9 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn FolioStartDateColumn {
+            public global::System.Data.DataColumn CMFA_AccountOpeningDateColumn {
                 get {
-                    return this.columnFolioStartDate;
+                    return this.columnCMFA_AccountOpeningDate;
                 }
             }
             
@@ -1915,7 +1928,7 @@ namespace WealthERP.Reports {
                         string Category, 
                         string C_CustomerId, 
                         string CustomerName, 
-                        string FolioStartDate) {
+                        System.DateTime CMFA_AccountOpeningDate) {
                 MFReturnHoldingsRow rowMFReturnHoldingsRow = ((MFReturnHoldingsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Scheme,
@@ -1940,7 +1953,7 @@ namespace WealthERP.Reports {
                         Category,
                         C_CustomerId,
                         CustomerName,
-                        FolioStartDate};
+                        CMFA_AccountOpeningDate};
                 rowMFReturnHoldingsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMFReturnHoldingsRow);
                 return rowMFReturnHoldingsRow;
@@ -1982,7 +1995,7 @@ namespace WealthERP.Reports {
                 this.columnCategory = base.Columns["Category"];
                 this.columnC_CustomerId = base.Columns["C_CustomerId"];
                 this.columnCustomerName = base.Columns["CustomerName"];
-                this.columnFolioStartDate = base.Columns["FolioStartDate"];
+                this.columnCMFA_AccountOpeningDate = base.Columns["CMFA_AccountOpeningDate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2031,8 +2044,8 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnC_CustomerId);
                 this.columnCustomerName = new global::System.Data.DataColumn("CustomerName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCustomerName);
-                this.columnFolioStartDate = new global::System.Data.DataColumn("FolioStartDate", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFolioStartDate);
+                this.columnCMFA_AccountOpeningDate = new global::System.Data.DataColumn("CMFA_AccountOpeningDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCMFA_AccountOpeningDate);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3364,6 +3377,21 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal AbsoluteReturn {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablePortfolioXIRR.AbsoluteReturnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AbsoluteReturn\' in table \'PortfolioXIRR\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePortfolioXIRR.AbsoluteReturnColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsCustomerIdNull() {
                 return this.IsNull(this.tablePortfolioXIRR.CustomerIdColumn);
             }
@@ -3411,6 +3439,16 @@ namespace WealthERP.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetPortfolioNameNull() {
                 this[this.tablePortfolioXIRR.PortfolioNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAbsoluteReturnNull() {
+                return this.IsNull(this.tablePortfolioXIRR.AbsoluteReturnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAbsoluteReturnNull() {
+                this[this.tablePortfolioXIRR.AbsoluteReturnColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3761,17 +3799,18 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string FolioStartDate {
+            public System.DateTime CMFA_AccountOpeningDate {
                 get {
                     try {
-                        return ((string)(this[this.tableMFReturnHoldings.FolioStartDateColumn]));
+                        return ((global::System.DateTime)(this[this.tableMFReturnHoldings.CMFA_AccountOpeningDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'FolioStartDate\' in table \'MFReturnHoldings\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CMFA_AccountOpeningDate\' in table \'MFReturnHoldings\' is DBN" +
+                                "ull.", e);
                     }
                 }
                 set {
-                    this[this.tableMFReturnHoldings.FolioStartDateColumn] = value;
+                    this[this.tableMFReturnHoldings.CMFA_AccountOpeningDateColumn] = value;
                 }
             }
             
@@ -3996,13 +4035,13 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsFolioStartDateNull() {
-                return this.IsNull(this.tableMFReturnHoldings.FolioStartDateColumn);
+            public bool IsCMFA_AccountOpeningDateNull() {
+                return this.IsNull(this.tableMFReturnHoldings.CMFA_AccountOpeningDateColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetFolioStartDateNull() {
-                this[this.tableMFReturnHoldings.FolioStartDateColumn] = global::System.Convert.DBNull;
+            public void SetCMFA_AccountOpeningDateNull() {
+                this[this.tableMFReturnHoldings.CMFA_AccountOpeningDateColumn] = global::System.Convert.DBNull;
             }
         }
         

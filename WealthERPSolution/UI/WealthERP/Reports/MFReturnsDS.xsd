@@ -61,6 +61,7 @@
               <xs:element name="PortfolioId" msprop:Generator_UserColumnName="PortfolioId" msprop:Generator_ColumnVarNameInTable="columnPortfolioId" msprop:Generator_ColumnPropNameInRow="PortfolioId" msprop:Generator_ColumnPropNameInTable="PortfolioIdColumn" type="xs:int" minOccurs="0" />
               <xs:element name="XIRR" msprop:Generator_UserColumnName="XIRR" msprop:Generator_ColumnVarNameInTable="columnXIRR" msprop:Generator_ColumnPropNameInRow="XIRR" msprop:Generator_ColumnPropNameInTable="XIRRColumn" type="xs:decimal" minOccurs="0" />
               <xs:element name="PortfolioName" msprop:Generator_UserColumnName="PortfolioName" msprop:Generator_ColumnVarNameInTable="columnPortfolioName" msprop:Generator_ColumnPropNameInRow="PortfolioName" msprop:Generator_ColumnPropNameInTable="PortfolioNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AbsoluteReturn" msprop:Generator_UserColumnName="AbsoluteReturn" msprop:Generator_ColumnVarNameInTable="columnAbsoluteReturn" msprop:Generator_ColumnPropNameInRow="AbsoluteReturn" msprop:Generator_ColumnPropNameInTable="AbsoluteReturnColumn" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -89,7 +90,7 @@
               <xs:element name="Category" msprop:Generator_UserColumnName="Category" msprop:Generator_ColumnVarNameInTable="columnCategory" msprop:Generator_ColumnPropNameInRow="Category" msprop:Generator_ColumnPropNameInTable="CategoryColumn" type="xs:string" minOccurs="0" />
               <xs:element name="C_CustomerId" msprop:Generator_UserColumnName="C_CustomerId" msprop:Generator_ColumnVarNameInTable="columnC_CustomerId" msprop:Generator_ColumnPropNameInRow="C_CustomerId" msprop:Generator_ColumnPropNameInTable="C_CustomerIdColumn" type="xs:string" minOccurs="0" />
               <xs:element name="CustomerName" msprop:Generator_UserColumnName="CustomerName" msprop:Generator_ColumnVarNameInTable="columnCustomerName" msprop:Generator_ColumnPropNameInRow="CustomerName" msprop:Generator_ColumnPropNameInTable="CustomerNameColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="FolioStartDate" msprop:Generator_UserColumnName="FolioStartDate" msprop:Generator_ColumnPropNameInRow="FolioStartDate" msprop:Generator_ColumnVarNameInTable="columnFolioStartDate" msprop:Generator_ColumnPropNameInTable="FolioStartDateColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CMFA_AccountOpeningDate" msprop:Generator_UserColumnName="CMFA_AccountOpeningDate" msprop:Generator_ColumnPropNameInRow="CMFA_AccountOpeningDate" msprop:Generator_ColumnVarNameInTable="columnCMFA_AccountOpeningDate" msprop:Generator_ColumnPropNameInTable="CMFA_AccountOpeningDateColumn" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
