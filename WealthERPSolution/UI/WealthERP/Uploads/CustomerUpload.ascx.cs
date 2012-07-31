@@ -3925,6 +3925,7 @@ namespace WealthERP.Uploads
 
         protected void lnkbtnpup_Click(object sender, EventArgs e)
         {
+
             ModalPopupExtender1.TargetControlID = "btnPopUp";
             ModalPopupExtender1.Show();
 
@@ -3963,6 +3964,11 @@ namespace WealthERP.Uploads
             else if (File8.Checked)
             {
                 Response.Redirect("Standard Upload Files/NSEForOdin");
+            }
+            else if (File9.Checked)
+            {
+
+                Response.Redirect("Standard Upload Files/ProfileMFFolio.xlsx");
             }
             else if (AllFiles.Checked)
             {
@@ -4023,11 +4029,11 @@ namespace WealthERP.Uploads
             }
             if (ddlUploadType.SelectedValue == "P" && ddlListCompany.SelectedValue == "WP")
             {
-                //lnkbtnpup.Style.Add("display", "block");
-                //Panel1.Style.Add("display", "block");
-
                 lnkbtnpup.Visible = true;
-
+            }
+            else if (ddlUploadType.SelectedValue == "PMFF" && ddlListCompany.SelectedValue == "WPT")
+            {
+                lnkbtnpup.Visible = true;
             }
             else if (ddlUploadType.SelectedValue == "MFF" && ddlListCompany.SelectedValue == "WP")
             {
@@ -4062,6 +4068,45 @@ namespace WealthERP.Uploads
             {
                 lnkbtnpup.Visible = true;
             }
+
+            #region downloadable file selection
+
+            if (ddlUploadType.SelectedValue == "PMFF" && ddlListCompany.SelectedValue == "WPT")
+            {
+                hdnUploadType.Value = "P";
+                hdnListCompany.Value = "WP";
+            }
+            if (ddlUploadType.SelectedValue == "P" && ddlListCompany.SelectedValue == "WP")
+            {
+                hdnUploadType.Value = "P";
+                hdnListCompany.Value = "WP";
+            }
+            if (ddlUploadType.SelectedValue == "MFT" && ddlListCompany.SelectedValue == "WPT")
+            {
+                hdnUploadType.Value = "P";
+                hdnListCompany.Value = "WP";
+            }
+            if (ddlUploadType.SelectedValue == "EQTA" && ddlListCompany.SelectedValue == "WP")
+            {
+                hdnUploadType.Value = "P";
+                hdnListCompany.Value = "WP";
+            }
+            if (ddlUploadType.SelectedValue == "EQT" && ddlListCompany.SelectedValue == "")
+            {
+                hdnUploadType.Value = "P";
+                hdnListCompany.Value = "WP";
+            }
+            if (ddlUploadType.SelectedValue == "MFSS" && ddlListCompany.SelectedValue == "")
+            {
+                hdnUploadType.Value = "P";
+                hdnListCompany.Value = "WP";
+            }
+            if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "")
+            {
+                hdnUploadType.Value = "P";
+                hdnListCompany.Value = "WP";
+            }
+            #endregion
 
         }
 

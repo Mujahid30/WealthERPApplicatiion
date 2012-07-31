@@ -13,6 +13,22 @@
 
 <script language="javascript" type="text/javascript">
 
+    function setRadioButtonForFileFormat() {
+        alert('hi');
+        var a = document.getElementById('<%= hdnUploadType.ClientID %>').value;
+       
+        alert('hi');
+        var b = document.getElementById('<%= hdnListCompany.ClientID %>').value;
+        
+        alert(externalSource);
+        if (extractType == '' && externalSource == '') {
+        }
+    }
+
+</script>
+
+<script language="javascript" type="text/javascript">
+
     function DownloadScript() {
         btn = document.getElementById('<%= btnExportExcel.ClientID %>');
         btn.click();
@@ -179,7 +195,6 @@
             Source Selection
         </div>
     </tr>
-   
     <tr>
         <td class="leftField">
             <asp:Label ID="Label4" CssClass="FieldName" runat="server" Text="Extract Type:"></asp:Label>
@@ -252,7 +267,7 @@
             </asp:RequiredFieldValidator>
         </td>
         <td style="float: right; vertical-align: top;" width="350px">
-            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" CausesValidation="False"
+            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" CausesValidation="False" OnClientClick="return setRadioButtonForFileFormat();"
                 OnClick="lnkbtnpup_Click1">click here to download standard file formats</asp:LinkButton>
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="lnkbtnpup" DynamicServicePath="" BackgroundCssClass="modalBackground"
@@ -372,30 +387,33 @@
     <tr>
         <td>
             <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup" Visible="false">
-                <asp:RadioButton ID="File1" Text="EquityTradeAccount" Checked="True" GroupName="colors"
+                <asp:RadioButton ID="File1" Text="EquityTradeAccount" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File2" Text="EquityTransaction" Checked="True" GroupName="colors"
+                <asp:RadioButton ID="File2" Text="EquityTransaction" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File3" Text="MFFolio" Checked="True" GroupName="colors" runat="server" />
+                <asp:RadioButton ID="File3" Text="MFFolio" Checked="false" GroupName="colors" runat="server" />
                 <br />
-                <asp:RadioButton ID="File4" Text="MFTransaction" Checked="True" GroupName="colors"
+                <asp:RadioButton ID="File4" Text="MFTransaction" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File5" Text="CustomerProfile" Checked="True" GroupName="colors"
+                <asp:RadioButton ID="File5" Text="CustomerProfile" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File6" Text="SystematicStandard" Checked="True" GroupName="colors"
+                <asp:RadioButton ID="File6" Text="SystematicStandard" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File7" Text="NSE Upload Files" Checked="True" GroupName="colors"
+                <asp:RadioButton ID="File7" Text="NSE Upload Files" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File8" Text="BSE Upload Files" Checked="True" GroupName="colors"
+                <asp:RadioButton ID="File8" Text="BSE Upload Files" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="AllFiles" Text="All Standard Upload Files" Checked="True" GroupName="colors"
+                <asp:RadioButton ID="File9" Text="Profile & MF Folio" Checked="false" GroupName="colors"
+                    runat="server" />
+                <br />
+                <asp:RadioButton ID="AllFiles" Text="All Standard Upload Files" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
                 <asp:Button ID="btnOk" runat="server" Text="Download" CausesValidation="false" CssClass="PCGButton" />
@@ -647,5 +665,7 @@
     }
 </script>
 
+<asp:HiddenField runat="server" ID="hdnUploadType" Visible="false"  />
+<asp:HiddenField runat="server" ID="hdnListCompany" Visible="false" />
 <%--    </ContentTemplate>
 </asp:UpdatePanel>--%>

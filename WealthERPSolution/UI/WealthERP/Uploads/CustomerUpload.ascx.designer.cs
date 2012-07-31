@@ -527,6 +527,15 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.RadioButton File8;
         
         /// <summary>
+        /// File9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton File9;
+        
+        /// <summary>
         /// AllFiles control.
         /// </summary>
         /// <remarks>
@@ -723,5 +732,23 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_ViewRjects;
+        
+        /// <summary>
+        /// hdnUploadType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnUploadType;
+        
+        /// <summary>
+        /// hdnListCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnListCompany;
     }
 }
