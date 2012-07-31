@@ -3182,7 +3182,7 @@ namespace WealthERP.Reports
                     case "RETURNS_PORTFOLIO":
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
                         DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
-                        dtReturnsPortfolio.Columns.Add("FolioStartDate");
+                        //dtReturnsPortfolio.Columns.Add("CMFA_AccountOpeningDate");
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         
                         dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
@@ -3220,8 +3220,10 @@ namespace WealthERP.Reports
                         crmain.Load(Server.MapPath("ComprehensiveMFReport.rpt"));
                         
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
+                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[0];
+                        //dtReturnsPortfolio.Columns.Add("FolioStartDate");
                         DataTable dtPortfolioXIRRComp = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
-                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[5];
+                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[6];
                         
                         dtPortfolioXIRRComp=GetAbsolutereturnToXIRRDt(dtPortfolioXIRRComp, dtReturnsPortfolio);
 
@@ -3440,14 +3442,35 @@ namespace WealthERP.Reports
                 crmain.SetParameterValue("RMContactDetails", "E-mail: " + advisorVo.Email);
                 crmain.SetParameterValue("MobileNo", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
                 string[] array = new string[5];
+                string formatstring ="";
                 if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
-                    array[0] = customerVo.Adr1Line1.Trim();
+                    formatstring = customerVo.Adr1Line1.Trim();
+                    //array[0] = customerVo.Adr1Line1.Trim();
                 if (!string.IsNullOrEmpty(customerVo.Adr1Line2.Trim()))
-                    array[1] = customerVo.Adr1Line2.Trim();
+                {
+                    if (formatstring == "")
+                    {
+                        formatstring = customerVo.Adr1Line2.Trim();
+                    }
+                    else
+                    {
+                        formatstring = formatstring + "," + customerVo.Adr1Line2.Trim();
+                        //array[1] = customerVo.Adr1Line2.Trim();
+                    }
+                }       
                 if (!string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
-                    array[2] = customerVo.Adr1City.Trim();
-                string formatstring = string.Join(",", array);
-                formatstring = formatstring.TrimEnd(',');
+                    if (formatstring == "")
+                    {
+                        formatstring = customerVo.Adr1City.Trim();
+                    }
+                    else
+                    {
+                        formatstring = formatstring + "," + customerVo.Adr1City.Trim();
+                        //array[1] = customerVo.Adr1Line2.Trim();
+                    }
+                //    array[2] = customerVo.Adr1City.Trim();
+                //formatstring = string.Join(",", array);
+                //formatstring = formatstring.TrimEnd(',');
                 crmain.SetParameterValue("CustomerAddress", formatstring);
 
                 //var list = new List<string>();
