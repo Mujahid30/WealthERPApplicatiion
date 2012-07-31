@@ -248,13 +248,13 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 Width="85%" CssClass="GridViewStyle">
                 <RowStyle CssClass="RowStyle" />
                 <Columns>
-                    <asp:TemplateField HeaderText="Select">
+                    <asp:TemplateField HeaderText="Select" ItemStyle-HorizontalAlign="Left"  HeaderStyle-HorizontalAlign="Left">
                         <ItemTemplate>
                             <asp:CheckBox ID="PNCheckBox" runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField HeaderText="Name" DataField="AssociateName" />
-                    <asp:BoundField HeaderText="Relationship" DataField="XR_Relationship" />
+                    <asp:BoundField HeaderText="Name" DataField="AssociateName" HeaderStyle-HorizontalAlign="Left"   ItemStyle-HorizontalAlign="Left"/>
+                    <asp:BoundField HeaderText="Relationship" DataField="XR_Relationship" HeaderStyle-HorizontalAlign="Left"  ItemStyle-HorizontalAlign="Left"/>
                 </Columns>
                 <FooterStyle CssClass="FooterStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />

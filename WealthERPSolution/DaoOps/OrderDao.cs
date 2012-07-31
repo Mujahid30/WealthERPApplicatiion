@@ -939,7 +939,7 @@ namespace DaoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, Int16 isClose)
+        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, Int16 isClose, string customerId,string orderType)
         {
             DataSet dsOrder = null;
             DataTable dtOrder;
@@ -955,7 +955,16 @@ namespace DaoOps
                 db.AddInParameter(dbOrder, "@Fromdate", DbType.DateTime, fromDate);
                 db.AddInParameter(dbOrder, "@Todate", DbType.DateTime, toDate);
                 db.AddInParameter(dbOrder, "@IsClose", DbType.Int16, isClose);
-                dsOrder = db.ExecuteDataSet(dbOrder);
+                db.AddInParameter(dbOrder, "@C_CustomerId", DbType.String, customerId);
+                if (orderType == "All")
+                {
+                    db.AddInParameter(dbOrder, "@orderType", DbType.String, null);
+                }
+                else
+                {
+                    db.AddInParameter(dbOrder, "@orderType", DbType.String, orderType);
+                }
+                    dsOrder = db.ExecuteDataSet(dbOrder);
                 dtOrder = dsOrder.Tables[0];
             }
             catch (BaseApplicationException ex)

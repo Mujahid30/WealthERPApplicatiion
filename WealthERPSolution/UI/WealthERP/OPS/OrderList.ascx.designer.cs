@@ -30,7 +30,12 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblOrderList;
-        
+        protected global::System.Web.UI.WebControls.TextBox txtIndividualCustomer;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerType;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIndividualOrGroup;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rquiredFieldValidatorIndivudialCustomer;
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderType;
         /// <summary>
         /// lblFrom control.
         /// </summary>
@@ -39,7 +44,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFrom;
-        
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtIndividualCustomer_autoCompleteExtender;
+
         /// <summary>
         /// txtFrom control.
         /// </summary>
@@ -57,7 +63,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
         /// <summary>
         /// TextBoxWatermarkExtender1 control.
         /// </summary>

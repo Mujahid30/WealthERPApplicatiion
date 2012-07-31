@@ -15,6 +15,14 @@
 
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
+<script type="text/javascript" language="javascript">
+    function GetCustomerId(source, eventArgs) {
+        document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value();
+        //alert(document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value());
+        return false;
+    };
+
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".flip").click(function() { $(".panel").slideToggle(); });
@@ -182,6 +190,7 @@
         </td>
     </tr>
 </table>
+
 <table width="80%" onkeypress="return keyPress(this, event)">
     <tr>
         <td align="right" valign="top">
@@ -425,6 +434,43 @@
                         ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
   </td>
 </tr>--%>
+<tr>
+ <td class="leftField">
+            <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="FieldName" Text="Customer Type: "></asp:Label>
+        </td>
+        <td class="rightField">
+            <%--<asp:RadioButton runat="server" ID="rdoPickCustomer" Text="Pick Customer" AutoPostBack="true"
+              Class="cmbField" GroupName="SelectCustomer" oncheckedchanged="rdoPickCustomer_CheckedChanged"/>--%>
+            <asp:DropDownList ID="ddlCustomerType" Style="vertical-align: middle" runat="server"
+                CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlCustomerType_SelectedIndexChanged">
+                <asp:ListItem Value="All" Text="All" Selected="True"></asp:ListItem>
+                <asp:ListItem Value="0" Text="Group Head"></asp:ListItem>
+                <asp:ListItem Value="1" Text="Individual"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+     
+        <td class="leftField" >
+            <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer: "></asp:Label>
+        </td>
+       <td align="left" onkeypress="return keyPress(this, event)">
+            <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off" Enabled="false"
+                AutoPostBack="True">  </asp:TextBox>
+            <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer"
+                WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtIndividualCustomer_autoCompleteExtender"
+                runat="server" TargetControlID="txtIndividualCustomer" ServiceMethod="GetCustomerName"
+                ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="1" EnableCaching="False"
+                CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" DelimiterCharacters="" OnClientItemSelected="GetCustomerId"
+                Enabled="True" />
+            <asp:RequiredFieldValidator ID="rquiredFieldValidatorIndivudialCustomer" Display="Dynamic"
+                ControlToValidate="txtIndividualCustomer" CssClass="rfvPCG" ErrorMessage="<br />Please select the customer"
+                runat="server" ValidationGroup="CustomerValidation">
+            </asp:RequiredFieldValidator>
+        </td>
+</tr>
     <tr>
         <td colspan="2" align="left">
             <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" ValidationGroup="MFSubmit"
@@ -437,6 +483,7 @@
         </td>
     </tr>
 </table>
+
 <table width="100%">
     <tr id="trPager" runat="server">
         <td align="right">
@@ -646,6 +693,7 @@
         </td>
     </tr>
 </table>
+
 <table width="50%">
     <tr>
         <%--    <td> 
@@ -671,3 +719,6 @@
 <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
+<asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
+ <asp:HiddenField ID="hdnCustomerId" runat="server" 
+    onvaluechanged="hdnCustomerId_ValueChanged" />

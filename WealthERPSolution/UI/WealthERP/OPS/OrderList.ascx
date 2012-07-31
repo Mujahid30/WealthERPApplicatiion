@@ -5,6 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
 
+
+
+<script type="text/javascript" language="javascript">
+    function GetCustomerId(source, eventArgs) {
+        document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value();
+        //alert(document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value());
+        return false;
+            };
+
+</script>
 <script type="text/javascript">
     function keyPress(sender, args) {
         if (args.keyCode == 13) {
@@ -30,18 +40,11 @@
         }
     }
 </script>
-
 <table width="100%">
     <tr>
         <td>
-            <div class="divPageHeading">
-            <table cellspacing="0" cellpadding="3" width="100%">
-                <tr>
-                    <td align="left">
-                        <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Order List"></asp:Label>
-                    </td>
-                </tr>
-            </table>
+            <div class="divPageHeading" style="vertical-align: text-bottom">
+                Order MIS
             </div>
         </td>
     </tr>
@@ -49,8 +52,8 @@
         
 <table width="80%" onkeypress="return keyPress(this, event)">
     <tr>
-        <td align="right" valign="top">
-            <asp:Label ID="lblFrom" runat="server" Text=" Order FromDate: " CssClass="FieldName"></asp:Label>
+        <td align="right">
+            <asp:Label ID="lblFrom" runat="server" Text=" Order From Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField">
@@ -69,7 +72,7 @@
                 Type="Date">
             </asp:CompareValidator>
         </td>
-        <td align="right" valign="top">
+        <td align="right">
             <asp:Label ID="lblTo" runat="server" Text="Order ToDate: " CssClass="FieldName"></asp:Label>
         </td>
         <td colspan="3">
@@ -120,7 +123,58 @@
                 <asp:ListItem Text="Closed" Value="0"></asp:ListItem>
             </asp:DropDownList>
         </td>
+         <td class="leftField">
+            <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="FieldName" Text="Customer Type: "></asp:Label>
+        </td>
+        <td class="rightField">
+            <%--<asp:RadioButton runat="server" ID="rdoPickCustomer" Text="Pick Customer" AutoPostBack="true"
+              Class="cmbField" GroupName="SelectCustomer" oncheckedchanged="rdoPickCustomer_CheckedChanged"/>--%>
+            <asp:DropDownList ID="ddlCustomerType" Style="vertical-align: middle" runat="server"
+                CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlCustomerType_SelectedIndexChanged">
+                <asp:ListItem Value="All" Text="All" Selected="True"></asp:ListItem>
+                <asp:ListItem Value="0" Text="Group Head"></asp:ListItem>
+                <asp:ListItem Value="1" Text="Individual"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
     </tr>
+    <tr>
+     
+        <td class="leftField" >
+            <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer: "></asp:Label>
+        </td>
+       <td align="left" onkeypress="return keyPress(this, event)">
+            <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off" Enabled="false"
+                AutoPostBack="True">  </asp:TextBox>
+            <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer"
+                WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtIndividualCustomer_autoCompleteExtender"
+                runat="server" TargetControlID="txtIndividualCustomer" ServiceMethod="GetCustomerName"
+                ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="1" EnableCaching="False"
+                CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" DelimiterCharacters="" OnClientItemSelected="GetCustomerId"
+                Enabled="True" />
+            <asp:RequiredFieldValidator ID="rquiredFieldValidatorIndivudialCustomer" Display="Dynamic"
+                ControlToValidate="txtIndividualCustomer" CssClass="rfvPCG" ErrorMessage="<br />Please select the customer"
+                runat="server" ValidationGroup="CustomerValidation">
+            </asp:RequiredFieldValidator>
+        </td>
+      
+          <td class="leftField">
+            <asp:Label ID="lblOrderType" runat="server" CssClass="FieldName" Text="Order Type: "></asp:Label>
+        </td>
+        <td class="rightField">
+            <%--<asp:RadioButton runat="server" ID="rdoPickCustomer" Text="Pick Customer" AutoPostBack="true"
+              Class="cmbField" GroupName="SelectCustomer" oncheckedchanged="rdoPickCustomer_CheckedChanged"/>--%>
+            <asp:DropDownList ID="ddlOrderType" Style="vertical-align: middle" runat="server"
+                CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlOrderType_SelectedIndexChanged">
+                <asp:ListItem Value="All" Text="All" Selected="True"></asp:ListItem>
+                <asp:ListItem Value="MF" Text="Mutual Fund"></asp:ListItem>
+                <asp:ListItem Value="IN" Text="Life Insurance"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+    </tr> 
     <tr>
         <td colspan="2" align="left">
             <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" ValidationGroup="MFSubmit"
@@ -271,3 +325,7 @@
 <asp:HiddenField ID="hdnOrderStatus" runat="server" />
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
     BorderStyle="None" BackColor="Transparent" />
+    <asp:HiddenField ID="hdnCustomerId" runat="server" 
+    onvaluechanged="hdnCustomerId_ValueChanged" />
+<asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
+<asp:HiddenField ID="hdnOrderType" runat="server" />
