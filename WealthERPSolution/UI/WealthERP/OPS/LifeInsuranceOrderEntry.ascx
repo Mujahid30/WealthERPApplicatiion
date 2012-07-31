@@ -232,7 +232,8 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
         <td class="rightField" style="width: 25%">
             <asp:DropDownList ID="ddlAssetPerticular" runat="server" CssClass="cmbField">
-            </asp:DropDownList>            
+            </asp:DropDownList> 
+            <span id="Span3" class="spnRequiredField">*</span>           
             <asp:ImageButton ID="imgBtnOpenPopup" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Scheme" OnClick="btnOpenPopup_Click" CausesValidation="false" 
                 Height="5%" Width="5%" ></asp:ImageButton>
@@ -344,6 +345,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
         <td>
             <asp:TextBox ID="txtApplicationNo" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span4" class="spnRequiredField">*</span>
         </td>
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblApplicationDate" runat="server" Text="Application Date: " CssClass="FieldName"></asp:Label>
@@ -359,6 +361,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
                 </dateinput>
             </telerik:RadDatePicker>
+            <span id="Span5" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator runat="server" ID="rfvApplicationDate" ControlToValidate="txtApplicationDate"
                 CssClass="rfvPCG" ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
@@ -366,6 +369,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
     <tr>
         <td class="leftField" style="width: 15%">
             <asp:Label ID="lblMaturityDate" runat="server" Text="Policy Maturity Date: " CssClass="FieldName"></asp:Label>
+            
         </td>
         <td>
             <telerik:RadDatePicker ID="txtMaturityDate" CssClass="txtField" runat="server" Culture="English (United States)"
@@ -377,6 +381,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
                 </dateinput>
             </telerik:RadDatePicker>
+            <span id="Span6" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator runat="server" ID="rfvMaturityDate" ControlToValidate="txtMaturityDate"
                 CssClass="rfvPCG" ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
@@ -393,6 +398,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
                 </dateinput>
             </telerik:RadDatePicker>
+            <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator runat="server" ID="rfvOrderDate" ControlToValidate="txtOrderDate"
                 CssClass="rfvPCG" ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
@@ -403,6 +409,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
         <td valign="middle">
             <asp:TextBox ID="txtSumAssured" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span8" class="spnRequiredField">*</span>
             <asp:RegularExpressionValidator ID="revPaymentInstrNo" runat="server" CssClass="rfvPCG"
                 ValidationExpression="^\d+$" ControlToValidate="txtSumAssured" Display="Dynamic"
                 ErrorMessage="Please enter number only" ValidationGroup="Submit">
@@ -414,6 +421,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         <td class="rightField" style="width: 25%">
             <asp:DropDownList ID="ddlEPPremiumFrequencyCode" runat="server" CssClass="cmbField">
             </asp:DropDownList>
+            <span id="Span9" class="spnRequiredField">*</span>
         </td>
     </tr>
 <%--    <tr>
@@ -456,6 +464,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField">
             </asp:DropDownList>
+            <span id="Span10" class="spnRequiredField">*</span>
         </td>
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblPaymentInstruDate" CssClass="FieldName" Text="Instrument Date:"
@@ -472,6 +481,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
                 </dateinput>
             </telerik:RadDatePicker>
+            <span id="Span11" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator runat="server" ID="rfvPaymentInstruDate" ControlToValidate="txtPaymentInstruDate"
                 CssClass="rfvPCG" ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
@@ -483,7 +493,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged">
-            </asp:DropDownList>
+            </asp:DropDownList><span id="Span12" class="spnRequiredField">*</span>
             <%--<asp:Button ID="btnAddBank" runat="server" Text="Add Bank" CssClass="PCGButton" OnClientClick="return openpopupAddBank()" />--%>
             <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
@@ -494,6 +504,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox ID="txtPaymentInstrNo" CssClass="txtField" runat="server"></asp:TextBox>
+            <span id="Span13" class="spnRequiredField">*</span>
         </td>
     </tr>
     <tr>
