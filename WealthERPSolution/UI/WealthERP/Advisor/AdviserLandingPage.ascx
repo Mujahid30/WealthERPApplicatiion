@@ -97,7 +97,7 @@
             <table width="100%">
                 <tr>
                     <td style="width: 30%;" align="center">
-                        <div class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgClientsClick" ImageUrl="~/Images/Dashboard-Clients.png" runat="server"
                                 ToolTip="Navigate to Customer Grid" OnClick="imgClientsClick_OnClick" Width="70px" />
                             <br />
@@ -106,7 +106,7 @@
                         </div>
                     </td>
                     <td style="width: 30%;" align="center">
-                        <div  class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgUploads" ImageUrl="~/Images/Upload-icon.png" runat="server"
                                 ToolTip="Navigate to Uploads" OnClick="imgUploads_OnClick" Width="70px" />
                             <br />
@@ -115,7 +115,7 @@
                         </div>
                     </td>
                     <td style="width: 30%;" align="center">
-                        <div  class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                         <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgOrderentry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server"
                                 ToolTip="Navigate to Order Entry" OnClick="imgOrderentry_OnClick" Width="70px" />
                             <br />
@@ -145,7 +145,7 @@
             <table width="100%">
                 <tr>
                     <td style="width: 30%;" align="center">
-                        <div  class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                            <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgBusinessMIS" ImageUrl="~/Images/Dashboard-BusinessMIS.png"
                                 runat="server" ToolTip="Navigate to Business MIS" OnClick="imgBusinessMIS_OnClick"
                                 Width="70px" />
@@ -155,7 +155,7 @@
                         </div>
                     </td>
                     <td style="width: 30%;" align="center">
-                        <div  class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                           <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgInbox" runat="server" ToolTip="Navigate to Inbox" OnClick="imgInbox_OnClick"
                                 Width="70px" />
                             <br />
@@ -164,7 +164,7 @@
                         </div>
                     </td>
                     <td style="width: 30%;" align="center">
-                        <div  class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                            <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgbtnFPClients" ImageUrl="~/Images/DashBoard-ProspectUser.png"
                                 runat="server" ToolTip="Navigate to Add FP Customers" OnClick="imgbtnFPClients_OnClick"
                                 Width="70px" />
