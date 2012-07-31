@@ -249,7 +249,7 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtReceivedDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application received Date"
                 Display="Dynamic" runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <%--<asp:CompareValidator ID="cvAppRcvDate" runat="server" ControlToValidate="txtReceivedDate"
+           <%-- <asp:CompareValidator id="cvAppRcvDate" runat="server" ControlToValidate="txtReceivedDate"
                 CssClass="cvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Application Received date must be less than or equal to Today"
                 Operator="LessThanEqual" Type="Date"></asp:CompareValidator>--%>
         </td>
@@ -392,9 +392,9 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtFutureDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select Future Date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <%--<asp:CompareValidator ID="cvFutureDate1" runat="server" ControlToValidate="txtFutureDate"
+            <asp:CompareValidator ID="cvFutureDate1" runat="server" ControlToValidate="txtFutureDate"
                 CssClass="cvPCG" ErrorMessage="<br />Future date should  be greater than or equal to Today"
-                Operator="GreaterThanEqual" Type="Date"></asp:CompareValidator>--%>
+                Operator="GreaterThanEqual" Type="Date"></asp:CompareValidator>
         </td>
          <td class="leftField" style="width: 20%">
             <asp:Label ID="lblFutureTrigger" runat="server" Text="Future Trigger: " CssClass="FieldName"></asp:Label>

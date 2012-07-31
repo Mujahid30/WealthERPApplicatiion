@@ -69,6 +69,7 @@ namespace WealthERP.OPS
 
             if (Request.QueryString["action"] != null)
             {
+                lnlBack.Visible = true;
                 ViewForm = Request.QueryString["action"].ToString();
                 mforderVo = (MFOrderVo)Session["mforderVo"];
                 orderVo = (OrderVo)Session["orderVo"];
@@ -1540,7 +1541,7 @@ namespace WealthERP.OPS
         private void SaveOrderDetails()
         {
             orderVo.CustomerId = int.Parse(txtCustomerId.Value);
-            //orderVo.AssetCategory="MF";
+            orderVo.AssetGroup="MF";
             mforderVo.CustomerName = txtCustomerName.Text;
             mforderVo.BMName = lblGetBranch.Text;
             mforderVo.RMName = lblGetRM.Text;
@@ -1857,6 +1858,7 @@ namespace WealthERP.OPS
                 if (ViewForm == "Edit")
                 {
                     SetControls("Edit", mforderVo, orderVo);
+                    lnlBack.Visible = true;
                 }
             }
             else
