@@ -26,19 +26,23 @@
     }
 </script>
 
+<table width="100%">
+    <tr>
+        <td>
+        <div class="divPageHeading">
+            <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left">
+                        General Insurance Add Account Screen
+                    </td>                    
+                </tr>
+            </table>
+        </div>
+        </td>
+    </tr>
+</table>
+
 <table style="width: 100%;">
-    <tr>
-        <td colspan="4">
-            <asp:Label ID="lblGeneralInsuranceEntryHeader" class="HeaderTextBig" runat="server"
-                Text="General Insurance Add Account Screen"></asp:Label>
-            <hr />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="4">
-            &nbsp;
-        </td>
-    </tr>
     <tr>
         <td colspan="4" class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
