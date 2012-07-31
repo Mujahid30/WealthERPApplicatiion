@@ -1387,5 +1387,18 @@ namespace WealthERP.CustomerPortfolio
                 gvNominees.Visible = false;
             }
         }
+
+        protected void txtPolicyTerm_TextChanged(object sender, EventArgs e)
+        {
+            if (txtPolicyTerm.Text == "")
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid term');", true);
+            else if (txtPolicyCommencementDate.SelectedDate == null)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a start date');", true);
+            else
+            {
+                if (ddlPeriodSelection.SelectedIndex != 0)
+                txtMaturityDate.SelectedDate = CalcEndDate(int.Parse(txtPolicyTerm.Text), DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString()));
+            }
+        }
     }
 }

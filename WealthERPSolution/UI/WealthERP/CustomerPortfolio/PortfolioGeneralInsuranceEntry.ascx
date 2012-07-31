@@ -438,7 +438,8 @@
                 GroupName="PolicyTerm" class="cmbField" />
             <asp:RadioButton ID="rdbPolicyTermMonth" Text="Month" runat="server" onClick="return EnableDisableDaysMonths()"
                 GroupName="PolicyTerm" Checked="true" class="cmbField" />--%>
-            <asp:TextBox Width="30px" ID="txtPolicyTerm" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox Width="30px" ID="txtPolicyTerm" runat="server" CssClass="txtField"
+            AutoPostBack="true" ontextchanged="txtPolicyTerm_TextChanged"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator1"
                 runat="server" ControlToValidate="txtPolicyTerm" ErrorMessage="Please Enter Valid Term"
@@ -475,7 +476,7 @@
         </td>
         <td class="rightField" style="width: 22%">
             <telerik:RadDatePicker Enabled="false" ID="txtMaturityDate" CssClass="txtField" runat="server"
-                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false" MaxDate="2200-01-01"
                 ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
