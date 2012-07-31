@@ -34,6 +34,7 @@
               <xs:element name="DVP" msprop:Generator_UserColumnName="DVP" msprop:Generator_ColumnVarNameInTable="columnDVP" msprop:Generator_ColumnPropNameInRow="DVP" msprop:Generator_ColumnPropNameInTable="DVPColumn" type="xs:long" minOccurs="0" />
               <xs:element name="PAIC_AssetInstrumentCategoryCode" msprop:Generator_UserColumnName="PAIC_AssetInstrumentCategoryCode" msprop:Generator_ColumnVarNameInTable="columnPAIC_AssetInstrumentCategoryCode" msprop:Generator_ColumnPropNameInRow="PAIC_AssetInstrumentCategoryCode" msprop:Generator_ColumnPropNameInTable="PAIC_AssetInstrumentCategoryCodeColumn" type="xs:string" minOccurs="0" />
               <xs:element name="Category" msprop:Generator_UserColumnName="Category" msprop:Generator_ColumnVarNameInTable="columnCategory" msprop:Generator_ColumnPropNameInRow="Category" msprop:Generator_ColumnPropNameInTable="CategoryColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CMFA_AccountOpeningDate" msprop:Generator_UserColumnName="CMFA_AccountOpeningDate" msprop:Generator_ColumnVarNameInTable="columnCMFA_AccountOpeningDate" msprop:Generator_ColumnPropNameInRow="CMFA_AccountOpeningDate" msprop:Generator_ColumnPropNameInTable="CMFA_AccountOpeningDateColumn" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
