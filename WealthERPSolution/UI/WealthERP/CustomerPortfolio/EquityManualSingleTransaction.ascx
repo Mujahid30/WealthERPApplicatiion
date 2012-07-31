@@ -35,15 +35,24 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+<div class="divPageHeading">
+<table cellspacing="0" cellpadding="3" width="100%">
+    <tr>
+        <td align="left">
+            <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Add Equity Transaction"></asp:Label>
+        </td>
+    </tr>
+</table>
+</div>
 <asp:UpdatePanel ID="upnlEQTran" runat="server">
     <ContentTemplate>
 <table width="100%" class="TableBackground" >
-<tr>
+<%--<tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Add Equity Transaction"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
 
 
     <tr>

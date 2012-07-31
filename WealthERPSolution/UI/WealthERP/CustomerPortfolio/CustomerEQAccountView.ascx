@@ -21,14 +21,23 @@
     }
 
 </script>
+    <div class="divPageHeading">
+<table cellspacing="0" cellpadding="3" width="100%">
+    <tr>
+        <td align="left">
+            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Equity Trade Account View"></asp:Label>
+        </td>
+    </tr>
+</table>
+</div>
 
 <table class="TableBackground" style="width: 100%">
-    <tr>
+   <%-- <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Equity Trade Account View"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>

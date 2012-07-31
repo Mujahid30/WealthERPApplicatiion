@@ -22,15 +22,24 @@
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
+<div class="divPageHeading">
+<table cellspacing="0" cellpadding="3" width="100%">
+    <tr>
+        <td align="left">
+            <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Equity Transaction Details"></asp:Label>
+        </td>
+    </tr>
+</table>
+</div>
 <asp:UpdatePanel ID="upnlViewEquity" runat="server">
     <ContentTemplate>
         <table style="width: 100%;" class="TableBackground">
-            <tr>
+           <%-- <tr>
                 <td colspan="2">
                     <asp:Label ID="lebHeader" runat="server" Text="Equity Transaction Details" CssClass="HeaderTextBig"></asp:Label>
                     <hr />
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td>
                     <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"

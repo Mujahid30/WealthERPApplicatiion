@@ -51,14 +51,22 @@
             alert("Warning! - Date Cannot be in the future");
         }    }
 </script>
-
+<div class="divPageHeading">
+<table cellspacing="0" cellpadding="3" width="100%">
+    <tr>
+        <td align="left">
+            <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Equity Transactions"></asp:Label>
+        </td>
+    </tr>
+</table>
+</div>
 <table  style="width: 100%;" class="TableBackground"  runat="server">
- <tr>
+<%-- <tr>
         <td colspan="2">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Equity Transactions"></asp:Label>
             <hr/>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td class="rightField">
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>

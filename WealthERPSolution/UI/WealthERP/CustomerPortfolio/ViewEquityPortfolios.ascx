@@ -38,7 +38,7 @@
 <table cellspacing="0" cellpadding="3" width="100%">
     <tr>
         <td align="left">
-            <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Equity Valuation Details"></asp:Label>
+            <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Equity Net position"></asp:Label>
         </td>
     </tr>
 </table>

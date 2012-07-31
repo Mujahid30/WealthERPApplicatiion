@@ -132,14 +132,23 @@
 
 <asp:UpdatePanel ID="upnl1" runat="server">
     <ContentTemplate>
-    <table width="100%" class="TableBackground">
+    <div class="divPageHeading">
+<table cellspacing="0" cellpadding="3" width="100%">
+    <tr>
+        <td align="left">
+            <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Add EQ Account"></asp:Label>
+        </td>
+    </tr>
+</table>
+</div>
+<%--    <table width="100%" class="TableBackground">
 <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Add EQ Account"></asp:Label>
             <hr />
         </td>
     </tr>
-</table>
+</table>--%>
 
     
     <table> <tr>
