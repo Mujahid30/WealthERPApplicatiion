@@ -4301,7 +4301,7 @@ namespace WealthERP.Uploads
                     rcb = (RadComboBox)e.Item.FindControl("ddlAction");
                     if (rcb != null)
                     {
-                        rcb.Items.FindItemByValue("Manage Rejects").Remove();
+                        rcb.Items.FindItemByValue("RollBack").Remove();
                     }
                 }
 
