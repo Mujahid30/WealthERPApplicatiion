@@ -11,17 +11,62 @@
 
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
 
+<%--<asp:UpdatePanel ID="up1" runat="server">
+    <ContentTemplate>--%>
+<%--This are the linkrels for the Jquery files and CSS files abt the screen tips and info's--%>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<link href="../App_Themes/Maroon/Images/bubbletip.css" rel="stylesheet" type="text/css" />
+<link href="../App_Themes/Maroon/Images/bubbletip-IE.css" rel="stylesheet" type="text/css" />
+<%--End--%>
+<%--This scripts includes the JQuery coding about the Screen Tips and screen info   --%>
+<%--This scripts includes the JQuery coding about the Screen Tips and screen info   --%>
+
 <script language="javascript" type="text/javascript">
 
     function setRadioButtonForFileFormat() {
-        alert('hi');
         var a = document.getElementById('<%= hdnUploadType.ClientID %>').value;
-       
-        alert('hi');
         var b = document.getElementById('<%= hdnListCompany.ClientID %>').value;
-        
-        alert(externalSource);
-        if (extractType == '' && externalSource == '') {
+        if (a == 'P' && b == 'WP') {
+            var rdButton = document.getElementById('<%= File5.ClientID %>');
+            rdButton.checked = true;
+        }
+        else if (a == 'PMFF' && b == 'WPT') {
+            var rdButton = document.getElementById('<%= File9.ClientID %>');
+            rdButton.checked = true;
+        }
+        else if (a == 'MFT' && b == 'WPT') {
+            var rdButton = document.getElementById('<%= File4.ClientID %>');
+            rdButton.checked = true;
+        }
+        else if (a == 'EQT' && b == 'WP') {
+            var rdButton = document.getElementById('<%= File2.ClientID %>');
+            rdButton.checked = true;
+        }
+        else if (a == 'MFSS' && b == 'WPT') {
+            var rdButton = document.getElementById('<%= File6.ClientID %>');
+            rdButton.checked = true;
+        }
+        else if (a == 'EQTA' && b == 'WP') {
+            var rdButton = document.getElementById('<%= File1.ClientID %>');
+            rdButton.checked = true;
+        }
+        else if (a == 'ODIN' && b == 'NSE') {
+            var rdButton = document.getElementById('<%= File7.ClientID %>');
+            rdButton.checked = true;
+        }
+        else if (a == 'ODIN' && b == 'BSE') {
+            var rdButton = document.getElementById('<%= File8.ClientID %>');
+            rdButton.checked = true;
         }
     }
 
@@ -51,26 +96,6 @@
 
     }
 </script>
-
-<%--<asp:UpdatePanel ID="up1" runat="server">
-    <ContentTemplate>--%>
-<%--This are the linkrels for the Jquery files and CSS files abt the screen tips and info's--%>
-
-<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
-
-<link href="../App_Themes/Maroon/Images/bubbletip.css" rel="stylesheet" type="text/css" />
-<link href="../App_Themes/Maroon/Images/bubbletip-IE.css" rel="stylesheet" type="text/css" />
-<%--End--%>
-<%--This scripts includes the JQuery coding about the Screen Tips and screen info   --%>
-<%--This scripts includes the JQuery coding about the Screen Tips and screen info   --%>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -267,8 +292,8 @@
             </asp:RequiredFieldValidator>
         </td>
         <td style="float: right; vertical-align: top;" width="350px">
-            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" CausesValidation="False" OnClientClick="return setRadioButtonForFileFormat();"
-                OnClick="lnkbtnpup_Click1">click here to download standard file formats</asp:LinkButton>
+            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" CausesValidation="False"
+                OnClientClick="return setRadioButtonForFileFormat();" OnClick="lnkbtnpup_Click1">click here to download standard file formats</asp:LinkButton>
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="lnkbtnpup" DynamicServicePath="" BackgroundCssClass="modalBackground"
                 Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="Panel1" CancelControlID="btnCancel"
@@ -387,27 +412,27 @@
     <tr>
         <td>
             <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup" Visible="false">
-                <asp:RadioButton ID="File1" Text="EquityTradeAccount" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File1" Text="Equity Trade Account" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File2" Text="EquityTransaction" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File2" Text="Equity Transaction" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
                 <asp:RadioButton ID="File3" Text="MFFolio" Checked="false" GroupName="colors" runat="server" />
                 <br />
-                <asp:RadioButton ID="File4" Text="MFTransaction" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File4" Text="MF Transaction" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File5" Text="CustomerProfile" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File5" Text="Profile Only" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File6" Text="SystematicStandard" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File6" Text="Systematic" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File7" Text="NSE Upload Files" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File7" Text="NSE" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File8" Text="BSE Upload Files" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File8" Text="BSE" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
                 <asp:RadioButton ID="File9" Text="Profile & MF Folio" Checked="false" GroupName="colors"
@@ -650,6 +675,8 @@
         </tr>
     </table>
 </div>
+<asp:HiddenField runat="server" ID="hdnUploadType" />
+<asp:HiddenField runat="server" ID="hdnListCompany" />
 
 <script type="text/javascript" language="javascript">
     function ChangeVisibilty(ctrl, action) {
@@ -665,7 +692,5 @@
     }
 </script>
 
-<asp:HiddenField runat="server" ID="hdnUploadType" Visible="false"  />
-<asp:HiddenField runat="server" ID="hdnListCompany" Visible="false" />
 <%--    </ContentTemplate>
 </asp:UpdatePanel>--%>

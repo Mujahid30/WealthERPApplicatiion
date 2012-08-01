@@ -4043,6 +4043,14 @@ namespace WealthERP.Uploads
             {
                 lnkbtnpup.Visible = true;
             }
+            else if (ddlUploadType.SelectedValue == "MFT" && ddlListCompany.SelectedValue == "WPT")
+            {
+                lnkbtnpup.Visible = true;
+            }
+            else if (ddlUploadType.SelectedValue == "EQTA" && ddlListCompany.SelectedValue == "WP")
+            {
+                lnkbtnpup.Visible = true;
+            }
             else
             {
                 //lnkbtnpup.Style.Add("display", "none");
@@ -4073,8 +4081,8 @@ namespace WealthERP.Uploads
 
             if (ddlUploadType.SelectedValue == "PMFF" && ddlListCompany.SelectedValue == "WPT")
             {
-                hdnUploadType.Value = "P";
-                hdnListCompany.Value = "WP";
+                hdnUploadType.Value = "PMFF";
+                hdnListCompany.Value = "WPT";
             }
             if (ddlUploadType.SelectedValue == "P" && ddlListCompany.SelectedValue == "WP")
             {
@@ -4083,28 +4091,36 @@ namespace WealthERP.Uploads
             }
             if (ddlUploadType.SelectedValue == "MFT" && ddlListCompany.SelectedValue == "WPT")
             {
-                hdnUploadType.Value = "P";
-                hdnListCompany.Value = "WP";
+                hdnUploadType.Value = "MFT";
+                hdnListCompany.Value = "WPT";
             }
             if (ddlUploadType.SelectedValue == "EQTA" && ddlListCompany.SelectedValue == "WP")
             {
-                hdnUploadType.Value = "P";
+                hdnUploadType.Value = "EQTA";
                 hdnListCompany.Value = "WP";
             }
-            if (ddlUploadType.SelectedValue == "EQT" && ddlListCompany.SelectedValue == "")
+            if (ddlUploadType.SelectedValue == "EQT" && ddlListCompany.SelectedValue == "WP")
             {
-                hdnUploadType.Value = "P";
+                hdnUploadType.Value = "EQT";
                 hdnListCompany.Value = "WP";
             }
-            if (ddlUploadType.SelectedValue == "MFSS" && ddlListCompany.SelectedValue == "")
+            if (ddlUploadType.SelectedValue == "MFSS" && ddlListCompany.SelectedValue == "WPT")
             {
-                hdnUploadType.Value = "P";
-                hdnListCompany.Value = "WP";
+                hdnUploadType.Value = "MFSS";
+                hdnListCompany.Value = "WPT";
             }
-            if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "")
+            if (ddlUploadType.SelectedValue == "EQT" && ddlListCompany.SelectedValue == "ODIN")
             {
-                hdnUploadType.Value = "P";
-                hdnListCompany.Value = "WP";
+                if (ddlAction.SelectedValue == "NSE")
+                {
+                    hdnUploadType.Value = "ODIN";
+                    hdnListCompany.Value = "NSE";
+                }
+                else if (ddlAction.SelectedValue == "BSE")
+                {
+                    hdnUploadType.Value = "ODIN";
+                    hdnListCompany.Value = "BSE";
+                }
             }
             #endregion
 
@@ -4193,6 +4209,14 @@ namespace WealthERP.Uploads
             else if ((ddlUploadType == "MFSS" && ddlCompanyType == "WPT"))
             {
                 msg = "Standard";
+            }
+            else if ((ddlUploadType == "EQT" && ddlCompanyType == "WP"))
+            {
+                msg = "Standard";
+            }
+            else if ((ddlUploadType == "EQT" && ddlCompanyType == "IIFL"))
+            {
+                msg = "India Infoline";
             }
             else if ((ddlUploadType == "EQT" && ddlCompanyType == "ODIN"))
             {
@@ -6896,6 +6920,17 @@ namespace WealthERP.Uploads
             message = Show_Message(ddlUploadType, ddlCompanyType);
             lblFileType.Visible = true;
             lblFileType.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by the R&T to Upload.";
+
+            if (ddlAction.SelectedValue == "NSE")
+            {
+                hdnUploadType.Value = "ODIN";
+                hdnListCompany.Value = "NSE";
+            }
+            else if (ddlAction.SelectedValue == "BSE")
+            {
+                hdnUploadType.Value = "ODIN";
+                hdnListCompany.Value = "BSE";
+            }
         }
 
         #region GUID CREATION
