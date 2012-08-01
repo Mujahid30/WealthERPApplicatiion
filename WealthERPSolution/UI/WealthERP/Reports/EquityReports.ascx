@@ -49,8 +49,6 @@
         //Check if atleast one portfolio Id is selected
         for (i = 0; i < document.forms[0].elements.length; i++) {
             if (document.forms[0].elements[i].type == "checkbox") {
-              
-              alert(document.forms[0].elements[i].checked);
                 var checkboxName = document.forms[0].elements[i].name;
                 if (checkboxName.substr(0, 5) == "chk--" && document.forms[0].elements[i].checked == true) {
                     
