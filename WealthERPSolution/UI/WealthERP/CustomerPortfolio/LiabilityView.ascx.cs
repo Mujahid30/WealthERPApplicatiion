@@ -57,7 +57,7 @@ namespace WealthERP.CustomerPortfolio
                 dt.Columns.Add("PaymentType");
                 dt.Columns.Add("LumpsusmInstallment",typeof(double));
                 dt.Columns.Add("LoanOutstanding", typeof(double));
-                dt.Columns.Add("NextInstallmentDate");
+                dt.Columns.Add("NextInstallmentDate",typeof(DateTime));
                 dt.Columns.Add("Frequency");
                 for (int i = 0; i < liabilitiesListVo.Count; i++)
                 {
@@ -76,8 +76,9 @@ namespace WealthERP.CustomerPortfolio
                         //loanOutStanding = liabilityVo.OutstandingAmount;
                         //dr[7] = Math.Round(loanOutStanding, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         dr[7] = liabilityVo.OutstandingAmount;
-                        dr[8] = "-";
-                        dr[9] = "-";
+                        //if(nextInsDate!=DateTime.MinValue)
+                        //dr[8] = " ";
+                        dr[9] = " ";
                     }
                     else if (liabilityVo.PaymentOptionCode == 2)
                     {
@@ -90,8 +91,8 @@ namespace WealthERP.CustomerPortfolio
                         nextInsDate = calculator.GetNextPremiumDate(liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, liabilityVo.FrequencyCodeEMI);
                         if (nextInsDate != DateTime.MinValue)
                             dr[8] = nextInsDate.ToShortDateString();
-                        else
-                            dr[8] = "-";
+                        //else
+                        //    dr[8] = " ";
                         switch (liabilityVo.FrequencyCodeEMI)
                         {
 
@@ -113,13 +114,13 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else
                     {
-                        dr[5] = "-";
-                        dr[6] = "-";
+                        dr[5] = " ";
+                        dr[6] = " ";
                         //loanOutStanding = calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
-                        dr[7] = "-";
+                        dr[7] = " ";
                         //nextInsDate = calculator.GetNextPremiumDate(liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, liabilityVo.FrequencyCodeEMI);
-                        dr[8] = "-";
-                        dr[9] = "-";
+                        dr[8] = " ";
+                        dr[9] = " ";
                     }
                     dt.Rows.Add(dr);
                 }

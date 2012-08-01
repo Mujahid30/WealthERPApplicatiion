@@ -131,8 +131,9 @@
                             UniqueName="Frequency">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="NextInstallmentDate" DataFormatString="{0:d}"
-                            AllowFiltering="false" HeaderText="Next Installment Date" UniqueName="NextInstallmentDate">
+                       
+                        <telerik:GridBoundColumn DataField="NextInstallmentDate" AllowFiltering="false" DataFormatString="{0:d}"
+                             HeaderText="Next Installment Date" >
                             <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
