@@ -20,7 +20,7 @@ namespace VoCustomerPortfolio
         private string m_ScripName;
         private string m_Ticker;
         private string m_BuySell;
-        private long m_TradeNum;
+        private string m_TradeAccountNum;
         private long m_OrderNum;
         private int m_IsSpeculative;
         private string m_TradeType;       
@@ -90,10 +90,10 @@ namespace VoCustomerPortfolio
             set { m_Ticker = value; }
         }
 
-        public long TradeNum
+        public string TradeAccountNum
         {
-            get { return m_TradeNum; }
-            set { m_TradeNum = value; }
+            get { return m_TradeAccountNum; }
+            set { m_TradeAccountNum = value; }
         }
 
         public long OrderNum
@@ -262,7 +262,7 @@ namespace VoCustomerPortfolio
             clone.m_SplitTransactionId = m_SplitTransactionId;
             clone.m_STT = m_STT;
             clone.m_TradeDate = m_TradeDate;
-            clone.m_TradeNum = m_TradeNum;
+            clone.m_TradeAccountNum = m_TradeAccountNum;
             clone.m_TradeTotal = m_TradeTotal;
             clone.m_TransactionCode = m_TransactionCode;
             clone.m_TransactionId = m_TransactionId;

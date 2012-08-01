@@ -104,7 +104,7 @@ namespace DaoCustomerPortfolio
 
                 db.AddInParameter(createEquityTransactionCmd, "@CETA_AccountId", DbType.Int32, eqTransactionVo.AccountId);
                 db.AddInParameter(createEquityTransactionCmd, "@PEM_ScripCode", DbType.String, eqTransactionVo.ScripCode);
-                db.AddInParameter(createEquityTransactionCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeNum);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeAccountNum);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_OrderNum", DbType.Int64, eqTransactionVo.OrderNum);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_BuySell", DbType.String, eqTransactionVo.BuySell);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_IsSpeculative", DbType.Int16, eqTransactionVo.IsSpeculative);
@@ -238,7 +238,7 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.ScripCode = int.Parse(dr["PEM_ScripCode"].ToString());
                         eqTransactionVo.ScripName = dr["PEM_CompanyName"].ToString();
                         eqTransactionVo.Ticker = dr["PEM_Ticker"].ToString();
-                        eqTransactionVo.TradeNum = Int64.Parse(dr["CET_TradeNum"].ToString());
+                        eqTransactionVo.TradeAccountNum = (dr["CETA_TradeAccountNum"].ToString());
                         eqTransactionVo.OrderNum = Int64.Parse(dr["CET_OrderNum"].ToString());
                         eqTransactionVo.BuySell = dr["CET_BuySell"].ToString();
                         eqTransactionVo.IsSpeculative = int.Parse(dr["CET_IsSpeculative"].ToString());
@@ -367,7 +367,7 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.ScripCode = int.Parse(dr["PEM_ScripCode"].ToString());
                         eqTransactionVo.ScripName = dr["PEM_CompanyName"].ToString();
                         eqTransactionVo.Ticker = dr["PEM_Ticker"].ToString();
-                        eqTransactionVo.TradeNum = Int64.Parse(dr["CET_TradeNum"].ToString());
+                        eqTransactionVo.TradeAccountNum = (dr["CET_TradeNum"].ToString());
                         eqTransactionVo.OrderNum = Int64.Parse(dr["CET_OrderNum"].ToString());
                         eqTransactionVo.BuySell = dr["CET_BuySell"].ToString();
                         eqTransactionVo.IsSpeculative = int.Parse(dr["CET_IsSpeculative"].ToString());
@@ -458,7 +458,7 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.ScripCode = int.Parse(dr["PEM_ScripCode"].ToString());
                         eqTransactionVo.ScripName = dr["PEM_CompanyName"].ToString();
                         eqTransactionVo.Ticker = dr["PEM_Ticker"].ToString();
-                        eqTransactionVo.TradeNum = Int64.Parse(dr["CET_TradeNum"].ToString());
+                        eqTransactionVo.TradeAccountNum = (dr["CET_TradeNum"].ToString());
                         eqTransactionVo.OrderNum = Int64.Parse(dr["CET_OrderNum"].ToString());
                         eqTransactionVo.BuySell = dr["CET_BuySell"].ToString();
                         eqTransactionVo.IsSpeculative = int.Parse(dr["CET_IsSpeculative"].ToString());
@@ -549,7 +549,7 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.ScripCode = int.Parse(dr["PEM_ScripCode"].ToString());
                         eqTransactionVo.ScripName = dr["PEM_CompanyName"].ToString();
                         eqTransactionVo.Ticker = dr["PEM_Ticker"].ToString();
-                        eqTransactionVo.TradeNum = Int64.Parse(dr["CET_TradeNum"].ToString());
+                        eqTransactionVo.TradeAccountNum = (dr["CET_TradeNum"].ToString());
                         eqTransactionVo.OrderNum = Int64.Parse(dr["CET_OrderNum"].ToString());
                         eqTransactionVo.BuySell = dr["CET_BuySell"].ToString();
                         if (dr["CET_IsSpeculative"].ToString() != String.Empty)
@@ -644,7 +644,7 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.ScripCode = int.Parse(dr["PEM_ScripCode"].ToString());
                         //eqTransactionVo.ScripName = dr["PEM_CompanyName"].ToString();
                         //eqTransactionVo.Ticker = dr["PEM_Ticker"].ToString();
-                        eqTransactionVo.TradeNum = Int64.Parse(dr["CET_TradeNum"].ToString());
+                        eqTransactionVo.TradeAccountNum = (dr["CET_TradeNum"].ToString());
                         eqTransactionVo.OrderNum = Int64.Parse(dr["CET_OrderNum"].ToString());
                         eqTransactionVo.BuySell = dr["CET_BuySell"].ToString();
                         eqTransactionVo.IsSpeculative = int.Parse(dr["CET_IsSpeculative"].ToString());
@@ -749,7 +749,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateEQTransactionCmd, "CET_EqTransId", DbType.Int32, eqTransactionVo.TransactionId);
                 db.AddInParameter(updateEQTransactionCmd, "@CETA_AccountId", DbType.Int32, eqTransactionVo.AccountId);
                 db.AddInParameter(updateEQTransactionCmd, "@PEM_ScripCode", DbType.String, eqTransactionVo.ScripCode);
-                db.AddInParameter(updateEQTransactionCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeNum);
+                db.AddInParameter(updateEQTransactionCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeAccountNum);
                 db.AddInParameter(updateEQTransactionCmd, "@CET_OrderNum", DbType.Int64, eqTransactionVo.OrderNum);
                 db.AddInParameter(updateEQTransactionCmd, "@CET_BuySell", DbType.String, eqTransactionVo.BuySell);
                 db.AddInParameter(updateEQTransactionCmd, "@CET_IsSpeculative", DbType.Int16, eqTransactionVo.IsSpeculative);
@@ -3340,7 +3340,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(CancelEQTrnxCmd, "@EqTransId", DbType.Int32, eqTransactionVo.TransactionId);
                 db.AddInParameter(CancelEQTrnxCmd, "@CETA_AccountId", DbType.Int32, eqTransactionVo.AccountId);
                 db.AddInParameter(CancelEQTrnxCmd, "@PEM_ScripCode", DbType.String, eqTransactionVo.ScripCode);
-                db.AddInParameter(CancelEQTrnxCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeNum);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeAccountNum);
                 db.AddInParameter(CancelEQTrnxCmd, "@CET_OrderNum", DbType.Int64, eqTransactionVo.OrderNum);
                 db.AddInParameter(CancelEQTrnxCmd, "@CET_BuySell", DbType.String, eqTransactionVo.BuySell);
                 db.AddInParameter(CancelEQTrnxCmd, "@CET_IsSpeculative", DbType.Int16, eqTransactionVo.IsSpeculative);

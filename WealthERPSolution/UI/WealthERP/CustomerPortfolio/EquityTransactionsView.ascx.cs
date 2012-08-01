@@ -246,7 +246,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = false;
                     //tblGv.Visible = true;
                     dtEquityTransactions.Columns.Add("TransactionId");
-                    dtEquityTransactions.Columns.Add("TradeNum");
+                    dtEquityTransactions.Columns.Add("TradeAccountNum");
                     dtEquityTransactions.Columns.Add("Scheme Name");
                     dtEquityTransactions.Columns.Add("Transaction Type");
                     dtEquityTransactions.Columns.Add("Exchange");
@@ -265,7 +265,7 @@ namespace WealthERP.CustomerPortfolio
                         equityTransactionVo = new EQTransactionVo();
                         equityTransactionVo = equityTransactionList[i];
                         drEquityTransaction[0] = equityTransactionVo.TransactionId.ToString();
-                        drEquityTransaction[1] = equityTransactionVo.TradeNum.ToString();
+                        drEquityTransaction[1] = equityTransactionVo.TradeAccountNum.ToString();
                         drEquityTransaction[2] = equityTransactionVo.ScripName.ToString();
                         //if (equityTransactionVo.BuySell.ToString() == "B")
                         //{

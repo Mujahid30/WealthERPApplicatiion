@@ -367,7 +367,7 @@ namespace WealthERP.CustomerPortfolio
                 DataSet ds = productEqutiyBo.GetScripCode(txtScrip.Text.ToString());
                 txtTicker.Text = ds.Tables[0].Rows[0]["PEM_Ticker"].ToString();
                 scripCode = int.Parse(ds.Tables[0].Rows[0]["PEM_ScripCode"].ToString());
-                newEqTransactionVo.TradeNum = 0;
+                newEqTransactionVo.TradeAccountNum = "";
                 //long.Parse(ddlTradeAcc.SelectedItem.Text.ToString());
                 newEqTransactionVo.AccountId = int.Parse(ddlTradeAcc.SelectedValue.ToString());
                 newEqTransactionVo.ScripCode = scripCode;

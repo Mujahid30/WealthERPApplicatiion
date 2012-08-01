@@ -341,7 +341,7 @@ namespace WealthERP.CustomerPortfolio
 
                 eqTransactionVo.TradeDate = Convert.ToDateTime(txtTradeDate.Text.Trim(), ci);// DateTime.Parse(txtTradeDate.Text);//ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
                 eqTransactionVo.TradeTotal = float.Parse(txtTotal.Text);
-                eqTransactionVo.TradeNum = 0;
+                eqTransactionVo.TradeAccountNum ="";
 
                 if (customerTransactionBo.AddEquityTransaction(eqTransactionVo, customerVo.UserId))
                 {

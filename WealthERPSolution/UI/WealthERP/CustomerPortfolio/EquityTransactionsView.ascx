@@ -267,11 +267,11 @@
                         <asp:ButtonField CommandName="Select" ShowHeader="True" HeaderText="View Details" Text="View Details" ItemStyle-Wrap="false" />
                         <asp:TemplateField ItemStyle-Wrap="false">
                             <HeaderTemplate>
-                                <asp:Label ID="lblTradeNum" runat="server" Text="Trade Number" ></asp:Label>
+                                <asp:Label ID="lblTradeNum" runat="server" Text="Trade Account Num" ></asp:Label>
                                 <asp:TextBox ID="txtTradeNumSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_EquityTransactionsView_btnTradeNumSearch');" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblTradeNumHeader" runat="server" Text='<%# Eval("TradeNum").ToString() %>'></asp:Label>
+                                <asp:Label ID="lblTradeNumHeader" runat="server" Text='<%# Eval("TradeAccountNum").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField ItemStyle-Wrap="false">

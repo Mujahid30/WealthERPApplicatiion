@@ -113,8 +113,8 @@ namespace DaoCustomerPortfolio
                     eqTransactionVo.AccountId = int.Parse(dr["CETA_AccountId"].ToString());
                     eqTransactionVo.ScripCode = int.Parse(dr["PEM_ScripCode"].ToString());
                     eqTransactionVo.ScripName = dr["PEM_CompanyName"].ToString();
-                    if(dr["CET_TradeNum"].ToString()!=null &&dr["CET_TradeNum"].ToString()!=string.Empty)
-                        eqTransactionVo.TradeNum = Int64.Parse(dr["CET_TradeNum"].ToString());
+                    if (dr["CETA_TradeAccountNum"].ToString() != null && dr["CETA_TradeAccountNum"].ToString() != string.Empty)
+                        eqTransactionVo.TradeAccountNum = (dr["CETA_TradeAccountNum"].ToString());
                     if (dr["CET_OrderNum"].ToString() != null && dr["CET_OrderNum"].ToString() != string.Empty)
                         eqTransactionVo.OrderNum = Int64.Parse(dr["CET_OrderNum"].ToString());
                     if (dr["CET_BuySell"].ToString() != null && dr["CET_BuySell"].ToString() != string.Empty)
@@ -245,7 +245,7 @@ namespace DaoCustomerPortfolio
 
                 db.AddInParameter(createEquityTransactionCmd, "@CETA_AccountId", DbType.Int32, eqTransactionVo.AccountId);
                 db.AddInParameter(createEquityTransactionCmd, "@PEM_ScripCode", DbType.String, eqTransactionVo.ScripCode);
-                db.AddInParameter(createEquityTransactionCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeNum);
+                db.AddInParameter(createEquityTransactionCmd, "@CETA_TradeAccountNum", DbType.Int64, eqTransactionVo.TradeAccountNum);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_OrderNum", DbType.Int64, eqTransactionVo.OrderNum);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_BuySell", DbType.String, eqTransactionVo.BuySell);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_IsSpeculative", DbType.Int16, eqTransactionVo.IsSpeculative);
