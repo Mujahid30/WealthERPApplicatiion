@@ -48,8 +48,8 @@
 <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="False">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true">
         <TargetControls>
-            <telerik:TargetInput ControlID="txtEmail" />
-      <%--<telerik:TargetInput ControlID="txtSMTPHost" />--%>
+            <%--<telerik:TargetInput ControlID="txtEmail" />
+      <telerik:TargetInput ControlID="txtSMTPHost" />--%>
             <telerik:TargetInput ControlID="txtSMTPPort"/>
             <telerik:TargetInput ControlID="txtPassword" />
             <telerik:TargetInput ControlID="txtSenderEmailAlias" />
