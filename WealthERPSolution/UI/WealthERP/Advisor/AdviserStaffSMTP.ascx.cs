@@ -73,7 +73,7 @@ namespace WealthERP.Advisor
             //if (!String.IsNullOrEmpty(txtPassword.Text))
             adviserstaffsmtpvo.Password =Encryption.Encrypt(txtPassword.Text.Trim());
             adviserstaffsmtpvo.Port = txtSMTPPort.Text.Trim();
-            adviserstaffsmtpvo.SenderEmailAlias = txtSenderEmailAlias.Text;
+            //adviserstaffsmtpvo.SenderEmailAlias = txtSenderEmailAlias.Text;
             txtPassword.Attributes.Add("value", txtPassword.Text.Trim());
 
 
