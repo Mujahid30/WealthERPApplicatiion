@@ -4163,7 +4163,7 @@ namespace WealthERP.Uploads
             }
             else if ((ddlUploadType == "PMFF" && ddlCompanyType == "DT"))
             {
-                msg = "Deautsche Client Master";
+                msg = "Deutsche-2";
             }
 
             else if ((ddlUploadType == "MFT" && ddlCompanyType == "DT"))
