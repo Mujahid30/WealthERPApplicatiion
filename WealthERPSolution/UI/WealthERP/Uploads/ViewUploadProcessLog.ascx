@@ -184,7 +184,7 @@
                             </telerik:GridNumericColumn>--%>
                             <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="Process Id" UniqueName="ADUL_ProcessId"
                               AllowFiltering="false">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="Actual FileName" UniqueName="ADUL_FileName"
                                 SortExpression="ADUL_FileName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
@@ -212,39 +212,39 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_TotalNoOfRecords" HeaderText="Total No. of Records"
                                 AllowFiltering="false" UniqueName="ADUL_TotalNoOfRecords">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_NoOfCustomersCreated" HeaderText="No. of Customers Created"
                                 AllowFiltering="false" UniqueName="ADUL_NoOfCustomersCreated">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_NoOfAccountsCreated" HeaderText="No. of Accounts Created"
                                 AllowFiltering="false" UniqueName="ADUL_NoOfAccountsCreated">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_NoOfTransactionsCreated" HeaderText="No. of Transactions Created"
                                 AllowFiltering="false" UniqueName="ADUL_NoOfTransactionsCreated">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_NoOfCustomerDuplicates" HeaderText="No. of Duplicate Customers"
                                 AllowFiltering="false" UniqueName="ADUL_NoOfCustomerDuplicates">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_NoOfAccountDuplicate" HeaderText="No. of Duplicate Accounts"
                                 AllowFiltering="false" UniqueName="ADUL_NoOfAccountDuplicate">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_NoOfTransactionDuplicate" HeaderText="No. of Duplicate Transactions"
                                 AllowFiltering="false" UniqueName="ADUL_NoOfTransactionDuplicate">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_NoOfRejectRecords" HeaderText="No. of Rejected Records"
                                 AllowFiltering="false" UniqueName="ADUL_NoOfRejectRecords">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="false" DataField="ADUL_NoOfRecordsInserted"
                                 HeaderText="No. of Records Inserted" UniqueName="ADUL_NoOfRecordsInserted">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn Visible="false" UniqueName="lblFiletypeId" DataField="WUXFT_XMLFileTypeId">
                                 <ItemTemplate>
