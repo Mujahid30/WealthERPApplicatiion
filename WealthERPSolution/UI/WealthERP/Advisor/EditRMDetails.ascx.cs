@@ -48,6 +48,7 @@ namespace WealthERP.Advisor
             //deleteBranch.Attributes.Add("onclick", "return deletebranches('associatedBranch','availableBranch')");
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            uvo = (UserVo)Session["userVo"];
              if (Session["CurrentrmVo"] != null)
              {
                   rmVo = (RMVo)Session["CurrentrmVo"];
@@ -842,6 +843,12 @@ namespace WealthERP.Advisor
                         {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Sorry... You need to delete your external associations first');", true);
                         }
+                    }
+                    if (uvo.UserId == userId)
+                    {
+                        userVo = userBo.GetUserDetails(uvo.UserId);
+                        Session["UserVo"] = userVo;
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
                     }
                 }
                 

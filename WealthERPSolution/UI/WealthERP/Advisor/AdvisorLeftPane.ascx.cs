@@ -77,7 +77,7 @@ namespace WealthERP.Advisor
                         btnSearchAdviserCustomer.Visible = false;
                     }
                 }
-                else if (userVo.RoleList.Contains("RM"))
+                 if (userVo.RoleList.Contains("RM"))
                 {                   
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
@@ -89,7 +89,7 @@ namespace WealthERP.Advisor
                     dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
                     SetAdminTreeNodesForRoles(dsFilteredData, "RM");    
                 }
-                else if (userVo.RoleList.Contains("BM"))
+                 if (userVo.RoleList.Contains("BM"))
                 {                  
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
@@ -103,7 +103,7 @@ namespace WealthERP.Advisor
                     dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
                     SetAdminTreeNodesForRoles(dsFilteredData, "BM");   
                 }
-                else if (userVo.RoleList.Contains("Ops"))
+                 if (userVo.RoleList.Contains("Ops"))
                 {
                     txtFindRMCustomer.Visible = false;
                     txtFindBranch.Visible = false;
@@ -115,7 +115,7 @@ namespace WealthERP.Advisor
                     dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
                     SetAdminTreeNodesForRoles(dsFilteredData, "Ops"); 
                 }
-                else if (userVo.RoleList.Contains("Research"))
+                 if (userVo.RoleList.Contains("Research"))
                 {
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
