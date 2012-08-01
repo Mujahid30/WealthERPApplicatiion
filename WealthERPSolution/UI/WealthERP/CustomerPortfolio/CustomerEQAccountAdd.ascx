@@ -136,7 +136,7 @@
 <table cellspacing="0" cellpadding="3" width="100%">
     <tr>
         <td align="left">
-            <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Add EQ Account"></asp:Label>
+            <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Add Equity Trade Account"></asp:Label>
         </td>
     </tr>
 </table>

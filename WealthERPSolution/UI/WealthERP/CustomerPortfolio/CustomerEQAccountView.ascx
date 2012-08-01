@@ -25,7 +25,7 @@
 <table cellspacing="0" cellpadding="3" width="100%">
     <tr>
         <td align="left">
-            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Equity Trade Account View"></asp:Label>
+            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="View Equity Trade Account"></asp:Label>
         </td>
     </tr>
 </table>

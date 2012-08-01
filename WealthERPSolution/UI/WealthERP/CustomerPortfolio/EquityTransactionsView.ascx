@@ -55,7 +55,7 @@
 <table cellspacing="0" cellpadding="3" width="100%">
     <tr>
         <td align="left">
-            <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Equity Transactions"></asp:Label>
+            <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="View Equity Transactions"></asp:Label>
         </td>
     </tr>
 </table>
