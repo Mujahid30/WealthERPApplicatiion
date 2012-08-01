@@ -848,10 +848,15 @@
                         <%-- <telerik:GridBoundColumn  DataField="CO_OrderId"  HeaderText="OrderId" UniqueName="CO_OrderId" ReadOnly="True">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>--%>
-                        <telerik:GridBoundColumn  DataField="WOS_OrderStep"  HeaderText="Stages" UniqueName="WOS_OrderStep" ReadOnly="True">
+                      <telerik:GridBoundColumn  DataField="WOS_OrderStep"  HeaderText="Stages" UniqueName="WOS_OrderStep" ReadOnly="True">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>                        
-                        
+                        </telerik:GridBoundColumn>  
+                                              
+                        <telerik:GridTemplateColumn HeaderText="Stages" UniqueName="WOS_OrderStepCode" DataField="WOS_OrderStepCode" Visible="false"  ReadOnly="True">
+                                <ItemTemplate >
+                                    <asp:Label ID="lblOrderStepCode" runat="server" Text='<%#Eval("WOS_OrderStepCode")%>'></asp:Label>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
                        <%-- <telerik:GridDropDownColumn UniqueName="DropDownColumnStatus" HeaderText="Status" 
                         ListTextField="XS_Status" ListValueField="XS_StatusCode" DataField="XS_StatusCode"></telerik:GridDropDownColumn>
                         
@@ -866,7 +871,7 @@
                                 </telerik:RadComboBox> 
                             </EditItemTemplate> 
                             <ItemTemplate>
-                               <%#DataBinder.Eval(Container.DataItem, "XS_Status")%>  
+                            <asp:Label ID="lblOrderStatus" runat="server" Text='<%#Eval("XS_Status")%>'></asp:Label>   
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         
@@ -877,18 +882,31 @@
                                 </telerik:RadComboBox> 
                             </EditItemTemplate>
                             <ItemTemplate>
-                               <%#DataBinder.Eval(Container.DataItem, "XSR_StatusReason")%>  
+                            <asp:Label ID="lblOrderStatusReason" runat="server" Text='<%#Eval("XSR_StatusReason")%>'></asp:Label> 
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>                         
                         
-                        <telerik:GridDateTimeColumn DataField="CMFOS_Date" HeaderText="Date" DataFormatString="{0:d}" HtmlEncode="false" DataType="System.DateTime"
-                        UniqueName="CMFOS_Date" ReadOnly="true"/>
+                   <%--     <telerik:GridDateTimeColumn DataField="CMFOS_Date" HeaderText="Date" DataFormatString="{0:d}" HtmlEncode="false" DataType="System.DateTime"
+                        UniqueName="CMFOS_Date" ReadOnly="true"/>--%>
                         
-                        <telerik:GridEditCommandColumn UpdateText="Update" EditText="Edit" UniqueName="EditCommandColumn" CancelText="Cancel">                
-                            <HeaderStyle Width="85px"></HeaderStyle>
+                        
+                        <telerik:GridTemplateColumn UniqueName="lblCMFOS_Date" DataField="CMFOS_Date">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCMFOS_Date" runat="server" DataFormatString="{0:d}" DataType="System.DateTime" Text='<%#Eval("CMFOS_Date")%>'></asp:Label>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                        
+                        <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"  CancelText="Cancel">                
+                            <HeaderStyle></HeaderStyle>
                         </telerik:GridEditCommandColumn>                        
                         <telerik:GridBoundColumn DataField="COS_IsEditable" DataType="System.Boolean" UniqueName="COS_IsEditable" Display="false" ReadOnly="True">
                         </telerik:GridBoundColumn>
+                   
+                         <telerik:GridTemplateColumn Visible="false" UniqueName="lblStatus" DataField="XS_StatusCode">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblStatusCode" runat="server" Text='<%#Eval("XS_StatusCode")%>'></asp:Label>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
 
                     </Columns>
         </mastertableview>

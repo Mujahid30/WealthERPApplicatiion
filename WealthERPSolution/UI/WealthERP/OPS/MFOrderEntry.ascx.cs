@@ -53,7 +53,9 @@ namespace WealthERP.OPS
         int orderId;
         int orderNumber = 0;
         string ViewForm = string.Empty;
-   
+        string updatedStatus = "";
+        string updatedReason = "";
+        bool result = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -428,6 +430,8 @@ namespace WealthERP.OPS
                     btnViewReport.Visible = true;
                     btnViewInPDF.Visible = true;
                     btnViewInDOC.Visible = true;
+                    lnlBack.Visible = true;
+                    lnkDelete.Visible = true;
                 }
             }
 
@@ -1335,17 +1339,66 @@ namespace WealthERP.OPS
                 GridDataItem dataItem = e.Item as GridDataItem;
                 //((Literal)dataItem["DropDownColumnStatus"].Controls[0]).Text = dataItem.GetDataKeyValue("WOS_OrderStepCode").ToString();
                 //((Literal)dataItem["DropDownColumnStatusReason"].Controls[0]).Text = dataItem.GetDataKeyValue("WOS_OrderStepCode").ToString();
-
+                 
+                TemplateColumn tm = new TemplateColumn();
+                Label lblStatusCode = new Label();
+                 Label lblOrderStep = new Label();
                 LinkButton editButton = dataItem["EditCommandColumn"].Controls[0] as LinkButton;
-                string editColumn = dataItem["COS_IsEditable"].Text;
-                if (editColumn == "1")
+                Label lblOrderStatus = new Label();
+                Label lblOrderStatusReason = new Label();
+                lblStatusCode = (Label)e.Item.FindControl("lblStatusCode");
+                lblOrderStep = (Label)e.Item.FindControl("lblOrderStepCode");
+                lblOrderStatus = (Label)e.Item.FindControl("lblOrderStatus");
+                lblOrderStatusReason = (Label)e.Item.FindControl("lblOrderStatusReason");
+                Label lblCMFOS_Date = (Label)e.Item.FindControl("lblCMFOS_Date");
+                if (lblOrderStep.Text.Trim() == "IP")
                 {
-                    editButton.Enabled = true;
+                    if (lblStatusCode.Text == "OMIP")
+                    {                       
+                        editButton.Text = "Mark as Pending";
+                        result = mfOrderBo.MFOrderAutoMatch(orderVo.OrderId, mforderVo.SchemePlanCode, mforderVo.accountid, mforderVo.TransactionCode, orderVo.CustomerId, mforderVo.Amount, orderVo.OrderDate);
+                        if (result == true)
+                        {
+                            editButton.Text = "";
+                        }
+                        
+                    }
+
+                    else if (lblStatusCode.Text == "OMPD")
+                    {
+                        editButton.Text = "Mark as InProcess";
+                    }
+                    
+                }
+                else if (lblOrderStep.Text.Trim() == "PR")
+                {
+                    if (result == true)
+                    {
+                        lblOrderStatus.Text = "Executed";
+                        lblOrderStatusReason.Text = "Order Confirmed";                     
+                    }
+                    else
+                    {
+                        lblOrderStatus.Text = "";
+                        lblOrderStatusReason.Text = "";
+                        lblCMFOS_Date.Text = "";
+                    }
+                    editButton.Text = "";
                 }
                 else
                 {
-                    editButton.Enabled = false;
+                    editButton.Text = "";
                 }
+             
+                //string editColumn = dataItem["COS_IsEditable"].Text;
+                //if (editColumn == "1")
+                //{
+                //    editButton.Enabled = true;
+                //}
+                //else
+                //{
+                //    editButton.Enabled = false;
+                //}
             }
         }
 
