@@ -33,8 +33,8 @@ namespace WealthERP.OPS
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();            
-            advisorVo = (AdvisorVo)Session["advisorVo"];
-            userType = Session["UserType"].ToString().ToLower();
+            advisorVo = (AdvisorVo)Session["advisorVo"];           
+            userType = Session[SessionContents.CurrentUserRole].ToString();
 
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int bmID = rmVo.RMId;           
