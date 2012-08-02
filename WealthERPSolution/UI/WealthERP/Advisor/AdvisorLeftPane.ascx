@@ -200,6 +200,10 @@
                                                     <telerik:RadPanelItem runat="server" Text="View Systematic Transaction Exceptions"
                                                         Value="View_Systematic_Transaction_Exceptions">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Trail Commission Exception"
+                                                        Value="Trail_Commission_Exception">
+                                                    </telerik:RadPanelItem>
+                                                   
                                                 </Items>
                                             </telerik:RadPanelItem>
                                           
@@ -532,6 +536,9 @@
                                                     <telerik:RadPanelItem runat="server" Text="View Systematic Transaction Exceptions"
                                                         Value="View_Systematic_Transaction_Exceptions">
                                                     </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="Trail Commission Exception"
+                                                        Value="Trail_Commission_Exception">
+                                                        </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Management"

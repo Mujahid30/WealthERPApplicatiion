@@ -587,6 +587,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
                 }
+                else if (e.Item.Value == "Trail_Commission_Exception")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TrailCommisionTransactionRejects','login');", true);
+                }
                 else if (e.Item.Value == "OrderEntry")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
@@ -1093,6 +1097,10 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "View_Systematic_Transaction_Exceptions")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
+                }
+                else if (e.Item.Value == "Trail_Commission_Exception")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TrailCommisionTransactionRejects','login');", true);
                 }
                 else if (e.Item.Value == "Staff User Management")
                 {
