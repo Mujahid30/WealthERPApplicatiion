@@ -41,16 +41,21 @@
     }
 </script>
 <table width="100%">
-    <tr>
-        <td>
-            <div class="divPageHeading" style="vertical-align: text-bottom">
-                Order MIS
+        <tr>
+        <td colspan="5">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left">Order MIS</td>
+                    
+                </tr>
+                </table>
             </div>
         </td>
     </tr>
-</table>
-        
+    </table>
 <table width="80%" onkeypress="return keyPress(this, event)">
+   
     <tr>
         <td align="right">
             <asp:Label ID="lblFrom" runat="server" Text=" Order From Date: " CssClass="FieldName"></asp:Label>

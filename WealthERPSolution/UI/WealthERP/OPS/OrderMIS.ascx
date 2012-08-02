@@ -116,14 +116,27 @@
 </script>
 
 <table style="width: 100%;">
+<%-- <tr>
+        <td colspan="5">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left">Order MIS</td>
+                    
+                </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+<tr>--%>
 <tr>
      <td colspan="5">
             <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
                 <tr>
-                    <td align="left">MFOrder Recon</td>
+                    <td align="left">MF Order Recon</td>
                     <td align="right">
-                       <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                       <img src="../Images/helpImage.png" height="20px" width="25px" style="float: right;"
                 class="flip" />
                     </td>
                 </tr>

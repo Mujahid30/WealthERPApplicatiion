@@ -21,6 +21,7 @@
     });
 </script>
 
+
 <%--<script type="text/javascript">
 //    $(function() {
 //    $(".divDashBoardQuickLinks").mouseover(function() {
@@ -79,10 +80,15 @@
 
 --%>
 <table width="100%">
-    <tr>
-        <td colspan="3">
-            <div class="divPageHeading" style="vertical-align: text-bottom">
-                Quick Links
+<tr>
+     <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left"> Quick Links</td>
+                    
+                </tr>
+                </table>
             </div>
         </td>
     </tr>
@@ -101,7 +107,7 @@
                             <asp:ImageButton ID="imgClientsClick" ImageUrl="~/Images/Dashboard-Clients.png" runat="server"
                                 ToolTip="Navigate to Customer Grid" OnClick="imgClientsClick_OnClick" Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnClientLink" runat="server" CssClass="FieldName" OnClick="lnkbtnClientLink_OnClick"
+                            <asp:LinkButton ID="lnkbtnClientLink" runat="server" Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnClientLink_OnClick"
                                 ToolTip="Navigate to Customer Grid" Text="Clients"></asp:LinkButton>
                         </div>
                     </td>
@@ -110,7 +116,7 @@
                             <asp:ImageButton ID="imgUploads" ImageUrl="~/Images/Upload-icon.png" runat="server"
                                 ToolTip="Navigate to Uploads" OnClick="imgUploads_OnClick" Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnUploads" runat="server" CssClass="FieldName" ToolTip="Navigate to Uploads"
+                            <asp:LinkButton ID="lnkbtnUploads" runat="server"  Font-Underline="false"  CssClass="FieldName" ToolTip="Navigate to Uploads"
                                 OnClick="lnkbtnUploads_OnClick" Text="Uploads"></asp:LinkButton>
                         </div>
                     </td>
@@ -119,7 +125,7 @@
                             <asp:ImageButton ID="imgOrderentry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server"
                                 ToolTip="Navigate to Order Entry" OnClick="imgOrderentry_OnClick" Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnOrderEntry" runat="server" CssClass="FieldName" OnClick="lnkbtnOrderEntry_OnClick"
+                            <asp:LinkButton ID="lnkbtnOrderEntry" runat="server"  Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnOrderEntry_OnClick"
                                 ToolTip="Navigate to Order Entry" Text="Order Entry"></asp:LinkButton>
                         </div>
                     </td>
@@ -150,7 +156,7 @@
                                 runat="server" ToolTip="Navigate to Business MIS" OnClick="imgBusinessMIS_OnClick"
                                 Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnBusinessMIS" runat="server" CssClass="FieldName" OnClick="lnkbtnBusinessMIS_OnClick"
+                            <asp:LinkButton ID="lnkbtnBusinessMIS" runat="server"  Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnBusinessMIS_OnClick"
                                 ToolTip="Navigate to Business MIS" Text="Business MIS"></asp:LinkButton>
                         </div>
                     </td>
@@ -159,7 +165,7 @@
                             <asp:ImageButton ID="imgInbox" runat="server" ToolTip="Navigate to Inbox" OnClick="imgInbox_OnClick"
                                 Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnInbox" runat="server" CssClass="FieldName" OnClick="lnkbtnInbox_OnClick"
+                            <asp:LinkButton ID="lnkbtnInbox" runat="server"  Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnInbox_OnClick"
                                 ToolTip="Navigate to Inbox" Text=""></asp:LinkButton>
                         </div>
                     </td>
@@ -169,7 +175,7 @@
                                 runat="server" ToolTip="Navigate to Add FP Customers" OnClick="imgbtnFPClients_OnClick"
                                 Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnFPClients" runat="server" CssClass="FieldName" OnClick="lnkbtnFPClients_OnClick"
+                            <asp:LinkButton ID="lnkbtnFPClients" runat="server"  Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnFPClients_OnClick"
                                 ToolTip="Navigate to Add FP Customers" Text="FP Clients"></asp:LinkButton>
                         </div>
                     </td>

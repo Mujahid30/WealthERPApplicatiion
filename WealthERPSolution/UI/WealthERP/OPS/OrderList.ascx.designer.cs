@@ -23,20 +23,6 @@ namespace WealthERP.OPS {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
-        /// lblOrderList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOrderList;
-        protected global::System.Web.UI.WebControls.TextBox txtIndividualCustomer;
-        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerType;
-        protected global::System.Web.UI.WebControls.HiddenField hdnIndividualOrGroup;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rquiredFieldValidatorIndivudialCustomer;
-        protected global::System.Web.UI.WebControls.HiddenField hdnOrderType;
-        protected global::System.Web.UI.WebControls.DropDownList ddlOrderType;
-        /// <summary>
         /// lblFrom control.
         /// </summary>
         /// <remarks>
@@ -44,8 +30,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFrom;
-        protected global::AjaxControlToolkit.AutoCompleteExtender txtIndividualCustomer_autoCompleteExtender;
-
+        
         /// <summary>
         /// txtFrom control.
         /// </summary>
@@ -63,7 +48,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
-        protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
+        
         /// <summary>
         /// TextBoxWatermarkExtender1 control.
         /// </summary>
@@ -209,6 +194,87 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
         
         /// <summary>
+        /// lblSelectTypeOfCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelectTypeOfCustomer;
+        
+        /// <summary>
+        /// ddlCustomerType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerType;
+        
+        /// <summary>
+        /// lblselectCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblselectCustomer;
+        
+        /// <summary>
+        /// txtIndividualCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtIndividualCustomer;
+        
+        /// <summary>
+        /// txtIndividualCustomer_water control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtIndividualCustomer_water;
+        
+        /// <summary>
+        /// txtIndividualCustomer_autoCompleteExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtIndividualCustomer_autoCompleteExtender;
+        
+        /// <summary>
+        /// rquiredFieldValidatorIndivudialCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rquiredFieldValidatorIndivudialCustomer;
+        
+        /// <summary>
+        /// lblOrderType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOrderType;
+        
+        /// <summary>
+        /// ddlOrderType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderType;
+        
+        /// <summary>
         /// btnGo control.
         /// </summary>
         /// <remarks>
@@ -315,5 +381,32 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button hiddenassociation;
+        
+        /// <summary>
+        /// hdnCustomerId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
+        
+        /// <summary>
+        /// hdnIndividualOrGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIndividualOrGroup;
+        
+        /// <summary>
+        /// hdnOrderType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderType;
     }
 }

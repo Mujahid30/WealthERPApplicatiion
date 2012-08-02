@@ -113,6 +113,24 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnInbox;
         
         /// <summary>
+        /// imgbtnFPClients control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgbtnFPClients;
+        
+        /// <summary>
+        /// lnkbtnFPClients control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkbtnFPClients;
+        
+        /// <summary>
         /// Label2 control.
         /// </summary>
         /// <remarks>
