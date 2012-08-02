@@ -43,12 +43,18 @@ namespace VoCustomerPortfolio
         private int m_TransactionCode;
         private string m_TransactionType;
         private int m_IsSourceManual;       
-        
+         private long m_TradeNum;
+
         
         #endregion fields
 
         #region properties
 
+         public long TradeNum
+         {
+             get { return m_TradeNum; }
+             set { m_TradeNum = value; }
+         }
         public int TransactionId
         {
             get { return m_TransactionId; }
@@ -268,7 +274,7 @@ namespace VoCustomerPortfolio
             clone.m_TransactionId = m_TransactionId;
             clone.m_TransactionType = m_TransactionType;
             clone.m_SourceCode = m_SourceCode;
-
+            clone.m_TradeNum = m_TradeNum;
             return clone;
         }
 
