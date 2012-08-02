@@ -71,9 +71,28 @@ namespace WealthERP.Uploads
             {
                 uploadsCommonBo = new UploadCommonBo();
                 DataSet dsRejectedSIP = new DataSet();
-                dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId);
+                if (processId != 0)
+                {
+                    dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId);
+                   
+                }
+                else
+                {
+                    dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, 0);
+                }
+
                 GVTrailTransactionRejects.DataSource = dsRejectedSIP;
                 GVTrailTransactionRejects.DataBind();
+
+                if (Cache["TrailCommissionRejectDetails" + advisorVo.advisorId.ToString()] == null)
+                {
+                    Cache.Insert("TrailCommissionRejectDetails" + advisorVo.advisorId.ToString(), dsRejectedSIP);
+                }
+                else
+                {
+                    Cache.Remove("TrailCommissionRejectDetails" + advisorVo.advisorId.ToString());
+                    Cache.Insert("TrailCommissionRejectDetails" + advisorVo.advisorId.ToString(), dsRejectedSIP);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -219,15 +238,23 @@ namespace WealthERP.Uploads
 
         protected void GVTrailTransactionRejects_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            uploadsCommonBo = new UploadCommonBo();
-            DataSet dsRejectedSIP = new DataSet();
-            dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId);
-            GVTrailTransactionRejects.DataSource = dsRejectedSIP;
+            DataSet dtProcessLogDetails = new DataSet();
+            dtProcessLogDetails = (DataSet)Cache["TrailCommissionRejectDetails" + advisorVo.advisorId.ToString()];
+            GVTrailTransactionRejects.DataSource = dtProcessLogDetails;
         }
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
+        }
+
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            GVTrailTransactionRejects.ExportSettings.OpenInNewWindow = true;
+            GVTrailTransactionRejects.ExportSettings.IgnorePaging = true;
+            GVTrailTransactionRejects.ExportSettings.HideStructureColumns = true;           
+            GVTrailTransactionRejects.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            GVTrailTransactionRejects.MasterTableView.ExportToExcel();
         }
 
     }

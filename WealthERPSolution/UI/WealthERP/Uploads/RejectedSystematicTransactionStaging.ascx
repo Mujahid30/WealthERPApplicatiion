@@ -13,10 +13,17 @@
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+            <td class="HeaderCell">         
+                <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Systematic Transaction Staging"></asp:Label>
+            </td>
+        </tr>
+    </table>
+</div>
+<%--<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Systematic Transaction Staging"></asp:Label>--%>
 
-<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Systematic Transaction Staging"></asp:Label>
-<br />
-<hr />
 <br />
 
 <script type="text/javascript">

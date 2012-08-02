@@ -29,15 +29,23 @@
         }
     }
 </script>
-
-<table style="width: 100%" class="TableBackground">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+            <td class="HeaderCell">          
+                <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Trade Account Staging Rejects"></asp:Label>
+            </td>
+        </tr>
+    </table>
+</div>
+<%--<table style="width: 100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Trade Account Staging Rejects"></asp:Label>
         </td>
     </tr>
-</table>
-<hr />
+</table>--%>
+
 <table>
     <tr>
         <td>

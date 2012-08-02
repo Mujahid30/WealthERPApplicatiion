@@ -93,13 +93,22 @@
 </telerik:RadCodeBlock>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
-<table>
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+            <td class="HeaderCell">          
+                <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="View Equity Transaction Input Rejects"></asp:Label>
+            </td>
+        </tr>
+    </table>
+</div>
+<%--<table>
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="View Equity Transaction Input Rejects"></asp:Label>
         </td>
     </tr>
-</table>
+</table>--%>
 <hr />
 <table>
     <tr>

@@ -66,15 +66,24 @@
 </script>
 
 <%--<asp:Panel ID="pnl" DefaultButton="btnGridSearch" runat="server">--%>
-<table style="width: 100%" class="TableBackground">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+            <td class="HeaderCell">               
+                <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Mutual Fund Folio Rejects"></asp:Label>
+            </td>
+        </tr>
+    </table>
+</div>
+<%--<table style="width: 100%" class="TableBackground">
     <tr>
         <td>
             <asp:Label Text="Mutual Fund Folio Rejects" ID="lblHeader" CssClass="HeaderTextBig"
                 runat="server"></asp:Label>
         </td>
     </tr>
-</table>
-<hr />
+</table>--%>
+
 <table>
     <tr>
         <td>

@@ -4,17 +4,25 @@ Inherits="WealthERP.Uploads.StandardProfileInputRejects" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <link href="../CSS/GridViewCss.css" rel="stylesheet" type="text/css" />
 
-
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+            <td class="HeaderCell">          
+                <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Standard Input Profile Rejects"></asp:Label>
+            </td>
+        </tr>
+    </table>
+</div>
 <table style="width: 100%;" class="TableBackground">
     <tr>
         <td>
         </td>
     </tr>
-     <tr>
+     <%--<tr>
         <td class="HeaderCell">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Standard Input Profile Rejects"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="View ProcessLog"

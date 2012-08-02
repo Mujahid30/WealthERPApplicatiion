@@ -37,17 +37,25 @@ Inherits="WealthERP.Uploads.RejectedFoliosTransactionUpload" %>
         return true;
     }
 </script>
-
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+            <td class="HeaderCell">               
+                <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Map Folios to Customers"></asp:Label>
+            </td>
+        </tr>
+    </table>
+</div>
 <table style="width: 100%;" class="TableBackground">
     <tr>
         <td>
         </td>
     </tr>
-    <tr>
+    <%--<tr>
         <td class="HeaderCell">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Map Folios to Customers"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Upload History"
