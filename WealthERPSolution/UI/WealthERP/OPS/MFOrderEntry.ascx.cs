@@ -151,7 +151,11 @@ namespace WealthERP.OPS
 
             //ShowHideFields(1);
         }
-
+        protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
+        {
+            customerVo = (CustomerVo)Session["customerVo"];
+            BindBank(customerVo.CustomerId);
+        }
         private void SetControls(string action, MFOrderVo mforderVo, OrderVo orderVo)
         {
             if (action == "Entry")

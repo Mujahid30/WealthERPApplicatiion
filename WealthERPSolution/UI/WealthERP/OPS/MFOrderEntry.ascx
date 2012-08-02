@@ -490,6 +490,9 @@
             <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" AlternateText="Add"
                 runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                 Height="15px" Width="15px" ></asp:ImageButton>
+                 <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
+                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
+                Height="15px" Width="25px" ></asp:ImageButton>
         <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlBankName"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>   

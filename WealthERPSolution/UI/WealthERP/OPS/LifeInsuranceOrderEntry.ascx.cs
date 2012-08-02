@@ -234,7 +234,7 @@ namespace WealthERP.OPS
 
         public void BindBankAccountDetails()
         {
-            DataTable dt = orderbo.GetBankAccountDetails(customerId);
+            DataTable dt = orderbo.GetBankAccountDetails(customerVo.CustomerId);
             ddlBankName.DataSource = dt;
             ddlBankName.DataTextField = dt.Columns["CB_BankName"].ToString();
             ddlBankName.DataValueField = dt.Columns["CB_CustBankAccId"].ToString();
@@ -247,7 +247,13 @@ namespace WealthERP.OPS
             DataTable dt = orderbo.GetBankBranch(int.Parse(ddlBankName.SelectedValue.ToString()));
             lblBranchName.Text = dt.Rows[0][1].ToString();
         }
-        
+
+        protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
+        {
+            customerVo = (CustomerVo)Session["customerVo"];
+            BindBankAccountDetails();
+        }
+
         private void BindFrequencyDropdown()
         {
             DataTable dt = XMLBo.GetFrequency(path);

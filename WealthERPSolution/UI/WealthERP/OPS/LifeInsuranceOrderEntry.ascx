@@ -498,6 +498,9 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                 Height="6%" Width="6%" ></asp:ImageButton>
+                  <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
+                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
+                Height="15px" Width="25px" ></asp:ImageButton>
         </td>
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblPaymentInstrNo" CssClass="FieldName" Text="Instrument No:" runat="server"></asp:Label>
