@@ -20,15 +20,27 @@
 
 <asp:ScriptManager ID="scrptMgr" runat="server" EnableScriptLocalization="true">
 </asp:ScriptManager>
-
 <asp:UpdatePanel ID="up1" runat="server">
     <ContentTemplate>
         <table style="width: 100%;">
             <tr>
+                <td colspan="5">
+                    <div class="divPageHeading">
+                        <table cellspacing="0" cellpadding="3" width="100%">
+                            <tr id="lblLifeInsurance" runat="server">
+                                <td align="left">
+                                    <asp:Label ID="lblCustAccountHeader" class="HeaderTextBig" runat="server" Text="Account Entry"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <%--<tr>
                 <td>
                     <asp:Label ID="lblCustAccountHeader" class="HeaderTextBig" runat="server" Text="Fixed Income Account Entry"></asp:Label>
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td>
                     &nbsp;
@@ -70,8 +82,8 @@
                     </asp:DropDownList>
                     <span id="Span1" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a category"
-                        ControlToValidate="ddlCategory" Operator="NotEqual" ValueToCompare="Select"
-                        Display="Dynamic" CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>
+                        ControlToValidate="ddlCategory" Operator="NotEqual" ValueToCompare="Select" Display="Dynamic"
+                        CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trSubcategory" runat="server">
@@ -102,20 +114,19 @@
             </tr>
             <%--Specialy Used for Add Cash and saving--%>
             <tr id="trAccountNoddl" runat="server">
-            <td class="leftField">
+                <td class="leftField">
                     <asp:Label ID="lblAccountnumddl" runat="server" CssClass="FieldName" Text=""></asp:Label>
                 </td>
-            <td>
-                <asp:DropDownList ID="ddlAccountNum" runat="server" CssClass="cmbField" AutoPostBack="true"
-                    onselectedindexchanged="ddlAccountNum_SelectedIndexChanged"></asp:DropDownList>
+                <td>
+                    <asp:DropDownList ID="ddlAccountNum" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlAccountNum_SelectedIndexChanged">
+                    </asp:DropDownList>
                     <span id="Span4" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="cvAccountNo" runat="server" ErrorMessage="<br />Please select an account number"
                         ControlToValidate="ddlAccountNum" Operator="NotEqual" ValueToCompare="Select"
                         Display="Dynamic" CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>
-                    
-            </td>
+                </td>
             </tr>
-            
             <tr id="trAccountSource" runat="server">
                 <td class="leftField">
                     <asp:Label ID="lblAccountSource" runat="server" CssClass="FieldName" Text="Account Source:"></asp:Label>
@@ -129,21 +140,20 @@
                     </asp:RequiredFieldValidator>--%>
                 </td>
             </tr>
-            
             <%--Specialy Used for Add Cash and saving--%>
             <tr id="trBankName" runat="server">
-            <td class="leftField">
+                <td class="leftField">
                     <asp:Label ID="lblBankName" runat="server" CssClass="FieldName" Text=""></asp:Label>
                 </td>
-            <td>
-                <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField"></asp:DropDownList>
-                <span id="Span5" class="spnRequiredField">*</span>
-                <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br />Please select a BankName"
-                        ControlToValidate="ddlBankName" Operator="NotEqual" ValueToCompare="Select"
-                        Display="Dynamic" CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>
-            </td>
+                <td>
+                    <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
+                    <span id="Span5" class="spnRequiredField">*</span>
+                    <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br />Please select a BankName"
+                        ControlToValidate="ddlBankName" Operator="NotEqual" ValueToCompare="Select" Display="Dynamic"
+                        CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>
+                </td>
             </tr>
-            
             <tr id="trJoingHolding" runat="server">
                 <td class="leftField">
                     <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Joint Holding:"></asp:Label>
