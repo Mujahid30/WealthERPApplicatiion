@@ -61,12 +61,10 @@ namespace WealthERP.Advisor
                 DataSet dsFilteredData = new DataSet();
                 string userRole = "";
                 //Code to display and hide the searches based on the roles
+                //Code to display and hide the searches based on the roles
                 if (userVo.RoleList.Contains("Admin"))
                 {
-                    userRole = "Admin";                  
-                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
-                    SetAdminTreeNodesForRoles(dsFilteredData, "Admin");
-                   if (advisorVo.IsOpsEnable != 1)
+                    if (advisorVo.IsOpsEnable != 1)
                     {
                         txtFindRMCustomer.Visible = false;
                         btnSearchRMCustomer.Visible = false;
@@ -77,20 +75,17 @@ namespace WealthERP.Advisor
                         btnSearchAdviserCustomer.Visible = false;
                     }
                 }
-                 if (userVo.RoleList.Contains("RM"))
-                {                   
+                else if (userVo.RoleList.Contains("RM"))
+                {
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
                     txtFindBranch.Visible = false;
                     btnSearchBranch.Visible = false;
                     txtFindAdviserCustomer.Visible = false;
                     btnSearchAdviserCustomer.Visible = false;
-                    userRole = "RM";                  
-                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
-                    SetAdminTreeNodesForRoles(dsFilteredData, "RM");    
                 }
-                 if (userVo.RoleList.Contains("BM"))
-                {                  
+                else if (userVo.RoleList.Contains("BM"))
+                {
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
                     txtFindBranch.Visible = false;
@@ -99,23 +94,17 @@ namespace WealthERP.Advisor
                     btnSearchAdviserCustomer.Visible = false;
                     txtFindRMCustomer.Visible = false;
                     btnSearchRMCustomer.Visible = false;
-                    userRole = "BM";
-                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
-                    SetAdminTreeNodesForRoles(dsFilteredData, "BM");   
                 }
-                 if (userVo.RoleList.Contains("Ops"))
+                else if (userVo.RoleList.Contains("Ops"))
                 {
                     txtFindRMCustomer.Visible = false;
                     txtFindBranch.Visible = false;
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
                     btnSearchBranch.Visible = false;
-                    btnSearchRMCustomer.Visible = false;                   
-                    userRole = "Ops";
-                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
-                    SetAdminTreeNodesForRoles(dsFilteredData, "Ops"); 
+                    btnSearchRMCustomer.Visible = false;
                 }
-                 if (userVo.RoleList.Contains("Research"))
+                else if (userVo.RoleList.Contains("Research"))
                 {
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
@@ -124,7 +113,48 @@ namespace WealthERP.Advisor
                     txtFindAdviserCustomer.Visible = false;
                     btnSearchAdviserCustomer.Visible = false;
                     txtFindRMCustomer.Visible = false;
-                    btnSearchRMCustomer.Visible = false;                   
+                    btnSearchRMCustomer.Visible = false;
+                }
+
+                //Code to display the left tree based on the Roles
+                if (!userVo.RoleList.Contains("Admin"))
+                    RadPanelBar1.Visible = false;
+                if (!userVo.RoleList.Contains("RM"))
+                    RadPanelBar2.Visible = false;
+                if (!userVo.RoleList.Contains("BM"))
+                    RadPanelBar3.Visible = false;
+                if (!userVo.RoleList.Contains("Ops"))
+                    RadPanelBar4.Visible = false;
+                if (!userVo.RoleList.Contains("Research"))
+                    RadPanelBar5.Visible = false;
+                
+                if (userVo.RoleList.Contains("Admin"))
+                {
+                    userRole = "Admin";                  
+                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                    SetAdminTreeNodesForRoles(dsFilteredData, "Admin");
+                  
+                }
+                 if (userVo.RoleList.Contains("RM"))
+                {  
+                    userRole = "RM";                  
+                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                    SetAdminTreeNodesForRoles(dsFilteredData, "RM");    
+                }
+                 if (userVo.RoleList.Contains("BM"))
+                {      
+                    userRole = "BM";
+                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                    SetAdminTreeNodesForRoles(dsFilteredData, "BM");   
+                }
+                 if (userVo.RoleList.Contains("Ops"))
+                {                                    
+                    userRole = "Ops";
+                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                    SetAdminTreeNodesForRoles(dsFilteredData, "Ops"); 
+                }
+                 if (userVo.RoleList.Contains("Research"))
+                {                  
                     userRole = "Research";
                     dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
                     SetAdminTreeNodesForRoles(dsFilteredData, "Research");
