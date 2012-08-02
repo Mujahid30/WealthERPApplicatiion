@@ -132,6 +132,11 @@ namespace WealthERP.Research
                     drVariant["MaxMonth"] = Convert.ToInt32(dr["XAMP_MaxTimeHorizon"].ToString());
                     drVariant["XAMP_MinAUM"] = Math.Round(Decimal.Parse(dr["XAMP_MinAUM"].ToString()), 0).ToString();
                     drVariant["XAMP_MaxAUM"] = Math.Round(Decimal.Parse(dr["XAMP_MaxAUM"].ToString()), 0).ToString();
+                    drVariant["MinAUM"] = Math.Round(Decimal.Parse(dr["XAMP_MinAUM"].ToString()), 0).ToString();
+                    drVariant["MaxAUM"] = Math.Round(Decimal.Parse(dr["XAMP_MaxAUM"].ToString()), 0).ToString();
+                  
+                  
+                
                 }
                 dtVariant.Rows.Add(drVariant);
 

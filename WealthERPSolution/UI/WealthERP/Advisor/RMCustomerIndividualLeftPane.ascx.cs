@@ -975,6 +975,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Finance Profile")
                 {
+                    if(SessionContents.FPS_CustomerPospect_ActionStatus != null)
+                    Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerProspect", "loadcontrol('CustomerProspect','login')", true);
                 }
                 else if (e.Item.Value == "Preferences")
