@@ -68,16 +68,19 @@ namespace WealthERP.OPS
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-
+            if (Session["mforderVo"] != null && Session["orderVo"] != null)
+            {
+                mforderVo = (MFOrderVo)Session["mforderVo"];
+                orderVo = (OrderVo)Session["orderVo"];
+            }
             if (Request.QueryString["action"] != null)
             {
                 lnlBack.Visible = true;
-                ViewForm = Request.QueryString["action"].ToString();
-                mforderVo = (MFOrderVo)Session["mforderVo"];
-                orderVo = (OrderVo)Session["orderVo"];
+                ViewForm = Request.QueryString["action"].ToString(); 
                 txtOrderDate.SelectedDate = orderVo.OrderDate;
                 lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
             }
+            
             if (!IsPostBack)
             {
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
@@ -428,6 +431,10 @@ namespace WealthERP.OPS
                     btnAddMore.Visible = false;
                     rgvOrderSteps.Visible = true;
                     rgvOrderSteps.Enabled = true;
+                    if (Request.QueryString["action"] != null)
+                        orderId = orderVo.OrderId;
+                    else
+                        orderId = (int)Session["CO_OrderId"];
                     BindOrderStepsGrid();
                     btnViewReport.Visible = true;
                     btnViewInPDF.Visible = true;
@@ -1362,6 +1369,7 @@ namespace WealthERP.OPS
                         if (result == true)
                         {
                             editButton.Text = "";
+                            lblOrderStatusReason.Text = "";
                         }
                         
                     }
@@ -1389,6 +1397,7 @@ namespace WealthERP.OPS
                 }
                 else
                 {
+                    lblOrderStatusReason.Text = "";
                     editButton.Text = "";
                 }
              
@@ -1417,6 +1426,16 @@ namespace WealthERP.OPS
                 GridEditableItem edititem = e.Item as GridEditableItem;
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
 
+                Label lblStatusCode = new Label();
+                Label lblOrderStep = new Label();
+                LinkButton editButton = edititem["EditCommandColumn"].Controls[0] as LinkButton;
+                Label lblOrderStatus = new Label();
+                Label lblOrderStatusReason = new Label();
+                lblStatusCode = (Label)e.Item.FindControl("lblStatusCode");
+                lblOrderStep = (Label)e.Item.FindControl("lblOrderStepCode");
+                lblOrderStatus = (Label)e.Item.FindControl("lblOrderStatus");
+                lblOrderStatusReason = (Label)e.Item.FindControl("lblOrderStatusReason");
+                Label lblCMFOS_Date = (Label)e.Item.FindControl("lblCMFOS_Date");
                 RadComboBox rcStatus = edititem.FindControl("ddlCustomerOrderStatus") as RadComboBox;
                 RadComboBox rcPendingReason = edititem.FindControl("ddlCustomerOrderStatusReason") as RadComboBox;
 
@@ -1428,22 +1447,46 @@ namespace WealthERP.OPS
                 string updatedStatus = rcStatus.SelectedValue;
                 string updatedReason = rcPendingReason.SelectedValue;
 
-                if (updatedStatus == "OMEX" || updatedStatus == "OMCN")
+                if (lblOrderStep.Text.Trim() == "IP")
                 {
-                    bool result=false;
-                    result=mfOrderBo.MFOrderAutoMatch(orderVo.OrderId, mforderVo.SchemePlanCode, mforderVo.accountid, mforderVo.TransactionCode, orderVo.CustomerId, mforderVo.Amount, orderVo.OrderDate);
+                    if (lblStatusCode.Text == "OMIP")
+                    {
+                        editButton.Text = "Mark as Pending";
+                        result = mfOrderBo.MFOrderAutoMatch(orderVo.OrderId, mforderVo.SchemePlanCode, mforderVo.accountid, mforderVo.TransactionCode, orderVo.CustomerId, mforderVo.Amount, orderVo.OrderDate);
+                        if (result == true)
+                        {
+                            editButton.Text = "";
+                            lblOrderStatusReason.Text = "";
+                        }
+
+                    }
+
+                    else if (lblStatusCode.Text == "OMPD")
+                    {
+                        editButton.Text = "Mark as InProcess";
+                    }
+
+                }
+                else if (lblOrderStep.Text.Trim() == "PR")
+                {
                     if (result == true)
                     {
-                        updatedStatus = "OMEX";
-                        updatedReason = "OMEXCN";
+                        lblOrderStatus.Text = "Executed";
+                        lblOrderStatusReason.Text = "Order Confirmed";
                     }
                     else
                     {
-                        updatedStatus = "OMCN";
-                        updatedReason = "OMCNO";
+                        lblOrderStatus.Text = "";
+                        lblOrderStatusReason.Text = "";
+                        lblCMFOS_Date.Text = "";
                     }
+                    editButton.Text = "";
                 }
-
+                else
+                {
+                    lblOrderStatusReason.Text = "";
+                    editButton.Text = "";
+                }
                 bResult = orderbo.UpdateOrderStep(updatedStatus, updatedReason, orderId, orderStepCode);
                 if (bResult == true)
                 {
@@ -1751,6 +1794,8 @@ namespace WealthERP.OPS
                 else
                     mforderVo.EndDate = DateTime.MinValue;
             }
+            Session["orderVo"] = orderVo;
+            Session["mforderVo"] = mforderVo;
 
         }
 
