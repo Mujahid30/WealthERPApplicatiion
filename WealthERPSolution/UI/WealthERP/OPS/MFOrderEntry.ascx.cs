@@ -102,6 +102,8 @@ namespace WealthERP.OPS
                     lblgetPan.Text = customerVo.PANNum;
                     BindPortfolioDropdown(customerId);
                 }
+                cvAppRcvDate.ValueToCompare = DateTime.Today.ToShortDateString();
+                cvFutureDate1.ValueToCompare = DateTime.Today.ToShortDateString();
                 BindAMC(0);
                 BindScheme(0);
                 BindFolioNumber(0);
@@ -1580,7 +1582,7 @@ namespace WealthERP.OPS
             rgvOrderSteps.Visible = true;
             orderId = int.Parse(OrderIds[0].ToString());
             Session["CO_OrderId"] = orderId;
-            rgvOrderSteps.Enabled = false;
+            rgvOrderSteps.Enabled = true;
             BindOrderStepsGrid();
             SetEditViewMode(true);
             btnSubmit.Visible = false;

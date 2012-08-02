@@ -242,16 +242,16 @@
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
-            </telerik:RadDatePicker>
+            </telerik:RadDatePicker><span id="Span7" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtReceivedDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValidationGroup="MFSubmit" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtReceivedDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application received Date"
                 Display="Dynamic" runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-           <%-- <asp:CompareValidator id="cvAppRcvDate" runat="server" ControlToValidate="txtReceivedDate"
+            <asp:CompareValidator id="cvAppRcvDate" runat="server" ControlToValidate="txtReceivedDate"
                 CssClass="cvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Application Received date must be less than or equal to Today"
-                Operator="LessThanEqual" Type="Date"></asp:CompareValidator>--%>
+                Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
         </td>
          <td class="leftField" style="width: 20%">
             <asp:Label ID="lblCategory" runat="server" Text="Category: " CssClass="FieldName"></asp:Label>
@@ -302,7 +302,7 @@
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
-            </telerik:RadDatePicker>
+            </telerik:RadDatePicker><span id="Span6" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtOrderDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -385,7 +385,7 @@
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
-            </telerik:RadDatePicker>
+            </telerik:RadDatePicker><span id="Span8" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CVFutureDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtFutureDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
