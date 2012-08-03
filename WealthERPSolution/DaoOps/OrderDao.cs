@@ -190,10 +190,11 @@ namespace DaoOps
             }
         }
 
-        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds)
+        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds,out int orderId)
         {
             Database db;
             DbCommand LifeInsuranceOrderCmd;
+            orderId = 0;
             bool bResult = false;
             try
             {
@@ -280,9 +281,12 @@ namespace DaoOps
                     db.AddInParameter(LifeInsuranceOrderCmd, "@MaturityDate", DbType.DateTime, DBNull.Value);
 
                 //db.AddInParameter(LifeInsuranceOrderCmd, "@IsCustomerApprovalApplicable", DbType.Int32, lifeInsuranceOrdervo.IsCustomerApprovalApplicable);
-                
+                db.AddOutParameter(LifeInsuranceOrderCmd, "@orderId", DbType.Int32, 5000);
                 if (db.ExecuteNonQuery(LifeInsuranceOrderCmd) != 0)
+                {
+                    orderId = int.Parse(db.GetParameterValue(LifeInsuranceOrderCmd, "@orderId").ToString());
                     bResult = true;
+                }                   
             }
             catch (BaseApplicationException Ex)
             {

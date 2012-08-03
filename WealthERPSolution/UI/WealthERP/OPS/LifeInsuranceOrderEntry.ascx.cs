@@ -244,8 +244,15 @@ namespace WealthERP.OPS
 
         protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dt = orderbo.GetBankBranch(int.Parse(ddlBankName.SelectedValue.ToString()));
-            lblBranchName.Text = dt.Rows[0][1].ToString();
+            if (ddlBankName.SelectedValue.ToString() != "Select")
+            {
+                DataTable dt = orderbo.GetBankBranch(int.Parse(ddlBankName.SelectedValue.ToString()));
+                lblBranchName.Text = dt.Rows[0][1].ToString();
+            }
+            else
+            {
+                lblBranchName.Text = "";
+            }
         }
 
         protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
@@ -320,7 +327,7 @@ namespace WealthERP.OPS
             
             lifeInsuranceOrdervo.IsJointlyHeld = 0;
             lifeInsuranceOrdervo.InsuranceIssuerCode = ddlPolicyIssuer.SelectedValue;
-            if (ddlAssetPerticular.SelectedValue != null && ddlAssetPerticular.SelectedValue != string.Empty)
+            if (ddlAssetPerticular.SelectedValue != null && ddlAssetPerticular.SelectedValue != "Select")
                 lifeInsuranceOrdervo.InsuranceSchemeId = Convert.ToInt32(ddlAssetPerticular.SelectedValue);
             lifeInsuranceOrdervo.SourceCode = "AL";
             lifeInsuranceOrdervo.OrderStepCode = "AL";
@@ -351,7 +358,7 @@ namespace WealthERP.OPS
                 }
             }
 
-            bresult = orderbo.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds);
+            bresult = orderbo.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds, out orderId);
             if (bresult == true)
             {
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('OrderMIS','?result=" + result + "');", true);

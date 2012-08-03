@@ -175,13 +175,13 @@ namespace BoOps
             }
         }
 
-        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds)
+        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds , out int orderId)
         {
             bool bResult = false;
             OrderDao orderDao = new OrderDao();
             try
             {
-                bResult = orderDao.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds);
+                bResult = orderDao.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds, out orderId);
 
             }
             catch (BaseApplicationException Ex)
