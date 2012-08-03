@@ -61,7 +61,7 @@
                         <asp:LinkButton ID="lnkBtnEdit" runat="server" CssClass="LinkButtons" 
                             Text="Edit" onclick="lnkBtnEdit_Click"></asp:LinkButton>
                         &nbsp; &nbsp; 
-                        <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Back" 
+                        <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Back"  Visible="false"
                             onclick="lnlBack_Click" ></asp:LinkButton>&nbsp;  &nbsp;
                         <asp:LinkButton runat="server" ID="lnkDelete" CssClass="LinkButtons" 
                             Text="Delete" onclick="lnkDelete_Click" 
