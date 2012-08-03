@@ -6437,6 +6437,23 @@ namespace WealthERP.Uploads
                             rejectUpload_Flag = true;
                             reject_reason = strFileReadError;
                         }
+
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames((int)Contants.UploadTypes.StandardProfile);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.StandardProfile);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, null, Contants.UploadExternalTypeStandard, Contants.UploadFileTypeProfile);
                     }
                     else if (extension == "xls" || extension == "xlsx")
                     {
