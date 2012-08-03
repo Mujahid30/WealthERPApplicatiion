@@ -85,7 +85,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (group == "IN")
                     {
-                        lblCustAccountHeader.Text = "Life Insurance Add Account Screen";
+                        lblCustAccountHeader.Text = "Life insurance Account entry";
                         lblAssetGroupName.Text = "Insurance";
                         lblAccountNum.Text = "Policy Number:";
                         LoadInsuranceContent();
@@ -104,7 +104,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (group == "FI")
                     {
-                        lblCustAccountHeader.Text = " Fixed Income Add Account Screen";
+                        lblCustAccountHeader.Text = " Fixed Income Account entry";
                         lblAssetGroupName.Text = "Fixed Income";
                         LoadFixedIncomeContent();
                     }
