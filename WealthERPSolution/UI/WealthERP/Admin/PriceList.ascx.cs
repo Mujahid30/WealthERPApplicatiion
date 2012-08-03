@@ -31,6 +31,7 @@ namespace WealthERP.Admin
         string categoryCode;
         int amcCode = 0;
         string subCategory = "All";
+       
         //List<GoalProfileSetupVo> MutualFundList = new List<PriceVo>();
         protected override void OnInit(EventArgs e)
         {
@@ -48,6 +49,8 @@ namespace WealthERP.Admin
             
             compDateValidator.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
             cvChkFutureDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
+            trMFFundPerformance.Visible = false;
+            trExportFilteredMFRecord.Visible = false;
             if (Request.QueryString["AssetId"] != null)
             {
                 hdnassetType.Value = Request.QueryString["AssetId"].ToString();
@@ -63,7 +66,7 @@ namespace WealthERP.Admin
                 //trPageCount.Visible = false;
                 //trPager.Visible = false;
                 //trMfPagecount.Visible = false;
-                lblheader.Text = "MF Data Query";
+                //lblheader.Text = "MF Data Query";
                 trSelectMutualFund.Visible = true;
                 trSelectSchemeNAV.Visible = true;
                 trNavCategory.Visible = true;
@@ -463,6 +466,7 @@ namespace WealthERP.Admin
                     ds = PriceObj.GetAMFISnapshot("D", Search, amfiCode, schemeCode, selectAllCode, All, categoryCode);
                     if (ds.Tables[0].Rows.Count > 0)
                     {
+                        trExportFilteredMFRecord.Visible = true;
                         gvMFRecord.Visible = true;
                         //gvMFRecord.CurrentPageIndex = 0;
                         gvMFRecord.DataSource = ds.Tables[0]; ;
@@ -1057,6 +1061,7 @@ namespace WealthERP.Admin
             //    //gvMFFundPerformance.Visible = false;
             //}
             gvMFFundPerformance.Visible = true;
+            trMFFundPerformance.Visible = true;
         }
 
         //protected void gvMFFundPerformance_ItemDataBound(object sender, GridItemEventArgs e)
@@ -1388,6 +1393,7 @@ namespace WealthERP.Admin
                 DataSet ds;
                 lblIllegal.Visible = false;
                 trgvEquityView.Visible = true;
+                trExportFilteredMFRecord.Visible = true;
         
                 if (rbtnCurrent.Checked)
                 {
@@ -1680,6 +1686,26 @@ namespace WealthERP.Admin
            }
             else
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select AMC first');", true);
+        }
+        protected void btnExportFilteredMFRecord_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvMFRecord.ExportSettings.OpenInNewWindow = true;
+            gvMFRecord.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvMFRecord.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvMFRecord.MasterTableView.ExportToExcel();
+        }
+        protected void btnExportMFFundPerformance_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvMFFundPerformance.ExportSettings.OpenInNewWindow = true;
+            gvMFFundPerformance.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvMFFundPerformance.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvMFFundPerformance.MasterTableView.ExportToExcel();
         }
     }
 }

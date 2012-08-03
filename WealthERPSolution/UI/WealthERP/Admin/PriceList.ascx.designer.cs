@@ -129,7 +129,9 @@ namespace WealthERP.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trFromDate;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMFFundPerformance;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredMFRecord;
+       
         /// <summary>
         /// lblFromDate control.
         /// </summary>
