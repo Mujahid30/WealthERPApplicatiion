@@ -3024,16 +3024,6 @@ namespace WealthERP.CustomerPortfolio
         {
             if (txtULIPLastPremiumDate.Text != "dd/mm/yyyy" && txtULIPFirstPremiumDate.Text != string.Empty && txtULIPFirstPremiumDate.Text != "dd/mm/yyyy" && txtULIPLastPremiumDate.Text != string.Empty)
             {
-                DateTime dtFrom = DateTime.Parse(txtULIPFirstPremiumDate.Text);
-                DateTime dtTo = DateTime.Parse(txtULIPLastPremiumDate.Text);
-                DateBo dtBo = new DateBo();
-
-                double NoOfMonths = (dtTo - dtFrom).TotalDays;
-                    //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                txtUlipPremiuimPeriod.Text = NoOfMonths.ToString("f0");
-            }
-            if (txtULIPFirstPremiumDate.Text != "dd/mm/yyyy" && txtULIPFirstPremiumDate.Text != string.Empty)
-            {
                 if (ddlULIPPremiumFrequencyCode.SelectedValue == "SP")
                 {
                     txtULIPLastPremiumDate.Text = txtULIPFirstPremiumDate.Text;
@@ -3044,7 +3034,15 @@ namespace WealthERP.CustomerPortfolio
                     txtUlipPremiuimPeriod.Enabled = false;
                     txtULIPGracePeriod.Enabled = false;
                 }
+                DateTime dtFrom = DateTime.Parse(txtULIPFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtULIPLastPremiumDate.Text);
+                DateBo dtBo = new DateBo();
+
+                double NoOfMonths = (dtTo - dtFrom).TotalDays;
+                    //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtUlipPremiuimPeriod.Text = NoOfMonths.ToString("f0");
             }
+
         }
 
         protected void txtTPLastPremiumDate_TextChanged(object sender, EventArgs e)
