@@ -290,7 +290,10 @@ namespace DaoCustomerPortfolio
                             type = "Holdings";
                         tranType = type + "/" + mode;
 
-                        genDictTranType.Add(tranType, tranType);
+                        if (!genDictTranType.ContainsKey(tranType))
+                        {
+                            genDictTranType.Add(tranType, tranType);
+                        }
                     }
                 }
 
