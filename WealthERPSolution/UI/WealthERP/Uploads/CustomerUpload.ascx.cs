@@ -5048,6 +5048,34 @@ namespace WealthERP.Uploads
                             rejectUpload_Flag = true;
                             reject_reason = strFileReadError;
                         }
+
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames(27);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(27);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+
+                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
+                        //{
+                        //    if(dr["PERIODICIT"].ToString()=="SM")
+                        //    {
+                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
+                        //    }
+
+                        //}
+
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", Contants.UploadFileTypeSystematic);
                     }
                     else if (extension == "xls" || extension == "xlsx")
                     {
@@ -5124,6 +5152,35 @@ namespace WealthERP.Uploads
                             rejectUpload_Flag = true;
                             reject_reason = strFileReadError;
                         }
+
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames(20);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(20);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+
+                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
+                        //{
+                        //    if(dr["PERIODICIT"].ToString()=="SM")
+                        //    {
+                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
+                        //    }
+
+                        //}
+
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "CA", Contants.UploadFileTypeSystematic);
+
                     }
                     else if (extension == "xls" || extension == "xlsx")
                     {
@@ -6204,6 +6261,23 @@ namespace WealthERP.Uploads
                             rejectUpload_Flag = true;
                             reject_reason = strFileReadError;
                         }
+
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames((int)Contants.UploadTypes.StandardProfile);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.StandardProfile);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, null, Contants.UploadExternalTypeStandard, Contants.UploadFileTypeProfile);
                     }
                     else if (extension == "xls" || extension == "xlsx")
                     {
