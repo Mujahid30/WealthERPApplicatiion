@@ -52,10 +52,14 @@
       <telerik:TargetInput ControlID="txtSMTPHost" />--%>
             <telerik:TargetInput ControlID="txtSMTPPort"/>
             <telerik:TargetInput ControlID="txtPassword" />
-            <telerik:TargetInput ControlID="txtSenderEmailAlias" />
-        </TargetControls>
+         </TargetControls>
         <Validation IsRequired="True" ValidationGroup="btnSave"></Validation>
     </telerik:TextBoxSetting>
+    <telerik:TextBoxSetting BehaviorID="TextBoxBehavior2" Validation-IsRequired="false">
+        <TargetControls>
+            <telerik:TargetInput ControlID="txtSenderEmailAlias" />
+        </TargetControls>
+      </telerik:TextBoxSetting>
     <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior1" Validation-IsRequired="true"
         ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ErrorMessage="Invalid Email">
         <TargetControls>
@@ -149,21 +153,20 @@
                 CssClass="rfvPCG" runat="server"></asp:Label>--%>
         </td>
     </tr>
-    <%--<tr>
+    <tr>
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" Text="Sender Email Alias:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtSenderEmailAlias" runat="server" MaxLength="60" CssClass="txtField"></asp:TextBox>
-              <span id="Span5" class="spnRequiredField">*<br />
-              </span>
               
-          <%--<asp:RequiredFieldValidator ID="reqtxtSMTPHost" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
+              
+        <%-- <asp:RequiredFieldValidator ID="reqtxtSMTPHost" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
                 ErrorMessage="Please enter the SMTP Host" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
         </td>
-    </tr>--%>
+    </tr>
     <tr>
         <td class="leftField">
             <asp:Label ID="Label5" runat="server" Text="SMTP Authentication Required:" CssClass="FieldName"></asp:Label>

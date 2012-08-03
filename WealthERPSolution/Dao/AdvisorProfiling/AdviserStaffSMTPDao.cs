@@ -83,6 +83,7 @@ namespace DaoAdvisorProfiling
                     adviserStaffSMTPVo.Password = sdr["ASS_Password"].ToString();
                     adviserStaffSMTPVo.IsAuthenticationRequired = Convert.ToInt16(sdr["ASS_IsAuthenticationRequired"]);
                     adviserStaffSMTPVo.Port = sdr["ASS_Port"].ToString();
+                    adviserStaffSMTPVo.SenderEmailAlias = sdr["ASS_SenderEmailAlias"].ToString();
                 }
 
             }
