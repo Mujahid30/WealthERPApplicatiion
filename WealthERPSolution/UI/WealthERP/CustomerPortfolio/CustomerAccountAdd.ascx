@@ -29,7 +29,7 @@
                         <table cellspacing="0" cellpadding="3" width="100%">
                             <tr id="lblLifeInsurance" runat="server">
                                 <td align="left">
-                                    <asp:Label ID="lblCustAccountHeader" class="HeaderTextBig" runat="server" Text="Account Entry"></asp:Label>
+                                    <asp:Label ID="lblCustAccountHeader" class="HeaderTextBig" runat="server" ></asp:Label>
                                 </td>
                             </tr>
                         </table>
