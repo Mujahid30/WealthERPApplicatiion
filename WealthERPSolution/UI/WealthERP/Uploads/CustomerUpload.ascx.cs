@@ -5152,35 +5152,6 @@ namespace WealthERP.Uploads
                             rejectUpload_Flag = true;
                             reject_reason = strFileReadError;
                         }
-
-                        if (rbSkipRowsYes.Checked)
-                        {
-                            ds = SkipRows(ds);
-                        }
-
-                        //get all column nams for the selcted file type
-                        dsColumnNames = uploadcommonBo.GetColumnNames(20);
-
-                        //Get werp Column Names for the selected type of file
-                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(20);
-
-                        //Get XML after mapping, checking for columns
-                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
-
-
-                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
-                        //{
-                        //    if(dr["PERIODICIT"].ToString()=="SM")
-                        //    {
-                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
-                        //    }
-
-                        //}
-
-
-                        //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "CA", Contants.UploadFileTypeSystematic);
-
                     }
                     else if (extension == "xls" || extension == "xlsx")
                     {
@@ -5807,7 +5778,27 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
+                            if (rbSkipRowsYes.Checked)
+                            {
+                                ds = SkipRows(ds);
+                            }
+                            ds.Tables[0].Columns.Add("column25");
+                            //get all column nams for the selcted file type
+                            dsColumnNames = uploadcommonBo.GetColumnNames((int)Contants.UploadTypes.EquityStandardTransaction);
 
+                            //Get werp Column Names for the selected type of file
+                            dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.EquityStandardTransaction);
+
+
+                            //Get XML after mapping, checking for columns
+                            dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+                            if (dsXML.Tables.Count > 0)
+
+                                ValidateInputfile(Contants.ExtractTypeEQTransaction, Contants.UploadExternalTypeStandard, pathxml, skiprowsval);
+
+                            //Get filetypeid from XML
+                            filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "EQ", Contants.UploadExternalTypeStandard, Contants.UploadFileTypeTransaction);
+                    
 
                         }
                         else
@@ -5816,6 +5807,8 @@ namespace WealthERP.Uploads
                             rejectUpload_Flag = true;
                             reject_reason = strFileReadError;
                         }
+
+
                     }
                     else if (extension == "xls" || extension == "xlsx")
                     {
@@ -5869,16 +5862,199 @@ namespace WealthERP.Uploads
                         FileUpload.SaveAs(filepath + "\\" + filename);
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
-                        {
+                        {                           
+
+                            if (rbSkipRowsYes.Checked)
+                            {
+                                ds = SkipRows(ds);
+                            }
+                            //get all column nams for the selcted file type
+                            dsColumnNames = uploadcommonBo.GetColumnNames((int)Contants.UploadTypes.IIFLTransaction);
+
+                            //get all column nams for the standard eq transaction type
+                            dsStdColNames = uploadcommonBo.GetColumnNames((int)Contants.UploadTypes.EquityStandardTransaction);
+
+                            //Get werp Column Names for the selected type of file
+                            dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.IIFLTransaction);
+
+                            DataSet ds1 = new DataSet();
+                            //Get XML after mapping, checking for columns
+                            dsIIFLTemp = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+                            //foreach (DataRow de in dsIIFLTemp.Tables[0].Rows)
+                            //{
+
+                            //    if (de[0].ToString() != "NSE" || de[0].ToString() != "BSE")
+                            //    {
+                            //        de[0] = 1;
+                            //    }
+                            //    ds1.Tables[0].Rows.Add(de[0]);
+                            //}
+
+                            //DataSet dsXMLtemp = new DataSet();
+                            dsXML = dsIIFLTemp;
+
+                            if (dsXML.Tables.Count > 0)
+
+                                ValidateInputfile(Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction, pathxml, skiprowsval);
+
+                            if (badData == false)
+                            {
+                                DataRow dr1;
+
+                                foreach (DataRow dr in dsStdColNames.Tables[0].Rows)
+                                {
+                                    dtIIFL.Columns.Add(dr["XMLHeaderName"].ToString());
+                                }
+
+                                foreach (DataRow dr in dsIIFLTemp.Tables[0].Rows)
+                                {
+
+                                    if (dr.ItemArray[0].ToString() == "NSE" || dr.ItemArray[0].ToString() == "BSE")
+                                    {
+                                        if (dr.ItemArray[0].ToString() == "NSE")
+                                        {
+                                            if (double.Parse(dr.ItemArray[5].ToString()) > 0)
+                                            {
+                                                dr1 = dtIIFL.NewRow();
+
+                                                dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                                //dt.Rows[i]["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                                dr1["PESM_Identifier"] = dr["Scrip Name"].ToString();
+                                                dr1["WETT_TransactionCode"] = 1;
+                                                dr1["CET_TradeDate"] = DateTime.ParseExact(txtUploadDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                                                dr1["CET_Rate"] = float.Parse(dr["Avg Buy Rate"].ToString()).ToString();
+                                                dr1["CET_Quantity"] = dr["Buy Qty"].ToString();
+                                                dr1["CET_BuySell"] = "B";
+                                                dr1["XE_ExchangeCode"] = "NSE";
+                                                dr1["CET_Brokerage"] = 0.00;
+                                                dr1["CET_ServiceTax"] = 0.00;
+                                                dr1["CET_EducationCess"] = 0.00;
+                                                dr1["CET_STT"] = 0.00;
+                                                dr1["CET_OtherCharges"] = 0.00;
+                                                dr1["CET_RateInclBrokerage"] = 0.00;
+                                                dr1["CET_TradeTotal"] = 0.00;
+                                                dr1["CET_TradeNum"] = 0;
+                                                dr1["CET_OrderNum"] = 0;
+                                                dr1["CET_IsSpeculative"] = 0;
 
 
-                        }
-                        else
+                                                ifl++;
+                                                dtIIFL.Rows.Add(dr1);
+                                            }
+
+                                            if (dr.ItemArray[0].ToString() == "NSE" && double.Parse(dr.ItemArray[8].ToString()) > 0)
+                                            {
+                                                dr1 = dtIIFL.NewRow();
+                                                dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                                dr1["PESM_Identifier"] = dr["Scrip Name"].ToString();
+                                                dr1["WETT_TransactionCode"] = 2;
+                                                dr1["CET_TradeDate"] = DateTime.ParseExact(txtUploadDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                                                dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
+                                                dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
+                                                dr1["CET_BuySell"] = "S";
+                                                dr1["XE_ExchangeCode"] = "NSE";
+                                                dr1["CET_Brokerage"] = 0;
+                                                dr1["CET_ServiceTax"] = 0;
+                                                dr1["CET_EducationCess"] = 0;
+                                                dr1["CET_STT"] = 0;
+                                                dr1["CET_OtherCharges"] = 0;
+                                                dr1["CET_RateInclBrokerage"] = 0;
+                                                dr1["CET_TradeTotal"] = 0;
+                                                dr1["CET_TradeNum"] = 0;
+                                                dr1["CET_OrderNum"] = 0;
+                                                dr1["CET_IsSpeculative"] = 0;
+
+
+                                                ifl++;
+                                                dtIIFL.Rows.Add(dr1);
+
+                                            }
+                                        }
+
+                                        else if (dr.ItemArray[0].ToString() == "BSE")
+                                        {
+                                            if (double.Parse(dr.ItemArray[5].ToString()) > 0)
+                                            {
+                                                dr1 = dtIIFL.NewRow();
+                                                dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                                dr1["PESM_Identifier"] = dr["Scrip Code"].ToString();
+                                                dr1["WETT_TransactionCode"] = 1;
+                                                dr1["CET_TradeDate"] = DateTime.ParseExact(txtUploadDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                                                dr1["CET_Rate"] = dr["Avg Buy Rate"].ToString();
+                                                dr1["CET_Quantity"] = dr["Buy Qty"].ToString();
+                                                dr1["CET_BuySell"] = "B";
+                                                dr1["XE_ExchangeCode"] = "BSE";
+                                                dr1["CET_Brokerage"] = 0;
+                                                dr1["CET_ServiceTax"] = 0;
+                                                dr1["CET_EducationCess"] = 0;
+                                                dr1["CET_STT"] = 0;
+                                                dr1["CET_OtherCharges"] = 0;
+                                                dr1["CET_RateInclBrokerage"] = 0;
+                                                dr1["CET_TradeTotal"] = 0;
+                                                dr1["CET_TradeNum"] = 0;
+                                                dr1["CET_OrderNum"] = 0;
+                                                dr1["CET_IsSpeculative"] = 0;
+
+                                                ifl++;
+                                                dtIIFL.Rows.Add(dr1);
+                                            }
+
+                                            if (double.Parse(dr.ItemArray[8].ToString()) > 0)
+                                            {
+                                                dr1 = dtIIFL.NewRow();
+                                                dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                                dr1["PESM_Identifier"] = dr["Scrip Code"].ToString();
+                                                dr1["WETT_TransactionCode"] = 2;
+                                                dr1["CET_TradeDate"] = DateTime.ParseExact(txtUploadDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                                                dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
+                                                dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
+                                                dr1["CET_BuySell"] = "S";
+                                                dr1["XE_ExchangeCode"] = "BSE";
+                                                dr1["CET_Brokerage"] = 0;
+                                                dr1["CET_ServiceTax"] = 0;
+                                                dr1["CET_EducationCess"] = 0;
+                                                dr1["CET_STT"] = 0;
+                                                dr1["CET_OtherCharges"] = 0;
+                                                dr1["CET_RateInclBrokerage"] = 0;
+                                                dr1["CET_TradeTotal"] = 0;
+                                                dr1["CET_TradeNum"] = 0;
+                                                dr1["CET_OrderNum"] = 0;
+                                                dr1["CET_IsSpeculative"] = 0;
+
+                                                ifl++;
+                                                dtIIFL.Rows.Add(dr1);
+                                            }
+
+
+
+                                        }
+
+                                    }
+
+                                }
+
+                                //DataSet dsXML = new DataSet();
+
+
+                                dsXML.Tables.Remove("Table1");
+                                dsXML.Tables.Add(dtIIFL);
+
+                            }
+
+
+                            //Get filetypeid from XML
+                            filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "EQ", Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction);
+
+                            //dsXML.Tables.Add(dtIIFL);
+                    }
+
+                         else
                         {
                             filereadflag = false;
                             rejectUpload_Flag = true;
                             reject_reason = strFileReadError;
                         }
+                      
                     }
                     else if (extension == "xls" || extension == "xlsx")
                     {
@@ -6261,23 +6437,6 @@ namespace WealthERP.Uploads
                             rejectUpload_Flag = true;
                             reject_reason = strFileReadError;
                         }
-
-                        if (rbSkipRowsYes.Checked)
-                        {
-                            ds = SkipRows(ds);
-                        }
-
-                        //get all column nams for the selcted file type
-                        dsColumnNames = uploadcommonBo.GetColumnNames((int)Contants.UploadTypes.StandardProfile);
-
-                        //Get werp Column Names for the selected type of file
-                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.StandardProfile);
-
-                        //Get XML after mapping, checking for columns
-                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
-
-                        //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, null, Contants.UploadExternalTypeStandard, Contants.UploadFileTypeProfile);
                     }
                     else if (extension == "xls" || extension == "xlsx")
                     {
