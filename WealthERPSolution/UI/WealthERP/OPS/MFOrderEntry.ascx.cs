@@ -346,11 +346,14 @@ namespace WealthERP.OPS
                     }
                     else
                     {
-                        BindFolioNumber(0);
+
                         if (mforderVo.accountid != 0)
+                        {
+                            BindFolioNumber(0);
                             ddlFolioNumber.SelectedValue = mforderVo.accountid.ToString();
-                        else
-                            ddlFolioNumber.SelectedValue = "";
+                        }
+                            //else
+                        //    ddlFolioNumber.SelectedValue = "";
                     }
                     txtReceivedDate.Enabled = false;
                     txtReceivedDate.SelectedDate =orderVo.ApplicationReceivedDate;
@@ -597,11 +600,14 @@ namespace WealthERP.OPS
                     }
                     else
                     {
-                        BindFolioNumber(0);
+
                         if (mforderVo.accountid != 0)
+                        {
+                            BindFolioNumber(0);
                             ddlFolioNumber.SelectedValue = mforderVo.accountid.ToString();
-                        else
-                            ddlFolioNumber.SelectedValue = "";
+                        }
+                        //else
+                        //    ddlFolioNumber.SelectedValue = "";
                     }
                     txtReceivedDate.Enabled = false;
                     txtReceivedDate.SelectedDate = orderVo.ApplicationReceivedDate;
@@ -1429,17 +1435,8 @@ namespace WealthERP.OPS
             {
                 GridEditableItem edititem = e.Item as GridEditableItem;
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
-
-                Label lblStatusCode = new Label();
-                Label lblOrderStep = new Label();
-                LinkButton editButton = edititem["EditCommandColumn"].Controls[0] as LinkButton;
-                Label lblOrderStatus = new Label();
-                Label lblOrderStatusReason = new Label();
-                lblStatusCode = (Label)e.Item.FindControl("lblStatusCode");
-                lblOrderStep = (Label)e.Item.FindControl("lblOrderStepCode");
-                lblOrderStatus = (Label)e.Item.FindControl("lblOrderStatus");
-                lblOrderStatusReason = (Label)e.Item.FindControl("lblOrderStatusReason");
-                Label lblCMFOS_Date = (Label)e.Item.FindControl("lblCMFOS_Date");
+            
+               
                 RadComboBox rcStatus = edititem.FindControl("ddlCustomerOrderStatus") as RadComboBox;
                 RadComboBox rcPendingReason = edititem.FindControl("ddlCustomerOrderStatusReason") as RadComboBox;
 
@@ -1451,46 +1448,7 @@ namespace WealthERP.OPS
                 string updatedStatus = rcStatus.SelectedValue;
                 string updatedReason = rcPendingReason.SelectedValue;
 
-                if (lblOrderStep.Text.Trim() == "IP")
-                {
-                    if (lblStatusCode.Text == "OMIP")
-                    {
-                        editButton.Text = "Mark as Pending";
-                        result = mfOrderBo.MFOrderAutoMatch(orderVo.OrderId, mforderVo.SchemePlanCode, mforderVo.accountid, mforderVo.TransactionCode, orderVo.CustomerId, mforderVo.Amount, orderVo.OrderDate);
-                        if (result == true)
-                        {
-                            editButton.Text = "";
-                            lblOrderStatusReason.Text = "";
-                        }
-
-                    }
-
-                    else if (lblStatusCode.Text == "OMPD")
-                    {
-                        editButton.Text = "Mark as InProcess";
-                    }
-
-                }
-                else if (lblOrderStep.Text.Trim() == "PR")
-                {
-                    if (result == true)
-                    {
-                        lblOrderStatus.Text = "Executed";
-                        lblOrderStatusReason.Text = "Order Confirmed";
-                    }
-                    else
-                    {
-                        lblOrderStatus.Text = "";
-                        lblOrderStatusReason.Text = "";
-                        lblCMFOS_Date.Text = "";
-                    }
-                    editButton.Text = "";
-                }
-                else
-                {
-                    lblOrderStatusReason.Text = "";
-                    editButton.Text = "";
-                }
+             
                 bResult = orderbo.UpdateOrderStep(updatedStatus, updatedReason, orderId, orderStepCode);
                 if (bResult == true)
                 {
@@ -1629,12 +1587,14 @@ namespace WealthERP.OPS
             rgvOrderSteps.Visible = true;
             orderId = int.Parse(OrderIds[0].ToString());
             Session["CO_OrderId"] = orderId;
+            orderVo.OrderId = orderId;
             rgvOrderSteps.Enabled = true;
             BindOrderStepsGrid();
             SetEditViewMode(true);
             btnSubmit.Visible = false;
             lnkBtnEdit.Visible = true;
             lnlBack.Visible = false;
+            imgBtnRefereshBank.Enabled = false;
             btnViewReport.Visible = true;
             btnViewInPDF.Visible = true;
             btnViewInDOC.Visible = true;
@@ -1820,7 +1780,7 @@ namespace WealthERP.OPS
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             
             ClearAllFields();
-
+            
             txtCustomerName.Text = "";
             lblGetRM.Text = "";
             lblGetBranch.Text = "";
@@ -1899,7 +1859,7 @@ namespace WealthERP.OPS
                 ddlPortfolio.Enabled = true;
                 ddlFolioNumber.Enabled = true;
                 //btnAddFolio.Enabled = true;
-                ddlAMCList.Enabled = true;
+                ddlAMCList.Enabled = false;
                 ddlAmcSchemeList.Enabled = true;
                 ddlCategory.Enabled = true;
                 txtReceivedDate.Enabled = true;
@@ -1994,6 +1954,7 @@ namespace WealthERP.OPS
             UpdateMFOrderDetails();
             mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo);
             SetEditViewMode(true);
+            imgBtnRefereshBank.Enabled = false;
             btnUpdate.Visible = false;
         }
 
