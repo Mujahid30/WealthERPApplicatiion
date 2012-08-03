@@ -982,10 +982,10 @@ namespace WealthERP.Advisor
                     {
                         drSystematicDetails["NextSystematicDate"] = nextSystematicDate.ToShortDateString();
                     }
-                    else
-                    {
-                        drSystematicDetails["NextSystematicDate"] = "---";
-                    }
+                    //else
+                    //{
+                    //    drSystematicDetails["NextSystematicDate"] = "---";
+                    //}
                     drSystematicDetails["Amount"] = decimal.Parse(dr["Amount"].ToString());
 
                     dtSystematicDetails.Rows.Add(drSystematicDetails);
