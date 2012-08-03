@@ -953,10 +953,10 @@
                                                             <table id="trAsOn" runat="server" style='display: none'>
                                                                 <tr runat="server">
                                                                     <td runat="server">
-                                                                        <asp:Label ID="lblAsOnDate" runat="server" CssClass="FieldName">As on date: </asp:Label>
+                                                                        <asp:Label ID="lblAsOnDate"   runat="server" CssClass="FieldName">As on date: </asp:Label>
                                                                     </td>
                                                                     <td runat="server">
-                                                                        <asp:TextBox ID="txtAsOnDate" runat="server" CssClass="txtField"></asp:TextBox><ajaxToolkit:CalendarExtender
+                                                                        <asp:TextBox ID="txtAsOnDate" OnTextChanged="ChckBussDate_Textchanged" AutoPostBack="true"  runat="server" CssClass="txtField"></asp:TextBox><ajaxToolkit:CalendarExtender
                                                                             ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtAsOnDate">
                                                                         </ajaxToolkit:CalendarExtender>
                                                                         <ajaxToolkit:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
@@ -1094,7 +1094,7 @@
                                                                             <td width="100%">
                                                                                 <asp:Label ID="lblPickAsOnDate" runat="server" CssClass="FieldName" 
                                                                                     Text="Pick As on Date :"></asp:Label>
-                                                                                <asp:TextBox ID="txtEmailAsOnDate" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                                <asp:TextBox ID="txtEmailAsOnDate" runat="server" OnTextChanged="ChckBussDate_Textchanged" AutoPostBack="true" CssClass="txtField"></asp:TextBox>
                                                                                 <ajaxToolkit:CalendarExtender ID="txtEmailAsOnDate_CalendarExtender" 
                                                                                     runat="server" Enabled="True" Format="dd/MM/yyyy" 
                                                                                     TargetControlID="txtEmailAsOnDate">

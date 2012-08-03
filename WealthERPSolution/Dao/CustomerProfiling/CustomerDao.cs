@@ -3267,7 +3267,31 @@ namespace DaoCustomerProfiling
 
             return ds;
         }
-
+        public bool ChckBussinessDate(DateTime chckdate)
+        {
+            DataSet dsBussinessDate = new DataSet();
+            Database db;
+            DbCommand ChckBussinessDatecmd;
+            bool isCorrect;
+            try
+           {
+              
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               ChckBussinessDatecmd = db.GetStoredProcCommand("SP_ChckBussinessDate");
+               db.AddInParameter(ChckBussinessDatecmd, "@bussdate", DbType.DateTime, chckdate);
+               dsBussinessDate = db.ExecuteDataSet(ChckBussinessDatecmd);
+               if (dsBussinessDate.Tables != null && dsBussinessDate.Tables.Count > 0 && dsBussinessDate.Tables[0].Rows.Count > 0)
+                   isCorrect = true;
+               else
+                   isCorrect = false;
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+            return isCorrect;
+       }
+        
         public void CustomerFPReportsAssumption(int customerId, decimal assumptionInflation, decimal assumptionInvestment, decimal assumptionDr)
         {
             Database db;

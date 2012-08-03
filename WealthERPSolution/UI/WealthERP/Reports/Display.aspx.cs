@@ -3441,7 +3441,7 @@ namespace WealthERP.Reports
                 //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                 crmain.SetParameterValue("RMContactDetails", "E-mail: " + advisorVo.Email);
                 crmain.SetParameterValue("MobileNo", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
-                string[] array = new string[5];
+                
                 string formatstring ="";
                 if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
                     formatstring = customerVo.Adr1Line1.Trim();
@@ -3468,38 +3468,8 @@ namespace WealthERP.Reports
                         formatstring = formatstring + "," + customerVo.Adr1City.Trim();
                         //array[1] = customerVo.Adr1Line2.Trim();
                     }
-                //    array[2] = customerVo.Adr1City.Trim();
-                //formatstring = string.Join(",", array);
-                //formatstring = formatstring.TrimEnd(',');
+
                 crmain.SetParameterValue("CustomerAddress", formatstring);
-
-                //var list = new List<string>();
-                //if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
-                //    list.Add(customerVo.Adr1Line1.Trim());
-                //if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
-                //    list.Add(customerVo.Adr1Line2.Trim());
-                //if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
-                //    list.Add(customerVo.Adr1City.Trim());
-                //StringBuilder formatstring= new StringBuilder();
-              
-                //crmain.SetParameterValue("CustomerAddress", formatstring);
-               //string formatstring = new string( string)
-               // {
-               //StringBuilder strabc=new StringBuilder(list);
-
-               // foreach(string str in list)
-               // {
-               //  strabc.Append(str+",");
-               // }
-                //if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && !string.IsNullOrEmpty(customerVo.Adr1Line2.Trim()) && !string.IsNullOrEmpty(customerVo.Adr1Line3.Trim()) && !string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
-                //    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim() + " " +customerVo.Adr1Line2.Trim()+" "+customerVo.Adr1Line3.Trim()+" "+customerVo.Adr1City.Trim());
-                //else if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
-                //    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim());
-                //else if (!string.IsNullOrEmpty(customerVo.Adr1City.Trim()) && string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
-                //    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1City.Trim());
-                //else
-                //    crmain.SetParameterValue("CustomerAddress", "");
-
                 crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
                 crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
@@ -3530,7 +3500,7 @@ namespace WealthERP.Reports
        {
            try
            {
-               dtPortfolioXIRR.Columns.Add("AbsoluteReturn");
+               dtPortfolioXIRR.Columns.Add("AbsoluteReturn",typeof(Int64));
                int portfolioId = 0;
                DataRow[] drAbsolutereturn;
                foreach (DataRow dr in dtPortfolioXIRR.Rows)

@@ -348,7 +348,7 @@ namespace WealthERP.Reports
             ////lblTotalRows.Text = string.Empty;
             ////mypager.Visible = false;
         }
-
+        
         protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
         {
             CustomerBo customerBo = new CustomerBo();
@@ -401,7 +401,24 @@ namespace WealthERP.Reports
             tabViewAndEmailReports.ActiveTab = tabViewAndEmailReports.Tabs[activeTabIndex];
             tabViewAndEmailReports.ActiveTabIndex = 0;
         }
+        protected void ChckBussDate_Textchanged(object sender, EventArgs e)
+        {
+            CustomerBo customerBo = new CustomerBo();
+             bool isCorrect = false;
+           DateTime chckdate=DateTime.Parse(txtAsOnDate.Text);
+             isCorrect=customerBo.ChckBussinessDate(chckdate);
+             if (isCorrect == true)
+                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
 
+             else
+             {
+                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid!!!Choose a Valid Bussiness Date ');", true);
+                 btnEmailReport.Enabled = false;
+                 btnExportToPDF.Enabled = false;
+                 btnViewInDOC.Enabled = false;
+                 btnViewReport.Enabled = false;
+             }
+        }
        
         /// <summary>
         /// When Customer Indivisua login, then and group report is selected then Show all Customer. Author:Pramod

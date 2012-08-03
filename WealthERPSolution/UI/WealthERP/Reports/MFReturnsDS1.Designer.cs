@@ -1464,7 +1464,7 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PortfolioXIRRRow AddPortfolioXIRRRow(int CustomerId, string CustomerName, int PortfolioId, decimal XIRR, string PortfolioName, decimal AbsoluteReturn) {
+            public PortfolioXIRRRow AddPortfolioXIRRRow(int CustomerId, string CustomerName, int PortfolioId, decimal XIRR, string PortfolioName, long AbsoluteReturn) {
                 PortfolioXIRRRow rowPortfolioXIRRRow = ((PortfolioXIRRRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CustomerId,
@@ -1512,7 +1512,7 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnXIRR);
                 this.columnPortfolioName = new global::System.Data.DataColumn("PortfolioName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPortfolioName);
-                this.columnAbsoluteReturn = new global::System.Data.DataColumn("AbsoluteReturn", typeof(decimal), null, global::System.Data.MappingType.Element);
+                this.columnAbsoluteReturn = new global::System.Data.DataColumn("AbsoluteReturn", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAbsoluteReturn);
             }
             
@@ -3377,10 +3377,10 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal AbsoluteReturn {
+            public long AbsoluteReturn {
                 get {
                     try {
-                        return ((decimal)(this[this.tablePortfolioXIRR.AbsoluteReturnColumn]));
+                        return ((long)(this[this.tablePortfolioXIRR.AbsoluteReturnColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'AbsoluteReturn\' in table \'PortfolioXIRR\' is DBNull.", e);

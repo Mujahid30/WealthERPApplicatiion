@@ -828,7 +828,7 @@ namespace WealthERP.Reports
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
                         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
                         DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
-                        dtReturnsPortfolio.Columns.Add("FolioStartDate");
+                       
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
 
@@ -856,9 +856,11 @@ namespace WealthERP.Reports
                         crmain.Load(Server.MapPath("ComprehensiveMFReport.rpt"));
                         customerPortfolioBo = new CustomerPortfolioBo();
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
+                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[0];
+                       
                         DataTable dtPortfolioXIRRComp = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         
-                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[5];
+                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[6];
                         dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRRComp, dtReturnsPortfolio);
                         if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
                         {
@@ -1053,7 +1055,35 @@ namespace WealthERP.Reports
                 crmain.SetParameterValue("MobileNo", "Phone: " + "+" + customerVo.RMOfficePhone);
                 crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
-                crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);
+                //crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);
+
+                string formatstring = "";
+                if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
+                    formatstring = customerVo.Adr1Line1.Trim();
+                //array[0] = customerVo.Adr1Line1.Trim();
+                if (!string.IsNullOrEmpty(customerVo.Adr1Line2.Trim()))
+                {
+                    if (formatstring == "")
+                    {
+                        formatstring = customerVo.Adr1Line2.Trim();
+                    }
+                    else
+                    {
+                        formatstring = formatstring + "," + customerVo.Adr1Line2.Trim();
+                        //array[1] = customerVo.Adr1Line2.Trim();
+                    }
+                }
+                if (!string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
+                    if (formatstring == "")
+                    {
+                        formatstring = customerVo.Adr1City.Trim();
+                    }
+                    else
+                    {
+                        formatstring = formatstring + "," + customerVo.Adr1City.Trim();
+                        //array[1] = customerVo.Adr1Line2.Trim();
+                    }
+                crmain.SetParameterValue("CustomerAddress", formatstring);
                 crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
 
             }

@@ -147,7 +147,22 @@ namespace BoCustomerProfiling
 
             return custUserId;
         }
+        public bool ChckBussinessDate(DateTime chckdate)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            bool isCorrect=false;
+            try
+            {
+              isCorrect=customerDao.ChckBussinessDate(chckdate);
+                
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isCorrect;
+        }
 
         /// <summary>
         /// Used to Get Customer User Details
