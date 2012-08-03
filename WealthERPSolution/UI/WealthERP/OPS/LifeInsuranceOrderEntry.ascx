@@ -13,7 +13,7 @@
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
 <script type="text/javascript" language="javascript">
-    function GetCustomerId(source, eventArgs) {
+    function GetCustomerId(source, eventArgs) {      
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
         return false;
     }    
@@ -36,12 +36,12 @@
         }
     }
 </script>
-<script>
-    function openpopupAddBank() {
-        window.open('PopUp.aspx?PageId=AddBankDetails', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-        return false;
-    }
+<script  language="javascript" type="text/javascript">
 
+       function openpopupAddBank() {  
+               window.open('PopUp.aspx?PageId=AddBankDetails', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+               return false;  
+   }
     function openpopupAddCustomer() {
         window.open('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
@@ -522,10 +522,10 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
            <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlBankName"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
                 Operator="NotEqual" ValidationGroup="Submit" ValueToCompare="Select"></asp:CompareValidator> 
-            <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+            <asp:ImageButton ID="imgBtnAddBank" Visible="false" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                 Height="6%" Width="6%" ></asp:ImageButton>
-                  <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
+                  <asp:ImageButton ID="imgBtnRefereshBank" Visible="false" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                 runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
                 Height="15px" Width="25px" ></asp:ImageButton>
         </td>
@@ -638,7 +638,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </tr>
     </table>
 </asp:Panel>
-<asp:HiddenField ID="hdnCustomerId" runat="server" />
+<asp:HiddenField ID="hdnCustomerId" Value="0" runat="server" />
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnSchemeCode" runat="server" />
 <asp:HiddenField ID="hdnType" runat="server" />

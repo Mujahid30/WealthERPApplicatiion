@@ -148,6 +148,8 @@ namespace WealthERP.OPS
             {
                 customerId = int.Parse(txtCustomerId.Value);
                 LoadCustomerDetails(customerId);
+                imgBtnAddBank.Visible=true;
+                imgBtnRefereshBank.Visible= true;
             }
         }
 
