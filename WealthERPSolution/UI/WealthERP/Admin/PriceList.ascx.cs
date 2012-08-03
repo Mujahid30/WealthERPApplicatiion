@@ -217,6 +217,7 @@ namespace WealthERP.Admin
             //trFromDate.Style.Add("display", "none");
             //trToDate.Style.Add("display", "none");
             trFromDate.Visible = false;
+            trExportFilteredMFRecord.Visible = true;
             trToDate.Visible = false;
             trbtnSubmit.Visible = true;
             //trgrMfView.Visible = false;
@@ -252,6 +253,8 @@ namespace WealthERP.Admin
             trPageCount.Visible = false;
             trPager.Visible = false;
             trMfPagecount.Visible = false;
+            trExportFilteredMFRecord.Visible = true;
+
             //if (IsPostBack)
             //{
             //    ddlSelectMutualFund.SelectedIndex = 0;

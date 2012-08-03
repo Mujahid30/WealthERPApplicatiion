@@ -299,7 +299,7 @@
                                             GridLines="None" AutoGenerateColumns="False" PageSize="10" AllowSorting="true"
                                             AllowPaging="True" ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
                                             Width="120%" AllowFilteringByColumn="true" AllowAutomaticInserts="false">
-                                            <ExportSettings ExportOnlyData="true" HideStructureColumns="true" FileName="MFRecordslist">
+                                            <ExportSettings ExportOnlyData="true" HideStructureColumns="true" FileName="MFNavRecordslist">
                                             </ExportSettings>
                                             <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                                 CommandItemDisplay="None">
