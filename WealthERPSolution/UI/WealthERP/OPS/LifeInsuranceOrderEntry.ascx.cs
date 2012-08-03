@@ -720,9 +720,10 @@ namespace WealthERP.OPS
         {
             RadComboBox rcStatus = (RadComboBox)o;
             GridEditableItem editedItem = rcStatus.NamingContainer as GridEditableItem;
-            RadComboBox rcPendingReason = editedItem.FindControl("rcbPendingReason") as RadComboBox;
-            string statusOrderCode = rcStatus.SelectedValue;
-            BindRadComboBoxPendingReason(rcPendingReason, statusOrderCode);
+            RadComboBox rcPendingReason = editedItem.FindControl("ddlCustomerOrderStatus") as RadComboBox;
+            RadComboBox ddlCustomerOrderStatusReason = editedItem.FindControl("ddlCustomerOrderStatusReason") as RadComboBox;
+            string statusOrderCode = rcPendingReason.SelectedValue;
+            BindRadComboBoxPendingReason(ddlCustomerOrderStatusReason, statusOrderCode);
         }
 
         protected void BindRadComboBoxPendingReason(RadComboBox rcPendingReason, string statusOrderCode)

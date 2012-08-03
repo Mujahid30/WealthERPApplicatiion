@@ -870,7 +870,7 @@
                         <telerik:GridTemplateColumn DataField="XS_StatusCode" HeaderText="Status" 
                          UniqueName="DropDownColumnStatus">  
                             <EditItemTemplate> 
-                                <telerik:RadComboBox ID="ddlCustomerOrderStatus" SelectedValue='<%#Bind("XS_StatusCode") %>'  runat="server">  
+                                <telerik:RadComboBox ID="ddlCustomerOrderStatus" AutoPostBack="true" OnSelectedIndexChanged="ddlCustomerOrderStatus_OnSelectedIndexChanged" SelectedValue='<%#Bind("XS_StatusCode") %>'  runat="server">  
                                 </telerik:RadComboBox> 
                             </EditItemTemplate> 
                             <ItemTemplate>
@@ -881,7 +881,7 @@
                         <telerik:GridTemplateColumn DataField="XSR_StatusReasonCode" HeaderText="Pending Reason" 
                          UniqueName="DropDownColumnStatusReason">  
                             <EditItemTemplate> 
-                                <telerik:RadComboBox ID="ddlCustomerOrderStatusReason" SelectedValue='<%#Bind("XSR_StatusReasonCode") %>' runat="server">  
+                                <telerik:RadComboBox ID="ddlCustomerOrderStatusReason" runat="server">  
                                 </telerik:RadComboBox> 
                             </EditItemTemplate>
                             <ItemTemplate>

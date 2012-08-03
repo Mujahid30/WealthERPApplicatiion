@@ -1341,14 +1341,16 @@ namespace WealthERP.OPS
             }
         }
 
-        //protected void comboOrderStatus_SelectedIndexChanged(object o, RadComboBoxSelectedIndexChangedEventArgs e)
-        //{
-        //    RadComboBox rcStatus = (RadComboBox)o;
-        //    GridEditableItem editedItem = rcStatus.NamingContainer as GridEditableItem;
-        //    RadComboBox rcPendingReason = editedItem.FindControl("rcbPendingReason") as RadComboBox;
-        //    string statusOrderCode = rcStatus.SelectedValue;
-        //    //BindRadComboBoxPendingReason(rcPendingReason, statusOrderCode);
-        //}
+        protected void ddlCustomerOrderStatus_OnSelectedIndexChanged(object o, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            RadComboBox rcStatus = (RadComboBox)o;
+            GridEditableItem editedItem = rcStatus.NamingContainer as GridEditableItem;
+            RadComboBox ddlCustomerOrderStatus = editedItem.FindControl("ddlCustomerOrderStatus") as RadComboBox;
+            RadComboBox rcPendingReason = editedItem.FindControl("ddlCustomerOrderStatusReason") as RadComboBox;
+
+            string statusOrderCode = ddlCustomerOrderStatus.SelectedValue;
+            BindRadComboBoxPendingReason(rcPendingReason, statusOrderCode);
+        }
 
         protected void rgvOrderSteps_ItemDataBound(object sender, GridItemEventArgs e)
         {
