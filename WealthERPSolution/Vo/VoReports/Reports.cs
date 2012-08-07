@@ -61,6 +61,7 @@ namespace VoReports
         public int CustomerId;
         public string Type;
         public int SchemeCode;
+        public int orderId;
     }
 
     public enum ReportType
