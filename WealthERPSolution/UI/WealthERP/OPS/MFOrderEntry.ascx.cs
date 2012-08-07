@@ -109,7 +109,7 @@ namespace WealthERP.OPS
                 cvFutureDate1.ValueToCompare = DateTime.Today.ToShortDateString();
                 BindAMC(0);
                 BindScheme(0);
-                BindFolioNumber(0);
+                //BindFolioNumber(0);
                 //BindOrderStatus();
                 BindCategory();
                 BindState();
@@ -1137,20 +1137,21 @@ namespace WealthERP.OPS
             DataTable dtgetfolioNo;
             try
             {
-                if (ddlAMCList.SelectedIndex != 0)
+                if (ddlAMCList.SelectedIndex != 0 && ddlAmcSchemeList.SelectedIndex!=0)
                 {
                     amcCode = int.Parse(ddlAMCList.SelectedValue);
+                    schemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
                     if (txtCustomerId.Value == "")
                         dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 1);
                     else
-                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(portfolioId, amcCode, 1, Fflag, int.Parse(txtCustomerId.Value));
+                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value));
                 }
                 else
                 {
                     if (txtCustomerId.Value == "")
                         dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 0);
                     else
-                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(portfolioId, amcCode, 0, Fflag, int.Parse(txtCustomerId.Value));
+                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value));
                 }
                 if (dsgetfolioNo.Tables.Count > 0)
                 {
@@ -1195,7 +1196,7 @@ namespace WealthERP.OPS
                     {
                         BindAMC(0);
                         BindScheme(0);
-                        BindFolioNumber(0);
+                        //BindFolioNumber(0);
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
                     }
@@ -1203,7 +1204,7 @@ namespace WealthERP.OPS
                     {
                         BindAMC(0);
                         BindScheme(0);
-                        BindFolioNumber(0);
+                        //BindFolioNumber(0);
                         trFrequency.Visible = true;
                         trSIPStartDate.Visible = true;
                     }
@@ -1211,7 +1212,7 @@ namespace WealthERP.OPS
                     {
                         BindAMC(1);
                         BindScheme(1);
-                        BindFolioNumber(1);
+                        //BindFolioNumber(1);
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
                     }
@@ -1247,7 +1248,7 @@ namespace WealthERP.OPS
                     }
                     BindAMC(1);
                     BindScheme(1);
-                    BindFolioNumber(1);
+                    //BindFolioNumber(1);
 
                 }
                 else if (ddltransType.SelectedValue == "CAF")
@@ -1524,12 +1525,12 @@ namespace WealthERP.OPS
                 if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
                 {
                     BindScheme(0);
-                    BindFolioNumber(0);
+                    //BindFolioNumber(0);
                 }
                 else
                 {
                     BindScheme(1);
-                    BindFolioNumber(1);
+                    //BindFolioNumber(1);
                 }
                 BindSchemeSwitch();
             }
@@ -1566,6 +1567,7 @@ namespace WealthERP.OPS
                 {
                     if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
                     {
+                        BindFolioNumber(1);
                         DataSet dsGetAmountUnits;
                         DataTable dtGetAmountUnits;
                         dsGetAmountUnits = operationBo.GetAmountUnits(schemePlanCode, int.Parse(txtCustomerId.Value));
@@ -1578,6 +1580,8 @@ namespace WealthERP.OPS
                         }
                     }
                 }
+                else
+                    BindFolioNumber(0);
             }
         }
 
@@ -1647,10 +1651,10 @@ namespace WealthERP.OPS
                 mforderVo.Amount = double.Parse(txtAmount.Text);
             else
                 mforderVo.Amount = 0;
-            if (!string.IsNullOrEmpty((lblGetAvailableUnits.Text).ToString().Trim()))
-                mforderVo.Units = double.Parse(lblGetAvailableUnits.Text);
-            else
-                mforderVo.Units = 0;
+            //if (!string.IsNullOrEmpty((lblGetAvailableUnits.Text).ToString().Trim()))
+            //    mforderVo.Units = double.Parse(lblGetAvailableUnits.Text);
+            //else
+            //    mforderVo.Units = 0;
             if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
             {
                 if (rbtAmount.Checked == true)

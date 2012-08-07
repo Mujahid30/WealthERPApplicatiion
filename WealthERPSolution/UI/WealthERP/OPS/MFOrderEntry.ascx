@@ -249,7 +249,7 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtReceivedDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application received Date"
                 Display="Dynamic" runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <asp:CompareValidator id="cvAppRcvDate" runat="server" ControlToValidate="txtReceivedDate"
+            <asp:CompareValidator id="cvAppRcvDate" runat="server" ControlToValidate="txtReceivedDate" Display="Dynamic"
                 CssClass="cvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Application Received date must be less than or equal to Today"
                 Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
         </td>
@@ -473,9 +473,9 @@
             <asp:CompareValidator ID="CVPaymentDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-            <asp:CompareValidator ID="cvdate" runat="server" ErrorMessage="<br />Payment Instrument Date should be less than or equal to Order Date"
+            <%--<asp:CompareValidator ID="cvdate" runat="server" ErrorMessage="<br />Payment Instrument Date should be less than or equal to Order Date"
                 Type="Date" ControlToValidate="txtPaymentInstDate" ControlToCompare="txtOrderDate"
-                Operator="LessThanEqual" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+                Operator="LessThanEqual" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>--%>
         </td>
     </tr>
     
