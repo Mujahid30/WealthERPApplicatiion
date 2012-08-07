@@ -785,6 +785,7 @@ namespace DaoReports
                 db.AddInParameter(getOrderTransactionFormCmd, "@customerId", DbType.Int32, report.CustomerId);
                 db.AddInParameter(getOrderTransactionFormCmd, "@SchemeCode", DbType.Int32, report.SchemeCode);
                 db.AddInParameter(getOrderTransactionFormCmd, "@Type", DbType.String, report.Type);
+                db.AddInParameter(getOrderTransactionFormCmd, "@OrderId", DbType.Int32, report.orderId);
                 getOrderTransactionFormCmd.CommandTimeout = 60 * 60;
                 dsgetOrderTransactionForm = db.ExecuteDataSet(getOrderTransactionFormCmd);
                 
