@@ -366,7 +366,9 @@ namespace WealthERP.OPS
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('OrderMIS','?result=" + result + "');", true);
                 pnlOrderSteps.Visible = true;
                 rgvOrderSteps.Visible = true;
-                SetEnableDisableControls("Entry");
+                SetEnableDisableControls("Edit");
+                btnSubmit.Visible = false;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
                 BindOrderStepsGrid();
             }
             else
