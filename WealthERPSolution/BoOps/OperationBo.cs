@@ -270,12 +270,12 @@ namespace BoOps
         }
 
 
-        public DataSet GetFolioForOrderEntry(int portfolioId, int amcCode, int all, int Fflag, int customerId)
+        public DataSet GetFolioForOrderEntry(int SchemeCode, int amcCode, int Fflag, int customerId)
         {
             DataSet dsfolio;
             try
             {
-                dsfolio = operationDao.GetFolioForOrderEntry(portfolioId, amcCode, all, Fflag, customerId);
+                dsfolio = operationDao.GetFolioForOrderEntry(SchemeCode, amcCode, Fflag, customerId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -286,12 +286,11 @@ namespace BoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationBo.cs:GetFolioForOrderEntry()");
-                object[] objects = new object[5];
-                objects[0] = portfolioId;
+                object[] objects = new object[4];
+                objects[0] = SchemeCode;
                 objects[1] = amcCode;
-                objects[2] = all;
-                objects[3] = Fflag;
-                objects[4] = customerId;
+                objects[2] = Fflag;
+                objects[3] = customerId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
