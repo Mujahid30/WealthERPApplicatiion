@@ -349,7 +349,7 @@ namespace DaoOps
             return dsScheme;
         }
 
-        public DataSet GetFolioForOrderEntry(int portfolioId, int amcCode, int all, int Fflag, int customerId)
+        public DataSet GetFolioForOrderEntry(int SchemeCode, int amcCode,  int Fflag, int customerId)
         {
             DataSet dsfolio;
             Database db;
@@ -358,9 +358,8 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getdsfoliocmd = db.GetStoredProcCommand("SP_GetFolioForOrderEntry");
-                db.AddInParameter(getdsfoliocmd, "@portfolioId", DbType.Int32, portfolioId);
+                db.AddInParameter(getdsfoliocmd, "@SchemeCode", DbType.Int32, SchemeCode);
                 db.AddInParameter(getdsfoliocmd, "@amcCode", DbType.Int32, amcCode);
-                db.AddInParameter(getdsfoliocmd, "@all", DbType.Int32, all);
                 db.AddInParameter(getdsfoliocmd, "@flag", DbType.Int16, Fflag);
                 db.AddInParameter(getdsfoliocmd, "@customerId", DbType.Int32, customerId);
                 getdsfoliocmd.CommandTimeout = 60 * 60;
@@ -375,12 +374,11 @@ namespace DaoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationDao.cs:GetFolioForOrderEntry()");
-                object[] objects = new object[5];
-                objects[0] = portfolioId;
+                object[] objects = new object[4];
+                objects[0] = SchemeCode;
                 objects[1] = amcCode;
-                objects[2] = all;
-                objects[3] = Fflag;
-                objects[4] = customerId;
+                objects[2] = Fflag;
+                objects[3] = customerId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
