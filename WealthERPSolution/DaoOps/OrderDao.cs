@@ -329,13 +329,14 @@ namespace DaoOps
                 db.AddInParameter(LifeInsuranceOrderCmd, "@CustBankAccId", DbType.String, lifeInsuranceOrdervo.CustBankAccId);
                 db.AddInParameter(LifeInsuranceOrderCmd, "@SumAssured", DbType.Double, lifeInsuranceOrdervo.SumAssured);
                 db.AddInParameter(LifeInsuranceOrderCmd, "@FrequencyCode", DbType.String, lifeInsuranceOrdervo.FrequencyCode);
-                //if (lifeInsuranceOrdervo.HoldingMode != null && lifeInsuranceOrdervo.HoldingMode != "" && lifeInsuranceOrdervo.HoldingMode != "Select")
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, lifeInsuranceOrdervo.HoldingMode);
-                //else
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, DBNull.Value);
-                //db.AddInParameter(LifeInsuranceOrderCmd, "@IsJointlyHeld", DbType.String, lifeInsuranceOrdervo.IsJointlyHeld);
-                //db.AddInParameter(LifeInsuranceOrderCmd, "@InsuranceSchemeid", DbType.Int32, lifeInsuranceOrdervo.InsuranceSchemeId);
-                //db.AddInParameter(LifeInsuranceOrderCmd, "@AssetCategory", DbType.String, lifeInsuranceOrdervo.AssetCategory);
+                if (lifeInsuranceOrdervo.HoldingMode != null && lifeInsuranceOrdervo.HoldingMode != "" && lifeInsuranceOrdervo.HoldingMode != "Select")
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, lifeInsuranceOrdervo.HoldingMode);
+                else
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, DBNull.Value);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@IsJointlyHeld", DbType.String, lifeInsuranceOrdervo.IsJointlyHeld);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@InsuranceSchemeid", DbType.Int32, lifeInsuranceOrdervo.InsuranceSchemeId);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@AssetCategory", DbType.String, lifeInsuranceOrdervo.AssetCategory);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@AssetGroup", DbType.String, lifeInsuranceOrdervo.AssetGroup);
 
                 //db.AddInParameter(LifeInsuranceOrderCmd, "@SourceCode", DbType.String, lifeInsuranceOrdervo.SourceCode);
 
@@ -344,10 +345,10 @@ namespace DaoOps
                 //else
                 //    db.AddInParameter(LifeInsuranceOrderCmd, "@WOS_OrderStepCode", DbType.String, DBNull.Value);
 
-                //if (lifeInsuranceOrdervo.InsuranceIssuerCode != "")
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@XII_InsuranceIssuerCode", DbType.String, lifeInsuranceOrdervo.InsuranceIssuerCode);
-                //else
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@XII_InsuranceIssuerCode", DbType.String, DBNull.Value);
+                if (lifeInsuranceOrdervo.InsuranceIssuerCode != "")
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@XII_InsuranceIssuerCode", DbType.String, lifeInsuranceOrdervo.InsuranceIssuerCode);
+                else
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@XII_InsuranceIssuerCode", DbType.String, DBNull.Value);
 
                 //if (lifeInsuranceOrdervo.GIIssuerCode != null)
                 //    db.AddInParameter(LifeInsuranceOrderCmd, "@XGII_GIIssuerCode", DbType.String, lifeInsuranceOrdervo.GIIssuerCode);
