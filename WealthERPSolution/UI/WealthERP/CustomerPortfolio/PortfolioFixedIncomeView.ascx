@@ -32,13 +32,23 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
+<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
 <table class="TableBackground" width="100%">
     <tr>
-        <td class="HeaderCell">
+      <td>  
+             <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left"> Fixed Income Portfolio</td>
+                    
+                </tr>
+                </table>
+            </div>
+            </td>
+     <%--   <td class="HeaderCell">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Fixed Income Portfolio"></asp:Label>
             <hr />
-        </td>
+        </td>--%>
     </tr>
     <tr>
         <td>

@@ -20,10 +20,26 @@
     <ContentTemplate>
         <table style="width: 100%;">
             <tr>
-                <td class="HeaderCell" colspan="4">
+              <td colspan="4">  
+             <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left"> Fixed Income</td>
+                    <td align="right">
+                         <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click">Edit</asp:LinkButton>
+                        &nbsp; &nbsp; 
+                        <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
+                        OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                            </td>
+                            <td></td>
+                </tr>
+                </table>
+            </div>
+            </td>
+               <%-- <td class="HeaderCell" colspan="4">
                     <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Fixed Income"></asp:Label>
                     <hr />
-                </td>
+                </td>--%>
             </tr>
             <tr>
                 <td colspan="4" class="tdRequiredText">
@@ -33,14 +49,14 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
-                        OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                  <%--  <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
+                        OnClick="lnkBtnBack_Click"></asp:LinkButton>--%>
                 </td>
             </tr>
             <tr>
                 <td colspan="4">
-                    <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click">Edit</asp:LinkButton>
-                </td>
+                  <%--  <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click">Edit</asp:LinkButton>
+ --%>               </td>
             </tr>
             <tr>
                 <td class="leftField">

@@ -181,11 +181,11 @@ namespace WealthERP.CustomerPortfolio
 
         private void SetOthers()
         {
-            trDepositDetails.Visible = false;
-            trDepoDateMatDate.Visible = false;
+            trDepositDetails.Visible = true;
+            trDepoDateMatDate.Visible = true;
             trFaceValDebNum.Visible = false;
-            trDeposit.Visible = false;
-            trDepositDetailsSpace.Visible = false;
+            trDeposit.Visible = true;
+            trDepositDetailsSpace.Visible = true;
 
             trDDBDetails.Visible = false;
             trDDBIssuePurchaseDate.Visible = false;
@@ -568,6 +568,12 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (customerAccountVo.AssetCategory.ToString().Trim() == "FIML" || customerAccountVo.AssetCategory.ToString().Trim() == "FIOT")
                 {
+                    txtDepositDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
+                    txtDepositDate.Enabled = false;
+                    txtMaturityDate.Text = fixedIncomeVo.MaturityDate.ToShortDateString();
+                    txtMaturityDate.Enabled = false;
+                    txtDepositAmount.Text = fixedIncomeVo.PrinciaplAmount.ToString();
+                    txtDepositAmount.Enabled = false;
                     txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
                     txtInterstRate.Enabled = false;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
@@ -970,6 +976,12 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (customerAccountVo.AssetCategory.ToString().Trim() == "FIML" || customerAccountVo.AssetCategory.ToString().Trim() == "FIOT")
                 {
+                    txtDepositDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
+                    txtDepositDate.Enabled = true;
+                    txtMaturityDate.Text = fixedIncomeVo.MaturityDate.ToShortDateString();
+                    txtMaturityDate.Enabled = true;
+                    txtDepositAmount.Text = fixedIncomeVo.PrinciaplAmount.ToString();
+                    txtDepositAmount.Enabled = true;
                     txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
                     txtInterstRate.Enabled = true;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
@@ -1368,6 +1380,9 @@ namespace WealthERP.CustomerPortfolio
                         fixedincomeVo.CompoundInterestFrequencyCode = ddlCompoundInterestFreq.SelectedItem.Value.ToString();
                     }
                     fixedincomeVo.InterestPayableFrequencyCode = ddlPayableFrequencyCode.SelectedValue.ToString();
+                    fixedincomeVo.PurchaseDate = DateTime.Parse(txtDepositDate.Text.Trim());
+                    fixedincomeVo.MaturityDate = DateTime.Parse(txtMaturityDate.Text.Trim());
+                    fixedincomeVo.PrinciaplAmount = float.Parse(txtDepositAmount.Text.ToString());
                     if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
                     {
                         fixedincomeVo.IsInterestAccumulated = 1;
@@ -2079,7 +2094,10 @@ namespace WealthERP.CustomerPortfolio
 
                     newFixedIncomeVo.InterestRate = float.Parse(txtInterstRate.Text.ToString());
                     newFixedIncomeVo.InterestBasisCode = ddlInterestBasis.SelectedItem.Value.ToString();
-
+                    newFixedIncomeVo.PurchaseDate = DateTime.Parse(txtDepositDate.Text);
+                    //newFixedIncomeVo.MaturityDate = DateTime.Parse(ddlMaturityDay.SelectedItem.Value.ToString() + "/" + ddlMaturityMonth.SelectedItem.Value.ToString() + "/" + ddlMaturityYear.SelectedItem.Text.ToString());
+                    newFixedIncomeVo.MaturityDate = DateTime.Parse(txtMaturityDate.Text);
+                    newFixedIncomeVo.PrinciaplAmount = float.Parse(txtDepositAmount.Text.ToString());
                     if (newFixedIncomeVo.InterestBasisCode == "CI")
                     {
                         newFixedIncomeVo.CompoundInterestFrequencyCode = ddlCompoundInterestFreq.SelectedItem.Value.ToString();
@@ -2093,7 +2111,10 @@ namespace WealthERP.CustomerPortfolio
                     {
                         newFixedIncomeVo.InterestAmtPaidOut = int.Parse(txtInterestAmtCredited.Text.ToString());
                     }
-
+                    if (txtCurrentValue.Text != "")
+                        newFixedIncomeVo.CurrentValue = float.Parse(txtCurrentValue.Text.ToString());
+                    if (txtMaturityValue.Text != "")
+                        newFixedIncomeVo.MaturityValue = float.Parse(txtMaturityValue.Text.ToString());
                     fixedincomeBo.UpdateFixedIncomePortfolio(newFixedIncomeVo, userVo.UserId);
                 }
             }
