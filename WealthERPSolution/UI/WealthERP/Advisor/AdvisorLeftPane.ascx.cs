@@ -334,7 +334,17 @@ namespace WealthERP.Advisor
               
               
             }
-                
+            //if (!String.IsNullOrEmpty(Session["NodeType"].ToString()))
+            //{
+
+            //    Session.Remove("NodeType");
+            //}
+
+            if (Session["NodeType"] != null)
+            {
+
+                Session.Remove("NodeType");
+            }
             }
         }
 
