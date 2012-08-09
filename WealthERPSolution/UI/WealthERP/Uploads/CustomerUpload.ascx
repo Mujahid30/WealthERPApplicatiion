@@ -156,17 +156,25 @@
         </td>
     </tr>
 </table>--%>
+<table width="100%">
+<tr>
+<td>
 <div class="divPageHeading">
     <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
-            <td class="HeaderCell">
-                <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+        <td align="left">Uploads</td>
+            <td align="right">
+                <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
                     class="flip" />
-                <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Uploads"></asp:Label>
+                
             </td>
         </tr>
     </table>
 </div>
+</td>
+</tr>
+</table>
+
 <table width="100%">
     <tr>
         <td colspan="3">
