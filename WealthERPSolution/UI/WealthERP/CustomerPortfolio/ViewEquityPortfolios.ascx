@@ -34,15 +34,23 @@
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 
+<table width="100%">
+<tr>
+<td>
 <div class="divPageHeading">
 <table cellspacing="0" cellpadding="3" width="100%">
     <tr>
         <td align="left">
-            <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Equity Net position"></asp:Label>
+            Equity Net position
         </td>
     </tr>
 </table>
 </div>
+</td>
+</tr>
+</table>
+
+
 
 <table>
     <tr>
