@@ -163,7 +163,7 @@
                                         <Items>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
                                                 Selected="true"></telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem Text="Reprocess" Value="Reprocess" ImageUrl="~/Images/reprocess.gif"
+                                            <telerik:RadComboBoxItem Text="Reprocess" Value="Reprocess" ImageUrl="~/Images/reprocess.png"
                                                 runat="server"></telerik:RadComboBoxItem>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/ManageRejects.png" Text="Manage Rejects"
                                                 Value="Manage Rejects" runat="server"></telerik:RadComboBoxItem>
