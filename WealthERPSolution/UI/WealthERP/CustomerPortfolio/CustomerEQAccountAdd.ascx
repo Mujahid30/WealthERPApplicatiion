@@ -132,26 +132,21 @@
 
 <asp:UpdatePanel ID="upnl1" runat="server">
     <ContentTemplate>
-    <div class="divPageHeading">
-<table cellspacing="0" cellpadding="3" width="100%">
+
+<table width="100%"> 
     <tr>
-        <td align="left">
-            <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Add Equity Trade Account"></asp:Label>
-        </td>
+    <td>
+        <div class="divPageHeading">
+          <table cellspacing="0" cellpadding="3" width="100%">
+            <tr>
+              <td align="left">Add Equity Trade Account</td>
     </tr>
 </table>
 </div>
-<%--    <table width="100%" class="TableBackground">
-<tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Add EQ Account"></asp:Label>
-            <hr />
-        </td>
-    </tr>
-</table>--%>
-
     
-    <table> <tr>
+    </td>
+    </tr>
+    <tr>
                 <td class="tdRequiredText">
                     
                      <asp:Label ID="lblError" runat="server" CssClass="lblRequiredText" Text="Note: Fields marked with ' * ' are compulsory"></asp:Label>
