@@ -5,15 +5,22 @@
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+<table width="100%">
+<tr>
+<td>
 <div class="divPageHeading">
     <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
-            <td class="HeaderCell">
-                <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Trail Commission Rejects"></asp:Label>
+            <td align="left">               
+                Trail Commission Rejects
             </td>
         </tr>
     </table>
 </div>
+</td>
+</tr>
+</table>
+
 <table width="100%">
     <tr>
         <td align="center">
