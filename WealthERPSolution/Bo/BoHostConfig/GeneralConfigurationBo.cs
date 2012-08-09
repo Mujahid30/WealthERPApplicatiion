@@ -6,10 +6,12 @@ using DaoHostConfig;
 using VoHostConfig;
 using System.Data;
 
+
 namespace BoHostConfig
 {
     public class GeneralConfigurationBo
     {
+        GeneralConfigurationDao generalConfigurationDao = new GeneralConfigurationDao();
         /// <summary>
         /// Used to insert/update host configuration general details
         /// </summary>
@@ -18,7 +20,7 @@ namespace BoHostConfig
         /// <returns></returns>
         public bool AddHostGeneralConfiguration(int userId, GeneralConfigurationVo generalconfigurationvo)
         {
-            GeneralConfigurationDao generalConfigurationDao = new GeneralConfigurationDao();
+            
             bool recordStatus = true;
             try
             {
@@ -39,7 +41,6 @@ namespace BoHostConfig
         public GeneralConfigurationVo GetHostGeneralConfiguration(string xmlPath)
         {
             GeneralConfigurationVo generalConfigurationVo = new GeneralConfigurationVo();
-            GeneralConfigurationDao generalConfigurationDao = new GeneralConfigurationDao();
             DataSet dsGeneralConfiguration = new DataSet();
             try
             {
@@ -63,6 +64,20 @@ namespace BoHostConfig
             }
             return generalConfigurationVo;
 
+        }
+
+        public DataTable GetAdviserIdFromLookups(string xmlPath)
+        {
+            DataTable dtGetAdviserIdFromLookups;
+            try
+            {
+                dtGetAdviserIdFromLookups = generalConfigurationDao.GetAdviserIdFromLookups(xmlPath);
+            }
+            catch (Exception Ex)
+            {
+                throw (Ex);
+            }
+            return dtGetAdviserIdFromLookups;
         }
     }
 }
