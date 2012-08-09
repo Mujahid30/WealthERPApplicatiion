@@ -100,5 +100,21 @@ namespace DaoHostConfig
 
 
         }
+
+        public DataTable GetAdviserIdFromLookups(string xmlPath)
+        {
+            DataSet dsGetAdviserIdsFromLookups=new DataSet();
+            DataTable dtGetAdviserIdsFromLookups;
+            try
+            {
+                dsGetAdviserIdsFromLookups.ReadXml(xmlPath);
+                dtGetAdviserIdsFromLookups = dsGetAdviserIdsFromLookups.Tables["AdviserDetails"];
+            }
+            catch(Exception Ex)
+            {
+                throw (Ex);
+            }
+            return dtGetAdviserIdsFromLookups;
+        }
     }
 }
