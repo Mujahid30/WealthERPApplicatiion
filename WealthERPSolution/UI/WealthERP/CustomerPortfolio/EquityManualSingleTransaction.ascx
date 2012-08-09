@@ -35,7 +35,22 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+
+<table width="100%">
+<tr>
+<td width="100%" colspan="3">
 <div class="divPageHeading">
+                <table cellspacing="0" style="padding-top:2px;"  cellpadding="3" width="100%">
+                <tr>
+                    <td  align="left">Add Equity Transaction</td>
+      </tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+
+<%--<div class="divPageHeading">
 <table cellspacing="0" cellpadding="3" width="100%">
     <tr>
         <td align="left">
@@ -43,7 +58,7 @@
         </td>
     </tr>
 </table>
-</div>
+</div>--%>
 <asp:UpdatePanel ID="upnlEQTran" runat="server">
     <ContentTemplate>
 <table width="100%" class="TableBackground" >
