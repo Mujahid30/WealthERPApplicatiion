@@ -64,15 +64,23 @@
         }
     }
 </script>
+
+<table width="100%">
+<tr>
+<td>
 <div class="divPageHeading">
     <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
-            <td class="HeaderCell">               
-                <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Equity Transaction Staging Rejects"></asp:Label>
+            <td align="left">               
+                Equity Transaction Staging Rejects
             </td>
         </tr>
     </table>
 </div>
+</td>
+</tr>
+</table>
+
 <%--<table style="width: 100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
