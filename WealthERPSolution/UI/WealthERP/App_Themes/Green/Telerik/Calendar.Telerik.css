@@ -269,10 +269,10 @@ table.RadCalendar_Telerik
 
 .RadCalendarMultiView_Telerik .rcMain .rcTitle
 {
-	border-color:#3c7fb1;
+	border-color:#FFFFFF;
 	padding:3px 0 4px;
-	background:#a6d9f4 0 -800px repeat-x url('Calendar/sprite.gif');
-	color:#000;
+	background:#FFFFFF 0 -800px repeat-x url('Calendar/sprite.gif');
+	color:#FFFFFF;
 }
 
 /*month view*/
@@ -531,33 +531,33 @@ table.RadCalendarTimeView_Telerik td
 }
 
  table.RadCalendar_Telerik .rcTitlebar {
-	background-color: #C1AFF7;
+	background-color: #D5EDB1;
 	background-image: url('Calendar/rgCommandRow.gif');
 }
  table.RadCalendar_Telerik .rcTitlebar .rcTitle {
 	font-weight: normal;
-	color: rgb(255, 255, 255);
+	color:#110F0F;
 }
  table.RadCalendar_Telerik .rcTitlebar .rcFastPrev {
 	background-color: rgb(228, 222, 247);
 }
  table.RadCalendar_Telerik .rcWeek th {
-	background-color: rgb(197, 178, 252);
+	background-color: #7CA244;
 	color: rgb(0, 0, 0);
 }
  table.RadCalendar_Telerik .rcRow th {
-	background-color: rgb(197, 178, 252);
+	background-color: #52E568;
 	color: rgb(0, 0, 0);
 }
  table.RadCalendar_Telerik .rcMain .rcRow td {
-	background-color: rgb(175, 149, 231);
+	background-color: #FFFFFF;
 }
  table.RadCalendar_Telerik .rcMain .rcRow td.rcHover a {
 	color: rgb(53, 29, 120);
 	font-weight: bold;
 }
  table.RadCalendar_Telerik .rcMain .rcRow .rcWeekend {
-	background-color: rgb(133, 93, 245);
+	background-color: #94B66C;
 }
  table.RadCalendar_Telerik .rcMain .rcRow .rcToday {
 	font-weight: bold;
@@ -572,5 +572,5 @@ table.RadCalendarTimeView_Telerik td
 	font-weight: bold;
 }
  table.RadCalendar_Telerik .rcMain .rcRow .rcOtherMonth {
-	background-color: rgb(184, 183, 186);
+	background-color: #D5EDB1;
 }

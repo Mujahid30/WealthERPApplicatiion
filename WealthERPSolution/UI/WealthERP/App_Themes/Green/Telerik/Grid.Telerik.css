@@ -360,6 +360,7 @@
 .RadGrid_Telerik .rgFilter
 {
 	background-position:0 -300px;
+	
 }
 
 .RadGrid_Telerik .rgFilter:hover
@@ -375,9 +376,12 @@
 
 .RadGrid_Telerik .rgFilterBox
 {
-	border-color:#ABB2AB #DDE5DC #E1EDE4 #E1E8E1;
-	font:12px "segoe ui",arial,sans-serif;
-	color:#333;
+	font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 145px;
+    border-color:#ACC68C;
 }
 
 /*filter context menu*/
@@ -711,7 +715,7 @@
 
  div.RadGrid_Telerik .rgFilterRow td {
 
-	background-color:#91F2C5;
+	background-color:#EBF7D9;
 
 }
 
