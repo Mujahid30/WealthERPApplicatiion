@@ -21,15 +21,22 @@
     }
 
 </script>
-    <div class="divPageHeading">
+<table width="100%">
+<tr>
+<td>
+<div class="divPageHeading">
 <table cellspacing="0" cellpadding="3" width="100%">
     <tr>
         <td align="left">
-            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="View Equity Trade Account"></asp:Label>
+            View Equity Trade Account
         </td>
     </tr>
 </table>
 </div>
+</td>
+</tr>
+</table>
+    
 
 <table class="TableBackground" style="width: 100%">
    <%-- <tr>
