@@ -61,5 +61,35 @@ namespace BoAdvisorProfiling
             AdviserStaffSMTPDao adviserStaffSMTdao = new AdviserStaffSMTPDao();
             return adviserStaffSMTdao.GetSMTPCredentials(RMId);
         }
+
+        public DataSet GetSMSProvider()
+        {
+            DataSet dsSMSProvider;
+            try
+            {
+                AdviserStaffSMTPDao adviserStaffSMTdao = new AdviserStaffSMTPDao();
+                dsSMSProvider = adviserStaffSMTdao.GetSMSProvider();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSMSProvider;
+        }
+        public bool CreateSMSProviderDetails(AdviserStaffSMTPVo adviserStaffSMTPvo)
+        {
+            bool bResult = false;
+            try
+            {
+                AdviserStaffSMTPDao adviserStaffSMTdao = new AdviserStaffSMTPDao();
+                bResult = adviserStaffSMTdao.CreateSMSProviderDetails(adviserStaffSMTPvo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }
