@@ -1067,7 +1067,7 @@ namespace WealthERP.Advisor
             {
                 email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName.Trim()) ? advisorVo.Website.Trim() : "https://www.citrusindiaonline.com/");
             }
-            email.Body = email.Body.Replace("[CONTACTPERSON]", !string.IsNullOrEmpty(advisorVo.ContactPersonFirstName.Trim()) + " " + !string.IsNullOrEmpty(advisorVo.ContactPersonMiddleName) + " " + !string.IsNullOrEmpty(advisorVo.ContactPersonLastName));
+            email.Body = email.Body.Replace("[CONTACTPERSON]", (!string.IsNullOrEmpty(advisorVo.ContactPersonFirstName.Trim()) ? advisorVo.ContactPersonFirstName.Trim() + " " : String.Empty) + (!string.IsNullOrEmpty(advisorVo.ContactPersonMiddleName.Trim()) ? advisorVo.ContactPersonMiddleName.Trim() + " " : String.Empty) + (!string.IsNullOrEmpty(advisorVo.ContactPersonLastName.Trim()) ? advisorVo.ContactPersonLastName.Trim() + " " : String.Empty));
             email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation);
             email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString());
             email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email);
