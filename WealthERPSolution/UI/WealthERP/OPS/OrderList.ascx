@@ -41,14 +41,15 @@
     }
 </script>
 <table width="100%">
-        <tr>
-        <td colspan="5">
+<tr>
+        <td colspan="3">
             <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
-                <tr>
-                    <td align="left">Order MIS</td>
-                    
-                </tr>
+                    <tr>
+                        <td align="left">
+                            Order MIS
+                        </td>
+                    </tr>
                 </table>
             </div>
         </td>
@@ -204,16 +205,23 @@
 <asp:Panel ID="pnlOrderList" runat="server" class="Landscape" Width="100%" Height="80%"
     ScrollBars="Horizontal">
     <table width="100%">
+    <tr id="trExportFilteredDupData" runat="server">
+        <td>
+            <asp:ImageButton ID="btnExportFilteredDupData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredDupData_OnClick"
+                OnClientClick="setFormat('CSV')" Height="25px" Width="25px"></asp:ImageButton>
+        </td>
+    </tr>
         <tr>
             <td>
                 <telerik:RadGrid ID="gvOrderList" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
                     OnNeedDataSource="gvOrderList_OnNeedDataSource">
-                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode" Width="100%" AllowMultiColumnSorting="True"
-                        AutoGenerateColumns="false" CommandItemDisplay="Top">
+                        AutoGenerateColumns="false" CommandItemDisplay="None">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>

@@ -39,7 +39,7 @@ namespace WealthERP.OPS
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int bmID = rmVo.RMId;           
             gvOrderList.Visible = false;
-
+            trExportFilteredDupData.Visible = false;
             if (!IsPostBack)
             {
                 BindBranchDropDown();
@@ -152,6 +152,7 @@ namespace WealthERP.OPS
 
             if (dtOrder.Rows.Count > 0)
             {
+                trExportFilteredDupData.Visible = true;
                 gvOrderList.DataSource = dtOrder;
                 gvOrderList.DataBind();
                 gvOrderList.Visible = true;
@@ -179,9 +180,20 @@ namespace WealthERP.OPS
                 pnlOrderList.Visible = false;
             }
         }
+        protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvOrderList.ExportSettings.OpenInNewWindow = true;
+            gvOrderList.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvOrderList.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvOrderList.MasterTableView.ExportToCSV();
+        }
 
         protected void gvOrderList_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            trExportFilteredDupData.Visible = true;
             DataTable dtGIDetails = new DataTable();
             dtGIDetails = (DataTable)Cache["OrderList" + advisorVo.advisorId];
             gvOrderList.Visible = true;
@@ -192,6 +204,7 @@ namespace WealthERP.OPS
         {
             if (e.CommandName == "Redirect")
             {
+                
                 GridDataItem item = (GridDataItem)e.Item;
                 string orderId = item.GetDataKeyValue("CO_OrderId").ToString();
                 string customerId = item.GetDataKeyValue("C_CustomerId").ToString();
