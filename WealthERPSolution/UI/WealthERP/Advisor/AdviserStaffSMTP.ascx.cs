@@ -12,6 +12,7 @@ using PCGMailLib;
 using System.Net.Mail;
 using System.Configuration;
 using BoCommon;
+using System.Data;
 
 namespace WealthERP.Advisor
 {
@@ -25,6 +26,7 @@ namespace WealthERP.Advisor
         RMVo advrm = new RMVo();
 
         AdviserStaffSMTPVo adviserstaffsmtpvo = new AdviserStaffSMTPVo();
+        AdviserStaffSMTPBo advstaffsmtpbo = new AdviserStaffSMTPBo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,13 +37,11 @@ namespace WealthERP.Advisor
             AdvisorStaffBo adviserstaffbo = new AdvisorStaffBo();
             advrm = adviserstaffbo.GetAdvisorStaff(uservo.UserId);
             adviserstaffsmtpvo.RMId = advrm.RMId;
-
+            BindSMSProvider();
             if (!IsPostBack)
             {
                 //if (trInsertMessage.Visible == true)
                 //    trInsertMessage.Visible = false;
-
-                AdviserStaffSMTPBo advstaffsmtpbo = new AdviserStaffSMTPBo();
                 adviserstaffsmtpvo = advstaffsmtpbo.GetSMTPCredentials(advrm.RMId);
                 txtEmail.Text = adviserstaffsmtpvo.Email;
                 if (!String.IsNullOrEmpty(adviserstaffsmtpvo.Password))
@@ -50,9 +50,39 @@ namespace WealthERP.Advisor
                 txtSMTPPort.Text = adviserstaffsmtpvo.Port;
                txtSenderEmailAlias.Text = adviserstaffsmtpvo.SenderEmailAlias;
                 chkAthenticationRequired.Checked = Convert.ToBoolean(adviserstaffsmtpvo.IsAuthenticationRequired);
+                ddlSMSProvider.SelectedValue = adviserstaffsmtpvo.SmsProviderId.ToString();
+                txtUserName.Text = adviserstaffsmtpvo.SmsUserName;
+               // txtPwd.Text = adviserstaffsmtpvo.Smspassword;
+                if (!String.IsNullOrEmpty(adviserstaffsmtpvo.Smspassword))
+                txtPwd.Attributes.Add("value", adviserstaffsmtpvo.Smspassword);
+                txtsmsCredit.Text = adviserstaffsmtpvo.SmsInitialcredit.ToString();
+
             }
 
             string a = txtPassword.Text;
+        }
+
+        private void BindSMSProvider()
+        {
+            try
+            {
+                DataSet dsSMSProvider;
+                dsSMSProvider = advstaffsmtpbo.GetSMSProvider();
+                DataTable dtSMSProvider = dsSMSProvider.Tables[0];
+                if (dtSMSProvider != null)
+                {
+                    ddlSMSProvider.DataSource = dtSMSProvider;
+                    ddlSMSProvider.DataValueField = dtSMSProvider.Columns["WERPSMSPM_ID"].ToString();
+                    ddlSMSProvider.DataTextField = dtSMSProvider.Columns["WERPSMSPM_Name"].ToString();
+                    ddlSMSProvider.DataBind();
+                }
+                ddlSMSProvider.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -148,6 +178,22 @@ namespace WealthERP.Advisor
             {
                 lblInsertMessage.Text = "Not able to send mail using the SMTP credentials";
             }
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            adviserstaffsmtpvo.SmsProviderId = int.Parse(ddlSMSProvider.SelectedValue);
+            adviserstaffsmtpvo.AdvisorId = advisevo.advisorId;
+            adviserstaffsmtpvo.SmsUserName = txtUserName.Text;
+            adviserstaffsmtpvo.Smspassword = txtPwd.Text;
+            adviserstaffsmtpvo.SmsInitialcredit = int.Parse(txtsmsCredit.Text);
+            adviserstaffsmtpvo.SmsCreditLeft = int.Parse(txtsmsCredit.Text);
+            adviserstaffsmtpvo.SmsCreatedBy = uservo.UserId;
+            adviserstaffsmtpvo.SmsModifiedBy = uservo.UserId;
+            txtPwd.Attributes.Add("value", txtPwd.Text.Trim());
+
+            advstaffsmtpbo.CreateSMSProviderDetails(adviserstaffsmtpvo);
+
         }
     }
 }

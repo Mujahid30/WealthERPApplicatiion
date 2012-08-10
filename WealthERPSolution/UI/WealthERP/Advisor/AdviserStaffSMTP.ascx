@@ -31,7 +31,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Advisor Staff SMTP
+                            Setup Email/SMS Account
                         </td>
                     </tr>
                 </table>
@@ -50,16 +50,16 @@
         <TargetControls>
             <%--<telerik:TargetInput ControlID="txtEmail" />
       <telerik:TargetInput ControlID="txtSMTPHost" />--%>
-            <telerik:TargetInput ControlID="txtSMTPPort"/>
+            <telerik:TargetInput ControlID="txtSMTPPort" />
             <telerik:TargetInput ControlID="txtPassword" />
-         </TargetControls>
+        </TargetControls>
         <Validation IsRequired="True" ValidationGroup="btnSave"></Validation>
     </telerik:TextBoxSetting>
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior2" Validation-IsRequired="false">
         <TargetControls>
             <telerik:TargetInput ControlID="txtSenderEmailAlias" />
         </TargetControls>
-      </telerik:TextBoxSetting>
+    </telerik:TextBoxSetting>
     <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior1" Validation-IsRequired="true"
         ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ErrorMessage="Invalid Email">
         <TargetControls>
@@ -80,54 +80,73 @@
         </TargetControls>
     </telerik:NumericTextBoxSetting>
 </telerik:RadInputManager>
-<table class="TableBackground" width="100%">
+<table>
     <tr>
-        <td style="width: 20%">
-            &nbsp;&nbsp;
-        </td>
         <td>
+            <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
+                EnableEmbeddedSkins="False" MultiPageID="SetupEmailSMS" SelectedIndex="0">
+                <Tabs>
+                    <telerik:RadTab runat="server" Text="Emails" Value="Email" TabIndex="0" Selected="True">
+                    </telerik:RadTab>
+                    <telerik:RadTab runat="server" Text="SMS" Value="sms" TabIndex="1">
+                    </telerik:RadTab>
+                </Tabs>
+            </telerik:RadTabStrip>
         </td>
     </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label1" runat="server" Text="SMTP Host:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtSMTPHost" runat="server" CssClass="txtField"></asp:TextBox>
-            <span id="Span2" class="spnRequiredField">*<br />
-            </span>
-            <%--<asp:RequiredFieldValidator ID="reqtxtSMTPHost" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
+</table>
+<telerik:RadMultiPage ID="SetupEmailSMS" EnableViewState="true" runat="server" SelectedIndex="0"
+    Width="100%">
+    <telerik:RadPageView ID="RadPageView1" runat="server" Style="margin-top: 20px">
+        <asp:Panel ID="pnlSystameticSetupView" runat="server" Width="100%">
+            <table class="TableBackground" width="100%">
+                <tr>
+                    <td style="width: 20%">
+                        &nbsp;&nbsp;
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label1" runat="server" Text="SMTP Host:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtSMTPHost" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span2" class="spnRequiredField">*<br />
+                        </span>
+                        <%--<asp:RequiredFieldValidator ID="reqtxtSMTPHost" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
                 ErrorMessage="Please enter the SMTP Host" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label2" runat="server" Text="SMTP Port:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtSMTPPort" runat="server" CssClass="txtField"></asp:TextBox>
-            <cc1:FilteredTextBoxExtender ID="txtSMTPPort_E" runat="server" Enabled="True" FilterType="Numbers"
-                TargetControlID="txtSMTPPort">
-            </cc1:FilteredTextBoxExtender>
-            <span id="Span1" class="spnRequiredField">*<br />
-            </span>
-            <%--<asp:RequiredFieldValidator ID="reqtxtSMTPPort" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label2" runat="server" Text="SMTP Port:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtSMTPPort" runat="server" CssClass="txtField"></asp:TextBox>
+                        <cc1:FilteredTextBoxExtender ID="txtSMTPPort_E" runat="server" Enabled="True" FilterType="Numbers"
+                            TargetControlID="txtSMTPPort">
+                        </cc1:FilteredTextBoxExtender>
+                        <span id="Span1" class="spnRequiredField">*<br />
+                        </span>
+                        <%--<asp:RequiredFieldValidator ID="reqtxtSMTPPort" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
                 ErrorMessage="Please enter the SMTP Port" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
-        </td>
-    </tr>
-    <tr id="trEmail">
-        <td class="leftField">
-            <asp:Label ID="lblEmail" runat="server" Text="Email" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
-            <span id="Span4" class="spnRequiredField">*<br />
-            </span>
-            <%--<asp:RequiredFieldValidator ID="reqtxtEmail" ValidationGroup="btnSave" ControlToValidate="txtEmail"
+                    </td>
+                </tr>
+                <tr id="trEmail">
+                    <td class="leftField">
+                        <asp:Label ID="lblEmail" runat="server" Text="Email" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span4" class="spnRequiredField">*<br />
+                        </span>
+                        <%--<asp:RequiredFieldValidator ID="reqtxtEmail" ValidationGroup="btnSave" ControlToValidate="txtEmail"
                 ErrorMessage="Please enter the Email address" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
@@ -135,69 +154,167 @@
                 ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server" ValidationGroup="btnSave"
                 CssClass="rfvPCG" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
             </asp:RegularExpressionValidator>--%>
-        </td>
-    </tr>
-    <tr id="trPassword">
-        <td class="leftField">
-            <asp:Label ID="lblPassword" runat="server" Text="Password:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtPassword" runat="server" CssClass="txtField" MaxLength="15" TextMode="Password"></asp:TextBox>
-            <span id="Span3" class="spnRequiredField">*<br />
-                <%--<asp:RequiredFieldValidator ID="reqtxtPassword" ValidationGroup="btnSave" ControlToValidate="txtPassword"
+                    </td>
+                </tr>
+                <tr id="trPassword">
+                    <td class="leftField">
+                        <asp:Label ID="lblPassword" runat="server" Text="Password:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtPassword" runat="server" CssClass="txtField" MaxLength="15" TextMode="Password"></asp:TextBox>
+                        <span id="Span3" class="spnRequiredField">*<br />
+                            <%--<asp:RequiredFieldValidator ID="reqtxtPassword" ValidationGroup="btnSave" ControlToValidate="txtPassword"
                 ErrorMessage="Please enter the password" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
-            </span>
-            <%--<asp:Label ID="lblNote" Text="Maximum 15 Characters"
+                        </span>
+                        <%--<asp:Label ID="lblNote" Text="Maximum 15 Characters"
                 CssClass="rfvPCG" runat="server"></asp:Label>--%>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label3" runat="server" Text="Sender Email Alias:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtSenderEmailAlias" runat="server" MaxLength="60" CssClass="txtField"></asp:TextBox>
-              
-              
-        <%-- <asp:RequiredFieldValidator ID="reqtxtSMTPHost" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label3" runat="server" Text="Sender Email Alias:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtSenderEmailAlias" runat="server" MaxLength="60" CssClass="txtField"></asp:TextBox>
+                        <%-- <asp:RequiredFieldValidator ID="reqtxtSMTPHost" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
                 ErrorMessage="Please enter the SMTP Host" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label5" runat="server" Text="SMTP Authentication Required:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:CheckBox ID="chkAthenticationRequired" Checked="true" runat="server" onchange="ToggleCredentialDisplay(this)" />
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-        </td>
-        <td>
-            &nbsp;&nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-        </td>
-        <td>
-            <asp:Button ID="btnSave" runat="server" ValidationGroup="btnSave" Text="Save" CssClass="PCGButton"
-                OnClick="btnSave_Click" />
-            &nbsp; &nbsp; &nbsp; &nbsp;
-            <asp:Button ID="btnTest" runat="server" Text="Test Credentials" ValidationGroup="btnSave"
-                CssClass="PCGMediumButton" OnClick="btnTest_Click" />
-        </td>
-    </tr>
-    <tr id="trInsertMessage" runat="server">
-        <td class="leftField">
-        </td>
-        <td>
-            <asp:Label ID="lblInsertMessage" runat="server" Text="" CssClass="FieldName"></asp:Label>
-        </td>
-    </tr>
-</table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label5" runat="server" Text="SMTP Authentication Required:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:CheckBox ID="chkAthenticationRequired" Checked="true" runat="server" onchange="ToggleCredentialDisplay(this)" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                    </td>
+                    <td>
+                        <asp:Button ID="btnSave" runat="server" ValidationGroup="btnSave" Text="Save" CssClass="PCGButton"
+                            OnClick="btnSave_Click" />
+                        &nbsp; &nbsp; &nbsp; &nbsp;
+                        <asp:Button ID="btnTest" runat="server" Text="Test Credentials" ValidationGroup="btnSave"
+                            CssClass="PCGMediumButton" OnClick="btnTest_Click" />
+                    </td>
+                </tr>
+                <tr id="trInsertMessage" runat="server">
+                    <td class="leftField">
+                    </td>
+                    <td>
+                        <asp:Label ID="lblInsertMessage" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
+    </telerik:RadPageView>
+    <telerik:RadPageView ID="RadPageView2" runat="server">
+        <asp:Panel ID="pnlCalenderSummaryView" runat="server" Width="100%">
+            <table width="47%" class="TableBackground">
+                <tr>
+                    <td colspan="2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                    <tr>
+                        <td colspan="2">
+                        </td>
+                        <tr>
+                            <td colspan="2">
+                            </td>
+                            <tr>
+                                <td colspan="2">
+                                </td>
+                            </tr>
+                        </tr>
+                    </tr>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblSMSProvider" runat="server" Text="SMS Provider:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:DropDownList ID="ddlSMSProvider" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                        <span id="spnAMC" runat="server" class="spnRequiredField">*</span>
+                        <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlSMSProvider"
+                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Provider"
+                            Operator="NotEqual" ValidationGroup="btnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblUserName" runat="server" Text="User Name:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtUserName" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span5" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtUserName"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please enter UserName" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblPwd" runat="server" Text="Password:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtPwd" runat="server" MaxLength="15" TextMode="Password" CssClass="txtField"></asp:TextBox>
+                        <span id="Span6" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPwd"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please enter password" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblsmsCredit" runat="server" Text="SMS Credit:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtsmsCredit" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span7" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtsmsCredit"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please enter SMS credits" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                        <asp:CompareValidator ID="CompareValidator6" ControlToValidate="txtsmsCredit" runat="server"
+                            ValidationGroup="btnSubmit" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
+                            Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                        <asp:CompareValidator ID="cvAppRcvDate" runat="server" ControlToValidate="txtsmsCredit"
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="btnSubmit" ErrorMessage="<br />SMS credit value should be greater than 0"
+                            Operator="GreaterThan" Type="Integer" ValueToCompare="0"></asp:CompareValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                    </td>
+                    <td class="rightField">
+                        <asp:Button ID="btnSubmit" runat="server" Text="Save" CssClass="PCGButton" ValidationGroup="btnSubmit"
+                            OnClick="btnSubmit_Click" />
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
+    </telerik:RadPageView>
+</telerik:RadMultiPage>
