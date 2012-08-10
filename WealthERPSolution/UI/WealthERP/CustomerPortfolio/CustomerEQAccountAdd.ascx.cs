@@ -326,7 +326,7 @@ namespace WealthERP.CustomerPortfolio
         {
             if (p == 0)
             {   //for view selected
-                lblView.Text = "Equity Account Details";
+                //lblView.Text = "Equity Account Details";
                 lblError.Visible = false;
                 lnkEdit.Visible = true;
                 btnSubmit.Visible = false;
@@ -336,7 +336,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {  //for Edit selected 
-                lblView.Text = "Modify Equity Account";
+                //lblView.Text = "Modify Equity Account";
                 lblError.Visible = true;
                 lnkEdit.Visible = false;
                 btnSubmit.Visible = false;
