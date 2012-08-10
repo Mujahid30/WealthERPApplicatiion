@@ -35,7 +35,6 @@ using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using BoOps;
-using VoOps;
 
 
 
@@ -71,7 +70,6 @@ namespace WealthERP.Reports
         AdvisorVo advisorVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
-        OrderVo orderVo = new OrderVo();
         RMVo rmVo = null;
         WERPReports CommonReport = new WERPReports();
         Dictionary<string, string> chkBoxsList = new Dictionary<string, string>();
@@ -89,7 +87,6 @@ namespace WealthERP.Reports
         //DataTable dtPortfolioAllocation;
         string riskClass = string.Empty;
         double recEquity, recDebt, recCash, recAlternate, currEquity, currDebt, currCash, currAlternate = 0;
-        int orderId = 0;
         private ReportType CurrentReportType
         {
             get
@@ -2775,6 +2772,17 @@ namespace WealthERP.Reports
                             AssignReportViewerProperties();
                             crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
+                            string Headername;
+                            if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            {
+                                Headername="Group";
+                                crmain.SetParameterValue("Header",Headername);
+                            }
+                            else
+                            {
+                                Headername="Individual";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
                             lblClosingBalanceNote.Visible = false;
                             if (Request.QueryString["mail"] == "2")
                             {
@@ -3647,11 +3655,6 @@ namespace WealthERP.Reports
             else  if (CurrentReportType == ReportType.OrderTransactionSlip)
             {
                 orderTransaction.advisorId = advisorVo.advisorId;
-                orderVo =(OrderVo) Session["orderVo"];
-                if (orderVo.OrderId != 0)
-                {
-                    orderTransaction.orderId = orderVo.OrderId;
-                }
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnCustomerId"]))
                 {
                     //orderTransaction.CustomerId = int.Parse(Request.Form["ctrl_MFOrderEntry$hdnCustomerId"]);
@@ -4215,7 +4218,7 @@ namespace WealthERP.Reports
                     logoPath = "~/Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
                 //System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("~/Images/") + @"\3DSYRW_4009.JPG", "image/jpeg");
                 if (!File.Exists(Server.MapPath(logoPath)))
-                    logoPath = "~/Images/" + "spacer.jpg";
+                    logoPath = "~/Images/" + "spacer.png";
 
                 System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logoPath), "image/jpeg");
 

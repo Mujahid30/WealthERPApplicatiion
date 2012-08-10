@@ -151,9 +151,24 @@ namespace WealthERP.Reports
 
 
             }
-
-
         }
+      protected void ChckBussDate_Textchanged(object sender, EventArgs e)
+        {
+            CustomerBo customerBo = new CustomerBo();
+             bool isCorrect = false;
+           DateTime chckdate=DateTime.Parse(txtAsOnDate.Text);
+             isCorrect=customerBo.ChckBussinessDate(chckdate);
+             if (isCorrect == true)
+             { //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
+             }
+             else
+             {
+                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid!!!Choose a Valid Bussiness Date ');", true);
+               
+             }
+        }
+
+        
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnPickDate.Checked == true)
