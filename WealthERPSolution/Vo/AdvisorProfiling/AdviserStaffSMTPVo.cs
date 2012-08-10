@@ -14,6 +14,13 @@ namespace VoAdvisorProfiling
             get { return m_RMId; }
             set { m_RMId = value; }
         }
+        private int m_AdvisorId;
+
+        public int AdvisorId
+        {
+            get { return m_AdvisorId; }
+            set { m_AdvisorId = value; }
+        }
         private int m_CreatedBy;
 
         public int CreatedBy
@@ -83,6 +90,55 @@ namespace VoAdvisorProfiling
             get { return m_SenderEmailAlias; }
             set { m_SenderEmailAlias = value; }
         
+        }
+        private int m_SmsProviderId;
+        public int SmsProviderId
+        {
+            get { return m_SmsProviderId; }
+            set { m_SmsProviderId = value; }
+        }
+        private string m_SmsURL;
+        public string SmsURL
+        {
+            get { return m_SmsURL; }
+            set { m_SmsURL = value; }
+        }
+
+        private string m_SmsUserName;
+        public string SmsUserName
+        {
+            get { return m_SmsUserName; }
+            set { m_SmsUserName = value; }
+        }
+        private string m_Smspassword;
+        public string Smspassword
+        {
+            get { return m_Smspassword; }
+            set { m_Smspassword = value; }
+        }
+        private int m_SmsInitialcredit;
+        public int SmsInitialcredit
+        {
+            get { return m_SmsInitialcredit; }
+            set { m_SmsInitialcredit = value; }
+        }
+        private int m_SmsCreditLeft;
+        public int SmsCreditLeft
+        {
+            get { return m_SmsCreditLeft; }
+            set { m_SmsCreditLeft = value; }
+        }
+        private int m_SmsCreatedBy;
+        public int SmsCreatedBy
+        {
+            get { return m_SmsCreatedBy; }
+            set { m_SmsCreatedBy = value; }
+        }
+        private int m_SmsModifiedBy;
+        public int SmsModifiedBy
+        {
+            get { return m_SmsModifiedBy; }
+            set { m_SmsModifiedBy = value; }
         }
 
     }
