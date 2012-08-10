@@ -8,6 +8,8 @@ using BoSuperAdmin;
 using VoSuperAdmin;
 using System.Data;
 using VoUser;
+using PCGMailLib;
+using BoCommon;
 
 namespace WealthERP.SuperAdmin
 {
@@ -17,21 +19,33 @@ namespace WealthERP.SuperAdmin
         AdvisorVo advisorVo = new AdvisorVo();
         AdviserSubscriptionBo _advisersubscriptionbo = new AdviserSubscriptionBo();
         AdviserSubscriptionVo _advisersubscriptionvo = new AdviserSubscriptionVo();
-
+        UserVo IFAuserVo = new UserVo();
+        OneWayEncryption encryption = new OneWayEncryption();
+        Random r = new Random();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            advisorVo = (AdvisorVo)Session["advisorVo"];
+            advisorVo = (AdvisorVo)Session["IFAadvisorVo"];
           //  txtBalanceSize.Attributes.Add("disabled", "true");
-            
-           
+
+            IFAuserVo = (UserVo)Session["iffUserVo"];
 
             //if (Session["storageBalance"] != "" && Session["storageBalance"] != null)
             //{
             //    txtBalanceSize.Text =Convert.ToString(Session["storageBalance"]);
 
             //}
-           
+
+            if (IFAuserVo.IsTempPassword == 1)
+            {
+                chkMailSend.Enabled = true;
+                chkMailSend.Checked = true;
+            }
+            else
+            {
+                chkMailSend.Enabled = false;
+                chkMailSend.Checked = false;
+            }
             if (!IsPostBack)
             {
                 // BindPlanDropdown();
@@ -225,8 +239,8 @@ namespace WealthERP.SuperAdmin
         {
             AdviserSubscriptionVo _advisersubscriptionvo = new AdviserSubscriptionVo();
             AdviserSubscriptionBo _advisersubscriptionbo = new AdviserSubscriptionBo();
-            UserVo uservo=(UserVo)Session["UserVo"];
-            AdvisorVo advisorVo = (AdvisorVo)Session["advisorVo"];
+            UserVo uservo=(UserVo)Session["UserVo"];          
+          
             //_advisersubscriptionvo.AdviserId
             int _planid=0;
             DateTime _endDate;
@@ -341,6 +355,25 @@ namespace WealthERP.SuperAdmin
                                 _advisersubscriptionbo.SetFlavoursToAdviser(flavourIds, advisorVo.advisorId);
                                 SettingsSavedMessage.Visible = true;
                                 SetAdviserFlavourSubscription();
+                                if (IFAuserVo.IsTempPassword == 1)
+                                {
+                                    if (chkMailSend.Checked == true)
+                                    {
+                                        string hassedPassword = string.Empty;
+                                        string saltValue = string.Empty;
+                                        string password = r.Next(20000, 100000).ToString();
+                                        encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                                        IFAuserVo.Password = hassedPassword;
+                                        IFAuserVo.PasswordSaltValue = saltValue;
+                                        IFAuserVo.OriginalPassword = password;
+                                        _advisersubscriptionbo.UpdateUserPasswordInDatabase(hassedPassword, saltValue, IFAuserVo.UserId);
+                                        SendMail(IFAuserVo);
+                                    }
+                                }
+                                if (Cache["AdminLeftTreeNode" + advisorVo.advisorId.ToString()] != null)
+                                {
+                                    Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
+                                }
                             }
                             SetAdviserFlavourSubscription();
                         }
@@ -362,6 +395,33 @@ namespace WealthERP.SuperAdmin
             }
         }
 
+
+        private bool SendMail(UserVo userVo)
+        {
+            Emailer emailer = new Emailer();
+            EmailMessage email = new EmailMessage();
+            //userVo = (UserVo)Session["iffUserVo"];
+            bool isMailSent = false;
+            try
+            {
+                email.To.Add(userVo.Email);
+                string name = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                email.GetAdviserRegistrationMail(userVo.LoginId, userVo.OriginalPassword, name);
+                isMailSent = emailer.SendMail(email);
+
+                //Send a notification mail to Wealth ERP team.
+                EmailMessage notificationMail = new EmailMessage();
+                notificationMail.GetAdviserRegistrationMailNotification(advisorVo.OrganizationName, advisorVo.City, advisorVo.MobileNumber, userVo.LoginId, userVo.Email, name);
+                //notificationMail.GetAdviserRegistrationMail(userVo.LoginId, userVo.Password, name);
+
+                emailer.SendMail(notificationMail);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return isMailSent;
+        }
 
         private string GetFlavourIds()
         {
@@ -608,6 +668,14 @@ namespace WealthERP.SuperAdmin
 
                 }
 
+            }
+        }
+
+        protected void imgRefresh_Click(object sender, ImageClickEventArgs e)
+        {
+            if (Cache["AdminLeftTreeNode" + advisorVo.advisorId.ToString()] != null)
+            {
+                Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
             }
         }
         //[System.Web.Services.WebMethod(EnableSession = true)]

@@ -75,7 +75,7 @@ namespace WealthERP.SuperAdmin
                         btnSubmit.Text = "Update";
                         Deactivation.Visible = false;
                         lblDeactivation.Visible = false;
-                        advisorVo = (AdvisorVo)Session["advisorVo"];
+                        advisorVo = (AdvisorVo)Session["IFAadvisorVo"];
                         userVo = (UserVo)Session["iffUserVo"];
                         //advisorVo = advisorBo.GetAdvisor(advisorVo.advisorId);
                         txtDeactivationDate.Text = advisorVo.DeactivationDate.ToShortDateString();
@@ -238,10 +238,10 @@ namespace WealthERP.SuperAdmin
                     }
                 }
             }
-            if (lblIFFAdd.Text == "Edit IFF")
-            {
-                chkMailSend.Visible = false;
-            }
+            //if (lblIFFAdd.Text == "Edit IFF")
+            //{
+            //    chkMailSend.Visible = false;
+            //}
 
         }
 
@@ -332,10 +332,10 @@ namespace WealthERP.SuperAdmin
                             userBo.CreateRoleAssociation(Ids[0], bm);
                             userBo.CreateRoleAssociation(Ids[0], reaserchRole);
                             GridValidationForIsDependent();
-                            if (chkMailSend.Checked == true)
-                            {
-                                SendMail(userVo);
-                            }
+                            //if (chkMailSend.Checked == true)
+                            //{
+                            //    SendMail(userVo);
+                            //}
                         }
                         try
                         {
@@ -661,20 +661,15 @@ namespace WealthERP.SuperAdmin
 
         }
         public void DataPopulating()
-        {
-            string hassedPassword = string.Empty;
-            string saltValue = string.Empty;
-            string password = r.Next(20000, 100000).ToString();
+        {           
             userVo.Email = txtEmailId.Text.ToString();
             Session["IFFEmailId"] = txtEmailId.Text.ToString();
             userVo.FirstName = txtContactPerson.Text.ToString();
             Session["IFFContactPerson"] = txtContactPerson.Text.ToString();
             //userVo.Password = Encryption.Encrypt(r.Next(20000, 100000).ToString());
-
-            encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
-            userVo.Password = hassedPassword;
-            userVo.PasswordSaltValue = saltValue;
-            userVo.OriginalPassword = password;
+            userVo.Password = "";
+            userVo.PasswordSaltValue = "";
+            userVo.OriginalPassword = "";
             userVo.IsTempPassword = 1;
 
             userVo.UserType = "Advisor";

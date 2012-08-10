@@ -291,5 +291,35 @@ namespace BoSuperAdmin
                 throw exBase;
             }
         }
+
+        public void UpdateUserPasswordInDatabase(string hassedPassword, string saltValue, int userId)
+        {
+            AdviserSubscriptionDao adviserSubscriptionDao = new AdviserSubscriptionDao();
+            try
+            {
+                adviserSubscriptionDao.UpdateUserPasswordInDatabase(hassedPassword, saltValue, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorSubscriptionBo.cs:UpdateUserPasswordInDatabase()");
+                object[] objects = new object[3];
+                objects[0] = hassedPassword;
+                objects[1] = saltValue;
+                objects[2] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
     }
 }

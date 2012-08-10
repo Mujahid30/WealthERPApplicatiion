@@ -122,10 +122,27 @@
         </TargetControls>
     </telerik:DateInputSetting>
 </telerik:RadInputManager>
-<div>
-    <asp:Label ID="lblIFFAdd" runat="server" Text="Subscription" CssClass="HeaderTextBig"></asp:Label>
-    <hr />
-</div>
+
+
+<table width="100%">
+<tr>
+     <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left"> Subscription
+                    </td>
+                   <td align="right">
+                      <asp:ImageButton ID="imgRefresh" runat="server" ToolTip="Click here to refresh Tree Node Cache" ImageUrl="../Images/refresh.png"
+             Width="20px" Height="20px"   OnClick="imgRefresh_Click" />
+                    </td>
+                    
+                </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    </table>
 <table width="100%">
     <tr>
         <td align="center">
@@ -289,7 +306,9 @@
                         <asp:TextBox ID="txtUsedSpace" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
                     </td>
                 </tr>            
-               
+              <tr><td></td>  <td>
+         <asp:CheckBox ID="chkMailSend" runat="server" Text="Send Login info?"  CssClass="cmbField"/>
+        </td></tr>  
                 <tr>
                     <td valign="top" align="right">
                         <asp:Label ID="lblComment" runat="server" CssClass="FieldName" Text="Comment : ">

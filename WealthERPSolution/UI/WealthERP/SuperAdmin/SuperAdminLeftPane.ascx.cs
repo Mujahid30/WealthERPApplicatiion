@@ -39,10 +39,13 @@ namespace WealthERP.SuperAdmin
             string strNodeValue = null;
             try
             {
-
-                if (e.Item.Value == "IFF")
+                if (e.Item.Value == "IFADashBoard")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFF','none');", true);
+                }
+                else if (e.Item.Value == "IFF")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFADashBoard','none');", true);
                 }
                 else if (e.Item.Value == "IFFAdd")
                 {

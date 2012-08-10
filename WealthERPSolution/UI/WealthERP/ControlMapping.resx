@@ -1113,7 +1113,7 @@
     <value>Reports/FPSectional.ascx</value>
     <comment>Reports/FPSectional.ascx</comment>
   </data>
-  <data name="IFF" xml:space="preserve">
+  <data name="IFADashBoard" xml:space="preserve">
     <value>SuperAdmin//IFF.ascx</value>
     <comment>SuperAdmin//IFF.ascx</comment>
   </data>
@@ -1401,7 +1401,7 @@
     <value>Advisor//AdviserLandingPage.ascx</value>
     <comment>Advisor//AdviserLandingPage.ascx</comment>
   </data>
-  <data name="IFADashBoard" xml:space="preserve">
+  <data name="IFF" xml:space="preserve">
     <value>SuperAdmin//IFADashBoard.ascx</value>
     <comment>SuperAdmin//IFADashBoard.ascx</comment>
   </data>

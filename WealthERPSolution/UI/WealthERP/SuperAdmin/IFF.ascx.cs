@@ -741,9 +741,6 @@ namespace WealthERP.SuperAdmin
 
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-           
-
             int selectedRow = 0;
             string menu;
             try
@@ -759,23 +756,21 @@ namespace WealthERP.SuperAdmin
                 rmVo = advisorStaffBo.GetAdvisorStaff(userId);
                 Session["rmVo"] = rmVo;
                 menu = MyDropDownList.SelectedItem.Value.ToString();
+                Session["IFAadvisorVo"] = advisorBo.GetAdvisorUser(userId);
+                Session["iffUserVo"] = userBo.GetUserDetails(userId);
                 if (menu == "View Dashboard")
                 {
-                    Session["advisorVo"] = advisorBo.GetAdvisorUser(userId);
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolonly('IFAAdminMainDashboardOld','none');", true);
                     //AdvisorDashboardValidation(userId);                    
                 }
                 if (menu == "Edit profile")
-                {
-                    Session["advisorVo"] = advisorBo.GetAdvisorUser(userId);
-                    Session["iffUserVo"] = userBo.GetUserDetails(userId);
+                {                   
                     Session["IFFAdd"] = "Edit";
                     Session.Remove("IDs");
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFFAdd','none');", true);
                 }
                 if (menu == "Subscription")
                 {
-                    Session["advisorVo"] = advisorBo.GetAdvisorUser(userId);
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('Subscription','none');", true);
                 }
                 //if (menu == "User Management")

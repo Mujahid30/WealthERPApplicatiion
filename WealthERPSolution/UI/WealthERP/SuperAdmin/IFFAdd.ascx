@@ -384,8 +384,8 @@
         &nbsp;
         </td>
         <td>
-         <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"  CssClass="cmbField"/>
-        </td>
+         <%--<asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"  CssClass="cmbField"/>
+--%>        </td>
     </tr>
     <tr>
         <td colspan="4">

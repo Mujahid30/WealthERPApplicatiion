@@ -7,9 +7,13 @@
     ExpandMode="SingleExpandedItem" Width="100%" Skin="Telerik" EnableEmbeddedSkins="false"
     OnItemClick="RadPanelBar1_ItemClick">
     <Items>
-         <telerik:RadPanelItem Text="IFA" Value="IFF">
+         <telerik:RadPanelItem Text="Dashboard" Value="IFADashBoard">
+           <Items>
+                <telerik:RadPanelItem Text="IFA List" Value="IFF">
+                </telerik:RadPanelItem>
+            </Items>
             <Items>
-                <telerik:RadPanelItem Text="Add" Value="IFFAdd">
+                <telerik:RadPanelItem Text="IFA Add" Value="IFFAdd">
                 </telerik:RadPanelItem>
             </Items>
              <Items>
