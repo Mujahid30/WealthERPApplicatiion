@@ -7,11 +7,11 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using VoAdvisorProfiling;
 using System.Data.SqlClient;
 
+
 namespace DaoAdvisorProfiling
 {
     public class AdviserStaffSMTPDao
     {
-
         public bool InsertAdviserStaffSMTP(AdviserStaffSMTPVo adviserStaffSMTPvo)
         {
             bool result = false;
@@ -68,23 +68,46 @@ namespace DaoAdvisorProfiling
         {
             Database db;
             DbCommand cmd;
+            DataSet dsSMTPCredentials;
             AdviserStaffSMTPVo adviserStaffSMTPVo = new AdviserStaffSMTPVo();
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SP_AdviserStaffGetSMTPSettings");
                 db.AddInParameter(cmd, "@RMId", DbType.Int32, RMId);
-
-                SqlDataReader sdr = (SqlDataReader)db.ExecuteReader(cmd);
-                while (sdr.Read())
+                dsSMTPCredentials = db.ExecuteDataSet(cmd);
+                if (dsSMTPCredentials.Tables.Count > 0)
                 {
-                    adviserStaffSMTPVo.HostServer = sdr["ASS_HostServer"].ToString();
-                    adviserStaffSMTPVo.Email = sdr["ASS_Email"].ToString();
-                    adviserStaffSMTPVo.Password = sdr["ASS_Password"].ToString();
-                    adviserStaffSMTPVo.IsAuthenticationRequired = Convert.ToInt16(sdr["ASS_IsAuthenticationRequired"]);
-                    adviserStaffSMTPVo.Port = sdr["ASS_Port"].ToString();
-                    adviserStaffSMTPVo.SenderEmailAlias = sdr["ASS_SenderEmailAlias"].ToString();
+                    if (dsSMTPCredentials.Tables[0].Rows.Count > 0)
+                    {
+                        adviserStaffSMTPVo.HostServer = dsSMTPCredentials.Tables[0].Rows[0]["ASS_HostServer"].ToString();
+                        adviserStaffSMTPVo.Email = dsSMTPCredentials.Tables[0].Rows[0]["ASS_Email"].ToString();
+                        adviserStaffSMTPVo.Password = dsSMTPCredentials.Tables[0].Rows[0]["ASS_Password"].ToString();
+                        adviserStaffSMTPVo.IsAuthenticationRequired = Convert.ToInt16(dsSMTPCredentials.Tables[0].Rows[0]["ASS_IsAuthenticationRequired"]);
+                        adviserStaffSMTPVo.Port = dsSMTPCredentials.Tables[0].Rows[0]["ASS_Port"].ToString();
+                        adviserStaffSMTPVo.SenderEmailAlias = dsSMTPCredentials.Tables[0].Rows[0]["ASS_SenderEmailAlias"].ToString();
+                    }
+                    if (dsSMTPCredentials.Tables[1].Rows.Count > 0)
+                    {
+                        adviserStaffSMTPVo.SmsProviderId = Convert.ToInt32(dsSMTPCredentials.Tables[1].Rows[0]["WERPSMSPM_Id"].ToString());
+                        adviserStaffSMTPVo.SmsUserName = dsSMTPCredentials.Tables[1].Rows[0]["ASMSP_Username"].ToString();
+                        adviserStaffSMTPVo.Smspassword = dsSMTPCredentials.Tables[1].Rows[0]["ASMSP_Password"].ToString();
+                        adviserStaffSMTPVo.SmsInitialcredit = Convert.ToInt32(dsSMTPCredentials.Tables[1].Rows[0]["ASMSP_InitialCredit"].ToString());
+                        adviserStaffSMTPVo.SmsCreditLeft = Convert.ToInt32(dsSMTPCredentials.Tables[1].Rows[0]["ASMSP_CreditLeft"].ToString());
+                    }
                 }
+
+                //SqlDataReader sdr = (SqlDataReader)db.ExecuteReader(cmd);
+                //while (sdr.Read())
+                //{
+                //    adviserStaffSMTPVo.HostServer = sdr["ASS_HostServer"].ToString();
+                //    adviserStaffSMTPVo.Email = sdr["ASS_Email"].ToString();
+                //    adviserStaffSMTPVo.Password = sdr["ASS_Password"].ToString();
+                //    adviserStaffSMTPVo.IsAuthenticationRequired = Convert.ToInt16(sdr["ASS_IsAuthenticationRequired"]);
+                //    adviserStaffSMTPVo.Port = sdr["ASS_Port"].ToString();
+                //    adviserStaffSMTPVo.SenderEmailAlias = sdr["ASS_SenderEmailAlias"].ToString();
+                    
+                //}
 
             }
             catch (BaseApplicationException Ex)
@@ -109,6 +132,54 @@ namespace DaoAdvisorProfiling
             return adviserStaffSMTPVo;
 
 
+        }
+        public DataSet GetSMSProvider()
+        {
+            DataSet dsSMSProvider;
+            Database db;
+            DbCommand getSMSProviderCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSMSProviderCmd = db.GetStoredProcCommand("SP_GetSMSProviderMaster");
+                dsSMSProvider = db.ExecuteDataSet(getSMSProviderCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSMSProvider;
+        }
+
+        public bool CreateSMSProviderDetails(AdviserStaffSMTPVo adviserStaffSMTPvo)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createSMSProviderCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createSMSProviderCmd = db.GetStoredProcCommand("SP_CreateSMSProviderDetails");
+
+                db.AddInParameter(createSMSProviderCmd, "@WERPSMSPM_Id", DbType.Int32, adviserStaffSMTPvo.SmsProviderId);
+                db.AddInParameter(createSMSProviderCmd, "@A_AdviserId", DbType.Int32, adviserStaffSMTPvo.AdvisorId);
+                db.AddInParameter(createSMSProviderCmd, "@ASMSP_Username", DbType.String, adviserStaffSMTPvo.SmsUserName);
+                db.AddInParameter(createSMSProviderCmd, "@ASMSP_Password", DbType.String, adviserStaffSMTPvo.Smspassword);
+                db.AddInParameter(createSMSProviderCmd, "@ASMSP_InitialCredit", DbType.Int32, adviserStaffSMTPvo.SmsInitialcredit);
+                db.AddInParameter(createSMSProviderCmd, "@ASMSP_CreditLeft", DbType.Int32, adviserStaffSMTPvo.SmsCreditLeft);
+                db.AddInParameter(createSMSProviderCmd, "@ASMSP_CreatedBy", DbType.Int32, adviserStaffSMTPvo.SmsCreatedBy);
+                db.AddInParameter(createSMSProviderCmd, "@ASMSP_ModifiedBy", DbType.Int32, adviserStaffSMTPvo.SmsModifiedBy);
+
+                db.ExecuteNonQuery(createSMSProviderCmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
 
     }
