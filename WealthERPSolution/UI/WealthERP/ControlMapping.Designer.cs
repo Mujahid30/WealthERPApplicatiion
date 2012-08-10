@@ -1438,6 +1438,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//IFADashBoard.ascx.
+        /// </summary>
+        internal static string IFADashBoard {
+            get {
+                return ResourceManager.GetString("IFADashBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SuperAdmin//IFF.ascx.
         /// </summary>
         internal static string IFF {

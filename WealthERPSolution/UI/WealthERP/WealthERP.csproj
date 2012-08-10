@@ -2739,6 +2739,13 @@
     <Compile Include="SuperAdmin\DailyValuationMonitor.ascx.designer.cs">
       <DependentUpon>DailyValuationMonitor.ascx</DependentUpon>
     </Compile>
+    <Compile Include="SuperAdmin\IFADashBoard.ascx.cs">
+      <DependentUpon>IFADashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\IFADashBoard.ascx.designer.cs">
+      <DependentUpon>IFADashBoard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="SuperAdmin\IFF.ascx.cs">
       <DependentUpon>IFF.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5474,6 +5481,7 @@
     <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
     <Content Include="bin\DaoAdvisorProfiling.dll" />
     <Content Include="bin\DaoAdvisorProfiling.pdb" />
+    <Content Include="bin\DaoCommon.dll" />
     <Content Include="bin\DaoCommon.pdb" />
     <Content Include="bin\DaoFPSuperlite.pdb" />
     <Content Include="bin\DaoOps.dll" />
@@ -5866,6 +5874,7 @@
     <Content Include="SuperAdmin\AddIssue.ascx" />
     <Content Include="SuperAdmin\AdviserUploads.ascx" />
     <Content Include="SuperAdmin\DailyValuationMonitor.ascx" />
+    <Content Include="SuperAdmin\IFADashBoard.ascx" />
     <Content Include="SuperAdmin\IFF.ascx" />
     <Content Include="SuperAdmin\IFFAdd.ascx" />
     <Content Include="SuperAdmin\IFFUserManagement.ascx" />
