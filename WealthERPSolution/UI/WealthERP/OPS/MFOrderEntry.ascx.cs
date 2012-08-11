@@ -1525,7 +1525,7 @@ namespace WealthERP.OPS
                 if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
                 {
                     BindScheme(0);
-                    //BindFolioNumber(0);
+                    BindFolioNumber(0);
                 }
                 else
                 {

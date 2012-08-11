@@ -892,13 +892,13 @@
                    <%--     <telerik:GridDateTimeColumn DataField="CMFOS_Date" HeaderText="Date" DataFormatString="{0:d}" HtmlEncode="false" DataType="System.DateTime"
                         UniqueName="CMFOS_Date" ReadOnly="true"/>--%>
                         
-                        
-                        <telerik:GridTemplateColumn UniqueName="lblCMFOS_Date" DataField="CMFOS_Date">
+                       
+                          <telerik:GridTemplateColumn UniqueName="lblCMFOS_Date" DataField="CMFOS_Date" HeaderText="Date">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblCMFOS_Date" runat="server" DataFormatString="{0:d}" DataType="System.DateTime" Text='<%#Eval("CMFOS_Date")%>'></asp:Label>
+                                    <asp:Label ID="lblCMFOS_Date" runat="server" DataFormatString="{0:d}" Text='<%# DataBinder.Eval(Container.DataItem, "CMFOS_Date", "{0:dd/MM/yyyy}") %>'></asp:Label>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                        
+                      
                         <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"  CancelText="Cancel">                
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridEditCommandColumn>                        
