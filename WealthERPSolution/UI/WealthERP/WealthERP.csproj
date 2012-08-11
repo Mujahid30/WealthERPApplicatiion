@@ -5710,6 +5710,10 @@
     <Content Include="Images\collapse_blue.jpg" />
     <Content Include="Images\CrystalIcon.png" />
     <Content Include="Images\csv.png" />
+    <Content Include="Images\Dashboard-BusinessMIS.png" />
+    <Content Include="Images\Dashboard-Clients.png" />
+    <Content Include="Images\Dashboard-MF-Order.png" />
+    <Content Include="Images\DashBoard-ProspectUser.png" />
     <Content Include="Images\DeleteRecord.png" />
     <Content Include="Images\desert-sample.gif" />
     <Content Include="Images\DetailedView.png" />
@@ -5750,8 +5754,11 @@
     <Content Include="Images\logoplaceholder.jpg" />
     <Content Include="Images\lt_new.gif" />
     <Content Include="Images\MailSend-loader.gif" />
+    <Content Include="Images\ManageRejects.png" />
     <Content Include="Images\MenuSeparator.jpg" />
+    <Content Include="Images\messageread.png" />
     <Content Include="Images\Money_Touch_360_logo1.gif" />
+    <Content Include="Images\msgUnRead.png" />
     <Content Include="Images\new.gif" />
     <Content Include="Images\nologo.png" />
     <Content Include="Images\NotApplicable.png" />
@@ -5768,9 +5775,11 @@
     <Content Include="Images\red-sample.gif" />
     <Content Include="Images\RedDownArrow.png" />
     <Content Include="Images\redStatus.png" />
+    <Content Include="Images\reprocess.png" />
     <Content Include="Images\RetirementGoal.jpg" />
     <Content Include="Images\RetirementGoal.png" />
     <Content Include="Images\RiskProtection.png" />
+    <Content Include="Images\rollback.png" />
     <Content Include="Images\SCBFPImage.jpg" />
     <Content Include="Images\ScreenInfo.png" />
     <Content Include="Images\Select.png" />
@@ -5807,6 +5816,7 @@
     <Content Include="Images\TopRight.gif" />
     <Content Include="Images\Trans.png" />
     <Content Include="Images\undermain.jpg" />
+    <Content Include="Images\Upload-icon.png" />
     <Content Include="Images\Wait.gif" />
     <Content Include="Images\WealthERP_logo.png" />
     <Content Include="Images\werplogo.jpg" />
