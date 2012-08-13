@@ -65,8 +65,7 @@ namespace WealthERP.Reports
         EquityReportVo equityReport = new EquityReportVo();
         PortfolioReportVo portfolioReport = new PortfolioReportVo();
         FinancialPlanningVo financialPlanning = new FinancialPlanningVo();
-        FPOfflineFormVo fpOfflineForm = new FPOfflineFo
-            ();
+        FPOfflineFormVo fpOfflineForm = new FPOfflineFormVo();
         OrderTransactionSlipVo orderTransaction = new OrderTransactionSlipVo();
         AdvisorVo advisorVo = null;
         CustomerVo customerVo = new CustomerVo();
