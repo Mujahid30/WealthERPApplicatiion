@@ -35,7 +35,7 @@ using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using BoOps;
-
+using VoOps;
 
 
 
@@ -65,7 +65,8 @@ namespace WealthERP.Reports
         EquityReportVo equityReport = new EquityReportVo();
         PortfolioReportVo portfolioReport = new PortfolioReportVo();
         FinancialPlanningVo financialPlanning = new FinancialPlanningVo();
-        FPOfflineFormVo fpOfflineForm = new FPOfflineFormVo();
+        FPOfflineFormVo fpOfflineForm = new FPOfflineFo
+            ();
         OrderTransactionSlipVo orderTransaction = new OrderTransactionSlipVo();
         AdvisorVo advisorVo = null;
         CustomerVo customerVo = new CustomerVo();
