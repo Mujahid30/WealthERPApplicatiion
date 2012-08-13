@@ -71,6 +71,7 @@ namespace WealthERP.Reports
         AdvisorVo advisorVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
+        OrderVo orderVo = new OrderVo();
         RMVo rmVo = null;
         WERPReports CommonReport = new WERPReports();
         Dictionary<string, string> chkBoxsList = new Dictionary<string, string>();
@@ -88,6 +89,7 @@ namespace WealthERP.Reports
         //DataTable dtPortfolioAllocation;
         string riskClass = string.Empty;
         double recEquity, recDebt, recCash, recAlternate, currEquity, currDebt, currCash, currAlternate = 0;
+        int orderId = 0;
         private ReportType CurrentReportType
         {
             get
@@ -3656,6 +3658,11 @@ namespace WealthERP.Reports
             else  if (CurrentReportType == ReportType.OrderTransactionSlip)
             {
                 orderTransaction.advisorId = advisorVo.advisorId;
+                orderVo = (OrderVo)Session["orderVo"];
+                if (orderVo.OrderId != 0)
+                {
+                    orderTransaction.orderId = orderVo.OrderId;
+                }
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnCustomerId"]))
                 {
                     //orderTransaction.CustomerId = int.Parse(Request.Form["ctrl_MFOrderEntry$hdnCustomerId"]);
