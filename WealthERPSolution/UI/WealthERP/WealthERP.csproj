@@ -1203,6 +1203,13 @@
     <Compile Include="BusinessMIS\BusinessDashBoard.ascx.designer.cs">
       <DependentUpon>BusinessDashBoard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="BusinessMIS\GoalMIS.ascx.cs">
+      <DependentUpon>GoalMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\GoalMIS.ascx.designer.cs">
+      <DependentUpon>GoalMIS.ascx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\MultiProductMIS.ascx.cs">
       <DependentUpon>MultiProductMIS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5517,6 +5524,7 @@
     <Content Include="bin\WatiN.Core.dll" />
     <Content Include="bin\WatiN.Core.XML" />
     <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
+    <Content Include="BusinessMIS\GoalMIS.ascx" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />

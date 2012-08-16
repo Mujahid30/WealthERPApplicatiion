@@ -226,9 +226,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_DAILY_MF_GOLD_PRICE_UP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_EMAIL_SMS_JOB", "WERP_EMAIL_SMS_JOB\WERP_EMAIL_SMS_JOB.csproj", "{6EF6C693-59BB-48F9-8210-7826B0AE9E72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_DAILY_EQUITY_VALUATION", "WERP_DAILY_EQUITY_VALUATION\WERP_DAILY_EQUITY_VALUATION.csproj", "{7AE92505-049B-4291-BBE2-501B84B3D185}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 92
+		SccNumberOfProjects = 93
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -578,6 +580,9 @@ Global
 		SccProjectUniqueName91 = WERP_EMAIL_SMS_JOB\\WERP_EMAIL_SMS_JOB.csproj
 		SccProjectName91 = WERP_EMAIL_SMS_JOB
 		SccLocalPath91 = WERP_EMAIL_SMS_JOB
+		SccProjectUniqueName92 = WERP_DAILY_EQUITY_VALUATION\\WERP_DAILY_EQUITY_VALUATION.csproj
+		SccProjectName92 = WERP_DAILY_EQUITY_VALUATION
+		SccLocalPath92 = WERP_DAILY_EQUITY_VALUATION
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -952,6 +957,10 @@ Global
 		{6EF6C693-59BB-48F9-8210-7826B0AE9E72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EF6C693-59BB-48F9-8210-7826B0AE9E72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EF6C693-59BB-48F9-8210-7826B0AE9E72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AE92505-049B-4291-BBE2-501B84B3D185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AE92505-049B-4291-BBE2-501B84B3D185}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AE92505-049B-4291-BBE2-501B84B3D185}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AE92505-049B-4291-BBE2-501B84B3D185}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

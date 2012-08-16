@@ -1405,4 +1405,8 @@
     <value>SuperAdmin//IFADashBoard.ascx</value>
     <comment>SuperAdmin//IFADashBoard.ascx</comment>
   </data>
+  <data name="GoalMIS" xml:space="preserve">
+    <value>BusinessMIS//GoalMIS.ascx</value>
+    <comment>BusinessMIS//GoalMIS.ascx</comment>
+  </data>
 </root>
