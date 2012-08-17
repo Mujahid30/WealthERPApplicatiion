@@ -35,6 +35,7 @@ namespace WealthERP.Advisor
 
         public void imgClientsClick_OnClick(object sender, EventArgs e)
         {
+            Session["Customer"] = "Customer";
             Session["NodeType"] = "AdviserCustomer";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
@@ -49,7 +50,7 @@ namespace WealthERP.Advisor
         }
         public void lnkbtnClientLink_OnClick(object sender, EventArgs e)
         {
-
+            Session["Customer"] = "Customer";
             Session["NodeType"] = "AdviserCustomer";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
