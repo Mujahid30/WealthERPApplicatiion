@@ -136,7 +136,7 @@
         <td class="leftField">
         </td>
         <td class="rightField">
-            <table>
+            <table width="100%">
                 <tr>
                     <td>
                         <div class="clearfix" style="margin-bottom: 1em;">
