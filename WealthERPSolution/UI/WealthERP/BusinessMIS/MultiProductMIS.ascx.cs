@@ -913,13 +913,13 @@ namespace WealthERP.BusinessMIS
 
                             if (dr["CFINP_PurchaseDate"].ToString() != "")
                                 drFIMIS["CFINP_PurchaseDate"] = (DateTime.Parse(dr["CFINP_PurchaseDate"].ToString())).ToShortDateString();
-                            else
-                                drFIMIS["CFINP_PurchaseDate"] = "N/A";
+                            //else
+                            //    drFIMIS["CFINP_PurchaseDate"] = "N/A";
 
                             if (dr["CFINP_MaturityDate"].ToString() != "")
                                 drFIMIS["CFINP_MaturityDate"] = (DateTime.Parse(dr["CFINP_MaturityDate"].ToString())).ToShortDateString();
-                            else
-                                drFIMIS["CFINP_MaturityDate"] = "N/A";
+                            //else
+                            //    drFIMIS["CFINP_MaturityDate"] = "N/A";
 
                             drFIMIS["CFINP_PrincipalAmount"] = dr["CFINP_PrincipalAmount"].ToString();
                             drFIMIS["CFINP_InterestRate"] = dr["CFINP_InterestRate"].ToString();

@@ -1229,7 +1229,7 @@ namespace WealthERP.CustomerPortfolio
             int noOfMonths = 0;
             bool yResult = int.TryParse(txtTenture.Text.ToString(), out noOfYears);
             bool mResult = int.TryParse(txtTenureMonths.Text.ToString(), out noOfMonths);
-
+           
             //bool result=int.TryParse(txtTenture.Text.ToString(),out i);
             if (ddlEMIFrequency.SelectedValue != "Select the Frequency")
             {
@@ -1309,6 +1309,8 @@ namespace WealthERP.CustomerPortfolio
             double loanAmount = 0;
             double interestRate = 0;
             int numberOfInstallments = 0;
+            int noOfYears = 0;
+            int noOfMonths = 0;
             DateTime startDate = new DateTime();    
             DateTime endDate = new DateTime();
             bool sdResult = DateTime.TryParse(txtInstallmentStartDt.Text, out startDate);
@@ -1316,7 +1318,10 @@ namespace WealthERP.CustomerPortfolio
             bool laResult = double.TryParse(txtLoanAmount.Text, out loanAmount);
             bool iResult = double.TryParse(txtInterestRate.Text, out interestRate);
             bool lpResult = int.TryParse(txtNoOfInstallments.Text, out numberOfInstallments);
-            if (laResult && iResult && lpResult && ddlRepaymentType.SelectedValue.ToString() != "Select the Installment Type")
+            bool yResult = int.TryParse(txtTenture.Text.ToString(), out noOfYears);
+            bool mResult = int.TryParse(txtTenureMonths.Text.ToString(), out noOfMonths);
+
+            if (laResult && yResult && mResult && iResult && lpResult && ddlRepaymentType.SelectedValue.ToString() != "Select the Installment Type")
             {
                 switch (ddlEMIFrequency.SelectedValue)
                 {

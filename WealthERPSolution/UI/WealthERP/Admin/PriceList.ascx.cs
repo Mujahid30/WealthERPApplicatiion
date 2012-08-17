@@ -66,7 +66,7 @@ namespace WealthERP.Admin
                 //trPageCount.Visible = false;
                 //trPager.Visible = false;
                 //trMfPagecount.Visible = false;
-                //lblheader.Text = "MF Data Query";
+               lblheader.Text = "MF Data Query";
                 trSelectMutualFund.Visible = true;
                 trSelectSchemeNAV.Visible = true;
                 trNavCategory.Visible = true;
@@ -106,7 +106,7 @@ namespace WealthERP.Admin
                 //RadTabStrip1.Tabs[0].Visible = false;
                 RadTabStrip1.Tabs[1].Visible = false;
                 RadTabStrip1.Tabs[2].Visible = false;
-                lblheader.Text = "Equity Data Query";
+             lblheader.Text = "Equity Data Query";
                 pnlSchemeComparison.Visible = false;
                 rbtnCurrent.Visible = true;
                 rbtnHistorical.Visible = true;

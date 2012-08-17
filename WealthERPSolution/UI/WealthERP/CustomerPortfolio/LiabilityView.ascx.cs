@@ -112,16 +112,7 @@ namespace WealthERP.CustomerPortfolio
                                 break;
                         }
                     }
-                    else
-                    {
-                        dr[5] = " ";
-                        dr[6] = " ";
-                        //loanOutStanding = calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
-                        dr[7] = " ";
-                        //nextInsDate = calculator.GetNextPremiumDate(liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, liabilityVo.FrequencyCodeEMI);
-                        dr[8] = " ";
-                        dr[9] = " ";
-                    }
+                  
                     dt.Rows.Add(dr);
                 }
                 gvLiabilities.DataSource = dt;

@@ -85,25 +85,17 @@
     <div>
         <%--<asp:ScriptManager ID="UploadScripManager" runat="server">
         </asp:ScriptManager>--%>
-        <table style="width: 100%">
-            <tr>
-                <td colspan="5">
-                    <div class="divPageHeading">
-                        <table cellspacing="0" cellpadding="3" width="100%">
-                            <tr>
-                                <td align="left">
-                                     MF Data Query
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-            <%--<tr>
-                <td class="HeaderCell">
-                    <%--<label id="lblheader" class="HeaderTextBig" title="Upload Screen">
+             
+<table style="width: 100%">
+    <tr>
+        <td class="HeaderCell">
+            <%--<label id="lblheader" class="HeaderTextBig" title="Upload Screen">
                MF Data Query</label>--%>
-        </table>
+               <asp:Label ID="lblheader" runat="server" Class="HeaderTextBig"></asp:Label>
+               
+        </td>
+    </tr>
+</table>
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
             EnableEmbeddedSkins="False" MultiPageID="FactsheetMultiPage" SelectedIndex="0">
             <Tabs>

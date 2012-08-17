@@ -31,13 +31,20 @@
 <asp:UpdatePanel ID="upnlLiabilities" runat="server">
     <ContentTemplate>
         <table>
-            <tr>
-                <td colspan="4">
-                    <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Liabilities Maintenance Form"></asp:Label>
-                    <hr />
-                    <%--<asp:Label ID="lblHeader" runat="server" Text="Liabilities Maintenance Form" CssClass="HeaderTextSmall"></asp:Label>--%>
-                </td>
-            </tr>
+        <tr>
+        <td colspan="4">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                           Liabilities Maintenance Form
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+           
             <tr>
                 <td colspan="3" class="tdRequiredText">
                     <label id="lbl" class="lblRequiredText">
