@@ -4051,6 +4051,10 @@ namespace WealthERP.Uploads
             {
                 lnkbtnpup.Visible = true;
             }
+            else if (ddlUploadType.SelectedValue == "MFSS" && ddlListCompany.SelectedValue == "CA")
+            {
+                lnkPaintFileDwnload.Visible = true;
+            }
             else
             {
                 //lnkbtnpup.Style.Add("display", "none");
@@ -7162,7 +7166,10 @@ namespace WealthERP.Uploads
             divresult.Visible = false;
             ViewState["dtinputvalidationerror"] = dtInputRejects;
         }
-
+        protected void lnkPaintFileDwnload_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Standard Upload Files/SIP Upload Steps.xlsx");
+        }
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             string ddlCompanyType = "ODIN";

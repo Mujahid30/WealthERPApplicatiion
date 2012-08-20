@@ -92,6 +92,7 @@
             sender._textbox.set_Value(sender._selectedDate.format(sender._format));
             alert("Warning! - Date Cannot be in the future");
             return false;
+            lnkPaintFileDwnload.Visible = false;
         }
 
     }
@@ -157,24 +158,24 @@
     </tr>
 </table>--%>
 <table width="100%">
-<tr>
-<td>
-<div class="divPageHeading">
-    <table cellspacing="0" cellpadding="3" width="100%">
-        <tr>
-        <td align="left">Uploads</td>
-            <td align="right">
-                <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
-                    class="flip" />
-                
-            </td>
-        </tr>
-    </table>
-</div>
-</td>
-</tr>
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Uploads
+                        </td>
+                        <td align="right">
+                            <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
+                                class="flip" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
 </table>
-
 <table width="100%">
     <tr>
         <td colspan="3">
@@ -307,6 +308,10 @@
                 Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="Panel1" CancelControlID="btnCancel"
                 Drag="true" OnOkScript="DownloadScript();">
             </cc1:ModalPopupExtender>
+            <td>
+                <asp:LinkButton ID="lnkPaintFileDwnload" runat="server" Font-Size="X-Small" CausesValidation="False"
+                    OnClick="lnkPaintFileDwnload_Click" Visible="false">click here to download SIP file upload steps</asp:LinkButton>
+            </td>
         </td>
     </tr>
     <tr id="datevisible" runat="server" visible="false">
@@ -437,11 +442,9 @@
                 <asp:RadioButton ID="File6" Text="Systematic" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File7" Text="NSE" Checked="false" GroupName="colors"
-                    runat="server" />
+                <asp:RadioButton ID="File7" Text="NSE" Checked="false" GroupName="colors" runat="server" />
                 <br />
-                <asp:RadioButton ID="File8" Text="BSE" Checked="false" GroupName="colors"
-                    runat="server" />
+                <asp:RadioButton ID="File8" Text="BSE" Checked="false" GroupName="colors" runat="server" />
                 <br />
                 <asp:RadioButton ID="File9" Text="Profile & MF Folio" Checked="false" GroupName="colors"
                     runat="server" />
