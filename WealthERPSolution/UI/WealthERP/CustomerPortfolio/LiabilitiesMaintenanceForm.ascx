@@ -30,7 +30,7 @@
 </asp:ScriptManager>
 <asp:UpdatePanel ID="upnlLiabilities" runat="server">
     <ContentTemplate>
-        <table>
+        <table width="100%">
         <tr>
         <td colspan="4">
             <div class="divPageHeading">
@@ -46,7 +46,7 @@
     </tr>
            
             <tr>
-                <td colspan="3" class="tdRequiredText">
+                <td colspan="4" class="tdRequiredText">
                     <label id="lbl" class="lblRequiredText">
                         Note: Fields marked with a ' * ' are compulsory</label>
                 </td>
@@ -205,7 +205,7 @@
                     </cc1:TextBoxWatermarkExtender>
                      <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a year"
                         Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"
-                        ControlToValidate="txtTenture" >
+                        ControlToValidate="txtTenture">
                     </asp:RequiredFieldValidator>
                     <asp:TextBox ID="txtTenureMonths" runat="server" CssClass="txtField" OnTextChanged="txtTenureMonths_TextChanged"
                         AutoPostBack="true"></asp:TextBox>
