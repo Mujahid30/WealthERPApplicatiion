@@ -71,7 +71,7 @@ namespace WealthERP.Admin
                 trSelectSchemeNAV.Visible = true;
                 trNavCategory.Visible = true;
                 gvMFFundPerformance.Visible = false;
-                //gvMFRecord.Visible = false;
+                gvMFRecord.Visible = false;
                // BindMFFundPerformance();
                 tblFactSheet.Visible = false;
                 BindYear();
@@ -471,12 +471,13 @@ namespace WealthERP.Admin
                     {
                         trExportFilteredMFRecord.Visible = true;
                         gvMFRecord.Visible = true;
+                        Panel1.Visible = true;
                         //gvMFRecord.CurrentPageIndex = 0;
                         gvMFRecord.DataSource = ds.Tables[0]; ;
                         gvMFRecord.DataBind();
-                        //DivMF.Style.Add("display", "visible");
-                        //DivEquity.Style.Add("display", "none");
-                        //DivPager.Style.Add("display", "visible");
+                        DivMF.Style.Add("display", "visible");
+                        DivEquity.Style.Add("display", "none");
+                        DivPager.Style.Add("display", "visible");
                         //Search = null;
                         hdnSchemeSearch.Value = null;
                         //gvMFRecord.Visible = true;
@@ -494,6 +495,7 @@ namespace WealthERP.Admin
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
                         gvMFRecord.DataSource = null;
                         gvMFRecord.DataBind();
+                        Panel1.Visible = false;
                     }
                 }
             }
@@ -547,11 +549,15 @@ namespace WealthERP.Admin
                     //int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
                     //string Search = hdnSchemeSearch.Value;
                     int All = 0;
+                    string categoryCode = "";
                     int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
                     if (ddlNAVCategory.SelectedIndex != 0)
+                    {
                         All = 1;
+                        categoryCode = ddlNAVCategory.SelectedValue;
+                    }
                     int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
-                    string categoryCode = ddlNAVCategory.SelectedValue;
+                    
                     int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
                     string Search = hdnSchemeSearch.Value;
                     //hdnMFCount.Value = PriceObj.GetAMFICount("C", StartDate, EndDate, Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode).ToString();
@@ -560,18 +566,19 @@ namespace WealthERP.Admin
                     ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, amfiCode, schemeCode, selectAllCode, All, categoryCode);
                     if (ds.Tables[0].Rows.Count > 0)
                     {
-                        gvMFRecord.Visible = true;
+                        trExportFilteredMFRecord.Visible = true;
                         gvMFRecord.DataSource = ds.Tables[0];
                         gvMFRecord.DataBind();
-                        
+                        gvMFRecord.Visible = true;
                         //GetPageCount_MF();
-                        //DivPager.Style.Add("display", "visible");
-                        //DivMF.Style.Add("display", "visible");
-                        //DivEquity.Style.Add("display", "none");
+                        DivPager.Style.Add("display", "visible");
+                        DivMF.Style.Add("display", "visible");
+                        DivEquity.Style.Add("display", "none");
+                        Panel1.Visible = true;
                     }
                     else
                     {
-                        trgvEquityView.Visible = false;
+                       trgvEquityView.Visible = false;
                         //trgrMfView.Visible = false;
                        // trPageCount.Visible = false;
                         //trPager.Visible = false;
@@ -579,6 +586,7 @@ namespace WealthERP.Admin
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records For This Period Of Time');", true);
                         gvMFRecord.DataSource = null;
                         gvMFRecord.DataBind();
+                        Panel1.Visible = false;
                     }
                     //Search = null;
                     //hdnSchemeSearch.Value = null;

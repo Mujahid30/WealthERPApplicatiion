@@ -290,7 +290,7 @@
                                         <telerik:RadGrid OnNeedDataSource="gvMFRecord_OnNeedDataSource" ID="gvMFRecord" runat="server"
                                             GridLines="None" AutoGenerateColumns="False" PageSize="10" AllowSorting="true"
                                             AllowPaging="True" ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
-                                            Width="120%" AllowFilteringByColumn="true" AllowAutomaticInserts="false">
+                                            Width="120%" AllowFilteringByColumn="false" AllowAutomaticInserts="false">
                                             <ExportSettings ExportOnlyData="true" HideStructureColumns="true" FileName="MFNavRecordslist">
                                             </ExportSettings>
                                             <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
@@ -458,7 +458,7 @@
                                             <asp:BoundField DataField="TotalTradeQuantity" HeaderText="Total Trade Quantity" />
                                             <asp:BoundField DataField="TotalTradeValue" HeaderText="Total Trade Value" />
                                             <asp:BoundField DataField="NoOfTrades" HeaderText="No Of Trades" />
-                                            <asp:BoundField DataField="Date" HeaderText="Date" />
+                                            <asp:BoundField DataField="Date" HeaderText="Date" DataFormatString="{0:d}"/>
                                         </Columns>
                                     </asp:GridView>
                                 </td>
