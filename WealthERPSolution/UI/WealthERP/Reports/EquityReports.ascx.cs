@@ -27,19 +27,20 @@ namespace WealthERP.Reports
         DateBo dtBo = new DateBo();
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
-        int activeTabIndex = 0;        
+        int activeTabIndex = 0;
         CustomerVo customerVo = new CustomerVo();
         AdvisorVo advisorVo;
         bool CustomerLogin = false;
         bool strFromCustomerDashBoard = false;
         bool isGrpHead = false;
+        DateTime chckdate;
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
             SessionBo.CheckSession();
             userVo = (UserVo)Session["UserVo"];
-            
+
 
             if (Request.Form["ctrl_EquityReports$btnView"] != "View Report")
             {
@@ -83,7 +84,7 @@ namespace WealthERP.Reports
                     Session["hndCustomerLogin"] = hndCustomerLogin.Value;
                     trCustomerButton.Visible = false;
                     trAdminRmButton.Visible = true;
-                    
+
                 }
 
                 BindPeriodDropDown();
@@ -91,7 +92,7 @@ namespace WealthERP.Reports
                 //txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
 
                 if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
-                    advisorVo = (AdvisorVo)Session["advisorVo"]; 
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
 
                 if (!IsPostBack)
                 {
@@ -110,7 +111,7 @@ namespace WealthERP.Reports
                         trStepGrHead.Visible = false;
                         IndivisulCustomerLogin();
                         ShowGroupCustomers();
-                        
+
                     }
                     else
                     {
@@ -120,7 +121,7 @@ namespace WealthERP.Reports
                         trCustomerInd.Visible = false;
                         trStepIndi.Visible = true;
                         trStepGrHead.Visible = true;
-                        
+
 
                         //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
                         if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
@@ -139,8 +140,8 @@ namespace WealthERP.Reports
 
                         }
                     }
-                    
-                    
+
+
                 }
 
                 if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_EquityReports$hidTabIndex"]))
@@ -152,23 +153,43 @@ namespace WealthERP.Reports
 
             }
         }
-      protected void ChckBussDate_Textchanged(object sender, EventArgs e)
+        public void ChckBussDate_Textchanged(object sender, EventArgs e)
+        {
+            
+            chckdate = DateTime.Parse(txtAsOnDate.Text);
+            ValidateBussDate(chckdate);
+            
+        }
+        public void ChckBussFromDate_Textchanged(object sender, EventArgs e)
+        {
+
+            chckdate = DateTime.Parse(txtFromDate.Text);
+            ValidateBussDate(chckdate);
+
+        }
+        public void ChckBussToDate_Textchanged(object sender, EventArgs e)
+        {
+
+            chckdate = DateTime.Parse(txtToDate.Text);
+            ValidateBussDate(chckdate);
+
+        }
+        public void ValidateBussDate( DateTime chckdate)
         {
             CustomerBo customerBo = new CustomerBo();
-             bool isCorrect = false;
-           DateTime chckdate=DateTime.Parse(txtAsOnDate.Text);
-             isCorrect=customerBo.ChckBussinessDate(chckdate);
-             if (isCorrect == true)
-             { //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
-             }
-             else
-             {
-                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid!!!Choose a Valid Bussiness Date ');", true);
-               
-             }
+            bool isCorrect = false;
+             isCorrect = customerBo.ChckBussinessDate(chckdate);
+            if (isCorrect == true)
+            { //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid!!!Choose a Valid Bussiness Date ');", true);
+
+            }
         }
 
-        
+
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnPickDate.Checked == true)
@@ -190,7 +211,7 @@ namespace WealthERP.Reports
         }
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
-           
+
             if (txtCustomerId.Value != string.Empty)
             {
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
@@ -220,7 +241,7 @@ namespace WealthERP.Reports
             if (txtParentCustomerId.Value != string.Empty || Session["UserType"].ToString() == "Customer")
             {
                 CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
-               // DataTable dt = customerFamilyBo.GetAllCustomerAssociates(int.Parse(txtParentCustomerId.Value));
+                // DataTable dt = customerFamilyBo.GetAllCustomerAssociates(int.Parse(txtParentCustomerId.Value));
                 if (CustomerLogin == true)
                 {
                     lblCustomerGrHead.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
@@ -301,11 +322,11 @@ namespace WealthERP.Reports
             {
                 int customerId = 0;
                 if (CustomerLogin == true)
-                     customerId = customerVo.CustomerId;
+                    customerId = customerVo.CustomerId;
                 else
                     customerId = Convert.ToInt32(txtCustomerId.Value);
-                 List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId);
-               
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId);
+
                 //Get all the portfolios of the selected customer.
                 if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
                 {
