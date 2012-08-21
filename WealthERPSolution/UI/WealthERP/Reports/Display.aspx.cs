@@ -2713,9 +2713,21 @@ namespace WealthERP.Reports
                         {
                             crmain.SetDataSource(dtEquitySectorwise);
                             setLogo();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
+                            string Headername;
+                            if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            {
+                                Headername = "Group";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
+                            else
+                            {
+                                Headername = "Individual";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
                             lblClosingBalanceNote.Visible = false;
                             if (Request.QueryString["mail"] == "2")
                             {
@@ -2744,6 +2756,17 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                             lblClosingBalanceNote.Visible = false;
+                            string Headername;
+                            if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            {
+                                Headername = "Group";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
+                            else
+                            {
+                                Headername = "Individual";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
@@ -2772,6 +2795,7 @@ namespace WealthERP.Reports
 
                             setLogo();
                             AssignReportViewerProperties();
+                           
                             crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                             string Headername;
