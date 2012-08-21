@@ -203,12 +203,21 @@
                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtTenture"
                         WatermarkText="Years">
                     </cc1:TextBoxWatermarkExtender>
+                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a year"
+                        Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"
+                        ControlToValidate="txtTenture" >
+                    </asp:RequiredFieldValidator>
                     <asp:TextBox ID="txtTenureMonths" runat="server" CssClass="txtField" OnTextChanged="txtTenureMonths_TextChanged"
                         AutoPostBack="true"></asp:TextBox>
                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtTenureMonths"
                         WatermarkText="Months">
                     </cc1:TextBoxWatermarkExtender>
                     <span id="Span7" class="spnRequiredField">*</span>
+                    
+                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a Month"
+                         Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"
+                        ControlToValidate="txtTenureMonths" >
+                    </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtTenureMonths"
                         ValidationGroup="vgBtnSubmitTemp" Display="Dynamic" runat="server" CssClass="rfvPCG"
                         Operator="DataTypeCheck" ErrorMessage="Tenure in Years Not in acceptable format"
@@ -267,8 +276,8 @@
                         CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtLoanOutstandingAmount" runat="server" CssClass="txtField"></asp:TextBox><span
-                        id="Span14" class="spnRequiredField">*</span>
+                    <asp:TextBox ID="txtLoanOutstandingAmount" runat="server" CssClass="txtField"></asp:TextBox>
+                  <%--     <span id="Span14" class="spnRequiredField">*</span>--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtLoanOutstandingAmount"
                         ErrorMessage="<br />Please enter the Loan Outstanding Amount" Display="Dynamic"
                         CssClass="rfvPCG" runat="server" InitialValue="" ValidationGroup="vgBtnSubmitTemp">
@@ -474,8 +483,8 @@
                         CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtLumpsumRepaymentAmount" runat="server" CssClass="txtField"></asp:TextBox><span
-                        id="Span5" class="spnRequiredField">*</span>
+                    <asp:TextBox ID="txtLumpsumRepaymentAmount" runat="server" CssClass="txtField"></asp:TextBox>
+                     <%--  <span id="Span5" class="spnRequiredField">*</span>--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtLumpsumRepaymentAmount"
                         ErrorMessage="<br />Please enter Lumpsum Repayment Amount" Display="Dynamic"
                         CssClass="rfvPCG" runat="server" InitialValue="" ValidationGroup="vgBtnSubmitTemp">
