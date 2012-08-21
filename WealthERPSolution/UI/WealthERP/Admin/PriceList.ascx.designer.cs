@@ -30,6 +30,9 @@ namespace WealthERP.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
+        protected global::System.Web.UI.WebControls.Label lblheader;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMFFundPerformance;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredMFRecord;
         
         /// <summary>
         /// RadTabStrip1 control.
@@ -416,8 +419,7 @@ namespace WealthERP.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredMFRecord;
-        
+         
         /// <summary>
         /// btnExportFilteredMFRecord control.
         /// </summary>
@@ -668,8 +670,7 @@ namespace WealthERP.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMFFundPerformance;
-        
+         
         /// <summary>
         /// btnMFFundPerformance control.
         /// </summary>
