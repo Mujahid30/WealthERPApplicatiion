@@ -72,6 +72,9 @@ namespace WealthERP.General
                     lblNoOfInstallmentsValue.Text = noOfInstallments.ToString("f0");
                     gvRepaymentSchedule.DataSource = dtRepaymentSchedule;
                     gvRepaymentSchedule.DataBind();
+
+
+
                 }
             }
 
@@ -355,12 +358,12 @@ namespace WealthERP.General
         }
 
         protected void txtStartDate_OnTextChanged(object sender, EventArgs e)
-        {  
+        {
 
-            string regExp="^[0-9]+(\\.[0-9]+)+$";
+            string regExp = "^[0-9]+(\\.[0-9]+)+$";
             if (System.Text.RegularExpressions.Regex.IsMatch(txtTenureYears.Text, regExp))
             {
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid year');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid year');", true);
             }
             else if (System.Text.RegularExpressions.Regex.IsMatch(txtTenureMonths.Text, regExp))
             {
@@ -368,26 +371,92 @@ namespace WealthERP.General
             }
             else
             {
-                int noOfYears = 0;
-                int noOfMonths = 0;
-
+                //int noOfYears = 0;
+                //int noOfMonths = 0;
+                DateTime endDate = new DateTime();
+                DateTime premiumDate = new DateTime();
                 DateTime startDate = DateTime.Parse(txtStartDate.Text);
 
-                if (txtTenureYears.Text != string.Empty)
-                    noOfYears = int.Parse(txtTenureYears.Text);
-                else
-                    noOfYears = 0;
-                if (txtTenureMonths.Text != string.Empty)
+                //if (txtTenureYears.Text != string.Empty)
+                //    noOfYears = int.Parse(txtTenureYears.Text);
+                //else
+                //    noOfYears = 0;
+                //if (txtTenureMonths.Text != string.Empty)
 
-                    noOfMonths = int.Parse(txtTenureMonths.Text);
-                else
-                    noOfMonths = 0;
+                //    noOfMonths = int.Parse(txtTenureMonths.Text);
+                //else
+                //    noOfMonths = 0;
 
-                txtEndDate.Text = getInstallmentEndDate(noOfYears, noOfMonths, startDate).ToShortDateString();
-                txtEndDate.Enabled = false;
+                //txtEndDate.Text = getInstallmentEndDate(noOfYears, noOfMonths, startDate).ToShortDateString();
+                //txtEndDate.Enabled = false;
+
+
+                Calculator calculator = new Calculator();
+    
+                string frequencyCode = "";
+               
+                int noOfInstallments = 0; ;
+                int tenureYears = 0;
+                int tenureMonths = 0;
+                
+                DateTime.TryParse(txtStartDate.Text, out startDate);
+                DateTime.TryParse(txtEndDate.Text, out endDate);
+           
+                frequencyCode = ddlFrequency.SelectedItem.Value.ToString();
+                int.TryParse(txtTenureYears.Text, out tenureYears);
+                int.TryParse(txtTenureMonths.Text, out tenureMonths);
+                noOfInstallments = calculator.GetNumberOfINstallments(tenureYears, tenureMonths, frequencyCode);
+
+                
+
+                for (int i = 1; i <= noOfInstallments; i++)
+                {
+                    if (i == 1)
+                    {
+                        premiumDate = startDate;
+
+                    }
+                    else
+                    {
+                        switch (frequencyCode)
+                        {
+                            case "AM":
+                                break;
+                            case "DA":
+                                premiumDate = premiumDate.AddDays(1);
+                                break;
+                            case "FN":
+                                premiumDate = premiumDate.AddDays(15);
+                                break;
+                            case "HY":
+                                premiumDate = premiumDate.AddMonths(6);
+                                break;
+                            case "MN":
+                                premiumDate = premiumDate.AddMonths(1);
+
+                                break;
+                            case "NA":
+
+                                break;
+                            case "QT":
+                                premiumDate = premiumDate.AddMonths(3);
+                                break;
+                            case "WK":
+                                premiumDate = premiumDate.AddDays(7);
+                                break;
+                            case "YR":
+                                premiumDate = premiumDate.AddYears(1);
+
+                                break;
+                        }
+                    }
+                    endDate = premiumDate;
+
+                }
+                txtEndDate.Text = endDate.ToShortDateString();
+
             }
         }
-
 
     }
 }
