@@ -587,9 +587,6 @@
                         <telerik:GridTemplateColumn AllowFiltering="true" DataField="A_OrgName">
                             <HeaderTemplate>
                                 <asp:Label ID="lblAdviserNameDate" runat="server" Text="Adviser Name"></asp:Label>
-                                <%--<asp:DropDownList ID="ddlAdviserNameDate" AutoPostBack="true" CssClass="cmbField"
-                                                runat="server" OnSelectedIndexChanged="ddlAdviserNameDate_SelectedIndexChanged">
-                                            </asp:DropDownList>--%>
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblAdviserNameDate" runat="server" Text='<%# Eval("A_OrgName").ToString() %>'></asp:Label>
@@ -601,48 +598,12 @@
                             UniqueName="AUM" DataFormatString="{0:n}">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <%-- <telerik:GridTemplateColumn UniqueName="TemplateColumn" SortExpression="CompanyName"
-                        InitializeTemplatesFirst="false">
-                                    <FooterTemplate>
-                            Template column footer</FooterTemplate>
-                        <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                        </telerik:GridTemplateColumn>--%>
                     </Columns>
                 </MasterTableView>
                 <ClientSettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                 </ClientSettings>
             </telerik:RadGrid>
-            <%--<asp:GridView ID="gvAumMis" runat="server" CellPadding="4" CssClass="GridViewStyle"
-                            AllowSorting="True" HeaderStyle-Width="50%" ShowFooter="true" AutoGenerateColumns="False">
-                            <RowStyle CssClass="RowStyle" />
-                            <FooterStyle CssClass="FooterStyle" />
-                            <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                            <SelectedRowStyle CssClass="SelectedRowStyle" />
-                            <HeaderStyle CssClass="HeaderStyle" HorizontalAlign="Left" VerticalAlign="Middle" />
-                            <EditRowStyle CssClass="EditRowStyle" />
-                            <AlternatingRowStyle CssClass="AltRowStyle " />
-                            <Columns>
-                                <asp:BoundField DataField="CMFNP_ValuationDate" HeaderText="Valuation Date" DataFormatString="{0:d}"
-                                    HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="A_AdviserId" HeaderText="Adviser Id" ItemStyle-HorizontalAlign="Right" />
-                                <asp:TemplateField>
-                                    <HeaderTemplate>
-                                        <asp:Label ID="lblAdviserNameDate" runat="server" Text="Adviser Name"></asp:Label>
-                                        <asp:DropDownList ID="ddlAdviserNameDate" AutoPostBack="true" CssClass="cmbField"
-                                            runat="server" OnSelectedIndexChanged="ddlAdviserNameDate_SelectedIndexChanged">
-                                        </asp:DropDownList>
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblAdviserNameDate" runat="server" Text='<%# Eval("A_OrgName").ToString() %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <HeaderStyle Wrap="true"></HeaderStyle>
-                                    <ItemStyle Wrap="true"></ItemStyle>
-                                </asp:TemplateField>
-                                <asp:BoundField DataField="AUM" HeaderText="AUM" ItemStyle-HorizontalAlign="Right"
-                                    DataFormatString="{0:n}" />
-                            </Columns>
-                        </asp:GridView>--%>
         </td>
     </tr>
 </table>
@@ -656,12 +617,6 @@
                     OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
             </td>
         </tr>
-        <%--<tr>
-                        <td class="leftField" align="right" width="95%">
-                            <asp:Label ID="lblRejectCount" class="Field" runat="server"></asp:Label>
-                            <asp:Label ID="lblRejectTotal" class="Field" runat="server"></asp:Label>
-                        </td>
-                    </tr>--%>
         <tr>
             <td>
                 <div id="dvAll" runat="server" style="width: 640px">
@@ -681,22 +636,9 @@
                                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn AllowFiltering="true" DataField="A_AdviserId" HeaderText="AdviserId"
-                             UniqueName="AdviserId" HeaderStyle-HorizontalAlign="left">
-                            <ItemStyle Width=""  HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                                <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="A_AdviserId">
-                                    <HeaderTemplate>
-                                        <asp:Label ID="lblHAdviserId" runat="server"  Text="AdviserId"></asp:Label>
-                                        <%--<asp:DropDownList ID="ddlAdviserNameDate" AutoPostBack="true" CssClass="cmbField"
-                                                runat="server" OnSelectedIndexChanged="ddlAdviserNameDate_SelectedIndexChanged">
-                                            </asp:DropDownList>
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblIAdviserId" runat="server"  Text='<%# Eval("A_AdviserId").ToString() %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <HeaderStyle Wrap="true"></HeaderStyle>
-                                    <ItemStyle Wrap="true"></ItemStyle>
-                                </telerik:GridTemplateColumn>--%>
+                                    UniqueName="AdviserId" HeaderStyle-HorizontalAlign="left">
+                                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="A_OrgName" AllowFiltering="false" HeaderStyle-HorizontalAlign="Left"
                                     HeaderText="Adviser Name" UniqueName="A_OrgName">
                                     <ItemStyle Width="" Wrap="false" VerticalAlign="Top" />
@@ -737,16 +679,14 @@
                                     DataFormatString="{0:n}" UniqueName="Transaction type">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn AllowFiltering="true" DataField="WRR_RejectReasonDescription" HeaderText="Reject Reason"
-                             UniqueName="Reject Reason" HeaderStyle-HorizontalAlign="left">
-                            <ItemStyle Width=""  HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                                
+                                <telerik:GridBoundColumn AllowFiltering="true" DataField="WRR_RejectReasonDescription"
+                                    HeaderText="Reject Reason" UniqueName="Reject Reason" HeaderStyle-HorizontalAlign="left">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn AllowFiltering="true" DataField="Adul_ProcessId" HeaderText="ProcessId"
-                             UniqueName="ProcessId" HeaderStyle-HorizontalAlign="right">
-                            <ItemStyle Width=""  HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                                
+                                    UniqueName="ProcessId" HeaderStyle-HorizontalAlign="right">
+                                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
                             </Columns>
                         </MasterTableView>
                         <ClientSettings>
@@ -754,81 +694,6 @@
                         </ClientSettings>
                     </telerik:RadGrid>
                 </div>
-                <%--<asp:GridView ID="gvMFRejectedDetails" runat="server" AutoGenerateColumns="False"
-                                AllowSorting="True" CellPadding="4" CssClass="GridViewStyle" HeaderStyle-Width="100%"
-                                ShowFooter="True">
-                                <FooterStyle CssClass="FooterStyle" />
-                                <RowStyle CssClass="RowStyle" />
-                                <EditRowStyle HorizontalAlign="Left" VerticalAlign="Top" />
-                                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                                <HeaderStyle CssClass="HeaderStyle" />
-                                <AlternatingRowStyle CssClass="AltRowStyle" />
-                                <Columns>
-                                    <asp:BoundField DataField="CMFTS_CreatedOn" HeaderText="Process Date" ItemStyle-HorizontalAlign="Center"
-                                        ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderStyle-Width="25px" />
-                                    <asp:TemplateField ItemStyle-HorizontalAlign="right" HeaderStyle-Width="20px" ItemStyle-Wrap="false"
-                                        HeaderStyle-Wrap="false">
-                                        <HeaderTemplate>
-                                            <asp:Label ID="lbladviserId" runat="server" Text="AdviserId"></asp:Label>
-                                            <br />
-                                            <asp:DropDownList ID="ddlAdviserId" CssClass="cmbLongField" AutoPostBack="true" Width="80px"
-                                                runat="server" OnSelectedIndexChanged="ddlAdviserId_SelectedIndexChanged">
-                                            </asp:DropDownList>
-                                        </HeaderTemplate>
-                                        <ItemTemplate>
-                                            <asp:Label ID="lbladviser" runat="server" Text='<%# Eval("A_AdviserId").ToString() %>'></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField DataField="A_OrgName" HeaderText="Adviser Name" ItemStyle-HorizontalAlign="left"
-                                        HeaderStyle-Width="20px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                    <asp:BoundField DataField="WUXFT_XMLFileName" HeaderText="File NameSource Type" ItemStyle-HorizontalAlign="left"
-                                        HeaderStyle-Width="20px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle" />
-                                    <asp:BoundField DataField="CMFTS_FolioNum" HeaderText="Folio number" ItemStyle-HorizontalAlign="left"
-                                        HeaderStyle-Width="20px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                    <asp:BoundField DataField="CMFTS_SchemeCode" HeaderText="Scheme" ItemStyle-HorizontalAlign="right"
-                                        HeaderStyle-Width="20px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                    <asp:BoundField DataField="PASP_SchemePlanName" HeaderText="Scheme name" ItemStyle-HorizontalAlign="left"
-                                        ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-Width="225px" HeaderStyle-HorizontalAlign="Center" />
-                                    <asp:BoundField DataField="CMFTS_TransactionClassificationCode" HeaderText="Transaction type"
-                                        ItemStyle-HorizontalAlign="left" ItemStyle-Wrap="false" HeaderStyle-Wrap="false"
-                                        HeaderStyle-Width="20px" />
-                                    <asp:BoundField DataField="CMFTS_TransactionDate" HeaderText="Transaction date" ItemStyle-HorizontalAlign="center"
-                                        HeaderStyle-Width="25px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                    <asp:BoundField DataField="CMFTS_Price" HeaderText="Price" ItemStyle-HorizontalAlign="right"
-                                        DataFormatString="{0:n}" HeaderStyle-Width="20px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                    <asp:BoundField DataField="CMFTS_Units" HeaderText="Units" ItemStyle-HorizontalAlign="right"
-                                        DataFormatString="{0:n}" HeaderStyle-Width="20px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                    <asp:BoundField DataField="CMFTS_Amount" HeaderText="Amount" ItemStyle-HorizontalAlign="right"
-                                        DataFormatString="{0:n}" HeaderStyle-Width="20px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                    <asp:TemplateField ItemStyle-HorizontalAlign="left" HeaderStyle-Width="10px" ItemStyle-Wrap="false"
-                                        HeaderStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center">
-                                        <HeaderTemplate>
-                                            <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                                            <br />
-                                            <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true"
-                                                Width="80%" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
-                                            </asp:DropDownList>
-                                        </HeaderTemplate>
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("WRR_RejectReasonDescription").ToString() %>'></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField ItemStyle-HorizontalAlign="right" ItemStyle-Width="10px" ItemStyle-Wrap="false"
-                                        HeaderStyle-Wrap="false">
-                                        <HeaderTemplate>
-                                            <asp:Label ID="lblProcessId" runat="server" Text="ProcessId"></asp:Label>
-                                            <br />
-                                            <asp:DropDownList ID="ddlProcessId" CssClass="cmbLongField" AutoPostBack="true" Width="80px"
-                                                runat="server" OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
-                                            </asp:DropDownList>
-                                        </HeaderTemplate>
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblProcess" runat="server" Text='<%# Eval("Adul_ProcessId").ToString() %>'></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                            </asp:GridView>--%>
             </td>
         </tr>
     </table>
@@ -852,8 +717,8 @@
         <td>
             <telerik:RadGrid ID="gvNavChange" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
-                AllowAutomaticInserts="false" OnNeedDataSource="gvNavChange_OnNeedDataSource">
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false"
+                AllowAutomaticInserts="false"  ExportSettings-Excel-Format="ExcelML" OnNeedDataSource="gvNavChange_OnNeedDataSource">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="NavChangelist">
                 </ExportSettings>
                 <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
@@ -865,19 +730,19 @@
                             UniqueName="Scheme Code" HeaderStyle-HorizontalAlign="Center">
                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="SchemeName" AllowFiltering="false" HeaderStyle-HorizontalAlign="Right"
-                            HeaderText="Scheme Name" UniqueName="Adviser Id">
+                        <telerik:GridBoundColumn DataField="PASP_SchemePlanName" AllowFiltering="false" HeaderStyle-HorizontalAlign="Right"
+                            HeaderText="Scheme Name" UniqueName="Scheme Name">
                             <ItemStyle Width="" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CurrentNAV" AllowFiltering="false" HeaderText="Current NAV(AsOn)"
+                        <telerik:GridBoundColumn DataField="Todays_NAV" AllowFiltering="false" HeaderText="Current NAV(AsOn)"
                             UniqueName="Current NAV(AsOn)">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="PreviousNAV" AllowFiltering="false" HeaderText="Previous Day NAV"
+                        <telerik:GridBoundColumn DataField="lastday_Nav" AllowFiltering="false" HeaderText="Previous Day NAV"
                             UniqueName="Previous Day NAV">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="PercentChange" AllowFiltering="false" HeaderText="Percentage ChangeNAV"
+                        <telerik:GridBoundColumn DataField="PerDiff" AllowFiltering="false" HeaderText="Percentage ChangeNAV"
                             UniqueName="Percentage ChangeNAV" DataFormatString="{0:n2}">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -885,9 +750,9 @@
                 </MasterTableView>
                 <ClientSettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    <ClientEvents OnFilterMenuShowing="filterMenuShowing" />
+                    <ClientEvents/>
                 </ClientSettings>
-                <FilterMenu OnClientShown="MenuShowing" />
+               
             </telerik:RadGrid>
             <%--<asp:GridView ID="gvNavChange" runat="server" AutoGenerateColumns="False" AllowSorting="True"
                             CellPadding="4" CssClass="GridViewStyle" HeaderStyle-Width="100%" ShowFooter="True">

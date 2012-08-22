@@ -285,18 +285,38 @@ namespace WealthERP.SuperAdmin
             NavPer = double.Parse(ddlNavPer.SelectedValue);
             dsGetNAV = superAdminOpsBo.GetNAVPercentage(DateTime.Parse(txtDate.SelectedDate.ToString()), NavPer);
             dtGetNAV = dsGetNAV.Tables[0];
+           
             try
             {
                 if (dtGetNAV.Rows.Count > 0)
                 {
                     trExportFilteredNavData.Visible = true;
-                    DataTable dtGetNAVPercentageDetails = new DataTable();
-                    dtGetNAVPercentageDetails.Columns.Add("SchemeCode");
-                    dtGetNAVPercentageDetails.Columns.Add("SchemeName");
-                    dtGetNAVPercentageDetails.Columns.Add("CurrentNAV");
-                    dtGetNAVPercentageDetails.Columns.Add("PreviousNAV");
-                    dtGetNAVPercentageDetails.Columns.Add("PercentChange");
-                    if (Cache["duplicatecheckList"] == null)
+                    //DataTable dtGetNAVPercentageDetails = new DataTable();
+                    //dtGetNAVPercentageDetails.Columns.Add("SchemeCode");
+                    //dtGetNAVPercentageDetails.Columns.Add("SchemeName");
+                    //dtGetNAVPercentageDetails.Columns.Add("CurrentNAV");
+                    //dtGetNAVPercentageDetails.Columns.Add("PreviousNAV");
+                    //dtGetNAVPercentageDetails.Columns.Add("PercentChange");
+
+                   
+
+                    //DataRow drGetNAVPercentageDetails;
+
+                    //foreach (DataRow dr in dtGetNAV.Rows)
+                    //{
+                    //    drGetNAVPercentageDetails = dtGetNAVPercentageDetails.NewRow();
+
+                    //    drGetNAVPercentageDetails["SchemeCode"] = dr["SchemeCode"].ToString();
+                    //    drGetNAVPercentageDetails["SchemeName"] = dr["PASP_SchemePlanName"].ToString();
+                    //    drGetNAVPercentageDetails["CurrentNAV"] = dr["Todays_NAV"].ToString();
+                    //    drGetNAVPercentageDetails["PreviousNAV"] = dr["lastday_Nav"].ToString();
+                    //    drGetNAVPercentageDetails["PercentChange"] = double.Parse(dr["PerDiff"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    //    dtGetNAVPercentageDetails.Rows.Add(drGetNAVPercentageDetails);
+                    //}
+                    ////lblNAVTotal.Text = hdnRecordCount.Value = count.ToString();
+                    gvNavChange.DataSource = dtGetNAV;
+                    gvNavChange.DataBind();
+                    if (Cache["dsGetNAVList"] == null)
                     {
                         Cache.Insert("dsGetNAVList", dsGetNAV);
                     }
@@ -305,24 +325,8 @@ namespace WealthERP.SuperAdmin
                         Cache.Remove("dsGetNAVList");
                         Cache.Insert("dsGetNAVList", dsGetNAV);
                     }
-
-                    DataRow drGetNAVPercentageDetails;
-
-                    foreach (DataRow dr in dtGetNAV.Rows)
-                    {
-                        drGetNAVPercentageDetails = dtGetNAVPercentageDetails.NewRow();
-
-                        drGetNAVPercentageDetails["SchemeCode"] = dr["SchemeCode"].ToString();
-                        drGetNAVPercentageDetails["SchemeName"] = dr["PASP_SchemePlanName"].ToString();
-                        drGetNAVPercentageDetails["CurrentNAV"] = dr["Todays_NAV"].ToString();
-                        drGetNAVPercentageDetails["PreviousNAV"] = dr["lastday_Nav"].ToString();
-                        drGetNAVPercentageDetails["PercentChange"] = double.Parse(dr["PerDiff"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        dtGetNAVPercentageDetails.Rows.Add(drGetNAVPercentageDetails);
-                    }
-                    //lblNAVTotal.Text = hdnRecordCount.Value = count.ToString();
-                    gvNavChange.DataSource = dtGetNAVPercentageDetails;
-                    gvNavChange.DataBind();
                     gvNavChange.Visible = true;
+                   
                     //this.GetPageCountNAV();
                     //lblNAVCount.Visible = true;
                     //lblNAVTotal.Visible = true;
@@ -870,10 +874,10 @@ namespace WealthERP.SuperAdmin
             Dictionary<string, string> genDictProcessId = new Dictionary<string, string>();
 
             Dictionary<string, string> genDictAdviserId = new Dictionary<string, string>();
-           
+
             DataSet dsRejectedRecords = new DataSet();
             dsRejectedRecords = superAdminOpsBo.GetMfrejectedDetails(DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()));
-            pnlReject.Visible= true;
+            pnlReject.Visible = true;
             if (dsRejectedRecords.Tables.Count > 0)
             {
                 trExportFilteredRejData.Visible = true;
@@ -1180,7 +1184,7 @@ namespace WealthERP.SuperAdmin
 
 
             }
-            
+
             if (i == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record to delete!');", true);
@@ -1191,7 +1195,7 @@ namespace WealthERP.SuperAdmin
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Record has been deleted successfully.');", true);
             }
             BindDuplicateGrid();
-            
+
         }
         //private void DuplicateDelete()
         //{
@@ -1366,11 +1370,11 @@ namespace WealthERP.SuperAdmin
                 else
                 {
                     trRadioDatePeriod.Visible = true;
-                    if (rbtnPickDate.Checked == true )
+                    if (rbtnPickDate.Checked == true)
                         trRange.Visible = true;
                     else if (rbtnPickPeriod.Checked == true)
-                        trPeriod.Visible =true;  
-                    
+                        trPeriod.Visible = true;
+
                     trDate.Visible = false;
 
                 }
@@ -1389,7 +1393,7 @@ namespace WealthERP.SuperAdmin
                     if (rbtnPickDate.Checked == true)
                         trRange.Visible = true;
                     else if (rbtnPickPeriod.Checked == true)
-                        trPeriod.Visible = true; 
+                        trPeriod.Visible = true;
                     //trRange.Visible = true;
                     //trPeriod.Visible = false;
                     //trDate.Visible = false;
@@ -1415,7 +1419,7 @@ namespace WealthERP.SuperAdmin
                     if (rbtnPickDate.Checked == true)
                         trRange.Visible = true;
                     else if (rbtnPickPeriod.Checked == true)
-                        trPeriod.Visible = true; 
+                        trPeriod.Visible = true;
                     //trRange.Visible = true;
                     //trPeriod.Visible = false;
                     //trDate.Visible = false;
@@ -1488,16 +1492,16 @@ namespace WealthERP.SuperAdmin
         }
         protected void gvNavChange_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            gvAumMis.Visible = false;
+            DataSet dsGetNAV = new DataSet();
+             gvAumMis.Visible = false;
             trbtnDelete.Visible = false;
             gvDuplicateCheck.Visible = false;
             gvMFRejectedDetails.Visible = false;
-            gvNavChange.Visible = true;
             trExportFilteredNavData.Visible = true;
-            DataSet dsGetNAV = new DataSet();
+            gvNavChange.Visible = true;
             dsGetNAV = (DataSet)Cache["dsGetNAVList"];
             gvNavChange.DataSource = dsGetNAV;
-        }
+             }
         protected void btnExportFilteredNavData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvNavChange.ExportSettings.OpenInNewWindow = true;
