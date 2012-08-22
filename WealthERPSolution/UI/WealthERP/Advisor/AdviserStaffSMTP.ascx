@@ -68,7 +68,7 @@
         <Validation IsRequired="True" ValidationGroup="btnSave"></Validation>
     </telerik:RegExpTextBoxSetting>
     <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior2" Validation-IsRequired="true"
-        ValidationExpression="[a-zA-Z\\.]+" ErrorMessage="Invalid HostName">
+        ValidationExpression="[a-zA-Z0-9\\.]+" ErrorMessage="Invalid HostName">
         <TargetControls>
             <telerik:TargetInput ControlID="txtSMTPHost" />
         </TargetControls>
