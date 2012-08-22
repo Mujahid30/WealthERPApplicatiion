@@ -164,18 +164,7 @@ namespace DaoCustomerPortfolio
 
         public List<EQTransactionVo> GetEquityTransactions(int customerId,
                                                             int portfolioId,
-                                                            int export,
-                                                            int currentPage,
-                                                            out int Count,
-                                                            string ScripFilter,
-                                                            string TradeNumFilter,
-                                                            string TranTypeFilter,
-                                                            string ExchangeFilter,
-                                                            string TradeDateFilter,
-                                                            out Dictionary<string, string> genDictTranType,
-                                                            out Dictionary<string, string> genDictExchange,
-                                                            out Dictionary<string, string> genDictTradeDate,
-                                                            string SortExpression, DateTime FromDate, DateTime ToDate
+                                                            DateTime FromDate, DateTime ToDate
                                                             )
         {
             List<EQTransactionVo> eqTransactionsList = null;
@@ -185,42 +174,42 @@ namespace DaoCustomerPortfolio
             DataSet dsGetEquityTransactions;
             DataTable dtGetEquityTransactions;
 
-            genDictTranType = new Dictionary<string, string>();
-            genDictExchange = new Dictionary<string, string>();
-            genDictTradeDate = new Dictionary<string, string>();
+            //genDictTranType = new Dictionary<string, string>();
+            //genDictExchange = new Dictionary<string, string>();
+            //genDictTradeDate = new Dictionary<string, string>();
 
-            Count = 0;
+            //Count = 0;
 
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getEquityTransactionsCmd = db.GetStoredProcCommand("SP_GetCustomerEquityTransactions");
                 db.AddInParameter(getEquityTransactionsCmd, "@C_CustomerId", DbType.Int32, customerId);
-                db.AddInParameter(getEquityTransactionsCmd, "@currentPage", DbType.Int32, currentPage);
+                //db.AddInParameter(getEquityTransactionsCmd, "@currentPage", DbType.Int32, currentPage);
                 db.AddInParameter(getEquityTransactionsCmd, "@CP_PortfolioId", DbType.Int32, portfolioId);
-                db.AddInParameter(getEquityTransactionsCmd, "@export", DbType.Int32, export);
-                if (ScripFilter != "")
-                    db.AddInParameter(getEquityTransactionsCmd, "@scripFilter", DbType.String, ScripFilter);
-                else
-                    db.AddInParameter(getEquityTransactionsCmd, "@scripFilter", DbType.String, DBNull.Value);
-                if (TradeNumFilter != "")
-                    db.AddInParameter(getEquityTransactionsCmd, "@tradeNumFilter", DbType.String, TradeNumFilter);
-                else
-                    db.AddInParameter(getEquityTransactionsCmd, "@tradeNumFilter", DbType.String, DBNull.Value);
-                if (ExchangeFilter != "")
-                    db.AddInParameter(getEquityTransactionsCmd, "@exchangeFilter", DbType.String, ExchangeFilter);
-                else
-                    db.AddInParameter(getEquityTransactionsCmd, "@exchangeFilter", DbType.String, DBNull.Value);
-                if (TradeDateFilter != "")
-                    db.AddInParameter(getEquityTransactionsCmd, "@tradeDateFilter", DbType.String, TradeDateFilter);
-                else
-                    db.AddInParameter(getEquityTransactionsCmd, "@tradeDateFilter", DbType.String, DBNull.Value);
-                if (TranTypeFilter != "")
-                    db.AddInParameter(getEquityTransactionsCmd, "@tranTypeFilter", DbType.String, TranTypeFilter);
-                else
-                    db.AddInParameter(getEquityTransactionsCmd, "@tranTypeFilter", DbType.String, DBNull.Value);
+                //db.AddInParameter(getEquityTransactionsCmd, "@export", DbType.Int32, export);
+                //if (ScripFilter != "")
+                //    db.AddInParameter(getEquityTransactionsCmd, "@scripFilter", DbType.String, ScripFilter);
+                //else
+                //    db.AddInParameter(getEquityTransactionsCmd, "@scripFilter", DbType.String, DBNull.Value);
+                //if (TradeNumFilter != "")
+                //    db.AddInParameter(getEquityTransactionsCmd, "@tradeNumFilter", DbType.String, TradeNumFilter);
+                //else
+                //    db.AddInParameter(getEquityTransactionsCmd, "@tradeNumFilter", DbType.String, DBNull.Value);
+                //if (ExchangeFilter != "")
+                //    db.AddInParameter(getEquityTransactionsCmd, "@exchangeFilter", DbType.String, ExchangeFilter);
+                //else
+                //    db.AddInParameter(getEquityTransactionsCmd, "@exchangeFilter", DbType.String, DBNull.Value);
+                //if (TradeDateFilter != "")
+                //    db.AddInParameter(getEquityTransactionsCmd, "@tradeDateFilter", DbType.String, TradeDateFilter);
+                //else
+                //    db.AddInParameter(getEquityTransactionsCmd, "@tradeDateFilter", DbType.String, DBNull.Value);
+                //if (TranTypeFilter != "")
+                //    db.AddInParameter(getEquityTransactionsCmd, "@tranTypeFilter", DbType.String, TranTypeFilter);
+                //else
+                //    db.AddInParameter(getEquityTransactionsCmd, "@tranTypeFilter", DbType.String, DBNull.Value);
 
-                db.AddInParameter(getEquityTransactionsCmd, "@sortExpression", DbType.String, SortExpression);
+                //db.AddInParameter(getEquityTransactionsCmd, "@sortExpression", DbType.String, SortExpression);
                 db.AddInParameter(getEquityTransactionsCmd, "@fromDate", DbType.DateTime, FromDate);
                 db.AddInParameter(getEquityTransactionsCmd, "@toDate", DbType.DateTime, ToDate);
                 dsGetEquityTransactions = db.ExecuteDataSet(getEquityTransactionsCmd);
@@ -270,48 +259,48 @@ namespace DaoCustomerPortfolio
                     }
                 }
 
-                if (dsGetEquityTransactions.Tables[2].Rows.Count > 0)
-                {
-                    string type = string.Empty;
-                    string mode = string.Empty;
-                    string tranType = string.Empty;
+                //if (dsGetEquityTransactions.Tables[2].Rows.Count > 0)
+                //{
+                //    string type = string.Empty;
+                //    string mode = string.Empty;
+                //    string tranType = string.Empty;
 
-                    foreach (DataRow dr in dsGetEquityTransactions.Tables[2].Rows)
-                    {
-                        if (dr["CET_IsSpeculative"].ToString() == "1")
-                            mode = "Speculation";
-                        else if (dr["CET_IsSpeculative"].ToString() == "0")
-                            mode = "Delivery";
-                        if (dr["WETT_TransactionCode"].ToString() == "1")
-                            type = "Buy";
-                        else if (dr["WETT_TransactionCode"].ToString() == "2")
-                            type = "Sell";
-                        else if (dr["WETT_TransactionCode"].ToString() == "13")
-                            type = "Holdings";
-                        tranType = type + "/" + mode;
+                //    foreach (DataRow dr in dsGetEquityTransactions.Tables[2].Rows)
+                //    {
+                //        if (dr["CET_IsSpeculative"].ToString() == "1")
+                //            mode = "Speculation";
+                //        else if (dr["CET_IsSpeculative"].ToString() == "0")
+                //            mode = "Delivery";
+                //        if (dr["WETT_TransactionCode"].ToString() == "1")
+                //            type = "Buy";
+                //        else if (dr["WETT_TransactionCode"].ToString() == "2")
+                //            type = "Sell";
+                //        else if (dr["WETT_TransactionCode"].ToString() == "13")
+                //            type = "Holdings";
+                //        tranType = type + "/" + mode;
 
-                        if (!genDictTranType.ContainsKey(tranType))
-                        {
-                            genDictTranType.Add(tranType, tranType);
-                        }
-                    }
-                }
+                //        //if (!genDictTranType.ContainsKey(tranType))
+                //        //{
+                //        //    genDictTranType.Add(tranType, tranType);
+                //        //}
+                //    }
+                //}
 
-                if (dsGetEquityTransactions.Tables[3].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dsGetEquityTransactions.Tables[3].Rows)
-                    {
-                        genDictExchange.Add(dr["XE_ExchangeCode"].ToString(), dr["XE_ExchangeCode"].ToString());
-                    }
-                }
+                //if (dsGetEquityTransactions.Tables[3].Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in dsGetEquityTransactions.Tables[3].Rows)
+                //    {
+                //        genDictExchange.Add(dr["XE_ExchangeCode"].ToString(), dr["XE_ExchangeCode"].ToString());
+                //    }
+                //}
 
-                if (dsGetEquityTransactions.Tables[4].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dsGetEquityTransactions.Tables[4].Rows)
-                    {
-                        genDictTradeDate.Add(DateTime.Parse(dr["CET_TradeDate"].ToString()).ToShortDateString(), DateTime.Parse(dr["CET_TradeDate"].ToString()).ToShortDateString());
-                    }
-                }
+                //if (dsGetEquityTransactions.Tables[4].Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in dsGetEquityTransactions.Tables[4].Rows)
+                //    {
+                //        genDictTradeDate.Add(DateTime.Parse(dr["CET_TradeDate"].ToString()).ToShortDateString(), DateTime.Parse(dr["CET_TradeDate"].ToString()).ToShortDateString());
+                //    }
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -334,8 +323,8 @@ namespace DaoCustomerPortfolio
 
             }
 
-            if (dsGetEquityTransactions.Tables[1].Rows.Count > 0)
-                Count = Int32.Parse(dsGetEquityTransactions.Tables[1].Rows[0]["CNT"].ToString());
+           // if (dsGetEquityTransactions.Tables[1].Rows.Count > 0)
+               // Count = Int32.Parse(dsGetEquityTransactions.Tables[1].Rows[0]["CNT"].ToString());
 
             return eqTransactionsList;
         }
