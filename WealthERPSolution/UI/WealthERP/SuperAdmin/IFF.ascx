@@ -90,6 +90,9 @@
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
+                         <telerik:GridBoundColumn HeaderText="AdviserId" ItemStyle-HorizontalAlign="Right" DataField="AdviserId" AllowFiltering="true">
+                            <ItemStyle />                            
+                        </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="IFA" DataField="IFFName" AllowFiltering="true">
                             <ItemStyle />                            
                         </telerik:GridBoundColumn>
