@@ -119,33 +119,19 @@ namespace BoCustomerPortfolio
             return id;
         }
 
-        public List<EQTransactionVo> GetEquityTransactions(int customerId,
-                                                            int portfolioId,
-                                                            int export,
-                                                            int currentPage,
-                                                            out int Count,
-                                                            string ScripFilter,
-                                                            string TradeNumFilter,
-                                                            string TranTypeFilter,
-                                                            string ExchangeFilter,
-                                                            string TradeDateFilter,
-                                                            out Dictionary<string, string> genDictTranType,
-                                                            out Dictionary<string, string> genDictExchange,
-                                                            out Dictionary<string, string> genDictTradeDate,
-                                                            string SortExpression, DateTime FromDate, DateTime ToDate
-                                                            )
+        public List<EQTransactionVo> GetEquityTransactions( int customerId,int portfolioId,DateTime FromDate, DateTime ToDate)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
 
             List<EQTransactionVo> eqTransactionsList = new List<EQTransactionVo>();
 
-            genDictTranType = new Dictionary<string, string>();
-            genDictExchange = new Dictionary<string, string>();
-            genDictTradeDate = new Dictionary<string, string>();
+            //genDictTranType = new Dictionary<string, string>();
+            //genDictExchange = new Dictionary<string, string>();
+            //genDictTradeDate = new Dictionary<string, string>();
 
             try
             {
-                eqTransactionsList = customerTransactionDao.GetEquityTransactions(customerId, portfolioId, export, currentPage, out Count, ScripFilter, TradeNumFilter, TranTypeFilter, ExchangeFilter, TradeDateFilter, out genDictTranType, out genDictExchange, out genDictTradeDate, SortExpression,FromDate,ToDate);
+                eqTransactionsList = customerTransactionDao.GetEquityTransactions(customerId, portfolioId, FromDate, ToDate);
             }
             catch (BaseApplicationException Ex)
             {
