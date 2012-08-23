@@ -320,7 +320,7 @@ namespace WealthERP.SuperAdmin
                         if (Ids != null)
                         {
                             advisorVo = advisorBo.GetAdvisor(Ids[1]);
-                            Session["advisorVo"] = advisorVo;
+                            Session["IFAadvisorVo"] = advisorVo;
 
                             CreateMainBranch();
                             advisor = 1000;
@@ -862,7 +862,7 @@ namespace WealthERP.SuperAdmin
         {
             try
             {
-                advisorVo = (AdvisorVo)Session["advisorvo"];
+                advisorVo = (AdvisorVo)Session["IFAadvisorVo"];
 
                 if (Validation())
                 {
