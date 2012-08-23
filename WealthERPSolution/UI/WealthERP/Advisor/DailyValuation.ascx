@@ -189,12 +189,25 @@
 </script>
 
 <table width="100%" class="TableBackground">
-    <tr>
+<tr>
+        <td colspan="5">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Daily Valuation
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+  <%--  <tr>
         <td class="HeaderCell" colspan="2">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Daily Valuation"></asp:Label>
             <hr />
         </td>        
-    </tr>
+    </tr>--%>
     <tr>
         <%--<td>
             <asp:RadioButton ID="rbtnEquity" runat="server" AutoPostBack="True" CssClass="cmbField"
@@ -326,10 +339,10 @@
                                 <asp:CheckBox ID="CheckBox1" runat="server" />
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn DataField="Cust_Comp_Name" CurrentFilterFunction="Contains"  HeaderText="Customer Name" ShowFilterIcon="true" UniqueName="CustomerName">
+                        <telerik:GridBoundColumn DataField="Cust_Comp_Name" ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderText="Customer Name"  UniqueName="CustomerName">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="PAN Number" HeaderText="Pan Number" ShowFilterIcon="true" UniqueName="PanNumber">
+                        <telerik:GridBoundColumn DataField="PAN Number" ShowFilterIcon="false" HeaderText="Pan Number" AutoPostBackOnFilter="true" UniqueName="PanNumber">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
