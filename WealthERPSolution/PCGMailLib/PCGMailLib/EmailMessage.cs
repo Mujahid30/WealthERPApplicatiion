@@ -18,7 +18,8 @@ namespace PCGMailLib
         ForgotPassword = 4,
         CustomerCredentials = 5,
         ResetPassword = 6,   
-        ReportMails =7
+        ReportMails =7,
+        AdviserLoginWidget=8
     }
 
     public class EmailMessage : MailMessage
@@ -40,6 +41,10 @@ namespace PCGMailLib
                     case EmailTypes.AdviserRegistration:
                         this.From = new MailAddress("admin@werp.com", "WealthERP Adviser Registration");
                         this.Subject = "WERP Adviser Registration";
+                        break;
+                    case EmailTypes.AdviserLoginWidget:
+                        this.From = new MailAddress("admin@werp.com", "WealthERP Login Widget");
+                        this.Subject = "WealthERP Login Widget";
                         break;
                     case EmailTypes.AdviserRMAccount:
                         this.From = new MailAddress("admin@werp.com", "WealthERP");
@@ -307,6 +312,33 @@ namespace PCGMailLib
             emailContent = emailContent.Replace("[CUSTOMER_NAME]", name);
 
             AssignMailSettings(EmailTypes.ResetPassword, emailContent);
+
+        }
+
+        /// <summary>
+        /// Get the content of the Login Widget mail.
+        /// </summary>
+        /// <param name="loginId"></param>
+        /// <param name="password"></param>
+        /// <param name="name"></param>
+        public void GetAdviserLoginWidgetMail(string encryptedAdviserId,string name)
+        {
+            string emailContent = string.Empty;
+            if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+            {
+                emailContent = ReadTemplate("AdviserLoginWidGet.html");
+                emailContent = emailContent.Replace("[ORGANIZATION]", "Wealtherp");
+            }
+            else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+            {
+                emailContent = ReadTemplate("AdviserLoginWidGet.html");
+                emailContent = emailContent.Replace("[ORGANIZATION]", "MoneyTouch");
+            }
+
+            emailContent = emailContent.Replace("[ENCRYPTED_KEY]", encryptedAdviserId);
+            emailContent = emailContent.Replace("[CUSTOMER_NAME]", name);
+
+            AssignMailSettings(EmailTypes.AdviserLoginWidget, emailContent);
 
         }
 
