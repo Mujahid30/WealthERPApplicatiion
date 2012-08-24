@@ -5572,6 +5572,7 @@
     <Content Include="Emails\SentFolder\sujisays%40gmail.com634115295159830584.html" />
     <Content Include="Emails\SentFolder\sujisays%40gmail.com634116032452302059.html" />
     <Content Include="Emails\SentFolder\sujisays%40gmail.com634116032723517572.html" />
+    <Content Include="Emails\Templates\AdviserLoginWidGet.html" />
     <Content Include="Emails\Templates\AdviserRegistration.html" />
     <Content Include="Emails\Templates\AdviserRegistrationNotification.html" />
     <Content Include="Emails\Templates\AdviserRMAccounts.html" />
