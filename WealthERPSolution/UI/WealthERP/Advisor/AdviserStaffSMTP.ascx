@@ -24,27 +24,6 @@
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
-<table width="100%" class="TableBackground">
-    <tr>
-        <td colspan="5">
-            <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr>
-                        <td align="left">
-                            Setup Email/SMS Account
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-    <%--<tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Advisor Staff SMTP"></asp:Label>
-            <hr />
-        </td>
-    </tr>--%>
-</table>
 <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="False">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true">
         <TargetControls>
@@ -79,8 +58,33 @@
             <telerik:TargetInput ControlID="txtSMTPPort" />
         </TargetControls>
     </telerik:NumericTextBoxSetting>
+    <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehaviorEmail" Validation-IsRequired="true"
+        ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ErrorMessage="Invalid Email">
+        <TargetControls>
+            <telerik:TargetInput ControlID="txtLoginWidGetEmail" />
+        </TargetControls>
+        <Validation IsRequired="True" ValidationGroup="btnSend"></Validation>
+    </telerik:RegExpTextBoxSetting>
 </telerik:RadInputManager>
-<table>
+<table width="100%" class="TableBackground">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Setup Email/SMS Account
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp;&nbsp;<br />
+        </td>
+    </tr>
     <tr>
         <td>
             <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
@@ -89,6 +93,8 @@
                     <telerik:RadTab runat="server" Text="Emails" Value="Email" TabIndex="0" Selected="True">
                     </telerik:RadTab>
                     <telerik:RadTab runat="server" Text="SMS" Value="sms" TabIndex="1">
+                    </telerik:RadTab>
+                    <telerik:RadTab runat="server" Text="Login WidGet" Value="Login" TabIndex="2">
                     </telerik:RadTab>
                 </Tabs>
             </telerik:RadTabStrip>
@@ -225,31 +231,8 @@
             <table width="47%" class="TableBackground">
                 <tr>
                     <td colspan="2">
+                        &nbsp;&nbsp;<br />
                     </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                    </td>
-                    <tr>
-                        <td colspan="2">
-                        </td>
-                        <tr>
-                            <td colspan="2">
-                            </td>
-                            <tr>
-                                <td colspan="2">
-                                </td>
-                            </tr>
-                        </tr>
-                    </tr>
                 </tr>
                 <tr>
                     <td class="leftField">
@@ -312,6 +295,58 @@
                     <td class="rightField">
                         <asp:Button ID="btnSubmit" runat="server" Text="Save" CssClass="PCGButton" ValidationGroup="btnSubmit"
                             OnClick="btnSubmit_Click" />
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
+    </telerik:RadPageView>
+    <telerik:RadPageView ID="RadPageView3" runat="server">
+        <asp:Panel ID="pnlLoginWidGet" runat="server" Width="100%">
+            <table id="tblMessage" width="100%" visible="false" cellspacing="0" cellpadding="0"
+                runat="server">
+                <tr>
+                    <td align="center">
+                        <div class="success-msg" id="SuccessMsg" runat="server" align="center">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table id="tblErrorMassage" width="100%" visible="false" cellpadding="0" cellspacing="0"
+                runat="server">
+                <tr>
+                    <td align="center">
+                        <div class="failure-msg" id="ErrorMessage" runat="server" align="center">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table width="47%" class="TableBackground">
+                <tr>
+                    <td colspan="2">
+                        &nbsp;&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblLoginWidGet" runat="server" Text="Email Id to send" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="RightField">
+                        <asp:TextBox ID="txtLoginWidGetEmail" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span8" class="spnRequiredField" />*<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    &nbsp;&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        &nbsp;&nbsp;
+                    </td>
+                    <td class="RightField">
+                        <asp:Button ID="btnSendLoginWidGet" runat="server" ValidationGroup="btnSend" Text="Send Login WidGet"
+                            CssClass="PCGMediumButton" OnClick="btnSendLoginWidGet_Click" />
                     </td>
                 </tr>
             </table>
