@@ -556,8 +556,8 @@
                                             <%--<asp:ListItem>MF Classification Code</asp:ListItem>--%>
                                             <asp:ListItem Text="MF Classification Code" Value="0" Selected="True"></asp:ListItem>
                                             <asp:ListItem Text="Scheme Performance" Value="1"></asp:ListItem> 
-                                            <asp:ListItem Text="Top ten Holdings" Value="2"></asp:ListItem>
-                                            <asp:ListItem Text="Top ten Sectors" Value="3"></asp:ListItem>
+                                            <%--<asp:ListItem Text="Top ten Holdings" Value="2"></asp:ListItem>
+                                            <asp:ListItem Text="Top ten Sectors" Value="3"></asp:ListItem>--%>
                                         </asp:DropDownList>
                                     </td>
                                 </tr>
@@ -597,7 +597,7 @@
                                         </telerik:GridBoundColumn>
                                         
                                         <telerik:GridBoundColumn DataField="OneMonthReturn" HeaderText="OneMonthReturn" SortExpression="OneMonthReturn"
-                                            UniqueName="OneMonthReturn"  AutoPostBackOnFilter="true" DataFormatString="{0:N0}">
+                                            UniqueName="OneMonthReturn"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
                                                 <HeaderStyle ></HeaderStyle>
                                                 <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top"  />
                                         </telerik:GridBoundColumn>
@@ -645,19 +645,19 @@
                                         </telerik:GridBoundColumn>
                                         
                                         <telerik:GridBoundColumn DataField="Sharpe" HeaderText="Sharpe" SortExpression="Sharpe"
-                                            UniqueName="Sharpe"  AutoPostBackOnFilter="true">
+                                            UniqueName="Sharpe"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
                                                 <HeaderStyle ></HeaderStyle>
                                                 <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         
                                         <telerik:GridBoundColumn DataField="Sd" HeaderText="Sd" SortExpression="Sd"
-                                            UniqueName="Sd"  AutoPostBackOnFilter="true">
+                                            UniqueName="Sd"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
                                                 <HeaderStyle ></HeaderStyle>
                                                 <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         
                                         <telerik:GridBoundColumn DataField="Top5Holding" HeaderText="Top5Holding" SortExpression="Top5Holding"
-                                            UniqueName="Top5Holding"  AutoPostBackOnFilter="true">
+                                            UniqueName="Top5Holding"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
                                                 <HeaderStyle ></HeaderStyle>
                                                 <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
