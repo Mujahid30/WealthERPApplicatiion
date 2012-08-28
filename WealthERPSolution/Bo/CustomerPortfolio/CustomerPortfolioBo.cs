@@ -3536,6 +3536,21 @@ namespace BoCustomerPortfolio
             dsMFSchemePlanNAV = customerPortfolioDao.GetMFSchemePlanPurchaseDateAndValue(schemePlanCode, navDate, transactionType);
             return dsMFSchemePlanNAV;
         }
-       
+
+
+        public DataSet GetCustomerSchemeHoldingSectors(int portfolioId, DateTime valDate)
+        {
+            DataSet dsGetCustomerSchemeHolding = new DataSet();
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+                dsGetCustomerSchemeHolding = customerPortfolioDao.GetCustomerSchemeHoldingSectors(portfolioId, valDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw(Ex);
+            }
+            return dsGetCustomerSchemeHolding;
+        }
     }
 }
