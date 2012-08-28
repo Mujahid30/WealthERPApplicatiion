@@ -52,7 +52,26 @@
 
 <asp:ScriptManager ID="scriptTransactionView" runat="server">
 </asp:ScriptManager>
-<table width="100%" class="TableBackground">
+
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+        <td align="left">View MF Transaction</td>
+        <td align="right">
+        <asp:LinkButton ID="lbBack" runat="server" Text="Back" onclick="lbBack_Click" Visible="false" CssClass="FieldName"></asp:LinkButton>
+        </td>
+        </tr>
+       
+    </table>
+</div>
+</td>
+</tr>
+</table>
+
+<%--<table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="View MF Transaction"></asp:Label>
@@ -61,10 +80,10 @@
     </tr>
     <tr>
         <td class="HeaderCell">
-            <asp:LinkButton ID="lbBack" runat="server" Text="Back" onclick="lbBack_Click" Visible="false" CssClass="FieldName"></asp:LinkButton>
+            
         </td>
     </tr>
-</table>
+</table>--%>
 <table>
     <tr>
         <td class="leftField">
