@@ -2116,7 +2116,26 @@ namespace DaoCustomerPortfolio
             }
             return dsMFSchemePlanNAV;
         }
-
+        public DataSet GetCustomerSchemeHoldingSectors(int portfolioId, DateTime valDate)
+        {
+            DataSet dsGetCustomerSchemeHolding = new DataSet();
+            Database db;
+            DbCommand getCustomerSchemeHoldingCmd;
+            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerSchemeHoldingCmd = db.GetStoredProcCommand("SP_GetCustomersSchemePerformanceHoldingsSectors");
+                db.AddInParameter(getCustomerSchemeHoldingCmd, "@FromDate", DbType.DateTime, valDate);
+                db.AddInParameter(getCustomerSchemeHoldingCmd, "@PortfolioId", DbType.Int32, portfolioId);
+                dsGetCustomerSchemeHolding = db.ExecuteDataSet(getCustomerSchemeHoldingCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetCustomerSchemeHolding;
+        }
 
 
     }
