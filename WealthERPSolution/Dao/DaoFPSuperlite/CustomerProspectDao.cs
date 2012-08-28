@@ -1238,7 +1238,7 @@ namespace DaoFPSuperlite
         /// Vinayak Patil
         /// <param name="RmId"></param>
         /// <returns></returns>
-        public DataSet GetAllProspectCustomersForRM(int RmId)
+        public DataSet GetAllProspectCustomersForRM(string userType, int adviserId, int rmId, int branchheadId, int branchId, int All)
         {
             Database db;
             DbCommand getAllProspectCustomersForRMCmd;
@@ -1248,8 +1248,18 @@ namespace DaoFPSuperlite
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAllProspectCustomersForRMCmd = db.GetStoredProcCommand("SP_GetAllProspectCustomersForRM");
-                if (RmId != 0)
-                    db.AddInParameter(getAllProspectCustomersForRMCmd, "@AR_RMId", DbType.Int32, RmId);
+                //if (!String.IsNullOrEmpty(userType))
+                    db.AddInParameter(getAllProspectCustomersForRMCmd, "@UserType", DbType.String, userType);
+                //if (adviserId != 0)
+                    db.AddInParameter(getAllProspectCustomersForRMCmd, "@AdviserId", DbType.Int32, adviserId);
+                //if (rmId != 0)
+                    db.AddInParameter(getAllProspectCustomersForRMCmd, "@RMId", DbType.Int32, rmId);
+                //if (branchheadId != 0)
+                    db.AddInParameter(getAllProspectCustomersForRMCmd, "@BranchHeadId", DbType.Int32, branchheadId);
+                //if (branchId != 0)
+                    db.AddInParameter(getAllProspectCustomersForRMCmd, "@BranchId", DbType.Int32, branchId);
+                //if (All != 0)
+                    db.AddInParameter(getAllProspectCustomersForRMCmd, "@all", DbType.Int32, All);
 
                 dsGetAllProspectCustomersForRM = db.ExecuteDataSet(getAllProspectCustomersForRMCmd);
 
@@ -1265,7 +1275,7 @@ namespace DaoFPSuperlite
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerProspectDao.cs:GetAllProspectCustomersForRM(int CustomerId)GetAllDetailsForCustomerProspect(int CustomerId)");
                 object[] objects = new object[3];
-                objects[0] = RmId;
+                objects[0] = rmId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
