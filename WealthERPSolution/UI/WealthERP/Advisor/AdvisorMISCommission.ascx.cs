@@ -87,28 +87,46 @@ namespace WealthERP.Advisor
                 tblMessage.Visible = false;
                 ErrorMessage.Visible = false;
                 Label lblHeaderText = new Label();
-                GridBoundColumn ghItem = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("MISType") as GridBoundColumn;                
+                GridBoundColumn ghItem = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("MISType") as GridBoundColumn;
+                GridBoundColumn ghItem1 = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("CustomerName") as GridBoundColumn;
+                GridBoundColumn ghItem2 = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("RM_Name") as GridBoundColumn;
+                GridBoundColumn ghItem3 = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("AB_BranchName") as GridBoundColumn; 
                 switch (misType)
                 {
                     case "Folio Wise":
                         ghItem.HeaderText = "Folio Number";
                         ghItem.DataField = "folio";
+                        ghItem1.Visible = true;
+                        ghItem2.Visible = true;
+                        ghItem3.Visible = true;
                         break;
                     case "AMC Wise":
                         ghItem.HeaderText = "AMC Name";
                         ghItem.DataField = "AMCCODE";
+                        ghItem1.Visible = true;
+                        ghItem2.Visible = true;
+                        ghItem3.Visible = true;
                         break;
                     case "Transaction_Wise":
                         ghItem.HeaderText = "Transaction Classification Name";
                         ghItem.DataField = "TransactionType";
+                        ghItem1.Visible = true;
+                        ghItem2.Visible = true;
+                        ghItem3.Visible = true;
                         break;
                     case "Category Wise":
                         ghItem.HeaderText = "Category";
                         ghItem.DataField = "categoryName";
+                        ghItem1.Visible = false;
+                        ghItem2.Visible = false;
+                        ghItem3.Visible = false;
                         break;
                     default:
                         ghItem.HeaderText = "Folio Number";
                         ghItem.DataField = "";
+                        ghItem1.Visible = true;
+                        ghItem2.Visible = true;
+                        ghItem3.Visible = true;
                         break;
                 }
                 

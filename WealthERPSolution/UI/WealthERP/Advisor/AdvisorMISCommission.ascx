@@ -136,11 +136,11 @@
                             HeaderText="">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="BrokerageAmt"  DataField="Brokerage" AllowFiltering="false"
-                            HeaderText="Brokerage Amount">
+                        <telerik:GridBoundColumn  Aggregate="sum" UniqueName="BrokerageAmt"  DataField="Brokerage" AllowFiltering="false"
+                            HeaderText="Brokerage Amount" FooterStyle-HorizontalAlign="Right" FooterText="" >
                             <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="TrailCommission" DataField="trailFee" AllowFiltering="false"
+                        <telerik:GridBoundColumn Aggregate="sum" UniqueName="TrailCommission" DataField="trailFee" AllowFiltering="false"
                             HeaderText="Trail Commission">
                             <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
