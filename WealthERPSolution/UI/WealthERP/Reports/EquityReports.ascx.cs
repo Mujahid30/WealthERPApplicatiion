@@ -155,24 +155,27 @@ namespace WealthERP.Reports
         }
         public void ChckBussDate_Textchanged(object sender, EventArgs e)
         {
-            
-            chckdate = DateTime.Parse(txtAsOnDate.Text);
-            ValidateBussDate(chckdate);
-            
+            if (!String.IsNullOrEmpty(txtAsOnDate.Text))
+            {
+                chckdate = DateTime.Parse(txtAsOnDate.Text);
+                ValidateBussDate(chckdate);
+            }
         }
         public void ChckBussFromDate_Textchanged(object sender, EventArgs e)
         {
-
-            chckdate = DateTime.Parse(txtFromDate.Text);
-            ValidateBussDate(chckdate);
-
+            if (!String.IsNullOrEmpty(txtFromDate.Text))
+            {
+                chckdate = DateTime.Parse(txtFromDate.Text);
+                ValidateBussDate(chckdate);
+            }
         }
         public void ChckBussToDate_Textchanged(object sender, EventArgs e)
         {
-
-            chckdate = DateTime.Parse(txtToDate.Text);
-            ValidateBussDate(chckdate);
-
+            if (!String.IsNullOrEmpty(txtToDate.Text))
+            {
+                chckdate = DateTime.Parse(txtToDate.Text);
+                ValidateBussDate(chckdate);
+            }
         }
         public void ValidateBussDate( DateTime chckdate)
         {
