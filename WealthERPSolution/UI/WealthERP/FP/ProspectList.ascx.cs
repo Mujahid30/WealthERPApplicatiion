@@ -10,32 +10,83 @@ using BoCustomerProfiling;
 using VoUser;
 using System.Data;
 using BoFPSuperlite;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
+using BoAdvisorProfiling;
+using BoUploads;
 
 namespace WealthERP.FP
 {
     public partial class ProspectList : System.Web.UI.UserControl
     {
         CustomerBo customerbo = new CustomerBo();
+        AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+        AdvisorVo advisorVo = new AdvisorVo();
+        RMVo rmVo = new RMVo();
+        UserVo userVo = new UserVo();
         DataSet dsGetAllProspectCustomersForRM = new DataSet();
         int rmId = 0;
         CustomerProspectBo customerProspectBo = new CustomerProspectBo();
         double sum = 0;
         string clientID;
+        int bmID = 0;
+        int advisorId = 0;
+        string userType = "";
        
         protected void Page_Load(object sender, EventArgs e)
         {
-            RMVo rmVo = new RMVo();
+           
             rmVo = (RMVo)Session[SessionContents.RmVo];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            userVo = (UserVo)Session["userVo"];
+            advisorId = advisorVo.advisorId;
+            int RMId = rmVo.RMId;
+            bmID = rmVo.RMId;
             rmId = rmVo.RMId;
-            BindCustomerProspectGrid(rmId);
+
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                userType = "advisor";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                userType = "rm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                userType = "bm";
+            else
+                userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+
+             if (!IsPostBack)
+            {
+                           
+                if (userType == "advisor")
+                {
+                    btnGo.Visible = true;
+                    tblAdviserBM.Visible = true;
+                    BindBranchDropDown();
+                    BindRMDropDown();
+                }
+                else if (userType == "rm")
+                {
+                    btnGo.Visible = false;
+                    tblAdviserBM.Visible = false;
+                    BindCustomerProspectGrid();
+                }
+                if (userType == "bm")
+                {
+                    btnGo.Visible = true;
+                    tblAdviserBM.Visible = true;
+                    BindBranchForBMDropDown();
+                    BindRMforBranchDropdown(0, bmID);
+                }
+            }
+            
              
             //SqlDataSource1.SelectParameters["AR_RMId"].DefaultValue = rmVo.RMId.ToString();
         }
 
-        private void BindCustomerProspectGrid(int rmId)
+        private void BindCustomerProspectGrid()
         {
+            SetParameters();
             DataTable dtcustomerProspect = new DataTable();
-            dsGetAllProspectCustomersForRM = customerProspectBo.GetAllProspectCustomersForRM(rmId);
+            dsGetAllProspectCustomersForRM = customerProspectBo.GetAllProspectCustomersForRM(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value));
             if ((dsGetAllProspectCustomersForRM.Tables[0].Rows.Count > 0) && (!string.IsNullOrEmpty(dsGetAllProspectCustomersForRM.ToString())))
             {
                 gvCustomerProspectlist.Visible = true;
@@ -85,11 +136,108 @@ namespace WealthERP.FP
                 }
                 gvCustomerProspectlist.DataSource = dtcustomerProspect;
                 gvCustomerProspectlist.DataBind();
-            }
+                lblErrorMsg.Visible = false;
+                if (Cache["NetworthMIS" + userVo.UserId] == null)
+                {
+                    Cache.Insert("NetworthMIS" + userVo.UserId, dtcustomerProspect);
+                }
+                else
+                {
+                    Cache.Remove("NetworthMIS" + userVo.UserId);
+                    Cache.Insert("NetworthMIS" + userVo.UserId, dtcustomerProspect);
+                }
+             }
             else
             {
                 gvCustomerProspectlist.Visible = false;
+                lblErrorMsg.Visible = true;
+                lblErrorMsg.Text = "No records found";
             }
+        }
+
+        private void SetParameters()
+        {
+            if ( (userType == "advisor"))
+            {
+                if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                {
+                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnAll.Value = "0";
+                    hdnbranchId.Value = "0";
+                    hdnrmId.Value = "0";
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                {
+                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnAll.Value = "1";
+                    hdnrmId.Value = "0";
+                }
+                else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
+                {
+                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnbranchId.Value = "0";
+                    hdnAll.Value = "2";
+                    hdnrmId.Value = ddlRM.SelectedValue; ;
+                }
+                else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
+                {
+                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnrmId.Value = ddlRM.SelectedValue;
+                    hdnAll.Value = "3";
+                }
+
+            }
+            else if ( userType == "rm")
+            {
+                hdnrmId.Value = rmVo.RMId.ToString();
+                hdnAll.Value = "0";
+
+            }
+            else if ( userType == "bm")
+            {
+                if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                {
+
+                    hdnbranchheadId.Value = bmID.ToString();
+                    hdnAll.Value = "0";
+                    hdnrmId.Value = "0";
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                {
+                    hdnbranchheadId.Value = bmID.ToString();
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnAll.Value = "1";
+                    hdnrmId.Value = "0";
+                }
+                else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
+                {
+                    hdnbranchheadId.Value = bmID.ToString();
+                    hdnbranchId.Value = "0";
+                    hdnAll.Value = "2";
+                    hdnrmId.Value = ddlRM.SelectedValue; ;
+                }
+                else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
+                {
+                    hdnbranchheadId.Value = bmID.ToString();
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnrmId.Value = ddlRM.SelectedValue;
+                    hdnAll.Value = "3";
+                }
+            }
+
+            if (hdnbranchheadId.Value == "")
+                hdnbranchheadId.Value = "0";
+
+            if (hdnbranchId.Value == "")
+                hdnbranchId.Value = "0";
+
+            if (hdnadviserId.Value == "")
+                hdnadviserId.Value = "0";
+
+            if (hdnrmId.Value == "")
+                hdnrmId.Value = "0";
         }
 
         protected void lnkbtnGvProspectListName_Click(object sender, EventArgs e)
@@ -119,6 +267,175 @@ namespace WealthERP.FP
                 Session[SessionContents.FPS_AddProspectListActionStatus] = "FPDashBoard";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
+        }
+
+        private void BindBranchDropDown()
+        {
+
+            RMVo rmVo = new RMVo();
+            rmVo = (RMVo)Session[SessionContents.RmVo];
+            int bmID = rmVo.RMId;
+            try
+            {
+                UploadCommonBo uploadsCommonDao = new UploadCommonBo();
+                DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+                if (ds != null)
+                {
+                    ddlBranch.DataSource = ds;
+                    ddlBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
+                    ddlBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
+                    ddlBranch.DataBind();
+                }
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProscpectList.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        private void BindRMDropDown()
+        {
+            try
+            {
+                AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+                DataTable dt = advisorStaffBo.GetAdviserRM(advisorVo.advisorId);
+                if (dt.Rows.Count > 0)
+                {
+                    ddlRM.DataSource = dt;
+                    ddlRM.DataValueField = dt.Columns["AR_RMId"].ToString();
+                    ddlRM.DataTextField = dt.Columns["RMName"].ToString();
+                    ddlRM.DataBind();
+                }
+                ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "2"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProscpectList.ascx:BindRMDropDown()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        private void BindBranchForBMDropDown()
+        {
+            try
+            {
+                DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(0, bmID, 0);
+                if (ds != null)
+                {
+                    ddlBranch.DataSource = ds.Tables[1]; ;
+                    ddlBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString();
+                    ddlBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
+                    ddlBranch.DataBind();
+                }
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProscpectList.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlBranch.SelectedIndex == 0)
+            {
+                BindRMforBranchDropdown(0, bmID);
+            }
+            else
+            {
+                BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0);
+            }
+
+        }
+
+        private void BindRMforBranchDropdown(int branchId, int branchHeadId)
+        {
+
+            try
+            {
+
+                DataSet ds = advisorBranchBo.GetAllRMsWithOutBMRole(branchId, branchHeadId);
+                if (ds != null)
+                {
+                    ddlRM.DataSource = ds.Tables[0]; ;
+                    ddlRM.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
+                    ddlRM.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
+                    ddlRM.DataBind();
+                }
+                ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProscpectList.ascx:BindRMforBranchDropdown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            BindCustomerProspectGrid();
+        }
+
+        protected void gvCustomerProspectlist_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtcustomerProspect = new DataTable();
+            dtcustomerProspect = (DataTable)Cache["NetworthMIS" + userVo.UserId];
+            gvCustomerProspectlist.DataSource = dtcustomerProspect;
         }
 
 
