@@ -808,6 +808,50 @@ namespace DaoCustomerGoalProfiling
 
 
         }
+        public DataSet GetGoals()
+        {
+            Database db;
+            DbCommand GetGoalsCmd;
+            DataSet dsGetGoals;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGoalsCmd = db.GetStoredProcCommand("SP_GetGoals");
+                dsGetGoals = db.ExecuteDataSet(GetGoalsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetGoals;
+        }
+        public DataSet GetGoalListMIS(string userType, int advisorId, int rmId, int customerId, int branchHeadId, int branchId, int All, int isGroup, string goalCode)
+        {
+            Database db;
+            DbCommand GetGoalMISCmd;
+            DataSet dsGetGoalMIS;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGoalMISCmd = db.GetStoredProcCommand("SP_GetGoalMIS");
+                db.AddInParameter(GetGoalMISCmd, "@userType", DbType.String, userType);
+                db.AddInParameter(GetGoalMISCmd, "@AdviserId", DbType.Int32, advisorId);
+                db.AddInParameter(GetGoalMISCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetGoalMISCmd, "@RmId", DbType.Int32, rmId);
+                db.AddInParameter(GetGoalMISCmd, "@BranchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(GetGoalMISCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(GetGoalMISCmd, "@IsGroup", DbType.Int16, isGroup);
+                if (!string.IsNullOrEmpty(goalCode))
+                    db.AddInParameter(GetGoalMISCmd, "@GoalCode", DbType.String, goalCode);
+                db.AddInParameter(GetGoalMISCmd, "@all", DbType.Int32, All);
+                dsGetGoalMIS = db.ExecuteDataSet(GetGoalMISCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetGoalMIS;
+        }
 
     }
 }
