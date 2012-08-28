@@ -80,11 +80,26 @@
     }
 </style>
 
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+        <td align="left">MF Transaction Grid View</td>
+        </tr>
+       
+    </table>
+</div>
+</td>
+</tr>
+</table>
+
 <table style="width: 100%;">
     <tr>
         <td class="HeaderTextBig" colspan="2">
-            <asp:Label ID="lblMfMIS" runat="server" CssClass="HeaderTextBig" Text="MF Transaction Grid View"></asp:Label>
-            <hr />
+            <%--<asp:Label ID="lblMfMIS" runat="server" CssClass="HeaderTextBig" Text="MF Transaction Grid View"></asp:Label>
+            <hr />--%>
         </td>
     </tr>
     <tr>
@@ -440,17 +455,26 @@
     </div>
 </body>
 </html>
+<table id="ErrorMessage" align="center" runat="server">
+    <tr>
+        <td>
+            <div class="failure-msg" align="center">
+                No Records found.....
+            </div>
+        </td>
+    </tr>
+</table>
 <table width="100%">
     <tr id="trPager" runat="server">
         <td align="center">
             <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
         </td>
     </tr>
-    <tr id="trMessage" runat="server">
+   <%-- <tr id="trMessage" runat="server">
         <td colspan="2">
             <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found..."></asp:Label>
         </td>
-    </tr>    
+    </tr> --%>   
 </table>
 <asp:Button ID="btnCustomerSearch" runat="server" Text="" OnClick="btnCustomerSearch_Click"
     BorderStyle="None" BackColor="Transparent" />

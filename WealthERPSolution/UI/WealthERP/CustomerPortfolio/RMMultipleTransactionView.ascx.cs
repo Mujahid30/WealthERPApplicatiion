@@ -98,7 +98,7 @@ namespace WealthERP.CustomerPortfolio
                     }
 
                     BindGrid(0, mypager.CurrentPage, DateTime.Parse(txtFromDate.SelectedDate.ToString()), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                    trMessage.Visible = false;
+                    ErrorMessage.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -264,7 +264,7 @@ namespace WealthERP.CustomerPortfolio
                 
                 if (mfTransactionList.Count != 0)
                 {
-                    trMessage.Visible = false;
+                    ErrorMessage.Visible = false;
                     lblCurrentPage.Visible = true;
                     trPager.Visible = true;
                     lblTotalRows.Visible = true;
@@ -439,7 +439,7 @@ namespace WealthERP.CustomerPortfolio
                     lblCurrentPage.Visible = false;
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
-                    trMessage.Visible = true;
+                    ErrorMessage.Visible = true;
                 }
 
             }
@@ -481,7 +481,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (mfTransactionList.Count != 0)
                 {
-                    trMessage.Visible = false;
+                    ErrorMessage.Visible = false;
                     lblCurrentPage.Visible = true;
                     trPager.Visible = true;
                     lblTotalRows.Visible = true;
@@ -632,7 +632,7 @@ namespace WealthERP.CustomerPortfolio
                     lblCurrentPage.Visible = false;
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
-                    trMessage.Visible = true;
+                    ErrorMessage.Visible = true;
                 }
 
             }
