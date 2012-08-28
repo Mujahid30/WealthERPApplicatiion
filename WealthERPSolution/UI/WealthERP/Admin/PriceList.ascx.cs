@@ -217,7 +217,7 @@ namespace WealthERP.Admin
             //trFromDate.Style.Add("display", "none");
             //trToDate.Style.Add("display", "none");
             trFromDate.Visible = false;
-            trExportFilteredMFRecord.Visible = true;
+            trExportFilteredMFRecord.Visible = false;
             trToDate.Visible = false;
             trbtnSubmit.Visible = true;
             //trgrMfView.Visible = false;
@@ -253,7 +253,7 @@ namespace WealthERP.Admin
             trPageCount.Visible = false;
             trPager.Visible = false;
             trMfPagecount.Visible = false;
-            trExportFilteredMFRecord.Visible = true;
+            trExportFilteredMFRecord.Visible = false;
 
             //if (IsPostBack)
             //{
@@ -1460,14 +1460,19 @@ namespace WealthERP.Admin
                             ds = PriceObj.GetAMFISnapshot("D", Search, amfiCode, schemeCode, selectAllCode ,All, CategoryCode);
                             if (ds.Tables[0].Rows.Count > 0)
                             {
-                                gvMFRecord.DataSource = ds.Tables[0]; ;
-
+                                gvMFRecord.DataSource = ds.Tables[0];
+                                gvMFRecord.Visible = true;
+                                Panel1.Visible = true;
                                 DivMF.Style.Add("display", "visible");
                                 DivEquity.Style.Add("display", "none");
                                 DivPager.Style.Add("display", "visible");
+
+                                //DivMF.Style.Add("display", "visible");
+                                //DivEquity.Style.Add("display", "none");
+                                //DivPager.Style.Add("display", "visible");
                                 Search = null;
                                 hdnSchemeSearch.Value = null;
-
+                                trExportFilteredMFRecord.Visible = true;
 
                                 gvMFRecord.VirtualItemCount = ds.Tables[0].Rows.Count;
                                 gvMFRecord.DataSource = ds;
@@ -1536,7 +1541,12 @@ namespace WealthERP.Admin
                             {
                                 gvMFRecord.VirtualItemCount = ds.Tables[0].Rows.Count;
                                 gvMFRecord.DataSource = ds;
-
+                                gvMFRecord.Visible = true;
+                                Panel1.Visible = true;
+                                DivMF.Style.Add("display", "visible");
+                                DivEquity.Style.Add("display", "none");
+                                DivPager.Style.Add("display", "visible");
+                                trExportFilteredMFRecord.Visible = true;
                             }
                             else
                             {
