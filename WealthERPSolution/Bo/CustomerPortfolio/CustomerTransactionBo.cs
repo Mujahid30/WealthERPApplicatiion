@@ -1624,14 +1624,14 @@ namespace BoCustomerPortfolio
 
 
 
-        public DataSet GetRMCustomerEqTransactions(out int Count, int CurrentPage, int RMId, int adviserId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, out Dictionary<string, string> genDictTranType, string FolioNumber, int exportFlag)
+        public DataSet GetRMCustomerEqTransactions(int RMId, int adviserId, int GroupHeadId, DateTime From, DateTime To, int Manage)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             DataSet ds = null;
             try
             {
 
-                ds = customerTransactionDao.GetRMCustomerEqTransactions(out Count, CurrentPage, RMId,adviserId, GroupHeadId, From, To, Manage, CustomerName, Scheme, TranType, out genDictTranType, FolioNumber, exportFlag);
+                ds = customerTransactionDao.GetRMCustomerEqTransactions(RMId,adviserId, GroupHeadId, From, To, Manage);
 
             }
             catch (BaseApplicationException Ex)
@@ -1649,9 +1649,9 @@ namespace BoCustomerPortfolio
                 objects[2] = From;
                 objects[3] = To;
                 objects[4] = Manage;
-                objects[5] = CurrentPage;
-                objects[6] = CustomerName;
-                objects[7] = Scheme;
+                //objects[5] = CurrentPage;
+                //objects[6] = CustomerName;
+                //objects[7] = Scheme;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
