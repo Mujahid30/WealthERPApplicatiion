@@ -1,7 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerEQAccountView.ascx.cs"
- Inherits="WealthERP.CustomerPortfolio.CustomerEQAccountView" %>
+    Inherits="WealthERP.CustomerPortfolio.CustomerEQAccountView" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
+<asp:ScriptManager runat="server"></asp:ScriptManager>
 <script type="text/javascript">
     function ShowAlertToDelete() {
 
@@ -21,36 +22,30 @@
     }
 
 </script>
+
 <table width="100%">
-<tr>
-<td>
-<div class="divPageHeading">
-<table cellspacing="0" cellpadding="3" width="100%">
     <tr>
-        <td align="left">
-            View Equity Trade Account
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            View Equity Trade Account
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
 </table>
-</div>
-</td>
-</tr>
-</table>
-    
-
 <table class="TableBackground" style="width: 100%">
-   <%-- <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Equity Trade Account View"></asp:Label>
-            <hr />
-        </td>
-    </tr>--%>
     <tr>
         <td>
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
-            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
-            </asp:DropDownList>
+            <telerik:RadComboBox ID="ddlPortfolio" OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged"
+                CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                AllowCustomText="true" Width="120px" AutoPostBack="true">
+            </telerik:RadComboBox>
         </td>
     </tr>
     <tr>
@@ -59,14 +54,79 @@
         </td>
     </tr>
     <tr>
-        <td class="leftField">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-        </td>
-    </tr>
-    <tr>
         <td>
-            <asp:GridView ID="gvEQAcc" runat="server" AutoGenerateColumns="False" CellPadding="4"
+            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                Height="25px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
+            <telerik:RadGrid ID="gvEQAcc" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                AllowAutomaticInserts="false" ExportSettings-FileName="Equity Equity Trade Account Details"
+                OnNeedDataSource="gvEQAcc_OnNeedDataSource">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView DataKeyNames="AccountId" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                            <ItemTemplate>
+                                <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
+                                    CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                                    AllowCustomText="true" Width="120px" AutoPostBack="true">
+                                    <Items>
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
+                                            Selected="true"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/reprocess.png"
+                                            runat="server"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/ManageRejects.png" Text="Edit" Value="Edit"
+                                            runat="server"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/rollback.png" Text="Delete" Value="Delete"
+                                            runat="server"></telerik:RadComboBoxItem>
+                                    </Items>
+                                </telerik:RadComboBox>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn HeaderText="BrokerName" DataField="Broker Name" UniqueName="BrokerName"
+                            SortExpression="Broker Name" AutoPostBackOnFilter="true" AllowFiltering="true"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn HeaderText="Trade Acc No" DataField="Trade No" UniqueName="TradeNo"
+                            SortExpression="Trade No" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
+                            CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn HeaderText="Brkrg % for Del" DataField="Broker Del Percent"
+                            UniqueName="BrokerDelPercent" SortExpression="Broker Del Percent" AutoPostBackOnFilter="true"
+                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn HeaderText="Brkrg % for Spec" DataField="Broker Spec Percent"
+                            UniqueName="BrokerSpecPercent" SortExpression="Broker Spec Percent" AutoPostBackOnFilter="true"
+                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn HeaderText="Other charges %" DataField="Other Charges" UniqueName="OtherCharges"
+                            SortExpression="Other Charges" AutoPostBackOnFilter="true" AllowFiltering="false"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridDateTimeColumn DataField="A/C Opening Date" SortExpression="A/C Opening Date" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" AllowFiltering="true" HeaderText="Account Opening date"
+                                UniqueName="A/COpeningDate" DataFormatString="{0:d}" ShowFilterIcon="false">
+                                <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <FilterTemplate>
+                                    <telerik:RadDatePicker Width="250px" ID="calFilter" runat="server">
+                                    </telerik:RadDatePicker>
+                                </FilterTemplate>
+                            </telerik:GridDateTimeColumn>
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+            <%-- <asp:GridView ID="gvEQAcc" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 CssClass="GridViewStyle" DataKeyNames="AccountId" AllowSorting="True" HorizontalAlign="Center"
                 ShowFooter="True">
                 <FooterStyle CssClass="FooterStyle" />
@@ -96,22 +156,13 @@
                     <asp:BoundField DataField="Other Charges" HeaderText="Other charges %" />
                     <asp:BoundField DataField="A/C Opening Date" HeaderText="Account Opening date" />
                 </Columns>
-            </asp:GridView>
+            </asp:GridView>--%>
         </td>
     </tr>
 </table>
-<div id="DivPager" runat="server" style="display: none">
-    <table style="width: 100%">
-        <tr>
-            <td>
-                <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-            </td>
-        </tr>
-    </table>
-</div>
+
 <asp:HiddenField ID="hdnSort" runat="server" Value="InstrumentCategory ASC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnStatusValue" runat="server" />
-<asp:Button ID="btnTradeNoAssociation" runat="server" BorderStyle="None" 
-    BackColor="Transparent" onclick="btnTradeNoAssociation_Click" />
-
+<asp:Button ID="btnTradeNoAssociation" runat="server" BorderStyle="None" BackColor="Transparent"
+    OnClick="btnTradeNoAssociation_Click" />

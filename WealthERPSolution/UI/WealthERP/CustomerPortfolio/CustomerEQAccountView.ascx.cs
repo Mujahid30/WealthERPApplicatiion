@@ -12,6 +12,7 @@ using BoCustomerPortfolio;
 using VoCustomerPortfolio;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -44,6 +45,7 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
+                DataTable dtEQAcc = new DataTable();
                 customerVo = (CustomerVo)Session["CustomerVo"];
 
                 FolioList = CustomerTransactionBo.GetCustomerEQAccount(portfolioId);
@@ -52,19 +54,19 @@ namespace WealthERP.CustomerPortfolio
                 if (FolioList == null)
                 {
                     lblMessage.Visible = true;
-                    lblCurrentPage.Visible = false;
-                    lblTotalRows.Visible = false;
-                    DivPager.Visible = false;
+                    //lblCurrentPage.Visible = false;
+                    //lblTotalRows.Visible = false;
+                    //DivPager.Visible = false;
                     gvEQAcc.DataSource = null;
                     gvEQAcc.DataBind();
                 }
                 else
                 {
                     lblMessage.Visible = false;
-                    lblTotalRows.Visible = true;
-                    lblCurrentPage.Visible = true;
-                    DivPager.Visible = true;
-                    DataTable dtEQAcc = new DataTable();
+                    //lblTotalRows.Visible = true;
+                    //lblCurrentPage.Visible = true;
+                    //DivPager.Visible = true;
+                  
 
                     dtEQAcc.Columns.Add("AccountId");
                     dtEQAcc.Columns.Add("Broker Name");
@@ -98,6 +100,17 @@ namespace WealthERP.CustomerPortfolio
                     gvEQAcc.DataBind();
 
                 }
+
+                if (Cache["EQAccountDetails" + portfolioId] == null)
+                {
+                    Cache.Insert("EQAccountDetails" + portfolioId, dtEQAcc);
+                }
+                else
+                {
+                    Cache.Remove("EQAccountDetails" + portfolioId);
+                    Cache.Insert("EQAccountDetails" + portfolioId, dtEQAcc);
+                }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -142,10 +155,15 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                DropDownList ddlAction = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                EQAccountId = int.Parse(gvEQAcc.DataKeys[selectedRow].Value.ToString());
+                //DropDownList ddlAction = (DropDownList)sender;
+                //GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
+                //int selectedRow = gvr.RowIndex;
+
+                RadComboBox ddlAction = (RadComboBox)sender;
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+
+                EQAccountId = int.Parse(gvEQAcc.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString());
                 Session["AccountId"] = EQAccountId;
                 Session["EQAccountVoRow"] = CustomerTransactionBo.GetCustomerEQAccountDetails(EQAccountId, portfolioId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
@@ -202,7 +220,23 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
-        
 
+        protected void gvEQAcc_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtProcessLogDetails = new DataTable();
+            dtProcessLogDetails = (DataTable)Cache["EQAccountDetails" + portfolioId];
+            gvEQAcc.DataSource = dtProcessLogDetails;
+        }
+
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvEQAcc.ExportSettings.OpenInNewWindow = true;
+            gvEQAcc.ExportSettings.IgnorePaging = true;
+            gvEQAcc.ExportSettings.HideStructureColumns = true;
+            gvEQAcc.ExportSettings.ExportOnlyData = true;
+            gvEQAcc.ExportSettings.FileName = "Upload History Details";
+            gvEQAcc.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvEQAcc.MasterTableView.ExportToExcel();
+        }
     }
 }
