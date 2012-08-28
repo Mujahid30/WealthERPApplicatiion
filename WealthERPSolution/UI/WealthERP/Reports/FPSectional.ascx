@@ -88,7 +88,11 @@
         return true;
 
     }
+    function GetCustomerId(source, eventArgs) {
 
+        document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value();
+        return false;
+    };
 
 //    function CalculateDiscountRate() {
 //        var investmentRT = document.getElementById('<%=txtInvestmentReturn.ClientID %>').value;
@@ -103,8 +107,22 @@
 <%--<telerik:RadScriptManager ID="RdScriptManager1" runat="server">
 </telerik:RadScriptManager>--%>
 
-<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Financial Planning Reports"></asp:Label>
-<br />
+<%--<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Financial Planning Reports"></asp:Label>
+<br />--%>
+<table width="100%">
+<tr>
+<td>
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+        <td align="left">Financial Planning Reports</td>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
+</table>
+
 
 <table width="100%">
     <tr>
@@ -114,6 +132,33 @@
             </div>
         </td>
     </tr>
+</table>
+<table id="tblCustomer" runat="server" width="50%" visible="true">
+<tr id="trIndCustomer"  runat="server">
+          <td id="Td1" runat="server">
+                                                            <asp:Label ID="lblCustomer" runat="server" Text="Select Customer:" CssClass="FieldName"></asp:Label><asp:TextBox
+                                                                ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True"></asp:TextBox>
+                                                            <ajaxToolkit:AutoCompleteExtender ID="txtCustomer_autoCompleteExtender" runat="server"
+                                                                TargetControlID="txtCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                                                                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                                                                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                                                                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                                                                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                                                                Enabled="True"  />
+                                                                
+                                                            <span id="Span1" class="spnRequiredField">* </span>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtCustomer"
+                                                                ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
+                                                                CssClass="rfvPCG" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator><span
+                                                                    style='font-size: 9px; font-weight: normal' class='FieldName'><br />
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    Enter few characters of Individual customer name. </span>
+                                                                    
+                                                        </td>
+                                                        <td id="Td2" runat="server">
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                                        </td>
+                                                    </tr>
 </table>
 <telerik:RadTabStrip ID="RadTabStripFPProjection" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="FPrepotsMulti" SelectedIndex="0" EnableViewState="true">
@@ -480,6 +525,8 @@
       </asp:Panel>
  </telerik:RadPageView>
  </telerik:RadMultiPage>
+ <asp:HiddenField ID="hdnCustomerId" runat="server" 
+    onvaluechanged="hdnCustomerId_ValueChanged" />
  
  
  

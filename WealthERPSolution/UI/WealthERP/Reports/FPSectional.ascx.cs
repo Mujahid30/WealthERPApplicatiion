@@ -10,6 +10,7 @@ using VoUser;
 using BoCustomerProfiling;
 using System.Data;
 using System.Text;
+using WealthERP.Base;
 
 namespace WealthERP.Reports
 {
@@ -18,12 +19,47 @@ namespace WealthERP.Reports
         CustomerBo customerBo = new CustomerBo();
         AdvisorVo adviserVo = new AdvisorVo();
         CustomerVo customerVo = new CustomerVo();
+
+        int customerId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             msgRecordStatus.Visible = false;
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
+            RMVo rmVo = new RMVo();
+            rmVo = (RMVo)Session[SessionContents.RmVo];
+            if (Session["UserType"].ToString() == "Customer")
+                 tblCustomer.Visible = false;
+            else
+                tblCustomer.Visible = true;
+            
+            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            {
+                //hidBMLogin.Value = "False";
+                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                //txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" )
+            {
+                //hidBMLogin.Value = "False";
+                txtCustomer_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                //txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                //txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+            {
+                //hidBMLogin.Value = "true";
+                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtCustomer_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+                //txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
+
+            }
             if (!IsPostBack)
             {
                 SetDefalutView();
@@ -36,7 +72,14 @@ namespace WealthERP.Reports
         public void DefaultFPReportsAssumtion()
         {
             DataSet dsDefaultFPReportsAssumtion = new DataSet();
-            dsDefaultFPReportsAssumtion = customerBo.DefaultFPReportsAssumtion(customerVo.CustomerId);
+            if (!String.IsNullOrEmpty(hdnCustomerId.Value) ) 
+            {
+               if (Session["UserType"].ToString() == "Customer")
+                    customerId = customerVo.CustomerId;
+                else
+                    customerId = Convert.ToInt32(hdnCustomerId.Value);
+            }
+            dsDefaultFPReportsAssumtion = customerBo.DefaultFPReportsAssumtion(customerId);
             if (dsDefaultFPReportsAssumtion.Tables[0].Rows.Count > 0)
             {
                 txtInflation.Text = dsDefaultFPReportsAssumtion.Tables[0].Rows[0][0].ToString();
@@ -188,9 +231,16 @@ namespace WealthERP.Reports
             txtParagraph4.Text = string.Empty;
             txtParagraph5.Text = string.Empty;
 
-            if (Session["customerVo"] != null)
-                customerVo = (CustomerVo)Session["customerVo"];
-            strRMRecommendationHTML = customerBo.GetRMRecommendationForCustomer(customerVo.CustomerId);           
+            //if (Session["customerVo"] != null)
+            //    customerVo = (CustomerVo)Session["customerVo"];
+            if (!String.IsNullOrEmpty(hdnCustomerId.Value))
+            {
+                if (Session["UserType"].ToString() == "Customer")
+                    customerId = customerVo.CustomerId;
+                else
+                    customerId = Convert.ToInt32(hdnCustomerId.Value);
+            }
+            strRMRecommendationHTML = customerBo.GetRMRecommendationForCustomer(customerId);           
             strRMRecTR = strRMRecommendationHTML.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
             if (strRMRecTR.Count() > 0)
             {
@@ -231,6 +281,17 @@ namespace WealthERP.Reports
  
             }
  
+        }
+
+        protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
+            {
+                customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId.Value));
+                Session["customerVo"] = customerVo;
+                customerId = int.Parse(hdnCustomerId.Value);
+            }
+                 
         }
 
         //protected void ddlBtnSelect_SelectedIndexChanged(object sender, EventArgs e)
