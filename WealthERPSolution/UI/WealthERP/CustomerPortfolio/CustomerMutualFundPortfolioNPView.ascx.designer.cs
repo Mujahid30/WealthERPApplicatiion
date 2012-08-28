@@ -248,7 +248,7 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.LinkButton lnlGoBackHoldings;
         
         /// <summary>
-        /// ImageButton1 control.
+        /// imgBtnrgHoldings control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -365,7 +365,7 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.LinkButton lnkGoBackAll;
         
         /// <summary>
-        /// ImageButton2 control.
+        /// imgBtnrgAll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -473,7 +473,7 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.LinkButton lnkGoBackRealized;
         
         /// <summary>
-        /// ImageButton3 control.
+        /// imgBtnrgRealized control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -563,6 +563,33 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.DataVisualization.Charting.Chart chrtMFClassification;
         
         /// <summary>
+        /// trSchemePerformance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSchemePerformance;
+        
+        /// <summary>
+        /// PanelSector control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxPanel PanelSector;
+        
+        /// <summary>
+        /// gvSchemePerformance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvSchemePerformance;
+        
+        /// <summary>
         /// pnlTax control.
         /// </summary>
         /// <remarks>
@@ -644,7 +671,7 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.LinkButton lnlGoBackTaxHoldings;
         
         /// <summary>
-        /// ImageButton4 control.
+        /// imgBtnrgTaxHoldings control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -716,7 +743,7 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.LinkButton lnlGoBackTaxRealized;
         
         /// <summary>
-        /// ImageButton5 control.
+        /// imgBtnrgTaxRealized control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -732,6 +759,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgTaxRealized;
+        
+        /// <summary>
+        /// ErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable ErrorMessage;
         
         /// <summary>
         /// hdnReturnsRealizedCategory control.

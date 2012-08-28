@@ -233,7 +233,7 @@
                         <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="98%" ScrollBars="Horizontal">
                             <table width="99%">
                                 <tr>
-                                    <td colspan="2">
+                                    <td>
                                         <div id="dvAll" runat="server" style="width: 640px">
                                             <asp:Label ID="lblMessageAll" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
@@ -550,9 +550,14 @@
                             <table id="tblPandA" runat="server" width="99%">
                                 <tr id="trMFCode" runat="server">
                                     <td>
-                                        <asp:DropDownList ID="ddlMFClassificationCode" runat="server" CssClass="cmbField"
-                                            Height="16px" Width="176px">
-                                            <asp:ListItem>MF Classification Code</asp:ListItem>
+                                        <asp:DropDownList ID="ddlMFClassificationCode" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                            Height="16px" Width="176px" 
+                                            onselectedindexchanged="ddlMFClassificationCode_SelectedIndexChanged" >
+                                            <%--<asp:ListItem>MF Classification Code</asp:ListItem>--%>
+                                            <asp:ListItem Text="MF Classification Code" Value="0" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="Scheme Performance" Value="1"></asp:ListItem> 
+                                            <asp:ListItem Text="Top ten Holdings" Value="2"></asp:ListItem>
+                                            <asp:ListItem Text="Top ten Sectors" Value="3"></asp:ListItem>
                                         </asp:DropDownList>
                                     </td>
                                 </tr>
@@ -572,6 +577,104 @@
                                             </asp:Chart>
                                         </div>
                                     </td>
+                                </tr>
+                                <tr id="trSchemePerformance" runat="server">
+                                <td>
+                                <telerik:RadAjaxPanel ID="PanelSector" runat="server"  EnableHistory="True"
+                                     HorizontalAlign="NotSet" LoadingPanelID="SchemePerformanceLoading">
+                                <telerik:RadGrid ID="gvSchemePerformance" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                    Skin="Telerik" EnableEmbeddedSkins="false"  AllowFilteringByColumn="false"
+                                AllowAutomaticInserts="false" ExportSettings-FileName="SchemePerformance" >
+                                <MasterTableView AllowMultiColumnSorting="True"  AutoGenerateColumns="false" >
+                                <CommandItemSettings ExportToPdfText="Export to Pdf" />
+                                    <Columns>
+            
+                                        <telerik:GridBoundColumn DataField="SchemeName" HeaderText="SchemeName" SortExpression="SchemeName"
+                                            UniqueName="SchemeName"  AutoPostBackOnFilter="true">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="OneMonthReturn" HeaderText="OneMonthReturn" SortExpression="OneMonthReturn"
+                                            UniqueName="OneMonthReturn"  AutoPostBackOnFilter="true" DataFormatString="{0:N0}">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top"  />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="SixMonthReturn" HeaderText="SixMonthReturn" SortExpression="SixMonthReturn"
+                                            UniqueName="SixMonthReturn"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="OneYearReturn" HeaderText="OneYearReturn" SortExpression="OneYearReturn"
+                                            UniqueName="OneYearReturn"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="ThreeYearReturn" HeaderText="ThreeYearReturn" SortExpression="ThreeYearReturn"
+                                            UniqueName="ThreeYearReturn"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="FiveYearReturn" HeaderText="FiveYearReturn" SortExpression="FiveYearReturn"
+                                            UniqueName="FiveYearReturn"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="InceptionReturn" HeaderText="InceptionReturn" SortExpression="InceptionReturn"
+                                            UniqueName="InceptionReturn"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="PE" HeaderText="PE" SortExpression="PE"
+                                            UniqueName="PE"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="PB" HeaderText="PB" SortExpression="PB"
+                                            UniqueName="PB"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="Sharpe" HeaderText="Sharpe" SortExpression="Sharpe"
+                                            UniqueName="Sharpe"  AutoPostBackOnFilter="true">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="Sd" HeaderText="Sd" SortExpression="Sd"
+                                            UniqueName="Sd"  AutoPostBackOnFilter="true">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn DataField="Top5Holding" HeaderText="Top5Holding" SortExpression="Top5Holding"
+                                            UniqueName="Top5Holding"  AutoPostBackOnFilter="true">
+                                                <HeaderStyle ></HeaderStyle>
+                                                <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                   
+                
+                                    </Columns>
+                
+                                </MasterTableView>
+        
+                            <ClientSettings>
+                                     <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
+                            <ClientEvents  /> 
+                            </ClientSettings>
+                             </telerik:RadGrid>
+                                </telerik:RadAjaxPanel>
+                                </td>
                                 </tr>
                             </table>
                         </asp:Panel>
@@ -841,6 +944,15 @@
                     </telerik:RadPageView>
                 </telerik:RadMultiPage>
             </asp:Panel>
+        </td>
+    </tr>
+</table>
+<table id="ErrorMessage" align="center" runat="server">
+    <tr>
+        <td>
+            <div class="failure-msg" align="center">
+                No Records found.....
+            </div>
         </td>
     </tr>
 </table>

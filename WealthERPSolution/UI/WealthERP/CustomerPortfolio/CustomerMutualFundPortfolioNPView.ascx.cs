@@ -36,6 +36,8 @@ namespace WealthERP.CustomerPortfolio
         DateTime tradeDate = new DateTime();
         static int intPortfolioListCount;
 
+        DataSet dsSchemeHoldingSector;
+
         public enum Constants
         {
             EQ = 0,     // explicitly specifying the enum constant values will improve performance
@@ -56,7 +58,7 @@ namespace WealthERP.CustomerPortfolio
                 genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
                 string strValuationDate = genDict[Constants.MFDate.ToString()].ToString();
                 lblPickDate.Text = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString()).ToShortDateString();
-
+                ErrorMessage.Visible = false;
                 if (!IsPostBack)
                 {
                     portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
@@ -1671,6 +1673,66 @@ namespace WealthERP.CustomerPortfolio
             rgTaxRealized.ExportSettings.FileName = "Tax Realized Details";
             rgTaxRealized.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rgTaxRealized.MasterTableView.ExportToExcel();
+        }
+
+        protected void ddlMFClassificationCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DateTime valDate = DateTime.Parse( lblPickDate.Text);
+            dsSchemeHoldingSector = customerPortfolioBo.GetCustomerSchemeHoldingSectors(portfolioId, valDate);
+            Session["DsSchemeHoldingSector"] = dsSchemeHoldingSector;
+            if (ddlMFClassificationCode.SelectedValue == "0")
+            {
+                trChart.Visible = true;
+                trSchemePerformance.Visible = false;
+                BindPerformaceChart();
+            }
+            else if (ddlMFClassificationCode.SelectedValue == "1")
+            {
+                trChart.Visible = false;
+                trSchemePerformance.Visible = true;
+                BindSchemePerformanceGrid();
+            }
+            else if (ddlMFClassificationCode.SelectedValue == "2")
+            {
+            }
+            else if (ddlMFClassificationCode.SelectedValue == "3")
+            {
+            }
+        }
+
+        private void BindSchemePerformanceGrid()
+        {
+            DataTable dtSchemePerformance;
+            if (Session["DsSchemeHoldingSector"] != "")
+            {
+                dsSchemeHoldingSector = (DataSet)Session["DsSchemeHoldingSector"];
+                dtSchemePerformance = dsSchemeHoldingSector.Tables[0];
+                if (dsSchemeHoldingSector.Tables[0].Rows.Count > 0)
+                {
+                    gvSchemePerformance.DataSource = dtSchemePerformance;
+                    gvSchemePerformance.DataBind();
+                    ErrorMessage.Visible = false;
+                    if (Cache["SchemePerformance" + userVo.UserId] == null)
+                    {
+                        Cache.Insert("SchemePerformance" + userVo.UserId, dtSchemePerformance);
+                    }
+                    else
+                    {
+                        Cache.Remove("SchemePerformance" + userVo.UserId);
+                        Cache.Insert("SchemePerformance" + userVo.UserId, dtSchemePerformance);
+                    }
+                }
+                else
+                {
+                    gvSchemePerformance.Visible = false;
+                    ErrorMessage.Visible = true;
+
+                }
+            }
+            else
+            {
+                ErrorMessage.Visible = true;
+            }
         }
 
 
