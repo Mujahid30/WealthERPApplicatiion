@@ -860,5 +860,34 @@ namespace BoCustomerGoalProfiling
         }
 
 
+
+        public DataSet GetGoals()
+        {
+            CustomerGoalSetupDao customerGoalSetupDao = new CustomerGoalSetupDao();
+            DataSet dsGetGoals;
+            try
+            {
+                dsGetGoals = customerGoalSetupDao.GetGoals();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetGoals;
+        }
+        public DataSet GetGoalListMIS(string userType, int advisorId, int rmId, int customerId, int branchHeadId,int branchId, int all, int isGroup, string goalCode)
+        {
+            CustomerGoalSetupDao goalSetupDao = new CustomerGoalSetupDao();
+            DataSet dsGetGoalMIS;
+            try
+            {
+                dsGetGoalMIS = goalSetupDao.GetGoalListMIS(userType, advisorId, rmId, customerId, branchHeadId, branchId, all, isGroup, goalCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetGoalMIS;
+        }
     }
 }
