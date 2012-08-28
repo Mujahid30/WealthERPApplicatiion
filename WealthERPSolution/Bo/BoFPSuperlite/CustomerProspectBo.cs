@@ -957,13 +957,13 @@ namespace BoFPSuperlite
         /// Vinayak Patil
         /// <param name="RmId"></param>
         /// <returns></returns>
-        public DataSet GetAllProspectCustomersForRM(int RmId)
+        public DataSet GetAllProspectCustomersForRM(string userType, int adviserId, int rmId, int branchheadId, int branchId, int All)
         {
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             DataSet dsGetAllProspectCustomersForRM = new DataSet();
             try
             {
-                dsGetAllProspectCustomersForRM = customerprospectdao.GetAllProspectCustomersForRM(RmId);
+                dsGetAllProspectCustomersForRM = customerprospectdao.GetAllProspectCustomersForRM( userType, adviserId, rmId,  branchheadId,  branchId ,All);
 
             }
             catch (BaseApplicationException Ex)
@@ -976,7 +976,7 @@ namespace BoFPSuperlite
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerProspectBo.cs:GetFPCurrentAndRecomondedAssets()");
                 object[] objects = new object[3];
-                objects[0] = RmId;
+                objects[0] = rmId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
