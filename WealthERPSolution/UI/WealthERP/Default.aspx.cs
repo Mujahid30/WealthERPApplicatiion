@@ -29,10 +29,17 @@ namespace WealthERP
         {
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
             GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
+            AdvisorVo advisorVo = new AdvisorVo();
             if (!IsPostBack)
             {
+                if (Session["advisorVo"] != null)
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
                 xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-                generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath);
+                if (advisorVo.HostId!=0)
+                  generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath,advisorVo.HostId);
+                else
+                    generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath, 1000);
+
                 Session[SessionContents.SAC_HostGeneralDetails] = generalconfigurationvo;
                 if (Session[SessionContents.SAC_HostGeneralDetails] != null)
                 {
