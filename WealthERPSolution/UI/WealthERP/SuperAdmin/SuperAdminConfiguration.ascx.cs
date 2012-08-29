@@ -27,7 +27,7 @@ namespace WealthERP.SuperAdmin
                 UserVo uservo = (UserVo)Session["UserVo"];
                 string xmlPath = "";
                 xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-                generalconfigurationvo = generalconfigurationbo.GetHostGeneralConfiguration(xmlPath);
+                generalconfigurationvo = generalconfigurationbo.GetHostGeneralConfiguration(xmlPath,1000);
                 if (!String.IsNullOrEmpty(generalconfigurationvo.DefaultTheme))
                 {
                     ddlApplyTheme.SelectedValue = generalconfigurationvo.DefaultTheme;
