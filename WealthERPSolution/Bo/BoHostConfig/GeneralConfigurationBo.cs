@@ -38,24 +38,27 @@ namespace BoHostConfig
         ///  </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public GeneralConfigurationVo GetHostGeneralConfiguration(string xmlPath)
+        public GeneralConfigurationVo GetHostGeneralConfiguration(string xmlPath, int hostId)
         {
             GeneralConfigurationVo generalConfigurationVo = new GeneralConfigurationVo();
             DataSet dsGeneralConfiguration = new DataSet();
             try
             {
                 dsGeneralConfiguration = generalConfigurationDao.GetHostGeneralConfiguration(xmlPath);
-                if (dsGeneralConfiguration != null && dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows.Count == 1)
+                DataView dvHostDetails = new DataView(dsGeneralConfiguration.Tables["WERPHostConfiguration"], "HAC_HostId=" + hostId.ToString(), "HAC_HostId", DataViewRowState.CurrentRows);
+                DataTable dtHostDetails = dvHostDetails.ToTable("Host");
+
+                if (dtHostDetails != null && dtHostDetails.Rows.Count == 1)
                 {
-                    generalConfigurationVo.HostLogoPlacement = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_HostLogoPlacement"].ToString();
-                    generalConfigurationVo.HostLogo = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_HostLogo"].ToString();
-                    generalConfigurationVo.AdviserLogoPlacement = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_AdviserLogoPlacement"].ToString();
-                    generalConfigurationVo.DefaultTheme = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_DefaultTheme"].ToString();
-                    generalConfigurationVo.ContactPersonName = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_ContactPersonName"].ToString();
-                    generalConfigurationVo.ContactPersonTelephoneNumber = Int64.Parse(dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_TelephoneNumber"].ToString());
-                    generalConfigurationVo.LoginPageContent = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_LoginPageContent"].ToString();
-                    generalConfigurationVo.ApplicationName = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_ApplicationName"].ToString();
-                    generalConfigurationVo.Email = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_Email"].ToString();
+                    generalConfigurationVo.HostLogoPlacement = dtHostDetails.Rows[0]["HAC_HostLogoPlacement"].ToString();
+                    generalConfigurationVo.HostLogo = dtHostDetails.Rows[0]["HAC_HostLogo"].ToString();
+                    generalConfigurationVo.AdviserLogoPlacement = dtHostDetails.Rows[0]["HAC_AdviserLogoPlacement"].ToString();
+                    generalConfigurationVo.DefaultTheme = dtHostDetails.Rows[0]["HAC_DefaultTheme"].ToString();
+                    generalConfigurationVo.ContactPersonName = dtHostDetails.Rows[0]["HAC_ContactPersonName"].ToString();
+                    generalConfigurationVo.ContactPersonTelephoneNumber = Int64.Parse(dtHostDetails.Rows[0]["HAC_TelephoneNumber"].ToString());
+                    generalConfigurationVo.LoginPageContent = dtHostDetails.Rows[0]["HAC_LoginPageContent"].ToString();
+                    generalConfigurationVo.ApplicationName = dtHostDetails.Rows[0]["HAC_ApplicationName"].ToString();
+                    generalConfigurationVo.Email = dtHostDetails.Rows[0]["HAC_Email"].ToString();
                 }
 
             }

@@ -19,7 +19,7 @@ namespace WealthERP
             GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
             string xmlPath = "";
             xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-            generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath);
+            generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath,1000);
             Session[SessionContents.SAC_HostGeneralDetails] = generalconfigurationvo;
             if (Session[SessionContents.SAC_HostGeneralDetails] != null)
             {

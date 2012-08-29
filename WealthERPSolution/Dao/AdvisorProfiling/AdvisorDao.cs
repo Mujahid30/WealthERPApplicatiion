@@ -511,6 +511,9 @@ namespace DaoAdvisorProfiling
                     if (dr["AS_Comments"] != DBNull.Value && dr["AS_Comments"].ToString() != string.Empty)
                         advisorVo.SubscriptionVo.Comments = dr["AS_Comments"].ToString();
 
+                    if (!string.IsNullOrEmpty(dr["A_HostId"].ToString()))
+                        advisorVo.HostId = Int16.Parse(dr["A_HostId"].ToString());
+
                 }
 
 
@@ -1514,6 +1517,8 @@ namespace DaoAdvisorProfiling
                     if (dr["AS_Comments"] != DBNull.Value && dr["AS_Comments"].ToString() != string.Empty)
                         advisorVo.SubscriptionVo.Comments = dr["AS_Comments"].ToString();
 
+                    if (!string.IsNullOrEmpty(dr["A_HostId"].ToString()))
+                        advisorVo.HostId = Int16.Parse(dr["A_HostId"].ToString());
                 }
             }
             catch (BaseApplicationException Ex)
