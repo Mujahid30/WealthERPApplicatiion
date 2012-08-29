@@ -56,70 +56,70 @@ namespace WealthERP.CustomerPortfolio
             tdScripNameValue.Visible = false;
             //if (!IsPostBack)
             //{
-                try
+            try
+            {
+                SessionBo.CheckSession();
+                System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+                customerVo = (CustomerVo)Session["CustomerVo"];
+                userVo = (UserVo)Session["userVo"];
+                advisorVo = (AdvisorVo)Session["advisorVo"];
+                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                if (!IsPostBack)
                 {
-                    SessionBo.CheckSession();
-                    System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
-                    customerVo = (CustomerVo)Session["CustomerVo"];
-                    userVo = (UserVo)Session["userVo"];
-                    advisorVo = (AdvisorVo)Session["advisorVo"];
-                    path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                    if (!IsPostBack)
-                    {
 
-                        portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
-                        BindPortfolioDropDown();
-                        lblScripName.Visible = false;
-                        LoadTransactionType(path);
-                        LoadExchangeType(path);
-                        LoadEquityTradeNumbers();
-                    }
-                    else
-                    {
+                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                    BindPortfolioDropDown();
+                    lblScripName.Visible = false;
+                    LoadTransactionType(path);
+                    LoadExchangeType(path);
+                    LoadEquityTradeNumbers();
+                }
+                else
+                {
 
-                        portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
-                        // btnAddDP.Visible = false;
-                    }
-                    
-                    
-                    if (Session["Trade"] != null)
-                    {
-                        ht = (Hashtable)Session["EqHT"];
-                        txtScrip.Text = ht["Scrip"].ToString();
-                        LoadExchangeType(path);
-                        ddlExchange.SelectedValue = ht["Exchange"].ToString();
-                        LoadTransactionType(path);
-                        ddlTransactionType.SelectedValue = ht["TranType"].ToString();
-                        txtTicker.Text = ht["Ticker"].ToString();
-                        SetFields(1);
-                        Session.Remove("Trade");
+                    portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+                    // btnAddDP.Visible = false;
+                }
 
-                    }
+
+                if (Session["Trade"] != null)
+                {
+                    ht = (Hashtable)Session["EqHT"];
+                    txtScrip.Text = ht["Scrip"].ToString();
+                    LoadExchangeType(path);
+                    ddlExchange.SelectedValue = ht["Exchange"].ToString();
+                    LoadTransactionType(path);
+                    ddlTransactionType.SelectedValue = ht["TranType"].ToString();
+                    txtTicker.Text = ht["Ticker"].ToString();
+                    SetFields(1);
+                    Session.Remove("Trade");
 
                 }
 
-                catch (BaseApplicationException Ex)
-                {
-                    throw Ex;
-                }
-
-                catch (Exception Ex)
-                {
-                    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                    NameValueCollection FunctionInfo = new NameValueCollection();
-                    FunctionInfo.Add("Method", "EquityManualSingleTransaction.ascx:Page_Load()");
-                    object[] objects = new object[5];
-                    objects[0] = path;
-                    objects[1] = userVo;
-                    objects[2] = customerVo;
-                    objects[3] = portfolioId;
-                    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                    exBase.AdditionalInformation = FunctionInfo;
-                    ExceptionManager.Publish(exBase);
-                    throw exBase;
-
-                }
             }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "EquityManualSingleTransaction.ascx:Page_Load()");
+                object[] objects = new object[5];
+                objects[0] = path;
+                objects[1] = userVo;
+                objects[2] = customerVo;
+                objects[3] = portfolioId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
         //}
         private void BindPortfolioDropDown()
         {
@@ -341,7 +341,7 @@ namespace WealthERP.CustomerPortfolio
 
                 eqTransactionVo.TradeDate = Convert.ToDateTime(txtTradeDate.Text.Trim(), ci);// DateTime.Parse(txtTradeDate.Text);//ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
                 eqTransactionVo.TradeTotal = float.Parse(txtTotal.Text);
-                eqTransactionVo.TradeAccountNum ="";
+                eqTransactionVo.TradeAccountNum = "";
 
                 if (customerTransactionBo.AddEquityTransaction(eqTransactionVo, customerVo.UserId))
                 {
@@ -366,9 +366,10 @@ namespace WealthERP.CustomerPortfolio
                     customerPortfolioBo.DeleteEquityNetPosition(eqPortfolioVoList[0].EQCode, eqPortfolioVoList[0].AccountId, tradeDate);
                     customerPortfolioBo.AddEquityNetPosition(eqPortfolioVoList[0], userVo.UserId);
                 }
-
-                btnSubmit.Enabled = false;
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityTransactionsView','none');", true);
+                msgRecordStatus.Visible = true;
+                resetControls();
+                //btnSubmit.Enabled = false;
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityTransactionsView','none');", true);
             }
 
             catch (BaseApplicationException Ex)
@@ -392,6 +393,27 @@ namespace WealthERP.CustomerPortfolio
 
             }
 
+        }
+
+        public void resetControls()
+        {
+            txtScrip.Text = string.Empty;
+            ddlTransactionType.SelectedIndex = 0;
+            ddlExchange.SelectedIndex = 0;
+            ddlTradeAcc.SelectedIndex = 0;
+            txtTicker.Text = string.Empty;
+            txtTradeDate.Text = string.Empty;
+            txtPrice.Text = string.Empty;
+            txtRate.Text = string.Empty;
+            txtNumShares.Text = string.Empty;
+            txtBroker.Text = string.Empty;
+            txtBrokerage.Text = string.Empty;
+            txtOtherCharge.Text = string.Empty;
+            txtTax.Text = string.Empty;
+            txtSTT.Text = string.Empty;
+            txtRateIncBrokerage.Text = string.Empty;
+            txtTotal.Text = string.Empty;
+            lblScripName.Visible = false;
         }
 
         protected void btnAddDP_Click(object sender, EventArgs e)
@@ -443,19 +465,19 @@ namespace WealthERP.CustomerPortfolio
                 {
                     brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageSpeculativePercentage / 100);
                     txtBrokerage.Text = Math.Round(brokerage, 4).ToString();
-                    
+
                 }
                 //}
 
                 //if (txtOtherCharge.Text == "")
                 //{
-                    otherCharges = double.Parse(txtRate.Text) * (customerAccountsVo.OtherCharges / 100);
-                    if (txtOtherCharge.Text == "")
-                        txtOtherCharge.Text = "0";
-                    if (otherCharges != 0)
-                        txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
-                    else
-                        txtOtherCharge.Text = (double.Parse(txtRate.Text) * double.Parse(txtOtherCharge.Text) / 100).ToString();
+                otherCharges = double.Parse(txtRate.Text) * (customerAccountsVo.OtherCharges / 100);
+                if (txtOtherCharge.Text == "")
+                    txtOtherCharge.Text = "0";
+                if (otherCharges != 0)
+                    txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
+                else
+                    txtOtherCharge.Text = (double.Parse(txtRate.Text) * double.Parse(txtOtherCharge.Text) / 100).ToString();
                 //}
 
                 Calculate();
@@ -611,7 +633,7 @@ namespace WealthERP.CustomerPortfolio
             }
 
 
-           
+
         }
 
         protected void txtScripCode_ValueChanged(object sender, EventArgs e)
@@ -655,7 +677,7 @@ namespace WealthERP.CustomerPortfolio
             SetBrokerage();
         }
 
-       
+
     }
 }
 
