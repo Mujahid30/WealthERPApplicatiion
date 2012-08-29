@@ -52,7 +52,8 @@ namespace VoUser
         private Int16 s_IsIPEnable;
         private Int16 s_IsOpsEnable;
         private float s_VaultSize;
-        private string m_DomainName;        
+        private string m_DomainName;
+        private int m_HostId;
         private List<AdvisorLOBVo> advisorLOBVoList = new List<AdvisorLOBVo>();
         private AdviserSubscriptionVo advSubVo = new AdviserSubscriptionVo();
        
@@ -304,6 +305,12 @@ namespace VoUser
         {
             get { return advSubVo; }
             set { advSubVo = value; }
+        }
+
+        public int HostId
+        {
+            get { return m_HostId; }
+            set { m_HostId = value; }
         }
 
         #endregion Properties
