@@ -109,7 +109,8 @@ namespace WealthERP.CustomerPortfolio
                     dvDividentRate.Visible = false;
                     trDividendRate.Visible = false;
                 }
-                txtAmount.Text = mfTransactionVo.Amount.ToString();
+                txtAmount.Text = String.Format("{0:n2}", decimal.Parse(mfTransactionVo.Amount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                //txtAmount.Text = mfTransactionVo.Amount.ToString();
                 txtNAV.Text = mfTransactionVo.NAV.ToString();
                 txtPrice.Text = mfTransactionVo.Price.ToString();
                 if (mfTransactionVo.BuySell == "S")

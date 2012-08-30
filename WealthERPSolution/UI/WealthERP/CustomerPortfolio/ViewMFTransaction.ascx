@@ -25,8 +25,27 @@
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
-<table style="width: 100%;" class="TableBackground">
-    <%--<tr>
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+        <td align="left">View MF Transaction</td>
+        <td align="right">
+        <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
+                OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_Click" CssClass="LinkButtons"> Edit</asp:LinkButton>
+        </td>
+        </tr>
+       
+    </table>
+</div>
+</td>
+</tr>
+</table>
+<%--<table style="width: 100%;" class="TableBackground">
+    <tr>
         <td class="HeaderCell">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="MF Transaction "></asp:Label>
         </td>
@@ -36,16 +55,16 @@
         <td>
             &nbsp;
         </td>
-    </tr>--%>
+    </tr>
     <tr>
         <td colspan="2">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Mutual Fund Transaction Details"></asp:Label>
             <hr />
         </td>
     </tr>
- </table>
+ </table>--%>
  <table width ="60%">   
-    <tr>
+<%--    <tr>
         <td>
             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
                 OnClick="lnkBtnBack_Click"></asp:LinkButton>
@@ -53,12 +72,8 @@
         <td>
             <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_Click" CssClass="LinkButtons"> Edit</asp:LinkButton>
         </td>
-    </tr>
-    <tr>
-    <td>
+    </tr>--%>
 
-    </td>
-    </tr>
     
     <tr>
         <td colspan="4">
