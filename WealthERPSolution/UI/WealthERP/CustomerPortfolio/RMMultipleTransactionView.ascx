@@ -95,7 +95,7 @@
 </tr>
 </table>
 
-<table style="width: 100%;">
+<table id="tblExport" runat="server" style="width: 100%;">
     <tr>
         <td class="HeaderTextBig" colspan="2">
             <%--<asp:Label ID="lblMfMIS" runat="server" CssClass="HeaderTextBig" Text="MF Transaction Grid View"></asp:Label>
