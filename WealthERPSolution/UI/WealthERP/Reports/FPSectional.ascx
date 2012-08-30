@@ -116,6 +116,28 @@
     <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
         <td align="left">Financial Planning Reports</td>
+        <td align="right">
+        <asp:Button ID="btnViewReport" runat="server"  
+     PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" />&nbsp;&nbsp;
+     <div id="divView" style="display: none;">
+                <p class="tip">
+                    Click here to view FP sectional report.
+                </p>
+            </div>
+     <asp:Button ID="btnViewInPDF" runat="server"  OnClientClick="return CustomerValidate('pdf')"
+     PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" /> &nbsp;&nbsp;
+     <div id="divPdf" style="display: none;">
+                <p class="tip">
+                    Click here to view FP sectional report in PDF format.
+                </p>
+      </div>
+      <asp:Button ID="btnViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
+     PostBackUrl="~/Reports/Display.aspx?mail=4"  /> &nbsp;&nbsp; 
+     <div id="divDoc" style="display: none;">
+                <p class="tip">
+                    Click here to view FP sectional report in word doc.</p>
+     </div>
+        </td>
         </tr>
     </table>
 </div>
@@ -135,6 +157,7 @@
 </table>
 <table id="tblCustomer" runat="server" width="50%" visible="true">
 <tr id="trIndCustomer"  runat="server">
+<td id="Td2" runat="server"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
           <td id="Td1" runat="server">
                                                             <asp:Label ID="lblCustomer" runat="server" Text="Select Customer:" CssClass="FieldName"></asp:Label><asp:TextBox
                                                                 ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True"></asp:TextBox>
@@ -155,11 +178,11 @@
                                                                     Enter few characters of Individual customer name. </span>
                                                                     
                                                         </td>
-                                                        <td id="Td2" runat="server">
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                                        </td>
+                                                        
                                                     </tr>
+<tr></tr>
 </table>
+<div id="divTabs" runat="server">
 <telerik:RadTabStrip ID="RadTabStripFPProjection" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="FPrepotsMulti" SelectedIndex="0" EnableViewState="true">
     <Tabs>
@@ -351,26 +374,7 @@
       </td>
       
       <td style="width:60%" align="right">
-        <asp:Button ID="btnViewReport" runat="server"  
-     PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" />&nbsp;&nbsp;
-     <div id="divView" style="display: none;">
-                <p class="tip">
-                    Click here to view FP sectional report.
-                </p>
-            </div>
-     <asp:Button ID="btnViewInPDF" runat="server"  OnClientClick="return CustomerValidate('pdf')"
-     PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" /> &nbsp;&nbsp;
-     <div id="divPdf" style="display: none;">
-                <p class="tip">
-                    Click here to view FP sectional report in PDF format.
-                </p>
-      </div>
-      <asp:Button ID="btnViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
-     PostBackUrl="~/Reports/Display.aspx?mail=4"  /> &nbsp;&nbsp; 
-     <div id="divDoc" style="display: none;">
-                <p class="tip">
-                    Click here to view FP sectional report in word doc.</p>
-     </div> 
+         
       </td>
       </tr>
       
@@ -525,6 +529,8 @@
       </asp:Panel>
  </telerik:RadPageView>
  </telerik:RadMultiPage>
+ </div>
+
  <asp:HiddenField ID="hdnCustomerId" runat="server" 
     onvaluechanged="hdnCustomerId_ValueChanged" />
  

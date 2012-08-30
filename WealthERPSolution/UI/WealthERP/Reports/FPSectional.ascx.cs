@@ -29,10 +29,16 @@ namespace WealthERP.Reports
             adviserVo = (AdvisorVo)Session["advisorVo"];
             RMVo rmVo = new RMVo();
             rmVo = (RMVo)Session[SessionContents.RmVo];
-            if (Session["UserType"].ToString() == "Customer")
-                 tblCustomer.Visible = false;
+            if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
+            {
+                tblCustomer.Visible = false;
+                RadTabStripFPProjection.Visible = true;
+            }
             else
+            {
                 tblCustomer.Visible = true;
+                RadTabStripFPProjection.Visible = false;
+            }
             
             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
             {
@@ -290,6 +296,7 @@ namespace WealthERP.Reports
                 customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId.Value));
                 Session["customerVo"] = customerVo;
                 customerId = int.Parse(hdnCustomerId.Value);
+                RadTabStripFPProjection.Visible = true;
             }
                  
         }
