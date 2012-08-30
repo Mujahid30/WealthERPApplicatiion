@@ -1684,19 +1684,273 @@ namespace WealthERP.CustomerPortfolio
             {
                 trChart.Visible = true;
                 trSchemePerformance.Visible = false;
+                trHoldingGrid.Visible = false;
+                trTop10HoldingsPie.Visible = false;
                 BindPerformaceChart();
             }
             else if (ddlMFClassificationCode.SelectedValue == "1")
             {
                 trChart.Visible = false;
                 trSchemePerformance.Visible = true;
+                trHoldingGrid.Visible = false;
+                trTop10HoldingsPie.Visible = false;
                 BindSchemePerformanceGrid();
             }
             else if (ddlMFClassificationCode.SelectedValue == "2")
             {
+                trChart.Visible = false;
+                trSchemePerformance.Visible = false;
+                trHoldingGrid.Visible = true;
+                trTop10HoldingsPie.Visible = true;
+                BindHoldingChart();
+                BindHoldingGrid();
             }
             else if (ddlMFClassificationCode.SelectedValue == "3")
             {
+                trChart.Visible = false;
+                trSchemePerformance.Visible = false;
+                trHoldingGrid.Visible = false;
+                trTop10HoldingsPie.Visible = false;
+                trTopTenSectors.Visible = true;
+                trSectorGrid.Visible = true;
+                BindTopSectorsPie();
+                BindTopSectorsGrid();
+            }
+        }
+
+        private void BindTopSectorsGrid()
+        {
+            DataTable dtSectors;
+            if (Session["DsSchemeHoldingSector"] != "")
+            {
+                dsSchemeHoldingSector = (DataSet)Session["DsSchemeHoldingSector"];
+                dtSectors = dsSchemeHoldingSector.Tables[4];
+                if (dsSchemeHoldingSector.Tables[4].Rows.Count > 0)
+                {
+                    gvSectors.DataSource = dtSectors;
+                    gvSectors.DataBind();
+                    ErrorMessage.Visible = false;
+                }
+                else
+                {
+                    gvSectors.Visible = false;
+                    ErrorMessage.Visible = true;
+
+                }
+            }
+            else
+            {
+                ErrorMessage.Visible = true;
+            }
+        }
+
+        private void BindTopSectorsPie()
+        {
+            DataTable dtSectorsPie;
+             try
+            {
+                if (Session["DsSchemeHoldingSector"] != "")
+                {
+                    dsSchemeHoldingSector = (DataSet)Session["DsSchemeHoldingSector"];
+                    dtSectorsPie = dsSchemeHoldingSector.Tables[4];
+                    if (dsSchemeHoldingSector.Tables[4].Rows.Count > 0)
+                    {
+                        // Total Assets Chart
+                        Series seriesAssets = new Series("seriesMFC");
+                        Legend legend = new Legend("AssetsLegend");
+                        legend.Enabled = true;
+                        string[] XValues = new string[dtSectorsPie.Rows.Count];
+                        double[] YValues = new double[dtSectorsPie.Rows.Count];
+                        int i = 0;
+                        seriesAssets.ChartType = SeriesChartType.Pie;
+
+                        foreach (DataRow dr in dtSectorsPie.Rows)
+                        {
+                            XValues[i] = dr["Sector"].ToString();
+                            YValues[i] = double.Parse(dr["Amount"].ToString());
+                            i++;
+                        }
+                        seriesAssets.Points.DataBindXY(XValues, YValues);
+
+
+                        chrtTopTenSectors.Series.Clear();
+                        chrtTopTenSectors.Series.Add(seriesAssets);
+
+                        chrtTopTenSectors.Legends.Clear();
+                        chrtTopTenSectors.Legends.Add(legend);
+                        chrtTopTenSectors.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
+                        chrtTopTenSectors.Legends["AssetsLegend"].Title = "Assets";
+                        chrtTopTenSectors.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
+                        chrtTopTenSectors.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+                        chrtTopTenSectors.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
+                        chrtTopTenSectors.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
+
+                        chrtTopTenSectors.ChartAreas[0].Area3DStyle.Enable3D = true;
+                        chrtTopTenSectors.ChartAreas[0].Area3DStyle.Perspective = 50;
+                        chrtTopTenSectors.Width = 500;
+                        chrtTopTenSectors.BackColor = System.Drawing.Color.Transparent;
+                        chrtTopTenSectors.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
+                        chrtTopTenSectors.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
+
+                        LegendCellColumn colors = new LegendCellColumn();
+                        colors.HeaderText = "Color";
+                        colors.ColumnType = LegendCellColumnType.SeriesSymbol;
+                        colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
+                        chrtTopTenSectors.Legends["AssetsLegend"].CellColumns.Add(colors);
+
+                        LegendCellColumn asset = new LegendCellColumn();
+                        asset.Alignment = ContentAlignment.MiddleLeft;
+                        asset.HeaderText = "Sector";
+                        asset.Text = "#VALX";
+                        chrtTopTenSectors.Legends["AssetsLegend"].CellColumns.Add(asset);
+
+                        LegendCellColumn assetPercent = new LegendCellColumn();
+                        assetPercent.Alignment = ContentAlignment.MiddleLeft;
+                        assetPercent.HeaderText = "Amount";
+                        assetPercent.Text = "#PERCENT";
+                        chrtTopTenSectors.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
+
+                        foreach (DataPoint point in chrtTopTenSectors.Series["seriesMFC"].Points)
+                        {
+                            point["Exploded"] = "true";
+                        }
+
+                        chrtTopTenSectors.DataBind();
+                        //chrtTotalAssets.Series["Assets"]. 
+                        chrtTopTenSectors.Visible = true;
+                    }
+
+                }
+                else
+                {
+                    trHoldingGrid.Visible = true;
+                    trTop10HoldingsPie.Visible = true;
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+
+
+        private void BindHoldingChart()
+        {
+            DataTable dtHoldingsPie;
+             try
+            {
+                if (Session["DsSchemeHoldingSector"] != "")
+                {
+                    dsSchemeHoldingSector = (DataSet)Session["DsSchemeHoldingSector"];
+                    dtHoldingsPie = dsSchemeHoldingSector.Tables[1];
+                    if (dsSchemeHoldingSector.Tables[1].Rows.Count > 0)
+                    {
+                        // Total Assets Chart
+                        Series seriesAssets = new Series("seriesMFC");
+                        Legend legend = new Legend("AssetsLegend");
+                        legend.Enabled = true;
+                        string[] XValues = new string[dtHoldingsPie.Rows.Count];
+                        double[] YValues = new double[dtHoldingsPie.Rows.Count];
+                        int i = 0;
+                        seriesAssets.ChartType = SeriesChartType.Pie;
+
+                        foreach (DataRow dr in dtHoldingsPie.Rows)
+                        {
+                            XValues[i] = dr["Instrument"].ToString();
+                            YValues[i] = double.Parse(dr["Amount"].ToString());
+                            i++;
+                        }
+                        seriesAssets.Points.DataBindXY(XValues, YValues);
+
+
+                        chrtTopHoldings.Series.Clear();
+                        chrtTopHoldings.Series.Add(seriesAssets);
+
+                        chrtTopHoldings.Legends.Clear();
+                        chrtTopHoldings.Legends.Add(legend);
+                        chrtTopHoldings.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
+                        chrtTopHoldings.Legends["AssetsLegend"].Title = "Assets";
+                        chrtTopHoldings.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
+                        chrtTopHoldings.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+                        chrtTopHoldings.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
+                        chrtTopHoldings.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
+
+                        chrtTopHoldings.ChartAreas[0].Area3DStyle.Enable3D = true;
+                        chrtTopHoldings.ChartAreas[0].Area3DStyle.Perspective = 50;
+                        chrtTopHoldings.Width = 500;
+                        chrtTopHoldings.BackColor = System.Drawing.Color.Transparent;
+                        chrtTopHoldings.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
+                        chrtTopHoldings.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
+
+                        LegendCellColumn colors = new LegendCellColumn();
+                        colors.HeaderText = "Color";
+                        colors.ColumnType = LegendCellColumnType.SeriesSymbol;
+                        colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
+                        chrtTopHoldings.Legends["AssetsLegend"].CellColumns.Add(colors);
+
+                        LegendCellColumn asset = new LegendCellColumn();
+                        asset.Alignment = ContentAlignment.MiddleLeft;
+                        asset.HeaderText = "Instrument";
+                        asset.Text = "#VALX";
+                        chrtTopHoldings.Legends["AssetsLegend"].CellColumns.Add(asset);
+
+                        LegendCellColumn assetPercent = new LegendCellColumn();
+                        assetPercent.Alignment = ContentAlignment.MiddleLeft;
+                        assetPercent.HeaderText = "Amount";
+                        assetPercent.Text = "#PERCENT";
+                        chrtTopHoldings.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
+
+                        foreach (DataPoint point in chrtTopHoldings.Series["seriesMFC"].Points)
+                        {
+                            point["Exploded"] = "true";
+                        }
+
+                        chrtTopHoldings.DataBind();
+                        //chrtTotalAssets.Series["Assets"]. 
+                        chrtTopHoldings.Visible = true;
+                    }
+
+                }
+                else
+                {
+                    trHoldingGrid.Visible = true;
+                    trTop10HoldingsPie.Visible = true;
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+        private void BindHoldingGrid()
+        {
+            DataTable dtHoldings;
+            if (Session["DsSchemeHoldingSector"] != "")
+            {
+                dsSchemeHoldingSector = (DataSet)Session["DsSchemeHoldingSector"];
+                dtHoldings = dsSchemeHoldingSector.Tables[1];
+                if (dsSchemeHoldingSector.Tables[2].Rows.Count > 0)
+                {
+                    gvTopTenHoldings.DataSource = dtHoldings;
+                    gvTopTenHoldings.DataBind();
+                    ErrorMessage.Visible = false;
+                }
+                else
+                {
+                    gvTopTenHoldings.Visible = false;
+                    ErrorMessage.Visible = true;
+
+                }
+            }
+            else
+            {
+                ErrorMessage.Visible = true;
             }
         }
 
