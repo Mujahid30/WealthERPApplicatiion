@@ -102,25 +102,43 @@
             <asp:Label ID="lblFromTran" Text="From" CssClass="Field" runat="server" />
         </td>
         <td>
-            <asp:TextBox ID="txtFromTran" runat="server" CssClass="txtField"></asp:TextBox>
+           <%-- <asp:TextBox ID="txtFromTran" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtFromTran_CalendarExtender" runat="server" TargetControlID="txtFromTran"
-                Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+                Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate" >
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="txtFromTran_TextBoxWatermarkExtender" runat="server"
-                TargetControlID="txtFromTran" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+                TargetControlID="txtFromTran" WatermarkText="dd/mm/yyyy" >
+            </cc1:TextBoxWatermarkExtender> --%> 
+            <telerik:RadDatePicker ID="txtFromTran" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar1"  runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
         </td>
         <td>
             <asp:Label ID="lblToTran" Text="To" CssClass="Field" runat="server" />
         </td>
         <td>
-            <asp:TextBox ID="txtToTran" runat="server" CssClass="txtField"></asp:TextBox>
+            <%--<asp:TextBox ID="txtToTran" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtToTran_CalendarExtender" runat="server" TargetControlID="txtToTran"
                 Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="txtToTran_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtToTran" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            </cc1:TextBoxWatermarkExtender>--%>
+             <telerik:RadDatePicker ID="txtToTran" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar2"  runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtToTran"
                 ErrorMessage="To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
                 ControlToCompare="txtFromTran" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic">
@@ -159,7 +177,7 @@
     </tr>    
 </table>--%>
 
-<table style="width: 100%; margin: 0px; padding: 0px;" cellpadding="0" cellspacing="0">
+<table id="tblExport" runat="server" style="width: 100%; margin: 0px; padding: 0px;" cellpadding="0" cellspacing="0">
     <tr id="trModalPopup" runat="server">
         <td>
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel2"
