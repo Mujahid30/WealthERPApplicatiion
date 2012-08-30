@@ -417,10 +417,13 @@ namespace WealthERP.Advisor
             double totalEquity = 0;
             double totalMF = 0;
                 ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
 
-                totalEquity = double.Parse(ds.Tables[0].Compute("SUM(EquityAggr)", String.Empty).ToString());
+                    totalEquity = double.Parse(ds.Tables[0].Compute("SUM(EquityAggr)", String.Empty).ToString());
 
-                totalMF = double.Parse(ds.Tables[0].Compute("SUM(MFAggr)", String.Empty).ToString());
+                    totalMF = double.Parse(ds.Tables[0].Compute("SUM(MFAggr)", String.Empty).ToString());
+                }
                           
         }
 
