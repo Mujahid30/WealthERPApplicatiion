@@ -99,14 +99,28 @@
                 width: 47px;
             }
         </style>
-        <table width="100%" class="TableBackground">
+        <%--<table width="100%" class="TableBackground">
             <tr>
                 <td class="HeaderCell">
                     <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Add MF Transaction"></asp:Label>
                     <hr />
                 </td>
             </tr>
-        </table>
+        </table>--%>
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+        <td align="left">Add MF Transaction</td>
+        </tr>
+       
+</table>
+</div>
+</td>
+</tr>
+</table>
         <table>
             <tr>
                 <td class="tdRequiredText">
