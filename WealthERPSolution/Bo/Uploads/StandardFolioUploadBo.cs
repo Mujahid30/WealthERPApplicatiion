@@ -176,5 +176,82 @@ namespace BoUploads
             }
             return IsProcessComplete;
         }
+
+        #region MFFoliException Manage
+              
+        public bool MFFolioStagingCheck(string Packagepath, int adviserId, int processId, string configPath)
+        {
+            bool IsProcessComplete = false;
+
+            try
+            {
+                Package stdProPkg1 = App.LoadPackage(Packagepath, null);
+
+                stdProPkg1.Variables["varProcessId"].Value = processId;
+                stdProPkg1.Variables["varAdviserId"].Value = adviserId;
+                stdProPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult stdProResult1 = stdProPkg1.Execute();
+                if (stdProResult1.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "StandardFolioUploadBo.cs:StdFolioChksInFolioStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool MfFolioExceptionFinalTableInsertion(string Packagepath,int adviserId, int processId, string configPath)
+        {
+            bool IsProcessComplete = false;
+
+            try
+            {
+                Package stdProPkg1 = App.LoadPackage(Packagepath, null);
+                stdProPkg1.Variables["varProcessId"].Value = processId;
+                stdProPkg1.Variables["varAdviserId"].Value = adviserId;
+                stdProPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult stdProResult1 = stdProPkg1.Execute();
+                if (stdProResult1.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "StandardFolioUploadBo.cs:StdCustomerFolioCreation()");
+
+                object[] objects = new object[1];
+                objects[0] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        #endregion
     }
 }
