@@ -1,8 +1,47 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RejectedMFFolio.ascx.cs"
     Inherits="WealthERP.Uploads.RejectedMFFolio" %>
-<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
+<asp:ScriptManager  runat="server"></asp:ScriptManager>
+
+<script language="javascript" type="text/javascript">
+    function checkAllFPBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvCAMSProfileReject.Items.Count %>');
+        var gvAssociation = document.getElementById('<%= gvCAMSProfileReject.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkBx";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkBxAll");
+     
+            if (mainChkBox.checked == false) {
+                mainChkBox.checked = true;
+
+            }
+            else {
+                mainChkBox.checked = false;
+            }
+
+       
+
+        //get an array of input types in the gridview
+        var inputTypes = gvAssociation.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template            
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    } 
+
+
+    </script>
 
 <script>
     function ShowPopup() {
@@ -34,8 +73,8 @@
             alert("Please select one record.")
             return false;
         }
-        window.open('Uploads/MapToCustomers.aspx?Folioid=' + folioId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
-        return true;
+        window.open('Uploads/MapToCustomers.aspx?Folioid=' + folioId + '', '_blank', 'width=550,height=450,scrollbars=yes,location=no')
+        return false;
     }
 </script>
 
@@ -44,7 +83,7 @@
 
         //get total number of rows in the gridview and do whatever
         //you want with it..just grabbing it just cause
-        var totalChkBoxes = parseInt('<%= gvCAMSProfileReject.Rows.Count %>');
+
         var gvControl = document.getElementById('<%= gvCAMSProfileReject.ClientID %>');
 
         //this is the checkbox in the item template...this has to be the same name as the ID of it
@@ -65,32 +104,31 @@
     }
 </script>
 
-<%--<asp:Panel ID="pnl" DefaultButton="btnGridSearch" runat="server">--%>
-<table width="100%">
-<tr>
-<td>
-<div class="divPageHeading">
-    <table cellspacing="0" cellpadding="3" width="100%">
-        <tr>
-            <td align="left">               
-                Mutual Fund Folio Rejects
-            </td>
-        </tr>
-    </table>
-</div>
-</td>
-</tr>
-</table>
+<script language="javascript" type="text/javascript">
 
-<%--<table style="width: 100%" class="TableBackground">
+    //    Function to call btnReprocess_Click method to refresh user control
+
+    function Reprocess() {
+        
+        document.getElementById('<%= btnReprocess.ClientID %>').click();
+    }
+    </script>
+
+<table width="100%">
     <tr>
         <td>
-            <asp:Label Text="Mutual Fund Folio Rejects" ID="lblHeader" CssClass="HeaderTextBig"
-                runat="server"></asp:Label>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Mutual Fund Folio Rejects
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
-</table>--%>
-
+</table>
 <table>
     <tr>
         <td>
@@ -99,10 +137,23 @@
         </td>
     </tr>
 </table>
-<table>
+<table width="100%">
     <tr>
-        <td>
-            &nbsp;
+        <td align="center">
+            <div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
+                visible="false">
+                Reprocess successfully Completed
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
+                visible="false">
+                Reprocess Failed!
+            </div>
         </td>
     </tr>
 </table>
@@ -111,22 +162,101 @@
         <td class="leftField">
             <asp:LinkButton ID="LinkInputRejects" runat="server" Text="View Input Rejects" CssClass="LinkButtons"
                 OnClick="LinkInputRejects_Click"></asp:LinkButton>
-            <%--<asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Back"
-                    OnClick="lnkProfile_Click"></asp:LinkButton>--%>
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
 </table>
-<%--<tr>
-            <td>--%>
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td>
+                <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+            </td>
+        </tr>
+        <%--<tr>
+            <td id="trSelectAllFPGrid" runat="server" colspan="2" style="padding-left: 8px">
+                <input id="chkSelectAllpages" name="Select All across pages" value="Customer" type="checkbox"
+                    onclick="checkAllFPBoxes();" />
+                 <asp:CheckBox ID="chkSelectAllpages" runat="server" CssClass="FieldName" Text="Select All across pages"/>
+                <asp:Label ID="lblAllpages" class="Field" Text="Select all across pages" runat="server"></asp:Label>
+            </td>
+        </tr>--%>
+        <tr>
+            <td>
                 <asp:Panel ID="pnlMFPortfolioHoldings" runat="server">
-                    <%-- <div id="dvHoldings" runat="server" style="width: 650px; padding:4px">--%>
-                    <asp:GridView ID="gvCAMSProfileReject" runat="server" AutoGenerateColumns="False"
+                    <telerik:RadGrid ID="gvCAMSProfileReject" runat="server" GridLines="None" AutoGenerateColumns="False"
+                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                        Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                        AllowAutomaticInserts="false" ExportSettings-FileName="MF Folio Reject Details"
+                        OnNeedDataSource="gvCAMSProfileReject_OnNeedDataSource">
+                        <ExportSettings HideStructureColumns="true">
+                        </ExportSettings>
+                        <MasterTableView DataKeyNames="MFFolioStagingId,MainStagingId,ProcessID" Width="100%"
+                            AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                            <Columns>
+                                <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                                    <HeaderTemplate>
+                                        <input id="chkBxAll" name="chkBxAll" type="checkbox" onclick="checkAllBoxes()" />
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chkBx" runat="server" />
+                                        <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("MFFolioStagingId").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
+                                        <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("ProcessID").ToString() %>' />
+                                        <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("MFFolioStagingId").ToString() %>' />
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:Button ID="btnSave" CssClass="FieldName" OnClick="btnSave_Click" runat="server"
+                                            Text="Save" />
+                                    </FooterTemplate>
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn HeaderText="RejectReason" DataField="RejectReason" UniqueName="RejectReason"
+                                    SortExpression="RejectReason" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="ProcessId" DataField="ProcessId" UniqueName="ProcessId"
+                                    SortExpression="ProcessId" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="InvName" DataField="InvName" UniqueName="InvName"
+                                    SortExpression="InvName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
+                                    CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn DataField="PANNumber" HeaderText="PAN Number" SortExpression="PANNumber"
+                                    AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                    <ItemTemplate>
+                                        <asp:TextBox ID="txtPan" runat="server" CssClass="txtField" Text='<%# Bind("PANNumber") %>'></asp:TextBox>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:TextBox ID="txtPanMultiple" CssClass="txtField" runat="server" />
+                                    </FooterTemplate>
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridTemplateColumn HeaderText="Folio" DataField="Folio" SortExpression="Folio"
+                                    AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                    <ItemTemplate>
+                                        <asp:TextBox ID="txtFolio" CssClass="txtField" runat="server" Text='<%# Bind("Folio") %>'></asp:TextBox>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:TextBox ID="txtFolioMultiple" CssClass="txtField" runat="server" />
+                                    </FooterTemplate>
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn HeaderText="IsRejected" DataField="IsRejected" UniqueName="IsRejected"
+                                    SortExpression="IsRejected" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                            </Columns>
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        </ClientSettings>
+                    </telerik:RadGrid>
+                    <%--<asp:GridView ID="gvCAMSProfileReject" runat="server" AutoGenerateColumns="False"
                         Width="100%" CellPadding="4" ShowFooter="true" CssClass="GridViewStyle" AllowSorting="true"
                         DataKeyNames="MFFolioStagingId,MainStagingId,ProcessID">
                         <FooterStyle CssClass="FooterStyle" />
@@ -174,29 +304,16 @@
                                     <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("ProcessId").ToString() %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <%--<asp:BoundField DataField="ProcessID" HeaderText="ProcessId" />--%>
-                            <%--<asp:BoundField DataField="WERPCUstomerName" HeaderText="WERP Name" SortExpression="WERPCUstomerName" />--%>
-                            <%--<asp:BoundField DataField="CustomerExists" HeaderText="Is Customer Existing" />--%>
-                            <%--<asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lblCustomerExists" runat="server" Text="Is Customer Existing"></asp:Label>
-                                <asp:DropDownList ID="ddlCustomerExists" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlCustomerExists_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblCustomerExistsHeader" runat="server" Text='<%# Eval("CustomerExists").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>--%>
+          
                             <asp:TemplateField>
                                 <HeaderTemplate>
                                     <asp:Label ID="lblName" runat="server" Text="Name"></asp:Label>
-                                    <%--<asp:TextBox ID="txtNameSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedCAMSProfile_btnGridSearch');" />--%>
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <asp:Label ID="lblNameHeader" Width="180px" runat="server" Text='<%# Eval("InvName").ToString() %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <%--<asp:BoundField DataField="NAME" HeaderText="Name" />--%>
+                   
                             <asp:TemplateField>
                                 <HeaderTemplate>
                                     <asp:Label ID="lblPan" runat="server" Text="PAN Number"></asp:Label>
@@ -221,7 +338,7 @@
                                     <asp:TextBox ID="txtFolioMultiple" CssClass="txtField" runat="server" />
                                 </FooterTemplate>
                             </asp:TemplateField>
-                            <%--<asp:BoundField DataField="AMC" HeaderText="AMC" />--%>
+                         
                             <asp:TemplateField>
                                 <HeaderTemplate>
                                     <asp:Label ID="lblIsRejected" runat="server" Text="Is Rejected"></asp:Label>
@@ -233,15 +350,12 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                    </asp:GridView>
-                    <%--</div>--%>
+                    </asp:GridView>--%>
                 </asp:Panel>
             </td>
         </tr>
     </table>
 </asp:Panel>
-<%--  </td>--%>
-<%-- </tr>--%>
 <table width="100%">
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
@@ -260,14 +374,14 @@
             </asp:Label>
         </td>
     </tr>
-    <tr id="trErrorMessage" runat="server" visible="false">
+   <%-- <tr id="trErrorMessage" runat="server" visible="false">
         <td class="Message">
             <asp:Label ID="lblError" CssClass="Message" runat="server">
             </asp:Label>
         </td>
-    </tr>
+    </tr>--%>
 </table>
-<div id="DivPager" runat="server" style="display: none">
+<%--<div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
         <tr align="center">
             <td>
@@ -275,8 +389,8 @@
             </td>
         </tr>
     </table>
-</div>
-<asp:Button ID="btnGridSearch" runat="server" Text="" OnClick="btnGridSearch_Click"
+</div>--%>
+<%--<asp:Button ID="btnGridSearch" runat="server" Text="" OnClick="btnGridSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
@@ -287,6 +401,4 @@
 <asp:HiddenField ID="hdnRejectReasonFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnIsCustomerExistingFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnIsRejectedFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
-<%--</asp:Panel>
---%>
+<asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />--%>
