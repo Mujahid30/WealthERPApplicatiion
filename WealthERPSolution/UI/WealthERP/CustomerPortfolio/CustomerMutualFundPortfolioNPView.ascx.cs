@@ -1686,6 +1686,8 @@ namespace WealthERP.CustomerPortfolio
                 trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
+                trTopTenSectors.Visible = false;
+                trSectorGrid.Visible = false;
                 BindPerformaceChart();
             }
             else if (ddlMFClassificationCode.SelectedValue == "1")
@@ -1694,6 +1696,8 @@ namespace WealthERP.CustomerPortfolio
                 trSchemePerformance.Visible = true;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
+                trTopTenSectors.Visible = false;
+                trSectorGrid.Visible = false;
                 BindSchemePerformanceGrid();
             }
             else if (ddlMFClassificationCode.SelectedValue == "2")
@@ -1702,6 +1706,8 @@ namespace WealthERP.CustomerPortfolio
                 trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = true;
                 trTop10HoldingsPie.Visible = true;
+                trTopTenSectors.Visible = false;
+                trSectorGrid.Visible = false;
                 BindHoldingChart();
                 BindHoldingGrid();
             }

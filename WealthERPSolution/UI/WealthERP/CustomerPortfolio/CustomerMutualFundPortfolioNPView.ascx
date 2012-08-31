@@ -142,7 +142,7 @@
                                                             ItemStyle-Wrap="false"  AllowFiltering="true" DataField="Scheme" >
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
-                                                                    CommandName="NavigateToMarketData" Font-Size="XX-Small"></asp:LinkButton>
+                                                                    CommandName="NavigateToMarketData" ></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
                                                         <telerik:GridBoundColumn SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
@@ -164,17 +164,17 @@
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
                                                         <telerik:GridBoundColumn UniqueName="PurchasedUnits" HeaderText="Purchased Units"
-                                                            DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N2}" Aggregate="Sum"
+                                                            DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N3}" Aggregate="Sum"
                                                             FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="DVRUnits" HeaderText="DVR Units" DataField="DVRUnits"
-                                                            AllowFiltering="false" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
+                                                            AllowFiltering="false" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N3}"
                                                             Aggregate="Sum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Total Units" DataField="OpenUnits"
-                                                            AllowFiltering="false" DataFormatString="{0:N2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                                            AllowFiltering="false" DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost"
@@ -262,7 +262,7 @@
                                                         <telerik:GridBoundColumn SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
                                                             AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
-                                                            <ItemStyle HorizontalAlign="Right" />
+                                                            <ItemStyle HorizontalAlign="left" />
                                                         </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplateFolioStartDate
@@ -290,7 +290,7 @@
                                                             ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
-                                                                    CommandName="NavigateToMarketData" Font-Size="X-Small"></asp:LinkButton>
+                                                                    CommandName="NavigateToMarketData" ></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
                                                         <telerik:GridBoundColumn UniqueName="SubCategoryName" SortExpression="SubCategoryName"
@@ -322,17 +322,17 @@
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
                                                         <telerik:GridBoundColumn UniqueName="PurchasedUnits" HeaderText="Purchased Units"
-                                                            DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N2}" Aggregate="Sum"
+                                                            DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N3}" Aggregate="Sum"
                                                             FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="DVRUnits" HeaderText="DVR Units" DataField="DVRUnits"
-                                                            AllowFiltering="false" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
+                                                            AllowFiltering="false" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N3}"
                                                             Aggregate="Sum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Total Units" DataField="OpenUnits"
-                                                            FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}" Aggregate="Sum"
+                                                            FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N3}" Aggregate="Sum"
                                                             AllowFiltering="false">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
@@ -507,7 +507,7 @@
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold"
-                                                            AllowFiltering="false" DataFormatString="{0:N2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                                            AllowFiltering="false" DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
