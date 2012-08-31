@@ -756,6 +756,7 @@ namespace BoFPSuperlite
             dtCustomerGoalFundingDetails.Columns.Add("GoalId");
             dtCustomerGoalFundingDetails.Columns.Add("SchemeCode");
             dtCustomerGoalFundingDetails.Columns.Add("SchemeName");
+            dtCustomerGoalFundingDetails.Columns.Add("MemberName");
             dtCustomerGoalFundingDetails.Columns.Add("Category");
             dtCustomerGoalFundingDetails.Columns.Add("InvestedAmount");
             dtCustomerGoalFundingDetails.Columns.Add("Units");
@@ -887,6 +888,7 @@ namespace BoFPSuperlite
                         if (decimal.Parse(drSchemeId["allocatedPercentage"].ToString()) <= 100)
                         {
                             drCustomerGoalFundingDetails["GoalId"] = goalId.ToString();
+                            drCustomerGoalFundingDetails["MemberName"] = drGoalExistingInvestments["MemberName"].ToString();
                             drCustomerGoalFundingDetails["SchemeName"] = drGoalExistingInvestments["PASP_SchemePlanName"].ToString();
                             drCustomerGoalFundingDetails["SchemeCode"] = drGoalExistingInvestments["PASP_SchemePlanCode"].ToString();
 
@@ -937,6 +939,7 @@ namespace BoFPSuperlite
                 {
                     drCustomerGoalFundingDetails["GoalId"] = goalId.ToString();
                     drCustomerGoalFundingDetails["SchemeName"] = drGoalExistingInvestments["PASP_SchemePlanName"].ToString();
+                    drCustomerGoalFundingDetails["MemberName"] = drGoalExistingInvestments["MemberName"].ToString();
                     drCustomerGoalFundingDetails["SchemeCode"] = drGoalExistingInvestments["PASP_SchemePlanCode"].ToString();
                     currentValue = (double.Parse((decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation).ToString())) / 100;
                     drCustomerGoalFundingDetails["InvestedAmount"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
@@ -997,7 +1000,8 @@ namespace BoFPSuperlite
             dtCustomerGoalFundingSIPDetails.Columns.Add("GoalId");
             dtCustomerGoalFundingSIPDetails.Columns.Add("SIPId");
             dtCustomerGoalFundingSIPDetails.Columns.Add("SchemeCode");
-            dtCustomerGoalFundingSIPDetails.Columns.Add("SchemeName");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("SchemeName"); 
+            dtCustomerGoalFundingSIPDetails.Columns.Add("MemberName");
             dtCustomerGoalFundingSIPDetails.Columns.Add("SIPInvestedAmount");
             dtCustomerGoalFundingSIPDetails.Columns.Add("TotalSIPamount");
             dtCustomerGoalFundingSIPDetails.Columns.Add("OtherGoalAllocation");
@@ -1123,6 +1127,7 @@ namespace BoFPSuperlite
 
                 drCustomerSIPGoalFundingDetails = dtCustomerGoalFundingSIPDetails.NewRow();
                 drCustomerSIPGoalFundingDetails["GoalId"] = dr["CG_GoalId"].ToString();
+                drCustomerSIPGoalFundingDetails["MemberName"] = dr["MemberName"].ToString();
                 drCustomerSIPGoalFundingDetails["SIPId"] = dr["CMFSS_SystematicSetupId"].ToString();
                 drCustomerSIPGoalFundingDetails["SchemeCode"] = dr["PASP_SchemePlanCode"].ToString();
                 drCustomerSIPGoalFundingDetails["SchemeName"] = dr["PASP_SchemePlanName"].ToString();
@@ -1339,6 +1344,15 @@ namespace BoFPSuperlite
                 }
             }
             return outstandingLoanAmount;
+        }
+        public DataSet BindDDLFamilyMembers(int CustomerID)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet dsFamilyMembers = new DataSet();
+            dsFamilyMembers = customerGoalPlanningDao.BindDDLFamilyMembers(CustomerID);
+
+            return dsFamilyMembers;
+
         }
 
     }

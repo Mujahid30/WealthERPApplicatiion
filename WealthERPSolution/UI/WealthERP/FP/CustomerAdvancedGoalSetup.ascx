@@ -751,22 +751,23 @@
                 </tr>
             </table>
         </asp:Panel>
-        <br />
-        <asp:Panel runat="server" ID="pnlDocuments">
+        <br /><asp:Panel runat="server" ID="pnlDocuments" Width="90%">
             <table id="tblDocuments" runat="server" width="100%">
                 <tr>
-                    <td colspan="2" class="HeaderTextSmall">
-                        <b>Fund from Existing MF Investments</b>
+                    <td style="width : 98%">
+                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                          Fund from Existing MF Investments
+                        </div>
                     </td>
-                </tr>
-                <tr id="existmfinvest" runat="server">
-                <td>
-                <asp:ImageButton ID="btnexistmfinvest" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnexistmfinvest_OnClick"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
-                
-                </td>
-                </tr>
+                    <td style="width : 2%">
+                        <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnexistmfinvest_OnClick"
+                            OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                    </td>
+                </tr>                
+
+
+
 
             </table>
             <telerik:RadGrid ID="RadGrid1" runat="server" CssClass="RadGrid" GridLines="None"
@@ -778,16 +779,19 @@
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                 </ExportSettings>
 
-                <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Select MF Investment"
                     DataKeyNames="SchemeCode,OtherGoalAllocation">
                     <Columns>
                         <telerik:GridEditCommandColumn>
                         </telerik:GridEditCommandColumn>
+                         <telerik:GridBoundColumn UniqueName="MemberName" HeaderText="Member Name" DataField="MemberName">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="SchemeName" HeaderText="Scheme" DataField="SchemeName">
                             <%--<HeaderStyle ForeColor="Silver"></HeaderStyle>--%>
                             <%-- <ItemStyle ForeColor="Gray" />--%>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="InvestedAmount" HeaderText="Invested Amount"
+                        <telerik:GridBoundColumn UniqueName="InvestedAmount" HeaderText="Invstd Amt"
                             DataField="InvestedAmount" DataFormatString="{0:C2}">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
@@ -797,7 +801,7 @@
                         <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value" DataField="CurrentValue"
                             DataFormatString="{0:C2}">
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="ReturnsXIRR" HeaderText="Returns (XIRR)(%)"
+                        <telerik:GridBoundColumn UniqueName="ReturnsXIRR" HeaderText="XIRR(%)"
                             DataField="ReturnsXIRR">
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="ProjectedAmount" HeaderText="Projected amount in goal year"
@@ -828,14 +832,28 @@
                                                 </td>
                                             </tr>
                                             <tr runat="server" id="trSchemeDDL">
+                                            <td align="right">
+                                                    <asp:Label ID="lblMemberAddMode" Text="Member Name:" CssClass="FieldName" runat="server">
+                                                    </asp:Label>
+                                                </td>
+                                                <td>
+                                                  <asp:DropDownList ID="ddlMemberName" runat="server" CssClass="cmbField" AutoPostBack="true" 
+                                                  OnSelectedIndexChanged="ddlMemberName_OnSelectedIndexChanged"> 
+                                                    </asp:DropDownList>
+                                               <%-- <asp:Label ID="lblMemberNameAddMode"  CssClass="FieldName"
+                                                        runat="server">
+                                                    </asp:Label>      --%>     
+                                                </td>
                                                 <td align="right">
                                                     <asp:Label ID="Label133" Text="Scheme:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:DropDownList ID="ddlPickScheme" runat="server" CssClass="cmbField">
+                                                
+                                                    <asp:DropDownList ID="ddlPickScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                     OnSelectedIndexChanged="ddlPickScheme_OnSelectedIndexChanged"> 
                                                     </asp:DropDownList>
-                                                </td>
+                                                    </td>
                                             </tr>
                                             <tr runat="server" id="trSchemeTextBox">
                                                 <td align="right">
@@ -847,6 +865,17 @@
                                                         runat="server">
                                                     </asp:Label>
                                                 </td>
+                                                
+                                                 <td align="right">
+                                                    <asp:Label ID="lblMemberName" Text="Member Name:" CssClass="FieldName" runat="server">
+                                                    </asp:Label>
+                                                </td>
+                                                <td>
+                                                 <asp:Label ID="txtMemberName" Text='<%# Bind("MemberName") %>' CssClass="FieldName"
+                                                        runat="server">
+                                                    </asp:Label>    
+                                                                                          
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td align="right">
@@ -857,13 +886,19 @@
                                                     <asp:TextBox ID="txtUnits" runat="server" CssClass="txtField" Text='<%# Bind("Units") %>'
                                                         Enabled="false" TabIndex="2">
                                                     </asp:TextBox>
+                                                    
+                                                     <asp:TextBox ID="txtUnitsAddMode" runat="server" CssClass="txtField" 
+                                                        Enabled="false" TabIndex="2">
+                                                    </asp:TextBox>
                                                 </td>
                                                 <td align="right">
                                                     <asp:Label ID="Label11" Text="Amount Available:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
-                                                <td>
-                                                    <asp:TextBox ID="txtAmtAvailable" runat="server" CssClass="txtField" Text='<%# Bind("AvailableAmount") %>'
+                                                <td> <asp:TextBox ID="txtAmtAvailableEditMode" runat="server" CssClass="txtField" Text='<%# Bind("AvailableAmount") %>'
+                                                        Enabled="false" TabIndex="2">
+                                                    </asp:TextBox>
+                                                     <asp:TextBox ID="txtAmtAvailableAddMode" runat="server" CssClass="txtField"
                                                         Enabled="false" TabIndex="2">
                                                     </asp:TextBox>
                                                 </td>
@@ -873,8 +908,10 @@
                                                     <asp:Label ID="Label15" Text="Current Value:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
-                                                <td>
-                                                    <asp:TextBox ID="txtCurrentValue" CssClass="txtField" runat="server" Text='<%# Bind("CurrentValue") %>'
+                                                <td> <asp:TextBox ID="txtCurrentValueEditMode" CssClass="txtField" runat="server" Text='<%# Bind("CurrentValue") %>'
+                                                        Enabled="false" TabIndex="3">
+                                                    </asp:TextBox>
+                                                      <asp:TextBox ID="txtCurrentValueAddMode" CssClass="txtField" runat="server" 
                                                         Enabled="false" TabIndex="3">
                                                     </asp:TextBox>
                                                 </td>
@@ -886,6 +923,10 @@
                                                     <asp:TextBox ID="txtInvestedAmt" CssClass="txtField" runat="server" Text='<%# Bind("InvestedAmount") %>'
                                                         Enabled="false" TabIndex="3">
                                                     </asp:TextBox>
+                                                    
+                                                     <asp:TextBox ID="txtInvestedAmtAdd" CssClass="txtField" runat="server" 
+                                                        Enabled="false" TabIndex="3">
+                                                    </asp:TextBox>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -895,6 +936,10 @@
                                                 </td>
                                                 <td>
                                                     <asp:TextBox ID="TextBox1" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind("AllocationEntry") %>'
+                                                        TabIndex="3">
+                                                    </asp:TextBox>
+                                                    
+                                                     <asp:TextBox ID="txtAllocationEntryAddMode" runat="server" CssClass="txtField" Enabled="false" 
                                                         TabIndex="3">
                                                     </asp:TextBox>
                                                 </td>
@@ -918,7 +963,10 @@
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="txtSchemeAllocationPer" CssClass="txtField" runat="server" Text='<%# Bind("OtherGoalAllocation") %>'
+                                                    <asp:TextBox ID="txtSchemeAllocationPerEditMode" CssClass="txtField" runat="server" Text='<%# Bind("OtherGoalAllocation") %>'
+                                                        Enabled="false" TabIndex="1">
+                                                    </asp:TextBox>
+                                                    <asp:TextBox ID="txtSchemeAllocationPerAddMode" CssClass="txtField" runat="server"
                                                         Enabled="false" TabIndex="1">
                                                     </asp:TextBox>
                                                 </td>
@@ -927,7 +975,10 @@
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="TextBox5" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind("AvailableAllocation") %>'
+                                                    <asp:TextBox ID="txtAvailableAllocationEditMode" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind("AvailableAllocation") %>'
+                                                        TabIndex="1">
+                                                    </asp:TextBox>
+                                                    <asp:TextBox ID="txtAvailableAllocationAddMode" runat="server" CssClass="txtField" Enabled="false"
                                                         TabIndex="1">
                                                     </asp:TextBox>
                                                 </td>
@@ -954,23 +1005,21 @@
                 </ClientSettings>
             </telerik:RadGrid>
         </asp:Panel>
-        <asp:Panel runat="server" ID="pnlMFFunding">
+        <asp:Panel runat="server" ID="pnlMFFunding" Width="90%">
             <hr />
             <table id="Table1" runat="server" width="100%">
                 <tr>
-                    <td colspan="2" class="HeaderTextSmall">
-                        <b>Fund from Future MF Savings</b>
+                    <td style="width : 98%">
+                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                         Fund from Future MF Savings
+                        </div>
                     </td>
-                </tr>
-                <tr id="FutureMFinvest" runat="server">
-                <td>
-                <asp:ImageButton ID="btnFutureMFinvest" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="FutureMFinvest_OnClick"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
-                
-                </td>
-                </tr>
-            </table>
+                    <td style="width : 2%">
+                       <asp:ImageButton ID="btnFutureMFinvest" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="FutureMFinvest_OnClick"
+                            OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>                    </td>
+                </tr>  
+ </table>
             <telerik:RadGrid ID="RadGrid2" runat="server" CssClass="RadGrid" GridLines="None"
                 AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
@@ -979,11 +1028,14 @@
                 OnItemCommand="RadGrid2_ItemCommand">
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="FutureMFInvestlist">
                 </ExportSettings>
-                <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Select MF Savings"
                     DataKeyNames="SIPId,TotalSIPamount">
                     <Columns>
                         <telerik:GridEditCommandColumn>
                         </telerik:GridEditCommandColumn>
+                        <telerik:GridBoundColumn UniqueName="SIPMemberName" HeaderText="Member Name" DataField="MemberName">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="SchemeName" HeaderText="Scheme" DataField="SchemeName">
                             <%--<HeaderStyle ForeColor="Silver"></HeaderStyle>--%>
                             <%-- <ItemStyle ForeColor="Gray" />--%>
@@ -992,7 +1044,7 @@
                             DataField="AvailableAllocation">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="SIPInvestedAmount" HeaderText="SIP Amount Invested"
+                        <telerik:GridBoundColumn UniqueName="SIPInvestedAmount" HeaderText="SIP Invstd Amt"
                             DataField="SIPInvestedAmount">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
@@ -1024,15 +1076,29 @@
                                                 <td>
                                                 </td>
                                             </tr>
+                                            
                                             <tr runat="server" id="trSchemeNameDDL">
+                                                 <td align="right">
+                                                    <asp:Label ID="lblSIPMemberAddMode" Text="Member Name:" CssClass="FieldName" runat="server">
+                                                    </asp:Label>
+                                                </td>
+                                                <td>
+                                                  <asp:DropDownList ID="ddlSIPMemberName" runat="server" CssClass="cmbField" AutoPostBack="true" 
+                                                  OnSelectedIndexChanged="ddlSIPMemberName_OnSelectedIndexChanged"> 
+                                                    </asp:DropDownList>
+                                               <%-- <asp:Label ID="lblMemberNameAddMode" CssClass="FieldName"
+                                                        runat="server">
+                                                    </asp:Label>      --%>     
+                                                </td>
                                                 <td align="right">
                                                     <asp:Label ID="Label20" Text="Scheme-Amount-SIP Date:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:DropDownList ID="ddlPickSIPScheme" runat="server" CssClass="cmbField">
+                                                    <asp:DropDownList ID="ddlPickSIPScheme" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlPickSIPScheme_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
                                                 </td>
+                                                
                                             </tr>
                                             <tr runat="server" id="trSchemeNameText">
                                                 <td align="right">
@@ -1041,6 +1107,9 @@
                                                 </td>
                                                 <td>
                                                     <asp:Label ID="lblSchemeName" Text='<%# Bind("SchemeName") %>' CssClass="FieldName"
+                                                        runat="server">
+                                                    </asp:Label>
+                                                     <asp:Label ID="lblSchemeAdd" CssClass="FieldName"
                                                         runat="server">
                                                     </asp:Label>
                                                 </td>
@@ -1053,6 +1122,24 @@
                                                     <asp:TextBox ID="txtSIPFrequency" runat="server" Enabled="false" CssClass="txtField"
                                                         Text='<%# Bind("SIPFrequecny") %>' TabIndex="3">
                                                     </asp:TextBox>
+                                                    <asp:TextBox ID="txtSIPFrequencyAdd" runat="server" Enabled="false" CssClass="txtField"
+                                                        TabIndex="3">
+                                                    </asp:TextBox>
+                                                </td>
+                                                
+                                                 <td align="right">
+                                                    <asp:Label ID="lblMemberName" Text="Member Name:" CssClass="FieldName" runat="server">
+                                                    </asp:Label>
+                                                </td>
+                                                <td>
+                                                 <asp:Label ID="txtMemberName" Text='<%# Bind("MemberName") %>' CssClass="FieldName"
+                                                        runat="server">
+                                                    </asp:Label>    
+                                                         
+                                                 <asp:Label ID="txtMemberNameAdd" CssClass="FieldName"
+                                                        runat="server">
+                                                    </asp:Label>    
+                                                                                          
                                                 </td>
                                             </tr>
                                             <tr>
@@ -1065,6 +1152,7 @@
                                                     <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Text='<%# Bind("SIPInvestedAmount") %>'
                                                         TabIndex="3">
                                                     </asp:TextBox>
+                                                    
                                                     <cc1:TextBoxWatermarkExtender ID="TextBox3_TextBoxWatermarkExtender" runat="server"
                                                         Enabled="True" TargetControlID="TextBox3" WatermarkText="Please enter SIP Amt.">
                                                     </cc1:TextBoxWatermarkExtender>
@@ -1077,6 +1165,10 @@
                                                     <asp:TextBox ID="txtOtherSchemeAllocationPer" CssClass="txtField" runat="server"
                                                         Text='<%# Bind("OtherGoalAllocation") %>' Enabled="false" TabIndex="1">
                                                     </asp:TextBox>
+                                                    
+                                                    <asp:TextBox ID="txtOtherSchemeAllocationPerAdd" CssClass="txtField" runat="server"
+                                                        Enabled="false" TabIndex="1">
+                                                    </asp:TextBox>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -1088,6 +1180,10 @@
                                                     <asp:TextBox ID="TextBox2" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind("AvailableAllocation") %>'
                                                         TabIndex="1">
                                                     </asp:TextBox>
+                                                    
+                                                    <asp:TextBox ID="TextBox2Add" runat="server" CssClass="txtField" Enabled="false" 
+                                                        TabIndex="1">
+                                                    </asp:TextBox>
                                                 </td>
                                                 <td align="right">
                                                     <asp:Label ID="Label4" Text="Total SIP Amount:" CssClass="FieldName" runat="server">
@@ -1096,6 +1192,10 @@
                                                 <td>
                                                     <asp:TextBox ID="txtTotalSIPAmount" runat="server" CssClass="txtField" Enabled="false"
                                                         Text='<%# Bind("TotalSIPamount") %>' TabIndex="1">
+                                                    </asp:TextBox>
+                                                    
+                                                    <asp:TextBox ID="txtTotalSIPAmountAdd" runat="server" CssClass="txtField" Enabled="false"
+                                                         TabIndex="1">
                                                     </asp:TextBox>
                                                 </td>
                                             </tr>
@@ -1108,6 +1208,9 @@
                                                     <asp:TextBox ID="txtSIPStartDate" runat="server" CssClass="txtField" Enabled="false"
                                                         Text='<%# Bind("SIPStartDate") %>' TabIndex="1">
                                                     </asp:TextBox>
+                                                    <asp:TextBox ID="txtSIPStartDateAdd" runat="server" CssClass="txtField" Enabled="false"
+                                                        TabIndex="1">
+                                                    </asp:TextBox>
                                                 </td>
                                                 <td align="right">
                                                     <asp:Label ID="Label25" Text="SIP End Date:" CssClass="FieldName" runat="server">
@@ -1116,6 +1219,9 @@
                                                 <td>
                                                     <asp:TextBox ID="txtSIPEndDate" runat="server" CssClass="txtField" Enabled="false"
                                                         Text='<%# Bind("SIPEndDate") %>' TabIndex="1">
+                                                    </asp:TextBox>
+                                                    <asp:TextBox ID="txtSIPEndDateAdd" runat="server" CssClass="txtField" Enabled="false"
+                                                        TabIndex="1">
                                                     </asp:TextBox>
                                                 </td>
                                             </tr>

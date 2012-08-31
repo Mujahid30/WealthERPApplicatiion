@@ -1575,7 +1575,18 @@ namespace WealthERP.FP
         private void GetGoalFundingProgress()
         {
             customerGoalFundingProgressVo = customerGoalPlanningBo.GetGoalFundingProgressDetails(goalId, customerVo.CustomerId, advisorVo.advisorId, out dsGoalFundingDetails, out dsExistingInvestment, out dsSIPInvestment, out goalPlanningVo);
+            if (Cache["GoalFundingDetailsdsExistingInvestment" + customerVo.CustomerId.ToString()] != null)
+            {
+                Cache.Remove("GoalFundingDetailsdsExistingInvestment" + customerVo.CustomerId.ToString());
+            }
+            Cache.Insert("GoalFundingDetailsdsExistingInvestment" + customerVo.CustomerId, dsExistingInvestment, null, DateTime.Now.AddMinutes(4 * 60), TimeSpan.Zero);
 
+            if (Cache["GoalFundingDetailsdsSIPInvestment" + customerVo.CustomerId.ToString()] != null)
+            {
+                Cache.Remove("GoalFundingDetailsdsSIPInvestment" + customerVo.CustomerId.ToString());
+            }
+            Cache.Insert("GoalFundingDetailsdsSIPInvestment" + customerVo.CustomerId, dsSIPInvestment, null, DateTime.Now.AddMinutes(4 * 60), TimeSpan.Zero);
+        
         }
 
         private void SetGoalProgressImage(string goalCode)
@@ -1651,7 +1662,7 @@ namespace WealthERP.FP
                 txtAmountInvested.Text = customerGoalFundingProgressVo.AmountInvestedTillDate != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.AmountInvestedTillDate, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtMonthlyContribution.Text = customerGoalFundingProgressVo.MonthlyContribution != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.MonthlyContribution, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtEstmdTimeToReachGoal.Text = customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal != "" ? customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal : "0";
-                txtReturnsXIRR.Text = customerGoalFundingProgressVo.ReturnsXIRR != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.ReturnsXIRR, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                txtReturnsXIRR.Text = customerGoalFundingProgressVo.ReturnsXIRR != 0 ? Math.Round(customerGoalFundingProgressVo.ReturnsXIRR, 2).ToString() : "0";
                 txtValueOfCurrentGoal.Text = customerGoalFundingProgressVo.GoalCurrentValue != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.GoalCurrentValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 
                 txtProjectedGap.Text = customerGoalFundingProgressVo.ProjectedGapValue != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.ProjectedGapValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
@@ -1785,7 +1796,7 @@ namespace WealthERP.FP
             GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
             DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickScheme");
             TextBox txt = (TextBox)e.Item.FindControl("TextBox4");
-            if (ddl.SelectedValue != "")
+            if (ddl.SelectedValue != "" && ddl.SelectedValue != "Select")
             {
                 int schemeplanId = int.Parse(ddl.SelectedValue);
                 DataRow[] drExistingInvestmentSchemePlanId;
@@ -1977,24 +1988,70 @@ namespace WealthERP.FP
 
             if ((e.Item is GridEditFormItem) && e.Item.IsInEditMode)
             {
-                GridEditFormItem gridEditFormItem = (GridEditFormItem)e.Item;
-                DropDownList dropDownList = (DropDownList)gridEditFormItem.FindControl("ddlPickScheme");
-                HtmlTableRow trSchemeDDL = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeDDL");
-                HtmlTableRow trSchemeTextBox = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeTextBox");
+                GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+                DropDownList dropDownList = (DropDownList)editedItem.FindControl("ddlPickScheme");
+                HtmlTableRow trSchemeDDL = (HtmlTableRow)editedItem.FindControl("trSchemeDDL");
+                HtmlTableRow trSchemeTextBox = (HtmlTableRow)editedItem.FindControl("trSchemeTextBox");
+                TextBox txtAvailableAllocationEditMode = editedItem.FindControl("txtAvailableAllocationEditMode") as TextBox;
+                TextBox txtAvailableAllocationAddMode = editedItem.FindControl("txtAvailableAllocationAddMode") as TextBox;
+                TextBox txtSchemeAllocationPerEditMode = editedItem.FindControl("txtSchemeAllocationPerEditMode") as TextBox;
+                TextBox txtSchemeAllocationPerAddMode = editedItem.FindControl("txtSchemeAllocationPerAddMode") as TextBox;
+                TextBox txtInvestedAmtAdd = editedItem.FindControl("txtInvestedAmtAdd") as TextBox;
+                TextBox txtInvestedAmt = editedItem.FindControl("txtInvestedAmt") as TextBox;
+                TextBox txtAllocationEntryAddMode = editedItem.FindControl("txtAllocationEntryAddMode") as TextBox;
+                TextBox TextBox1 = editedItem.FindControl("TextBox1") as TextBox;
+                TextBox txtCurrentValueEditMode = editedItem.FindControl("txtCurrentValueEditMode") as TextBox;
+                TextBox txtCurrentValueAddMode = editedItem.FindControl("txtCurrentValueAddMode") as TextBox;
+                TextBox txtAmtAvailableEditMode = editedItem.FindControl("txtAmtAvailableEditMode") as TextBox;
+                TextBox txtAmtAvailableAddMode = editedItem.FindControl("txtAmtAvailableAddMode") as TextBox;
+                TextBox txtUnitsAddMode = editedItem.FindControl("txtUnitsAddMode") as TextBox;
+                TextBox txtUnits = editedItem.FindControl("txtUnits") as TextBox;
+                Label lblMemberNameAddMode = editedItem.FindControl("lblMemberNameAddMode") as Label;
+                DropDownList ddlFamilyMembers = (DropDownList)editedItem.FindControl("ddlMemberName");
+
                 if (e.Item.RowIndex == -1)
                 {
                     //TextBox txt = (TextBox)gridEditFormItem.FindControl("txtUnits");
                     //txt.Visible = false;
-                    BindDDLSchemeAllocated(dropDownList);
+                    BindFamilyMembers(ddlFamilyMembers, customerVo.CustomerId);
+                    // BindDDLSchemeAllocated(dropDownList);
                     trSchemeTextBox.Visible = false;
                     trSchemeDDL.Visible = true;
+                    txtAvailableAllocationEditMode.Visible = false;
+                    txtSchemeAllocationPerEditMode.Visible = false;
+                    txtInvestedAmt.Visible = false;
+                    TextBox1.Visible = false;
+                    txtCurrentValueEditMode.Visible = false;
+                    txtAmtAvailableEditMode.Visible = false;
+                    txtUnits.Visible = false;
+                    txtCurrentValueAddMode.Visible = true;
+                    txtAvailableAllocationAddMode.Visible = true;
+                    txtSchemeAllocationPerAddMode.Visible = true;
+                    txtInvestedAmtAdd.Visible = true;
+                    txtAllocationEntryAddMode.Visible = true;
+                    txtAmtAvailableAddMode.Visible = true;
+                    txtUnitsAddMode.Visible = true;
+
                 }
                 else
                 {
+
                     trSchemeTextBox.Visible = true;
                     trSchemeDDL.Visible = false;
-
-
+                    txtAvailableAllocationEditMode.Visible = true;
+                    txtSchemeAllocationPerEditMode.Visible = true;
+                    txtInvestedAmt.Visible = true;
+                    TextBox1.Visible = true;
+                    txtCurrentValueEditMode.Visible = true;
+                    txtAmtAvailableEditMode.Visible = true;
+                    txtUnits.Visible = true;
+                    txtCurrentValueAddMode.Visible = false;
+                    txtAvailableAllocationAddMode.Visible = false;
+                    txtSchemeAllocationPerAddMode.Visible = false;
+                    txtInvestedAmtAdd.Visible = false;
+                    txtAllocationEntryAddMode.Visible = false;
+                    txtAmtAvailableAddMode.Visible = false;
+                    txtUnitsAddMode.Visible = false;
                 }
             }
             //if (e.Item is GridCommandItem)
@@ -2004,7 +2061,6 @@ namespace WealthERP.FP
             //}
 
         }
-
         protected void RadGrid2_ItemDataBound(object sender, GridItemEventArgs e)
         {
 
@@ -2013,20 +2069,77 @@ namespace WealthERP.FP
 
                 GridEditFormItem gridEditFormItem = (GridEditFormItem)e.Item;
                 DropDownList dropDownList = (DropDownList)gridEditFormItem.FindControl("ddlPickSIPScheme");
+                DropDownList ddlSIPMemberName = (DropDownList)gridEditFormItem.FindControl("ddlSIPMemberName");
                 HtmlTableRow trSchemeDDL = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeNameDDL");
                 HtmlTableRow trSchemeTextBox = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeNameText");
+                TextBox txtSIPEndDate = (TextBox)gridEditFormItem.FindControl("txtSIPEndDate");
+                TextBox txtSIPEndDateAdd = (TextBox)gridEditFormItem.FindControl("txtSIPEndDateAdd");
+                TextBox txtSIPStartDateAdd = (TextBox)gridEditFormItem.FindControl("txtSIPStartDateAdd");
+                TextBox txtSIPStartDate = (TextBox)gridEditFormItem.FindControl("txtSIPStartDate");
+                TextBox txtTotalSIPAmount = (TextBox)gridEditFormItem.FindControl("txtTotalSIPAmount");
+                TextBox txtTotalSIPAmountAdd = (TextBox)gridEditFormItem.FindControl("txtTotalSIPAmountAdd");
+                TextBox TextBox2 = (TextBox)gridEditFormItem.FindControl("TextBox2");
+                TextBox TextBox2Add = (TextBox)gridEditFormItem.FindControl("TextBox2Add");
+                TextBox txtOtherSchemeAllocationPer = (TextBox)gridEditFormItem.FindControl("txtOtherSchemeAllocationPer");
+                TextBox txtOtherSchemeAllocationPerAdd = (TextBox)gridEditFormItem.FindControl("txtOtherSchemeAllocationPerAdd");
+                Label txtMemberName = (Label)gridEditFormItem.FindControl("txtMemberName");
+                Label txtMemberNameAdd = (Label)gridEditFormItem.FindControl("txtMemberNameAdd");
+                TextBox txtSIPFrequencyAdd = (TextBox)gridEditFormItem.FindControl("txtSIPFrequencyAdd");
+                TextBox txtSIPFrequency = (TextBox)gridEditFormItem.FindControl("txtSIPFrequency");
+                Label lblSchemeName = (Label)gridEditFormItem.FindControl("lblSchemeName");
+                Label lblSchemeAdd = (Label)gridEditFormItem.FindControl("lblSchemeAdd");
                 //TextBox txt = (TextBox)gridEditFormItem.FindControl("txtUnits");
                 //txt.Visible = false;
                 if (e.Item.RowIndex == -1)
                 {
                     trSchemeDDL.Visible = true;
                     trSchemeTextBox.Visible = false;
-                    BindDDLSIPSchemeAllocated(dropDownList);
+                   // BindDDLSIPSchemeAllocated(dropDownList);
+                    BindFamilyMembers(ddlSIPMemberName, customerVo.CustomerId);
+                    //***************************\\
+                    txtSIPEndDate.Visible=false;  
+                    txtSIPEndDateAdd.Visible=true;
+                    txtSIPStartDate.Visible=false;   
+                    txtSIPStartDateAdd.Visible=true;
+                    txtTotalSIPAmount.Visible=false;     
+                    txtTotalSIPAmountAdd.Visible=true;
+                    TextBox2.Visible=false;    
+                    TextBox2Add.Visible=true;  
+                    txtOtherSchemeAllocationPer.Visible=false;    
+                    txtOtherSchemeAllocationPerAdd.Visible=true;                    
+                    txtMemberName.Visible=false;       
+                    txtMemberNameAdd.Visible=true;
+                    txtSIPFrequency.Visible=false;     
+                    txtSIPFrequencyAdd.Visible=true;
+                    lblSchemeName.Visible = false;    
+                    lblSchemeAdd.Visible=true;
+
+                    //***************************\\
                 }
                 else
                 {
                     trSchemeDDL.Visible = false;
                     trSchemeTextBox.Visible = true;
+                    //***************************\\
+                    txtSIPEndDate.Visible = true;
+                    txtSIPEndDateAdd.Visible = false;
+                    txtSIPStartDate.Visible = true;
+                    txtSIPStartDateAdd.Visible = false;
+                    txtTotalSIPAmount.Visible = true;
+                    txtTotalSIPAmountAdd.Visible = false;
+                    TextBox2.Visible = true;
+                    TextBox2Add.Visible = false;
+                    txtOtherSchemeAllocationPer.Visible = true;
+                    txtOtherSchemeAllocationPerAdd.Visible = false;
+                    txtMemberName.Visible = true;
+                    txtMemberNameAdd.Visible = false;
+                    txtSIPFrequency.Visible = true;
+                    txtSIPFrequencyAdd.Visible = false;
+                    lblSchemeName.Visible = true;
+                    lblSchemeAdd.Visible = false;
+
+                    //***************************\\
+                
                 }
             }
             //if (e.Item is GridCommandItem)
@@ -2045,26 +2158,33 @@ namespace WealthERP.FP
                 {
                     GridEditFormItem item = (GridEditFormItem)e.Item;
                     DropDownList ddl = (DropDownList)item.FindControl("ddlPickScheme");
-                    BindDDLSchemeAllocated(ddl);
-
+                    DropDownList ddlMembers = (DropDownList)item.FindControl("ddlMemberName");
+                    BindFamilyMembers(ddlMembers, customerVo.CustomerId);
+                    //BindDDLSchemeAllocated(ddl);
                     RadGrid1.Rebind();
                 }
             }
         }
 
-        protected void BindDDLSchemeAllocated(DropDownList ddl)
+
+        protected void BindDDLSchemeAllocated(DropDownList ddl, int customerId)
         {
             DataSet dsBindDDLSchemeAllocated = new DataSet();
-            dsBindDDLSchemeAllocated = customerGoalPlanningBo.BindDDLSchemeAllocated(customerVo.CustomerId, goalId);
+            dsBindDDLSchemeAllocated = customerGoalPlanningBo.BindDDLSchemeAllocated(customerId, goalId);
+            //if (dsBindDDLSchemeAllocated.Tables[0].Rows.Count > 0)
+            //{
             ddl.DataSource = dsBindDDLSchemeAllocated.Tables[0];
             ddl.DataTextField = dsBindDDLSchemeAllocated.Tables[0].Columns["PASP_SchemePlanName"].ToString();
             ddl.DataValueField = dsBindDDLSchemeAllocated.Tables[0].Columns["PASP_SchemePlanCode"].ToString();
             ddl.DataBind();
 
+            ddl.Items.Insert(0, new ListItem("Select", "Select"));
+            // }
+
 
         }
 
-        protected void BindDDLSIPSchemeAllocated(DropDownList ddl)
+        protected void BindDDLSIPSchemeAllocated(DropDownList ddl,int customerId)
         {
             DataSet dsBindDDLSchemeAllocated = new DataSet();
             DataTable dtBindSIPDDLSchemeAlloted = new DataTable();
@@ -2072,7 +2192,7 @@ namespace WealthERP.FP
             dtBindSIPDDLSchemeAlloted.Columns.Add("PASP_SchemePlanName");
             DataRow drBindDDLSIP;
 
-            dsBindDDLSchemeAllocated = customerGoalPlanningBo.BindDDLSIPSchemeAllocated(customerVo.CustomerId, goalId);
+            dsBindDDLSchemeAllocated = customerGoalPlanningBo.BindDDLSIPSchemeAllocated(customerId, goalId);
             foreach (DataRow dr in dsBindDDLSchemeAllocated.Tables[0].Rows)
             {
                 drBindDDLSIP = dtBindSIPDDLSchemeAlloted.NewRow();
@@ -2084,6 +2204,7 @@ namespace WealthERP.FP
             ddl.DataTextField = dtBindSIPDDLSchemeAlloted.Columns["PASP_SchemePlanName"].ToString();
             ddl.DataValueField = dtBindSIPDDLSchemeAlloted.Columns["CMFSS_SystematicSetupId"].ToString();
             ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select", "Select"));
 
 
         }
@@ -2242,8 +2363,259 @@ namespace WealthERP.FP
             modelportfoliocode = int.Parse(ddlModelPortFolio.SelectedValue);
             BindModelPortFolioSchemes(modelportfoliocode);
         }
+        protected void BindFamilyMembers(DropDownList ddl, int customerId)
+        {
+            DataSet dsFamilyMembers = new DataSet();
+            dsFamilyMembers = customerGoalPlanningBo.BindDDLFamilyMembers(customerId);
 
 
+            ddl.DataSource = dsFamilyMembers.Tables[0];
+            ddl.DataTextField = dsFamilyMembers.Tables[0].Columns["MemberName"].ToString();
+            ddl.DataValueField = dsFamilyMembers.Tables[0].Columns["C_CustomerId"].ToString();
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select", "Select"));
+
+
+        }
+        protected void ddlPickSIPScheme_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet dsSIPFundingDetails = new DataSet();
+            double currentAllocation = 0;
+            double otherAllocation = 0;
+            double totalInvestedSIPamount = 0;
+            double AvialableAmount = 100;
+            double currentValue = 0;
+            double totalAmounts = 0;
+            double totalUnits = 0;
+            DateTime sipStartDate = new DateTime();            
+            DateTime sipEndDate = new DateTime();
+
+            if (Cache["GoalFundingDetailsdsSIPInvestment" + customerVo.CustomerId.ToString()] != null)
+            {
+                dsSIPFundingDetails = (DataSet)Cache["GoalFundingDetailsdsSIPInvestment" + customerVo.CustomerId.ToString()];
+                DataRow[] drTotalInvestmentAllocationStatus;
+                DataRow[] drCurrentGoalInvestmentAllocationStatus;
+                DataRow[] drTotalAmount;
+                
+                DropDownList dropdown = (DropDownList)sender;
+                string categoryCode = dropdown.SelectedValue;
+                GridEditableItem gridEditFormItem = dropdown.NamingContainer as GridEditableItem;
+                TextBox txtSIPEndDate = (TextBox)gridEditFormItem.FindControl("txtSIPEndDate");
+                TextBox txtSIPEndDateAdd = (TextBox)gridEditFormItem.FindControl("txtSIPEndDateAdd");
+                TextBox txtSIPStartDateAdd = (TextBox)gridEditFormItem.FindControl("txtSIPStartDateAdd");
+                TextBox txtSIPStartDate = (TextBox)gridEditFormItem.FindControl("txtSIPStartDate");
+                TextBox txtTotalSIPAmount = (TextBox)gridEditFormItem.FindControl("txtTotalSIPAmount");
+                TextBox txtTotalSIPAmountAdd = (TextBox)gridEditFormItem.FindControl("txtTotalSIPAmountAdd");
+                TextBox TextBox2 = (TextBox)gridEditFormItem.FindControl("TextBox2");
+                TextBox TextBox2Add = (TextBox)gridEditFormItem.FindControl("TextBox2Add");
+                TextBox txtOtherSchemeAllocationPer = (TextBox)gridEditFormItem.FindControl("txtOtherSchemeAllocationPer");
+                TextBox txtOtherSchemeAllocationPerAdd = (TextBox)gridEditFormItem.FindControl("txtOtherSchemeAllocationPerAdd");
+                Label txtMemberName = (Label)gridEditFormItem.FindControl("txtMemberName");
+                Label txtMemberNameAdd = (Label)gridEditFormItem.FindControl("txtMemberNameAdd");
+                TextBox txtSIPFrequencyAdd = (TextBox)gridEditFormItem.FindControl("txtSIPFrequencyAdd");
+                TextBox txtSIPFrequency = (TextBox)gridEditFormItem.FindControl("txtSIPFrequency");
+                Label lblSchemeName = (Label)gridEditFormItem.FindControl("lblSchemeName");
+                Label lblSchemeAdd = (Label)gridEditFormItem.FindControl("lblSchemeAdd");
+                string frequency = "";
+                  if(categoryCode != "Select" && categoryCode != "")
+                  {
+                      int sipId =Convert.ToInt32(categoryCode);
+                    DataRow[] drtotalSIPamount ;
+                    drtotalSIPamount = dsSIPFundingDetails.Tables[1].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
+                    drTotalAmount = dsSIPFundingDetails.Tables[2].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
+                      
+                      if (drtotalSIPamount.Count() > 0)
+                        {
+                            foreach (DataRow drtotalSIPInvestedAmount in drtotalSIPamount)
+                            {
+                                totalInvestedSIPamount =totalInvestedSIPamount + double.Parse(drtotalSIPInvestedAmount["TotalInvestedAmount"].ToString());
+                              
+                            }
+                        }
+                      if (drTotalAmount.Count() > 0)
+                        {
+                            foreach (DataRow drAmount in drTotalAmount)
+                            {
+                                totalAmounts = double.Parse(drAmount["CMFSS_Amount"].ToString());
+                                sipStartDate = DateTime.Parse(drAmount["CMFSS_StartDate"].ToString());
+                                sipEndDate = DateTime.Parse(drAmount["CMFSS_EndDate"].ToString());
+                                frequency = drAmount["XF_FrequencyCode"].ToString();
+                            }
+                        }
+
+                      AvialableAmount =  totalAmounts - totalInvestedSIPamount;
+                      otherAllocation = totalInvestedSIPamount;
+                      txtSIPEndDateAdd.Text = sipEndDate.ToShortDateString();
+                      txtSIPStartDateAdd.Text = sipStartDate.ToShortDateString();
+                      txtTotalSIPAmountAdd.Text = totalAmounts.ToString();
+                      TextBox2Add.Text = AvialableAmount.ToString();
+                      txtOtherSchemeAllocationPerAdd.Text = otherAllocation.ToString();
+                      txtSIPFrequencyAdd.Text = frequency;
+                    }
+                
+                 
+                else
+                  {
+
+                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have not selected any SIP');", true);
+
+                  }
+                  }
+        }
+        protected void ddlPickScheme_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet dsFundingDetails = new DataSet();
+            decimal currentAllocation = 0;
+            decimal otherAllocation = 0;
+            decimal totalAllocation = 0;
+            decimal AvialableAllocation = 100;
+            decimal currentValue = 0;
+            decimal totalAmounts = 0;
+            decimal totalUnits = 0;
+            if (Cache["GoalFundingDetailsdsExistingInvestment" + customerVo.CustomerId.ToString()] != null)
+            {
+                DropDownList dropdown = (DropDownList)sender;
+                string categoryCode = dropdown.SelectedValue;
+                GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
+                TextBox txtAvailableAllocationEditMode = editedItem.FindControl("txtAvailableAllocationEditMode") as TextBox;
+                TextBox txtAvailableAllocationAddMode = editedItem.FindControl("txtAvailableAllocationAddMode") as TextBox;
+                TextBox txtSchemeAllocationPerEditMode = editedItem.FindControl("txtSchemeAllocationPerEditMode") as TextBox;
+                TextBox txtSchemeAllocationPerAddMode = editedItem.FindControl("txtSchemeAllocationPerAddMode") as TextBox;
+                TextBox txtInvestedAmtAdd = editedItem.FindControl("txtInvestedAmtAdd") as TextBox;
+                TextBox txtInvestedAmt = editedItem.FindControl("txtInvestedAmt") as TextBox;
+                TextBox txtAllocationEntryAddMode = editedItem.FindControl("txtAllocationEntryAddMode") as TextBox;
+                TextBox TextBox1 = editedItem.FindControl("TextBox1") as TextBox;
+                TextBox txtCurrentValueEditMode = editedItem.FindControl("txtCurrentValueEditMode") as TextBox;
+                TextBox txtCurrentValueAddMode = editedItem.FindControl("txtCurrentValueAddMode") as TextBox;
+                TextBox txtAmtAvailableEditMode = editedItem.FindControl("txtAmtAvailableEditMode") as TextBox;
+                TextBox txtAmtAvailableAddMode = editedItem.FindControl("txtAmtAvailableAddMode") as TextBox;
+                TextBox txtUnitsAddMode = editedItem.FindControl("txtUnitsAddMode") as TextBox;
+                TextBox txtUnits = editedItem.FindControl("txtUnits") as TextBox;
+                Label lblMemberNameAddMode = editedItem.FindControl("lblMemberNameAddMode") as Label;
+
+                txtAvailableAllocationEditMode.Visible = false;
+                txtSchemeAllocationPerEditMode.Visible = false;
+                txtInvestedAmt.Visible = false;
+                TextBox1.Visible = false;
+                txtCurrentValueEditMode.Visible = false;
+                txtAmtAvailableEditMode.Visible = false;
+                txtUnits.Visible = false;
+
+                txtAvailableAllocationAddMode.Visible = true;
+                txtSchemeAllocationPerAddMode.Visible = true;
+                txtInvestedAmtAdd.Visible = true;
+                txtAllocationEntryAddMode.Visible = true;
+                txtAmtAvailableAddMode.Visible = true;
+                txtUnitsAddMode.Visible = true;
+
+                dsFundingDetails = (DataSet)Cache["GoalFundingDetailsdsExistingInvestment" + customerVo.CustomerId.ToString()];
+                DataRow[] drTotalInvestmentAllocationStatus;
+                DataRow[] drCurrentGoalInvestmentAllocationStatus;
+                DataRow[] drAmountUnitsAllocation;
+                //txtAvailableAllocationEditMode
+                // Session.Remove(SessionContents.FPS_AddProspect_DataTable);
+
+                if(dropdown.SelectedValue != "" && dropdown.SelectedValue != "Select")
+                {
+
+                foreach (DataRow drGoalExistingInvestments in dsFundingDetails.Tables[2].Rows)
+                {
+                    drTotalInvestmentAllocationStatus = dsFundingDetails.Tables[2].Select("PASP_SchemePlanCode=" + "'" + dropdown.SelectedValue + "'");
+                    if (drTotalInvestmentAllocationStatus.Count() > 0)
+                    {
+                        foreach (DataRow dr in drTotalInvestmentAllocationStatus)
+                        {
+                            totalAllocation = decimal.Parse(dr["allocatedPercentage"].ToString());
+                        }
+                    }
+                }
+
+                foreach (DataRow drGoalExistingInvestments in dsFundingDetails.Tables[3].Rows)
+                {
+                    drCurrentGoalInvestmentAllocationStatus = dsFundingDetails.Tables[3].Select("PASP_SchemePlanCode=" + "'" + dropdown.SelectedValue + "'");
+                    if (drCurrentGoalInvestmentAllocationStatus.Count() > 0)
+                    {
+                        foreach (DataRow dr in drCurrentGoalInvestmentAllocationStatus)
+                        {
+                            currentAllocation = decimal.Parse(dr["allocatedPercentage"].ToString());
+                        }
+                    }
+                }
+                foreach (DataRow drGoalExistingInvestments in dsFundingDetails.Tables[6].Rows)
+                {
+                    drAmountUnitsAllocation = dsFundingDetails.Tables[6].Select("PASP_SchemePlanCode=" + "'" + dropdown.SelectedValue + "'");
+                    if (drAmountUnitsAllocation.Count() > 0)
+                    {
+                        foreach (DataRow dr in drAmountUnitsAllocation)
+                        {
+                            currentValue = decimal.Parse(dr["CMFNP_CurrentValue"].ToString());
+                            totalUnits = decimal.Parse(dr["CMFNP_NetHoldings"].ToString());
+                            totalAmounts = decimal.Parse(dr["CMFNP_AcqCostExclDivReinvst"].ToString());
+
+                        }
+                    }
+                }
+                if (currentAllocation > totalAllocation)
+                {
+                    otherAllocation = totalAllocation - currentAllocation;
+                }
+                else
+                {
+                    otherAllocation = totalAllocation;
+                }
+                AvialableAllocation = 100 - totalAllocation;
+
+          
+                txtCurrentValueAddMode.Text = currentValue.ToString();
+                txtUnitsAddMode.Text = totalUnits.ToString();
+                txtAmtAvailableAddMode.Text = ((totalAmounts * AvialableAllocation) / 100).ToString();
+                txtAvailableAllocationAddMode.Text = AvialableAllocation.ToString();
+                txtSchemeAllocationPerAddMode.Text = otherAllocation.ToString();
+                txtAllocationEntryAddMode.Text = totalAllocation.ToString();
+                txtInvestedAmtAdd.Text = "0";
+                //lblMemberNameAddMode.Text ="0";
+                //txtUnitsAddMode.Text = "0";
+                }
+                else
+                {
+                txtCurrentValueAddMode.Text ="0";
+                txtUnitsAddMode.Text = "0";
+                txtAmtAvailableAddMode.Text = "0";
+                txtAvailableAllocationAddMode.Text = "0";
+                txtSchemeAllocationPerAddMode.Text = "0";
+                txtAllocationEntryAddMode.Text = "0";
+                txtInvestedAmtAdd.Text = "0";
+
+                }
+
+            }
+        }
+
+        protected void ddlMemberName_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            int customerId = 0;
+            DropDownList dropdown = (DropDownList)sender;
+            if (dropdown.SelectedValue != "" && dropdown.SelectedValue != "Select")
+            {
+                customerId = Int32.Parse(dropdown.SelectedValue);
+            }
+            GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
+            DropDownList ddlPickScheme = editedItem.FindControl("ddlPickScheme") as DropDownList;
+            BindDDLSchemeAllocated(ddlPickScheme, customerId);
+
+        }
+        protected void ddlSIPMemberName_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            int customerId = 0;
+            DropDownList dropdown = (DropDownList)sender;
+            if (dropdown.SelectedValue != "" && dropdown.SelectedValue != "Select")
+            {
+                customerId = Int32.Parse(dropdown.SelectedValue);
+            }
+            GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
+            DropDownList ddlPickSIPScheme = editedItem.FindControl("ddlPickSIPScheme") as DropDownList;
+            BindDDLSIPSchemeAllocated(ddlPickSIPScheme, customerId);
+        }
    #endregion
 
 

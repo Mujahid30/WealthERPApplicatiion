@@ -937,5 +937,25 @@ namespace DaoFPSuperlite
             }
 
         }
+
+        public DataSet BindDDLFamilyMembers(int CustomerID)
+        {
+            Database db;
+            DbCommand getFamilyNameCmd;
+            DataSet dsFamilyMembers = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getFamilyNameCmd = db.GetStoredProcCommand("SP_GetFamilyDetailsForFunding");
+                db.AddInParameter(getFamilyNameCmd, "@CustomerID", DbType.Int32, CustomerID);
+                dsFamilyMembers = db.ExecuteDataSet(getFamilyNameCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsFamilyMembers;
+        }
     }
 }
