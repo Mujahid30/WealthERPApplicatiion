@@ -79,7 +79,11 @@ namespace WealthERP.CustomerPortfolio
                     txtParentCustomer.Visible = false;
                     rfvGroupHead.Visible = false;
                     BindLastTradeDate();
-                    BindGrid(DateTime.Parse(txtFromDate.SelectedDate.ToString()), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+
+                    if (txtFromDate.SelectedDate != null || txtToDate.SelectedDate != null)
+                        BindGrid(txtFromDate.SelectedDate.Value, txtToDate.SelectedDate.Value);
+                    else
+                        Panel2.Visible = false;
 
                     trMessage.Visible = false;
                 }
@@ -109,8 +113,8 @@ namespace WealthERP.CustomerPortfolio
         private void BindLastTradeDate()
         {
             DataSet ds = customerTransactionBo.GetLastTradeDate();
-            txtFromDate.SelectedDate = DateTime.Parse((ds.Tables[0].Rows[0][0].ToString()));
-            txtToDate.SelectedDate = DateTime.Parse((ds.Tables[0].Rows[0][0].ToString()));
+            //txtFromDate.SelectedDate = DateTime.Parse((ds.Tables[0].Rows[0][0].ToString()));
+            //txtToDate.SelectedDate = DateTime.Parse((ds.Tables[0].Rows[0][0].ToString()));
 
         }
 
@@ -129,7 +133,7 @@ namespace WealthERP.CustomerPortfolio
             }
             gvMFTransactions.DataSource = null;
             gvMFTransactions.DataBind();
-           
+
         }
 
         private void BindPeriodDropDown()
@@ -167,7 +171,7 @@ namespace WealthERP.CustomerPortfolio
             }
             gvMFTransactions.DataSource = null;
             gvMFTransactions.DataBind();
-          
+
         }
 
         private void BindGroupHead()
@@ -229,31 +233,89 @@ namespace WealthERP.CustomerPortfolio
                     ds = customerTransactionBo.GetRMCustomerEqTransactions(rmVo.RMId, advisorVo.advisorId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()));
                 }
 
-                if (ds.Tables[0].Rows.Count > 0)
+                 DataTable dtTransactions = new DataTable();
+                dtTransactions = ds.Tables[0];
+                if (dtTransactions.Rows.Count > 0)
                 {
                     trMessage.Visible = false;
-                    gvMFTransactions.DataSource = ds;
-                    gvMFTransactions.DataBind();
-                    gvMFTransactions.Visible = true;
+                   
+
+                    DataTable dtEQTransactions = new DataTable();
+
+                    dtEQTransactions.Columns.Add("TransactionId");
+                    dtEQTransactions.Columns.Add("Customer Name");
+                    dtEQTransactions.Columns.Add("Scrip");
+                    dtEQTransactions.Columns.Add("TradeAccNumber");
+                    dtEQTransactions.Columns.Add("Date",typeof(DateTime));
+                    dtEQTransactions.Columns.Add("Type");
+                    dtEQTransactions.Columns.Add("Rate",typeof(double));
+                    dtEQTransactions.Columns.Add("Quantity", typeof(double));
+                    dtEQTransactions.Columns.Add("Brokerage", typeof(double));
+                    dtEQTransactions.Columns.Add("OtherCharges", typeof(double));
+                    dtEQTransactions.Columns.Add("STT", typeof(double));
+                    dtEQTransactions.Columns.Add("Gross Price");
+                    dtEQTransactions.Columns.Add("Speculative Or Delivery");
+                    dtEQTransactions.Columns.Add("Portfolio Name");
+
+                    DataRow drEQTransaction;
+
+                    for (int i = 0; i < dtTransactions.Rows.Count; i++)
+                    {
+
+                        drEQTransaction = dtEQTransactions.NewRow();
+
+
+                        drEQTransaction["TransactionId"] = dtTransactions.Rows[i]["CET_EqTransId"].ToString();
+                        drEQTransaction["Customer Name"] = dtTransactions.Rows[i]["Name"].ToString();
+                        drEQTransaction["Scrip"] = dtTransactions.Rows[i]["PEM_CompanyName"].ToString();
+                        drEQTransaction["TradeAccNumber"] = dtTransactions.Rows[i]["CETA_TradeAccountNum"].ToString();
+                        drEQTransaction["Type"] = dtTransactions.Rows[i]["WETT_TransactionTypeName"].ToString();
+                        if (dtTransactions.Rows[i]["CET_TradeDate"] != DBNull.Value)
+                        {
+                            //drEQTransaction["Date"] = dtTransactions.Rows[i]["CET_TradeDate"].ToString();
+                            drEQTransaction["Date"] = Convert.ToDateTime(dtTransactions.Rows[i]["CET_TradeDate"].ToString()).ToShortDateString();
+                        }
+
+                        drEQTransaction["Rate"] = dtTransactions.Rows[i]["CET_Rate"].ToString();
+                        if (dtTransactions.Rows[i]["CET_Quantity"] != DBNull.Value)
+                            drEQTransaction["Quantity"] = Convert.ToInt32(dtTransactions.Rows[i]["CET_Quantity"]);
+                        drEQTransaction["Brokerage"] = dtTransactions.Rows[i]["CET_Brokerage"].ToString();
+                        drEQTransaction["OtherCharges"] = dtTransactions.Rows[i]["CET_OtherCharges"].ToString();
+                        drEQTransaction["STT"] = dtTransactions.Rows[i]["CET_STT"].ToString();
+                        drEQTransaction["Gross Price"] = dtTransactions.Rows[i]["XES_SourceCode"].ToString();
+                        drEQTransaction["Speculative Or Delivery"] = dtTransactions.Rows[i]["CET_IsSpeculative"].ToString();
+                        drEQTransaction["Portfolio Name"] = dtTransactions.Rows[i]["CP_PortfolioName"].ToString();
+
+                        dtEQTransactions.Rows.Add(drEQTransaction);
+                        totalBrokerage += Convert.ToDouble(drEQTransaction["Brokerage"].ToString());
+                        totalOtherCharges += Convert.ToDouble(drEQTransaction["OtherCharges"].ToString());
+                        totalSTT += Convert.ToDouble(drEQTransaction["STT"].ToString());
+
+                    }
+
+                    gvMFTransactions.DataSource = dtEQTransactions;
+                    gvMFTransactions.DataBind();             
 
                     if (Cache["EquityTransactionDetails" + advisorVo.advisorId.ToString()] == null)
                     {
-                        Cache.Insert("EquityTransactionDetails" + advisorVo.advisorId.ToString(), ds);
+                        Cache.Insert("EquityTransactionDetails" + advisorVo.advisorId.ToString(), dtEQTransactions);
                     }
                     else
                     {
                         Cache.Remove("EquityTransactionDetails" + advisorVo.advisorId.ToString());
-                        Cache.Insert("EquityTransactionDetails" + advisorVo.advisorId.ToString(), ds);
+                        Cache.Insert("EquityTransactionDetails" + advisorVo.advisorId.ToString(), dtEQTransactions);
                     }
+                    imgBtnrgHoldings.Visible = true;
+                    Panel2.Visible = true;
                 }
                 else
                 {
                     gvMFTransactions.DataSource = null;
                     gvMFTransactions.DataBind();
-                    
+                    imgBtnrgHoldings.Visible = false;
                     trMessage.Visible = true;
-                }
-
+                    Panel2.Visible = false;
+                }   
             }
             catch (BaseApplicationException Ex)
             {
@@ -276,9 +338,9 @@ namespace WealthERP.CustomerPortfolio
         }
 
 
-        protected void gvMFTransactions_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void gvMFTransactions_RowDataBound(object sender, GridItemEventArgs e) 
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            if (e.Item is  GridDataItem)
             {
                 double otherCharges = 0;
                 double brokerage = 0;
@@ -286,65 +348,34 @@ namespace WealthERP.CustomerPortfolio
                 double quantity = 0;
 
                 double rate = 0;
-                if (e.Row.Cells[6].Text != string.Empty)
-                    rate = Convert.ToDouble(e.Row.Cells[6].Text);
+                if (e.Item.Cells[8].Text != string.Empty)
+                    rate = Convert.ToDouble(e.Item.Cells[8].Text.ToString().Trim());
                 double STT = 0;
 
-                if (e.Row.Cells[8].Text != string.Empty)
-                    brokerage = Convert.ToDouble(e.Row.Cells[8].Text);
-                if (e.Row.Cells[7].Text != string.Empty)
-                    quantity = Convert.ToDouble(e.Row.Cells[7].Text);
+                if (e.Item.Cells[9].Text != string.Empty)
+                    brokerage = Convert.ToDouble(e.Item.Cells[9].Text.ToString().Trim());
+                if (e.Item.Cells[10].Text != string.Empty)
+                    quantity = Convert.ToDouble(e.Item.Cells[10].Text.ToString().Trim());
 
-                if (e.Row.Cells[9].Text != string.Empty)
-                    otherCharges = Convert.ToDouble(e.Row.Cells[9].Text);
-                if (e.Row.Cells[10].Text != string.Empty)
-                    STT = Convert.ToDouble(e.Row.Cells[10].Text);
+                if (e.Item.Cells[11].Text != string.Empty)
+                    otherCharges = Convert.ToDouble(e.Item.Cells[11].Text.ToString().Trim());
+                if (e.Item.Cells[12].Text != string.Empty)
+                    STT = Convert.ToDouble(e.Item.Cells[12].Text.ToString().Trim());
 
                 grossPrice = ((rate) * quantity) + STT + brokerage + otherCharges;
 
                 totalGrossPrice += grossPrice;
 
-                e.Row.Cells[11].Text = grossPrice.ToString();
-            }
-            else if (e.Row.RowType == DataControlRowType.Footer)
-            {
-                e.Row.Cells[7].Text = "Total ";
-                if (GridViewCultureFlag == true)
-                    e.Row.Cells[8].Text = double.Parse(totalBrokerage.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                else
-                    e.Row.Cells[8].Text = double.Parse(totalBrokerage.ToString()).ToString();
-                e.Row.Cells[8].Attributes.Add("align", "Right");
-
-                if (GridViewCultureFlag == true)
-                    e.Row.Cells[9].Text = double.Parse(totalOtherCharges.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                else
-                    e.Row.Cells[9].Text = double.Parse(totalOtherCharges.ToString()).ToString();
-                e.Row.Cells[9].Attributes.Add("align", "Right");
-
-                if (GridViewCultureFlag == true)
-                    e.Row.Cells[10].Text = double.Parse(totalSTT.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                else
-                    e.Row.Cells[10].Text = double.Parse(totalSTT.ToString()).ToString();
-                e.Row.Cells[10].Attributes.Add("align", "Right");
-
-                if (GridViewCultureFlag == true)
-                    e.Row.Cells[11].Text = double.Parse(totalGrossPrice.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                else
-                    e.Row.Cells[11].Text = double.Parse(totalGrossPrice.ToString()).ToString();
-                e.Row.Cells[11].Attributes.Add("align", "Right");
-
+                e.Item.Cells[13].Text = grossPrice.ToString();
             }
         }
 
         protected void gvMFTransactions_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet dtProcessLogDetails = new DataSet();
-            dtProcessLogDetails = (DataSet)Cache["EquityTransactionDetails" + advisorVo.advisorId.ToString()];
+            DataTable dtProcessLogDetails = new DataTable();
+
+            dtProcessLogDetails = (DataTable)Cache["EquityTransactionDetails" + advisorVo.advisorId.ToString()];
             gvMFTransactions.DataSource = dtProcessLogDetails;
-            if (gvMFTransactions.DataSource != null)
-                gvMFTransactions.Visible = true;
-            else
-                gvMFTransactions.Visible = false;
         }
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
