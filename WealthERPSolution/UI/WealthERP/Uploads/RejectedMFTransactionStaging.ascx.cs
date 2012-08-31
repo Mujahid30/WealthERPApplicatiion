@@ -13,6 +13,8 @@ using System.Collections.Specialized;
 using VoUploads;
 using System.Configuration;
 using BoCommon;
+using Telerik.Web.UI;
+using System.Data.SqlClient;
 
 namespace WealthERP.Uploads
 {
@@ -33,48 +35,6 @@ namespace WealthERP.Uploads
 
         string configPath;
 
-        protected override void OnInit(EventArgs e)
-        {
-            ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-            mypager.EnableViewState = true;
-            base.OnInit(e);
-        }
-
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            ProcessId = 0;
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if (Request.QueryString["filetypeId"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
-
-            GetPageCount();
-            this.BindEquityTransactionGrid(ProcessId);
-        }
-
-        private void GetPageCount()
-        {
-            string upperlimit;
-            string lowerlimit;
-            int rowCount = 0;
-            if (hdnRecordCount.Value != "")
-                rowCount = Convert.ToInt32(hdnRecordCount.Value);
-            if (rowCount > 0)
-            {
-                int ratio = rowCount / 10;
-                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
-                upperlimit = (mypager.CurrentPage * 10).ToString();
-                if (mypager.CurrentPage == mypager.PageCount)
-                    upperlimit = hdnRecordCount.Value;
-                string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                lblCurrentPage.Text = PageRecords;
-
-                hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-            }
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -85,7 +45,7 @@ namespace WealthERP.Uploads
 
             if (Request.QueryString["processId"] != null)
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-            
+
             if (Request.QueryString["filetypeId"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
 
@@ -106,7 +66,7 @@ namespace WealthERP.Uploads
 
             if (!IsPostBack)
             {
-                mypager.CurrentPage = 1;
+                //mypager.CurrentPage = 1;
                 hdnProcessIdFilter.Value = ProcessId.ToString();
                 // Bind Grid
                 BindEquityTransactionGrid(ProcessId);
@@ -117,582 +77,41 @@ namespace WealthERP.Uploads
         {
             Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
             Dictionary<string, string> genDictRejectReason = new Dictionary<string, string>();
-
-            if (hdnCurrentPage.Value.ToString() != "")
-            {
-                mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-                hdnCurrentPage.Value = "";
-            }
-
-            int Count;
-
             rejectedRecordsBo = new RejectedRecordsBo();
 
-            dsRejectedRecords = rejectedRecordsBo.GetRejectedMFTransactionStaging(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, int.Parse(hdnProcessIdFilter.Value), hdnRejectReasonFilter.Value, hdnFileNameFilter.Value, hdnFolioFilter.Value, hdnTransactionTypeFilter.Value, hdnInvNameFilter.Value, hdnSourceTypeFilter.Value, hdnSchemeNameFilter.Value);
-
-            lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
-            if (Count > 0)
-                DivPager.Style.Add("display", "visible");
+            dsRejectedRecords = rejectedRecordsBo.GetRejectedMFTransactionStaging(adviserVo.advisorId, int.Parse(hdnProcessIdFilter.Value));
 
             if (dsRejectedRecords.Tables[0].Rows.Count > 0)
             {   // If Records found, then bind them to grid
                 trMessage.Visible = false;
                 trReprocess.Visible = true;
-                gvWERPTrans.DataSource = dsRejectedRecords.Tables[0];
+                //gvWERPTrans_Sort.DataSource = dsRejectedRecords.Tables[0];
+                gvWERPTrans.DataSource = dsRejectedRecords;
                 gvWERPTrans.DataBind();
 
 
-                if (dsRejectedRecords.Tables[2].Rows.Count > 0)
+                if (Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()] == null)
                 {
-                    // Get the Reject Reason Codes Available into Generic Dictionary
-                    foreach (DataRow dr in dsRejectedRecords.Tables[2].Rows)
-                    {
-                        if (dr["RejectReasonCode"].ToString() != "7")
-                        {
-                            genDictRejectReason.Add(dr["RejectReason"].ToString(), dr["RejectReasonCode"].ToString());
-                        }
-                    }
-
-                    DropDownList ddlRejectReason = GetRejectReasonDDL();
-                    if (ddlRejectReason != null)
-                    {
-                        ddlRejectReason.DataSource = genDictRejectReason;
-                        ddlRejectReason.DataTextField = "Key";
-                        ddlRejectReason.DataValueField = "Value";
-                        ddlRejectReason.DataBind();
-                        ddlRejectReason.Items.Insert(0, new ListItem("Select", "Select"));
-                    }
-
-                    if (hdnRejectReasonFilter.Value != "")
-                    {
-                        ddlRejectReason.SelectedValue = hdnRejectReasonFilter.Value.ToString().Trim();
-                    }
+                    Cache.Insert("MFTransactionDetails" + adviserVo.advisorId.ToString(), dsRejectedRecords);
                 }
-
-                BindProcessId(dsRejectedRecords.Tables[3]);
-                BindInvName(dsRejectedRecords.Tables[6]);
-                BindFileName(dsRejectedRecords.Tables[4]);
-                BindSourceType(dsRejectedRecords.Tables[5]);
-                BindFolioNumber(dsRejectedRecords.Tables[7]);
-                BindSchemeName(dsRejectedRecords.Tables[8]);
-                BindTransactionType(dsRejectedRecords.Tables[9]);
-
-
+                else
+                {
+                    Cache.Remove("MFTransactionDetails" + adviserVo.advisorId.ToString());
+                    Cache.Insert("MFTransactionDetails" + adviserVo.advisorId.ToString(), dsRejectedRecords);
+                }
             }
             else
             {
-                hdnRecordCount.Value = "0";
+                //hdnRecordCount.Value = "0";
                 gvWERPTrans.DataSource = null;
                 gvWERPTrans.DataBind();
                 trMessage.Visible = true;
                 trReprocess.Visible = false;
             }
-            this.GetPageCount();
+            //this.GetPageCount();
         }
 
-        #region BindDropdown Filters
-
-        //Methods with respect to ProcessIdFilter
-        protected void ddlProcessId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlProcessId = GetProcessIdDDL();
-
-            if (ddlProcessId != null)
-            {
-                if (ddlProcessId.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
-                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
-                    BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnProcessIdFilter.Value = "0";
-                    BindEquityTransactionGrid(ProcessId);
-                }
-            }
-        }
-
-        private void BindProcessId(DataTable dtProcessId)
-        {
-            Dictionary<string, string> genDictPanNum = new Dictionary<string, string>();
-            if (dtProcessId.Rows.Count > 0)
-            {
-                // Get the Reject Reason Codes Available into Generic Dictionary
-                foreach (DataRow dr in dtProcessId.Rows)
-                {
-                    genDictPanNum.Add(dr["ProcessId"].ToString(), dr["ProcessId"].ToString());
-                }
-
-                DropDownList ddlProcessId = GetProcessIdDDL();
-                if (ddlProcessId != null)
-                {
-                    ddlProcessId.DataSource = genDictPanNum;
-                    ddlProcessId.DataTextField = "Key";
-                    ddlProcessId.DataValueField = "Value";
-                    ddlProcessId.DataBind();
-                    ddlProcessId.Items.Insert(0, new ListItem("Select", "Select"));
-                }
-
-                if (hdnProcessIdFilter.Value != "")
-                {
-                    ddlProcessId.SelectedValue = hdnProcessIdFilter.Value.ToString().Trim();
-                }
-            }
-        }
-
-        private DropDownList GetProcessIdDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlProcessId") != null)
-            {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlProcessId");
-            }
-            return ddl;
-        }
-
-        //Methods with respect to InverstorName filter
-        protected void ddlInvName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlInvName = GetInvNameDDL();
-
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if (Request.QueryString["filetypeId"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
-
-            if (ddlInvName != null)
-            {
-                if (ddlInvName.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnInvNameFilter.Value = ddlInvName.SelectedValue;
-                    BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnInvNameFilter.Value = "";
-                    BindEquityTransactionGrid(ProcessId);
-                }
-            }
-        }
-
-        private void BindInvName(DataTable dtInvName)
-        {
-            Dictionary<string, string> genDictInvName = new Dictionary<string, string>();
-            if (dtInvName.Rows.Count > 0)
-            {
-                // Get the Reject Reason Codes Available into Generic Dictionary
-                foreach (DataRow dr in dtInvName.Rows)
-                {
-                    genDictInvName.Add(dr["InvestorName"].ToString(), dr["InvestorName"].ToString());
-                }
-
-                DropDownList ddlInvName = GetInvNameDDL();
-                if (ddlInvName != null)
-                {
-                    ddlInvName.DataSource = genDictInvName;
-                    ddlInvName.DataTextField = "Key";
-                    ddlInvName.DataValueField = "Value";
-                    ddlInvName.DataBind();
-                    ddlInvName.Items.Insert(0, new ListItem("Select", "Select"));
-                }
-
-                if (hdnInvNameFilter.Value != "")
-                {
-                    ddlInvName.SelectedValue = hdnInvNameFilter.Value.ToString();
-                }
-            }
-        }
-
-        private DropDownList GetInvNameDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlInvName") != null)
-            {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlInvName");
-            }
-            return ddl;
-        }
-
-        //Methods with respect to FileName Filter
-        protected void ddlFileName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlFileName = GetFileNameDDL();
-
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if (Request.QueryString["filetypeId"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
-
-            if (ddlFileName != null)
-            {
-                if (ddlFileName.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnFileNameFilter.Value = ddlFileName.SelectedValue;
-                    BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnFileNameFilter.Value = "";
-                    BindEquityTransactionGrid(ProcessId);
-                }
-            }
-        }
-
-        private void BindFileName(DataTable dtFileName)
-        {
-            Dictionary<string, string> genDictFileName = new Dictionary<string, string>();
-            if (dtFileName.Rows.Count > 0)
-            {
-                // Get the Reject Reason Codes Available into Generic Dictionary
-                foreach (DataRow dr in dtFileName.Rows)
-                {
-                    genDictFileName.Add(dr["ExternalFileName"].ToString(), dr["ExternalFileName"].ToString());
-                }
-
-                DropDownList ddlFileName = GetFileNameDDL();
-                if (ddlFileName != null)
-                {
-                    ddlFileName.DataSource = genDictFileName;
-                    ddlFileName.DataTextField = "Key";
-                    ddlFileName.DataValueField = "Value";
-                    ddlFileName.DataBind();
-                    ddlFileName.Items.Insert(0, new ListItem("Select", "Select"));
-                }
-
-                if (hdnFileNameFilter.Value != "")
-                {
-                    ddlFileName.SelectedValue = hdnFileNameFilter.Value.ToString();
-                }
-            }
-        }
-
-        private DropDownList GetFileNameDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlFileName") != null)
-            {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlFileName");
-            }
-            return ddl;
-        }
-
-        //Methods with respect to SourceType Filter
-        protected void ddlSourceType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlSourceType = GetSourceTypeDDL();
-
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if (Request.QueryString["filetypeId"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
-
-            if (ddlSourceType != null)
-            {
-                if (ddlSourceType.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnSourceTypeFilter.Value = ddlSourceType.SelectedValue;
-                    BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnSourceTypeFilter.Value = "";
-                    BindEquityTransactionGrid(ProcessId);
-                }
-            }
-        }
-
-        private void BindSourceType(DataTable dtSourceType)
-        {
-            Dictionary<string, string> genDictSourceType = new Dictionary<string, string>();
-            if (dtSourceType.Rows.Count > 0)
-            {
-                // Get the Reject Reason Codes Available into Generic Dictionary
-                foreach (DataRow dr in dtSourceType.Rows)
-                {
-                    genDictSourceType.Add(dr["SourceType"].ToString(), dr["SourceType"].ToString());
-                }
-
-                DropDownList ddlSourceType = GetSourceTypeDDL();
-                if (ddlSourceType != null)
-                {
-                    ddlSourceType.DataSource = genDictSourceType;
-                    ddlSourceType.DataTextField = "Key";
-                    ddlSourceType.DataValueField = "Value";
-                    ddlSourceType.DataBind();
-                    ddlSourceType.Items.Insert(0, new ListItem("Select", "Select"));
-                }
-
-                if (hdnSourceTypeFilter.Value != "")
-                {
-                    ddlSourceType.SelectedValue = hdnSourceTypeFilter.Value.ToString();
-                }
-            }
-        }
-
-        private DropDownList GetSourceTypeDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlSourceType") != null)
-            {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlSourceType");
-            }
-            return ddl;
-        }
-
-        //Methods with respect to FolioNumber Filter
-        protected void ddlFolioNumber_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlFolioNumber = GetFolioNumberDDL();
-
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if (Request.QueryString["filetypeId"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
-
-            if (ddlFolioNumber != null)
-            {
-                if (ddlFolioNumber.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnFolioFilter.Value = ddlFolioNumber.SelectedValue;
-                    BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnFolioFilter.Value = "";
-                    BindEquityTransactionGrid(ProcessId);
-                }
-            }
-        }
-
-        private void BindFolioNumber(DataTable dtFolioNumber)
-        {
-            Dictionary<string, string> genDictFolioNumber = new Dictionary<string, string>();
-            if (dtFolioNumber.Rows.Count > 0)
-            {
-                // Get the Reject Reason Codes Available into Generic Dictionary
-                foreach (DataRow dr in dtFolioNumber.Rows)
-                {
-                    genDictFolioNumber.Add(dr["FolioNumber"].ToString(), dr["FolioNumber"].ToString());
-                }
-
-                DropDownList ddlFolioNumber = GetFolioNumberDDL();
-                if (ddlFolioNumber != null)
-                {
-                    ddlFolioNumber.DataSource = genDictFolioNumber;
-                    ddlFolioNumber.DataTextField = "Key";
-                    ddlFolioNumber.DataValueField = "Value";
-                    ddlFolioNumber.DataBind();
-                    ddlFolioNumber.Items.Insert(0, new ListItem("Select", "Select"));
-                }
-
-                if (hdnFolioFilter.Value != "")
-                {
-                    ddlFolioNumber.SelectedValue = hdnFolioFilter.Value.ToString();
-                }
-            }
-        }
-
-        private DropDownList GetFolioNumberDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlFolioNumber") != null)
-            {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlFolioNumber");
-            }
-            return ddl;
-        }
-
-        //Methods with respect to Scheme Name Filter
-        protected void ddlSchemeName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlSchemeName = GetSchemeNameDDL();
-
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if (Request.QueryString["filetypeId"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
-
-            if (ddlSchemeName != null)
-            {
-                if (ddlSchemeName.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnSchemeNameFilter.Value = ddlSchemeName.SelectedValue;
-                    BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnSchemeNameFilter.Value = "";
-                    BindEquityTransactionGrid(ProcessId);
-                }
-            }
-        }
-
-        private void BindSchemeName(DataTable dtSchemeName)
-        {
-            Dictionary<string, string> genDictSchemeName = new Dictionary<string, string>();
-            if (dtSchemeName.Rows.Count > 0)
-            {
-                // Get the Reject Reason Codes Available into Generic Dictionary
-                foreach (DataRow dr in dtSchemeName.Rows)
-                {
-                    genDictSchemeName.Add(dr["SchemeName"].ToString(), dr["SchemeName"].ToString());
-                }
-
-                DropDownList ddlSchemeName = GetSchemeNameDDL();
-                if (ddlSchemeName != null)
-                {
-                    ddlSchemeName.DataSource = genDictSchemeName;
-                    ddlSchemeName.DataTextField = "Key";
-                    ddlSchemeName.DataValueField = "Value";
-                    ddlSchemeName.DataBind();
-                    ddlSchemeName.Items.Insert(0, new ListItem("Select", "Select"));
-                }
-
-                if (hdnSchemeNameFilter.Value != "")
-                {
-                    ddlSchemeName.SelectedValue = hdnSchemeNameFilter.Value.ToString();
-                }
-            }
-        }
-
-        private DropDownList GetSchemeNameDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlSchemeName") != null)
-            {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlSchemeName");
-            }
-            return ddl;
-        }
-
-        //Methods with respect to Transaction Type Filter
-        protected void ddlTransactionType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlTransactionType = GetTransactionTypeDDL();
-
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if (Request.QueryString["filetypeId"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
-
-            if (ddlTransactionType != null)
-            {
-                if (ddlTransactionType.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnTransactionTypeFilter.Value = ddlTransactionType.SelectedValue;
-                    BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnTransactionTypeFilter.Value = "";
-                    BindEquityTransactionGrid(ProcessId);
-                }
-            }
-        }
-
-        private void BindTransactionType(DataTable dtTransactionType)
-        {
-            Dictionary<string, string> genDictTransactionType = new Dictionary<string, string>();
-            if (dtTransactionType.Rows.Count > 0)
-            {
-                // Get the Reject Reason Codes Available into Generic Dictionary
-                foreach (DataRow dr in dtTransactionType.Rows)
-                {
-                    genDictTransactionType.Add(dr["TransactionType"].ToString(), dr["TransactionType"].ToString());
-                }
-
-                DropDownList ddlTransationType = GetTransactionTypeDDL();
-                if (ddlTransationType != null)
-                {
-                    ddlTransationType.DataSource = genDictTransactionType;
-                    ddlTransationType.DataTextField = "Key";
-                    ddlTransationType.DataValueField = "Value";
-                    ddlTransationType.DataBind();
-                    ddlTransationType.Items.Insert(0, new ListItem("Select", "Select"));
-                }
-
-                if (hdnTransactionTypeFilter.Value != "")
-                {
-                    ddlTransationType.SelectedValue = hdnTransactionTypeFilter.Value.ToString();
-                }
-            }
-        }
-
-        private DropDownList GetTransactionTypeDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlTransactionType") != null)
-            {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlTransactionType");
-            }
-            return ddl;
-        }
-
-        #endregion
-
-
-
-        private SortDirection GridViewSortDirection
-        {
-            get
-            {
-                if (ViewState["sortDirection"] == null)
-                    ViewState["sortDirection"] = SortDirection.Ascending;
-                return (SortDirection)ViewState["sortDirection"];
-            }
-            set { ViewState["sortDirection"] = value; }
-        }
-
-        protected void gvWERPTrans_Sort(object sender, GridViewSortEventArgs e)
-        {
-            string sortExpression = null;
-            try
-            {
-                sortExpression = e.SortExpression;
-                ViewState["sortExpression"] = sortExpression;
-                if (GridViewSortDirection == SortDirection.Ascending)
-                {
-                    GridViewSortDirection = SortDirection.Descending;
-                    hdnSort.Value = sortExpression + " DESC";
-                    this.BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {
-                    GridViewSortDirection = SortDirection.Ascending;
-                    hdnSort.Value = sortExpression + " ASC";
-                    this.BindEquityTransactionGrid(ProcessId);
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "RejectedWERPTransaction.ascx.cs:gvWERPTrans_Sort()");
-
-                object[] objects = new object[1];
-                objects[0] = sortExpression;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-        }
-
-        protected void btnReprocess_Click(object sender, EventArgs e)
+        protected void reprocess()
         {
             //System.Threading.Thread.Sleep(5000);
             bool blResult = false;
@@ -736,9 +155,6 @@ namespace WealthERP.Uploads
 
             if (error == "")
             {
-                // Success Message
-                //trErrorMessage.Visible = true;
-                //lblError.Text = "Reprocess Done Successfully!";
                 msgReprocessComplete.Visible = true;
             }
             else
@@ -752,6 +168,11 @@ namespace WealthERP.Uploads
             BindEquityTransactionGrid(ProcessId);
             //used to display alert msg after completion of reprocessing
 
+        }
+
+        protected void btnReprocess_Click(object sender, EventArgs e)
+        {
+            reprocess();
         }
 
         private bool MFWERPTransactionWERPInsertion(int ProcessId, out int countTransactionsInserted, out int countRejectedRecords, int fileTypeId)
@@ -788,13 +209,13 @@ namespace WealthERP.Uploads
                     CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "SU", "Sundaram");
                 }
             }
-                //***reprocess for folioandTrnx
+            //***reprocess for folioandTrnx
             else if (fileTypeId == 6)
             {
                 standardProfileUploadBo = new StandardProfileUploadBo();
                 string stdPackagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
                 CommonStdTransChecks = standardProfileUploadBo.StdCommonProfileChecks(ProcessId, adviserVo.advisorId, stdPackagePath, configPath);
-                
+
 
             }
 
@@ -855,112 +276,15 @@ namespace WealthERP.Uploads
                 processlogVo.IsInsertionToWERPComplete = 1;
                 processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(ProcessId, "WP");
                 processlogVo.EndTime = DateTime.Now;
-               
+
                 processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeStandard);
 
                 blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-               
+
             }
             return blResult;
         }
 
-        protected void ddlRejectReason_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlReject = GetRejectReasonDDL();
-
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if (Request.QueryString["filetypeId"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
-
-            if (ddlReject != null)
-            {
-                if (ddlReject.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnRejectReasonFilter.Value = ddlReject.SelectedValue;
-                    BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnRejectReasonFilter.Value = "";
-                    BindEquityTransactionGrid(ProcessId);
-                }
-            }
-        }
-
-        private TextBox GetFolioTextBox()
-        {
-            TextBox txt = new TextBox();
-            if ((TextBox)gvWERPTrans.HeaderRow.FindControl("txtFolioSearch") != null)
-            {
-                txt = (TextBox)gvWERPTrans.HeaderRow.FindControl("txtFolioSearch");
-            }
-            return txt;
-        }
-
-        private DropDownList GetRejectReasonDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlRejectReason") != null)
-            {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlRejectReason");
-            }
-            return ddl;
-        }
-
-        protected void btnGridSearch_Click(object sender, EventArgs e)
-        {
-            TextBox txtPanNumber = GetPanNumberTextBox();
-            TextBox txtFolio = GetFolioNumberTextBox();
-            TextBox txtTransactionType = GetTransactionTypeTextBox();
-
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if (Request.QueryString["filetypeId"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
-
-            if (txtPanNumber != null)
-                hdnProcessIdFilter.Value = txtPanNumber.Text.Trim();
-            if (txtFolio != null)
-                hdnFolioFilter.Value = txtFolio.Text.Trim();
-
-            if (txtTransactionType != null)
-                hdnTransactionTypeFilter.Value = txtTransactionType.Text.Trim();
-
-            BindEquityTransactionGrid(ProcessId);
-        }
-
-        private TextBox GetTransactionTypeTextBox()
-        {
-            TextBox txt = new TextBox();
-            if ((TextBox)gvWERPTrans.HeaderRow.FindControl("txtTransactionTypeSearch") != null)
-            {
-                txt = (TextBox)gvWERPTrans.HeaderRow.FindControl("txtTransactionTypeSearch");
-            }
-            return txt;
-        }
-
-        private TextBox GetFolioNumberTextBox()
-        {
-            TextBox txt = new TextBox();
-            if ((TextBox)gvWERPTrans.HeaderRow.FindControl("txtFolioSearch") != null)
-            {
-                txt = (TextBox)gvWERPTrans.HeaderRow.FindControl("txtFolioSearch");
-            }
-            return txt;
-        }
-
-        private TextBox GetPanNumberTextBox()
-        {
-            TextBox txt = new TextBox();
-            if ((TextBox)gvWERPTrans.HeaderRow.FindControl("txtPanNumberSearch") != null)
-            {
-                txt = (TextBox)gvWERPTrans.HeaderRow.FindControl("txtPanNumberSearch");
-            }
-            return txt;
-        }
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
@@ -979,12 +303,13 @@ namespace WealthERP.Uploads
             int i = 0;
             string StagingID = string.Empty;
 
-            foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
+            foreach (GridDataItem gvr in this.gvWERPTrans.Items)
+            //foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
             {
                 if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
-                {
+                {                   
+                    StagingID += Convert.ToString(gvWERPTrans.MasterTableView.DataKeyValues[i]["CMFTSId"]) + "~";
                     i = i + 1;
-                    StagingID += Convert.ToString(gvWERPTrans.DataKeys[gvr.RowIndex].Value) + "~";
                 }
             }
 
@@ -1006,34 +331,7 @@ namespace WealthERP.Uploads
 
 
 
-        private void CustomerTransactionDelete()
-        {
-            #region unused
-            //foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
-            //{
-            //    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
-            //    {
-            //        rejectedRecordsBo = new RejectedRecordsBo();
 
-            //        int StagingID = int.Parse(gvWERPTrans.DataKeys[gvr.RowIndex].Values["CMFTSId"].ToString());
-
-            //        rejectedRecordsBo.DeleteMFTransactionStaging(StagingID);
-            //        if (hdnProcessIdFilter.Value != "")
-            //        {
-            //            ProcessId = int.Parse(hdnProcessIdFilter.Value);
-            //        }
-
-            //        BindEquityTransactionGrid(ProcessId);
-
-
-            //        // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFTransactionStaging','login');", true);
-
-
-
-            //    }
-            //}
-            #endregion
-        }
 
         protected void btnProbableInsert_Click(object sender, EventArgs e)
         {
@@ -1044,26 +342,14 @@ namespace WealthERP.Uploads
             processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
 
             int fileTypeId = processlogVo.FileTypeId;
-            //foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
-            //{
-            //    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
-            //    {
-            //        rejectedRecordsBo = new RejectedRecordsBo();
-
-            //        int stagingID = int.Parse(gvWERPTrans.DataKeys[gvr.RowIndex].Values["CMFTSId"].ToString());
-
-            //        result = rejectedRecordsBo.InsertProbableDuplicatesRejectedTransaction(stagingID);
-
-            //    }
-
-            //}
             rejectedRecordsBo = new RejectedRecordsBo();
-            foreach (GridViewRow gvRow in gvWERPTrans.Rows)
+            foreach (GridDataItem gvRow in gvWERPTrans.MasterTableView.Items)
+            //foreach (GridViewRow gvRow in gvWERPTrans.Rows)
             {
                 CheckBox ChkBxItem = (CheckBox)gvRow.FindControl("chkId");
                 if (ChkBxItem.Checked)
                 {
-                    gvStagingIds += gvWERPTrans.DataKeys[gvRow.RowIndex].Values["CMFTSId"].ToString() + ",";
+                    gvStagingIds += gvWERPTrans.MasterTableView.DataKeyValues[gvRow.RowIndex]["CMFTSId"].ToString() + ",";
                 }
             }
             result = rejectedRecordsBo.InsertProbableDuplicatesRejectedTransaction(gvStagingIds);
@@ -1097,7 +383,7 @@ namespace WealthERP.Uploads
             }
 
             BindEquityTransactionGrid(ProcessId);
-            
+
         }
 
         protected void btnProbableDelete_Click(object sender, EventArgs e)
@@ -1106,12 +392,13 @@ namespace WealthERP.Uploads
             bool blResult = true;
             string gvStagingIds = "";
             rejectedRecordsBo = new RejectedRecordsBo();
-            foreach (GridViewRow gvRow in gvWERPTrans.Rows)
+            foreach (GridDataItem gvRow in gvWERPTrans.MasterTableView.Items)
+            //foreach (GridViewRow gvRow in gvWERPTrans.Rows)
             {
                 CheckBox ChkBxItem = (CheckBox)gvRow.FindControl("chkId");
                 if (ChkBxItem.Checked)
                 {
-                    gvStagingIds += gvWERPTrans.DataKeys[gvRow.RowIndex].Values["CMFTSId"].ToString() + ",";
+                    gvStagingIds += gvWERPTrans.MasterTableView.DataKeyValues[gvRow.RowIndex]["CMFTSId"].ToString() + ",";
                 }
             }
             result = rejectedRecordsBo.DeleteProbableDuplicatesRejectedTransaction(gvStagingIds);
@@ -1119,16 +406,79 @@ namespace WealthERP.Uploads
             {
                 // Success Message
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Records Deleted Successfully');", true);
-                
+
             }
             else
             {
                 // Failure Message
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Probable Duplicate Records');", true);
-                
+
             }
 
             BindEquityTransactionGrid(ProcessId);
+        }
+
+        protected void gvWERPTrans_PreRender(object sender, EventArgs e)
+        {
+            TableCell tc = new TableCell();
+
+            foreach (GridFilteringItem filterItem in gvWERPTrans.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+
+                RadComboBox dropdown = (RadComboBox)filterItem.FindControl("rcbRejectReasonFilter");
+                //if (Session["slectedValue"] != null)
+                //    dropdown.SelectedIndex = Convert.ToInt32(Session["slectedValue"]);
+            }
+            //DataSet ds=(DataSet)gvWERPTrans.MasterTableView.DataSource;
+        }
+        protected void rcbRejectReasonFilter_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Filtering logic  
+            //RadComboBox dropdown = (RadComboBox)sender;
+            //Session["slectedValue"] = dropdown.SelectedIndex; // Saving the selected index in session variable  
+            ((GridFilteringItem)(((RadComboBox)sender).Parent.Parent)).FireCommandEvent("Filter", new Pair());
+            //DataSet ds = (DataSet)gvWERPTrans.MasterTableView.DataSource;
+
+        }
+
+        //private void rcbRejectReasonFilter_OnSelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        //{
+        //    ((GridFilteringItem)(((RadComboBox)sender).Parent.Parent)).FireCommandEvent("Filter", new Pair());
+        //}
+
+        protected void gvWERPTrans_ItemCreated(object sender, GridItemEventArgs e)
+        {
+            string strALL;
+            if (e.Item is GridFilteringItem && dsRejectedRecords != null)
+            {
+                BoundColumn bc = new BoundColumn();
+
+                //GridFilteringItem filterItem = (GridFilteringItem)e.Item;
+                RadComboBox rcb = new RadComboBox();
+                RadComboBoxItem rcbi = new RadComboBoxItem("Select Reject Reason", "0");
+
+                rcb = (RadComboBox)e.Item.FindControl("rcbRejectReasonFilter");
+
+                rcb.DataSource = dsRejectedRecords.Tables[1];
+                rcb.DataTextField = "RejectReason";
+                rcb.DataValueField = "RejectReasonCode";
+
+                rcb.DataBind();
+
+
+                rcb.Items.Insert(0, rcbi);
+            }
+        }
+
+        protected void gvWERPTrans_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataSet dtProcessLogDetails = new DataSet();
+            dtProcessLogDetails = (DataSet)Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()];
+            gvWERPTrans.DataSource = dtProcessLogDetails;
+            if (gvWERPTrans.DataSource != null)
+                gvWERPTrans.Visible = true;
+            else
+                gvWERPTrans.Visible = false;
         }
 
     }
