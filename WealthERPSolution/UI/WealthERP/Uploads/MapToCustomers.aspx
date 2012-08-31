@@ -5,17 +5,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 
-<script type="text/javascript" src="../Scripts/JScript.js"></script>
-<%--
-<script>
-function ClosePopUp(){
 
+
+<script type="text/javascript">
+function ClosePopUp(){
     window.close();
-//    if (window.opener && !window.opener.closed) {
-//        window.opener.location.reload();
-//    }
+    if (window.opener && !window.opener.closed) {
+        alert('t');
+        //window.opener.location.reload();
+        alert(window.opener.name);
+        window.opener.Reprocess();
+    }
 }
-</script>--%>
+</script>
+
+
 <head runat="server">
     <title>Map To Customer</title>
     <style>
@@ -30,6 +34,16 @@ function ClosePopUp(){
     
     <form id="form1" runat="server">
     <div id="divheader" runat="server">
+    
+    <script language="javascript" type="text/javascript">
+           //code to call RejectedMFFolio usercontrol RefreshUser JS function
+        window.onunload = Reprocess;
+        function Reprocess() {
+            window.opener.reprocessMFFolio();
+            window.opener.location.reload();
+            alert('1');
+           }
+</script>
     <table class="TDBackground" width="100%">
     <tr>
         <td>
@@ -47,8 +61,9 @@ function ClosePopUp(){
         <tr>
             <td align="center">
                 <asp:Label ID="lblMessage" runat="server" Text="" Visible="false" class="maroon" ></asp:Label>
-                <asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="javascript:window.close();return false;"><br />Close Window</asp:HyperLink>
-                <%--<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="return ClosePopUp()"><br />Close Window</asp:HyperLink>--%>
+                <%--<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="javascript:window.close();return false;"><br />Close Window</asp:HyperLink>
+               --%> 
+               <asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="return ClosePopUp()"><br />Close Window</asp:HyperLink>
             </td>
         </tr>
     </table>
