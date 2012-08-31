@@ -127,22 +127,25 @@
             <telerik:RadGrid ID="gvCommissionMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false" 
-                Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
+                Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" 
+                ExportSettings-ExportOnlyData="true" >
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="MF Commission MIS" Excel-Format="ExcelML">
+                </ExportSettings>
                 <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
                     <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                         ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
 --%>                    <Columns>
                         <telerik:GridBoundColumn UniqueName="MISType" AllowFiltering="false"
-                            HeaderText="">
+                            HeaderText=""  FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn  Aggregate="sum" UniqueName="BrokerageAmt"  DataField="Brokerage" AllowFiltering="false"
-                            HeaderText="Brokerage Amount" FooterStyle-HorizontalAlign="Right" FooterText="" >
-                            <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        <telerik:GridBoundColumn   UniqueName="BrokerageAmt"  DataField="Brokerage" AllowFiltering="false"
+                            HeaderText="Brokerage Amount" Aggregate="Sum" FooterStyle-HorizontalAlign="Right"  >
+                            <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false"  />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Aggregate="sum" UniqueName="TrailCommission" DataField="trailFee" AllowFiltering="false"
-                            HeaderText="Trail Commission">
-                            <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        <telerik:GridBoundColumn  UniqueName="TrailCommission" DataField="trailFee" AllowFiltering="false"
+                            HeaderText="Trail Commission" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" >
+                            <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false"  />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="CustomerName" DataField="CustomerName" AllowFiltering="true"
                             HeaderText="Customer Name" SortExpression="CustomerName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
