@@ -1,9 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RejectedMFFolio.ascx.cs"
     Inherits="WealthERP.Uploads.RejectedMFFolio" %>
 
-
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
-<asp:ScriptManager  runat="server"></asp:ScriptManager>
+
+<asp:ScriptManager runat="server">
+</asp:ScriptManager>
 
 <script language="javascript" type="text/javascript">
     function checkAllFPBoxes() {
@@ -18,16 +19,16 @@
 
         //this is the checkbox in the header template
         var mainChkBox = document.getElementById("chkBxAll");
-     
-            if (mainChkBox.checked == false) {
-                mainChkBox.checked = true;
 
-            }
-            else {
-                mainChkBox.checked = false;
-            }
+        if (mainChkBox.checked == false) {
+            mainChkBox.checked = true;
 
-       
+        }
+        else {
+            mainChkBox.checked = false;
+        }
+
+
 
         //get an array of input types in the gridview
         var inputTypes = gvAssociation.getElementsByTagName("input");
@@ -41,7 +42,7 @@
     } 
 
 
-    </script>
+</script>
 
 <script>
     function ShowPopup() {
@@ -109,10 +110,10 @@
     //    Function to call btnReprocess_Click method to refresh user control
 
     function Reprocess() {
-        
+
         document.getElementById('<%= btnReprocess.ClientID %>').click();
     }
-    </script>
+</script>
 
 <table width="100%">
     <tr>
@@ -122,6 +123,11 @@
                     <tr>
                         <td align="left">
                             Mutual Fund Folio Rejects
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -171,9 +177,6 @@
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td>
-                <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
             </td>
         </tr>
         <%--<tr>
@@ -220,7 +223,7 @@
                                 <telerik:GridBoundColumn HeaderText="ProcessId" DataField="ProcessId" UniqueName="ProcessId"
                                     SortExpression="ProcessId" AutoPostBackOnFilter="true" AllowFiltering="true"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderText="InvName" DataField="InvName" UniqueName="InvName"
                                     SortExpression="InvName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
@@ -374,7 +377,7 @@
             </asp:Label>
         </td>
     </tr>
-   <%-- <tr id="trErrorMessage" runat="server" visible="false">
+    <%-- <tr id="trErrorMessage" runat="server" visible="false">
         <td class="Message">
             <asp:Label ID="lblError" CssClass="Message" runat="server">
             </asp:Label>

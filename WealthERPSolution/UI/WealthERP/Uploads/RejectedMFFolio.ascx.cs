@@ -159,6 +159,7 @@ namespace WealthERP.Uploads
                     trReprocess.Visible = true;
                     gvCAMSProfileReject.DataSource = dsRejectedRecords.Tables[0];
                     gvCAMSProfileReject.DataBind();
+
                     if (Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()] == null)
                     {
                         Cache.Insert("RejectedMFFolioDetails" + adviserVo.advisorId.ToString(), dsRejectedRecords.Tables[0]);
@@ -200,18 +201,14 @@ namespace WealthERP.Uploads
         {
             int i = 0;
             string StagingID = string.Empty;
-            foreach (GridDataItem item in gvCAMSProfileReject.MasterTableView.Items)
+            foreach (GridDataItem item in this.gvCAMSProfileReject.Items)
             {
-                CheckBox chkBox = (CheckBox)(item["action"].FindControl("chkBx"));
-                if (chkBox.Checked == true)
+                if (((CheckBox)item.FindControl("chkBx")).Checked == true)
                 {
+                    StagingID += Convert.ToString(gvCAMSProfileReject.MasterTableView.DataKeyValues[i]["MFFolioStagingId"]) + "~";
                     i = i + 1;
-
-                    if (item.Selected)
-                    {
-                        StagingID = Convert.ToString(item.GetDataKeyValue("MFFolioStagingId").ToString()) + "~";
-                    }
                 }
+
             }
             if (i == 0)
             {
@@ -230,7 +227,7 @@ namespace WealthERP.Uploads
             reprocessMFFolio();
         }
 
-       
+
         public void reprocessMFFolio()
         {
             bool blResult = false;
@@ -265,7 +262,7 @@ namespace WealthERP.Uploads
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
 
             processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
-            if (uploadsCommonBo.ResetRejectedFlagByProcess(ProcessId,9))
+            if (uploadsCommonBo.ResetRejectedFlagByProcess(ProcessId, 9))
             {
                 //Folio Chks in Std Folio Staging 
                 //string packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
@@ -353,7 +350,7 @@ namespace WealthERP.Uploads
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
 
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RejectedWERPProfile','processId=" + ProcessId + "');", true);
-            
+
         }
 
         protected void LinkInputRejects_Click(object sender, EventArgs e)
@@ -385,12 +382,11 @@ namespace WealthERP.Uploads
         protected void gvCAMSProfileReject_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtRejectedMFFolioDetails = new DataTable();
-            if (dtRejectedMFFolioDetails.Rows.Count>0)
-            {
-                dtRejectedMFFolioDetails = (DataTable)Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()];
-                gvCAMSProfileReject.DataSource = dtRejectedMFFolioDetails;
-            }
+
+            dtRejectedMFFolioDetails = (DataTable)Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()];
+            gvCAMSProfileReject.DataSource = dtRejectedMFFolioDetails;
+
         }
-       
+
     }
 }
