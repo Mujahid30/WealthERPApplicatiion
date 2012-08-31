@@ -127,6 +127,10 @@
                             Aggregate="Sum">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="CL_AssetParticular" AllowFiltering="false" HeaderText="Asset Particular"
+                             >
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Frequency" AllowFiltering="false" HeaderText="Frequency"
                             UniqueName="Frequency">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

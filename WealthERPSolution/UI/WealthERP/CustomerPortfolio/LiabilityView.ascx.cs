@@ -59,6 +59,7 @@ namespace WealthERP.CustomerPortfolio
                 dt.Columns.Add("LoanOutstanding", typeof(double));
                 dt.Columns.Add("NextInstallmentDate",typeof(DateTime));
                 dt.Columns.Add("Frequency");
+                dt.Columns.Add("CL_AssetParticular");
                 for (int i = 0; i < liabilitiesListVo.Count; i++)
                 {
                     dr = dt.NewRow();
@@ -68,6 +69,7 @@ namespace WealthERP.CustomerPortfolio
                     dr[2] = liabilityVo.LoanPartner.ToString();
                     dr[3] = decimal.Parse(liabilityVo.LoanAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     dr[4] = liabilityVo.RateOfInterest.ToString();
+                    
                     if (liabilityVo.PaymentOptionCode == 1)
                     {
                         dr[5] = "Lumpsum";
@@ -111,8 +113,19 @@ namespace WealthERP.CustomerPortfolio
                                 dr[9] = "Yearly";
                                 break;
                         }
+                        
                     }
-                  
+                    else
+                    {
+                        dr[5] = " ";
+                        dr[6] = " ";
+                        //loanOutStanding = calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
+                        dr[7] = " ";
+                        //nextInsDate = calculator.GetNextPremiumDate(liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, liabilityVo.FrequencyCodeEMI);
+                        dr[8] = " ";
+                        dr[9] = " ";
+                    }
+                    dr[10] = liabilityVo.AssetParticular.ToString();
                     dt.Rows.Add(dr);
                 }
                 gvLiabilities.DataSource = dt;
