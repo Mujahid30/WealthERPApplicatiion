@@ -1,8 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerEQAccountView.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.CustomerEQAccountView" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<asp:ScriptManager runat="server">
+</asp:ScriptManager>
 
-<asp:ScriptManager runat="server"></asp:ScriptManager>
 <script type="text/javascript">
     function ShowAlertToDelete() {
 
@@ -32,6 +33,11 @@
                         <td align="left">
                             View Equity Trade Account
                         </td>
+                        <td align="right">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -55,9 +61,6 @@
     </tr>
     <tr>
         <td>
-            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                Height="25px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
             <telerik:RadGrid ID="gvEQAcc" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
@@ -76,11 +79,11 @@
                                     <Items>
                                         <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
                                             Selected="true"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/reprocess.png"
+                                        <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
                                             runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/ManageRejects.png" Text="Edit" Value="Edit"
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
                                             runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/rollback.png" Text="Delete" Value="Delete"
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/delete.png" Text="Delete" Value="Delete"
                                             runat="server"></telerik:RadComboBoxItem>
                                     </Items>
                                 </telerik:RadComboBox>
@@ -111,15 +114,16 @@
                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                         <telerik:GridDateTimeColumn DataField="A/C Opening Date" SortExpression="A/C Opening Date" AutoPostBackOnFilter="true"
-                                CurrentFilterFunction="Contains" AllowFiltering="true" HeaderText="Account Opening date"
-                                UniqueName="A/COpeningDate" DataFormatString="{0:d}" ShowFilterIcon="false">
-                                <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                <FilterTemplate>
-                                    <telerik:RadDatePicker Width="250px" ID="calFilter" runat="server">
-                                    </telerik:RadDatePicker>
-                                </FilterTemplate>
-                            </telerik:GridDateTimeColumn>
+                        <telerik:GridDateTimeColumn DataField="A/C Opening Date" SortExpression="A/C Opening Date"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" AllowFiltering="true"
+                            HeaderText="Account Opening date" UniqueName="A/COpeningDate" DataFormatString="{0:d}"
+                            ShowFilterIcon="false">
+                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <FilterTemplate>
+                                <telerik:RadDatePicker Width="250px" ID="calFilter" runat="server">
+                                </telerik:RadDatePicker>
+                            </FilterTemplate>
+                        </telerik:GridDateTimeColumn>
                     </Columns>
                 </MasterTableView>
                 <ClientSettings>
@@ -160,7 +164,6 @@
         </td>
     </tr>
 </table>
-
 <asp:HiddenField ID="hdnSort" runat="server" Value="InstrumentCategory ASC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnStatusValue" runat="server" />
