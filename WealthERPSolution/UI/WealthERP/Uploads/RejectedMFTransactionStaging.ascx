@@ -199,10 +199,16 @@
                         <td align="left">
                             MF Transaction Staging Rejects
                         </td>
-                        <td align="right">
+                         <td align="right">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                        </td>
+                        <td style="width:10px" align="right">
                             <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
                                 class="flip" />
                         </td>
+                        
                     </tr>
                 </table>
             </div>
@@ -272,7 +278,7 @@
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
                     EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
                     ExportSettings-FileName="MF Transaction Reject Details" ShowFooter="true" OnPreRender="gvWERPTrans_PreRender"
-                    OnItemCreated="gvWERPTrans_ItemCreated" OnNeedDataSource="gvWERPTrans_NeedDataSource">
+                    OnNeedDataSource="gvWERPTrans_NeedDataSource">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
                     <MasterTableView TableLayout="Auto" DataKeyNames="CMFTSId,ProcessId,FolioNumber,InvestorName"
@@ -288,12 +294,13 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="RejectReason" AllowFiltering="true" HeaderText="RejectReason"
-                                UniqueName="RejectReason">
-                                <FilterTemplate>
+                                UniqueName="RejectReason" SortExpression="RejectReason" AutoPostBackOnFilter="true"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                               <%-- <FilterTemplate>
                                     <telerik:RadComboBox AllowCustomText="true" ID="rcbRejectReasonFilter" Width="280px"
                                         runat="server" AutoPostBack="true" OnSelectedIndexChanged="rcbRejectReasonFilter_OnSelectedIndexChanged">
                                     </telerik:RadComboBox>
-                                </FilterTemplate>
+                                </FilterTemplate>--%>
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="InvestorName" AllowFiltering="true" HeaderText="InvestorName"
@@ -331,15 +338,15 @@
                                     </telerik:RadDatePicker>
                                 </FilterTemplate>
                             </telerik:GridDateTimeColumn>
-                            <telerik:GridBoundColumn DataField="Price" AllowFiltering="false" HeaderText="Price"
+                            <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="Price" AllowFiltering="false" HeaderText="Price"
                                 UniqueName="Price" Aggregate="Sum" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Units" AllowFiltering="false" HeaderText="Units"
+                            <telerik:GridBoundColumn  FooterStyle-HorizontalAlign="Right" DataField="Units" AllowFiltering="false" HeaderText="Units"
                                 UniqueName="Units" Aggregate="Sum" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Amount" AllowFiltering="false" HeaderText="Amount"
+                            <telerik:GridBoundColumn  FooterStyle-HorizontalAlign="Right" DataField="Amount" AllowFiltering="false" HeaderText="Amount"
                                 UniqueName="Amount" Aggregate="Sum" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>

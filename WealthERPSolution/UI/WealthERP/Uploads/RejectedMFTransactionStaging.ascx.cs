@@ -481,6 +481,17 @@ namespace WealthERP.Uploads
                 gvWERPTrans.Visible = false;
         }
 
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvWERPTrans.ExportSettings.OpenInNewWindow = true;
+            gvWERPTrans.ExportSettings.IgnorePaging = true;
+            gvWERPTrans.ExportSettings.HideStructureColumns = true;
+            gvWERPTrans.ExportSettings.ExportOnlyData = true;
+            gvWERPTrans.ExportSettings.FileName = "Rejected MF Transaction Details";
+            gvWERPTrans.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvWERPTrans.MasterTableView.ExportToExcel();
+        }
+
     }
 
 }
