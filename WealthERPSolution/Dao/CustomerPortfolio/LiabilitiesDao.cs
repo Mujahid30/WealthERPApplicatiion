@@ -2192,6 +2192,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdCreateLiability, "@CL_EMIDate", DbType.Int16, liabilitiesVo.EMIDate);
                 db.AddInParameter(cmdCreateLiability, "@CL_NoOfInstallments", DbType.Int32, liabilitiesVo.NoOfInstallments);
                 db.AddInParameter(cmdCreateLiability, "@CL_AmountPrepaid", DbType.Double, liabilitiesVo.AmountPrepaid);
+                db.AddInParameter(cmdCreateLiability, "@CL_AssetParticular", DbType.String, liabilitiesVo.AssetParticular);
                 if(!string.IsNullOrEmpty(liabilitiesVo.RepaymentTypeCode))
                     db.AddInParameter(cmdCreateLiability, "@XRT_RepaymentTypeCode", DbType.String, liabilitiesVo.RepaymentTypeCode);
                 else
@@ -2339,9 +2340,10 @@ namespace DaoCustomerPortfolio
                         if (!String.IsNullOrEmpty(dr["CL_Guarantor"].ToString()))
                             liabilitiesVo.Guarantor=dr["CL_Guarantor"].ToString();
                         if (!String.IsNullOrEmpty(dr["CL_Tenure"].ToString()))
-                            liabilitiesVo.Tenure=int.Parse(dr["CL_Tenure"].ToString());                   
-                        
-			 
+                            liabilitiesVo.Tenure=int.Parse(dr["CL_Tenure"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_AssetParticular"].ToString()))
+                            liabilitiesVo.AssetParticular = (dr["CL_AssetParticular"].ToString());    
+                         
                         liabilitiesList.Add(liabilitiesVo);
                     }
                 }
