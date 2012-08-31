@@ -679,6 +679,7 @@ namespace WealthERP.CustomerPortfolio
                 liabilitiesVo.CommissionAmount = 0;
                 liabilitiesVo.CommissionPer = 0;
                 liabilitiesVo.CreatedBy = userVo.UserId;
+                liabilitiesVo.AssetParticular = txtasset.Text.ToString();            
                 if(txtEMIAmount.Text!="")
                 liabilitiesVo.EMIAmount = double.Parse(txtEMIAmount.Text);
                 //liabilitiesVo.EMIDate = int.Parse(ddl.SelectedItem.Value.ToString());
