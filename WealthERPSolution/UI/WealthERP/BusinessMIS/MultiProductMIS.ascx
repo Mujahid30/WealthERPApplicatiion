@@ -225,11 +225,11 @@
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridTemplateColumn UniqueName="Mutual_Fund" HeaderText="Mutual Fund" Groupable="False"
-                            ItemStyle-Wrap="false" AllowFiltering="true" SortExpression="Mutual_Fund" 
+                            ItemStyle-Wrap="false" AllowFiltering="true" SortExpression="Mutual_Fund" ItemStyle-HorizontalAlign="Right"
                             DataField="Mutual_Fund" FooterStyle-HorizontalAlign="Right">
-                            <ItemTemplate>
+                            <ItemTemplate >
                                 <asp:LinkButton ID="lnkMF" runat="server" Text='<%# Eval("Mutual_Fund").ToString() %>'
-                                    CommandName="Redirect"></asp:LinkButton>
+                                    CommandName="Redirect"  ></asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         <%--<telerik:gridbuttonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="Mutual_Fund" HeaderText="Mutual Fund" 
