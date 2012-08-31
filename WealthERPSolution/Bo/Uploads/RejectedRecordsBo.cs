@@ -142,13 +142,13 @@ namespace BoUploads
 
             return dsCAMSRejectedProfiles;
         }
-        public DataSet getMFRejectedFolios(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter)
+        public DataSet getMFRejectedFolios(int adviserId, int processId)
         {
             DataSet dsCAMSRejectedProfiles;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsCAMSRejectedProfiles = rejecetedRecords.getMFRejectedFolios(adviserId, processId, CurrentPage, out Count, SortExpression, IsRejectedFilter, PANFilter, RejectReasonFilter, NameFilter, FolioFilter);
+                dsCAMSRejectedProfiles = rejecetedRecords.getMFRejectedFolios(adviserId, processId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -163,13 +163,13 @@ namespace BoUploads
 
                 object[] objects = new object[9];
                 objects[0] = processId;
-                objects[1] = CurrentPage;
-                objects[2] = SortExpression;
-                objects[3] = IsRejectedFilter;
-                objects[4] = PANFilter;
-                objects[5] = RejectReasonFilter;
-                objects[6] = NameFilter;
-                objects[7] = FolioFilter;
+                //objects[1] = CurrentPage;
+                //objects[2] = SortExpression;
+                //objects[3] = IsRejectedFilter;
+                //objects[4] = PANFilter;
+                //objects[5] = RejectReasonFilter;
+                //objects[6] = NameFilter;
+                //objects[7] = FolioFilter;
                 //objects[8] = DoesCustExistFilter;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -565,13 +565,13 @@ namespace BoUploads
             return dsWERPRejectedTransactions;
         }
 
-        public DataSet GetRejectedMFTransactionStaging(int adviserId, int CurrentPage, out int Count, string SortExpression, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string sourceTypeFilter, string schemeNameFilter)
+        public DataSet GetRejectedMFTransactionStaging(int adviserId, int processId)
         {
             DataSet dsWERPRejectedTransactions;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedMFTransactionStaging(adviserId, CurrentPage, out Count, SortExpression, processId, RejectReasonFilter, fileNameFilter, FolioFilter, TransactionTypeFilter, investorNameFileter, sourceTypeFilter, schemeNameFilter);
+                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedMFTransactionStaging(adviserId, processId);
 
             }
             catch (BaseApplicationException Ex)
@@ -587,15 +587,15 @@ namespace BoUploads
 
                 object[] objects = new object[10];
                 objects[0] = processId;
-                objects[1] = CurrentPage;
-                objects[2] = SortExpression;
-                objects[3] = RejectReasonFilter;
-                objects[4] = fileNameFilter;
-                objects[5] = FolioFilter;
-                objects[6] = TransactionTypeFilter;
-                objects[7] = investorNameFileter;
-                objects[8] = sourceTypeFilter;
-                objects[9] = schemeNameFilter;
+                //objects[1] = CurrentPage;
+                //objects[2] = SortExpression;
+                //objects[3] = RejectReasonFilter;
+                //objects[4] = fileNameFilter;
+                //objects[5] = FolioFilter;
+                //objects[6] = TransactionTypeFilter;
+                //objects[7] = investorNameFileter;
+                //objects[8] = sourceTypeFilter;
+                //objects[9] = schemeNameFilter;
 
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
