@@ -164,10 +164,10 @@
         </ClientSettings>
     </telerik:RadGrid>
     </telerik:RadAjaxPanel>
-    <table  class="TableBackground" width="100%">
+<table  class="TableBackground" width="100%">
  <tr align="center">
-        <td align="center">
-            <asp:Label ID="lblErrorMsg" runat="server" CssClass="failure-msg" Visible="false">
+        <td align="center" width="100%">
+            <asp:Label ID="lblErrorMsg" runat="server" CssClass="failure-msg" Visible="false" Width="60%">
             </asp:Label>
         </td>
     </tr>
