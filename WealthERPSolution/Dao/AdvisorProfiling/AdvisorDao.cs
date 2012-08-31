@@ -2491,6 +2491,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(dbCustomerSync, "@CustomerIds", DbType.String, customerIds);
 
                 db.AddInParameter(dbCustomerSync, "@AdviserId", DbType.Int32, adviserId);
+                dbCustomerSync.CommandTimeout = 60 * 60;
                 db.ExecuteNonQuery(dbCustomerSync);                     
             }
             catch (BaseApplicationException Ex)
