@@ -454,11 +454,15 @@ namespace WealthERP.Admin
                 else
                 {
                     int All=0;
+                    string categoryCode = null;
                     int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
-                    if(ddlNAVCategory.SelectedIndex != 0)
-                        All=1;
+                    if (ddlNAVCategory.SelectedIndex != 0)
+                    {
+                        All = 1;
+                        categoryCode = ddlNAVCategory.SelectedValue;
+                    }
                     int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
-                    string categoryCode = ddlNAVCategory.SelectedValue;
+                    
                     int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
 
                     string Search = hdnSchemeSearch.Value;
