@@ -87,7 +87,7 @@ namespace DaoUploads
 
             return dsGetCAMSRejectedProfiles;
         }
-        public DataSet getMFRejectedFolios(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter)
+        public DataSet getMFRejectedFolios(int adviserId, int processId)
         {
             DataSet dsGetCAMSRejectedProfiles;
             Database db;
@@ -98,33 +98,34 @@ namespace DaoUploads
                 getCAMSRejectedProfilesCmd = db.GetStoredProcCommand("SP_GetMFUploadRejectsFolios");
                 db.AddInParameter(getCAMSRejectedProfilesCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getCAMSRejectedProfilesCmd, "@processId", DbType.Int32, processId);
-                db.AddInParameter(getCAMSRejectedProfilesCmd, "@currentPage", DbType.Int32, CurrentPage);
-                db.AddInParameter(getCAMSRejectedProfilesCmd, "@processIdSortOrder", DbType.String, SortExpression);
-                if (IsRejectedFilter != "")
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isRejectedFilter", DbType.String, IsRejectedFilter);
-                else
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isRejectedFilter", DbType.String, DBNull.Value);
-                if (PANFilter != "")
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@panFilter", DbType.String, PANFilter);
-                else
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@panFilter", DbType.String, DBNull.Value);
-                if (FolioFilter != "")
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@folioFilter", DbType.String, FolioFilter);
-                else
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@folioFilter", DbType.String, DBNull.Value);
-                if (NameFilter != "")
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@nameFilter", DbType.String, NameFilter);
-                else
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@nameFilter", DbType.String, DBNull.Value);
-                if (RejectReasonFilter != "")
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
-                else
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, DBNull.Value);
+                #region unused
+                //db.AddInParameter(getCAMSRejectedProfilesCmd, "@currentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(getCAMSRejectedProfilesCmd, "@processIdSortOrder", DbType.String, SortExpression);
+                //if (IsRejectedFilter != "")
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isRejectedFilter", DbType.String, IsRejectedFilter);
+                //else
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isRejectedFilter", DbType.String, DBNull.Value);
+                //if (PANFilter != "")
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@panFilter", DbType.String, PANFilter);
+                //else
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@panFilter", DbType.String, DBNull.Value);
+                //if (FolioFilter != "")
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@folioFilter", DbType.String, FolioFilter);
+                //else
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@folioFilter", DbType.String, DBNull.Value);
+                //if (NameFilter != "")
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@nameFilter", DbType.String, NameFilter);
+                //else
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@nameFilter", DbType.String, DBNull.Value);
+                //if (RejectReasonFilter != "")
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+                //else
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, DBNull.Value);
                 //if (DoesCustExistFilter != "")
                 //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DoesCustExistFilter);
                 //else
                 //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DBNull.Value);
-
+                #endregion
                 dsGetCAMSRejectedProfiles = db.ExecuteDataSet(getCAMSRejectedProfilesCmd);
             }
             catch (BaseApplicationException Ex)
@@ -140,13 +141,13 @@ namespace DaoUploads
 
                 object[] objects = new object[9];
                 objects[0] = processId;
-                objects[1] = CurrentPage;
-                objects[2] = SortExpression;
-                objects[3] = IsRejectedFilter;
-                objects[4] = PANFilter;
-                objects[5] = RejectReasonFilter;
-                objects[6] = NameFilter;
-                objects[7] = FolioFilter;
+                //objects[1] = CurrentPage;
+                //objects[2] = SortExpression;
+                //objects[3] = IsRejectedFilter;
+                //objects[4] = PANFilter;
+                //objects[5] = RejectReasonFilter;
+                //objects[6] = NameFilter;
+                //objects[7] = FolioFilter;
                 //objects[8] = DoesCustExistFilter;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -155,7 +156,7 @@ namespace DaoUploads
                 throw exBase;
             }
 
-            Count = Int32.Parse(dsGetCAMSRejectedProfiles.Tables[1].Rows[0]["CNT"].ToString());
+            //Count = Int32.Parse(dsGetCAMSRejectedProfiles.Tables[1].Rows[0]["CNT"].ToString());
 
             return dsGetCAMSRejectedProfiles;
         }
@@ -763,7 +764,7 @@ namespace DaoUploads
             return dsGetWERPRejectedTransactions;
         }
 
-        public DataSet GetRejectedMFTransactionStaging(int adviserId, int CurrentPage, out int Count, string SortExpression, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string sourceTypeFilter, string schemeNameFilter)
+        public DataSet GetRejectedMFTransactionStaging(int adviserId, int processId)
         {
             DataSet dsGetMFRejectedTransactions;
             Database db;
@@ -772,8 +773,8 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getMFRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetUploadRejectsMFTransactionStaging");
-                db.AddInParameter(getMFRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
-                db.AddInParameter(getMFRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
+                //db.AddInParameter(getMFRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(getMFRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
                 db.AddInParameter(getMFRejectedTransactionsCmd, "@adviserId", DbType.Int32, adviserId);
 
                 if (processId != 0)
@@ -781,26 +782,26 @@ namespace DaoUploads
                 else
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
                 
-                if (RejectReasonFilter != "")
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+                //if (RejectReasonFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
 
-                if (fileNameFilter != "")
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@fileNameFilter", DbType.String, fileNameFilter);
+                //if (fileNameFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@fileNameFilter", DbType.String, fileNameFilter);
 
-                if (FolioFilter != "")
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@folioFilter", DbType.String, FolioFilter);
+                //if (FolioFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@folioFilter", DbType.String, FolioFilter);
 
-                if (TransactionTypeFilter != "")
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
+                //if (TransactionTypeFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
 
-                if (investorNameFileter != "")
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@investorNameFileter", DbType.String, investorNameFileter);
+                //if (investorNameFileter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@investorNameFileter", DbType.String, investorNameFileter);
 
-                if (sourceTypeFilter != "")
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@sourceTypeFilter", DbType.String, sourceTypeFilter);
+                //if (sourceTypeFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@sourceTypeFilter", DbType.String, sourceTypeFilter);
 
-                if (schemeNameFilter != "")
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@schemeNameFilter", DbType.String, schemeNameFilter);
+                //if (schemeNameFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@schemeNameFilter", DbType.String, schemeNameFilter);
                 getMFRejectedTransactionsCmd.CommandTimeout = 60 * 60;
                 dsGetMFRejectedTransactions = db.ExecuteDataSet(getMFRejectedTransactionsCmd);
             }
@@ -816,16 +817,16 @@ namespace DaoUploads
                 FunctionInfo.Add("Method", "RejectedRecordsDao.cs:getWERPRejectedTransactions()");
 
                 object[] objects = new object[10];
-                objects[0] = processId;
-                objects[1] = CurrentPage;
-                objects[2] = SortExpression;
-                objects[3] = RejectReasonFilter;
-                objects[4] = fileNameFilter;
-                objects[5] = FolioFilter;
-                objects[6] = TransactionTypeFilter;
-                objects[7] = investorNameFileter;
-                objects[8] = sourceTypeFilter;
-                objects[9] = schemeNameFilter;
+                //objects[0] = processId;
+                //objects[1] = CurrentPage;
+                //objects[2] = SortExpression;
+                //objects[3] = RejectReasonFilter;
+                //objects[4] = fileNameFilter;
+                //objects[5] = FolioFilter;
+                //objects[6] = TransactionTypeFilter;
+                //objects[7] = investorNameFileter;
+                //objects[8] = sourceTypeFilter;
+                //objects[9] = schemeNameFilter;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -833,7 +834,7 @@ namespace DaoUploads
                 throw exBase;
             }
 
-            Count = Int32.Parse(dsGetMFRejectedTransactions.Tables[1].Rows[0]["CNT"].ToString());
+            //Count = Int32.Parse(dsGetMFRejectedTransactions.Tables[1].Rows[0]["CNT"].ToString());
 
             return dsGetMFRejectedTransactions;
         }
