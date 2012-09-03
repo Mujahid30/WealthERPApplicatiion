@@ -40,12 +40,18 @@ namespace VoCustomerPortfolio
         private string m_Guarantor;
         private DateTime m_LoanStartDate;
         private int m_Tenure;
+        private string m_AssetParticular;
 
 
         #endregion Fields
 
         #region Properties
 
+        public string AssetParticular
+        {
+            get { return m_AssetParticular; }
+            set { m_AssetParticular = value; }
+        }
         
         public string LoanPartner
         {
