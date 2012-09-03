@@ -45,7 +45,7 @@ namespace WealthERP.Reports
     public partial class Display : System.Web.UI.Page
     {
         ReportDocument crmain;
-      
+
         DateBo dtBo = new DateBo();
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
@@ -153,7 +153,7 @@ namespace WealthERP.Reports
             }
 
             //if (Request.Form["ctrl_MFReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$btnEMailReport"] != null)
-            if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != null 
+            if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != null
                 || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnExportToPDF"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerViewReport"] != null
                 || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerExportToPDF"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewInDOC"] != null
                 || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerViewInDOC"] != null)
@@ -218,14 +218,14 @@ namespace WealthERP.Reports
             if (!Page.IsPostBack && CurrentReportType == ReportType.FinancialPlanningSectional)
             {
                 HideShowFPSection();
-                
+
             }
-                DisplayReport();
-           
+            DisplayReport();
+
 
         }
 
-       //protected void Page_UnLoad(object sender, EventArgs e)
+        //protected void Page_UnLoad(object sender, EventArgs e)
         //{
         //    this.CrystalReportViewer1.Dispose();
         //    this.CrystalReportViewer1 = null;
@@ -411,67 +411,67 @@ namespace WealthERP.Reports
 
         private void DisplayReport(OrderTransactionSlipVo report)
         {
-                
-                MFReportsBo mfReportBo = new MFReportsBo();
-                report = (OrderTransactionSlipVo)Session["reportParams"];
-                DataSet dstransactionSlip = new DataSet();
-                DataTable dtTransactionSlip;
 
-                crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
-                //crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
+            MFReportsBo mfReportBo = new MFReportsBo();
+            report = (OrderTransactionSlipVo)Session["reportParams"];
+            DataSet dstransactionSlip = new DataSet();
+            DataTable dtTransactionSlip;
 
-                dstransactionSlip = mfReportBo.GetOrderTransactionForm(report);
-                DataRow[] drOrderTransactionForm = new DataRow[dstransactionSlip.Tables[0].Columns.Count];
-                setLogo();
+            crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
+            //crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
 
-                if (dstransactionSlip.Tables.Count > 0 && dstransactionSlip.Tables[0].Rows.Count>0)
+            dstransactionSlip = mfReportBo.GetOrderTransactionForm(report);
+            DataRow[] drOrderTransactionForm = new DataRow[dstransactionSlip.Tables[0].Columns.Count];
+            setLogo();
+
+            if (dstransactionSlip.Tables.Count > 0 && dstransactionSlip.Tables[0].Rows.Count > 0)
+            {
+                crmain.SetDataSource(dstransactionSlip.Tables[0]);
+                drOrderTransactionForm = dstransactionSlip.Tables[0].Select();
+
+                crmain.SetParameterValue("FolioNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFA_FolioNum"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFA_FolioNum"].ToString() : string.Empty);
+                crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["PA_AMCName"].ToString().Trim()) ? drOrderTransactionForm[0]["PA_AMCName"].ToString() : string.Empty);
+                crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SchemeName"].ToString() : string.Empty);
+                crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(drOrderTransactionForm[0]["C_PANNum"].ToString().Trim()) ? drOrderTransactionForm[0]["C_PANNum"].ToString() : string.Empty);
+                crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Customer_Name"].ToString().Trim()) ? drOrderTransactionForm[0]["Customer_Name"].ToString() : string.Empty);
+                crmain.SetParameterValue("ChequeNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CO_ChequeNumber"].ToString().Trim()) ? drOrderTransactionForm[0]["CO_ChequeNumber"].ToString() : string.Empty);
+                crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CO_PaymentDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CO_PaymentDate"].ToString()).ToShortDateString() : string.Empty);
+                crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Amount"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Amount"].ToString() : string.Empty);
+                crmain.SetParameterValue("StartDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_StartDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMFOD_StartDate"].ToString()).ToShortDateString() : string.Empty);
+                crmain.SetParameterValue("EndDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_EndDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMFOD_EndDate"].ToString()).ToShortDateString() : string.Empty);
+                crmain.SetParameterValue("BankName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CB_BankName"].ToString().Trim()) ? drOrderTransactionForm[0]["CB_BankName"].ToString() : string.Empty);
+                crmain.SetParameterValue("BranchName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_BranchName"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_BranchName"].ToString() : string.Empty);
+                crmain.SetParameterValue("Address", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Address"].ToString().Trim()) ? drOrderTransactionForm[0]["Address"].ToString() : string.Empty);
+                crmain.SetParameterValue("City", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_City"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_City"].ToString() : string.Empty);
+                crmain.SetParameterValue("State", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_State"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_State"].ToString() : string.Empty);
+                crmain.SetParameterValue("Country", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Country"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Country"].ToString() : string.Empty);
+                crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_PinCode"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_PinCode"].ToString() : string.Empty);
+                crmain.SetParameterValue("SchemeSwitch", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SwitchSchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SwitchSchemeName"].ToString() : string.Empty);
+                crmain.SetParameterValue("Units", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Units"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Units"].ToString() : string.Empty);
+
+                ShowTransactionShowHide(report.Type);
+
+                CrystalReportViewer1.ReportSource = crmain;
+                CrystalReportViewer1.EnableDrillDown = true;
+                CrystalReportViewer1.HasCrystalLogo = false;
+
+                if (Request.QueryString["mail"] == "2")
                 {
-                    crmain.SetDataSource(dstransactionSlip.Tables[0]);
-                    drOrderTransactionForm=dstransactionSlip.Tables[0].Select();
-
-                    crmain.SetParameterValue("FolioNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFA_FolioNum"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFA_FolioNum"].ToString() : string.Empty);
-                    crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["PA_AMCName"].ToString().Trim()) ? drOrderTransactionForm[0]["PA_AMCName"].ToString() : string.Empty);
-                    crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SchemeName"].ToString() : string.Empty);
-                    crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(drOrderTransactionForm[0]["C_PANNum"].ToString().Trim()) ? drOrderTransactionForm[0]["C_PANNum"].ToString() : string.Empty);
-                    crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Customer_Name"].ToString().Trim()) ? drOrderTransactionForm[0]["Customer_Name"].ToString() : string.Empty);
-                    crmain.SetParameterValue("ChequeNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CO_ChequeNumber"].ToString().Trim()) ? drOrderTransactionForm[0]["CO_ChequeNumber"].ToString() : string.Empty);
-                    crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CO_PaymentDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CO_PaymentDate"].ToString()).ToShortDateString() : string.Empty);
-                    crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Amount"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Amount"].ToString() : string.Empty);
-                    crmain.SetParameterValue("StartDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_StartDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMFOD_StartDate"].ToString()).ToShortDateString() : string.Empty);
-                    crmain.SetParameterValue("EndDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_EndDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMFOD_EndDate"].ToString()).ToShortDateString() : string.Empty);
-                    crmain.SetParameterValue("BankName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CB_BankName"].ToString().Trim()) ? drOrderTransactionForm[0]["CB_BankName"].ToString() : string.Empty);
-                    crmain.SetParameterValue("BranchName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_BranchName"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_BranchName"].ToString() : string.Empty);
-                    crmain.SetParameterValue("Address", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Address"].ToString().Trim()) ? drOrderTransactionForm[0]["Address"].ToString() : string.Empty);
-                    crmain.SetParameterValue("City", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_City"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_City"].ToString() : string.Empty);
-                    crmain.SetParameterValue("State", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_State"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_State"].ToString() : string.Empty);
-                    crmain.SetParameterValue("Country", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Country"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Country"].ToString() : string.Empty);
-                    crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_PinCode"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_PinCode"].ToString() : string.Empty);
-                    crmain.SetParameterValue("SchemeSwitch", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SwitchSchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SwitchSchemeName"].ToString() : string.Empty);
-                    crmain.SetParameterValue("Units", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Units"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Units"].ToString() : string.Empty);
-
-                    ShowTransactionShowHide(report.Type);
-
-                    CrystalReportViewer1.ReportSource = crmain;
-                    CrystalReportViewer1.EnableDrillDown = true;
-                    CrystalReportViewer1.HasCrystalLogo = false;
-
-                    if (Request.QueryString["mail"] == "2")
-                    {
-                        ExportInPDF();
-                    }
-                    if (Request.QueryString["mail"] == "4")
-                    {
-                        ExportInDOC();
-                    }
-
-                    lblClosingBalanceNote.Visible = false;   
-
+                    ExportInPDF();
                 }
-                else
+                if (Request.QueryString["mail"] == "4")
                 {
-                   SetNoRecords();
-                   lblClosingBalanceNote.Visible = false;
+                    ExportInDOC();
                 }
+
+                lblClosingBalanceNote.Visible = false;
+
+            }
+            else
+            {
+                SetNoRecords();
+                lblClosingBalanceNote.Visible = false;
+            }
         }
 
         private void ShowTransactionShowHide(string Type)
@@ -567,21 +567,21 @@ namespace WealthERP.Reports
                 PDFViewPath = PDFNames;
                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
                 //System.IO.Stream report = crmain.ExportToStream(ExportFormatType.PortableDocFormat);
-              
-//                Dim document As Document = New Document(PageSize.A4, 50, 50, 50, 50)
-//Dim writer As PdfWriter = PdfWriter.GetInstance(document, New FileStream(HttpContext.Current.Server.MapPath(LevelsToGoBack & "/Files/" & FileName), FileMode.Create))writer.SetEncryption(PdfWriter.STRENGTH128BITS, "mypass", Nothing, PdfWriter.AllowCopy)
 
-//document.Open()
+                //                Dim document As Document = New Document(PageSize.A4, 50, 50, 50, 50)
+                //Dim writer As PdfWriter = PdfWriter.GetInstance(document, New FileStream(HttpContext.Current.Server.MapPath(LevelsToGoBack & "/Files/" & FileName), FileMode.Create))writer.SetEncryption(PdfWriter.STRENGTH128BITS, "mypass", Nothing, PdfWriter.AllowCopy)
 
-//document.Add(New Paragraph("This document is Top Secret!"))
+                //document.Open()
 
-//document.Close()
+                //document.Add(New Paragraph("This document is Top Secret!"))
+
+                //document.Close()
 
                 //Document pdfDocument = new Document(PageSize.A4, 50, 50, 50, 50);
                 //PdfWriter pdfDocumentWriter = PdfWriter.GetInstance(pdfDocument, new FileStream(HttpContext.Current.Server.MapPath("~/Reports/TempReports/ViewInPDF/" + PDFNames), FileMode.Create));
                 //pdfDocumentWriter.SetEncryption(PdfWriter.STRENGTH128BITS, "mypass", "Nothing", PdfWriter.AllowCopy);
 
-                                   
+
             }
             catch (Exception ex)
             {
@@ -723,14 +723,14 @@ namespace WealthERP.Reports
             {
                 throw (ex);
             }
-                if (Request.QueryString["mail"] == "2")
-                {
-                    ExportInPDF();
-                }
-                if (Request.QueryString["mail"] == "4")
-                {
-                    ExportInDOC();
-                }
+            if (Request.QueryString["mail"] == "2")
+            {
+                ExportInPDF();
+            }
+            if (Request.QueryString["mail"] == "4")
+            {
+                ExportInDOC();
+            }
 
         }
 
@@ -847,7 +847,7 @@ namespace WealthERP.Reports
             AssignReportViewerProperties();
             crmain.SetParameterValue("CustomerName", !string.IsNullOrEmpty(customerFullName.Trim()) ? customerFullName : string.Empty);
             crmain.SetParameterValue("CoverPageHeading", "Financial Plan For " + (!string.IsNullOrEmpty(customerFullName.Trim()) ? customerFullName : string.Empty));
-         
+
             if (!string.IsNullOrEmpty(customerVo.Mobile1.ToString().Trim()))
                 crmain.SetParameterValue("CustomerMobileNo", "Mobile No:" + "+91-" + customerVo.Mobile1.ToString());
             else
@@ -858,7 +858,7 @@ namespace WealthERP.Reports
             crmain.SetParameterValue("Networth", convertUSCurrencyFormat(Math.Round(double.Parse(networth.ToString()), 0)));
             crmain.SetParameterValue("AnnualIncomeTotal", totalAnnualIncome);
             crmain.SetParameterValue("FinancialAssetTotal", Math.Round(double.Parse(financialAssetTotal.ToString()), 0).ToString());
-            
+
 
             if (!string.IsNullOrEmpty(riskClass.Trim()))
                 crmain.SetParameterValue("CustomerRiskClass", riskClass);
@@ -1197,7 +1197,7 @@ namespace WealthERP.Reports
 
         private void ExportInDOC()
         {
-            
+
             try
             {
                 string fileExtension = ".doc";
@@ -1208,7 +1208,7 @@ namespace WealthERP.Reports
                 exportFilename = Server.MapPath("~/Reports/TempReports/ViewInPDF/") + DocFileNames;
                 DOCViewPath = DocFileNames;
                 crmain.ExportToDisk(ExportFormatType.WordForWindows, exportFilename);
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1485,12 +1485,12 @@ namespace WealthERP.Reports
             double totalExpense = 0;
             double totalMonthlySurplus = 0;
             double equityGapPercent = 0;
-            
 
-            if (dtIncome.Rows.Count>0)
-            totalIncome = double.Parse(dtIncome.Compute("SUM(IncomeAmount)", "").ToString());
+
+            if (dtIncome.Rows.Count > 0)
+                totalIncome = double.Parse(dtIncome.Compute("SUM(IncomeAmount)", "").ToString());
             if (dtExpense.Rows.Count > 0)
-            totalExpense=double.Parse(dtExpense.Compute("SUM(ExpenseAmount)", "").ToString());
+                totalExpense = double.Parse(dtExpense.Compute("SUM(ExpenseAmount)", "").ToString());
             totalMonthlySurplus = totalIncome - totalExpense;
 
             foreach (DataRow dr in dtReportSectionAndText.Rows)
@@ -1677,7 +1677,7 @@ namespace WealthERP.Reports
 
                             break;
                         }
-                    
+
                     case "Disclaimer":
                         {
                             if (dr["TextPropuse"].ToString().Trim() == "Disclaimer_Text" && int.Parse(dr["TextId"].ToString()) == 20)
@@ -1972,9 +1972,9 @@ namespace WealthERP.Reports
                     if (yearlySurplusForCashFlow > 0)
                     {
                         strCashFlowsText += str;
- 
+
                     }
- 
+
                 }
                 else if (str.Contains("deficit"))
                 {
@@ -1984,8 +1984,8 @@ namespace WealthERP.Reports
 
                     }
                 }
- 
- 
+
+
             }
 
             if (totalMonthlySurplus != 0)
@@ -1998,7 +1998,7 @@ namespace WealthERP.Reports
                 strIncomeExpenseSurplus = strIncomeExpenseSurplus.Replace("#AnnualSurplus#", "0");
                 strIncomeExpenseSurplus = strIncomeExpenseSurplus.Replace("#MonthlySurplus#", "0");
             }
-            
+
 
             foreach (DataRow dr in dtRiskProfile.Rows)
             {
@@ -2031,7 +2031,7 @@ namespace WealthERP.Reports
                 if (Convert.ToString(dr["Class"]) == "Equity")
                 {
                     equityGapPercent = double.Parse(Convert.ToString(dr["ActionNeeded"]));
-                   
+
                 }
             }
 
@@ -2065,40 +2065,40 @@ namespace WealthERP.Reports
                 {
                     if (pair.Key.Trim() == "#CurrEquity#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currEquity,2).ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currEquity, 2).ToString() + "%");
                     }
                     else if (pair.Key.Trim() == "#CurrDebt#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currDebt,0).ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currDebt, 0).ToString() + "%");
                     }
                     else if (pair.Key.Trim() == "#RecEquity#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recEquity,0).ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recEquity, 0).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#RecDebt#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recDebt,2).ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recDebt, 2).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#RecCash#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recCash,2).ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recCash, 2).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#CurrCash#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currCash,0).ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currCash, 0).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#CurrAlternate#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currAlternate,0).ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currAlternate, 0).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#RecAlternate#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recAlternate,0).ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recAlternate, 0).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#RecCashLessMore#")
@@ -2117,7 +2117,7 @@ namespace WealthERP.Reports
                 }
             }
 
-            strRiskProfileAssetAllocationText=strRiskProfileAssetAllocationText.Replace("#CustomerRiskClass#", customerRiskClass.ToUpper());
+            strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace("#CustomerRiskClass#", customerRiskClass.ToUpper());
             //strRiskClassInfoLines = strRiskClassDescription.Split('~');
             //strRiskClassDescription = string.Empty;
             //DataRow drRiskClass = dtAdvisorRiskClass.NewRow();
@@ -2290,7 +2290,7 @@ namespace WealthERP.Reports
 
                 }
             }
-            
+
             strRiskClassLines = strRiskProfileText.Split('~');
             strRiskProfileText = string.Empty;
             foreach (string str in strRiskClassLines)
@@ -2321,13 +2321,13 @@ namespace WealthERP.Reports
                 }
             }
 
-           
 
-            
+
+
 
             strOtherGoalText = strOtherGoalFinalText.ToString();
             //INTRODUCTION PAGE-RM MESSAGAE
-            string[] strRmMessageLine= strRMMessage.Split('$');
+            string[] strRmMessageLine = strRMMessage.Split('$');
             strRMMessage = string.Empty;
             foreach (string str in strRmMessageLine)
             {
@@ -2351,7 +2351,7 @@ namespace WealthERP.Reports
             }
 
             string[] strDisclaimers = strDisclaimer.Split('~');
-            strDisclaimer=string.Empty;
+            strDisclaimer = string.Empty;
             foreach (string str in strDisclaimers)
             {
                 if (str.Contains("html"))
@@ -2362,7 +2362,7 @@ namespace WealthERP.Reports
                     {
                         strDisclaimer += str;
                     }
-                   
+
                 }
                 else if (str.Contains("Advisor"))
                 {
@@ -2452,7 +2452,7 @@ namespace WealthERP.Reports
 
         //        if (totalHoldingInvestedCost != 0)
         //            totalHoldingAbsoluteReturn = (totalHoldingPL / totalHoldingInvestedCost) * 100;
-            
+
         //    }
         //    catch (Exception ex)
         //    {
@@ -2467,7 +2467,7 @@ namespace WealthERP.Reports
                 PortfolioReportsBo portfolioReports = new PortfolioReportsBo();
                 report = (PortfolioReportVo)Session["reportParams"];
                 RMVo rmVo = (RMVo)Session["rmvo"];
-                switch (report.SubType)
+                switch (report.SubType)   
                 {
 
                     case "MULTI_ASSET_SUMMARY_REPORT":
@@ -2481,6 +2481,7 @@ namespace WealthERP.Reports
                         if (dtEquitySectorwise.Rows.Count > 0)
                         {
                             crmain.Subreports["Liabilities"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[1]);
+                            crmain.Subreports["NetWorthChart"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
                             //crmain.Database.Tables["PortfolioSummary"].SetDataSource(dsEquitySectorwise.Tables[1]);
                             crmain.Subreports["NetWorth"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
                             crmain.Subreports["AssetBreakUp"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[0]);
@@ -2495,7 +2496,17 @@ namespace WealthERP.Reports
                             //crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-
+                            string Headername;
+                            if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            {
+                                Headername = "Group";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
+                            else
+                            {
+                                Headername = "Individual";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
                             CrystalReportViewer1.ReportSource = crmain;
                             CrystalReportViewer1.EnableDrillDown = true;
                             CrystalReportViewer1.HasCrystalLogo = false;
@@ -2522,9 +2533,13 @@ namespace WealthERP.Reports
                         DataSet dsAssetAllocation = portfolioReports.GetCustomerAssetAllocationDetails(report, advisorVo.advisorId, report.SubType);
                         DataTable dtAssetSummary = dsAssetAllocation.Tables[0];
                         DataTable dtAssetDetails = dsAssetAllocation.Tables[1];
+                       
                         if (!string.IsNullOrEmpty(report.GroupHead))
                         {
+
                             crmain.Load(Server.MapPath("CustomerAssetAllocationDetails.rpt"));
+                            //Headername = "Group";
+                            //crmain.SetParameterValue("Header", Headername);
 
                             if (dtAssetSummary.Rows.Count > 0 && dtAssetDetails.Rows.Count > 0)
                             {
@@ -2560,15 +2575,23 @@ namespace WealthERP.Reports
                         }
                         else
                         {
-                            crmain.Load(Server.MapPath("IndivisualCustomerAssetAllocationDetails.rpt"));
-                            if (dtAssetDetails.Rows.Count > 0)
+                            //Headername = "Individual";
+                            //crmain.SetParameterValue("Header", Headername);
+                            crmain.Load(Server.MapPath("CustomerAssetAllocationDetails.rpt"));
+                            //crmain.Load(Server.MapPath("IndivisualCustomerAssetAllocationDetails.rpt"));
+
+                            if (dtAssetSummary.Rows.Count > 0 && dtAssetDetails.Rows.Count > 0)
                             {
-                                crmain.SetDataSource(dtAssetDetails);
+                                crmain.Subreports["GroupMemberAssetSummary"].Database.Tables[0].SetDataSource(dtAssetSummary);
+                                crmain.Subreports["CustomerAssetdetails"].Database.Tables[0].SetDataSource(dtAssetDetails);
+                                //if (dtAssetDetails.Rows.Count > 0)
+                                //{
+                                //    crmain.SetDataSource(dtAssetDetails);
                                 setLogo();
                                 crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                                 AssignReportViewerProperties();
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                                crmain.SetParameterValue("ReportHeader", "Asset Allocation Report");
+                                crmain.SetParameterValue("ReportHeader", " Individual Asset Allocation Report");
 
                                 CrystalReportViewer1.ReportSource = crmain;
                                 CrystalReportViewer1.EnableDrillDown = true;
@@ -2795,18 +2818,18 @@ namespace WealthERP.Reports
 
                             setLogo();
                             AssignReportViewerProperties();
-                           
+
                             crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername="Group";
-                                crmain.SetParameterValue("Header",Headername);
+                                Headername = "Group";
+                                crmain.SetParameterValue("Header", Headername);
                             }
                             else
                             {
-                                Headername="Individual";
+                                Headername = "Individual";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             lblClosingBalanceNote.Visible = false;
@@ -3221,12 +3244,12 @@ namespace WealthERP.Reports
                         DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
                         //dtReturnsPortfolio.Columns.Add("CMFA_AccountOpeningDate");
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
-                        
+
                         dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
-                        
-                        
+
+
                         if (dtReturnsPortfolio.Rows.Count > 0)
-                            {
+                        {
                             crmain.SetDataSource(dtReturnsPortfolio);
                             setLogo();
                             crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRR);
@@ -3255,16 +3278,16 @@ namespace WealthERP.Reports
                     case "COMPREHENSIVE":
                         //crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
                         crmain.Load(Server.MapPath("ComprehensiveMFReport.rpt"));
-                        
+
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
                         dtReturnsPortfolio = dsReturnsPortfolio.Tables[0];
                         //dtReturnsPortfolio.Columns.Add("FolioStartDate");
                         DataTable dtPortfolioXIRRComp = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         dtReturnsPortfolio = dsReturnsPortfolio.Tables[6];
-                        
-                        dtPortfolioXIRRComp=GetAbsolutereturnToXIRRDt(dtPortfolioXIRRComp, dtReturnsPortfolio);
 
-                       //  portfolioXirr(dsReturnsPortfolio,dtPortfolioXIRRComp);
+                        dtPortfolioXIRRComp = GetAbsolutereturnToXIRRDt(dtPortfolioXIRRComp, dtReturnsPortfolio);
+
+                        //  portfolioXirr(dsReturnsPortfolio,dtPortfolioXIRRComp);
                         //DataTable dtMFSchemePerformance = dsReturnsPortfolio.Tables["SchemeComprehensive"];
                         if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
                         {
@@ -3281,7 +3304,7 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
-                           //For PDF View In Browser
+                            //For PDF View In Browser
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
@@ -3442,7 +3465,7 @@ namespace WealthERP.Reports
         /// Assign common parameter field values to reports. Also set Crystal Report Viewer properties.
         /// </summary>
 
-       
+
         private void AssignReportViewerProperties()
         {
             RMVo rmVo = (RMVo)Session["rmVo"];
@@ -3478,11 +3501,11 @@ namespace WealthERP.Reports
                 //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                 crmain.SetParameterValue("RMContactDetails", "E-mail: " + advisorVo.Email);
                 crmain.SetParameterValue("MobileNo", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
-                
-                string formatstring ="";
+
+                string formatstring = "";
                 if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
                     formatstring = customerVo.Adr1Line1.Trim();
-                    //array[0] = customerVo.Adr1Line1.Trim();
+                //array[0] = customerVo.Adr1Line1.Trim();
                 if (!string.IsNullOrEmpty(customerVo.Adr1Line2.Trim()))
                 {
                     if (formatstring == "")
@@ -3494,7 +3517,7 @@ namespace WealthERP.Reports
                         formatstring = formatstring + "," + customerVo.Adr1Line2.Trim();
                         //array[1] = customerVo.Adr1Line2.Trim();
                     }
-                }       
+                }
                 if (!string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
                     if (formatstring == "")
                     {
@@ -3534,29 +3557,29 @@ namespace WealthERP.Reports
         /// Get Report Parameters and store it in to session.
         /// </summary>
         private DataTable GetAbsolutereturnToXIRRDt(DataTable dtPortfolioXIRR, DataTable dtReturnsPortfolio)
-       {
-           try
-           {
-               dtPortfolioXIRR.Columns.Add("AbsoluteReturn",typeof(Int64));
-               int portfolioId = 0;
-               DataRow[] drAbsolutereturn;
-               foreach (DataRow dr in dtPortfolioXIRR.Rows)
-               {
-                   portfolioId = Convert.ToInt32(dr["PortfolioId"].ToString());
-                   drAbsolutereturn = dtReturnsPortfolio.Select("CP_PortfolioId=" + portfolioId.ToString());
+        {
+            try
+            {
+                dtPortfolioXIRR.Columns.Add("AbsoluteReturn", typeof(Int64));
+                int portfolioId = 0;
+                DataRow[] drAbsolutereturn;
+                foreach (DataRow dr in dtPortfolioXIRR.Rows)
+                {
+                    portfolioId = Convert.ToInt32(dr["PortfolioId"].ToString());
+                    drAbsolutereturn = dtReturnsPortfolio.Select("CP_PortfolioId=" + portfolioId.ToString());
 
-                   foreach (DataRow drAbs in drAbsolutereturn)
-                   {
-                       dr["AbsoluteReturn"] = drAbs["absoluteReturn"];
-                   }
-               }
-               return dtPortfolioXIRR;
-           }
-           catch (Exception ex)
-           {
-               throw ex;
-           }
-       }
+                    foreach (DataRow drAbs in drAbsolutereturn)
+                    {
+                        dr["AbsoluteReturn"] = drAbs["absoluteReturn"];
+                    }
+                }
+                return dtPortfolioXIRR;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         private void GetReportParameters()
         {
@@ -3587,10 +3610,10 @@ namespace WealthERP.Reports
                 {
                     if (Session["hndCustomerLogin"] != null)
                     {
-                       if (Session["hndCustomerLogin"].ToString() == "true")
-                        mfReport.PortfolioIds = GetAllPortfolioOfCustomer(int.Parse(Request.Form["ctrl_MFReports$hdnCustomerId1"]));
-                       else
-                        mfReport.PortfolioIds = GetPortfolios();
+                        if (Session["hndCustomerLogin"].ToString() == "true")
+                            mfReport.PortfolioIds = GetAllPortfolioOfCustomer(int.Parse(Request.Form["ctrl_MFReports$hdnCustomerId1"]));
+                        else
+                            mfReport.PortfolioIds = GetPortfolios();
 
                     }
 
@@ -3639,8 +3662,9 @@ namespace WealthERP.Reports
 
                 portfolioReport.FromDate = dtFrom;
                 portfolioReport.ToDate = dtTo;
-
-
+                
+               
+                
                 if (!String.IsNullOrEmpty(Request.Form[ctrlPrefix + "TabContainer1$TabPanel1$txtParentCustomerId"]))
                     portfolioReport.GroupHead = Request.Form[ctrlPrefix + "TabContainer1$TabPanel1$txtParentCustomerId"];
 
@@ -3678,7 +3702,7 @@ namespace WealthERP.Reports
                 fpOfflineForm.advisorId = advisorVo.advisorId;
                 Session["reportParams"] = fpOfflineForm;
             }
-            else  if (CurrentReportType == ReportType.OrderTransactionSlip)
+            else if (CurrentReportType == ReportType.OrderTransactionSlip)
             {
                 orderTransaction.advisorId = advisorVo.advisorId;
                 orderVo = (OrderVo)Session["orderVo"];
@@ -3695,7 +3719,7 @@ namespace WealthERP.Reports
                     orderTransaction.SchemeCode = int.Parse(Request.Form[ctrlPrefix + "hdnSchemeCode"]);
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnType"]))
                     orderTransaction.Type = Request.Form["ctrl_MFOrderEntry$hdnType"];
-                
+
                 Session["reportParams"] = orderTransaction;
             }
 
@@ -3797,7 +3821,7 @@ namespace WealthERP.Reports
             {
                 if (Request.Form[ctrlPrefix + "ddlPeriod"] == "15") //Calculate FromDate for Since Inception Option for Period Selection
                 {
-                    
+
                     portfolioIds = GetPortfolios();
                     subReportType = GetReportSubtype();
                     CalculateFromDate = GetCalculateFromDate(portfolioIds, subReportType);
@@ -3815,7 +3839,7 @@ namespace WealthERP.Reports
             }
             else //if (Request.Form[ctrlPrefix + "hidDateType"] == "AS_ON")
             {
-                
+
 
                 fromDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtAsOnDate"]);
                 toDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtAsOnDate"]);
@@ -3837,11 +3861,11 @@ namespace WealthERP.Reports
             try
             {
                 fromDate = mfReports.GetCalculateFromDate(portfolioIDs, subreportype);
-          
+
             }
             catch (BaseApplicationException Ex)
             {
-                throw(Ex);
+                throw (Ex);
             }
             catch (Exception Ex)
             {
@@ -3860,7 +3884,7 @@ namespace WealthERP.Reports
 
         }
 
-     
+
         /// <summary>
         /// To Get The Report SubTypes
         /// </summary>
@@ -3871,8 +3895,8 @@ namespace WealthERP.Reports
             string subType = "";
             if (CurrentReportType == ReportType.EquityReports)
             {
-                
-               equityReport.SubType = Request.Form[ctrlPrefix + "ddlReportSubType"];
+
+                equityReport.SubType = Request.Form[ctrlPrefix + "ddlReportSubType"];
                 switch (equityReport.SubType)
                 {
                     case "EQUITY_SECTOR_WISE":
@@ -3916,7 +3940,7 @@ namespace WealthERP.Reports
             return subReortType;
 
         }
-        
+
         #endregion
 
 
@@ -3995,7 +4019,7 @@ namespace WealthERP.Reports
                 }
 
                 if (!string.IsNullOrEmpty(txtCC.Text.Trim()))
-                Session["hidCC"] = txtCC.Text;
+                    Session["hidCC"] = txtCC.Text;
                 Session["hidTo"] = cust.Email;
                 if (Session["hidTo"] != null)
                     Session["hidTo"] = txtTo.Text = cust.Email;
@@ -4052,7 +4076,7 @@ namespace WealthERP.Reports
             else if (CurrentReportType == ReportType.FPOfflineForm)
             {
                 subject = "FP Offline Form";
-                
+
             }
             else if (CurrentReportType == ReportType.OrderTransactionSlip)
                 subject = "Transction Slip";
@@ -4063,7 +4087,7 @@ namespace WealthERP.Reports
                 strMail.Append("<br/>Please find attached " + subject + ".");
                 if (!string.IsNullOrEmpty(advisorVo.Website))
                 {
-                    strMail.Append("<br/><br/>Regards,<br/>" + RMDataFormatFormat(rmVo) + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneDirectStd +"-" + rmVo.OfficePhoneDirectNumber + "<br/>Website: " + advisorVo.Website);
+                    strMail.Append("<br/><br/>Regards,<br/>" + RMDataFormatFormat(rmVo) + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneDirectStd + "-" + rmVo.OfficePhoneDirectNumber + "<br/>Website: " + advisorVo.Website);
                 }
                 else
                     strMail.Append("<br/><br/>Regards,<br/>" + RMDataFormatFormat(rmVo) + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneDirectStd + "-" + rmVo.OfficePhoneDirectNumber);
@@ -4136,7 +4160,7 @@ namespace WealthERP.Reports
                             case "ELIGIBLE_CAPITAL_GAIN_SUMMARY":
                                 subject = "Eligible Capital Gain Summary - ";
                                 break;
-                           
+
                         }
                     }
                     break;
@@ -4426,7 +4450,7 @@ namespace WealthERP.Reports
             }
             else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
             {
-                strFullCustomerName =customerVo.FirstName.Trim() + " " + customerVo.MiddleName.Trim() + " " + customerVo.LastName.Trim();
+                strFullCustomerName = customerVo.FirstName.Trim() + " " + customerVo.MiddleName.Trim() + " " + customerVo.LastName.Trim();
 
             }
             else if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && string.IsNullOrEmpty(customerVo.LastName.Trim()))
@@ -4443,7 +4467,7 @@ namespace WealthERP.Reports
             }
             else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && string.IsNullOrEmpty(customerVo.LastName.Trim()))
             {
-                strFullCustomerName =customerVo.FirstName.Trim() + " " + customerVo.MiddleName.Trim();
+                strFullCustomerName = customerVo.FirstName.Trim() + " " + customerVo.MiddleName.Trim();
             }
             else if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
             {
@@ -4451,7 +4475,7 @@ namespace WealthERP.Reports
             }
             else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
             {
-                strFullCustomerName =  customerVo.FirstName.Trim() + " " + customerVo.LastName.Trim();
+                strFullCustomerName = customerVo.FirstName.Trim() + " " + customerVo.LastName.Trim();
             }
             else if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
             {
@@ -4496,7 +4520,7 @@ namespace WealthERP.Reports
             string strFullCustomerName;
             if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
             {
-                strFullCustomerName =  rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim() + " " + rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim() + " " + rmVo.LastName.Trim();
 
             }
             else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
@@ -4522,7 +4546,7 @@ namespace WealthERP.Reports
             }
             else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
             {
-                strFullCustomerName =  rmVo.FirstName.Trim() + " " + rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.LastName.Trim();
             }
             else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
             {
@@ -4554,7 +4578,7 @@ namespace WealthERP.Reports
             }
             else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
             {
-                strFullCustomerName =  rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.LastName.Trim();
             }
             else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
             {
