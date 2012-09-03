@@ -34,7 +34,7 @@ namespace WealthERP.Reports
         bool CustomerLogin = false;
         bool strFromCustomerDashBoard = false;
         bool isGrpHead = false;
-
+        DateTime chckdate;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -166,7 +166,28 @@ namespace WealthERP.Reports
 
 
         }
+        public void ChckBussDate_Textchanged(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(txtAsOnDate.Text))
+            {
+                chckdate = DateTime.Parse(txtAsOnDate.Text);
+                ValidateBussDate(chckdate);
+            }
+        }
+        public void ValidateBussDate(DateTime chckdate)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            bool isCorrect = false;
+            isCorrect = customerBo.ChckBussinessDate(chckdate);
+            if (isCorrect == true)
+            { //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid!!!Choose a Valid Bussiness Date ');", true);
 
+            }
+        }
         private void IndivisulCustomerLogin()
         {
             lblCustomerIndi.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;

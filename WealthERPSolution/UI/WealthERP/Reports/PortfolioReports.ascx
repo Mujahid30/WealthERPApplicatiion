@@ -592,7 +592,7 @@
                                     <asp:Label ID="lblAsOnDate" runat="server" CssClass="FieldName">As on date :</asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtAsOnDate" runat="server" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtAsOnDate" runat="server" OnTextChanged="ChckBussDate_Textchanged"  AutoPostBack="True" CssClass="txtField"></asp:TextBox>
                                     <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAsOnDate"
                                         Format="dd/MM/yyyy">
                                     </ajaxToolkit:CalendarExtender>
