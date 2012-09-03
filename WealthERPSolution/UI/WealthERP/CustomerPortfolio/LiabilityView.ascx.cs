@@ -125,7 +125,7 @@ namespace WealthERP.CustomerPortfolio
                         dr[8] = " ";
                         dr[9] = " ";
                     }
-                    dr[10] = liabilityVo.AssetParticular.ToString();
+                    dr[10] = liabilityVo.AssetParticular;
                     dt.Rows.Add(dr);
                 }
                 gvLiabilities.DataSource = dt;
