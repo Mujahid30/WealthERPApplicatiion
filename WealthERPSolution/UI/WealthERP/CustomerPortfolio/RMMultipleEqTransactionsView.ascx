@@ -299,7 +299,7 @@
                         </MasterTableView>
                         <ClientSettings>
                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
-                            <Resizing AllowColumnResize="true"  />
+                           <%-- <Resizing AllowColumnResize="true"  />--%>
                         </ClientSettings>
                     </telerik:RadGrid>
                     <%-- <asp:GridView ID="gvMFTransactions" runat="server" AllowSorting="True" AutoGenerateColumns="False"
