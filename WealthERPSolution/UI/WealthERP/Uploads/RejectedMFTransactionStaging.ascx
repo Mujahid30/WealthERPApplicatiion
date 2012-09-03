@@ -367,6 +367,9 @@
                             </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
+                     <ClientSettings>
+                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        </ClientSettings>
                 </telerik:RadGrid>
                 <%--<asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
                     ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="CMFTSId,ProcessId,FolioNumber,InvestorName" AllowSorting="true"
