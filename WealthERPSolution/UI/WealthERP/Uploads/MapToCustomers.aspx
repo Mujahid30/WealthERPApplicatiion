@@ -11,9 +11,9 @@
 function ClosePopUp(){
     window.close();
     if (window.opener && !window.opener.closed) {
-        alert('t');
+        //alert('t');
         //window.opener.location.reload();
-        alert(window.opener.name);
+        //alert(window.opener.name);
         window.opener.Reprocess();
     }
 }
