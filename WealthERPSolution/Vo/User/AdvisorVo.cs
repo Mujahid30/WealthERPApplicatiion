@@ -373,7 +373,8 @@ namespace VoUser
         private string m_AMCImagePath;
         private string m_ExternalLinkCode;
         private string m_AltLinkName;
-
+        private int m_WerpMasterlinkId;
+        private string m_AMCLinksWithPin;
        
 
         #endregion Fields
@@ -390,6 +391,11 @@ namespace VoUser
         {
             get { return m_AMCLinkId; }
             set { m_AMCLinkId = value; }
+        }
+        public int WerpMasterlinkId
+        {
+            get { return m_WerpMasterlinkId; }
+            set { m_WerpMasterlinkId = value; }
         }
 
         public int AMCLinkUserCode
@@ -408,6 +414,11 @@ namespace VoUser
         {
             get { return m_AMCLinks; }
             set { m_AMCLinks = value; }
+        }
+        public string AMCLinksWithPin
+        {
+            get { return m_AMCLinksWithPin; }
+            set { m_AMCLinksWithPin = value; }
         }
 
         public string AMCImagePath
