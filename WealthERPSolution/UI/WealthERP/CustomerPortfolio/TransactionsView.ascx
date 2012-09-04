@@ -308,9 +308,21 @@
                             ItemStyle-Wrap="false">
                             <ItemStyle Wrap="False"></ItemStyle>
                         </asp:ButtonField>
-                        <asp:BoundField DataField="ADUL_ProcessId" HeaderText="ProcessId">
+                        <%--<asp:BoundField DataField="ADUL_ProcessId" HeaderText="ProcessId">
                                  <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                    </asp:BoundField> 
+                        </asp:BoundField> --%>
+                        <asp:TemplateField ItemStyle-Wrap="false" HeaderText="ProcessId">
+                                        <HeaderTemplate>
+                                            <asp:Label ID="lblProcessId" runat="server" Text="ProcessId"></asp:Label>
+                                            <br />
+                                            <asp:TextBox ID="txtProcessId" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_TransactionsView_btnTranSchemeSearch');" />
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblProcessIdHeader" runat="server" Text='<%# Eval("ADUL_ProcessId").ToString() %>'
+                                                ItemStyle-Wrap="false"></asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle Wrap="False"></ItemStyle>
+                                    </asp:TemplateField>
                         <asp:BoundField DataField="TransactionId" HeaderText="TransactionId" Visible="false" />
                         <asp:BoundField DataField="CMFT_SubBrokerCode" HeaderText="SubBrokerCode">
                                         <ItemStyle HorizontalAlign="Left"></ItemStyle>
@@ -429,3 +441,4 @@
 <asp:HiddenField ID="hdnSort" runat="server" Visible="false" Value="Name ASC" />
 <asp:HiddenField ID="hdnStatus" runat="server" Visible="false"/>
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
+<asp:HiddenField ID="hdnProcessIdSearch" runat="server" />

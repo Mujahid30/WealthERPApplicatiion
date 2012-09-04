@@ -156,7 +156,7 @@ namespace WealthERP.CustomerPortfolio
             customerId = customerVo.CustomerId;
             userVo = (UserVo)Session["userVo"];
             rmVo = (RMVo)Session["rmVo"];
-
+            hdnProcessIdSearch.Value = "0";
             tblExport.Visible = false;
             if (!IsPostBack)
             {
@@ -243,12 +243,12 @@ namespace WealthERP.CustomerPortfolio
                 int Count;
                 if (export == 1)
                 {
-                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 1, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to, hdnFolioFilter.Value.ToString());
+                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 1, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to, hdnFolioFilter.Value.ToString(),int.Parse(hdnProcessIdSearch.Value));
                    
                 }
                 else
                 {
-                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 0, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to, hdnFolioFilter.Value.ToString());
+                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 0, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to, hdnFolioFilter.Value.ToString(), int.Parse(hdnProcessIdSearch.Value));
                     hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                 }
                 // customerTransactionBo.GetMFTransactions(customerVo.CustomerId,"C").ToString();
@@ -376,6 +376,7 @@ namespace WealthERP.CustomerPortfolio
 
                     TextBox txtScheme = GetSchemeTextBox();
                     TextBox txtFolio = GetFolioTextBox();
+                    TextBox txtProcessId = GetProcessIdTextBox();
                     if (txtScheme != null)
                     {
                         if (hdnSchemeFilter.Value != "")
@@ -388,6 +389,13 @@ namespace WealthERP.CustomerPortfolio
                         if (hdnFolioFilter.Value != "")
                         {
                             txtFolio.Text = hdnFolioFilter.Value.ToString().Trim();
+                        }
+                    }
+                    if (txtProcessId != null)
+                    {
+                        if (hdnProcessIdSearch.Value != "")
+                        {
+                            hdnProcessIdSearch.Value = txtProcessId.Text.Trim();
                         }
                     }
                     GetPageCount();
@@ -455,6 +463,22 @@ namespace WealthERP.CustomerPortfolio
                 txt = null;
 
             return txt;
+        }
+        private TextBox GetProcessIdTextBox()
+        {
+            TextBox txt = new TextBox();
+            if (gvMFTransactions.HeaderRow != null)
+            {
+                if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtProcessId") != null)
+                {
+                    txt = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtProcessId");
+                }
+            }
+            else
+                txt = null;
+
+            return txt;
+
         }
         private DropDownList GetTranDateDDL()
         {
@@ -686,6 +710,7 @@ namespace WealthERP.CustomerPortfolio
         {
             TextBox txtName = GetSchemeTextBox();
             TextBox txtFolio = GetFolioTextBox();
+            TextBox txtProcessId = GetProcessIdTextBox();
             if (txtName != null)
             {
                 hdnSchemeFilter.Value = txtName.Text.Trim();
@@ -694,6 +719,10 @@ namespace WealthERP.CustomerPortfolio
             if (txtFolio != null)
             {
                 hdnFolioFilter.Value = txtFolio.Text.Trim();
+            }
+            if (txtProcessId != null)
+            {
+                hdnProcessIdSearch.Value = txtProcessId.Text.Trim();
             }
             BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
 
