@@ -1040,7 +1040,7 @@ namespace DaoCustomerPortfolio
             return transactionId;
         }
 
-        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId, int export, int CurrentPage, out int Count, string SchemeFilter, string TypeFilter, string TriggerFilter,string TransactionCode, string DateFilter, out Dictionary<string, string> genDictTranType, out Dictionary<string, string> genDictTranTrigger, out Dictionary<string, string> genDictTranDate, string SortExpression, DateTime FromDate, DateTime ToDate, string folioFilter)
+        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId, int export, int CurrentPage, out int Count, string SchemeFilter, string TypeFilter, string TriggerFilter, string TransactionCode, string DateFilter, out Dictionary<string, string> genDictTranType, out Dictionary<string, string> genDictTranTrigger, out Dictionary<string, string> genDictTranDate, string SortExpression, DateTime FromDate, DateTime ToDate, string folioFilter, int ProcessId)
         {
             List<MFTransactionVo> mfTransactionsList = null;
             MFTransactionVo mfTransactionVo = new MFTransactionVo();
@@ -1086,6 +1086,11 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getMFTransactionsCmd, "@TransactionStatusCode", DbType.Int16, Int16.Parse(TransactionCode));
                 else
                     db.AddInParameter(getMFTransactionsCmd, "@TransactionStatusCode", DbType.Int16, 1);
+
+                if (ProcessId != 0)
+                    db.AddInParameter(getMFTransactionsCmd, "@ProcessId", DbType.Int32, ProcessId);
+                else
+                    db.AddInParameter(getMFTransactionsCmd, "@ProcessId", DbType.Int32, DBNull.Value);
 
                 db.AddInParameter(getMFTransactionsCmd, "@sortExpression", DbType.String, SortExpression);
                 db.AddInParameter(getMFTransactionsCmd, "@FromTransactionDate", DbType.DateTime, FromDate);
@@ -2273,7 +2278,7 @@ namespace DaoCustomerPortfolio
         /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
         /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
         /// <returns></returns>
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(out int Count, int CurrentPage, int RMId,int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(out int Count, int CurrentPage, int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC, int ProcessId)
         {
             DataSet ds = null;
             Database db;
@@ -2317,6 +2322,14 @@ namespace DaoCustomerPortfolio
                 else
                 {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, DBNull.Value);
+                }
+                if (ProcessId != 0)
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@processId", DbType.Int32, ProcessId);
+                }
+                else
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
                 }
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
