@@ -52,9 +52,9 @@ namespace WealthERP.Admin
             dtBindLinks.Columns.Add("XLU_LinkUserCode");
             dtBindLinks.Columns.Add("XLTY_LinkTypeCode");
             dtBindLinks.Columns.Add("AL_Link");
-            dtBindLinks.Columns.Add("AL_LinkImagePath");
-
-
+            dtBindLinks.Columns.Add("WLM_LinkImagePath");
+            dtBindLinks.Columns.Add("WLM_Id");
+            dtBindLinks.Columns.Add("AL_LinkWithPin");
 
             if (Session[SessionContents.CustomerVo] != null)
             {
@@ -95,7 +95,7 @@ namespace WealthERP.Admin
                     }
                     
                     drAdvisorLinks[5] = "~/Images/" + AOTALVo.AMCImagePath;
-
+                    drAdvisorLinks[6] = AOTALVo.WerpMasterlinkId;
                     dtBindLinks.Rows.Add(drAdvisorLinks);
                 }
                 if (dtBindLinks.Rows.Count > 0)
