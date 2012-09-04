@@ -12,6 +12,7 @@ using BoAdvisorProfiling;
 using VoUser;
 using BoUploads;
 using BoCustomerGoalProfiling;
+using Telerik.Web.UI;
 
 
 namespace WealthERP.BusinessMIS
@@ -56,6 +57,9 @@ namespace WealthERP.BusinessMIS
             customerId = customerVo.CustomerId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
+            ErrorMessage.Visible = false;
+            gvGoalMIS.Visible = false;
+            tdGoalExport.Visible = false;
             if (!IsPostBack)
             {
                 BindGoal();
@@ -424,7 +428,17 @@ namespace WealthERP.BusinessMIS
                     Cache.Remove("GoalMIS" + userVo.UserId);
                     Cache.Insert("GoalMIS" + userVo.UserId, dtGetGoalMIS);
                 }
+                tdGoalExport.Visible = true;
+                ErrorMessage.Visible = false;
+                tdGoalExport.Visible = true;
 
+            }
+            else
+            {
+                gvGoalMIS.Visible = false;
+                ErrorMessage.Visible = true;
+                tdGoalExport.Visible = false;
+                tdGoalExport.Visible = false;
             }
         }
 
@@ -642,6 +656,28 @@ namespace WealthERP.BusinessMIS
              ViewState["CustomerId"] = null;
              BindGoalListMIS();
          }
+
+         protected void btnGoalMIS_Click(object sender, ImageClickEventArgs e)
+         {
+             gvGoalMIS.ExportSettings.OpenInNewWindow = true;
+             gvGoalMIS.ExportSettings.IgnorePaging = true;
+             foreach (GridFilteringItem filter in gvGoalMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+             {
+                 filter.Visible = false;
+             }
+             gvGoalMIS.MasterTableView.ExportToExcel();
+         }
+
+         //protected void btnGoalMIS_OnClick(object sender, ImageClickEventArgs e)
+         //{
+         //    gvGoalMIS.ExportSettings.OpenInNewWindow = true;
+         //    gvGoalMIS.ExportSettings.IgnorePaging = true;
+         //    foreach (GridFilteringItem filter in gvGoalMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+         //    {
+         //        filter.Visible = false;
+         //    }
+         //    gvGoalMIS.MasterTableView.ExportToExcel();
+         //}
 
     }
 }

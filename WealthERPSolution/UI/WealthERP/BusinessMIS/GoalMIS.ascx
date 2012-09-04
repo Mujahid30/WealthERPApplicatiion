@@ -108,61 +108,87 @@
     <td class="leftField" style="width: 30%" colspan="2">&nbsp;</td>
     </tr> 
     <tr>
-    <td colspan="5"></td>
+    <td colspan="5" id="tdGoalExport" runat="server">
+    <asp:ImageButton ID="btnGoalMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
+            onclick="btnGoalMIS_Click"></asp:ImageButton>
+    </td>
     </tr>
     <tr>
     <td colspan="3">
+    <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" Height="350px"
+                ScrollBars="Both" HorizontalAlign="Left">
+                <div id="dvHoldings" runat="server" style="width: 650px; padding: 4px">
     <telerik:RadGrid ID="gvGoalMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" ExportSettings-FileName="Goal MIS" OnNeedDataSource="gvGoalMIS_OnNeedDataSource">
-                    <ExportSettings HideStructureColumns="true">
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="Goal MIS" Excel-Format="ExcelML">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="CG_GoalId"
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                         <telerik:GridBoundColumn DataField="Customer_Name" AllowFiltering="true" HeaderText="Customer Name" UniqueName="Customer_Name"
-                                SortExpression="Customer_Name" ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                SortExpression="Customer_Name" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
+                        
                         <telerik:GridBoundColumn DataField="XG_GoalName" HeaderText="Goal"
                                 AllowFiltering="false" UniqueName="XG_GoalName">
-                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CG_CostToday" HeaderText="CostToday"
-                                AllowFiltering="false" UniqueName="CG_CostToday">
-                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CG_GoalYear" HeaderText="GoalYear"
                                 AllowFiltering="false" UniqueName="CG_GoalYear">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CG_GoalProfileDate" HeaderText="GoalProfileDate"
-                                AllowFiltering="false" UniqueName="CG_GoalProfileDate">
+                        <telerik:GridBoundColumn DataField="CG_FVofCostToday" HeaderText="Goal Amount"
+                                AllowFiltering="false" UniqueName="CG_FVofCostToday" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="CG_CostToday" HeaderText="CostToday"
+                                AllowFiltering="false" UniqueName="CG_CostToday" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="CG_GoalProfileDate" HeaderText="Goal setup Date"
+                                AllowFiltering="false" UniqueName="CG_GoalProfileDate" DataFormatString="{0:d}" DataType="System.DateTime">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="CG_InflationPer" HeaderText="Inflation(%)"
+                                AllowFiltering="false" UniqueName="CG_InflationPer" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
                         <telerik:GridBoundColumn DataField="CG_MonthlySavingsRequired" HeaderText="MonthlySavingsRequired"
-                                AllowFiltering="false" UniqueName="CG_MonthlySavingsRequired">
+                                AllowFiltering="false" UniqueName="CG_MonthlySavingsRequired" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" >
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CG_CurrentInvestment" HeaderText="CurrentInvestment"
-                                AllowFiltering="false" UniqueName="CG_CurrentInvestment">
+                                AllowFiltering="false" UniqueName="CG_CurrentInvestment" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CG_InflationPer" HeaderText="Inflation Percentage"
-                                AllowFiltering="false" UniqueName="CG_InflationPer">
+                        
+                        <telerik:GridBoundColumn DataField="CG_ROIEarned" HeaderText="Return of Existing Investment(%)"
+                                AllowFiltering="false" UniqueName="CG_ROIEarned" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="CG_ExpectedROI" HeaderText="Return Of Future Investment(%)"
+                                AllowFiltering="false" UniqueName="CG_ExpectedROI" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
                         <telerik:GridBoundColumn DataField="CG_GoalDescription" HeaderText="GoalDescription"
                                 AllowFiltering="false" UniqueName="CG_GoalDescription">
-                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CG_FVofCostToday" HeaderText="FVofCostToday"
-                                AllowFiltering="false" UniqueName="CG_FVofCostToday">
-                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
+                        
                         <telerik:GridBoundColumn DataField="CG_YearlySavingsRequired" HeaderText="CG_YearlySavingsRequired"
-                                AllowFiltering="false" UniqueName="CG_YearlySavingsRequired">
+                                AllowFiltering="false" UniqueName="CG_YearlySavingsRequired" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         </Columns>
@@ -171,9 +197,20 @@
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
+                </div>
+            </asp:Panel>
     </td>
     </tr>  
     </table>
+    <table id="ErrorMessage" align="center" runat="server">
+    <tr>
+        <td>
+            <div class="failure-msg" align="center">
+                No Records found.....
+            </div>
+        </td>
+    </tr>
+</table>
     <asp:HiddenField ID="hdnCustomerId" runat="server" 
     onvaluechanged="hdnCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
