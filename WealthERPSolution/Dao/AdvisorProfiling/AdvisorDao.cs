@@ -2561,7 +2561,7 @@ namespace DaoAdvisorProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                updateAdviserStorageBalanceCmd = db.GetStoredProcCommand("sproc_UpdateAdviserStorageBalance");
+                updateAdviserStorageBalanceCmd = db.GetStoredProcCommand("sproc_UpdateAdviserLginWidgetSetting");
                 db.AddInParameter(updateAdviserStorageBalanceCmd, "@adviserId", DbType.Int16, adviserId);
                 db.AddInParameter(updateAdviserStorageBalanceCmd, "@WebSite", DbType.String, webSiteName);
                 db.AddInParameter(updateAdviserStorageBalanceCmd, "@isLoginWidgetEnable", DbType.UInt16, webSiteName); 
