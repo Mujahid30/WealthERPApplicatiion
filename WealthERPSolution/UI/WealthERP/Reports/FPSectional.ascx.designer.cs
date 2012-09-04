@@ -32,6 +32,15 @@ namespace WealthERP.Reports {
         protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
         
         /// <summary>
+        /// tdReportButtons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdReportButtons;
+        
+        /// <summary>
         /// btnViewReport control.
         /// </summary>
         /// <remarks>

@@ -116,7 +116,7 @@
     <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
         <td align="left">Financial Planning Reports</td>
-        <td align="right">
+        <td align="right" id="tdReportButtons" runat=server>
         <asp:Button ID="btnViewReport" runat="server"  
      PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" />&nbsp;&nbsp;
      <div id="divView" style="display: none;">
@@ -175,12 +175,11 @@
                                                                 CssClass="rfvPCG" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator><span
                                                                     style='font-size: 9px; font-weight: normal' class='FieldName'><br />
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                    Enter few characters of Individual customer name. </span>
+                                                                    Enter few characters of pnlAssumptioncustomer name. </span>
                                                                     
                                                         </td>
                                                         
                                                     </tr>
-<tr></tr>
 </table>
 <div id="divTabs" runat="server">
 <telerik:RadTabStrip ID="RadTabStripFPProjection" runat="server" EnableTheming="True" Skin="Telerik"
