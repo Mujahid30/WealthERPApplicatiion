@@ -72,13 +72,24 @@
 </tr>
 
 </table>
+<table>
+<tr>
+<td>
+<asp:ImageButton id="btnNetworthMIS" runat="server" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                 AlternateText="Excel" ToolTip="Export To Excel"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
+        onclick="btnNetworthMIS_Click"></asp:ImageButton>
+</td>
+</tr>
+</table>
 
 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="98%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
 <telerik:RadGrid ID="gvCustomerProspectlist" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="95%" AllowFilteringByColumn="true"
-                    AllowAutomaticInserts="false" ExportSettings-FileName="Goal MIS" OnNeedDataSource="gvCustomerProspectlist_OnNeedDataSource">
+                    AllowAutomaticInserts="false" ExportSettings-FileName="Networth MIS" OnNeedDataSource="gvCustomerProspectlist_OnNeedDataSource">
+                 
         <MasterTableView AllowMultiColumnSorting="True"  AutoGenerateColumns="false"
             DataKeyNames="C_CustomerId" >
             <CommandItemSettings ExportToPdfText="Export to Pdf" />
@@ -126,10 +137,11 @@
                     <ItemStyle Width="150Px" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
                 
-                <telerik:GridTemplateColumn UniqueName="Asset" AllowFiltering="true" DataField="Asset" HeaderText="Asset" 
-                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" >
+                <telerik:GridTemplateColumn  UniqueName="Asset" AllowFiltering="true" DataField="Asset" HeaderText="Asset" 
+                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"  
+                FooterStyle-HorizontalAlign="Right">
                 <HeaderStyle ></HeaderStyle>
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top"  />
                     <ItemTemplate>
                         <asp:Label ID="lblAsset" runat="server" CssClass="CmbField" Text='<%# Eval("Asset").ToString() %>'></asp:Label>
                     </ItemTemplate>
@@ -139,14 +151,18 @@
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>
                 
-                 <telerik:GridBoundColumn DataField="Liabilities" HeaderText="Liabilities" SortExpression="Liabilities"
-                    UniqueName="Liabilities" ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                 <telerik:GridBoundColumn DataField="Liabilities"  HeaderText="Liabilities" SortExpression="Liabilities"
+                    UniqueName="Liabilities" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                    AutoPostBackOnFilter="true" DataFormatString="{0:N0}"  
+                FooterStyle-HorizontalAlign="Right">
                      <HeaderStyle ></HeaderStyle>
                      <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn DataField="Networth" HeaderText="Networth" SortExpression="Networth"
-                    UniqueName="Networth" ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                 <telerik:GridBoundColumn DataField="Networth"  HeaderText="Networth" SortExpression="Networth"
+                    UniqueName="Networth" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                     AutoPostBackOnFilter="true" DataFormatString="{0:N0}" 
+                FooterStyle-HorizontalAlign="Right">
                      <HeaderStyle ></HeaderStyle>
                      <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>

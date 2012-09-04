@@ -62,11 +62,13 @@ namespace WealthERP.FP
                     tblAdviserBM.Visible = true;
                     BindBranchDropDown();
                     BindRMDropDown();
+                    gvCustomerProspectlist.Visible = false;
                 }
                 else if (userType == "rm")
                 {
                     btnGo.Visible = false;
                     tblAdviserBM.Visible = false;
+                    gvCustomerProspectlist.Visible = true;
                     BindCustomerProspectGrid();
                 }
                 if (userType == "bm")
@@ -75,6 +77,7 @@ namespace WealthERP.FP
                     tblAdviserBM.Visible = true;
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
+                    gvCustomerProspectlist.Visible = false;
                 }
             }
             
@@ -436,6 +439,17 @@ namespace WealthERP.FP
             DataTable dtcustomerProspect = new DataTable();
             dtcustomerProspect = (DataTable)Cache["NetworthMIS" + userVo.UserId];
             gvCustomerProspectlist.DataSource = dtcustomerProspect;
+        }
+
+        protected void btnNetworthMIS_Click(object sender, ImageClickEventArgs e)
+        {
+            gvCustomerProspectlist.ExportSettings.OpenInNewWindow = true;
+            gvCustomerProspectlist.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvCustomerProspectlist.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvCustomerProspectlist.MasterTableView.ExportToExcel();
         }
 
 

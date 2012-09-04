@@ -95,6 +95,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
+        /// btnNetworthMIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnNetworthMIS;
+        
+        /// <summary>
         /// RadAjaxPanel1 control.
         /// </summary>
         /// <remarks>
