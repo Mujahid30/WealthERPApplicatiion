@@ -312,11 +312,7 @@
                 <asp:LinkButton ID="lnkPaintFileDwnload" runat="server" Font-Size="X-Small" CausesValidation="False"
                     OnClick="lnkPaintFileDwnload_Click" Visible="false">click here to download SIP file upload steps</asp:LinkButton>
             </td>
-        </td>
-        <td>
-            <asp:LinkButton ID="lnkPaintFileDwnload" runat="server" Font-Size="X-Small" CausesValidation="False"
-                OnClick="lnkPaintFileDwnload_Click" Visible="false">click here to download SIP file upload steps</asp:LinkButton>
-        </td>
+        </td>      
     </tr>
     <tr id="datevisible" runat="server" visible="false">
         <td class="leftField">
