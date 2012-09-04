@@ -182,7 +182,7 @@
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV" AllowFiltering="false"
-                                                            DataFormatString="{0:N2}">
+                                                            DataFormatString="{0:N4}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="MarketValue" HeaderText="Market Value" DataField="MarketValue"
@@ -347,7 +347,7 @@
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV" FooterStyle-HorizontalAlign="Right"
-                                                            AllowFiltering="false" DataFormatString="{0:N2}">
+                                                            AllowFiltering="false" DataFormatString="{0:N4}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value" DataField="CurrentValue"

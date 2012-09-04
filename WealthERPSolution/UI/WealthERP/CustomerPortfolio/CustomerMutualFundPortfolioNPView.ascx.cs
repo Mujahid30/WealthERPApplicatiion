@@ -1389,6 +1389,12 @@ namespace WealthERP.CustomerPortfolio
             {
                 SetPanelVisibility(true, false);
                 BindReturnsGrid();
+                trChart.Visible = true;
+                trSchemePerformance.Visible = false;
+                trHoldingGrid.Visible = false;
+                trTop10HoldingsPie.Visible = false;
+                trTopTenSectors.Visible = false;
+                trSectorGrid.Visible = false;
                 BindPerformaceChart();
             }
             else if (ddlDisplayType.SelectedIndex == 2)
