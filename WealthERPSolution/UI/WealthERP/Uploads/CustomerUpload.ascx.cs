@@ -7527,12 +7527,7 @@ namespace WealthERP.Uploads
         protected void btnCancel_Click(object sender, EventArgs e)
         {
 
-        }
-
-        protected void lnkPaintFileDwnload_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Standard Upload Files/EquityTradeAccount.xlsx");
-        }
+        }        
     }
 }
 
