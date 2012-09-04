@@ -313,6 +313,10 @@
                     OnClick="lnkPaintFileDwnload_Click" Visible="false">click here to download SIP file upload steps</asp:LinkButton>
             </td>
         </td>
+        <td>
+            <asp:LinkButton ID="lnkPaintFileDwnload" runat="server" Font-Size="X-Small" CausesValidation="False"
+                OnClick="lnkPaintFileDwnload_Click" Visible="false">click here to download SIP file upload steps</asp:LinkButton>
+        </td>
     </tr>
     <tr id="datevisible" runat="server" visible="false">
         <td class="leftField">
@@ -354,7 +358,7 @@
             </asp:DropDownList>
         </td>
     </tr>--%>
-    <tr id="SkiprowsVisible" runat="server" visible="False">
+   <%-- <tr id="SkiprowsVisible" runat="server" visible="False">
         <td class="leftField">
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Do you wish to skip rows?:"></asp:Label>
         </td>
@@ -384,7 +388,7 @@
                 ValidationGroup="btn_Upload" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Browse:"></asp:Label>
