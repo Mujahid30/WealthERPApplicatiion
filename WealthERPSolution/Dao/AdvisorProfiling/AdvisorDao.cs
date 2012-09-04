@@ -2401,15 +2401,17 @@ namespace DaoAdvisorProfiling
                             aoTALVo.AMCLinkUserCode = int.Parse(dr["XLU_LinkUserCode"].ToString());
                             aoTALVo.AMCLinkTypeCode = int.Parse(dr["XLTY_LinkTypeCode"].ToString());
                             aoTALVo.AMCLinks = dr["AL_Link"].ToString();
-                            aoTALVo.AMCImagePath = dr["AL_LinkImagePath"].ToString();
+                            aoTALVo.AMCImagePath = dr["WLM_LinkImagePath"].ToString();
                             if(!string.IsNullOrEmpty(dr["WELM_LinkCode"].ToString()))
                             {
                                 aoTALVo.ExternalLinkCode=dr["WELM_LinkCode"].ToString();
                             }
-                            if (!string.IsNullOrEmpty(dr["AL_AltLinkName"].ToString()))
-                            {
-                                aoTALVo.AltLinkName = dr["AL_AltLinkName"].ToString();
-                            }
+                            aoTALVo.WerpMasterlinkId = int.Parse(dr["WLM_Id"].ToString());
+                            aoTALVo.AMCLinksWithPin = dr["AL_LinkWithPin"].ToString();
+                            //if (!string.IsNullOrEmpty(dr["AL_AltLinkName"].ToString()))
+                            //{
+                            //    aoTALVo.AltLinkName = dr["AL_AltLinkName"].ToString();
+                            //}
                             adviserOTALink.Add(aoTALVo);
                         }
                     }
