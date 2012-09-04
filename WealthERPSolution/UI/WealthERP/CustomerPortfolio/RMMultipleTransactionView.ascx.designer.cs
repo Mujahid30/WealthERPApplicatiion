@@ -464,6 +464,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Button btnFolioNumberSearch;
         
         /// <summary>
+        /// btnProcessIdSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnProcessIdSearch;
+        
+        /// <summary>
         /// hdnRecordCount control.
         /// </summary>
         /// <remarks>
@@ -579,5 +588,14 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnStatus;
+        
+        /// <summary>
+        /// hdnProcessIdSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnProcessIdSearch;
     }
 }

@@ -315,9 +315,21 @@
                                 <AlternatingRowStyle CssClass="AltRowStyle" />
                                 <Columns>
                                     <asp:BoundField DataField="TransactionId" HeaderText="TransactionId" Visible="false" />
-                                    <asp:BoundField DataField="ADUL_ProcessId" HeaderText="ProcessId">
+                                    <%--<asp:BoundField DataField="ADUL_ProcessId" HeaderText="ProcessId">
                                         <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                    </asp:BoundField>                                    
+                                    </asp:BoundField> --%>   
+                                    <asp:TemplateField ItemStyle-Wrap="false" HeaderText="ProcessId">
+                                        <HeaderTemplate>
+                                            <asp:Label ID="lblProcessId" runat="server" Text="ProcessId"></asp:Label>
+                                            <br />
+                                            <asp:TextBox ID="txtProcessId" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMMultipleTransactionView_btnProcessIdSearch');" />
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblProcessIdHeader" runat="server" Text='<%# Eval("ADUL_ProcessId").ToString() %>'
+                                                ItemStyle-Wrap="false"></asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle Wrap="False"></ItemStyle>
+                                    </asp:TemplateField>                                
                                     <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Customer Name">
                                         <HeaderTemplate>
                                             <asp:Label ID="lblName" runat="server" Text="Name"></asp:Label>
@@ -482,6 +494,8 @@
     OnClick="btnSchemeSearch_Click" />
 <asp:Button ID="btnFolioNumberSearch" runat="server" Text="" BorderStyle="None" BackColor="Transparent"
     OnClick="btnFolioNumberSearch_Click" />
+<asp:Button ID="btnProcessIdSearch" runat="server" Text="" BorderStyle="None" BackColor="Transparent"
+    OnClick="btnProcessIdSearch_Click" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnCustomerNameSearch" runat="server" Visible="false" />
@@ -495,3 +509,4 @@
 <asp:HiddenField ID="txtParentCustomerId" runat="server" />
 <asp:HiddenField ID="txtParentCustomerType" runat="server" />
 <asp:HiddenField ID="hdnStatus" runat="server" />
+<asp:HiddenField ID="hdnProcessIdSearch" runat="server" />
