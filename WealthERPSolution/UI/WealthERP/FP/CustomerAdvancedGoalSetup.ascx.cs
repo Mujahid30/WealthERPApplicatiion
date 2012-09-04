@@ -69,6 +69,10 @@ namespace WealthERP.FP
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            tdlblInvestmntLumpsum.Visible = false;
+            tdlblInvestmntLumpsumTxt.Visible = false;
+            tdSavingsRequiredMonthly.Visible = false;
+            tdSavingsRequiredMonthlyTxt.Visible = false;
             //rdoMFBasedGoalNo.Attributes.Add("onClick", "javascript:MFBasedGoalSelection(value);");
             //rdoMFBasedGoalYes.Attributes.Add("onClick", "javascript:MFBasedGoalSelection(value);");
 
@@ -249,7 +253,7 @@ namespace WealthERP.FP
                 //tdMFBasedBlank.Visible = true;
                 //tdExistingInvestBlank.Visible = true;
                 tdReturnOnExistingInvestBlank.Visible = true;
-                tdReturnOnFutureInvestBlank.Visible = true;
+                //tdReturnOnFutureInvestBlank.Visible = true;
                 //tdROIFutureInvestBlank.Visible = true;
                 //tdReturnOnNewInvestBlank.Visible = true;
                 tdCorpusToBeLeftBehindBlank.Visible = true;
@@ -310,7 +314,7 @@ namespace WealthERP.FP
                 //tdMFBasedBlank.Visible = false;
                 //tdExistingInvestBlank.Visible = false;
                 tdReturnOnExistingInvestBlank.Visible = false;
-                tdReturnOnFutureInvestBlank.Visible = false;
+                //tdReturnOnFutureInvestBlank.Visible = false;
                 //tdROIFutureInvestBlank.Visible = false;
                 //tdReturnOnNewInvestBlank.Visible = false;
                 tdCorpusToBeLeftBehindBlank.Visible = false;
@@ -1192,10 +1196,18 @@ namespace WealthERP.FP
                     customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
 
                 }
-
-
-                customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false,out goalId);
-
+                double lumpsumInvestment = 0;
+                CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
+               goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false,out goalId);
+               tdlblInvestmntLumpsum.Visible = true;
+               tdlblInvestmntLumpsumTxt.Visible=true;
+               tdSavingsRequiredMonthly.Visible=true;
+               tdSavingsRequiredMonthlyTxt.Visible = true;
+               lumpsumInvestment = customerGoalPlanningBo.PV(goalplanningSetUpVo.ExpectedROI / 100, goalplanningSetUpVo.GoalYear - DateTime.Now.Year, 0, -goalplanningSetUpVo.FutureValueOfCostToday, 1);
+               lblInvestmntLumpsumTxt.Text = lumpsumInvestment != 0 ? String.Format("{0:n2}", Math.Round(lumpsumInvestment, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+          
+               lblSavingsRequiredMonthlyTxt.Text = goalplanningSetUpVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+              
                 //After Save Goal Is in View Mode
                 Session["GoalId"] = goalId;
                 ShowGoalDetails();
@@ -1992,22 +2004,37 @@ namespace WealthERP.FP
                 DropDownList dropDownList = (DropDownList)editedItem.FindControl("ddlPickScheme");
                 HtmlTableRow trSchemeDDL = (HtmlTableRow)editedItem.FindControl("trSchemeDDL");
                 HtmlTableRow trSchemeTextBox = (HtmlTableRow)editedItem.FindControl("trSchemeTextBox");
-                TextBox txtAvailableAllocationEditMode = editedItem.FindControl("txtAvailableAllocationEditMode") as TextBox;
-                TextBox txtAvailableAllocationAddMode = editedItem.FindControl("txtAvailableAllocationAddMode") as TextBox;
-                TextBox txtSchemeAllocationPerEditMode = editedItem.FindControl("txtSchemeAllocationPerEditMode") as TextBox;
-                TextBox txtSchemeAllocationPerAddMode = editedItem.FindControl("txtSchemeAllocationPerAddMode") as TextBox;
-                TextBox txtInvestedAmtAdd = editedItem.FindControl("txtInvestedAmtAdd") as TextBox;
-                TextBox txtInvestedAmt = editedItem.FindControl("txtInvestedAmt") as TextBox;
-                TextBox txtAllocationEntryAddMode = editedItem.FindControl("txtAllocationEntryAddMode") as TextBox;
-                TextBox TextBox1 = editedItem.FindControl("TextBox1") as TextBox;
-                TextBox txtCurrentValueEditMode = editedItem.FindControl("txtCurrentValueEditMode") as TextBox;
-                TextBox txtCurrentValueAddMode = editedItem.FindControl("txtCurrentValueAddMode") as TextBox;
-                TextBox txtAmtAvailableEditMode = editedItem.FindControl("txtAmtAvailableEditMode") as TextBox;
-                TextBox txtAmtAvailableAddMode = editedItem.FindControl("txtAmtAvailableAddMode") as TextBox;
-                TextBox txtUnitsAddMode = editedItem.FindControl("txtUnitsAddMode") as TextBox;
-                TextBox txtUnits = editedItem.FindControl("txtUnits") as TextBox;
+                Label txtAvailableAllocationEditMode = editedItem.FindControl("txtAvailableAllocationEditMode") as Label;
+                Label txtAvailableAllocationAddMode = editedItem.FindControl("txtAvailableAllocationAddMode") as Label;
+                Label txtSchemeAllocationPerEditMode = editedItem.FindControl("txtSchemeAllocationPerEditMode") as Label;
+                Label txtSchemeAllocationPerAddMode = editedItem.FindControl("txtSchemeAllocationPerAddMode") as Label;
+                Label txtInvestedAmtAdd = editedItem.FindControl("txtInvestedAmtAdd") as Label;
+                Label txtInvestedAmt = editedItem.FindControl("txtInvestedAmt") as Label;
+                Label txtAllocationEntryAddMode = editedItem.FindControl("txtAllocationEntryAddMode") as Label;
+                Label TextBox1 = editedItem.FindControl("TextBox1") as Label;
+                Label txtCurrentValueEditMode = editedItem.FindControl("txtCurrentValueEditMode") as Label;
+                Label txtCurrentValueAddMode = editedItem.FindControl("txtCurrentValueAddMode") as Label;
+                Label txtAmtAvailableEditMode = editedItem.FindControl("txtAmtAvailableEditMode") as Label;
+                Label txtAmtAvailableAddMode = editedItem.FindControl("txtAmtAvailableAddMode") as Label;
+                Label txtUnitsAddMode = editedItem.FindControl("txtUnitsAddMode") as Label;
+                Label txtUnits = editedItem.FindControl("txtUnits") as Label;
                 Label lblMemberNameAddMode = editedItem.FindControl("lblMemberNameAddMode") as Label;
                 DropDownList ddlFamilyMembers = (DropDownList)editedItem.FindControl("ddlMemberName");
+                HtmlTableRow trUnits = editedItem.FindControl("trUnits") as HtmlTableRow;
+                HtmlTableRow trCurrentValue = editedItem.FindControl("trCurrentValue") as HtmlTableRow;
+                HtmlTableRow trTotalGoalAllocation = editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
+                HtmlTableRow trOtherGoalAllocation = editedItem.FindControl("trOtherGoalAllocation") as HtmlTableRow;
+
+                HtmlTableCell tdlblSchemeName = editedItem.FindControl("tdlblSchemeName") as HtmlTableCell;
+                HtmlTableCell tdddlPickScheme = editedItem.FindControl("tdddlPickScheme") as HtmlTableCell;
+
+                
+                trUnits.Visible = false;
+                trCurrentValue.Visible = false;
+                trTotalGoalAllocation.Visible = false;
+                trOtherGoalAllocation.Visible = false;
+                tdddlPickScheme.Visible = false;
+                tdlblSchemeName.Visible = false;
 
                 if (e.Item.RowIndex == -1)
                 {
@@ -2035,6 +2062,10 @@ namespace WealthERP.FP
                 }
                 else
                 {
+                    trUnits.Visible = true;
+                    trCurrentValue.Visible = true;
+                    trTotalGoalAllocation.Visible = true;
+                    trOtherGoalAllocation.Visible = true;
 
                     trSchemeTextBox.Visible = true;
                     trSchemeDDL.Visible = false;
@@ -2477,21 +2508,31 @@ namespace WealthERP.FP
                 DropDownList dropdown = (DropDownList)sender;
                 string categoryCode = dropdown.SelectedValue;
                 GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
-                TextBox txtAvailableAllocationEditMode = editedItem.FindControl("txtAvailableAllocationEditMode") as TextBox;
-                TextBox txtAvailableAllocationAddMode = editedItem.FindControl("txtAvailableAllocationAddMode") as TextBox;
-                TextBox txtSchemeAllocationPerEditMode = editedItem.FindControl("txtSchemeAllocationPerEditMode") as TextBox;
-                TextBox txtSchemeAllocationPerAddMode = editedItem.FindControl("txtSchemeAllocationPerAddMode") as TextBox;
-                TextBox txtInvestedAmtAdd = editedItem.FindControl("txtInvestedAmtAdd") as TextBox;
-                TextBox txtInvestedAmt = editedItem.FindControl("txtInvestedAmt") as TextBox;
-                TextBox txtAllocationEntryAddMode = editedItem.FindControl("txtAllocationEntryAddMode") as TextBox;
-                TextBox TextBox1 = editedItem.FindControl("TextBox1") as TextBox;
-                TextBox txtCurrentValueEditMode = editedItem.FindControl("txtCurrentValueEditMode") as TextBox;
-                TextBox txtCurrentValueAddMode = editedItem.FindControl("txtCurrentValueAddMode") as TextBox;
-                TextBox txtAmtAvailableEditMode = editedItem.FindControl("txtAmtAvailableEditMode") as TextBox;
-                TextBox txtAmtAvailableAddMode = editedItem.FindControl("txtAmtAvailableAddMode") as TextBox;
-                TextBox txtUnitsAddMode = editedItem.FindControl("txtUnitsAddMode") as TextBox;
-                TextBox txtUnits = editedItem.FindControl("txtUnits") as TextBox;
+                Label txtAvailableAllocationEditMode = editedItem.FindControl("txtAvailableAllocationEditMode") as Label;
+                Label txtAvailableAllocationAddMode = editedItem.FindControl("txtAvailableAllocationAddMode") as Label;
+                Label txtSchemeAllocationPerEditMode = editedItem.FindControl("txtSchemeAllocationPerEditMode") as Label;
+                Label txtSchemeAllocationPerAddMode = editedItem.FindControl("txtSchemeAllocationPerAddMode") as Label;
+                Label txtInvestedAmtAdd = editedItem.FindControl("txtInvestedAmtAdd") as Label;
+                Label txtInvestedAmt = editedItem.FindControl("txtInvestedAmt") as Label;
+                Label txtAllocationEntryAddMode = editedItem.FindControl("txtAllocationEntryAddMode") as Label;
+                Label TextBox1 = editedItem.FindControl("TextBox1") as Label;
+                Label txtCurrentValueEditMode = editedItem.FindControl("txtCurrentValueEditMode") as Label;
+                Label txtCurrentValueAddMode = editedItem.FindControl("txtCurrentValueAddMode") as Label;
+                Label txtAmtAvailableEditMode = editedItem.FindControl("txtAmtAvailableEditMode") as Label;
+                Label txtAmtAvailableAddMode = editedItem.FindControl("txtAmtAvailableAddMode") as Label;
+                Label txtUnitsAddMode = editedItem.FindControl("txtUnitsAddMode") as Label;
+                Label txtUnits = editedItem.FindControl("txtUnits") as Label;
                 Label lblMemberNameAddMode = editedItem.FindControl("lblMemberNameAddMode") as Label;
+                HtmlTableRow trUnits =  editedItem.FindControl("trUnits") as HtmlTableRow;
+                HtmlTableRow trCurrentValue =  editedItem.FindControl("trCurrentValue") as HtmlTableRow;
+                HtmlTableRow trTotalGoalAllocation =  editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
+                HtmlTableRow trOtherGoalAllocation = editedItem.FindControl("trOtherGoalAllocation") as HtmlTableRow;
+
+                trUnits.Visible=false;
+                trCurrentValue.Visible=false;
+                trTotalGoalAllocation.Visible=false;
+                trOtherGoalAllocation.Visible = false;
+
 
                 txtAvailableAllocationEditMode.Visible = false;
                 txtSchemeAllocationPerEditMode.Visible = false;
@@ -2517,6 +2558,10 @@ namespace WealthERP.FP
 
                 if(dropdown.SelectedValue != "" && dropdown.SelectedValue != "Select")
                 {
+                    trUnits.Visible = true;
+                    trCurrentValue.Visible = true;
+                    trTotalGoalAllocation.Visible = true;
+                    trOtherGoalAllocation.Visible = true;
 
                 foreach (DataRow drGoalExistingInvestments in dsFundingDetails.Tables[2].Rows)
                 {
@@ -2601,7 +2646,20 @@ namespace WealthERP.FP
             }
             GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
             DropDownList ddlPickScheme = editedItem.FindControl("ddlPickScheme") as DropDownList;
+            HtmlTableCell tdlblSchemeName = editedItem.FindControl("tdlblSchemeName") as HtmlTableCell;
+            HtmlTableCell tdddlPickScheme = editedItem.FindControl("tdddlPickScheme") as HtmlTableCell;
+            HtmlTableRow trUnits = editedItem.FindControl("trUnits") as HtmlTableRow;
+            HtmlTableRow trCurrentValue = editedItem.FindControl("trCurrentValue") as HtmlTableRow;
+            HtmlTableRow trTotalGoalAllocation = editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
+            HtmlTableRow trOtherGoalAllocation = editedItem.FindControl("trOtherGoalAllocation") as HtmlTableRow;
+
+            trUnits.Visible = false;
+            trCurrentValue.Visible = false;
+            trTotalGoalAllocation.Visible = false;
+            trOtherGoalAllocation.Visible = false;
             BindDDLSchemeAllocated(ddlPickScheme, customerId);
+            tdddlPickScheme.Visible = true;
+            tdlblSchemeName.Visible = true;
 
         }
         protected void ddlSIPMemberName_OnSelectedIndexChanged(object sender, EventArgs e)
