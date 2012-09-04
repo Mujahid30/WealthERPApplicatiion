@@ -56,11 +56,18 @@ namespace VoUser
         private int m_HostId;
         private List<AdvisorLOBVo> advisorLOBVoList = new List<AdvisorLOBVo>();
         private AdviserSubscriptionVo advSubVo = new AdviserSubscriptionVo();
+        private bool m_IsLoginWidgetEnable;
        
 
         #endregion Fields
 
         #region Properties
+        public bool IsLoginWidgetEnable
+        {
+            get { return m_IsLoginWidgetEnable; }
+            set { m_IsLoginWidgetEnable = value; }
+        }
+
         public int Associates
         {
             get { return m_Associates; }

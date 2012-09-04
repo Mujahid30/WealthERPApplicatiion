@@ -514,6 +514,8 @@ namespace DaoAdvisorProfiling
                     if (!string.IsNullOrEmpty(dr["A_HostId"].ToString()))
                         advisorVo.HostId = Int16.Parse(dr["A_HostId"].ToString());
 
+                    advisorVo.IsLoginWidgetEnable = Convert.ToBoolean(Int16.Parse(dr["A_IsloginWidgetEnable"].ToString()));
+
                 }
 
 
@@ -1519,6 +1521,9 @@ namespace DaoAdvisorProfiling
 
                     if (!string.IsNullOrEmpty(dr["A_HostId"].ToString()))
                         advisorVo.HostId = Int16.Parse(dr["A_HostId"].ToString());
+
+                    advisorVo.IsLoginWidgetEnable = Convert.ToBoolean(Int16.Parse(dr["A_IsloginWidgetEnable"].ToString()));
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -2546,6 +2551,41 @@ namespace DaoAdvisorProfiling
                 throw exBase;
             }
             return result;
+        }
+
+        public void UpdateAdviserLoginWidgetSetting(int adviserId, string webSiteName, bool isLoginWidgetEnable)
+        {
+            Database db;
+            DbCommand updateAdviserStorageBalanceCmd;
+           
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateAdviserStorageBalanceCmd = db.GetStoredProcCommand("sproc_UpdateAdviserStorageBalance");
+                db.AddInParameter(updateAdviserStorageBalanceCmd, "@adviserId", DbType.Int16, adviserId);
+                db.AddInParameter(updateAdviserStorageBalanceCmd, "@WebSite", DbType.String, webSiteName);
+                db.AddInParameter(updateAdviserStorageBalanceCmd, "@isLoginWidgetEnable", DbType.UInt16, webSiteName); 
+                db.ExecuteNonQuery(updateAdviserStorageBalanceCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:UpdateAdviserLoginWidgetSetting(int adviserId, string webSiteName, bool isLoginWidgetEnable)");
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = webSiteName;
+                objects[1] = isLoginWidgetEnable;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+          
         }
     }
 }

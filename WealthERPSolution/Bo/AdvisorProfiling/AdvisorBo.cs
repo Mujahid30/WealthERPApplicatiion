@@ -1592,5 +1592,34 @@ namespace BoAdvisorProfiling
             return result;
         }
 
+        public void UpdateAdviserLoginWidgetSetting(int adviserId, string webSiteName, bool isLoginWidgetEnable)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();            
+            try
+            {
+                adviserDao.UpdateAdviserLoginWidgetSetting(adviserId, webSiteName, isLoginWidgetEnable);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:UpdateAdviserLoginWidgetSetting(int adviserId, string webSiteName, bool isLoginWidgetEnable)");
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = webSiteName;
+                objects[1] = isLoginWidgetEnable;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
     }
 }
