@@ -223,6 +223,51 @@
                         <asp:Label ID="lblInsertMessage" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
+                
+                <tr>
+                <td colspan="2">
+                
+                </td>
+                </tr>
+                
+                 <tr>
+        <td colspan="2">
+           <div id="passwordNote" class="Note">
+           <p>
+             <span style="font-weight: bold">Note:</span><br />                         
+              1. Please note that these settings used in all email Communication, includes :<br />                            
+                 - Creating new Staff/customer ,  User Management ,  Reports (Send via Email) , Message (via Email) , etc<br /> 
+              2. If these Settings are not filled, or not Validate then by default , it will use email id< admin@wealtherp.com >.<br />    
+              3. Use of Alias : it will appear in the mail  as Sender's Name.<br />   
+              4. Please Validate your settings by clicking on  “Test Credentials “ . <br />
+              5. SMTP relates to your Email host Setting, Please ask your provider for SMTP Settings .<br /><br />
+            
+             <span style="font-weight: bold">SMTP Examples:</span><br />
+             <b>Example # 1: For Gmail users</b><br />                  
+                  SMTP Host : smtp.gmail.com    ;SMTP Port : 25  ;<br />  
+                  Email : abc12@gmail.com Password : < valid Password of Email id you entered> ; <br />  
+                  Sender Email Alias : ABC Company  ;SMTP Authentication Required : Select The Check Box <br />  
+                  Click on test credentials :<br /> 
+                  1) SMTP Credentials Are Valid , Save it.<br />  
+                  2) Not able to send mail using the SMTP credentials check your Email id & Password.<br />  
+                  Email Rcvd as: Sender's Name:  ABC Company <abcd12@gmail.com><br />  <br />
+                  
+              <b>Example # 2: For Yahoo users</b><br />
+                      SMTP Host : smtp.mail.yahoo.com ;  SMTP Port : 25  ;<br />
+                      Email : abc12@yahoo.com  Password : < valid Password of Email id you entered> ;<br /> 
+                      Sender Email Alias : ABC Company  ;SMTP Authentication Required : Select The Check Box<br /> 
+                      Click on test credentials :<br />  
+                      1) SMTP Credentials Are Valid , Save it.<br />
+                      2) Not able to send mail using the SMTP credentials check your Email id & Password.<br />
+                      Email Rcvd as: Sender's Name:  ABC Company <abcd12@yahoo.com><br /><br />
+
+                  
+          </p>
+           </div>
+        </td>
+    </tr>
+                
+                
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -297,6 +342,18 @@
                             OnClick="btnSubmit_Click" />
                     </td>
                 </tr>
+                
+            <tr>
+             <td colspan="2">
+              <div id="Div1" class="Note">
+             <p>
+                 <span style="font-weight: bold">Note:</span><br /> 
+                  1. You can pick up your 3rd Party SMS Provider .<br />
+                  2. If your Provider is not in the list, please contact customer Care.
+             </p>
+           </div>
+           </td>
+        </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -349,6 +406,19 @@
                             CssClass="PCGMediumButton" OnClick="btnSendLoginWidGet_Click" />
                     </td>
                 </tr>
+                
+                     
+            <tr>
+             <td colspan="2">
+              <div id="Div2" class="Note">
+             <p>
+                 <span style="font-weight: bold">Note:</span><br /> 
+                 1.	Use this to direct access from your website.<br />
+                 2.	Share the Instructions, with your website Provider.<br />
+             </p>
+           </div>
+           </td>
+        </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>

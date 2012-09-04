@@ -1253,3 +1253,13 @@ p.tip
     padding-left:3px;
     z-index: 2; 
 }
+
+.Note
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    vertical-align: middle;
+    color: #8A0408;
+    padding-left:5px;
+}

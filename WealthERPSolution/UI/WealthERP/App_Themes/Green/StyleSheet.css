@@ -1178,6 +1178,16 @@ p.tip
             background-repeat:no-repeat;
             background-position:center;
         }
+        
+.Note
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    vertical-align: middle;
+    color: #16721A;
+    padding-left:5px;
+}
 
 /* End */
 
