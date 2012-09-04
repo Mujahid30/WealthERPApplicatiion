@@ -489,7 +489,7 @@ namespace BoCustomerPortfolio
             return transactionId;
         }
 
-        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId, int export, int CurrentPage, out int Count, string SchemeFilter, string TypeFilter, string TriggerFilter, string TransactionCode, string DateFilter, out Dictionary<string, string> genDictTranType, out Dictionary<string, string> genDictTranTrigger, out Dictionary<string, string> genDictTranDate, string SortExpression, DateTime FromDate, DateTime ToDate,string folioFilter)
+        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId, int export, int CurrentPage, out int Count, string SchemeFilter, string TypeFilter, string TriggerFilter, string TransactionCode, string DateFilter, out Dictionary<string, string> genDictTranType, out Dictionary<string, string> genDictTranTrigger, out Dictionary<string, string> genDictTranDate, string SortExpression, DateTime FromDate, DateTime ToDate,string folioFilter,int ProcessId)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
 
@@ -500,7 +500,7 @@ namespace BoCustomerPortfolio
 
             try
             {
-                mfTransactionsList = customerTransactionDao.GetMFTransactions(customerId, portfolioId, export, CurrentPage, out Count, SchemeFilter, TypeFilter, TriggerFilter, TransactionCode, DateFilter, out genDictTranType, out genDictTranTrigger, out genDictTranDate, SortExpression, FromDate, ToDate, folioFilter);
+                mfTransactionsList = customerTransactionDao.GetMFTransactions(customerId, portfolioId, export, CurrentPage, out Count, SchemeFilter, TypeFilter, TriggerFilter, TransactionCode, DateFilter, out genDictTranType, out genDictTranTrigger, out genDictTranDate, SortExpression, FromDate, ToDate, folioFilter,ProcessId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1384,14 +1384,14 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(out int Count, int CurrentPage, int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(out int Count, int CurrentPage, int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC,int ProcessId)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             List<MFTransactionVo> mfTransactionsList = new List<MFTransactionVo>();
             try
             {
 
-                mfTransactionsList = customerTransactionDao.GetRMCustomerMFTransactions(out Count, CurrentPage, RMId, AdviserID, GroupHeadId, From, To, Manage, CustomerName, Scheme, TranType,transactionStatus, out genDictTranType, FolioNumber, PasssedFolioValue,categoryCode,AMCCode,out genDictCategory,out genDictAMC);
+                mfTransactionsList = customerTransactionDao.GetRMCustomerMFTransactions(out Count, CurrentPage, RMId, AdviserID, GroupHeadId, From, To, Manage, CustomerName, Scheme, TranType, transactionStatus, out genDictTranType, FolioNumber, PasssedFolioValue, categoryCode, AMCCode, out genDictCategory, out genDictAMC, ProcessId);
 
             }
             catch (BaseApplicationException Ex)
