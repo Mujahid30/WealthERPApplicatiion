@@ -304,7 +304,7 @@ namespace WealthERP.CustomerPortfolio
                     gvEquityTransactions.DataSource = dtEquityTransactions;
                     gvEquityTransactions.DataBind();
                     gvEquityTransactions.Visible = true;
-                    //Panel1.Visible = true;
+                    Panel1.Visible = true;
                     //RadComboBoxItem rci = new RadComboBoxItem();
 
 
@@ -413,6 +413,8 @@ namespace WealthERP.CustomerPortfolio
                 dtEquityTransactionsDetails = (DataTable)Cache["EquityTransactionsDetails" + customerPortfolioVo.CustomerId.ToString()];
                 gvEquityTransactions.DataSource = dtEquityTransactionsDetails;
             }
+            else
+                Panel1.Visible = false;
         }
 
 
