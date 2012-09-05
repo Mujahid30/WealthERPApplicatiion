@@ -21,7 +21,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                           Transact/Business Links
+                            Transact/Business Links
                         </td>
                     </tr>
                 </table>
@@ -44,26 +44,37 @@
 </table>
 <table width="100%" class="TableBackground">
     <tr>
-        <table width="80%" class="TableBackground" >
+        <table width="80%" class="TableBackground">
             <td>
                 <br />
                 <asp:GridView ID="gvAdviserLinks" ShowHeader="true" runat="server" DataKeyNames="AL_LinkId,WLM_Id"
-                    AutoGenerateColumns="False" CssClass="GridViewStyle" BorderStyle="None" BorderColor="Transparent"
-                    Font-Size="Small" HorizontalAlign="Center" EnableViewState="true" OnRowDataBound="gvAdviserLinks_RowDataBound">
+                    AutoGenerateColumns="False" CssClass="GridViewStyle" BorderStyle="None" 
+                    Font-Size="Small" HorizontalAlign="Center" EnableViewState="true" OnRowDataBound="gvAdviserLinks_RowDataBound" ShowFooter="true">
+                    
+                    
+                    
+                    <FooterStyle CssClass="FooterStyle" />
+                    <PagerSettings Visible="False" />
+                    <RowStyle CssClass="RowStyle" />
+                    <EditRowStyle CssClass="EditRowStyle" HorizontalAlign="Left" 
+                        VerticalAlign="Top" />
+                    <SelectedRowStyle CssClass="SelectedRowStyle" />
+                    <%--<PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />--%>
                     <HeaderStyle CssClass="HeaderStyle" />
+                    <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
-                        <asp:TemplateField HeaderText="Transact/Business Links With Out Pin" HeaderStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Transact/Business Links With Out Pin" HeaderStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
                             <ItemTemplate>
                                 <asp:ImageButton ID="imgbtnLinks" ImageUrl='<%# Eval("WLM_LinkImagePath").ToString() %>'
                                     runat="server" />
-                                <asp:Label ID="lblURL" Text='<%# Eval("AL_Link").ToString() %>' runat="server" Visible="false">
+                                <asp:Label ID="lblURL" Text='<%# Eval("AL_LinkWithOutPin").ToString() %>' runat="server" Visible="false">
                                 </asp:Label>
                                 <br />
-                                <br /> 
+                                <br />
                             </ItemTemplate>
                             <ItemStyle BorderColor="Transparent" HorizontalAlign="Center" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Transact/Business Links With Pin" HeaderStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Transact/Business Links With Pin" HeaderStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
                             <ItemTemplate>
                                 <asp:ImageButton ID="imgbtnLinks1" ImageUrl='<%# Eval("WLM_LinkImagePath").ToString() %>'
                                     runat="server" />

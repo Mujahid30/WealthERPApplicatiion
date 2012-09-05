@@ -51,10 +51,10 @@ namespace WealthERP.Admin
             dtBindLinks.Columns.Add("A_AdviserId");
             dtBindLinks.Columns.Add("XLU_LinkUserCode");
             dtBindLinks.Columns.Add("XLTY_LinkTypeCode");
-            dtBindLinks.Columns.Add("AL_Link");
+            dtBindLinks.Columns.Add("AL_LinkWithPin");
             dtBindLinks.Columns.Add("WLM_LinkImagePath");
             dtBindLinks.Columns.Add("WLM_Id");
-            dtBindLinks.Columns.Add("AL_LinkWithPin");
+            dtBindLinks.Columns.Add("AL_LinkWithOutPin");
 
             if (Session[SessionContents.CustomerVo] != null)
             {
@@ -70,33 +70,61 @@ namespace WealthERP.Admin
             AOTALVo.AMCLinkUserCode = linkUserId;
 
             adviserOTALink = advisorBo.GetAdviserOnlineTransactionAMCLinks(AOTALVo);
-
-            if (adviserOTALink != null)
+            int tempId = 0;
+            if (adviserOTALink != null && adviserOTALink.Count>0)
             {
                 msgNoRecords.Visible = false;
+                //tempId = adviserOTALink[0].WerpMasterlinkId;
                 for (int i = 1; i <= adviserOTALink.Count; i++)
                 {
+
                     AOTALVo = new AdviserOnlineTransactionAMCLinksVo();
                     AOTALVo = adviserOTALink[i - 1];
 
-                    drAdvisorLinks = dtBindLinks.NewRow();
+                    if (tempId != AOTALVo.WerpMasterlinkId)
+                    {
+                        drAdvisorLinks = dtBindLinks.NewRow();
+                        drAdvisorLinks["AL_LinkId"] = AOTALVo.AMCLinkId;
+                        drAdvisorLinks["A_AdviserId"] = AOTALVo.advisorId;
+                        drAdvisorLinks["XLU_LinkUserCode"] = AOTALVo.AMCLinkUserCode;
+                        drAdvisorLinks["XLTY_LinkTypeCode"] = AOTALVo.AMCLinkTypeCode;
+                        drAdvisorLinks["WLM_Id"] = AOTALVo.WerpMasterlinkId;
+                        drAdvisorLinks["WLM_LinkImagePath"] = "~/Images/" + AOTALVo.AMCImagePath;
+                        if (AOTALVo.IsAMCLinksWithPin == 0)
+                        {
+                            if (!string.IsNullOrEmpty(AOTALVo.ExternalLinkCode) && AOTALVo.ExternalLinkCode == "TPSL")
+                            {
+                                drAdvisorLinks["AL_LinkWithOutPin"] = AOTALVo.AMCLinks + "&txtUserID=" + customerVo.CustomerId.ToString();
+                            }
+                            else
+                            {
+                                drAdvisorLinks["AL_LinkWithOutPin"] = AOTALVo.AMCLinks;
+                            }
+                            drAdvisorLinks["AL_LinkWithPin"] = String.Empty;
+                        }
+                        else 
+                        {
+                            drAdvisorLinks["AL_LinkWithPin"] = AOTALVo.AMCLinks;
+                            drAdvisorLinks["AL_LinkWithOutPin"] = String.Empty;
 
-                    drAdvisorLinks[0] = AOTALVo.AMCLinkId;
-                    drAdvisorLinks[1] = AOTALVo.advisorId;
-                    drAdvisorLinks[2] = AOTALVo.AMCLinkUserCode;
-                    drAdvisorLinks[3] = AOTALVo.AMCLinkTypeCode;
-                    if (!string.IsNullOrEmpty(AOTALVo.ExternalLinkCode) && AOTALVo.ExternalLinkCode == "TPSL")
-                    {
-                        drAdvisorLinks[4] = AOTALVo.AMCLinks + "&txtUserID=" + customerVo.CustomerId.ToString();
+                        }                     
+                      
+                       
+                        dtBindLinks.Rows.Add(drAdvisorLinks);
+                        tempId = AOTALVo.WerpMasterlinkId;
                     }
-                    else
+                    else if (tempId == AOTALVo.WerpMasterlinkId)
                     {
-                        drAdvisorLinks[4] = AOTALVo.AMCLinks; 
+                        if (AOTALVo.IsAMCLinksWithPin == 1)
+                        {
+                            dtBindLinks.Rows[dtBindLinks.Rows.Count - 1]["AL_LinkWithPin"] = AOTALVo.AMCLinks;
+                        }
+                        else
+                        {
+                            dtBindLinks.Rows[dtBindLinks.Rows.Count - 1]["AL_LinkWithOutPin"] = AOTALVo.AMCLinks;
+                        }
+
                     }
-                    
-                    drAdvisorLinks[5] = "~/Images/" + AOTALVo.AMCImagePath;
-                    drAdvisorLinks[6] = AOTALVo.WerpMasterlinkId;
-                    dtBindLinks.Rows.Add(drAdvisorLinks);
                 }
                 if (dtBindLinks.Rows.Count > 0)
                 {
@@ -134,7 +162,7 @@ namespace WealthERP.Admin
 
             if (e.CommandName == "NavigateToLink")
             {
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "popup", "window.open('" + Link + "','_blank')", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "popup", "window.open('" + Link + "')", true);
             }
 
         }
@@ -144,11 +172,41 @@ namespace WealthERP.Admin
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                // Get the contents of bound column #4 ("Item4")...
-                ImageButton imgSelect = (ImageButton)e.Row.FindControl("imgbtnLinks");
-                Label lblURL = (Label)e.Row.FindControl("lblURL");
-                imgSelect.Attributes.Add("onClick", "javascript:CallWindow('" + lblURL.Text + "+')");
+                {
+                    
+                    // Get the contents of bound column #4 ("Item4")...
+                    ImageButton imgSelect = (ImageButton)e.Row.FindControl("imgbtnLinks");
+                    ImageButton imgSelect1 = (ImageButton)e.Row.FindControl("imgbtnLinks1");
+                    Label lblURL = (Label)e.Row.FindControl("lblURL");
+                    Label lblURL1 = (Label)e.Row.FindControl("lblURL1");
+                    if (!String.IsNullOrEmpty(lblURL.Text.Trim()))
+                    {
+                        imgSelect.Attributes.Add("onClick", "javascript:CallWindow('" + lblURL.Text + "+')");
+                    }
+                    else
+                    {
+                        imgSelect.Enabled = false;
+                    }
+
+                    if (!String.IsNullOrEmpty(lblURL1.Text.Trim()))
+                    {
+                        imgSelect1.Attributes.Add("onClick", "javascript:CallWindow('" + lblURL1.Text + "+')");
+                    }
+                    else
+                    {
+                        imgSelect1.Enabled = false;
+                    }
+                   
+
+                }
             }
+            //else
+            //{
+            //    // Get the contents of bound column #4 ("Item4")...
+            //    ImageButton imgSelect = (ImageButton)e.Row.FindControl("imgbtnLinks");
+            //    Label lblURL = (Label)e.Row.FindControl("lblURL1");
+            //    imgSelect.Attributes.Add("onClick", "javascript:CallWindow('" + lblURL1.Text + "+')");
+            //}
         }
     }
 }
