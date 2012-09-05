@@ -2804,6 +2804,20 @@
                            HAC_ApplicationName="India Infoline"
                            HAC_Email="psahoo@ampsys.in"
                            Deleted="False"	/>
+
+    <WERPHostConfiguration
+                            HAC_HostId="1002"
+                            HAC_HostName="DSP BlackRock Mutual Funds"
+                            HAC_HostLogoPlacement="TopRightCorner"
+                            HAC_HostLogo="logo-dsp.gif"
+                            HAC_AdviserLogoPlacement="TopLeftCorner"
+                            HAC_DefaultTheme ="Maroon"
+                            HAC_ContactPersonName="Pramoda Sahoo"
+                            HAC_TelephoneNumber="8050567008"
+                            HAC_LoginPageContent="Provides ads to dsp merrill lynch mutual fund.Your online guide to mutual funds and mutual fund resources"
+                            HAC_ApplicationName="India Infoline"
+                            HAC_Email="psahoo@ampsys.in"
+                            Deleted="False"	/>
   </HostConfiguration>
 
 
