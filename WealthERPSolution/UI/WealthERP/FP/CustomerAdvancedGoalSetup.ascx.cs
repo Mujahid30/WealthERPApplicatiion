@@ -1717,7 +1717,7 @@ namespace WealthERP.FP
             GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
             DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickSIPScheme");
             TextBox txt = (TextBox)e.Item.FindControl("TextBox3");
-            if (!string.IsNullOrEmpty(ddl.SelectedValue))
+            if (ddl.SelectedValue != "Select" && ddl.SelectedValue != "")
             {
                 int sipId = int.Parse(ddl.SelectedValue);
 
@@ -2103,26 +2103,42 @@ namespace WealthERP.FP
                 DropDownList ddlSIPMemberName = (DropDownList)gridEditFormItem.FindControl("ddlSIPMemberName");
                 HtmlTableRow trSchemeDDL = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeNameDDL");
                 HtmlTableRow trSchemeTextBox = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeNameText");
-                TextBox txtSIPEndDate = (TextBox)gridEditFormItem.FindControl("txtSIPEndDate");
-                TextBox txtSIPEndDateAdd = (TextBox)gridEditFormItem.FindControl("txtSIPEndDateAdd");
-                TextBox txtSIPStartDateAdd = (TextBox)gridEditFormItem.FindControl("txtSIPStartDateAdd");
-                TextBox txtSIPStartDate = (TextBox)gridEditFormItem.FindControl("txtSIPStartDate");
-                TextBox txtTotalSIPAmount = (TextBox)gridEditFormItem.FindControl("txtTotalSIPAmount");
-                TextBox txtTotalSIPAmountAdd = (TextBox)gridEditFormItem.FindControl("txtTotalSIPAmountAdd");
-                TextBox TextBox2 = (TextBox)gridEditFormItem.FindControl("TextBox2");
-                TextBox TextBox2Add = (TextBox)gridEditFormItem.FindControl("TextBox2Add");
-                TextBox txtOtherSchemeAllocationPer = (TextBox)gridEditFormItem.FindControl("txtOtherSchemeAllocationPer");
-                TextBox txtOtherSchemeAllocationPerAdd = (TextBox)gridEditFormItem.FindControl("txtOtherSchemeAllocationPerAdd");
+                Label txtSIPEndDate = (Label)gridEditFormItem.FindControl("txtSIPEndDate");
+                Label txtSIPEndDateAdd = (Label)gridEditFormItem.FindControl("txtSIPEndDateAdd");
+                Label txtSIPStartDateAdd = (Label)gridEditFormItem.FindControl("txtSIPStartDateAdd");
+                Label txtSIPStartDate = (Label)gridEditFormItem.FindControl("txtSIPStartDate");
+                Label txtTotalSIPAmount = (Label)gridEditFormItem.FindControl("txtTotalSIPAmount");
+                Label txtTotalSIPAmountAdd = (Label)gridEditFormItem.FindControl("txtTotalSIPAmountAdd");
+                Label TextBox2 = (Label)gridEditFormItem.FindControl("TextBox2");
+                Label TextBox2Add = (Label)gridEditFormItem.FindControl("TextBox2Add");
+                Label txtOtherSchemeAllocationPer = (Label)gridEditFormItem.FindControl("txtOtherSchemeAllocationPer");
+                Label txtOtherSchemeAllocationPerAdd = (Label)gridEditFormItem.FindControl("txtOtherSchemeAllocationPerAdd");
                 Label txtMemberName = (Label)gridEditFormItem.FindControl("txtMemberName");
                 Label txtMemberNameAdd = (Label)gridEditFormItem.FindControl("txtMemberNameAdd");
-                TextBox txtSIPFrequencyAdd = (TextBox)gridEditFormItem.FindControl("txtSIPFrequencyAdd");
-                TextBox txtSIPFrequency = (TextBox)gridEditFormItem.FindControl("txtSIPFrequency");
+                Label txtSIPFrequencyAdd = (Label)gridEditFormItem.FindControl("txtSIPFrequencyAdd");
+                Label txtSIPFrequency = (Label)gridEditFormItem.FindControl("txtSIPFrequency");
                 Label lblSchemeName = (Label)gridEditFormItem.FindControl("lblSchemeName");
                 Label lblSchemeAdd = (Label)gridEditFormItem.FindControl("lblSchemeAdd");
+                HtmlTableRow trAllocationEntry=(HtmlTableRow)gridEditFormItem.FindControl("trAllocationEntry");
+                HtmlTableRow trAvailableAmount=(HtmlTableRow)gridEditFormItem.FindControl("trAvailableAmount");
+                HtmlTableRow trSIPStartDate = (HtmlTableRow)gridEditFormItem.FindControl("trSIPStartDate");
+                HtmlTableCell tdSipScheme = (HtmlTableCell)gridEditFormItem.FindControl("tdSipScheme");
+                HtmlTableCell tdddlPickSIPScheme = (HtmlTableCell)gridEditFormItem.FindControl("tdddlPickSIPScheme");
+                trAllocationEntry.Visible= true;                 
+                trAvailableAmount.Visible= true;
+                trSIPStartDate.Visible = true;
+                
+
                 //TextBox txt = (TextBox)gridEditFormItem.FindControl("txtUnits");
                 //txt.Visible = false;
                 if (e.Item.RowIndex == -1)
                 {
+                    tdSipScheme.Visible = false;
+                    tdddlPickSIPScheme.Visible = false;
+                    trAllocationEntry.Visible = false;
+                    trAvailableAmount.Visible = false;
+                    trSIPStartDate.Visible = false;
+
                     trSchemeDDL.Visible = true;
                     trSchemeTextBox.Visible = false;
                    // BindDDLSIPSchemeAllocated(dropDownList);
@@ -2431,25 +2447,39 @@ namespace WealthERP.FP
                 DropDownList dropdown = (DropDownList)sender;
                 string categoryCode = dropdown.SelectedValue;
                 GridEditableItem gridEditFormItem = dropdown.NamingContainer as GridEditableItem;
-                TextBox txtSIPEndDate = (TextBox)gridEditFormItem.FindControl("txtSIPEndDate");
-                TextBox txtSIPEndDateAdd = (TextBox)gridEditFormItem.FindControl("txtSIPEndDateAdd");
-                TextBox txtSIPStartDateAdd = (TextBox)gridEditFormItem.FindControl("txtSIPStartDateAdd");
-                TextBox txtSIPStartDate = (TextBox)gridEditFormItem.FindControl("txtSIPStartDate");
-                TextBox txtTotalSIPAmount = (TextBox)gridEditFormItem.FindControl("txtTotalSIPAmount");
-                TextBox txtTotalSIPAmountAdd = (TextBox)gridEditFormItem.FindControl("txtTotalSIPAmountAdd");
-                TextBox TextBox2 = (TextBox)gridEditFormItem.FindControl("TextBox2");
-                TextBox TextBox2Add = (TextBox)gridEditFormItem.FindControl("TextBox2Add");
-                TextBox txtOtherSchemeAllocationPer = (TextBox)gridEditFormItem.FindControl("txtOtherSchemeAllocationPer");
-                TextBox txtOtherSchemeAllocationPerAdd = (TextBox)gridEditFormItem.FindControl("txtOtherSchemeAllocationPerAdd");
+                Label txtSIPEndDate = (Label)gridEditFormItem.FindControl("txtSIPEndDate");
+                Label txtSIPEndDateAdd = (Label)gridEditFormItem.FindControl("txtSIPEndDateAdd");
+                Label txtSIPStartDateAdd = (Label)gridEditFormItem.FindControl("txtSIPStartDateAdd");
+                Label txtSIPStartDate = (Label)gridEditFormItem.FindControl("txtSIPStartDate");
+                Label txtTotalSIPAmount = (Label)gridEditFormItem.FindControl("txtTotalSIPAmount");
+                Label txtTotalSIPAmountAdd = (Label)gridEditFormItem.FindControl("txtTotalSIPAmountAdd");
+                Label TextBox2 = (Label)gridEditFormItem.FindControl("TextBox2");
+                Label TextBox2Add = (Label)gridEditFormItem.FindControl("TextBox2Add");
+                Label txtOtherSchemeAllocationPer = (Label)gridEditFormItem.FindControl("txtOtherSchemeAllocationPer");
+                Label txtOtherSchemeAllocationPerAdd = (Label)gridEditFormItem.FindControl("txtOtherSchemeAllocationPerAdd");
                 Label txtMemberName = (Label)gridEditFormItem.FindControl("txtMemberName");
                 Label txtMemberNameAdd = (Label)gridEditFormItem.FindControl("txtMemberNameAdd");
-                TextBox txtSIPFrequencyAdd = (TextBox)gridEditFormItem.FindControl("txtSIPFrequencyAdd");
-                TextBox txtSIPFrequency = (TextBox)gridEditFormItem.FindControl("txtSIPFrequency");
+                Label txtSIPFrequencyAdd = (Label)gridEditFormItem.FindControl("txtSIPFrequencyAdd");
+                Label txtSIPFrequency = (Label)gridEditFormItem.FindControl("txtSIPFrequency");
                 Label lblSchemeName = (Label)gridEditFormItem.FindControl("lblSchemeName");
                 Label lblSchemeAdd = (Label)gridEditFormItem.FindControl("lblSchemeAdd");
+                HtmlTableRow trAllocationEntry = (HtmlTableRow)gridEditFormItem.FindControl("trAllocationEntry");
+                HtmlTableRow trAvailableAmount = (HtmlTableRow)gridEditFormItem.FindControl("trAvailableAmount");
+                HtmlTableRow trSIPStartDate = (HtmlTableRow)gridEditFormItem.FindControl("trSIPStartDate");
+                HtmlTableCell tdSipScheme = (HtmlTableCell)gridEditFormItem.FindControl("tdSipScheme");
+                HtmlTableCell tdddlPickSIPScheme = (HtmlTableCell)gridEditFormItem.FindControl("tdddlPickSIPScheme");
+
+                trAllocationEntry.Visible = false;
+                trAvailableAmount.Visible = false;
+                trSIPStartDate.Visible = false;
+
                 string frequency = "";
                   if(categoryCode != "Select" && categoryCode != "")
                   {
+                      trAllocationEntry.Visible = true;
+                      trAvailableAmount.Visible = true;
+                      trSIPStartDate.Visible = true;
+               
                       int sipId =Convert.ToInt32(categoryCode);
                     DataRow[] drtotalSIPamount ;
                     drtotalSIPamount = dsSIPFundingDetails.Tables[1].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
@@ -2672,6 +2702,8 @@ namespace WealthERP.FP
             }
             GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
             DropDownList ddlPickSIPScheme = editedItem.FindControl("ddlPickSIPScheme") as DropDownList;
+            HtmlTableCell tdddlPickSIPScheme = (HtmlTableCell)editedItem.FindControl("tdddlPickSIPScheme");
+            tdddlPickSIPScheme.Visible = true;
             BindDDLSIPSchemeAllocated(ddlPickSIPScheme, customerId);
         }
    #endregion

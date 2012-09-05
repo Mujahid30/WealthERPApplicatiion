@@ -16,7 +16,6 @@
 
         }
 
-
     }
 
 
@@ -837,11 +836,11 @@
                                                
                                             </tr>
                                             <tr runat="server" id="trSchemeDDL">
-                                            <td align="right" style="width:15%;">
+                                            <td align="right">
                                                     <asp:Label ID="lblMemberAddMode" Text="Member Name:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
-                                                <td style="width:20%;">
+                                                <td >
                                                   <asp:DropDownList ID="ddlMemberName" runat="server" CssClass="cmbField" AutoPostBack="true" 
                                                   OnSelectedIndexChanged="ddlMemberName_OnSelectedIndexChanged"> 
                                                     </asp:DropDownList>
@@ -849,13 +848,13 @@
                                                         runat="server">
                                                     </asp:Label>      --%>     
                                                 </td>
-                                                <td style="width:15%;">
+                                                <td >
                                                 </td>
-                                                <td id="tdlblSchemeName" runat="server" align="right" style="width:15%">
+                                                <td id="tdlblSchemeName" runat="server" align="right">
                                                     <asp:Label ID="Label133" Text="Scheme:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
-                                                <td id="tdddlPickScheme" runat="server" style="width:35%;">
+                                                <td id="tdddlPickScheme" runat="server" >
                                                 
                                                     <asp:DropDownList ID="ddlPickScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
                                                      OnSelectedIndexChanged="ddlPickScheme_OnSelectedIndexChanged"> 
@@ -1107,11 +1106,11 @@
                                                         runat="server">
                                                     </asp:Label>      --%>     
                                                 </td>
-                                                <td align="right">
+                                                <td align="right" runat="server" id="tdSipScheme">
                                                     <asp:Label ID="Label20" Text="Scheme-Amount-SIP Date:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
-                                                <td>
+                                                <td id="tdddlPickSIPScheme" runat="server">
                                                     <asp:DropDownList ID="ddlPickSIPScheme" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlPickSIPScheme_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
                                                 </td>
@@ -1123,7 +1122,7 @@
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:Label ID="lblSchemeName" Text='<%# Bind("SchemeName") %>' CssClass="FieldName"
+                                                    <asp:Label ID="lblSchemeName" Text='<%# Bind("SchemeName") %>' CssClass="txtField"
                                                         runat="server">
                                                     </asp:Label>
                                                      <asp:Label ID="lblSchemeAdd" CssClass="FieldName"
@@ -1136,12 +1135,12 @@
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="txtSIPFrequency" runat="server" Enabled="false" CssClass="txtField"
+                                                    <asp:Label ID="txtSIPFrequency" runat="server" Enabled="false" CssClass="txtField"
                                                         Text='<%# Bind("SIPFrequecny") %>' TabIndex="3">
-                                                    </asp:TextBox>
-                                                    <asp:TextBox ID="txtSIPFrequencyAdd" runat="server" Enabled="false" CssClass="txtField"
+                                                    </asp:Label>
+                                                    <asp:Label ID="txtSIPFrequencyAdd" runat="server" Enabled="false" CssClass="txtField"
                                                         TabIndex="3">
-                                                    </asp:TextBox>
+                                                    </asp:Label>
                                                 </td>
                                                 
                                                  <td align="right">
@@ -1149,7 +1148,7 @@
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                 <asp:Label ID="txtMemberName" Text='<%# Bind("MemberName") %>' CssClass="FieldName"
+                                                 <asp:Label ID="txtMemberName" Text='<%# Bind("MemberName") %>' CssClass="txtField"
                                                         runat="server">
                                                     </asp:Label>    
                                                          
@@ -1159,7 +1158,7 @@
                                                                                           
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr id="trAllocationEntry" runat="server">
                                                 <td align="right">
                                                     <asp:Label ID="Label22" Text="Current Goal Invested Amount:" CssClass="FieldName"
                                                         runat="server" Enabled="false">
@@ -1179,67 +1178,67 @@
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="txtOtherSchemeAllocationPer" CssClass="txtField" runat="server"
+                                                    <asp:Label ID="txtOtherSchemeAllocationPer" CssClass="txtField" runat="server"
                                                         Text='<%# Bind("OtherGoalAllocation") %>' Enabled="false" TabIndex="1">
-                                                    </asp:TextBox>
+                                                    </asp:Label>
                                                     
-                                                    <asp:TextBox ID="txtOtherSchemeAllocationPerAdd" CssClass="txtField" runat="server"
+                                                    <asp:Label ID="txtOtherSchemeAllocationPerAdd" CssClass="txtField" runat="server"
                                                         Enabled="false" TabIndex="1">
-                                                    </asp:TextBox>
+                                                    </asp:Label>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr id="trAvailableAmount" runat="server">
                                                 <td align="right">
                                                     <asp:Label ID="Label24" Text="Available Amount:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="TextBox2" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind("AvailableAllocation") %>'
+                                                    <asp:Label ID="TextBox2" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind("AvailableAllocation") %>'
                                                         TabIndex="1">
-                                                    </asp:TextBox>
+                                                    </asp:Label>
                                                     
-                                                    <asp:TextBox ID="TextBox2Add" runat="server" CssClass="txtField" Enabled="false" 
+                                                    <asp:Label ID="TextBox2Add" runat="server" CssClass="txtField" Enabled="false" 
                                                         TabIndex="1">
-                                                    </asp:TextBox>
+                                                    </asp:Label>
                                                 </td>
                                                 <td align="right">
                                                     <asp:Label ID="Label4" Text="Total SIP Amount:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="txtTotalSIPAmount" runat="server" CssClass="txtField" Enabled="false"
+                                                    <asp:Label ID="txtTotalSIPAmount" runat="server" CssClass="txtField" Enabled="false"
                                                         Text='<%# Bind("TotalSIPamount") %>' TabIndex="1">
-                                                    </asp:TextBox>
+                                                    </asp:Label>
                                                     
-                                                    <asp:TextBox ID="txtTotalSIPAmountAdd" runat="server" CssClass="txtField" Enabled="false"
+                                                    <asp:Label ID="txtTotalSIPAmountAdd" runat="server" CssClass="txtField" Enabled="false"
                                                          TabIndex="1">
-                                                    </asp:TextBox>
+                                                    </asp:Label>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr id="trSIPStartDate" runat="server">
                                                 <td align="right">
                                                     <asp:Label ID="Label12" Text="SIP Start Date:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="txtSIPStartDate" runat="server" CssClass="txtField" Enabled="false"
+                                                    <asp:Label ID="txtSIPStartDate" runat="server" CssClass="txtField" Enabled="false"
                                                         Text='<%# Bind("SIPStartDate") %>' TabIndex="1">
-                                                    </asp:TextBox>
-                                                    <asp:TextBox ID="txtSIPStartDateAdd" runat="server" CssClass="txtField" Enabled="false"
+                                                    </asp:Label>
+                                                    <asp:Label ID="txtSIPStartDateAdd" runat="server" CssClass="txtField" Enabled="false"
                                                         TabIndex="1">
-                                                    </asp:TextBox>
+                                                    </asp:Label>
                                                 </td>
                                                 <td align="right">
                                                     <asp:Label ID="Label25" Text="SIP End Date:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="txtSIPEndDate" runat="server" CssClass="txtField" Enabled="false"
+                                                    <asp:Label ID="txtSIPEndDate" runat="server" CssClass="txtField" Enabled="false"
                                                         Text='<%# Bind("SIPEndDate") %>' TabIndex="1">
-                                                    </asp:TextBox>
-                                                    <asp:TextBox ID="txtSIPEndDateAdd" runat="server" CssClass="txtField" Enabled="false"
+                                                    </asp:Label>
+                                                    <asp:Label ID="txtSIPEndDateAdd" runat="server" CssClass="txtField" Enabled="false"
                                                         TabIndex="1">
-                                                    </asp:TextBox>
+                                                    </asp:Label>
                                                 </td>
                                             </tr>
                                         </table>
@@ -1257,7 +1256,7 @@
                                     </td>
                                 </tr>
                             </table>
-                        </FormTemplate>
+                        </FormTemplate> 
                     </EditFormSettings>
                 </MasterTableView>
                 <ClientSettings>
