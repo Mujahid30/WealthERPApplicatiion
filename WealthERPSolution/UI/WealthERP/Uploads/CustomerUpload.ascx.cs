@@ -4475,7 +4475,7 @@ namespace WealthERP.Uploads
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.CAMSProfile);
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.CAMSProfile);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 2);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
@@ -6462,7 +6462,7 @@ namespace WealthERP.Uploads
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.StandardProfile);
 
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.StandardProfile);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames,7);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
@@ -6486,7 +6486,7 @@ namespace WealthERP.Uploads
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.StandardProfile);
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.StandardProfile);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 7);
 
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
@@ -6906,21 +6906,26 @@ namespace WealthERP.Uploads
 
                             DataTable dsMandatoryData = new DataTable();
 
-                            if (fileTypeId == 3 || fileTypeId==8 || fileTypeId==15 || fileTypeId==1 || fileTypeId==6 || fileTypeId==19)
+                            if (fileTypeId == 3 || fileTypeId == 8 || fileTypeId == 15 || fileTypeId == 1 || fileTypeId == 6 || fileTypeId == 19 || fileTypeId == 11 || fileTypeId == 10 || fileTypeId == 17)
                             {
                                 dsActual.Tables[0].DefaultView.RowFilter = "IsTransactionMandatory=" + 1;
                                 dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                            }
-                            else if (fileTypeId == 4)
-                            {
-                                dsActual.Tables[0].DefaultView.RowFilter = "IsProfileMandatory=" + 1;
-                                dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                            } 
-                            else if (fileTypeId == 28 || fileTypeId==29 || fileTypeId==30)
+                            }                            
+                            else if (fileTypeId == 28 || fileTypeId == 29 || fileTypeId == 30 || fileTypeId == 31)
                             {
                                 dsActual.Tables[0].DefaultView.RowFilter = "IsTrailCommissionTransactionMandatory=" + 1;
                                 dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                            } 
+                            }
+                            else if (fileTypeId == 2 || fileTypeId == 3 || fileTypeId == 4 || fileTypeId == 7 || fileTypeId == 16 || fileTypeId == 18 || fileTypeId == 17 || fileTypeId == 21)
+                            {
+                                dsActual.Tables[0].DefaultView.RowFilter = "IsProfileMandatory=" + 1;
+                                dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
+                            }
+                            else if (fileTypeId == 12 || fileTypeId == 21 || fileTypeId == 17 || fileTypeId == 18 || fileTypeId == 8 || fileTypeId == 16 || fileTypeId == 14 || fileTypeId == 13 || fileTypeId == 4 || fileTypeId == 3 || fileTypeId == 2)
+                            {
+                                dsActual.Tables[0].DefaultView.RowFilter = "IsAccountMandatory=" + 1;
+                                dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
+                            }
 
                             string isMandatoryIndefaultview = string.Empty;
                             foreach (DataRow drMd in dsMandatoryData.Rows)
