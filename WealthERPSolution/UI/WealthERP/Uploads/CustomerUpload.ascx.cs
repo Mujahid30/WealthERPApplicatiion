@@ -6086,6 +6086,8 @@ namespace WealthERP.Uploads
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.IIFLTransaction);
 
                         DataSet ds1 = new DataSet();
+
+                        dsIIFLTemp = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 19);
                         //Get XML after mapping, checking for columns
                         dsIIFLTemp = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
                         //foreach (DataRow de in dsIIFLTemp.Tables[0].Rows)
@@ -6858,6 +6860,8 @@ namespace WealthERP.Uploads
             DataTable dtFinalAfterRowSkipp = new DataTable();
             string isMandatory = string.Empty;
             bool isValidFile = false;
+            bool isFiltered = false;
+
 
             string columnName = string.Empty;
             int count = 0;
@@ -6887,67 +6891,51 @@ namespace WealthERP.Uploads
 
                 foreach (DataRow row1 in WERPColumnnames.Tables[0].Rows)
                 {
-                    foreach (DataRow dr in dsActual.Tables[0].Rows)
-                    {
-                        bool isExistingFlag = false;
-
-                        DataSet dsFilteredData = new DataSet();
-                        dsFilteredData = dsFile;
-
-                        DataTable dsMandatoryData = new DataTable();
-
-                        if (fileTypeId == 3)
-                        {
-                            dsActual.Tables[0].DefaultView.RowFilter = "IsTransactionMandatory=" + 1;
-                            dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                        }
-                        else if (fileTypeId == 4)
-                        {
-                            dsActual.Tables[0].DefaultView.RowFilter = "IsProfileMandatory=" + 1;
-                            dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                        }
-                        else if (fileTypeId == 15)
-                        {
-                            dsActual.Tables[0].DefaultView.RowFilter = "IsTransactionMandatory=" + 1;
-                            dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                        }
-                        else if (fileTypeId == 1)
-                        {
-                            dsActual.Tables[0].DefaultView.RowFilter = "IsTransactionMandatory=" + 1;
-                            dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                        }
-                        else if (fileTypeId == 6)
-                        {
-                            dsActual.Tables[0].DefaultView.RowFilter = "IsTransactionMandatory=" + 1;
-                            dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                        }
-                        else if (fileTypeId == 28)
-                        {
-                            dsActual.Tables[0].DefaultView.RowFilter = "IsTrailCommissionTransactionMandatory=" + 1;
-                            dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                        }
-                        else if (fileTypeId == 29)
-                        {
-                            dsActual.Tables[0].DefaultView.RowFilter = "IsTrailCommissionTransactionMandatory=" + 1;
-                            dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                        }
-                        else if (fileTypeId == 30)
-                        {
-                            dsActual.Tables[0].DefaultView.RowFilter = "IsTrailCommissionTransactionMandatory=" + 1;
-                            dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
-                        }
-
-                        string isMandatoryIndefaultview = string.Empty;
-                        foreach (DataRow drMd in dsMandatoryData.Rows)
-                        {
-                            isMandatoryIndefaultview = isMandatoryIndefaultview + drMd["XMLHeaderName"].ToString() + "~";
-                        }
-
-                        strMandatoryCoulmn = isMandatoryIndefaultview.Split('~');
-                        columnName = row1.ItemArray.GetValue(1).ToString();
-
+                    if (isFiltered == true)
                         break;
-                    }
+
+                        foreach (DataRow dr in dsActual.Tables[0].Rows)
+                        {
+                            if (isFiltered == true)
+                                break;
+                    
+                            bool isExistingFlag = false;
+
+                            DataSet dsFilteredData = new DataSet();
+                            dsFilteredData = dsFile;
+
+                            DataTable dsMandatoryData = new DataTable();
+
+                            if (fileTypeId == 3 || fileTypeId==8 || fileTypeId==15 || fileTypeId==1 || fileTypeId==6 || fileTypeId==19)
+                            {
+                                dsActual.Tables[0].DefaultView.RowFilter = "IsTransactionMandatory=" + 1;
+                                dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
+                            }
+                            else if (fileTypeId == 4)
+                            {
+                                dsActual.Tables[0].DefaultView.RowFilter = "IsProfileMandatory=" + 1;
+                                dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
+                            } 
+                            else if (fileTypeId == 28 || fileTypeId==29 || fileTypeId==30)
+                            {
+                                dsActual.Tables[0].DefaultView.RowFilter = "IsTrailCommissionTransactionMandatory=" + 1;
+                                dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
+                            } 
+
+                            string isMandatoryIndefaultview = string.Empty;
+                            foreach (DataRow drMd in dsMandatoryData.Rows)
+                            {
+                                isMandatoryIndefaultview = isMandatoryIndefaultview + drMd["XMLHeaderName"].ToString() + "~";
+                            }
+
+                            strMandatoryCoulmn = isMandatoryIndefaultview.Split('~');
+                            columnName = row1.ItemArray.GetValue(1).ToString();
+
+                            isFiltered = true;
+                        }
+                    
+                   
+                    
                 }
 
                 foreach (DataColumn dcFile in ds.Tables[0].Columns)
@@ -7017,7 +7005,8 @@ namespace WealthERP.Uploads
                         {
                             DataRow drToDelete;
 
-                            for (int k = 0; k < ds.Tables[0].Rows.Count; k++)
+                            for (int k = 0; k < 10; k++)
+                            //for (int k = 0; k < ds.Tables[0].Rows.Count; k++)
                             {
                                 int drofDS = 0;
                                 count = 0;
