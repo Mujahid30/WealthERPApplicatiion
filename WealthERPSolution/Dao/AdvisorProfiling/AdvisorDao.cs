@@ -2407,7 +2407,7 @@ namespace DaoAdvisorProfiling
                                 aoTALVo.ExternalLinkCode=dr["WELM_LinkCode"].ToString();
                             }
                             aoTALVo.WerpMasterlinkId = int.Parse(dr["WLM_Id"].ToString());
-                            aoTALVo.AMCLinksWithPin = dr["AL_LinkWithPin"].ToString();
+                            aoTALVo.IsAMCLinksWithPin= int.Parse(dr["AL_LinkWithPin"].ToString());
                             //if (!string.IsNullOrEmpty(dr["AL_AltLinkName"].ToString()))
                             //{
                             //    aoTALVo.AltLinkName = dr["AL_AltLinkName"].ToString();
