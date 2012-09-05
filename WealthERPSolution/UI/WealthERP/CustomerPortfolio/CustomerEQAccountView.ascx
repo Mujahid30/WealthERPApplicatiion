@@ -89,7 +89,7 @@
                                 </telerik:RadComboBox>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn HeaderText="BrokerName" DataField="Broker Name" UniqueName="BrokerName"
+                        <telerik:GridBoundColumn HeaderText="Broker Name" DataField="Broker Name" UniqueName="BrokerName"
                             SortExpression="Broker Name" AutoPostBackOnFilter="true" AllowFiltering="true"
                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

@@ -234,7 +234,7 @@ namespace WealthERP.CustomerPortfolio
             gvEQAcc.ExportSettings.IgnorePaging = true;
             gvEQAcc.ExportSettings.HideStructureColumns = true;
             gvEQAcc.ExportSettings.ExportOnlyData = true;
-            gvEQAcc.ExportSettings.FileName = "Upload History Details";
+            gvEQAcc.ExportSettings.FileName = "EQ Trade Account Details";
             gvEQAcc.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvEQAcc.MasterTableView.ExportToExcel();
         }
