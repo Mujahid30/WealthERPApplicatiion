@@ -1212,7 +1212,7 @@ namespace BoValuation
                     drMFNetPosition["CMFNP_RET_Hold_AcqCost"] = CMFNP_RET_Hold_AcqCost;  //  Return Holding   ----  Invested Cost
                     returnHoldingTotalPL = currentValue + CMFTB_DivPayout - CMFNP_RET_Hold_AcqCost;
 
-                    drMFNetPosition["CMFNP_RET_Hold_TotalPL"] = returnHoldingTotalPL;
+                    drMFNetPosition["CMFNP_RET_Hold_TotalPL"] =Math.Round(returnHoldingTotalPL,4);
 
                     if (CMFNP_RET_Hold_AcqCost != 0)
                     {
