@@ -6743,7 +6743,7 @@ namespace WealthERP.Uploads
 
                             DataTable dsMandatoryData = new DataTable();
 
-                            if (fileTypeId == 3 || fileTypeId == 8 || fileTypeId == 15 || fileTypeId == 1 || fileTypeId == 6 || fileTypeId == 19 || fileTypeId == 11 || fileTypeId == 10 || fileTypeId == 17)
+                            if (fileTypeId == 3 ||  fileTypeId == 8 || fileTypeId == 15 || fileTypeId == 1 || fileTypeId == 6 || fileTypeId == 19 || fileTypeId == 11 || fileTypeId == 10 || fileTypeId == 17)
                             {
                                 dsActual.Tables[0].DefaultView.RowFilter = "IsTransactionMandatory=" + 1;
                                 dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
