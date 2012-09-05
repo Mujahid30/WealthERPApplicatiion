@@ -166,9 +166,6 @@ namespace WealthERP.SuperAdmin
         {
             try
             {
-
-                advisorVo = (AdvisorVo)Session["advisorVo"];
-                userVo = (UserVo)Session["UserVo"];
                 if (hdnCurrentPage.Value.ToString() != "")
                 {
                     //mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
@@ -758,11 +755,11 @@ namespace WealthERP.SuperAdmin
                 menu = MyDropDownList.SelectedItem.Value.ToString();
                 Session["IFAadvisorVo"] = advisorBo.GetAdvisorUser(userId);
                 Session["iffUserVo"] = userBo.GetUserDetails(userId);
-                if (menu == "View Dashboard")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolonly('IFAAdminMainDashboardOld','none');", true);
-                    //AdvisorDashboardValidation(userId);                    
-                }
+                //if (menu == "View Dashboard")
+                //{
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolonly('IFAAdminMainDashboardOld','none');", true);
+                //    //AdvisorDashboardValidation(userId);                    
+                //}
                 if (menu == "Edit profile")
                 {                   
                     Session["IFFAdd"] = "Edit";

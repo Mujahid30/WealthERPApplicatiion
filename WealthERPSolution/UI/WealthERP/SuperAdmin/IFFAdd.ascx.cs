@@ -212,7 +212,7 @@ namespace WealthERP.SuperAdmin
                         btnSubmit.Text = "Update";
                         IsAddUpdate = true;
                         ddlStatus.Items[1].Enabled = true;
-                        advisorVo = (AdvisorVo)Session["advisorVo"];
+                        advisorVo = (AdvisorVo)Session["IFAadvisorVo"];
                         DataRepopulating();
                     }
                     else
@@ -268,7 +268,7 @@ namespace WealthERP.SuperAdmin
                         {
                             advisor = 1000;
                             rm = 1001;
-                            advisorVo = (AdvisorVo)Session["advisorVo"];
+                            advisorVo = (AdvisorVo)Session["IFAadvisorVo"];
 
                             if (!IsAddUpdate)
                             {
@@ -321,6 +321,7 @@ namespace WealthERP.SuperAdmin
                         {
                             advisorVo = advisorBo.GetAdvisor(Ids[1]);
                             Session["IFAadvisorVo"] = advisorVo;
+                            userVo.UserId = Ids[0];
 
                             CreateMainBranch();
                             advisor = 1000;
@@ -346,7 +347,7 @@ namespace WealthERP.SuperAdmin
                             btnSubscription.Visible = true;
                             lblMsg.Visible = true;
                             btnSubmit.Text = "Update";
-                            advisorVo = (AdvisorVo)Session["advisorVo"]; DataRepopulating();
+                            advisorVo = (AdvisorVo)Session["IFAadvisorVo"]; DataRepopulating();
                         }
                         catch (Exception ex)
                         {

@@ -239,7 +239,7 @@ namespace WealthERP.SuperAdmin
         {
             AdviserSubscriptionVo _advisersubscriptionvo = new AdviserSubscriptionVo();
             AdviserSubscriptionBo _advisersubscriptionbo = new AdviserSubscriptionBo();
-            UserVo uservo=(UserVo)Session["UserVo"];          
+            //UserVo uservo = (UserVo)Session["iffUserVo"];          
           
             //_advisersubscriptionvo.AdviserId
             int _planid=0;
@@ -348,9 +348,9 @@ namespace WealthERP.SuperAdmin
                                     _advisersubscriptionvo.CustomPlanSelection += _limodules.Value + ",";
                                 }
                             }
-                            if (uservo != null)
+                            if (IFAuserVo != null)
                             {
-                                _subscriptionId = _advisersubscriptionbo.CreateAdviserSubscription(_advisersubscriptionvo, uservo.UserId);
+                                _subscriptionId = _advisersubscriptionbo.CreateAdviserSubscription(_advisersubscriptionvo, IFAuserVo.UserId);
                                 string flavourIds = GetFlavourIds();
                                 _advisersubscriptionbo.SetFlavoursToAdviser(flavourIds, advisorVo.advisorId);
                                 SettingsSavedMessage.Visible = true;
