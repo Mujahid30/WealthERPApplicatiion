@@ -112,7 +112,7 @@
                     ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput EmptyMessage="dd/MM/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
+                <DateInput EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
                     DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
@@ -131,7 +131,7 @@
                     ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput runat="server" EmptyMessage="dd/MM/yyyy" DisplayDateFormat="d/M/yyyy"
+                <DateInput runat="server" EmptyMessage="dd/mm/yyyy" DisplayDateFormat="d/M/yyyy"
                     DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
@@ -152,93 +152,95 @@
 </table>
 <br />
 <div id="tbl" runat="server">
-    <%--<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
---%>
-    <%-- <table width="100%" cellspacing="0" cellpadding="0">
+    <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+        <%-- <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td>--%>
-    <telerik:RadGrid ID="gvEquityTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="1090px" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-FileName="Equity Transaction Details"
-        OnNeedDataSource="gvEquityTransactions_OnNeedDataSource">
-        <ExportSettings HideStructureColumns="true">
-        </ExportSettings>
-        <MasterTableView DataKeyNames="TransactionId" Width="100%" AllowMultiColumnSorting="True"
-            AutoGenerateColumns="false" CommandItemDisplay="None">
-            <Columns>
-                <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action">
-                    <ItemTemplate>
-                        <asp:LinkButton OnClick="btnViewDetails_OnClick" CommandName="Select" ID="btnViewDetails"
-                            Text="View Details" runat="server" />
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn FooterText="Grand Total" HeaderText="Trade Account No."
-                    DataField="TradeAccountNum" UniqueName="TradeAccountNum" SortExpression="TradeAccountNum"
-                    AllowFiltering="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                    ShowFilterIcon="false">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Scrip Name" DataField="Scheme Name" UniqueName="Scheme Name"
-                    SortExpression="Scheme Name" AllowFiltering="true" CurrentFilterFunction="Contains"
-                    AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Transaction Type" DataField="Transaction Type"
-                    UniqueName="Transaction Type" SortExpression="Transaction Type" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" CurrentFilterFunction="Contains" ShowFilterIcon="false">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Exchange" DataField="Exchange" UniqueName="Exchange"
-                    SortExpression="Exchange" AutoPostBackOnFilter="true" AllowFiltering="true" CurrentFilterFunction="Contains"
-                    ShowFilterIcon="false">
-                    <ItemStyle Width="50px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridDateTimeColumn DataField="TradeDate" SortExpression="TradeDate"
-                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" AllowFiltering="true"
-                    HeaderText="TradeDate  (dd/mm/yyyy)" UniqueName="TradeDate" DataFormatString="{0:d}" ShowFilterIcon="false">
-                    <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                    <FilterTemplate>
-                        <telerik:RadDatePicker Width="250px" ID="calFilter" runat="server">
-                        </telerik:RadDatePicker>
-                    </FilterTemplate>
-                </telerik:GridDateTimeColumn>
-                <telerik:GridBoundColumn HeaderText="Rate (Rs)" DataField="Rate" UniqueName="Rate"
-                    SortExpression="Rate" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
-                    CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
-                    Aggregate="Sum">
-                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Brokerage (Rs)" DataField="Brokerage" UniqueName="Brokerage"
-                    SortExpression="Brokerage" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right"
-                    DataFormatString="{0:N2}" Aggregate="Sum">
-                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="OtherCharges (Rs)" DataField="OtherCharges"
-                    UniqueName="OtherCharges" SortExpression="OtherCharges" AutoPostBackOnFilter="true"
-                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}" Aggregate="Sum">
-                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="TradeTotal (Rs)" DataField="TradeTotal" UniqueName="TradeTotal"
-                    SortExpression="TradeTotal" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right"
-                    DataFormatString="{0:N2}" Aggregate="Sum">
-                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                    <FooterStyle />
-                </telerik:GridBoundColumn>
-            </Columns>
-        </MasterTableView>
-        <ClientSettings>
-            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-            <Resizing AllowColumnResize="true" />
-        </ClientSettings>
-    </telerik:RadGrid>
-    <%-- </td>
+        <telerik:RadGrid ID="gvEquityTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
+            PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+            Skin="Telerik" EnableEmbeddedSkins="false" Width="1090px" AllowFilteringByColumn="true"
+            AllowAutomaticInserts="false" ExportSettings-FileName="Equity Transaction Details"
+            OnNeedDataSource="gvEquityTransactions_OnNeedDataSource">
+            <ExportSettings HideStructureColumns="true">
+            </ExportSettings>
+            <MasterTableView DataKeyNames="TransactionId" Width="100%" AllowMultiColumnSorting="True"
+                AutoGenerateColumns="false" CommandItemDisplay="None">
+                <Columns>
+                    <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action">
+                        <ItemTemplate>
+                            <asp:LinkButton OnClick="btnViewDetails_OnClick" CommandName="Select" ID="btnViewDetails"
+                                Text="View Details" runat="server" />
+                        </ItemTemplate>
+                    </telerik:GridTemplateColumn>
+                    <telerik:GridBoundColumn FooterText="Grand Total" HeaderText="Trade Account No."
+                        DataField="TradeAccountNum" UniqueName="TradeAccountNum" SortExpression="TradeAccountNum"
+                        AllowFiltering="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                        ShowFilterIcon="false">
+                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn HeaderText="Scrip Name" DataField="Scheme Name" UniqueName="Scheme Name"
+                        SortExpression="Scheme Name" AllowFiltering="true" CurrentFilterFunction="Contains"
+                        AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn HeaderText="Transaction Type" DataField="Transaction Type"
+                        UniqueName="Transaction Type" SortExpression="Transaction Type" AutoPostBackOnFilter="true"
+                        AllowFiltering="true" CurrentFilterFunction="Contains" ShowFilterIcon="false">
+                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn HeaderText="Exchange" DataField="Exchange" UniqueName="Exchange"
+                        SortExpression="Exchange" AutoPostBackOnFilter="true" AllowFiltering="true" CurrentFilterFunction="Contains"
+                        ShowFilterIcon="false">
+                        <ItemStyle Width="50px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    </telerik:GridBoundColumn>
+                    <telerik:GridDateTimeColumn DataField="TradeDate" SortExpression="TradeDate" AutoPostBackOnFilter="true"
+                        CurrentFilterFunction="Contains" AllowFiltering="true" HeaderText="TradeDate  (dd/mm/yyyy)"
+                        UniqueName="TradeDate" DataFormatString="{0:d}" ShowFilterIcon="false">
+                        <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        <FilterTemplate>
+                            <telerik:RadDatePicker Width="250px" ID="calFilter" runat="server">
+                            </telerik:RadDatePicker>
+                        </FilterTemplate>
+                    </telerik:GridDateTimeColumn>
+                    <telerik:GridBoundColumn AllowFiltering="false" DataField="Quantity" HeaderText="No of Shares" ItemStyle-HorizontalAlign="Right"
+                        SortExpression="Quantity" DataFormatString="{0:N2}" Aggregate="Sum">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn HeaderText="Rate (Rs)" DataField="Rate" UniqueName="Rate"
+                        SortExpression="Rate" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                        CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
+                        Aggregate="Sum">
+                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn HeaderText="Brokerage (Rs)" DataField="Brokerage" UniqueName="Brokerage"
+                        SortExpression="Brokerage" AutoPostBackOnFilter="true" AllowFiltering="false"
+                        ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right"
+                        DataFormatString="{0:N2}" Aggregate="Sum">
+                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn HeaderText="OtherCharges (Rs)" DataField="OtherCharges"
+                        UniqueName="OtherCharges" SortExpression="OtherCharges" AutoPostBackOnFilter="true"
+                        AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                        FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}" Aggregate="Sum">
+                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn HeaderText="TradeTotal (Rs)" DataField="TradeTotal" UniqueName="TradeTotal"
+                        SortExpression="TradeTotal" AutoPostBackOnFilter="true" AllowFiltering="false"
+                        ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right"
+                        DataFormatString="{0:N2}" Aggregate="Sum">
+                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                        <FooterStyle />
+                    </telerik:GridBoundColumn>
+                </Columns>
+            </MasterTableView>
+            <ClientSettings>
+                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                <Resizing AllowColumnResize="true" />
+            </ClientSettings>
+        </telerik:RadGrid>
+        <%-- </td>
         </tr>
     </table>--%>
-    <%--</asp:Panel>--%>
+    </asp:Panel>
     <%-- <table width="100%">
         <tr id="trPager" runat="server">
             <td>
