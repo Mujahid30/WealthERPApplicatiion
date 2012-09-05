@@ -4547,7 +4547,7 @@ namespace WealthERP.Uploads
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.CAMSTransaction);
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.CAMSTransaction);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames,1);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
@@ -4591,11 +4591,8 @@ namespace WealthERP.Uploads
                         string Filepath = Server.MapPath("UploadFiles") + "\\CAMSSystamaticXls.xls";
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
-
-                        //if (rbSkipRowsYes.Checked)
-                        //{
-                        //    ds = SkipRows(ds);
-                        //}
+                    }
+                       
 
                         //get all column nams for the selcted file type
                         dsColumnNames = uploadcommonBo.GetColumnNames(0);
@@ -4604,17 +4601,16 @@ namespace WealthERP.Uploads
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(0);
 
 
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames,20);
+
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
 
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, Contants.ExtractTypeProfileFolio, Contants.UploadExternalTypeCAMS, Contants.UploadFileTypeSystematic);
-                    }
-                    else
-                    {
-                        //ValidationProgress = "Failure";
-                    }
+                  
+                   
                 }
                 #endregion
 
@@ -4648,11 +4644,7 @@ namespace WealthERP.Uploads
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
 
-                        //if (rbSkipRowsYes.Checked)
-                        //{
-                        //    ds = SkipRows(ds);
-                        //}
-
+                    }
                         //get all column nams for the selcted file type
                         dsColumnNames = uploadcommonBo.GetColumnNames(26);
 
@@ -4677,11 +4669,7 @@ namespace WealthERP.Uploads
 
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "WPT", Contants.UploadFileTypeSystematic);
-                    }
-                    else
-                    {
-                        //ValidationProgress = "Failure";
-                    }
+                   
                 }
                 #endregion
 
@@ -4723,11 +4711,8 @@ namespace WealthERP.Uploads
                         string Filepath = Server.MapPath("UploadFiles") + "\\TempletonTrailCommission.xls";
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
-
-                        //if (rbSkipRowsYes.Checked)
-                        //{
-                        //    ds = SkipRows(ds);
-                        //}
+                    }
+                       
 
                         //get all column nams for the selcted file type
                         dsColumnNames = uploadcommonBo.GetColumnNames(28);
@@ -4741,23 +4726,10 @@ namespace WealthERP.Uploads
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
 
-                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
-                        //{
-                        //    if(dr["PERIODICIT"].ToString()=="SM")
-                        //    {
-                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
-                        //    }
-
-                        //}
-
-
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "TN", "TrailCommission");
-                    }
-                    else
-                    {
-                        //ValidationProgress = "Failure";
-                    }
+                    
+                   
                     if (filereadflag == true)
                     {
                         //Get filetypeid from XML
@@ -4808,7 +4780,7 @@ namespace WealthERP.Uploads
                         string Filepath = Server.MapPath("UploadFiles") + "\\CAMSTrailCommission.xls";
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
-
+                    }
                         //if (rbSkipRowsYes.Checked)
                         //{
                         //    ds = SkipRows(ds);
@@ -4823,26 +4795,8 @@ namespace WealthERP.Uploads
 
                         dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 29);
                         //Get XML after mapping, checking for columns
-                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
-
-
-                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
-                        //{
-                        //    if(dr["PERIODICIT"].ToString()=="SM")
-                        //    {
-                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
-                        //    }
-
-                        //}
-
-
-                        //Get filetypeid from XML
-
-                    }
-                    else
-                    {
-                        //ValidationProgress = "Failure";
-                    }
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);                   
+                   
                     if (filereadflag == true)
                     {
 
@@ -4895,7 +4849,7 @@ namespace WealthERP.Uploads
                         string Filepath = Server.MapPath("UploadFiles") + "\\KARVYTrailCommission.xls";
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
-
+                    }
                         //if (rbSkipRowsYes.Checked)
                         //{
                         //    ds = SkipRows(ds);
@@ -4911,47 +4865,9 @@ namespace WealthERP.Uploads
                         dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 30);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
-
-
-                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
-                        //{
-                        //    if(dr["PERIODICIT"].ToString()=="SM")
-                        //    {
-                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
-                        //    }
-
-                        //}
-
-
-                        //Get filetypeid from XML
-
-                    }
-                    else
-                    {
-                        //ValidationProgress = "Failure";
-                    }
+                   
                     if (filereadflag == true)
-                    {
-                        //if (rbSkipRowsYes.Checked)
-                        //{
-                        //    ds = SkipRows(ds);
-
-                        //    //for getting line number of error data in the file when validating
-                        //    skiprowsval = Convert.ToInt16(txtNoOfRows.Text) + 1;
-                        //}
-
-                        //get all column nams for the selcted file type
-                        //dsColumnNames = uploadcommonBo.GetColumnNames(30);
-
-                        ////Get werp Column Names for the selected type of file
-                        //dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(30);
-
-                        //Get XML after mapping, checking for columns
-                        //dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
-
-                        ////Get filetypeid from XML
-                        //filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", "TrailCommission");
-
+                    {                       
                         //Reject upload if there are any data error validations
                         if (dsXML.Tables.Count > 0)
                             ValidateInputfile("KA", Contants.ExtractTypeMFTransaction, pathxml, skiprowsval);
@@ -5036,32 +4952,15 @@ namespace WealthERP.Uploads
                             reject_reason = strFileReadError;
                         }
 
-                        //if (rbSkipRowsYes.Checked)
-                        //{
-                        //    ds = SkipRows(ds);
-                        //}
-
                         //get all column nams for the selcted file type
                         dsColumnNames = uploadcommonBo.GetColumnNames(27);
 
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(27);
 
-
                         dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 27);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
-
-
-                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
-                        //{
-                        //    if(dr["PERIODICIT"].ToString()=="SM")
-                        //    {
-                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
-                        //    }
-
-                        //}
-
 
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", Contants.UploadFileTypeSystematic);
@@ -5072,30 +4971,15 @@ namespace WealthERP.Uploads
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
 
-                        //if (rbSkipRowsYes.Checked)
-                        //{
-                        //    ds = SkipRows(ds);
-                        //}
-
                         //get all column nams for the selcted file type
                         dsColumnNames = uploadcommonBo.GetColumnNames(27);
 
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(27);
 
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 27);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
-
-
-                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
-                        //{
-                        //    if(dr["PERIODICIT"].ToString()=="SM")
-                        //    {
-                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
-                        //    }
-
-                        //}
-
 
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", Contants.UploadFileTypeSystematic);
@@ -5106,13 +4990,7 @@ namespace WealthERP.Uploads
                     }
                 }
                 #endregion
-
-
-
-
                 //------------Shantanu--------------------------------
-
-
                 #region CAMS Systematic
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFSystematic && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
                 {
@@ -5148,12 +5026,7 @@ namespace WealthERP.Uploads
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
 
-                        //if (rbSkipRowsYes.Checked)
-                        //{
-                        //    ds = SkipRows(ds);
-                        //}
-
-                        //get all column nams for the selcted file type
+                    }
                         dsColumnNames = uploadcommonBo.GetColumnNames(20);
 
                         //Get werp Column Names for the selected type of file
@@ -5163,25 +5036,9 @@ namespace WealthERP.Uploads
                         dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 20);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
-
-
-                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
-                        //{
-                        //    if(dr["PERIODICIT"].ToString()=="SM")
-                        //    {
-                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
-                        //    }
-
-                        //}
-
-
-                        //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "CA", Contants.UploadFileTypeSystematic);
-                    }
-                    else
-                    {
-                        //ValidationProgress = "Failure";
-                    }
+                    
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "CA", Contants.UploadFileTypeSystematic);                    
+                   
                 }
                 #endregion
 
@@ -5232,7 +5089,7 @@ namespace WealthERP.Uploads
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.KarvyProfile);
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.KarvyProfile);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 4);
 
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
@@ -5293,7 +5150,7 @@ namespace WealthERP.Uploads
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.KarvyTransaction);
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.KarvyTransaction);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 3);
 
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
@@ -5356,7 +5213,7 @@ namespace WealthERP.Uploads
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.KarvyCombination);
 
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.KarvyCombination);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 5);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
@@ -5421,7 +5278,7 @@ namespace WealthERP.Uploads
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.CAMSTransaction);
 
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.CAMSTransaction);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 1);
 
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
@@ -5483,7 +5340,7 @@ namespace WealthERP.Uploads
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.TempletonProfile);
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.TempletonProfile);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames,16);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
@@ -5541,7 +5398,7 @@ namespace WealthERP.Uploads
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.DeutscheProfile);
 
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.DeutscheProfile);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 18);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
@@ -5677,7 +5534,7 @@ namespace WealthERP.Uploads
                         string Filepath = Server.MapPath("UploadFiles") + "\\WERPEqProf.xls";
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
-
+                    }
                         //if (rbSkipRowsYes.Checked)
                         //{
                         //    ds = SkipRows(ds);
@@ -5689,17 +5546,13 @@ namespace WealthERP.Uploads
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.EquityStandardTradeAccount);
 
+                    dsXML=removeUnwantedDatafromXMLDs(ds,dsColumnNames,dsWerpColumnNames,13);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "EQ", Contants.UploadExternalTypeStandard, Contants.UploadFileTypeTradeAccount);
-                    }
-                    else
-                    {
-                        XmlCreated = false;
-                        ValidationProgress = "Failure";
-                    }
+                   
                 }
                 #endregion
 
@@ -5743,7 +5596,7 @@ namespace WealthERP.Uploads
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.MFstandardFolio);
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.MFstandardFolio);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames,14);
 
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
@@ -5795,7 +5648,7 @@ namespace WealthERP.Uploads
                             //Get werp Column Names for the selected type of file
                             dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.EquityStandardTransaction);
 
-                            dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.EquityStandardTransaction);
+                            dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 8);
 
                             //Get XML after mapping, checking for columns
                             dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
@@ -5835,7 +5688,7 @@ namespace WealthERP.Uploads
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.EquityStandardTransaction);
 
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.EquityStandardTransaction);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 8);
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
                         if (dsXML.Tables.Count > 0)
@@ -5887,7 +5740,7 @@ namespace WealthERP.Uploads
 
                             DataSet ds1 = new DataSet();
 
-                            dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.IIFLTransaction);
+                            dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 19);
                             //Get XML after mapping, checking for columns
                             dsIIFLTemp = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
                             //foreach (DataRow de in dsIIFLTemp.Tables[0].Rows)
@@ -6532,7 +6385,7 @@ namespace WealthERP.Uploads
                         string Filepath = Server.MapPath("UploadFiles") + "\\WERPMFTans.xls";
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
-
+                    }
                         //if (rbSkipRowsYes.Checked)
                         //{
                         //    ds = SkipRows(ds);
@@ -6549,11 +6402,7 @@ namespace WealthERP.Uploads
 
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, Contants.ExtractTypeProfileFolio, Contants.UploadExternalTypeStandard, Contants.UploadFileTypeTransaction);
-                    }
-                    else
-                    {
-                        //ValidationProgress = "Failure";
-                    }
+                   
                 }
                 #endregion
 
@@ -6606,7 +6455,7 @@ namespace WealthERP.Uploads
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.TempletonTransaction);
 
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, (int)Contants.UploadTypes.TempletonTransaction);
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 15);
 
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
@@ -6861,34 +6710,22 @@ namespace WealthERP.Uploads
             string isMandatory = string.Empty;
             bool isValidFile = false;
             bool isFiltered = false;
-
-
             string columnName = string.Empty;
             int count = 0;
             try
             {
-
-
                 int dsfileCount = dsFile.Tables[0].Rows.Count;
-
                 DataSet ds = new DataSet();
                 ds = dsFile;
                 string[] strMandatoryCoulmn = new string[0];
                 string[] strMappingCoulmn = new string[0];
-
                 foreach (DataRow dr in dsActual.Tables[0].Rows)
                 {
                     dt.Columns.Add(dr["XMLHeaderName"].ToString());
                 }
-
-
                 //get all column names for the DB to match the headers with the WERP headers
                 DataSet WERPColumnnames = dsColumnNames;
                 int rowIndex = 0;
-
-
-
-
                 foreach (DataRow row1 in WERPColumnnames.Tables[0].Rows)
                 {
                     if (isFiltered == true)
@@ -6937,12 +6774,8 @@ namespace WealthERP.Uploads
                             columnName = row1.ItemArray.GetValue(1).ToString();
 
                             isFiltered = true;
-                        }
-                    
-                   
-                    
+                        }     
                 }
-
                 foreach (DataColumn dcFile in ds.Tables[0].Columns)
                 {
                     if (count > 0)
@@ -7003,9 +6836,6 @@ namespace WealthERP.Uploads
                             }
                         }
 
-
-
-
                         if (!isValidFile)
                         {
                             DataRow drToDelete;
@@ -7051,7 +6881,6 @@ namespace WealthERP.Uploads
                         }
                     }
                 }
-
                 dtFInalTable = ds.Tables[0];
                 if (!isValidFile)
                 {
@@ -7067,6 +6896,14 @@ namespace WealthERP.Uploads
                             {
                                 dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
                             }
+                            else if (ddlUploadType.SelectedValue == "PMFF" && ddlListCompany.SelectedValue == "CA")
+                            {
+                                dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
+                            }
+                            else if (ddlUploadType.SelectedValue == "PMFF" && ddlListCompany.SelectedValue == "TN")
+                            {
+                                dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
+                            }                           
                             else if (ddlUploadType.SelectedValue == "MFT" && ddlListCompany.SelectedValue == "KA")
                             {
                                 dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
@@ -7095,18 +6932,42 @@ namespace WealthERP.Uploads
                             {
                                 dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
                             }
+                            else if (ddlUploadType.SelectedValue == "P" && ddlListCompany.SelectedValue == "WP")
+                            {
+                                dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
+                            }
+                            else if (ddlUploadType.SelectedValue == "EQT" && ddlListCompany.SelectedValue == "WP")
+                            {
+                                dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
+                            }
+                            else if (ddlUploadType.SelectedValue == "EQT" && ddlListCompany.SelectedValue == "IIFL")
+                            {
+                                dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
+                            }
+                            else if (ddlUploadType.SelectedValue == "MFSS" && ddlListCompany.SelectedValue == "CA")
+                            {
+                                dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
+                            }
+                            else if (ddlUploadType.SelectedValue == "MFSS" && ddlListCompany.SelectedValue == "WPT")
+                            {
+                                dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
+                            }
+                            else if (ddlUploadType.SelectedValue == "MFSS" && ddlListCompany.SelectedValue == "KA")
+                            {
+                                dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
+                            }
+                            else if (ddlUploadType.SelectedValue == "EQTA" && ddlListCompany.SelectedValue == "WP")
+                            {
+                                dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
+                            }
                             colId++;
                         }
                         dtFInalTable.Rows.Remove(drToRemove);
-
                     }
                 }
                 dtFinalAfterRowSkipp = dtFInalTable;
-
                 dtFinalAfterRowSkipp = dtFInalTable.Copy();
-
                 //For inserting the values into table used for creating xml if all mandatory is there
-
                 if (rejectUpload_Flag == false)
                     dsXML.Tables.Add(dtFinalAfterRowSkipp);
             }
