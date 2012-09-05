@@ -374,7 +374,7 @@ namespace VoUser
         private string m_ExternalLinkCode;
         private string m_AltLinkName;
         private int m_WerpMasterlinkId;
-        private string m_AMCLinksWithPin;
+        private int m_IsAMCLinksWithPin;
        
 
         #endregion Fields
@@ -415,10 +415,10 @@ namespace VoUser
             get { return m_AMCLinks; }
             set { m_AMCLinks = value; }
         }
-        public string AMCLinksWithPin
+        public int IsAMCLinksWithPin
         {
-            get { return m_AMCLinksWithPin; }
-            set { m_AMCLinksWithPin = value; }
+            get { return m_IsAMCLinksWithPin; }
+            set { m_IsAMCLinksWithPin = value; }
         }
 
         public string AMCImagePath
