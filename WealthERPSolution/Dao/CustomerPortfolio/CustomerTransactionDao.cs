@@ -1088,9 +1088,9 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getMFTransactionsCmd, "@TransactionStatusCode", DbType.Int16, 1);
 
                 if (ProcessId != 0)
-                    db.AddInParameter(getMFTransactionsCmd, "@ProcessId", DbType.Int32, ProcessId);
+                    db.AddInParameter(getMFTransactionsCmd, "@ProcessId", DbType.String, ProcessId);
                 else
-                    db.AddInParameter(getMFTransactionsCmd, "@ProcessId", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(getMFTransactionsCmd, "@ProcessId", DbType.String, DBNull.Value);
 
                 db.AddInParameter(getMFTransactionsCmd, "@sortExpression", DbType.String, SortExpression);
                 db.AddInParameter(getMFTransactionsCmd, "@FromTransactionDate", DbType.DateTime, FromDate);
