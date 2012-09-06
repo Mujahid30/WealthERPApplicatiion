@@ -200,7 +200,7 @@
                         <MasterTableView DataKeyNames="MFFolioStagingId,MainStagingId,ProcessID" Width="100%"
                             AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                             <Columns>
-                                <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                                <telerik:GridTemplateColumn HeaderStyle-Width="80px" AllowFiltering="false" UniqueName="action" DataField="action">
                                     <HeaderTemplate>
                                         <input id="chkBxAll" name="chkBxAll" type="checkbox" onclick="checkAllBoxes()" />
                                     </HeaderTemplate>
@@ -220,7 +220,7 @@
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderText="ProcessId" DataField="ProcessId" UniqueName="ProcessId"
+                                <telerik:GridBoundColumn HeaderText="ProcessId"  HeaderStyle-Width="120px" DataField="ProcessId" UniqueName="ProcessId"
                                     SortExpression="ProcessId" AutoPostBackOnFilter="true" AllowFiltering="true"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
@@ -248,7 +248,7 @@
                                         <asp:TextBox ID="txtFolioMultiple" CssClass="txtField" runat="server" />
                                     </FooterTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridBoundColumn HeaderText="IsRejected" DataField="IsRejected" UniqueName="IsRejected"
+                                <telerik:GridBoundColumn  HeaderStyle-Width="80px"  HeaderText="IsRejected" DataField="IsRejected" UniqueName="IsRejected"
                                     SortExpression="IsRejected" AutoPostBackOnFilter="true" AllowFiltering="false"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -257,6 +257,7 @@
                         </MasterTableView>
                         <ClientSettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                            <Resizing AllowColumnResize="true" />
                         </ClientSettings>
                     </telerik:RadGrid>
                     <%--<asp:GridView ID="gvCAMSProfileReject" runat="server" AutoGenerateColumns="False"
