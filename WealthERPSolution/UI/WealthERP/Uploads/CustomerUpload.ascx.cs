@@ -6735,6 +6735,12 @@ namespace WealthERP.Uploads
                             dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
                         }
 
+                        else if (fileTypeId == 20 || fileTypeId == 9 || fileTypeId == 26 || fileTypeId == 27)
+                        {
+                            dsActual.Tables[0].DefaultView.RowFilter = "IsMFSystematicMandatory=" + 1;
+                            dsMandatoryData = dsActual.Tables[0].DefaultView.ToTable();
+                        }
+
                         string isMandatoryIndefaultview = string.Empty;
                         foreach (DataRow drMd in dsMandatoryData.Rows)
                         {
