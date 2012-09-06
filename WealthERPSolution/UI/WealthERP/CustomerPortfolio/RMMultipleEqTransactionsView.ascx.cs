@@ -368,6 +368,8 @@ namespace WealthERP.CustomerPortfolio
 
                 e.Item.Cells[13].Text = grossPrice.ToString();
             }
+            if(e.Item is GridFooterItem)
+                e.Item.Cells[13].Text = totalGrossPrice.ToString();
         }
 
         protected void gvMFTransactions_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
