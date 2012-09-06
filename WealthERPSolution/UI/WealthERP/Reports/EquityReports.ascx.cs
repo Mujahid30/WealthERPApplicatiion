@@ -65,13 +65,27 @@ namespace WealthERP.Reports
                     {
                         TabPanel1.Visible = false;
                         TabPanel2.Visible = true;
+                        //Session["txtCustomerId"]=customerVo.CustomerId.ToString();
+                        //Session["txtParentCustomerId"] = null;
+                        if (!IsPostBack)
+                        {
+                            HdnIsGroupHeadReport.Value = "1";
+                        }
                     }
                     else
                     {
                         TabPanel1.Visible = true;
                         TabPanel2.Visible = true;
+                        //txtParentCustomerId.Value = customerVo.CustomerId.ToString();
+                        //Session["txtParentCustomerId"] = customerVo.CustomerId.ToString();
+                        //Session["txtCustomerId"] = customerVo.CustomerId.ToString();
+                        if (!IsPostBack)
+                        {
+                            HdnIsGroupHeadReport.Value = "0";
+                        }
                     }
-
+                    //if(TabContainer1.ActiveTabIndex==0)
+                    //    if(Request.Form["ctrl_EquityReports$ctrl_EquityReports$TabContainer1"]!=null)
                     CustomerLogin = true;
                     hndCustomerLogin.Value = "true";
                     Session["hndCustomerLogin"] = hndCustomerLogin.Value;

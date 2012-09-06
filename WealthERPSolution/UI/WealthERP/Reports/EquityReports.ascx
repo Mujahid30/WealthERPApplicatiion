@@ -250,6 +250,11 @@
         return true;
 
     }
+    function demo() {
+        alert(document.getElementById("ctrl_EquityReports$TabContainer1$TabPanel1").value);
+        alert(document.getElementById("ctrl_EquityReports$TabContainer1$TabPanel1").value); 
+    }
+    
 </script>
 
 <style>
@@ -323,7 +328,7 @@
             <asp:RadioButton ID="rdoIndividual" runat="server" Text="Individual" GroupName="customer"
                 CssClass="Field" onClick="DisplayCustomerSelection('INDIVIDUAL')" />--%>
             <ajaxToolkit:TabContainer ID="TabContainer1" runat="server"
-                OnClientActiveTabChanged="OnChanged" ActiveTabIndex="1">
+                OnClientActiveTabChanged="OnChanged" ActiveTabIndex="0" onClick="demo();">
                 <ajaxToolkit:TabPanel ID="TabPanel1" runat="server" HeaderText="Group" Visible="true">
                     <HeaderTemplate>
                         Group</HeaderTemplate>
@@ -663,7 +668,7 @@
 <asp:HiddenField ID="hidTabIndex" Value="0" runat="server" />
 <asp:HiddenField ID="hndCustomerLogin" runat="server" />
 <asp:HiddenField ID="hdnCustomerId1" runat="server" />
-
+<asp:HiddenField ID="HdnIsGroupHeadReport" runat="server" />
 <script>
     if (document.getElementById("<%= rbtnPickDate.ClientID %>").checked) {
         document.getElementById("<%= rbtnPickDate.ClientID %>").style.display = 'block';
