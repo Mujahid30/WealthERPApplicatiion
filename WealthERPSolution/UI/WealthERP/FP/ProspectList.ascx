@@ -27,6 +27,12 @@
     <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
         <td align="left">Customer Networth MIS</td>
+        <td align="right">
+        <asp:ImageButton id="btnNetworthMIS" runat="server" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                 AlternateText="Excel" ToolTip="Export To Excel"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
+        onclick="btnNetworthMIS_Click"></asp:ImageButton>
+        </td>
         </tr>
     </table>
 </div>
@@ -75,10 +81,7 @@
 <table>
 <tr>
 <td>
-<asp:ImageButton id="btnNetworthMIS" runat="server" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                 AlternateText="Excel" ToolTip="Export To Excel"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
-        onclick="btnNetworthMIS_Click"></asp:ImageButton>
+
 </td>
 </tr>
 </table>
@@ -138,7 +141,7 @@
                 </telerik:GridBoundColumn>--%>
                 
                 <telerik:GridTemplateColumn  UniqueName="Asset" AllowFiltering="true" DataField="Asset" HeaderText="Asset" 
-                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"  
+                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" SortExpression="Asset"
                 FooterStyle-HorizontalAlign="Right">
                 <HeaderStyle ></HeaderStyle>
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top"  />

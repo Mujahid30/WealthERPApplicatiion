@@ -53,6 +53,8 @@ namespace WealthERP.FP
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
+            btnNetworthMIS.Visible = false;
+
              if (!IsPostBack)
             {
                            
@@ -149,12 +151,14 @@ namespace WealthERP.FP
                     Cache.Remove("NetworthMIS" + userVo.UserId);
                     Cache.Insert("NetworthMIS" + userVo.UserId, dtcustomerProspect);
                 }
+                btnNetworthMIS.Visible = true;
              }
             else
             {
                 gvCustomerProspectlist.Visible = false;
                 lblErrorMsg.Visible = true;
                 lblErrorMsg.Text = "No records found";
+                btnNetworthMIS.Visible = false;
             }
         }
 
