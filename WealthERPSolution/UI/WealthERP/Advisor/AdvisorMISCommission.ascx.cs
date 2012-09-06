@@ -129,9 +129,11 @@ namespace WealthERP.Advisor
                         ghItem3.Visible = true;
                         break;
                 }
-                
+
+              
+
                 gvCommissionMIS.DataSource = dtMIS;
-                gvCommissionMIS.CurrentPageIndex = 0;
+                gvCommissionMIS.CurrentPageIndex = 0;                
                 gvCommissionMIS.DataBind();
                 gvCommissionMIS.Visible = true;
 
@@ -162,6 +164,18 @@ namespace WealthERP.Advisor
             hdnFromDate.Value = dtFrom.ToString();
             hdnToDate.Value = dtTo.ToString();
             hdnRecordCount.Value = "1";
+
+            GridColumn column = gvCommissionMIS.MasterTableView.GetColumnSafe("MISType");
+            column.CurrentFilterFunction = GridKnownFunction.Contains;
+            column.CurrentFilterValue = null;
+            gvCommissionMIS.MasterTableView.Rebind();
+
+            gvCommissionMIS.MasterTableView.FilterExpression = null;
+            gvCommissionMIS.MasterTableView.SortExpressions.Clear();
+            gvCommissionMIS.MasterTableView.Rebind();
+            gvCommissionMIS.MasterTableView.ClearEditItems();
+            gvCommissionMIS.MasterTableView.IsItemInserted = false;
+            gvCommissionMIS.Rebind();
             BindCommissionMISGrid();
         }
         /// <summary>

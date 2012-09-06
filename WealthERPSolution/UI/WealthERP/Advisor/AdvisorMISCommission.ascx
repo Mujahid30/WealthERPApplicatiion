@@ -9,11 +9,31 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <table width="100%">
     <tr>
+        <td colspan="3" style="width: 100%;">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            MF MIS Commission
+                        </td>
+                        <td align="right" id="trCommissionMIS" runat="server">
+                            <asp:ImageButton ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
+                                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <%--<tr>
         <td colspan="6">
             <asp:Label ID="Label7" runat="server" CssClass="HeaderTextSmall" Text="MF MIS Commission"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="6">
             <table>
@@ -22,7 +42,8 @@
                         <asp:Label ID="Label1" runat="server" Text="MIS Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td runat="server">
-                        <telerik:RadComboBox ID="ddlMISType" runat="server" CssClass="cmbField">
+                        <telerik:RadComboBox ID="ddlMISType" runat="server" CssClass="cmbField" EnableEmbeddedSkins="false"
+                            Skin="Telerik" AllowCustomText="true" Width="120px">
                             <Items>
                                 <telerik:RadComboBoxItem Text="Folio Wise" Value="Folio Wise" />
                                 <telerik:RadComboBoxItem Text="AMC Wise" Value="AMC Wise" Selected="true" />
@@ -98,7 +119,8 @@
                         <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period: </asp:Label>
                     </td>
                     <td valign="top">
-                        <telerik:RadComboBox ID="ddlPeriod" runat="server" CssClass="cmbField">
+                        <telerik:RadComboBox ID="ddlPeriod" runat="server" CssClass="cmbField" EnableEmbeddedSkins="false"
+                            Skin="Telerik" AllowCustomText="true" Width="120px">
                         </telerik:RadComboBox>
                     </td>
                 </tr>
@@ -115,49 +137,52 @@
                 ValidationGroup="btnView" />
         </td>
     </tr>
-    <tr id="trCommissionMIS" runat="server">
+    <tr>
         <td>
-            <asp:ImageButton ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+            <%-- <asp:ImageButton ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>--%>
         </td>
     </tr>
     <tr>
         <td>
             <telerik:RadGrid ID="gvCommissionMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false" 
-                Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" 
-                ExportSettings-ExportOnlyData="true" >
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="MF Commission MIS" Excel-Format="ExcelML">
+                Skin="Telerik" OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false"
+                Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                    FileName="MF Commission MIS" Excel-Format="ExcelML">
                 </ExportSettings>
                 <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
                     <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                         ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
---%>                    <Columns>
-                        <telerik:GridBoundColumn UniqueName="MISType" AllowFiltering="false"
-                            HeaderText=""  FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn   UniqueName="BrokerageAmt"  DataField="Brokerage" AllowFiltering="false"
-                            HeaderText="Brokerage Amount" Aggregate="Sum" FooterStyle-HorizontalAlign="Right"  >
-                            <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false"  />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn  UniqueName="TrailCommission" DataField="trailFee" AllowFiltering="false"
-                            HeaderText="Trail Commission" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" >
-                            <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false"  />
-                        </telerik:GridBoundColumn>
+--%>
+                    <Columns>
                         <telerik:GridBoundColumn UniqueName="CustomerName" DataField="CustomerName" AllowFiltering="true"
-                            HeaderText="Customer Name" SortExpression="CustomerName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                            HeaderText="Customer Name" SortExpression="CustomerName" AutoPostBackOnFilter="true"
+                            ShowFilterIcon="false">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="MISType" AllowFiltering="true" AutoPostBackOnFilter="true"
+                            ShowFilterIcon="false" HeaderText="" FooterStyle-HorizontalAlign="Right" AllowSorting="true">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="RM_Name" DataField="RM_Name" AllowFiltering="true"
                             HeaderText="RM Name" SortExpression="RM_Name" AutoPostBackOnFilter="true" ShowFilterIcon="false">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="AB_BranchName" DataField="AB_BranchName" AllowFiltering="true"
-                            HeaderText="Branch Name"  SortExpression="AB_BranchName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                            HeaderText="Branch Name" SortExpression="AB_BranchName" AutoPostBackOnFilter="true"
+                            ShowFilterIcon="false">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="BrokerageAmt" DataField="Brokerage" AllowFiltering="false"
+                            HeaderText="Brokerage Amount" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="TrailCommission" DataField="trailFee" AllowFiltering="false"
+                            HeaderText="Trail Commission" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" />
                         </telerik:GridBoundColumn>
                     </Columns>
                 </MasterTableView>
@@ -191,9 +216,9 @@
         document.getElementById("tblPeriod").style.display = 'none';
     }
     else if (document.getElementById("<%= rbtnPickPeriod.ClientID %>").checked) {
-    document.getElementById("tblRange").style.display = 'none';
-    document.getElementById("tblPeriod").style.display = 'block';
-           
+        document.getElementById("tblRange").style.display = 'none';
+        document.getElementById("tblPeriod").style.display = 'block';
+
     }
 </script>
 
