@@ -6779,7 +6779,7 @@ namespace WealthERP.Uploads
 
                         strMappingCoulmn = columnNameIndefaultview.Split('~');
 
-                        for (int k = 0; k < ds.Tables[0].Rows.Count; k++)
+                        for (int k = 0; k < 10; k++)
                         {
                             if (count > 0)
                                 break;
