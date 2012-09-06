@@ -4951,26 +4951,14 @@ namespace WealthERP.Uploads
                             rejectUpload_Flag = true;
                             reject_reason = strFileReadError;
                         }
-
-                        //get all column nams for the selcted file type
-                        dsColumnNames = uploadcommonBo.GetColumnNames(27);
-
-                        //Get werp Column Names for the selected type of file
-                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(27);
-
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 27);
-                        //Get XML after mapping, checking for columns
-                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
-
-                        //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", Contants.UploadFileTypeSystematic);
+                      
                     }
                     else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\CAMSSystamaticXls.xls";
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
-
+                    }
                         //get all column nams for the selcted file type
                         dsColumnNames = uploadcommonBo.GetColumnNames(27);
 
@@ -4983,11 +4971,7 @@ namespace WealthERP.Uploads
 
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", Contants.UploadFileTypeSystematic);
-                    }
-                    else
-                    {
-                        //ValidationProgress = "Failure";
-                    }
+                 
                 }
                 #endregion
                 //------------Shantanu--------------------------------
