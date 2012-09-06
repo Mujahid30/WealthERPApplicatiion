@@ -48,7 +48,7 @@ namespace WealthERP.Admin
             dtBindLinks.Columns.Add("XLTY_LinkTypeCode");
             dtBindLinks.Columns.Add("AL_Link");
             dtBindLinks.Columns.Add("AL_LinkImagePath");
-            dtBindLinks.Columns.Add("AL_AltLinkName");
+            dtBindLinks.Columns.Add("WLM_AltLinkName");
 
 
 
