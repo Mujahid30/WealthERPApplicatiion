@@ -2550,7 +2550,7 @@ namespace WealthERP.Reports
                                 AssignReportViewerProperties();
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
 
-                                crmain.SetParameterValue("ReportHeader", "Group Asset Allocation Report");
+                                crmain.SetParameterValue("ReportHeader", "Asset Allocation Report");
 
                                 CrystalReportViewer1.ReportSource = crmain;
                                 CrystalReportViewer1.EnableDrillDown = true;
@@ -2591,7 +2591,7 @@ namespace WealthERP.Reports
                                 crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                                 AssignReportViewerProperties();
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                                crmain.SetParameterValue("ReportHeader", " Individual Asset Allocation Report");
+                                crmain.SetParameterValue("ReportHeader", "Asset Allocation Report");
 
                                 CrystalReportViewer1.ReportSource = crmain;
                                 CrystalReportViewer1.EnableDrillDown = true;
@@ -2743,12 +2743,12 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Group";
+                                Headername = "Equity Summary Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
                             {
-                                Headername = "Individual";
+                                Headername = "Equity Summary Report-Sector wise";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             lblClosingBalanceNote.Visible = false;
@@ -2782,12 +2782,12 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Group";
+                                Headername = "Equity Transaction Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
                             {
-                                Headername = "Individual";
+                                Headername = "Equity Transaction Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             if (Request.QueryString["mail"] == "2")
@@ -2824,12 +2824,12 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Group";
+                                Headername = "Equity Holding Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
                             {
-                                Headername = "Individual";
+                                Headername = "Equity Holding Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             lblClosingBalanceNote.Visible = false;
@@ -3593,6 +3593,12 @@ namespace WealthERP.Reports
 
                 equityReport.PortfolioIds = GetPortfolios();
 
+                if (Session["txtCustomerId"] != null && Session["txtParentCustomerId"] != null)
+                    equityReport.GroupHead =Session["txtParentCustomerId"].ToString();
+
+                if (Session["txtCustomerId"] != null && Session["txtParentCustomerId"] == null)
+                    equityReport.CustomerIds = Session["txtCustomerId"].ToString();
+
                 if (!String.IsNullOrEmpty(Request.Form[ctrlPrefix + "TabContainer1$TabPanel2$txtCustomerId"]))
                     equityReport.CustomerIds = Request.Form[ctrlPrefix + "TabContainer1$TabPanel$txtCustomerId"];
 
@@ -3602,6 +3608,10 @@ namespace WealthERP.Reports
                 //txtParentCustomerId
 
                 Session["reportParams"] = equityReport;
+                if (Session["txtCustomerId"] != null)
+                    Session.Remove("txtCustomerId");
+                if (Session["txtParentCustomerId"] != null)
+                    Session.Remove("txtParentCustomerId");
             }
             else if (CurrentReportType == ReportType.MFReports)
             {
