@@ -156,7 +156,6 @@ namespace WealthERP.CustomerPortfolio
             customerId = customerVo.CustomerId;
             userVo = (UserVo)Session["userVo"];
             rmVo = (RMVo)Session["rmVo"];
-            hdnProcessIdSearch.Value = "0";
             tblExport.Visible = false;
             if (!IsPostBack)
             {
@@ -245,11 +244,11 @@ namespace WealthERP.CustomerPortfolio
                 int.TryParse(hdnProcessIdSearch.Value, out processid);
                 if (export == 1)
                 {
-                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 1, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to, hdnFolioFilter.Value.ToString(), processid);                   
+                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 1, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value.Trim(), from, to, hdnFolioFilter.Value.Trim(), processid);                   
                 }
                 else
                 {
-                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 0, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to, hdnFolioFilter.Value.ToString(), processid);
+                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 0, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to, hdnFolioFilter.Value.Trim(), processid);
                     hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                 }
                 // customerTransactionBo.GetMFTransactions(customerVo.CustomerId,"C").ToString();
@@ -1367,6 +1366,7 @@ namespace WealthERP.CustomerPortfolio
             dtTo = DateTime.Parse((txtToTran.SelectedDate).ToString());
             ViewState["dtTo"] = dtTo;
             hdnStatus.Value = "1";
+            hdnProcessIdSearch.Value = "0";
             BindGridView(customerId, mypager.CurrentPage, 0, dtFrom, dtTo);
         }
 
