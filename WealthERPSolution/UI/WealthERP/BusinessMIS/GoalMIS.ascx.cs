@@ -57,6 +57,7 @@ namespace WealthERP.BusinessMIS
             customerId = customerVo.CustomerId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
+            
             ErrorMessage.Visible = false;
             gvGoalMIS.Visible = false;
             tdGoalExport.Visible = false;
@@ -431,7 +432,7 @@ namespace WealthERP.BusinessMIS
                 tdGoalExport.Visible = true;
                 ErrorMessage.Visible = false;
                 tdGoalExport.Visible = true;
-
+                tbl.Visible = true;
             }
             else
             {
@@ -439,6 +440,7 @@ namespace WealthERP.BusinessMIS
                 ErrorMessage.Visible = true;
                 tdGoalExport.Visible = false;
                 tdGoalExport.Visible = false;
+                tbl.Visible = false;
             }
         }
 
@@ -647,6 +649,7 @@ namespace WealthERP.BusinessMIS
             DataTable dtGetGoalMIS = new DataTable();
             dtGetGoalMIS = (DataTable)Cache["GoalMIS" + userVo.UserId];
             gvGoalMIS.DataSource = dtGetGoalMIS;
+            gvGoalMIS.Visible = true;
         }
 
          protected void btnGo_Click(object sender, EventArgs e)
