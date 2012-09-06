@@ -61,7 +61,7 @@ namespace WealthERP.CustomerPortfolio
                     userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
                 
                 
-                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                 tblExport.Visible = false;
 
                 
@@ -82,7 +82,26 @@ namespace WealthERP.CustomerPortfolio
                     lblGroupHead.Visible = false;
                     txtParentCustomer.Visible = false;
                     hdnProcessIdSearch.Value = "0";
-                    
+                    Panel2.Visible = false;
+
+
+                    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    {
+                        txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    {
+                        txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                    {
+                        txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
+
+                    }
 
                     if (Request.QueryString["folionum"] != null)
                     {
@@ -274,6 +293,7 @@ namespace WealthERP.CustomerPortfolio
                     lblCurrentPage.Visible = true;
                     trPager.Visible = true;
                     lblTotalRows.Visible = true;
+                    Panel2.Visible = true;
                     DataTable dtMFTransactions = new DataTable();
 
                     dtMFTransactions.Columns.Add("TransactionId");
@@ -448,6 +468,7 @@ namespace WealthERP.CustomerPortfolio
                     lblTotalRows.Visible = false;
                     ErrorMessage.Visible = true;
                     tblExport.Visible = false;
+                    Panel2.Visible = false;
                 }
 
             }
