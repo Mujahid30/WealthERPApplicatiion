@@ -2593,8 +2593,7 @@ namespace WealthERP.FP
                     trTotalGoalAllocation.Visible = true;
                     trOtherGoalAllocation.Visible = true;
 
-                foreach (DataRow drGoalExistingInvestments in dsFundingDetails.Tables[2].Rows)
-                {
+                
                     drTotalInvestmentAllocationStatus = dsFundingDetails.Tables[2].Select("PASP_SchemePlanCode=" + "'" + dropdown.SelectedValue + "'");
                     if (drTotalInvestmentAllocationStatus.Count() > 0)
                     {
@@ -2603,10 +2602,8 @@ namespace WealthERP.FP
                             totalAllocation = decimal.Parse(dr["allocatedPercentage"].ToString());
                         }
                     }
-                }
+                
 
-                foreach (DataRow drGoalExistingInvestments in dsFundingDetails.Tables[3].Rows)
-                {
                     drCurrentGoalInvestmentAllocationStatus = dsFundingDetails.Tables[3].Select("PASP_SchemePlanCode=" + "'" + dropdown.SelectedValue + "'");
                     if (drCurrentGoalInvestmentAllocationStatus.Count() > 0)
                     {
@@ -2615,36 +2612,36 @@ namespace WealthERP.FP
                             currentAllocation = decimal.Parse(dr["allocatedPercentage"].ToString());
                         }
                     }
-                }
-                foreach (DataRow drGoalExistingInvestments in dsFundingDetails.Tables[6].Rows)
-                {
+                //foreach (DataRow drGoalExistingInvestments in dsFundingDetails.Tables[6].Rows)
+                //{
+                    if (currentAllocation > totalAllocation)
+                    {
+                        otherAllocation = totalAllocation - currentAllocation;
+                    }
+                    else
+                    {
+                        otherAllocation = totalAllocation;
+                    }
+                    AvialableAllocation = 100 - totalAllocation;
+
                     drAmountUnitsAllocation = dsFundingDetails.Tables[6].Select("PASP_SchemePlanCode=" + "'" + dropdown.SelectedValue + "'");
                     if (drAmountUnitsAllocation.Count() > 0)
                     {
                         foreach (DataRow dr in drAmountUnitsAllocation)
                         {
-                            currentValue = decimal.Parse(dr["CMFNP_CurrentValue"].ToString());
-                            totalUnits = decimal.Parse(dr["CMFNP_NetHoldings"].ToString());
-                            totalAmounts = decimal.Parse(dr["CMFNP_AcqCostExclDivReinvst"].ToString());
-
+                            decimal.TryParse(dr["CMFNP_CurrentValue"].ToString(), out currentValue);
+                            decimal.TryParse(dr["CMFNP_NetHoldings"].ToString(), out totalUnits);
+                            decimal.TryParse(dr["CMFNP_AcqCostExclDivReinvst"].ToString(), out totalAmounts);
                         }
                     }
-                }
-                if (currentAllocation > totalAllocation)
-                {
-                    otherAllocation = totalAllocation - currentAllocation;
-                }
-                else
-                {
-                    otherAllocation = totalAllocation;
-                }
-                AvialableAllocation = 100 - totalAllocation;
+               // }
 
-          
-                txtCurrentValueAddMode.Text = currentValue.ToString();
-                txtUnitsAddMode.Text = totalUnits.ToString();
-                txtAmtAvailableAddMode.Text = ((totalAmounts * AvialableAllocation) / 100).ToString();
+
+                txtCurrentValueAddMode.Text = currentValue != 0 ? String.Format("{0:n2}", Math.Round((currentValue * AvialableAllocation), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                txtUnitsAddMode.Text = totalUnits != 0 ? String.Format("{0:n2}", Math.Round((totalUnits), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                txtAmtAvailableAddMode.Text = (totalAmounts * AvialableAllocation) / 100 != 0 ? String.Format("{0:n2}", Math.Round((totalAmounts * AvialableAllocation) / 100, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtAvailableAllocationAddMode.Text = AvialableAllocation.ToString();
+                    
                 txtSchemeAllocationPerAddMode.Text = otherAllocation.ToString();
                 txtAllocationEntryAddMode.Text = totalAllocation.ToString();
                 txtInvestedAmtAdd.Text = "0";
