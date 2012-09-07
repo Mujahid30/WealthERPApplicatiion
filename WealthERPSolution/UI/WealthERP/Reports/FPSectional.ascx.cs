@@ -76,6 +76,12 @@ namespace WealthERP.Reports
                 //    pnlAssumption.Visible = true;
                 //    tdReportButtons.Visible = true;
                 //}
+                if (Session[SessionContents.CurrentUserRole].ToString() == "RM" ||
+                Session[SessionContents.CurrentUserRole].ToString() == "Admin" ||
+                Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                {
+                    customerVo = null;
+                }
                 if (customerVo == null)
                 {
                     trIndCustomer.Visible = true;

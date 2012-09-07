@@ -113,10 +113,10 @@
 <tr>
 <td>
 <div class="divPageHeading">
-    <table cellspacing="0" cellpadding="3" width="100%">
+    <table cellspacing="0" width="100%">
         <tr>
         <td align="left">Financial Planning Reports</td>
-        <td align="right" id="tdReportButtons" runat=server>
+        <td align="right" id="tdReportButtons" runat=server style="padding-bottom:2px;">
         <asp:Button ID="btnViewReport" runat="server"  
      PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" />&nbsp;&nbsp;
      <div id="divView" style="display: none;">
@@ -155,10 +155,10 @@
         </td>
     </tr>
 </table>
-<table id="tblCustomer" runat="server" width="50%" visible="true">
+<table id="tblCustomer" runat="server" width="60%" visible="true">
 <tr id="trIndCustomer"  runat="server">
-<td id="Td2" runat="server"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <td id="Td1" runat="server">
+<td id="Td2" runat="server" width="30%" ></td>
+          <td id="Td1" runat="server" width="30%" >
                                                             <asp:Label ID="lblCustomer" runat="server" Text="Select Customer:" CssClass="FieldName"></asp:Label><asp:TextBox
                                                                 ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True"></asp:TextBox>
                                                             <ajaxToolkit:AutoCompleteExtender ID="txtCustomer_autoCompleteExtender" runat="server"
