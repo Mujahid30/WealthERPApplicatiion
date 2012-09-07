@@ -32,10 +32,10 @@ namespace WealthERP.FP
         int bmID = 0;
         int advisorId = 0;
         string userType = "";
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             rmVo = (RMVo)Session[SessionContents.RmVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["userVo"];
@@ -53,11 +53,9 @@ namespace WealthERP.FP
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
-            btnNetworthMIS.Visible = false;
-
-             if (!IsPostBack)
+            if (!IsPostBack)
             {
-                           
+
                 if (userType == "advisor")
                 {
                     btnGo.Visible = true;
@@ -82,8 +80,8 @@ namespace WealthERP.FP
                     gvCustomerProspectlist.Visible = false;
                 }
             }
-            
-             
+
+
             //SqlDataSource1.SelectParameters["AR_RMId"].DefaultValue = rmVo.RMId.ToString();
         }
 
@@ -102,9 +100,9 @@ namespace WealthERP.FP
                 dtcustomerProspect.Columns.Add("C_Email");
                 dtcustomerProspect.Columns.Add("C_Mobile1");
                 dtcustomerProspect.Columns.Add("Address");
-                dtcustomerProspect.Columns.Add("Asset");
-                dtcustomerProspect.Columns.Add("Liabilities");
-                dtcustomerProspect.Columns.Add("Networth");
+                dtcustomerProspect.Columns.Add("Asset", typeof(double));
+                dtcustomerProspect.Columns.Add("Liabilities", typeof(double));
+                dtcustomerProspect.Columns.Add("Networth", typeof(double));
                 DataRow drCustomerProspect;
 
                 for (int i = 0; i < dsGetAllProspectCustomersForRM.Tables[0].Rows.Count; i++)
@@ -116,27 +114,23 @@ namespace WealthERP.FP
 
                     if (dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["IsProspect"].ToString() != "")
                         drCustomerProspect[2] = dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["IsProspect"].ToString();
-                        
+
                     drCustomerProspect[3] = dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["C_Email"].ToString();
                     drCustomerProspect[4] = dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["C_Mobile1"].ToString();
                     if (dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Address"].ToString() != ",,,,,,")
                         drCustomerProspect[5] = dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Address"].ToString();
                     else
                         drCustomerProspect[5] = " ";
-                        
-                    if (dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Asset"].ToString() != "")
-                        drCustomerProspect[6] = String.Format("{0:n2}", decimal.Parse(dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Asset"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    else
-                        drCustomerProspect[6] = string.Empty;
-                    if (dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Liabilities"].ToString() != "")
-                        drCustomerProspect[7] = String.Format("{0:n2}", decimal.Parse(dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Liabilities"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    else
-                        drCustomerProspect[7] = string.Empty;
-                    if (dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Networth"].ToString() != "")
-                        drCustomerProspect[8] = String.Format("{0:n2}", decimal.Parse(dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Networth"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    else
-                        drCustomerProspect[8] = string.Empty;
 
+                    if (dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Asset"].ToString() != "")
+                        drCustomerProspect[6] = dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Asset"].ToString();
+                   
+                    if (dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Liabilities"].ToString() != "")
+                        drCustomerProspect[7] = dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Liabilities"].ToString();
+                    
+                    if (dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Networth"].ToString() != "")
+                        drCustomerProspect[8] = dsGetAllProspectCustomersForRM.Tables[0].Rows[i]["Networth"].ToString();
+                  
                     dtcustomerProspect.Rows.Add(drCustomerProspect);
                 }
                 gvCustomerProspectlist.DataSource = dtcustomerProspect;
@@ -152,7 +146,7 @@ namespace WealthERP.FP
                     Cache.Insert("NetworthMIS" + userVo.UserId, dtcustomerProspect);
                 }
                 btnNetworthMIS.Visible = true;
-             }
+            }
             else
             {
                 gvCustomerProspectlist.Visible = false;
@@ -164,7 +158,7 @@ namespace WealthERP.FP
 
         private void SetParameters()
         {
-            if ( (userType == "advisor"))
+            if ((userType == "advisor"))
             {
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
@@ -196,13 +190,13 @@ namespace WealthERP.FP
                 }
 
             }
-            else if ( userType == "rm")
+            else if (userType == "rm")
             {
                 hdnrmId.Value = rmVo.RMId.ToString();
                 hdnAll.Value = "0";
 
             }
-            else if ( userType == "bm")
+            else if (userType == "bm")
             {
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
@@ -255,25 +249,25 @@ namespace WealthERP.FP
             CustomerVo customervo = new CustomerVo();
             CustomerBo customerBo = new CustomerBo();
 
-            
-                //LinkButton lnkbtn = (LinkButton)gvCustomerProspectlist.FindControl("lnkbtnGvProspectListName");
-                LinkButton lnkbtn = (LinkButton)sender;
-                gdi = (GridDataItem)lnkbtn.NamingContainer;
-                selectedRow = gdi.ItemIndex + 1;
-                customerId = int.Parse((gvCustomerProspectlist.MasterTableView.DataKeyValues[selectedRow-1]["C_CustomerId"].ToString()));
-                customervo = customerBo.GetCustomer(customerId);
-                Session["CustomerVo"] = customervo;
-                
-                Session["IsDashboard"] = "FP";
-                if (customerId != 0)
-                {
-                    Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
-                }
-                Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
-                Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
-                Session[SessionContents.FPS_AddProspectListActionStatus] = "FPDashBoard";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
+
+            //LinkButton lnkbtn = (LinkButton)gvCustomerProspectlist.FindControl("lnkbtnGvProspectListName");
+            LinkButton lnkbtn = (LinkButton)sender;
+            gdi = (GridDataItem)lnkbtn.NamingContainer;
+            selectedRow = gdi.ItemIndex + 1;
+            customerId = int.Parse((gvCustomerProspectlist.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString()));
+            customervo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customervo;
+
+            Session["IsDashboard"] = "FP";
+            if (customerId != 0)
+            {
+                Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+            }
+            Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+            Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
+            Session[SessionContents.FPS_AddProspectListActionStatus] = "FPDashBoard";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
         }
 
         private void BindBranchDropDown()
@@ -460,7 +454,7 @@ namespace WealthERP.FP
 
         //protected void gvCustomerProspectlist_ItemDataBound(object sender, GridItemEventArgs e)
         //{
-            
+
 
         //    if (e.Item is GridDataItem)
         //    {
@@ -503,10 +497,10 @@ namespace WealthERP.FP
         //        selectedRow = gdi.ItemIndex;
         //        customerId = int.Parse((gvCustomerProspectlist.MasterTableView.DataKeyValues[selectedRow]["C_CustomerId"].ToString()));
         //        customervo = customerBo.GetCustomer(customerId);
-                
+
         //        Session[SessionContents.CustomerVo] = customervo;
-                
-                
+
+
         //        if (customerId != 0)
         //        {
         //            Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
@@ -532,6 +526,6 @@ namespace WealthERP.FP
         //    }
         //}
 
-        
+
     }
 }
