@@ -169,7 +169,7 @@
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="CustomerName" DataField="CustomerName" AllowFiltering="true"
                             HeaderText="Customer Name" SortExpression="CustomerName" AutoPostBackOnFilter="true"
-                            ShowFilterIcon="false">
+                            ShowFilterIcon="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="MISType" AllowFiltering="true" AutoPostBackOnFilter="true"
