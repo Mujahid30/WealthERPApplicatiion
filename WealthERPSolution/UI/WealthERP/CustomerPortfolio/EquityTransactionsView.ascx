@@ -196,7 +196,7 @@
                     <telerik:GridDateTimeColumn DataField="TradeDate" SortExpression="TradeDate" AutoPostBackOnFilter="true"
                         CurrentFilterFunction="Contains" AllowFiltering="true" HeaderText="TradeDate  (dd/mm/yyyy)"
                         UniqueName="TradeDate" DataFormatString="{0:d}" ShowFilterIcon="false">
-                        <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        <ItemStyle Width="110px" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         <FilterTemplate>
                             <telerik:RadDatePicker Width="250px" ID="calFilter" runat="server">
                             </telerik:RadDatePicker>
