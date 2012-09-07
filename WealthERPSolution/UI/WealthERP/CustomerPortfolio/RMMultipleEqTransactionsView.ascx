@@ -240,7 +240,7 @@
                                 <telerik:GridBoundColumn HeaderStyle-Wrap="false" HeaderText="Trade Acc Number" DataField="TradeAccNumber"
                                     UniqueName="TradeAccNumber" SortExpression="TradeAccNumber" AutoPostBackOnFilter="true"
                                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderText="Type" DataField="Type" UniqueName="Type" SortExpression="Type"
                                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
