@@ -598,9 +598,16 @@
                                 
                             </table>
                         </asp:Panel>
+                        
                         <table>
                         <tr id="trSchemePerformance" runat="server">
                                 <td>
+                                <asp:Panel ID="tbl" runat="server"  ScrollBars="Horizontal" Width="98%" Visible="false">
+                                <table>
+                                <tr>
+                                <td>
+                                <div id="Div1" runat="server" style="width: 640px;">
+                                
                                 <telerik:RadAjaxPanel ID="PanelSector" runat="server" Width="90%"  EnableHistory="True"  
                                      HorizontalAlign="NotSet" LoadingPanelID="SchemePerformanceLoading" >
                                
@@ -695,6 +702,11 @@
                             </ClientSettings>
                              </telerik:RadGrid>
                                 </telerik:RadAjaxPanel>
+                                </div>
+                                </td>
+                                </tr>
+                                </table>
+                                </asp:Panel>
                                 </td>
                                 </tr>
                                 <tr id="trTop10HoldingsPie" runat="server">
