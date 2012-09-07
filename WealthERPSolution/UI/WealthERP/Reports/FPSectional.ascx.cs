@@ -21,6 +21,8 @@ namespace WealthERP.Reports
         CustomerVo customerVo = new CustomerVo();
 
         int customerId = 0;
+        bool CustomerLogin = false;
+        bool strFromCustomerDashBoard = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -29,9 +31,9 @@ namespace WealthERP.Reports
             adviserVo = (AdvisorVo)Session["advisorVo"];
             RMVo rmVo = new RMVo();
             rmVo = (RMVo)Session[SessionContents.RmVo];
-            
-            
-            
+
+
+
             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
             {
                 //hidBMLogin.Value = "False";
@@ -40,7 +42,7 @@ namespace WealthERP.Reports
                 txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
                 //txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
             }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" )
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
             {
                 //hidBMLogin.Value = "False";
                 txtCustomer_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
@@ -58,52 +60,44 @@ namespace WealthERP.Reports
                 //txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
 
             }
-            if (!IsPostBack)
+            if (Session["IsCustomerDrillDown"] != null)
             {
-                //if (Session[SessionContents.CurrentUserRole].ToString() == "RM" ||
-                //Session[SessionContents.CurrentUserRole].ToString() == "Admin" ||
-                //Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                //{
-                //    tblCustomer.Visible = true;
-                //    RadTabStripFPProjection.Visible = false;
-                //    pnlAssumption.Visible = false;
-                //    tdReportButtons.Visible = false;
-                //}
-                //else
-                //{
-                //    tblCustomer.Visible = false;
-                //    RadTabStripFPProjection.Visible = true;
-                //    pnlAssumption.Visible = true;
-                //    tdReportButtons.Visible = true;
-                //}
-                if (Session[SessionContents.CurrentUserRole].ToString() == "RM" ||
-                Session[SessionContents.CurrentUserRole].ToString() == "Admin" ||
-                Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                {
-                    customerVo = null;
-                }
-                if (customerVo == null)
-                {
-                    trIndCustomer.Visible = true;
-                    btnViewReport.Visible = false;
-                    btnViewInPDF.Visible = false;
-                    btnViewInDOC.Visible = false;
-                }
-                else
+                if (Session["IsCustomerDrillDown"].ToString() == "Yes")
                 {
                     trIndCustomer.Visible = false;
                     btnViewReport.Visible = true;
                     btnViewInPDF.Visible = true;
                     btnViewInDOC.Visible = true;
                 }
-                SetDefalutView();
-                DefaultFPReportsAssumtion();
-                btnSubmit.Enabled = false;
-                getCustomerRMRecommendationText();
-                setRecommendationControlReadOnly(true);
+               
             }
-            pnlAssumption.Visible = true;
-        }
+            else
+            {
+                    trIndCustomer.Visible = true;
+                    btnViewReport.Visible = false;
+                    btnViewInPDF.Visible = false;
+                    btnViewInDOC.Visible = false;
+
+            }
+                if (!IsPostBack)
+                {
+
+                    //if (Session[SessionContents.CurrentUserRole].ToString() == "RM" ||
+                    //Session[SessionContents.CurrentUserRole].ToString() == "Admin" ||
+                    //Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                    //{
+                    //    customerVo = null;
+                    //}
+
+                    SetDefalutView();
+                    DefaultFPReportsAssumtion();
+                    btnSubmit.Enabled = false;
+                    getCustomerRMRecommendationText();
+                    setRecommendationControlReadOnly(true);
+                }
+                pnlAssumption.Visible = true;
+            }
+        
         public void DefaultFPReportsAssumtion()
         {
             DataSet dsDefaultFPReportsAssumtion = new DataSet();
