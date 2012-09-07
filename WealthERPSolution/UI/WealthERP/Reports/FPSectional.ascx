@@ -175,7 +175,7 @@
                                                                 CssClass="rfvPCG" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator><span
                                                                     style='font-size: 9px; font-weight: normal' class='FieldName'><br />
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                    Enter few characters of pnlAssumptioncustomer name. </span>
+                                                                    Enter few characters of customer name. </span>
                                                                     
                                                         </td>
                                                         

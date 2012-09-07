@@ -29,22 +29,7 @@ namespace WealthERP.Reports
             adviserVo = (AdvisorVo)Session["advisorVo"];
             RMVo rmVo = new RMVo();
             rmVo = (RMVo)Session[SessionContents.RmVo];
-            if (Session[SessionContents.CurrentUserRole].ToString() == "RM" ||
-                Session[SessionContents.CurrentUserRole].ToString() == "Admin" ||
-                Session[SessionContents.CurrentUserRole].ToString() == "BM")
-            {
-                tblCustomer.Visible = true;
-                RadTabStripFPProjection.Visible = false;
-                pnlAssumption.Visible = false;
-                tdReportButtons.Visible = false;
-            }
-            else
-            {
-                tblCustomer.Visible = false;
-                RadTabStripFPProjection.Visible = true;
-                pnlAssumption.Visible = true;
-                tdReportButtons.Visible = true;
-            }
+            
             
             
             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
@@ -75,12 +60,33 @@ namespace WealthERP.Reports
             }
             if (!IsPostBack)
             {
+                //if (Session[SessionContents.CurrentUserRole].ToString() == "RM" ||
+                //Session[SessionContents.CurrentUserRole].ToString() == "Admin" ||
+                //Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                //{
+                //    tblCustomer.Visible = true;
+                //    RadTabStripFPProjection.Visible = false;
+                //    pnlAssumption.Visible = false;
+                //    tdReportButtons.Visible = false;
+                //}
+                //else
+                //{
+                //    tblCustomer.Visible = false;
+                //    RadTabStripFPProjection.Visible = true;
+                //    pnlAssumption.Visible = true;
+                //    tdReportButtons.Visible = true;
+                //}
+                if (customerVo == null)
+                    trIndCustomer.Visible = true;
+                else
+                    trIndCustomer.Visible = false;
                 SetDefalutView();
                 DefaultFPReportsAssumtion();
                 btnSubmit.Enabled = false;
                 getCustomerRMRecommendationText();
                 setRecommendationControlReadOnly(true);
             }
+            pnlAssumption.Visible = true;
         }
         public void DefaultFPReportsAssumtion()
         {
