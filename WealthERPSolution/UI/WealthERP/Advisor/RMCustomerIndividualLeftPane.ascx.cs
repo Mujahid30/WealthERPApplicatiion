@@ -53,6 +53,8 @@ namespace WealthERP.Advisor
             advisorVo = (AdvisorVo)Session["advisorVo"];
             bool isGrpHead = false;
 
+            Session["IsCustomerDrillDown"] = "Yes"; 
+
             try
             {
                 customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
@@ -803,6 +805,7 @@ namespace WealthERP.Advisor
             {
                 if (e.Item.Value == "Home")
                 {
+                    Session["IsCustomerDrillDown"] = null;
                     if(Session["FPDataSet"] != null)
                      Session["FPDataSet"] = null;
                     if(Session["UserType"] != null)
