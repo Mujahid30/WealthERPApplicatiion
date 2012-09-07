@@ -98,12 +98,12 @@
             <CommandItemSettings ExportToPdfText="Export to Pdf" />
             <Columns>
                
-                <telerik:GridTemplateColumn DataField="Name" AllowFiltering="true" UniqueName="Name" HeaderText="Name"
+                <telerik:GridTemplateColumn DataField="Name" AllowFiltering="true" UniqueName="Name" HeaderText="Customer"
                 SortExpression="Name" ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" >
                 <HeaderStyle ></HeaderStyle>
                 <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" />
                     <HeaderTemplate>
-                       <asp:Label ID="lblNAme" runat="server" Text="Name"></asp:Label>
+                       <asp:Label ID="lblNAme" runat="server" Text=""></asp:Label>
                     </HeaderTemplate>
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkbtnGvProspectListName" style="float: left" runat="server" OnClick="lnkbtnGvProspectListName_Click"
