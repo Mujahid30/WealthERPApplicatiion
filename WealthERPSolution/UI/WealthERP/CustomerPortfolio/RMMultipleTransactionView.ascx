@@ -89,7 +89,7 @@
         <td align="left">MF Transaction Grid View</td>
         <td align="right">
         <asp:ImageButton ID="imgBtnExport" ImageUrl="~/Images/Export_Excel.png" runat="server"
-                AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
+                AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" Visible="false"
                 OnClientClick="setFormat('excel')" CausesValidation="false" />
         </td>
         </tr>

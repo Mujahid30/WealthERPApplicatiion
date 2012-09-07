@@ -63,7 +63,7 @@ namespace WealthERP.CustomerPortfolio
                 
                 //txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                 tblExport.Visible = false;
-                imgBtnExport.Visible = false;
+                //imgBtnExport.Visible = false;
 
                 
 
@@ -565,6 +565,7 @@ namespace WealthERP.CustomerPortfolio
                     gvMFTransactions.DataSource = dtMFTransactions;
                     gvMFTransactions.DataBind();
                     gvMFTransactions.Visible = true;
+                    imgBtnExport.Visible = true;
 
                     if (genDictTranType.Count > 0)
                     {
@@ -665,6 +666,7 @@ namespace WealthERP.CustomerPortfolio
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
                     ErrorMessage.Visible = true;
+                    imgBtnExport.Visible = false;
                 }
 
             }
