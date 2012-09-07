@@ -254,7 +254,7 @@
                             ItemStyle-Wrap="false" AllowFiltering="true" SortExpression="Mutual_Fund" ItemStyle-HorizontalAlign="Right"
                             DataField="Mutual_Fund" FooterStyle-HorizontalAlign="Right">
                             <ItemTemplate >
-                                <asp:LinkButton ID="lnkMF" runat="server" Text='<%# String.Format("{0:c}", DataBinder.Eval(Container.DataItem, "Mutual_Fund")) %>' 
+                                <asp:LinkButton ID="lnkMF" runat="server" Text='<%# String.Format("{0:N0}", DataBinder.Eval(Container.DataItem, "Mutual_Fund")) %>' 
                                     CommandName="Redirect"  ></asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
