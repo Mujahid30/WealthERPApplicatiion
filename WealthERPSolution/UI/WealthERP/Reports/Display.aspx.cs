@@ -2550,7 +2550,7 @@ namespace WealthERP.Reports
                                 AssignReportViewerProperties();
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
 
-                                crmain.SetParameterValue("ReportHeader", "Asset Allocation Report");
+                                crmain.SetParameterValue("ReportHeader", "Asset Summary Report");
 
                                 CrystalReportViewer1.ReportSource = crmain;
                                 CrystalReportViewer1.EnableDrillDown = true;
@@ -2591,7 +2591,7 @@ namespace WealthERP.Reports
                                 crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                                 AssignReportViewerProperties();
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                                crmain.SetParameterValue("ReportHeader", "Asset Allocation Report");
+                                crmain.SetParameterValue("ReportHeader", "Asset Summary Report");
 
                                 CrystalReportViewer1.ReportSource = crmain;
                                 CrystalReportViewer1.EnableDrillDown = true;
