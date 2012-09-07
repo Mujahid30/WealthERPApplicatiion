@@ -1356,7 +1356,7 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if (dr[2].ToString().ToLower() == "multi product mis")
+                            if ( dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS" || dr[2].ToString() == "FP Report")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
@@ -1435,7 +1435,12 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
+                            if (dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS" || dr[2].ToString() == "FP Report")
+                            {
+                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            }
                         }
+
                     }
                 }
                 flag = 0;
@@ -1506,6 +1511,10 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
+                            if (dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS" || dr[2].ToString() == "FP Report")
+                            {
+                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            }
                         }
                     }
                 }

@@ -176,7 +176,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Goal MIS" Value="Goal_MIS" Vissble="true">
+                                            <telerik:RadPanelItem runat="server" Text="Goal MIS"  Value="Goal_MIS" Vissble="true">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Loan MIS" Value="Loan MIS" Vissble="false">
                                             </telerik:RadPanelItem>
