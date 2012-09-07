@@ -1367,6 +1367,7 @@ namespace WealthERP.CustomerPortfolio
             ViewState["dtTo"] = dtTo;
             hdnStatus.Value = "1";
             hdnProcessIdSearch.Value = "0";
+            hdnFolioFilter.Value=string.Empty;
             BindGridView(customerId, mypager.CurrentPage, 0, dtFrom, dtTo);
         }
 
