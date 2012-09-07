@@ -60,7 +60,7 @@ namespace WealthERP.BusinessMIS
             
             ErrorMessage.Visible = false;
             gvGoalMIS.Visible = false;
-            tdGoalExport.Visible = false;
+            //tdGoalExport.Visible = false;
             if (!IsPostBack)
             {
                 BindGoal();
@@ -433,6 +433,7 @@ namespace WealthERP.BusinessMIS
                 ErrorMessage.Visible = false;
                 tdGoalExport.Visible = true;
                 tbl.Visible = true;
+                btnGoalMIS.Visible = true;
             }
             else
             {
@@ -441,6 +442,7 @@ namespace WealthERP.BusinessMIS
                 tdGoalExport.Visible = false;
                 tdGoalExport.Visible = false;
                 tbl.Visible = false;
+                btnGoalMIS.Visible = false;
             }
         }
 

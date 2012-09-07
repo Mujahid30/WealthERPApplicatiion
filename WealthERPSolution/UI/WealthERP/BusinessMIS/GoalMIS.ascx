@@ -28,7 +28,7 @@
         <td align="left">Goal MIS</td>
         <td  align="right" id="tdGoalExport" runat="server">
         <asp:ImageButton ID="btnGoalMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Visible="false"
                 OnClientClick="setFormat('excel')" Height="20px" Width="25px" 
             onclick="btnGoalMIS_Click"></asp:ImageButton>
     </td>
@@ -118,14 +118,13 @@
     </tr>
     <tr>
     <td colspan="3">
-    <asp:Panel ID="tbl" runat="server"  Width="98%" ScrollBars="Horizontal" Visible="false">
-    <table id="tblHoldings" runat="server" width="50%">
+    <asp:Panel ID="tbl" runat="server" ScrollBars="Horizontal" Visible="false">
+    <table>
      <tr>
        <td>
-                <div id="dvHoldings" runat="server" width="100%">
                 <telerik:RadGrid ID="gvGoalMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="130%" AllowFilteringByColumn="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" ExportSettings-FileName="Goal MIS" OnNeedDataSource="gvGoalMIS_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="Goal MIS" Excel-Format="ExcelML">
                     </ExportSettings>
@@ -200,7 +199,7 @@
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
-                </div></td></tr></table>
+               </td></tr></table>
             </asp:Panel>
     </td>
     </tr>  

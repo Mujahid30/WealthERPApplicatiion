@@ -221,24 +221,6 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.Panel tbl;
         
         /// <summary>
-        /// tblHoldings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblHoldings;
-        
-        /// <summary>
-        /// dvHoldings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvHoldings;
-        
-        /// <summary>
         /// gvGoalMIS control.
         /// </summary>
         /// <remarks>
