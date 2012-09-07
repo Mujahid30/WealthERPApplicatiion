@@ -2662,7 +2662,7 @@ namespace WealthERP.FP
                // }
 
 
-                txtCurrentValueAddMode.Text = currentValue != 0 ? String.Format("{0:n2}", Math.Round((currentValue * AvialableAllocation), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                txtCurrentValueAddMode.Text = currentValue != 0 ? String.Format("{0:n2}", Math.Round(((currentValue * AvialableAllocation)/100), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtUnitsAddMode.Text = totalUnits != 0 ? String.Format("{0:n2}", Math.Round((totalUnits), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtAmtAvailableAddMode.Text = (totalAmounts * AvialableAllocation) / 100 != 0 ? String.Format("{0:n2}", Math.Round((totalAmounts * AvialableAllocation) / 100, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtAvailableAllocationAddMode.Text = AvialableAllocation.ToString();
