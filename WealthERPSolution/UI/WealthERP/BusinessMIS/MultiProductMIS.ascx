@@ -35,14 +35,42 @@
         padding: 10px 7px;
     }
 </style>
-<table style="width: 100%;">
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+        <td align="left">Multi Product MIS</td>
+        <td  align="right">
+        <asp:ImageButton ID="btnMultiProductMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+        <asp:ImageButton ID="btnFixedIncomeMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnFixedIncomeMIS_OnClick"
+                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+        <asp:ImageButton ID="btnGeneralInsurance" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnGeneralInsurance_OnClick"
+                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton> 
+                    
+        <asp:ImageButton ID="btnLifeInsurance" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnLifeInsurance_OnClick"
+                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>                       
+        </td>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
+</table>
+<%--<table style="width: 100%;">
     <tr>
         <td class="HeaderTextBig">
             <asp:Label ID="lblMultiAssetMIS" runat="server" CssClass="HeaderTextBig" Text="Multi Product MIS"></asp:Label>
             <hr />
         </td>
     </tr>
-</table>
+</table>--%>
 <%--<div class="divSectionHeading" style="vertical-align: text-bottom">
 </div>--%>
 
@@ -186,9 +214,7 @@
 <table class="TableBackground" width="100%">
  <tr id="trExportFilteredData" runat="server">
             <td>
-                <asp:ImageButton ID="btnMultiProductMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                
             </td>
         </tr>
     <tr id="trMultiProduct" runat="server">
@@ -228,7 +254,7 @@
                             ItemStyle-Wrap="false" AllowFiltering="true" SortExpression="Mutual_Fund" ItemStyle-HorizontalAlign="Right"
                             DataField="Mutual_Fund" FooterStyle-HorizontalAlign="Right">
                             <ItemTemplate >
-                                <asp:LinkButton ID="lnkMF" runat="server" Text='<%# Eval("Mutual_Fund").ToString() %>'
+                                <asp:LinkButton ID="lnkMF" runat="server" Text='<%# String.Format("{0:c}", DataBinder.Eval(Container.DataItem, "Mutual_Fund")) %>' 
                                     CommandName="Redirect"  ></asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
@@ -296,9 +322,7 @@
     </tr>
     <tr id="trFixedIncomeMIS" runat="server">
             <td>
-                <asp:ImageButton ID="btnFixedIncomeMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnFixedIncomeMIS_OnClick"
-                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                
             </td>
         </tr>
     <tr id="trFixedIncome" runat="server">
@@ -370,9 +394,7 @@
     </tr>
     <tr id="trGeneralInsuranceMis" runat="server">
             <td>
-                <asp:ImageButton ID="btnGeneralInsurance" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnGeneralInsurance_OnClick"
-                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                
             </td>
         </tr>
     <tr id="trGeneralInsurance" runat="server">
@@ -407,7 +429,7 @@
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" DataField="PremiumAmount" AllowFiltering="false" 
-                        HeaderText="Premium Amount" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n2}">
+                        HeaderText="Premium Amount" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="PremiumFrequency" AllowFiltering="false" HeaderText="Premium Frequency">
@@ -438,9 +460,7 @@
     </tr>
      <tr id="trLifeInsuranceMIS" runat="server">
             <td>
-                <asp:ImageButton ID="btnLifeInsurance" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnLifeInsurance_OnClick"
-                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                
             </td>
         </tr>
     <tr id="trLifeInsurance" runat="server">
@@ -475,7 +495,7 @@
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" DataField="PremiumAmount" AllowFiltering="false" HeaderText="premium amount"
-                        FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n2}">
+                        FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="PremiumFrequency" AllowFiltering="false" HeaderText="Premium Frequency">

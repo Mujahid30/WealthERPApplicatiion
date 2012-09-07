@@ -23,13 +23,40 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         
         /// <summary>
-        /// lblMultiAssetMIS control.
+        /// btnMultiProductMIS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMultiAssetMIS;
+        protected global::System.Web.UI.WebControls.ImageButton btnMultiProductMIS;
+        
+        /// <summary>
+        /// btnFixedIncomeMIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnFixedIncomeMIS;
+        
+        /// <summary>
+        /// btnGeneralInsurance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnGeneralInsurance;
+        
+        /// <summary>
+        /// btnLifeInsurance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnLifeInsurance;
         
         /// <summary>
         /// trBranchRM control.
@@ -266,15 +293,6 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredData;
         
         /// <summary>
-        /// btnMultiProductMIS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnMultiProductMIS;
-        
-        /// <summary>
         /// trMultiProduct control.
         /// </summary>
         /// <remarks>
@@ -329,15 +347,6 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trFixedIncomeMIS;
         
         /// <summary>
-        /// btnFixedIncomeMIS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnFixedIncomeMIS;
-        
-        /// <summary>
         /// trFixedIncome control.
         /// </summary>
         /// <remarks>
@@ -374,15 +383,6 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trGeneralInsuranceMis;
         
         /// <summary>
-        /// btnGeneralInsurance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnGeneralInsurance;
-        
-        /// <summary>
         /// trGeneralInsurance control.
         /// </summary>
         /// <remarks>
@@ -417,15 +417,6 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trLifeInsuranceMIS;
-        
-        /// <summary>
-        /// btnLifeInsurance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnLifeInsurance;
         
         /// <summary>
         /// trLifeInsurance control.

@@ -87,6 +87,10 @@ namespace WealthERP.BusinessMIS
                 //lblselectCustomer.Visible = false;
                 //txtIndividualCustomer.Visible = false;              
                 rquiredFieldValidatorIndivudialCustomer.Visible = false;
+                btnMultiProductMIS.Visible = false;
+                btnFixedIncomeMIS.Visible = false;
+                btnGeneralInsurance.Visible = false;
+                btnLifeInsurance.Visible = false;
                 GridsVisibility();
 
                 if (userType == "advisor")
@@ -664,6 +668,10 @@ namespace WealthERP.BusinessMIS
                         lblMISType.Visible = false;
                         trLabelMessage.Visible = false;
                         //rgvMultiProductMIS.Visible = false;
+                        btnMultiProductMIS.Visible = false;
+                        btnFixedIncomeMIS.Visible = false;
+                        btnGeneralInsurance.Visible = false;
+                        btnLifeInsurance.Visible = false;
                     }
                     else
                     {
@@ -827,6 +835,10 @@ namespace WealthERP.BusinessMIS
                         trLabelMessage.Visible = true;
                         //rgvMultiProductMIS.Visible = true;
                         //hdnCustomerId.Value = null;
+                        btnMultiProductMIS.Visible = true;
+                        btnFixedIncomeMIS.Visible = false;
+                        btnGeneralInsurance.Visible = false;
+                        btnLifeInsurance.Visible = false;
                     }
                 }
                 else
@@ -878,6 +890,10 @@ namespace WealthERP.BusinessMIS
                         trFixedIncome.Visible = false;
                         lblMISType.Visible = false;
                         //rgvFixedIncomeMIS.Visible = false;
+                        btnMultiProductMIS.Visible = false;
+                        btnFixedIncomeMIS.Visible = false;
+                        btnGeneralInsurance.Visible = false;
+                        btnLifeInsurance.Visible = false;
                     }
                     else
                     {
@@ -934,6 +950,10 @@ namespace WealthERP.BusinessMIS
                         //rgvFixedIncomeMIS.Visible = true;
                         ViewState["FixedIncomeMIS"] = dtFIMIS;
                         //hdnCustomerId.Value = null;
+                        btnMultiProductMIS.Visible = false;
+                        btnFixedIncomeMIS.Visible = true;
+                        btnGeneralInsurance.Visible = false;
+                        btnLifeInsurance.Visible = false;
                     }
                 }
                 else
@@ -1040,6 +1060,10 @@ namespace WealthERP.BusinessMIS
                         trLifeInsurance.Visible = false;
                         lblMISType.Visible = false;
                         //rgvLifeInsurance.Visible = false;
+                        btnMultiProductMIS.Visible = false;
+                        btnFixedIncomeMIS.Visible = false;
+                        btnGeneralInsurance.Visible = false;
+                        btnLifeInsurance.Visible = false;
                     }
                     else
                     {
@@ -1107,6 +1131,10 @@ namespace WealthERP.BusinessMIS
                         //rgvLifeInsurance.Visible = true;
                         ViewState["LifeInsuranceMIS"] = dtLifeInsDetails;
                         //hdnCustomerId.Value = null;
+                        btnMultiProductMIS.Visible = false;
+                        btnFixedIncomeMIS.Visible = false;
+                        btnGeneralInsurance.Visible = false;
+                        btnLifeInsurance.Visible = true;
                     }
                 }
                 else
@@ -1159,6 +1187,10 @@ namespace WealthERP.BusinessMIS
                         trGeneralInsurance.Visible = false;
                         lblMISType.Visible = false;
                         //rgvGeneralInsurance.Visible = false;
+                        btnMultiProductMIS.Visible = false;
+                        btnFixedIncomeMIS.Visible = false;
+                        btnGeneralInsurance.Visible = false;
+                        btnLifeInsurance.Visible = false;
                       
                     }
                     else
@@ -1217,6 +1249,10 @@ namespace WealthERP.BusinessMIS
                         //rgvGeneralInsurance.Visible = true;
                         ViewState["GeneralInsuranceMIS"] = dtGenInsDetails;
                         //hdnCustomerId.Value = null;
+                        btnMultiProductMIS.Visible = false;
+                        btnFixedIncomeMIS.Visible = false;
+                        btnGeneralInsurance.Visible = true;
+                        btnLifeInsurance.Visible = false;
                     }
                 }
                 else
@@ -1254,6 +1290,7 @@ namespace WealthERP.BusinessMIS
             trLifeInsurance.Visible = false;
             trMultiProduct.Visible = true;
             trLabelMessage.Visible = true;
+            
             bindRadGrid_rgvMultiProductMIS();
         }
 
