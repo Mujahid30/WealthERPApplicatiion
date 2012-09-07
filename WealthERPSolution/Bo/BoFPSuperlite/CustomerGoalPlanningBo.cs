@@ -934,7 +934,7 @@ namespace BoFPSuperlite
                                 futureCost = 0;
                             }
                             drCustomerGoalFundingDetails["OtherGoalAllocation"] = (decimal.Parse(drSchemeId["allocatedPercentage"].ToString()) - currentAllocation).ToString();
-                            drCustomerGoalFundingDetails["AvailableAmount"] = String.Format("{0:n2}", Math.Round((decimal.Parse(drCustomerGoalFundingDetails["AvailableAllocation"].ToString()) * decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                            drCustomerGoalFundingDetails["AvailableAmount"] = String.Format("{0:n2}", Math.Round(((decimal.Parse(drCustomerGoalFundingDetails["AvailableAllocation"].ToString())/100) * decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drCustomerGoalFundingDetails["ProjectedAmount"] = String.Format("{0:n2}", Math.Round(futureCost, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drCustomerGoalFundingDetails["Category"] = drGoalExistingInvestments["PAIC_AssetInstrumentCategoryCode"].ToString();
                             dtCustomerGoalFundingDetails.Rows.Add(drCustomerGoalFundingDetails);
@@ -984,7 +984,7 @@ namespace BoFPSuperlite
                     {
                         futureCost = 0;
                     }
-                    drCustomerGoalFundingDetails["AvailableAmount"] = String.Format("{0:n2}", Math.Round((decimal.Parse(drCustomerGoalFundingDetails["AvailableAllocation"].ToString()) * decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drCustomerGoalFundingDetails["AvailableAmount"] = String.Format("{0:n2}", Math.Round(((decimal.Parse(drCustomerGoalFundingDetails["AvailableAllocation"].ToString())/100) * decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drCustomerGoalFundingDetails["ProjectedAmount"] = String.Format("{0:n2}", Math.Round(futureCost, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drCustomerGoalFundingDetails["Category"] = drGoalExistingInvestments["PAIC_AssetInstrumentCategoryCode"].ToString();
                     dtCustomerGoalFundingDetails.Rows.Add(drCustomerGoalFundingDetails);
