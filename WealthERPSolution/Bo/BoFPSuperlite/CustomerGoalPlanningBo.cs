@@ -140,6 +140,7 @@ namespace BoFPSuperlite
 
         public CustomerGoalPlanningVo CalculateGoalProfile(CustomerGoalPlanningVo goalPlanningVo, CustomerAssumptionVo customerAssumptionVo)
         {
+            double lumpsumInvestment = 0;
             double futureInvValue = 0;
             double futureCost = 0;
             double requiredSavings = 0;
@@ -172,10 +173,12 @@ namespace BoFPSuperlite
                 else
                     futureInvValue = Math.Abs(FutureValue(rateEarned, requiredAfter, 0, currentValue, 1));
 
+                lumpsumInvestment = PV(goalPlanningVo.ExpectedROI / 100, requiredAfter, 0, -futureCost, 1);
+
                 requiredSavings = Math.Abs(PMT((rateOfReturn / 12), (requiredAfter * 12), 0, (futureCost - futureInvValue), 1));
                 goalPlanningVo.MonthlySavingsReq =Math.Round(requiredSavings,2);
                 goalPlanningVo.FutureValueOfCostToday =Math.Round((Double)futureCost,2);
-
+                goalPlanningVo.LumpsumInvestRequired = Math.Round(lumpsumInvestment, 2); 
                 return goalPlanningVo;
             }
             catch (BaseApplicationException Ex)
@@ -243,7 +246,11 @@ namespace BoFPSuperlite
                         corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, -(spouseLifeAfterCustomerRet * 12), -amountAfterFirstMonthRetirement, -goalPlanningVo.CorpusLeftBehind, 1);
 
                 }
+                double lumpsumInvestment = 0;
                 amountToBeSavedPerMonth = PMT(customerAssumptionVo.ReturnOnNewInvestment / 1200, yearsLeftForRetirement * 12, 0, -(corpusReqAtTimeOfRetirement - futureValueOfCurrentInvestment), 1);
+                lumpsumInvestment = PV(goalPlanningVo.ExpectedROI / 100, goalPlanningVo.GoalYear - DateTime.Now.Year, 0, -corpusReqAtTimeOfRetirement, 1);
+
+                goalPlanningVo.LumpsumInvestRequired = lumpsumInvestment;
                 goalPlanningVo.FutureValueOfCostToday = Math.Round(corpusReqAtTimeOfRetirement);
                 goalPlanningVo.MonthlySavingsReq = Math.Round(amountToBeSavedPerMonth,2);
                 //goalPlanningVo.CorpusLeftBehind = customerAssumptionVo.CorpusToBeLeftBehind;

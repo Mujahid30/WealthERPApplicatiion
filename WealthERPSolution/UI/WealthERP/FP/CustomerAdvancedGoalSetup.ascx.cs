@@ -830,6 +830,15 @@ namespace WealthERP.FP
             lblNote.Visible = false;            
             trRequiedNote.Visible = false;
 
+
+            tdlblInvestmntLumpsum.Visible = true;
+            tdlblInvestmntLumpsumTxt.Visible = true;
+            tdSavingsRequiredMonthly.Visible = true;
+            tdSavingsRequiredMonthlyTxt.Visible = true;
+            lblInvestmntLumpsumTxt.Text = goalProfileSetupVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalProfileSetupVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+
+            lblSavingsRequiredMonthlyTxt.Text = goalProfileSetupVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalProfileSetupVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+
             //lblHeader.Text = "Goal Details";
             if (goalProfileSetupVo.IsFundFromAsset == true)
             {
@@ -1196,15 +1205,14 @@ namespace WealthERP.FP
                     customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
 
                 }
-                double lumpsumInvestment = 0;
                 CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false,out goalId);
                tdlblInvestmntLumpsum.Visible = true;
                tdlblInvestmntLumpsumTxt.Visible=true;
                tdSavingsRequiredMonthly.Visible=true;
                tdSavingsRequiredMonthlyTxt.Visible = true;
-               lumpsumInvestment = customerGoalPlanningBo.PV(goalplanningSetUpVo.ExpectedROI / 100, goalplanningSetUpVo.GoalYear - DateTime.Now.Year, 0, -goalplanningSetUpVo.FutureValueOfCostToday, 1);
-               lblInvestmntLumpsumTxt.Text = lumpsumInvestment != 0 ? String.Format("{0:n2}", Math.Round(lumpsumInvestment, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+               //lumpsumInvestment = customerGoalPlanningBo.PV(goalplanningSetUpVo.ExpectedROI / 100, goalplanningSetUpVo.GoalYear - DateTime.Now.Year, 0, -goalplanningSetUpVo.FutureValueOfCostToday, 1);
+               lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
           
                lblSavingsRequiredMonthlyTxt.Text = goalplanningSetUpVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
               
@@ -1338,9 +1346,12 @@ namespace WealthERP.FP
 
                 }
 
+                CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
+                goalplanningSetUpVo= customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, out goalId);
 
-                customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false,out goalId);
+                lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
 
+                lblSavingsRequiredMonthlyTxt.Text = goalplanningSetUpVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
 
                 //Tab2ControlVisibility(0);
 
@@ -1390,8 +1401,12 @@ namespace WealthERP.FP
                 trSumbitSuccess.Visible = false;
             if (trUpdateSuccess.Visible == true)
                 trUpdateSuccess.Visible = false;
-            
 
+            tdlblInvestmntLumpsum.Visible = true;
+            tdlblInvestmntLumpsumTxt.Visible = true;
+            tdSavingsRequiredMonthly.Visible = true;
+            tdSavingsRequiredMonthlyTxt.Visible = true;
+               
             BtnSetVisiblity("Edit");
             ControlSetVisiblity("Edit");
             ddlGoalType.Enabled = false;
@@ -1421,6 +1436,12 @@ namespace WealthERP.FP
             {
                 //Customer id select from AutoComplite TextBox Values
                 //int GoalId = (int)Session["GoalId"];
+
+
+                tdlblInvestmntLumpsum.Visible = true;
+                tdlblInvestmntLumpsumTxt.Visible = true;
+                tdSavingsRequiredMonthly.Visible = true;
+                tdSavingsRequiredMonthlyTxt.Visible = true;
 
                 customerGoalPlanningVo.GoalId = goalId;
                 customerGoalPlanningVo.CustomerId = customerVo.CustomerId;
@@ -1484,7 +1505,12 @@ namespace WealthERP.FP
                 }
 
 
-                customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, true, out goalId);
+                CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
+                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, true, out goalId);
+
+                lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+
+                lblSavingsRequiredMonthlyTxt.Text = goalplanningSetUpVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
 
                 //After Save Goal Is in View Mode
                 Session["GoalId"] = goalId;
@@ -2421,7 +2447,6 @@ namespace WealthERP.FP
             ddl.DataValueField = dsFamilyMembers.Tables[0].Columns["C_CustomerId"].ToString();
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "Select"));
-
 
         }
         protected void ddlPickSIPScheme_OnSelectedIndexChanged(object sender, EventArgs e)

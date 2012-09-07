@@ -36,7 +36,6 @@
 
   
 </script>
-
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
 <telerik:RadTabStrip ID="RadTabStripFPGoalDetails" runat="server" EnableTheming="True"
     Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="CustomerFPGoalDetail">
@@ -143,7 +142,7 @@
                             <asp:TextBox ID="txtSpouseAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
                             <span id="Span7" class="spnRequiredField" runat="server" visible="false">*</span>
                             <asp:RangeValidator ID="RangeValidator11" Display="Dynamic" SetFocusOnError="True"
-                                Type="Double" ErrorMessage="Value should be between 18 to 150" MinimumValue="0"
+                                Type="Double" ErrorMessage="Value should be between 18 to 150" MinimumValue="0" CssClass="rfvPCG"
                                 MaximumValue="150" ControlToValidate="txtSpouseAge" runat="server"></asp:RangeValidator>
                             <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator15" runat="server"
                                 ControlToValidate="txtSpouseAge" CssClass="rfvPCG" ValidationGroup="btnSave"
@@ -165,7 +164,7 @@
                             <asp:TextBox ID="txtRetirementAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
                             <span id="Span6" class="spnRequiredField" runat="server" visible="false">*</span>
                             <asp:RangeValidator ID="RangeValidator10" Display="Dynamic" SetFocusOnError="True"
-                                Type="Double" ErrorMessage="Value should be between 30 to 65" MinimumValue="30"
+                                Type="Double" ErrorMessage="Value should be between 30 to 65" MinimumValue="30" CssClass="rfvPCG"
                                 MaximumValue="65" ControlToValidate="txtRetirementAge" runat="server"></asp:RangeValidator>
                             <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator14" runat="server"
                                 ControlToValidate="txtRetirementAge" CssClass="rfvPCG" ValidationGroup="btnSave"
@@ -209,7 +208,7 @@
                             <asp:TextBox ID="txtCustomerEOL" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
                             <span id="Span5" class="spnRequiredField" runat="server" visible="false">*</span>
                             <asp:RangeValidator ID="RangeValidator9" Display="Dynamic" SetFocusOnError="True"
-                                Type="Double" ErrorMessage="Value should be between 30 to 150" MinimumValue="30"
+                                Type="Double" ErrorMessage="Value should be between 30 to 150" MinimumValue="30" CssClass="rfvPCG"
                                 MaximumValue="150" ControlToValidate="txtCustomerEOL" runat="server"></asp:RangeValidator>
                             <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator13" runat="server"
                                 ControlToValidate="txtCustomerEOL" CssClass="rfvPCG" ValidationGroup="btnSave"
@@ -297,7 +296,7 @@
                             <asp:TextBox ID="txtSpouseEOL" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
                             <span id="Span4" class="spnRequiredField" runat="server" visible="false">*</span>
                             <asp:RangeValidator ID="RangeValidator8" Display="Dynamic" SetFocusOnError="True"
-                                Type="Double" ErrorMessage="Value should be between 30 to 150" MinimumValue="0"
+                                Type="Double" ErrorMessage="Value should be between 30 to 150" MinimumValue="0" CssClass="rfvPCG"
                                 MaximumValue="150" ControlToValidate="txtSpouseEOL" runat="server"></asp:RangeValidator>
                             <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator12" runat="server"
                                 ControlToValidate="txtSpouseEOL" CssClass="rfvPCG" ValidationGroup="btnSave"
@@ -407,7 +406,7 @@
                                 TargetControlID="txtExpRateOfReturn" FilterType="Custom, Numbers" ValidChars=".">
                             </ajaxToolkit:FilteredTextBoxExtender>
                             <asp:RangeValidator Display="Dynamic" ID="RangeValidator3" SetFocusOnError="True"
-                                Type="Double" ErrorMessage="Value  should be between 4 to 100" MinimumValue="4"
+                                Type="Double" ErrorMessage="Value  should be between 4 to 100" MinimumValue="4" CssClass="rfvPCG"
                                 MaximumValue="100" ControlToValidate="txtExpRateOfReturn" ValidationGroup="btnSave"
                                 runat="server"></asp:RangeValidator>
                             <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator7" runat="server"
@@ -504,8 +503,8 @@
                                 Enabled="True" TargetControlID="txtCorpusToBeLeftBehind" FilterType="Custom, Numbers"
                                 ValidChars=".">
                             </ajaxToolkit:FilteredTextBoxExtender>
-                            <asp:RangeValidator ID="RangeValidator7" Display="Dynamic" CssClass="rfvPCG" SetFocusOnError="True"
-                                Type="Double" ErrorMessage="Value  should be in between 0 and 9999999999" MinimumValue="0"
+                            <asp:RangeValidator ID="RangeValidator7" Display="Dynamic" SetFocusOnError="True"
+                                Type="Double" ErrorMessage="Value  should be in between 0 and 9999999999" MinimumValue="0" CssClass="rfvPCG"
                                 MaximumValue="9999999999" ControlToValidate="txtCorpusToBeLeftBehind" runat="server"></asp:RangeValidator>
                             <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator11" runat="server"
                                 ControlToValidate="txtCorpusToBeLeftBehind" CssClass="rfvPCG" ValidationGroup="btnSave"

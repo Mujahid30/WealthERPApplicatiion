@@ -672,6 +672,8 @@ namespace DaoCustomerGoalProfiling
                     GoalProfileVo.ROIEarned = double.Parse(dr["CG_ROIEarned"].ToString());
                     GoalProfileVo.ExpectedROI = double.Parse(dr["CG_ExpectedROI"].ToString());
                     GoalProfileVo.InflationPercent = double.Parse(dr["CG_InflationPer"].ToString());
+                    GoalProfileVo.LumpsumInvestRequired = double.Parse(dr["CG_LumpsumInvestmentRequired"].ToString());
+                    GoalProfileVo.MonthlySavingsReq = double.Parse(dr["CG_MonthlySavingsRequired"].ToString());
                     if (dr["CA_AssociateId"].ToString()!=string.Empty)
                     GoalProfileVo.AssociateId = int.Parse(dr["CA_AssociateId"].ToString());
 
