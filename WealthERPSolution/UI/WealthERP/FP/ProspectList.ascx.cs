@@ -443,10 +443,10 @@ namespace WealthERP.FP
         {
             gvCustomerProspectlist.ExportSettings.OpenInNewWindow = true;
             gvCustomerProspectlist.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvCustomerProspectlist.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
+            gvCustomerProspectlist.ExportSettings.HideStructureColumns = true;
+            gvCustomerProspectlist.ExportSettings.ExportOnlyData = true;
+            gvCustomerProspectlist.ExportSettings.FileName = "Customer Networth MIS Details";
+            gvCustomerProspectlist.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvCustomerProspectlist.MasterTableView.ExportToExcel();
         }
 
