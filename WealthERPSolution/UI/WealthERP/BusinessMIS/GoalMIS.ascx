@@ -118,10 +118,11 @@
     </tr>
     <tr>
     <td colspan="3">
-    <asp:Panel ID="tbl" runat="server" ScrollBars="Horizontal" Visible="false">
+    <asp:Panel ID="tbl" runat="server"  ScrollBars="Horizontal" Width="98%" Visible="false">
     <table>
      <tr>
        <td>
+       <div id="dvHoldings" runat="server" style="width: 640px;">
                 <telerik:RadGrid ID="gvGoalMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
@@ -198,7 +199,7 @@
                     <ClientSettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
-                </telerik:RadGrid>
+                </telerik:RadGrid></div>
                </td></tr></table>
             </asp:Panel>
     </td>
