@@ -30,7 +30,7 @@
                         <td align="right">
                             <asp:ImageButton ID="btnNetworthMIS" runat="server" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                Height="20px" Width="25px" OnClick="btnNetworthMIS_Click"></asp:ImageButton>
+                                Height="20px" Width="25px" OnClick="btnNetworthMIS_Click" Visible="false"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
