@@ -498,7 +498,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">                            
-                             <asp:ListItem Text="" Value="ASSET_ALLOCATION_REPORT" Selected="True">Asset Allocation</asp:ListItem>
+                             <asp:ListItem Text="" Value="ASSET_SUMMARY_REPORT" Selected="True">Asset Allocation</asp:ListItem>
                             <%-- <asp:ListItem Text="" Value="INVESTMENT_SUMMARY_REPORT">Investment Summary</asp:ListItem>--%>
                              <asp:ListItem Text="" Value="MULTI_ASSET_SUMMARY_REPORT">Net Worth</asp:ListItem>
                         </asp:DropDownList>
