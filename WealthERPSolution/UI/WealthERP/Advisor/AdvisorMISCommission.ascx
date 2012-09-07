@@ -6,6 +6,15 @@
 </telerik:RadStyleSheetManager>
 <telerik:RadScriptManager runat="server">
 </telerik:RadScriptManager>
+
+<script type="text/javascript" language="javascript">
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
+    </script>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <table width="100%">
     <tr>
@@ -19,7 +28,7 @@
                         <td align="right" id="trCommissionMIS" runat="server">
                             <asp:ImageButton ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
-                                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -67,7 +76,7 @@
     <tr>
         <td colspan="6">
             <table>
-                <tr>
+                <tr onkeypress="return keyPress(this, event)">
                     <td>
                         <asp:Label ID="lblFromDate" Text="From:" runat="server" CssClass="FieldName">
                         </asp:Label>
