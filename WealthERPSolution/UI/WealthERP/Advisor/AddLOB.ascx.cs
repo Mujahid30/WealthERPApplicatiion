@@ -16,10 +16,21 @@ namespace WealthERP.Advisor
     public partial class AddLOB : System.Web.UI.UserControl
     {
         AdvisorVo advisorVo = new AdvisorVo();
+        UserVo userVo = new UserVo();
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+            
+            userVo = (UserVo)Session["UserVo"];
+            if (userVo.UserType.Trim().ToLower() == "superadmin")
+            {
+                advisorVo = (AdvisorVo)Session["IFAadvisorVo"];
+            }
+            else
+            {
+                advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];                
+            }
+           
             if (!IsPostBack)
             {
                 chkDerivative.Visible = false;
@@ -90,6 +101,7 @@ namespace WealthERP.Advisor
         protected void btnAddLOB_Click(object sender, EventArgs e)
         {
             AdvisorLOBBo AdvisorLOBBo = new AdvisorLOBBo();
+
             try
             {
                 Session["LOBId"] = "lob";

@@ -18,7 +18,6 @@ using System.Data.Sql;
 
 
 using System.Data.Common;
-
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using Microsoft.Practices.EnterpriseLibrary.Configuration;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
@@ -58,18 +57,26 @@ namespace WealthERP.Advisor
         DataSet dsHolidays = new DataSet();
         SqlConnection conn;
         String connectionstring;
-
-
-       
-
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                SessionBo.CheckSession();
-                advisorVo = (AdvisorVo)Session["advisorVo"];
+                SessionBo.CheckSession();               
                 userVo = (UserVo)Session["UserVo"];
+
+                if (userVo.UserType.Trim().ToLower() == "superadmin")
+                {
+                    advisorVo = (AdvisorVo)Session["IFAadvisorVo"];
+                }
+                else
+                {
+                    advisorVo = (AdvisorVo)Session["advisorVo"];  
+                }
+
+
+
                 LOBId = Session["LOBId"].ToString();
                 cvMFExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
                
