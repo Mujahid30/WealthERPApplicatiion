@@ -23,15 +23,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.ScriptManager scptMgr;
         
         /// <summary>
-        /// tblExport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblExport;
-        
-        /// <summary>
         /// imgBtnExport control.
         /// </summary>
         /// <remarks>
@@ -39,6 +30,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnExport;
+        
+        /// <summary>
+        /// tblExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblExport;
         
         /// <summary>
         /// ModalPopupExtender1 control.

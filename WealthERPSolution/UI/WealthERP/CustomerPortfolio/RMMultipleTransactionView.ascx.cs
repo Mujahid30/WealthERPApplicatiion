@@ -63,6 +63,7 @@ namespace WealthERP.CustomerPortfolio
                 
                 //txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                 tblExport.Visible = false;
+                imgBtnExport.Visible = false;
 
                 
 
@@ -368,6 +369,7 @@ namespace WealthERP.CustomerPortfolio
                     gvMFTransactions.DataBind();
                     gvMFTransactions.Visible = true;
                     tblExport.Visible = true;
+                    imgBtnExport.Visible = true;
 
                     if (genDictTranType.Count > 0)
                     {
@@ -469,6 +471,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = true;
                     tblExport.Visible = false;
                     Panel2.Visible = false;
+                    imgBtnExport.Visible = false;
                 }
 
             }

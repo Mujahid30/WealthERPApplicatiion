@@ -87,6 +87,11 @@
     <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
         <td align="left">MF Transaction Grid View</td>
+        <td align="right">
+        <asp:ImageButton ID="imgBtnExport" ImageUrl="~/Images/Export_Excel.png" runat="server"
+                AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
+                OnClientClick="setFormat('excel')" CausesValidation="false" />
+        </td>
         </tr>
        
     </table>
@@ -97,16 +102,8 @@
 
 <table id="tblExport" runat="server" style="width: 100%;">
     <tr>
-        <td class="HeaderTextBig" colspan="2">
-            <%--<asp:Label ID="lblMfMIS" runat="server" CssClass="HeaderTextBig" Text="MF Transaction Grid View"></asp:Label>
-            <hr />--%>
-        </td>
-    </tr>
-    <tr>
         <td class="style12">
-            <asp:ImageButton ID="imgBtnExport" ImageUrl="~/Images/Export_Excel.png" runat="server"
-                AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
-                OnClientClick="setFormat('excel')" CausesValidation="false" />
+            
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
                 Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
