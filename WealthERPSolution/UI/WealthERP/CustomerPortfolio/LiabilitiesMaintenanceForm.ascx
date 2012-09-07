@@ -211,11 +211,11 @@
                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtTenureMonths"
                         WatermarkText="Months">
                     </cc1:TextBoxWatermarkExtender>
-                    <span id="Span7" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" CssClass="rfvPCG"
+                   <%-- <span id="Span7" class="spnRequiredField">*</span>--%>
+                   <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" CssClass="rfvPCG"
                         ErrorMessage="Please select a Month" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"
                         ControlToValidate="txtTenureMonths">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtTenureMonths"
                         ValidationGroup="vgBtnSubmitTemp" Display="Dynamic" runat="server" CssClass="rfvPCG"
                         Operator="DataTypeCheck" ErrorMessage="Tenure in Years Not in acceptable format"
