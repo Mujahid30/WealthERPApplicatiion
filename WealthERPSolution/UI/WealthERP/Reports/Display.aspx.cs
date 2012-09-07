@@ -2481,7 +2481,7 @@ namespace WealthERP.Reports
                         if (dtEquitySectorwise.Rows.Count > 0)
                         {
                             crmain.Subreports["Liabilities"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[1]);
-                            crmain.Subreports["NetWorthChart"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
+                            //crmain.Subreports["NetWorthChart"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
                             //crmain.Database.Tables["PortfolioSummary"].SetDataSource(dsEquitySectorwise.Tables[1]);
                             crmain.Subreports["NetWorth"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
                             crmain.Subreports["AssetBreakUp"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[0]);
@@ -2499,12 +2499,12 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Group";
+                                Headername = "MultiAsset Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
                             {
-                                Headername = "Individual";
+                                Headername = "MultiAsset Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             CrystalReportViewer1.ReportSource = crmain;
