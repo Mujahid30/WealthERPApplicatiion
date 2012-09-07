@@ -77,9 +77,19 @@ namespace WealthERP.Reports
                 //    tdReportButtons.Visible = true;
                 //}
                 if (customerVo == null)
+                {
                     trIndCustomer.Visible = true;
+                    btnViewReport.Visible = false;
+                    btnViewInPDF.Visible = false;
+                    btnViewInDOC.Visible = false;
+                }
                 else
+                {
                     trIndCustomer.Visible = false;
+                    btnViewReport.Visible = true;
+                    btnViewInPDF.Visible = true;
+                    btnViewInDOC.Visible = true;
+                }
                 SetDefalutView();
                 DefaultFPReportsAssumtion();
                 btnSubmit.Enabled = false;
@@ -311,6 +321,9 @@ namespace WealthERP.Reports
                 customerId = int.Parse(hdnCustomerId.Value);
                 RadTabStripFPProjection.Visible = true;
                 tdReportButtons.Visible = true;
+                btnViewReport.Visible = true;
+                btnViewInPDF.Visible = true;
+                btnViewInDOC.Visible = true;
             }
                  
         }
