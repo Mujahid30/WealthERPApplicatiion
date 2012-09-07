@@ -3,13 +3,30 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
-<table style="width: 100%" class="TableBackground">
+<%--<table style="width: 100%" class="TableBackground">
     <tr>
         <td class="HeaderCell" colspan="7">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Mutual Fund Net Position"></asp:Label>
             <hr />
         </td>
     </tr>
+</table>--%>
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+        <td align="left">Mutual Fund Net Position</td>
+        <td align="right">
+        
+        </td>
+        </tr>
+       
+    </table>
+</div>
+</td>
+</tr>
 </table>
 <table style="width: 100%" class="TableBackground">
     <tr>
