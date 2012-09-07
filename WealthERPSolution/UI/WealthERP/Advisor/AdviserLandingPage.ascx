@@ -206,3 +206,4 @@
         </td>
     </tr>
 </table>
+<asp:HiddenField ID="hdfFlavourId" runat="server" />

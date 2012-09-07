@@ -135,19 +135,39 @@ namespace WealthERP.Advisor
         }
         public void lnkbtnInbox_OnClick(object sender, EventArgs e)
         {
+            int flavourId = 0;
+            int.TryParse(hdfFlavourId.Value, out flavourId);
+
+            if (flavourId == 10)
+            {
             Session["NodeType"] = "MessageInbox";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('MessageInbox','login');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
 
+            }
         }
         public void imgInbox_OnClick(object sender, EventArgs e)
         {
-            Session["NodeType"] = "MessageInbox";
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+            int flavourId = 0;
+            int.TryParse(hdfFlavourId.Value, out flavourId);
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('MessageInbox','login');", true);
+            if (flavourId == 10)
+            {
+                Session["NodeType"] = "MessageInbox";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('MessageInbox','login');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+
+            }
         }
 
 
@@ -178,14 +198,13 @@ namespace WealthERP.Advisor
             int intCount = 0;
             int flavourId = 0;
             intCount = msgBo.GetUnreadMessageCount(userVo.UserId, out flavourId);
+            hdfFlavourId.Value = flavourId.ToString();
             if (intCount > 0)
-            {
-                if (Session[SessionContents.UserTopRole] == "Admin" & flavourId == 10)
-                {
+            {   
                     lnkbtnInbox.Text = "Inbox " + "(" + intCount + ")";
                     imgInbox.ImageUrl = "~/Images/msgUnRead.png";
-                }
             }
+            
             else
             {
                 lnkbtnInbox.Text = "Inbox " + "(" + intCount + ")";
