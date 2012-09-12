@@ -3772,6 +3772,39 @@ namespace DaoUploads
 
             return getProcessLogDs;
         }
+
+
+
+        public DataSet GetWERPUploadDetailsForProcessId(int processId)
+          {
+              Database db;
+              DbCommand cmd;
+              DataSet ds = null;
+              try
+              {
+                  db = DatabaseFactory.CreateDatabase("wealtherp");                  
+                  cmd = db.GetStoredProcCommand("SP_GetWERPUploadDetailsForProcessId");
+                  db.AddInParameter(cmd, "@processID", DbType.Int32, processId);
+                  ds = db.ExecuteDataSet(cmd);
+              }
+              catch (BaseApplicationException Ex)
+              {
+                  throw Ex;
+              }
+              catch (Exception Ex)
+              {
+                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                  NameValueCollection FunctionInfo = new NameValueCollection();
+                  FunctionInfo.Add("Method", "UploadCommonDao.cs:GetWERPUploadProcessId()");
+                  object[] objects = new object[1];
+                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                  exBase.AdditionalInformation = FunctionInfo;
+                  ExceptionManager.Publish(exBase);
+                  throw exBase;
+              }
+              return ds;
+          }
+
           public DataSet GetWERPUploadProcessId()
           {
               Database db;
@@ -3793,6 +3826,37 @@ namespace DaoUploads
                   NameValueCollection FunctionInfo = new NameValueCollection();
                   FunctionInfo.Add("Method", "UploadCommonDao.cs:GetWERPUploadProcessId()");
                   object[] objects = new object[1];
+                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                  exBase.AdditionalInformation = FunctionInfo;
+                  ExceptionManager.Publish(exBase);
+                  throw exBase;
+              }
+              return ds;
+          }
+
+          public DataSet GetSuperAdminUploadDistinctDetailsForProcessId(int processId)
+          {
+              Database db;
+              DbCommand cmd;
+              DataSet ds = null;
+              try
+              {
+                  db = DatabaseFactory.CreateDatabase("wealtherp");
+                  cmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadDistinctDetailsForProcessId");
+                  db.AddInParameter(cmd, "@processId", DbType.Int32, processId);
+                  ds = db.ExecuteDataSet(cmd);
+              }
+              catch (BaseApplicationException Ex)
+              {
+                  throw Ex;
+              }
+              catch (Exception Ex)
+              {
+                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                  NameValueCollection FunctionInfo = new NameValueCollection();
+                  FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminUploadDistinctProcessIdForAdviser()");
+                  object[] objects = new object[1];
+
                   FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                   exBase.AdditionalInformation = FunctionInfo;
                   ExceptionManager.Publish(exBase);
@@ -3831,6 +3895,37 @@ namespace DaoUploads
               }
               return ds;
           }
+
+
+          public DataSet GetSuperAdminEquityTradeAccountStagingForProcessId(int processId)
+          {
+              Database db;
+              DbCommand cmd;
+              DataSet ds = null;
+              try
+              {
+                  db = DatabaseFactory.CreateDatabase("wealtherp");
+                  cmd = db.GetStoredProcCommand("SP_GetSuperAdminEquityTradeAccountStagingProcessId");                  
+                  ds = db.ExecuteDataSet(cmd);
+              }
+              catch (BaseApplicationException Ex)
+              {
+                  throw Ex;
+              }
+              catch (Exception Ex)
+              {
+                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                  NameValueCollection FunctionInfo = new NameValueCollection();
+                  FunctionInfo.Add("Method", "UploadCommonDao.cs:GetSuperAdminEquityTradeAccountStagingProcessId()");
+                  object[] objects = new object[1];                 
+                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                  exBase.AdditionalInformation = FunctionInfo;
+                  ExceptionManager.Publish(exBase);
+                  throw exBase;
+              }
+              return ds;
+          }
+
           public DataSet GetSuperAdminEquityTradeAccountStagingProcessId()
           {
               Database db;
@@ -3935,6 +4030,31 @@ namespace DaoUploads
               {
                   throw Ex;
               }
+              return dsSIPRejectedDetails;
+          }
+
+
+
+          public DataSet GetSuperAdminSIPUploadRejectDistinctDetailsForProcessId()
+          {
+              DataSet dsSIPRejectedDetails = new DataSet();
+
+              Database db;
+              DbCommand getCount;
+              try
+              {
+                  db = DatabaseFactory.CreateDatabase("wealtherp");
+                  getCount = db.GetStoredProcCommand("SP_GetSIPUploadRejectDistinctProcessIdForAdviser");
+                  
+
+                  dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
+              }
+
+              catch (BaseApplicationException Ex)
+              {
+                  throw Ex;
+              }
+
               return dsSIPRejectedDetails;
           }
 
