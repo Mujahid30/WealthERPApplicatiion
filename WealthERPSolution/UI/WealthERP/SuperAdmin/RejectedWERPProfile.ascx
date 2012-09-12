@@ -5,7 +5,23 @@
 </asp:ScriptManager>
 <link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
 <link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
-
+<script type="text/javascript">
+    function ShowDropDownValueInGridView() {
+        var dropdowns = new Array(); //Create array to hold all the dropdown lists
+        var gridview = document.getElementById('<%=gvWERPProfileReject.ClientID %>');
+        var dropdowns = gridview.getElementsByTagName('select');
+        for (var i = 0; i < dropdowns.length; i++) {
+            if (i == 2) {
+                if (dropdowns.item(2).value == 'Select') {
+                    alert('Please select a processid');
+                    return false;
+                }
+                else
+                    Loading(true);
+            }
+        }
+    }    
+</script>
 <script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
 
 <script type="text/javascript" src="http://yui.yahooapis.com/2.8.1/build/yahoo/yahoo-min.js"></script>
@@ -264,7 +280,7 @@
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
-                CssClass="PCGLongButton" OnClientClick="Loading(true);"     />
+                CssClass="PCGLongButton" OnClientClick="return ShowDropDownValueInGridView();"     />
             <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
         </td>

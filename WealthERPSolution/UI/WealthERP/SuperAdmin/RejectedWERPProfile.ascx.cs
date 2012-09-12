@@ -523,88 +523,25 @@ namespace WealthERP.SuperAdmin
             int countFolioCreated = 0;
             int countRejectedRecords = 0;
             int processIdReprocessAll = 0;
+            string strErrorDesc = "Please a select a processId";
 
-            //processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
-            //if (processlogVo.FileTypeId == 7)
-            //    source = "WP";
-            //else if (processlogVo.FileTypeId == 4)
-            //    source = "KA";
-            //else if (processlogVo.FileTypeId == 2)
-            //    source = "CA";
-            //else if (processlogVo.FileTypeId == 16)
-            //    source = "TN";
-            //else if (processlogVo.FileTypeId == 18)
-            //    source = "DT";
+            DropDownList ddl = (DropDownList)gvWERPProfileReject.HeaderRow.Cells[0].FindControl("ddlProcessId");
+            string val = ddl.SelectedValue;
 
-            // BindGrid
-            //if (Request.QueryString["processId"] != null)
-            //{
-            //    ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-            //}
-            if (Request.QueryString["filetypeid"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+            if (val == "Select")
 
-            if (Request.QueryString["processId"] != null)
-            {
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-                processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
-                if (processlogVo.FileTypeId == 7)
-                    source = "WP";
-                else if (processlogVo.FileTypeId == 4)
-                    source = "KA";
-                else if (processlogVo.FileTypeId == 2)
-                    source = "CA";
-                else if (processlogVo.FileTypeId == 16)
-                    source = "TN";
-                else if (processlogVo.FileTypeId == 18)
-                    source = "DT";
-                else if (processlogVo.FileTypeId == 21)
-                    source = "SU";
-                if (processlogVo.FileTypeId == 7 || processlogVo.FileTypeId == 4 || processlogVo.FileTypeId == 2 || processlogVo.FileTypeId == 16 || processlogVo.FileTypeId == 18 || processlogVo.FileTypeId == 21)
-                {
-                    StandardProfileUploadBo standardProfileUploadBo = new StandardProfileUploadBo();
-                    //Checks in Profile Staging
-                    string packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                    bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(ProcessId, processlogVo.AdviserId, packagePath, configPath);
-                    if (karvyProCommonChecksResult)
-                    {
-                        // Insert Customer Details into WERP Tables
+                Response.Write(@"<script language='javascript'>alert('The following errors have occurred: \n" + strErrorDesc + " .');</script>");
 
-                        bool stdProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(processlogVo.AdviserId, ProcessId, processlogVo.RmId, processlogVo.BranchId, xmlPath, out  countCustCreated);
-                        if (stdProCreateCustomerResult)
-                        {
-                            //Create new Bank Accounts
-                            packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                            bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(ProcessId, packagePath, configPath);
-                            if (stdProCreateBankAccountResult)
-                            {
-                                processlogVo.IsInsertionToWERPComplete = 1;
-                                processlogVo.EndTime = DateTime.Now;
-                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(ProcessId, source);
-                                processlogVo.NoOfCustomerInserted = processlogVo.NoOfCustomerInserted + countCustCreated;
-                                processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords;
-                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, source);
-                                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                if (blResult)
-                                {
-                                    bool stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(ProcessId);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
 
             else
             {
-
-                DataSet ds = uploadsCommonBo.GetWERPUploadProcessId();
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                ProcessId = Convert.ToInt32(val);               
+                if (Request.QueryString["filetypeid"] != null)
+                    filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+                if (Request.QueryString["processId"] != null)
                 {
-                    rmId = int.Parse(dr["AR_RMId"].ToString());
-                    adviserId = int.Parse(dr["A_AdviserId"].ToString());
-                    processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
-                    processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
+                    ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+                    processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
                     if (processlogVo.FileTypeId == 7)
                         source = "WP";
                     else if (processlogVo.FileTypeId == 4)
@@ -617,62 +554,120 @@ namespace WealthERP.SuperAdmin
                         source = "DT";
                     else if (processlogVo.FileTypeId == 21)
                         source = "SU";
-
                     if (processlogVo.FileTypeId == 7 || processlogVo.FileTypeId == 4 || processlogVo.FileTypeId == 2 || processlogVo.FileTypeId == 16 || processlogVo.FileTypeId == 18 || processlogVo.FileTypeId == 21)
                     {
                         StandardProfileUploadBo standardProfileUploadBo = new StandardProfileUploadBo();
                         //Checks in Profile Staging
                         string packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                        bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processIdReprocessAll, adviserId, packagePath, configPath);
+                        bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(ProcessId, processlogVo.AdviserId, packagePath, configPath);
                         if (karvyProCommonChecksResult)
                         {
                             // Insert Customer Details into WERP Tables
 
-                            bool stdProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processIdReprocessAll, rmId, processlogVo.BranchId, xmlPath, out  countCustCreated);
+                            bool stdProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(processlogVo.AdviserId, ProcessId, processlogVo.RmId, processlogVo.BranchId, xmlPath, out  countCustCreated);
                             if (stdProCreateCustomerResult)
                             {
                                 //Create new Bank Accounts
                                 packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(processIdReprocessAll, packagePath, configPath);
+                                bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(ProcessId, packagePath, configPath);
                                 if (stdProCreateBankAccountResult)
                                 {
                                     processlogVo.IsInsertionToWERPComplete = 1;
                                     processlogVo.EndTime = DateTime.Now;
-                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(processIdReprocessAll, source);
+                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(ProcessId, source);
                                     processlogVo.NoOfCustomerInserted = processlogVo.NoOfCustomerInserted + countCustCreated;
                                     processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords;
-                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processIdReprocessAll, source);
+                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, source);
                                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                     if (blResult)
                                     {
-                                        bool stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(processIdReprocessAll);
+                                        bool stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(ProcessId);
                                     }
                                 }
                             }
                         }
                     }
-
                 }
-            }
 
-            if (blResult == false)
-            {
-                error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
-            }
-            if (blResult)
-            {
-                // Success Message
-                //trErrorMessage.Visible = true;
-                //lblError.Text = "Reprocess Done Successfully!";
-                msgReprocessComplete.Visible = true;
-            }
-            else
-            {
-                // Failure Message                
-                msgReprocessincomplete.Visible = true;
-            }
+                else
+                {
+                    DataSet ds = uploadsCommonBo.GetWERPUploadDetailsForProcessId(ProcessId);
+                    //DataSet ds = uploadsCommonBo.GetWERPUploadProcessId();
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        rmId = int.Parse(dr["AR_RMId"].ToString());
+                        adviserId = int.Parse(dr["A_AdviserId"].ToString());
+                        processIdReprocessAll = ProcessId;
+                        processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
+                        if (processlogVo.FileTypeId == 7)
+                            source = "WP";
+                        else if (processlogVo.FileTypeId == 4)
+                            source = "KA";
+                        else if (processlogVo.FileTypeId == 2)
+                            source = "CA";
+                        else if (processlogVo.FileTypeId == 16)
+                            source = "TN";
+                        else if (processlogVo.FileTypeId == 18)
+                            source = "DT";
+                        else if (processlogVo.FileTypeId == 21)
+                            source = "SU";
 
-            BindWerpProfileGrid(ProcessId);
+                        if (processlogVo.FileTypeId == 7 || processlogVo.FileTypeId == 4 || processlogVo.FileTypeId == 2 || processlogVo.FileTypeId == 16 || processlogVo.FileTypeId == 18 || processlogVo.FileTypeId == 21)
+                        {
+                            StandardProfileUploadBo standardProfileUploadBo = new StandardProfileUploadBo();
+                            //Checks in Profile Staging
+                            string packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
+                            bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processIdReprocessAll, adviserId, packagePath, configPath);
+                            if (karvyProCommonChecksResult)
+                            {
+                                // Insert Customer Details into WERP Tables
+
+                                bool stdProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processIdReprocessAll, rmId, processlogVo.BranchId, xmlPath, out  countCustCreated);
+                                if (stdProCreateCustomerResult)
+                                {
+                                    //Create new Bank Accounts
+                                    packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
+                                    bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(processIdReprocessAll, packagePath, configPath);
+                                    if (stdProCreateBankAccountResult)
+                                    {
+                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(processIdReprocessAll, source);
+                                        processlogVo.NoOfCustomerInserted = processlogVo.NoOfCustomerInserted + countCustCreated;
+                                        processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords;
+                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processIdReprocessAll, source);
+                                        blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        if (blResult)
+                                        {
+                                            bool stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(processIdReprocessAll);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                if (blResult == false)
+                {
+                    error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
+                }
+                if (blResult)
+                {
+                    // Success Message
+                    //trErrorMessage.Visible = true;
+                    //lblError.Text = "Reprocess Done Successfully!";
+                    msgReprocessComplete.Visible = true;
+                }
+                else
+                {
+                    // Failure Message                
+                    msgReprocessincomplete.Visible = true;
+                }
+
+                BindWerpProfileGrid(ProcessId);
+            }
         }
 
         //private bool MFWERPProfileWERPInsertion(int ProcessId, out int countCustCreated, out int countFolioCreated, out int countRejectedRecords)

@@ -656,99 +656,101 @@ namespace WealthERP.SuperAdmin
             StandardProfileUploadBo standardProfileUploadBo = new StandardProfileUploadBo();
             StandardFolioUploadBo standardFolioUploadBo = new StandardFolioUploadBo();
             CamsUploadsBo camsUploadsBo = new CamsUploadsBo();
-            //int countCustCreated = 0;
-            //int countFolioCreated = 0;
-            //int countRejectedRecords = 0;
-
-            // processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
-
-
-            // BindGrid
-            if (Request.QueryString["processId"] != null)
-            {
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-            }
-            if (Request.QueryString["filetypeid"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
-
-            processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
-            if (uploadsCommonBo.ResetRejectedFlagByProcess(ProcessId, 9))
-            {
-
-                //Folio Chks in Std Folio Staging 
-                string packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
-                bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, processlogVo.AdviserId, ProcessId, configPath);
-                if (camsFolioStagingChkResult)
-                {
-                    //Folio Chks in Std Folio Staging 
-                    packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
-                    bool camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, processlogVo.AdviserId, ProcessId, configPath);
-                    if (camsFolioWerpInsertionResult)
-                    {
-                        processlogVo.IsInsertionToWERPComplete = 1;
-                        processlogVo.EndTime = DateTime.Now;
-                        if (processlogVo.FileTypeId == 2)
-                        {
-                            processlogVo.IsInsertionToWERPComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(ProcessId, "CA");
-                            processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(ProcessId, "WPMF");
-                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, "CA");
-                            processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
-                        }
-                        else if (processlogVo.FileTypeId == 4)
-                        {
-                            processlogVo.IsInsertionToWERPComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(ProcessId, "KA");
-                            processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(ProcessId, "WPMF");
-                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, "KA");
-                            processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
-                        }
-                        else if (processlogVo.FileTypeId == 16)
-                        {
-                            processlogVo.IsInsertionToWERPComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(ProcessId, "TN");
-                            processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(ProcessId, "WPMF");
-                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, "TN");
-                            processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
-                            blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                        }
-                        else if (processlogVo.FileTypeId == 18)
-                        {
-                            processlogVo.IsInsertionToWERPComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(ProcessId, "DT");
-                            processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(ProcessId, "WPMF");
-                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, "DT");
-                            processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
-                            blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                        }
-                        blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                        if (blResult)
-                        {
-                            bool stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(ProcessId);
-                        }
-                    }
-                }
-
-            }
-
-            if (blResult)
-            {
-                // Success Message
-                trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Done Successfully!";
-            }
+            string strErrorDesc = "Please a select a processId";
+            DropDownList ddl = (DropDownList)gvCAMSProfileReject.HeaderRow.Cells[0].FindControl("ddlProcessId");
+            string val = ddl.SelectedValue;
+            if (val == "Select")
+                Response.Write(@"<script language='javascript'>alert('The following errors have occurred: \n" + strErrorDesc + " .');</script>");
             else
             {
-                // Failure Message
-                trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Failure!";
-            }
+                ProcessId = Convert.ToInt32(val);
+                // BindGrid
+                if (Request.QueryString["processId"] != null)
+                {
+                    ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+                }
+                if (Request.QueryString["filetypeid"] != null)
+                    filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
 
-            BindGrid(ProcessId);
+                processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
+                if (uploadsCommonBo.ResetRejectedFlagByProcess(ProcessId, 9))
+                {
+
+                    //Folio Chks in Std Folio Staging 
+                    string packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
+                    bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, processlogVo.AdviserId, ProcessId, configPath);
+                    if (camsFolioStagingChkResult)
+                    {
+                        //Folio Chks in Std Folio Staging 
+                        packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
+                        bool camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, processlogVo.AdviserId, ProcessId, configPath);
+                        if (camsFolioWerpInsertionResult)
+                        {
+                            processlogVo.IsInsertionToWERPComplete = 1;
+                            processlogVo.EndTime = DateTime.Now;
+                            if (processlogVo.FileTypeId == 2)
+                            {
+                                processlogVo.IsInsertionToWERPComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(ProcessId, "CA");
+                                processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(ProcessId, "WPMF");
+                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, "CA");
+                                processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                            }
+                            else if (processlogVo.FileTypeId == 4)
+                            {
+                                processlogVo.IsInsertionToWERPComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(ProcessId, "KA");
+                                processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(ProcessId, "WPMF");
+                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, "KA");
+                                processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                            }
+                            else if (processlogVo.FileTypeId == 16)
+                            {
+                                processlogVo.IsInsertionToWERPComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(ProcessId, "TN");
+                                processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(ProcessId, "WPMF");
+                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, "TN");
+                                processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            }
+                            else if (processlogVo.FileTypeId == 18)
+                            {
+                                processlogVo.IsInsertionToWERPComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(ProcessId, "DT");
+                                processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(ProcessId, "WPMF");
+                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, "DT");
+                                processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            }
+                            blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            if (blResult)
+                            {
+                                bool stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(ProcessId);
+                            }
+                        }
+                    }
+
+                }
+
+                if (blResult)
+                {
+                    // Success Message
+                    trErrorMessage.Visible = true;
+                    lblError.Text = "Reprocess Done Successfully!";
+                }
+                else
+                {
+                    // Failure Message
+                    trErrorMessage.Visible = true;
+                    lblError.Text = "Reprocess Failure!";
+                }
+
+                BindGrid(ProcessId);
+            }
         }
 
         //protected void lnkProfile_Click(object sender, EventArgs e)

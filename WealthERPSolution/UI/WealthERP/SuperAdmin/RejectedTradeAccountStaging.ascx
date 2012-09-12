@@ -3,6 +3,25 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
+
+<script type="text/javascript">
+    function ShowDropDownValueInGridView() {
+        var dropdowns = new Array(); //Create array to hold all the dropdown lists
+        var gridview = document.getElementById('<%=gvWERPTrans.ClientID %>');
+        var dropdowns = gridview.getElementsByTagName('select');
+        for (var i = 0; i < dropdowns.length; i++) {
+            if (i == 2) {
+                if (dropdowns.item(2).value == 'Select') {
+                    alert('Please select a processid');
+                    return false;
+                }
+                else
+                    Loading(true);
+            }
+        }
+    }    
+</script>
+
 <script language="javascript" type="text/javascript">
     function checkAllBoxes() {
 
@@ -198,7 +217,7 @@
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
                 CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedWERPTransaction_btnReprocess','S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedWERPTransaction_btnReprocess','S');" />
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedWERPTransaction_btnReprocess','S');" OnClientClick="return ShowDropDownValueInGridView()"/>
             <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
         </td>

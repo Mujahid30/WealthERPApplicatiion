@@ -103,7 +103,7 @@ namespace WealthERP.SuperAdmin
             }
 
             // Get Advisor Vo from Session
-           // adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+            // adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
 
             if (!IsPostBack)
             {
@@ -730,26 +730,33 @@ namespace WealthERP.SuperAdmin
 
             int countTransactionsInserted = 0;
             int countRejectedRecords = 0;
-
-
-            if (Request.QueryString["processId"] != null)
-            {
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-                processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
-                if (processlogVo.FileTypeId == 1 || processlogVo.FileTypeId == 6 || processlogVo.FileTypeId == 3 || processlogVo.FileTypeId == 15 || processlogVo.FileTypeId == 17 || processlogVo.FileTypeId == 25)
-                {
-                    blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords, processlogVo.FileTypeId);
-                }
-            }
+            string strErrorDesc = "Please a select a processId";
+            DropDownList ddl = (DropDownList)gvWERPTrans.HeaderRow.Cells[0].FindControl("ddlProcessId");
+            string val = ddl.SelectedValue;
+            if (val == "Select")
+                Response.Write(@"<script language='javascript'>alert('The following errors have occurred: \n" + strErrorDesc + " .');</script>");
             else
             {
-
-                DataSet ds = uploadsCommonBo.GetSuperAdminUploadDistinctProcessIdForAdviser();
-
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                ProcessId = Convert.ToInt32(val);
+                if (Request.QueryString["processId"] != null)
                 {
+                    ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+                    processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
+                    if (processlogVo.FileTypeId == 1 || processlogVo.FileTypeId == 6 || processlogVo.FileTypeId == 3 || processlogVo.FileTypeId == 15 || processlogVo.FileTypeId == 17 || processlogVo.FileTypeId == 25)
+                    {
+                        blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords, processlogVo.FileTypeId);
+                    }
+                }
+                else
+                {
+                    DataSet ds = uploadsCommonBo.GetSuperAdminUploadDistinctDetailsForProcessId(ProcessId);
+                   // DataSet ds = uploadsCommonBo.GetSuperAdminUploadDistinctProcessIdForAdviser();
+
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
                     adviserId = int.Parse(dr["A_AdviserId"].ToString());
-                    processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
+                    //processIdReprocessAll = ProcessId;
+                    processIdReprocessAll = ProcessId;
                     processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
                     if (processlogVo.FileTypeId == 1 || processlogVo.FileTypeId == 3 || processlogVo.FileTypeId == 15 || processlogVo.FileTypeId == 17 || processlogVo.FileTypeId == 25)
                     {
@@ -759,26 +766,27 @@ namespace WealthERP.SuperAdmin
                     {
                         error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
                     }
+                    }
                 }
-            }
 
-            if (error == "")
-            {
-                // Success Message
-                //trErrorMessage.Visible = true;
-                //lblError.Text = "Reprocess Done Successfully!";
-                msgReprocessComplete.Visible = true;
-            }
-            else
-            {
-                // Failure Message
-                trErrorMessage.Visible = true;
-                msgReprocessincomplete.Visible = true;
-                lblError.Text = "ErrorStatus:" + error;
-            }
+                if (error == "")
+                {
+                    // Success Message
+                    //trErrorMessage.Visible = true;
+                    //lblError.Text = "Reprocess Done Successfully!";
+                    msgReprocessComplete.Visible = true;
+                }
+                else
+                {
+                    // Failure Message
+                    trErrorMessage.Visible = true;
+                    msgReprocessincomplete.Visible = true;
+                    lblError.Text = "ErrorStatus:" + error;
+                }
 
-            BindEquityTransactionGrid(ProcessId);
-            //used to display alert msg after completion of reprocessing
+                BindEquityTransactionGrid(ProcessId);
+                //used to display alert msg after completion of reprocessing
+            }
 
         }
 
@@ -1036,7 +1044,7 @@ namespace WealthERP.SuperAdmin
 
         private void CustomerTransactionDelete()
         {
-            #region unused 
+            #region unused
             //foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
             //{
             //    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
@@ -1060,7 +1068,7 @@ namespace WealthERP.SuperAdmin
 
             //    }
             //}
-            #endregion  
+            #endregion
         }
 
         protected void btnProbableInsert_Click(object sender, EventArgs e)

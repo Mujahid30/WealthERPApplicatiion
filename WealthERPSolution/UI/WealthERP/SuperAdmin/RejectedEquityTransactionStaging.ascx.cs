@@ -534,48 +534,57 @@ namespace WealthERP.SuperAdmin
         {
             bool blResult = false;
             uploadsCommonBo = new UploadCommonBo();
-
             int countTransactionsInserted = 0;
             int countRejectedRecords = 0;
             string error = "";
             int processIdReprocessAll = 0;
-
-            // BindGrid
-            if (Request.QueryString["processId"] != null)
-            {
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-                blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);
-            }
+            string strErrorDesc = "Please a select a processId";
+            DropDownList ddl = (DropDownList)gvWERPTrans.HeaderRow.Cells[0].FindControl("ddlProcessId");
+            string val = ddl.SelectedValue;
+            if (val == "Select")
+                Response.Write(@"<script language='javascript'>alert('The following errors have occurred: \n" + strErrorDesc + " .');</script>");
             else
             {
-                DataSet ds = uploadsCommonBo.GetSuperAdminEquityTransactionStagingProcessId();
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                ProcessId = Convert.ToInt32(val);
+
+                // BindGrid
+                if (Request.QueryString["processId"] != null)
                 {
-                    processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
-                    blResult = MFWERPTransactionWERPInsertion(processIdReprocessAll, out countTransactionsInserted, out countRejectedRecords);
+                    ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+                    blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);
                 }
-            }
-            if (blResult == false)
-            {
-                error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
-            }
+                else
+                {
+                    //DataSet ds = uploadsCommonBo.GetSuperAdminEquityTransactionStagingProcessId();
+                    //foreach (DataRow dr in ds.Tables[0].Rows)
+                    //{
+                    //processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
+                    processIdReprocessAll = ProcessId;
+                    blResult = MFWERPTransactionWERPInsertion(processIdReprocessAll, out countTransactionsInserted, out countRejectedRecords);
+                    //}
+                }
+                if (blResult == false)
+                {
+                    error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
+                }
 
-            if (blResult)
-            {
-                // Success Message
-                //reprocessSucess.Style.Add("visible", "true");
-                msgReprocessComplete.Visible = true;
-                //lblError.Text = "Reprocess Done Successfully!";
-            }
-            else
-            {
-                // Failure Message
-                //reprocessSucess.Visible = false;
-                msgReprocessincomplete.Visible = true;
-                //lblError.Text = "Reprocess Failure!";
-            }
+                if (blResult)
+                {
+                    // Success Message
+                    //reprocessSucess.Style.Add("visible", "true");
+                    msgReprocessComplete.Visible = true;
+                    //lblError.Text = "Reprocess Done Successfully!";
+                }
+                else
+                {
+                    // Failure Message
+                    //reprocessSucess.Visible = false;
+                    msgReprocessincomplete.Visible = true;
+                    //lblError.Text = "Reprocess Failure!";
+                }
 
-            BindEquityTransactionGrid(ProcessId);
+                BindEquityTransactionGrid(ProcessId);
+            }
         }
 
         private bool MFWERPTransactionWERPInsertion(int ProcessId, out int countTransactionsInserted, out int countRejectedRecords)
@@ -822,7 +831,7 @@ namespace WealthERP.SuperAdmin
 
             if (Request.QueryString["processId"] != null)
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-          
+
 
             DropDownList ddlProcessId = GetProcessIdDDL();
             if (ddlProcessId.SelectedIndex != 0)

@@ -627,52 +627,62 @@ namespace WealthERP.SuperAdmin
             UploadProcessLogVo processlogVo = new UploadProcessLogVo();
             string error = "";
             int processIdReprocessAll = 0;
-
-
-            if (Request.QueryString["processId"] != null)
-            {
-                processId = Int32.Parse(Request.QueryString["processId"].ToString());
-                processlogVo = uploadsCommonBo.GetProcessLogInfo(processId);
-
-                blResult = MFWERPSIPTransactionInsertion(processId);
-
-            }
-
+            string strErrorDesc = "Please a select a processId";
+            DropDownList ddl = (DropDownList)gvSIPReject.HeaderRow.Cells[0].FindControl("ddlProcessId");
+            string val = ddl.SelectedValue;
+            if (val == "Select")
+                Response.Write(@"<script language='javascript'>alert('The following errors have occurred: \n" + strErrorDesc + " .');</script>");
             else
             {
-                DataSet ds = uploadsCommonBo.GetSuperAdminSIPUploadRejectDistinctProcessIdForAdviser();
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                processId = Convert.ToInt32(val);
+
+                if (Request.QueryString["processId"] != null)
                 {
-                    processIdReprocessAll = int.Parse(dr["WUPL_ProcessId"].ToString());
-                    processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
+                    processId = Int32.Parse(Request.QueryString["processId"].ToString());
+                    processlogVo = uploadsCommonBo.GetProcessLogInfo(processId);
 
-                    blResult = MFWERPSIPTransactionInsertion(processIdReprocessAll);
+                    blResult = MFWERPSIPTransactionInsertion(processId);
 
-                    if (blResult == false)
-                    {
-                        error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
-                    }
                 }
 
-            }
+                else
+                {
+                    DataSet ds = uploadsCommonBo.GetSuperAdminSIPUploadRejectDistinctDetailsForProcessId(processId);
+                    //DataSet ds = uploadsCommonBo.GetSuperAdminSIPUploadRejectDistinctProcessIdForAdviser();
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        //processIdReprocessAll = int.Parse(dr["WUPL_ProcessId"].ToString());
+                        processIdReprocessAll = processId;
+                        processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
 
-            if (error == "")
-            {
-                // Success Message
-                //trErrorMessage.Visible = true;
-                //lblError.Text = "Reprocess Done Successfully!";
-                msgReprocessComplete.Visible = true;
+                        blResult = MFWERPSIPTransactionInsertion(processIdReprocessAll);
 
-            }
-            else
-            {
-                // Failure Message
-                trErrorMessage.Visible = true;
-                msgReprocessincomplete.Visible = true;
-                lblError.Text = "ErrorStatus:" + error;
-            }
+                        if (blResult == false)
+                        {
+                            error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
+                        }
+                    }
 
-            BindRejectedSIPGrid(processId);
+                }
+
+                if (error == "")
+                {
+                    // Success Message
+                    //trErrorMessage.Visible = true;
+                    //lblError.Text = "Reprocess Done Successfully!";
+                    msgReprocessComplete.Visible = true;
+
+                }
+                else
+                {
+                    // Failure Message
+                    trErrorMessage.Visible = true;
+                    msgReprocessincomplete.Visible = true;
+                    lblError.Text = "ErrorStatus:" + error;
+                }
+
+                BindRejectedSIPGrid(processId);
+            }
         }
 
 

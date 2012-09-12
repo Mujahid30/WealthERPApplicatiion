@@ -443,39 +443,50 @@ namespace WealthERP.SuperAdmin
             string error = "";
             int processIdReprocessAll = 0;
 
-            // BindGrid
-            if (Request.QueryString["processId"] != null)
-            {
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-                blResult = TradeAccountStagingInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);
-            }
+            string strErrorDesc = "Please a select a processId";
+            DropDownList ddl = (DropDownList)gvWERPTrans.HeaderRow.Cells[0].FindControl("ddlProcessId");
+            string val = ddl.SelectedValue;
+            if (val == "Select")
+                Response.Write(@"<script language='javascript'>alert('The following errors have occurred: \n" + strErrorDesc + " .');</script>");
             else
             {
-                DataSet ds = uploadsCommonBo.GetSuperAdminEquityTradeAccountStagingProcessId();
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                ProcessId = Convert.ToInt32(val);
+                // BindGrid
+                if (Request.QueryString["processId"] != null)
                 {
-                    processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
-                    blResult = TradeAccountStagingInsertion(processIdReprocessAll, out countTransactionsInserted, out countRejectedRecords);
+                    ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+                    blResult = TradeAccountStagingInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);
                 }
-            }
-            if (blResult == false)
-            {
-                error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
-            }
+                else
+                {
+                    ////DataSet ds = uploadsCommonBo.GetSuperAdminEquityTradeAccountStagingProcessId();
+                    //DataSet ds = uploadsCommonBo.GetSuperAdminEquityTradeAccountStagingForProcessId(ProcessId);
+                    //foreach (DataRow dr in ds.Tables[0].Rows)
+                    //{
+                    //processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
+                    processIdReprocessAll = ProcessId;
+                    blResult = TradeAccountStagingInsertion(processIdReprocessAll, out countTransactionsInserted, out countRejectedRecords);
+                    //}
+                }
+                if (blResult == false)
+                {
+                    error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
+                }
 
-            if (blResult)
-            {
-                // Success Message
-                trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Done Successfully!";
+                if (blResult)
+                {
+                    // Success Message
+                    trErrorMessage.Visible = true;
+                    lblError.Text = "Reprocess Done Successfully!";
+                }
+                else
+                {
+                    // Failure Message
+                    trErrorMessage.Visible = true;
+                    lblError.Text = "Reprocess Failure!";
+                }
+                BindRejectedUploadsGrid(ProcessId);
             }
-            else
-            {
-                // Failure Message
-                trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Failure!";
-            }
-            BindRejectedUploadsGrid(ProcessId);
         }
 
         private bool TradeAccountStagingInsertion(int ProcessId, out int countTransactionsInserted, out int countRejectedRecords)
@@ -633,7 +644,7 @@ namespace WealthERP.SuperAdmin
 
             if (Request.QueryString["processId"] != null)
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-           
+
             DropDownList ddlProcessId = GetProcessIdDDL();
             if (ddlProcessId.SelectedIndex != 0)
             {

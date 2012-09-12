@@ -4,6 +4,24 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
+<script type="text/javascript">
+    function ShowDropDownValueInGridView() {
+        var dropdowns = new Array(); //Create array to hold all the dropdown lists
+        var gridview = document.getElementById('<%=gvCAMSProfileReject.ClientID %>');
+        var dropdowns = gridview.getElementsByTagName('select');
+        for (var i = 0; i < dropdowns.length; i++) {
+            if (i == 2) {
+                if (dropdowns.item(2).value == 'Select') {
+                    alert('Please select a processid');
+                    return false;
+                }
+                else
+                    Loading(true);
+            }
+        }
+    }    
+</script>
+
 <script>
     function ShowPopup() {
         var form = document.forms[0];
@@ -229,7 +247,7 @@
             <td class="SubmitCell">
                 <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
                     CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedMFFolio_btnReprocess','L');"
-                    onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedMFFolio_btnReprocess','L');" />
+                    onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedMFFolio_btnReprocess','L');" OnClientClick="return ShowDropDownValueInGridView();"/>
                 <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
                     OnClientClick="return ShowPopup()" Visible="false"/>
                 <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" 
