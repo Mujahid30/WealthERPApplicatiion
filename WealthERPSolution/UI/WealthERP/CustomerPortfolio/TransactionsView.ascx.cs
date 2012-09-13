@@ -897,7 +897,8 @@ namespace WealthERP.CustomerPortfolio
                 if (Filetype == "Excel")
                 {
                     // gvCustomer.Columns.Remove(this.gvCustomer.Columns[0]);
-                    string temp = customerVo.FirstName + customerVo.LastName + "'s_MFTransactionList.xls";
+                    //string temp = customerVo.FirstName + customerVo.LastName + "'s_MFTransactionList.xls";
+                    string temp =  "MFTransactionList.xls";
                     string attachment = "attachment; filename=" + temp;
                     Response.ClearContent();
                     Response.AddHeader("content-disposition", attachment);
