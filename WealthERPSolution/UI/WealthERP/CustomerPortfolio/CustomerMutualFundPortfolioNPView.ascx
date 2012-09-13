@@ -600,7 +600,7 @@
                         </asp:Panel>
                         
                         <table>
-                        <tr id="trSchemePerformance" runat="server">
+                        <tr id="trSchemePerformance" runat="server" visible="true">
                                 <td>
                                 <asp:Panel ID="tbl" runat="server"  ScrollBars="Horizontal" Width="98%" Visible="false">
                                 <table>
@@ -608,13 +608,13 @@
                                 <td>
                                 <div id="Div1" runat="server" style="width: 640px;">
                                 
-                                <telerik:RadAjaxPanel ID="PanelSector" runat="server" Width="90%"  EnableHistory="True"  
+                                <telerik:RadAjaxPanel ID="PanelScheme" runat="server" Width="90%"  EnableHistory="True"  
                                      HorizontalAlign="NotSet" LoadingPanelID="SchemePerformanceLoading" >
                                
                                 <telerik:RadGrid ID="gvSchemePerformance" runat="server" GridLines="None" AutoGenerateColumns="False"
                                 PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                     Skin="Telerik" EnableEmbeddedSkins="false"  AllowFilteringByColumn="false"
-                                AllowAutomaticInserts="false" ExportSettings-FileName="SchemePerformance" >
+                                AllowAutomaticInserts="false" ExportSettings-FileName="SchemePerformance" Visible="true">
                                 <MasterTableView AllowMultiColumnSorting="True"  AutoGenerateColumns="false" >
                                 <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                     <Columns>
@@ -739,7 +739,7 @@
                                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                                         <Columns>
                                            <telerik:GridBoundColumn DataField="Instrument" HeaderText="Instrument" SortExpression="Instrument"
-                                            UniqueName="Instrument"  AutoPostBackOnFilter="true" >
+                                            UniqueName="Instrument"  AutoPostBackOnFilter="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                 <HeaderStyle ></HeaderStyle>
                                                 <ItemStyle  HorizontalAlign="Left" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
@@ -751,7 +751,8 @@
                                         </telerik:GridBoundColumn>
                                         
                                         <telerik:GridBoundColumn DataField="Amount" HeaderText="Amount" SortExpression="Amount"
-                                            UniqueName="Amount"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                            UniqueName="Amount"  AutoPostBackOnFilter="true" DataFormatString="{0:N0}" 
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <HeaderStyle ></HeaderStyle>
                                                 <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
@@ -796,7 +797,7 @@
                                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                                         <Columns>
                                            <telerik:GridBoundColumn DataField="SectorCode" HeaderText="SectorCode" SortExpression="SectorCode"
-                                            UniqueName="SectorCode"  AutoPostBackOnFilter="true" >
+                                            UniqueName="SectorCode"  AutoPostBackOnFilter="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                 <HeaderStyle ></HeaderStyle>
                                                 <ItemStyle  HorizontalAlign="Left" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
@@ -808,7 +809,7 @@
                                         </telerik:GridBoundColumn>
                                         
                                         <telerik:GridBoundColumn DataField="Amount" HeaderText="Amount" SortExpression="Amount"
-                                            UniqueName="Amount"  AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                            UniqueName="Amount"  AutoPostBackOnFilter="true" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <HeaderStyle ></HeaderStyle>
                                                 <ItemStyle  HorizontalAlign="Right" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>

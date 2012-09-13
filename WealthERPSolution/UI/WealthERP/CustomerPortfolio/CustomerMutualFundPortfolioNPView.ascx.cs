@@ -1975,9 +1975,11 @@ namespace WealthERP.CustomerPortfolio
                 dtSchemePerformance = dsSchemeHoldingSector.Tables[0];
                 if (dsSchemeHoldingSector.Tables[0].Rows.Count > 0)
                 {
+                    gvSchemePerformance.Visible = true;
                     gvSchemePerformance.DataSource = dtSchemePerformance;
                     gvSchemePerformance.DataBind();
                     ErrorMessage.Visible = false;
+                    trSchemePerformance.Visible = true;
                     if (Cache["SchemePerformance" + userVo.UserId] == null)
                     {
                         Cache.Insert("SchemePerformance" + userVo.UserId, dtSchemePerformance);

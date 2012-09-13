@@ -581,13 +581,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
         
         /// <summary>
-        /// PanelSector control.
+        /// PanelScheme control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxPanel PanelSector;
+        protected global::Telerik.Web.UI.RadAjaxPanel PanelScheme;
         
         /// <summary>
         /// gvSchemePerformance control.
