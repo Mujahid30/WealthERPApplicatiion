@@ -142,6 +142,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//AddSchemeMapping.ascx.
+        /// </summary>
+        internal static string AddSchemeMapping {
+            get {
+                return ResourceManager.GetString("AddSchemeMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SubBroker//AddSubBroker.ascx.
         /// </summary>
         internal static string AddSubBroker {
@@ -498,6 +507,15 @@ namespace WealthERP {
         internal static string AlertsLeftPane {
             get {
                 return ResourceManager.GetString("AlertsLeftPane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//AssetAllocationMIS.ascx.
+        /// </summary>
+        internal static string AssetAllocationMIS {
+            get {
+                return ResourceManager.GetString("AssetAllocationMIS", resourceCulture);
             }
         }
         

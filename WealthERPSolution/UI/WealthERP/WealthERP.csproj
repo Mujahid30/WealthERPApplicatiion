@@ -1196,6 +1196,13 @@
     <Compile Include="bin\FusionCharts.cs" />
     <Compile Include="BreadcrumbLinks.Designer.cs" />
     <Compile Include="BreadCrumbScripts.Designer.cs" />
+    <Compile Include="BusinessMIS\AssetAllocationMIS.ascx.cs">
+      <DependentUpon>AssetAllocationMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\AssetAllocationMIS.ascx.designer.cs">
+      <DependentUpon>AssetAllocationMIS.ascx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\BusinessDashBoard.ascx.cs">
       <DependentUpon>BusinessDashBoard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2731,6 +2738,13 @@
     </Compile>
     <Compile Include="SuperAdmin\AddIssue.ascx.designer.cs">
       <DependentUpon>AddIssue.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\AddSchemeMapping.ascx.cs">
+      <DependentUpon>AddSchemeMapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\AddSchemeMapping.ascx.designer.cs">
+      <DependentUpon>AddSchemeMapping.ascx</DependentUpon>
     </Compile>
     <Compile Include="SuperAdmin\AdviserUploads.ascx.cs">
       <DependentUpon>AdviserUploads.ascx</DependentUpon>
@@ -5523,6 +5537,7 @@
     <Content Include="bin\VoValuation.pdb" />
     <Content Include="bin\WatiN.Core.dll" />
     <Content Include="bin\WatiN.Core.XML" />
+    <Content Include="BusinessMIS\AssetAllocationMIS.ascx" />
     <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
     <Content Include="BusinessMIS\GoalMIS.ascx" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
@@ -5891,6 +5906,7 @@
     <Content Include="SessionExpired.aspx" />
     <Content Include="SubBroker\AddSubBroker.ascx" />
     <Content Include="SuperAdmin\AddIssue.ascx" />
+    <Content Include="SuperAdmin\AddSchemeMapping.ascx" />
     <Content Include="SuperAdmin\AdviserUploads.ascx" />
     <Content Include="SuperAdmin\DailyValuationMonitor.ascx" />
     <Content Include="SuperAdmin\IFADashBoard.ascx" />

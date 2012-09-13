@@ -1409,4 +1409,12 @@
     <value>BusinessMIS//GoalMIS.ascx</value>
     <comment>BusinessMIS//GoalMIS.ascx</comment>
   </data>
+  <data name="AddSchemeMapping" xml:space="preserve">
+    <value>SuperAdmin//AddSchemeMapping.ascx</value>
+    <comment>SuperAdmin//AddSchemeMapping.ascx</comment>
+  </data>
+  <data name="AssetAllocationMIS" xml:space="preserve">
+    <value>BusinessMIS//AssetAllocationMIS.ascx</value>
+    <comment>BusinessMIS//AssetAllocationMIS.ascx</comment>
+  </data>
 </root>
