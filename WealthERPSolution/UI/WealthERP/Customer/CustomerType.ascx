@@ -35,6 +35,21 @@
         height: 49px;
     }
 </style>
+<table width="100%">
+<tr>
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Add Customer
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    </table>
 <table class="TableBackground" style="width: 100%">
     <tr>
         <td colspan="2" class="tdRequiredText">
