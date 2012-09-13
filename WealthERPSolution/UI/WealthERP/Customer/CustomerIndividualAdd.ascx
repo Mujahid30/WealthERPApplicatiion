@@ -59,6 +59,21 @@
 </asp:ScriptManager>
 <%--<asp:UpdatePanel ID="up1" runat="server">
     <ContentTemplate>--%>
+    <table width="100%">
+<tr>
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Add Individual Customer
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    </table>
 <table class="TableBackground" width="100%">
     <tr>
         <td colspan="4" class="tdRequiredText">
