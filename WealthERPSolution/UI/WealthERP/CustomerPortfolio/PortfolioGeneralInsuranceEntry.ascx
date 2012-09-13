@@ -313,7 +313,7 @@
 
     <tr>
         <td align="right" style="width: 22%">
-            <asp:Label ID="lblPolicyIssuer" runat="server" Text="Policy Issuer:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblPolicyIssuer" runat="server" Text="Insurer:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 22%" colspan="2">
             <asp:DropDownList ID="ddlPolicyIssuer" CausesValidation="true" runat="server" CssClass="cmbField" Width="80%"
@@ -334,7 +334,7 @@
     </tr>
     <tr>
         <td align="right" style="width: 22%">
-            <asp:Label ID="lblPolicyParticular" runat="server" Text="Scheme Name:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblPolicyParticular" runat="server" Text="Policy Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="left" align="right" style="width: 22%" colspan="2">
             <asp:DropDownList ID="txtPolicyParticular" runat="server" CssClass="cmbField" Width="80%">
@@ -342,7 +342,7 @@
             <span id="span5" class="spnRequiredField">*</span>
             <%--  <asp:Button ID="btnAddScheme" runat="server" Text="++" OnClick="btnAddScheme_OnClick"
     ValidationGroup="btnAddScheme"  />--%>
-            <asp:ImageButton ID="btnAddScheme" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" runat="server"
+            <asp:ImageButton ID="btnAddScheme" ImageUrl="~/Images/user_add.png" runat="server" ToolTip="Add policy Name"
                 OnClick="btnAddScheme_OnClick" ValidationGroup="btnAddScheme" Height="3.2%" Width="3.2%"/>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please select a Scheme Name:"
                 ControlToValidate="txtPolicyParticular" Operator="NotEqual" ValueToCompare="Select"
@@ -357,7 +357,7 @@
                         <table width="100%">
                             <tr>
                                 <td class="leftField" style="width: 10%">
-                                    <asp:Label ID="lblIssuar" runat="server" Text="Insurance Issuar: " CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblIssuar" runat="server" Text="Insurer: " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField" style="width: 25%">
                                     <asp:Label ID="lblIssuarCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -365,7 +365,7 @@
                             </tr>
                             <tr>
                                 <td class="leftField" style="width: 10%">
-                                    <asp:Label ID="lblAsset" runat="server" Text="Asset Particulars: " CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblAsset" runat="server" Text="Policy Name: " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td class="rightField" style="width: 25%">
                                     <asp:TextBox ID="txtAsset" runat="server" CssClass="txtField"></asp:TextBox><br />
