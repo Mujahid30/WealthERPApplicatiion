@@ -193,7 +193,7 @@ namespace WealthERP.OPS
                 //BindPortfolioDropdown();
                 //BindFolionumberDropdown(portfolioId);
                 //BindTransactionType();
-                //BindOrderStatus();
+                BindOrderStatus();
                 //BindAssetType();
             }
             //btnSync.Visible = false;
@@ -272,7 +272,6 @@ namespace WealthERP.OPS
                 ddlMISOrderStatus.DataTextField = dtOrderStatus.Columns["XS_Status"].ToString();
                 ddlMISOrderStatus.DataBind();
             }
-            ddlMISOrderStatus.Items.Insert(0, new ListItem("All", "All"));
         }
 
         private void BindTransactionType()
@@ -357,7 +356,7 @@ namespace WealthERP.OPS
             DataSet dsOrderMIS;
             DataTable dtOrderMIS;
             //dsOrderMIS = operationBo.GetOrderMIS(advisorVo.advisorId,hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value,DateTime.Parse(hdnFromdate.Value),DateTime.Parse(hdnTodate.Value), mypager.CurrentPage, out  count);
-            dsOrderMIS = mforderBo.GetCustomerMFOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value),hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value,hdnCustomerId.Value);
+            dsOrderMIS = mforderBo.GetCustomerMFOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value);
             dtOrderMIS = dsOrderMIS.Tables[0];
             if (dtOrderMIS.Rows.Count > 0)
             {
@@ -366,7 +365,7 @@ namespace WealthERP.OPS
                 gvMIS.DataBind();
                 gvMIS.Visible = true;
                 this.GetPageCount();
-                if (ddlMISOrderStatus.SelectedValue == "0")
+                if (ddlMISOrderStatus.SelectedValue == "OMIP")
                 {
                     btnSync.Visible = true;
                     btnMannualMatch.Visible = true;
