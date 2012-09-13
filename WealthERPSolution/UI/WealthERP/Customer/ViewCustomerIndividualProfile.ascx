@@ -63,16 +63,30 @@
         height: 23px;
     }
 </style>
-
+<table width="100%">
+<tr>
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                           Profile
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    </table>
 
 
 <table class="TableBackground" style="width: 100%">
-    <tr>
+    <%--<tr>
         <td class="HeaderCell" colspan="2">
             <asp:Label ID="Label61" runat="server" CssClass="HeaderTextBig" Text="Profile"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td class="leftField">
             &nbsp;
