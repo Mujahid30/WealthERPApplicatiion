@@ -128,7 +128,7 @@ namespace WealthERP.Advisor
             // Store the messages in a label control
             if (intCount > 0)
             {
-                if (Session[SessionContents.UserTopRole] == "Customer" && flavourId ==10)
+                if (Session[SessionContents.CurrentUserRole].ToString() == "Customer" && flavourId == 10)
                 {
                     lnkBtnNewMessages.Visible = true;
                     lnkBtnNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
