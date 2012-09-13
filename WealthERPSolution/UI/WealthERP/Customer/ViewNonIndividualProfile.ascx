@@ -21,15 +21,30 @@ function showassocation() {
    
    
 </script>
+<table width="100%">
+<tr>
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                           Profile
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    </table>
 
 
 <table class="TableBackground" style="width: 50%;">
-    <tr>
+    <%--<tr>
         <td class="rightField" colspan="2">
             <asp:Label ID="Label26" runat="server" CssClass="HeaderTextBig" Text="Profile"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <%--<tr>
     <td>
     </td>
