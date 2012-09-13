@@ -40,14 +40,29 @@
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
-<table width="100%" class="TableBackground">
+<table width="100%">
+<tr>
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Edit Profile
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    </table>
+<%--<table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Edit Profile"></asp:Label>
             <hr />
         </td>
     </tr>
-</table>
+</table>--%>
 <table style="width: 100%; height: 254px;">
     <tr>
         <td>
