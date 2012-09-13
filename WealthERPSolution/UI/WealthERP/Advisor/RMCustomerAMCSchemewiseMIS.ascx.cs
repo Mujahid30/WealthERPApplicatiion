@@ -475,17 +475,17 @@ namespace WealthERP.Advisor
                     if (GridViewCultureFlag == true)
                     {
                         decimal temp = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][8].ToString()), 3);
-                        drMISReport[6] = temp.ToString("n3", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMISReport["Units"] = temp.ToString("n3", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         decimal tempAum = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 0);
-                        drMISReport[7] = tempAum.ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMISReport["AUM"] = tempAum.ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         //drMISReport[7] = tempAum.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         //drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     }
                     else
                     {
-                        drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][8].ToString()), 3).ToString();
+                        drMISReport["Units"] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][8].ToString()), 3).ToString();
                         decimal tempAum = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 4);
-                        drMISReport[7] = tempAum.ToString();
+                        drMISReport["AUM"] = tempAum.ToString();
                         //drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2).ToString();
 
                     }
@@ -546,17 +546,17 @@ namespace WealthERP.Advisor
 
                 if (GridViewCultureFlag == true)
                 {
-                    gvMFMIS.FooterRow.Cells[8].Text = System.Math.Round(decimal.Parse(totalAum.ToString()), 0).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    gvMFMIS.FooterRow.Cells[10].Text = System.Math.Round(decimal.Parse(totalAum.ToString()), 0).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
-                    gvMFMIS.FooterRow.Cells[7].Text = totalUnits.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    gvMFMIS.FooterRow.Cells[9].Text = totalUnits.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                 }
                 else
                 {
                     decimal tempTotalAum = System.Math.Round(decimal.Parse(totalAum.ToString()), 0);
-                    gvMFMIS.FooterRow.Cells[8].Text = tempTotalAum.ToString();
+                    gvMFMIS.FooterRow.Cells[10].Text = tempTotalAum.ToString();
 
-                    gvMFMIS.FooterRow.Cells[7].Text = totalUnits.ToString();
+                    gvMFMIS.FooterRow.Cells[9].Text = totalUnits.ToString();
 
                 }
 

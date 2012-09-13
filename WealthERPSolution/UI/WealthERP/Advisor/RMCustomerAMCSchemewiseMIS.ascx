@@ -47,20 +47,30 @@
         btn.click();
     }
 
-    
-    
-    
-    
-    
 </script>
+<table width="100%">
+<tr>
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            MF MIS
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    </table>
 
     <table style="width: 100%; margin: 0px; padding: 0px;" cellpadding="1" cellspacing="1">
-    <tr >
+   <%-- <tr >
         <td class="HeaderTextBig" colspan="3">
             <asp:Label ID="lblMfMIS" runat="server" CssClass="HeaderTextBig" Text="MF MIS"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
    
     </table>
     <table  style="width: 62%; margin: 0px; padding: 0px;" cellpadding="1" cellspacing="1">
