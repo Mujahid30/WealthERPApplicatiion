@@ -182,7 +182,7 @@ namespace DaoOps
             return orderIds;
         }
 
-        public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime dtFrom, DateTime dtTo, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode , string customerId)
+        public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime dtFrom, DateTime dtTo, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId)
         {
             DataSet dsGetCustomerMFOrderMIS = null;
             Database db;
@@ -207,8 +207,7 @@ namespace DaoOps
                 else
                     db.AddInParameter(GetCustomerMFOrderMIScmd, "@amcCode", DbType.String, DBNull.Value);
                 db.AddInParameter(GetCustomerMFOrderMIScmd, "@customerId", DbType.String, customerId);
-                
-
+              
                 dsGetCustomerMFOrderMIS = db.ExecuteDataSet(GetCustomerMFOrderMIScmd);
             }
             catch (BaseApplicationException ex)
