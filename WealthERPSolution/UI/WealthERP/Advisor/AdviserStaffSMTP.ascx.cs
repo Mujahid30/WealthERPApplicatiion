@@ -185,6 +185,7 @@ namespace WealthERP.Advisor
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            bool result = false;
             adviserstaffsmtpvo.SmsProviderId = int.Parse(ddlSMSProvider.SelectedValue);
             adviserstaffsmtpvo.AdvisorId = advisevo.advisorId;
             adviserstaffsmtpvo.SmsUserName = txtUserName.Text;
@@ -195,7 +196,17 @@ namespace WealthERP.Advisor
             adviserstaffsmtpvo.SmsModifiedBy = uservo.UserId;
             txtPwd.Attributes.Add("value", txtPwd.Text.Trim());
 
-            advstaffsmtpbo.CreateSMSProviderDetails(adviserstaffsmtpvo);
+            result = advstaffsmtpbo.CreateSMSProviderDetails(adviserstaffsmtpvo);
+
+            if (result)
+            {
+                trBtnSaveMsg.Visible = true;
+                lblbtnSaveMsg.Text = "Values inserted Successfully";
+            }
+            else
+            {
+                lblbtnSaveMsg.Text = "There was an error in inserting the values";
+            }
 
         }
 

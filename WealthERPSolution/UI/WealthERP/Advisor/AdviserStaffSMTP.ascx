@@ -342,6 +342,13 @@
                             OnClick="btnSubmit_Click" />
                     </td>
                 </tr>
+                <tr id="trBtnSaveMsg" runat="server">
+                <td class="leftField">
+                    </td>
+                    <td>
+                        <asp:Label ID="lblbtnSaveMsg" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
                 
             <tr>
              <td colspan="2">
