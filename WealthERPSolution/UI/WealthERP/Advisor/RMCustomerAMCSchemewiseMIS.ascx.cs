@@ -419,6 +419,7 @@ namespace WealthERP.Advisor
                 trMessage.Visible = true;
                 gvMFMIS.DataSource = dsMISReport;
                 gvMFMIS.DataBind();
+                imgBtnExport.Visible = false;
             }
             else
             {
@@ -532,6 +533,7 @@ namespace WealthERP.Advisor
                 
                 gvMFMIS.DataSource = dtMISReport;
                 gvMFMIS.DataBind();
+                imgBtnExport.Visible = true;
                 if (gvMFMIS.HeaderRow != null)
                 {
                     TextBox CustomerName = new TextBox();
@@ -540,9 +542,6 @@ namespace WealthERP.Advisor
 
                     CustomerName.Text = Customer_Name;
                 }
-
-
-
 
                 if (GridViewCultureFlag == true)
                 {

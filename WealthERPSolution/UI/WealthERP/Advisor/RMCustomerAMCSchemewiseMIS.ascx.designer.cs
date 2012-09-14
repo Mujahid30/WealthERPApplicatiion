@@ -23,6 +23,15 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.ScriptManager scptMgr;
         
         /// <summary>
+        /// imgBtnExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnExport;
+        
+        /// <summary>
         /// lblMISType control.
         /// </summary>
         /// <remarks>
@@ -255,15 +264,6 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
-        
-        /// <summary>
-        /// imgBtnExport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton imgBtnExport;
         
         /// <summary>
         /// lblCurrentPage control.

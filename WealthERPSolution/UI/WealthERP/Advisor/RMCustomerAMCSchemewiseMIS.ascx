@@ -57,6 +57,10 @@
                         <td align="left">
                             MF MIS
                         </td>
+                        <td align="right" style="padding-bottom:2px;">
+                        <asp:ImageButton ID="imgBtnExport" ImageUrl="../Images/Export_Excel.png" Visible="false"
+                           runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"/>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -64,15 +68,15 @@
     </tr>
     </table>
 
-    <table style="width: 100%; margin: 0px; padding: 0px;" cellpadding="1" cellspacing="1">
-   <%-- <tr >
+<%--    <table style="width: 100%; margin: 0px; padding: 0px;" cellpadding="1" cellspacing="1">
+    <tr >
         <td class="HeaderTextBig" colspan="3">
             <asp:Label ID="lblMfMIS" runat="server" CssClass="HeaderTextBig" Text="MF MIS"></asp:Label>
             <hr />
         </td>
-    </tr>--%>
+    </tr>
    
-    </table>
+    </table>--%>
     <table  style="width: 62%; margin: 0px; padding: 0px;" cellpadding="1" cellspacing="1">
     <tr>
         <td align="right">
@@ -219,8 +223,7 @@
     <table  style="width: 100%; border:none;margin: 0px; padding: 0px;"  cellpadding="0" cellspacing="0">
     <tr>
         <td>
-            <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"/>
+            
         </td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
