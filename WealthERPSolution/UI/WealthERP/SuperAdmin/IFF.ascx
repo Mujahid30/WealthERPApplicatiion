@@ -90,58 +90,58 @@
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                         <telerik:GridBoundColumn HeaderText="AdviserId" ItemStyle-HorizontalAlign="Right" DataField="AdviserId" AllowFiltering="true">
+                         <telerik:GridBoundColumn HeaderText="AdviserId" ItemStyle-HorizontalAlign="Right" DataField="AdviserId" AllowFiltering="true" ShowFilterIcon="false">
                             <ItemStyle />                            
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="IFA" DataField="IFFName" AllowFiltering="true">
+                        <telerik:GridBoundColumn HeaderText="IFA" DataField="IFFName" AllowFiltering="true" ShowFilterIcon="false">
                             <ItemStyle />                            
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Category" DataField="Category" AllowFiltering="true">
+                        <telerik:GridBoundColumn HeaderText="Category" DataField="Category" AllowFiltering="true" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Area" DataField="IFFAddress" AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="Area" DataField="IFFAddress" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="City" DataField="IFFCity" AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="City" DataField="IFFCity" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Contact Person" DataField=" IFFContactPerson" AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="Contact Person" DataField=" IFFContactPerson" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Mobile" DataField="IFFMobileNumber" AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="Mobile" DataField="IFFMobileNumber" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Email" DataField="IFFEmailId" AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="Email" DataField="IFFEmailId" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Is Active" DataField="imgIFFIsActive" AllowFiltering="true">
+                        <telerik:GridBoundColumn HeaderText="Is Active" DataField="imgIFFIsActive" AllowFiltering="true" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="MF Subs" DataField="imgIFFMutualfund" AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="MF Subs" DataField="imgIFFMutualfund" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="EQ Subs" DataField="imgIFFEquity" AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="EQ Subs" DataField="imgIFFEquity" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="LI Subs"  DataField="imgIFFInsurance" AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="LI Subs"  DataField="imgIFFInsurance" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Loan Subs"  DataField="imgIFFLiabilities" AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="Loan Subs"  DataField="imgIFFLiabilities" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="PMS Subs"  DataField="imgIFFPMS"  AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="PMS Subs"  DataField="imgIFFPMS"  AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Fixed Inc. Subs"  DataField="imgIFFFixedIncome"  AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="Fixed Inc. Subs"  DataField="imgIFFFixedIncome"  AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Postal Subs"  DataField="imgIFFPostalSavings"  AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="Postal Subs"  DataField="imgIFFPostalSavings"  AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Commodities Subs"  DataField="imgIFFComodities"  AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="Commodities Subs"  DataField="imgIFFComodities"  AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Real Est., Subs"  DataField="imgIFFComodities"  AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="Real Est., Subs"  DataField="imgIFFComodities"  AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>                        
                         
