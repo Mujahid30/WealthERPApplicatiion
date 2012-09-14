@@ -28,8 +28,23 @@ function checkAllBoxes()
         }
     }
     </script>
+    <table width="100%">
+<tr>
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Customer Manual SMS
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
 <table width="100%">
-<tr><td><asp:Label ID="lblCustomerSMS" Text="Customer Manual SMS" CssClass="HeaderTextSmall" runat="server"></asp:Label> </td></tr>
+<%--<tr><td><asp:Label ID="lblCustomerSMS" Text="Customer Manual SMS" CssClass="HeaderTextSmall" runat="server"></asp:Label> </td></tr>--%>
 <tr><td>
 <table>
 <tr>
