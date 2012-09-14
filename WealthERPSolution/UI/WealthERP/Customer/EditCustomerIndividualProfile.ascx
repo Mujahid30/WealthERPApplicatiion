@@ -670,9 +670,9 @@
                                 <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                 </DateInput>
                             </telerik:RadDatePicker>
-                            <asp:CompareValidator ID="txtMarriageDate_CompareValidator" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                            <%--<asp:CompareValidator ID="txtMarriageDate_CompareValidator" runat="server" ErrorMessage="<br/>Please enter a valid date."
                                 Type="Date" ControlToValidate="txtMarriageDate" CssClass="cvPCG" Operator="DataTypeCheck"
-                                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>--%>
                            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="vgBtnSubmitTemp"
                                 runat="server" CssClass="cvPCG" ErrorMessage="Enter A Date" Display="Dynamic"
                                 ControlToValidate="txtMarriageDate"></asp:RequiredFieldValidator>--%>

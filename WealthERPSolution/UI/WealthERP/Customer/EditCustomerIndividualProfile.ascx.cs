@@ -40,7 +40,7 @@ namespace WealthERP.Customer
             cvDepositDate1.ValueToCompare = DateTime.Now.ToShortDateString();
             txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
             cvJobStartDate.ValueToCompare = DateTime.Now.ToShortDateString();
-            txtMarriageDate_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
+            //txtMarriageDate_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
           
             try
             {

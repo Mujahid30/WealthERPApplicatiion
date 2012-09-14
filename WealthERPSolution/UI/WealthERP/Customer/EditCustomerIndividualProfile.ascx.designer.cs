@@ -1400,15 +1400,6 @@ namespace WealthERP.Customer {
         protected global::Telerik.Web.UI.RadDatePicker txtMarriageDate;
         
         /// <summary>
-        /// txtMarriageDate_CompareValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator txtMarriageDate_CompareValidator;
-        
-        /// <summary>
         /// lblMotherMaidenName control.
         /// </summary>
         /// <remarks>
