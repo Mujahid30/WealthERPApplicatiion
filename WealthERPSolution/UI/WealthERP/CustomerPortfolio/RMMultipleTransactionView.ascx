@@ -87,7 +87,7 @@
     <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
         <td align="left">MF Transaction Grid View</td>
-        <td align="right">
+        <td align="right" style="padding-bottom:2px;">
         <asp:ImageButton ID="imgBtnExport" ImageUrl="~/Images/Export_Excel.png" runat="server"
                 AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" Visible="false"
                 OnClientClick="setFormat('excel')" CausesValidation="false" />
@@ -100,55 +100,7 @@
 </tr>
 </table>
 
-<table id="tblExport" runat="server" style="width: 100%;">
-    <tr>
-        <td class="style12">
-            
-            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
-                TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
-                Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
-                PopupDragHandleControlID="Panel1" X="280" Y="35">
-            </cc1:ModalPopupExtender>
-            <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/Images/Export_Word.jpg" runat="server"
-                AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click" OnClientClick="setFormat('word')" />
-            <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/Images/Export_Pdf.gif" runat="server"
-                AlternateText="PDF" OnClientClick="setFormat('pdf')" ToolTip="Export To PDF"
-                OnClick="imgBtnPdf_Click" />
-            <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/Images/Print.gif" runat="server" AlternateText="Print"
-                OnClientClick="setFormat('print')" ToolTip="Print" OnClick="imgBtnPrint_Click" />
-            <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />--%>
-        </td>
-    </tr>
-    <tr id="Tr1" runat="server">
-        <td>
-        <asp:Panel ID="Panel1" runat="server" Width="208px" Height="112px" BackColor="Wheat"
-                BorderColor="AliceBlue" Font-Bold="true" ForeColor="Black">
-                <br />
-                &nbsp;&nbsp;
-                <input id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" type="radio" />
-                <label for="rbtnSin" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
-                    font-weight: 500">Current Page</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <br />
-                &nbsp;&nbsp;
-                <input id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')"
-                    type="radio" />
-                <label for="Radio1" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
-                    font-weight: 500">All Pages</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-                <br />
-                <div align="center">
-                    <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
-                </div>
-            </asp:Panel>
 
-            <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
-                OnClick="btnExportExcel_Click" Height="31px" Width="35px" />
-        </td>
-    </tr>
-</table>
 <table>
     <tr>
         <td>
@@ -484,6 +436,55 @@
             <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found..."></asp:Label>
         </td>
     </tr> --%>   
+</table>
+<table id="tblExport" runat="server" style="width: 100%;">
+    <tr>
+        <td class="style12">
+            
+            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
+                TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
+                Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
+                PopupDragHandleControlID="Panel1" X="280" Y="35">
+            </cc1:ModalPopupExtender>
+            <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/Images/Export_Word.jpg" runat="server"
+                AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click" OnClientClick="setFormat('word')" />
+            <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/Images/Export_Pdf.gif" runat="server"
+                AlternateText="PDF" OnClientClick="setFormat('pdf')" ToolTip="Export To PDF"
+                OnClick="imgBtnPdf_Click" />
+            <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/Images/Print.gif" runat="server" AlternateText="Print"
+                OnClientClick="setFormat('print')" ToolTip="Print" OnClick="imgBtnPrint_Click" />
+            <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
+                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />--%>
+        </td>
+    </tr>
+    <tr id="Tr1" runat="server">
+        <td>
+        <asp:Panel ID="Panel1" runat="server" Width="208px" Height="112px" BackColor="Wheat"
+                BorderColor="AliceBlue" Font-Bold="true" ForeColor="Black">
+                <br />
+                &nbsp;&nbsp;
+                <input id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" type="radio" />
+                <label for="rbtnSin" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
+                    font-weight: 500">Current Page</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <br />
+                &nbsp;&nbsp;
+                <input id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')"
+                    type="radio" />
+                <label for="Radio1" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
+                    font-weight: 500">All Pages</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                <br />
+                <div align="center">
+                    <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                </div>
+            </asp:Panel>
+
+            <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
+                OnClick="btnExportExcel_Click" Height="31px" Width="35px" />
+        </td>
+    </tr>
 </table>
 <asp:Button ID="btnCustomerSearch" runat="server" Text="" OnClick="btnCustomerSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
