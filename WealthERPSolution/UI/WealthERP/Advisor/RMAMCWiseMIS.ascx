@@ -26,14 +26,31 @@
         }
     }
 </script>
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+        <td align="left">MF MIS</td>
+        <td  align="right" style="padding-bottom:2px;">
+        <asp:ImageButton ID="imgBtnExport" ImageUrl="../Images/Export_Excel.png"  Visible="false"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
+    </td>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
+</table>
 
 <table style="width: 100%;">
-    <tr>
+<%--    <tr>
         <td class="HeaderTextBig" colspan="3">
             <asp:Label ID="lblMfMIS" runat="server" CssClass="HeaderTextBig" Text="MF MIS"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     
     <tr>
     <td>
@@ -121,8 +138,7 @@
     </tr>
     <tr>
         <td>
-            <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
+            
             <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/App_Themes/Maroon/Images/Export_Word.jpg"
                 runat="server" AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click"
                 OnClientClick="setFormat('word')" />

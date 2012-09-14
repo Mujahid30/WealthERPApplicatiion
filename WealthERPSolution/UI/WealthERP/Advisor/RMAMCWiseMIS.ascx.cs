@@ -287,6 +287,7 @@ namespace WealthERP.Advisor
                 trMessage.Visible = true;
                 gvMFMIS.DataSource = dsMISReport;
                 gvMFMIS.DataBind();
+                imgBtnExport.Visible = false;
             }
             else
             {
@@ -355,6 +356,7 @@ namespace WealthERP.Advisor
 
                 gvMFMIS.DataSource = dtMISReport;
                 gvMFMIS.DataBind();
+                imgBtnExport.Visible = true;
 
                 if (GridViewCultureFlag == true)
                 {
