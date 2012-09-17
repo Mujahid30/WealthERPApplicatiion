@@ -187,6 +187,40 @@ namespace DaoCustomerProfiling
             return customerId;
         }
 
+        public DataSet GetSchemeDetails(int schemePlanCode)
+        {
+            CustomerVo customerVo = null;
+            Database db;
+            DbCommand getschemePlanCodeCmd;
+            DataSet getschemePlanCodeDs;
+            DataRow dr;
+            try
+            {
+                customerVo = new CustomerVo();
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getschemePlanCodeCmd = db.GetStoredProcCommand("SP_GetSchemePlanDetails");
+                db.AddInParameter(getschemePlanCodeCmd, "@schemePlanCode", DbType.String, schemePlanCode.ToString());
+                getschemePlanCodeDs = db.ExecuteDataSet(getschemePlanCodeCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetSchemeDetails()");
+                object[] objects = new object[1];
+                objects[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getschemePlanCodeDs;
+        }
+
         /// <summary>
         /// It gets completes Customer Details and Assigned it to CustomerVo
         /// </summary>
@@ -244,7 +278,7 @@ namespace DaoCustomerProfiling
                     {
                         customerVo.IsActive = 0;
                     }
-                    if (dr["C_AlertViaSMS"] == null || dr["C_AlertViaSMS"].ToString() =="")
+                    if (dr["C_AlertViaSMS"] == null || dr["C_AlertViaSMS"].ToString() == "")
                     {
 
                         customerVo.ViaSMS = 0;
@@ -1290,6 +1324,105 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
+
+
+        public DataSet GetAMCExternalType()
+        {
+            Database db;
+            DbCommand cmdGetCustomerNames;
+            DataSet dsAMCExternalType; 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetAMCExternalType");
+                dsAMCExternalType = db.ExecuteDataSet(cmdGetCustomerNames); 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetParentCustomerName()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAMCExternalType;
+        }
+
+        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExtCode, string strExtName)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand editProductAMCSchemeMappingCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                editProductAMCSchemeMappingCmd = db.GetStoredProcCommand("SP_EditProductAMCSchemeMapping");
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@schemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCode", DbType.String, strExtCode);
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalType", DbType.String, strExtName);
+                if (db.ExecuteNonQuery(editProductAMCSchemeMappingCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:DeleteMappedSchemeDetails()");
+                object[] objects = new object[2];
+                objects[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        public bool DeleteMappedSchemeDetails(int schemePlanCode, string strExtCode, string strExtName)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteMappedSchemeDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteMappedSchemeDetailsCmd = db.GetStoredProcCommand("SP_DeleteProductAMCSchemeMappingDetails");
+                db.AddInParameter(deleteMappedSchemeDetailsCmd, "@schemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(deleteMappedSchemeDetailsCmd, "@externalCode", DbType.String, strExtCode);
+                db.AddInParameter(deleteMappedSchemeDetailsCmd, "@externalType", DbType.String, strExtName);
+                if (db.ExecuteNonQuery(deleteMappedSchemeDetailsCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:DeleteMappedSchemeDetails()");
+                object[] objects = new object[2];
+                objects[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
         public int CustomerAssociation(string Flag, int CustomerId)
         {
             int associationcount = 0;
@@ -1511,7 +1644,7 @@ namespace DaoCustomerProfiling
                 db.AddOutParameter(createCustomerCmd, "@C_CustomerId", DbType.Int32, 10);
                 db.AddOutParameter(createCustomerCmd, "@U_UserId", DbType.Int32, 10);
                 db.AddOutParameter(createCustomerCmd, "@CP_PortfolioId", DbType.Int32, 10);
-                db.AddInParameter(createCustomerCmd,  "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
+                db.AddInParameter(createCustomerCmd, "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
                 db.AddInParameter(createCustomerCmd, "@C_AlertViaSMS", DbType.Int16, customerVo.ViaSMS);
                 if (db.ExecuteNonQuery(createCustomerCmd) != 0)
                 {
@@ -3003,6 +3136,31 @@ namespace DaoCustomerProfiling
             }
             return dtBindDropDownassumption;
         }
+
+
+
+        public bool InsertProductAMCSchemeMappingDetalis(int schemePlanCode, string externalCode, string externalType)
+        {
+            bool isInserted = false;
+            Database db;
+            DbCommand cmdInsertProductAMCSchemeMappingDetalis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertProductAMCSchemeMappingDetalis = db.GetStoredProcCommand("SP_InsertIntoProductSchemePlanMapping");
+                db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@schemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@externalCode", DbType.String, externalCode);
+                db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@externalType", DbType.String, externalType);
+                db.ExecuteNonQuery(cmdInsertProductAMCSchemeMappingDetalis);
+                isInserted = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isInserted;
+        }
+
         public void InsertCustomerStaticDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType)
         {
 
@@ -3090,7 +3248,7 @@ namespace DaoCustomerProfiling
             return expiryAge;
         }
 
-        public DataSet GetAllCustomersAssumptions(int customerId,int adviserid)
+        public DataSet GetAllCustomersAssumptions(int customerId, int adviserid)
         {
 
             Database db;
@@ -3274,24 +3432,24 @@ namespace DaoCustomerProfiling
             DbCommand ChckBussinessDatecmd;
             bool isCorrect;
             try
-           {
-              
-               db = DatabaseFactory.CreateDatabase("wealtherp");
-               ChckBussinessDatecmd = db.GetStoredProcCommand("SP_ChckBussinessDate");
-               db.AddInParameter(ChckBussinessDatecmd, "@bussdate", DbType.DateTime, chckdate);
-               dsBussinessDate = db.ExecuteDataSet(ChckBussinessDatecmd);
-               if (dsBussinessDate.Tables != null && dsBussinessDate.Tables.Count > 0 && dsBussinessDate.Tables[0].Rows.Count > 0)
-                   isCorrect = true;
-               else
-                   isCorrect = false;
-           }
-           catch (BaseApplicationException Ex)
-           {
-               throw Ex;
-           }
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                ChckBussinessDatecmd = db.GetStoredProcCommand("SP_ChckBussinessDate");
+                db.AddInParameter(ChckBussinessDatecmd, "@bussdate", DbType.DateTime, chckdate);
+                dsBussinessDate = db.ExecuteDataSet(ChckBussinessDatecmd);
+                if (dsBussinessDate.Tables != null && dsBussinessDate.Tables.Count > 0 && dsBussinessDate.Tables[0].Rows.Count > 0)
+                    isCorrect = true;
+                else
+                    isCorrect = false;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
             return isCorrect;
-       }
-        
+        }
+
         public void CustomerFPReportsAssumption(int customerId, decimal assumptionInflation, decimal assumptionInvestment, decimal assumptionDr)
         {
             Database db;
@@ -3499,7 +3657,7 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
-        public void CheckSpouseRelationship(int customerId,out bool spouseRelationExist,out bool spouseDobExist, out bool spouseAssumptionExist)
+        public void CheckSpouseRelationship(int customerId, out bool spouseRelationExist, out bool spouseDobExist, out bool spouseAssumptionExist)
         {
             bool result = false;
             Database db;
@@ -3550,7 +3708,7 @@ namespace DaoCustomerProfiling
                 }
                 else
                     spouseAssumptionExist = false;
-                   
+
             }
 
             catch (BaseApplicationException Ex)
@@ -3569,8 +3727,8 @@ namespace DaoCustomerProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-           
-         
+
+
         }
 
         /// <summary>
@@ -3582,7 +3740,7 @@ namespace DaoCustomerProfiling
         /// <param name="all"></param>
         /// <returns></returns>
         /// 
-        public DataTable GetRMBranchIndividualCustomerNames(string contextKey,string prefixText)
+        public DataTable GetRMBranchIndividualCustomerNames(string contextKey, string prefixText)
         {
 
             Database db;
@@ -3591,7 +3749,7 @@ namespace DaoCustomerProfiling
             DataTable dtCustomerNames;
             string branchId = string.Empty;
             string rmId = string.Empty;
-            
+
 
             string[] IDinKeys = contextKey.Split('~');
             foreach (string IDs in IDinKeys)
@@ -3610,11 +3768,11 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //To retreive data from the table 
                 cmdGetAllBMRMParentCustomerNames = db.GetStoredProcCommand("SP_GetBranchAndRMIndividualCustomers");
-                
+
                 db.AddInParameter(cmdGetAllBMRMParentCustomerNames, "@AB_BranchId", DbType.Int32, int.Parse(branchId));
                 db.AddInParameter(cmdGetAllBMRMParentCustomerNames, "@AR_RMId", DbType.Int32, int.Parse(rmId));
                 db.AddInParameter(cmdGetAllBMRMParentCustomerNames, "@prefixText", DbType.String, prefixText);
-                
+
                 dsCustomerNames = db.ExecuteDataSet(cmdGetAllBMRMParentCustomerNames);
                 dtCustomerNames = dsCustomerNames.Tables[0];
 
@@ -3707,7 +3865,7 @@ namespace DaoCustomerProfiling
             DbCommand cmdGetAllBMRMParentCustomerNames;
             DataSet dsCustomerNames;
             DataTable dtCustomerNames;
-            
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -4006,7 +4164,7 @@ namespace DaoCustomerProfiling
                 if (db.ExecuteNonQuery(cmdInsertPlanPreferences) != 0)
                     bStatus = true;
 
-                if(createOrUpdate == "Submit")
+                if (createOrUpdate == "Submit")
                     ProofUploadId = Convert.ToInt32(db.GetParameterValue(cmdInsertPlanPreferences, "@CPU_ProofUploadId").ToString());
             }
             catch (BaseApplicationException Ex)
