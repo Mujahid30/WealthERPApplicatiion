@@ -741,8 +741,12 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateEQTransactionCmd, "CET_EqTransId", DbType.Int32, eqTransactionVo.TransactionId);
                 db.AddInParameter(updateEQTransactionCmd, "@CETA_AccountId", DbType.Int32, eqTransactionVo.AccountId);
                 db.AddInParameter(updateEQTransactionCmd, "@PEM_ScripCode", DbType.String, eqTransactionVo.ScripCode);
-                db.AddInParameter(updateEQTransactionCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeAccountNum);
-                db.AddInParameter(updateEQTransactionCmd, "@CET_OrderNum", DbType.Int64, eqTransactionVo.OrderNum);
+                if (eqTransactionVo.TradeAccountNum!="")
+                    db.AddInParameter(updateEQTransactionCmd, "@CET_TradeNum", DbType.Decimal, eqTransactionVo.TradeAccountNum);
+                else
+                    db.AddInParameter(updateEQTransactionCmd, "@CET_TradeNum",DbType.Int64,DBNull.Value);
+
+                db.AddInParameter(updateEQTransactionCmd, "@CET_OrderNum", DbType.Decimal, eqTransactionVo.OrderNum);
                 db.AddInParameter(updateEQTransactionCmd, "@CET_BuySell", DbType.String, eqTransactionVo.BuySell);
                 db.AddInParameter(updateEQTransactionCmd, "@CET_IsSpeculative", DbType.Int16, eqTransactionVo.IsSpeculative);
                 db.AddInParameter(updateEQTransactionCmd, "@XE_ExchangeCode", DbType.String, eqTransactionVo.Exchange);
