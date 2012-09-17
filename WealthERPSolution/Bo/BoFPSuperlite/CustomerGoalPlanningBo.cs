@@ -16,12 +16,12 @@ namespace BoFPSuperlite
     public class CustomerGoalPlanningBo
     {
 
-        public CustomerAssumptionVo GetCustomerAssumptions(int CustomerID,int adviserId ,out bool isHavingAssumption)
+        public CustomerAssumptionVo GetCustomerAssumptions(int CustomerID, int adviserId, out bool isHavingAssumption)
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
             CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
 
-            customerAssumptionVo = customerGoalPlanningDao.GetCustomerAssumptions(CustomerID,adviserId, out isHavingAssumption);
+            customerAssumptionVo = customerGoalPlanningDao.GetCustomerAssumptions(CustomerID, adviserId, out isHavingAssumption);
 
             return customerAssumptionVo;
 
@@ -91,28 +91,28 @@ namespace BoFPSuperlite
 
         public CustomerGoalPlanningVo CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo, CustomerAssumptionVo customerAssumptionVo, int UserId, bool updateGoal, out int goalId)
         {
-            
+
             try
             {
                 CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
-               //customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(UserId, goalPlanningVo.GoalYear, out isHavingAssumption);
+                //customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(UserId, goalPlanningVo.GoalYear, out isHavingAssumption);
                 goalId = 0;
 
-                    if (goalPlanningVo.Goalcode != "RT")
-                        goalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
-                    else if (goalPlanningVo.Goalcode == "RT")
-                        goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
+                if (goalPlanningVo.Goalcode != "RT")
+                    goalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
+                else if (goalPlanningVo.Goalcode == "RT")
+                    goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
 
-                    if (updateGoal)
-                    {
-                        customerGoalPlanningDao.UpdateCustomerGoalProfile(goalPlanningVo);
-                        goalId = goalPlanningVo.GoalId;
-                    }
-                    else
-                        customerGoalPlanningDao.CreateCustomerGoalPlanning(goalPlanningVo, out goalId);
+                if (updateGoal)
+                {
+                    customerGoalPlanningDao.UpdateCustomerGoalProfile(goalPlanningVo);
+                    goalId = goalPlanningVo.GoalId;
+                }
+                else
+                    customerGoalPlanningDao.CreateCustomerGoalPlanning(goalPlanningVo, out goalId);
 
-                    return goalPlanningVo;
-               
+                return goalPlanningVo;
+
 
             }
             catch (BaseApplicationException Ex)
@@ -133,7 +133,7 @@ namespace BoFPSuperlite
                 throw exBase;
 
             }
-            
+
 
         }
 
@@ -152,7 +152,7 @@ namespace BoFPSuperlite
             double inflationValues = 0;
             string goal = string.Empty;
             //double InflationPercent = 8;
-            
+
             try
             {
                 costToday = goalPlanningVo.CostOfGoalToday;
@@ -163,7 +163,7 @@ namespace BoFPSuperlite
                 rateOfReturn = goalPlanningVo.ExpectedROI / 100;
                 inflationValues = (Double)goalPlanningVo.InflationPercent / 100;
 
-                
+
                 futureCost = Math.Abs(FutureValue(inflationValues, requiredAfter, 0, costToday, 1));
                 if (currentValue == 0 && rateEarned == 0)
                 {
@@ -176,9 +176,9 @@ namespace BoFPSuperlite
                 lumpsumInvestment = PV(goalPlanningVo.ExpectedROI / 100, requiredAfter, 0, -futureCost, 1);
 
                 requiredSavings = Math.Abs(PMT((rateOfReturn / 12), (requiredAfter * 12), 0, (futureCost - futureInvValue), 1));
-                goalPlanningVo.MonthlySavingsReq =Math.Round(requiredSavings,2);
-                goalPlanningVo.FutureValueOfCostToday =Math.Round((Double)futureCost,2);
-                goalPlanningVo.LumpsumInvestRequired = Math.Round(lumpsumInvestment, 2); 
+                goalPlanningVo.MonthlySavingsReq = Math.Round(requiredSavings, 2);
+                goalPlanningVo.FutureValueOfCostToday = Math.Round((Double)futureCost, 2);
+                goalPlanningVo.LumpsumInvestRequired = Math.Round(lumpsumInvestment, 2);
                 return goalPlanningVo;
             }
             catch (BaseApplicationException Ex)
@@ -212,7 +212,7 @@ namespace BoFPSuperlite
             double corpusReqAtTimeOfRetirement;
             double amountToBeSavedPerMonth;
             double futureValueOfCurrentInvestment;
-            
+
             try
             {
                 if (goalPlanningVo.CurrInvestementForGoal == 0 && goalPlanningVo.ROIEarned == 0)
@@ -223,8 +223,8 @@ namespace BoFPSuperlite
                 else
                     futureValueOfCurrentInvestment = Math.Abs(FutureValue(goalPlanningVo.ROIEarned / 100, yearsLeftForRetirement, 0, goalPlanningVo.CurrInvestementForGoal, 1));
 
-                amountAfterFirstMonthRetirement = FutureValue(customerAssumptionVo.InflationPercent / 100, yearsLeftForRetirement, 0, -(goalPlanningVo.CostOfGoalToday*12), 1);
-                if (customerAssumptionVo.SpouseAge != 0 && customerAssumptionVo.SpouseEOL!=0)
+                amountAfterFirstMonthRetirement = FutureValue(customerAssumptionVo.InflationPercent / 100, yearsLeftForRetirement, 0, -(goalPlanningVo.CostOfGoalToday * 12), 1);
+                if (customerAssumptionVo.SpouseAge != 0 && customerAssumptionVo.SpouseEOL != 0)
                     spouseLifeAfterCustomerRet = customerAssumptionVo.SpouseEOL - customerAssumptionVo.RetirementAge + (customerAssumptionVo.CustomerAge - customerAssumptionVo.SpouseAge);
                 else
                     spouseLifeAfterCustomerRet = customerAssumptionVo.CustomerEOL - customerAssumptionVo.RetirementAge;
@@ -240,7 +240,7 @@ namespace BoFPSuperlite
                 }
                 else
                 {
-                    if (spouseLifeAfterCustomerRet>0)
+                    if (spouseLifeAfterCustomerRet > 0)
                         corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, spouseLifeAfterCustomerRet * 12, -amountAfterFirstMonthRetirement, -goalPlanningVo.CorpusLeftBehind, 1);
                     else
                         corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, -(spouseLifeAfterCustomerRet * 12), -amountAfterFirstMonthRetirement, -goalPlanningVo.CorpusLeftBehind, 1);
@@ -252,7 +252,7 @@ namespace BoFPSuperlite
 
                 goalPlanningVo.LumpsumInvestRequired = lumpsumInvestment;
                 goalPlanningVo.FutureValueOfCostToday = Math.Round(corpusReqAtTimeOfRetirement);
-                goalPlanningVo.MonthlySavingsReq = Math.Round(amountToBeSavedPerMonth,2);
+                goalPlanningVo.MonthlySavingsReq = Math.Round(amountToBeSavedPerMonth, 2);
                 //goalPlanningVo.CorpusLeftBehind = customerAssumptionVo.CorpusToBeLeftBehind;
                 goalPlanningVo.GoalYear = goalPlanningVo.GoalYear;
                 goalPlanningVo.InflationPercent = customerAssumptionVo.InflationPercent;
@@ -286,7 +286,7 @@ namespace BoFPSuperlite
 
         }
 
-        
+
         /// <summary>/// Calculates the present value of a loan based upon constant payments and a constant interest rate.
         /// </summary>
         /// <param name="rate">The interest rate.</param>
@@ -309,7 +309,7 @@ namespace BoFPSuperlite
             result = Financial.FV(rate, nper, pmt, pv, DueDate.BegOfPeriod);
             return result;
         }
-        public double NPER(double rate,double pmt, double pv,double fv, int type)
+        public double NPER(double rate, double pmt, double pv, double fv, int type)
         {
             double result = 0;
             result = Financial.NPer(rate, pmt, pv, fv, DueDate.BegOfPeriod);
@@ -400,7 +400,7 @@ namespace BoFPSuperlite
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
             CustomerGoalPlanningVo goalPlanningVo = new CustomerGoalPlanningVo();
-            
+
             try
             {
                 goalPlanningVo = customerGoalPlanningDao.GetGoalDetails(goalId);
@@ -433,11 +433,11 @@ namespace BoFPSuperlite
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
             DataTable dtFPCalculationBasis;
-            
+
             try
             {
                 dtFPCalculationBasis = customerGoalPlanningDao.GetCustomerFPCalculationBasis(customerId);
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -494,7 +494,7 @@ namespace BoFPSuperlite
                 objects[5] = isloanFunded;
                 objects[6] = loanAmount;
                 objects[7] = loanStartDate;
-               
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -518,7 +518,7 @@ namespace BoFPSuperlite
             }
         }
 
-        public DataSet GetExistingInvestmentDetails(int customerId,int goalId)
+        public DataSet GetExistingInvestmentDetails(int customerId, int goalId)
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
             DataSet dsExistingInvestment = new DataSet();
@@ -554,7 +554,7 @@ namespace BoFPSuperlite
         public void UpdateGoalAllocationPercentage(decimal allocationPercentage, int schemeId, int goalId, decimal investedAmount)
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
-           
+
             try
             {
                 customerGoalPlanningDao.UpdateGoalAllocationPercentage(allocationPercentage, schemeId, goalId, investedAmount);
@@ -564,14 +564,14 @@ namespace BoFPSuperlite
             {
                 throw Ex;
             }
-           
+
         }
 
 
         public void UpdateSIPGoalAllocationAmount(decimal allocationAmount, int sipId, int goalId)
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
-           
+
             try
             {
                 customerGoalPlanningDao.UpdateSIPGoalAllocationAmount(allocationAmount, sipId, goalId);
@@ -581,7 +581,7 @@ namespace BoFPSuperlite
             {
                 throw Ex;
             }
-           
+
         }
         public DataSet BindDDLSchemeAllocated(int customerId, int goalId)
         {
@@ -648,7 +648,7 @@ namespace BoFPSuperlite
             }
         }
 
-        public CustomerGoalFundingProgressVo GetGoalFundingProgressDetails(int goalId, int customerId, int advisorId, out DataSet dsGoalFundingDetails,out DataSet dsExistingInvestment,out DataSet dsSIPInvestment, out CustomerGoalPlanningVo goalPlanningVo)
+        public CustomerGoalFundingProgressVo GetGoalFundingProgressDetails(int goalId, int customerId, int advisorId, out DataSet dsGoalFundingDetails, out DataSet dsExistingInvestment, out DataSet dsSIPInvestment, out CustomerGoalPlanningVo goalPlanningVo, out DataSet dsEquityExistingInvestment)
         {
 
             CustomerGoalFundingProgressVo customerGoalFundingProgressVo = new CustomerGoalFundingProgressVo();
@@ -658,6 +658,7 @@ namespace BoFPSuperlite
             DataTable dtSIPFundingDetails = new DataTable();
             double totalInvestedSIPamount = 0;
             DataTable dtExistingInvestment = new DataTable();
+            DataTable dtEQFundingDetails = new DataTable();
 
             //DataSet dsExistingInvestment = new DataSet();
             //DataSet dsSIPInvestment = new DataSet();
@@ -668,12 +669,19 @@ namespace BoFPSuperlite
             double totalMFProjectedAmount = 0;
             double totalMFSIPProjectedAmount = 0;
             double totalXIRR = 0;
+            double totalequityFunding = 0;
 
-            dtMFFundingDetails = GetGoalMFFundingDetails(goalId, customerId, advisorId, out dtExistingInvestment,out dsExistingInvestment, out customerAssumptionVo, out goalPlanningVo);
-            dtSIPFundingDetails = GetGoalSIPFunding(goalId, customerId, out totalInvestedSIPamount,out dsSIPInvestment, ref customerAssumptionVo);
-
+            dtMFFundingDetails = GetGoalMFFundingDetails(goalId, customerId, advisorId, out dtExistingInvestment, out dsExistingInvestment, out customerAssumptionVo, out goalPlanningVo);
+            dtSIPFundingDetails = GetGoalSIPFunding(goalId, customerId, out totalInvestedSIPamount, out dsSIPInvestment, ref customerAssumptionVo);
+            dtEQFundingDetails = GetGoalEquityFunding(goalId, customerId, out dsEquityExistingInvestment, ref customerAssumptionVo, goalPlanningVo.GoalYear);
             customerGoalFundingProgressVo.WeightedReturn = (double)CalculateweightedReturn(dtMFFundingDetails, dtExistingInvestment, customerAssumptionVo);
 
+
+            foreach (DataRow dr in dtEQFundingDetails.Rows)
+            {
+                if (dr["EquityProjectedAmount"].ToString() != "")
+                    totalequityFunding = totalequityFunding + double.Parse(dr["EquityProjectedAmount"].ToString());
+            }
 
             foreach (DataRow dr in dtMFFundingDetails.Rows)
             {
@@ -705,7 +713,7 @@ namespace BoFPSuperlite
                 if (dr["SIPProjectedAmount"].ToString() != "")
                     totalMFSIPProjectedAmount = totalMFSIPProjectedAmount + double.Parse(dr["SIPProjectedAmount"].ToString());
             }
-            totalMFProjectedAmount = totalMFSIPProjectedAmount + totalMFProjectedAmount;
+            totalMFProjectedAmount = totalMFSIPProjectedAmount + totalMFProjectedAmount + totalequityFunding;
 
             customerGoalFundingProgressVo.GoalCurrentValue = totalMFCurrentValue;
             customerGoalFundingProgressVo.MonthlyContribution = totalMFSIPFunding;
@@ -720,14 +728,14 @@ namespace BoFPSuperlite
             if (customerGoalFundingProgressVo.WeightedReturn != 0)
                 returns = double.Parse((customerGoalFundingProgressVo.WeightedReturn / 100).ToString());
             if (totalMFProjectedAmount != 0 && goalPlanningVo.ExpectedROI != 0)
-                remainingTime = NPER(goalPlanningVo.ExpectedROI /100, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
+                remainingTime = NPER(goalPlanningVo.ExpectedROI / 100, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
 
             int year = 0;
             double month = 0;
             year = (int)remainingTime;
             month = remainingTime - year;
             month = Math.Round((month * 12), 0);
-            customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal = year + " " + "Years" +" "+ "/"+" " + month + " " + "Months";
+            customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal = year + " " + "Years" + " " + "/" + " " + month + " " + "Months";
             if ((goalPlanningVo.GoalYear - DateTime.Now.Year) != 0 && goalPlanningVo.ExpectedROI != 0)
             {
                 double addInvestmentReq = PMT(goalPlanningVo.ExpectedROI / 100, (goalPlanningVo.GoalYear - DateTime.Now.Year), 0, (totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday), 1);
@@ -735,7 +743,7 @@ namespace BoFPSuperlite
                 customerGoalFundingProgressVo.AdditionalYearlyRequirement = addInvestmentReq;
                 customerGoalFundingProgressVo.AdditionalMonthlyRequirement = addMonthlyInvestmentReq;
             }
-                customerGoalFundingProgressVo.ProjectedGapValue = totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday;
+            customerGoalFundingProgressVo.ProjectedGapValue = totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday;
             customerGoalFundingProgressVo.ReturnsXIRR = Convert.ToDecimal(totalXIRR);
             customerGoalFundingProgressVo.ProjectedEndYear = Math.Round(remainingTime + goalPlanningVo.GoalYear);
 
@@ -745,11 +753,12 @@ namespace BoFPSuperlite
             dsGoalFundingDetails = new DataSet();
             dsGoalFundingDetails.Tables.Add(dtMFFundingDetails);
             dsGoalFundingDetails.Tables.Add(dtSIPFundingDetails);
+            dsGoalFundingDetails.Tables.Add(dtEQFundingDetails);
             return customerGoalFundingProgressVo;
 
         }
 
-        public DataTable GetGoalMFFundingDetails(int goalId, int customerId, int advisorId, out DataTable dtExistingInvestment,out DataSet dsExistingInvestment, out CustomerAssumptionVo customerAssumptionVo, out CustomerGoalPlanningVo goalPlanningVo)
+        public DataTable GetGoalMFFundingDetails(int goalId, int customerId, int advisorId, out DataTable dtExistingInvestment, out DataSet dsExistingInvestment, out CustomerAssumptionVo customerAssumptionVo, out CustomerGoalPlanningVo goalPlanningVo)
         {
 
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
@@ -780,7 +789,7 @@ namespace BoFPSuperlite
 
 
             dsExistingInvestment = customerGoalPlanningDao.GetExistingInvestmentDetails(customerId, goalId);
-           //********************************8
+            //********************************8
             dtExistingInvestment = dsExistingInvestment.Tables[5];
 
             DataRow[] drExistingInvestmentGoalId = new DataRow[10];
@@ -810,7 +819,7 @@ namespace BoFPSuperlite
             {
                 schemePlanCode = int.Parse(drGoalExistingInvestments["PASP_SchemePlanCode"].ToString());
                 drExistingInvestmentCurrentAllocation = dsExistingInvestment.Tables[3].Select("PASP_SchemePlanCode=" + schemePlanCode.ToString());
-               
+
                 if (drExistingInvestmentCurrentAllocation.Count() > 0)
                 {
                     foreach (DataRow dr in drExistingInvestmentCurrentAllocation)
@@ -821,8 +830,8 @@ namespace BoFPSuperlite
 
                 else
                     currentAllocation = 0;
-                if(int.Parse(drGoalExistingInvestments["PASP_SchemePlanCode"].ToString()) == schemePlanCode)
-                totalInvestedAmount = totalInvestedAmount+(decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100;
+                if (int.Parse(drGoalExistingInvestments["PASP_SchemePlanCode"].ToString()) == schemePlanCode)
+                    totalInvestedAmount = totalInvestedAmount + (decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100;
             }
 
             foreach (DataRow drGoalExistingInvestments in dsExistingInvestment.Tables[0].Rows)
@@ -863,14 +872,14 @@ namespace BoFPSuperlite
                     {
                         assumptionValue = ((equityAllocation / debtAllocation) * customerAssumptionVo.ReturnOnEquity + (1 - (equityAllocation / debtAllocation)) * customerAssumptionVo.ReturnOnDebt) / 100;
                     }
-                    else if(debtAllocation == 0)
+                    else if (debtAllocation == 0)
                     {
                         assumptionValue = customerAssumptionVo.ReturnOnEquity / 100;
                     }
                     else if (equityAllocation == 0)
                     {
                         assumptionValue = customerAssumptionVo.ReturnOnDebt / 100;
-                    }                   
+                    }
 
                 }
 
@@ -909,7 +918,7 @@ namespace BoFPSuperlite
                             {
                                 XIRR = 0;
                             }
-                                drCustomerGoalFundingDetails["InvestedAmount"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                            drCustomerGoalFundingDetails["InvestedAmount"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             //drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString();
                             drCustomerGoalFundingDetails["Units"] = String.Format("{0:n2}", Math.Round(Decimal.Parse(drGoalExistingInvestments["CMFNP_NetHoldings"].ToString()), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drCustomerGoalFundingDetails["CurrentValue"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
@@ -934,7 +943,7 @@ namespace BoFPSuperlite
                                 futureCost = 0;
                             }
                             drCustomerGoalFundingDetails["OtherGoalAllocation"] = (decimal.Parse(drSchemeId["allocatedPercentage"].ToString()) - currentAllocation).ToString();
-                            drCustomerGoalFundingDetails["AvailableAmount"] = String.Format("{0:n2}", Math.Round(((decimal.Parse(drCustomerGoalFundingDetails["AvailableAllocation"].ToString())/100) * decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                            drCustomerGoalFundingDetails["AvailableAmount"] = String.Format("{0:n2}", Math.Round(((decimal.Parse(drCustomerGoalFundingDetails["AvailableAllocation"].ToString()) / 100) * decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drCustomerGoalFundingDetails["ProjectedAmount"] = String.Format("{0:n2}", Math.Round(futureCost, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drCustomerGoalFundingDetails["Category"] = drGoalExistingInvestments["PAIC_AssetInstrumentCategoryCode"].ToString();
                             dtCustomerGoalFundingDetails.Rows.Add(drCustomerGoalFundingDetails);
@@ -984,7 +993,7 @@ namespace BoFPSuperlite
                     {
                         futureCost = 0;
                     }
-                    drCustomerGoalFundingDetails["AvailableAmount"] = String.Format("{0:n2}", Math.Round(((decimal.Parse(drCustomerGoalFundingDetails["AvailableAllocation"].ToString())/100) * decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drCustomerGoalFundingDetails["AvailableAmount"] = String.Format("{0:n2}", Math.Round(((decimal.Parse(drCustomerGoalFundingDetails["AvailableAllocation"].ToString()) / 100) * decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drCustomerGoalFundingDetails["ProjectedAmount"] = String.Format("{0:n2}", Math.Round(futureCost, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drCustomerGoalFundingDetails["Category"] = drGoalExistingInvestments["PAIC_AssetInstrumentCategoryCode"].ToString();
                     dtCustomerGoalFundingDetails.Rows.Add(drCustomerGoalFundingDetails);
@@ -992,9 +1001,9 @@ namespace BoFPSuperlite
                 }
 
             }
-            
+
             return dtCustomerGoalFundingDetails;
-           
+
         }
 
 
@@ -1007,7 +1016,7 @@ namespace BoFPSuperlite
             dtCustomerGoalFundingSIPDetails.Columns.Add("GoalId");
             dtCustomerGoalFundingSIPDetails.Columns.Add("SIPId");
             dtCustomerGoalFundingSIPDetails.Columns.Add("SchemeCode");
-            dtCustomerGoalFundingSIPDetails.Columns.Add("SchemeName"); 
+            dtCustomerGoalFundingSIPDetails.Columns.Add("SchemeName");
             dtCustomerGoalFundingSIPDetails.Columns.Add("MemberName");
             dtCustomerGoalFundingSIPDetails.Columns.Add("SIPInvestedAmount");
             dtCustomerGoalFundingSIPDetails.Columns.Add("TotalSIPamount");
@@ -1027,7 +1036,7 @@ namespace BoFPSuperlite
             double assumptionValue = 0;
             int schemePlanCode = 0;
 
-            dsSIPInvestment =GetSIPInvestmentDetails(customerId, goalId);
+            dsSIPInvestment = GetSIPInvestmentDetails(customerId, goalId);
 
 
 
@@ -1146,13 +1155,13 @@ namespace BoFPSuperlite
                 drCustomerSIPGoalFundingDetails["AvailableAllocation"] = double.Parse(dr["CMFSS_Amount"].ToString()) - totalInvestedSIPamount != 0 ? String.Format("{0:n2}", Math.Round((double.Parse(dr["CMFSS_Amount"].ToString()) - totalInvestedSIPamount), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0"; ;
                 drCustomerSIPGoalFundingDetails["TotalSIPamount"] = double.Parse(dr["CMFSS_Amount"].ToString()) != 0 ? String.Format("{0:n2}", Math.Round(double.Parse(dr["CMFSS_Amount"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 drCustomerSIPGoalFundingDetails["SIPProjectedAmount"] = projectedAmount != 0 ? String.Format("{0:n2}", Math.Round(projectedAmount, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                    
+
                 dtCustomerGoalFundingSIPDetails.Rows.Add(drCustomerSIPGoalFundingDetails);
             }
-            
+
             return dtCustomerGoalFundingSIPDetails;
-           
-            
+
+
         }
 
         public double CalculateValuebasedOnFrequency(string frequencyCode, double assumptionValue)
@@ -1258,7 +1267,7 @@ namespace BoFPSuperlite
 
             return weightedReturn;
         }
-              
+
 
         public double CalculateYearValuebasedOnFrequency(string frequencyCode, double year)
         {
@@ -1347,7 +1356,7 @@ namespace BoFPSuperlite
                     double effectiveRatePerPeriod = Math.Pow(1 + effectiveRate, 1 / noOfIns) - 1;
 
                     //outstandingLoanAmount = Financial.IPmt(
-                    outstandingLoanAmount = Financial.IPmt(effectiveRatePerPeriod, Math.Round(months,0)+2 , noOfInstallments, -loanAmount, 0, DueDate.EndOfPeriod) / effectiveRatePerPeriod;
+                    outstandingLoanAmount = Financial.IPmt(effectiveRatePerPeriod, Math.Round(months, 0) + 2, noOfInstallments, -loanAmount, 0, DueDate.EndOfPeriod) / effectiveRatePerPeriod;
                 }
             }
             return outstandingLoanAmount;
@@ -1361,6 +1370,157 @@ namespace BoFPSuperlite
             return dsFamilyMembers;
 
         }
+
+        public DataSet BindDDLScripsAllocated(int CustomerID, int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet dsFamilyMembers = new DataSet();
+            dsFamilyMembers = customerGoalPlanningDao.BindDDLScripsAllocated(CustomerID, goalId);
+
+            return dsFamilyMembers;
+        }
+
+        public void UpdateEquityGoalAllocation(decimal allocationAmount, int eqId, int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+
+            try
+            {
+                customerGoalPlanningDao.UpdateEquityGoalAllocation(allocationAmount, eqId, goalId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+        //--------------*******************************Equity DataSet Creation***********************-------------------\\
+
+        public DataTable GetGoalEquityFunding(int goalId, int customerId, out DataSet dsEquityInvestment, ref CustomerAssumptionVo customerAssumptionVo, int goalYear)
+        {
+            //DataSet dsSIPInvestment=new DataSet();
+            DataTable dtCustomerGoalFundingSIPDetails = new DataTable();
+            dtCustomerGoalFundingSIPDetails.Columns.Add("GoalId"); //Done
+            dtCustomerGoalFundingSIPDetails.Columns.Add("CENPS_Id");//Done
+            dtCustomerGoalFundingSIPDetails.Columns.Add("PEM_ScripCode");//Done
+            dtCustomerGoalFundingSIPDetails.Columns.Add("MemberName");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("PEM_CompanyName");//Done
+            dtCustomerGoalFundingSIPDetails.Columns.Add("AvailableShares");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("CurrentValue");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("AllocatedShares");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("TotalHoldingEquityShares");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("OtherEquityGoalAllocation");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("EquityProjectedAmount");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("EquityNetCost");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("TotalSharesAllocation");
+
+            DataRow drCustomerEquityGoalFundingDetails;
+            DataRow[] drtotalEquityShares;
+            DataRow[] drreturnHybridCommodity;
+
+            double totalOtherAllocation = 0;
+            double currentAllocation = 0;
+            double totalEquityAmount = 0;
+            double totalAllocation = 0;
+
+            double TotalHoldingEquityShares = 0;
+            double currentEQValue = 0;
+            dsEquityInvestment = GetEquityFundedDetails(customerId, goalId);
+
+            DataRow[] drOtherInvestmentEquity;
+            DataRow[] drEquityCurrentInvestment;
+            DataRow[] drTotalEquityamount;
+
+            foreach (DataRow dr in dsEquityInvestment.Tables[0].Rows)
+            {
+                int remainingYear = 0;
+                int eqId = int.Parse(dr["CENPS_Id"].ToString());
+                if (DateTime.Now.Year < goalYear)
+                {
+                    remainingYear = goalYear - DateTime.Now.Year;
+                }
+                else
+                    remainingYear = 0;
+
+
+                drtotalEquityShares = dsEquityInvestment.Tables[3].Select("CENPS_Id=" + eqId.ToString());
+                if (drtotalEquityShares.Count() > 0)
+                {
+                    foreach (DataRow drtotalEQShares in drtotalEquityShares)
+                    {
+                        TotalHoldingEquityShares = double.Parse(drtotalEQShares["CENP_NetHoldings"].ToString());
+                        currentEQValue = double.Parse(drtotalEQShares["CENP_CurrentValue"].ToString());
+                    }
+                }
+
+
+                drOtherInvestmentEquity = dsEquityInvestment.Tables[1].Select("CENPS_Id=" + eqId.ToString());
+                drEquityCurrentInvestment = dsEquityInvestment.Tables[2].Select("CENPS_Id=" + eqId.ToString());
+
+                if (drOtherInvestmentEquity.Count() > 0)
+                {
+                    foreach (DataRow dreq in drOtherInvestmentEquity)
+                    {
+                        totalAllocation = double.Parse(dreq["CEESTGA_AllocatedShares"].ToString());
+                    }
+                }
+
+                if (drEquityCurrentInvestment.Count() > 0)
+                {
+                    foreach (DataRow dreq in drEquityCurrentInvestment)
+                    {
+                        currentAllocation = double.Parse(dreq["CEESTGA_AllocatedShares"].ToString());
+                    }
+                }
+
+                double projectedAmount = 0;
+
+                projectedAmount = Math.Abs(FutureValue(customerAssumptionVo.ReturnOnEquity, remainingYear, 0, currentAllocation, 1));
+                drCustomerEquityGoalFundingDetails = dtCustomerGoalFundingSIPDetails.NewRow();
+                drCustomerEquityGoalFundingDetails["GoalId"] = goalId;
+                drCustomerEquityGoalFundingDetails["CENPS_Id"] = dr["CENPS_Id"].ToString();
+                drCustomerEquityGoalFundingDetails["MemberName"] = dr["MemberName"].ToString();
+                drCustomerEquityGoalFundingDetails["PEM_ScripCode"] = dr["PEM_ScripCode"].ToString();
+                drCustomerEquityGoalFundingDetails["CurrentValue"] = currentEQValue.ToString();
+                drCustomerEquityGoalFundingDetails["TotalSharesAllocation"] = totalAllocation.ToString();
+                drCustomerEquityGoalFundingDetails["PEM_CompanyName"] = dr["PEM_CompanyName"].ToString();
+                drCustomerEquityGoalFundingDetails["AvailableShares"] = double.Parse(dr["CENP_NetHoldings"].ToString()) - totalAllocation != 0 ? String.Format("{0:n2}", Math.Round(double.Parse(dr["CENP_NetHoldings"].ToString()) - totalAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                drCustomerEquityGoalFundingDetails["OtherEquityGoalAllocation"] = (totalAllocation - currentAllocation) != 0 ? String.Format("{0:n2}", Math.Round((totalAllocation - currentAllocation), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0"; ; ;
+                drCustomerEquityGoalFundingDetails["AllocatedShares"] = currentAllocation != 0 ? String.Format("{0:n2}", Math.Round(currentAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0"; ;
+                drCustomerEquityGoalFundingDetails["TotalHoldingEquityShares"] = double.Parse(dr["CENP_NetHoldings"].ToString()) != 0 ? String.Format("{0:n2}", Math.Round(double.Parse(dr["CENP_NetHoldings"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                drCustomerEquityGoalFundingDetails["EquityProjectedAmount"] = projectedAmount != 0 ? String.Format("{0:n2}", Math.Round(projectedAmount, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                drCustomerEquityGoalFundingDetails["EquityNetCost"] = currentAllocation != 0 ? String.Format("{0:n2}", Math.Round(currentAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0"; ;
+
+                dtCustomerGoalFundingSIPDetails.Rows.Add(drCustomerEquityGoalFundingDetails);
+            }
+
+            return dtCustomerGoalFundingSIPDetails;
+        }
+        public DataSet GetEquityFundedDetails(int CustomerID, int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet dsEqFundedDetails = new DataSet();
+            dsEqFundedDetails = customerGoalPlanningDao.GetEquityFundedDetails(CustomerID, goalId);
+
+            return dsEqFundedDetails;
+
+        }
+        public void DeleteEqFundedScheme(int eqId, int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+
+            try
+            {
+                customerGoalPlanningDao.DeleteEqFundedScheme(eqId, goalId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
 
     }
 }

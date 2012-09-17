@@ -26,10 +26,11 @@ namespace WealthERP.FP
         CustomerVo customerVo = new CustomerVo();
         DataSet dsExistingInvestment = new DataSet();
         DataSet dsSIPInvestment = new DataSet();
+        DataSet dsEQInvestment = new DataSet();
 
         //DataTable dtCustomerGoalFunding = new DataTable();        
         //DataTable dtCustomerSIPGoalFunding = new DataTable();
-        
+
         DataSet dsModelPortFolioSchemeDetails = new DataSet();
         decimal weightedReturn = 0;
         double totalInvestedSIPamount = 0;
@@ -39,41 +40,41 @@ namespace WealthERP.FP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            SessionBo.CheckSession();           
+            SessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
 
             tblModelPortFolioDropDown.Visible = true;
             tblMessage.Visible = false;
             ErrorMessage.Visible = false;
-           
-         
+
+
             if (Request.QueryString["GoalId"] != null)
             {
-               goalId = int.Parse(Request.QueryString["GoalId"].ToString());
-               Session["GoalId"] = goalId;
+                goalId = int.Parse(Request.QueryString["GoalId"].ToString());
+                Session["GoalId"] = goalId;
             }
             if (Session["GoalId"] != null)
             {
                 goalId = (int)Session["GoalId"];
-            }    
-                 
-            
-           
-                GetGoalFundingProgress();
-                BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
-                BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
-                ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
-                BindddlModelPortfolioGoalSchemes();
-                SetGoalProgressImage(goalPlanningVo.Goalcode);
-                
-            
+            }
+
+
+
+            GetGoalFundingProgress();
+            BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
+            BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+            ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+            BindddlModelPortfolioGoalSchemes();
+            SetGoalProgressImage(goalPlanningVo.Goalcode);
+
+
         }
 
         private void GetGoalFundingProgress()
         {
-            customerGoalFundingProgressVo = customerGoalPlanningBo.GetGoalFundingProgressDetails(goalId, customerVo.CustomerId, advisorVo.advisorId, out dsGoalFundingDetails,out dsExistingInvestment,out dsSIPInvestment, out goalPlanningVo);
-            
+            customerGoalFundingProgressVo = customerGoalPlanningBo.GetGoalFundingProgressDetails(goalId, customerVo.CustomerId, advisorVo.advisorId, out dsGoalFundingDetails, out dsExistingInvestment, out dsSIPInvestment, out goalPlanningVo, out dsEQInvestment);
+
         }
         private void SetGoalProgressImage(string goalCode)
         {
@@ -109,7 +110,7 @@ namespace WealthERP.FP
             if (Convert.ToDouble(txtProjectedGap.Text.Trim()) > 0)
             {
 
-                imgGoalFundIndicator.ImageUrl = "~/Images/GoalUP.png"; 
+                imgGoalFundIndicator.ImageUrl = "~/Images/GoalUP.png";
 
             }
             else if (Convert.ToDouble(txtProjectedGap.Text.Trim()) < 0)
@@ -121,7 +122,7 @@ namespace WealthERP.FP
             else
             {
                 imgGoalFundIndicator.ImageUrl = "~/Images/NotApplicable.png";
- 
+
             }
 
         }
@@ -153,14 +154,14 @@ namespace WealthERP.FP
                 txtProjectedValueOnGoalDate.Text = customerGoalFundingProgressVo.ProjectedValue != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.ProjectedValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtAdditionalInvestmentsRequired.Text = customerGoalFundingProgressVo.AdditionalMonthlyRequirement != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.AdditionalMonthlyRequirement, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtAdditionalInvestments.Text = customerGoalFundingProgressVo.AdditionalYearlyRequirement != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.AdditionalYearlyRequirement, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                
+
             }
 
-            
-        }  
+
+        }
         protected void RadGrid1_ItemUpdated(object source, Telerik.Web.UI.GridUpdatedEventArgs e)
         {
-            
+
         }
         protected void RadGrid2_ItemInserted(object source, GridCommandEventArgs e)
         {
@@ -180,7 +181,7 @@ namespace WealthERP.FP
             DataRow[] drTotalSIPamount;
             drSIPId = dsGoalFundingDetails.Tables[1].Select("SIPId=" + sipId.ToString());
             drSIPCurrentInvestment = dsSIPInvestment.Tables[0].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
-         
+
             drTotalSIPamount = dsSIPInvestment.Tables[2].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
 
             if (drTotalSIPamount.Count() > 0)
@@ -194,7 +195,7 @@ namespace WealthERP.FP
             else
                 totalSIPAmount = 0;
 
- 
+
 
             if (drSIPCurrentInvestment.Count() > 0)
             {
@@ -232,14 +233,14 @@ namespace WealthERP.FP
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill the allocation');", true);
             }
-                
-            
-                
+
+
+
 
         }
         protected void RadGrid1_ItemInserted(object source, GridCommandEventArgs e)
         {
-            decimal totalOtherAllocation=0;
+            decimal totalOtherAllocation = 0;
             decimal currentAllocation = 0;
             GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
             DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickScheme");
@@ -248,8 +249,8 @@ namespace WealthERP.FP
             DataRow[] drExistingInvestmentSchemePlanId;
             DataRow[] drExistingInvestmentCurrentAllocation;
             DataRow[] drSchemePlanId;
-             //expression ="SchemeCode="+schemeplanId.ToString();
-             //dtCustomerGoalFundingDetails.DefaultView.RowFilter = expression;
+            //expression ="SchemeCode="+schemeplanId.ToString();
+            //dtCustomerGoalFundingDetails.DefaultView.RowFilter = expression;
             drSchemePlanId = dsGoalFundingDetails.Tables[0].Select("SchemeCode=" + schemeplanId.ToString());
 
             drExistingInvestmentSchemePlanId = dsExistingInvestment.Tables[2].Select("PASP_SchemePlanCode=" + schemeplanId.ToString());
@@ -271,10 +272,10 @@ namespace WealthERP.FP
             {
                 foreach (DataRow drSchemeId in drExistingInvestmentSchemePlanId)
                 {
-                  totalOtherAllocation=totalOtherAllocation+  decimal.Parse(drSchemeId["allocatedPercentage"].ToString()) - currentAllocation;
+                    totalOtherAllocation = totalOtherAllocation + decimal.Parse(drSchemeId["allocatedPercentage"].ToString()) - currentAllocation;
                 }
             }
-                      
+
             if (!string.IsNullOrEmpty(txt.Text))
             {
                 if ((decimal.Parse(txt.Text) + totalOtherAllocation) > 100)
@@ -304,14 +305,14 @@ namespace WealthERP.FP
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill the allocation');", true);
             }
-        }      
+        }
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {
             if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
             {
                 GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid1.MasterTableView.GetColumn("EditCommandColumn");
                 //GridEditFormItem ed = (GridEditFormItem)e.Item;
-                
+
             }
             //else if (e.CommandName == RadGrid.RebindGridCommandName && e.Item.OwnerTableView.IsItemInserted)
             //{
@@ -325,15 +326,15 @@ namespace WealthERP.FP
             //}
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
-               
+
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 TextBox txt = (TextBox)e.Item.FindControl("TextBox3");
-               decimal allocationEntry = decimal.Parse(txt.Text);
-               int schemePlanId = int.Parse(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SchemeCode"].ToString());
-               decimal OtherGoalAllocation=decimal.Parse(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["OtherGoalAllocation"].ToString());
-               InsertMFInvestmentAllocation(schemePlanId,OtherGoalAllocation,allocationEntry);
+                decimal allocationEntry = decimal.Parse(txt.Text);
+                int schemePlanId = int.Parse(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SchemeCode"].ToString());
+                decimal OtherGoalAllocation = decimal.Parse(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["OtherGoalAllocation"].ToString());
+                InsertMFInvestmentAllocation(schemePlanId, OtherGoalAllocation, allocationEntry);
             }
-          
+
         }
         protected void RadGrid2_ItemCommand(object source, GridCommandEventArgs e)
         {
@@ -343,7 +344,7 @@ namespace WealthERP.FP
                 //GridEditFormItem ed = (GridEditFormItem)e.Item;
 
             }
-          
+
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
@@ -366,11 +367,11 @@ namespace WealthERP.FP
             //}
         }
         protected void BindMonthlySIPFundingScheme(DataTable dtCustomerGoalFundingSIPDetails)
-        { 
+        {
             RadGrid2.DataSource = dtCustomerGoalFundingSIPDetails;
             RadGrid2.DataBind();
             ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
-           
+
         }
 
         //public double CalculateValuebasedOnFrequency(string frequencyCode, double assumptionValue)
@@ -454,80 +455,80 @@ namespace WealthERP.FP
         }
 
 
-       protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
-       {
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
 
-           if ((e.Item is GridEditFormItem) && e.Item.IsInEditMode)
-           {
-               GridEditFormItem gridEditFormItem = (GridEditFormItem)e.Item;
-               DropDownList dropDownList = (DropDownList)gridEditFormItem.FindControl("ddlPickScheme");
-               HtmlTableRow trSchemeDDL = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeDDL");
-               HtmlTableRow trSchemeTextBox = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeTextBox");
-               if (e.Item.RowIndex == -1)
-               {              
-                   //TextBox txt = (TextBox)gridEditFormItem.FindControl("txtUnits");
-                   //txt.Visible = false;
-                   BindDDLSchemeAllocated(dropDownList);
-                   trSchemeTextBox.Visible = false;
-                   trSchemeDDL.Visible = true;
-               }
-               else
-               {
-                   trSchemeTextBox.Visible = true;
-                   trSchemeDDL.Visible = false;
-                  
+            if ((e.Item is GridEditFormItem) && e.Item.IsInEditMode)
+            {
+                GridEditFormItem gridEditFormItem = (GridEditFormItem)e.Item;
+                DropDownList dropDownList = (DropDownList)gridEditFormItem.FindControl("ddlPickScheme");
+                HtmlTableRow trSchemeDDL = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeDDL");
+                HtmlTableRow trSchemeTextBox = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeTextBox");
+                if (e.Item.RowIndex == -1)
+                {
+                    //TextBox txt = (TextBox)gridEditFormItem.FindControl("txtUnits");
+                    //txt.Visible = false;
+                    BindDDLSchemeAllocated(dropDownList);
+                    trSchemeTextBox.Visible = false;
+                    trSchemeDDL.Visible = true;
+                }
+                else
+                {
+                    trSchemeTextBox.Visible = true;
+                    trSchemeDDL.Visible = false;
 
-               }
-           }
-           //if (e.Item is GridCommandItem)
-           //{
-           //    LinkButton refreshButton = e.Item.Controls[0].Controls[0].Controls[0].Controls[1].Controls[0] as LinkButton;
-           //    refreshButton.Visible = false;
-           //}
-          
-       }
 
-       protected void RadGrid2_ItemDataBound(object sender, GridItemEventArgs e)
-       {
+                }
+            }
+            //if (e.Item is GridCommandItem)
+            //{
+            //    LinkButton refreshButton = e.Item.Controls[0].Controls[0].Controls[0].Controls[1].Controls[0] as LinkButton;
+            //    refreshButton.Visible = false;
+            //}
 
-           if ((e.Item is GridEditFormItem) && e.Item.IsInEditMode)
-           {
+        }
 
-               GridEditFormItem gridEditFormItem = (GridEditFormItem)e.Item;
-               DropDownList dropDownList = (DropDownList)gridEditFormItem.FindControl("ddlPickSIPScheme");
-               HtmlTableRow trSchemeDDL = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeNameDDL");
-               HtmlTableRow trSchemeTextBox = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeNameText");
-               //TextBox txt = (TextBox)gridEditFormItem.FindControl("txtUnits");
-               //txt.Visible = false;
-               if (e.Item.RowIndex == -1)
-               {
-                   trSchemeDDL.Visible = true;
-                   trSchemeTextBox.Visible = false;
-                   BindDDLSIPSchemeAllocated(dropDownList);
-               }
-               else
-               {
-                   trSchemeDDL.Visible = false;
-                   trSchemeTextBox.Visible = true;
-               }
-           }
-           //if (e.Item is GridCommandItem)
-           //{
-           //    LinkButton refreshButton = e.Item.Controls[0].Controls[0].Controls[0].Controls[1].Controls[0] as LinkButton;
-           //    refreshButton.Visible = false;
-           //}
+        protected void RadGrid2_ItemDataBound(object sender, GridItemEventArgs e)
+        {
 
-       }
+            if ((e.Item is GridEditFormItem) && e.Item.IsInEditMode)
+            {
 
-       //protected void ddlPickScheme_OnSelectedIndexChanged(object sender, GridItemEventArgs e)
-       //{
+                GridEditFormItem gridEditFormItem = (GridEditFormItem)e.Item;
+                DropDownList dropDownList = (DropDownList)gridEditFormItem.FindControl("ddlPickSIPScheme");
+                HtmlTableRow trSchemeDDL = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeNameDDL");
+                HtmlTableRow trSchemeTextBox = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeNameText");
+                //TextBox txt = (TextBox)gridEditFormItem.FindControl("txtUnits");
+                //txt.Visible = false;
+                if (e.Item.RowIndex == -1)
+                {
+                    trSchemeDDL.Visible = true;
+                    trSchemeTextBox.Visible = false;
+                    BindDDLSIPSchemeAllocated(dropDownList);
+                }
+                else
+                {
+                    trSchemeDDL.Visible = false;
+                    trSchemeTextBox.Visible = true;
+                }
+            }
+            //if (e.Item is GridCommandItem)
+            //{
+            //    LinkButton refreshButton = e.Item.Controls[0].Controls[0].Controls[0].Controls[1].Controls[0] as LinkButton;
+            //    refreshButton.Visible = false;
+            //}
 
-       //}
-       //protected void ddlPickScheme_OnSelectedIndexChanged(object sender, EventArgs e)
-       //{
-       //    //DropDownList dropdown = (DropDownList)sender;
-       //    //string a = dropdown.SelectedValue;
-       //}
+        }
+
+        //protected void ddlPickScheme_OnSelectedIndexChanged(object sender, GridItemEventArgs e)
+        //{
+
+        //}
+        //protected void ddlPickScheme_OnSelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    //DropDownList dropdown = (DropDownList)sender;
+        //    //string a = dropdown.SelectedValue;
+        //}
         protected void RadGrid1_ItemUpdated(object source, GridCommandEventArgs e)
         {
             if (e.CommandName == RadGrid.UpdateCommandName)
@@ -546,7 +547,7 @@ namespace WealthERP.FP
         protected void BindDDLSchemeAllocated(DropDownList ddl)
         {
             DataSet dsBindDDLSchemeAllocated = new DataSet();
-            dsBindDDLSchemeAllocated = customerGoalPlanningBo.BindDDLSchemeAllocated(customerVo.CustomerId,goalId);
+            dsBindDDLSchemeAllocated = customerGoalPlanningBo.BindDDLSchemeAllocated(customerVo.CustomerId, goalId);
             ddl.DataSource = dsBindDDLSchemeAllocated.Tables[0];
             ddl.DataTextField = dsBindDDLSchemeAllocated.Tables[0].Columns["PASP_SchemePlanName"].ToString();
             ddl.DataValueField = dsBindDDLSchemeAllocated.Tables[0].Columns["PASP_SchemePlanCode"].ToString();
@@ -562,7 +563,7 @@ namespace WealthERP.FP
             dtBindSIPDDLSchemeAlloted.Columns.Add("CMFSS_SystematicSetupId");
             dtBindSIPDDLSchemeAlloted.Columns.Add("PASP_SchemePlanName");
             DataRow drBindDDLSIP;
-           
+
             dsBindDDLSchemeAllocated = customerGoalPlanningBo.BindDDLSIPSchemeAllocated(customerVo.CustomerId, goalId);
             foreach (DataRow dr in dsBindDDLSchemeAllocated.Tables[0].Rows)
             {
@@ -579,12 +580,12 @@ namespace WealthERP.FP
 
         }
 
-        protected void InsertMFSIPAllocation(int sipId, decimal otherAllocation, decimal allocationEntry,decimal totalAllocation)
+        protected void InsertMFSIPAllocation(int sipId, decimal otherAllocation, decimal allocationEntry, decimal totalAllocation)
         {
             if (allocationEntry + otherAllocation <= totalAllocation)
             {
                 customerGoalPlanningBo.UpdateSIPGoalAllocationAmount(allocationEntry, sipId, goalId);
-               BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
             }
             else
             {
@@ -592,10 +593,10 @@ namespace WealthERP.FP
             }
         }
 
-        protected void InsertMFInvestmentAllocation(int schemeId,decimal otherAllocation,decimal allocationEntry)
+        protected void InsertMFInvestmentAllocation(int schemeId, decimal otherAllocation, decimal allocationEntry)
         {
-                               
-           // decimal otherAllocation = decimal.Parse(gvExistInvestMapping.DataKeys[dr.RowIndex].Values["OtherGoalAllocation"].ToString());
+
+            // decimal otherAllocation = decimal.Parse(gvExistInvestMapping.DataKeys[dr.RowIndex].Values["OtherGoalAllocation"].ToString());
             decimal investedAmount = 0;
             decimal acqCost = 0;
             foreach (DataRow dr in dsExistingInvestment.Tables[6].Rows)
@@ -608,11 +609,11 @@ namespace WealthERP.FP
                 }
 
             }
-            investedAmount=(acqCost * allocationEntry)/100;
-            
+            investedAmount = (acqCost * allocationEntry) / 100;
+
             if (allocationEntry + otherAllocation <= 100)
             {
-                customerGoalPlanningBo.UpdateGoalAllocationPercentage(allocationEntry, schemeId, goalId,investedAmount);
+                customerGoalPlanningBo.UpdateGoalAllocationPercentage(allocationEntry, schemeId, goalId, investedAmount);
                 BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
                 //BindExistingFundingScheme();
                 //ShowGoalDetails(goalId);
@@ -621,14 +622,14 @@ namespace WealthERP.FP
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Allocation exceeding 100%');", true);
             }
-         }
+        }
 
         protected void RadGrid1_DeleteCommand(object source, GridCommandEventArgs e)
         {
             try
             {
                 int schemeCode = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SchemeCode"].ToString());
-                customerGoalPlanningBo.DeleteFundedScheme(schemeCode,goalId);
+                customerGoalPlanningBo.DeleteFundedScheme(schemeCode, goalId);
                 BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
             }
             catch (Exception ex)
@@ -651,7 +652,7 @@ namespace WealthERP.FP
                 RadGrid1.Controls.Add(new LiteralControl("Unable to Delete the Record. Reason: " + ex.Message));
                 e.Canceled = true;
             }
-        }   
+        }
 
 
         //protected void CalculateweightedReturn()
@@ -725,7 +726,7 @@ namespace WealthERP.FP
         protected void btnSIPAdd_OnClick(object sender, EventArgs e)
         {
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioSystematicEntry','login');", true);
-           // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','?FromPage=CustomerFPGoalFundingProgress');", true);
+            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','?FromPage=CustomerFPGoalFundingProgress');", true);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioSystematic", "loadcontrol('PortfolioSystematicEntry','?GoalId=" + goalId + "');", true);
         }
 
@@ -740,7 +741,7 @@ namespace WealthERP.FP
             //    {
 
             if (dsModelPortFolioSchemeDetails.Tables[1].Rows.Count > 0)
-            {                
+            {
                 ddlModelPortFolio.DataSource = dsModelPortFolioSchemeDetails.Tables[1];
                 ddlModelPortFolio.DataTextField = dsModelPortFolioSchemeDetails.Tables[1].Columns["XAMP_ModelPortfolioName"].ToString();
                 ddlModelPortFolio.DataValueField = dsModelPortFolioSchemeDetails.Tables[1].Columns["XAMP_ModelPortfolioCode"].ToString();
@@ -765,7 +766,7 @@ namespace WealthERP.FP
 
         protected void BindModelPortFolioSchemes(int modelPortfolioId)
         {
-           DataTable dtModelPortFolioSchemeDetails = dsModelPortFolioSchemeDetails.Tables[0];
+            DataTable dtModelPortFolioSchemeDetails = dsModelPortFolioSchemeDetails.Tables[0];
             string expression = "XAMP_ModelPortfolioCode=" + modelPortfolioId;
             dtModelPortFolioSchemeDetails.DefaultView.RowFilter = expression;
             RadGrid3.DataSource = dtModelPortFolioSchemeDetails.DefaultView;
@@ -778,7 +779,7 @@ namespace WealthERP.FP
             modelportfoliocode = int.Parse(ddlModelPortFolio.SelectedValue);
             BindModelPortFolioSchemes(modelportfoliocode);
         }
-        
-     }
- }
+
+    }
+}
 

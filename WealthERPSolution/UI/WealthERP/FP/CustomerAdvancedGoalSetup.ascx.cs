@@ -30,7 +30,7 @@ namespace WealthERP.FP
 
         CustomerGoalSetupBo GoalSetupBo = new CustomerGoalSetupBo();
         GoalProfileSetupVo goalProfileSetupVo = new GoalProfileSetupVo();
-        CustomerGoalSetupDao customerGoalSetupDao = new CustomerGoalSetupDao();       
+        CustomerGoalSetupDao customerGoalSetupDao = new CustomerGoalSetupDao();
         List<GoalProfileSetupVo> GoalProfileList = new List<GoalProfileSetupVo>();
         CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
         CustomerGoalPlanningBo customerGoalPlanningBo = new CustomerGoalPlanningBo();
@@ -54,7 +54,8 @@ namespace WealthERP.FP
         //CustomerVo customerVo = new CustomerVo();
         DataSet dsExistingInvestment = new DataSet();
         DataSet dsSIPInvestment = new DataSet();
-
+        DataSet dsEqFundedDetails = new DataSet();
+        DataTable dtEqFundedDetails = new DataTable();
         //DataTable dtCustomerGoalFunding = new DataTable();        
         //DataTable dtCustomerSIPGoalFunding = new DataTable();
 
@@ -64,11 +65,12 @@ namespace WealthERP.FP
         string goalCode = string.Empty;
 
         DataSet dsGoalFundingDetails = new DataSet();
-
+        RadTab lastClickedTab = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            btnFundAdd.Visible = false;
             tdlblInvestmntLumpsum.Visible = false;
             tdlblInvestmntLumpsumTxt.Visible = false;
             tdSavingsRequiredMonthly.Visible = false;
@@ -84,7 +86,21 @@ namespace WealthERP.FP
                 //AdvisorRMId = rmVo.RMId;
                 //txtPickCustomer_autoCompleteExtender.ServiceMethod = "GetCustomerName";
             }
-            
+            //RadTab tab1 = RadTabStripFPGoalDetails.Tabs.FindTabByValue("Model");
+            //tab1.Selected = true;
+
+            //if (Page.IsPostBack)
+            //{
+            //    RadTabStripFPGoalDetails.SelectedIndex = 0;
+            //    RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            //    CustomerFPGoalDetail.SelectedIndex = 0;
+            //    if (Request.Form["__EVENTTARGET"] == RadTabStripFPGoalDetails.UniqueID)
+            //    {
+            //        //locate the selected tab by using the value of the hidden field
+            //        //The code below will be executed only if the postback is fired by the tabstrip
+            //        lastClickedTab = RadTabStripFPGoalDetails.FindTabByText(previousTabHidden.Value);
+            //    }
+            //}
             if (!Page.IsPostBack)
             {
                 if (Request.QueryString["GoalId"] != null)
@@ -96,7 +112,7 @@ namespace WealthERP.FP
                 if (Session["GoalId"] != null)
                 {
                     goalId = (int)Session["GoalId"];
-                }  
+                }
 
 
                 if (goalId == 0 && string.IsNullOrEmpty(goalAction.Trim()))
@@ -124,7 +140,7 @@ namespace WealthERP.FP
                     if (goalAction == "View" || goalAction == "Fund")
                     {
                         ControlSetVisiblity("View");
-                        BtnSetVisiblity("View");                        
+                        BtnSetVisiblity("View");
                     }
                     else if (goalAction == "Edit")
                     {
@@ -135,13 +151,13 @@ namespace WealthERP.FP
                         else
                             ddlGoalYear.Enabled = true;
                     }
- 
+
                 }
-                if (goalId == 0 || goalProfileSetupVo.IsFundFromAsset==false)
+                if (goalId == 0 || goalProfileSetupVo.IsFundFromAsset == false)
                 {
                     //RadPageView2.Visible = false;
 
-                    
+
                     //ModelPortFolio
                     pnlModelPortfolio.Visible = false;
                     pnlModelPortfolioNoRecoredFound.Visible = true;
@@ -150,9 +166,9 @@ namespace WealthERP.FP
                     pnlFundingProgress.Visible = false;
                     pnlDocuments.Visible = false;
                     pnlMFFunding.Visible = false;
-                    pnlNoRecordFoundGoalFundingProgress.Visible = true;
+                    //pnlNoRecordFoundGoalFundingProgress.Visible = true;
 
-                    
+
 
                 }
                 else
@@ -160,22 +176,43 @@ namespace WealthERP.FP
                     GetGoalFundingProgress();
                     BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
                     BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                    BindEquityFundedDetails();
                     ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
                     BindddlModelPortfolioGoalSchemes();
                     SetGoalProgressImage(goalPlanningVo.Goalcode);
                 }
 
-                
+
 
             }
             if (Session["GoalId"] != null)
                 goalId = (int)Session["GoalId"];
 
-            if(Session["GoalAction"]!=null)
-                goalAction=(string)Session["GoalAction"];
-
+            if (Session["GoalAction"] != null)
+                goalAction = (string)Session["GoalAction"];
+            //GetEquityFundedDetails();
             //if(ViewState["ViewEditID"]!=null)
             //    goalId=Convert.ToInt32(ViewState["ViewEditID"].ToString());
+            if (goalAction == "View" || goalAction == "Edit" || string.IsNullOrEmpty(goalAction.Trim()))
+            {
+                RadTabStripFPGoalDetails.SelectedIndex = 0;
+                RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+                CustomerFPGoalDetail.SelectedIndex = 0;
+
+            }
+            else if (goalAction == "Fund")
+            {
+                //RadTabStripFPGoalDetails.TabIndex = 1;
+                RadTabStripFPGoalDetails.TabIndex = 3;
+                //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+                CustomerFPGoalDetail.SelectedIndex = 3;
+                RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+                RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
+                //RadTab tab1 = RadTabStripFPGoalDetails.Tabs.;
+                //tab1.SelectedTab.Enabled = true;
+
+                //RadTabStripFPGoalDetails.SelectedTab = RadTabStripFPGoalDetails.Tabs[1];
+            }
 
         }
         protected void Page_PreRender(object sender, EventArgs e)
@@ -188,25 +225,29 @@ namespace WealthERP.FP
 
         protected void TabSelectionBasedOnGoalAction()
         {
-            if (goalAction == "View" || goalAction == "Edit" || string.IsNullOrEmpty(goalAction.Trim()))
-            {
-                RadTabStripFPGoalDetails.SelectedIndex = 0;
-                RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
-                CustomerFPGoalDetail.SelectedIndex = 0;
+            //if (goalAction == "View" || goalAction == "Edit" || string.IsNullOrEmpty(goalAction.Trim()))
+            //{
+            //    RadTabStripFPGoalDetails.SelectedIndex = 0;
+            //    RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            //    CustomerFPGoalDetail.SelectedIndex = 0;
 
-            }
-            else if (goalAction == "Fund")
-            {
-                //RadTabStripFPGoalDetails.TabIndex = 1;
-                RadTabStripFPGoalDetails.SelectedIndex = 1;
-                RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
-                CustomerFPGoalDetail.SelectedIndex = 1;
+            //}
+            //else if (goalAction == "Fund")
+            //{
+            //    //RadTabStripFPGoalDetails.TabIndex = 1;
+            //    RadTabStripFPGoalDetails.TabIndex = 3;
+            //    //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            //    CustomerFPGoalDetail.SelectedIndex = 3;
+            //    RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            //    RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
+            //    //RadTab tab1 = RadTabStripFPGoalDetails.Tabs.;
+            //    //tab1.SelectedTab.Enabled = true;
 
-               //RadTabStripFPGoalDetails.SelectedTab = RadTabStripFPGoalDetails.Tabs[1];
-            }
+            //    //RadTabStripFPGoalDetails.SelectedTab = RadTabStripFPGoalDetails.Tabs[1];
+            //}
         }
 
-//***********************GOAL FUNDING AND PROGRESS SECTION******************************//
+        //***********************GOAL FUNDING AND PROGRESS SECTION******************************//
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
         #region Goal Add View Edit(First Tab)
@@ -248,7 +289,7 @@ namespace WealthERP.FP
                     ddlGoalYear.Enabled = false;
                 }
 
-               
+
                 //*****************Blank Table Cell**********************
                 //tdMFBasedBlank.Visible = true;
                 //tdExistingInvestBlank.Visible = true;
@@ -352,7 +393,7 @@ namespace WealthERP.FP
 
 
         }
-              
+
         private void BindPickChildDropDown(int CustomerId)
         {
             DataSet ds = GoalSetupBo.GetCustomerAssociationDetails(CustomerId);
@@ -394,7 +435,7 @@ namespace WealthERP.FP
 
             //lblApproveOn.Visible = false;
             trlblApproveOn.Visible = false;
-           
+
 
             //lblROIFutureInvest.Visible = false;
             //txtROIFutureInvest.Visible = false;
@@ -499,7 +540,7 @@ namespace WealthERP.FP
                     //lblGoalCostToday.Text = "Goal Cost Today :";
 
                 }
-                else if (action=="Edit")
+                else if (action == "Edit")
                 {
                     //For Edit mode
                     ddlGoalType.Enabled = false;
@@ -601,7 +642,7 @@ namespace WealthERP.FP
             txtCorpusToBeLeftBehind.Text = "0";
             txtExpRateOfReturn.Text = "0";
 
-            
+
             if (action == "AddNew")
             {
                 //lblHeader.Text = "Goal Profile";
@@ -609,10 +650,10 @@ namespace WealthERP.FP
                 lblPickChild.Text = "Select a child for Goal planning :";
                 lblGoalCostToday.Text = "Goal Cost Today :";
                 ddlGoalType.SelectedIndex = 0;
-               
+
                 //trGoalDesc.Visible = false;
                 txtGoalDate.Text = DateTime.Now.ToShortDateString();
-                
+
                 trPickChild.Visible = false;
                 txtGoalCostToday.Text = "";
                 ddlGoalYear.SelectedIndex = 0;
@@ -638,11 +679,11 @@ namespace WealthERP.FP
                 trRequiedNote.Visible = true;
 
                 rdoMFBasedGoalNo.Checked = true;
-                trExistingInvestmentAllocated.Visible=true;
+                trExistingInvestmentAllocated.Visible = true;
                 trReturnOnExistingInvestmentAll.Visible = true;
                 rdoMFBasedGoalYes.Checked = false;
 
-                
+
                 trCorpusToBeLeftBehind.Visible = false;
 
                 tdCustomerAge1.Visible = false;
@@ -666,9 +707,9 @@ namespace WealthERP.FP
                 tdPostRetirementInflation1.Visible = false;
                 tdPostRetirementInflation2.Visible = false;
 
-               
+
             }
-            else if (action=="Cancel")
+            else if (action == "Cancel")
             {
                 ddlGoalType.SelectedIndex = 0;
 
@@ -684,8 +725,8 @@ namespace WealthERP.FP
                 txtInflation.Text = customerAssumptionVo.InflationPercent.ToString();
                 //trROIFutureInvestment.Visible = false;
                 //txtROIFutureInvest.Text = "";
-                if (txtCorpusToBeLeftBehind.Visible==true)
-                txtCorpusToBeLeftBehind.Text = "0";
+                if (txtCorpusToBeLeftBehind.Visible == true)
+                    txtCorpusToBeLeftBehind.Text = "0";
                 txtComment.Text = "";
                 txtGoalDescription.Text = string.Empty;
                 //double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
@@ -705,7 +746,7 @@ namespace WealthERP.FP
 
         protected void ddlGoalType_OnSelectedIndexChange(object sender, EventArgs e)
         {
-            
+
             customerAssumptionVo = customerGoalPlanningBo.GetCustomerAssumptions(customerVo.CustomerId, advisorVo.advisorId, out isHavingAssumption);
             txtGoalDescription.Text = string.Empty;
             txtInflation.Text = customerAssumptionVo.InflationPercent.ToString();
@@ -793,7 +834,7 @@ namespace WealthERP.FP
                         ddlGoalType.SelectedIndex = 0;
                         return;
                     }
-                   
+
                     break;
                 case "OT":
 
@@ -827,7 +868,7 @@ namespace WealthERP.FP
             goalProfileSetupVo = GoalSetupBo.GetCustomerGoal(customerVo.CustomerId, goalId);
             //BtnSetVisiblity("View");
             lblNoteHeading.Visible = false;
-            lblNote.Visible = false;            
+            lblNote.Visible = false;
             trRequiedNote.Visible = false;
 
 
@@ -846,7 +887,7 @@ namespace WealthERP.FP
                 rdoMFBasedGoalNo.Checked = false;
                 trExistingInvestmentAllocated.Visible = false;
                 trReturnOnExistingInvestmentAll.Visible = false;
-                
+
 
             }
             else
@@ -858,7 +899,7 @@ namespace WealthERP.FP
 
             }
 
-            txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;          
+            txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;
 
             switch (goalProfileSetupVo.Goalcode)
             {
@@ -1017,7 +1058,7 @@ namespace WealthERP.FP
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     BindPickChildDropDown(customerVo.CustomerId);
                     ddlPickChild.SelectedValue = goalProfileSetupVo.AssociateId.ToString();
-                    ddlPickChild.Enabled = false;                    
+                    ddlPickChild.Enabled = false;
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
                     //ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
                     txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
@@ -1106,7 +1147,7 @@ namespace WealthERP.FP
             SetPageLoadState("Cancel");
             goalAction = "Edit";
             Session["GoalAction"] = goalAction;
-            
+
         }
 
         protected void btnBackToAddMode_Click(object sender, EventArgs e)
@@ -1117,7 +1158,7 @@ namespace WealthERP.FP
             SetPageLoadState("AddNew");
             goalAction = "Add";
             Session["GoalAction"] = goalAction;
-            
+
             //Add Goal State
             pnlModelPortfolio.Visible = false;
             pnlModelPortfolioNoRecoredFound.Visible = true;
@@ -1126,14 +1167,29 @@ namespace WealthERP.FP
             pnlFundingProgress.Visible = false;
             pnlDocuments.Visible = false;
             pnlMFFunding.Visible = false;
-            pnlNoRecordFoundGoalFundingProgress.Visible = true;
+            //pnlNoRecordFoundGoalFundingProgress.Visible = true;
 
         }
 
+        protected void btnFundAdd_Click(object sender, EventArgs e)
+        {
+            RadTabStripFPGoalDetails.TabIndex = 4;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 4;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
+        
+
+        }
         protected void btnSaveAdd_Click(object sender, EventArgs e)
         {
             try
             {
+                if (rdoMFBasedGoalYes.Checked == true)
+                    btnFundAdd.Visible = true;
+                else
+                    btnFundAdd.Visible = false;
+
                 //SessionBo.CheckSession();
                 //Customer id select from AutoComplite TextBox Values
                 //rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -1183,7 +1239,7 @@ namespace WealthERP.FP
                 if (chkApprove.Checked == true)
                     customerGoalPlanningVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
 
-                
+
 
                 if (ddlGoalType.SelectedValue == "RT")
                 {
@@ -1201,21 +1257,21 @@ namespace WealthERP.FP
                     customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtExpRateOfReturn.Text);
                     customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
 
-                    if(!string.IsNullOrEmpty(txtCorpusToBeLeftBehind.Text.Trim()))
-                    customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
+                    if (!string.IsNullOrEmpty(txtCorpusToBeLeftBehind.Text.Trim()))
+                        customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
 
                 }
                 CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
-               goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false,out goalId);
-               tdlblInvestmntLumpsum.Visible = true;
-               tdlblInvestmntLumpsumTxt.Visible=true;
-               tdSavingsRequiredMonthly.Visible=true;
-               tdSavingsRequiredMonthlyTxt.Visible = true;
-               //lumpsumInvestment = customerGoalPlanningBo.PV(goalplanningSetUpVo.ExpectedROI / 100, goalplanningSetUpVo.GoalYear - DateTime.Now.Year, 0, -goalplanningSetUpVo.FutureValueOfCostToday, 1);
-               lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-          
-               lblSavingsRequiredMonthlyTxt.Text = goalplanningSetUpVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-              
+                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, out goalId);
+                tdlblInvestmntLumpsum.Visible = true;
+                tdlblInvestmntLumpsumTxt.Visible = true;
+                tdSavingsRequiredMonthly.Visible = true;
+                tdSavingsRequiredMonthlyTxt.Visible = true;
+                //lumpsumInvestment = customerGoalPlanningBo.PV(goalplanningSetUpVo.ExpectedROI / 100, goalplanningSetUpVo.GoalYear - DateTime.Now.Year, 0, -goalplanningSetUpVo.FutureValueOfCostToday, 1);
+                lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+
+                lblSavingsRequiredMonthlyTxt.Text = goalplanningSetUpVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+
                 //After Save Goal Is in View Mode
                 Session["GoalId"] = goalId;
                 ShowGoalDetails();
@@ -1231,7 +1287,7 @@ namespace WealthERP.FP
                 pnlFundingProgress.Visible = true;
                 pnlDocuments.Visible = true;
                 pnlMFFunding.Visible = true;
-                pnlNoRecordFoundGoalFundingProgress.Visible = false;
+                //pnlNoRecordFoundGoalFundingProgress.Visible = false;
                 //After Goal add Funding & Progress page data reflect
                 if (customerGoalPlanningVo.IsFundFromAsset == true)
                 {
@@ -1251,12 +1307,12 @@ namespace WealthERP.FP
                     pnlFundingProgress.Visible = false;
                     pnlDocuments.Visible = false;
                     pnlMFFunding.Visible = false;
-                    pnlNoRecordFoundGoalFundingProgress.Visible = true;
+                    //pnlNoRecordFoundGoalFundingProgress.Visible = true;
                 }
 
                 goalAction = "View";
                 Session["GoalAction"] = goalAction;
-             
+
             }
 
             catch (BaseApplicationException Ex)
@@ -1347,7 +1403,7 @@ namespace WealthERP.FP
                 }
 
                 CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
-                goalplanningSetUpVo= customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, out goalId);
+                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, out goalId);
 
                 lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
 
@@ -1406,7 +1462,7 @@ namespace WealthERP.FP
             tdlblInvestmntLumpsumTxt.Visible = true;
             tdSavingsRequiredMonthly.Visible = true;
             tdSavingsRequiredMonthlyTxt.Visible = true;
-               
+
             BtnSetVisiblity("Edit");
             ControlSetVisiblity("Edit");
             ddlGoalType.Enabled = false;
@@ -1424,7 +1480,7 @@ namespace WealthERP.FP
                 ddlGoalYear.Enabled = false;
             else
                 ddlGoalYear.Enabled = true;
-           
+
             goalAction = "Edit";
             Session["GoalAction"] = goalAction;
 
@@ -1436,7 +1492,11 @@ namespace WealthERP.FP
             {
                 //Customer id select from AutoComplite TextBox Values
                 //int GoalId = (int)Session["GoalId"];
-
+                
+                if(rdoMFBasedGoalYes.Checked == true)
+                btnFundAdd.Visible = true;
+                else
+                    btnFundAdd.Visible = false;
 
                 tdlblInvestmntLumpsum.Visible = true;
                 tdlblInvestmntLumpsumTxt.Visible = true;
@@ -1500,7 +1560,7 @@ namespace WealthERP.FP
                     customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
 
                     if (!string.IsNullOrEmpty(txtCorpusToBeLeftBehind.Text.Trim()))
-                    customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
+                        customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
 
                 }
 
@@ -1519,8 +1579,8 @@ namespace WealthERP.FP
                 BtnSetVisiblity("View");
                 trUpdateSuccess.Visible = true;
 
-               if (customerGoalPlanningVo.IsFundFromAsset == true)
-               {
+                if (customerGoalPlanningVo.IsFundFromAsset == true)
+                {
                     GetGoalFundingProgress();
                     BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
                     BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
@@ -1532,18 +1592,19 @@ namespace WealthERP.FP
                     pnlDocuments.Visible = true;
                     pnlMFFunding.Visible = true;
                     //pnlModelPortfolioNoRecoredFound.Visible = false;
-                    pnlNoRecordFoundGoalFundingProgress.Visible = false;
-               }else
-               {
+                    //pnlNoRecordFoundGoalFundingProgress.Visible = false;
+                }
+                else
+                {
                     pnlModelPortfolio.Visible = false;
                     pnlModelPortfolioNoRecoredFound.Visible = true;
                     //GoalFunding and Progress
                     pnlFundingProgress.Visible = false;
                     pnlDocuments.Visible = false;
                     pnlMFFunding.Visible = false;
-                    pnlNoRecordFoundGoalFundingProgress.Visible = true;
+                    //pnlNoRecordFoundGoalFundingProgress.Visible = true;
 
-               }
+                }
                 goalAction = "View";
                 Session["GoalAction"] = goalAction;
 
@@ -1601,7 +1662,7 @@ namespace WealthERP.FP
         #endregion
 
 
-//***********************GOAL FUNDING AND PROGRESS SECTION******************************//
+        //***********************GOAL FUNDING AND PROGRESS SECTION******************************//
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 
@@ -1612,7 +1673,7 @@ namespace WealthERP.FP
 
         private void GetGoalFundingProgress()
         {
-            customerGoalFundingProgressVo = customerGoalPlanningBo.GetGoalFundingProgressDetails(goalId, customerVo.CustomerId, advisorVo.advisorId, out dsGoalFundingDetails, out dsExistingInvestment, out dsSIPInvestment, out goalPlanningVo);
+            customerGoalFundingProgressVo = customerGoalPlanningBo.GetGoalFundingProgressDetails(goalId, customerVo.CustomerId, advisorVo.advisorId, out dsGoalFundingDetails, out dsExistingInvestment, out dsSIPInvestment, out goalPlanningVo, out dsEqFundedDetails);
             if (Cache["GoalFundingDetailsdsExistingInvestment" + customerVo.CustomerId.ToString()] != null)
             {
                 Cache.Remove("GoalFundingDetailsdsExistingInvestment" + customerVo.CustomerId.ToString());
@@ -1624,7 +1685,13 @@ namespace WealthERP.FP
                 Cache.Remove("GoalFundingDetailsdsSIPInvestment" + customerVo.CustomerId.ToString());
             }
             Cache.Insert("GoalFundingDetailsdsSIPInvestment" + customerVo.CustomerId, dsSIPInvestment, null, DateTime.Now.AddMinutes(4 * 60), TimeSpan.Zero);
-        
+
+            if (Cache["GoalFundingDetailsdsEqFundedDetails" + customerVo.CustomerId.ToString()] != null)
+            {
+                Cache.Remove("GoalFundingDetailsdsEqFundedDetails" + customerVo.CustomerId.ToString());
+            }
+            Cache.Insert("GoalFundingDetailsdsEqFundedDetails" + customerVo.CustomerId, dsEqFundedDetails, null, DateTime.Now.AddMinutes(4 * 60), TimeSpan.Zero);
+
         }
 
         private void SetGoalProgressImage(string goalCode)
@@ -1702,7 +1769,7 @@ namespace WealthERP.FP
                 txtEstmdTimeToReachGoal.Text = customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal != "" ? customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal : "0";
                 txtReturnsXIRR.Text = customerGoalFundingProgressVo.ReturnsXIRR != 0 ? Math.Round(customerGoalFundingProgressVo.ReturnsXIRR, 2).ToString() : "0";
                 txtValueOfCurrentGoal.Text = customerGoalFundingProgressVo.GoalCurrentValue != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.GoalCurrentValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                
+
                 txtProjectedGap.Text = customerGoalFundingProgressVo.ProjectedGapValue != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.ProjectedGapValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 if (double.Parse(txtProjectedGap.Text) < 0)
                 {
@@ -1720,9 +1787,9 @@ namespace WealthERP.FP
                 if (customerGoalFundingProgressVo.ProjectedEndYear < goalPlanningVo.GoalProfileDate.Year)
                 {
                     customerGoalFundingProgressVo.ProjectedEndYear = goalPlanningVo.GoalProfileDate.Year;
-                }                
+                }
                 txtProjectedCompleteYear.Text = customerGoalFundingProgressVo.ProjectedEndYear.ToString();
-             
+
             }
 
 
@@ -1794,7 +1861,7 @@ namespace WealthERP.FP
                     {
                         totalOtherAllocation = totalOtherAllocation + decimal.Parse(drSipInvestmentPlan["TotalInvestedAmount"].ToString()) - currentAllocation;
                     }
-                } 
+                }
 
                 if (!string.IsNullOrEmpty(txt.Text))
                 {
@@ -1908,12 +1975,18 @@ namespace WealthERP.FP
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {
 
+            RadTabStripFPGoalDetails.TabIndex = 3;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 3;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
+        
             if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
             {
                 GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid1.MasterTableView.GetColumn("EditCommandColumn");
                 //GridEditFormItem ed = (GridEditFormItem)e.Item;
 
-            }           
+            }
 
             //else if (e.CommandName == RadGrid.RebindGridCommandName && e.Item.OwnerTableView.IsItemInserted)
             //{
@@ -1955,12 +2028,19 @@ namespace WealthERP.FP
 
             goalAction = "Fund";
             Session["GoalAction"] = goalAction;
-                
+
 
         }
 
         protected void RadGrid2_ItemCommand(object source, GridCommandEventArgs e)
         {
+
+            RadTabStripFPGoalDetails.TabIndex = 3;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 3;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
+        
             if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
             {
                 GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid1.MasterTableView.GetColumn("EditCommandColumn");
@@ -1994,14 +2074,9 @@ namespace WealthERP.FP
 
         }
 
-        protected void RadGrid1_PreRender(object sender, EventArgs e)
-        {
-            //if (!Page.IsPostBack)
-            //{
-            //    RadGrid1.EditIndexes.Add(0);
-            //    RadGrid1.Rebind();
-            //}
-        }
+       
+
+      
 
         protected void BindMonthlySIPFundingScheme(DataTable dtCustomerGoalFundingSIPDetails)
         {
@@ -2054,7 +2129,7 @@ namespace WealthERP.FP
                 HtmlTableCell tdlblSchemeName = editedItem.FindControl("tdlblSchemeName") as HtmlTableCell;
                 HtmlTableCell tdddlPickScheme = editedItem.FindControl("tdddlPickScheme") as HtmlTableCell;
 
-                
+
                 trUnits.Visible = false;
                 trCurrentValue.Visible = false;
                 trTotalGoalAllocation.Visible = false;
@@ -2145,15 +2220,15 @@ namespace WealthERP.FP
                 Label txtSIPFrequency = (Label)gridEditFormItem.FindControl("txtSIPFrequency");
                 Label lblSchemeName = (Label)gridEditFormItem.FindControl("lblSchemeName");
                 Label lblSchemeAdd = (Label)gridEditFormItem.FindControl("lblSchemeAdd");
-                HtmlTableRow trAllocationEntry=(HtmlTableRow)gridEditFormItem.FindControl("trAllocationEntry");
-                HtmlTableRow trAvailableAmount=(HtmlTableRow)gridEditFormItem.FindControl("trAvailableAmount");
+                HtmlTableRow trAllocationEntry = (HtmlTableRow)gridEditFormItem.FindControl("trAllocationEntry");
+                HtmlTableRow trAvailableAmount = (HtmlTableRow)gridEditFormItem.FindControl("trAvailableAmount");
                 HtmlTableRow trSIPStartDate = (HtmlTableRow)gridEditFormItem.FindControl("trSIPStartDate");
                 HtmlTableCell tdSipScheme = (HtmlTableCell)gridEditFormItem.FindControl("tdSipScheme");
                 HtmlTableCell tdddlPickSIPScheme = (HtmlTableCell)gridEditFormItem.FindControl("tdddlPickSIPScheme");
-                trAllocationEntry.Visible= true;                 
-                trAvailableAmount.Visible= true;
+                trAllocationEntry.Visible = true;
+                trAvailableAmount.Visible = true;
                 trSIPStartDate.Visible = true;
-                
+
 
                 //TextBox txt = (TextBox)gridEditFormItem.FindControl("txtUnits");
                 //txt.Visible = false;
@@ -2167,25 +2242,25 @@ namespace WealthERP.FP
 
                     trSchemeDDL.Visible = true;
                     trSchemeTextBox.Visible = false;
-                   // BindDDLSIPSchemeAllocated(dropDownList);
+                    // BindDDLSIPSchemeAllocated(dropDownList);
                     BindFamilyMembers(ddlSIPMemberName, customerVo.CustomerId);
                     //***************************\\
-                    txtSIPEndDate.Visible=false;  
-                    txtSIPEndDateAdd.Visible=true;
-                    txtSIPStartDate.Visible=false;   
-                    txtSIPStartDateAdd.Visible=true;
-                    txtTotalSIPAmount.Visible=false;     
-                    txtTotalSIPAmountAdd.Visible=true;
-                    TextBox2.Visible=false;    
-                    TextBox2Add.Visible=true;  
-                    txtOtherSchemeAllocationPer.Visible=false;    
-                    txtOtherSchemeAllocationPerAdd.Visible=true;                    
-                    txtMemberName.Visible=false;       
-                    txtMemberNameAdd.Visible=true;
-                    txtSIPFrequency.Visible=false;     
-                    txtSIPFrequencyAdd.Visible=true;
-                    lblSchemeName.Visible = false;    
-                    lblSchemeAdd.Visible=true;
+                    txtSIPEndDate.Visible = false;
+                    txtSIPEndDateAdd.Visible = true;
+                    txtSIPStartDate.Visible = false;
+                    txtSIPStartDateAdd.Visible = true;
+                    txtTotalSIPAmount.Visible = false;
+                    txtTotalSIPAmountAdd.Visible = true;
+                    TextBox2.Visible = false;
+                    TextBox2Add.Visible = true;
+                    txtOtherSchemeAllocationPer.Visible = false;
+                    txtOtherSchemeAllocationPerAdd.Visible = true;
+                    txtMemberName.Visible = false;
+                    txtMemberNameAdd.Visible = true;
+                    txtSIPFrequency.Visible = false;
+                    txtSIPFrequencyAdd.Visible = true;
+                    lblSchemeName.Visible = false;
+                    lblSchemeAdd.Visible = true;
 
                     //***************************\\
                 }
@@ -2212,7 +2287,7 @@ namespace WealthERP.FP
                     lblSchemeAdd.Visible = false;
 
                     //***************************\\
-                
+
                 }
             }
             //if (e.Item is GridCommandItem)
@@ -2257,7 +2332,7 @@ namespace WealthERP.FP
 
         }
 
-        protected void BindDDLSIPSchemeAllocated(DropDownList ddl,int customerId)
+        protected void BindDDLSIPSchemeAllocated(DropDownList ddl, int customerId)
         {
             DataSet dsBindDDLSchemeAllocated = new DataSet();
             DataTable dtBindSIPDDLSchemeAlloted = new DataTable();
@@ -2411,6 +2486,18 @@ namespace WealthERP.FP
             }
             RadGrid1.MasterTableView.ExportToExcel();
         }
+
+        protected void btnexistEQinvest_OnClick(object sender, ImageClickEventArgs e)
+        {
+            RadGrid4.ExportSettings.OpenInNewWindow = true;
+            RadGrid4.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in RadGrid4.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            RadGrid4.MasterTableView.ExportToExcel();
+        }
+
         protected void FutureMFinvest_OnClick(object sender, ImageClickEventArgs e)
         {
             RadGrid2.ExportSettings.OpenInNewWindow = true;
@@ -2459,7 +2546,7 @@ namespace WealthERP.FP
             double currentValue = 0;
             double totalAmounts = 0;
             double totalUnits = 0;
-            DateTime sipStartDate = new DateTime();            
+            DateTime sipStartDate = new DateTime();
             DateTime sipEndDate = new DateTime();
 
             if (Cache["GoalFundingDetailsdsSIPInvestment" + customerVo.CustomerId.ToString()] != null)
@@ -2468,7 +2555,7 @@ namespace WealthERP.FP
                 DataRow[] drTotalInvestmentAllocationStatus;
                 DataRow[] drCurrentGoalInvestmentAllocationStatus;
                 DataRow[] drTotalAmount;
-                
+
                 DropDownList dropdown = (DropDownList)sender;
                 string categoryCode = dropdown.SelectedValue;
                 GridEditableItem gridEditFormItem = dropdown.NamingContainer as GridEditableItem;
@@ -2499,54 +2586,54 @@ namespace WealthERP.FP
                 trSIPStartDate.Visible = false;
 
                 string frequency = "";
-                  if(categoryCode != "Select" && categoryCode != "")
-                  {
-                      trAllocationEntry.Visible = true;
-                      trAvailableAmount.Visible = true;
-                      trSIPStartDate.Visible = true;
-               
-                      int sipId =Convert.ToInt32(categoryCode);
-                    DataRow[] drtotalSIPamount ;
+                if (categoryCode != "Select" && categoryCode != "")
+                {
+                    trAllocationEntry.Visible = true;
+                    trAvailableAmount.Visible = true;
+                    trSIPStartDate.Visible = true;
+
+                    int sipId = Convert.ToInt32(categoryCode);
+                    DataRow[] drtotalSIPamount;
                     drtotalSIPamount = dsSIPFundingDetails.Tables[1].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
                     drTotalAmount = dsSIPFundingDetails.Tables[2].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
-                      
-                      if (drtotalSIPamount.Count() > 0)
-                        {
-                            foreach (DataRow drtotalSIPInvestedAmount in drtotalSIPamount)
-                            {
-                                totalInvestedSIPamount =totalInvestedSIPamount + double.Parse(drtotalSIPInvestedAmount["TotalInvestedAmount"].ToString());
-                              
-                            }
-                        }
-                      if (drTotalAmount.Count() > 0)
-                        {
-                            foreach (DataRow drAmount in drTotalAmount)
-                            {
-                                totalAmounts = double.Parse(drAmount["CMFSS_Amount"].ToString());
-                                sipStartDate = DateTime.Parse(drAmount["CMFSS_StartDate"].ToString());
-                                sipEndDate = DateTime.Parse(drAmount["CMFSS_EndDate"].ToString());
-                                frequency = drAmount["XF_FrequencyCode"].ToString();
-                            }
-                        }
 
-                      AvialableAmount =  totalAmounts - totalInvestedSIPamount;
-                      otherAllocation = totalInvestedSIPamount;
-                      txtSIPEndDateAdd.Text = sipEndDate.ToShortDateString();
-                      txtSIPStartDateAdd.Text = sipStartDate.ToShortDateString();
-                      txtTotalSIPAmountAdd.Text = totalAmounts.ToString();
-                      TextBox2Add.Text = AvialableAmount.ToString();
-                      txtOtherSchemeAllocationPerAdd.Text = otherAllocation.ToString();
-                      txtSIPFrequencyAdd.Text = frequency;
+                    if (drtotalSIPamount.Count() > 0)
+                    {
+                        foreach (DataRow drtotalSIPInvestedAmount in drtotalSIPamount)
+                        {
+                            totalInvestedSIPamount = totalInvestedSIPamount + double.Parse(drtotalSIPInvestedAmount["TotalInvestedAmount"].ToString());
+
+                        }
                     }
-                
-                 
+                    if (drTotalAmount.Count() > 0)
+                    {
+                        foreach (DataRow drAmount in drTotalAmount)
+                        {
+                            totalAmounts = double.Parse(drAmount["CMFSS_Amount"].ToString());
+                            sipStartDate = DateTime.Parse(drAmount["CMFSS_StartDate"].ToString());
+                            sipEndDate = DateTime.Parse(drAmount["CMFSS_EndDate"].ToString());
+                            frequency = drAmount["XF_FrequencyCode"].ToString();
+                        }
+                    }
+
+                    AvialableAmount = totalAmounts - totalInvestedSIPamount;
+                    otherAllocation = totalInvestedSIPamount;
+                    txtSIPEndDateAdd.Text = sipEndDate.ToShortDateString();
+                    txtSIPStartDateAdd.Text = sipStartDate.ToShortDateString();
+                    txtTotalSIPAmountAdd.Text = totalAmounts.ToString();
+                    TextBox2Add.Text = AvialableAmount.ToString();
+                    txtOtherSchemeAllocationPerAdd.Text = otherAllocation.ToString();
+                    txtSIPFrequencyAdd.Text = frequency;
+                }
+
+
                 else
-                  {
+                {
 
-                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have not selected any SIP');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have not selected any SIP');", true);
 
-                  }
-                  }
+                }
+            }
         }
         protected void ddlPickScheme_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2578,14 +2665,14 @@ namespace WealthERP.FP
                 Label txtUnitsAddMode = editedItem.FindControl("txtUnitsAddMode") as Label;
                 Label txtUnits = editedItem.FindControl("txtUnits") as Label;
                 Label lblMemberNameAddMode = editedItem.FindControl("lblMemberNameAddMode") as Label;
-                HtmlTableRow trUnits =  editedItem.FindControl("trUnits") as HtmlTableRow;
-                HtmlTableRow trCurrentValue =  editedItem.FindControl("trCurrentValue") as HtmlTableRow;
-                HtmlTableRow trTotalGoalAllocation =  editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
+                HtmlTableRow trUnits = editedItem.FindControl("trUnits") as HtmlTableRow;
+                HtmlTableRow trCurrentValue = editedItem.FindControl("trCurrentValue") as HtmlTableRow;
+                HtmlTableRow trTotalGoalAllocation = editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
                 HtmlTableRow trOtherGoalAllocation = editedItem.FindControl("trOtherGoalAllocation") as HtmlTableRow;
 
-                trUnits.Visible=false;
-                trCurrentValue.Visible=false;
-                trTotalGoalAllocation.Visible=false;
+                trUnits.Visible = false;
+                trCurrentValue.Visible = false;
+                trTotalGoalAllocation.Visible = false;
                 trOtherGoalAllocation.Visible = false;
 
 
@@ -2611,14 +2698,14 @@ namespace WealthERP.FP
                 //txtAvailableAllocationEditMode
                 // Session.Remove(SessionContents.FPS_AddProspect_DataTable);
 
-                if(dropdown.SelectedValue != "" && dropdown.SelectedValue != "Select")
+                if (dropdown.SelectedValue != "" && dropdown.SelectedValue != "Select")
                 {
                     trUnits.Visible = true;
                     trCurrentValue.Visible = true;
                     trTotalGoalAllocation.Visible = true;
                     trOtherGoalAllocation.Visible = true;
 
-                
+
                     drTotalInvestmentAllocationStatus = dsFundingDetails.Tables[2].Select("PASP_SchemePlanCode=" + "'" + dropdown.SelectedValue + "'");
                     if (drTotalInvestmentAllocationStatus.Count() > 0)
                     {
@@ -2627,7 +2714,7 @@ namespace WealthERP.FP
                             totalAllocation = decimal.Parse(dr["allocatedPercentage"].ToString());
                         }
                     }
-                
+
 
                     drCurrentGoalInvestmentAllocationStatus = dsFundingDetails.Tables[3].Select("PASP_SchemePlanCode=" + "'" + dropdown.SelectedValue + "'");
                     if (drCurrentGoalInvestmentAllocationStatus.Count() > 0)
@@ -2637,8 +2724,8 @@ namespace WealthERP.FP
                             currentAllocation = decimal.Parse(dr["allocatedPercentage"].ToString());
                         }
                     }
-                //foreach (DataRow drGoalExistingInvestments in dsFundingDetails.Tables[6].Rows)
-                //{
+                    //foreach (DataRow drGoalExistingInvestments in dsFundingDetails.Tables[6].Rows)
+                    //{
                     if (currentAllocation > totalAllocation)
                     {
                         otherAllocation = totalAllocation - currentAllocation;
@@ -2659,29 +2746,29 @@ namespace WealthERP.FP
                             decimal.TryParse(dr["CMFNP_AcqCostExclDivReinvst"].ToString(), out totalAmounts);
                         }
                     }
-               // }
+                    // }
 
 
-                txtCurrentValueAddMode.Text = currentValue != 0 ? String.Format("{0:n2}", Math.Round(((currentValue * AvialableAllocation)/100), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                txtUnitsAddMode.Text = totalUnits != 0 ? String.Format("{0:n2}", Math.Round((totalUnits), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                txtAmtAvailableAddMode.Text = (totalAmounts * AvialableAllocation) / 100 != 0 ? String.Format("{0:n2}", Math.Round((totalAmounts * AvialableAllocation) / 100, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                txtAvailableAllocationAddMode.Text = AvialableAllocation.ToString();
-                    
-                txtSchemeAllocationPerAddMode.Text = otherAllocation.ToString();
-                txtAllocationEntryAddMode.Text = totalAllocation.ToString();
-                txtInvestedAmtAdd.Text = "0";
-                //lblMemberNameAddMode.Text ="0";
-                //txtUnitsAddMode.Text = "0";
+                    txtCurrentValueAddMode.Text = currentValue != 0 ? String.Format("{0:n2}", Math.Round(((currentValue * AvialableAllocation) / 100), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtUnitsAddMode.Text = totalUnits != 0 ? String.Format("{0:n2}", Math.Round((totalUnits), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtAmtAvailableAddMode.Text = (totalAmounts * AvialableAllocation) / 100 != 0 ? String.Format("{0:n2}", Math.Round((totalAmounts * AvialableAllocation) / 100, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtAvailableAllocationAddMode.Text = AvialableAllocation.ToString();
+
+                    txtSchemeAllocationPerAddMode.Text = otherAllocation.ToString();
+                    txtAllocationEntryAddMode.Text = totalAllocation.ToString();
+                    txtInvestedAmtAdd.Text = "0";
+                    //lblMemberNameAddMode.Text ="0";
+                    //txtUnitsAddMode.Text = "0";
                 }
                 else
                 {
-                txtCurrentValueAddMode.Text ="0";
-                txtUnitsAddMode.Text = "0";
-                txtAmtAvailableAddMode.Text = "0";
-                txtAvailableAllocationAddMode.Text = "0";
-                txtSchemeAllocationPerAddMode.Text = "0";
-                txtAllocationEntryAddMode.Text = "0";
-                txtInvestedAmtAdd.Text = "0";
+                    txtCurrentValueAddMode.Text = "0";
+                    txtUnitsAddMode.Text = "0";
+                    txtAmtAvailableAddMode.Text = "0";
+                    txtAvailableAllocationAddMode.Text = "0";
+                    txtSchemeAllocationPerAddMode.Text = "0";
+                    txtAllocationEntryAddMode.Text = "0";
+                    txtInvestedAmtAdd.Text = "0";
 
                 }
 
@@ -2728,7 +2815,449 @@ namespace WealthERP.FP
             tdddlPickSIPScheme.Visible = true;
             BindDDLSIPSchemeAllocated(ddlPickSIPScheme, customerId);
         }
-   #endregion
+
+
+        //protected void GetEquityFundedDetails()
+        //{
+
+        //    dtEqFundedDetails = customerGoalPlanningBo.GetGoalEquityFunding(goalId, customerVo.CustomerId, out dsEqFundedDetails);
+
+        //    //BindEquityFundedDetails();
+        //    //if (Cache["GoalFundingDetailsdsEqFundedDetails" + customerVo.CustomerId.ToString()] != null)
+        //    //{
+        //    //    Cache.Remove("GoalFundingDetailsdsEqFundedDetails" + customerVo.CustomerId.ToString());
+        //    //}
+        //    //Cache.Insert("GoalFundingDetailsdsEqFundedDetails" + customerVo.CustomerId, dsEqFundedDetails, null, DateTime.Now.AddMinutes(4 * 60), TimeSpan.Zero);
+        //}
+
+        protected void BindEquityFundedDetails()
+        {
+            RadGrid4.DataSource = dsGoalFundingDetails.Tables[2];
+            RadGrid4.DataBind();
+        }
+        protected void BindDDLScripsAllocated(DropDownList ddlPickScrips, int customerId)
+        {
+            DataSet dsBindDDLScripsAllocated = new DataSet();
+            dsBindDDLScripsAllocated = customerGoalPlanningBo.BindDDLScripsAllocated(customerId, goalId);
+
+            ddlPickScrips.DataSource = dsBindDDLScripsAllocated.Tables[0];
+            ddlPickScrips.DataTextField = dsBindDDLScripsAllocated.Tables[0].Columns["PEM_CompanyName"].ToString();
+            ddlPickScrips.DataValueField = dsBindDDLScripsAllocated.Tables[0].Columns["CENPS_Id"].ToString();
+            ddlPickScrips.DataBind();
+            ddlPickScrips.Items.Insert(0, new ListItem("Select", "Select"));
+
+        }
+
+
+        protected void RadGrid4_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            RadTabStripFPGoalDetails.TabIndex = 4;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 4;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[1].Selected = true;
+
+            if ((e.Item is GridEditFormItem) && e.Item.IsInEditMode)
+            {
+                GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+                DropDownList dropDownList = (DropDownList)editedItem.FindControl("ddlPickScrips");
+                DropDownList ddlMemberNameEq = (DropDownList)editedItem.FindControl("ddlMemberNameEq");
+                HtmlTableRow trScripsDDL = (HtmlTableRow)editedItem.FindControl("trScripsDDL");
+                HtmlTableRow trScripsTextBox = (HtmlTableRow)editedItem.FindControl("trScripsTextBox");
+                Label txtShareAvailableEditMode = editedItem.FindControl("txtShareAvailableEditMode") as Label;
+                Label txtShareAvailableAddMode = editedItem.FindControl("txtShareAvailableAddMode") as Label;
+                Label txtShareAllocationPerEditMode = editedItem.FindControl("txtShareOtherAllocationEditMode") as Label;
+                Label txtShareAllocationPerAddMode = editedItem.FindControl("txtShareOtherAllocationAddMode") as Label;
+                Label txtInvestedAmtAdd = editedItem.FindControl("txtInvestedAmtAddEq") as Label;
+                Label txtInvestedAmt = editedItem.FindControl("txtInvestedAmtEq") as Label;
+                Label txtAllocationEntryAddMode = editedItem.FindControl("txtAllocationTotalAddMode") as Label;
+                Label TextBox1 = editedItem.FindControl("txtAllocationTotalEditModeEQ") as Label;
+                //TextBox txtAvailableAllocationEditMode = editedItem.FindControl("txtAvailableAllocationEQEditMode") as TextBox;
+                //TextBox txtAvailableAllocationAddMode = editedItem.FindControl("txtAvailableAllocationEQAddMode") as TextBox;
+                Label txtCurrentValueEditMode = editedItem.FindControl("txtCurrentValueEditMode") as Label;
+                Label txtCurrentValueAddMode = editedItem.FindControl("txtCurrentValueAddMode") as Label;
+                Label txtSharesAdd = editedItem.FindControl("txtSharesAdd") as Label;
+                Label txtShares = editedItem.FindControl("txtShares") as Label;
+
+                HtmlTableRow trTotalShares = editedItem.FindControl("trTotalShares") as HtmlTableRow;
+                HtmlTableRow trOtherGoalAllocation = editedItem.FindControl("trOtherGoalAllocation") as HtmlTableRow;
+                HtmlTableRow trTotalGoalAllocation = editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
+                HtmlTableRow trCurrentValue = editedItem.FindControl("trCurrentValue") as HtmlTableRow;
+                HtmlTableCell tdlblPickScrips = editedItem.FindControl("tdlblPickScrips") as HtmlTableCell;
+                HtmlTableCell tdddlPickScrips = editedItem.FindControl("tdddlPickScrips") as HtmlTableCell;
+                
+                tdlblPickScrips.Visible = true;
+                trTotalShares.Visible = true;
+                trCurrentValue.Visible = true;
+                trTotalGoalAllocation.Visible = true;
+                trOtherGoalAllocation.Visible = true;
+                trCurrentValue.Visible = true;
+                tdddlPickScrips.Visible = true; 
+
+                if (e.Item.RowIndex == -1)
+                {
+                    trTotalShares.Visible = false;
+                    tdddlPickScrips.Visible = false; 
+                    tdlblPickScrips.Visible = false;
+                    trCurrentValue.Visible = false;
+                    trTotalGoalAllocation.Visible = false;
+                    trOtherGoalAllocation.Visible = false;
+                    trCurrentValue.Visible = false;
+
+                    BindFamilyMembers(ddlMemberNameEq, customerVo.CustomerId);
+                    trScripsTextBox.Visible = false;
+                    trScripsDDL.Visible = true;
+                    txtShareAvailableEditMode.Visible = false;
+                    txtShareAllocationPerEditMode.Visible = false;
+                    txtInvestedAmt.Visible = false;
+                    TextBox1.Visible = false;
+                    txtCurrentValueEditMode.Visible = false;
+                    //txtAvailableAllocationEditMode.Visible = false;
+                    //txtAvailableAllocationAddMode.Visible = true;
+                    txtCurrentValueAddMode.Visible = true;
+                    txtInvestedAmtAdd.Visible = true;
+                    txtSharesAdd.Visible = true;
+                    txtShares.Visible = false;
+
+                }
+                else
+                {
+                    trScripsTextBox.Visible = true;
+                    trScripsDDL.Visible = false;
+                    txtShareAllocationPerEditMode.Visible = true;
+                    txtInvestedAmt.Visible = true;
+                    TextBox1.Visible = true;
+                    txtCurrentValueEditMode.Visible = true;
+                    txtShareAvailableEditMode.Visible = true;
+                    txtCurrentValueAddMode.Visible = false;
+                    txtShareAllocationPerAddMode.Visible = false;
+                    txtInvestedAmtAdd.Visible = false;
+                    txtAllocationEntryAddMode.Visible = false;
+                    txtShareAvailableAddMode.Visible = false;
+                    //txtAvailableAllocationEditMode.Visible = true;
+                    //txtAvailableAllocationAddMode.Visible = false;
+                    txtSharesAdd.Visible = false;
+                    txtShares.Visible = true;
+                }
+
+            }
+        }
+
+        protected void ddlMemberNameEquity_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            int customerId = 0;
+            RadTabStripFPGoalDetails.TabIndex = 4;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 4;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[1].Selected = true;
+        
+            DropDownList dropdown = (DropDownList)sender;
+            if (dropdown.SelectedValue != "" && dropdown.SelectedValue != "Select")
+            {
+                customerId = Int32.Parse(dropdown.SelectedValue);
+            }
+            GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
+            DropDownList ddlPickScrips = editedItem.FindControl("ddlPickScrips") as DropDownList;
+            HtmlTableRow trTotalShares = editedItem.FindControl("trTotalShares") as HtmlTableRow;
+            HtmlTableRow trOtherGoalAllocation = editedItem.FindControl("trOtherGoalAllocation") as HtmlTableRow;
+            HtmlTableRow trTotalGoalAllocation = editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
+            HtmlTableRow trCurrentValue = editedItem.FindControl("trCurrentValue") as HtmlTableRow;
+            HtmlTableCell tdlblPickScrips = editedItem.FindControl("tdlblPickScrips") as HtmlTableCell;
+            HtmlTableCell tdddlPickScrips = editedItem.FindControl("tdddlPickScrips") as HtmlTableCell;
+            BindDDLScripsAllocated(ddlPickScrips, customerId);
+
+            trTotalShares.Visible = false;
+            tdlblPickScrips.Visible = true;
+            tdddlPickScrips.Visible = true;
+            trCurrentValue.Visible = false;
+            trTotalGoalAllocation.Visible = false;
+            trOtherGoalAllocation.Visible = false;
+            trCurrentValue.Visible = false;
+        }
+
+        protected void ddlMemberNameEquity_OnSelected(object sender, EventArgs e)
+        {
+            RadTabStripFPGoalDetails.TabIndex = 3;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 3;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
+            int customerId = 0;
+            DropDownList dropdown = (DropDownList)sender;
+            if (dropdown.SelectedValue != "" && dropdown.SelectedValue != "Select")
+            {
+                customerId = Int32.Parse(dropdown.SelectedValue);
+            }
+            GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
+            DropDownList ddlPickScrips = editedItem.FindControl("ddlPickScrips") as DropDownList;
+            BindDDLScripsAllocated(ddlPickScrips, customerId);
+
+        }
+
+        protected void ddlPickScrips_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet dsEQFundingDetails = new DataSet();
+            decimal currentAllocation = 0;
+            decimal otherAllocation = 0;
+            decimal totalAllocation = 0;
+            decimal AvialableAllocation = 0;
+            decimal currentValue = 0;
+            decimal totalNetCost = 0;
+            decimal totalSharesHolding = 0;
+
+            DropDownList dropdown = (DropDownList)sender;
+            GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
+            DropDownList dropDownList = (DropDownList)editedItem.FindControl("ddlPickScrips");
+            DropDownList ddlMemberNameEq = (DropDownList)editedItem.FindControl("ddlMemberNameEq");
+            HtmlTableRow trScripsDDL = (HtmlTableRow)editedItem.FindControl("trScripsDDL");
+            HtmlTableRow trScripsTextBox = (HtmlTableRow)editedItem.FindControl("trScripsTextBox");
+            Label txtShareAvailableEditMode = editedItem.FindControl("txtShareAvailableEditMode") as Label;
+            Label txtShareAvailableAddMode = editedItem.FindControl("txtShareAvailableAddMode") as Label;
+            Label txtSharesAdd = editedItem.FindControl("txtSharesAdd") as Label;
+            Label txtShares = editedItem.FindControl("txtShares") as Label;
+            Label txtCurrentValueAddMode = editedItem.FindControl("txtCurrentValueAddMode") as Label;
+            Label txtCurrentValueEditMode = editedItem.FindControl("txtCurrentValueEditMode") as Label;
+            Label txtInvestedAmtEq = editedItem.FindControl("txtInvestedAmtEq") as Label;
+            Label txtInvestedAmtAddEq = editedItem.FindControl("txtInvestedAmtAddEq") as Label;
+            Label txtAllocationTotalEditModeEQ = editedItem.FindControl("txtAllocationTotalEditModeEQ") as Label;
+            Label txtAllocationTotalAddMode = editedItem.FindControl("txtAllocationTotalAddMode") as Label;
+            Label txtShareOtherAllocationEditMode = editedItem.FindControl("txtShareOtherAllocationEditMode") as Label;
+            Label txtShareOtherAllocationAddMode = editedItem.FindControl("txtShareOtherAllocationAddMode") as Label;
+            HtmlTableRow trTotalShares = editedItem.FindControl("trTotalShares") as HtmlTableRow;
+            HtmlTableRow trOtherGoalAllocation = editedItem.FindControl("trOtherGoalAllocation") as HtmlTableRow;
+            HtmlTableRow trTotalGoalAllocation = editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
+            HtmlTableRow trCurrentValue = editedItem.FindControl("trCurrentValue") as HtmlTableRow;
+            HtmlTableCell tdlblPickScrips = editedItem.FindControl("tdlblPickScrips") as HtmlTableCell;
+
+
+            trTotalShares.Visible = true;
+            trCurrentValue.Visible = true;
+            trTotalGoalAllocation.Visible = true;
+            trOtherGoalAllocation.Visible = true;
+            trCurrentValue.Visible = true;
+
+            RadTabStripFPGoalDetails.TabIndex = 4;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 4;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[1].Selected = true;
+
+            DataRow[] drTotalInvestmentAllocationStatus;
+            DataRow[] drCurrentGoalInvestmentAllocationStatus;
+            DataRow[] drShareHoldingDetails;
+            if (dropdown.SelectedIndex != 0 && dropdown.SelectedIndex != -1)
+            {
+
+                if (Cache["GoalFundingDetailsdsEqFundedDetails" + customerVo.CustomerId.ToString()] != null)
+                {
+                    dsEQFundingDetails = (DataSet)Cache["GoalFundingDetailsdsEqFundedDetails" + customerVo.CustomerId.ToString()];
+
+                    drShareHoldingDetails = dsEQFundingDetails.Tables[3].Select("CENPS_Id=" + "'" + dropdown.SelectedValue + "'");
+                    if (drShareHoldingDetails.Count() > 0)
+                    {
+                        foreach (DataRow dr in drShareHoldingDetails)
+                        {
+                            currentValue = decimal.Parse(dr["CENP_CurrentValue"].ToString());
+                            totalSharesHolding = decimal.Parse(dr["CENP_NetHoldings"].ToString());
+                            totalNetCost = decimal.Parse(dr["CENP_NetCost"].ToString());
+                        }
+                    }
+
+
+                    drTotalInvestmentAllocationStatus = dsEQFundingDetails.Tables[1].Select("CENPS_Id=" + "'" + dropdown.SelectedValue + "'");
+                    if (drTotalInvestmentAllocationStatus.Count() > 0)
+                    {
+                        foreach (DataRow dr in drTotalInvestmentAllocationStatus)
+                        {
+                            totalAllocation = decimal.Parse(dr["CEESTGA_AllocatedShares"].ToString());
+                        }
+                    }
+
+
+
+                    drCurrentGoalInvestmentAllocationStatus = dsEQFundingDetails.Tables[2].Select("CENPS_Id=" + "'" + dropdown.SelectedValue + "'");
+                    if (drCurrentGoalInvestmentAllocationStatus.Count() > 0)
+                    {
+                        foreach (DataRow dr in drCurrentGoalInvestmentAllocationStatus)
+                        {
+                            currentAllocation = decimal.Parse(dr["CEESTGA_AllocatedShares"].ToString());
+                        }
+                    }
+
+
+                    if (currentAllocation > totalAllocation)
+                    {
+                        otherAllocation = totalAllocation - currentAllocation;
+                    }
+                    else
+                    {
+                        otherAllocation = totalAllocation;
+                    }
+                    AvialableAllocation = totalSharesHolding - totalAllocation;
+                    txtSharesAdd.Text = Convert.ToString(totalSharesHolding);
+                    txtShareAvailableAddMode.Text = AvialableAllocation.ToString();
+                    txtInvestedAmtAddEq.Text = currentAllocation != 0 ? String.Format("{0:n2}", Math.Round(currentAllocation,2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtCurrentValueAddMode.Text = currentValue != 0 ? String.Format("{0:n2}", Math.Round(currentValue, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtAllocationTotalAddMode.Text = totalAllocation != 0 ? String.Format("{0:n2}", Math.Round(totalAllocation, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtShareOtherAllocationAddMode.Text = otherAllocation != 0 ? String.Format("{0:n2}", Math.Round(otherAllocation, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtShareAvailableAddMode.Text = AvialableAllocation != 0 ? String.Format("{0:n2}", Math.Round(AvialableAllocation, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select Scheme');", true);
+            }
+        }
+
+
+        protected void RadGrid4_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            RadTabStripFPGoalDetails.TabIndex = 4;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 4;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[1].Selected = true;
+        
+
+            if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
+            {
+                GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid4.MasterTableView.GetColumn("EditCommandColumn");
+                //GridEditFormItem ed = (GridEditFormItem)e.Item;
+
+            }
+
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                TextBox txt = (TextBox)e.Item.FindControl("txtAllocationEntryEquity");
+                decimal allocationEntry = decimal.Parse(txt.Text);
+                int eqId = int.Parse(RadGrid4.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CENPS_Id"].ToString());
+                decimal OtherGoalAllocation = decimal.Parse(RadGrid4.MasterTableView.DataKeyValues[e.Item.ItemIndex]["OtherEquityGoalAllocation"].ToString());
+                customerGoalPlanningBo.UpdateEquityGoalAllocation(allocationEntry, eqId, goalId);
+                BindEquityFundedDetails();
+            }
+            if (e.CommandName != RadGrid.UpdateCommandName)
+            {
+                GetGoalFundingProgress();
+            }
+            BindEquityFundedDetails();
+
+        }
+
+        protected void RadGrid4_ItemInserted(object source, GridCommandEventArgs e)
+        {
+            decimal totalOtherAllocation = 0;
+            decimal currentAllocation = 0;
+            decimal totalEquityAmount = 0;
+            decimal totalAllocation = 0;
+            GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+            DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickScrips");
+            TextBox txt = (TextBox)e.Item.FindControl("txtAllocationEntryEquity");
+            if (ddl.SelectedIndex != -1 && ddl.SelectedIndex != 0)
+            {
+
+                int equityNPId =Convert.ToInt32(ddl.SelectedValue);
+
+                //int.Parse(ddl.SelectedValue);
+
+                DataRow[] drOtherInvestmentEquity;
+                DataRow[] drEquityCurrentInvestment;
+                DataRow[] drTotalEquityamount;
+                drOtherInvestmentEquity = dsEqFundedDetails.Tables[1].Select("CENPS_Id=" + equityNPId.ToString());
+                drTotalEquityamount = dsEqFundedDetails.Tables[3].Select("CENPS_Id=" + equityNPId.ToString());
+                drEquityCurrentInvestment = dsEqFundedDetails.Tables[2].Select("CENPS_Id=" + equityNPId.ToString());
+                if (drTotalEquityamount.Count() > 0)
+                {
+                    foreach (DataRow dr in drTotalEquityamount)
+                    {
+                        totalEquityAmount = decimal.Parse(dr["CENP_NetHoldings"].ToString());
+                    }
+                }
+
+                if (drOtherInvestmentEquity.Count() > 0)
+                {
+                    foreach (DataRow dr in drOtherInvestmentEquity)
+                    {
+                        totalAllocation = decimal.Parse(dr["CEESTGA_AllocatedShares"].ToString());
+                    }
+                }
+
+                if (drEquityCurrentInvestment.Count() > 0)
+                {
+                    foreach (DataRow dr in drEquityCurrentInvestment)
+                    {
+                        currentAllocation = decimal.Parse(dr["CEESTGA_AllocatedShares"].ToString());
+                    }
+                }
+
+                totalOtherAllocation = totalAllocation - currentAllocation;
+
+                if (!string.IsNullOrEmpty(txt.Text))
+                {
+                    if ((decimal.Parse(txt.Text) + totalOtherAllocation) > totalEquityAmount)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have less available amount');", true);
+                    }
+                    else
+                    {
+                        customerGoalPlanningBo.UpdateEquityGoalAllocation(decimal.Parse(txt.Text), equityNPId, goalId);
+                        //BindMonthlySIPFundingScheme();
+                        // GetGoalFundingProgress();
+                        // BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                        //ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+                        GetGoalFundingProgress();
+                        BindEquityFundedDetails();
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill the allocation');", true);
+                }
+
+
+
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have not selected any scheme');", true);
+
+            }
+        }
+
+
+        protected void InsertEquityAllocation(int equityId, decimal otherAllocation, decimal allocationEntry, decimal totalAllocation)
+        {
+            if (allocationEntry + otherAllocation <= totalAllocation)
+            {
+                customerGoalPlanningBo.UpdateEquityGoalAllocation(allocationEntry, equityId, goalId);
+                BindEquityFundedDetails();
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough amount');", true);
+            }
+        }
+
+        protected void RadGrid4_DeleteCommand(object source, GridCommandEventArgs e)
+        {
+            try
+            {
+                int eqId = Convert.ToInt32(RadGrid4.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CENPS_Id"].ToString());
+                customerGoalPlanningBo.DeleteEqFundedScheme(eqId, goalId);
+                BindEquityFundedDetails();
+            }
+            catch (Exception ex)
+            {
+                RadGrid4.Controls.Add(new LiteralControl("Unable to Delete the Record. Reason: " + ex.Message));
+                e.Canceled = true;
+            }
+        }
+
+       
+        #endregion
+
 
 
     }

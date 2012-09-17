@@ -93,7 +93,7 @@ namespace DaoFPSuperlite
         }
 
 
-        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo GoalPlanningVo,out int goalId)
+        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo GoalPlanningVo, out int goalId)
         {
             Database db;
             DbCommand createCustomerGoalProfileCmd;
@@ -117,10 +117,10 @@ namespace DaoFPSuperlite
                     db.AddInParameter(createCustomerGoalProfileCmd, "@AssociateId", DbType.Int32, GoalPlanningVo.AssociateId);
                 }
                 db.AddInParameter(createCustomerGoalProfileCmd, "@ROIEarned", DbType.Double, GoalPlanningVo.ROIEarned);
-                if (GoalPlanningVo.IsFundFromAsset==true)
+                if (GoalPlanningVo.IsFundFromAsset == true)
                     db.AddInParameter(createCustomerGoalProfileCmd, "@IsGoalFundFromAsset", DbType.Int16, 1);
                 else
-                    db.AddInParameter(createCustomerGoalProfileCmd, "@IsGoalFundFromAsset", DbType.Int16,0);
+                    db.AddInParameter(createCustomerGoalProfileCmd, "@IsGoalFundFromAsset", DbType.Int16, 0);
 
                 db.AddInParameter(createCustomerGoalProfileCmd, "@CurrentInvestment", DbType.Double, GoalPlanningVo.CurrInvestementForGoal);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@ExpectedROI", DbType.Double, GoalPlanningVo.ExpectedROI);
@@ -152,7 +152,7 @@ namespace DaoFPSuperlite
                 }
 
                 db.AddOutParameter(createCustomerGoalProfileCmd, "@GoalId", DbType.Int32, 10000);
-                                
+
                 db.ExecuteNonQuery(createCustomerGoalProfileCmd);
 
                 Object objGoalId = db.GetParameterValue(createCustomerGoalProfileCmd, "@GoalId");
@@ -903,7 +903,7 @@ namespace DaoFPSuperlite
         {
             Database db;
             DbCommand deleteFundedSchemeCmd;
-        
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -916,7 +916,7 @@ namespace DaoFPSuperlite
             {
                 throw Ex;
             }
-           
+
         }
 
         public void DeleteSIPFundedScheme(int sipId, int goalId)
@@ -957,6 +957,90 @@ namespace DaoFPSuperlite
             }
 
             return dsFamilyMembers;
+        }
+
+        public DataSet GetEquityFundedDetails(int CustomerID, int goalId)
+        {
+            Database db;
+            DbCommand getEqFundedCmd;
+            DataSet dsEqFundedDetails = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getEqFundedCmd = db.GetStoredProcCommand("SP_GetEQExistingInvestmentDetails");
+                db.AddInParameter(getEqFundedCmd, "@CustomerID", DbType.Int32, CustomerID);
+                db.AddInParameter(getEqFundedCmd, "@GoalId", DbType.Int32, goalId);
+                dsEqFundedDetails = db.ExecuteDataSet(getEqFundedCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsEqFundedDetails;
+        }
+
+        public DataSet BindDDLScripsAllocated(int CustomerID, int goalId)
+        {
+            Database db;
+            DbCommand getBindDDLScripsAllocated;
+            DataSet dsBindDDLScripsAllocated = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBindDDLScripsAllocated = db.GetStoredProcCommand("SP_BindDDLScripsAllocated");
+                db.AddInParameter(getBindDDLScripsAllocated, "@CustomerID", DbType.Int32, CustomerID);
+                db.AddInParameter(getBindDDLScripsAllocated, "@GoalId", DbType.Int32, goalId);
+                dsBindDDLScripsAllocated = db.ExecuteDataSet(getBindDDLScripsAllocated);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsBindDDLScripsAllocated;
+        }
+        public void UpdateEquityGoalAllocation(decimal allocationAmount, int EqId, int goalId)
+        {
+            Database db;
+            DbCommand SIPGoalAllocationCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                SIPGoalAllocationCmd = db.GetStoredProcCommand("SP_UpdateEquityGoalAllocationAmount");
+                db.AddInParameter(SIPGoalAllocationCmd, "@allocationShare", DbType.Decimal, allocationAmount);
+                db.AddInParameter(SIPGoalAllocationCmd, "@goalId", DbType.Int32, goalId);
+                db.AddInParameter(SIPGoalAllocationCmd, "@EquityId", DbType.Int32, EqId);
+                db.ExecuteNonQuery(SIPGoalAllocationCmd);
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+        public void DeleteEqFundedScheme(int eqId, int goalId)
+        {
+            Database db;
+            DbCommand deleteEqFundedSchemeCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteEqFundedSchemeCmd = db.GetStoredProcCommand("SP_DeleteEQFundedScheme");
+                db.AddInParameter(deleteEqFundedSchemeCmd, "@eqId", DbType.Int32, eqId);
+                db.AddInParameter(deleteEqFundedSchemeCmd, "@GoalId", DbType.Int32, goalId);
+                db.ExecuteNonQuery(deleteEqFundedSchemeCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
         }
     }
 }
