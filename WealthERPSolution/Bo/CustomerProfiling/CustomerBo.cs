@@ -67,6 +67,64 @@ namespace BoCustomerProfiling
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
+        /// 
+
+        public DataSet GetSchemeDetails(int schemePlanCode)
+        {
+            DataSet dsGetSchemeDetails = new DataSet();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dsGetSchemeDetails = customerDao.GetSchemeDetails(schemePlanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetSchemeDetails()");
+                object[] objects = new object[1];
+                objects[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetSchemeDetails;
+        }
+
+
+        public DataSet GetAMCExternalType()
+        {
+            DataSet dsGetAMCExternalType = new DataSet();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dsGetAMCExternalType = customerDao.GetAMCExternalType();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAMCExternalType()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetAMCExternalType;
+        }
+
         public CustomerVo GetCustomer(int customerId)
         {
 
@@ -1497,6 +1555,22 @@ namespace BoCustomerProfiling
                 throw Ex;
             }
         }
+
+        public bool InsertProductAMCSchemeMappingDetalis(int schemePlanCode, string externalCode, string externalType)
+        {
+            bool isInserted = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+              isInserted=customerDao.InsertProductAMCSchemeMappingDetalis(schemePlanCode, externalCode, externalType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isInserted;
+        }
+
         public void UpdateCustomerProjectedDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType)
         {
             CustomerDao customerDao = new CustomerDao();
@@ -2277,6 +2351,36 @@ namespace BoCustomerProfiling
 
             }
             return dtGetCustomerUploadedProofPurposes;
+        }
+
+        public bool DeleteMappedSchemeDetails(int schemePlanCode,string strExtCode,string strExtName)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            bool isDeleted = false;
+            try
+            {
+                isDeleted = customerDao.DeleteMappedSchemeDetails(schemePlanCode, strExtCode, strExtName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isDeleted;            
+        }
+
+        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExtCode, string strExtName)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            bool isEdited = false;
+            try
+            {
+                isEdited = customerDao.EditProductAMCSchemeMapping(schemePlanCode, strExtCode, strExtName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isEdited;            
         }
     }
 }
