@@ -1,8 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewEquityPortfolios.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.ViewEquityPortfolios" %>
-
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
-
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
 
@@ -35,23 +33,20 @@
 </telerik:RadScriptManager>
 
 <table width="100%">
-<tr>
-<td>
-<div class="divPageHeading">
-<table cellspacing="0" cellpadding="3" width="100%">
     <tr>
-        <td align="left">
-            Equity Net position
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Equity Net position
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
 </table>
-</div>
-</td>
-</tr>
-</table>
-
-
-
 <table>
     <tr>
         <td class="leftField">
@@ -64,7 +59,6 @@
         </td>
     </tr>
 </table>
-
 <table>
     <tr>
         <td>
@@ -72,365 +66,358 @@
         </td>
     </tr>
 </table>
-
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
-    EnableEmbeddedSkins="False" Width="100%" MultiPageID="EQPortfolioTabPages" SelectedIndex="0" EnableViewState="true">
+    EnableEmbeddedSkins="False" Width="100%" MultiPageID="EQPortfolioTabPages" SelectedIndex="0"
+    EnableViewState="true">
     <Tabs>
-        
-        <telerik:RadTab runat="server" Text="UnRealized"
-            Value="UnRealized" TabIndex="3">
+        <telerik:RadTab runat="server" Text="UnRealized" Value="UnRealized" TabIndex="3">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Realized Delivery"
-            Value="Realized Delivery" TabIndex="1">
+        <telerik:RadTab runat="server" Text="Realized Delivery" Value="Realized Delivery"
+            TabIndex="1">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Realized Speculative"
-            Value="Realized Speculative" TabIndex="2">
+        <telerik:RadTab runat="server" Text="Realized Speculative" Value="Realized Speculative"
+            TabIndex="2">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="All"
-            Value="All" TabIndex="0">
+        <telerik:RadTab runat="server" Text="All" Value="All" TabIndex="0">
         </telerik:RadTab>
-        
     </Tabs>
 </telerik:RadTabStrip>
-
 <telerik:RadMultiPage ID="EQPortfolioTabPages" runat="server" EnableViewState="true"
-SelectedIndex="0">
-
+    SelectedIndex="0">
     <telerik:RadPageView ID="EQPortfolioUnRealizedTabPage" runat="server">
-    <asp:Panel ID="pnlEQPortfolioUnRealized" runat="server">
-        <%--<table id="tblUnrealized" runat="server">
-                        <tr id="Tr4" runat="server" visible="true">
-                            <td>
-                                <asp:RadioButton ID="rbtnUnrealExcel" Text="Excel" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnUnrealPDF" Text="PDF" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnUnrealWord" Text="Word" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Button ID="btnExportUnrealized" runat="server" OnClick="btnExportUnrealized_Click"
-                                    Text="Export" CssClass="ButtonField" />
-                                <asp:Button ID="btnPrintUnrealized" runat="server" OnClick="btnPrintUnrealized_Click"
-                                    Text="Print" CssClass="ButtonField" />
-                                <asp:Button ID="btnPrintUnrealizedGrid" runat="server" Text="" OnClick="btnPrintUnrealizedGrid_Click"
-                                    BorderStyle="None" BackColor="Transparent" />
-                            </td>
-                        </tr>
-                    </table>--%>
-        <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
-            cellspacing="0">
-            <tr>
-                <td>
-                    <asp:ImageButton ID="imgBtnExport3" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
-                        OnClick="imgBtnExport3_Click" style="width: 20px" />
-                </td>                    
-            </tr>
-        </table>
-        <table>
-                        <tr>
-                            <td>
-                                <div id="dvEquityPortfolioUnrealized" runat="server">
-                                    <asp:Label ID="lblMessageUnrealized" Visible="false" Text="No Record Exists" runat="server"
-                                        CssClass="Field"></asp:Label>
-                                    <asp:GridView ID="gvEquityPortfolioUnrealized" runat="server" AllowSorting="True"
-                                        AutoGenerateColumns="False" CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true"
-                                        CssClass="GridViewStyle" ShowFooter="True" OnSorting="gvEquityPortfolioUnrealized_Sorting"
-                                        OnRowCommand="gvEquityPortfolioUnrealized_RowCommand" OnPageIndexChanging="gvEquityPortfolioUnrealized_PageIndexChanging"
-                                        OnDataBound="gvEquityPortfolioUnrealized_DataBound" OnRowDataBound="gvEquityPortfolioUnrealized_RowDataBound">
-                                        <RowStyle CssClass="RowStyle" />
-                                        <FooterStyle CssClass="FooterStyle" />
-                                        <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                                        <SelectedRowStyle CssClass="SelectedRowStyle" />
-                                        <HeaderStyle CssClass="HeaderStyle" />
-                                        <EditRowStyle CssClass="EditRowStyle" />
-                                        <AlternatingRowStyle CssClass="AltRowStyle" />
-                                        <Columns>
-                                            <asp:ButtonField CommandName="Select" HeaderText="Select" ShowHeader="True" Text="Select" />
-                                            <asp:BoundField DataField="Sl.No." HeaderText="Sl.No." Visible="false" />
-                                            <asp:TemplateField ItemStyle-Wrap="false">
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblScripNameUnRealized" runat="server" Text="Scrip Name"></asp:Label>
-                                                    <br />
-                                                    <asp:TextBox ID="txtScripNameUnRealizedSearch" runat="server" CssClass="GridViewTxtField"
-                                                        onkeydown="return JSdoPostback(event,'ctrl_ViewEquityPortfolios_btnEQUnRealizedSearch');" />
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblScripNameUnRealizedHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:BoundField DataField="Quantity" HeaderText="No of Shares" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="AveragePrice" HeaderText="Average Price (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CostOfPurchase" HeaderText="Cost Of Purchase (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="MarketPrice" HeaderText="Current Price (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CurrentValue" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="UnRealizedPL" HeaderText="UnRealized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)" ItemStyle-HorizontalAlign="Right" />
-                                        </Columns>
-                                    </asp:GridView>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-    </asp:Panel>
+        <asp:Panel ID="pnlEQPortfolioUnRealized" runat="server">
+            <table>
+                <tr>
+                    <td>
+                        <div id="dvEquityPortfolioUnrealized" runat="server">
+                            <asp:Label ID="lblMessageUnrealized" Visible="false" Text="No Record Exists" runat="server"
+                                CssClass="Field"></asp:Label>
+                            <asp:ImageButton ID="imgBtnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btngvEquityPortfolioUnrealizedExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="25px" Width="25px" Visible="false"></asp:ImageButton>
+                            <telerik:RadGrid ID="gvEquityPortfolioUnrealized" runat="server" GridLines="None"
+                                AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+                                ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
+                                Width="1050px" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-FileName="Equity Net Position Details"
+                                OnNeedDataSource="gvEquityPortfolioUnrealized_OnNeedDataSource" OnItemCommand="gvEquityPortfolioUnrealized_ItemCommand">
+                                <ExportSettings HideStructureColumns="true">
+                                </ExportSettings>
+                                <MasterTableView DataKeyNames="Sl.No." Width="100%" AllowMultiColumnSorting="True"
+                                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                                    <Columns>
+                                        <telerik:GridTemplateColumn  HeaderStyle-Width="50px" AllowFiltering="false" UniqueName="action" DataField="action">
+                                            <ItemTemplate>
+                                                <asp:LinkButton runat="server" CommandName="Select" HeaderText="Select" ShowHeader="True"
+                                                    Text="Select" />
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                        <telerik:GridBoundColumn   HeaderStyle-Width="250px" FooterText="Grand Total"  HeaderText="Scrip Name" DataField="CompanyName" UniqueName="CompanyName"
+                                            SortExpression="CompanyName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="No. of shares" DataField="Quantity" UniqueName="Quantity"
+                                            SortExpression="Quantity" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Average Price (Rs)" DataField="AveragePrice"
+                                            UniqueName="AveragePrice" SortExpression="AveragePrice" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Cost Of Purchase (Rs)" DataField="CostOfPurchase"
+                                            UniqueName="CostOfPurchase" SortExpression="CostOfPurchase" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Current Price (Rs)" DataField="MarketPrice"
+                                            UniqueName="MarketPrice" SortExpression="MarketPrice" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Current Value (Rs)" DataField="CurrentValue"
+                                            UniqueName="CurrentValue" SortExpression="CurrentValue" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="UnRealized P/L (Rs)" DataField="UnRealizedPL"
+                                            UniqueName="UnRealizedPL" SortExpression="UnRealizedPL" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn  HeaderStyle-Width="50px" HeaderText="XIRR (%)" DataField="XIRR" UniqueName="XIRR"
+                                            SortExpression="XIRR" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                    </Columns>
+                                </MasterTableView>
+                                <ClientSettings>
+                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                    <Resizing AllowColumnResize="true" />
+                                </ClientSettings>
+                            </telerik:RadGrid>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
     </telerik:RadPageView>
-    
     <telerik:RadPageView ID="EQPortfolioRealizedDelTabPage" runat="server">
-    <asp:Panel ID="pnlEQPortfolioRealizedDel" runat="server">
-        <%--<table id="tblDelivery" runat="server">
-                        <tr id="Tr2" runat="server" visible="true">
-                            <td>
-                                <asp:RadioButton ID="rbtnDeliveryExcel" Text="Excel" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnDeliveryPdf" Text="PDF" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnDeliveryWord" Text="Word" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Button ID="Button1" runat="server" OnClick="btnExportRealizedDelivery_Click"
-                                    Text="Export" CssClass="ButtonField" />
-                                <asp:Button ID="btnPrintRealizedDelivery" runat="server" OnClick="btnPrintRealizedDelivery_Click"
-                                    Text="Print" CssClass="ButtonField" />
-                                <asp:Button ID="btnPrintRealizedDeliveryGrid" runat="server" Text="" OnClick="btnPrintRealizedDeliveryGrid_Click"
-                                    BorderStyle="None" BackColor="Transparent" />
-                            </td>
-                        </tr>
-                    </table>--%>
-        <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
-            cellspacing="0">
-            <tr>
-                <td>
-                    <asp:ImageButton ID="imgBtnExport1" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport1_Click" />
-                </td>                    
-            </tr>
-        </table>
-        <table>
-                        <tr>
-                            <td>
-                                <div id="dvEquityPortfolioDelivery" runat="server">
-                                    <asp:Label ID="lblMessageD" Visible="false" Text="No Record Exists" runat="server"
-                                        CssClass="Field"></asp:Label>
-                                    <asp:GridView ID="gvEquityPortfolioDelivery" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                        CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true" CssClass="GridViewStyle"
-                                        ShowFooter="True" OnSorting="gvEquityPortfolioDelivery_Sorting" OnRowDataBound="gvEquityPortfolioDelivery_RowDataBound"
-                                        OnRowCommand="gvEquityPortfolioDelivery_RowCommand" OnPageIndexChanging="gvEquityPortfolioDelivery_PageIndexChanging"
-                                        OnDataBound="gvEquityPortfolioDelivery_DataBound">
-                                        <RowStyle CssClass="RowStyle" />
-                                        <FooterStyle CssClass="FooterStyle" />
-                                        <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                                        <SelectedRowStyle CssClass="SelectedRowStyle" />
-                                        <HeaderStyle CssClass="HeaderStyle" />
-                                        <EditRowStyle CssClass="EditRowStyle" />
-                                        <AlternatingRowStyle CssClass="AltRowStyle" />
-                                        <Columns>
-                                            <asp:ButtonField CommandName="Select" HeaderText="Select" ShowHeader="True" Text="Select" />
-                                            <asp:BoundField DataField="Sl.No." HeaderText="Sl.No." Visible="false" />
-                                            <asp:TemplateField ItemStyle-Wrap="false">
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblScripNameRealized" runat="server" Text="Scrip Name"></asp:Label>
-                                                    <br />
-                                                    <asp:TextBox ID="txtScripNameRealizedSearch" runat="server" CssClass="GridViewTxtField"
-                                                        onkeydown="return JSdoPostback(event,'ctrl_ViewEquityPortfolios_btnEQRealizedSearch');" />
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblScripNameRealizedHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:BoundField DataField="SaleQty" HeaderText="No of Shares Sold" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="RealizedSalesProceeds" HeaderText="Sale Proceeds (Rs)"
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CostOfSales" HeaderText="Cost Of Sales (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)" ItemStyle-HorizontalAlign="Right" />
-                                        </Columns>
-                                    </asp:GridView>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-    </asp:Panel>
+        <asp:Panel ID="pnlEQPortfolioRealizedDel" runat="server">
+            <table>
+                <tr>
+                    <td>
+                        <div id="dvEquityPortfolioDelivery" runat="server">
+                            <asp:Label ID="lblMessageD" Visible="false" Text="No Record Exists" runat="server"
+                                CssClass="Field"></asp:Label>
+                            <asp:ImageButton ID="imgBtnExport1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btngvEquityPortfolioDeliveryExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="25px" Width="25px" Visible="false"></asp:ImageButton>
+                            <telerik:RadGrid ID="gvEquityPortfolioDelivery" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true"
+                                AllowAutomaticInserts="false" ExportSettings-FileName="Equity Net Position Details"
+                                OnNeedDataSource="gvEquityPortfolioDelivery_OnNeedDataSource" OnItemCommand="gvEquityPortfolioDelivery_ItemCommand">
+                                <ExportSettings HideStructureColumns="true">
+                                </ExportSettings>
+                                <MasterTableView DataKeyNames="Sl.No." Width="100%" AllowMultiColumnSorting="True"
+                                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                                    <Columns>
+                                        <telerik:GridTemplateColumn  HeaderStyle-Width="50px" AllowFiltering="false" UniqueName="action" DataField="action">
+                                            <ItemTemplate>
+                                                <asp:LinkButton runat="server" CommandName="Select" HeaderText="Select" ShowHeader="True"
+                                                    Text="Select" />
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                        <telerik:GridBoundColumn Visible="false" HeaderText="Sl.No." DataField="Sl.No." UniqueName="Sl.No."
+                                            SortExpression="Sl.No." AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="250px" FooterText="Grand Total" HeaderText="Scrip Name" DataField="CompanyName" UniqueName="CompanyName"
+                                            SortExpression="CompanyName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="No. of shares sold" DataField="SaleQty" UniqueName="SaleQty"
+                                            SortExpression="SaleQty" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Sales Proceeds (Rs)" DataField="RealizedSalesProceeds"
+                                            UniqueName="RealizedSalesProceeds" SortExpression="RealizedSalesProceeds" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Cost Of Sales (Rs)" DataField="CostOfSales"
+                                            UniqueName="CostOfSales" SortExpression="CostOfSales" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Realized PL (Rs)" DataField="RealizedPL" UniqueName="RealizedPL"
+                                            SortExpression="RealizedPL" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn  HeaderStyle-Width="50px" HeaderText="XIRR (%)" DataField="XIRR" UniqueName="XIRR"
+                                            SortExpression="XIRR" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                    </Columns>
+                                </MasterTableView>
+                                <ClientSettings>
+                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                    <Resizing AllowColumnResize="true" />
+                                </ClientSettings>
+                            </telerik:RadGrid>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
     </telerik:RadPageView>
-    
     <telerik:RadPageView ID="EQPortfolioRealizedSpecTabPage" runat="server">
-    <asp:Panel ID="pnlEQPortfolioRealizedSpec" runat="server">
-        <%--<table id="tblSpec" runat="server">
-                        <tr id="Tr3" runat="server" visible="true">
-                            <td>
-                                <asp:RadioButton ID="rbtnSpecExcel" Text="Excel" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnSpecPdf" Text="PDF" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnSpecWord" Text="Word" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Button ID="btnExportRealizedSpeculativ" runat="server" OnClick="btnExportRealizedSpeculative_Click"
-                                    Text="Export" CssClass="ButtonField" />
-                                <asp:Button ID="btnPrintRealizedSpeculative" runat="server" OnClick="btnPrintRealizedSpeculative_Click"
-                                    Text="Print" CssClass="ButtonField" />
-                                <asp:Button ID="btnPrintRealizedSpeculativeGrid" runat="server" Text="" OnClick="btnPrintRealizedSpeculativeGrid_Click"
-                                    BorderStyle="None" BackColor="Transparent" />
-                            </td>
-                        </tr>
-                    </table>--%>
-        <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
-            cellspacing="0">
-            <tr>
-                <td>
-                    <asp:ImageButton ID="imgBtnExport2" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport2_Click" />
-                </td>                    
-            </tr>
-        </table>
-        <table>
-                        <tr>
-                            <td>
-                                <div id="dvEquityPortfolioSpeculative" runat="server">
-                                    <asp:Label ID="lblMessageSpeculative" Visible="false" Text="No Record Exists" runat="server"
-                                        CssClass="Field"></asp:Label>
-                                    <asp:GridView ID="gvEquityPortfolioSpeculative" runat="server" AllowSorting="True"
-                                        AutoGenerateColumns="False" CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true"
-                                        CssClass="GridViewStyle" ShowFooter="True" OnSorting="gvEquityPortfolioSpeculative_Sorting"
-                                        OnRowDataBound="gvEquityPortfolioSpeculative_RowDataBound" OnRowCommand="gvEquityPortfolioSpeculative_RowCommand"
-                                        OnPageIndexChanging="gvEquityPortfolioSpeculative_PageIndexChanging" OnDataBound="gvEquityPortfolioSpeculative_DataBound">
-                                        <RowStyle CssClass="RowStyle" />
-                                        <FooterStyle CssClass="FooterStyle" />
-                                        <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                                        <SelectedRowStyle CssClass="SelectedRowStyle" />
-                                        <HeaderStyle CssClass="HeaderStyle" />
-                                        <EditRowStyle CssClass="EditRowStyle" />
-                                        <AlternatingRowStyle CssClass="AltRowStyle" />
-                                        <Columns>
-                                            <asp:ButtonField CommandName="Select" HeaderText="Select" ShowHeader="True" Text="Select" />
-                                            <asp:BoundField DataField="Sl.No." HeaderText="Sl.No." Visible="false" />
-                                            <asp:TemplateField ItemStyle-Wrap="false">
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblScripNameRealizedSpec" runat="server" Text="Scrip Name"></asp:Label>
-                                                    <br />
-                                                    <asp:TextBox ID="txtScripNameRealizedSpecSearch" runat="server" CssClass="GridViewTxtField"
-                                                        onkeydown="return JSdoPostback(event,'ctrl_ViewEquityPortfolios_btnEQRealizedSpecSearch');" />
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblScripNameRealizedSpecHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:BoundField DataField="SaleQty" HeaderText="No of Shares" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="RealizedSalesProceeds" HeaderText="Sale Proceeds (Rs)"
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CostOfSales" HeaderText="Cost Of Sales (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)" ItemStyle-HorizontalAlign="Right" />
-                                        </Columns>
-                                    </asp:GridView>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-    </asp:Panel>
+        <asp:Panel ID="pnlEQPortfolioRealizedSpec" runat="server">
+            <table>
+                <tr>
+                    <td>
+                        <div id="dvEquityPortfolioSpeculative" runat="server">
+                            <asp:Label ID="lblMessageSpeculative" Visible="false" Text="No Record Exists" runat="server"
+                                CssClass="Field"></asp:Label>
+                            <asp:ImageButton ID="imgBtnExport2" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btngvEquityPortfolioSpeculativeExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="25px" Width="25px" Visible="false"></asp:ImageButton>
+                            <telerik:RadGrid ID="gvEquityPortfolioSpeculative" runat="server" GridLines="None"
+                                AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+                                ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
+                                Width="1050px" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-FileName="Equity Net Position Details"
+                                OnNeedDataSource="gvEquityPortfolioSpeculative_OnNeedDataSource" OnItemCommand="gvEquityPortfolioSpeculative_ItemCommand">
+                                <ExportSettings HideStructureColumns="true">
+                                </ExportSettings>
+                                <MasterTableView DataKeyNames="Sl.No." Width="100%" AllowMultiColumnSorting="True"
+                                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                                    <Columns>
+                                        <telerik:GridTemplateColumn  HeaderStyle-Width="50px" AllowFiltering="false" UniqueName="action" DataField="action">
+                                            <ItemTemplate>
+                                                <asp:LinkButton runat="server" CommandName="Select" HeaderText="Select" ShowHeader="True"
+                                                    Text="Select" />
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                        <telerik:GridBoundColumn Visible="false" HeaderText="Sl.No." DataField="Sl.No." UniqueName="Sl.No."
+                                            SortExpression="Sl.No." AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="250px" FooterText="Grand Total" HeaderText="Scrip Name" DataField="CompanyName" UniqueName="CompanyName"
+                                            SortExpression="CompanyName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" >
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="No of shares" DataField="SaleQty" UniqueName="SaleQty"
+                                            SortExpression="SaleQty" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Cost Of Sales (Rs)" DataField="CostOfSales"
+                                            UniqueName="CostOfSales" SortExpression="CostOfSales" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Realized PL (Rs)" DataField="RealizedPL" UniqueName="RealizedPL"
+                                            SortExpression="RealizedPL" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn  HeaderStyle-Width="50px" HeaderText="XIRR (%)" DataField="XIRR" UniqueName="XIRR"
+                                            SortExpression="XIRR" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                    </Columns>
+                                </MasterTableView>
+                                <ClientSettings>
+                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                    <Resizing AllowColumnResize="true" />
+                                </ClientSettings>
+                            </telerik:RadGrid>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
     </telerik:RadPageView>
-        
     <telerik:RadPageView ID="EQPortfolioAllTabPage" runat="server">
-    <asp:Panel ID="pnlEQPortfolioAll" runat="server">
-        <%--<table id="tblPortfolio" runat="server">
-                        <tr id="Tr1" runat="server" visible="true">
-                            <td>
-                                <asp:RadioButton ID="rbtnExcel" Text="Excel" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnPDF" Text="PDF" runat="server" GroupName="grpExport" CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnWord" Text="Word" runat="server" GroupName="grpExport" CssClass="cmbField" />
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Button ID="btnExport" runat="server" OnClick="btnExport_Click" Text="Export"
-                                    CssClass="ButtonField" />
-                                <asp:Button ID="btnPrint" runat="server" OnClick="btnPrint_Click" Text="Print" CssClass="ButtonField" />
-                                <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                                    BorderStyle="None" BackColor="Transparent" />
-                            </td>
-                        </tr>
-                    </table>--%>
-        <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
-            cellspacing="0">
-            <tr>
-                <td>
-                    <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
-                </td>                    
-            </tr>
-        </table>        
-        <table>
-                        <tr>
-                            <td>
-                                <div id="dvEquityPortfolio" runat="server">
-                                    <asp:Label ID="lblMessage" Visible="false" Text="No Record Exists" runat="server"
-                                        CssClass="Field"></asp:Label>
-                                    <asp:GridView ID="gvEquityPortfolio" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                        CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true" CssClass="GridViewStyle"
-                                        ShowFooter="True" OnSorting="gvEquityPortfolio_Sorting" OnRowCommand="gvEquityPortfolio_RowCommand"
-                                        OnPageIndexChanging="gvEquityPortfolio_PageIndexChanging" OnDataBound="gvEquityPortfolio_DataBound"
-                                        OnRowDataBound="gvEquityPortfolio_RowDataBound">
-                                        <RowStyle CssClass="RowStyle" />
-                                        <FooterStyle CssClass="FooterStyle" />
-                                        <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                                        <SelectedRowStyle CssClass="SelectedRowStyle" />
-                                        <HeaderStyle CssClass="HeaderStyle" />
-                                        <EditRowStyle CssClass="EditRowStyle" />
-                                        <AlternatingRowStyle CssClass="AltRowStyle" />
-                                        <Columns>
-                                            <asp:ButtonField CommandName="Select" HeaderText="Select" ShowHeader="True" Text="Select" />
-                                            <asp:BoundField DataField="Sl.No." HeaderText="Sl.No." Visible="false" />
-                                            <asp:TemplateField ItemStyle-Wrap="false">
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblScripName" runat="server" Text="Scrip Name"></asp:Label>
-                                                    <br />
-                                                    <asp:TextBox ID="txtScripNameSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_ViewEquityPortfolios_btnEQNPSearch');" />
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblScripNameHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:BoundField DataField="Quantity" HeaderText="No of Shares" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="AveragePrice" HeaderText="Average Price (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                           <asp:BoundField DataField="CostOfPurchase" HeaderText="Cost Of Purchase (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                           <asp:BoundField DataField="MarketPrice" HeaderText="Current Price (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CurrentValue" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="UnRealizedPL" HeaderText="UnRealized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)" ItemStyle-HorizontalAlign="Right" />
-                                        </Columns>
-                                    </asp:GridView>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-    </asp:Panel>
+        <asp:Panel ID="pnlEQPortfolioAll" runat="server">
+            <table>
+                <tr>
+                    <td>
+                        <div id="dvEquityPortfolio" runat="server">
+                            <asp:Label ID="lblMessage" Visible="false" Text="No Record Exists" runat="server"
+                                CssClass="Field"></asp:Label>
+                            <asp:ImageButton ID="imgBtnExport3" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btngvEquityPortfolioExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="25px" Width="25px" Visible="false"></asp:ImageButton>
+                            <telerik:RadGrid ID="gvEquityPortfolio" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true"
+                                AllowAutomaticInserts="false" ExportSettings-FileName="Equity Net Position Details"
+                                OnNeedDataSource="gvEquityPortfolio_OnNeedDataSource" OnItemCommand="gvEquityPortfolio_ItemCommand">
+                                <ExportSettings HideStructureColumns="true">
+                                </ExportSettings>
+                                <MasterTableView DataKeyNames="Sl.No." Width="100%" AllowMultiColumnSorting="True"
+                                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                                    <Columns>
+                                        <telerik:GridTemplateColumn HeaderStyle-Width="50px" AllowFiltering="false" UniqueName="action" DataField="action">
+                                            <ItemTemplate>
+                                                <asp:LinkButton runat="server" CommandName="Select" HeaderText="Select" ShowHeader="True"
+                                                    Text="Select" />
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                        <telerik:GridBoundColumn Visible="false" HeaderText="Sl.No." DataField="Sl.No." UniqueName="Sl.No."
+                                            SortExpression="Sl.No." AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="250px" FooterText="Grand Total"  HeaderText="Scrip Code" DataField="CompanyName" UniqueName="CompanyName"
+                                            SortExpression="CompanyName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="No of shares" DataField="Quantity" UniqueName="Quantity"
+                                            SortExpression="Quantity" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:n2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Average Price (Rs)" DataField="AveragePrice"
+                                            UniqueName="AveragePrice" SortExpression="AveragePrice" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Cost Of Purchase (Rs)" DataField="CostOfPurchase"
+                                            UniqueName="CostOfPurchase" SortExpression="CostOfPurchase" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Current Price (Rs)" DataField="MarketPrice"
+                                            UniqueName="MarketPrice" SortExpression="MarketPrice" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Current Value (Rs)" DataField="CurrentValue"
+                                            UniqueName="CurrentValue" SortExpression="CurrentValue" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="UnRealized PL (Rs)" DataField="UnRealizedPL"
+                                            UniqueName="UnRealizedPL" SortExpression="UnRealizedPL" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Realized PL (Rs)" DataField="RealizedPL" UniqueName="RealizedPL"
+                                            SortExpression="RealizedPL" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn  HeaderStyle-Width="50px" HeaderText="XIRR (%)" DataField="XIRR" UniqueName="XIRR"
+                                            SortExpression="XIRR" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                    </Columns>
+                                </MasterTableView>
+                                <ClientSettings>
+                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                    <Resizing AllowColumnResize="true" />
+                                </ClientSettings>
+                            </telerik:RadGrid>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
     </telerik:RadPageView>
-
 </telerik:RadMultiPage>
-
 <table style="width: 30%;">
     <tr>
         <td colspan="3">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Equity Portfolio Summary"></asp:Label>
-         </td>
+        </td>
     </tr>
     <tr>
         <td colspan="3">
@@ -446,39 +433,9 @@ SelectedIndex="0">
         </td>
     </tr>
 </table>
-
-<asp:Button ID="btnEQNPSearch" runat="server" Text="" OnClick="btnEQNPSearch_Click"
-    BorderStyle="None" BackColor="Transparent" />
-<asp:Button ID="btnEQRealizedSearch" runat="server" Text="" OnClick="btnEQRealizedSearch_Click"
-    BorderStyle="None" BackColor="Transparent" />
-<asp:Button ID="btnEQRealizedSpecSearch" runat="server" Text="" OnClick="btnEQRealizedSpecSearch_Click"
-    BorderStyle="None" BackColor="Transparent" />
-<asp:Button ID="btnEQUnRealizedSearch" runat="server" Text="" OnClick="btnEQUnRealizedSearch_Click"
-    BorderStyle="None" BackColor="Transparent" />
 <asp:HiddenField ID="hdnScipNameFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnRealizedScipFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnRealizedSpecScipFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnUnRealizedScipFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnSelectedTab" runat="server" />
 <asp:HiddenField ID="hdnNoOfRecords" runat="server" />
-<table id="Table1" runat="server" visible="false">
-    <tr id="Tr5" runat="server" visible="true">
-        <td>
-            <asp:RadioButton ID="rbtnTry" Text="Excel" runat="server" GroupName="grpExport" CssClass="cmbField" />
-            <asp:RadioButton ID="RadioButton2" Text="PDF" runat="server" GroupName="grpExport"
-                CssClass="cmbField" />
-            <asp:RadioButton ID="RadioButton3" Text="Word" runat="server" GroupName="grpExport"
-                CssClass="cmbField" />
-        </td>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <%--<asp:Button ID="Button2" runat="server" OnClick="btnExport_Click" Text="Export" CssClass="ButtonField" />
-            <asp:Button ID="Button3" runat="server" OnClick="btnPrint_Click" Text="Print" CssClass="ButtonField" />
-            <asp:Button ID="Button4" runat="server" Text="" OnClick="btnPrintGrid_Click" BorderStyle="None"
-                BackColor="Transparent" />--%>
-        </td>
-    </tr>
-</table>

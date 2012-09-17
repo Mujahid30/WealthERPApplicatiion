@@ -18,6 +18,7 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -140,9 +141,7 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
             ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlPortfolio.DataBind();
-
             ddlPortfolio.SelectedValue = portfolioId.ToString();
-
         }
 
 
@@ -159,7 +158,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId, portfolioId, tradeDate, hdnScipNameFilter.Value.Trim(),string.Empty);
+                    eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId, portfolioId, tradeDate, hdnScipNameFilter.Value.Trim(), string.Empty);
                     if (eqPortfolioList != null)
                     {
                         count = eqPortfolioList.Count;
@@ -174,6 +173,7 @@ namespace WealthERP.CustomerPortfolio
                     lblMessageSpeculative.Visible = true;
                     lblMessageUnrealized.Visible = true;
                     gvEquityPortfolio.DataSource = null;
+                    //imgBtnExport1.Visible = true;
                     gvEquityPortfolio.DataBind();
                     //tblDelivery.Visible = false;
                     //tblPortfolio.Visible = false;
@@ -198,43 +198,43 @@ namespace WealthERP.CustomerPortfolio
                     // Consolidated View Datatable
                     dtEqPortfolio.Columns.Add("Sl.No.");
                     dtEqPortfolio.Columns.Add("CompanyName");
-                    dtEqPortfolio.Columns.Add("Quantity");
-                    dtEqPortfolio.Columns.Add("AveragePrice");
-                    dtEqPortfolio.Columns.Add("CostOfPurchase");
-                    dtEqPortfolio.Columns.Add("MarketPrice");
-                    dtEqPortfolio.Columns.Add("CurrentValue");
-                    dtEqPortfolio.Columns.Add("UnRealizedPL");
-                    dtEqPortfolio.Columns.Add("RealizedPL");
-                    dtEqPortfolio.Columns.Add("XIRR");
+                    dtEqPortfolio.Columns.Add("Quantity",typeof(double));
+                    dtEqPortfolio.Columns.Add("AveragePrice", typeof(double));
+                    dtEqPortfolio.Columns.Add("CostOfPurchase", typeof(double));
+                    dtEqPortfolio.Columns.Add("MarketPrice", typeof(double));
+                    dtEqPortfolio.Columns.Add("CurrentValue", typeof(double));
+                    dtEqPortfolio.Columns.Add("UnRealizedPL", typeof(double));
+                    dtEqPortfolio.Columns.Add("RealizedPL", typeof(double));
+                    dtEqPortfolio.Columns.Add("XIRR", typeof(double));
 
                     //Delivery Based View Datatable
                     dtEqPortfolioDelivery.Columns.Add("Sl.No.");
                     dtEqPortfolioDelivery.Columns.Add("CompanyName");
-                    dtEqPortfolioDelivery.Columns.Add("SaleQty");
-                    dtEqPortfolioDelivery.Columns.Add("CostOfSales");
-                    dtEqPortfolioDelivery.Columns.Add("RealizedSalesProceeds");
-                    dtEqPortfolioDelivery.Columns.Add("RealizedPL");
-                    dtEqPortfolioDelivery.Columns.Add("XIRR");
+                    dtEqPortfolioDelivery.Columns.Add("SaleQty", typeof(double));
+                    dtEqPortfolioDelivery.Columns.Add("CostOfSales", typeof(double));
+                    dtEqPortfolioDelivery.Columns.Add("RealizedSalesProceeds", typeof(double));
+                    dtEqPortfolioDelivery.Columns.Add("RealizedPL", typeof(double));
+                    dtEqPortfolioDelivery.Columns.Add("XIRR", typeof(double));
 
                     //Speculative Based View Datatable
                     dtEqPortfolioSpeculative.Columns.Add("Sl.No.");
                     dtEqPortfolioSpeculative.Columns.Add("CompanyName");
-                    dtEqPortfolioSpeculative.Columns.Add("SaleQty");
-                    dtEqPortfolioSpeculative.Columns.Add("RealizedSalesProceeds");
-                    dtEqPortfolioSpeculative.Columns.Add("CostOfSales");                   
-                    dtEqPortfolioSpeculative.Columns.Add("RealizedPL");                    
-                    dtEqPortfolioSpeculative.Columns.Add("XIRR");
+                    dtEqPortfolioSpeculative.Columns.Add("SaleQty", typeof(double));
+                    dtEqPortfolioSpeculative.Columns.Add("RealizedSalesProceeds", typeof(double));
+                    dtEqPortfolioSpeculative.Columns.Add("CostOfSales", typeof(double));
+                    dtEqPortfolioSpeculative.Columns.Add("RealizedPL", typeof(double));
+                    dtEqPortfolioSpeculative.Columns.Add("XIRR", typeof(double));
 
                     //Unrealized View Datatable
                     dtEqPortfolioUnrealized.Columns.Add("Sl.No.");
                     dtEqPortfolioUnrealized.Columns.Add("CompanyName");
-                    dtEqPortfolioUnrealized.Columns.Add("Quantity");
-                    dtEqPortfolioUnrealized.Columns.Add("AveragePrice");
-                    dtEqPortfolioUnrealized.Columns.Add("CostOfPurchase");
-                    dtEqPortfolioUnrealized.Columns.Add("MarketPrice");
-                    dtEqPortfolioUnrealized.Columns.Add("CurrentValue");
-                    dtEqPortfolioUnrealized.Columns.Add("UnRealizedPL");
-                    dtEqPortfolioUnrealized.Columns.Add("XIRR");
+                    dtEqPortfolioUnrealized.Columns.Add("Quantity", typeof(double));
+                    dtEqPortfolioUnrealized.Columns.Add("AveragePrice", typeof(double));
+                    dtEqPortfolioUnrealized.Columns.Add("CostOfPurchase", typeof(double));
+                    dtEqPortfolioUnrealized.Columns.Add("MarketPrice", typeof(double));
+                    dtEqPortfolioUnrealized.Columns.Add("CurrentValue", typeof(double));
+                    dtEqPortfolioUnrealized.Columns.Add("UnRealizedPL", typeof(double));
+                    dtEqPortfolioUnrealized.Columns.Add("XIRR", typeof(double));
 
                     DataRow drEqPortfolio;
                     DataRow drEqPortfolioDelivery;
@@ -266,15 +266,15 @@ namespace WealthERP.CustomerPortfolio
                             unrealised_all = unrealised_all + eqPortfolioVo.UnRealizedPNL;
                             drEqPortfolio[7] = double.Parse(eqPortfolioVo.UnRealizedPNL.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         }
-                   
-                       
+
+
                         if (eqPortfolioVo.RealizedPNL.ToString() != string.Empty)
                         {
                             realised_all = realised_all + eqPortfolioVo.RealizedPNL;
                             drEqPortfolio[8] = double.Parse(eqPortfolioVo.RealizedPNL.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         }
                         drEqPortfolio[9] = double.Parse(eqPortfolioVo.XIRR.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                       
+
                         dtEqPortfolio.Rows.Add(drEqPortfolio);
 
                         if (eqPortfolioVo.DeliverySalesQuantity != 0)
@@ -309,7 +309,7 @@ namespace WealthERP.CustomerPortfolio
                                 drEqPortfolioSpeculative[5] = double.Parse(eqPortfolioVo.SpeculativeRealizedProfitLoss.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             }
                             drEqPortfolioSpeculative[6] = double.Parse(eqPortfolioVo.XIRR.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            
+
                             dtEqPortfolioSpeculative.Rows.Add(drEqPortfolioSpeculative);
                         }
 
@@ -333,7 +333,7 @@ namespace WealthERP.CustomerPortfolio
                                 drEqPortfolioUnrealized[7] = double.Parse(eqPortfolioVo.UnRealizedPNL.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             }
                             drEqPortfolioUnrealized[8] = double.Parse(eqPortfolioVo.XIRR.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                   
+
                             dtEqPortfolioUnrealized.Rows.Add(drEqPortfolioUnrealized);
                         }
                     }
@@ -345,6 +345,17 @@ namespace WealthERP.CustomerPortfolio
                         gvEquityPortfolio.DataSource = dtEqPortfolio;
                         gvEquityPortfolio.DataBind();
                         gvEquityPortfolio.Visible = true;
+                        imgBtnExport3.Visible = true;
+
+                        if (Cache["gvEquityPortfolioDetails" + customerPortfolioVo.CustomerId.ToString()] == null)
+                        {
+                            Cache.Insert("gvEquityPortfolioDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolio);
+                        }
+                        else
+                        {
+                            Cache.Remove("gvEquityPortfolioDetails" + customerPortfolioVo.CustomerId.ToString());
+                            Cache.Insert("gvEquityPortfolioDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolio);
+                        }
                     }
                     else
                     {
@@ -352,16 +363,7 @@ namespace WealthERP.CustomerPortfolio
                         gvEquityPortfolio.DataBind();
                         lblMessage.Visible = true;
                     }
-
-                    TextBox txtScripName = GetEQPortfolioScripNameTextBox();
-                    if (txtScripName != null)
-                    {
-                        if (hdnScipNameFilter.Value != "")
-                        {
-                            txtScripName.Text = hdnScipNameFilter.Value.Trim();
-                        }
-                    }
-
+                                      
                     // Bind EQ Delivery Details
                     string SearchExpression = string.Empty;
 
@@ -377,6 +379,16 @@ namespace WealthERP.CustomerPortfolio
                         gvEquityPortfolioDelivery.DataSource = dtEqPortfolioDelivery;
                         gvEquityPortfolioDelivery.DataBind();
                         gvEquityPortfolioDelivery.Visible = true;
+                        imgBtnExport1.Visible = true;
+                        if (Cache["gvEquityPortfolioDeliveryDetails" + customerPortfolioVo.CustomerId.ToString()] == null)
+                        {
+                            Cache.Insert("gvEquityPortfolioDeliveryDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioDelivery);
+                        }
+                        else
+                        {
+                            Cache.Remove("gvEquityPortfolioDeliveryDetails" + customerPortfolioVo.CustomerId.ToString());
+                            Cache.Insert("gvEquityPortfolioDeliveryDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioDelivery);
+                        }
                     }
                     else
                     {
@@ -384,16 +396,7 @@ namespace WealthERP.CustomerPortfolio
                         gvEquityPortfolioDelivery.DataBind();
                         lblMessageD.Visible = true;
                     }
-
-                    TextBox txtScripDName = GetEQRealizedScripNameTextBox();
-                    if (txtScripDName != null)
-                    {
-                        if (hdnRealizedScipFilter.Value != "")
-                        {
-                            txtScripDName.Text = hdnRealizedScipFilter.Value.Trim();
-                        }
-                    }
-
+                   
                     // Bind EQ Speculative Details
                     if (hdnRealizedSpecScipFilter.Value.Trim() != "")
                     {
@@ -407,21 +410,23 @@ namespace WealthERP.CustomerPortfolio
                         gvEquityPortfolioSpeculative.DataSource = dtEqPortfolioSpeculative;
                         gvEquityPortfolioSpeculative.DataBind();
                         gvEquityPortfolioSpeculative.Visible = true;
+                        imgBtnExport2.Visible = true;
+
+                        if (Cache["gvEquityPortfolioSpeculativeDetails" + customerPortfolioVo.CustomerId.ToString()] == null)
+                        {
+                            Cache.Insert("gvEquityPortfolioSpeculativeDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioSpeculative);
+                        }
+                        else
+                        {
+                            Cache.Remove("gvEquityPortfolioSpeculativeDetails" + customerPortfolioVo.CustomerId.ToString());
+                            Cache.Insert("gvEquityPortfolioSpeculativeDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioSpeculative);
+                        }
                     }
                     else
                     {
                         gvEquityPortfolioSpeculative.DataSource = null;
                         gvEquityPortfolioSpeculative.DataBind();
                         lblMessageSpeculative.Visible = true;
-                    }
-
-                    TextBox txtScripSName = GetEQRealizedSpecScripNameTextBox();
-                    if (txtScripSName != null)
-                    {
-                        if (hdnRealizedSpecScipFilter.Value != "")
-                        {
-                            txtScripSName.Text = hdnRealizedSpecScipFilter.Value.Trim();
-                        }
                     }
 
                     // Bind EQ Unrealized Details
@@ -437,22 +442,24 @@ namespace WealthERP.CustomerPortfolio
                         gvEquityPortfolioUnrealized.DataSource = dtEqPortfolioUnrealized;
                         gvEquityPortfolioUnrealized.DataBind();
                         gvEquityPortfolioUnrealized.Visible = true;
+                        imgBtnExport.Visible = true;
+
+                        if (Cache["gvEquityPortfolioUnrealizedDetails" + customerPortfolioVo.CustomerId.ToString()] == null)
+                        {
+                            Cache.Insert("gvEquityPortfolioUnrealizedDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioUnrealized);
+                        }
+                        else
+                        {
+                            Cache.Remove("gvEquityPortfolioUnrealizedDetails" + customerPortfolioVo.CustomerId.ToString());
+                            Cache.Insert("gvEquityPortfolioUnrealizedDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioUnrealized);
+                        }
                     }
                     else
                     {
                         gvEquityPortfolioUnrealized.DataSource = null;
                         gvEquityPortfolioUnrealized.DataBind();
                         lblMessageUnrealized.Visible = true;
-                    }
-
-                    TextBox txtScripUnrealizedName = GetEQUnRealizedScripNameTextBox();
-                    if (txtScripUnrealizedName != null)
-                    {
-                        if (hdnUnRealizedScipFilter.Value != "")
-                        {
-                            txtScripUnrealizedName.Text = hdnUnRealizedScipFilter.Value.Trim();
-                        }
-                    }
+                    }                   
                 }
             }
             catch (BaseApplicationException Ex)
@@ -482,43 +489,34 @@ namespace WealthERP.CustomerPortfolio
             Session[SessionContents.PortfolioId] = portfolioId;
             LoadEquityPortfolio();
             lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-        }
-        private SortDirection GridViewSortDirection
-        {
-            get
-            {
-                if (ViewState["sortDirection"] == null)
-                    ViewState["sortDirection"] = SortDirection.Ascending;
-                return (SortDirection)ViewState["sortDirection"];
-            }
-            set { ViewState["sortDirection"] = value; }
-        }
+        }       
+        #region Equity Portfolio Consolidated Grid View Methods     
 
-        #region Equity Portfolio Consolidated Grid View Methods
-        protected void gvEquityPortfolio_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvEquityPortfolio_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             try
             {
                 LoadEquityPortfolio();
                 lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
-                if (e.CommandName.ToString() != "Sort")
+                if (e.CommandName.ToString() != "Filter")
                 {
-                    index = Convert.ToInt32(e.CommandArgument);
-                    int slNo = int.Parse(gvEquityPortfolio.DataKeys[index].Value.ToString());
-                    Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                    Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-
-                    if (e.CommandName == "Select")
+                    if ((GridDataItem)e.Item.DataItem != null)
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                        GridDataItem gvr = (GridDataItem)e.Item;
+                        int selectedRow = gvr.ItemIndex + 1;
+                        int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
+
+                        //int slNo = int.Parse(gvEquityPortfolio.DataKeys[index].Value.ToString());
+                        Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
+                        Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
+
+                        if (e.CommandName == "Select")
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                        }
                     }
                 }
-
-
-
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -537,112 +535,34 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
-        }
-
-        protected void gvEquityPortfolio_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvEquityPortfolio.PageIndex = e.NewPageIndex;
-            gvEquityPortfolio.DataBind();
-        }
-
-        protected void gvEquityPortfolio_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            string sortExpression = e.SortExpression;
-            ViewState["sortExpression"] = sortExpression;
-            if (GridViewSortDirection == SortDirection.Ascending)
-            {
-                GridViewSortDirection = SortDirection.Descending;
-                SortGridVIew(sortExpression, DESCENDING);
-            }
-            else
-            {
-                GridViewSortDirection = SortDirection.Ascending;
-                SortGridVIew(sortExpression, ASCENDING);
-            }
-        }
-
-        private void SortGridVIew(string sortExpression, string direction)
-        {
-            try
-            {
-                LoadEquityPortfolio();
-                lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
-                DataTable dtEqPortfolio = new DataTable();
-
-                dtEqPortfolio.Columns.Add("Sl.No.");
-                dtEqPortfolio.Columns.Add("CompanyName");
-                dtEqPortfolio.Columns.Add("Quantity");
-                dtEqPortfolio.Columns.Add("AveragePrice");
-                dtEqPortfolio.Columns.Add("CostOfPurchase");
-                dtEqPortfolio.Columns.Add("MarketPrice");
-                dtEqPortfolio.Columns.Add("CurrentValue");
-                dtEqPortfolio.Columns.Add("UnRealizedPL");
-                dtEqPortfolio.Columns.Add("RealizedPL");
-                dtEqPortfolio.Columns.Add("XIRR");
-
-                DataRow drEqPortfolio;
-                for (int i = 0; i < eqPortfolioList.Count; i++)
-                {
-                    drEqPortfolio = dtEqPortfolio.NewRow();
-                    eqPortfolioVo = new EQPortfolioVo();
-                    eqPortfolioVo = eqPortfolioList[i];
-                    drEqPortfolio[0] = eqPortfolioVo.EqPortfolioId.ToString();
-                    drEqPortfolio[1] = eqPortfolioVo.EQCompanyName.ToString();
-                    drEqPortfolio[2] = eqPortfolioVo.Quantity.ToString("f0");
-                    drEqPortfolio[3] = eqPortfolioVo.AveragePrice.ToString("f2");
-                    drEqPortfolio[4] = eqPortfolioVo.CostOfPurchase.ToString("f2");
-                    drEqPortfolio[5] = eqPortfolioVo.MarketPrice.ToString("f2");
-                    drEqPortfolio[6] = eqPortfolioVo.CurrentValue.ToString("f2");
-                    drEqPortfolio[7] = eqPortfolioVo.UnRealizedPNL.ToString("f2");
-                    drEqPortfolio[8] = eqPortfolioVo.RealizedPNL.ToString("f2");
-                    drEqPortfolio[9] = eqPortfolioVo.XIRR.ToString("f2");
-                    dtEqPortfolio.Rows.Add(drEqPortfolio);
-                }
-                DataView dv = new DataView(dtEqPortfolio);
-                dv.Sort = sortExpression + direction;
-                gvEquityPortfolio.DataSource = dv;
-                gvEquityPortfolio.DataBind();
-                gvEquityPortfolio.Visible = true;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:SortGridVIew()");
-                object[] objects = new object[1];
-                objects[0] = eqPortfolioList;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        } 
         #endregion Equity Portfolio Consolidated Grid View Methods
 
         #region Equity Portfolio Delivery Based Grid View Methods
-        protected void gvEquityPortfolioDelivery_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvEquityPortfolioDelivery_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             try
             {
                 LoadEquityPortfolio();
                 lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
-                if (e.CommandName.ToString() != "Sort")
+                if (e.CommandName.ToString() != "Filter")
                 {
-                    index = Convert.ToInt32(e.CommandArgument);
-                    int slNo = int.Parse(gvEquityPortfolioDelivery.DataKeys[index].Value.ToString());
-                    Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                    Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-
-                    if (e.CommandName == "Select")
+                    if ((GridDataItem)e.Item.DataItem != null)
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                        GridDataItem gvr = (GridDataItem)e.Item;
+                        int selectedRow = gvr.ItemIndex + 1;
+                        int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
+
+                        //int slNo = int.Parse(gvEquityPortfolioDelivery.DataKeys[index].Value.ToString());
+                        Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
+                        Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
+
+
+                        if (e.CommandName == "Select")
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                        }
                     }
                 }
 
@@ -665,110 +585,34 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
-
-        protected void gvEquityPortfolioDelivery_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvEquityPortfolioDelivery.PageIndex = e.NewPageIndex;
-            gvEquityPortfolioDelivery.DataBind();
-        }
-
-        protected void gvEquityPortfolioDelivery_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            string sortExpression = e.SortExpression;
-            ViewState["sortExpression"] = sortExpression;
-            if (GridViewSortDirection == SortDirection.Ascending)
-            {
-                GridViewSortDirection = SortDirection.Descending;
-                SortDeliveryGridVIew(sortExpression, DESCENDING);
-            }
-            else
-            {
-                GridViewSortDirection = SortDirection.Ascending;
-                SortDeliveryGridVIew(sortExpression, ASCENDING);
-            }
-
-            string TabberScript = "<script language='javascript'>document.getElementById('dvEquityPortfolioDelivery').className = 'tabbertab tabbertabdefault';</script>";//
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Tabber", TabberScript);
-
-        }
-
-        private void SortDeliveryGridVIew(string sortExpression, string direction)
-        {
-            try
-            {
-                LoadEquityPortfolio();
-                lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
-                DataTable dtEqPortfolio = new DataTable();
-
-                dtEqPortfolio.Columns.Add("Sl.No.");
-                dtEqPortfolio.Columns.Add("CompanyName");
-                dtEqPortfolio.Columns.Add("SaleQty");
-                dtEqPortfolio.Columns.Add("CostOfSales");
-                dtEqPortfolio.Columns.Add("RealizedSalesProceeds");
-                dtEqPortfolio.Columns.Add("RealizedPL");
-
-                DataRow drEqPortfolio;
-                for (int i = 0; i < eqPortfolioList.Count; i++)
-                {
-                    drEqPortfolio = dtEqPortfolio.NewRow();
-                    eqPortfolioVo = new EQPortfolioVo();
-                    eqPortfolioVo = eqPortfolioList[i];
-                    drEqPortfolio[0] = eqPortfolioVo.EqPortfolioId.ToString();
-                    drEqPortfolio[1] = eqPortfolioVo.EQCompanyName.ToString();
-                    drEqPortfolio[2] = eqPortfolioVo.DeliverySalesQuantity.ToString("f0");
-                    drEqPortfolio[3] = eqPortfolioVo.DeliveryCostOfSales.ToString("f2");
-                    drEqPortfolio[4] = eqPortfolioVo.DeliveryRealizedSalesProceeds.ToString("f2");
-                    drEqPortfolio[5] = eqPortfolioVo.DeliveryRealizedProfitLoss.ToString("f2");
-                    dtEqPortfolio.Rows.Add(drEqPortfolio);
-
-                }
-                DataView dv = new DataView(dtEqPortfolio);
-                dv.Sort = sortExpression + direction;
-                gvEquityPortfolioDelivery.DataSource = dv;
-                gvEquityPortfolioDelivery.DataBind();
-                gvEquityPortfolioDelivery.Visible = true;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:SortDeliveryGridVIew()");
-                object[] objects = new object[1];
-                objects[0] = eqPortfolioList;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-        }
-
         #endregion Equity Portfolio Delivery Based Grid View Methods
 
         #region Equity Portfolio Speculative Based Grid View Methods
-        protected void gvEquityPortfolioSpeculative_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvEquityPortfolioSpeculative_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             try
             {
                 LoadEquityPortfolio();
                 lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
 
-                if (e.CommandName.ToString() != "Sort")
+                if (e.CommandName.ToString() != "Filter")
                 {
-                    index = Convert.ToInt32(e.CommandArgument);
-                    int slNo = int.Parse(gvEquityPortfolioSpeculative.DataKeys[index].Value.ToString());
-                    Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                    Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-
-                    if (e.CommandName == "Select")
+                    if ((GridDataItem)e.Item.DataItem != null)
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                        GridDataItem gvr = (GridDataItem)e.Item;
+                        int selectedRow = gvr.ItemIndex + 1;
+                        int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
+
+
+                        //int slNo = int.Parse(gvEquityPortfolioSpeculative.DataKeys[index].Value.ToString());
+                        Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
+                        Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
+
+
+                        if (e.CommandName == "Select")
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                        }
                     }
                 }
 
@@ -790,111 +634,34 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
-        }
-
-        protected void gvEquityPortfolioSpeculative_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvEquityPortfolioSpeculative.PageIndex = e.NewPageIndex;
-            gvEquityPortfolioSpeculative.DataBind();
-        }
-
-        protected void gvEquityPortfolioSpeculative_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            string sortExpression = e.SortExpression;
-            ViewState["sortExpression"] = sortExpression;
-            if (GridViewSortDirection == SortDirection.Ascending)
-            {
-                GridViewSortDirection = SortDirection.Descending;
-                SortSpeculativeGridVIew(sortExpression, DESCENDING);
-            }
-            else
-            {
-                GridViewSortDirection = SortDirection.Ascending;
-                SortSpeculativeGridVIew(sortExpression, ASCENDING);
-            }
-
-            string TabberScript = "<script language='javascript'>document.getElementById('dvEquityPortfolioSpeculative').className = 'tabbertab tabbertabdefault';</script>";//
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Tabber", TabberScript);
-
-        }
-
-        private void SortSpeculativeGridVIew(string sortExpression, string direction)
-        {
-            try
-            {
-                LoadEquityPortfolio();
-                lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
-
-                DataTable dtEqPortfolio = new DataTable();
-
-                dtEqPortfolio.Columns.Add("Sl.No.");
-                dtEqPortfolio.Columns.Add("CompanyName");
-                dtEqPortfolio.Columns.Add("SaleQty");
-                dtEqPortfolio.Columns.Add("CostOfSales");
-                dtEqPortfolio.Columns.Add("RealizedSalesProceeds");
-                dtEqPortfolio.Columns.Add("RealizedPL");
-                dtEqPortfolio.Columns.Add("AveragePrice");
-
-                DataRow drEqPortfolio;
-                for (int i = 0; i < eqPortfolioList.Count; i++)
-                {
-                    drEqPortfolio = dtEqPortfolio.NewRow();
-                    eqPortfolioVo = new EQPortfolioVo();
-                    eqPortfolioVo = eqPortfolioList[i];
-                    drEqPortfolio[0] = eqPortfolioVo.EqPortfolioId.ToString();
-                    drEqPortfolio[1] = eqPortfolioVo.EQCompanyName.ToString();
-                    drEqPortfolio[2] = eqPortfolioVo.DeliverySalesQuantity.ToString("f0");
-                    drEqPortfolio[3] = eqPortfolioVo.DeliveryCostOfSales.ToString("f2");
-                    drEqPortfolio[4] = eqPortfolioVo.DeliveryRealizedSalesProceeds.ToString("f2");
-                    drEqPortfolio[5] = eqPortfolioVo.DeliveryRealizedProfitLoss.ToString("f2");
-                    drEqPortfolio[5] = eqPortfolioVo.AveragePrice.ToString("f2");
-                    dtEqPortfolio.Rows.Add(drEqPortfolio);
-
-                }
-                DataView dv = new DataView(dtEqPortfolio);
-                dv.Sort = sortExpression + direction;
-                gvEquityPortfolioSpeculative.DataSource = dv;
-                gvEquityPortfolioSpeculative.DataBind();
-                gvEquityPortfolioSpeculative.Visible = true;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:SortSpeculativeGridVIew()");
-                object[] objects = new object[1];
-                objects[0] = eqPortfolioList;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        }       
         #endregion Equity Portfolio Speculative Based Grid View Methods
 
         #region Equity Portfolio Unrealized Grid View Methods
-        protected void gvEquityPortfolioUnrealized_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvEquityPortfolioUnrealized_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             try
             {
                 LoadEquityPortfolio();
                 lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
 
-                if (e.CommandName.ToString() != "Sort")
+                if (e.CommandName.ToString() != "Filter")
                 {
-                    index = Convert.ToInt32(e.CommandArgument);
-                    int slNo = int.Parse(gvEquityPortfolioUnrealized.DataKeys[index].Value.ToString());
-                    Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                    Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-
-                    if (e.CommandName == "Select")
+                    if ((GridDataItem)e.Item.DataItem != null)
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                        GridDataItem gvr = (GridDataItem)e.Item;
+                        int selectedRow = gvr.ItemIndex + 1;
+                        int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
+
+                        //int slNo = int.Parse(gvEquityPortfolioUnrealized.DataKeys[index].Value.ToString());
+                        Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
+                        Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
+
+
+                        if (e.CommandName == "Select")
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                        }
                     }
                 }
             }
@@ -909,100 +676,6 @@ namespace WealthERP.CustomerPortfolio
                 FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:gvEquityPortfolioUnrealized_RowCommand()");
                 object[] objects = new object[1];
                 objects[0] = eqPortfolioList;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-        }
-
-        protected void gvEquityPortfolioUnrealized_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvEquityPortfolioUnrealized.PageIndex = e.NewPageIndex;
-            gvEquityPortfolioUnrealized.DataBind();
-        }
-
-        protected void gvEquityPortfolioUnrealized_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            string sortExpression = e.SortExpression;
-            ViewState["sortExpression"] = sortExpression;
-            if (GridViewSortDirection == SortDirection.Ascending)
-            {
-                GridViewSortDirection = SortDirection.Descending;
-                SortUnrealizedGridVIew(sortExpression, DESCENDING);
-            }
-            else
-            {
-                GridViewSortDirection = SortDirection.Ascending;
-                SortUnrealizedGridVIew(sortExpression, ASCENDING);
-            }
-
-            string TabberScript = "<script language='javascript'>document.getElementById('dvEquityPortfolioUnrealized').className = 'tabbertab tabbertabdefault';</script>";//
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Tabber", TabberScript);
-
-        }
-
-        private void SortUnrealizedGridVIew(string sortExpression, string direction)
-        {
-            try
-            {
-                LoadEquityPortfolio();
-                lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
-
-                DataTable dtEqPortfolioUnrealized = new DataTable();
-
-                dtEqPortfolioUnrealized.Columns.Add("Sl.No.");
-                dtEqPortfolioUnrealized.Columns.Add("CompanyName");
-                dtEqPortfolioUnrealized.Columns.Add("Quantity");
-                dtEqPortfolioUnrealized.Columns.Add("AveragePrice");
-                dtEqPortfolioUnrealized.Columns.Add("CostOfPurchase");
-                dtEqPortfolioUnrealized.Columns.Add("MarketPrice");
-                dtEqPortfolioUnrealized.Columns.Add("CurrentValue");
-                dtEqPortfolioUnrealized.Columns.Add("UnRealizedPL");
-
-                DataRow drEqPortfolioUnrealized;
-                for (int i = 0; i < eqPortfolioList.Count; i++)
-                {
-
-                    eqPortfolioVo = new EQPortfolioVo();
-                    eqPortfolioVo = eqPortfolioList[i];
-                    if (eqPortfolioVo.Quantity != 0)
-                    {
-                        drEqPortfolioUnrealized = dtEqPortfolioUnrealized.NewRow();
-                        drEqPortfolioUnrealized[0] = eqPortfolioVo.EqPortfolioId.ToString();
-                        drEqPortfolioUnrealized[1] = eqPortfolioVo.EQCompanyName.ToString();
-                        drEqPortfolioUnrealized[2] = eqPortfolioVo.Quantity.ToString("f0");
-                        drEqPortfolioUnrealized[3] = eqPortfolioVo.AveragePrice.ToString("f2");
-                        drEqPortfolioUnrealized[4] = eqPortfolioVo.CostOfPurchase.ToString("f2");
-                        drEqPortfolioUnrealized[5] = eqPortfolioVo.MarketPrice.ToString("f2");
-                        drEqPortfolioUnrealized[6] = eqPortfolioVo.CurrentValue.ToString("f2");
-                        drEqPortfolioUnrealized[7] = eqPortfolioVo.UnRealizedPNL.ToString("f2");
-                        //drEqPortfolioUnrealized[8] = eqPortfolioVo.RealizedPNL.ToString("f2");
-
-                        dtEqPortfolioUnrealized.Rows.Add(drEqPortfolioUnrealized);
-                    }
-                }
-
-                DataView dv = new DataView(dtEqPortfolioUnrealized);
-                dv.Sort = sortExpression + direction;
-                gvEquityPortfolioUnrealized.DataSource = dv;
-                gvEquityPortfolioUnrealized.DataBind();
-                gvEquityPortfolioUnrealized.Visible = true;
-            }
-
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:SortUnrealizedGridVIew()");
-                object[] objects = new object[2];
-                objects[0] = eqPortfolioVo;
-                objects[1] = eqPortfolioList;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1042,916 +715,75 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
-
-        protected void gvEquityPortfolio_DataBound(object sender, EventArgs e)
+        #region export option
+        public void btngvEquityPortfolioUnrealizedExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-
+            gvEquityPortfolioUnrealized.ExportSettings.OpenInNewWindow = true;
+            gvEquityPortfolioUnrealized.ExportSettings.IgnorePaging = true;
+            gvEquityPortfolioUnrealized.ExportSettings.HideStructureColumns = true;
+            gvEquityPortfolioUnrealized.ExportSettings.ExportOnlyData = true;
+            gvEquityPortfolioUnrealized.ExportSettings.FileName = "Equity Portfolio Unrealized Details";
+            gvEquityPortfolioUnrealized.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvEquityPortfolioUnrealized.MasterTableView.ExportToExcel();
         }
-
-        protected void gvEquityPortfolioDelivery_DataBound(object sender, EventArgs e)
+        public void btngvEquityPortfolioDeliveryExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-          
+            gvEquityPortfolioDelivery.ExportSettings.OpenInNewWindow = true;
+            gvEquityPortfolioDelivery.ExportSettings.IgnorePaging = true;
+            gvEquityPortfolioDelivery.ExportSettings.HideStructureColumns = true;
+            gvEquityPortfolioDelivery.ExportSettings.ExportOnlyData = true;
+            gvEquityPortfolioDelivery.ExportSettings.FileName = "Equity Portfolio Delivery Details";
+            gvEquityPortfolioDelivery.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvEquityPortfolioDelivery.MasterTableView.ExportToExcel();
         }
-
-        protected void gvEquityPortfolioUnrealized_DataBound(object sender, EventArgs e)
+        public void btngvEquityPortfolioSpeculativeExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-
+            gvEquityPortfolioSpeculative.ExportSettings.OpenInNewWindow = true;
+            gvEquityPortfolioSpeculative.ExportSettings.IgnorePaging = true;
+            gvEquityPortfolioSpeculative.ExportSettings.HideStructureColumns = true;
+            gvEquityPortfolioSpeculative.ExportSettings.ExportOnlyData = true;
+            gvEquityPortfolioSpeculative.ExportSettings.FileName = "Equity Portfolio Speculative Details";
+            gvEquityPortfolioSpeculative.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvEquityPortfolioSpeculative.MasterTableView.ExportToExcel();
         }
-
-        protected void gvEquityPortfolioSpeculative_DataBound(object sender, EventArgs e)
+        public void btngvEquityPortfolioExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-           
+            gvEquityPortfolio.ExportSettings.OpenInNewWindow = true;
+            gvEquityPortfolio.ExportSettings.IgnorePaging = true;
+            gvEquityPortfolio.ExportSettings.HideStructureColumns = true;
+            gvEquityPortfolio.ExportSettings.ExportOnlyData = true;
+            gvEquityPortfolio.ExportSettings.FileName = "Equity Portfolio Details";
+            gvEquityPortfolio.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvEquityPortfolio.MasterTableView.ExportToExcel();
         }
+        #endregion
 
-        protected void gvEquityPortfolio_RowDataBound(object sender, GridViewRowEventArgs e)
+        #region needdatasource
+        protected void gvEquityPortfolio_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                currentPrice_All = currentPrice_All + Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "CurrentValue"));
-
-            }
-            else if (e.Row.RowType == DataControlRowType.Footer)
-            {
-                e.Row.Cells[1].Text = "Total ";
-                if(hdnNoOfRecords.Value != "")
-                    e.Row.Cells[2].Text = "Total Records : " + hdnNoOfRecords.Value + "";
-                e.Row.Cells[5].Text = costofpurchase_all.ToString("f4");
-                e.Row.Cells[5].Attributes.Add("align", "Right");
-                e.Row.Cells[7].Text = currentPrice_All.ToString("f4");
-                e.Row.Cells[7].Attributes.Add("align", "Right");
-                e.Row.Cells[8].Text = unrealised_all.ToString("f4");
-                e.Row.Cells[8].Attributes.Add("align", "Right");
-                e.Row.Cells[9].Text = realised_all.ToString("f4");
-                e.Row.Cells[9].Attributes.Add("align", "Right");
-
-
-            }
+            DataTable dtgvEquityPortfolioDetails = new DataTable();
+            dtgvEquityPortfolioDetails = (DataTable)Cache["gvEquityPortfolioDetails" + customerVo.CustomerId.ToString()];
+            gvEquityPortfolio.DataSource = dtgvEquityPortfolioDetails;
         }
-        protected void gvEquityPortfolioSpeculative_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void gvEquityPortfolioSpeculative_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.Footer)
-            {
-
-
-                e.Row.Cells[6].Text = realised_spec.ToString("f4");
-                e.Row.Cells[6].Attributes.Add("align", "Right");
-            }
+            DataTable dtgvEquityPortfolioSpeculativeDetails = new DataTable();
+            dtgvEquityPortfolioSpeculativeDetails = (DataTable)Cache["gvEquityPortfolioSpeculativeDetails" + customerVo.CustomerId.ToString()];
+            gvEquityPortfolioSpeculative.DataSource = dtgvEquityPortfolioSpeculativeDetails;
         }
-        protected void gvEquityPortfolioDelivery_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void gvEquityPortfolioDelivery_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.Footer)
-            {
-                if (hdnNoOfRecords.Value != "")
-                    e.Row.Cells[2].Text = "Total Records : " + hdnNoOfRecords.Value + "";
-                e.Row.Cells[6].Text = realised_delivery.ToString("f4");
-                e.Row.Cells[6].Attributes.Add("align", "Right");
-            }
+            DataTable dtgvEquityPortfolioDeliveryDetails = new DataTable();
+            dtgvEquityPortfolioDeliveryDetails = (DataTable)Cache["gvEquityPortfolioDeliveryDetails" + customerVo.CustomerId.ToString()];
+            gvEquityPortfolioDelivery.DataSource = dtgvEquityPortfolioDeliveryDetails;
         }
-        protected void gvEquityPortfolioUnrealized_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void gvEquityPortfolioUnrealized_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                currentPrice_UnRe = currentPrice_UnRe + Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "CurrentValue"));
-
-            }
-            else if (e.Row.RowType == DataControlRowType.Footer)
-            {
-                e.Row.Cells[1].Text = "Total ";
-                if (hdnNoOfRecords.Value != "")
-                    e.Row.Cells[2].Text = "Total Records : " + hdnNoOfRecords.Value + "";
-                e.Row.Cells[5].Text = costofpurchase_Unrealized.ToString("f4");
-                e.Row.Cells[5].Attributes.Add("align", "Right");
-                e.Row.Cells[7].Text = String.Format("{0:n2}", decimal.Parse(currentPrice_UnRe.ToString("f2")));
-                currentValue = decimal.Parse(currentPrice_UnRe.ToString("f2"));
-                e.Row.Cells[7].Attributes.Add("align", "Right");
-                e.Row.Cells[8].Text = unrealisedPNL.ToString("f4");
-                e.Row.Cells[8].Attributes.Add("align", "Right");
-            }
+            DataTable dtgvEquityPortfolioUnrealizedDetails = new DataTable();
+            dtgvEquityPortfolioUnrealizedDetails = (DataTable)Cache["gvEquityPortfolioUnrealizedDetails" + customerVo.CustomerId.ToString()];
+            gvEquityPortfolioUnrealized.DataSource = dtgvEquityPortfolioUnrealizedDetails;
         }
-
-        protected void btnEQNPSearch_Click(object sender, EventArgs e)
-        {
-            hdnRealizedScipFilter.Value = "";
-            hdnRealizedSpecScipFilter.Value = "";
-            hdnUnRealizedScipFilter.Value = "";
-
-            string TabberScript = "<script language='javascript'>document.getElementById('dvEquityPortfolio').className = 'tabbertab tabbertabdefault';</script>";//
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Tabber", TabberScript);
-
-            TextBox txtScripName = GetEQPortfolioScripNameTextBox();
-
-            if (txtScripName != null)
-            {
-                hdnScipNameFilter.Value = txtScripName.Text.Trim();
-
-                LoadEquityPortfolio();
-            }
-        }
-
-        protected void btnEQRealizedSearch_Click(object sender, EventArgs e)
-        {
-            hdnRealizedScipFilter.Value = "";
-
-            string TabberScript = "<script language='javascript'>document.getElementById('dvEquityPortfolioDelivery').className = 'tabbertab tabbertabdefault';</script>";//
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Tabber", TabberScript);
-
-            TextBox txtScripName = GetEQRealizedScripNameTextBox();
-
-            if (txtScripName != null)
-            {
-                hdnRealizedScipFilter.Value = txtScripName.Text.Trim();
-                LoadEquityPortfolio();
-            }
-        }
-
-        protected void btnEQRealizedSpecSearch_Click(object sender, EventArgs e)
-        {
-            hdnRealizedSpecScipFilter.Value = "";
-
-            string TabberScript = "<script language='javascript'>document.getElementById('dvEquityPortfolioSpeculative').className = 'tabbertab tabbertabdefault';</script>";//
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Tabber", TabberScript);
-
-            TextBox txtScripName = GetEQRealizedSpecScripNameTextBox();
-
-            if (txtScripName != null)
-            {
-                hdnRealizedSpecScipFilter.Value = txtScripName.Text.Trim();
-                LoadEquityPortfolio();
-            }
-        }
-
-        protected void btnEQUnRealizedSearch_Click(object sender, EventArgs e)
-        {
-            hdnUnRealizedScipFilter.Value = "";
-
-            string TabberScript = "<script language='javascript'>document.getElementById('dvEquityPortfolioUnrealized').className = 'tabbertab tabbertabdefault';</script>";//
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Tabber", TabberScript);
-
-            TextBox txtScripName = GetEQUnRealizedScripNameTextBox();
-
-            if (txtScripName != null)
-            {
-                hdnUnRealizedScipFilter.Value = txtScripName.Text.Trim();
-                LoadEquityPortfolio();
-            }
-        }
-
-        private TextBox GetEQPortfolioScripNameTextBox()
-        {
-            TextBox txt = new TextBox();
-            if (gvEquityPortfolio.HeaderRow != null)
-            {
-                if ((TextBox)gvEquityPortfolio.HeaderRow.FindControl("txtScripNameSearch") != null)
-                {
-                    txt = (TextBox)gvEquityPortfolio.HeaderRow.FindControl("txtScripNameSearch");
-                }
-            }
-            else
-                txt = null;
-
-            return txt;
-        }
-
-        private TextBox GetEQRealizedScripNameTextBox()
-        {
-            TextBox txt = new TextBox();
-            if (gvEquityPortfolioDelivery.HeaderRow != null)
-            {
-                if ((TextBox)gvEquityPortfolioDelivery.HeaderRow.FindControl("txtScripNameRealizedSearch") != null)
-                {
-                    txt = (TextBox)gvEquityPortfolioDelivery.HeaderRow.FindControl("txtScripNameRealizedSearch");
-                }
-            }
-            else
-                txt = null;
-
-            return txt;
-        }
-
-        private TextBox GetEQRealizedSpecScripNameTextBox()
-        {
-            TextBox txt = new TextBox();
-            if (gvEquityPortfolioSpeculative.HeaderRow != null)
-            {
-                if ((TextBox)gvEquityPortfolioSpeculative.HeaderRow.FindControl("txtScripNameRealizedSpecSearch") != null)
-                {
-                    txt = (TextBox)gvEquityPortfolioSpeculative.HeaderRow.FindControl("txtScripNameRealizedSpecSearch");
-                }
-            }
-            else
-            {
-                txt = null;
-            }
-            return txt;
-        }
-
-        private TextBox GetEQUnRealizedScripNameTextBox()
-        {
-            TextBox txt = new TextBox();
-            if (gvEquityPortfolioUnrealized.HeaderRow != null)
-            {
-                if ((TextBox)gvEquityPortfolioUnrealized.HeaderRow.FindControl("txtScripNameUnRealizedSearch") != null)
-                {
-                    txt = (TextBox)gvEquityPortfolioUnrealized.HeaderRow.FindControl("txtScripNameUnRealizedSearch");
-                }
-            }
-            else
-                txt = null;
-
-            return txt;
-        }
-
-        //protected void btnExport_Click(object sender, EventArgs e)
-        //{
-
-
-
-        //    gvEquityPortfolio.Columns[0].Visible = false;
-
-        //    PrepareGridViewForExport(gvEquityPortfolio);
-        //    if (rbtnTry.Checked)
-        //    {
-        //        if (hdnSelectedTab.Value.ToString() == "0")
-        //        {
-        //            ExportGridView("Excel", "Equity Portfolio", gvEquityPortfolio);
-        //        }
-        //        else if(hdnSelectedTab.Value.ToString() == "1")
-        //        {
-        //            ExportGridView("Excel", "Equity Portfolio", gvEquityPortfolioDelivery);
-        //        }
-        //        else if (hdnSelectedTab.Value.ToString() == "2")
-        //        {
-        //            ExportGridView("Excel", "Equity Portfolio", gvEquityPortfolioSpeculative);
-        //        }
-        //        else if (hdnSelectedTab.Value.ToString() == "3")
-        //        {
-        //            ExportGridView("Excel", "Equity Portfolio", gvEquityPortfolioUnrealized);
-        //        }
-        //    }
-        //    else if (rbtnPDF.Checked)
-        //    {
-
-        //        ExportGridView("PDF", "EquityPortfolio", gvEquityPortfolio);
-        //    }
-        //    else if (rbtnWord.Checked)
-        //    {
-        //        ExportGridView("Word", "EquityPortfolio", gvEquityPortfolio);
-        //    }
-
-        //    gvEquityPortfolio.Columns[0].Visible = true;
-        //}
-
-        private void ExportGridView(string FileType, string title, GridView gv)
-        {
-            HtmlForm frm = new HtmlForm();
-            frm.Controls.Clear();
-            frm.Attributes["runat"] = "server";
-            if (FileType == "Excel")
-            {
-                // gvCustomer.Columns.Remove(this.gvCustomer.Columns[0]);
-
-                string temp = customerVo.FirstName + customerVo.LastName + title + ".xls";
-                string attachment = "attachment; filename=" + temp;
-                Response.ClearContent();
-                Response.AddHeader("content-disposition", attachment);
-                Response.ContentType = "application/ms-excel";
-                StringWriter sw = new StringWriter();
-                HtmlTextWriter htw = new HtmlTextWriter(sw);
-
-                Response.Output.Write("<table border=\"0\"><tbody><caption><FONT FACE=\"ARIAL\"  SIZE=\"4\">");
-                Response.Output.Write(title + "</FONT></caption><tr><td>");
-                Response.Output.Write("Advisor Name : ");
-                Response.Output.Write("</td>");
-                Response.Output.Write("<td>");
-                Response.Output.Write(userVo.FirstName + userVo.LastName);
-                Response.Output.Write("</td></tr>");
-                Response.Output.Write("<tr><td>");
-                Response.Output.Write("Customer Name  : ");
-                Response.Output.Write("</td>");
-                Response.Output.Write("<td>");
-                Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
-                Response.Output.Write("</td></tr>");
-                Response.Output.Write("<tr><td>");
-                Response.Output.Write("Contact Person  : ");
-                Response.Output.Write("</td>");
-                Response.Output.Write("<td>");
-                Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
-                Response.Output.Write("</td></tr><tr><td>");
-                Response.Output.Write("Date : ");
-                Response.Output.Write("</td><td>");
-                System.DateTime tDate1 = System.DateTime.Now;
-                Response.Output.Write(tDate1);
-                Response.Output.Write("</td></tr>");
-                Response.Output.Write("</tbody></table>");
-
-                if (gv.HeaderRow != null)
-                {
-                    PrepareControlForExport(gv.HeaderRow);
-                }
-                foreach (GridViewRow row in gv.Rows)
-                {
-                    PrepareControlForExport(row);
-                }
-                if (gv.FooterRow != null)
-                {
-                    PrepareControlForExport(gv.FooterRow);
-                }
-
-                gv.Parent.Controls.Add(frm);
-                frm.Controls.Add(gv);
-                frm.RenderControl(htw);
-                Response.Write(sw.ToString());
-                Response.End();
-
-
-            }
-            //else if (FileType == "Word")
-            //{
-
-            //    string temp = customerVo.FirstName + customerVo.LastName + title + ".doc";
-            //    string attachment = "attachment; filename=" + temp;
-            //    Response.ClearContent();
-            //    Response.AddHeader("content-disposition", attachment);
-            //    Response.ContentType = "application/msword";
-            //    StringWriter sw = new StringWriter();
-            //    HtmlTextWriter htw = new HtmlTextWriter(sw);
-
-            //    Response.Output.Write("<table border=\"0\"><tbody><caption><FONT FACE=\"ARIAL\"  SIZE=\"4\">");
-            //    Response.Output.Write(title + "</FONT></caption><tr><td>");
-            //    Response.Output.Write("Advisor Name : ");
-            //    Response.Output.Write("</td>");
-            //    Response.Output.Write("<td>");
-            //    Response.Output.Write(userVo.FirstName + userVo.LastName);
-            //    Response.Output.Write("</td></tr>");
-            //    Response.Output.Write("<tr><td>");
-            //    Response.Output.Write("Customer Name  : ");
-            //    Response.Output.Write("</td>");
-            //    Response.Output.Write("<td>");
-            //    Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
-            //    Response.Output.Write("</td></tr>");
-            //    Response.Output.Write("<tr><td>");
-            //    Response.Output.Write("Contact Person  : ");
-            //    Response.Output.Write("</td>");
-            //    Response.Output.Write("<td>");
-            //    Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
-            //    Response.Output.Write("</td></tr><tr><td>");
-            //    Response.Output.Write("Date : ");
-            //    Response.Output.Write("</td><td>");
-            //    System.DateTime tDate1 = System.DateTime.Now;
-            //    Response.Output.Write(tDate1);
-            //    Response.Output.Write("</td></tr>");
-            //    Response.Output.Write("</tbody></table>");
-            //    if (gv.HeaderRow != null)
-            //    {
-            //        PrepareControlForExport(gv.HeaderRow);
-            //    }
-            //    foreach (GridViewRow row in gv.Rows)
-            //    {
-            //        PrepareControlForExport(row);
-            //    }
-            //    if (gv.FooterRow != null)
-            //    {
-            //        PrepareControlForExport(gv.FooterRow);
-            //    }
-
-            //    gv.Parent.Controls.Add(frm);
-            //    frm.Controls.Add(gv);
-            //    frm.RenderControl(htw);
-            //    Response.Write(sw.ToString());
-            //    Response.End();
-
-            //}
-            //else if (FileType == "PDF")
-            //{
-            //    string temp = customerVo.FirstName + customerVo.LastName + title;
-            //    iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(gv.Columns.Count - 1);
-            //    table.HeaderRows = 4;
-            //    iTextSharp.text.pdf.PdfPTable headerTable = new iTextSharp.text.pdf.PdfPTable(2);
-            //    Phrase phApplicationName = new Phrase("WWW.PrincipalConsulting.net", FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
-            //    PdfPCell clApplicationName = new PdfPCell(phApplicationName);
-            //    clApplicationName.Border = PdfPCell.NO_BORDER;
-            //    clApplicationName.HorizontalAlignment = Element.ALIGN_LEFT;
-
-
-            //    Phrase phDate = new Phrase(DateTime.Now.Date.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
-            //    PdfPCell clDate = new PdfPCell(phDate);
-            //    clDate.HorizontalAlignment = Element.ALIGN_RIGHT;
-            //    clDate.Border = PdfPCell.NO_BORDER;
-
-
-            //    headerTable.AddCell(clApplicationName);
-            //    headerTable.AddCell(clDate);
-            //    headerTable.DefaultCell.Border = PdfPCell.NO_BORDER;
-
-            //    PdfPCell cellHeader = new PdfPCell(headerTable);
-            //    cellHeader.Border = PdfPCell.NO_BORDER;
-            //    cellHeader.Colspan = gv.Columns.Count - 1;
-            //    table.AddCell(cellHeader);
-
-            //    Phrase phHeader = new Phrase(temp, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD));
-            //    PdfPCell clHeader = new PdfPCell(phHeader);
-            //    clHeader.Colspan = gv.Columns.Count - 1;
-            //    clHeader.Border = PdfPCell.NO_BORDER;
-            //    clHeader.HorizontalAlignment = Element.ALIGN_CENTER;
-            //    table.AddCell(clHeader);
-
-
-            //    Phrase phSpace = new Phrase("\n");
-            //    PdfPCell clSpace = new PdfPCell(phSpace);
-            //    clSpace.Border = PdfPCell.NO_BORDER;
-            //    clSpace.Colspan = gv.Columns.Count - 1;
-            //    table.AddCell(clSpace);
-
-            //    GridViewRow HeaderRow = gv.HeaderRow;
-            //    if (HeaderRow != null)
-            //    {
-            //        string cellText = "";
-            //        for (int j = 1; j < gv.Columns.Count; j++)
-            //        {
-
-            //            if (j == 2)
-            //            {
-            //                cellText = "Scrip Name";
-            //            }
-            //            else if (j == 3)
-            //            {
-            //                if (title == "EquityPortfolioUnRealized")
-            //                {
-            //                    cellText = "Number of Shares";
-            //                }
-            //                else if (title == "EquityPortfolio")
-            //                {
-            //                    cellText = "Number of Shares";
-            //                }
-            //                else if (title == "EquityPortfolioRealized")
-            //                {
-            //                    cellText = "Number of shares sold";
-            //                }
-            //                else if (title == "EquityPortfolioRealizedSpeculative")
-            //                {
-            //                    cellText = "Number of shares sold";
-            //                }
-
-            //            }
-            //            else if (j == 4)
-            //            {
-            //                if (title == "EquityPortfolioUnRealized")
-            //                {
-            //                    cellText = "Average Price";
-            //                }
-            //                else if (title == "EquityPortfolio")
-            //                {
-            //                    cellText = "Average Price";
-            //                }
-            //                else if (title == "EquityPortfolioRealized")
-            //                {
-            //                    cellText = "Sale Proceeds (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolioRealizedSpeculative")
-            //                {
-            //                    cellText = "Sale Proceeds (Rs)";
-            //                }
-            //            }
-            //            else if (j == 5)
-            //            {
-            //                if (title == "EquityPortfolioUnRealized")
-            //                {
-            //                    cellText = "Cost of Purchase (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolio")
-            //                {
-            //                    cellText = "Cost of Purchase (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolioRealized")
-            //                {
-            //                    cellText = "Cost of Sales (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolioRealizedSpeculative")
-            //                {
-            //                    cellText = "Cost of Sales (Rs)";
-            //                }
-            //            }
-            //            else if (j == 6)
-            //            {
-            //                if (title == "EquityPortfolioUnRealized")
-            //                {
-            //                    cellText = "Current Price (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolio")
-            //                {
-            //                    cellText = "Current Price (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolioRealized")
-            //                {
-            //                    cellText = "Realized P/L (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolioRealizedSpeculative")
-            //                {
-            //                    cellText = "Realized P/L (Rs)";
-            //                }
-            //            }
-            //            else if (j == 7)
-            //            {
-            //                if (title == "EquityPortfolioUnRealized")
-            //                {
-            //                    cellText = "Current Value (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolio")
-            //                {
-            //                    cellText = "Current Value (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolioRealized")
-            //                {
-            //                    cellText = "XIRR";
-            //                }
-            //                else if (title == "EquityPortfolioRealizedSpeculative")
-            //                {
-            //                    cellText = "XIRR";
-            //                }
-            //            }
-            //            else if (j == 8)
-            //            {
-            //                if (title == "EquityPortfolioUnRealized")
-            //                {
-            //                    cellText = "UnRealized P/L (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolio")
-            //                {
-            //                    cellText = "UnRealized P/L (Rs)";
-            //                }
-            //            }
-            //            else if (j == 9)
-            //            {
-            //                if (title == "EquityPortfolio")
-            //                {
-            //                    cellText = "Realized P/L (Rs)";
-            //                }
-            //                else if (title == "EquityPortfolioUnRealized")
-            //                {
-            //                    cellText = "XIRR";
-            //                }
-            //            }
-            //            else if (j == 10)
-            //            {
-            //                if (title == "EquityPortfolio")
-            //                {
-            //                    cellText = "XIRR";
-            //                }
-            //            }
-            //            else
-            //            {
-            //                cellText = Server.HtmlDecode(gv.HeaderRow.Cells[j].Text);
-            //            }
-            //            Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.BOLD));
-            //            table.AddCell(ph);
-            //        }
-
-            //    }
-
-            //    for (int i = 0; i < gv.Rows.Count; i++)
-            //    {
-            //        string cellText = "";
-            //        if (gv.Rows[i].RowType == DataControlRowType.DataRow)
-            //        {
-            //            for (int j = 1; j < gv.Columns.Count; j++)
-            //            {
-            //                if (j == 1)
-            //                {
-            //                    cellText = (i + 1).ToString();
-            //                }
-            //                else if (j == 2)
-            //                {
-            //                    if (title == "EquityPortfolioUnRealized")
-            //                    {
-            //                        cellText = ((Label)gv.Rows[i].FindControl("lblScripNameUnRealizedHeader")).Text;
-            //                    }
-            //                    else if (title == "EquityPortfolio")
-            //                    {
-            //                        cellText = ((Label)gv.Rows[i].FindControl("lblScripNameHeader")).Text;
-            //                    }
-            //                    else if (title == "EquityPortfolioRealized")
-            //                    {
-            //                        cellText = ((Label)gv.Rows[i].FindControl("lblScripNameRealizedHeader")).Text;
-            //                    }
-            //                    else if (title == "EquityPortfolioRealizedSpeculative")
-            //                    {
-            //                        cellText = ((Label)gv.Rows[i].FindControl("lblScripNameRealizedSpecHeader")).Text;
-            //                    }
-
-            //                }
-            //                else
-            //                {
-            //                    cellText = Server.HtmlDecode(gv.Rows[i].Cells[j].Text);
-            //                }
-
-            //                Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.NORMAL));
-            //                iTextSharp.text.Cell cell = new iTextSharp.text.Cell(cellText);
-            //                table.AddCell(ph);
-
-            //            }
-
-            //        }
-
-            //    }
-
-            //    //Create the PDF Document
-
-            //    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-            //    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-            //    pdfDoc.Open();
-            //    pdfDoc.NewPage();
-            //    pdfDoc.Add(table);
-            //    pdfDoc.Close();
-            //    Response.ContentType = "application/pdf";
-            //    temp = "filename=" + temp + ".pdf";
-            //    //    Response.AddHeader("content-disposition", "attachment;" + "filename=GridViewExport.pdf");
-            //    Response.AddHeader("content-disposition", "attachment;" + temp);
-            //    Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            //    Response.Write(pdfDoc);
-            //    Response.End();
-
-
-
-            //}
-        }
-        private static void PrepareControlForExport(Control control)
-        {
-            for (int i = 0; i < control.Controls.Count; i++)
-            {
-                Control current = control.Controls[i];
-                if (current is LinkButton)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
-                }
-                else if (current is ImageButton)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as ImageButton).AlternateText));
-                }
-                else if (current is HyperLink)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as HyperLink).Text));
-                }
-                else if (current is DropDownList)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as DropDownList).SelectedValue.ToString()));
-                }
-                else if (current is CheckBox)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as CheckBox).Checked ? "True" : "False"));
-                }
-                else if (current is TextBox)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as TextBox).Text));
-                }
-                if (current.HasControls())
-                {
-                    PrepareControlForExport(current);
-                }
-            }
-        }
-
-
-
-        private void PrepareGridViewForExport(Control gv)
-        {
-            LinkButton lb = new LinkButton();
-            Literal l = new Literal();
-            string name = String.Empty;
-
-            for (int i = 0; i < gv.Controls.Count; i++)
-            {
-                if (gv.Controls[i].GetType() == typeof(LinkButton))
-                {
-                    l.Text = (gv.Controls[i] as LinkButton).Text;
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-                else if (gv.Controls[i].GetType() == typeof(TextBox))
-                {
-                    l.Text = (gv.Controls[i] as TextBox).Text;
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-                else if (gv.Controls[i].GetType() == typeof(DropDownList))
-                {
-                    l.Text = (gv.Controls[i] as DropDownList).SelectedItem.Text;
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-
-                else if (gv.Controls[i].GetType() == typeof(CheckBox))
-                {
-
-                    l.Text = (gv.Controls[i] as CheckBox).Checked ? "True" : "False";
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-                if (gv.Controls[i].HasControls())
-                {
-                    PrepareGridViewForExport(gv.Controls[i]);
-                }
-
-            }
-
-        }
-
-        //protected void btnPrint_Click(object sender, EventArgs e)
-        //{
-        //    gvEquityPortfolio.Columns[0].Visible = false;
-        //    if (gvEquityPortfolio.HeaderRow != null)
-        //    {
-        //        PrepareControlForExport(gvEquityPortfolio.HeaderRow);
-        //    }
-        //    foreach (GridViewRow row in gvEquityPortfolio.Rows)
-        //    {
-        //        PrepareControlForExport(row);
-        //    }
-        //    if (gvEquityPortfolio.FooterRow != null)
-        //    {
-        //        PrepareControlForExport(gvEquityPortfolio.FooterRow);
-        //    }
-
-        //    PrepareGridViewForExport(gvEquityPortfolio);
-        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_ViewEquityPortfolios_dvEquityPortfolio','ctrl_ViewEquityPortfolios_btnPrintGrid');", true);
-        //}
-
-        //protected void btnPrintGrid_Click(object sender, EventArgs e)
-        //{
-
-        //    gvEquityPortfolio.Columns[0].Visible = true;
-
-        //}
-
-        //protected void btnExportUnrealized_Click(object sender, EventArgs e)
-        //{
-        //    gvEquityPortfolioUnrealized.Columns[0].Visible = false;
-        //    PrepareGridViewForExport(gvEquityPortfolioUnrealized);
-        //    if (rbtnUnrealExcel.Checked)
-        //    {
-        //        ExportGridView("Excel", "EquityPortfolioUnRealized", gvEquityPortfolioUnrealized);
-        //    }
-        //    else if (rbtnUnrealPDF.Checked)
-        //    {
-
-        //        ExportGridView("PDF", "EquityPortfolioUnRealized", gvEquityPortfolioUnrealized);
-        //    }
-        //    else if (rbtnUnrealWord.Checked)
-        //    {
-        //        ExportGridView("Word", "EquityPortfolioUnRealized", gvEquityPortfolioUnrealized);
-        //    }
-
-        //    gvEquityPortfolioUnrealized.Columns[0].Visible = true;
-        //}
-
-        //protected void btnExportRealizedSpeculative_Click(object sender, EventArgs e)
-        //{
-        //    gvEquityPortfolioSpeculative.Columns[0].Visible = false;
-        //    PrepareGridViewForExport(gvEquityPortfolioSpeculative);
-        //    if (rbtnSpecExcel.Checked)
-        //    {
-        //        ExportGridView("Excel", "EquityPortfolioRealizedSpeculative", gvEquityPortfolioSpeculative);
-        //    }
-        //    else if (rbtnSpecPdf.Checked)
-        //    {
-
-        //        ExportGridView("PDF", "EquityPortfolioRealizedSpeculative", gvEquityPortfolioSpeculative);
-        //    }
-        //    else if (rbtnSpecWord.Checked)
-        //    {
-        //        ExportGridView("Word", "EquityPortfolioRealizedSpeculative", gvEquityPortfolioSpeculative);
-        //    }
-
-        //    gvEquityPortfolioSpeculative.Columns[0].Visible = true;
-        //}
-
-        //protected void btnExportRealizedDelivery_Click(object sender, EventArgs e)
-        //{
-        //    gvEquityPortfolioDelivery.Columns[0].Visible = false;
-        //    PrepareGridViewForExport(gvEquityPortfolioDelivery);
-        //    if (rbtnDeliveryExcel.Checked)
-        //    {
-        //        ExportGridView("Excel", "EquityPortfolioRealized", gvEquityPortfolioDelivery);
-        //    }
-        //    else if (rbtnDeliveryPdf.Checked)
-        //    {
-
-        //        ExportGridView("PDF", "EquityPortfolioRealized", gvEquityPortfolioDelivery);
-        //    }
-        //    else if (rbtnDeliveryWord.Checked)
-        //    {
-        //        ExportGridView("Word", "EquityPortfolioRealized", gvEquityPortfolioDelivery);
-        //    }
-
-        //    gvEquityPortfolioDelivery.Columns[0].Visible = true;
-        //}
-
-        //protected void btnPrintUnrealized_Click(object sender, EventArgs e)
-        //{
-        //    gvEquityPortfolioUnrealized.Columns[0].Visible = false;
-        //    if (gvEquityPortfolioUnrealized.HeaderRow != null)
-        //    {
-        //        PrepareControlForExport(gvEquityPortfolioUnrealized.HeaderRow);
-        //    }
-        //    foreach (GridViewRow row in gvEquityPortfolioUnrealized.Rows)
-        //    {
-        //        PrepareControlForExport(row);
-        //    }
-        //    if (gvEquityPortfolioUnrealized.FooterRow != null)
-        //    {
-        //        PrepareControlForExport(gvEquityPortfolioUnrealized.FooterRow);
-        //    }
-
-        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_ViewEquityPortfolios_dvEquityPortfolioUnrealized','ctrl_ViewEquityPortfolios_btnPrintUnrealizedGrid');", true);
-
-        //}
-
-        //protected void btnPrintRealizedDelivery_Click(object sender, EventArgs e)
-        //{
-        //    gvEquityPortfolioDelivery.Columns[0].Visible = false;
-        //    if (gvEquityPortfolioDelivery.HeaderRow != null)
-        //    {
-        //        PrepareControlForExport(gvEquityPortfolioDelivery.HeaderRow);
-        //    }
-        //    foreach (GridViewRow row in gvEquityPortfolioDelivery.Rows)
-        //    {
-        //        PrepareControlForExport(row);
-        //    }
-        //    if (gvEquityPortfolioDelivery.FooterRow != null)
-        //    {
-        //        PrepareControlForExport(gvEquityPortfolioDelivery.FooterRow);
-        //    }
-
-        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_ViewEquityPortfolios_dvEquityPortfolioDelivery','ctrl_ViewEquityPortfolios_btnPrintRealizedDeliveryGrid');", true);
-        //}
-
-        //protected void btnPrintRealizedSpeculative_Click(object sender, EventArgs e)
-        //{
-        //    gvEquityPortfolioSpeculative.Columns[0].Visible = false;
-        //    if (gvEquityPortfolioSpeculative.HeaderRow != null)
-        //    {
-        //        PrepareControlForExport(gvEquityPortfolioSpeculative.HeaderRow);
-        //    }
-        //    foreach (GridViewRow row in gvEquityPortfolioSpeculative.Rows)
-        //    {
-        //        PrepareControlForExport(row);
-        //    }
-        //    if (gvEquityPortfolioSpeculative.FooterRow != null)
-        //    {
-        //        PrepareControlForExport(gvEquityPortfolioSpeculative.FooterRow);
-        //    }
-
-        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_ViewEquityPortfolios_dvEquityPortfolioSpeculative','ctrl_ViewEquityPortfolios_btnPrintRealizedSpeculativeGrid');", true);
-        //}
-
-        //protected void btnPrintRealizedDeliveryGrid_Click(object sender, EventArgs e)
-        //{
-        //    gvEquityPortfolioDelivery.Columns[0].Visible = true;
-        //}
-
-        //protected void btnPrintRealizedSpeculativeGrid_Click(object sender, EventArgs e)
-        //{
-        //    gvEquityPortfolioSpeculative.Columns[0].Visible = true;
-        //}
-
-        //protected void btnPrintUnrealizedGrid_Click(object sender, EventArgs e)
-        //{
-        //    gvEquityPortfolioUnrealized.Columns[0].Visible = true;
-        //}
-
-        protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
-        {
-            gvEquityPortfolio.Columns[0].Visible = false;
-            PrepareGridViewForExport(gvEquityPortfolio);
-            ExportGridView("Excel", "Equity Portfolio", gvEquityPortfolio);
-            gvEquityPortfolio.Columns[0].Visible = true;
-
-        }
-
-        protected void imgBtnExport1_Click(object sender, ImageClickEventArgs e)
-        {
-            gvEquityPortfolio.Columns[0].Visible = false;
-            PrepareGridViewForExport(gvEquityPortfolioDelivery);
-            ExportGridView("Excel", "EquityPortfolioRealized", gvEquityPortfolioDelivery);
-            gvEquityPortfolio.Columns[0].Visible = true;
-        }
-
-        protected void imgBtnExport2_Click(object sender, ImageClickEventArgs e)
-        {
-            gvEquityPortfolio.Columns[0].Visible = false;
-            PrepareGridViewForExport(gvEquityPortfolioSpeculative);
-            ExportGridView("Excel", "EquityPortfolioRealizedSpeculative", gvEquityPortfolioSpeculative);
-            gvEquityPortfolio.Columns[0].Visible = true;
-        }
-
-        protected void imgBtnExport3_Click(object sender, ImageClickEventArgs e)
-        {
-            gvEquityPortfolio.Columns[0].Visible = false;
-            PrepareGridViewForExport(gvEquityPortfolioUnrealized);
-            ExportGridView("Excel", "EquityPortfolioUnRealized", gvEquityPortfolioUnrealized);
-            gvEquityPortfolio.Columns[0].Visible = true;
-        }
+        #endregion
 
     }
 }

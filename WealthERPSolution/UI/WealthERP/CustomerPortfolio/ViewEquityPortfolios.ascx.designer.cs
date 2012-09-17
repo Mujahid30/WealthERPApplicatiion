@@ -119,8 +119,8 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvEquityPortfolioUnrealized;
-        
+        //protected global::System.Web.UI.WebControls.GridView gvEquityPortfolioUnrealized;
+        protected global::Telerik.Web.UI.RadGrid gvEquityPortfolioUnrealized;
         /// <summary>
         /// EQPortfolioRealizedDelTabPage control.
         /// </summary>
@@ -173,8 +173,8 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvEquityPortfolioDelivery;
-        
+        //protected global::System.Web.UI.WebControls.GridView gvEquityPortfolioDelivery;
+        protected global::Telerik.Web.UI.RadGrid gvEquityPortfolioDelivery;
         /// <summary>
         /// EQPortfolioRealizedSpecTabPage control.
         /// </summary>
@@ -227,8 +227,8 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvEquityPortfolioSpeculative;
-        
+        //protected global::System.Web.UI.WebControls.GridView gvEquityPortfolioSpeculative;
+        protected global::Telerik.Web.UI.RadGrid gvEquityPortfolioSpeculative;
         /// <summary>
         /// EQPortfolioAllTabPage control.
         /// </summary>
@@ -281,8 +281,9 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvEquityPortfolio;
-        
+        //protected global::System.Web.UI.WebControls.GridView gvEquityPortfolio;
+        protected global::Telerik.Web.UI.RadGrid gvEquityPortfolio;
+
         /// <summary>
         /// Label1 control.
         /// </summary>
