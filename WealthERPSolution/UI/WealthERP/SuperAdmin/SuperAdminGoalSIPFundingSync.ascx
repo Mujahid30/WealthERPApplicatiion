@@ -80,7 +80,7 @@
     <tr></tr>
     <tr>
         <td>
-            <asp:Button ID="btnSubmitSync" runat="server" Text="Sync for SIP Gold funding" CssClass="PCGLongButton" ValidationGroup="SyncSubmit"
+            <asp:Button ID="btnSubmitSync" runat="server" Text="Sync for SIP Goal funding" CssClass="PCGLongButton" ValidationGroup="SyncSubmit"
                 OnClick="btnSubmitSync_Click" />
         </td>
         <td>
