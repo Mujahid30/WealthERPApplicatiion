@@ -737,5 +737,25 @@ namespace DaoCustomerRiskProfiling
             }
             return dsGetModelPortFolio;
         }
+        public DataSet GetAssetAllocationMIS(int adviserId)
+        {
+            Database db;
+            DataSet dsAssetAllocationMIS;
+            DbCommand dbAssetAllocationMISCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbAssetAllocationMISCmd = db.GetStoredProcCommand("SP_GetAssetAllocationMIS");
+                db.AddInParameter(dbAssetAllocationMISCmd, "@adviserId", DbType.Int32, adviserId);
+                dsAssetAllocationMIS = db.ExecuteDataSet(dbAssetAllocationMISCmd);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+
+            return dsAssetAllocationMIS;
+        }
     }
 }
