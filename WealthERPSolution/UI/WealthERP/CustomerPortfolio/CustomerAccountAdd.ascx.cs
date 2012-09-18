@@ -70,6 +70,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlModeOfHolding.Enabled = false;
                     if (group == "PG")
                     {
+                        lblCustAccountHeader.Text = "Pension And Gratuites Account Entry ";
                         lblAssetGroupName.Text = "Pension And Gratuites";
                         lblAccountNum.Text = "Account Number:";
                         LoadPGContent();
@@ -77,6 +78,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (group == "CS")
                     {
+                        lblCustAccountHeader.Text = "Cash And Savings Account Entry";
                         lblAssetGroupName.Text = "Cash And Savings";
                         lblAccountnumddl.Text = "Account Number:";
                         lblBankName.Text = "Account with Bank";
@@ -92,12 +94,14 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (group == "PR")
                     {
+                        lblCustAccountHeader.Text = "Property Account Entry";
                         lblAssetGroupName.Text = "Property";
                         lblAccountNum.Text = "Asset Identifier:";
                         LoadPropContent();
                     }
                     else if (group == "GS")
                     {
+                        lblCustAccountHeader.Text = "Government Savings Account Entry";
                         lblAssetGroupName.Text = "Government Savings";
                         lblAccountNum.Text = "Account Number:";
                         LoadGovtSavingsContent();
