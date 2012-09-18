@@ -98,7 +98,7 @@
             EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
-            <MasterTableView DataKeyNames="PASP_SchemePlanCode,PASC_AMC_ExternalType" EditMode="PopUp"
+            <MasterTableView DataKeyNames="PASP_SchemePlanCode,PASC_AMC_ExternalType,PASC_AMC_ExternalCode" EditMode="PopUp"
                 CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add New Scheme For Mapping">
                 <Columns>
                     <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"

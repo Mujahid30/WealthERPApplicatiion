@@ -16,7 +16,7 @@ namespace WealthERP.SuperAdmin
         int schemePlanCode;
         DataSet dsSchemePlanDetails;
         CustomerBo customerBo;
-
+        string strExternalCodeToBeEdited;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -57,8 +57,12 @@ namespace WealthERP.SuperAdmin
             int strSchemePlanCode = 0;
             string strExternalCode = string.Empty;
             string strExternalType = string.Empty;
+            DateTime createdDate = new DateTime();
+            DateTime editedDate = new DateTime();
+            DateTime deletedDate = new DateTime();
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
+                strExternalCodeToBeEdited=Session["extCodeTobeEdited"].ToString();
                 CustomerBo customerBo = new CustomerBo();
                 bool isUpdated = false;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
@@ -68,7 +72,9 @@ namespace WealthERP.SuperAdmin
                 strSchemePlanCode = int.Parse(txtSchemePlancode.Text);
                 strExternalCode = txtExtCode.Text;
                 strExternalType = txtExtType.Text;
-                isUpdated = customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCode, strExternalType);
+                editedDate = DateTime.Now;
+                isUpdated = customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode, strExternalType, createdDate, editedDate, deletedDate);
+
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
             {
@@ -81,7 +87,8 @@ namespace WealthERP.SuperAdmin
                 strSchemePlanCode = int.Parse(strSchemePlanCodeForDelete.Text);
                 strExternalCode = StrExternalCodeForDelete.Text;
                 strExternalType = strExternalTypeForDelete.Text;
-                isDeleted = customerBo.DeleteMappedSchemeDetails(strSchemePlanCode, strExternalCode, strExternalType);
+                deletedDate = DateTime.Now;
+                isDeleted = customerBo.DeleteMappedSchemeDetails(strSchemePlanCode, strExternalCode, strExternalType, createdDate, editedDate, deletedDate);
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
@@ -94,7 +101,8 @@ namespace WealthERP.SuperAdmin
                 strSchemePlanCode = int.Parse(txtSchemePlancode.Text);
                 strExternalCode = txtExtCode.Text;
                 strExternalType = txtExtType.Text;
-                isInserted = customerBo.InsertProductAMCSchemeMappingDetalis(strSchemePlanCode, strExternalCode, strExternalType);
+                createdDate = DateTime.Now;
+                isInserted = customerBo.InsertProductAMCSchemeMappingDetalis(strSchemePlanCode, strExternalCode, strExternalType, createdDate, editedDate, deletedDate);
             }
             BindSchemePlanDetails(schemePlanCode);
         }
@@ -136,27 +144,32 @@ namespace WealthERP.SuperAdmin
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             {
                 string strExtType = gvSchemeDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASC_AMC_ExternalType"].ToString();
+                strExternalCodeToBeEdited = gvSchemeDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASC_AMC_ExternalCode"].ToString();
+
+                if (Session["extCodeTobeEdited"] != null)
+                    Session["extCodeTobeEdited"] = null;
+                Session["extCodeTobeEdited"] = strExternalCodeToBeEdited;
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DropDownList dropDownList = (DropDownList)editedItem.FindControl("ddlExternalType");
                 dropDownList.SelectedValue = strExtType;
             }
-        }        
-
-        protected void Page_Init(object sender, EventArgs e)
-        {
-            gvSchemeDetails.HeaderContextMenu.ItemClick += new RadMenuEventHandler(HeaderContextMenu_ItemClick);
-            GridHeaderContextMenu ghcm = new GridHeaderContextMenu(gvSchemeDetails);
-            int i = ghcm.Items.Count;
-            RadMenuItem rmi = new RadMenuItem();
-            RadMenuEventArgs rmie = new RadMenuEventArgs(rmi);
-            HeaderContextMenu_ItemClick(sender, rmie);
         }
 
-        protected void HeaderContextMenu_ItemClick(object sender, RadMenuEventArgs e)
-        {
-            //GridHeaderContextMenu ghcm = new GridHeaderContextMenu(gvSchemeDetails);
-            //ghcm.ClientID[1].ToString();
-        }
+        //protected void Page_Init(object sender, EventArgs e)
+        //{
+        //    gvSchemeDetails.HeaderContextMenu.ItemClick += new RadMenuEventHandler(HeaderContextMenu_ItemClick);
+        //    GridHeaderContextMenu ghcm = new GridHeaderContextMenu(gvSchemeDetails);
+        //    int i = ghcm.Items.Count;
+        //    RadMenuItem rmi = new RadMenuItem();
+        //    RadMenuEventArgs rmie = new RadMenuEventArgs(rmi);
+        //    HeaderContextMenu_ItemClick(sender, rmie);
+        //}
+
+        //protected void HeaderContextMenu_ItemClick(object sender, RadMenuEventArgs e)
+        //{
+        //    //GridHeaderContextMenu ghcm = new GridHeaderContextMenu(gvSchemeDetails);
+        //    //ghcm.ClientID[1].ToString();
+        //}
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
