@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-
+using Microsoft.FSharp;
+using System.Numeric;
 using System.Collections.Specialized;
 using System.Data;
 using DaoReports;
 using VoReports;
+
 
 namespace BoReports
 {
@@ -104,7 +105,109 @@ namespace BoReports
            return dtCurrent;
 
        }
+       //public double CalculateXIRR(System.Collections.Generic.IEnumerable<double> values, System.Collections.Generic.IEnumerable<DateTime> date)
+       //{
 
+       //    double result = 0;
+       //    try
+       //    {
+       //        result = System.Numeric.Financial.XIrr(values, date);
+       //        //This 'if' loop is a temporary fix for the error where calculation is done for XIRR instead of average
+       //        if (Convert.ToInt64(result).ToString().Length > 3 || result.ToString().Contains("E") || result.ToString().Contains("e"))
+       //        {
+       //            result = 0;
+       //        }
+       //        return result;
+       //    }
+       //    catch (Exception ex)
+       //    {
+       //        string e = ex.ToString();
+       //        return result;
+       //    }
+
+       //}
+       public DataTable GetEquityCustomerPortfolioLabelXIRR(string portfolioIds)
+       {
+           EquityReportsDao equityReportsDao = new EquityReportsDao();
+           DataSet dsCustomerTransaction;
+             string tempPortfoliId;
+            DataTable dtCustomerPortfolio;
+            DataTable dtCustomerTransaction;
+            DataTable dtCustomerPortfolioNetHolding;
+            DataTable dtCustomerPortfolioXIRR;
+            double tempPortfolioXIRR;
+
+            dsCustomerTransaction = equityReportsDao.GetEquityCustomerTransactionsDetailsForPortfolioXIRR(portfolioIds);
+            dtCustomerPortfolio = dsCustomerTransaction.Tables[0];
+            dtCustomerTransaction = dsCustomerTransaction.Tables[1];
+            dtCustomerPortfolioNetHolding = dsCustomerTransaction.Tables[2];
+            DataRow[] drTransactionDateAmount;
+
+            dtCustomerPortfolioXIRR = new DataTable();
+            dtCustomerPortfolioXIRR.Columns.Add("CustomerId", typeof(Int32));
+            dtCustomerPortfolioXIRR.Columns.Add("CustomerName", typeof(string));
+            dtCustomerPortfolioXIRR.Columns.Add("PortfolioId", typeof(Int32));
+            dtCustomerPortfolioXIRR.Columns.Add("PortfolioName", typeof(string));
+            dtCustomerPortfolioXIRR.Columns.Add("XIRR", typeof(decimal));
+            DataRow drXIRR;
+            foreach (DataRow dr in dtCustomerPortfolio.Rows)
+            {
+                drXIRR=dtCustomerPortfolioXIRR.NewRow();
+                tempPortfoliId = dr["CP_PortfolioId"].ToString();
+                drTransactionDateAmount = dtCustomerTransaction.Select("CP_PortfolioId=" + tempPortfoliId);
+
+                double[] transactionAmount = new double[drTransactionDateAmount.Count()+1];
+                DateTime[] transactionDate = new DateTime[drTransactionDateAmount.Count()+1];
+                int tempCount=0;
+                foreach (DataRow drAmountDate in drTransactionDateAmount)
+                {                    
+                        transactionAmount[tempCount] = double.Parse(drAmountDate["Calculated_Amount"].ToString());
+                        transactionDate[tempCount] = DateTime.Parse(drAmountDate["CET_TradeDate"].ToString());
+                        tempCount++;
+                   
+                }
+                foreach (DataRow drNetHolding in dtCustomerPortfolioNetHolding.Rows)
+                {
+                    if (drNetHolding["CP_PortfolioId"].ToString() == tempPortfoliId)
+                    {
+                        transactionAmount[tempCount] = double.Parse(drNetHolding["Holding_Amount"].ToString());
+                        transactionDate[tempCount] = DateTime.Parse(drNetHolding["Holding_AsOn"].ToString());
+                    }
+
+                }
+                tempPortfolioXIRR = CalculatePortfolioXIRR(transactionAmount, transactionDate);
+                drXIRR["CustomerId"] = dr["C_CustomerId"];
+                drXIRR["CustomerName"] = dr["C_CustomerName"];
+                drXIRR["PortfolioId"] = tempPortfoliId;
+                drXIRR["PortfolioName"] = dr["CP_PortfolioName"];
+                drXIRR["XIRR"] = (Math.Round(tempPortfolioXIRR,5))*100;
+                dtCustomerPortfolioXIRR.Rows.Add(drXIRR);
+            }
+
+            return dtCustomerPortfolioXIRR;
+        }
+       public double CalculatePortfolioXIRR(System.Collections.Generic.IEnumerable<double> values, System.Collections.Generic.IEnumerable<DateTime> date)
+       {
+
+           double result = 0;
+           try
+           {
+               result = System.Numeric.Financial.XIrr(values, date);
+               //This 'if' loop is a temporary fix for the error where calculation is done for XIRR instead of average
+               if (result.ToString().Contains("E") || result.ToString().Contains("e"))
+               {
+                   result = 0;
+               }
+               return result;
+           }
+           catch (Exception ex)
+           {
+               string e = ex.ToString();
+               return result;
+           }
+
+       }
+       
        public DataSet GetEquityHolding(EquityReportVo report, int adviserId)
        {
            EquityReportsDao equityReportsDao = new EquityReportsDao();    
