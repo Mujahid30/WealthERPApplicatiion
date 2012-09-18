@@ -604,6 +604,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GoalMIS','login');", true);
                 }
+                else if (e.Item.Value == "Asset_Allocation_MIS")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AssetAllocationMIS','login');", true);
+                }
                 else if (e.Item.Value == "Loan MIS")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
@@ -876,6 +881,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GoalMIS','login');", true);
                 }
+                else if (e.Item.Value == "Asset_Allocation_MIS")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AssetAllocationMIS','login');", true);
+                }
                 else if (e.Item.Value == "Loan MIS")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
@@ -1010,6 +1020,11 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "bm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GoalMIS','login');", true);
+                }
+                else if (e.Item.Value == "Asset_Allocation_MIS")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AssetAllocationMIS','login');", true);
                 }
                 //else if (e.Item.Value == "Multi Asset Report")
                 //{
