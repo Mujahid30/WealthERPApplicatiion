@@ -76,13 +76,26 @@
 </script>
 
 <table class="TableBackground" style="width: 100%">
-
+  <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            MF Folio View
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+<%--
 <tr>
     <td class="HeaderCell">
         <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="MF Folio View"></asp:Label>
         <hr />
     </td>
-</tr>
+</tr>--%>
 </table>
 
 <table>

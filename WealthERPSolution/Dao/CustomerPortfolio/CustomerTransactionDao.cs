@@ -2884,12 +2884,16 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getCustomerMFFOlioCmd, "@CustomerId", DbType.Int32, CustomerId);
                 db.AddInParameter(getCustomerMFFOlioCmd, "@currentPage", DbType.Int32, CurrentPage);
                 ds = db.ExecuteDataSet(getCustomerMFFOlioCmd);
+
+                DataRow[] drJointHolder;
+                
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     dtMFFOlio = ds.Tables[0];
                     AccountList = new List<CustomerAccountsVo>();
                     foreach (DataRow dr in dtMFFOlio.Rows)
                     {
+                        string jointHolderName = "";
                         AccountVo = new CustomerAccountsVo();
                         AccountVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
                         AccountVo.AccountNum = dr["CMFA_FolioNum"].ToString();
@@ -2897,12 +2901,33 @@ namespace DaoCustomerPortfolio
                             AccountVo.AccountOpeningDate = DateTime.Parse(dr["CMFA_AccountOpeningDate"].ToString());
                         else
                             AccountVo.AccountOpeningDate = DateTime.MinValue;
+
+
                         AccountVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
                         AccountVo.AMCName = dr["PA_AMCName"].ToString();
-                        AccountVo.Name = dr["CMFA_INV_NAME"].ToString(); // to capture the original cosumer name
+                        //AccountVo.Name = dr["CMFA_INV_NAME"].ToString(); // to capture the original cosumer name
                         AccountVo.ModeOfHolding = dr["XMOH_ModeOfHolding"].ToString();
                         AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
+                        if (AccountVo.ModeOfHoldingCode == "JO")
+                        {
+                            drJointHolder = ds.Tables[2].Select("CMFA_AccountId=" + AccountVo.AccountId + "AND CMFAA_AssociationType =" + "'" + "Joint Holder" + "'");
 
+                            if (drJointHolder.Count() > 0)
+                            {
+                                foreach (DataRow dr1 in drJointHolder)
+                                {
+                                    if (jointHolderName != "")
+                                    {
+                                        jointHolderName = jointHolderName+ "/" + dr1["JointHolderName"].ToString();
+                                    }
+                                    else
+                                    {
+                                        jointHolderName = dr1["JointHolderName"].ToString();
+                                    }
+                                }
+                            }
+                        }
+                        AccountVo.Name = jointHolderName; 
                         AccountList.Add(AccountVo);
 
                     }
@@ -2939,6 +2964,7 @@ namespace DaoCustomerPortfolio
             DbCommand getMFTransactionCmd;
             DataSet dsGetMFTransaction;
             DataRow dr;
+            int bankId=0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2958,10 +2984,12 @@ namespace DaoCustomerPortfolio
                     else
                         AccountVo.AccountOpeningDate = DateTime.MinValue;
                     AccountVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                    Int32.TryParse(dr["CB_CustPrimaryBankAccId"].ToString(), out bankId);
                     if(dr["CMFA_IsJointlyHeld"].ToString() != string.Empty)
                         AccountVo.IsJointHolding = int.Parse(dr["CMFA_IsJointlyHeld"].ToString());
                     AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
-
+                    AccountVo.BankId = bankId;
+                    AccountVo.Name = dr["CMFA_INV_NAME"].ToString();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -3007,6 +3035,22 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateMFFolioDetailsCmd, "@XMOH_ModeOfHoldingCode", DbType.String, AccountVo.ModeOfHoldingCode);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@CP_PortfolioId", DbType.Int32, AccountVo.PortfolioId);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@ModifiedBy", DbType.Int32, userId);
+                if (AccountVo.BankId != 0)
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@BankId", DbType.Int32, AccountVo.BankId);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@BankId", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.Name))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_InvestorName", DbType.String, AccountVo.Name);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_InvestorName", DbType.String, DBNull.Value);
+                }
                 if (db.ExecuteNonQuery(updateMFFolioDetailsCmd) != 0)
                     blResult = true;
             }

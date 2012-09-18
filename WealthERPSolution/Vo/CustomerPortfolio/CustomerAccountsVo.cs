@@ -38,6 +38,7 @@ namespace VoCustomerPortfolio
         private double m_BrokerageSpeculativePercentage;
         private double m_OtherCharges;
         private string m_BrokerName;
+        private int m_BankId;        
         #endregion Fields
 
 
@@ -176,6 +177,11 @@ namespace VoCustomerPortfolio
         {
             get { return m_BrokerName; }
             set { m_BrokerName = value; }
+        }
+        public int BankId
+        {
+            get { return m_BankId; }
+            set { m_BankId = value; }
         }
         #endregion Properties
 

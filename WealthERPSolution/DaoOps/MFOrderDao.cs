@@ -375,6 +375,10 @@ namespace DaoOps
             DbCommand getCustomerBankcmd;
             try
             {
+                //  Shantanu Dated :- 18thSept2012
+                //Don't Change this scripts As I am using same while MF Folio Add. If you want to change ,
+                //then test the folio Add Screen also..
+
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerBankcmd = db.GetStoredProcCommand("SP_GetBankAccountDetails");
                 db.AddInParameter(getCustomerBankcmd, "@C_CustomerId", DbType.Int32, customerId);

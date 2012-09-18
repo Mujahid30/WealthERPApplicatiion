@@ -16,6 +16,7 @@ using VoUser;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Web.Services;
+using BoOps;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -35,6 +36,8 @@ namespace WealthERP.CustomerPortfolio
         DataTable dtCustomerAssociates = new DataTable();
         DataRow drCustomerAssociates;
         int accountId;
+
+        MFOrderBo mforderBo = new MFOrderBo();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         static int portfolioId;
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
@@ -90,7 +93,8 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else
                     {
-
+                        SetCustomerNameInInvestorTextBox();
+                        BindCustomerBankList();
                         trNominee2Header.Visible = false;
                         trJoint2Header.Visible = false;
                         ddlModeOfHolding.Enabled = false;
@@ -142,6 +146,10 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        protected void SetCustomerNameInInvestorTextBox()
+        {
+            txtInvestorName.Text = customerVo.FirstName + "" + customerVo.MiddleName + "" + customerVo.LastName;
+        }
         private void ViewFolioDetails()
         {
             customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];
@@ -289,8 +297,12 @@ namespace WealthERP.CustomerPortfolio
                 txtAccountDate.Text = "";
             txtFolioNumber.Text = customerAccountsVo.AccountNum.ToString();
             BindAMC();
+            BindCustomerBankList();
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
+            ddlBankList.SelectedValue = customerAccountsVo.BankId.ToString();
+            txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
+
             {
                 rbtnYes.Checked = true;
                 trJoint2Header.Visible = true;
@@ -384,6 +396,17 @@ namespace WealthERP.CustomerPortfolio
             //ddlPortfolio.Items.Insert(0, "Select the Portfolio");
 
             //ddlPortfolio.SelectedValue = portfolioId.ToString();
+        }
+
+
+        private void BindCustomerBankList()
+        {
+            DataSet ds = mforderBo.GetCustomerBank(customerVo.CustomerId);
+            ddlBankList.DataSource = ds;
+            ddlBankList.DataValueField = ds.Tables[0].Columns["CB_CustBankAccId"].ToString();
+            ddlBankList.DataTextField = ds.Tables[0].Columns["CB_BankName"].ToString();
+            ddlBankList.DataBind();
+            ddlBankList.Items.Insert(0, new ListItem("Select Bank", "Select Bank"));    
         }
 
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
@@ -560,10 +583,14 @@ namespace WealthERP.CustomerPortfolio
             
             try
             {
+                int BankId=0;
+                Int32.TryParse(ddlBankList.SelectedValue,out BankId);
                 customerAccountsVo.AccountNum = txtFolioNumber.Text;
                 customerAccountsVo.AssetClass = "MF";
                 customerAccountsVo.CustomerId = customerVo.CustomerId;
                 customerAccountsVo.PortfolioId = portfolioId;
+                customerAccountsVo.BankId = BankId;
+                customerAccountsVo.Name = txtInvestorName.Text;
                 if (rbtnNo.Checked)
                     customerAccountsVo.IsJointHolding = 0;
                 else
@@ -668,9 +695,12 @@ namespace WealthERP.CustomerPortfolio
             string oldaccount;
             oldaccount = customerAccountsVo.AccountNum;
             newAccountVo.AccountNum = txtFolioNumber.Text;
+            int BankId = 0;
+            Int32.TryParse(ddlBankList.SelectedValue, out BankId);
+            newAccountVo.BankId = BankId;
+            customerAccountsVo.Name = txtInvestorName.Text;
             if (oldaccount == txtFolioNumber.Text)
             {
-
                 newAccountVo.AssetClass = "MF";
                 if (rbtnNo.Checked)
                     newAccountVo.IsJointHolding = 0;
@@ -959,7 +989,12 @@ namespace WealthERP.CustomerPortfolio
             //CustomerAccountDao checkAccDao = new CustomerAccountDao();
            //return checkAccDao.CheckTradeNoAvailability(TradeAccNo, BrokerCode, PortfolioId);
         }
-       
+
+        protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
+        {
+            customerVo = (CustomerVo)Session["customerVo"];
+            BindCustomerBankList();
+        }      
 
     }
 }
