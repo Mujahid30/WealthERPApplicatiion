@@ -299,6 +299,21 @@ namespace BoCustomerRiskProfiling
 
             return ds;
         }
-        
+
+
+        public DataSet GetAssetAllocationMIS(int adviserId)
+        {
+            DataSet dsAssetallocationMIS = new DataSet();
+            try
+            {
+                dsAssetallocationMIS = riskprofiledao.GetAssetAllocationMIS(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsAssetallocationMIS;
+        }
+
     }
 }
