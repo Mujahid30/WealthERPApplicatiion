@@ -16,6 +16,7 @@ namespace BoReports
     {
         public DataSet GetPortfolioSummary(PortfolioReportVo report, int adviserId)
         {
+            
             PortfolioReportsDao portfolioReports = new PortfolioReportsDao();
             DataSet dsPortfolio = new DataSet();
             DataTable dtAssetPrevious = new DataTable();
@@ -96,7 +97,7 @@ namespace BoReports
         /// <returns></returns>
         private DataTable CalculateCustomersNetWorth(DataSet dsPortfolio)
         {
-
+            
             DataTable dtNetWorth = new DataTable();
 
             DataTable dtPortfolioSummary = (DataTable)dsPortfolio.Tables[0];
@@ -117,6 +118,7 @@ namespace BoReports
             dtLiabilitie.Columns.Add("CustomerName");
             dtLiabilitie.Columns.Add("Type");
             dtLiabilitie.Columns.Add("LoanAmount", Type.GetType("System.Double"));
+            dtLiabilitie.Columns.Add("AssetParticular");
             DataRow drLiabilitie;
 
             try
@@ -131,6 +133,7 @@ namespace BoReports
                 else
                     TempCustomerID = 0;
                 string CustomerName = "";
+                string AssetParticular = "";
                 double LoanAmount = 0;
                 foreach (DataRow drAssets in dtPortfolioSummary.Rows)
                 {
@@ -189,7 +192,7 @@ namespace BoReports
                                 drLiabilitie["CustomerName"] = CustomerName;
                                 drLiabilitie["Type"] = "Liabilities";
                                 drLiabilitie["LoanAmount"] = LoanAmount;
-
+                                drLiabilitie["AssetParticular"] = AssetParticular;
                                 dtLiabilitie.Rows.Add(drLiabilitie);
                                 LoanAmount = 0;
                                 
@@ -199,7 +202,7 @@ namespace BoReports
                         CustomerName = drliabilities["CustomerName"].ToString();
                         LoanAmount = LoanAmount + double.Parse(drliabilities["LoanAmount"].ToString());
                         TempCustomerID = CustomerId;
-                        
+                        AssetParticular = drliabilities["AssetParticular"].ToString();
                     }
 
                     
@@ -210,7 +213,7 @@ namespace BoReports
                    drLiabilitie["CustomerName"] = CustomerName;
                    drLiabilitie["Type"] = "Liabilities";
                    drLiabilitie["LoanAmount"] = LoanAmount;
-
+                   drLiabilitie["AssetParticular"] = AssetParticular;
                    dtLiabilitie.Rows.Add(drLiabilitie);
                    LoanAmount = 0;
 
