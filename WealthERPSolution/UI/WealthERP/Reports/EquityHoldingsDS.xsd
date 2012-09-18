@@ -31,6 +31,25 @@
               <xs:element name="RealizedPL" msprop:Generator_UserColumnName="RealizedPL" msprop:Generator_ColumnVarNameInTable="columnRealizedPL" msprop:Generator_ColumnPropNameInRow="RealizedPL" msprop:Generator_ColumnPropNameInTable="RealizedPLColumn" type="xs:double" minOccurs="0" />
               <xs:element name="TotalPL" msprop:Generator_UserColumnName="TotalPL" msprop:Generator_ColumnVarNameInTable="columnTotalPL" msprop:Generator_ColumnPropNameInRow="TotalPL" msprop:Generator_ColumnPropNameInTable="TotalPLColumn" type="xs:double" minOccurs="0" />
               <xs:element name="XIRR" msprop:Generator_UserColumnName="XIRR" msprop:Generator_ColumnVarNameInTable="columnXIRR" msprop:Generator_ColumnPropNameInRow="XIRR" msprop:Generator_ColumnPropNameInTable="XIRRColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="CustomerName" msprop:Generator_UserColumnName="CustomerName" msprop:Generator_ColumnVarNameInTable="columnCustomerName" msprop:Generator_ColumnPropNameInRow="CustomerName" msprop:Generator_ColumnPropNameInTable="CustomerNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="XIRR" msprop:Generator_UserTableName="XIRR" msprop:Generator_RowDeletedName="XIRRRowDeleted" msprop:Generator_TableClassName="XIRRDataTable" msprop:Generator_RowChangedName="XIRRRowChanged" msprop:Generator_RowClassName="XIRRRow" msprop:Generator_RowChangingName="XIRRRowChanging" msprop:Generator_RowEvArgName="XIRRRowChangeEvent" msprop:Generator_RowEvHandlerName="XIRRRowChangeEventHandler" msprop:Generator_TablePropName="XIRR" msprop:Generator_TableVarName="tableXIRR" msprop:Generator_RowDeletingName="XIRRRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CustomerId" msprop:Generator_UserColumnName="CustomerId" msprop:Generator_ColumnPropNameInRow="CustomerId" msprop:Generator_ColumnVarNameInTable="columnCustomerId" msprop:Generator_ColumnPropNameInTable="CustomerIdColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="CustomerName" msprop:Generator_UserColumnName="CustomerName" msprop:Generator_ColumnPropNameInRow="CustomerName" msprop:Generator_ColumnVarNameInTable="columnCustomerName" msprop:Generator_ColumnPropNameInTable="CustomerNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PortfolioId" msprop:Generator_UserColumnName="PortfolioId" msprop:Generator_ColumnPropNameInRow="PortfolioId" msprop:Generator_ColumnVarNameInTable="columnPortfolioId" msprop:Generator_ColumnPropNameInTable="PortfolioIdColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="XIRR" msprop:Generator_UserColumnName="XIRR" msprop:Generator_ColumnPropNameInRow="XIRR" msprop:Generator_ColumnVarNameInTable="columnXIRR" msprop:Generator_ColumnPropNameInTable="XIRRColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PortfolioName" msprop:Generator_UserColumnName="PortfolioName" msprop:Generator_ColumnPropNameInRow="PortfolioName" msprop:Generator_ColumnVarNameInTable="columnPortfolioName" msprop:Generator_ColumnPropNameInTable="PortfolioNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AbsoluteReturn" msprop:Generator_UserColumnName="AbsoluteReturn" msprop:Generator_ColumnPropNameInRow="AbsoluteReturn" msprop:Generator_ColumnVarNameInTable="columnAbsoluteReturn" msprop:Generator_ColumnPropNameInTable="AbsoluteReturnColumn" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
