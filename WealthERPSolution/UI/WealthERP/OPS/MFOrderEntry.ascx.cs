@@ -59,6 +59,7 @@ namespace WealthERP.OPS
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             orderNumber = mfOrderBo.GetOrderNumber();
@@ -148,6 +149,7 @@ namespace WealthERP.OPS
                 }
 
             }
+            btnViewInPDF.Visible = true;
 
             //ShowHideFields(1);
         }
