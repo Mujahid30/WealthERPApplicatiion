@@ -1556,13 +1556,13 @@ namespace BoCustomerProfiling
             }
         }
 
-        public bool InsertProductAMCSchemeMappingDetalis(int schemePlanCode, string externalCode, string externalType)
+        public bool InsertProductAMCSchemeMappingDetalis(int schemePlanCode, string externalCode, string externalType,DateTime createdDate ,DateTime editedDate,DateTime deletedDate)
         {
             bool isInserted = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-              isInserted=customerDao.InsertProductAMCSchemeMappingDetalis(schemePlanCode, externalCode, externalType);
+              isInserted=customerDao.InsertProductAMCSchemeMappingDetalis(schemePlanCode, externalCode, externalType, createdDate , editedDate, deletedDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2353,13 +2353,13 @@ namespace BoCustomerProfiling
             return dtGetCustomerUploadedProofPurposes;
         }
 
-        public bool DeleteMappedSchemeDetails(int schemePlanCode,string strExtCode,string strExtName)
+        public bool DeleteMappedSchemeDetails(int schemePlanCode, string strExtCode, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
         {
             CustomerDao customerDao = new CustomerDao();
             bool isDeleted = false;
             try
             {
-                isDeleted = customerDao.DeleteMappedSchemeDetails(schemePlanCode, strExtCode, strExtName);
+                isDeleted = customerDao.DeleteMappedSchemeDetails(schemePlanCode, strExtCode, strExtName, createdDate , editedDate, deletedDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2368,13 +2368,13 @@ namespace BoCustomerProfiling
             return isDeleted;            
         }
 
-        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExtCode, string strExtName)
+        public bool EditProductAMCSchemeMapping(int schemePlanCode,string strExternalCodeToBeEdited, string strExtCode, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
         {
             CustomerDao customerDao = new CustomerDao();
             bool isEdited = false;
             try
             {
-                isEdited = customerDao.EditProductAMCSchemeMapping(schemePlanCode, strExtCode, strExtName);
+                isEdited = customerDao.EditProductAMCSchemeMapping(schemePlanCode, strExternalCodeToBeEdited, strExtCode, strExtName, createdDate, editedDate, deletedDate);
             }
             catch (BaseApplicationException Ex)
             {
