@@ -2809,10 +2809,16 @@ namespace WealthERP.Reports
 
                     case "EQUITY_HOLDING_WISE":
                         crmain.Load(Server.MapPath("EquityHoldingWise.rpt"));
+                       
                         DataSet dsEquityholdingwise = equityReports.GetEquityHolding(report, advisorVo.advisorId);
-
+                        DataTable dtEquityholdingwise = dsEquityholdingwise.Tables[0];
+                        //crmain.Load(Server.MapPath("AbsoluteReturn.rpt"));
+                        DataTable dtXIRR = equityReports.GetEquityCustomerPortfolioLabelXIRR(report.PortfolioIds);
+                        dtXIRR = GetAbsolutereturnToXIRRDt(dtXIRR, dtEquityholdingwise);
                         if (dsEquityholdingwise.Tables[0].Rows.Count > 0)
                         {
+
+                            crmain.Subreports["AbsoluteReturn"].Database.Tables["XIRR"].SetDataSource(dtXIRR);
                             //dsEquityholdingwise.Tables[0].TableName = "EquityHolding";
                             crmain.SetDataSource(dsEquityholdingwise.Tables[0]);
 
@@ -3242,7 +3248,7 @@ namespace WealthERP.Reports
                     case "RETURNS_PORTFOLIO":
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
                         DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
-                        //dtReturnsPortfolio.Columns.Add("CMFA_AccountOpeningDate");
+                        
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
 
                         dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
