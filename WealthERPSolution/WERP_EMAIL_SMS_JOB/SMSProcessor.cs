@@ -141,13 +141,15 @@ namespace WERP_EMAIL_SMS_JOB
                         }
                         else
                         {
-                            Params = new SqlParameter[3];
+                            Params = new SqlParameter[4];
                             Params[0] = new SqlParameter("Id", Id);
                             Params[0].DbType = DbType.Int32;
                             Params[1] = new SqlParameter("Status", 2);
                             Params[1].DbType = DbType.Int32;
                             Params[2] = new SqlParameter("ErrorMsg", "No_SMS_Account_Found");
                             Params[2].DbType = DbType.String;
+                            Params[3] = new SqlParameter("adviserId", adviserId);
+                            Params[3].DbType = DbType.Int32;
 
                             Utils.ExecuteNonQuery("sproc_UpdateOutgoingSMSStatus", Params);
 
