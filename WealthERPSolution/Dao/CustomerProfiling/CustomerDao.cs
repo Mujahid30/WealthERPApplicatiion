@@ -1330,12 +1330,12 @@ namespace DaoCustomerProfiling
         {
             Database db;
             DbCommand cmdGetCustomerNames;
-            DataSet dsAMCExternalType; 
+            DataSet dsAMCExternalType;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetAMCExternalType");
-                dsAMCExternalType = db.ExecuteDataSet(cmdGetCustomerNames); 
+                dsAMCExternalType = db.ExecuteDataSet(cmdGetCustomerNames);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1355,7 +1355,7 @@ namespace DaoCustomerProfiling
             return dsAMCExternalType;
         }
 
-        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExtCode, string strExtName)
+        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
         {
             bool bResult = false;
             Database db;
@@ -1366,7 +1366,23 @@ namespace DaoCustomerProfiling
                 editProductAMCSchemeMappingCmd = db.GetStoredProcCommand("SP_EditProductAMCSchemeMapping");
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@schemePlanCode", DbType.Int32, schemePlanCode);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCode", DbType.String, strExtCode);
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCodeToBeEdited", DbType.String, strExternalCodeToBeEdited);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalType", DbType.String, strExtName);
+                if (createdDate != DateTime.MinValue)
+                    db.AddInParameter(editProductAMCSchemeMappingCmd, "@createdDate", DbType.DateTime, createdDate);
+                else
+                    db.AddInParameter(editProductAMCSchemeMappingCmd, "@createdDate", DbType.DateTime, DBNull.Value);
+
+                if (editedDate != DateTime.MinValue)
+                    db.AddInParameter(editProductAMCSchemeMappingCmd, "@editedDate", DbType.DateTime, editedDate);
+                else
+                    db.AddInParameter(editProductAMCSchemeMappingCmd, "@editedDate", DbType.DateTime, DBNull.Value);
+
+                if (deletedDate != DateTime.MinValue)
+                    db.AddInParameter(editProductAMCSchemeMappingCmd, "@deletedDate", DbType.DateTime, deletedDate);
+                else
+                    db.AddInParameter(editProductAMCSchemeMappingCmd, "@deletedDate", DbType.DateTime, DBNull.Value);
+
                 if (db.ExecuteNonQuery(editProductAMCSchemeMappingCmd) != 0)
                     bResult = true;
             }
@@ -1389,7 +1405,7 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
-        public bool DeleteMappedSchemeDetails(int schemePlanCode, string strExtCode, string strExtName)
+        public bool DeleteMappedSchemeDetails(int schemePlanCode, string strExtCode, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
         {
             bool bResult = false;
             Database db;
@@ -1401,6 +1417,22 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(deleteMappedSchemeDetailsCmd, "@schemePlanCode", DbType.Int32, schemePlanCode);
                 db.AddInParameter(deleteMappedSchemeDetailsCmd, "@externalCode", DbType.String, strExtCode);
                 db.AddInParameter(deleteMappedSchemeDetailsCmd, "@externalType", DbType.String, strExtName);
+
+                if (createdDate != DateTime.MinValue)
+                    db.AddInParameter(deleteMappedSchemeDetailsCmd, "@createdDate", DbType.DateTime, createdDate);
+                else
+                    db.AddInParameter(deleteMappedSchemeDetailsCmd, "@createdDate", DbType.DateTime, DBNull.Value);
+
+                if (editedDate != DateTime.MinValue)
+                    db.AddInParameter(deleteMappedSchemeDetailsCmd, "@editedDate", DbType.DateTime, editedDate);
+                else
+                    db.AddInParameter(deleteMappedSchemeDetailsCmd, "@editedDate", DbType.DateTime, DBNull.Value);
+
+                if (deletedDate != DateTime.MinValue)
+                    db.AddInParameter(deleteMappedSchemeDetailsCmd, "@deletedDate", DbType.DateTime, deletedDate);
+                else
+                    db.AddInParameter(deleteMappedSchemeDetailsCmd, "@deletedDate", DbType.DateTime, DBNull.Value);
+
                 if (db.ExecuteNonQuery(deleteMappedSchemeDetailsCmd) != 0)
                     bResult = true;
             }
@@ -3139,7 +3171,7 @@ namespace DaoCustomerProfiling
 
 
 
-        public bool InsertProductAMCSchemeMappingDetalis(int schemePlanCode, string externalCode, string externalType)
+        public bool InsertProductAMCSchemeMappingDetalis(int schemePlanCode, string externalCode, string externalType, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
         {
             bool isInserted = false;
             Database db;
@@ -3151,6 +3183,19 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@schemePlanCode", DbType.Int32, schemePlanCode);
                 db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@externalCode", DbType.String, externalCode);
                 db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@externalType", DbType.String, externalType);
+
+                if (createdDate != DateTime.MinValue)
+                    db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@createdDate", DbType.DateTime, createdDate);
+                else
+                    db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@createdDate", DbType.DateTime, DBNull.Value);
+                if (editedDate != DateTime.MinValue)
+                    db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@editedDate", DbType.DateTime, editedDate);
+                else
+                    db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@editedDate", DbType.DateTime, DBNull.Value);
+                if (deletedDate != DateTime.MinValue)
+                    db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@deletedDate", DbType.DateTime, deletedDate);
+                else
+                    db.AddInParameter(cmdInsertProductAMCSchemeMappingDetalis, "@deletedDate", DbType.DateTime, DBNull.Value);
                 db.ExecuteNonQuery(cmdInsertProductAMCSchemeMappingDetalis);
                 isInserted = true;
             }
