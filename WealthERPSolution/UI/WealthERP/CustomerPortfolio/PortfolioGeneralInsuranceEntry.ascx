@@ -312,7 +312,7 @@
     </tr>
 
     <tr>
-        <td align="right" style="width: 22%">
+        <td align="right" style="width: 22%" valign="top">
             <asp:Label ID="lblPolicyIssuer" runat="server" Text="Insurer:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 22%" colspan="2">
@@ -333,7 +333,7 @@
         </td>
     </tr>
     <tr>
-        <td align="right" style="width: 22%">
+        <td align="right" style="width: 22%" valign="top">
             <asp:Label ID="lblPolicyParticular" runat="server" Text="Policy Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="left" align="right" style="width: 22%" colspan="2">
@@ -351,7 +351,7 @@
         <td colspan="2" style="width: 56%">
             <telerik:RadWindow ID="radwindowPopup" runat="server" Height="30%" Width="500px"
                 Modal="true" BackColor="#DADADA" VisibleOnPageLoad="false" Top="10px" Left="20px"
-                VisibleStatusbar="false" Behaviors="None" Title="Insert New Scheme">
+                VisibleStatusbar="false" Behaviors="None" Title="Inset New Policy">
                 <ContentTemplate>
                     <div style="padding: 20px">
                         <table width="100%">
