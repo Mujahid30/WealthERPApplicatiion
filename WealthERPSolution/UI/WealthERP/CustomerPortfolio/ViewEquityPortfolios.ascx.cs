@@ -501,8 +501,10 @@ namespace WealthERP.CustomerPortfolio
 
                 if (e.CommandName.ToString() != "Filter")
                 {
-                    if ((GridDataItem)e.Item.DataItem != null)
+                    if (e.CommandName.ToString() != "Sort")
                     {
+                        //if ((GridDataItem)e.Item.DataItem != null)
+                        //{
                         GridDataItem gvr = (GridDataItem)e.Item;
                         int selectedRow = gvr.ItemIndex + 1;
                         int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
@@ -515,6 +517,7 @@ namespace WealthERP.CustomerPortfolio
                         {
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
                         }
+                        //}
                     }
                 }
             }
@@ -548,7 +551,7 @@ namespace WealthERP.CustomerPortfolio
 
                 if (e.CommandName.ToString() != "Filter")
                 {
-                    if ((GridDataItem)e.Item.DataItem != null)
+                    if (e.CommandName.ToString() != "Sort")
                     {
                         GridDataItem gvr = (GridDataItem)e.Item;
                         int selectedRow = gvr.ItemIndex + 1;
@@ -597,7 +600,7 @@ namespace WealthERP.CustomerPortfolio
 
                 if (e.CommandName.ToString() != "Filter")
                 {
-                    if ((GridDataItem)e.Item.DataItem != null)
+                    if (e.CommandName.ToString() != "Sort")
                     {
                         GridDataItem gvr = (GridDataItem)e.Item;
                         int selectedRow = gvr.ItemIndex + 1;
@@ -647,7 +650,7 @@ namespace WealthERP.CustomerPortfolio
 
                 if (e.CommandName.ToString() != "Filter")
                 {
-                    if ((GridDataItem)e.Item.DataItem != null)
+                    if (e.CommandName.ToString() != "Sort")
                     {
                         GridDataItem gvr = (GridDataItem)e.Item;
                         int selectedRow = gvr.ItemIndex + 1;
