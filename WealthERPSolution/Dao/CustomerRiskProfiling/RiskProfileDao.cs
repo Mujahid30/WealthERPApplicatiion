@@ -737,7 +737,7 @@ namespace DaoCustomerRiskProfiling
             }
             return dsGetModelPortFolio;
         }
-        public DataSet GetAssetAllocationMIS(int adviserId)
+        public DataSet GetAssetAllocationMIS(string userType, int advisorId, int rmId, int customerId, int branchHeadId, int branchId, int All, int isGroup)
         {
             Database db;
             DataSet dsAssetAllocationMIS;
@@ -746,7 +746,14 @@ namespace DaoCustomerRiskProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbAssetAllocationMISCmd = db.GetStoredProcCommand("SP_GetAssetAllocationMIS");
-                db.AddInParameter(dbAssetAllocationMISCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(dbAssetAllocationMISCmd, "@userType", DbType.String, userType);
+                db.AddInParameter(dbAssetAllocationMISCmd, "@adviserId", DbType.Int32, advisorId);
+                db.AddInParameter(dbAssetAllocationMISCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(dbAssetAllocationMISCmd, "@RmId", DbType.Int32, rmId);
+                db.AddInParameter(dbAssetAllocationMISCmd, "@BranchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(dbAssetAllocationMISCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(dbAssetAllocationMISCmd, "@IsGroup", DbType.Int16, isGroup);
+                db.AddInParameter(dbAssetAllocationMISCmd, "@all", DbType.Int32, All);
                 dsAssetAllocationMIS = db.ExecuteDataSet(dbAssetAllocationMISCmd);
 
             }
