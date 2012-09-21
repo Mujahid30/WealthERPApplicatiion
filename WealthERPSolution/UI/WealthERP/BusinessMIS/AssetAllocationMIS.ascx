@@ -119,14 +119,14 @@
                 <telerik:RadGrid ID="gvAssetAllocationMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                    AllowAutomaticInserts="false" ExportSettings-FileName="AssetAllocation MIS"> 
+                    AllowAutomaticInserts="false" ExportSettings-FileName="AssetAllocation MIS" OnNeedDataSource="gvAssetAllocationMIS_OnNeedDataSource"> 
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="AssetAllocation MIS" Excel-Format="ExcelML">
                     </ExportSettings>
                     <MasterTableView 
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                          <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Name"
-                                AllowFiltering="false" UniqueName="CustomerName">
+                                AllowFiltering="true" ShowFilterIcon="false" UniqueName="CustomerName">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
@@ -138,62 +138,62 @@
                                 AllowFiltering="false" UniqueName="EquityCurrentPer" DataFormatString="{0:C2}" >
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="EquityRecomendedValue" HeaderText="EquityRecomendedValue"
+                        <telerik:GridBoundColumn DataField="EquityRecomendedValue" HeaderText="Equity Recomended Value"
                                 AllowFiltering="false" UniqueName="EquityRecomendedValue" DataFormatString="{0:N0}">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="EquityRecomendedPer" HeaderText="EquityRecomendedPer"
+                        <telerik:GridBoundColumn DataField="EquityRecomendedPer" HeaderText="Equity Recomended Per"
                                 AllowFiltering="false" UniqueName="EquityRecomendedPer" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="DebtCurrentValue" HeaderText="DebtCurrentValue"
+                        <telerik:GridBoundColumn DataField="DebtCurrentValue" HeaderText="Debt Current Value"
                                 AllowFiltering="false" UniqueName="DebtCurrentValue">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="DebtCurrentPer" HeaderText="DebtCurrentPer"
+                        <telerik:GridBoundColumn DataField="DebtCurrentPer" HeaderText="Debt Current Per"
                                 AllowFiltering="false" UniqueName="DebtCurrentPer">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="DebtRecomendedValue" HeaderText="DebtRecomendedValue"
+                        <telerik:GridBoundColumn DataField="DebtRecomendedValue" HeaderText="Debt Recomended Value"
                                 AllowFiltering="false" UniqueName="DebtRecomendedValue">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="DebtRecomendedPer" HeaderText="DebtRecomendedPer"
+                        <telerik:GridBoundColumn DataField="DebtRecomendedPer" HeaderText="Debt Recomended Per"
                                 AllowFiltering="false" UniqueName="DebtRecomendedPer">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="CashCurrentValue" HeaderText="CashCurrentValue"
+                        <telerik:GridBoundColumn DataField="CashCurrentValue" HeaderText="Cash Current Value"
                                 AllowFiltering="false" UniqueName="CashCurrentValue">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CashCurrentPer" HeaderText="CashCurrentPer"
+                        <telerik:GridBoundColumn DataField="CashCurrentPer" HeaderText="Cash Current Per"
                                 AllowFiltering="false" UniqueName="CashCurrentPer">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CashRecomendedValue" HeaderText="CashRecomendedValue"
+                        <telerik:GridBoundColumn DataField="CashRecomendedValue" HeaderText="Cash Recomended Value"
                                 AllowFiltering="false" UniqueName="CashRecomendedValue">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CashRecomendedPer" HeaderText="CashRecomendedPer"
+                        <telerik:GridBoundColumn DataField="CashRecomendedPer" HeaderText="Cash Recomended Per"
                                 AllowFiltering="false" UniqueName="CashRecomendedPer">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="AlternateCurrentValue" HeaderText="AlternateCurrentValue"
+                        <telerik:GridBoundColumn DataField="AlternateCurrentValue" HeaderText="Alternate Current Value"
                                 AllowFiltering="false" UniqueName="AlternateCurrentValue">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AlternateCurrentPer" HeaderText="AlternateCurrentPer"
+                        <telerik:GridBoundColumn DataField="AlternateCurrentPer" HeaderText="Alternate Current Per"
                                 AllowFiltering="false" UniqueName="AlternateCurrentPer">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AlternateRecomendedValue" HeaderText="AlternateRecomendedValue"
+                        <telerik:GridBoundColumn DataField="AlternateRecomendedValue" HeaderText="Alternate Recomended Value"
                                 AllowFiltering="false" UniqueName="AlternateRecomendedValue">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AlternateRecomendedPer" HeaderText="AlternateRecomendedPer"
+                        <telerik:GridBoundColumn DataField="AlternateRecomendedPer" HeaderText="Alternate Recomended Per"
                                 AllowFiltering="false" UniqueName="AlternateRecomendedPer">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>

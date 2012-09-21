@@ -26,6 +26,7 @@ namespace WealthERP.BusinessMIS
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         CustomerBo customerBo = new CustomerBo();
         RiskProfileBo riskprofilebo = new RiskProfileBo();
+        UserVo userVo = new UserVo();
 
         int advisorId = 0;
         int customerId = 0;
@@ -405,7 +406,7 @@ namespace WealthERP.BusinessMIS
             DataTable dtRiskProfile = new DataTable();
             
             SetParameter();
-            dsGetAssetAllocationlist = riskprofilebo.GetAssetAllocationMIS(int.Parse(hdnadviserId.Value));
+            dsGetAssetAllocationlist = riskprofilebo.GetAssetAllocationMIS(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), customerId, int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), isGroup);
 
             DataTable dtAssetallocationDetails = new DataTable();
 
@@ -468,26 +469,26 @@ namespace WealthERP.BusinessMIS
                            {
                                case 1:
                                    {
-                                       drAssetAllocationDetails["EquityCurrentValue"] = dr["CurrentValue"].ToString();
-                                       drAssetAllocationDetails["EquityCurrentPer"] = (double.Parse(dr["CurrentValue"].ToString()) / sumAssetTotal) * 100;
+                                       drAssetAllocationDetails["EquityCurrentValue"] =Math.Round( double.Parse(dr["CurrentValue"].ToString()),0);
+                                       drAssetAllocationDetails["EquityCurrentPer"] =Math.Round( ((double.Parse(dr["CurrentValue"].ToString()) / sumAssetTotal) * 100),2);
                                        break;
                                    }
                                case 2:
                                    {
-                                       drAssetAllocationDetails["DebtCurrentValue"] = dr["CurrentValue"].ToString();
-                                       drAssetAllocationDetails["DebtCurrentPer"] = (double.Parse(dr["CurrentValue"].ToString()) / sumAssetTotal) * 100;
+                                       drAssetAllocationDetails["DebtCurrentValue"] = Math.Round(double.Parse(dr["CurrentValue"].ToString()), 0);
+                                       drAssetAllocationDetails["DebtCurrentPer"] = Math.Round(((double.Parse(dr["CurrentValue"].ToString()) / sumAssetTotal) * 100), 2);
                                        break;
                                    }
                                case 3:
                                    {
-                                       drAssetAllocationDetails["CashCurrentValue"] = dr["CurrentValue"].ToString();
-                                       drAssetAllocationDetails["CashCurrentPer"] = (double.Parse(dr["CurrentValue"].ToString()) / sumAssetTotal) * 100;
+                                       drAssetAllocationDetails["CashCurrentValue"] = Math.Round(double.Parse(dr["CurrentValue"].ToString()), 0);
+                                       drAssetAllocationDetails["CashCurrentPer"] = Math.Round(((double.Parse(dr["CurrentValue"].ToString()) / sumAssetTotal) * 100), 2);
                                        break;
                                    }
                                case 4:
                                    {
-                                       drAssetAllocationDetails["AlternateCurrentValue"] = dr["CurrentValue"].ToString();
-                                       drAssetAllocationDetails["AlternateCurrentPer"] = (double.Parse(dr["CurrentValue"].ToString()) / sumAssetTotal) * 100;
+                                       drAssetAllocationDetails["AlternateCurrentValue"] = Math.Round(double.Parse(dr["CurrentValue"].ToString()), 0);
+                                       drAssetAllocationDetails["AlternateCurrentPer"] = Math.Round(((double.Parse(dr["CurrentValue"].ToString()) / sumAssetTotal) * 100), 2);
                                        break;
                                    }
                            }
@@ -509,8 +510,8 @@ namespace WealthERP.BusinessMIS
                                                {
                                                    if (!string.IsNullOrEmpty(dr1["CAA_RecommendedPercentage"].ToString().Trim()))
                                                    {
-                                                       drAssetAllocationDetails["EquityRecomendedValue"] = double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumAssetTotal / 100);
-                                                       drAssetAllocationDetails["EquityRecomendedPer"] = dr1["CAA_RecommendedPercentage"];
+                                                       drAssetAllocationDetails["EquityRecomendedValue"] = Math.Round((double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumAssetTotal / 100)),0);
+                                                       drAssetAllocationDetails["EquityRecomendedPer"] = Math.Round(double.Parse( dr1["CAA_RecommendedPercentage"].ToString()),2);
                                                    }
                                                    else
                                                    {
@@ -523,8 +524,8 @@ namespace WealthERP.BusinessMIS
                                                {
                                                    if (!string.IsNullOrEmpty(dr1["CAA_RecommendedPercentage"].ToString().Trim()))
                                                    {
-                                                       drAssetAllocationDetails["DebtRecomendedValue"] = double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumAssetTotal / 100);
-                                                       drAssetAllocationDetails["DebtRecomendedPer"] = dr1["CAA_RecommendedPercentage"];
+                                                       drAssetAllocationDetails["DebtRecomendedValue"] = Math.Round((double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumAssetTotal / 100)), 0);
+                                                       drAssetAllocationDetails["DebtRecomendedPer"] = Math.Round(double.Parse(dr1["CAA_RecommendedPercentage"].ToString()), 2);
                                                    }
                                                    else
                                                    {
@@ -537,8 +538,8 @@ namespace WealthERP.BusinessMIS
                                                {
                                                    if (!string.IsNullOrEmpty(dr1["CAA_RecommendedPercentage"].ToString().Trim()))
                                                    {
-                                                       drAssetAllocationDetails["CashRecomendedValue"] = double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumAssetTotal / 100);
-                                                       drAssetAllocationDetails["CashRecomendedPer"] = dr1["CAA_RecommendedPercentage"];
+                                                       drAssetAllocationDetails["CashRecomendedValue"] = Math.Round((double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumAssetTotal / 100)), 0);
+                                                       drAssetAllocationDetails["CashRecomendedPer"] = Math.Round(double.Parse(dr1["CAA_RecommendedPercentage"].ToString()), 2);
                                                    }
                                                    else
                                                    {
@@ -551,8 +552,8 @@ namespace WealthERP.BusinessMIS
                                                {
                                                    if (!string.IsNullOrEmpty(dr1["CAA_RecommendedPercentage"].ToString().Trim()))
                                                    {
-                                                       drAssetAllocationDetails["AlternateRecomendedValue"] = double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumAssetTotal / 100);
-                                                       drAssetAllocationDetails["AlternateRecomendedPer"] = dr1["CAA_RecommendedPercentage"];
+                                                       drAssetAllocationDetails["AlternateRecomendedValue"] = Math.Round((double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumAssetTotal / 100)), 0);
+                                                       drAssetAllocationDetails["AlternateRecomendedPer"] = Math.Round(double.Parse(dr1["CAA_RecommendedPercentage"].ToString()), 2);
                                                    }
                                                    else
                                                    {
@@ -589,6 +590,15 @@ namespace WealthERP.BusinessMIS
                 gvAssetAllocationMIS.DataSource = dtAssetallocationDetails;
                 gvAssetAllocationMIS.DataBind();
                 gvAssetAllocationMIS.Visible = true;
+                if (Cache["AssetAllocationMIS" + advisorVo.advisorId] == null)
+                {
+                    Cache.Insert("AssetAllocationMIS" + userVo.UserId, dtAssetallocationDetails);
+                }
+                else
+                {
+                    Cache.Remove("AssetAllocationMIS" + userVo.UserId);
+                    Cache.Insert("AssetAllocationMIS" + userVo.UserId, dtAssetallocationDetails);
+                }
                 ErrorMessage.Visible = false;
           }
             else
@@ -760,6 +770,13 @@ namespace WealthERP.BusinessMIS
 
             if (hdnrmId.Value == "")
                 hdnrmId.Value = "0";
+        }
+        protected void gvAssetAllocationMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtAssetallocationDetails = new DataTable();
+            dtAssetallocationDetails = (DataTable)Cache["AssetAllocationMIS" + userVo.UserId];
+            gvAssetAllocationMIS.DataSource = dtAssetallocationDetails;
+            gvAssetAllocationMIS.Visible = true;
         }
     }
 
