@@ -462,14 +462,10 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
         <td colspan="4">
             <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox>
-            <%--<span id="Span6" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="rfvApplicationNumber" ControlToValidate="txtApplicationNumber"
-                        ErrorMessage="Please enter the Application Number" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
-                    </asp:RequiredFieldValidator>--%>
-            <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="Please enter an integer value"
+           <asp:RegularExpressionValidator ID="AppValidator1" ControlToValidate="txtApplicationNumber" ValidationExpression="^[0-9a-zA-Z ]+$"  runat="server" ErrorMessage="Please enter an Alphanumeric value" />
+            <%--<asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtApplicationNumber" Operator="DataTypeCheck"
-                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
         </td>
     </tr>
     <tr>
