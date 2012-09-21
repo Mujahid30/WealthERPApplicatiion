@@ -36,7 +36,7 @@ namespace WealthERP.Reports
         DateTime chckdate;
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+         {
 
             SessionBo.CheckSession();
             userVo = (UserVo)Session["UserVo"];
