@@ -2481,8 +2481,9 @@ namespace DaoCustomerPortfolio
                     if (!String.IsNullOrEmpty(dr["CL_Guarantor"].ToString()))
                         liabilitiesVo.Guarantor = dr["CL_Guarantor"].ToString();
                     if (!String.IsNullOrEmpty(dr["CL_Tenure"].ToString()))
-                        liabilitiesVo.Tenure = int.Parse(dr["CL_Tenure"].ToString());  
-                    
+                        liabilitiesVo.Tenure = int.Parse(dr["CL_Tenure"].ToString());
+                    liabilitiesVo.AssetParticular = dr["CL_AssetParticular"].ToString();
+                   
                 }
 
             }

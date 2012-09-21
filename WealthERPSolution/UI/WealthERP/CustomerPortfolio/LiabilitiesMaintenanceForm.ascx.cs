@@ -55,6 +55,12 @@ namespace WealthERP.CustomerPortfolio
                 customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
                 userVo = (UserVo)Session[SessionContents.UserVo];
                 rmVo = (RMVo)Session[SessionContents.RmVo];
+
+                trInstallmentHeader.Visible = true;
+                trInstallment1.Visible = true;
+                trInstallment2.Visible = true;
+                trInstallment3.Visible = true;
+                trLumpsum.Visible = false;
                 //CompareValidator5.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
                 if (Session["propertyVo"] != null && Session["test"] != null)
                 {
@@ -211,6 +217,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlRepaymentType.DataTextField = dtRepayment.Columns["XIT_InstallmentType"].ToString();
                 ddlRepaymentType.DataValueField = dtRepayment.Columns["XIT_InstallmentTypeCode"].ToString();
                 ddlRepaymentType.DataBind();
+                ddlRepaymentType.SelectedIndex = 2;
                 ddlRepaymentType.Items.Insert(0, new ListItem("Select the Installment Type", "Select the Installment Type"));
 
                 // BINDING Payment Option
@@ -220,7 +227,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlPaymentOption.DataTextField = dtPaymentOption.Columns["XPO_PaymentOption"].ToString();
                 ddlPaymentOption.DataValueField = dtPaymentOption.Columns["XPO_PaymentOptionCode"].ToString();
                 ddlPaymentOption.DataBind();
-                ddlPaymentOption.Items.Insert(0, new ListItem("Select the Payment Option", "Select the Payment Option"));
+                //ddlPaymentOption.Items.Insert(0, new ListItem("Select the Payment Option", "Select the Payment Option"));
 
                 // BINDING Compound FREQUENCY
 
@@ -237,6 +244,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlCompoundFrequency.DataTextField = dtCompoundFrequency.Columns["Frequency"].ToString();
                 ddlCompoundFrequency.DataValueField = dtCompoundFrequency.Columns["FrequencyCode"].ToString();
                 ddlCompoundFrequency.DataBind();
+                ddlCompoundFrequency.SelectedIndex = 1;
                 ddlCompoundFrequency.Items.Insert(0, new ListItem("Select the Frequency", "Select the Frequency"));
 
                 // BINDING EMI FREQUENCY
@@ -1029,6 +1037,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlRepaymentType.DataTextField = dtRepayment.Columns["XIT_InstallmentType"].ToString();
                 ddlRepaymentType.DataValueField = dtRepayment.Columns["XIT_InstallmentTypeCode"].ToString();
                 ddlRepaymentType.DataBind();
+                ddlRepaymentType.SelectedIndex = 2;
                 ddlRepaymentType.Items.Insert(0, new ListItem("Select the Installment Type", "Select the Installment Type"));
                 ddlRepaymentType.SelectedValue = liabilityVo.InstallmentTypeCode.ToString();
                 ddlRepaymentType.Enabled = false;
@@ -1065,10 +1074,10 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    trInstallmentHeader.Visible = false;
-                    trInstallment1.Visible = false;
-                    trInstallment2.Visible = false;
-                    trInstallment3.Visible = false;
+                    trInstallmentHeader.Visible = true;
+                    trInstallment1.Visible = true;
+                    trInstallment2.Visible = true;
+                    trInstallment3.Visible = true;
 
                     trLumpsum.Visible = false;
                 }
@@ -1087,6 +1096,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlCompoundFrequency.DataTextField = dtCompoundFrequency.Columns["Frequency"].ToString();
                 ddlCompoundFrequency.DataValueField = dtCompoundFrequency.Columns["FrequencyCode"].ToString();
                 ddlCompoundFrequency.DataBind();
+                ddlCompoundFrequency.SelectedIndex = 1;
                 ddlCompoundFrequency.Items.Insert(0, new ListItem("Select the Frequency", "Select the Frequency"));
                 ddlCompoundFrequency.SelectedValue = liabilityVo.CompoundFrequency.ToString();
                 ddlCompoundFrequency.Enabled = false;
@@ -1322,7 +1332,7 @@ namespace WealthERP.CustomerPortfolio
             bool yResult = int.TryParse(txtTenture.Text.ToString(), out noOfYears);
             bool mResult = int.TryParse(txtTenureMonths.Text.ToString(), out noOfMonths);
 
-            if (laResult && yResult && mResult && iResult && lpResult && ddlRepaymentType.SelectedValue.ToString() != "Select the Installment Type")
+            if (laResult && yResult && iResult && lpResult && ddlRepaymentType.SelectedValue.ToString() != "Select the Installment Type")
             {
                 switch (ddlEMIFrequency.SelectedValue)
                 {
@@ -1363,6 +1373,40 @@ namespace WealthERP.CustomerPortfolio
                 txtLoanOutstandingAmount.Text = Math.Round((customerGoalPlanningBo.GetLoanOutstandingForLiabilities(ddlEMIFrequency.SelectedValue.ToString(), loanAmount, startDate, endDate, int.Parse(ddlPaymentOption.SelectedValue.ToString()), installmentAmount, numberOfInstallments, interestRate)), 4).ToString();
                 
 
+
+            }
+        }
+        private void CalcEndDate(Int16 period, DateTime startDate)
+        {
+            DateTime endDate = new DateTime();
+            if (ddlEMIFrequency.SelectedItem.Value == "MN")
+            {
+                 endDate = startDate.AddDays(period);
+            }
+            else if (ddlEMIFrequency.SelectedItem.Value == "YR")
+            {
+                endDate = startDate.AddMonths(period);
+            }
+            else if (ddlEMIFrequency.SelectedItem.Value == "QT")
+            {
+                endDate = startDate.AddYears(period);
+            }
+            else if (ddlEMIFrequency.SelectedItem.Value == "HY")
+            {
+                endDate = startDate.AddYears(period);
+            }
+            txtInstallmentEndDt.Text = endDate.ToShortDateString();
+        }
+        public void chckPreviousFields(object sender,EventArgs e)
+        {
+            if ((txtTenture.Text == null) && (txtInstallmentStartDt.Text == null) && (lblRePaymentType.Text == null))
+            {
+
+
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill enter values into Previous texboxs');", true);
 
             }
         }
@@ -1484,6 +1528,7 @@ namespace WealthERP.CustomerPortfolio
             ddlRepaymentType.DataTextField = dtRepayment.Columns["XIT_InstallmentType"].ToString();
             ddlRepaymentType.DataValueField = dtRepayment.Columns["XIT_InstallmentTypeCode"].ToString();
             ddlRepaymentType.DataBind();
+            ddlRepaymentType.SelectedIndex = 2;
             ddlRepaymentType.Items.Insert(0, new ListItem("Select the Installment Type", "Select the Installment Type"));
             if (liabilityVo.InstallmentTypeCode != 0)
                 ddlRepaymentType.SelectedValue = liabilityVo.InstallmentTypeCode.ToString();
@@ -1522,10 +1567,10 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
-                trInstallmentHeader.Visible = false;
-                trInstallment1.Visible = false;
-                trInstallment2.Visible = false;
-                trInstallment3.Visible = false;
+                trInstallmentHeader.Visible = true;
+                trInstallment1.Visible = true;
+                trInstallment2.Visible = true;
+                trInstallment3.Visible = true;
 
                 trLumpsum.Visible = false;
             }
@@ -1547,6 +1592,7 @@ namespace WealthERP.CustomerPortfolio
             ddlCompoundFrequency.DataTextField = dtCompoundFrequency.Columns["Frequency"].ToString();
             ddlCompoundFrequency.DataValueField = dtCompoundFrequency.Columns["FrequencyCode"].ToString();
             ddlCompoundFrequency.DataBind();
+            ddlCompoundFrequency.SelectedIndex = 1;
             ddlCompoundFrequency.Items.Insert(0, new ListItem("Select the Frequency", "Select the Frequency"));
             if (liabilityVo.CompoundFrequency != null)
                 ddlCompoundFrequency.SelectedValue = liabilityVo.CompoundFrequency.ToString();
@@ -2314,10 +2360,10 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
-                trInstallmentHeader.Visible = false;
-                trInstallment1.Visible = false;
-                trInstallment2.Visible = false;
-                trInstallment3.Visible = false;
+                trInstallmentHeader.Visible = true;
+                trInstallment1.Visible = true;
+                trInstallment2.Visible = true;
+                trInstallment3.Visible = true;
 
                 trLumpsum.Visible = false;
             }
@@ -2327,8 +2373,9 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlEMIFrequency_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //chckPreviousFields(sender,e);
             CalculateNumberOfInvestements();
+           CalcEndDate(Int16.Parse(txtTenture.Text), DateTime.Parse(txtInstallmentStartDt.Text.ToString()));
             CalculateInstallmentAmount();
 
         }
@@ -2354,11 +2401,11 @@ namespace WealthERP.CustomerPortfolio
             {
                 CalcualteLumpSum();
             }
-            else if (ddlPaymentOption.SelectedValue.ToString() == "2")
-            {
-                CalculateNumberOfInvestements();
-                CalculateInstallmentAmount();
-            }
+            //else if (ddlPaymentOption.SelectedValue.ToString() == "2")
+            //{
+            //    CalculateNumberOfInvestements();
+            //    CalculateInstallmentAmount();
+            //}
         }
 
         protected void txtTenureMonths_TextChanged(object sender, EventArgs e)

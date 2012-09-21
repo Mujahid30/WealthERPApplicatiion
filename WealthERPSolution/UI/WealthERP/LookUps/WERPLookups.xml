@@ -2580,6 +2580,7 @@
     <LoanPartner XLP_LoanPartnerCode="16" XLP_LoanPartner="Reliance Consumer Finance" Deleted="False" />
     <LoanPartner XLP_LoanPartnerCode="17" XLP_LoanPartner="Deutsche Postbank" Deleted="False" />
     <LoanPartner XLP_LoanPartnerCode="18" XLP_LoanPartner="Tata Finance" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="19" XLP_LoanPartner="HDFC Credila" Deleted="False" />
   </WERPLoanPartner>
   <WERPRepaymentType>
     <RepaymentType XRT_RepaymentTypeCode="ECS" XRT_RepaymentType="ECS" Deleted="False"/>
@@ -2590,8 +2591,8 @@
     <InstallmentType XIT_InstallmentTypeCode="2" XIT_InstallmentType="Equated" Deleted="False"/>
   </WERPInstallmentType>
   <WERPPaymentOption>
-    <PaymentOption XPO_PaymentOptionCode="1" XPO_PaymentOption="Lumpsum" Deleted="False"/>
     <PaymentOption XPO_PaymentOptionCode="2" XPO_PaymentOption="Installment" Deleted="False"/>
+    <PaymentOption XPO_PaymentOptionCode="1" XPO_PaymentOption="Lumpsum" Deleted="False"/>
   </WERPPaymentOption>
   <WERPCustomerCategory>
     <CustomerCategory XCC_CustomerCategoryCode="1" XCC_CustomerCategory="Individual Resident" Deleted="False"/>
@@ -2789,21 +2790,21 @@
                            HAC_ApplicationName="Wealtherp"
                            HAC_Email="psahoo@ampsys.in"
                            Deleted="False"	/>
-  
 
-  <WERPHostConfiguration
-                           HAC_HostId="1001"
-                           HAC_HostName="India Infoline"
-                           HAC_HostLogoPlacement="TopRightCorner"
-                           HAC_HostLogo="indiainfoline.jpg"
-                           HAC_AdviserLogoPlacement="TopLeftCorner"
-                           HAC_DefaultTheme ="Maroon"
-                           HAC_ContactPersonName="Pramoda Sahoo"
-                           HAC_TelephoneNumber="8050567008"
-                           HAC_LoginPageContent="IndiaInfoline is India's premiere Share Market and Financial News and Services Portal. Get the latest Stock Market, NSE/BSE, SENSEX news, Business and Financial"
-                           HAC_ApplicationName="India Infoline"
-                           HAC_Email="psahoo@ampsys.in"
-                           Deleted="False"	/>
+
+    <WERPHostConfiguration
+                             HAC_HostId="1001"
+                             HAC_HostName="India Infoline"
+                             HAC_HostLogoPlacement="TopRightCorner"
+                             HAC_HostLogo="indiainfoline.jpg"
+                             HAC_AdviserLogoPlacement="TopLeftCorner"
+                             HAC_DefaultTheme ="Maroon"
+                             HAC_ContactPersonName="Pramoda Sahoo"
+                             HAC_TelephoneNumber="8050567008"
+                             HAC_LoginPageContent="IndiaInfoline is India's premiere Share Market and Financial News and Services Portal. Get the latest Stock Market, NSE/BSE, SENSEX news, Business and Financial"
+                             HAC_ApplicationName="India Infoline"
+                             HAC_Email="psahoo@ampsys.in"
+                             Deleted="False"	/>
 
     <WERPHostConfiguration
                             HAC_HostId="1002"

@@ -2,6 +2,29 @@
     Inherits="WealthERP.CustomerPortfolio.LiabilitiesMaintenanceForm" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+
+<script type="text/javascript">
+    function CallWindow(URL) {
+        window.open(URL, "'_blank'");
+        return false;
+    }
+</script>
+
 <script type="text/javascript">
     function checkDate(sender, args) {
 
@@ -39,17 +62,32 @@
                                 <td align="left">
                                     Liabilities Maintenance Form
                                 </td>
+                                <td align="right">
+                                    <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
+                                        class="flip" />
+                                </td>
                             </tr>
                         </table>
                     </div>
                 </td>
             </tr>
+        </table>
+        <table width="100%">
             <tr>
+                <td colspan="3">
+                    <div class="panel">
+                        <p>
+                            Note: Fields marked with a ' * ' are compulsory
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <%--<tr>
                 <td colspan="4" class="tdRequiredText">
                     <label id="lbl" class="lblRequiredText">
                         Note: Fields marked with a ' * ' are compulsory</label>
                 </td>
-            </tr>
+            </tr>--%>
             <tr id="trEdit" runat="server">
                 <td colspan="4">
                     <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click"
@@ -81,16 +119,20 @@
                         ValueToCompare="Select Loan Type" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="Asset" runat="server" Text="Asset Particulars :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblLender" runat="server" Text="Lender :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <%-- <asp:DropDownList ID="ddlGuarantor" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>--%>
-                    <asp:TextBox ID="txtasset" MaxLength="10" runat="server" CssClass="txtField"></asp:TextBox>
-                    <%--<span id="Span7" class="spnRequiredField">*</span>
-                    <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Please select a Guarantor"
-                        ValidationGroup="btnSubmit" ControlToValidate="ddlGuarantor" Operator="NotEqual"
-                        ValueToCompare="Select the Guarantor" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>--%>
+                    <asp:DropDownList ID="ddlLender" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlLender_SelectedIndexChanged"
+                        AutoPostBack="true">
+                    </asp:DropDownList>
+                    <asp:TextBox ID="txtOtherLender" Text="" CssClass="txtField" runat="server" Visible="false"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtOtherLender"
+                        WatermarkText="Enter Lender Name">
+                    </cc1:TextBoxWatermarkExtender>
+                    <span id="Span2" class="spnRequiredField">*</span>
+                    <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please select a lender"
+                        ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlLender" Operator="NotEqual"
+                        ValueToCompare="Select Lender" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>
                 </td>
             </tr>
             <tr>
@@ -110,20 +152,10 @@
                         ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="lblLender" runat="server" Text="Lender :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblGuarantor" runat="server" Text="Guarantor :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:DropDownList ID="ddlLender" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlLender_SelectedIndexChanged"
-                        AutoPostBack="true">
-                    </asp:DropDownList>
-                    <asp:TextBox ID="txtOtherLender" Text="" CssClass="txtField" runat="server" Visible="false"></asp:TextBox>
-                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtOtherLender"
-                        WatermarkText="Enter Lender Name">
-                    </cc1:TextBoxWatermarkExtender>
-                    <span id="Span2" class="spnRequiredField">*</span>
-                    <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please select a lender"
-                        ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlLender" Operator="NotEqual"
-                        ValueToCompare="Select Lender" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>
+                    <asp:TextBox ID="txtGuarantor" Text="" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -157,7 +189,7 @@
                     <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                         Type="Date" ControlToValidate="txtLoanStartDate" CssClass="cvPCG" Operator="DataTypeCheck"
                         ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtLoanStartDate"
+                   <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtLoanStartDate"
                         ErrorMessage="<br />Please enter a loan Start Date" Display="Dynamic" CssClass="rfvPCG"
                         runat="server" InitialValue="" ValidationGroup="vgBtnSubmitTemp">
                     </asp:RequiredFieldValidator>
@@ -192,38 +224,16 @@
                         Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>--%>
                 </td>
                 <td class="leftField">
-                    <%-- <asp:Button ID="btnCoborrowers" runat="server" Text="Go" CssClass="PCGButton" OnClick="btnCoborrowers_Click"
-                        CausesValidation="false" />--%>
-                    <asp:Label ID="lblTenture" runat="server" Text="Tenure :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Asset" runat="server" Text="Asset Particulars :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtTenture" runat="server" CssClass="txtField" OnTextChanged="txtTenture_TextChanged"
-                        AutoPostBack="true"></asp:TextBox>
-                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtTenture"
-                        WatermarkText="Years">
-                    </cc1:TextBoxWatermarkExtender>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please select a year" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"
-                        ControlToValidate="txtTenture">
-                    </asp:RequiredFieldValidator>
-                    <asp:TextBox ID="txtTenureMonths" runat="server" CssClass="txtField" OnTextChanged="txtTenureMonths_TextChanged"
-                        AutoPostBack="true"></asp:TextBox>
-                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtTenureMonths"
-                        WatermarkText="Months">
-                    </cc1:TextBoxWatermarkExtender>
-                   <%-- <span id="Span7" class="spnRequiredField">*</span>--%>
-                   <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please select a Month" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"
-                        ControlToValidate="txtTenureMonths">
-                    </asp:RequiredFieldValidator>--%>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtTenureMonths"
-                        ValidationGroup="vgBtnSubmitTemp" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                        Operator="DataTypeCheck" ErrorMessage="Tenure in Years Not in acceptable format"
-                        ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtTenture"
-                        ValidationGroup="vgBtnSubmitTemp" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                        Operator="DataTypeCheck" ErrorMessage="Tenure in Months Not in acceptable format"
-                        ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                    <%-- <asp:DropDownList ID="ddlGuarantor" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>--%>
+                    <asp:TextBox ID="txtasset" MaxLength="20" runat="server" CssClass="txtField"></asp:TextBox>
+                    <%--<span id="Span7" class="spnRequiredField">*</span>
+                    <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Please select a Guarantor"
+                        ValidationGroup="btnSubmit" ControlToValidate="ddlGuarantor" Operator="NotEqual"
+                        ValueToCompare="Select the Guarantor" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>--%>
                 </td>
             </tr>
             <%-- <tr id="trAssets" runat="server">
@@ -285,20 +295,6 @@
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtLoanOutstandingAmount"
                         Display="Dynamic" CssClass="rfvPCG" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
-                </td>
-            </tr>
-            <tr>
-              <td class="leftField">
-                    <asp:Label ID="lblGuarantor" runat="server" Text="Guarantor :" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <%-- <asp:DropDownList ID="ddlGuarantor" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>--%>
-                    <asp:TextBox ID="txtGuarantor" Text="" runat="server" CssClass="txtField"></asp:TextBox>
-                    <%--<span id="Span7" class="spnRequiredField">*</span>
-                    <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Please select a Guarantor"
-                        ValidationGroup="btnSubmit" ControlToValidate="ddlGuarantor" Operator="NotEqual"
-                        ValueToCompare="Select the Guarantor" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>--%>
                 </td>
             </tr>
             <tr>
@@ -384,10 +380,30 @@
                 </td>
             </tr>--%>
             <tr id="trInstallmentHeader" runat="server" visible="false">
+                <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+                        Installment Details
+                    </div>
+                </td>
+            </tr>
+            <%-- <tr id="trInstallmentHeader" runat="server" visible="false">
+                <td colspan="4">
+                    <div class="divPageHeading">
+                        <table cellspacing="0" cellpadding="3" width="100%">
+                            <tr>
+                                <td align="left">
+                                    Installment Details
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr id="trInstallmentHeader" runat="server" visible="false">
                 <td colspan="4">
                     <asp:Label ID="lblEMIHeader" runat="server" Text="Installment Details" CssClass="HeaderTextSmall"></asp:Label><hr />
                 </td>
-            </tr>
+            </tr>--%>
             <tr id="trInstallment1" runat="server" visible="false">
                 <td class="leftField">
                     <asp:Label ID="lblRePaymentType" runat="server" Text="Installment Type :" CssClass="FieldName"></asp:Label>
@@ -402,6 +418,33 @@
                         ValueToCompare="Select the Repayment Type" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>
                 </td>
                 <td class="leftField">
+                    <asp:Label ID="lblTenture" runat="server" Text="Tenure :" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:TextBox ID="txtTenture" runat="server" CssClass="txtField" OnTextChanged="txtTenture_TextChanged"
+                        AutoPostBack="true"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtTenture"
+                        WatermarkText="Years">
+                    </cc1:TextBoxWatermarkExtender>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" CssClass="rfvPCG"
+                        ErrorMessage="Please select a year" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"
+                        ControlToValidate="txtTenture">
+                    </asp:RequiredFieldValidator>
+                    <asp:TextBox ID="txtTenureMonths" runat="server" CssClass="txtField" OnTextChanged="txtTenureMonths_TextChanged"
+                        AutoPostBack="true"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtTenureMonths"
+                        WatermarkText="Months">
+                    </cc1:TextBoxWatermarkExtender>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtTenureMonths"
+                        ValidationGroup="vgBtnSubmitTemp" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                        Operator="DataTypeCheck" ErrorMessage="Tenure in Years Not in acceptable format"
+                        ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtTenture"
+                        ValidationGroup="vgBtnSubmitTemp" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                        Operator="DataTypeCheck" ErrorMessage="Tenure in Months Not in acceptable format"
+                        ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                </td>
+                <%--<td class="leftField">
                     <asp:Label ID="lblEMIFrequency" runat="server" Text="Installment Frequency :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
@@ -412,7 +455,7 @@
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />Please select the Installment Frequency"
                         ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlEMIFrequency" Operator="NotEqual"
                         ValueToCompare="Select the Frequency" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>
-                </td>
+                </td>--%>
             </tr>
             <tr id="trInstallment2" runat="server" visible="false">
                 <td class="leftField">
@@ -431,8 +474,22 @@
                     <%--<asp:CompareValidator ID="CompareValidator5" runat="server" Operator="LessThanEqual"
                         ErrorMessage="Please Select a valid date" Type="Date" ControlToValidate="txtInstallmentStartDt"
                         CssClass="cvPCG" ValidationGroup="btnSubmit"></asp:CompareValidator>--%>
+                </td><td class="leftField">
+                    <asp:Label ID="lblEMIFrequency" runat="server" Text="Installment Frequency:"  CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="leftField">
+                <td class="rightField">
+                    <asp:DropDownList ID="ddlEMIFrequency" runat="server"  CssClass="cmbField" OnSelectedIndexChanged="ddlEMIFrequency_SelectedIndexChanged"
+                        AutoPostBack="true">
+                    </asp:DropDownList>
+                    <span id="Span12" class="spnRequiredField">*</span>
+                    <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />Please select the Installment Frequency"
+                        ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlEMIFrequency" Operator="NotEqual"
+                        ValueToCompare="Select the Frequency" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>
+                </td>
+                
+            </tr>
+            <tr id="trInstallment3" runat="server" visible="false">
+            <td class="leftField">
                     <asp:Label ID="lblInstallmentEndDt" runat="server" Text="Installment End Date :"
                         CssClass="FieldName"></asp:Label>
                 </td>
@@ -453,9 +510,7 @@
                     
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </asp:CompareValidator>
                 </td>
-            </tr>
-            <tr id="trInstallment3" runat="server" visible="false">
-                <td class="leftField">
+                 <td class="leftField">
                     <asp:Label ID="lblNoOfInstallments" runat="server" Text="Number of Instalments :"
                         CssClass="FieldName"></asp:Label>
                 </td>
@@ -472,7 +527,8 @@
                         ValidationGroup="vgBtnSubmitTemp" Display="Dynamic" runat="server" CssClass="rfvPCG"
                         Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
                 </td>
-                <td class="leftField">
+                
+            </tr><td class="leftField">
                     <asp:Label ID="lblEMIAmount" runat="server" Text="Installment Amount :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
@@ -488,6 +544,7 @@
                         Display="Dynamic" CssClass="rfvPCG" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
+            <tr>
             </tr>
             <tr id="trLumpsum" runat="server">
                 <td class="leftField">
@@ -511,6 +568,9 @@
                 </td>
                 <td>
                 </td>
+            </tr>
+            <tr>
+                
             </tr>
             <tr>
                 <td class="leftField">
