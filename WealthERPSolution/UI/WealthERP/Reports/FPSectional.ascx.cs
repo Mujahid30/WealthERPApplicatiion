@@ -101,11 +101,11 @@ namespace WealthERP.Reports
         public void DefaultFPReportsAssumtion()
         {
             DataSet dsDefaultFPReportsAssumtion = new DataSet();
-            if (!String.IsNullOrEmpty(hdnCustomerId.Value) ) 
+            if (customerVo != null)
+                customerId = customerVo.CustomerId;
+            else
             {
-               if (Session["UserType"].ToString() == "Customer")
-                    customerId = customerVo.CustomerId;
-                else
+                if (!String.IsNullOrEmpty(hdnCustomerId.Value))
                     customerId = Convert.ToInt32(hdnCustomerId.Value);
             }
             dsDefaultFPReportsAssumtion = customerBo.DefaultFPReportsAssumtion(customerId);
@@ -262,11 +262,11 @@ namespace WealthERP.Reports
 
             //if (Session["customerVo"] != null)
             //    customerVo = (CustomerVo)Session["customerVo"];
-            if (!String.IsNullOrEmpty(hdnCustomerId.Value))
+            if (customerVo != null)
+                customerId = customerVo.CustomerId;
+            else
             {
-                if (Session["UserType"].ToString() == "Customer")
-                    customerId = customerVo.CustomerId;
-                else
+                if (!String.IsNullOrEmpty(hdnCustomerId.Value))
                     customerId = Convert.ToInt32(hdnCustomerId.Value);
             }
             strRMRecommendationHTML = customerBo.GetRMRecommendationForCustomer(customerId);           
@@ -319,6 +319,9 @@ namespace WealthERP.Reports
                 customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId.Value));
                 Session["customerVo"] = customerVo;
                 customerId = int.Parse(hdnCustomerId.Value);
+                DefaultFPReportsAssumtion();
+                btnSubmit.Enabled = false;
+                getCustomerRMRecommendationText();
                 RadTabStripFPProjection.Visible = true;
                 tdReportButtons.Visible = true;
                 btnViewReport.Visible = true;
