@@ -301,12 +301,12 @@ namespace BoCustomerRiskProfiling
         }
 
 
-        public DataSet GetAssetAllocationMIS(int adviserId)
+        public DataSet GetAssetAllocationMIS(string userType, int advisorId, int rmId, int customerId, int branchHeadId, int branchId, int all, int isGroup)
         {
             DataSet dsAssetallocationMIS = new DataSet();
             try
             {
-                dsAssetallocationMIS = riskprofiledao.GetAssetAllocationMIS(adviserId);
+                dsAssetallocationMIS = riskprofiledao.GetAssetAllocationMIS(userType, advisorId, rmId, customerId, branchHeadId, branchId, all, isGroup);
             }
             catch (BaseApplicationException Ex)
             {
