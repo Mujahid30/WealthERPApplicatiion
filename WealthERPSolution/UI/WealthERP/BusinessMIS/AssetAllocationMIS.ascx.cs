@@ -412,22 +412,22 @@ namespace WealthERP.BusinessMIS
 
             dtAssetallocationDetails.Columns.Add("CustomerName");
             dtAssetallocationDetails.Columns.Add("AssetClassificationCode");
-            dtAssetallocationDetails.Columns.Add("EquityCurrentValue");
-            dtAssetallocationDetails.Columns.Add("EquityCurrentPer");
-            dtAssetallocationDetails.Columns.Add("EquityRecomendedValue");
-            dtAssetallocationDetails.Columns.Add("EquityRecomendedPer");
-            dtAssetallocationDetails.Columns.Add("DebtCurrentValue");
-            dtAssetallocationDetails.Columns.Add("DebtCurrentPer");
-            dtAssetallocationDetails.Columns.Add("DebtRecomendedValue");
-            dtAssetallocationDetails.Columns.Add("DebtRecomendedPer");
-            dtAssetallocationDetails.Columns.Add("CashCurrentValue");
-            dtAssetallocationDetails.Columns.Add("CashCurrentPer");
-            dtAssetallocationDetails.Columns.Add("CashRecomendedValue");
-            dtAssetallocationDetails.Columns.Add("CashRecomendedPer");
-            dtAssetallocationDetails.Columns.Add("AlternateCurrentValue");
-            dtAssetallocationDetails.Columns.Add("AlternateCurrentPer");
-            dtAssetallocationDetails.Columns.Add("AlternateRecomendedValue");
-            dtAssetallocationDetails.Columns.Add("AlternateRecomendedPer");
+            dtAssetallocationDetails.Columns.Add("EquityCurrentValue", typeof(double));
+            dtAssetallocationDetails.Columns.Add("EquityCurrentPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("EquityRecomendedValue", typeof(double));
+            dtAssetallocationDetails.Columns.Add("EquityRecomendedPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("DebtCurrentValue", typeof(double));
+            dtAssetallocationDetails.Columns.Add("DebtCurrentPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("DebtRecomendedValue", typeof(double));
+            dtAssetallocationDetails.Columns.Add("DebtRecomendedPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("CashCurrentValue", typeof(double));
+            dtAssetallocationDetails.Columns.Add("CashCurrentPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("CashRecomendedValue", typeof(double));
+            dtAssetallocationDetails.Columns.Add("CashRecomendedPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("AlternateCurrentValue", typeof(double));
+            dtAssetallocationDetails.Columns.Add("AlternateCurrentPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("AlternateRecomendedValue", typeof(double));
+            dtAssetallocationDetails.Columns.Add("AlternateRecomendedPer", typeof(double));
 
             DataRow drAssetAllocationDetails;
             double  sumAssetTotal=0;
@@ -600,12 +600,13 @@ namespace WealthERP.BusinessMIS
                     Cache.Insert("AssetAllocationMIS" + userVo.UserId, dtAssetallocationDetails);
                 }
                 ErrorMessage.Visible = false;
+                btnImagExport.Visible = true;
           }
             else
             {
                 gvAssetAllocationMIS.Visible = false;
                 ErrorMessage.Visible = true;
-                
+                btnImagExport.Visible = false;
             }
        }
  
@@ -777,6 +778,16 @@ namespace WealthERP.BusinessMIS
             dtAssetallocationDetails = (DataTable)Cache["AssetAllocationMIS" + userVo.UserId];
             gvAssetAllocationMIS.DataSource = dtAssetallocationDetails;
             gvAssetAllocationMIS.Visible = true;
+        }
+        protected void btnImagExport_Click(object sender, ImageClickEventArgs e)
+        {
+            gvAssetAllocationMIS.ExportSettings.OpenInNewWindow = true;
+            gvAssetAllocationMIS.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvAssetAllocationMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvAssetAllocationMIS.MasterTableView.ExportToExcel();
         }
     }
 

@@ -23,6 +23,24 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         
         /// <summary>
+        /// tdExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdExport;
+        
+        /// <summary>
+        /// btnImagExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnImagExport;
+        
+        /// <summary>
         /// trBranchRM control.
         /// </summary>
         /// <remarks>
