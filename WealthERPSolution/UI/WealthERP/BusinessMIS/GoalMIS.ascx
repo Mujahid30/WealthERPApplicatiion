@@ -27,7 +27,7 @@
         <tr>
         <td align="left">Goal MIS</td>
         <td  align="right" id="tdGoalExport" runat="server" style="padding-bottom:2px;">
-        <asp:ImageButton ID="btnGoalMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+        <asp:ImageButton ID="btnGoalMIS" ImageUrl="~/Images/Export_Excel.png"
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" Visible="false"
                 OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
             onclick="btnGoalMIS_Click"></asp:ImageButton>
