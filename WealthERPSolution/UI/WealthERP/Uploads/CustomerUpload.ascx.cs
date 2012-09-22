@@ -5065,10 +5065,11 @@ namespace WealthERP.Uploads
 
                     // Presuming the DataTable has a column named Date. 
                     string expressionForRowsWithoutFM;
-                    //expressionForRowsWithoutFM = "periodicity<>" + "'FM'";
-                    expressionForRowsWithoutFM = "period_day NOT LIKE" + "'%,%'";
+                    //expressionForRowsWithoutFM = "periodicity=" + "'O'";
+                    //expressionForRowsWithoutFM = "period_day NOT LIKE" + "'%,%'"  ;
+                    expressionForRowsWithoutFM = "period_day NOT LIKE" + "'%,%' OR period_day IS NULL";
 
-
+                    
                     DataTable dtWithoutFM = new DataTable();
 
                     DataView dvMFTransactionsProcessed = new DataView(dataTableForMerge, expressionForRowsWithoutFM, "period_day", DataViewRowState.CurrentRows);
