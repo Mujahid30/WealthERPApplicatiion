@@ -481,32 +481,63 @@ namespace WealthERP.CustomerPortfolio
 
             if (endDate >= currentDate)
             {
-                nextPremiumDate = new DateTime(startDate.Year, startDate.Month, 1);
-                nextPremiumDate = nextPremiumDate.AddDays(startDateOnly - 1);
-                switch (frequency)
-                {
-                    case "Daily":
-                        nextPremiumDate = nextPremiumDate.AddDays(1);
-                        break;
-                    case "FortNightly":
-                        nextPremiumDate = nextPremiumDate.AddDays(15);
-                        break;
-                    case "Weekly":
-                        nextPremiumDate = nextPremiumDate.AddDays(7);
-                        break;
-                    case "Monthly":
-                        nextPremiumDate = nextPremiumDate.AddMonths(1);
-                        break;
-                    case "Quarterly":
-                        nextPremiumDate = nextPremiumDate.AddMonths(4);
-                        break;
-                    case "HalfYearly":
-                        nextPremiumDate = nextPremiumDate.AddMonths(6);
-                        break;
-                    case "Yearly":
-                        nextPremiumDate = nextPremiumDate.AddYears(1);
-                        break;
-                }
+                   nextPremiumDate = new DateTime(startDate.Year, startDate.Month, 1);
+                    nextPremiumDate = nextPremiumDate.AddDays(startDateOnly - 1);
+                    switch (frequency)
+                    {
+                        case "Daily":
+                            nextPremiumDate = nextPremiumDate.AddDays(1);
+                            break;
+                        case "FortNightly":
+                            nextPremiumDate = nextPremiumDate.AddDays(15);
+                            break;
+                        case "Weekly":
+                            nextPremiumDate = nextPremiumDate.AddDays(7);
+                            break;
+                        case "Monthly":
+                            nextPremiumDate = nextPremiumDate.AddMonths(1);
+                            break;
+                        case "Quarterly":
+                            nextPremiumDate = nextPremiumDate.AddMonths(4);
+                            break;
+                        case "HalfYearly":
+                            nextPremiumDate = nextPremiumDate.AddMonths(6);
+                            break;
+                        case "Yearly":
+                            nextPremiumDate = nextPremiumDate.AddYears(1);
+                            break;
+                    }
+                
+               while (nextPremiumDate< currentDate)
+               {
+                   nextPremiumDate = new DateTime(nextPremiumDate.Year, nextPremiumDate.Month, 1);
+                   nextPremiumDate = nextPremiumDate.AddDays(startDateOnly - 1);
+                   switch (frequency)
+                   {
+                       case "Daily":
+                           nextPremiumDate = nextPremiumDate.AddDays(1);
+                           break;
+                       case "FortNightly":
+                           nextPremiumDate = nextPremiumDate.AddDays(15);
+                           break;
+                       case "Weekly":
+                           nextPremiumDate = nextPremiumDate.AddDays(7);
+                           break;
+                       case "Monthly":
+                           nextPremiumDate = nextPremiumDate.AddMonths(1);
+                           break;
+                       case "Quarterly":
+                           nextPremiumDate = nextPremiumDate.AddMonths(4);
+                           break;
+                       case "HalfYearly":
+                           nextPremiumDate = nextPremiumDate.AddMonths(6);
+                           break;
+                       case "Yearly":
+                           nextPremiumDate = nextPremiumDate.AddYears(1);
+                           break;
+                   }
+                   //startDate = nextPremiumDate;
+               }
             }
             else
             {
