@@ -5018,6 +5018,72 @@ namespace WealthERP.Uploads
 
 
                     dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 20);
+
+                    string periodicity = dsXML.Tables[0].Rows[0]["periodicity"].ToString();
+                    //string periodday = dsXML.Tables[0].Rows[0]["period_day"].ToString();
+                    //string[] periodArray =new string[0];
+                    //periodArray = periodday.Split(',');
+                   
+                    //dsXML.Tables[0].DefaultView.RowFilter = "periodicity=" + "'FM'";
+
+
+                    DataTable table = dsXML.Tables[0];
+                    // Presuming the DataTable has a column named Date. 
+                    string expression;
+                    //expression = "periodicity=" + "'SM'";
+                    expression = "period_day like" + "'%,%'";
+
+                    DataRow[] foundRows;
+
+                    // Use the Select method to find all rows matching the filter.
+                    foundRows = table.Select(expression);
+
+                    DataTable filteredTable = new DataTable();
+                    //filteredTable.Rows.Add(foundRows);
+
+                    //filteredTable = dsXML.Tables[0].Clone();
+                    DataTable dataTableForMerge = new DataTable(); ;
+                    dataTableForMerge = dsXML.Tables[0].Copy();
+                    filteredTable = dsXML.Tables[0].Copy();
+                    filteredTable = filteredTable.Clone();
+                    filteredTable.Rows.Clear();
+                    foreach (DataRow  dr in foundRows)
+                    {
+                        string periodday = dr["period_day"].ToString();
+                        string[] periodArray = new string[0];
+                        periodArray = periodday.Split(',');
+
+                        foreach (string str in periodArray)
+                        {
+                            dr.BeginEdit();
+                            dr["period_day"] = str;
+                            filteredTable.Rows.Add(dr.ItemArray);
+                            
+                            filteredTable.AcceptChanges();
+                        }
+                    }
+
+                    // Presuming the DataTable has a column named Date. 
+                    string expressionForRowsWithoutFM;
+                    //expressionForRowsWithoutFM = "periodicity<>" + "'FM'";
+                    expressionForRowsWithoutFM = "period_day NOT LIKE" + "'%,%'";
+
+
+                    DataTable dtWithoutFM = new DataTable();
+
+                    DataView dvMFTransactionsProcessed = new DataView(dataTableForMerge, expressionForRowsWithoutFM, "period_day", DataViewRowState.CurrentRows);
+                    dtWithoutFM = dvMFTransactionsProcessed.ToTable();
+
+                    dtWithoutFM.Merge(filteredTable);
+                    //dtWithoutFM.Merge(filteredTable);
+
+                    
+                    DataSet dsUpdatedData = new DataSet();
+                    dsUpdatedData.Tables.Add(dtWithoutFM);
+                    dsXML.Tables.Clear();
+                    dsXML.Tables.Add(dsUpdatedData.Tables[0].Copy());
+                    ds =dsXML;                   
+
                     //Get XML after mapping, checking for columns
                     dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
@@ -6095,8 +6161,10 @@ namespace WealthERP.Uploads
                         //{
                         //    ds = SkipRows(ds);
                         //}
-
+                        if (ddlAction.SelectedValue != "NSE")
+                        ds.Tables[0].Rows[0].Delete();
                         dsXML = ds;
+
                         string uploadtype = ddlAction.SelectedValue;
                         if (dsXML.Tables.Count > 0)
 
