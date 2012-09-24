@@ -1114,7 +1114,7 @@ namespace WealthERP.CustomerPortfolio
                         drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
                         drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
                         drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
-                        drCustomerAssociates[3] = dr["XR_RelationshipCode"].ToString();
+                        drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
                         dtCustomerAssociates.Rows.Add(drCustomerAssociates);
                     }
 
