@@ -49,6 +49,7 @@ namespace WealthERP.CustomerPortfolio
         private decimal currentValue = 0;
         static int portfolioId;
         RMVo rmVo = new RMVo();
+        string strLblCurrentValue;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -64,7 +65,8 @@ namespace WealthERP.CustomerPortfolio
                     portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                     BindPortfolioDropDown();
                     LoadEquityPortfolio();
-                    lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    lblCurrentValue.Text = strLblCurrentValue;
                 }
 
             }
@@ -344,6 +346,13 @@ namespace WealthERP.CustomerPortfolio
                         hdnNoOfRecords.Value = dtEqPortfolio.Rows.Count.ToString();
                         gvEquityPortfolio.DataSource = dtEqPortfolio;
                         gvEquityPortfolio.DataBind();
+
+
+                        GridFooterItem footer = (GridFooterItem)gvEquityPortfolio.MasterTableView.GetItems(GridItemType.Footer)[0];
+                        strLblCurrentValue = Convert.ToString(footer.Cells[9].Text);
+                        lblCurrentValue.Text = strLblCurrentValue;
+                        //currentValue = int.Parse(totaltemp);
+
                         gvEquityPortfolio.Visible = true;
                         imgBtnExport3.Visible = true;
 
@@ -488,7 +497,8 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
             LoadEquityPortfolio();
-            lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+            //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+            lblCurrentValue.Text = strLblCurrentValue;
         }       
         #region Equity Portfolio Consolidated Grid View Methods     
 
@@ -497,8 +507,8 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 LoadEquityPortfolio();
-                lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
+                //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                lblCurrentValue.Text = strLblCurrentValue;
                 if (e.CommandName.ToString() != "Filter")
                 {
                     if (e.CommandName.ToString() != "Sort")
@@ -547,8 +557,8 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 LoadEquityPortfolio();
-                lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
+                //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                lblCurrentValue.Text = strLblCurrentValue;
                 if (e.CommandName.ToString() != "Filter")
                 {
                     if (e.CommandName.ToString() != "Sort")
@@ -599,8 +609,8 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 LoadEquityPortfolio();
-                lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
-
+                //lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
+                lblCurrentValue.Text = strLblCurrentValue;
                 if (e.CommandName.ToString() != "Filter")
                 {
                     if (e.CommandName.ToString() != "Sort")
@@ -648,12 +658,12 @@ namespace WealthERP.CustomerPortfolio
 
         #region Equity Portfolio Unrealized Grid View Methods
         protected void gvEquityPortfolioUnrealized_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        {
+        {            
             try
-            {
+            {               
                 LoadEquityPortfolio();
-                lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
-
+                //lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
+                lblCurrentValue.Text = strLblCurrentValue;
                 if (e.CommandName.ToString() != "Filter")
                 {
                     if (e.CommandName.ToString() != "Sort")
