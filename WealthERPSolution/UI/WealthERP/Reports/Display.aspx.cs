@@ -119,7 +119,8 @@ namespace WealthERP.Reports
                     {
                         return ReportType.FPOfflineForm;
                     }
-                    if (Request.Form["ctrl_MFOrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_MFOrderEntry$btnViewInDOC"] != null)
+                    if (Request.Form["ctrl_MFOrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_MFOrderEntry$btnViewInDOC"] != null
+                        || Request.Form["ctrl_MFOrderEntry$btnViewInPDFNew"] != null || Request.Form["ctrl_MFOrderEntry$btnViewInDOCNew"] != null)
                     {
                         return ReportType.OrderTransactionSlip;
                     }
@@ -195,7 +196,8 @@ namespace WealthERP.Reports
                 CurrentReportType = ReportType.FPOfflineForm;
                 ctrlPrefix = "ctrl_OfflineForm$";
             }
-            if (Request.Form["ctrl_MFOrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_MFOrderEntry$btnViewReport"] != null || Request.Form["ctrl_MFOrderEntry$btnViewInDOC"] != null)
+            if (Request.Form["ctrl_MFOrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_MFOrderEntry$btnViewReport"] != null || Request.Form["ctrl_MFOrderEntry$btnViewInDOC"] != null
+                || Request.Form["ctrl_MFOrderEntry$btnViewInPDFNew"] != null || Request.Form["ctrl_MFOrderEntry$btnViewInDOCNew"] != null)
             {
                 btnSendMail.Visible = true;
                 CurrentReportType = ReportType.OrderTransactionSlip;
@@ -415,63 +417,123 @@ namespace WealthERP.Reports
             MFReportsBo mfReportBo = new MFReportsBo();
             report = (OrderTransactionSlipVo)Session["reportParams"];
             DataSet dstransactionSlip = new DataSet();
-            DataTable dtTransactionSlip;
+            DataSet dsOrderTransactionForm=new DataSet();
+            DataTable dtTransactionSlip;DataTable dtOrderTransactionForm;
 
             crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
             //crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
-
-            dstransactionSlip = mfReportBo.GetOrderTransactionForm(report);
-            DataRow[] drOrderTransactionForm = new DataRow[dstransactionSlip.Tables[0].Columns.Count];
-            setLogo();
-
-            if (dstransactionSlip.Tables.Count > 0 && dstransactionSlip.Tables[0].Rows.Count > 0)
+            if (orderVo != null)
             {
-                crmain.SetDataSource(dstransactionSlip.Tables[0]);
-                drOrderTransactionForm = dstransactionSlip.Tables[0].Select();
+                dstransactionSlip = mfReportBo.GetOrderTransactionForm(report);
+                DataRow[] drOrderTransactionForm = new DataRow[dstransactionSlip.Tables[0].Columns.Count];
+                setLogo();
 
-                crmain.SetParameterValue("FolioNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFA_FolioNum"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFA_FolioNum"].ToString() : string.Empty);
-                crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["PA_AMCName"].ToString().Trim()) ? drOrderTransactionForm[0]["PA_AMCName"].ToString() : string.Empty);
-                crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SchemeName"].ToString() : string.Empty);
-                crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(drOrderTransactionForm[0]["C_PANNum"].ToString().Trim()) ? drOrderTransactionForm[0]["C_PANNum"].ToString() : string.Empty);
-                crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Customer_Name"].ToString().Trim()) ? drOrderTransactionForm[0]["Customer_Name"].ToString() : string.Empty);
-                crmain.SetParameterValue("ChequeNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CO_ChequeNumber"].ToString().Trim()) ? drOrderTransactionForm[0]["CO_ChequeNumber"].ToString() : string.Empty);
-                crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CO_PaymentDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CO_PaymentDate"].ToString()).ToShortDateString() : string.Empty);
-                crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Amount"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Amount"].ToString() : string.Empty);
-                crmain.SetParameterValue("StartDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_StartDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMFOD_StartDate"].ToString()).ToShortDateString() : string.Empty);
-                crmain.SetParameterValue("EndDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_EndDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMFOD_EndDate"].ToString()).ToShortDateString() : string.Empty);
-                crmain.SetParameterValue("BankName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CB_BankName"].ToString().Trim()) ? drOrderTransactionForm[0]["CB_BankName"].ToString() : string.Empty);
-                crmain.SetParameterValue("BranchName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_BranchName"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_BranchName"].ToString() : string.Empty);
-                crmain.SetParameterValue("Address", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Address"].ToString().Trim()) ? drOrderTransactionForm[0]["Address"].ToString() : string.Empty);
-                crmain.SetParameterValue("City", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_City"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_City"].ToString() : string.Empty);
-                crmain.SetParameterValue("State", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_State"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_State"].ToString() : string.Empty);
-                crmain.SetParameterValue("Country", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Country"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Country"].ToString() : string.Empty);
-                crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_PinCode"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_PinCode"].ToString() : string.Empty);
-                crmain.SetParameterValue("SchemeSwitch", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SwitchSchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SwitchSchemeName"].ToString() : string.Empty);
-                crmain.SetParameterValue("Units", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Units"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Units"].ToString() : string.Empty);
-
-                ShowTransactionShowHide(report.Type);
-
-                CrystalReportViewer1.ReportSource = crmain;
-                CrystalReportViewer1.EnableDrillDown = true;
-                CrystalReportViewer1.HasCrystalLogo = false;
-
-                if (Request.QueryString["mail"] == "2")
+                if (dstransactionSlip.Tables.Count > 0 && dstransactionSlip.Tables[0].Rows.Count > 0)
                 {
-                    ExportInPDF();
+                    crmain.SetDataSource(dstransactionSlip.Tables[0]);
+                    drOrderTransactionForm = dstransactionSlip.Tables[0].Select();
+
+                    crmain.SetParameterValue("FolioNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFA_FolioNum"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFA_FolioNum"].ToString() : string.Empty);
+                    crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["PA_AMCName"].ToString().Trim()) ? drOrderTransactionForm[0]["PA_AMCName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SchemeName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(drOrderTransactionForm[0]["C_PANNum"].ToString().Trim()) ? drOrderTransactionForm[0]["C_PANNum"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Customer_Name"].ToString().Trim()) ? drOrderTransactionForm[0]["Customer_Name"].ToString() : string.Empty);
+                    crmain.SetParameterValue("ChequeNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CO_ChequeNumber"].ToString().Trim()) ? drOrderTransactionForm[0]["CO_ChequeNumber"].ToString() : string.Empty);
+                    crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CO_PaymentDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CO_PaymentDate"].ToString()).ToShortDateString() : string.Empty);
+                    crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Amount"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Amount"].ToString() : string.Empty);
+                    crmain.SetParameterValue("StartDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_StartDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMFOD_StartDate"].ToString()).ToShortDateString() : string.Empty);
+                    crmain.SetParameterValue("EndDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_EndDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMFOD_EndDate"].ToString()).ToShortDateString() : string.Empty);
+                    crmain.SetParameterValue("BankName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CB_BankName"].ToString().Trim()) ? drOrderTransactionForm[0]["CB_BankName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("BranchName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_BranchName"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_BranchName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Address", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Address"].ToString().Trim()) ? drOrderTransactionForm[0]["Address"].ToString() : string.Empty);
+                    crmain.SetParameterValue("City", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_City"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_City"].ToString() : string.Empty);
+                    crmain.SetParameterValue("State", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_State"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_State"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Country", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Country"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Country"].ToString() : string.Empty);
+                    crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_PinCode"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_PinCode"].ToString() : string.Empty);
+                    crmain.SetParameterValue("SchemeSwitch", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SwitchSchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SwitchSchemeName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Units", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Units"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Units"].ToString() : string.Empty);
+
+                    ShowTransactionShowHide(report.Type);
+
+                    CrystalReportViewer1.ReportSource = crmain;
+                    CrystalReportViewer1.EnableDrillDown = true;
+                    CrystalReportViewer1.HasCrystalLogo = false;
+
+                    if (Request.QueryString["mail"] == "2")
+                    {
+                        ExportInPDF();
+                    }
+                    if (Request.QueryString["mail"] == "4")
+                    {
+                        ExportInDOC();
+                    }
+
+                    lblClosingBalanceNote.Visible = false;
+
                 }
-                if (Request.QueryString["mail"] == "4")
+                else
                 {
-                    ExportInDOC();
+                    SetNoRecords();
+                    lblClosingBalanceNote.Visible = false;
                 }
-
-                lblClosingBalanceNote.Visible = false;
-
             }
             else
             {
-                SetNoRecords();
-                lblClosingBalanceNote.Visible = false;
+                dsOrderTransactionForm = mfReportBo.GetOrderTransactionBlankForm(report);
+                DataRow[] drOrderTransactionBlnkaForm = new DataRow[dsOrderTransactionForm.Tables[0].Columns.Count];
+                setLogo();
+
+                if (dsOrderTransactionForm.Tables.Count > 0 && dsOrderTransactionForm.Tables[0].Rows.Count > 0)
+                {
+                    crmain.SetDataSource(dsOrderTransactionForm.Tables[0]);
+                    drOrderTransactionBlnkaForm = dsOrderTransactionForm.Tables[0].Select();
+
+                    crmain.SetParameterValue("FolioNo", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFA_FolioNum"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFA_FolioNum"].ToString() : string.Empty);
+                    crmain.SetParameterValue("AmcName",  string.Empty);
+                    crmain.SetParameterValue("Scheme",  string.Empty);
+                    crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["C_PANNum"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["C_PANNum"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["Customer_Name"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["Customer_Name"].ToString() : string.Empty);
+                    crmain.SetParameterValue("ChequeNo",  string.Empty);
+                    crmain.SetParameterValue("ChequeDate",  string.Empty);
+                    crmain.SetParameterValue("Amount",  string.Empty);
+                    crmain.SetParameterValue("StartDate",  string.Empty);
+                    crmain.SetParameterValue("EndDate",  string.Empty);
+                    crmain.SetParameterValue("BankName",  string.Empty);
+                    crmain.SetParameterValue("BranchName",  string.Empty);
+                    crmain.SetParameterValue("Address", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["Address"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["Address"].ToString() : string.Empty);
+                    crmain.SetParameterValue("City", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFOD_City"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFOD_City"].ToString() : string.Empty);
+                    crmain.SetParameterValue("State", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFOD_State"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFOD_State"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Country", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFOD_Country"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFOD_Country"].ToString() : string.Empty);
+                    crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFOD_PinCode"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFOD_PinCode"].ToString() : string.Empty);
+                    crmain.SetParameterValue("SchemeSwitch",  string.Empty);
+                    crmain.SetParameterValue("Units",  string.Empty);
+
+                    ShowTransactionShowHide(report.Type);
+
+                    CrystalReportViewer1.ReportSource = crmain;
+                    CrystalReportViewer1.EnableDrillDown = true;
+                    CrystalReportViewer1.HasCrystalLogo = false;
+
+                    if (Request.QueryString["mail"] == "2")
+                    {
+                        ExportInPDF();
+                    }
+                    if (Request.QueryString["mail"] == "4")
+                    {
+                        ExportInDOC();
+                    }
+
+                    lblClosingBalanceNote.Visible = false;
+
+                }
+                else
+                {
+                    SetNoRecords();
+                    lblClosingBalanceNote.Visible = false;
+                }
             }
+
+            
         }
 
         private void ShowTransactionShowHide(string Type)
@@ -3722,7 +3784,7 @@ namespace WealthERP.Reports
             {
                 orderTransaction.advisorId = advisorVo.advisorId;
                 orderVo = (OrderVo)Session["orderVo"];
-                if (orderVo.OrderId != 0)
+                if (orderVo!= null)
                 {
                     orderTransaction.orderId = orderVo.OrderId;
                 }
@@ -3735,6 +3797,11 @@ namespace WealthERP.Reports
                     orderTransaction.SchemeCode = int.Parse(Request.Form[ctrlPrefix + "hdnSchemeCode"]);
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnType"]))
                     orderTransaction.Type = Request.Form["ctrl_MFOrderEntry$hdnType"];
+                if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnAccountId"]))
+                    orderTransaction.accountId = int.Parse(Request.Form["ctrl_MFOrderEntry$hdnAccountId"]);
+                if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnPortfolioId"]))
+                    orderTransaction.portfolioId = int.Parse(Request.Form["ctrl_MFOrderEntry$hdnPortfolioId"]);
+
 
                 Session["reportParams"] = orderTransaction;
             }
