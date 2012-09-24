@@ -515,17 +515,20 @@ namespace WealthERP.CustomerPortfolio
                     {
                         if (e.CommandName.ToString() != "Page")
                         {
-                            GridDataItem gvr = (GridDataItem)e.Item;
-                            int selectedRow = gvr.ItemIndex + 1;
-                            int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
-
-                            //int slNo = int.Parse(gvEquityPortfolio.DataKeys[index].Value.ToString());
-                            Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                            Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-                            if (e.CommandName == "Select")
+                            if (e.CommandName.ToString() != "ChangePageSize")
                             {
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                                GridDataItem gvr = (GridDataItem)e.Item;
+                                int selectedRow = gvr.ItemIndex + 1;
+                                int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
+
+                                //int slNo = int.Parse(gvEquityPortfolio.DataKeys[index].Value.ToString());
+                                Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
+                                Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
+
+                                if (e.CommandName == "Select")
+                                {
+                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                                }
                             }
                         }
                     }
@@ -565,18 +568,21 @@ namespace WealthERP.CustomerPortfolio
                     {
                         if (e.CommandName.ToString() != "Page")
                         {
-                            GridDataItem gvr = (GridDataItem)e.Item;
-                            int selectedRow = gvr.ItemIndex + 1;
-                            int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
-
-                            //int slNo = int.Parse(gvEquityPortfolioDelivery.DataKeys[index].Value.ToString());
-                            Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                            Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-
-                            if (e.CommandName == "Select")
+                            if (e.CommandName.ToString() != "ChangePageSize")
                             {
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                                GridDataItem gvr = (GridDataItem)e.Item;
+                                int selectedRow = gvr.ItemIndex + 1;
+                                int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
+
+                                //int slNo = int.Parse(gvEquityPortfolioDelivery.DataKeys[index].Value.ToString());
+                                Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
+                                Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
+
+
+                                if (e.CommandName == "Select")
+                                {
+                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                                }
                             }
                         }
                     }
@@ -617,19 +623,22 @@ namespace WealthERP.CustomerPortfolio
                     {
                         if (e.CommandName.ToString() != "Page")
                         {
-                            GridDataItem gvr = (GridDataItem)e.Item;
-                            int selectedRow = gvr.ItemIndex + 1;
-                            int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
-
-
-                            //int slNo = int.Parse(gvEquityPortfolioSpeculative.DataKeys[index].Value.ToString());
-                            Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                            Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-
-                            if (e.CommandName == "Select")
+                            if (e.CommandName.ToString() != "ChangePageSize")
                             {
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                                GridDataItem gvr = (GridDataItem)e.Item;
+                                int selectedRow = gvr.ItemIndex + 1;
+                                int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
+
+
+                                //int slNo = int.Parse(gvEquityPortfolioSpeculative.DataKeys[index].Value.ToString());
+                                Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
+                                Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
+
+
+                                if (e.CommandName == "Select")
+                                {
+                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                                }
                             }
                         }
                     }
@@ -670,18 +679,21 @@ namespace WealthERP.CustomerPortfolio
                     {
                         if (e.CommandName.ToString() != "Page")
                         {
-                            GridDataItem gvr = (GridDataItem)e.Item;
-                            int selectedRow = gvr.ItemIndex + 1;
-                            int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
-
-                            //int slNo = int.Parse(gvEquityPortfolioUnrealized.DataKeys[index].Value.ToString());
-                            Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                            Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-
-                            if (e.CommandName == "Select")
+                            if (e.CommandName.ToString() != "ChangePageSize")
                             {
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                                GridDataItem gvr = (GridDataItem)e.Item;
+                                int selectedRow = gvr.ItemIndex + 1;
+                                int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
+
+                                //int slNo = int.Parse(gvEquityPortfolioUnrealized.DataKeys[index].Value.ToString());
+                                Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
+                                Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
+
+
+                                if (e.CommandName == "Select")
+                                {
+                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
+                                }
                             }
                         }
                     }
