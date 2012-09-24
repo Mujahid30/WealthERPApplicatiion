@@ -878,6 +878,38 @@ namespace DaoReports
                 throw exBase;
             }
         }
+        public DataSet GetOrderTransactionBlankForm(OrderTransactionSlipVo report)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand getTransactionSlipBlankFormCmd;
+            DataSet dsTransactionSlipBlankForm = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getTransactionSlipBlankFormCmd = db.GetStoredProcCommand("SP_RPT_GetOrderTransactionBlankForm");
+                db.AddInParameter(getTransactionSlipBlankFormCmd, "@customerId", DbType.Int32, report.CustomerId);
+                if(report.SchemeCode!=0)
+                    db.AddInParameter(getTransactionSlipBlankFormCmd, "@SchemeCode", DbType.Int32, report.SchemeCode);
+                else
+                    db.AddInParameter(getTransactionSlipBlankFormCmd, "@SchemeCode", DbType.Int32, DBNull.Value);
+                db.AddInParameter(getTransactionSlipBlankFormCmd, "@Type", DbType.String, report.Type);
+                if(report.portfolioId!=0)
+                    db.AddInParameter(getTransactionSlipBlankFormCmd, "@PortfolioId", DbType.Int32, report.portfolioId);
+                else
+                    db.AddInParameter(getTransactionSlipBlankFormCmd, "@PortfolioId", DbType.Int32, DBNull.Value);
+                if(report.accountId !=0)
+                    db.AddInParameter(getTransactionSlipBlankFormCmd, "@AccountId", DbType.Int32, report.accountId);
+                else
+                    db.AddInParameter(getTransactionSlipBlankFormCmd, "@AccountId", DbType.Int32, DBNull.Value);
+                getTransactionSlipBlankFormCmd.CommandTimeout = 60 * 60;
+                dsTransactionSlipBlankForm = db.ExecuteDataSet(getTransactionSlipBlankFormCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsTransactionSlipBlankForm;
+        }
         
 
     }
