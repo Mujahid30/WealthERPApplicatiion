@@ -5031,7 +5031,7 @@ namespace WealthERP.Uploads
                     // Presuming the DataTable has a column named Date. 
                     string expression;
                     //expression = "periodicity=" + "'SM'";
-                    expression = "period_day like" + "'%,%'";
+                    expression = "Convert(period_day, 'System.String') like" + "'%,%'";
 
                     DataRow[] foundRows;
 
