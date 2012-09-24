@@ -20,7 +20,8 @@ namespace WealthERP.SuperAdmin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+                btnExportFilteredData.Visible = false;
 
         }
 
@@ -43,6 +44,8 @@ namespace WealthERP.SuperAdmin
             dsSchemePlanDetails = customerBo.GetSchemeDetails(schemePlanCode);
             gvSchemeDetails.DataSource = dsSchemePlanDetails;
             gvSchemeDetails.DataBind();
+            if (dsSchemePlanDetails != null)
+                btnExportFilteredData.Visible = true;
             if (Cache["gvSchemeDetailsForMappinginSuperAdmin"] == null)
             {
                 Cache.Insert("gvSchemeDetailsForMappinginSuperAdmin", dsSchemePlanDetails);

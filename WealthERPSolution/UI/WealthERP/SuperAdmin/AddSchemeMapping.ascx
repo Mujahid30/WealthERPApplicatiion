@@ -60,7 +60,7 @@
                     <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Add Scheme Mapping"></asp:Label>
                 </td>
                 <td align="right">
-                    <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    <asp:ImageButton Visible="false" ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                         OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                 </td>
@@ -104,7 +104,7 @@
                     <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
                         UpdateText="Update">
                     </telerik:GridEditCommandColumn>
-                    <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderStyle-Width="500px" HeaderText="SchemePlanName"
+                    <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderStyle-Width="500px" HeaderText="Scheme Plan Name"
                         DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
@@ -245,6 +245,7 @@
             </ClientSettings>
         </telerik:RadGrid>
     </div>
+    <br />
     <div>
         <asp:Label ID="lblNote" runat="server" CssClass="HeaderTextSmall" Text="Note: Please reprocess the upload details in order to completed the upload process"></asp:Label>
     </div>
