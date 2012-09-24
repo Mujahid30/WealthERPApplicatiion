@@ -136,6 +136,12 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
+    <tr>
+    <td>
+    <asp:LinkButton ID="LinkInputRejects" runat="server" Text="View Input Rejects"
+                CssClass="LinkButtons" OnClick="LinkInputRejects_Click"></asp:LinkButton>
+    </td>
+    </tr>
 </table>
 
    

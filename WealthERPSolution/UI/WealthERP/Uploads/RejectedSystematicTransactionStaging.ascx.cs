@@ -29,7 +29,7 @@ namespace WealthERP.Uploads
     public partial class RejectedSystematicTransactionStaging : System.Web.UI.UserControl
     {
         KarvyUploadsVo karvyUploadsVo = new KarvyUploadsVo();
-       
+
         CustomerVo customerVo = new CustomerVo();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         MFTransactionVo mfTransactionVo = new MFTransactionVo();
@@ -40,8 +40,9 @@ namespace WealthERP.Uploads
         UploadProcessLogVo processlogVo = new UploadProcessLogVo();
         RMVo rmVo = new RMVo();
 
+        int filetypeId;
         string ValidationProgress = "";
-       
+
         CustomerBo customerBo = new CustomerBo();
         CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
         PortfolioBo portfolioBo = new PortfolioBo();
@@ -64,7 +65,7 @@ namespace WealthERP.Uploads
             if (Request.QueryString["processId"] != null)
                 processId = Int32.Parse(Request.QueryString["processId"].ToString());
 
-      
+
 
             GetPageCount();
             this.BindRejectedSIPGrid(processId);
@@ -102,12 +103,17 @@ namespace WealthERP.Uploads
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
                 processId = Int32.Parse(Request.QueryString["processId"].ToString());
+            if (Request.QueryString["filetypeid"] != null)
+            {
+                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+                LinkInputRejects.Visible = true;
+            }
             if (!Page.IsPostBack)
             {
                 BindRejectedSIPGrid(processId);
 
             }
-          
+
 
         }
 
@@ -125,7 +131,7 @@ namespace WealthERP.Uploads
             hdnProcessIdFilter.Value = processId.ToString();
             int Count;
 
-            dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(adviserVo.advisorId, mypager.CurrentPage, out Count, int.Parse(hdnProcessIdFilter.Value), hdnRejectReasonFilter.Value, hdnFileNameFilter.Value, hdnFolioFilter.Value, hdnTransactionTypeFilter.Value, hdnInvNameFilter.Value,  hdnSchemeNameFilter.Value);
+            dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(adviserVo.advisorId, mypager.CurrentPage, out Count, int.Parse(hdnProcessIdFilter.Value), hdnRejectReasonFilter.Value, hdnFileNameFilter.Value, hdnFolioFilter.Value, hdnTransactionTypeFilter.Value, hdnInvNameFilter.Value, hdnSchemeNameFilter.Value);
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
             if (Count > 0)
                 DivPager.Style.Add("display", "visible");
@@ -138,34 +144,34 @@ namespace WealthERP.Uploads
                 gvSIPReject.DataSource = dsRejectedSIP.Tables[0];
                 gvSIPReject.DataBind();
 
-            
 
-            foreach (DataRow dr in dsRejectedSIP.Tables[1].Rows)
-            {
-                genDictRejectReason.Add(dr["WRR_RejectReasonDescription"].ToString(), dr[1].ToString());
-            }          
-            DropDownList ddlRejectReason = GetRejectReasonDDL();
-            if (ddlRejectReason != null)
-            {
-                ddlRejectReason.DataSource = genDictRejectReason;
-                ddlRejectReason.DataTextField = "Key";
-                ddlRejectReason.DataValueField = "Value";
-                ddlRejectReason.DataBind();
-                ddlRejectReason.Items.Insert(0, new ListItem("Select", "Select"));
-            }
-            if (hdnRejectReasonFilter.Value != "")
-            {
-                ddlRejectReason.SelectedValue = hdnRejectReasonFilter.Value.ToString().Trim();
-            }
-            BindProcessId(dsRejectedSIP.Tables[2]);
-            BindFolioNumber(dsRejectedSIP.Tables[3]);
-            BindInvName(dsRejectedSIP.Tables[4]);
-            BindSchemeName(dsRejectedSIP.Tables[5]);
-            BindTransactionType(dsRejectedSIP.Tables[6]);
-            BindFileName(dsRejectedSIP.Tables[7]);
 
-        }
-        else
+                foreach (DataRow dr in dsRejectedSIP.Tables[1].Rows)
+                {
+                    genDictRejectReason.Add(dr["WRR_RejectReasonDescription"].ToString(), dr[1].ToString());
+                }
+                DropDownList ddlRejectReason = GetRejectReasonDDL();
+                if (ddlRejectReason != null)
+                {
+                    ddlRejectReason.DataSource = genDictRejectReason;
+                    ddlRejectReason.DataTextField = "Key";
+                    ddlRejectReason.DataValueField = "Value";
+                    ddlRejectReason.DataBind();
+                    ddlRejectReason.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+                if (hdnRejectReasonFilter.Value != "")
+                {
+                    ddlRejectReason.SelectedValue = hdnRejectReasonFilter.Value.ToString().Trim();
+                }
+                BindProcessId(dsRejectedSIP.Tables[2]);
+                BindFolioNumber(dsRejectedSIP.Tables[3]);
+                BindInvName(dsRejectedSIP.Tables[4]);
+                BindSchemeName(dsRejectedSIP.Tables[5]);
+                BindTransactionType(dsRejectedSIP.Tables[6]);
+                BindFileName(dsRejectedSIP.Tables[7]);
+
+            }
+            else
             {
                 hdnRecordCount.Value = "0";
                 gvSIPReject.DataSource = null;
@@ -176,7 +182,7 @@ namespace WealthERP.Uploads
             this.GetPageCount();
         }
 
-       
+
 
         //protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         //{
@@ -238,7 +244,7 @@ namespace WealthERP.Uploads
             if (Request.QueryString["processId"] != null)
                 processId = Int32.Parse(Request.QueryString["processId"].ToString());
 
-           
+
 
             if (ddlInvName != null)
             {
@@ -262,7 +268,7 @@ namespace WealthERP.Uploads
             if (Request.QueryString["processId"] != null)
                 processId = Int32.Parse(Request.QueryString["processId"].ToString());
 
-       
+
 
             if (ddlReject != null)
             {
@@ -287,7 +293,7 @@ namespace WealthERP.Uploads
             if (Request.QueryString["processId"] != null)
                 processId = Int32.Parse(Request.QueryString["processId"].ToString());
 
-            
+
 
             if (ddlFileName != null)
             {
@@ -311,7 +317,7 @@ namespace WealthERP.Uploads
             if (Request.QueryString["processId"] != null)
                 processId = Int32.Parse(Request.QueryString["processId"].ToString());
 
-    
+
 
             if (ddlFolioNumber != null)
             {
@@ -435,7 +441,7 @@ namespace WealthERP.Uploads
             if (Request.QueryString["processId"] != null)
                 processId = Int32.Parse(Request.QueryString["processId"].ToString());
 
-            
+
 
             if (ddlTransactionType != null)
             {
@@ -625,7 +631,7 @@ namespace WealthERP.Uploads
             uploadsCommonBo = new UploadCommonBo();
             UploadProcessLogVo processlogVo = new UploadProcessLogVo();
             string error = "";
-            int processIdReprocessAll = 0;       
+            int processIdReprocessAll = 0;
 
 
             if (Request.QueryString["processId"] != null)
@@ -646,7 +652,7 @@ namespace WealthERP.Uploads
                     processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
 
                     blResult = MFWERPSIPTransactionInsertion(processIdReprocessAll);
-                  
+
                     if (blResult == false)
                     {
                         error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
@@ -690,7 +696,7 @@ namespace WealthERP.Uploads
             processlogVo = uploadsCommonBo.GetProcessLogInfo(UploadProcessId);
 
             packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
-            
+
             camsSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(UploadProcessId, packagePath, configPath, "CA");
             processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "CA");
 
@@ -704,13 +710,13 @@ namespace WealthERP.Uploads
                 {
                     processlogVo.IsInsertionToWERPComplete = 1;
                     processlogVo.EndTime = DateTime.Now;
-                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "CA");                   
+                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "CA");
                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                 }
-            }            
+            }
             return blResult;
         }
-      
+
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             int i = 0;
@@ -746,17 +752,16 @@ namespace WealthERP.Uploads
                 if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                 {
                     int StagingID = int.Parse(gvSIPReject.DataKeys[gvr.RowIndex].Values["CMFSCS_ID"].ToString());
-
                     uploadsCommonBo.DeleteMFSIPTransactionStaging(StagingID);
-
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
                     BindRejectedSIPGrid(processId);
-
-
                 }
             }
-
         }
 
+        protected void LinkInputRejects_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionInputRejects','processId=" + processlogVo.ProcessId + "');", true);
+        }
     }
 }

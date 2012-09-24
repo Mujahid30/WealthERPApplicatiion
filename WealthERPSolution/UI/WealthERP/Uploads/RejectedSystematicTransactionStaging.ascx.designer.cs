@@ -75,7 +75,10 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnBackToUploadGrid;
-        
+
+
+        protected global::System.Web.UI.WebControls.LinkButton LinkInputRejects;
+
         /// <summary>
         /// lblCurrentPage control.
         /// </summary>
