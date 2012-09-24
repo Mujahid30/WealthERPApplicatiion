@@ -24,7 +24,7 @@
             function HeaderMenuShowing(sender, eventArgs) {
 
                 if (eventArgs.get_gridColumn().get_uniqueName() == "PASC_AMC_ExternalCode" ||
-                eventArgs.get_gridColumn().get_uniqueName() == "PASP_SchemePlanCode" ||
+                eventArgs.get_gridColumn().get_uniqueName() == "PASP_SchemePlanName" ||
                  eventArgs.get_gridColumn().get_uniqueName() == "PASC_AMC_ExternalType"
                 ) {
                     //hide the Clear sorting option from the header context menu of the column with name ContactName
@@ -62,7 +62,7 @@
                 <td align="right">
                     <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                        OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                        OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                 </td>
             </tr>
         </table>
@@ -98,17 +98,23 @@
             EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
-            <MasterTableView DataKeyNames="PASP_SchemePlanCode,PASC_AMC_ExternalType,PASC_AMC_ExternalCode" EditMode="PopUp"
+            <MasterTableView DataKeyNames="PASP_SchemePlanCode,PASC_AMC_ExternalType,PASC_AMC_ExternalCode,PASP_SchemePlanName" EditMode="PopUp"
                 CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add New Scheme For Mapping">
                 <Columns>
                     <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
                         UpdateText="Update">
                     </telerik:GridEditCommandColumn>
-                    <telerik:GridBoundColumn UniqueName="PASP_SchemePlanCode" HeaderText="SchemePlanCode"
+                    <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderStyle-Width="500px" HeaderText="SchemePlanName"
+                        DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                   <telerik:GridBoundColumn Visible="false" UniqueName="PASP_SchemePlanCode" HeaderStyle-Width="500px" HeaderText="SchemePlanCode"
                         DataField="PASP_SchemePlanCode" SortExpression="PASP_SchemePlanCode" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
+                    
                     <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="External Code"
                         DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
@@ -144,9 +150,9 @@
                         <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                     </telerik:GridButtonColumn>
                 </Columns>
-                <EditFormSettings EditFormType="Template">
+                <EditFormSettings EditFormType="Template" FormTableStyle-Width="600px">
                     <FormTemplate>
-                        <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none"
+                        <table id="Table2" cellspacing="2" cellpadding="1"  border="0" rules="none"
                             style="border-collapse: collapse; background: white;">
                             <tr class="EditFormHeader">
                                 <td colspan="2" style="font-size: small">
@@ -155,18 +161,28 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <table id="Table3" cellspacing="1" cellpadding="1" border="0" class="module">
+                                    <table id="Table3"  cellspacing="1" cellpadding="1" border="0" class="module">
                                         <tr>
                                             <td colspan="5">
                                             </td>
                                         </tr>
-                                        <tr runat="server" id="trSchemeDDL">
+                                        <tr runat="server" id="trSchemeDDL" visible="false">
                                             <td align="right">
                                                 <asp:Label ID="lblMemberAddMode" Text="Scheme Plan Code:" CssClass="FieldName" runat="server">
                                                 </asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="txtSchemePlanCodeForEditForm" Text='<%# Bind("PASP_SchemePlanCode") %>'
+                                                <asp:TextBox CssClass="txtField" ID="txtSchemePlanCodeForEditForm" Text='<%# Bind("PASP_SchemePlanCode") %>'
+                                                    runat="server"></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                         <tr runat="server" id="tr1">
+                                            <td align="right">
+                                                <asp:Label ID="Label2" Text="Scheme Plan Name:" CssClass="FieldName" runat="server">
+                                                </asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:TextBox Width="300px" CssClass="txtField" ID="txtSchemePlanNameForEditForm" Text='<%# Bind("PASP_SchemePlanName") %>'
                                                     runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
@@ -176,7 +192,7 @@
                                                 </asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="txtExternalCodeForEditForm" Text='<%# Bind("PASC_AMC_ExternalCode") %>'
+                                                <asp:TextBox CssClass="txtField" ID="txtExternalCodeForEditForm" Text='<%# Bind("PASC_AMC_ExternalCode") %>'
                                                     runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
@@ -188,7 +204,7 @@
                                             <td>
                                                 <%--                                                <asp:TextBox ID="txtExternalTypeForEditForm" Text='<%# Bind("PASC_AMC_ExternalType") %>' runat="server"></asp:TextBox>
 --%>
-                                                <asp:DropDownList runat="server" ID="ddlExternalType">
+                                                <asp:DropDownList CssClass="cmbField" runat="server" ID="ddlExternalType">
                                                     <asp:ListItem Text="CAMS" Value="CAMS">
                                                     </asp:ListItem>
                                                     <asp:ListItem Text="Deutsche" Value="Deutsche">

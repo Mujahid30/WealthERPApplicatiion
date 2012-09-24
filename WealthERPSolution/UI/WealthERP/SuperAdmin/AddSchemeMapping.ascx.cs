@@ -20,6 +20,8 @@ namespace WealthERP.SuperAdmin
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+
         }
 
         protected void txtSchemePlanCode_ValueChanged1(object sender, EventArgs e)
@@ -82,6 +84,7 @@ namespace WealthERP.SuperAdmin
                 customerBo = new CustomerBo();
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 TableCell strSchemePlanCodeForDelete = dataItem["PASP_SchemePlanCode"];
+                TableCell strSchemePlanNameForDelete = dataItem["PASP_SchemePlanName"];
                 TableCell StrExternalCodeForDelete = dataItem["PASC_AMC_ExternalCode"];
                 TableCell strExternalTypeForDelete = dataItem["PASC_AMC_ExternalType"];
                 strSchemePlanCode = int.Parse(strSchemePlanCodeForDelete.Text);
@@ -98,6 +101,7 @@ namespace WealthERP.SuperAdmin
                 TextBox txtExtCode = (TextBox)e.Item.FindControl("txtExternalCodeForEditForm");
                 DropDownList txtExtType = (DropDownList)e.Item.FindControl("ddlExternalType");
                 TextBox txtSchemePlancode = (TextBox)e.Item.FindControl("txtSchemePlanCodeForEditForm");
+                TextBox txtSchemePlanName = (TextBox)e.Item.FindControl("txtSchemePlanCodeForEditForm");
                 strSchemePlanCode = int.Parse(txtSchemePlancode.Text);
                 strExternalCode = txtExtCode.Text;
                 strExternalType = txtExtType.Text;
@@ -119,10 +123,14 @@ namespace WealthERP.SuperAdmin
             customerBo = new CustomerBo();
             if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
+                
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 TextBox txtBox = (TextBox)item.FindControl("txtSchemePlanCodeForEditForm");
+                TextBox txtBoxScName = (TextBox)item.FindControl("txtSchemePlanNameForEditForm");
                 txtBox.Text = txtSchemePlanCode.Value;
+                txtBoxScName.Text = txtSchemeName.Text;
                 txtBox.Enabled = false;
+                txtBoxScName.Enabled = false;
             }
             if (e.Item is GridDataItem)
             {
@@ -173,6 +181,10 @@ namespace WealthERP.SuperAdmin
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
+            DataSet dtGvSchemeDetails = new DataSet();
+            dtGvSchemeDetails = (DataSet)Cache["gvSchemeDetailsForMappinginSuperAdmin"];
+            gvSchemeDetails.DataSource = dtGvSchemeDetails;
+
             gvSchemeDetails.ExportSettings.OpenInNewWindow = true;
             gvSchemeDetails.ExportSettings.IgnorePaging = true;
             gvSchemeDetails.ExportSettings.HideStructureColumns = true;
