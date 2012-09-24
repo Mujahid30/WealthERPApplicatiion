@@ -1950,6 +1950,10 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createCompleteAdvisorCmd, "@U_UserId", DbType.Int32, userVo.UserId);
                 db.AddInParameter(createCompleteAdvisorCmd, "@AR_RMId", DbType.Int32, rmVo.RMId);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_AdviserId", DbType.Int32, advisorVo.advisorId);
+                if(advisorVo.IsActive==1)
+                    db.AddInParameter(createCompleteAdvisorCmd, "@A_IsValuationReq", DbType.Int16, 1);
+                else
+                    db.AddInParameter(createCompleteAdvisorCmd, "@A_IsValuationReq", DbType.Int16, 0);
                 db.ExecuteNonQuery(createCompleteAdvisorCmd);
 
             }
