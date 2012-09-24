@@ -86,6 +86,10 @@
                                 <p class="tip">
                                     Click here to view order details in word doc.</p>
                                 </div>
+                                <asp:Button ID="btnViewInPDFNew" runat="server" ValidationGroup="MFSubmit" CssClass="PDFButton" 
+                                OnClientClick="return CustomerValidate('pdf')" PostBackUrl="~/Reports/Display.aspx?mail=2" Visible="false" />
+                                <asp:Button ID="btnViewInDOCNew" runat="server" ValidationGroup="MFSubmit" CssClass="DOCButton" Visible="false"
+                                OnClientClick="return CustomerValidate('doc')" PostBackUrl="~/Reports/Display.aspx?mail=4" />
                          </td>
                     </tr>
                 </table>
@@ -922,3 +926,5 @@
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="hdnType" runat="server" />
 <asp:HiddenField ID="hdnSchemeCode" runat="server" />
+<asp:HiddenField ID="hdnPortfolioId" runat="server"/>
+<asp:HiddenField ID="hdnAccountId" runat="server"/>

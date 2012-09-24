@@ -149,7 +149,7 @@ namespace WealthERP.OPS
                 }
 
             }
-            btnViewInPDF.Visible = true;
+            
 
             //ShowHideFields(1);
         }
@@ -991,10 +991,14 @@ namespace WealthERP.OPS
         private void BindPortfolioDropdown(int customerId)
         {
             DataSet ds = portfolioBo.GetCustomerPortfolio(customerId);
-            ddlPortfolio.DataSource = ds;
-            ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
-            ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
-            ddlPortfolio.DataBind();
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                ddlPortfolio.DataSource = ds;
+                ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
+                ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
+                ddlPortfolio.DataBind();
+                hdnPortfolioId.Value = ddlPortfolio.SelectedValue;
+            }
         }
         private void ClearAllFields()
         {
@@ -1162,6 +1166,7 @@ namespace WealthERP.OPS
                     ddlFolioNumber.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
                     ddlFolioNumber.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
                     ddlFolioNumber.DataBind();
+                    hdnAccountId.Value = ddlFolioNumber.SelectedValue;
                 }
                 else
                 {
@@ -1293,6 +1298,8 @@ namespace WealthERP.OPS
 
                 btnSubmit.Visible = true;
             }
+            btnViewInPDFNew.Visible = true;
+            btnViewInDOCNew.Visible = true;
         }
 
 
@@ -1606,6 +1613,8 @@ namespace WealthERP.OPS
             btnViewReport.Visible = true;
             btnViewInPDF.Visible = true;
             btnViewInDOC.Visible = true;
+            btnViewInPDFNew.Visible = false;
+            btnViewInDOCNew.Visible = false;
         }
 
         private void SaveOrderDetails()
@@ -1964,6 +1973,8 @@ namespace WealthERP.OPS
             SetEditViewMode(true);
             imgBtnRefereshBank.Enabled = false;
             btnUpdate.Visible = false;
+            btnViewInPDFNew.Visible = false;
+            btnViewInDOCNew.Visible = false;
         }
 
         private void UpdateMFOrderDetails()

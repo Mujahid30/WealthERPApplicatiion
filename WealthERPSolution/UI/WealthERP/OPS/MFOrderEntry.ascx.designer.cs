@@ -77,6 +77,24 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Button btnViewInDOC;
         
         /// <summary>
+        /// btnViewInPDFNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewInPDFNew;
+        
+        /// <summary>
+        /// btnViewInDOCNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewInDOCNew;
+        
+        /// <summary>
         /// lblCustomer control.
         /// </summary>
         /// <remarks>
@@ -1677,5 +1695,23 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnSchemeCode;
+        
+        /// <summary>
+        /// hdnPortfolioId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnPortfolioId;
+        
+        /// <summary>
+        /// hdnAccountId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnAccountId;
     }
 }
