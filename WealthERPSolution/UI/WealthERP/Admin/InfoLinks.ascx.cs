@@ -46,7 +46,7 @@ namespace WealthERP.Admin
             dtBindLinks.Columns.Add("A_AdviserId");
             dtBindLinks.Columns.Add("XLU_LinkUserCode");
             dtBindLinks.Columns.Add("XLTY_LinkTypeCode");
-            dtBindLinks.Columns.Add("AL_Link");
+            dtBindLinks.Columns.Add("WLM_Link");
             dtBindLinks.Columns.Add("AL_LinkImagePath");
             dtBindLinks.Columns.Add("WLM_AltLinkName");
 

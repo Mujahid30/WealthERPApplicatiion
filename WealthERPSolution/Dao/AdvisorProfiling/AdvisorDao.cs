@@ -2400,12 +2400,20 @@ namespace DaoAdvisorProfiling
                             aoTALVo.advisorId = int.Parse(dr["A_AdviserId"].ToString());
                             aoTALVo.AMCLinkUserCode = int.Parse(dr["XLU_LinkUserCode"].ToString());
                             aoTALVo.AMCLinkTypeCode = int.Parse(dr["XLTY_LinkTypeCode"].ToString());
-                            aoTALVo.AMCLinks = dr["AL_Link"].ToString();
+                            if (int.Parse(dr["XLTY_LinkTypeCode"].ToString()) == 1)
+                            {
+                                aoTALVo.AMCLinks = dr["AL_Link"].ToString();
+                            }
+                            else
+                            {
+                                aoTALVo.WLMLinks = dr["WLM_Link"].ToString();
+                            }
+                            
                             aoTALVo.AMCImagePath = dr["WLM_LinkImagePath"].ToString();
-                            //if(!string.IsNullOrEmpty(dr["WELM_LinkCode"].ToString()))
-                            //{
-                            //    aoTALVo.ExternalLinkCode=dr["WELM_LinkCode"].ToString();
-                            //}
+                            if (!string.IsNullOrEmpty(dr["WELM_LinkCode"].ToString()))
+                            {
+                                aoTALVo.ExternalLinkCode = dr["WELM_LinkCode"].ToString();
+                            }
                             aoTALVo.WerpMasterlinkId = int.Parse(dr["WLM_Id"].ToString());
                             aoTALVo.IsAMCLinksWithPin= int.Parse(dr["AL_LinkWithPin"].ToString());
                             if (!string.IsNullOrEmpty(dr["WLM_AltLinkName"].ToString()))

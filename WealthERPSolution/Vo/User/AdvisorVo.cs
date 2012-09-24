@@ -375,7 +375,7 @@ namespace VoUser
         private string m_AltLinkName;
         private int m_WerpMasterlinkId;
         private int m_IsAMCLinksWithPin;
-       
+        private string m_WLMLinks;
 
         #endregion Fields
 
@@ -414,6 +414,11 @@ namespace VoUser
         {
             get { return m_AMCLinks; }
             set { m_AMCLinks = value; }
+        }
+        public string WLMLinks
+        {
+            get { return m_WLMLinks; }
+            set { m_WLMLinks = value; }
         }
         public int IsAMCLinksWithPin
         {
