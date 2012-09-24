@@ -536,7 +536,7 @@ namespace WealthERP.CustomerPortfolio
                            nextPremiumDate = nextPremiumDate.AddYears(1);
                            break;
                    }
-                   //startDate = nextPremiumDate;
+                   startDate = nextPremiumDate;
                }
             }
             else
