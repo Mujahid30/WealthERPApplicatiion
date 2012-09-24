@@ -505,5 +505,20 @@ namespace BoReports
             mfReports.LogCustomerMFReportEmailStatus(MFReportEmailStatus);
         }
 
+
+        public DataSet GetOrderTransactionBlankForm(OrderTransactionSlipVo report)
+        {
+            MFReportsDao mfReportsDao = new MFReportsDao();
+            DataSet dsTransactionSlipBlankForm = new DataSet();
+            try
+            {
+                dsTransactionSlipBlankForm = mfReportsDao.GetOrderTransactionBlankForm(report);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsTransactionSlipBlankForm;
+        }
     }
 }
