@@ -39,6 +39,11 @@
                     AutoPostBackOnFilter="true">
                     <ItemStyle HorizontalAlign="Center" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="WRR_RejectReasonDescription" HeaderText="RejectReasonDescription" DataField="WRR_RejectReasonDescription"
+                    SortExpression="WRR_RejectReasonDescription" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                    <ItemStyle HorizontalAlign="Center" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="CMFCXSSI_SCHEME" HeaderText="SCHEME" DataField="CMFCXSSI_SCHEME"
                     SortExpression="CMFCXSSI_SCHEME" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
