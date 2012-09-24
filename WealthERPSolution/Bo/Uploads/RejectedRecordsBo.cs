@@ -854,9 +854,37 @@ namespace BoUploads
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
             return dsRejectedRecords;
         }
+
+
+        public DataSet GetSIPCAMSInputRejectedRecords(int ProcessId)
+        {
+            DataSet dsRejectedRecords;
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            try
+            {
+                dsRejectedRecords = rejecetedRecords.GetSIPCAMSInputRejectedRecords(ProcessId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:GetSIPCAMSInputRejectedRecords()");
+                object[] objects = new object[3];
+                objects[0] = ProcessId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsRejectedRecords;
+        }
+
 
         /// <summary>
         /// To get rejected records from input table for all types of Transaction uploads
