@@ -15,7 +15,7 @@ namespace DaoUploads
 {
     public class RejectedRecordsDao
     {
-       
+
         public DataSet getCAMSRejectedProfiles(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter, string DoesCustExistFilter)
         {
             DataSet dsGetCAMSRejectedProfiles;
@@ -393,7 +393,7 @@ namespace DaoUploads
             return result;
         }
 
-        public bool UpdateMFFolioStaging(int StagingID,int MainStagingId, string PanNumber, string Folio)
+        public bool UpdateMFFolioStaging(int StagingID, int MainStagingId, string PanNumber, string Folio)
         {
             bool result = false;
             Database db;
@@ -586,9 +586,9 @@ namespace DaoUploads
                 getWERPRejectedProfilesCmd = db.GetStoredProcCommand("SP_GetWERPUploadRejectsProfile");
                 db.AddInParameter(getWERPRejectedProfilesCmd, "@adviserId", DbType.Int32, adviserId);
                 //db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, processId);
-                
+
                 if (processId != 0)
-                    db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, processId);                
+                    db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, processId);
                 else
                     db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, DBNull.Value);
 
@@ -781,7 +781,7 @@ namespace DaoUploads
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
                 else
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
-                
+
                 //if (RejectReasonFilter != "")
                 //    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
 
@@ -838,7 +838,7 @@ namespace DaoUploads
 
             return dsGetMFRejectedTransactions;
         }
-        
+
         public DataSet GetRejectedTradeAccountStaging(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PANFilter)
         {
             DataSet dsGetWERPRejectedTransactions;
@@ -848,7 +848,7 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getWERPRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetUploadRejectsEquityTradeAccountStaging");
-                db.AddInParameter(getWERPRejectedTransactionsCmd, "@adviserId", DbType.Int32, adviserId);                
+                db.AddInParameter(getWERPRejectedTransactionsCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
                 if (processId != 0)
@@ -1155,7 +1155,7 @@ namespace DaoUploads
                     cmdgetRejectedRecords = db.GetStoredProcCommand("SP_GetDeutscheProfileFolioInputRejects");
                 else if (UploadExternalType == "TN")
                     cmdgetRejectedRecords = db.GetStoredProcCommand("SP_GetTempletonProfileFolioInputRejects");
-                else if(UploadExternalType == "ST")
+                else if (UploadExternalType == "ST")
                     cmdgetRejectedRecords = db.GetStoredProcCommand("SP_GetStandardProfileFolioInputRejects");
                 else
                     cmdgetRejectedRecords = db.GetStoredProcCommand("");
@@ -1182,7 +1182,7 @@ namespace DaoUploads
                 objects[0] = ProcessId;
                 objects[1] = CurrentPage;
                 objects[2] = UploadExternalType;
-                
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1193,6 +1193,37 @@ namespace DaoUploads
             Count = Int32.Parse(dsProfileFolioRejectedRecords.Tables[1].Rows[0]["CNT"].ToString());
 
             return dsProfileFolioRejectedRecords;
+        }
+
+        public DataSet GetSIPCAMSInputRejectedRecords(int ProcessId)
+        {
+            DataSet dsSIPCAMSInputRejectedRecords;
+            Database db;
+            DbCommand cmdSIPCAMSInputRejectedRecords;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdSIPCAMSInputRejectedRecords = db.GetStoredProcCommand("SP_GetSIPCAMSInputRejectedRecords");
+                db.AddInParameter(cmdSIPCAMSInputRejectedRecords, "@ProcessId", DbType.Int32, ProcessId);
+                dsSIPCAMSInputRejectedRecords = db.ExecuteDataSet(cmdSIPCAMSInputRejectedRecords);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:GetProfileFolioInputRejects()");
+                object[] objects = new object[3];
+                objects[0] = ProcessId;             
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsSIPCAMSInputRejectedRecords;
         }
 
         /// <summary>
@@ -1219,7 +1250,7 @@ namespace DaoUploads
                     cmdgetRejectedRecords = db.GetStoredProcCommand("SP_GetDeutscheTransInputRejects");
                 else if (UploadExternalType == "TN")
                     cmdgetRejectedRecords = db.GetStoredProcCommand("SP_GetTempletonTransInputRejects");
-                
+
                 else
                     cmdgetRejectedRecords = db.GetStoredProcCommand("");
 
@@ -1288,7 +1319,7 @@ namespace DaoUploads
                 object[] objects = new object[2];
                 objects[0] = adviserid;
                 objects[1] = CurrentPage;
-                
+
 
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -1569,7 +1600,7 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getWERPRejectedProfilesCmd = db.GetStoredProcCommand("SP_GetSuperAdminWERPUploadRejectsProfile");
-              
+
                 if (processId != 0)
                     db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, processId);
                 else
@@ -1590,8 +1621,8 @@ namespace DaoUploads
                 if (RejectReasonFilter != "")
                     db.AddInParameter(getWERPRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
 
-                
-                 db.AddInParameter(getWERPRejectedProfilesCmd, "@orgName", DbType.String, orgName);
+
+                db.AddInParameter(getWERPRejectedProfilesCmd, "@orgName", DbType.String, orgName);
                 getWERPRejectedProfilesCmd.CommandTimeout = 60 * 60;
 
                 dsGetWERPRejectedProfiles = db.ExecuteDataSet(getWERPRejectedProfilesCmd);
@@ -1627,7 +1658,7 @@ namespace DaoUploads
             return dsGetWERPRejectedProfiles;
         }
 
-        public DataSet GetSuperAdminUploadRejectsMFTransactionStaging(int CurrentPage, out int Count, string SortExpression, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string sourceTypeFilter, string schemeNameFilter,string OrgName)
+        public DataSet GetSuperAdminUploadRejectsMFTransactionStaging(int CurrentPage, out int Count, string SortExpression, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string sourceTypeFilter, string schemeNameFilter, string OrgName)
         {
             DataSet dsGetMFRejectedTransactions;
             Database db;
@@ -1637,7 +1668,7 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getMFRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadRejectsMFTransactionStaging");
                 db.AddInParameter(getMFRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
-                db.AddInParameter(getMFRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);            
+                db.AddInParameter(getMFRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
 
                 if (processId != 0)
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
@@ -1701,7 +1732,7 @@ namespace DaoUploads
 
             return dsGetMFRejectedTransactions;
         }
-        public DataSet getSuperAdminMFRejectedFolios(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter,string OrgName)
+        public DataSet getSuperAdminMFRejectedFolios(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter, string OrgName)
         {
             DataSet dsGetCAMSRejectedProfiles;
             Database db;
@@ -1710,7 +1741,7 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCAMSRejectedProfilesCmd = db.GetStoredProcCommand("SP_GetSuperAdminMFUploadRejectsFolios");
-             
+
                 db.AddInParameter(getCAMSRejectedProfilesCmd, "@processId", DbType.Int32, processId);
                 db.AddInParameter(getCAMSRejectedProfilesCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getCAMSRejectedProfilesCmd, "@processIdSortOrder", DbType.String, SortExpression);
@@ -1777,7 +1808,7 @@ namespace DaoUploads
             return dsGetCAMSRejectedProfiles;
         }
 
-        public DataSet GetSuperAdminRejectedTradeAccountStaging(int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PANFilter,string OrgName)
+        public DataSet GetSuperAdminRejectedTradeAccountStaging(int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PANFilter, string OrgName)
         {
             DataSet dsGetWERPRejectedTransactions;
             Database db;
@@ -1786,7 +1817,7 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getWERPRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadRejectsEquityTradeAccountStaging");
-              
+
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
                 if (processId != 0)
@@ -1836,7 +1867,7 @@ namespace DaoUploads
             return dsGetWERPRejectedTransactions;
         }
         public DataSet GetSuperAdminRejectedEquityTransactionsStaging(int processId, int CurrentPage, out int Count,
-          string SortExpression, string RejectReasonFilter, string PanNumberFilter, string ScripFilter, string ExchangeFilter, string TransactionTypeFilter,string OrgName)
+          string SortExpression, string RejectReasonFilter, string PanNumberFilter, string ScripFilter, string ExchangeFilter, string TransactionTypeFilter, string OrgName)
         {
             DataSet dsGetWERPRejectedTransactions;
             Database db;
@@ -1845,7 +1876,7 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getWERPRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadRejectsEquityTransactionStaging");
-               
+
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
@@ -1902,6 +1933,6 @@ namespace DaoUploads
             return dsGetWERPRejectedTransactions;
         }
 
-       
+
     }
 }
