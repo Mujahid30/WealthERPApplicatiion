@@ -97,7 +97,7 @@
             </Items>
         </telerik:RadPanelItem>
         
-        <telerik:RadPanelItem Text="SchemeMapping" Value="SchemeMapping">
+        <telerik:RadPanelItem Text="Scheme Mapping" Value="SchemeMapping">
          </telerik:RadPanelItem>
         
        
