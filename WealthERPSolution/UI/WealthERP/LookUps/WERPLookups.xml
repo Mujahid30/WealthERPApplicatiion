@@ -2591,8 +2591,8 @@
     <InstallmentType XIT_InstallmentTypeCode="2" XIT_InstallmentType="Equated" Deleted="False"/>
   </WERPInstallmentType>
   <WERPPaymentOption>
-    <PaymentOption XPO_PaymentOptionCode="2" XPO_PaymentOption="Installment" Deleted="False"/>
     <PaymentOption XPO_PaymentOptionCode="1" XPO_PaymentOption="Lumpsum" Deleted="False"/>
+    <PaymentOption XPO_PaymentOptionCode="2" XPO_PaymentOption="Installment" Deleted="False"/>
   </WERPPaymentOption>
   <WERPCustomerCategory>
     <CustomerCategory XCC_CustomerCategoryCode="1" XCC_CustomerCategory="Individual Resident" Deleted="False"/>
