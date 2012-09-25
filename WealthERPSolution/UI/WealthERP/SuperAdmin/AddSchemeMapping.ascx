@@ -156,7 +156,7 @@
                             style="border-collapse: collapse; background: white;">
                             <tr class="EditFormHeader">
                                 <td colspan="2" style="font-size: small">
-                                    <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="MF Investment Funding"></asp:Label>
+                                    <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="Scheme Mapping"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
