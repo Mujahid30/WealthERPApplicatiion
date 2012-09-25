@@ -14,14 +14,32 @@ namespace WealthERP.CustomerPortfolio {
     public partial class EquityTransactionsView {
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// RadStyleSheetManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
-        protected global::Telerik.Web.UI.RadGrid gvEquityTransactions;
+        protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
+        
+        /// <summary>
+        /// scptMgr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadScriptManager scptMgr;
+        
+        /// <summary>
+        /// imgBtnExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnExport;
+        
         /// <summary>
         /// lblPortfolio control.
         /// </summary>
@@ -38,9 +56,8 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::System.Web.UI.WebControls.DropDownList ddlPortfolio;
-
         protected global::Telerik.Web.UI.RadComboBox ddlPortfolio;
+        
         /// <summary>
         /// lblFromTran control.
         /// </summary>
@@ -57,26 +74,34 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::System.Web.UI.WebControls.TextBox txtFromTran;
-
         protected global::Telerik.Web.UI.RadDatePicker txtFromTran;
-        /// <summary>
-        /// txtFromTran_CalendarExtender control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender txtFromTran_CalendarExtender;
         
         /// <summary>
-        /// txtFromTran_TextBoxWatermarkExtender control.
+        /// dvTransactionDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtFromTran_TextBoxWatermarkExtender;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvTransactionDate;
+        
+        /// <summary>
+        /// rfvtxtTransactionDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtTransactionDate;
+        
+        /// <summary>
+        /// CompareValidator9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator9;
         
         /// <summary>
         /// lblToTran control.
@@ -94,26 +119,34 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::System.Web.UI.WebControls.TextBox txtToTran;
-
         protected global::Telerik.Web.UI.RadDatePicker txtToTran;
-        /// <summary>
-        /// txtToTran_CalendarExtender control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender txtToTran_CalendarExtender;
         
         /// <summary>
-        /// txtToTran_TextBoxWatermarkExtender control.
+        /// Div1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtToTran_TextBoxWatermarkExtender;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+        
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
+        /// CompareValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
         /// <summary>
         /// CompareValidator14 control.
@@ -132,114 +165,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnViewTran;
-        protected global::System.Web.UI.WebControls.Button imgBtnGvEquityTransactions;
-        /// <summary>
-        /// trModalPopup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trModalPopup;
-        
-        /// <summary>
-        /// ModalPopupExtender1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupExtender1;
-        
-        /// <summary>
-        /// trExportPopup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportPopup;
-        
-        /// <summary>
-        /// Panel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
-        
-        /// <summary>
-        /// rbCurrent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rbCurrent;
-        
-        /// <summary>
-        /// rbAll control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton rbAll;
-        
-        /// <summary>
-        /// btnOk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOk;
-        
-        /// <summary>
-        /// btnCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
-        
-        /// <summary>
-        /// btnExportExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportExcel;
-        
-        /// <summary>
-        /// imgBtnExport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton imgBtnExport;
-        
-        /// <summary>
-        /// lblCurrentPage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurrentPage;
-        
-        /// <summary>
-        /// lblTotalRows control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalRows;
         
         /// <summary>
         /// ErrorMessage control.
@@ -269,22 +194,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
-        /// btnScripSearch control.
+        /// gvEquityTransactions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnScripSearch;
-        
-        /// <summary>
-        /// btnTradeNumSearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTradeNumSearch;
+        protected global::Telerik.Web.UI.RadGrid gvEquityTransactions;
         
         /// <summary>
         /// hdnRecordCount control.
