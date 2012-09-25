@@ -2003,8 +2003,29 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-
-
-
+        protected void btn_GO_Click(object sender, EventArgs e)
+        {
+            //if (ddlDisplayType.SelectedIndex == 0)
+            //{
+            //    SetPanelVisibility(false, false);
+            //}
+            if (ddlDisplayType.SelectedIndex == 0)
+            {
+                SetPanelVisibility(true, false);
+                BindReturnsGrid();
+                trChart.Visible = true;
+                trSchemePerformance.Visible = false;
+                trHoldingGrid.Visible = false;
+                trTop10HoldingsPie.Visible = false;
+                trTopTenSectors.Visible = false;
+                trSectorGrid.Visible = false;
+                BindPerformaceChart();
+            }
+            else if (ddlDisplayType.SelectedIndex == 1)
+            {
+                SetPanelVisibility(false, true);
+                BindTaxGrid();
+            }
+        }
     }
 }
