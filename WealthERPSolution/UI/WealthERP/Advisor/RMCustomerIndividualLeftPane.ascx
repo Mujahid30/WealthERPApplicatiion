@@ -77,6 +77,8 @@
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Home" Value="Home">
                             </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Customer Quick Links" Value="CusQuickLinks">
+                            </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Value="Group Dashboard" Text="Group Dashboard"
                                 Visible="false">
                             </telerik:RadPanelItem>

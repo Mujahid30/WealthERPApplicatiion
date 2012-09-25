@@ -238,6 +238,11 @@ namespace WealthERP.Advisor
                         RadPanelBar1.FindItemByValue("Customer Dashboard").Selected = true;
                         //Session["IsDashboard"] = "false";
                     }
+                    else if (IsDashboard == "CusDashBoardQuicklinks")
+                    {
+                        RadPanelBar1.FindItemByValue("CusQuickLinks").Selected = true;
+                        //Session["IsDashboard"] = "false";
+                    }
                     else if (IsDashboard == "portfolio")
                     {
                         RadPanelBar1.FindItemByValue("Portfolio Dashboard").Selected = true;
@@ -375,6 +380,53 @@ namespace WealthERP.Advisor
                         Item.Text = "Home";
                         Item.Value = "Home";
                         RadPanelBar1.Items.Insert(0, Item);
+                    }
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMCustomerIndividualLeftPane');", true);
+                    if (Session["NodeType"] == "MF")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("MF").Expanded = true;
+                        RadPanelBar1.FindItemByValue("MF").Selected = true;
+
+                    }
+                    else if (Session["NodeType"] == "Equity")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Equity").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Equity").Selected = true;
+
+                    }
+                    else if (Session["NodeType"] == "Order")
+                    {
+                        RadPanelBar1.FindItemByValue("Customer_Order").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Order_Approval_List").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Order_Approval_List").Selected = true;
+
+                    }
+                    else if (Session["NodeType"] == "FPDashBoard")
+                    {
+                        RadPanelBar1.FindItemByValue("Financial Planning").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Financial Planning").Selected = true;
+
+                    }
+                    else if (Session["NodeType"] == "CustomerDashBoard")
+                    {
+                        RadPanelBar1.FindItemByValue("Customer Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Customer Dashboard").Selected = true;
+
+                    }
+                    else if (Session["NodeType"] == "Notification")
+                    {
+                        RadPanelBar1.FindItemByValue("Alerts").Expanded = true;
+                        RadPanelBar1.FindItemByValue("View Notifications").Expanded = true;
+                        RadPanelBar1.FindItemByValue("View Notifications").Selected = true;
+
+                    }
+                    if (Session["NodeType"] != null)
+                    {
+
+                        Session.Remove("NodeType");
                     }
 
 
@@ -858,6 +910,11 @@ namespace WealthERP.Advisor
                         }
                     }
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','none');", true);
+                }
+                else if (e.Item.Value == "CusQuickLinks")
+                {
+                    Session["IsDashboard"] = "CusDashBoardQuicklinks";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerDashBoardShortcut", "loadcontrol('CustomerDashBoardShortcut','login');", true);
                 }
                 else if (e.Item.Value == "Group Dashboard")
                 {
