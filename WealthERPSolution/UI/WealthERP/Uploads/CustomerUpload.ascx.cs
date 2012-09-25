@@ -614,6 +614,7 @@ namespace WealthERP.Uploads
                         else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
                         {
                             // CAMS Insert To Input Profile
+                            bool updateProcessLog4=false;
                             packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadProfileDataFromCAMSFileToXtrnlProfileInput.dtsx");
                             bool camsProInputResult = camsUploadsBo.CAMSInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
                             if (camsProInputResult)
@@ -674,10 +675,8 @@ namespace WealthERP.Uploads
                                                                     processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
 
                                                                     //processlogVo.NoOfAccountsInserted = countFolioCreated;
-                                                                    bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                    if (updateProcessLog4)
-                                                                        stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                                }
+                                                                    updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                                                                                 }
                                                             }
                                                         }
                                                     }
@@ -725,8 +724,8 @@ namespace WealthERP.Uploads
                                                         processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
                                                         txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
 
-                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                        if (updateProcessLog4)
+                                                        bool updateProcessLog5 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (updateProcessLog5)
                                                             stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
                                                     }
                                                 }
@@ -734,6 +733,9 @@ namespace WealthERP.Uploads
 
                                         }
                                     }
+                                    if (updateProcessLog4)
+                                        stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
+ 
                                 }
                             }
 
@@ -925,6 +927,8 @@ namespace WealthERP.Uploads
                         else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeTemp)
                         {
                             // Templeton Insert To Input Profile
+
+                            bool updateProcessLog4 = false;
                             packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadTempletonProfileDataFromFileToInput.dtsx");
                             bool templetonProInputResult = templetonUploadsBo.TempInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
                             if (templetonProInputResult)
@@ -984,10 +988,8 @@ namespace WealthERP.Uploads
                                                                         txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
                                                                         processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "TN");
                                                                         processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
-                                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                        if (updateProcessLog4)
-                                                                            stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                                    }
+                                                                        updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                      }
                                                                 }
                                                             }
                                                         }
@@ -1023,8 +1025,8 @@ namespace WealthERP.Uploads
                                                         processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "TN");
                                                         processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
 
-                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                        if (updateProcessLog4)
+                                                        bool updateProcessLog5 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (updateProcessLog5)
                                                             stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
                                                     }
                                                 }
@@ -1032,6 +1034,9 @@ namespace WealthERP.Uploads
 
                                         }
                                     }
+                                    if (updateProcessLog4)
+                                        stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                                    
                                 }
                             }
 
@@ -1086,6 +1091,7 @@ namespace WealthERP.Uploads
                         else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeDeutsche)
                         {
                             // Deutsche Insert To Input Profile
+                            bool updateProcessLog4 = false;
                             packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadDeutscheProfileDataFromFileToInput.dtsx");
                             bool deutscheProInputResult = deutscheUploadsBo.DeutscheInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
                             if (deutscheProInputResult)
@@ -1146,10 +1152,8 @@ namespace WealthERP.Uploads
                                                                         //processlogVo.NoOfAccountsInserted = countFolioCreated;
                                                                         processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "DT");
                                                                         processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
-                                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                        if (updateProcessLog4)
-                                                                            stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                                    }
+                                                                        updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                                                                                        }
                                                                 }
                                                             }
                                                         }
@@ -1184,8 +1188,8 @@ namespace WealthERP.Uploads
                                                         processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "DT");
                                                         processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
                                                         txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                        if (updateProcessLog4)
+                                                        bool updateProcessLog5 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (updateProcessLog5)
                                                             stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
                                                     }
                                                 }
@@ -1193,6 +1197,9 @@ namespace WealthERP.Uploads
 
                                         }
                                     }
+                                    if (updateProcessLog4)
+                                        stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
+
                                 }
                             }
 
@@ -2432,6 +2439,7 @@ namespace WealthERP.Uploads
                                 else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == "SU")
                                 {
                                     // Sundaram Insert To Input Profile
+                                    bool updateProcessLog4 = false;
                                     packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\SundramFileToInput.dtsx");
                                     bool camsProInputResult = camsUploadsBo.SundramInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
                                     if (camsProInputResult)
@@ -2492,9 +2500,8 @@ namespace WealthERP.Uploads
                                                                             processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
 
                                                                             //processlogVo.NoOfAccountsInserted = countFolioCreated;
-                                                                            bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                            if (updateProcessLog4)
-                                                                                stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                                            updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                      
                                                                         }
                                                                     }
                                                                 }
@@ -2529,8 +2536,8 @@ namespace WealthERP.Uploads
                                                                 processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
                                                                 txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
 
-                                                                bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                if (updateProcessLog4)
+                                                                bool updateProcessLog5 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                if (updateProcessLog5)
                                                                     stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
                                                             }
                                                         }
@@ -2538,6 +2545,8 @@ namespace WealthERP.Uploads
 
                                                 }
                                             }
+                                            if (updateProcessLog4)
+                                                stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
                                         }
                                     }
 
@@ -2603,6 +2612,7 @@ namespace WealthERP.Uploads
                                     bool karvyProCreateCustomerResult = false;
                                     bool karvyStagingToFolioStagingResult = false;
                                     bool karvyFolioWerpInsertionResult = false;
+                                    bool updateProcessLog4 = false;
                                     // Karvy Insert To Input Profile
                                     packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadProfileDataFromKarvyProfileFileToXtrnlProfileInput.dtsx");
                                     karvyProInputResult = karvyUploadsBo.KARVYInsertToInputProfile(packagePath, UploadProcessId, fileName, configPath);
@@ -2666,10 +2676,8 @@ namespace WealthERP.Uploads
                                                                                 processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "KA");
                                                                                 processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
                                                                                 txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
-                                                                                bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                                if (updateProcessLog4)
-                                                                                    stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                                            }
+                                                                                updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                                                                                                      }
                                                                         }
                                                                     }
                                                                 }
@@ -2703,14 +2711,17 @@ namespace WealthERP.Uploads
                                                                             processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "KA");
                                                                             processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
                                                                             txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                                                                            bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                            if (updateProcessLog4)
+                                                                            bool updateProcessLog5 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                            if (updateProcessLog5)
                                                                                 stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
                                                                         }
                                                                     }
                                                                 }
                                                             }
                                                         }
+                                                        if (updateProcessLog4)
+                                                            stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
+
                                                     }
                                                 }
                                             }
