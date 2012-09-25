@@ -97,7 +97,7 @@
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
         </td>
         <td >
-            <telerik:RadComboBox ID="ddlPortfolio" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged"
+            <telerik:RadComboBox ID="ddlPortfolio" runat="server"
                 CssClass="cmbField" EnableEmbeddedSkins="false" Skin="Telerik" AllowCustomText="true"
                 Width="120px">
             </telerik:RadComboBox>

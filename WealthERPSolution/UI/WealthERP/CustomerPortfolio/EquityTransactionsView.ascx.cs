@@ -398,10 +398,19 @@ namespace WealthERP.CustomerPortfolio
         {
             if (txtFromTran.SelectedDate != null || txtToTran.SelectedDate != null)
             {
-                dtFrom = txtFromTran.SelectedDate.Value;
-                dtTo = txtToTran.SelectedDate.Value;
-                // hdnStatus.Value = "1";
-                BindGridView(customerId, dtFrom, dtTo);
+                //if (ddlPortfolio.SelectedIndex != 0)
+                //{
+                //    dtFrom = txtFromTran.SelectedDate.Value;
+                //    dtTo = txtToTran.SelectedDate.Value;
+                //    // hdnStatus.Value = "1";
+                //    BindGridView(customerId, dtFrom, dtTo);
+                //}
+                //else
+                //{
+                    portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+                    Session[SessionContents.PortfolioId] = portfolioId;
+                    BindGridView(customerId, txtFromTran.SelectedDate.Value, txtToTran.SelectedDate.Value);
+                //}
             }
         }
 
