@@ -507,47 +507,46 @@ namespace WealthERP.CustomerPortfolio
                             nextPremiumDate = nextPremiumDate.AddYears(1);
                             break;
                     }
-                
+                   
                }
             else
             {
                 nextPremiumDate = DateTime.MinValue;
             }
-            while (nextPremiumDate < currentDate)
+            while (nextPremiumDate < currentDate && nextPremiumDate <endDate)
             {
-                DateTime TempDate = new DateTime(nextPremiumDate.Year, nextPremiumDate.Month, 1);
-                TempDate = TempDate.AddDays(startDateOnly - 1);
+                nextPremiumDate = new DateTime(nextPremiumDate.Year, nextPremiumDate.Month, 1);
+                 nextPremiumDate = nextPremiumDate.AddDays(startDateOnly - 1);
                 switch (frequency)
                 {
                     case "Daily":
-                        TempDate = TempDate.AddDays(1);
+                        nextPremiumDate = nextPremiumDate.AddDays(1);
                         break;
                     case "FortNightly":
-                        TempDate = TempDate.AddDays(15);
+                        nextPremiumDate = nextPremiumDate.AddDays(15);
                         break;
                     case "Weekly":
-                        TempDate = TempDate.AddDays(7);
+                        nextPremiumDate = nextPremiumDate.AddDays(7);
                         break;
                     case "Monthly":
-                        TempDate = TempDate.AddMonths(1);
+                        nextPremiumDate = nextPremiumDate.AddMonths(1);
                         break;
                     case "Quarterly":
-                        TempDate = TempDate.AddMonths(4);
+                        nextPremiumDate = nextPremiumDate.AddMonths(4);
                         break;
                     case "HalfYearly":
-                        TempDate = TempDate.AddMonths(6);
+                        nextPremiumDate = nextPremiumDate.AddMonths(6);
                         break;
                     case "Yearly":
-                        TempDate = TempDate.AddYears(1);
+                        nextPremiumDate = nextPremiumDate.AddYears(1);
                         break;
                     default:
-                        TempDate = DateTime.MinValue;
+                        nextPremiumDate=DateTime.MinValue;
                         break;
-                }
-                if (TempDate == DateTime.MinValue)
+                        }
+                if (nextPremiumDate == DateTime.MinValue)
                     break;
-                else
-                nextPremiumDate = TempDate;
+                
             }
             
             return nextPremiumDate;
