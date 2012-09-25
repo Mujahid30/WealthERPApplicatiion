@@ -89,21 +89,22 @@
     <tr>
     </tr>
     <tr>
-        <td class="rightField">
-            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
-            <telerik:RadComboBox ID="ddlPortfolio" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged"
-                CssClass="cmbField" EnableEmbeddedSkins="false" Skin="Telerik" AllowCustomText="true"
-                Width="120px">
-            </telerik:RadComboBox>
-        </td>
-    </tr>
-    <tr>
     </tr>
 </table>
 <table class="TableBackground">
     <tr>
-        <td>
-            <asp:Label ID="lblFromTran" Text="From" CssClass="Field" runat="server" />
+        <td class="rightField">
+            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
+        </td>
+        <td >
+            <telerik:RadComboBox ID="ddlPortfolio" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged"
+                CssClass="cmbField" EnableEmbeddedSkins="false" Skin="Telerik" AllowCustomText="true"
+                Width="120px">
+            </telerik:RadComboBox>
+        </td>    
+        <td></td>
+        <td align="right"> 
+            <asp:Label ID="lblFromTran" Text="From :" CssClass="FieldName" runat="server" />
         </td>
         <td>
             <telerik:RadDatePicker ID="txtFromTran" CssClass="txtField" runat="server" Culture="English (United States)"
@@ -116,18 +117,19 @@
                     DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-             <div id="dvTransactionDate" runat="server" class="dvInLine">
+            <div id="dvTransactionDate" runat="server" class="dvInLine">
                 <span id="Span1" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtFromTran"
-                    ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic" runat="server"
-                    InitialValue="">
+                    ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic"
+                    runat="server" InitialValue="">
                 </asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                    Type="Date" ControlToValidate="txtFromTran" CssClass="cvPCG" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                    Type="Date" ControlToValidate="txtFromTran" CssClass="cvPCG" Operator="DataTypeCheck"
+                    Display="Dynamic"></asp:CompareValidator>
             </div>
         </td>
         <td>
-            <asp:Label ID="lblToTran" Text="To" CssClass="Field" runat="server" />
+            <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
         </td>
         <td>
             <telerik:RadDatePicker ID="txtToTran" CssClass="txtField" runat="server" Culture="English (United States)"
@@ -140,19 +142,20 @@
                     DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-             <div id="Div1" runat="server" class="dvInLine">
+            <div id="Div1" runat="server" class="dvInLine">
                 <span id="Span2" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToTran"
-                    ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic" runat="server"
-                    InitialValue="">
+                    ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
+                    runat="server" InitialValue="">
                 </asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                    Type="Date" ControlToValidate="txtToTran" CssClass="cvPCG" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
-            </div>            
+                    Type="Date" ControlToValidate="txtToTran" CssClass="cvPCG" Operator="DataTypeCheck"
+                    Display="Dynamic"></asp:CompareValidator>
+            </div>
             <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtToTran"
                 ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
                 ControlToCompare="txtFromTran" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic">
-            </asp:CompareValidator> 
+            </asp:CompareValidator>
         </td>
         <td>
             <asp:Button ID="btnViewTran" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewTran_Click" />
@@ -220,8 +223,9 @@
                             </telerik:RadDatePicker>
                         </FilterTemplate>
                     </telerik:GridDateTimeColumn>
-                    <telerik:GridBoundColumn AllowFiltering="false" DataField="Quantity" HeaderText="No of Shares" ItemStyle-HorizontalAlign="Right"
-                        SortExpression="Quantity" DataFormatString="{0:N2}" Aggregate="Sum">
+                    <telerik:GridBoundColumn AllowFiltering="false" DataField="Quantity" HeaderText="No of Shares"
+                        ItemStyle-HorizontalAlign="Right" SortExpression="Quantity" DataFormatString="{0:N2}"
+                        Aggregate="Sum">
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText="Rate (Rs)" DataField="Rate" UniqueName="Rate"
                         SortExpression="Rate" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
