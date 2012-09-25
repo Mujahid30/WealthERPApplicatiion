@@ -80,8 +80,18 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderText="Buy Quantity" DataField="Buy Quantity" UniqueName="Buy Quantity"
+                            <telerik:GridBoundColumn HeaderText="Buy Qty" DataField="Buy Quantity" UniqueName="Buy Quantity"
                                 SortExpression="Buy Quantity" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderText="Buy Price" DataField="Buy Price" UniqueName="Sell Price"
+                                SortExpression="Sell Price" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderText="Sell Qty" DataField="Sell Quantity" UniqueName="Sell Price"
+                                SortExpression="Sell Price" AutoPostBackOnFilter="true" AllowFiltering="false"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
