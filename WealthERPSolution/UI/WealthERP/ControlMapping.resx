@@ -1421,4 +1421,8 @@
     <value>Uploads//RejectedSystematicTransactionInputRejects.ascx</value>
     <comment>Uploads//RejectedSystematicTransactionInputRejects.ascx</comment>
   </data>
+  <data name="CustomerDashBoardShortcut" xml:space="preserve">
+    <value>Customer//CustomerDashBoardShortcut.ascx</value>
+    <comment>Customer//CustomerDashBoardShortcut.ascx</comment>
+  </data>
 </root>

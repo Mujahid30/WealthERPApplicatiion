@@ -1843,6 +1843,13 @@
     <Compile Include="Customer\CustomerAssumptionsPreferencesSetup.ascx.designer.cs">
       <DependentUpon>CustomerAssumptionsPreferencesSetup.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Customer\CustomerDashBoardShortcut.ascx.cs">
+      <DependentUpon>CustomerDashBoardShortcut.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerDashBoardShortcut.ascx.designer.cs">
+      <DependentUpon>CustomerDashBoardShortcut.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Customer\CustomerExpense.ascx.cs">
       <DependentUpon>CustomerExpense.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5574,6 +5581,7 @@
     <Content Include="Customer\AddDematAccountDetails.ascx" />
     <Content Include="Customer\CustomerAdvisorsNote.ascx" />
     <Content Include="Customer\CustomerAssumptionsPreferencesSetup.ascx" />
+    <Content Include="Customer\CustomerDashBoardShortcut.ascx" />
     <Content Include="Customer\CustomerExpense.ascx" />
     <Content Include="Customer\CustomerIncome.ascx" />
     <Content Include="Customer\CustomerProofView.ascx" />

@@ -658,12 +658,12 @@ namespace WealthERP.General
                                         isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
                                         if (isGrpHead == true)
                                         {
-                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('AdvisorRMCustGroupDashboard','login');", true);
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('CustomerDashBoardShortcut','login');", true);
                                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustGroupDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                                         }
                                         else
                                         {
-                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('AdvisorRMCustIndiDashboard','login');", true);
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('CustomerDashBoardShortcut','login');", true);
                                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                                         }
                                     }

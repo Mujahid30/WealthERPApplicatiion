@@ -745,6 +745,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer//CustomerDashBoardShortcut.ascx.
+        /// </summary>
+        internal static string CustomerDashBoardShortcut {
+            get {
+                return ResourceManager.GetString("CustomerDashBoardShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alerts//CustomerDateAlertManagement.ascx.
         /// </summary>
         internal static string CustomerDateAlertManage {
