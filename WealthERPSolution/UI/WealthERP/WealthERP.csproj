@@ -2993,6 +2993,7 @@
     </Compile>
     <Compile Include="Uploads\RejectedSystematicTransactionInputRejects.ascx.cs">
       <DependentUpon>RejectedSystematicTransactionInputRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Uploads\RejectedSystematicTransactionInputRejects.ascx.designer.cs">
       <DependentUpon>RejectedSystematicTransactionInputRejects.ascx</DependentUpon>
@@ -5513,9 +5514,12 @@
     <Content Include="bin\DaoFPSuperlite.pdb" />
     <Content Include="bin\DaoOps.dll" />
     <Content Include="bin\DaoOps.pdb" />
+    <Content Include="bin\DaoReports.dll" />
     <Content Include="bin\DaoReports.pdb" />
     <Content Include="bin\DaoResearch.dll" />
     <Content Include="bin\DaoResearch.pdb" />
+    <Content Include="bin\DaoSupportData.dll" />
+    <Content Include="bin\DaoSupportData.pdb" />
     <Content Include="bin\Financial.dll" />
     <Content Include="bin\FusionCharts.dll" />
     <Content Include="bin\ICSharpCode.SharpZipLib.dll" />

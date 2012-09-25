@@ -1417,4 +1417,8 @@
     <value>BusinessMIS//AssetAllocationMIS.ascx</value>
     <comment>BusinessMIS//AssetAllocationMIS.ascx</comment>
   </data>
+  <data name="RejectedSystematicTransactionInputRejects" xml:space="preserve">
+    <value>Uploads//RejectedSystematicTransactionInputRejects.ascx</value>
+    <comment>Uploads//RejectedSystematicTransactionInputRejects.ascx</comment>
+  </data>
 </root>

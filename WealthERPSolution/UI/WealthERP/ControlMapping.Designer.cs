@@ -2176,6 +2176,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploads//RejectedSystematicTransactionInputRejects.ascx.
+        /// </summary>
+        internal static string RejectedSystematicTransactionInputRejects {
+            get {
+                return ResourceManager.GetString("RejectedSystematicTransactionInputRejects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//RejectedSystematicTransactionStaging.ascx.
         /// </summary>
         internal static string RejectedSystematicTransactionStaging {
