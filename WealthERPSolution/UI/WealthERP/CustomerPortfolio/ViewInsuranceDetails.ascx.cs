@@ -508,42 +508,48 @@ namespace WealthERP.CustomerPortfolio
                             break;
                     }
                 
-               while (nextPremiumDate< currentDate)
-               {
-                   nextPremiumDate = new DateTime(nextPremiumDate.Year, nextPremiumDate.Month, 1);
-                   nextPremiumDate = nextPremiumDate.AddDays(startDateOnly - 1);
-                   switch (frequency)
-                   {
-                       case "Daily":
-                           nextPremiumDate = nextPremiumDate.AddDays(1);
-                           break;
-                       case "FortNightly":
-                           nextPremiumDate = nextPremiumDate.AddDays(15);
-                           break;
-                       case "Weekly":
-                           nextPremiumDate = nextPremiumDate.AddDays(7);
-                           break;
-                       case "Monthly":
-                           nextPremiumDate = nextPremiumDate.AddMonths(1);
-                           break;
-                       case "Quarterly":
-                           nextPremiumDate = nextPremiumDate.AddMonths(4);
-                           break;
-                       case "HalfYearly":
-                           nextPremiumDate = nextPremiumDate.AddMonths(6);
-                           break;
-                       case "Yearly":
-                           nextPremiumDate = nextPremiumDate.AddYears(1);
-                           break;
-                   }
-                   startDate = nextPremiumDate;
                }
-            }
             else
             {
                 nextPremiumDate = DateTime.MinValue;
             }
-
+            while (nextPremiumDate < currentDate)
+            {
+                DateTime TempDate = new DateTime(nextPremiumDate.Year, nextPremiumDate.Month, 1);
+                TempDate = TempDate.AddDays(startDateOnly - 1);
+                switch (frequency)
+                {
+                    case "Daily":
+                        TempDate = TempDate.AddDays(1);
+                        break;
+                    case "FortNightly":
+                        TempDate = TempDate.AddDays(15);
+                        break;
+                    case "Weekly":
+                        TempDate = TempDate.AddDays(7);
+                        break;
+                    case "Monthly":
+                        TempDate = TempDate.AddMonths(1);
+                        break;
+                    case "Quarterly":
+                        TempDate = TempDate.AddMonths(4);
+                        break;
+                    case "HalfYearly":
+                        TempDate = TempDate.AddMonths(6);
+                        break;
+                    case "Yearly":
+                        TempDate = TempDate.AddYears(1);
+                        break;
+                    default:
+                        TempDate = DateTime.MinValue;
+                        break;
+                }
+                if (TempDate == DateTime.MinValue)
+                    break;
+                else
+                nextPremiumDate = TempDate;
+            }
+            
             return nextPremiumDate;
         }
 
