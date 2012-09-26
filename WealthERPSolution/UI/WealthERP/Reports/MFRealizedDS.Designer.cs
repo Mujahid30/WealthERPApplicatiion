@@ -460,7 +460,7 @@ namespace WealthERP.Reports {
             
             private global::System.Data.DataColumn columnCategory;
             
-            private global::System.Data.DataColumn columnCMFA_AccountOpeningDate;
+            private global::System.Data.DataColumn columnCMFNP_InvestmentStartDate;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public MFComprehensiveDataTable() {
@@ -626,9 +626,9 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn CMFA_AccountOpeningDateColumn {
+            public global::System.Data.DataColumn CMFNP_InvestmentStartDateColumn {
                 get {
-                    return this.columnCMFA_AccountOpeningDate;
+                    return this.columnCMFNP_InvestmentStartDate;
                 }
             }
             
@@ -681,7 +681,7 @@ namespace WealthERP.Reports {
                         long DVP, 
                         string PAIC_AssetInstrumentCategoryCode, 
                         string Category, 
-                        System.DateTime CMFA_AccountOpeningDate) {
+                        System.DateTime CMFNP_InvestmentStartDate) {
                 MFComprehensiveRow rowMFComprehensiveRow = ((MFComprehensiveRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         PASP_SchemePlanCode,
@@ -703,7 +703,7 @@ namespace WealthERP.Reports {
                         DVP,
                         PAIC_AssetInstrumentCategoryCode,
                         Category,
-                        CMFA_AccountOpeningDate};
+                        CMFNP_InvestmentStartDate};
                 rowMFComprehensiveRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMFComprehensiveRow);
                 return rowMFComprehensiveRow;
@@ -742,7 +742,7 @@ namespace WealthERP.Reports {
                 this.columnDVP = base.Columns["DVP"];
                 this.columnPAIC_AssetInstrumentCategoryCode = base.Columns["PAIC_AssetInstrumentCategoryCode"];
                 this.columnCategory = base.Columns["Category"];
-                this.columnCMFA_AccountOpeningDate = base.Columns["CMFA_AccountOpeningDate"];
+                this.columnCMFNP_InvestmentStartDate = base.Columns["CMFNP_InvestmentStartDate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -785,8 +785,8 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnPAIC_AssetInstrumentCategoryCode);
                 this.columnCategory = new global::System.Data.DataColumn("Category", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCategory);
-                this.columnCMFA_AccountOpeningDate = new global::System.Data.DataColumn("CMFA_AccountOpeningDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCMFA_AccountOpeningDate);
+                this.columnCMFNP_InvestmentStartDate = new global::System.Data.DataColumn("CMFNP_InvestmentStartDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCMFNP_InvestmentStartDate);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2814,18 +2814,18 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime CMFA_AccountOpeningDate {
+            public System.DateTime CMFNP_InvestmentStartDate {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableMFComprehensive.CMFA_AccountOpeningDateColumn]));
+                        return ((global::System.DateTime)(this[this.tableMFComprehensive.CMFNP_InvestmentStartDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CMFA_AccountOpeningDate\' in table \'MFComprehensive\' is DBNu" +
-                                "ll.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CMFNP_InvestmentStartDate\' in table \'MFComprehensive\' is DB" +
+                                "Null.", e);
                     }
                 }
                 set {
-                    this[this.tableMFComprehensive.CMFA_AccountOpeningDateColumn] = value;
+                    this[this.tableMFComprehensive.CMFNP_InvestmentStartDateColumn] = value;
                 }
             }
             
@@ -3020,13 +3020,13 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsCMFA_AccountOpeningDateNull() {
-                return this.IsNull(this.tableMFComprehensive.CMFA_AccountOpeningDateColumn);
+            public bool IsCMFNP_InvestmentStartDateNull() {
+                return this.IsNull(this.tableMFComprehensive.CMFNP_InvestmentStartDateColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetCMFA_AccountOpeningDateNull() {
-                this[this.tableMFComprehensive.CMFA_AccountOpeningDateColumn] = global::System.Convert.DBNull;
+            public void SetCMFNP_InvestmentStartDateNull() {
+                this[this.tableMFComprehensive.CMFNP_InvestmentStartDateColumn] = global::System.Convert.DBNull;
             }
         }
         
