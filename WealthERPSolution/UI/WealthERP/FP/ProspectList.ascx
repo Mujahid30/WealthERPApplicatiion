@@ -67,7 +67,7 @@
                 Style="vertical-align: middle">
             </asp:DropDownList>
         </td>
-        <td align="left">
+        <td align="right" style="width:10%">
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" OnClick="btnGo_Click" />
         </td>
         <td>
