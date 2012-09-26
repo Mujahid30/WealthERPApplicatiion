@@ -266,7 +266,7 @@
     }
     .style1
     {
-        height: 295px;
+        height: 247px;
     }
 </style>
 <table border="0" width="100%">
