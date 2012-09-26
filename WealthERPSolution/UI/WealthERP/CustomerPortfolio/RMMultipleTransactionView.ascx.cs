@@ -79,9 +79,10 @@ namespace WealthERP.CustomerPortfolio
                     rbtnPickPeriod.Checked = false;
                     trRange.Visible = true;
                     trPeriod.Visible = false;
-                    tdGroupHead.Visible = false;
-                    lblGroupHead.Visible = false;
-                    txtParentCustomer.Visible = false;
+                    //tdGroupHead.Visible = false;
+                    //lblGroupHead.Visible = false;
+                    //txtParentCustomer.Visible = false;
+                    trGroupHead.Visible = false;
                     hdnProcessIdSearch.Value = "0";
                     Panel2.Visible = false;
 
@@ -190,16 +191,18 @@ namespace WealthERP.CustomerPortfolio
         {
             if (rbtnAll.Checked == true)
             {
-                lblGroupHead.Visible = false;
-                txtParentCustomer.Visible = false;
-                tdGroupHead.Visible = false;
+                //lblGroupHead.Visible = false;
+                //txtParentCustomer.Visible = false;
+                //tdGroupHead.Visible = false;
+                trGroupHead.Visible = false;
 
             }
             else if (rbtnGroup.Checked == true)
             {
-                lblGroupHead.Visible = true;
-                txtParentCustomer.Visible = true;
-                tdGroupHead.Visible = true;
+                //lblGroupHead.Visible = true;
+                //txtParentCustomer.Visible = true;
+                //tdGroupHead.Visible = true;
+                trGroupHead.Visible = true;
                 BindGroupHead();
 
             }
