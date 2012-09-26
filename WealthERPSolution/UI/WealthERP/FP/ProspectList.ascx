@@ -51,20 +51,22 @@
 </table>
 <table id="tblAdviserBM" runat="server" width="80%">
     <tr>
-        <td align="left" style="width: 30%">
+        <td align="right" style="width: 5%">
             <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
+        </td>
+        <td style="width: 15%" align="left">
             <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
                 CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
-        <td align="left" style="width: 30%">
+        <td align="right" style="width: 5%">
             <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
+        </td>
+        <td style="width: 15%" align="left">
             <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Style="vertical-align: middle">
             </asp:DropDownList>
         </td>
-    </tr>
-    <tr>
         <td align="left">
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" OnClick="btnGo_Click" />
         </td>
@@ -102,8 +104,9 @@
                         <asp:Label ID="lblNAme" runat="server" Text=""></asp:Label>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <asp:LinkButton ID="lnkbtnGvProspectListName" Style="float: left" runat="server"
-                            OnClick="lnkbtnGvProspectListName_Click" Text='<%# Eval("Name").ToString() %>'></asp:LinkButton>
+                       <%-- <asp:LinkButton ID="lnkbtnGvProspectListName" Style="float: left" runat="server"
+                            OnClick="lnkbtnGvProspectListName_Click" Text='<%# Eval("Name").ToString() %>' ></asp:LinkButton>--%>
+                              <asp:Label ID="lnkbtnGvProspectListName" runat="server"  Text='<%# Eval("Name").ToString() %>' ></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <%--<telerik:GridBoundColumn DataField="Name" HeaderText="Name" SortExpression="Name" 
@@ -132,20 +135,21 @@
                     <ItemStyle Width="150Px" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
                 <telerik:GridBoundColumn DataField="Asset" HeaderText="Asset" SortExpression="Asset"
-                    UniqueName="Asset" ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                    DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
-                    <HeaderStyle></HeaderStyle>
-                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn DataField="Liabilities" HeaderText="Liabilities" SortExpression="Liabilities"
-                    UniqueName="Liabilities" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="Asset" ShowFilterIcon="false" AllowFiltering="false" CurrentFilterFunction="Contains"
                     AutoPostBackOnFilter="true" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
                     Aggregate="Sum">
                     <HeaderStyle></HeaderStyle>
                     <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn DataField="Networth" HeaderText="Networth" SortExpression="Networth"
-                    UniqueName="Networth" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                <telerik:GridBoundColumn DataField="Liabilities" AllowFiltering="false" HeaderText="Liabilities"
+                    SortExpression="Liabilities" UniqueName="Liabilities" ShowFilterIcon="false"
+                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" DataFormatString="{0:N0}"
+                    FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
+                    <HeaderStyle></HeaderStyle>
+                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="Networth" AllowFiltering="false" HeaderText="Networth"
+                    SortExpression="Networth" UniqueName="Networth" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     AutoPostBackOnFilter="true" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
                     Aggregate="Sum">
                     <HeaderStyle></HeaderStyle>
