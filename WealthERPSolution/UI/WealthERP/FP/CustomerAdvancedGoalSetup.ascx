@@ -60,7 +60,7 @@
                 </telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Equity" Value="EQ" TabIndex="4">
                 </telerik:RadTab>
-                <telerik:RadTab runat="server" Text="Fixed Income" Value="FI" TabIndex="5">
+                <telerik:RadTab runat="server" Text="Fixed Income" Value="FI" TabIndex="5" Visible="false">
                 </telerik:RadTab>
             </Tabs>
         </telerik:RadTab>
@@ -827,7 +827,7 @@
                     <EditFormSettings EditFormType="Template">
                         <FormTemplate>
                             <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none"
-                                style="border-collapse: collapse; background: white;">
+                                style="border-collapse: collapse;" class="EditFormSettingsTableColor">
                                 <tr class="EditFormHeader">
                                     <td colspan="2" style="font-size: small">
                                         <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="MF Investment Funding"></asp:Label>
@@ -1079,7 +1079,7 @@
                     <EditFormSettings EditFormType="Template">
                         <FormTemplate>
                             <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none"
-                                style="border-collapse: collapse; background: white;">
+                                style="border-collapse: collapse;" class="EditFormSettingsTableColor">
                                 <tr class="EditFormHeader">
                                     <td colspan="2" style="font-size: small">
                                         <asp:Label ID="EditFormHeaderSIP" runat="server" CssClass="HeaderTextSmall" Text="Monthly SIP MF Funding"></asp:Label>
@@ -1316,10 +1316,11 @@
                     <EditFormSettings EditFormType="Template">
                         <FormTemplate>
                             <table id="tblEquityFundingHeader" cellspacing="2" cellpadding="1" width="100%" border="0"
-                                rules="none" style="border-collapse: collapse; background: white;">
+                               class="EditFormSettingsTableColor">
                                 <tr class="EditFormHeader">
-                                    <td colspan="2" style="font-size: small">
-                                        <b>EQ Investment Funding</b>
+                                    <td colspan="2">
+                                       <%-- <b>EQ Investment Funding</b>--%>
+                                        <asp:Label  runat="server" CssClass="HeaderTextSmall" Text="EQ Investment Funding"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
