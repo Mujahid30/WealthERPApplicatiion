@@ -15,93 +15,15 @@
     <tr>
         <td colspan="3" style="width: 100%;">
             <div class="divPageHeading">
-              <%--  <table cellspacing="0" cellpadding="3">
+                <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
-                        <td align="left">--%>
+                        <td align="left">
                             Mutual Fund Net Position
-                            <telerik:RadGrid ID="gvSchemePerformance" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
-                                ExportSettings-FileName="SchemePerformance" Visible="true" Width="1500px">
-                                <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" Width="100%">
-                                    <CommandItemSettings ExportToPdfText="Export to Pdf" />
-                                    <Columns>
-                                        <telerik:GridBoundColumn DataField="SchemeName" HeaderText="SchemeName" SortExpression="SchemeName"
-                                            UniqueName="SchemeName" AutoPostBackOnFilter="true">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Wrap="false" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="OneMonthReturn" HeaderText="OneMonthReturn" SortExpression="OneMonthReturn"
-                                            UniqueName="OneMonthReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="SixMonthReturn" HeaderText="SixMonthReturn" SortExpression="SixMonthReturn"
-                                            UniqueName="SixMonthReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="OneYearReturn" HeaderText="OneYearReturn" SortExpression="OneYearReturn"
-                                            UniqueName="OneYearReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="ThreeYearReturn" HeaderText="ThreeYearReturn"
-                                            SortExpression="ThreeYearReturn" UniqueName="ThreeYearReturn" AutoPostBackOnFilter="true"
-                                            DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="FiveYearReturn" HeaderText="FiveYearReturn" SortExpression="FiveYearReturn"
-                                            UniqueName="FiveYearReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="InceptionReturn" HeaderText="InceptionReturn"
-                                            SortExpression="InceptionReturn" UniqueName="InceptionReturn" AutoPostBackOnFilter="true"
-                                            DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PE" HeaderText="PE" SortExpression="PE" UniqueName="PE"
-                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PB" HeaderText="PB" SortExpression="PB" UniqueName="PB"
-                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="Sharpe" HeaderText="Sharpe" SortExpression="Sharpe"
-                                            UniqueName="Sharpe" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="Sd" HeaderText="Sd" SortExpression="Sd" UniqueName="Sd"
-                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="Top5Holding" HeaderText="Top5Holding" SortExpression="Top5Holding"
-                                            UniqueName="Top5Holding" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                    </Columns>
-                                </MasterTableView>
-                                <ClientSettings>
-                                    <Scrolling AllowScroll="true" SaveScrollPosition="true" FrozenColumnsCount="1"></Scrolling>
-                                    <Resizing AllowColumnResize="true" />
-                                    <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
-                                    <ClientEvents />
-                                </ClientSettings>
-                            </telerik:RadGrid>
-      <%--                  </td>
+                        </td>
                         <td align="right">
                         </td>
                     </tr>
-                </table>--%>
+                </table>
             </div>
         </td>
     </tr>
@@ -114,11 +36,10 @@
         <td class="rightField" style="width: 15%">
             <asp:DropDownList ID="ddlDisplayType" runat="server" CssClass="cmbField">
                 <%-- <asp:ListItem Text="Select" Value="0"></asp:ListItem>--%>
-                <asp:ListItem Text="Returns" Value="1" Selected="True"></asp:ListItem>
-                <asp:ListItem Text="Tax" Value="2"></asp:ListItem>
+                <asp:ListItem Text="Returns" Value="0" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Tax" Value="1"></asp:ListItem>
             </asp:DropDownList>
         </td>
-       
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
         </td>
@@ -127,16 +48,14 @@
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
-         
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblDate" runat="server" Text="As on Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 10%">
             <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName"> </asp:Label>
         </td>
-        <td  class="leftField" style="width: 10%" align="left">
-            <asp:Button ID="btn_GO" runat="server" Text="Go" OnClick="btn_GO_Click" ValidationGroup="btn_Upload"
-                CssClass="PCGButton" />
+        <td class="rightField" style="width: 15%">
+            <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnGo_Click" />
         </td>
         <td>
         </td>
@@ -184,9 +103,9 @@
                             </tr>
                         </table>
                         <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" Width="98%" ScrollBars="Horizontal">
-                         <%--   <table id="tblHoldings" runat="server">
+                            <table id="tblHoldings" runat="server" width="50%">
                                 <tr>
-                                    <td>--%>
+                                    <td>
                                         <div id="dvHoldings" runat="server" style="width: 640px;">
                                             <asp:Label ID="lblMessageHoldings" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
@@ -206,17 +125,15 @@
                                                     Excel-Format="ExcelML">
                                                 </ExportSettings>--%>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false" CommandItemDisplay="None" Width="100%">
+                                                    AutoGenerateColumns="false" CommandItemDisplay="None">
                                                     <%-- <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                                         ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
-                                                        <telerik:GridButtonColumn HeaderStyle-Width="44px" ButtonType="LinkButton" Text="Select"
-                                                            CommandName="Select">
+                                                        <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="Category" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Category"
-                                                            HeaderText="Category" DataField="Category" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right"
-                                                            AllowFiltering="true">
+                                                        <telerik:GridBoundColumn SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                            ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
+                                                            FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" AllowFiltering="true">
                                                         </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplate>
@@ -239,25 +156,24 @@
                                                         </FooterTemplate>
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top"/>
                                                     </telerik:GridTemplateColumn>--%>
-                                                        <telerik:GridTemplateColumn HeaderStyle-Width="350px" UniqueName="Scheme" SortExpression="Scheme"
-                                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                            HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="true"
-                                                            DataField="Scheme">
+                                                        <telerik:GridTemplateColumn HeaderStyle-Width="350px" UniqueName="Scheme" SortExpression="Scheme" AutoPostBackOnFilter="true"
+                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" HeaderText="Scheme" Groupable="False"
+                                                            ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="115px" SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
+                                                        <telerik:GridBoundColumn SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
                                                             HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridDateTimeColumn HeaderStyle-Width="100px" UniqueName="FolioStartDate" AllowFiltering="false" HeaderText="FolioStartDate"
+                                                        <telerik:GridDateTimeColumn UniqueName="FolioStartDate" AllowFiltering="false" HeaderText="FolioStartDate"
                                                             DataField="FolioStartDate" DataFormatString="{0:d}" HtmlEncode="False" AutoPostBackOnFilter="false"
                                                             CurrentFilterFunction="Contains" SortExpression="FolioStartDate">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -311,18 +227,18 @@
                                                     </Columns>
                                                 </MasterTableView>
                                                 <ClientSettings>
-                                                    <Selecting AllowRowSelect="true" />
                                                     <Resizing AllowColumnResize="true" />
+                                                    <Selecting AllowRowSelect="true" />
                                                 </ClientSettings>
                                             </telerik:RadGrid>
                                         </div>
-                        <%--            </td>
+                                    </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPortfolioAllTabPage" runat="server">
-                        <table width="100%">
+                        <table width="99%">
                             <tr align="left">
                                 <td style="width: 100%;">
                                     <asp:Label ID="lblALLTotalPL" Text="Total P/L: " runat="server" CssClass="FieldName"> </asp:Label>
@@ -337,12 +253,11 @@
                                 </td>
                             </tr>
                         </table>
-                        
                         <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="98%" ScrollBars="Horizontal">
-                            <%--<table>
+                            <table width="99%">
                                 <tr>
-                                    <td>--%>
-                                        <div id="dvAll" runat="server" style="width: 900px">
+                                    <td>
+                                        <div id="dvAll" runat="server" style="width: 640px">
                                             <asp:Label ID="lblMessageAll" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnkGoBackAll" runat="server" OnClick="lnkGoBackAll_Click" Visible="false"
@@ -350,8 +265,8 @@
                                             <asp:ImageButton Visible="false" ID="imgBtnrgAll" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgAllFilteredData_OnClick"
                                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
-                                            <telerik:RadGrid ID="rgAll" runat="server" Width="2000px" PageSize="10" AllowPaging="True"
-                                                GridLines="None" AutoGenerateColumns="true"
+                                            <telerik:RadGrid ID="rgAll" runat="server" Width="1500px" PageSize="10" AllowPaging="True"
+                                                GridLines="None" AutoGenerateColumns="true" Style="border: 0; outline: none;"
                                                 Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgAll_ItemCommand"
                                                 AllowSorting="true" EnableViewState="true" OnNeedDataSource="rgAll_OnNeedDataSource"
                                                 AllowFilteringByColumn="true">
@@ -364,14 +279,12 @@
                                                     <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                                         ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
-                                                        <telerik:GridButtonColumn HeaderStyle-Width="44px" ButtonType="LinkButton" Text="Select"
-                                                            CommandName="Select">
+                                                        <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="Category" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Category"
-                                                            HeaderText="Category" DataField="Category" AllowFiltering="true" FooterText="Grand Total:"
-                                                            FooterStyle-HorizontalAlign="Right">
+                                                        <telerik:GridBoundColumn SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                            ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
+                                                            AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="left" />
                                                         </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
@@ -395,21 +308,20 @@
                                                         </FooterTemplate>
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridTemplateColumn>--%>
-                                                        <telerik:GridTemplateColumn HeaderStyle-Width="350px" UniqueName="Schemes" SortExpression="Scheme"
-                                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                            HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="true"
-                                                            DataField="Scheme">
+                                                        <telerik:GridTemplateColumn HeaderStyle-Width="350px" UniqueName="Schemes" SortExpression="Scheme" AutoPostBackOnFilter="true"
+                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" HeaderText="Scheme" Groupable="False"
+                                                            ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="115px" UniqueName="SubCategoryName" SortExpression="SubCategoryName"
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" SortExpression="SubCategoryName"
                                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                             HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
@@ -423,7 +335,7 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>--%>
-                                                        <telerik:GridDateTimeColumn HeaderStyle-Width="100px" DataField="FolioStartDate" SortExpression="FolioStartDate"
+                                                        <telerik:GridDateTimeColumn DataField="FolioStartDate" SortExpression="FolioStartDate"
                                                             AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
                                                             HeaderText="FolioStartDate" UniqueName="FolioStartDate" DataFormatString="{0:d}"
                                                             HtmlEncode="False">
@@ -506,14 +418,14 @@
                                                     </Columns>
                                                 </MasterTableView>
                                                 <ClientSettings>
-                                                    <Selecting AllowRowSelect="true" />
                                                     <Resizing AllowColumnResize="true" />
+                                                    <Selecting AllowRowSelect="true" />
                                                 </ClientSettings>
                                             </telerik:RadGrid>
                                         </div>
-                             <%--       </td>
+                                    </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPortfolioRealizedTabPage" runat="server">
@@ -529,12 +441,12 @@
                                 </td>
                             </tr>
                         </table>
-                        <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="100%"
+                        <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="98%"
                             ScrollBars="Horizontal">
-                            <%--<table id="tblRealized" runat="server">
+                            <table id="tblRealized" runat="server" width="99%">
                                 <tr>
-                                    <td>--%>
-                                        <div id="dvRealized" runat="server" style="width: 900px">
+                                    <td>
+                                        <div id="dvRealized" runat="server" style="width: 640px">
                                             <asp:Label ID="lblMessageRealized" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnkGoBackRealized" runat="server" OnClick="lnkGoBackRealized_Click"
@@ -542,7 +454,7 @@
                                             <asp:ImageButton Visible="false" ID="imgBtnrgRealized" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgRealizedFilteredData_OnClick"
                                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
-                                            <telerik:RadGrid ID="rgRealized" runat="server" Width="2000px" PageSize="10" AllowPaging="True"
+                                            <telerik:RadGrid ID="rgRealized" runat="server" Width="1500px" PageSize="10" AllowPaging="True"
                                                 AllowSorting="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
                                                 outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgRealized_ItemCommand"
                                                 EnableViewState="true" OnNeedDataSource="rgRealized_OnNeedDataSource" AllowFilteringByColumn="true">
@@ -555,13 +467,11 @@
                                                     <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                                         ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
-                                                        <telerik:GridButtonColumn HeaderStyle-Width="44px" ButtonType="LinkButton" Text="Select"
-                                                            CommandName="Select">
+                                                        <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="Category" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Category"
-                                                            HeaderText="Category" DataField="Category" AllowFiltering="true" FooterText="Grand Total:"
-                                                            FooterStyle-HorizontalAlign="Right">
+                                                        <telerik:GridBoundColumn SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                            ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
+                                                            AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplate>
@@ -584,21 +494,20 @@
                                                         </FooterTemplate>
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridTemplateColumn>--%>
-                                                        <telerik:GridTemplateColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Schemes"
-                                                            HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="true"
-                                                            DataField="Scheme">
+                                                        <telerik:GridTemplateColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                            ShowFilterIcon="false" UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
+                                                            ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="115px" SortExpression="SubCategory" AutoPostBackOnFilter="true"
+                                                        <telerik:GridBoundColumn SortExpression="SubCategory" AutoPostBackOnFilter="true"
                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
                                                             HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
@@ -612,7 +521,7 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>--%>
-                                                        <telerik:GridDateTimeColumn HeaderStyle-Width="100px" DataField="FolioStartDate" SortExpression="FolioStartDate"
+                                                        <telerik:GridDateTimeColumn DataField="FolioStartDate" SortExpression="FolioStartDate"
                                                             AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
                                                             HeaderText="FolioStartDate" UniqueName="FolioStartDate" DataFormatString="{0:d}">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -658,14 +567,14 @@
                                                     </Columns>
                                                 </MasterTableView>
                                                 <ClientSettings>
-                                                    <Selecting AllowRowSelect="true" />
                                                     <Resizing AllowColumnResize="true" />
+                                                    <Selecting AllowRowSelect="true" />
                                                 </ClientSettings>
                                             </telerik:RadGrid>
                                         </div>
-                           <%--         </td>
+                                    </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPandATabPage" runat="server">
@@ -712,6 +621,84 @@
                                                     <div id="Div1" runat="server" style="width: 640px;">
                                                         <telerik:RadAjaxPanel ID="PanelScheme" runat="server" Width="90%" EnableHistory="True"
                                                             HorizontalAlign="NotSet" LoadingPanelID="SchemePerformanceLoading">
+                                                            <telerik:RadGrid Width="1500px" ID="gvSchemePerformance" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                                                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                                                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
+                                                                ExportSettings-FileName="SchemePerformance" Visible="true">
+                                                                <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
+                                                                    <CommandItemSettings ExportToPdfText="Export to Pdf" />
+                                                                    <Columns>
+                                                                        <telerik:GridBoundColumn HeaderStyle-Width="350px" DataField="SchemeName" HeaderText="SchemeName" SortExpression="SchemeName"
+                                                                            UniqueName="SchemeName" AutoPostBackOnFilter="true">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="OneMonthReturn" HeaderText="OneMonthReturn" SortExpression="OneMonthReturn"
+                                                                            UniqueName="OneMonthReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="SixMonthReturn" HeaderText="SixMonthReturn" SortExpression="SixMonthReturn"
+                                                                            UniqueName="SixMonthReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="OneYearReturn" HeaderText="OneYearReturn" SortExpression="OneYearReturn"
+                                                                            UniqueName="OneYearReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="ThreeYearReturn" HeaderText="ThreeYearReturn"
+                                                                            SortExpression="ThreeYearReturn" UniqueName="ThreeYearReturn" AutoPostBackOnFilter="true"
+                                                                            DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="FiveYearReturn" HeaderText="FiveYearReturn" SortExpression="FiveYearReturn"
+                                                                            UniqueName="FiveYearReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="InceptionReturn" HeaderText="InceptionReturn"
+                                                                            SortExpression="InceptionReturn" UniqueName="InceptionReturn" AutoPostBackOnFilter="true"
+                                                                            DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="PE" HeaderText="PE" SortExpression="PE" UniqueName="PE"
+                                                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="PB" HeaderText="PB" SortExpression="PB" UniqueName="PB"
+                                                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="Sharpe" HeaderText="Sharpe" SortExpression="Sharpe"
+                                                                            UniqueName="Sharpe" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="Sd" HeaderText="Sd" SortExpression="Sd" UniqueName="Sd"
+                                                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="Top5Holding" HeaderText="Top5Holding" SortExpression="Top5Holding"
+                                                                            UniqueName="Top5Holding" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            <HeaderStyle></HeaderStyle>
+                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                    </Columns>
+                                                                </MasterTableView>
+                                                                <ClientSettings>
+                                                                    <Resizing AllowColumnResize="true" />
+                                                                    <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
+                                                                    <Scrolling AllowScroll="true" SaveScrollPosition="true" FrozenColumnsCount="1"></Scrolling>
+                                                                    <ClientEvents />
+                                                                </ClientSettings>
+                                                            </telerik:RadGrid>
                                                         </telerik:RadAjaxPanel>
                                                     </div>
                                                 </td>
@@ -743,7 +730,7 @@
                                                 <td>
                                                     <telerik:RadGrid ID="gvTopTenHoldings" runat="server" GridLines="None" AutoGenerateColumns="False"
                                                         PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                                        Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="false"
+                                                        Skin="Telerik" EnableEmbeddedSkins="false" Width="1500px" AllowFilteringByColumn="false"
                                                         AllowAutomaticInserts="false" ExportSettings-FileName="TopTenHoldings">
                                                         <ExportSettings HideStructureColumns="true">
                                                         </ExportSettings>
@@ -770,8 +757,8 @@
                                                             </Columns>
                                                         </MasterTableView>
                                                         <ClientSettings>
-                                                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                                             <Resizing AllowColumnResize="true" />
+                                                            <Selecting AllowRowSelect="true" />
                                                         </ClientSettings>
                                                     </telerik:RadGrid>
                                                 </td>
@@ -799,7 +786,7 @@
                                 <td>
                                     <telerik:RadGrid ID="gvSectors" runat="server" GridLines="None" AutoGenerateColumns="False"
                                         PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                        Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="false"
+                                        Skin="Telerik" EnableEmbeddedSkins="false" Width="1500px" AllowFilteringByColumn="false"
                                         AllowAutomaticInserts="false" ExportSettings-FileName="TopTenHoldings">
                                         <ExportSettings HideStructureColumns="true">
                                         </ExportSettings>
@@ -826,8 +813,8 @@
                                             </Columns>
                                         </MasterTableView>
                                         <ClientSettings>
-                                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                             <Resizing AllowColumnResize="true" />
+                                            <Selecting AllowRowSelect="true" />
                                         </ClientSettings>
                                     </telerik:RadGrid>
                                 </td>
@@ -853,11 +840,11 @@
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="TaxTabs" runat="server" EnableViewState="true" SelectedIndex="0">
                     <telerik:RadPageView ID="TaxHoldingsTabPage" runat="server">
-                        <asp:Panel ID="pnlTaxHoldings" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
-                           <%-- <table id="tblTaxHoldings" runat="server">
+                        <asp:Panel ID="pnlTaxHoldings" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
+                            <table id="tblTaxHoldings" runat="server" width="99%">
                                 <tr>
-                                    <td>--%>
-                                        <div id="dvTaxHoldings" runat="server" style="width: 1000px">
+                                    <td>
+                                        <div id="dvTaxHoldings" runat="server" style="width: 640px">
                                             <asp:Label ID="lblMessageTaxHoldings" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxHoldings" runat="server" OnClick="lnlGoBackTaxHoldings_Click"
@@ -878,13 +865,11 @@
                                                     <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                                         ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
-                                                        <telerik:GridButtonColumn HeaderStyle-Width="44px" ButtonType="LinkButton" Text="Select"
-                                                            CommandName="Select">
+                                                        <telerik:GridButtonColumn HeaderStyle-Width="50px" ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="Category" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Category"
-                                                            HeaderText="Category" DataField="Category" AllowFiltering="true" FooterText="Grand Total:"
-                                                            FooterStyle-HorizontalAlign="Right">
+                                                        <telerik:GridBoundColumn SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                            ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
+                                                            AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                             <HeaderTemplate>
@@ -907,21 +892,20 @@
                                                             </FooterTemplate>
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridTemplateColumn>--%>
-                                                        <telerik:GridTemplateColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Schemes"
-                                                            HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="true"
-                                                            DataField="Scheme">
+                                                        <telerik:GridTemplateColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                            ShowFilterIcon="false" UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
+                                                            ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="115px"  SortExpression="SubCategory" AutoPostBackOnFilter="true"
+                                                        <telerik:GridBoundColumn SortExpression="SubCategory" AutoPostBackOnFilter="true"
                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
                                                             HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
@@ -977,22 +961,22 @@
                                                     </Columns>
                                                 </MasterTableView>
                                                 <ClientSettings>
-                                                    <Selecting AllowRowSelect="true" />
                                                     <Resizing AllowColumnResize="true" />
+                                                    <Selecting AllowRowSelect="true" />
                                                 </ClientSettings>
                                             </telerik:RadGrid>
                                         </div>
-                            <%--        </td>
+                                    </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="TaxRealizedTabPage" runat="server">
-                        <asp:Panel ID="pnlTaxRealized" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
-                          <%--  <table id="tblTaxRealized" runat="server">
+                        <asp:Panel ID="pnlTaxRealized" runat="server" class="Landscape" Width="95%" ScrollBars="Horizontal">
+                            <table id="tblTaxRealized" runat="server" width="99%">
                                 <tr>
-                                    <td>--%>
-                                        <div id="dvTaxRealized" runat="server" style="width: 1000px">
+                                    <td>
+                                        <div id="dvTaxRealized" runat="server" style="width: 640px">
                                             <asp:Label ID="lblTaxRealized" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxRealized" runat="server" OnClick="lnlGoBackTaxRealized_Click"
@@ -1009,17 +993,15 @@
                                                     Excel-Format="ExcelML">
                                                 </ExportSettings>--%>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false" CommandItemDisplay="None" Width="100%">
+                                                    AutoGenerateColumns="false" CommandItemDisplay="None">
                                                     <%-- <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                                         ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
-                                                        <telerik:GridButtonColumn HeaderStyle-Width="44px" ButtonType="LinkButton" Text="Select"
-                                                            CommandName="Select">
+                                                        <telerik:GridButtonColumn HeaderStyle-Width="50px" ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="Category" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Category"
-                                                            HeaderText="Category" DataField="Category" AllowFiltering="true" FooterText="Grand Total:"
-                                                            FooterStyle-HorizontalAlign="Right">
+                                                        <telerik:GridBoundColumn SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                            ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
+                                                            AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                             <HeaderTemplate>
@@ -1042,26 +1024,25 @@
                                                             </FooterTemplate>
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridTemplateColumn>--%>
-                                                        <telerik:GridTemplateColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Schemes"
-                                                            HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="true"
-                                                            DataField="Scheme">
+                                                        <telerik:GridTemplateColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                            ShowFilterIcon="false" UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
+                                                            ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="115px" SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
+                                                        <telerik:GridBoundColumn SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
                                                             HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum"
                                                             AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridDateTimeColumn HeaderStyle-Width="100px" UniqueName="FolioStartDate" HeaderText="FolioStartDate"
+                                                        <telerik:GridDateTimeColumn UniqueName="FolioStartDate" HeaderText="FolioStartDate"
                                                             AllowFiltering="false" DataField="FolioStartDate" DataFormatString="{0:d}" HtmlEncode="False"
                                                             AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" SortExpression="FolioStartDate">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -1101,14 +1082,14 @@
                                                     </Columns>
                                                 </MasterTableView>
                                                 <ClientSettings>
-                                                    <Selecting AllowRowSelect="true" />
                                                     <Resizing AllowColumnResize="true" />
+                                                    <Selecting AllowRowSelect="true" />
                                                 </ClientSettings>
                                             </telerik:RadGrid>
                                         </div>
-                                   <%-- </td>
+                                    </td>
                                 </tr>
-                            </table>--%>
+                            </table>
                         </asp:Panel>
                     </telerik:RadPageView>
                 </telerik:RadMultiPage>

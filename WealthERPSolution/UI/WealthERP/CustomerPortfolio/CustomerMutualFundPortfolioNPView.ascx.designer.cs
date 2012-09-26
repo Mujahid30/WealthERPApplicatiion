@@ -23,15 +23,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         
         /// <summary>
-        /// gvSchemePerformance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid gvSchemePerformance;
-        
-        /// <summary>
         /// lblDisplayType control.
         /// </summary>
         /// <remarks>
@@ -86,13 +77,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblPickDate;
         
         /// <summary>
-        /// btn_GO control.
+        /// btnGo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_GO;
+        protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
         /// trNoRecords control.
@@ -219,6 +210,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlMFPortfolioHoldings;
+        
+        /// <summary>
+        /// tblHoldings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblHoldings;
         
         /// <summary>
         /// dvHoldings control.
@@ -437,6 +437,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Panel pnlMFPortfolioRealized;
         
         /// <summary>
+        /// tblRealized control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblRealized;
+        
+        /// <summary>
         /// dvRealized control.
         /// </summary>
         /// <remarks>
@@ -590,6 +599,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::Telerik.Web.UI.RadAjaxPanel PanelScheme;
         
         /// <summary>
+        /// gvSchemePerformance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvSchemePerformance;
+        
+        /// <summary>
         /// trTop10HoldingsPie control.
         /// </summary>
         /// <remarks>
@@ -716,6 +734,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Panel pnlTaxHoldings;
         
         /// <summary>
+        /// tblTaxHoldings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblTaxHoldings;
+        
+        /// <summary>
         /// dvTaxHoldings control.
         /// </summary>
         /// <remarks>
@@ -777,6 +804,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlTaxRealized;
+        
+        /// <summary>
+        /// tblTaxRealized control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblTaxRealized;
         
         /// <summary>
         /// dvTaxRealized control.

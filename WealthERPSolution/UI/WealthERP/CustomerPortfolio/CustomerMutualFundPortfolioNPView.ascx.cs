@@ -1683,7 +1683,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlMFClassificationCode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DateTime valDate = DateTime.Parse( lblPickDate.Text);
+            DateTime valDate = DateTime.Parse(lblPickDate.Text);
             dsSchemeHoldingSector = customerPortfolioBo.GetCustomerSchemeHoldingSectors(portfolioId, valDate);
             Session["DsSchemeHoldingSector"] = dsSchemeHoldingSector;
             if (ddlMFClassificationCode.SelectedValue == "0")
@@ -1759,7 +1759,7 @@ namespace WealthERP.CustomerPortfolio
         private void BindTopSectorsPie()
         {
             DataTable dtSectorsPie;
-             try
+            try
             {
                 if (Session["DsSchemeHoldingSector"] != "")
                 {
@@ -1852,7 +1852,7 @@ namespace WealthERP.CustomerPortfolio
         private void BindHoldingChart()
         {
             DataTable dtHoldingsPie;
-             try
+            try
             {
                 if (Session["DsSchemeHoldingSector"] != "")
                 {
@@ -2003,12 +2003,8 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        protected void btn_GO_Click(object sender, EventArgs e)
-        {
-            //if (ddlDisplayType.SelectedIndex == 0)
-            //{
-            //    SetPanelVisibility(false, false);
-            //}
+        protected void btnGo_Click(object sender, EventArgs e)
+        {             
             if (ddlDisplayType.SelectedIndex == 0)
             {
                 SetPanelVisibility(true, false);
