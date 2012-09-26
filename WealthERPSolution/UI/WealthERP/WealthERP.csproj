@@ -5740,6 +5740,7 @@
     <Content Include="Images\1044_South.jpg" />
     <Content Include="Images\1044_Southnd.jpg" />
     <Content Include="Images\AddPlus.png" />
+    <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\arrow_double_up_7.gif" />
     <Content Include="Images\bg-menu-main.png" />
     <Content Include="Images\birlasunlife.jpg" />
