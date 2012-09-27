@@ -3397,7 +3397,10 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(CancelEQTrnxCmd, "@CET_OrderNum", DbType.Int64, eqTransactionVo.OrderNum);
                 db.AddInParameter(CancelEQTrnxCmd, "@CET_BuySell", DbType.String, eqTransactionVo.BuySell);
                 db.AddInParameter(CancelEQTrnxCmd, "@CET_IsSpeculative", DbType.Int16, eqTransactionVo.IsSpeculative);
-                db.AddInParameter(CancelEQTrnxCmd, "@XE_ExchangeCode", DbType.String, eqTransactionVo.Exchange);
+                if (!string.IsNullOrEmpty(eqTransactionVo.Exchange))
+                    db.AddInParameter(CancelEQTrnxCmd, "@XE_ExchangeCode", DbType.String, eqTransactionVo.Exchange);
+                else
+                    db.AddInParameter(CancelEQTrnxCmd, "@XE_ExchangeCode", DbType.String, DBNull.Value);
                 db.AddInParameter(CancelEQTrnxCmd, "@CET_TradeDate", DbType.DateTime, eqTransactionVo.TradeDate);
                 db.AddInParameter(CancelEQTrnxCmd, "@CET_Rate", DbType.Decimal, eqTransactionVo.Rate);
                 db.AddInParameter(CancelEQTrnxCmd, "@CET_Quantity", DbType.Decimal, eqTransactionVo.Quantity);
