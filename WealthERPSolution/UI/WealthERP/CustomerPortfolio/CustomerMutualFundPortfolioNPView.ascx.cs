@@ -1390,7 +1390,7 @@ namespace WealthERP.CustomerPortfolio
                 SetPanelVisibility(true, false);
                 BindReturnsGrid();
                 trChart.Visible = true;
-                trSchemePerformance.Visible = false;
+                //trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
                 trTopTenSectors.Visible = false;
@@ -1689,7 +1689,7 @@ namespace WealthERP.CustomerPortfolio
             if (ddlMFClassificationCode.SelectedValue == "0")
             {
                 trChart.Visible = true;
-                trSchemePerformance.Visible = false;
+                //trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
                 trTopTenSectors.Visible = false;
@@ -1699,7 +1699,7 @@ namespace WealthERP.CustomerPortfolio
             else if (ddlMFClassificationCode.SelectedValue == "1")
             {
                 trChart.Visible = false;
-                trSchemePerformance.Visible = true;
+                //trSchemePerformance.Visible = true;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
                 trTopTenSectors.Visible = false;
@@ -1709,7 +1709,7 @@ namespace WealthERP.CustomerPortfolio
             else if (ddlMFClassificationCode.SelectedValue == "2")
             {
                 trChart.Visible = false;
-                trSchemePerformance.Visible = false;
+                //trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = true;
                 trTop10HoldingsPie.Visible = true;
                 trTopTenSectors.Visible = false;
@@ -1720,7 +1720,7 @@ namespace WealthERP.CustomerPortfolio
             else if (ddlMFClassificationCode.SelectedValue == "3")
             {
                 trChart.Visible = false;
-                trSchemePerformance.Visible = false;
+                //trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
                 trTopTenSectors.Visible = true;
@@ -1975,11 +1975,11 @@ namespace WealthERP.CustomerPortfolio
                 dtSchemePerformance = dsSchemeHoldingSector.Tables[0];
                 if (dsSchemeHoldingSector.Tables[0].Rows.Count > 0)
                 {
-                    gvSchemePerformance.Visible = true;
                     gvSchemePerformance.DataSource = dtSchemePerformance;
                     gvSchemePerformance.DataBind();
                     ErrorMessage.Visible = false;
                     trSchemePerformance.Visible = true;
+                    gvSchemePerformance.Visible = true;
                     if (Cache["SchemePerformance" + userVo.UserId] == null)
                     {
                         Cache.Insert("SchemePerformance" + userVo.UserId, dtSchemePerformance);
@@ -2010,7 +2010,7 @@ namespace WealthERP.CustomerPortfolio
                 SetPanelVisibility(true, false);
                 BindReturnsGrid();
                 trChart.Visible = true;
-                trSchemePerformance.Visible = false;
+                //trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
                 trTopTenSectors.Visible = false;

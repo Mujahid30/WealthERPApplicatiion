@@ -612,9 +612,9 @@
                             </table>
                         </asp:Panel>
                         <table>
-                            <tr id="trSchemePerformance" runat="server" visible="true">
+                            <tr id="trSchemePerformance" runat="server" visible="false">
                                 <td>
-                                    <asp:Panel ID="tbl" runat="server" ScrollBars="Horizontal" Width="98%" Visible="false">
+                                    <asp:Panel ID="tbl" runat="server" ScrollBars="Horizontal" Width="98%">
                                         <table>
                                             <tr>
                                                 <td>
