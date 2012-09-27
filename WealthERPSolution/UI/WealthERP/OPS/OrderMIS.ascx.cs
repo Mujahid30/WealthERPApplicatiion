@@ -195,6 +195,8 @@ namespace WealthERP.OPS
                 //BindTransactionType();
                 BindOrderStatus();
                 //BindAssetType();
+                lblselectCustomer.Visible = false;
+                txtIndividualCustomer.Visible = false;
             }
             //btnSync.Visible = false;
             //btnMannualMatch.Visible = false;
@@ -1121,9 +1123,9 @@ namespace WealthERP.OPS
             txtIndividualCustomer.Enabled = true;
             hdnIndividualOrGroup.Value = ddlCustomerType.SelectedItem.Value;
             rquiredFieldValidatorIndivudialCustomer.Visible = true;
+            
             if (ddlCustomerType.SelectedItem.Value == "0")
             {
-
                 customerType = "GROUP";
                 if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                 {
@@ -1177,9 +1179,13 @@ namespace WealthERP.OPS
                         txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMGroupCustomers";
                     }
                 }
+                lblselectCustomer.Visible = true;
+                txtIndividualCustomer.Visible = true;
             }
             else if (ddlCustomerType.SelectedItem.Value == "1")
             {
+                lblselectCustomer.Visible = true;
+                txtIndividualCustomer.Visible = true;
                 customerType = "IND";
 
                 //rquiredFieldValidatorIndivudialCustomer.Visible = true;
@@ -1241,6 +1247,8 @@ namespace WealthERP.OPS
             {
                 txtIndividualCustomer.Enabled = false;
                 hdnCustomerId.Value = null;
+                lblselectCustomer.Visible = false;
+                txtIndividualCustomer.Visible = false;
             }
         }
         protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
