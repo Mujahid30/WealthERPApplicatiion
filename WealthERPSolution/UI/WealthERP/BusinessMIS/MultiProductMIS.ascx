@@ -299,6 +299,11 @@
                             FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right"/>
                         </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn Aggregate="Sum" UniqueName="TotalAUM" HeaderText="Total AUM" DataField="TotalAUM"
+                            DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle HorizontalAlign="Right" />
+                        </telerik:GridBoundColumn>
                         <%--<telerik:GridBoundColumn UniqueName="Assets_Total" HeaderText="Assets Total" DataField="Assets_Total"
                             DataFormatString="{0:F0}" HtmlEncode="false">
                             <ItemStyle HorizontalAlign="Right" />
