@@ -5755,7 +5755,11 @@
     <Content Include="Images\csv.png" />
     <Content Include="Images\Dashboard-BusinessMIS.png" />
     <Content Include="Images\Dashboard-Clients.png" />
+    <Content Include="Images\Dashboard-Equity.png" />
+    <Content Include="Images\Dashboard-FP.png" />
     <Content Include="Images\Dashboard-MF-Order.png" />
+    <Content Include="Images\Dashboard-MutualFund.png" />
+    <Content Include="Images\DashBoard-Notification.png" />
     <Content Include="Images\DashBoard-ProspectUser.png" />
     <Content Include="Images\DeleteRecord.png" />
     <Content Include="Images\desert-sample.gif" />
