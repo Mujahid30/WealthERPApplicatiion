@@ -58,14 +58,14 @@ namespace WealthERP.Uploads
                 gvSIPInputRejectDetails.DataSource = dsRejectedRecords.Tables[0];
                 gvSIPInputRejectDetails.DataBind();
 
-                if (Cache["SIPInputRejectDetails" + processID.ToString()] == null)
+                if (Cache["SIPInputRejectDetails" + userVo.UserId.ToString()] == null)
                 {
-                    Cache.Insert("SIPInputRejectDetails" + processID.ToString(), dsRejectedRecords);
+                    Cache.Insert("SIPInputRejectDetails" + userVo.UserId.ToString(), dsRejectedRecords);
                 }
                 else
                 {
-                    Cache.Remove("SIPInputRejectDetails" + processID.ToString());
-                    Cache.Insert("SIPInputRejectDetails" + processID.ToString(), dsRejectedRecords);
+                    Cache.Remove("SIPInputRejectDetails" + userVo.UserId.ToString());
+                    Cache.Insert("SIPInputRejectDetails" + userVo.UserId.ToString(), dsRejectedRecords);
                 }
             }
             else
@@ -78,11 +78,15 @@ namespace WealthERP.Uploads
         protected void gvSIPInputRejectDetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dtGvSIPInputRejectDetails = new DataSet();
-            dtGvSIPInputRejectDetails = (DataSet)Cache["SIPInputRejectDetails" + processID.ToString()];
+            dtGvSIPInputRejectDetails = (DataSet)Cache["SIPInputRejectDetails" + userVo.UserId.ToString()];
             gvSIPInputRejectDetails.DataSource = dtGvSIPInputRejectDetails;
         }
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
+            DataSet dtGvSIPInputRejectDetails = new DataSet();
+            dtGvSIPInputRejectDetails = (DataSet)Cache["SIPInputRejectDetails" + userVo.UserId.ToString()];
+            gvSIPInputRejectDetails.DataSource = dtGvSIPInputRejectDetails;
+
             gvSIPInputRejectDetails.ExportSettings.OpenInNewWindow = true;
             gvSIPInputRejectDetails.ExportSettings.IgnorePaging = true;
             gvSIPInputRejectDetails.ExportSettings.HideStructureColumns = true;
