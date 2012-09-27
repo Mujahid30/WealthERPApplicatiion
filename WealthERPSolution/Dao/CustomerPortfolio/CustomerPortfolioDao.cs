@@ -747,6 +747,11 @@ namespace DaoCustomerPortfolio
                         if (dr["RET_Realized_TotalDividends"].ToString().Trim() != String.Empty)
                             mfPortfNetPositionVo.ReturnsRealizedTotalDividends = double.Parse(dr["RET_Realized_TotalDividends"].ToString());
 
+
+                        if (dr["CMFNP_InvestmentStartDate"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.InvestmentStartDate = DateTime.Parse(dr["CMFNP_InvestmentStartDate"].ToString());
+                        
+
                         if (dr["CMFNP_RET_Hold_AcqCost"].ToString().Trim() != String.Empty)
                             mfPortfNetPositionVo.ReturnsHoldAcqCost = double.Parse(dr["CMFNP_RET_Hold_AcqCost"].ToString());
 
