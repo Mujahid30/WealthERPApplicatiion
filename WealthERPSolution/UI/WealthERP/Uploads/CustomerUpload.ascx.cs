@@ -614,7 +614,7 @@ namespace WealthERP.Uploads
                         else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
                         {
                             // CAMS Insert To Input Profile
-                            bool updateProcessLog4=false;
+                            bool updateProcessLog4 = false;
                             packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadProfileDataFromCAMSFileToXtrnlProfileInput.dtsx");
                             bool camsProInputResult = camsUploadsBo.CAMSInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
                             if (camsProInputResult)
@@ -676,7 +676,7 @@ namespace WealthERP.Uploads
 
                                                                     //processlogVo.NoOfAccountsInserted = countFolioCreated;
                                                                     updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                                                                                 }
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -735,7 +735,7 @@ namespace WealthERP.Uploads
                                     }
                                     if (updateProcessLog4)
                                         stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
- 
+
                                 }
                             }
 
@@ -989,7 +989,7 @@ namespace WealthERP.Uploads
                                                                         processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "TN");
                                                                         processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
                                                                         updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                      }
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -1036,7 +1036,7 @@ namespace WealthERP.Uploads
                                     }
                                     if (updateProcessLog4)
                                         stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                                    
+
                                 }
                             }
 
@@ -1153,7 +1153,7 @@ namespace WealthERP.Uploads
                                                                         processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "DT");
                                                                         processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
                                                                         updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                                                                                        }
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -2501,7 +2501,7 @@ namespace WealthERP.Uploads
 
                                                                             //processlogVo.NoOfAccountsInserted = countFolioCreated;
                                                                             updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                      
+
                                                                         }
                                                                     }
                                                                 }
@@ -2677,7 +2677,7 @@ namespace WealthERP.Uploads
                                                                                 processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
                                                                                 txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
                                                                                 updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                                                                                                      }
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
@@ -4962,7 +4962,7 @@ namespace WealthERP.Uploads
                             rejectUpload_Flag = true;
                             reject_reason = strFileReadError;
                         }
-                      
+
                     }
                     else if (extension == "xls" || extension == "xlsx")
                     {
@@ -4970,19 +4970,19 @@ namespace WealthERP.Uploads
                         FileUpload.SaveAs(Filepath);
                         ds = readFile.ReadExcelfile(Filepath);
                     }
-                        //get all column nams for the selcted file type
-                        dsColumnNames = uploadcommonBo.GetColumnNames(27);
+                    //get all column nams for the selcted file type
+                    dsColumnNames = uploadcommonBo.GetColumnNames(27);
 
-                        //Get werp Column Names for the selected type of file
-                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(27);
+                    //Get werp Column Names for the selected type of file
+                    dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(27);
 
-                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 27);
-                        //Get XML after mapping, checking for columns
-                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+                    dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 27);
+                    //Get XML after mapping, checking for columns
+                    dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
 
-                        //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", Contants.UploadFileTypeSystematic);
-                 
+                    //Get filetypeid from XML
+                    filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", Contants.UploadFileTypeSystematic);
+
                 }
                 #endregion
                 //------------Shantanu--------------------------------
@@ -5034,7 +5034,7 @@ namespace WealthERP.Uploads
                     //string periodday = dsXML.Tables[0].Rows[0]["period_day"].ToString();
                     //string[] periodArray =new string[0];
                     //periodArray = periodday.Split(',');
-                   
+
                     //dsXML.Tables[0].DefaultView.RowFilter = "periodicity=" + "'FM'";
 
 
@@ -5058,7 +5058,7 @@ namespace WealthERP.Uploads
                     filteredTable = dsXML.Tables[0].Copy();
                     filteredTable = filteredTable.Clone();
                     filteredTable.Rows.Clear();
-                    foreach (DataRow  dr in foundRows)
+                    foreach (DataRow dr in foundRows)
                     {
                         string periodday = dr["period_day"].ToString();
                         string[] periodArray = new string[0];
@@ -5069,7 +5069,7 @@ namespace WealthERP.Uploads
                             dr.BeginEdit();
                             dr["period_day"] = str;
                             filteredTable.Rows.Add(dr.ItemArray);
-                            
+
                             filteredTable.AcceptChanges();
                         }
                     }
@@ -5078,9 +5078,11 @@ namespace WealthERP.Uploads
                     string expressionForRowsWithoutFM;
                     //expressionForRowsWithoutFM = "periodicity=" + "'O'";
                     //expressionForRowsWithoutFM = "period_day NOT LIKE" + "'%,%'"  ;
-                    expressionForRowsWithoutFM = "period_day NOT LIKE" + "'%,%' OR period_day IS NULL";
+                    //expressionForRowsWithoutFM = "period_day NOT LIKE" + "'%,%' OR period_day IS NULL";
 
-                    
+                    expressionForRowsWithoutFM = "Convert(period_day, 'System.String') NOT LIKE" + "'%,%' OR period_day IS NULL";
+
+
                     DataTable dtWithoutFM = new DataTable();
 
                     DataView dvMFTransactionsProcessed = new DataView(dataTableForMerge, expressionForRowsWithoutFM, "period_day", DataViewRowState.CurrentRows);
@@ -5089,12 +5091,12 @@ namespace WealthERP.Uploads
                     dtWithoutFM.Merge(filteredTable);
                     //dtWithoutFM.Merge(filteredTable);
 
-                    
+
                     DataSet dsUpdatedData = new DataSet();
                     dsUpdatedData.Tables.Add(dtWithoutFM);
                     dsXML.Tables.Clear();
                     dsXML.Tables.Add(dsUpdatedData.Tables[0].Copy());
-                    ds =dsXML;                   
+                    ds = dsXML;
 
                     //Get XML after mapping, checking for columns
                     dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
@@ -6174,7 +6176,7 @@ namespace WealthERP.Uploads
                         //    ds = SkipRows(ds);
                         //}
                         if (ddlAction.SelectedValue != "NSE")
-                        ds.Tables[0].Rows[0].Delete();
+                            ds.Tables[0].Rows[0].Delete();
                         dsXML = ds;
 
                         string uploadtype = ddlAction.SelectedValue;
