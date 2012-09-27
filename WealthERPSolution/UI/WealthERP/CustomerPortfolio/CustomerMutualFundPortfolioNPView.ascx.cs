@@ -871,6 +871,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("SchemeCode");
             dtReturnsHoldings.Columns.Add("SubCategoryName");
             dtReturnsHoldings.Columns.Add("FolioStartDate");
+            dtReturnsHoldings.Columns.Add("InvestmentStartDate");
         }
 
         private void ReturnsAllDataTableCreation(DataTable dtReturnsAll)
@@ -899,6 +900,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsAll.Columns.Add("SchemeCode");
             dtReturnsAll.Columns.Add("SubCategoryName");
             dtReturnsAll.Columns.Add("FolioStartDate");
+            dtReturnsAll.Columns.Add("InvestmentStartDate");
         }
 
         private void ReturnsRealizedDataTableCreation(DataTable dtReturnsRealized)
@@ -920,6 +922,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsRealized.Columns.Add("SchemeCode");
             dtReturnsRealized.Columns.Add("SubCategoryName");
             dtReturnsRealized.Columns.Add("FolioStartDate");
+            dtReturnsRealized.Columns.Add("InvestmentStartDate");
         }
 
         private void TaxHoldingsDataTableCreation(DataTable dtTaxHoldings)
@@ -940,6 +943,7 @@ namespace WealthERP.CustomerPortfolio
             dtTaxHoldings.Columns.Add("SchemeCode");
             dtTaxHoldings.Columns.Add("SubCategoryName");
             dtTaxHoldings.Columns.Add("FolioStartDate");
+            dtTaxHoldings.Columns.Add("InvestmentStartDate");
         }
 
         private void TaxRealizedDataTableCreation(DataTable dtTaxRealized)
@@ -959,6 +963,7 @@ namespace WealthERP.CustomerPortfolio
             dtTaxRealized.Columns.Add("SubCategoryName");
             dtTaxRealized.Columns.Add("UnitsSold", typeof(double));
             dtTaxRealized.Columns.Add("FolioStartDate");
+            dtTaxRealized.Columns.Add("InvestmentStartDate");
         }
 
         private void BindPerformaceChart()

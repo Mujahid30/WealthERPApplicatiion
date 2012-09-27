@@ -182,6 +182,16 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
+                                                        
+                                                         <telerik:GridDateTimeColumn DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
+                                                            AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
+                                                            HeaderText="InvestmentStartDate" UniqueName="InvestmentStartDate" DataFormatString="{0:d}">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="InvestmentStartDateFilter" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>
                                                         <telerik:GridBoundColumn UniqueName="PurchasedUnits" HeaderText="Purchased Units"
                                                             DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N3}" Aggregate="Sum"
                                                             FooterStyle-HorizontalAlign="Right">
@@ -342,6 +352,16 @@
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                             <FilterTemplate>
                                                                 <telerik:RadDatePicker ID="resolveDateFilter" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>
+                                                        
+                                                         <telerik:GridDateTimeColumn DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
+                                                            AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
+                                                            HeaderText="InvestmentStartDate" UniqueName="InvestmentStartDate" DataFormatString="{0:d}">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="InvestmentStartDateFilter" runat="server">
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
@@ -527,6 +547,15 @@
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                             <FilterTemplate>
                                                                 <telerik:RadDatePicker ID="resolveDateFilter" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>
+                                                         <telerik:GridDateTimeColumn DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
+                                                            AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
+                                                            HeaderText="InvestmentStartDate" UniqueName="InvestmentStartDate" DataFormatString="{0:d}">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="InvestmentStartDateFilter" runat="server">
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
@@ -929,6 +958,16 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
+                                                        
+                                                         <telerik:GridDateTimeColumn DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
+                                                            AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
+                                                            HeaderText="InvestmentStartDate" UniqueName="InvestmentStartDate" DataFormatString="{0:d}">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="InvestmentStartDateFilter" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>
                                                         <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Total Units" DataField="OpenUnits"
                                                             AllowFiltering="false" DataFormatString="{0:N2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -1048,6 +1087,16 @@
                                                             <ItemStyle HorizontalAlign="Right" />
                                                             <FilterTemplate>
                                                                 <telerik:RadDatePicker ID="resolveDateFilter" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>
+                                                        
+                                                         <telerik:GridDateTimeColumn DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
+                                                            AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
+                                                            HeaderText="InvestmentStartDate" UniqueName="InvestmentStartDate" DataFormatString="{0:d}">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="InvestmentStartDateFilter" runat="server">
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
