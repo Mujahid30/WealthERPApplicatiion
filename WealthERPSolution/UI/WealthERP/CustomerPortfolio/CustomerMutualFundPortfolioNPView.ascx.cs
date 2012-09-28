@@ -61,7 +61,8 @@ namespace WealthERP.CustomerPortfolio
                 ErrorMessage.Visible = false;
                 if (!IsPostBack)
                 {
-                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                    if(Session[SessionContents.PortfolioId]!=null)
+                        portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                     BindPortfolioDropDown();
                     CalculatePortfolioXIRR(portfolioId);
                     GetMFPortfolioList(lblPickDate.Text);
