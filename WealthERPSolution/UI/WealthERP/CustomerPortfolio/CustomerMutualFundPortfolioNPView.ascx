@@ -129,9 +129,9 @@
                                                     <%-- <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                                         ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
-                                                        <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
+                                                        <telerik:GridButtonColumn HeaderStyle-Width="50px" ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
                                                             FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" AllowFiltering="true">
                                                         </telerik:GridBoundColumn>
@@ -236,6 +236,8 @@
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
                                                 </MasterTableView>
+                                                
+                                                <HeaderStyle Width="150px" />
                                                 <ClientSettings>
                                                     <Resizing AllowColumnResize="true" />
                                                     <Selecting AllowRowSelect="true" />
@@ -289,10 +291,10 @@
                                                     <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                                         ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
-                                                        <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
+                                                        <telerik:GridButtonColumn HeaderStyle-Width="50px" ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
                                                             AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="left" />
@@ -437,6 +439,8 @@
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
                                                 </MasterTableView>
+                                                
+                                                <HeaderStyle Width="150px" />
                                                 <ClientSettings>
                                                     <Resizing AllowColumnResize="true" />
                                                     <Selecting AllowRowSelect="true" />
@@ -487,9 +491,9 @@
                                                     <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                                         ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
-                                                        <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
+                                                        <telerik:GridButtonColumn HeaderStyle-Width="50px" ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="Category" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
                                                             AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
@@ -595,6 +599,7 @@
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
                                                 </MasterTableView>
+                                                <HeaderStyle Width="150px" />
                                                 <ClientSettings>
                                                     <Resizing AllowColumnResize="true" />
                                                     <Selecting AllowRowSelect="true" />
@@ -640,7 +645,7 @@
                                 </tr>
                             </table>
                         </asp:Panel>
-                        <table>
+                        <table width="100%">
                             <tr id="trSchemePerformance" runat="server" visible="false">
                                 <td>
                                     <asp:Panel ID="tbl" runat="server" ScrollBars="Horizontal" Width="98%">
@@ -654,7 +659,7 @@
                                                                 PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                                                 Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
                                                                 ExportSettings-FileName="SchemePerformance" Visible="true">
-                                                                <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
+                                                                <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false">
                                                                     <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                                                     <Columns>
                                                                         <telerik:GridBoundColumn HeaderStyle-Width="350px" DataField="SchemeName" HeaderText="SchemeName" SortExpression="SchemeName"
@@ -754,12 +759,12 @@
                             <tr id="trHoldingGrid" runat="server">
                                 <td>
                                     <asp:Panel ID="pnlHoldingGrid" runat="server" class="Landscape" Width="98%">
-                                        <table>
+                                        <table width="100%">
                                             <tr>
                                                 <td>
                                                     <telerik:RadGrid ID="gvTopTenHoldings" runat="server" GridLines="None" AutoGenerateColumns="False"
                                                         PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                                        Skin="Telerik" EnableEmbeddedSkins="false" Width="1500px" AllowFilteringByColumn="false"
+                                                        Skin="Telerik" EnableEmbeddedSkins="false" Width="700px" AllowFilteringByColumn="false"
                                                         AllowAutomaticInserts="false" ExportSettings-FileName="TopTenHoldings">
                                                         <ExportSettings HideStructureColumns="true">
                                                         </ExportSettings>
@@ -785,6 +790,7 @@
                                                                 </telerik:GridBoundColumn>
                                                             </Columns>
                                                         </MasterTableView>
+                                                        <HeaderStyle Width="150px" />
                                                         <ClientSettings>
                                                             <Resizing AllowColumnResize="true" />
                                                             <Selecting AllowRowSelect="true" />
@@ -815,14 +821,14 @@
                                 <td>
                                     <telerik:RadGrid ID="gvSectors" runat="server" GridLines="None" AutoGenerateColumns="False"
                                         PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                        Skin="Telerik" EnableEmbeddedSkins="false" Width="1500px" AllowFilteringByColumn="false"
+                                        Skin="Telerik" EnableEmbeddedSkins="false" Width="700px" AllowFilteringByColumn="false"
                                         AllowAutomaticInserts="false" ExportSettings-FileName="TopTenHoldings">
                                         <ExportSettings HideStructureColumns="true">
                                         </ExportSettings>
                                         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                             CommandItemDisplay="None">
                                             <Columns>
-                                                <telerik:GridBoundColumn DataField="SectorCode" HeaderText="SectorCode" SortExpression="SectorCode"
+                                                <telerik:GridBoundColumn HeaderStyle-Width="100px" DataField="SectorCode" HeaderText="SectorCode" SortExpression="SectorCode"
                                                     UniqueName="SectorCode" AutoPostBackOnFilter="true" FooterText="Grand Total:"
                                                     FooterStyle-HorizontalAlign="Right">
                                                     <HeaderStyle></HeaderStyle>
@@ -841,6 +847,7 @@
                                                 </telerik:GridBoundColumn>
                                             </Columns>
                                         </MasterTableView>
+                                        <HeaderStyle Width="150" />
                                         <ClientSettings>
                                             <Resizing AllowColumnResize="true" />
                                             <Selecting AllowRowSelect="true" />
