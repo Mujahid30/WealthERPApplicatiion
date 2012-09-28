@@ -62,7 +62,10 @@ namespace WealthERP.CustomerPortfolio
                 GetLatestValuationDate();
                 if (!IsPostBack)
                 {
-                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                    if (Session[SessionContents.PortfolioId] != null)
+                        portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                    else
+                        portfolioId = customerPortfolioVo.PortfolioId;
                     BindPortfolioDropDown();
                     LoadEquityPortfolio();
                     //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
