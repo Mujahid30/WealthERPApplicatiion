@@ -23,6 +23,15 @@ namespace WealthERP.Customer {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
+        /// imgCusDashBoard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgCusDashBoard;
+        
+        /// <summary>
         /// lnkbtnCustomerDashBoard control.
         /// </summary>
         /// <remarks>
@@ -30,6 +39,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnCustomerDashBoard;
+        
+        /// <summary>
+        /// imgFP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgFP;
         
         /// <summary>
         /// lnkbtnFPDashBoard control.
@@ -41,6 +59,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnFPDashBoard;
         
         /// <summary>
+        /// imgOrderentry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgOrderentry;
+        
+        /// <summary>
         /// lnkbtnProductOrder control.
         /// </summary>
         /// <remarks>
@@ -48,6 +75,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnProductOrder;
+        
+        /// <summary>
+        /// imgbtnMF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgbtnMF;
         
         /// <summary>
         /// lnkbtnMF control.
@@ -59,6 +95,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnMF;
         
         /// <summary>
+        /// imgbtnEquity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgbtnEquity;
+        
+        /// <summary>
         /// lnkbtnEquity control.
         /// </summary>
         /// <remarks>
@@ -66,6 +111,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnEquity;
+        
+        /// <summary>
+        /// imgbtnNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgbtnNotification;
         
         /// <summary>
         /// lnkbtnAlerts control.

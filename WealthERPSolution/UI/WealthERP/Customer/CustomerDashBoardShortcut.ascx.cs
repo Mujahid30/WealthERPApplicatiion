@@ -31,8 +31,20 @@ namespace WealthERP.Customer
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorRMCustIndiDashboard", "loadcontrol('AdvisorRMCustIndiDashboard','login');", true);
 
         }
+        protected void imgCusDashBoard_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["NodeType"] = "CustomerDashBoard";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorRMCustIndiDashboard", "loadcontrol('AdvisorRMCustIndiDashboard','login');", true);
+        }
 
         protected void lnkbtnFPDashBoard_Click(object sender, EventArgs e)
+        {
+            Session["NodeType"] = "FPDashBoard";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "CustomerFPDashBoard", "loadcontrol('CustomerFPDashBoard','login');", true);
+        }
+        protected void imgFP_Click(object sender, ImageClickEventArgs e)
         {
             Session["NodeType"] = "FPDashBoard";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
@@ -66,6 +78,38 @@ namespace WealthERP.Customer
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMAlertNotifications", "loadcontrol('RMAlertNotifications','login');", true);
         }
+
+        protected void imgOrderentry_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["NodeType"] = "Order";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "CustomerOrderList", "loadcontrol('CustomerOrderList','login');", true);
+        }
+
+        protected void imgbtnMF_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["NodeType"] = "MF";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "ViewMutualFundPortfolio", "loadcontrol('ViewMutualFundPortfolio','login');", true);
+        }
+
+        protected void imgbtnEquity_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["NodeType"] = "Equity";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "ViewEquityPortfolios", "loadcontrol('ViewEquityPortfolios','login');", true);
+        }
+
+        protected void imgbtnNotification_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["NodeType"] = "Notification";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMAlertNotifications", "loadcontrol('RMAlertNotifications','login');", true);
+        }
+
+       
+
+        
 
         
     }
