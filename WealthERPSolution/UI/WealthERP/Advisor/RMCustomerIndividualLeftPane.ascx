@@ -77,14 +77,16 @@
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Home" Value="Home">
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Customer Quick Links" Value="CusQuickLinks">
+                            <telerik:RadPanelItem runat="server" Text="Home" Value="CusHome">
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="short Cut" Value="CusQuickLinks">
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Value="Group Dashboard" Text="Group Dashboard"
                                 Visible="false">
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="Customer Dashboard" Value="Customer Dashboard">
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Value="Profile Dashboard" Text="Profile Dashboard">
+                            <telerik:RadPanelItem runat="server" Value="Profile Dashboard" Text="Profile">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="View Profile" Value="View Profile">
                                     </telerik:RadPanelItem>
@@ -159,7 +161,7 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Portfolio Dashboard" Value="Portfolio Dashboard">
+                            <telerik:RadPanelItem runat="server" Text="Portfolio" Value="Portfolio Dashboard">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
                                         <Items>

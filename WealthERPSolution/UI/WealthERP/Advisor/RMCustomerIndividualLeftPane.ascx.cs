@@ -243,7 +243,7 @@ namespace WealthERP.Advisor
                         RadPanelBar1.FindItemByValue("CusQuickLinks").Selected = true;
                         //Session["IsDashboard"] = "false";
                     }
-                    else if (IsDashboard == "portfolio")
+                     else if (IsDashboard == "portfolio")
                     {
                         RadPanelBar1.FindItemByValue("Portfolio Dashboard").Selected = true;
                         RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
@@ -914,6 +914,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "CusQuickLinks")
                 {
                     Session["IsDashboard"] = "CusDashBoardQuicklinks";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerDashBoardShortcut", "loadcontrol('CustomerDashBoardShortcut','login');", true);
+                }
+                else if (e.Item.Value == "CusHome")
+                {
+                    Session["CustomerHome"] = "CustomerHome";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerDashBoardShortcut", "loadcontrol('CustomerDashBoardShortcut','login');", true);
                 }
                 else if (e.Item.Value == "Group Dashboard")
