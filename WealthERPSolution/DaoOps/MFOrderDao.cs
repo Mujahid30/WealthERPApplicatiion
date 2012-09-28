@@ -206,7 +206,10 @@ namespace DaoOps
                     db.AddInParameter(GetCustomerMFOrderMIScmd, "@amcCode", DbType.String, amcCode);
                 else
                     db.AddInParameter(GetCustomerMFOrderMIScmd, "@amcCode", DbType.String, DBNull.Value);
-                db.AddInParameter(GetCustomerMFOrderMIScmd, "@customerId", DbType.String, customerId);
+                if (!string.IsNullOrEmpty(customerId.ToString().Trim()))
+                    db.AddInParameter(GetCustomerMFOrderMIScmd, "@customerId", DbType.String, customerId);
+                else
+                    db.AddInParameter(GetCustomerMFOrderMIScmd, "@customerId", DbType.String, DBNull.Value);
               
                 dsGetCustomerMFOrderMIS = db.ExecuteDataSet(GetCustomerMFOrderMIScmd);
             }
