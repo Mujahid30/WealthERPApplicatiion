@@ -2053,8 +2053,9 @@
                                         <td></td><td></td>
                                 <td align="right">
                                     </td><td align="left">
-                                    </td><td align="right">
-                               <asp:Label ID="lblTotalLI" runat="server" CssClass="FieldName" Text="Grand Total : "></asp:Label></td><td 
+                                    </td><td align="right"></td>
+                                    <td align="left"></td>
+                               <td align="right"><asp:Label ID="lblTotalLI" runat="server" CssClass="FieldName" Text="Grand Total : "></asp:Label></td><td 
                                                 align="left">
                                <asp:TextBox ID="txtTotalLISA" runat="server" Enabled="false" EnableViewState="true" 
                                                     Style="direction: rtl" Width="90px"></asp:TextBox></td><td></td><td></td>
