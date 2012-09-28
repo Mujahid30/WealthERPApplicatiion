@@ -174,7 +174,7 @@
                                     <asp:ListItem Text="Alerts" Value="Alerts" />
                                     <asp:ListItem Text="Delete Profile" />
                                     <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
-                                    <asp:ListItem Text="QuickLinks" Value="QuickLinks" />
+                                    <asp:ListItem Text="Shortcuts" Value="QuickLinks" />
                                 </asp:DropDownList>
                             </ItemTemplate>
                             <%-- <FooterTemplate>
