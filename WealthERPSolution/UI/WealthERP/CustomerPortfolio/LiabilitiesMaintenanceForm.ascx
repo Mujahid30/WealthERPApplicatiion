@@ -42,14 +42,7 @@
     }
 </script>
 
-<%--<script type="text/javascript" language="javascript">
-    function JSValidateToAssetClass() {
-    alert("leave")
-        document.getElementById("<%=txtEMIAmount.ClientID %>").value = null;
-        document.getElementById("<%=txtNoOfInstallments.ClientID %>").value = null;
-        document.getElementById("<%=txtInstallmentEndDt.ClientID %>").value = null;
-           }
-</script>--%>
+
 <script type="text/javascript" language="javascript">
     function ResetDDL() {
         var installtype;
@@ -541,7 +534,7 @@
                 </td>
                 <td class="rightField">
                     <asp:DropDownList ID="ddlEMIFrequency" runat="server" CssClass="cmbField" AutoPostBack="true"
-                 onchange="return CheckRequiredField();" OnSelectedIndexChanged="ddlEMIFrequency_SelectedIndexChanged"> 
+                  OnSelectedIndexChanged="ddlEMIFrequency_SelectedIndexChanged"> 
                     </asp:DropDownList>
                     <span id="Span12" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />Please select the Installment Frequency"
@@ -589,6 +582,7 @@
                         Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
+            <tr id="trInstallAmt" runat="server">
             <td class="leftField">
                 <asp:Label ID="lblEMIAmount" runat="server" Text="Installment Amount :" CssClass="FieldName"></asp:Label>
             </td>
@@ -605,6 +599,7 @@
                     Display="Dynamic" CssClass="rfvPCG" runat="server" ErrorMessage="Not acceptable format"
                     ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
             </td>
+            </tr>
             <tr>
             </tr>
             <tr id="trLumpsum" runat="server">

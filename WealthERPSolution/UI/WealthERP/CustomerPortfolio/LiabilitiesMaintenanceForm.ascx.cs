@@ -56,11 +56,7 @@ namespace WealthERP.CustomerPortfolio
                 userVo = (UserVo)Session[SessionContents.UserVo];
                 rmVo = (RMVo)Session[SessionContents.RmVo];
 
-                trInstallmentHeader.Visible = true;
-                trInstallment1.Visible = true;
-                trInstallment2.Visible = true;
-                trInstallment3.Visible = true;
-                trLumpsum.Visible = false;
+                
                 //CompareValidator5.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
                 if (Session["propertyVo"] != null && Session["test"] != null)
                 {
@@ -134,6 +130,12 @@ namespace WealthERP.CustomerPortfolio
                         //trEdit.Visible = false;
                         lnkEdit.Visible = false;
                         LnkBack.Visible = false;
+                        trInstallmentHeader.Visible = true;
+                        trInstallment1.Visible = true;
+                        trInstallment2.Visible = true;
+                        trInstallment3.Visible = true;
+                        trLumpsum.Visible = false;
+                        trInstallAmt.Visible = true;
                         // trLAPError.Visible = false;
                         // trLAPError.Visible = false;
                         // trLAPTitle.Visible = false;
@@ -2365,7 +2367,7 @@ namespace WealthERP.CustomerPortfolio
                 trInstallment1.Visible = false;
                 trInstallment2.Visible = false;
                 trInstallment3.Visible = false;
-
+                trInstallAmt.Visible = false;
 
                 trLumpsum.Visible = true;
                 CalcualteLumpSum();
@@ -2376,7 +2378,7 @@ namespace WealthERP.CustomerPortfolio
                 trInstallment1.Visible = true;
                 trInstallment2.Visible = true;
                 trInstallment3.Visible = true;
-
+                trInstallAmt.Visible = true;
                 trLumpsum.Visible = false;
                 CalculateInstallmentAmount();
             }
