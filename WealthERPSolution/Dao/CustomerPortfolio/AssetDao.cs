@@ -1275,6 +1275,27 @@ namespace DaoCustomerPortfolio
             }
             return dsGetAbsoluteReturn;
         }
+        public DataSet GetSubCategoryPieChartValue(int PortfolioId, int adviserId)
+        {
+            Database db;
+            DbCommand getSubCategoryPieChartValuecmd;
+            DataSet dsSubCategoryPieChartValue = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSubCategoryPieChartValuecmd = db.GetStoredProcCommand("SP_GetCustomerSubCategoryPerformance");
+                db.AddInParameter(getSubCategoryPieChartValuecmd, "@PortfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(getSubCategoryPieChartValuecmd, "@A_AdviserId", DbType.Int32, adviserId);
+                getSubCategoryPieChartValuecmd.CommandTimeout = 60 * 60;
+                dsSubCategoryPieChartValue = db.ExecuteDataSet(getSubCategoryPieChartValuecmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSubCategoryPieChartValue;
+        }
 
 
     }
