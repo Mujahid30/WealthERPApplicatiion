@@ -928,3 +928,4 @@
 <asp:HiddenField ID="hdnSchemeCode" runat="server" />
 <asp:HiddenField ID="hdnPortfolioId" runat="server"/>
 <asp:HiddenField ID="hdnAccountId" runat="server"/>
+<asp:HiddenField ID="hdnAmcCode" runat="server" />

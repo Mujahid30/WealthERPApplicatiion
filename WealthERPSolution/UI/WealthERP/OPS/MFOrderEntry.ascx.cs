@@ -1530,6 +1530,7 @@ namespace WealthERP.OPS
         {
             if (ddlAMCList.SelectedIndex != 0)
             {
+                hdnAmcCode.Value = ddlAMCList.SelectedValue;
                 amcCode = int.Parse(ddlAMCList.SelectedValue);
                 if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
                 {
