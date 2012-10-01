@@ -5,10 +5,26 @@
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
 <script type="text/javascript">
-    function SinglePaymentEPSelection() {       
+    $(document).ready(function() {
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+
+<script type="text/javascript">
+    function SinglePaymentEPSelection() {
         var DropdownList = document.getElementById('<%=ddlEPPremiumFrequencyCode.ClientID %>');
-        var SelectedValue = DropdownList.value; 
+        var SelectedValue = DropdownList.value;
         if (SelectedValue == "SP") {
             document.getElementById('<%=ddlEPPrPayDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtLastPremiumDate.ClientID%>').disabled = 'true';
@@ -20,9 +36,9 @@
             document.getElementById('<%=txtLastPremiumDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtEPPremiumDuration.ClientID%>').disabled = false;
             document.getElementById('<%=txtEPGracePeriod.ClientID%>').disabled = false;
-        }     
+        }
     }
-        
+
     function SinglePaymentMPSelection() {
         var DropdownList = document.getElementById('<%=ddlMPPremiumFrequencyCode.ClientID %>');
         var SelectedValue = DropdownList.value;
@@ -39,7 +55,7 @@
             document.getElementById('<%=txtMPGracePeriod.ClientID%>').disabled = false;
         }
     }
-    
+
     function SinglePaymentTPSelection() {
         var DropdownList = document.getElementById('<%=ddlTPPremiumFrequencyCode.ClientID %>');
         var SelectedValue = DropdownList.value;
@@ -88,7 +104,7 @@
             document.getElementById('<%=txtULIPGracePeriod.ClientID%>').disabled = false;
         }
     }
-    
+
     function SinglePaymentOTSelection() {
         var DropdownList = document.getElementById('<%=ddlOTPremiumFrequencyCode.ClientID %>');
         var SelectedValue = DropdownList.value;
@@ -98,7 +114,7 @@
             document.getElementById('<%=txtOTPremiumDuration.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtOTGracePeriod.ClientID%>').disabled = 'true';
         }
-        else{
+        else {
             document.getElementById('<%=ddlOTPrPayDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtOTLastPremiumDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtOTPremiumDuration.ClientID%>').disabled = false;
@@ -195,7 +211,6 @@
     }
 </script>
 
-
 <script type="text/javascript">
     function CalculateMaturityDate() {
         var Months = document.getElementById('<%=txtPolicyTerms.ClientID %>').value;
@@ -214,13 +229,14 @@
 
         document.getElementById("<%= txtPolicyMaturity.ClientID %>").value = newMaturityDate;
     }
-</script>   
- 
+</script>
+
 <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
-Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None" Title="Insert New Scheme">
-<ContentTemplate>
-    <div style="padding: 20px">
-        <table width="100%">
+    Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
+    Title="Insert New Scheme">
+    <ContentTemplate>
+        <div style="padding: 20px">
+            <table width="100%">
                 <tr>
                     <td class="leftField" style="width: 10%">
                         <asp:Label ID="lblIssuer" runat="server" Text="Insurance Issuer: " CssClass="FieldName"></asp:Label>
@@ -243,31 +259,54 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 </tr>
                 <tr>
                     <td class="leftField" style="width: 10%">
-                        <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton"
-                        OnClick="btnOk_OnClick" ValidationGroup="vgOK" />
+                        <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" OnClick="btnOk_OnClick"
+                            ValidationGroup="vgOK" />
                     </td>
                     <td class="rightField" style="width: 25%">
-                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" OnClick="btnCancel_OnClick"/>
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" OnClick="btnCancel_OnClick" />
                     </td>
                 </tr>
             </table>
-    </div>
-</ContentTemplate>
+        </div>
+    </ContentTemplate>
 </telerik:RadWindow>
-   
-<table style="width: 100%;">
+<table width="100%">
     <tr>
         <td colspan="6">
-            <asp:Label ID="lblInsuranceEntryHeader" class="HeaderTextBig" runat="server" Text="Life Insurance Account Entry Details"></asp:Label>
-            <hr />
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Life Insurance Account Entry Details
+                        </td>
+                        <td align="right">
+                            <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Back"
+                                OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                            <td>
+                                <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
+                                    class="flip" />
+                            </td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
-    <tr>
+    <%--  <tr>
         <td colspan="6">
             &nbsp;
         </td>
-    </tr>
+    </tr>--%>
     <tr>
+        <td colspan="3">
+            <div class="panel">
+                <p>
+                    Note: Fields marked with a ' * ' are compulsory
+                </p>
+            </div>
+        </td>
+    </tr>
+    <%--<tr>
         <td colspan="6" class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
                 Note: Fields marked with ' * ' are compulsory</label>
@@ -280,15 +319,9 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
     </tr>
     <tr>
         <td colspan="6">
-            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
-                OnClick="lnkBtnBack_Click"></asp:LinkButton>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="6">
             &nbsp;
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="2" class="leftField">
             <asp:Label ID="lblInstrumentCategory" runat="server" Text="Instrument Category:"
@@ -308,15 +341,21 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
     </tr>
     <tr>
         <td colspan="6">
-            &nbsp;
         </td>
     </tr>
-    <tr>
+    <tr id="trInstallmentHeader" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Account Details
+            </div>
+        </td>
+    </tr>
+    <%-- <tr>
         <td colspan="6">
             <asp:Label ID="Label5" runat="server" Text="Account Details" CssClass="HeaderTextSmall"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr id="trEditButton" runat="server" visible="false">
         <td colspan="6">
             <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" Text="Edit" OnClick="lnkEdit_Click">
@@ -352,30 +391,37 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtName" ErrorMessage="Please enter the Scheme Name"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
-            <asp:DropDownList ID="ddlAssetPerticular" runat="server" CssClass="cmbField" AutoPostBack="true" Width="42%"
-            OnSelectedIndexChanged="ddlUlipPlans_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlAssetPerticular" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="42%" OnSelectedIndexChanged="ddlUlipPlans_SelectedIndexChanged">
             </asp:DropDownList>
             <asp:Button ID="btnAddScheme" runat="server" CssClass="PCGMediumButton" Text="Add Scheme"
-                CausesValidation="false" OnClick="btnAddScheme_OnClick"/>
+                CausesValidation="false" OnClick="btnAddScheme_OnClick" />
         </td>
     </tr>
     <tr>
         <td colspan="6">
         </td>
     </tr>
-    <tr>
+    <tr id="tr1" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Policy Details
+            </div>
+        </td>
+    </tr>
+    <%--  <tr>
         <td colspan="6">
             <asp:Label ID="Label23" runat="server" CssClass="HeaderTextSmall" Text="Policy Details"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="2" class="leftField">
             <asp:Label ID="Label21" runat="server" CssClass="FieldName" Text="Policy Commencement Date:"></asp:Label>
         </td>
         <td colspan="4">
             <asp:TextBox ID="txtPolicyCommencementDate" runat="server" CssClass="txtField" AutoPostBack="true"
-            ontextchanged="txtPolicyCommencementDate_TextChanged"></asp:TextBox>
+                OnTextChanged="txtPolicyCommencementDate_TextChanged"></asp:TextBox>
             <cc1:CalendarExtender ID="txtPolicyCommencementDate_CalendarExtender" runat="server"
                 TargetControlID="txtPolicyCommencementDate" Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckMaturityDate">
             </cc1:CalendarExtender>
@@ -397,16 +443,14 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblPolicyTerms" runat="server" CssClass="FieldName" Text="Policy Term:"></asp:Label>
         </td>
         <td colspan="4">
-            <asp:TextBox ID="txtPolicyTerms" runat="server" CssClass="txtField"
-            AutoPostBack="true" ValidationGroup="vgSubmit" 
-            ontextchanged="txtPolicyTerms_TextChanged" ></asp:TextBox>
+            <asp:TextBox ID="txtPolicyTerms" runat="server" CssClass="txtField" AutoPostBack="true"
+                ValidationGroup="vgSubmit" OnTextChanged="txtPolicyTerms_TextChanged"></asp:TextBox>
             <span id="Span12" class="spnRequiredField">*</span>
-            <asp:DropDownList ID="ddlPeriodSelection" runat="server" AutoPostBack="true" 
-                CssClass="cmbField" ValidationGroup="vgSubmit"
-                onselectedindexchanged="ddlPeriodSelection_SelectedIndexChanged" >            
-            <asp:ListItem Text="Days" Value="DA"></asp:ListItem>
-            <asp:ListItem Text="Months" Value="MN"></asp:ListItem>
-            <asp:ListItem Text="Years" Value="YR"></asp:ListItem>
+            <asp:DropDownList ID="ddlPeriodSelection" runat="server" AutoPostBack="true" CssClass="cmbField"
+                ValidationGroup="vgSubmit" OnSelectedIndexChanged="ddlPeriodSelection_SelectedIndexChanged">
+                <asp:ListItem Text="Days" Value="DA"></asp:ListItem>
+                <asp:ListItem Text="Months" Value="MN"></asp:ListItem>
+                <asp:ListItem Text="Years" Value="YR"></asp:ListItem>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfvPolicyTerms" ControlToValidate="txtPolicyTerms"
                 ErrorMessage="Please select a Policy Terms" Display="Dynamic" runat="server"
@@ -414,7 +458,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvPolicyTerms" runat="server" ErrorMessage="Please enter intiger value"
                 Type="Integer" ControlToValidate="txtPolicyTerms" Operator="DataTypeCheck" CssClass="cvPCG"
-                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>                
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -462,7 +506,8 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
         <td colspan="4">
             <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox>
-           <asp:RegularExpressionValidator ID="AppValidator1" ControlToValidate="txtApplicationNumber" ValidationExpression="^[0-9a-zA-Z ]+$"  runat="server" ErrorMessage="Please enter an Alphanumeric value" />
+            <asp:RegularExpressionValidator ID="AppValidator1" ControlToValidate="txtApplicationNumber"
+                ValidationExpression="^[0-9a-zA-Z ]+$" runat="server" ErrorMessage="Please enter an Alphanumeric value" />
             <%--<asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtApplicationNumber" Operator="DataTypeCheck"
                 ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
@@ -504,30 +549,36 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <cc1:CalendarExtender ID="cePolicyPurchaseDate" runat="server" TargetControlID="txtPolicyPurchaseDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
-                TargetControlID="txtPolicyPurchaseDate" WatermarkText="dd/mm/yyyy">
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtPolicyPurchaseDate"
+                WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
             <%--<span id="Span7" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="rfvApplDate" ControlToValidate="txtPolicyPurchaseDate" ErrorMessage="Please select purchase Date"
                         Display="Dynamic" runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="cvPolicyPurchaseDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
-                Type="Date" ControlToValidate="txtPolicyPurchaseDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
+                Type="Date" ControlToValidate="txtPolicyPurchaseDate" Operator="DataTypeCheck"
+                CssClass="cvPCG" ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
         <td colspan="6">
-            &nbsp;
-        </td>
+            <td>
     </tr>
     <%--Start Editing From Here--%>
-    <tr>
+    <tr id="tr2" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Premium Details
+            </div>
+        </td>
+    </tr>
+    <%-- <tr>
         <td colspan="6">
             <asp:Label ID="Label24" runat="server" CssClass="HeaderTextSmall" Text="Premium Details"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr id="trEPPremiumAmount" runat="server">
         <td class="leftField" colspan="2">
             <asp:Label ID="lblEPPremiumAmount" runat="server" CssClass="FieldName" Text="Premium Installment Amount:"></asp:Label>
@@ -547,7 +598,8 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblEPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlEPPremiumFrequencyCode" runat="server" CssClass="cmbField" onchange="SinglePaymentEPSelection();">
+            <asp:DropDownList ID="ddlEPPremiumFrequencyCode" runat="server" CssClass="cmbField"
+                onchange="SinglePaymentEPSelection();">
             </asp:DropDownList>
             <span id="Span9" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlEPPremiumFrequencyCode"
@@ -667,7 +719,8 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblOTPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlOTPremiumFrequencyCode" runat="server" CssClass="cmbField"  onchange="SinglePaymentOTSelection();">
+            <asp:DropDownList ID="ddlOTPremiumFrequencyCode" runat="server" CssClass="cmbField"
+                onchange="SinglePaymentOTSelection();">
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator49" runat="server" ControlToValidate="ddlOTPremiumFrequencyCode"
@@ -788,7 +841,8 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblWLPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlWLPPremiumFrequencyCode" runat="server" CssClass="cmbField" onchange="SinglePaymentWPSelection();">
+            <asp:DropDownList ID="ddlWLPPremiumFrequencyCode" runat="server" CssClass="cmbField"
+                onchange="SinglePaymentWPSelection();">
             </asp:DropDownList>
             <span id="Span14" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlWLPPremiumFrequencyCode"
@@ -902,7 +956,8 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblMPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlMPPremiumFrequencyCode" runat="server" CssClass="cmbField" onchange="SinglePaymentMPSelection();">
+            <asp:DropDownList ID="ddlMPPremiumFrequencyCode" runat="server" CssClass="cmbField"
+                onchange="SinglePaymentMPSelection();">
             </asp:DropDownList>
             <span id="Span19" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlMPPremiumFrequencyCode"
@@ -1020,7 +1075,8 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblULIPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlULIPPremiumFrequencyCode" runat="server" CssClass="cmbField" onchange="SinglePaymentUPSelection();">
+            <asp:DropDownList ID="ddlULIPPremiumFrequencyCode" runat="server" CssClass="cmbField"
+                onchange="SinglePaymentUPSelection();">
             </asp:DropDownList>
             <span id="Span23" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlULIPPremiumFrequencyCode"
@@ -1134,7 +1190,8 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblTPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlTPPremiumFrequencyCode" runat="server" CssClass="cmbField" onchange="SinglePaymentTPSelection();">
+            <asp:DropDownList ID="ddlTPPremiumFrequencyCode" runat="server" CssClass="cmbField"
+                onchange="SinglePaymentTPSelection();">
             </asp:DropDownList>
             <span id="Span27" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlTPPremiumFrequencyCode"
@@ -1252,12 +1309,19 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-    <tr id="trMPHeader" runat="server">
+    <tr id="trMPHeader" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Moneyback Schedule
+            </div>
+        </td>
+    </tr>
+    <%--  <tr id="trMPHeader" runat="server">
         <td colspan="6">
             <asp:Label ID="Label29" runat="server" CssClass="HeaderTextSmall" Text="Moneyback Schedule"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr id="trMPPolicyTerm" runat="server">
         <td class="leftField" colspan="2">
             <asp:Label ID="Label30" runat="server" CssClass="FieldName" Text="Policy Term:"></asp:Label>
@@ -1309,30 +1373,37 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         <td colspan="6">
         </td>
     </tr>
-    <tr id="trULIPHeader" runat="server">
+    <tr id="trULIPHeader" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                ULIP Investment Allocation Schedule
+            </div>
+        </td>
+    </tr>
+    <%-- <tr id="trULIPHeader" runat="server">
         <td align="left" colspan="6">
             <asp:Label ID="Label32" runat="server" CssClass="HeaderTextSmall" Text="ULIP Investment Allocation Schedule"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <asp:Panel ID="pnlGridView" runat="server">
         <tr id="trULIPAllocation" runat="server">
             <td align="left" colspan="6">
-                <telerik:RadGrid ID="rgULIPSubPlanSchedule" runat="server" Skin="Telerik" CssClass="RadGrid" 
+                <telerik:RadGrid ID="rgULIPSubPlanSchedule" runat="server" Skin="Telerik" CssClass="RadGrid"
                     GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="False" AutoGenerateColumns="False"
                     ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
-                    AllowAutomaticUpdates="false" OnItemCommand="rgULIPSubPlanSchedule_ItemCommand" OnItemCreated="rgULIPSubPlanSchedule_ItemCreated"
-                    OnNeedDataSource="rgULIPSubPlanSchedule_NeedDataSource" OnUpdateCommand="rgULIPSubPlanSchedule_UpdateCommand"
-                    HorizontalAlign="NotSet" DataKeyNames="ISF_SchemeFundId" Width="100%">
+                    AllowAutomaticUpdates="false" OnItemCommand="rgULIPSubPlanSchedule_ItemCommand"
+                    OnItemCreated="rgULIPSubPlanSchedule_ItemCreated" OnNeedDataSource="rgULIPSubPlanSchedule_NeedDataSource"
+                    OnUpdateCommand="rgULIPSubPlanSchedule_UpdateCommand" HorizontalAlign="NotSet"
+                    DataKeyNames="ISF_SchemeFundId" Width="100%">
                     <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" CssClass="TableBackground"
                         TableLayout="Fixed" Width="100%">
-                        <CommandItemSettings ShowRefreshButton="false"/>
+                        <CommandItemSettings ShowRefreshButton="false" />
                         <Columns>
                             <telerik:GridEditCommandColumn HeaderText="Edit" UniqueName="EditCommandColumn">
                                 <HeaderStyle Width="10%" />
                             </telerik:GridEditCommandColumn>
-                            <telerik:GridBoundColumn UniqueName="IF_FundName" HeaderText="Sub Plan Name"
-                                DataField="IF_FundName">
+                            <telerik:GridBoundColumn UniqueName="IF_FundName" HeaderText="Sub Plan Name" DataField="IF_FundName">
                                 <HeaderStyle Width="20%" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="CINPUD_InvestedCost" HeaderText="Funds Allocated"
@@ -1357,7 +1428,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                             <telerik:GridBoundColumn HeaderText="Absolute Return" UniqueName="CINPUD_AbsoluteReturn"
                                 DataField="CINPUD_AbsoluteReturn">
                                 <HeaderStyle Width="10%" />
-                            </telerik:GridBoundColumn> 
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="CINPUD_AllocationPer" HeaderText="Allocation Percentage"
                                 DataField="CINPUD_AllocationPer">
                             </telerik:GridBoundColumn>
@@ -1390,17 +1461,24 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblError" runat="server" CssClass="FieldName" Text="Label"></asp:Label>
         </td>
     </tr>
-    <tr>
+    <tr id="tr3" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Nominee Details
+            </div>
+        </td>
+    </tr>
+    <%-- <tr>
         <td colspan="6">
             <asp:Label ID="lblNomineeDetails" runat="server" CssClass="HeaderTextSmall" Text="Nominee Details"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr id="trNominees" runat="server">
         <td colspan="4">
             <asp:GridView ID="gvNominee" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                ShowFooter="true" DataKeyNames="MemberCustomerId, AssociationId" AllowSorting="True" Onrowdatabound="gvNominee_RowDataBound" 
-                CssClass="GridViewStyle">
+                ShowFooter="true" DataKeyNames="MemberCustomerId, AssociationId" AllowSorting="True"
+                OnRowDataBound="gvNominee_RowDataBound" CssClass="GridViewStyle">
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -1431,12 +1509,19 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblNoNominee" runat="server" Text="You have no Associations" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
-    <tr id="trValuationHeader" runat="server">
+    <tr id="trValuationHeader" runat="server" visible="false">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Valuation
+            </div>
+        </td>
+    </tr>
+    <%-- <tr id="trValuationHeader" runat="server">
         <td align="left" colspan="6">
             <asp:Label ID="Label27" runat="server" CssClass="HeaderTextSmall" Text="Valuation"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr id="trEPBonus" runat="server">
         <td class="leftField" colspan="2">
             <asp:Label ID="Label12" runat="server" CssClass="FieldName" Text="Premium Accumulated:"></asp:Label>
@@ -1652,10 +1737,10 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblMortalityCharges" runat="server" CssClass="FieldName" Text="Mortality  Charges:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtMortalityCharges" runat="server" CssClass="txtField"></asp:TextBox>            
+            <asp:TextBox ID="txtMortalityCharges" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="cvMortalityCharges" runat="server" ErrorMessage="Please enter a numeric value"
-                Type="Double" ControlToValidate="txtMortalityCharges" Operator="DataTypeCheck" CssClass="cvPCG"
-                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
+                Type="Double" ControlToValidate="txtMortalityCharges" Operator="DataTypeCheck"
+                CssClass="cvPCG" ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblULIPCharges" runat="server" CssClass="FieldName" Text="Other Charges:"></asp:Label>
@@ -1676,7 +1761,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblUlipNAV" runat="server" CssClass="FieldName" Text="NAV:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtUlipNAV" runat="server" CssClass="txtField"></asp:TextBox>            
+            <asp:TextBox ID="txtUlipNAV" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtUlipNAV" Operator="DataTypeCheck" CssClass="cvPCG"
                 ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
