@@ -260,7 +260,7 @@
         <td class="rightField">
             <asp:DropDownList ID="ddlBankList" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-            <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+            <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                 Height="6%" Width="6%" ></asp:ImageButton>
                   <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
