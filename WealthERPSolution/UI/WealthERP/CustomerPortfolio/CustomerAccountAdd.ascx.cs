@@ -117,8 +117,8 @@ namespace WealthERP.CustomerPortfolio
                         gvJointHoldersList.Visible = false;
                         lblJointHolders.Visible = false;
                         gvNominees.Visible = false;
-                        lblNominees.Visible = false;
-
+                        //lblNominees.Visible = false;
+                        trNomineeCaption.Visible = false;
                         lblCategory.Visible = false;
                         ddlCategory.Visible = false;
                         lblAccountNum.Visible = false;

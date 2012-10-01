@@ -2,6 +2,16 @@
     Inherits="WealthERP.CustomerPortfolio.CustomerAccountAdd" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
 <script language="javascript" type="text/javascript">
     function checkDate(sender, args) {
         var selectedDate = new Date();
@@ -18,6 +28,12 @@
     }
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+
 <asp:ScriptManager ID="scrptMgr" runat="server" EnableScriptLocalization="true">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="up1" runat="server">
@@ -29,7 +45,11 @@
                         <table cellspacing="0" cellpadding="3" width="100%">
                             <tr id="lblLifeInsurance" runat="server">
                                 <td align="left">
-                                    <asp:Label ID="lblCustAccountHeader" class="HeaderTextBig" runat="server" ></asp:Label>
+                                    <asp:Label ID="lblCustAccountHeader" class="HeaderTextBig" runat="server"></asp:Label>
+                                </td>
+                                <td align="right" style="padding-bottom:2px;">
+                                    <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
+                                        class="flip" />
                                 </td>
                             </tr>
                         </table>
@@ -42,16 +62,20 @@
                 </td>
             </tr>--%>
             <tr>
-                <td>
-                    &nbsp;
+                <td colspan="3">
+                    <div class="panel">
+                        <p>
+                            Note: Fields marked with a ' * ' are compulsory
+                        </p>
+                    </div>
                 </td>
             </tr>
-            <tr>
+            <%--   <tr>
                 <td class="tdRequiredText">
                     <label id="lbl" class="lblRequiredText">
                         Note: Fields marked with ' * ' are compulsory</label>
                 </td>
-            </tr>
+            </tr>--%>
         </table>
         <table style="width: 100%;">
             <tr>
@@ -241,12 +265,19 @@
                     &nbsp;
                 </td>
             </tr>
-            <tr id="trNomineeCaption" runat="server">
+            <tr id="trNomineeCaption" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Nominees
+            </div>
+        </td>
+    </tr>
+           <%-- <tr id="trNomineeCaption" runat="server">
                 <td colspan="2">
                     <asp:Label ID="lblNominees" runat="server" CssClass="HeaderTextSmall" Text="Nominees"></asp:Label>
                     <hr />
                 </td>
-            </tr>
+            </tr>--%>
             <tr id="trNominees" runat="server">
                 <td colspan="2">
                     <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" CellPadding="4"
