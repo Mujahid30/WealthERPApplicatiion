@@ -61,7 +61,7 @@ namespace WealthERP.CustomerPortfolio
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
-
+               hdnCustomerName.Value = customerVo.FirstName + "" + customerVo.MiddleName + "" + customerVo.LastName;
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 trJointHolders.Visible = false;
@@ -152,6 +152,7 @@ namespace WealthERP.CustomerPortfolio
         }
         private void ViewFolioDetails()
         {
+           
             customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];
             if(customerAccountsVo.AccountOpeningDate != DateTime.MinValue)
                 txtAccountDate.Text = customerAccountsVo.AccountOpeningDate.ToShortDateString();
@@ -159,6 +160,10 @@ namespace WealthERP.CustomerPortfolio
             txtFolioNumber.Text = customerAccountsVo.AccountNum.ToString();
             BindAMC();
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
+            BindCustomerBankList();
+            ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
+            ddlBankList.SelectedValue = customerAccountsVo.BankId.ToString();
+            txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
                 rbtnYes.Checked = true;
             else
@@ -180,7 +185,12 @@ namespace WealthERP.CustomerPortfolio
             gvNominee2.Enabled = false;
             gvJoint2.Enabled = false;
             SetVisiblity(0);
+            txtInvestorName.Enabled = false;
             trJoint2Header.Visible = false;
+            ddlBankList.Enabled = false;
+            chkUseProfileName.Visible = false;
+            imgBtnAddBank.Visible = false;
+            imgBtnRefereshBank.Visible = false;
         }
 
         private void BindAssociates(CustomerAccountsVo AccountVo)
@@ -332,7 +342,11 @@ namespace WealthERP.CustomerPortfolio
             gvJoint2.Enabled = true;
             gvNominee2.Enabled = true;
             SetVisiblity(1);
-           
+            txtInvestorName.Enabled = true;
+            ddlBankList.Enabled = true;
+            chkUseProfileName.Visible = true;
+            imgBtnAddBank.Visible = true;
+            imgBtnRefereshBank.Visible = true;           
         }
 
         private void SetVisiblity(int p)
@@ -698,7 +712,7 @@ namespace WealthERP.CustomerPortfolio
             int BankId = 0;
             Int32.TryParse(ddlBankList.SelectedValue, out BankId);
             newAccountVo.BankId = BankId;
-            customerAccountsVo.Name = txtInvestorName.Text;
+            newAccountVo.Name = txtInvestorName.Text;
             if (oldaccount == txtFolioNumber.Text)
             {
                 newAccountVo.AssetClass = "MF";

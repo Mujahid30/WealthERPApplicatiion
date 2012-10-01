@@ -185,6 +185,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtAccountDate_TextBoxWatermarkExtender;
         
         /// <summary>
+        /// trbankList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trbankList;
+        
+        /// <summary>
         /// lblddlBankList control.
         /// </summary>
         /// <remarks>
@@ -237,6 +246,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtInvestorName;
+        
+        /// <summary>
+        /// chkUseProfileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkUseProfileName;
         
         /// <summary>
         /// trJointHolders control.
@@ -390,5 +408,14 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidValidCheck;
+        
+        /// <summary>
+        /// hdnCustomerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnCustomerName;
     }
 }

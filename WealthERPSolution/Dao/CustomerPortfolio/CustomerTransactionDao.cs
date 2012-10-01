@@ -1099,7 +1099,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getMFTransactionsCmd, "@sortExpression", DbType.String, SortExpression);
                 db.AddInParameter(getMFTransactionsCmd, "@FromTransactionDate", DbType.DateTime, FromDate);
                 db.AddInParameter(getMFTransactionsCmd, "@ToTransactionDate", DbType.DateTime, ToDate);
-
+                getMFTransactionsCmd.CommandTimeout = 60 * 60;
                 dsGetMFTransactions = db.ExecuteDataSet(getMFTransactionsCmd);
                 if (dsGetMFTransactions.Tables[0].Rows.Count > 0)
                 {

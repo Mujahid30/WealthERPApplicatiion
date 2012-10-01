@@ -48,6 +48,22 @@
         return false;    
     }
 </script>
+
+<script type="text/javascript">
+    function UseProfileName() {
+    
+        if (document.getElementById("<%=chkUseProfileName.ClientID %>").checked == true) {
+            document.getElementById("<%=txtInvestorName.ClientID %>").value = document.getElementById("ctrl_CustomerMFAccountAdd_hdnCustomerName").value;
+//            var sessionValue = '<%= Session["CustomerName"] %>';
+        }
+           else
+           {
+           document.getElementById("<%=txtInvestorName.ClientID %>").value="";
+           }
+
+        
+    }
+        </script>
 <script type="text/javascript">
     function checkLoginId2() {
         $("#<%= hidValidCheck.ClientID %>").val("0");
@@ -237,7 +253,7 @@
             </asp:RequiredFieldValidator>--%>
         </td>
     </tr>
-    <tr>
+    <tr id="trbankList" runat="server">
         <td class="leftField">
             <asp:Label ID="lblddlBankList" runat="server" CssClass="FieldName" Text="Bank:"></asp:Label>
         </td>
@@ -261,6 +277,8 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtInvestorName" runat="server" CssClass="txtField"></asp:TextBox>
+             <asp:Checkbox ID="chkUseProfileName" runat="server" Text="Use Profile Name" CssClass="FieldName" onClick="return UseProfileName()"
+                AutoPostBack="false"  />
         </td>
     </tr>
     <tr id="trJointHolders" runat="server" visible="false">
@@ -422,3 +440,4 @@
         Text="Update" OnClick="btnUpdate_Click" />
 </td>
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
+<asp:HiddenField ID="hdnCustomerName" runat="server" />
