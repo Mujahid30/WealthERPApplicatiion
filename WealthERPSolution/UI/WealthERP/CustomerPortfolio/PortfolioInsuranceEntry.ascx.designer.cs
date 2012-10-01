@@ -102,7 +102,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
-        
+        protected global::System.Web.UI.WebControls.LinkButton btnEdit; 
         /// <summary>
         /// lblInstrumentCategory control.
         /// </summary>
@@ -237,7 +237,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr1;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trpolicytenure;
         /// <summary>
         /// Label21 control.
         /// </summary>

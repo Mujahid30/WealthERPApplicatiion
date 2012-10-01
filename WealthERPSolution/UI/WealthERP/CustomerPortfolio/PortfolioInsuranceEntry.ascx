@@ -282,6 +282,10 @@
                         <td align="right">
                             <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Back"
                                 OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                                <td align="right"> 
+                                <asp:LinkButton ID="btnEdit" runat="server" CssClass="LinkButtons" Text="Edit" OnClick="lnkEdit_Click">
+            </asp:LinkButton>
+                                </td>
                             <td>
                                 <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
                                     class="flip" />
@@ -356,12 +360,12 @@
             <hr />
         </td>
     </tr>--%>
-    <tr id="trEditButton" runat="server" visible="false">
+  <%--  <tr id="trEditButton" runat="server" visible="false">
         <td colspan="6">
             <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" Text="Edit" OnClick="lnkEdit_Click">
             </asp:LinkButton>
         </td>
-    </tr>
+    </tr>--%>
     <tr id="trEditSpace" runat="server" visible="false">
         <td colspan="6">
             &nbsp;
@@ -438,7 +442,7 @@
                 ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-    <tr>
+    <tr id="trpolicytenure" runat="server">
         <td colspan="2" class="leftField">
             <asp:Label ID="lblPolicyTerms" runat="server" CssClass="FieldName" Text="Policy Term:"></asp:Label>
         </td>

@@ -155,7 +155,7 @@ namespace WealthERP.CustomerPortfolio
 
         public void ClearFields()
         {
-            trEditButton.Visible = false;
+            btnEdit.Visible = false;
             trEditSpace.Visible = false;
 
             trEPPremiumAmount.Visible = false;
@@ -445,6 +445,8 @@ namespace WealthERP.CustomerPortfolio
                         ddlPeriodSelection.SelectedValue = insuranceVo.PolicyTermsDuration;
 
                     txtPolicyTerms.Text = insuranceVo.PolicyTerms.ToString().Trim();
+                    trpolicytenure.Visible = false;
+                    
                     if (insuranceVo.PurchaseDate != DateTime.MinValue)
                         txtPolicyPurchaseDate.Text = insuranceVo.PurchaseDate.ToShortDateString();
 
@@ -803,7 +805,7 @@ namespace WealthERP.CustomerPortfolio
                 if (action == "view")
                 {
                     trDeleteButton.Visible = true;
-                    trEditButton.Visible = true;
+                    btnEdit.Visible = true;
                     trEditSpace.Visible = true;
                     trSubmitButton.Visible = false;
                     btnSubmit.Text = "";
@@ -1045,11 +1047,11 @@ namespace WealthERP.CustomerPortfolio
                     //lblInsuranceHeader.Text = "Insurance Details Edit Form";
 
                     trDeleteButton.Visible = false;
-                    trEditButton.Visible = false;
+                    btnEdit.Visible = false;
                     trEditSpace.Visible = false;
                     trSubmitButton.Visible = true;
                     btnSubmit.Text = "Update";
-
+                    trpolicytenure.Visible = true;
                     //pnlforULIP.Visible = false;
                     //txtName.Enabled = true;
                     ddlAssetPerticular.Enabled = true;
@@ -1286,7 +1288,7 @@ namespace WealthERP.CustomerPortfolio
                     //lblInsuranceHeader.Text = "Insurance Details Entry Form";
 
                     trDeleteButton.Visible = false;
-                    trEditButton.Visible = false;
+                    btnEdit.Visible = false;
                     trEditSpace.Visible = false;
                     trSubmitButton.Visible = true;
                     btnSubmit.Text = "Submit";
