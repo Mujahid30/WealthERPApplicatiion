@@ -551,6 +551,12 @@ namespace WealthERP.CustomerPortfolio
                 //drMFPortfolioRealized[16] = mfVo.FolioStartDate.ToString("D");
                 drMFPortfolioRealized[16] = mfVo.FolioStartDate.ToShortDateString();
 
+            if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                drMFPortfolioRealized[17] = "N/A";
+            else
+                //drMFPortfolioRealized[16] = mfVo.FolioStartDate.ToString("D");
+                drMFPortfolioRealized[17] = mfVo.InvestmentStartDate.ToShortDateString();
+
         }
 
         private static void PopulateReturnsAllDataTable(DataRow drMFPortfolioAll, MFPortfolioNetPositionVo mfVo)
@@ -645,6 +651,12 @@ namespace WealthERP.CustomerPortfolio
                 //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
                 drMFPortfolioAll[23] = mfVo.FolioStartDate.ToShortDateString();
 
+            if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                drMFPortfolioAll[24] = "N/A";
+            else
+                //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
+                drMFPortfolioAll[24] = mfVo.InvestmentStartDate.ToShortDateString();
+
         }
 
         private static void PopulateReturnsHoldDataTable(MFPortfolioNetPositionVo mfVo, DataRow drMFPortfolioHoldings)
@@ -715,6 +727,13 @@ namespace WealthERP.CustomerPortfolio
             else
                 //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
                 drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToShortDateString();
+
+
+            if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                drMFPortfolioHoldings[19] = "N/A";
+            else
+                //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
+                drMFPortfolioHoldings[19] = mfVo.InvestmentStartDate.ToShortDateString();
         }
 
         private static void PopulateTaxHoldDataTable(DataRow drTaxHoldings, MFPortfolioNetPositionVo mfVo)
@@ -768,6 +787,11 @@ namespace WealthERP.CustomerPortfolio
             else
                 //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
                 drTaxHoldings[15] = mfVo.FolioStartDate.ToShortDateString();
+            if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                drTaxHoldings[16] = "N/A";
+            else
+                //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
+                drTaxHoldings[16] = mfVo.InvestmentStartDate.ToShortDateString();
 
         }
 
@@ -817,6 +841,12 @@ namespace WealthERP.CustomerPortfolio
             else
                 //drTaxRealized[14] = mfVo.FolioStartDate.ToString("D");
                 drTaxRealized[14] = mfVo.FolioStartDate.ToShortDateString();
+
+            if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                drTaxRealized[15] = "N/A";
+            else
+                //drTaxRealized[14] = mfVo.FolioStartDate.ToString("D");
+                drTaxRealized[15] = mfVo.InvestmentStartDate.ToShortDateString();
 
         }
 
