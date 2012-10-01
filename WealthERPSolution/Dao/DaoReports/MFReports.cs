@@ -783,7 +783,7 @@ namespace DaoReports
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getOrderTransactionFormCmd = db.GetStoredProcCommand("SP_RPT_OrderTransactionSlip");
                 db.AddInParameter(getOrderTransactionFormCmd, "@customerId", DbType.Int32, report.CustomerId);
-                db.AddInParameter(getOrderTransactionFormCmd, "@SchemeCode", DbType.Int32, report.SchemeCode);
+                db.AddInParameter(getOrderTransactionFormCmd, "@SchemeCode", DbType.String, report.SchemeCode);
                 db.AddInParameter(getOrderTransactionFormCmd, "@Type", DbType.String, report.Type);
                 db.AddInParameter(getOrderTransactionFormCmd, "@OrderId", DbType.Int32, report.orderId);
                 getOrderTransactionFormCmd.CommandTimeout = 60 * 60;
@@ -888,19 +888,23 @@ namespace DaoReports
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getTransactionSlipBlankFormCmd = db.GetStoredProcCommand("SP_RPT_GetOrderTransactionBlankForm");
                 db.AddInParameter(getTransactionSlipBlankFormCmd, "@customerId", DbType.Int32, report.CustomerId);
-                if(report.SchemeCode!=0)
+                if(report.SchemeCode != null)
                     db.AddInParameter(getTransactionSlipBlankFormCmd, "@SchemeCode", DbType.Int32, report.SchemeCode);
                 else
                     db.AddInParameter(getTransactionSlipBlankFormCmd, "@SchemeCode", DbType.Int32, DBNull.Value);
                 db.AddInParameter(getTransactionSlipBlankFormCmd, "@Type", DbType.String, report.Type);
-                if(report.portfolioId!=0)
+                if (report.portfolioId !=null)
                     db.AddInParameter(getTransactionSlipBlankFormCmd, "@PortfolioId", DbType.Int32, report.portfolioId);
                 else
                     db.AddInParameter(getTransactionSlipBlankFormCmd, "@PortfolioId", DbType.Int32, DBNull.Value);
-                if(report.accountId !=0)
+                if (report.accountId != null)
                     db.AddInParameter(getTransactionSlipBlankFormCmd, "@AccountId", DbType.Int32, report.accountId);
                 else
                     db.AddInParameter(getTransactionSlipBlankFormCmd, "@AccountId", DbType.Int32, DBNull.Value);
+                if (report.amcCode != null)
+                    db.AddInParameter(getTransactionSlipBlankFormCmd, "@AmcCode", DbType.Int32, report.amcCode);
+                else
+                    db.AddInParameter(getTransactionSlipBlankFormCmd, "@AmcCode", DbType.Int32, DBNull.Value);
                 getTransactionSlipBlankFormCmd.CommandTimeout = 60 * 60;
                 dsTransactionSlipBlankForm = db.ExecuteDataSet(getTransactionSlipBlankFormCmd);
             }
