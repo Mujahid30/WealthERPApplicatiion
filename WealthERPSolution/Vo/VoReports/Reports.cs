@@ -60,10 +60,11 @@ namespace VoReports
         public int advisorId;
         public int CustomerId;
         public string Type;
-        public int SchemeCode;
+        public string SchemeCode;
         public int orderId;
-        public int accountId;
-        public int portfolioId;
+        public string accountId;
+        public string portfolioId;
+        public string amcCode;
     }
 
     public enum ReportType
