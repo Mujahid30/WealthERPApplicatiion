@@ -1039,5 +1039,21 @@ namespace BoCustomerPortfolio
             }
             return dsGetAbsoluteReturn;
         }
+
+        public DataSet GetSubCategoryPieChartValue(int portfolioId, int adviserId)
+        {
+            AssetDao assetDao = new AssetDao();
+            DataSet dsSubCategoryPieChartValue;
+            try
+            {
+                dsSubCategoryPieChartValue = assetDao.GetSubCategoryPieChartValue(portfolioId, adviserId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSubCategoryPieChartValue;
+        }
     }
 }
