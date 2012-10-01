@@ -489,8 +489,8 @@ namespace WealthERP.Reports
                     drOrderTransactionBlnkaForm = dsOrderTransactionForm.Tables[0].Select();
 
                     crmain.SetParameterValue("FolioNo", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFA_FolioNum"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFA_FolioNum"].ToString() : string.Empty);
-                    crmain.SetParameterValue("AmcName",  string.Empty);
-                    crmain.SetParameterValue("Scheme",  string.Empty);
+                    crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["PA_AMCName"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["PA_AMCName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["SchemeName"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["SchemeName"].ToString() : string.Empty);
                     crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["C_PANNum"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["C_PANNum"].ToString() : string.Empty);
                     crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["Customer_Name"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["Customer_Name"].ToString() : string.Empty);
                     crmain.SetParameterValue("ChequeNo",  string.Empty);
@@ -3794,13 +3794,15 @@ namespace WealthERP.Reports
                     orderTransaction.CustomerId = int.Parse(Request.Form[ctrlPrefix + "hdnCustomerId"]);
                 }
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnSchemeCode"]))
-                    orderTransaction.SchemeCode = int.Parse(Request.Form[ctrlPrefix + "hdnSchemeCode"]);
+                    orderTransaction.SchemeCode = Request.Form[ctrlPrefix + "hdnSchemeCode"];
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnType"]))
                     orderTransaction.Type = Request.Form["ctrl_MFOrderEntry$hdnType"];
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnAccountId"]))
-                    orderTransaction.accountId = int.Parse(Request.Form["ctrl_MFOrderEntry$hdnAccountId"]);
+                    orderTransaction.accountId = Request.Form["ctrl_MFOrderEntry$hdnAccountId"];
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnPortfolioId"]))
-                    orderTransaction.portfolioId = int.Parse(Request.Form["ctrl_MFOrderEntry$hdnPortfolioId"]);
+                    orderTransaction.portfolioId = Request.Form["ctrl_MFOrderEntry$hdnPortfolioId"];
+                if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnAmcCode"]))
+                    orderTransaction.amcCode = Request.Form[ctrlPrefix + "hdnAmcCode"];
 
 
                 Session["reportParams"] = orderTransaction;
