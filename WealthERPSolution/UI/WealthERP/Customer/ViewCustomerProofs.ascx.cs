@@ -234,11 +234,13 @@ namespace WealthERP.Customer
             Session["Button"] = "Submit";
 
             if (btnSubmit.Text.Equals("Submit"))
+                //ConfirmApproval();
                 AddClick();
             else if (btnSubmit.Text.Equals("Update"))
                 UpdateClick();
         }
 
+      
         protected void AddClick()
         {
             bool blResult = false;

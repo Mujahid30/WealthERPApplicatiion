@@ -307,11 +307,11 @@
                                         <%# LoadControls(Eval("ProofExtensions").ToString(), Eval("ProofImage").ToString(), Eval("ProofFileName").ToString())%>
                                     </td>
 --%>                                    <td align="center">
-                                        <asp:LinkButton ID="lnkMail" runat="server" CssClass="LinkButtons" CommandName="Send Mail"
+                                        <asp:LinkButton ID="lnkMail" runat="server" CssClass="LinkButtons" CommandName="Send Mail" OnClientClick="return confirm('Are you sure?')"
                                             CommandArgument='<%# Eval("ProofUploadId") %>' Text="Send Email"></asp:LinkButton>
                                     </td>
                                     <td align="center">
-                                        <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" CommandName="Edit proof"
+                                        <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" CommandName="Edit proof" OnClientClick="return confirm('Are you sure?')"
                                             CommandArgument='<%# Eval("ProofUploadId") %>' Text="Edit / Delete"></asp:LinkButton>
                                     </td>
                                     <td>
