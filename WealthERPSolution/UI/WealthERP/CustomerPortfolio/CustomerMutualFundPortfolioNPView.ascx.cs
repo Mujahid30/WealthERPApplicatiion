@@ -969,11 +969,13 @@ namespace WealthERP.CustomerPortfolio
 
         private void BindPerformaceChart()
         {
+            BindSubCategoryPieChart();
             AssetBo assetBo = new AssetBo();
             try
             {
                 AdvisorVo adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 DataSet dsMFInv = assetBo.GetMFInvAggrCurrentValues(portfolioId, adviserVo.advisorId);
+                
 
                 if (dsMFInv.Tables[0].Rows.Count > 0)
                 {
@@ -1071,6 +1073,96 @@ namespace WealthERP.CustomerPortfolio
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+            }
+
+        }
+
+        private void BindSubCategoryPieChart()
+        {
+            AssetBo assetBo = new AssetBo();
+            AdvisorVo adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+            DataSet dsSubcategoryValue = assetBo.GetSubCategoryPieChartValue(portfolioId, adviserVo.advisorId);
+            DataTable dtSubCategoryPie;
+            try
+            {
+                dtSubCategoryPie = dsSubcategoryValue.Tables[0];
+                    if (dtSubCategoryPie.Rows.Count > 0)
+                    {
+                        // Total Assets Chart
+                        Series seriesAssets = new Series("seriesMFC");
+                        Legend legend = new Legend("AssetsLegend");
+                        legend.Enabled = true;
+                        string[] XValues = new string[dtSubCategoryPie.Rows.Count];
+                        double[] YValues = new double[dtSubCategoryPie.Rows.Count];
+                        int i = 0;
+                        seriesAssets.ChartType = SeriesChartType.Pie;
+
+                        foreach (DataRow dr in dtSubCategoryPie.Rows)
+                        {
+                            XValues[i] = dr["SubCategory"].ToString();
+                            YValues[i] = double.Parse(dr["AggrCurrentValue"].ToString());
+                            i++;
+                        }
+                        seriesAssets.Points.DataBindXY(XValues, YValues);
+
+
+                        chrtSubCategory.Series.Clear();
+                        chrtSubCategory.Series.Add(seriesAssets);
+
+                        chrtSubCategory.Legends.Clear();
+                        chrtSubCategory.Legends.Add(legend);
+                        chrtSubCategory.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
+                        chrtSubCategory.Legends["AssetsLegend"].Title = "Assets";
+                        chrtSubCategory.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
+                        chrtSubCategory.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+                        chrtSubCategory.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
+                        chrtSubCategory.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
+
+                        chrtSubCategory.ChartAreas[0].Area3DStyle.Enable3D = true;
+                        chrtSubCategory.ChartAreas[0].Area3DStyle.Perspective = 50;
+                        chrtSubCategory.Width = 500;
+                        chrtSubCategory.BackColor = System.Drawing.Color.Transparent;
+                        chrtSubCategory.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
+                        chrtSubCategory.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
+
+                        LegendCellColumn colors = new LegendCellColumn();
+                        colors.HeaderText = "Color";
+                        colors.ColumnType = LegendCellColumnType.SeriesSymbol;
+                        colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
+                        chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(colors);
+
+                        LegendCellColumn asset = new LegendCellColumn();
+                        asset.Alignment = ContentAlignment.MiddleLeft;
+                        asset.HeaderText = "SubCategory";
+                        asset.Text = "#VALX";
+                        chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(asset);
+
+                        LegendCellColumn assetPercent = new LegendCellColumn();
+                        assetPercent.Alignment = ContentAlignment.MiddleLeft;
+                        assetPercent.HeaderText = "AssetPercentage";
+                        assetPercent.Text = "#PERCENT";
+                        chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
+
+                        foreach (DataPoint point in chrtSubCategory.Series["seriesMFC"].Points)
+                        {
+                            point["Exploded"] = "true";
+                        }
+
+                        chrtSubCategory.DataBind();
+                        //chrtTotalAssets.Series["Assets"]. 
+                        chrtSubCategory.Visible = true;
+                    }
+
+                else
+                {
+                    trMFCode.Visible = false;
+                    chrtSubCategory.Visible = false;
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
             }
 
         }
@@ -1695,17 +1787,18 @@ namespace WealthERP.CustomerPortfolio
             if (ddlMFClassificationCode.SelectedValue == "0")
             {
                 trChart.Visible = true;
-                //trSchemePerformance.Visible = false;
+                trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
                 trTopTenSectors.Visible = false;
                 trSectorGrid.Visible = false;
+                Div1.Visible = false;
                 BindPerformaceChart();
             }
             else if (ddlMFClassificationCode.SelectedValue == "1")
             {
                 trChart.Visible = false;
-                //trSchemePerformance.Visible = true;
+                trSchemePerformance.Visible = true;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
                 trTopTenSectors.Visible = false;
@@ -1715,7 +1808,7 @@ namespace WealthERP.CustomerPortfolio
             else if (ddlMFClassificationCode.SelectedValue == "2")
             {
                 trChart.Visible = false;
-                //trSchemePerformance.Visible = false;
+                trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = true;
                 trTop10HoldingsPie.Visible = true;
                 trTopTenSectors.Visible = false;
@@ -1726,7 +1819,7 @@ namespace WealthERP.CustomerPortfolio
             else if (ddlMFClassificationCode.SelectedValue == "3")
             {
                 trChart.Visible = false;
-                //trSchemePerformance.Visible = false;
+                trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
                 trTopTenSectors.Visible = true;

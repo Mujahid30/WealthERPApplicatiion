@@ -642,6 +642,21 @@
                                             </asp:Chart>
                                         </div>
                                     </td>
+                                    <td>
+                                        <div id="divSubCategory" runat="server">
+                                            <asp:Chart ID="chrtSubCategory" runat="server" BackColor="Transparent" Palette="Pastel"
+                                                Width="500px" Height="250px">
+                                                <Series>
+                                                    <asp:Series Name="Series1">
+                                                    </asp:Series>
+                                                </Series>
+                                                <ChartAreas>
+                                                    <asp:ChartArea Name="ChartArea1">
+                                                    </asp:ChartArea>
+                                                </ChartAreas>
+                                            </asp:Chart>
+                                        </div>
+                                    </td>
                                 </tr>
                             </table>
                         </asp:Panel>
