@@ -1789,6 +1789,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//MutualFundMIS.ascx.
+        /// </summary>
+        internal static string MutualFundMIS {
+            get {
+                return ResourceManager.GetString("MutualFundMIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//NewDPAccountEntry.ascx.
         /// </summary>
         internal static string NewDPAccountEntry {

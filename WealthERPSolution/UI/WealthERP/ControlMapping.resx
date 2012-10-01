@@ -1425,4 +1425,8 @@
     <value>Customer//CustomerDashBoardShortcut.ascx</value>
     <comment>Customer//CustomerDashBoardShortcut.ascx</comment>
   </data>
+  <data name="MutualFundMIS" xml:space="preserve">
+    <value>BusinessMIS//MutualFundMIS.ascx</value>
+    <comment>BusinessMIS//MutualFundMIS.ascx</comment>
+  </data>
 </root>

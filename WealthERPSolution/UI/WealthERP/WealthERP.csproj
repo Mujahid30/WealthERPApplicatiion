@@ -1224,6 +1224,13 @@
     <Compile Include="BusinessMIS\MultiProductMIS.ascx.designer.cs">
       <DependentUpon>MultiProductMIS.ascx</DependentUpon>
     </Compile>
+    <Compile Include="BusinessMIS\MutualFundMIS.ascx.cs">
+      <DependentUpon>MutualFundMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\MutualFundMIS.ascx.designer.cs">
+      <DependentUpon>MutualFundMIS.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ControlHost.aspx.cs">
       <DependentUpon>ControlHost.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5558,6 +5565,7 @@
     <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
     <Content Include="BusinessMIS\GoalMIS.ascx" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
+    <Content Include="BusinessMIS\MutualFundMIS.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />
     <Content Include="CustomerPortfolio\CustomerEQAccountView.ascx" />
