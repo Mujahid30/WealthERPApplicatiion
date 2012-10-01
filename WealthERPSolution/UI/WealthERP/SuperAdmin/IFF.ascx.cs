@@ -53,60 +53,60 @@ namespace WealthERP.SuperAdmin
         List<int> rmList = new List<int>();
         int count;
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
-        protected override void OnInit(EventArgs e)
-        {
-            //try
-            //{
+        //protected override void OnInit(EventArgs e)
+        //{
+        //    //try
+        //    //{
 
-            //    ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-            //    mypager.EnableViewState = true;
-            //    base.OnInit(e);
-            //}
-            //catch (BaseApplicationException Ex)
-            //{
-            //    throw Ex;
-            //}
-            //catch (Exception Ex)
-            //{
-            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-            //    NameValueCollection FunctionInfo = new NameValueCollection();
-            //    FunctionInfo.Add("Method", "ViewRM.ascx.cs:OnInit()");
-            //    object[] objects = new object[0];
+        //    //    ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //    //    mypager.EnableViewState = true;
+        //    //    base.OnInit(e);
+        //    //}
+        //    //catch (BaseApplicationException Ex)
+        //    //{
+        //    //    throw Ex;
+        //    //}
+        //    //catch (Exception Ex)
+        //    //{
+        //    //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //    //    NameValueCollection FunctionInfo = new NameValueCollection();
+        //    //    FunctionInfo.Add("Method", "ViewRM.ascx.cs:OnInit()");
+        //    //    object[] objects = new object[0];
 
-            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-            //    exBase.AdditionalInformation = FunctionInfo;
-            //    ExceptionManager.Publish(exBase);
-            //    throw exBase;
-            //}
-        }
+        //    //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //    //    exBase.AdditionalInformation = FunctionInfo;
+        //    //    ExceptionManager.Publish(exBase);
+        //    //    throw exBase;
+        //    //}
+        //}
 
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                //GetPageCount();
-                this.BindGrid();
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewRM.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[0];
+        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        //GetPageCount();
+        //        this.BindGrid();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewRM.ascx.cs:HandlePagerEvent()");
+        //        object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
-        private void GetPageCount()
-        {
+       // private void GetPageCount()
+       // {
             //string upperlimit = "";
             //int rowCount = 0;
             //int ratio = 0;
@@ -160,7 +160,7 @@ namespace WealthERP.SuperAdmin
             //    ExceptionManager.Publish(exBase);
             //    throw exBase;
             //}
-        }
+        //}
 
         protected void BindGrid()
         {
@@ -206,7 +206,7 @@ namespace WealthERP.SuperAdmin
         {
             //string rm = "";
             SessionBo.CheckSession();
-            gvAdvisorList_Init(sender, e);
+            //gvAdvisorList_Init(sender, e);
             try
             {
                 if (!IsPostBack)
@@ -280,6 +280,7 @@ namespace WealthERP.SuperAdmin
                     dtAdvisor.Columns.Add("imgIFFRealEstate");
                     dtAdvisor.Columns.Add("imgIFFIsActive");
                     DataRow dr;
+                    
                     for (int i = 0; i < advisorvolist.Count; i++)
                     {
                         advisorVo = advisorvolist[i];
@@ -438,7 +439,15 @@ namespace WealthERP.SuperAdmin
 
                         dtAdvisor.Rows.Add(drAdvisor);
                     }
-
+                    if (Cache["IFAList"] == null)
+                    {
+                        Cache.Insert("IFAList", dtAdvisor);
+                    }
+                    else
+                    {
+                        Cache.Remove("IFAList");
+                        Cache.Insert("IFAList", dtAdvisor);
+                    }
                     gvAdvisorList.DataSource = dtAdvisor;
                     gvAdvisorList.DataBind();
 
@@ -453,7 +462,7 @@ namespace WealthERP.SuperAdmin
                     }
 
 
-                    this.GetPageCount();
+                    //this.GetPageCount();
                 }
                 else
                 {
@@ -669,19 +678,19 @@ namespace WealthERP.SuperAdmin
             ddlCategory.Items.Insert(1, li);
         }
 
-        public void BindFilterForCategory()
-        {
-            //DataTable dt = new DataTable();
-            //ddlCategory.DataSource = advisorBo.GetXMLAdvisorCategory();
-            //this.RadGrid1.MasterTableView.Columns.Clear();
-            //foreach (DataColumn dataColumn in dt.Columns)
-            //{
-            //    MyCustomFilteringColumnCS gridColumn = new MyCustomFilteringColumnCS();
-            //    this.gvAdvisorList.MasterTableView.Columns.Add(gridColumn);
-            //    gridColumn.DataField = dataColumn.ColumnName;
-            //    gridColumn.HeaderText = dataColumn.ColumnName;
-            //}
-        }
+        //public void BindFilterForCategory()
+        //{
+        //    //DataTable dt = new DataTable();
+        //    //ddlCategory.DataSource = advisorBo.GetXMLAdvisorCategory();
+        //    //this.RadGrid1.MasterTableView.Columns.Clear();
+        //    //foreach (DataColumn dataColumn in dt.Columns)
+        //    //{
+        //    //    MyCustomFilteringColumnCS gridColumn = new MyCustomFilteringColumnCS();
+        //    //    this.gvAdvisorList.MasterTableView.Columns.Add(gridColumn);
+        //    //    gridColumn.DataField = dataColumn.ColumnName;
+        //    //    gridColumn.HeaderText = dataColumn.ColumnName;
+        //    //}
+        //}
 
         private DropDownList GetCategoryDDL()
         {
@@ -980,37 +989,37 @@ namespace WealthERP.SuperAdmin
 
         }
 
-        private SortDirection GridViewSortDirection
-        {
-            get
-            {
-                if (ViewState["sortDirection"] == null)
-                    ViewState["sortDirection"] = SortDirection.Ascending;
-                return (SortDirection)ViewState["sortDirection"];
-            }
-            set { ViewState["sortDirection"] = value; }
-        }
+        //private SortDirection GridViewSortDirection
+        //{
+        //    get
+        //    {
+        //        if (ViewState["sortDirection"] == null)
+        //            ViewState["sortDirection"] = SortDirection.Ascending;
+        //        return (SortDirection)ViewState["sortDirection"];
+        //    }
+        //    set { ViewState["sortDirection"] = value; }
+        //}
 
-        protected void gvAdvisorList_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            string sortExpression = e.SortExpression;
-            ViewState["sortExpression"] = sortExpression;
-            if (GridViewSortDirection == SortDirection.Ascending)
-            {
-                GridViewSortDirection = SortDirection.Descending;
-                hdnSort.Value = sortExpression + " DESC";
-                this.BindGrid();
+        //protected void gvAdvisorList_Sorting(object sender, GridViewSortEventArgs e)
+        //{
+        //    string sortExpression = e.SortExpression;
+        //    ViewState["sortExpression"] = sortExpression;
+        //    if (GridViewSortDirection == SortDirection.Ascending)
+        //    {
+        //        GridViewSortDirection = SortDirection.Descending;
+        //        hdnSort.Value = sortExpression + " DESC";
+        //        this.BindGrid();
 
-            }
-            else
-            {
-                GridViewSortDirection = SortDirection.Ascending;
-                hdnSort.Value = sortExpression + " ASC";
-                this.BindGrid();
+        //    }
+        //    else
+        //    {
+        //        GridViewSortDirection = SortDirection.Ascending;
+        //        hdnSort.Value = sortExpression + " ASC";
+        //        this.BindGrid();
 
-            }
+        //    }
 
-        }
+        //}
 
         private void sortGridViewRM(string sortExpression, string direction)
         {
@@ -1093,266 +1102,273 @@ namespace WealthERP.SuperAdmin
             return txt;
         }
 
-        protected void gvAdvisorList_Init(object sender, System.EventArgs e)
+        //protected void gvAdvisorList_Init(object sender, System.EventArgs e)
+        //{
+        //    GridFilterMenu menu = gvAdvisorList.FilterMenu;
+        //    int i = 0;
+        //    while (i < menu.Items.Count)
+        //    {
+        //        if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo")
+        //        {
+        //            i++;
+        //        }
+        //        else
+        //        {
+        //            menu.Items.RemoveAt(i);
+        //        }
+        //    }
+        //}
+        protected void gvAdvisorList_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            GridFilterMenu menu = gvAdvisorList.FilterMenu;
-            int i = 0;
-            while (i < menu.Items.Count)
-            {
-                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo")
-                {
-                    i++;
-                }
-                else
-                {
-                    menu.Items.RemoveAt(i);
-                }
-            }
-        }
-
-        public void gvAdvisorList_OnNeedDataSource(object sender, EventArgs e)
-        {
-            string filterexpression="";
-            string rm = "";
             DataTable dtAdvisor = new DataTable();
-            DataRow drAdvisor;
-            DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-            List<AdvisorVo> advisorvolist = new List<AdvisorVo>();
-            AdvisorLOBVo advisorlobvo = new AdvisorLOBVo();
-            int count = 0;
-            try
-            {
-                
-                //advisorvolist = advisormaintanancebo.GetAdviserListWithPager(mypager.CurrentPage, out count, hdnSort.Value, filterexpression, Convert.ToString(hidIFA.Value.Trim()));
-                advisorvolist = advisormaintanancebo.GetAdviserListWithPager(hdnSort.Value, filterexpression, Convert.ToString(hidIFA.Value.Trim()));
-                Session["IFFAdvisorVoList"] = advisorvolist;
-                //lblTotalRows.Text = hdnCount.Value = count.ToString();
-                if (advisorvolist.Count != 0)
-                {
-                    ErrorMessage.Visible = false;
-                    dtAdvisor.Columns.Add("AdviserId");
-                    dtAdvisor.Columns.Add("UserId");
-                    dtAdvisor.Columns.Add("IFFName");
-                    //dtAdvisorStaff.Columns.Add("RM Main Branch");
-                    dtAdvisor.Columns.Add("Category");
-                    dtAdvisor.Columns.Add("IFFAddress");
-                    dtAdvisor.Columns.Add("IFFCity");
-                    dtAdvisor.Columns.Add("IFFContactPerson");
-                    dtAdvisor.Columns.Add("IFFMobileNumber");
-                    dtAdvisor.Columns.Add("IFFEmailId");
-                    dtAdvisor.Columns.Add("imgIFFComodities");
-                    dtAdvisor.Columns.Add("imgIFFLiabilities");
-                    dtAdvisor.Columns.Add("imgIFFEquity");
-                    dtAdvisor.Columns.Add("imgIFFFixedIncome");
-                    dtAdvisor.Columns.Add("imgIFFInsurance");
-                    dtAdvisor.Columns.Add("imgIFFMutualfund");
-                    dtAdvisor.Columns.Add("imgIFFPMS");
-                    dtAdvisor.Columns.Add("imgIFFPostalSavings");
-                    dtAdvisor.Columns.Add("imgIFFRealEstate");
-                    dtAdvisor.Columns.Add("imgIFFIsActive");
-                    DataRow dr;
-                    for (int i = 0; i < advisorvolist.Count; i++)
-                    {
-                        advisorVo = advisorvolist[i];
-                        drAdvisor = dtAdvisor.NewRow();
-                        //dr = dt.Rows[i];
-                        rmVo = new RMVo();
-
-                        drAdvisor[0] = advisorVo.advisorId;
-                        drAdvisor[1] = advisorVo.UserId;
-                        drAdvisor[2] = advisorVo.OrganizationName;
-                        drAdvisor[3] = advisorVo.Category;
-                        drAdvisor[4] = advisorVo.AddressLine3;
-                        drAdvisor[5] = advisorVo.City;
-                        drAdvisor[6] = advisorVo.ContactPersonFirstName;
-                        drAdvisor[7] = advisorVo.MobileNumber;
-                        drAdvisor[8] = advisorVo.Email;
-                        drAdvisor[9] = "";
-                        drAdvisor[10] = "";
-                        drAdvisor[11] = "";
-                        drAdvisor[12] = "";
-                        drAdvisor[13] = "";
-                        drAdvisor[14] = "";
-                        drAdvisor[15] = "";
-                        drAdvisor[16] = "";
-                        drAdvisor[17] = "";
-                        drAdvisor[18] = "";
-                        for (int j = 0; j < advisorVo.AdvisorLOBVoList.Count; j++)
-                        {
-                            advisorlobvo = advisorVo.AdvisorLOBVoList[j];
-
-                            if (advisorlobvo.LOBClassificationType == "Commodities")
-                            {
-                                if (advisorlobvo.IsDependent == 1)
-                                {
-
-                                    drAdvisor[9] = "DE";
-                                }
-                                else
-                                {
-                                    drAdvisor[9] = "IN";
-                                }
-                            }
-                            else if (advisorlobvo.LOBClassificationType == "Liabilities:DirectSaleProducts")
-                            {
-                                if (advisorlobvo.IsDependent == 1)
-                                {
-
-                                    drAdvisor[10] = "DE";
-                                }
-                                else
-                                {
-                                    drAdvisor[10] = "IN";
-                                }
-                            }
-                            else if (advisorlobvo.LOBClassificationType == "Equity")
-                            {
-                                if (advisorlobvo.IsDependent == 1)
-                                {
-
-                                    drAdvisor[11] = "DE";
-                                }
-                                else
-                                {
-                                    drAdvisor[11] = "IN";
-                                }
-
-                            }
-                            else if (advisorlobvo.LOBClassificationType == "Fixed Income")
-                            {
-                                if (advisorlobvo.IsDependent == 1)
-                                {
-
-                                    drAdvisor[12] = "DE";
-                                }
-                                else
-                                {
-                                    drAdvisor[12] = "IN";
-                                }
-
-                            }
-                            else if (advisorlobvo.LOBClassificationType == "Insurance")
-                            {
-                                if (advisorlobvo.IsDependent == 1)
-                                {
-
-                                    drAdvisor[13] = "DE";
-                                }
-                                else
-                                {
-                                    drAdvisor[13] = "IN";
-                                }
-
-                            }
-                            else if (advisorlobvo.LOBClassificationType == "Mutual Fund")
-                            {
-                                if (advisorlobvo.IsDependent == 1)
-                                {
-
-                                    drAdvisor[14] = "DE";
-                                }
-                                else
-                                {
-                                    drAdvisor[14] = "IN";
-                                }
-
-                            }
-                            else if (advisorlobvo.LOBClassificationType == "PMS")
-                            {
-                                if (advisorlobvo.IsDependent == 1)
-                                {
-
-                                    drAdvisor[15] = "DE";
-                                }
-                                else
-                                {
-                                    drAdvisor[15] = "IN";
-                                }
-
-                            }
-                            else if (advisorlobvo.LOBClassificationType == "Postal Savings")
-                            {
-                                if (advisorlobvo.IsDependent == 1)
-                                {
-
-                                    drAdvisor[16] = "DE";
-                                }
-                                else
-                                {
-                                    drAdvisor[16] = "IN";
-                                }
-
-                            }
-                            else if (advisorlobvo.LOBClassificationType == "Real Estate")
-                            {
-                                if (advisorlobvo.IsDependent == 1)
-                                {
-
-                                    drAdvisor[17] = "DE";
-                                }
-                                else
-                                {
-                                    drAdvisor[17] = "IN";
-                                }
-
-                            }
-
-                        }
-                        if (advisorVo.IsActive == 1)
-                        {
-                            drAdvisor[18] = "Y";
-                        }
-                        else
-                        {
-                            drAdvisor[18] = "N";
-                        }
-
-                        dtAdvisor.Rows.Add(drAdvisor);
-                    }
-
-                    gvAdvisorList.DataSource = dtAdvisor;
-                    TextBox txtIFA = GetIFATextBox();
-                    if (txtIFA != null)
-                    {
-                        if (hidIFA.Value != "")
-                        {
-                            txtIFA.Text = hidIFA.Value.ToString();
-                        }
-                    }
-
-
-                    this.GetPageCount();
-                }
-                else
-                {
-                    gvAdvisorList.DataSource = null;
-                    gvAdvisorList.DataBind();
-                    //DivPager.Visible = false;
-                    //lblCurrentPage.Visible = false;
-                    //lblTotalRows.Visible = false;
-                    ErrorMessage.Visible = true;
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewRM.ascx.cs:ShowRM()");
-                object[] objects = new object[3];
-                objects[0] = advisorVo;
-                objects[1] = rm;
-                objects[2] = rmList;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            gvAdvisorList.Visible = true;
+            btnExportFilteredData.Visible = true;
+            dtAdvisor = (DataTable)Cache["IFAList"];
+            gvAdvisorList.DataSource = dtAdvisor;
         }
+        //public void gvAdvisorList_OnNeedDataSource(object sender, EventArgs e)
+        //{
+        //    string filterexpression="";
+        //    string rm = "";
+        //    DataTable dtAdvisor = new DataTable();
+        //    DataRow drAdvisor;
+        //    DataTable dt = new DataTable();
+        //    DataSet ds = new DataSet();
+        //    List<AdvisorVo> advisorvolist = new List<AdvisorVo>();
+        //    AdvisorLOBVo advisorlobvo = new AdvisorLOBVo();
+        //    int count = 0;
+        //    try
+        //    {
+                
+        //        //advisorvolist = advisormaintanancebo.GetAdviserListWithPager(mypager.CurrentPage, out count, hdnSort.Value, filterexpression, Convert.ToString(hidIFA.Value.Trim()));
+        //        advisorvolist = advisormaintanancebo.GetAdviserListWithPager(hdnSort.Value, filterexpression, Convert.ToString(hidIFA.Value.Trim()));
+        //        Session["IFFAdvisorVoList"] = advisorvolist;
+        //        //lblTotalRows.Text = hdnCount.Value = count.ToString();
+        //        if (advisorvolist.Count != 0)
+        //        {
+        //            ErrorMessage.Visible = false;
+        //            dtAdvisor.Columns.Add("AdviserId");
+        //            dtAdvisor.Columns.Add("UserId");
+        //            dtAdvisor.Columns.Add("IFFName");
+        //            //dtAdvisorStaff.Columns.Add("RM Main Branch");
+        //            dtAdvisor.Columns.Add("Category");
+        //            dtAdvisor.Columns.Add("IFFAddress");
+        //            dtAdvisor.Columns.Add("IFFCity");
+        //            dtAdvisor.Columns.Add("IFFContactPerson");
+        //            dtAdvisor.Columns.Add("IFFMobileNumber");
+        //            dtAdvisor.Columns.Add("IFFEmailId");
+        //            dtAdvisor.Columns.Add("imgIFFComodities");
+        //            dtAdvisor.Columns.Add("imgIFFLiabilities");
+        //            dtAdvisor.Columns.Add("imgIFFEquity");
+        //            dtAdvisor.Columns.Add("imgIFFFixedIncome");
+        //            dtAdvisor.Columns.Add("imgIFFInsurance");
+        //            dtAdvisor.Columns.Add("imgIFFMutualfund");
+        //            dtAdvisor.Columns.Add("imgIFFPMS");
+        //            dtAdvisor.Columns.Add("imgIFFPostalSavings");
+        //            dtAdvisor.Columns.Add("imgIFFRealEstate");
+        //            dtAdvisor.Columns.Add("imgIFFIsActive");
+        //            DataRow dr;
+        //            for (int i = 0; i < advisorvolist.Count; i++)
+        //            {
+        //                advisorVo = advisorvolist[i];
+        //                drAdvisor = dtAdvisor.NewRow();
+        //                //dr = dt.Rows[i];
+        //                rmVo = new RMVo();
+
+        //                drAdvisor[0] = advisorVo.advisorId;
+        //                drAdvisor[1] = advisorVo.UserId;
+        //                drAdvisor[2] = advisorVo.OrganizationName;
+        //                drAdvisor[3] = advisorVo.Category;
+        //                drAdvisor[4] = advisorVo.AddressLine3;
+        //                drAdvisor[5] = advisorVo.City;
+        //                drAdvisor[6] = advisorVo.ContactPersonFirstName;
+        //                drAdvisor[7] = advisorVo.MobileNumber;
+        //                drAdvisor[8] = advisorVo.Email;
+        //                drAdvisor[9] = "";
+        //                drAdvisor[10] = "";
+        //                drAdvisor[11] = "";
+        //                drAdvisor[12] = "";
+        //                drAdvisor[13] = "";
+        //                drAdvisor[14] = "";
+        //                drAdvisor[15] = "";
+        //                drAdvisor[16] = "";
+        //                drAdvisor[17] = "";
+        //                drAdvisor[18] = "";
+        //                for (int j = 0; j < advisorVo.AdvisorLOBVoList.Count; j++)
+        //                {
+        //                    advisorlobvo = advisorVo.AdvisorLOBVoList[j];
+
+        //                    if (advisorlobvo.LOBClassificationType == "Commodities")
+        //                    {
+        //                        if (advisorlobvo.IsDependent == 1)
+        //                        {
+
+        //                            drAdvisor[9] = "DE";
+        //                        }
+        //                        else
+        //                        {
+        //                            drAdvisor[9] = "IN";
+        //                        }
+        //                    }
+        //                    else if (advisorlobvo.LOBClassificationType == "Liabilities:DirectSaleProducts")
+        //                    {
+        //                        if (advisorlobvo.IsDependent == 1)
+        //                        {
+
+        //                            drAdvisor[10] = "DE";
+        //                        }
+        //                        else
+        //                        {
+        //                            drAdvisor[10] = "IN";
+        //                        }
+        //                    }
+        //                    else if (advisorlobvo.LOBClassificationType == "Equity")
+        //                    {
+        //                        if (advisorlobvo.IsDependent == 1)
+        //                        {
+
+        //                            drAdvisor[11] = "DE";
+        //                        }
+        //                        else
+        //                        {
+        //                            drAdvisor[11] = "IN";
+        //                        }
+
+        //                    }
+        //                    else if (advisorlobvo.LOBClassificationType == "Fixed Income")
+        //                    {
+        //                        if (advisorlobvo.IsDependent == 1)
+        //                        {
+
+        //                            drAdvisor[12] = "DE";
+        //                        }
+        //                        else
+        //                        {
+        //                            drAdvisor[12] = "IN";
+        //                        }
+
+        //                    }
+        //                    else if (advisorlobvo.LOBClassificationType == "Insurance")
+        //                    {
+        //                        if (advisorlobvo.IsDependent == 1)
+        //                        {
+
+        //                            drAdvisor[13] = "DE";
+        //                        }
+        //                        else
+        //                        {
+        //                            drAdvisor[13] = "IN";
+        //                        }
+
+        //                    }
+        //                    else if (advisorlobvo.LOBClassificationType == "Mutual Fund")
+        //                    {
+        //                        if (advisorlobvo.IsDependent == 1)
+        //                        {
+
+        //                            drAdvisor[14] = "DE";
+        //                        }
+        //                        else
+        //                        {
+        //                            drAdvisor[14] = "IN";
+        //                        }
+
+        //                    }
+        //                    else if (advisorlobvo.LOBClassificationType == "PMS")
+        //                    {
+        //                        if (advisorlobvo.IsDependent == 1)
+        //                        {
+
+        //                            drAdvisor[15] = "DE";
+        //                        }
+        //                        else
+        //                        {
+        //                            drAdvisor[15] = "IN";
+        //                        }
+
+        //                    }
+        //                    else if (advisorlobvo.LOBClassificationType == "Postal Savings")
+        //                    {
+        //                        if (advisorlobvo.IsDependent == 1)
+        //                        {
+
+        //                            drAdvisor[16] = "DE";
+        //                        }
+        //                        else
+        //                        {
+        //                            drAdvisor[16] = "IN";
+        //                        }
+
+        //                    }
+        //                    else if (advisorlobvo.LOBClassificationType == "Real Estate")
+        //                    {
+        //                        if (advisorlobvo.IsDependent == 1)
+        //                        {
+
+        //                            drAdvisor[17] = "DE";
+        //                        }
+        //                        else
+        //                        {
+        //                            drAdvisor[17] = "IN";
+        //                        }
+
+        //                    }
+
+        //                }
+        //                if (advisorVo.IsActive == 1)
+        //                {
+        //                    drAdvisor[18] = "Y";
+        //                }
+        //                else
+        //                {
+        //                    drAdvisor[18] = "N";
+        //                }
+
+        //                dtAdvisor.Rows.Add(drAdvisor);
+        //            }
+
+        //            gvAdvisorList.DataSource = dtAdvisor;
+        //            TextBox txtIFA = GetIFATextBox();
+        //            if (txtIFA != null)
+        //            {
+        //                if (hidIFA.Value != "")
+        //                {
+        //                    txtIFA.Text = hidIFA.Value.ToString();
+        //                }
+        //            }
+
+
+        //            this.GetPageCount();
+        //        }
+        //        else
+        //        {
+        //            gvAdvisorList.DataSource = null;
+        //            gvAdvisorList.DataBind();
+        //            //DivPager.Visible = false;
+        //            //lblCurrentPage.Visible = false;
+        //            //lblTotalRows.Visible = false;
+        //            ErrorMessage.Visible = true;
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewRM.ascx.cs:ShowRM()");
+        //        object[] objects = new object[3];
+        //        objects[0] = advisorVo;
+        //        objects[1] = rm;
+        //        objects[2] = rmList;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         public void btnExportFilteredData_OnClick(object sender, EventArgs e)
         {

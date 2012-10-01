@@ -90,13 +90,13 @@
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                         <telerik:GridBoundColumn HeaderText="AdviserId" ItemStyle-HorizontalAlign="Right" DataField="AdviserId" AllowFiltering="true" ShowFilterIcon="false">
+                         <telerik:GridBoundColumn HeaderText="AdviserId" AutoPostBackOnFilter="true" ItemStyle-HorizontalAlign="Right" DataField="AdviserId" AllowFiltering="true" ShowFilterIcon="false">
                             <ItemStyle />                            
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="IFA" DataField="IFFName" AllowFiltering="true" ShowFilterIcon="false">
+                        <telerik:GridBoundColumn HeaderText="IFA" AutoPostBackOnFilter="true" DataField="IFFName" AllowFiltering="true" ShowFilterIcon="false">
                             <ItemStyle />                            
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Category" DataField="Category" AllowFiltering="true" ShowFilterIcon="false">
+                        <telerik:GridBoundColumn HeaderText="Category" AutoPostBackOnFilter="true" DataField="Category" AllowFiltering="true" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Area" DataField="IFFAddress" AllowFiltering="false" ShowFilterIcon="false">
@@ -114,7 +114,7 @@
                         <telerik:GridBoundColumn HeaderText="Email" DataField="IFFEmailId" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Is Active" DataField="imgIFFIsActive" AllowFiltering="true" ShowFilterIcon="false">
+                        <telerik:GridBoundColumn HeaderText="Is Active" AutoPostBackOnFilter="true" DataField="imgIFFIsActive" AllowFiltering="true" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="MF Subs" DataField="imgIFFMutualfund" AllowFiltering="false" ShowFilterIcon="false">
