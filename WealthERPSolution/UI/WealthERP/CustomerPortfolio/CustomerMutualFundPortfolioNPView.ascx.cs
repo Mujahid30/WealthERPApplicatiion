@@ -1822,7 +1822,6 @@ namespace WealthERP.CustomerPortfolio
                 trTop10HoldingsPie.Visible = false;
                 trTopTenSectors.Visible = false;
                 trSectorGrid.Visible = false;
-                Div1.Visible = false;
                 BindPerformaceChart();
             }
             else if (ddlMFClassificationCode.SelectedValue == "1")
@@ -2144,13 +2143,31 @@ namespace WealthERP.CustomerPortfolio
                 trTop10HoldingsPie.Visible = false;
                 trTopTenSectors.Visible = false;
                 trSectorGrid.Visible = false;
-                BindPerformaceChart();
+                ddlMFClassificationCode.SelectedValue = "0";
+                if (ddlMFClassificationCode.SelectedValue == "0")
+                {
+                    trChart.Visible = true;
+                    trSchemePerformance.Visible = false;
+                    trHoldingGrid.Visible = false;
+                    trTop10HoldingsPie.Visible = false;
+                    trTopTenSectors.Visible = false;
+                    trSectorGrid.Visible = false;
+                    BindPerformaceChart();
+                }
+
             }
             else if (ddlDisplayType.SelectedIndex == 1)
             {
                 SetPanelVisibility(false, true);
                 BindTaxGrid();
             }
+        }
+        protected void gvSchemePerformance_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtSchemePerformance = new DataTable();
+            dtSchemePerformance = (DataTable)Cache["SchemePerformance" + userVo.UserId];
+            gvSchemePerformance.DataSource = dtSchemePerformance;
+            gvSchemePerformance.Visible = true;
         }
     }
 }

@@ -668,74 +668,74 @@
                                             <tr>
                                                 <td>
                                                     <div id="Div1" runat="server" style="width: 640px;">
-                                                        <telerik:RadAjaxPanel ID="PanelScheme" runat="server" Width="90%" EnableHistory="True"
+                                                        <telerik:RadAjaxPanel ID="PanelScheme" runat="server" Width="98%" EnableHistory="True"
                                                             HorizontalAlign="NotSet" LoadingPanelID="SchemePerformanceLoading">
-                                                            <telerik:RadGrid Width="1500px" ID="gvSchemePerformance" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                                                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                                                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
-                                                                ExportSettings-FileName="SchemePerformance" Visible="true">
+                                                            <telerik:RadGrid Width="1600px" ID="gvSchemePerformance" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                                            PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                                            Skin="Telerik" EnableEmbeddedSkins="false"   AllowFilteringByColumn="false"
+                                                            AllowAutomaticInserts="false" ExportSettings-FileName="SchemePerformance" Visible="true" OnNeedDataSource="gvSchemePerformance_OnNeedDataSource">
                                                                 <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false">
                                                                     <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                                                     <Columns>
-                                                                        <telerik:GridBoundColumn HeaderStyle-Width="350px" DataField="SchemeName" HeaderText="SchemeName" SortExpression="SchemeName"
-                                                                            UniqueName="SchemeName" AutoPostBackOnFilter="true">
+                                                                        <telerik:GridBoundColumn HeaderStyle-Width="350px" DataField="SchemeName" HeaderText="Scheme Name" SortExpression="SchemeName"
+                                                                            UniqueName="SchemeName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" >
                                                                             <HeaderStyle></HeaderStyle>
-                                                                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Wrap="false" />
+                                                                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="OneMonthReturn" HeaderText="OneMonthReturn" SortExpression="OneMonthReturn"
-                                                                            UniqueName="OneMonthReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            UniqueName="OneMonthReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="SixMonthReturn" HeaderText="SixMonthReturn" SortExpression="SixMonthReturn"
-                                                                            UniqueName="SixMonthReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            UniqueName="SixMonthReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="OneYearReturn" HeaderText="OneYearReturn" SortExpression="OneYearReturn"
-                                                                            UniqueName="OneYearReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            UniqueName="OneYearReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="ThreeYearReturn" HeaderText="ThreeYearReturn"
                                                                             SortExpression="ThreeYearReturn" UniqueName="ThreeYearReturn" AutoPostBackOnFilter="true"
-                                                                            DataFormatString="{0:N2}">
+                                                                            DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="FiveYearReturn" HeaderText="FiveYearReturn" SortExpression="FiveYearReturn"
-                                                                            UniqueName="FiveYearReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            UniqueName="FiveYearReturn" AutoPostBackOnFilter="true" DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="InceptionReturn" HeaderText="InceptionReturn"
                                                                             SortExpression="InceptionReturn" UniqueName="InceptionReturn" AutoPostBackOnFilter="true"
-                                                                            DataFormatString="{0:N2}">
+                                                                            DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PE" HeaderText="PE" SortExpression="PE" UniqueName="PE"
-                                                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PB" HeaderText="PB" SortExpression="PB" UniqueName="PB"
-                                                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="Sharpe" HeaderText="Sharpe" SortExpression="Sharpe"
-                                                                            UniqueName="Sharpe" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            UniqueName="Sharpe" AutoPostBackOnFilter="true" DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="Sd" HeaderText="Sd" SortExpression="Sd" UniqueName="Sd"
-                                                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            AutoPostBackOnFilter="true" DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="Top5Holding" HeaderText="Top5Holding" SortExpression="Top5Holding"
-                                                                            UniqueName="Top5Holding" AutoPostBackOnFilter="true" DataFormatString="{0:N2}">
+                                                                            UniqueName="Top5Holding" AutoPostBackOnFilter="true" DataFormatString="{0:N2}" AllowFiltering="true" ShowFilterIcon="false">
                                                                             <HeaderStyle></HeaderStyle>
                                                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
