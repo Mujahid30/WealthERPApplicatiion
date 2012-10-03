@@ -60,7 +60,7 @@ namespace VoReports
         public int advisorId;
         public int CustomerId;
         public string Type;
-        public string SchemeCode;
+        public int SchemeCode;
         public int orderId;
         public string accountId;
         public string portfolioId;
