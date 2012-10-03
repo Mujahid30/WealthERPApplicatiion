@@ -64,7 +64,9 @@ namespace WealthERP.BusinessMIS
                 //lblselectCustomer.Visible = false;
                 //txtIndividualCustomer.Visible = false;              
                 rquiredFieldValidatorIndivudialCustomer.Visible = false;
-
+                btnImagExport.Visible = false;
+                tbl.Visible = false;
+                gvAssetAllocationMIS.Visible = false;
 
                 if (userType == "advisor")
                 {
@@ -589,6 +591,7 @@ namespace WealthERP.BusinessMIS
             }//***
                 gvAssetAllocationMIS.DataSource = dtAssetallocationDetails;
                 gvAssetAllocationMIS.DataBind();
+                tbl.Visible = true;
                 gvAssetAllocationMIS.Visible = true;
                 if (Cache["AssetAllocationMIS" + advisorVo.advisorId] == null)
                 {
@@ -604,6 +607,7 @@ namespace WealthERP.BusinessMIS
           }
             else
             {
+                tbl.Visible = false;
                 gvAssetAllocationMIS.Visible = false;
                 ErrorMessage.Visible = true;
                 btnImagExport.Visible = false;

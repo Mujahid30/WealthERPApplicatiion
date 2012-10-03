@@ -17,7 +17,7 @@
         <td align="left">Asset Allocation MIS</td>
         <td  align="right" id="tdExport" runat="server" style="padding-bottom:2px;">
         <asp:ImageButton ID="btnImagExport" ImageUrl="~/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Visible="false"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
                 OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
             onclick="btnImagExport_Click"></asp:ImageButton>
     </td>
@@ -138,7 +138,7 @@
                                 AllowFiltering="false" UniqueName="EquityCurrentValue" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum" >
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="EquityCurrentPer" HeaderText="Equity Current Per"
+                        <telerik:GridBoundColumn DataField="EquityCurrentPer" HeaderText="Equity Current (%)"
                                 AllowFiltering="false" UniqueName="EquityCurrentPer" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -146,7 +146,7 @@
                                 AllowFiltering="false" UniqueName="EquityRecomendedValue" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="EquityRecomendedPer" HeaderText="Equity Recomended Per"
+                        <telerik:GridBoundColumn DataField="EquityRecomendedPer" HeaderText="Equity Recomended (%)"
                                 AllowFiltering="false" UniqueName="EquityRecomendedPer" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -155,7 +155,7 @@
                                 AllowFiltering="false" UniqueName="DebtCurrentValue" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="DebtCurrentPer" HeaderText="Debt Current Per"
+                        <telerik:GridBoundColumn DataField="DebtCurrentPer" HeaderText="Debt Current (%)"
                                 AllowFiltering="false" UniqueName="DebtCurrentPer" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -163,7 +163,7 @@
                                 AllowFiltering="false" UniqueName="DebtRecomendedValue" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="DebtRecomendedPer" HeaderText="Debt Recomended Per"
+                        <telerik:GridBoundColumn DataField="DebtRecomendedPer" HeaderText="Debt Recomended (%)"
                                 AllowFiltering="false" UniqueName="DebtRecomendedPer" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -172,7 +172,7 @@
                                 AllowFiltering="false" UniqueName="CashCurrentValue" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CashCurrentPer" HeaderText="Cash Current Per"
+                        <telerik:GridBoundColumn DataField="CashCurrentPer" HeaderText="Cash Current (%)"
                                 AllowFiltering="false" UniqueName="CashCurrentPer" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -180,7 +180,7 @@
                                 AllowFiltering="false" UniqueName="CashRecomendedValue" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CashRecomendedPer" HeaderText="Cash Recomended Per"
+                        <telerik:GridBoundColumn DataField="CashRecomendedPer" HeaderText="Cash Recomended (%)"
                                 AllowFiltering="false" UniqueName="CashRecomendedPer" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -189,7 +189,7 @@
                                 AllowFiltering="false" UniqueName="AlternateCurrentValue" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AlternateCurrentPer" HeaderText="Alternate Current Per"
+                        <telerik:GridBoundColumn DataField="AlternateCurrentPer" HeaderText="Alternate Current (%)"
                                 AllowFiltering="false" UniqueName="AlternateCurrentPer" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -197,7 +197,7 @@
                                 AllowFiltering="false" UniqueName="AlternateRecomendedValue" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AlternateRecomendedPer" HeaderText="Alternate Recomended Per"
+                        <telerik:GridBoundColumn DataField="AlternateRecomendedPer" HeaderText="Alternate Recomended (%)"
                                 AllowFiltering="false" UniqueName="AlternateRecomendedPer" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
