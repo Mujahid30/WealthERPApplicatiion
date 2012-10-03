@@ -929,3 +929,6 @@
 <asp:HiddenField ID="hdnPortfolioId" runat="server"/>
 <asp:HiddenField ID="hdnAccountId" runat="server"/>
 <asp:HiddenField ID="hdnAmcCode" runat="server" />
+<asp:HiddenField ID="hdnSchemeName" runat="server" />
+<asp:HiddenField ID="hdnSchemeSwitch" runat="server" />
+<asp:HiddenField ID="hdnBankName" runat="server" />

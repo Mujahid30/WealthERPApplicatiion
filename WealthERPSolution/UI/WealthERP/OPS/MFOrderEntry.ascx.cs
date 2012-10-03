@@ -1159,14 +1159,14 @@ namespace WealthERP.OPS
                     else
                         dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value));
                 }
-                if (dsgetfolioNo.Tables.Count > 0)
+                if (dsgetfolioNo.Tables[0].Rows.Count > 0)
                 {
                     dtgetfolioNo = dsgetfolioNo.Tables[0];
                     ddlFolioNumber.DataSource = dtgetfolioNo;
                     ddlFolioNumber.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
                     ddlFolioNumber.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
                     ddlFolioNumber.DataBind();
-                    hdnAccountId.Value = ddlFolioNumber.SelectedValue;
+                    hdnAccountId.Value = ddlFolioNumber.SelectedItem.Text;
                 }
                 else
                 {
@@ -1530,7 +1530,7 @@ namespace WealthERP.OPS
         {
             if (ddlAMCList.SelectedIndex != 0)
             {
-                hdnAmcCode.Value = ddlAMCList.SelectedValue;
+                hdnAmcCode.Value = ddlAMCList.SelectedItem.Text;
                 amcCode = int.Parse(ddlAMCList.SelectedValue);
                 if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
                 {
@@ -1571,6 +1571,7 @@ namespace WealthERP.OPS
             {
                 schemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
                 hdnSchemeCode.Value = ddlAmcSchemeList.SelectedValue.ToString();
+                hdnSchemeName.Value = ddlAmcSchemeList.SelectedItem.Text;
                 categoryCode = productMFBo.GetCategoryNameFromSChemeCode(schemePlanCode);
                 ddlCategory.SelectedValue = categoryCode;
                 if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
@@ -2156,6 +2157,7 @@ namespace WealthERP.OPS
                     DataRow dr = dtgetBankBranch.Rows[0];
                     txtBranchName.Text = dr["CB_BranchName"].ToString();
                 }
+                hdnBankName.Value = ddlBankName.SelectedItem.Text;
             }
         }
 
