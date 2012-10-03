@@ -223,8 +223,8 @@
                             </telerik:RadDatePicker>
                         </FilterTemplate>
                     </telerik:GridDateTimeColumn>
-                    <telerik:GridBoundColumn AllowFiltering="false" DataField="Quantity" HeaderText="No of Shares"
-                        ItemStyle-HorizontalAlign="Right" SortExpression="Quantity" DataFormatString="{0:N2}"
+                    <telerik:GridBoundColumn AllowFiltering="false" DataField="Quantity" HeaderText="No. of Shares"
+                        ItemStyle-HorizontalAlign="Right" SortExpression="Quantity" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right"
                         Aggregate="Sum">
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn HeaderText="Rate (Rs)" DataField="Rate" UniqueName="Rate"
