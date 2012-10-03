@@ -479,20 +479,43 @@ namespace WealthERP.Reports
             }
             else
             {
-                dsOrderTransactionForm = mfReportBo.GetOrderTransactionBlankForm(report);
-                DataRow[] drOrderTransactionBlnkaForm = new DataRow[dsOrderTransactionForm.Tables[0].Columns.Count];
+                //dsOrderTransactionForm = mfReportBo.GetOrderTransactionBlankForm(report);
+                //DataRow[] drOrderTransactionBlnkaForm = new DataRow[dsOrderTransactionForm.Tables[0].Columns.Count];
                 setLogo();
-
-                if (dsOrderTransactionForm.Tables.Count > 0 && dsOrderTransactionForm.Tables[0].Rows.Count > 0)
+                customerVo = customerBo.GetCustomer(report.CustomerId);
+                //if (dsOrderTransactionForm.Tables.Count > 0 && dsOrderTransactionForm.Tables[0].Rows.Count > 0)
+                //{
+                //    crmain.SetDataSource(dsOrderTransactionForm.Tables[0]);
+                //    drOrderTransactionBlnkaForm = dsOrderTransactionForm.Tables[0].Select();
+                if(customerVo != null)
                 {
-                    crmain.SetDataSource(dsOrderTransactionForm.Tables[0]);
-                    drOrderTransactionBlnkaForm = dsOrderTransactionForm.Tables[0].Select();
+                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnAmcCode"]))
+                        crmain.SetParameterValue("AmcName",Request.Form[ctrlPrefix + "hdnAmcCode"]);
+                    else
+                        crmain.SetParameterValue("AmcName", string.Empty);
+                    crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(customerVo.PANNum) ? customerVo.PANNum : string.Empty);
+                    crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName) ? customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName : string.Empty);
+                    crmain.SetParameterValue("Address", !string.IsNullOrEmpty(customerVo.Adr1Line1 + " " + customerVo.Adr1Line2 + " " + customerVo.Adr1Line3) ? customerVo.Adr1Line1 + " " + customerVo.Adr1Line2 + " " + customerVo.Adr1Line3 : string.Empty);
+                    crmain.SetParameterValue("City", !string.IsNullOrEmpty(customerVo.Adr1City) ? customerVo.Adr1City : string.Empty);
+                    crmain.SetParameterValue("State", !string.IsNullOrEmpty(customerVo.Adr1State) ? customerVo.Adr1State : string.Empty);
+                    crmain.SetParameterValue("Country", !string.IsNullOrEmpty(customerVo.Adr1Country) ? customerVo.Adr1Country : string.Empty);
+                    crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(customerVo.Adr1PinCode.ToString()) ? customerVo.Adr1PinCode.ToString() : string.Empty);
 
-                    crmain.SetParameterValue("FolioNo", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFA_FolioNum"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFA_FolioNum"].ToString() : string.Empty);
-                    crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["PA_AMCName"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["PA_AMCName"].ToString() : string.Empty);
-                    crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["SchemeName"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["SchemeName"].ToString() : string.Empty);
-                    crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["C_PANNum"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["C_PANNum"].ToString() : string.Empty);
-                    crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["Customer_Name"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["Customer_Name"].ToString() : string.Empty);
+                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$ddlFolioNumber"]))
+                        crmain.SetParameterValue("FolioNo", Request.Form[ctrlPrefix + "ddlFolioNumber"]);
+                    else
+                        crmain.SetParameterValue("FolioNo", string.Empty);
+
+                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnSchemeName"]))
+                        crmain.SetParameterValue("Scheme", Request.Form[ctrlPrefix + "hdnSchemeName"]);
+                    else
+                        crmain.SetParameterValue("Scheme", string.Empty);
+                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnSchemeName"]))
+                        crmain.SetParameterValue("Scheme", Request.Form[ctrlPrefix + "hdnSchemeName"]);
+                    else
+                        crmain.SetParameterValue("Scheme", string.Empty);
+
+                    
                     crmain.SetParameterValue("ChequeNo",  string.Empty);
                     crmain.SetParameterValue("ChequeDate",  string.Empty);
                     crmain.SetParameterValue("Amount",  string.Empty);
@@ -500,12 +523,7 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("EndDate",  string.Empty);
                     crmain.SetParameterValue("BankName",  string.Empty);
                     crmain.SetParameterValue("BranchName",  string.Empty);
-                    crmain.SetParameterValue("Address", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["Address"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["Address"].ToString() : string.Empty);
-                    crmain.SetParameterValue("City", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFOD_City"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFOD_City"].ToString() : string.Empty);
-                    crmain.SetParameterValue("State", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFOD_State"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFOD_State"].ToString() : string.Empty);
-                    crmain.SetParameterValue("Country", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFOD_Country"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFOD_Country"].ToString() : string.Empty);
-                    crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(drOrderTransactionBlnkaForm[0]["CMFOD_PinCode"].ToString().Trim()) ? drOrderTransactionBlnkaForm[0]["CMFOD_PinCode"].ToString() : string.Empty);
-                    crmain.SetParameterValue("SchemeSwitch",  string.Empty);
+                   crmain.SetParameterValue("SchemeSwitch",  string.Empty);
                     crmain.SetParameterValue("Units",  string.Empty);
 
                     ShowTransactionShowHide(report.Type);
@@ -3794,7 +3812,7 @@ namespace WealthERP.Reports
                     orderTransaction.CustomerId = int.Parse(Request.Form[ctrlPrefix + "hdnCustomerId"]);
                 }
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnSchemeCode"]))
-                    orderTransaction.SchemeCode = Request.Form[ctrlPrefix + "hdnSchemeCode"];
+                    orderTransaction.SchemeCode = int.Parse(Request.Form [ctrlPrefix + "hdnSchemeCode"].ToString());
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnType"]))
                     orderTransaction.Type = Request.Form["ctrl_MFOrderEntry$hdnType"];
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnAccountId"]))
