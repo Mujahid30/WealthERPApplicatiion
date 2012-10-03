@@ -515,16 +515,53 @@ namespace WealthERP.Reports
                     else
                         crmain.SetParameterValue("Scheme", string.Empty);
 
-                    
-                    crmain.SetParameterValue("ChequeNo",  string.Empty);
-                    crmain.SetParameterValue("ChequeDate",  string.Empty);
-                    crmain.SetParameterValue("Amount",  string.Empty);
-                    crmain.SetParameterValue("StartDate",  string.Empty);
-                    crmain.SetParameterValue("EndDate",  string.Empty);
-                    crmain.SetParameterValue("BankName",  string.Empty);
-                    crmain.SetParameterValue("BranchName",  string.Empty);
-                   crmain.SetParameterValue("SchemeSwitch",  string.Empty);
-                    crmain.SetParameterValue("Units",  string.Empty);
+
+                    crmain.SetParameterValue("ChequeNo", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtPaymentNumber"]) ? Request.Form["ctrl_MFOrderEntry$txtPaymentNumber"] : string.Empty);
+                    crmain.SetParameterValue("ChequeDate", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtPaymentInstDate"]) ? Request.Form["ctrl_MFOrderEntry$txtPaymentInstDate"] : string.Empty);
+                    //crmain.SetParameterValue("Amount",  string.Empty);
+                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtAmount"]))
+                        crmain.SetParameterValue("Amount", Request.Form[ctrlPrefix + "txtAmount"]);
+                    else
+                        crmain.SetParameterValue("Amount", string.Empty);
+
+                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$rbtAmount"]))
+                    {
+
+                        if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtNewAmount"]))
+                            crmain.SetParameterValue("Amount", Request.Form[ctrlPrefix + "txtNewAmount"]);
+                        else
+                            crmain.SetParameterValue("Amount", string.Empty);
+                    }
+                    crmain.SetParameterValue("Units", string.Empty);
+                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$rbtUnit"]))
+                    {
+
+                        if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtNewAmount"]))
+                            crmain.SetParameterValue("Units", Request.Form[ctrlPrefix + "txtNewAmount"]);
+                        else
+                            crmain.SetParameterValue("Units", string.Empty);
+                    }
+
+                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtstartDateSIP"]))
+                        crmain.SetParameterValue("StartDate", Request.Form[ctrlPrefix + "txtstartDateSIP"]);
+                    else if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtstartDateSTP"]))
+                        crmain.SetParameterValue("StartDate", Request.Form[ctrlPrefix + "txtstartDateSTP"]);
+                    else
+                        crmain.SetParameterValue("StartDate", string.Empty);
+
+                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtendDateSIP"]))
+                        crmain.SetParameterValue("EndDate", Request.Form[ctrlPrefix + "txtendDateSIP"]);
+                    else if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtendDateSTP"]))
+                        crmain.SetParameterValue("EndDate", Request.Form[ctrlPrefix + "txtendDateSTP"]);
+                    else
+                        crmain.SetParameterValue("EndDate", string.Empty);
+
+                    //crmain.SetParameterValue("StartDate", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtstartDateSIP"]) ? Request.Form["ctrl_MFOrderEntry$txtstartDateSIP"] : string.Empty);
+                    //crmain.SetParameterValue("EndDate", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtPaymentNumber"]) ? Request.Form["ctrl_MFOrderEntry$txtPaymentNumber"] : string.Empty);
+                    crmain.SetParameterValue("BankName", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnBankName"]) ? Request.Form["ctrl_MFOrderEntry$hdnBankName"] : string.Empty);
+                    crmain.SetParameterValue("BranchName", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtBranchName"]) ? Request.Form["ctrl_MFOrderEntry$txtBranchName"] : string.Empty);
+                    crmain.SetParameterValue("SchemeSwitch", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$ddlSchemeSwitch"]) ? Request.Form["ctrl_MFOrderEntry$ddlSchemeSwitch"] : string.Empty);
+                    //crmain.SetParameterValue("Units",  string.Empty);
 
                     ShowTransactionShowHide(report.Type);
 
