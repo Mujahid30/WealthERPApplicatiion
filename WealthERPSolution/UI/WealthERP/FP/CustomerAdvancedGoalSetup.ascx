@@ -6,7 +6,6 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
-
 <script type="text/javascript">
 
     function MFBasedGoalSelection(value) {
@@ -1426,10 +1425,10 @@
                                                     </asp:Label>
                                                     <asp:Label ID="txtSharesAdd" runat="server" CssClass="txtField" Enabled="false" TabIndex="2">
                                                     </asp:Label>
-                                                   
                                                 </td>
                                                 <td align="right">
-                                                    <asp:Label ID="Label11" Text="Available Shares After Allocation:" CssClass="FieldName" runat="server">
+                                                    <asp:Label ID="Label11" Text="Available Shares After Allocation:" CssClass="FieldName"
+                                                        runat="server">
                                                     </asp:Label>
                                                 </td>
                                                 <td>
@@ -1498,15 +1497,16 @@
                                                         ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
                                                     <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator8"
                                                         runat="server" ValidationGroup="btnSubmit" CssClass="rfvPCG" ControlToValidate="txtAllocationEntryEquity"
-                                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>                                                
-                                                
-                                                 <asp:CompareValidator ID="cvAvlShares" runat="server" CssClass ="rfvPCG" Operator="LessThanEqual" Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalEdit" ControlToValidate="txtAllocationEntryEquity"
-                                                 ErrorMessage="Check Your Available Allocation" ValidationGroup="btnSubmit"></asp:CompareValidator>
-                                                
-                                                 <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass ="rfvPCG" Operator="LessThanEqual" Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalAdd" ControlToValidate="txtAllocationEntryEquity"
-                                                 ErrorMessage="Check Your Available Allocation" ValidationGroup="btnSubmit"></asp:CompareValidator>
-                                                 
-                                                  </td>
+                                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                                        
+                                                    <asp:CompareValidator ID="cvAvlShares" runat="server" CssClass="rfvPCG" Operator="LessThanEqual"
+                                                        Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalEdit" Type="Double" ControlToValidate="txtAllocationEntryEquity"
+                                                        ErrorMessage="Check Your Available Allocation 1" ValidationGroup="btnSubmit"></asp:CompareValidator>
+                                                    
+                                                    <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" Operator="LessThanEqual"
+                                                        Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalAdd"  ControlToValidate="txtAllocationEntryEquity"
+                                                        ErrorMessage="Check Your Available Allocation" ValidationGroup="btnSubmit"></asp:CompareValidator>
+                                                </td>
                                             </tr>
                                             <tr id="trOtherGoalAllocation" runat="server">
                                                 <td align="right">
@@ -1522,16 +1522,17 @@
                                                         Enabled="false" TabIndex="1">
                                                     </asp:Label>
                                                 </td>
-                                               <td align="right">
-                                                    <asp:Label ID="Label27" Text="Available Shares For Allocation:" CssClass="FieldName" runat="server">
+                                                <td align="right">
+                                                    <asp:Label ID="Label27" Text="Available Shares For Allocation:" CssClass="FieldName"
+                                                        runat="server">
                                                     </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:TextBox ID="lblAvailableSharesforCurrentGoalEdit" runat="server" CssClass="txtField" Text='<%# Bind("AvailableSharesforCurrentGoal") %>'
-                                                        Enabled="false" TabIndex="2">
+                                                    <asp:TextBox ID="lblAvailableSharesforCurrentGoalEdit" runat="server" CssClass="txtField"
+                                                        Text='<%# Bind("AvailableSharesforCurrentGoal") %>' Enabled="false" TabIndex="2">
                                                     </asp:TextBox>
-                                                    <asp:TextBox ID="lblAvailableSharesforCurrentGoalAdd" runat="server" CssClass="txtField" Enabled="false"
-                                                        TabIndex="2">
+                                                    <asp:TextBox ID="lblAvailableSharesforCurrentGoalAdd" runat="server" CssClass="txtField"
+                                                        Enabled="false" TabIndex="2">
                                                     </asp:TextBox>
                                                 </td>
                                             </tr>
@@ -1543,7 +1544,7 @@
                                 <tr>
                                     <td align="right" colspan="2">
                                         <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                            runat="server" CssClass="PCGButton" ValidationGroup="btnSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                         </asp:Button>&nbsp;
                                         <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
                                             CssClass="PCGButton" CommandName="Cancel"></asp:Button>
@@ -1553,7 +1554,11 @@
                         </FormTemplate>
                     </EditFormSettings>
                 </MasterTableView>
+                
+               <ValidationSettings CommandsToValidate="PerformInsert,Update" />
+
                 <ClientSettings>
+                
                 </ClientSettings>
             </telerik:RadGrid>
         </asp:Panel>
@@ -1661,5 +1666,4 @@
         </asp:Panel>
     </telerik:RadPageView>
 </telerik:RadMultiPage>
-
-<asp:HiddenField id="hdfAvailableAmount" runat="server" />
+<asp:HiddenField ID="hdfAvailableAmount" runat="server" />

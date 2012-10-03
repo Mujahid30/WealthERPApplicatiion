@@ -2853,7 +2853,17 @@ namespace WealthERP.FP
 
 
         protected void RadGrid4_ItemDataBound(object sender, GridItemEventArgs e)
-        {          
+        {
+
+            if (e.Item.IsInEditMode && e.Item is GridEditableItem)
+            {
+                if (e.Item is GridDataInsertItem)
+                {
+                    GridEditableItem editItem = (GridEditableItem)e.Item;
+                    Button InsertButton = (Button)editItem.FindControl("btnUpdate");
+                    InsertButton.ValidationGroup = "btnSubmit";
+                }
+            }
 
             if ((e.Item is GridEditFormItem) && e.Item.IsInEditMode)
             {
