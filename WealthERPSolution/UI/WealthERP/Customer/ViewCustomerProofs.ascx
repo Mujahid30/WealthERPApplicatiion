@@ -17,8 +17,6 @@
 
 </script>
 
-
-
 <script type="text/javascript">
 
     function HideValidations() {
@@ -123,23 +121,38 @@
     
 </script>
 
+<table width="100%">
+    <tr>
+        <td colspan="4">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Vault Proof
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 <telerik:RadTabStrip ID="radPOCProof" runat="server" EnableTheming="True" Skin="Telerik"
     MultiPageID="multiPageView" EnableEmbeddedSkins="false">
-    <tabs>
+    <Tabs>
         <telerik:RadTab runat="server" Text="Proof Upload" onclick="ShowValidations();" Value="Proof_Upload"
             TabIndex="0">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Proof View" onclick="HideValidations();" Value="Proof_View"
             TabIndex="1">
         </telerik:RadTab>
-    </tabs>
+    </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadMultiPage ID="multiPageView" runat="server" SelectedIndex="0">
     <telerik:RadPageView ID="pageProofAdd" runat="server">
         <asp:Panel ID="pnlProofAdd" runat="server">
-            <table width="100%">
+            <%--<table width="100%">
                 <tr>
                     <td>
                         <label class="HeaderTextBig">
@@ -147,7 +160,7 @@
                         <hr />
                     </td>
                 </tr>
-            </table>
+            </table>--%>
             <table id="tblproofAdd" width="100%">
                 <tr>
                     <td align="right">
@@ -253,9 +266,24 @@
             </table>
         </asp:Panel>
     </telerik:RadPageView>
+    <table width="100%">
+    <tr>
+        <td colspan="4">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Customer proof 
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
     <telerik:RadPageView ID="pageProofView" runat="server">
         <asp:Panel ID="pnlUploadView" runat="server">
-            <table width="100%">
+            <%--<table width="100%">
                 <tr>
                     <td>
                         <label class="HeaderTextBig">
@@ -263,7 +291,7 @@
                         <hr />
                     </td>
                 </tr>
-            </table>
+            </table>--%>
             <table id="tblUploadView" width="100%">
                 <tr>
                     <td>
@@ -281,7 +309,7 @@
                                         <th align="center" style="text-decoration: underline" class="HeaderText">
                                             Copy type
                                         </th>
-                                       <%-- <th align="center" style="text-decoration: underline" class="HeaderText">
+                                        <%-- <th align="center" style="text-decoration: underline" class="HeaderText">
                                             Proof
                                         </th>--%>
                                         <td>
@@ -303,22 +331,24 @@
                                     <td align="center">
                                         <asp:Label ID="lblProofCopy" runat="server" CssClass="cmbField" Text='<%# Eval("ProofCopyType").ToString() %>'></asp:Label>
                                     </td>
-                                   <%-- <td align="center" style="border: 0; float: left" runat="server" id="tdProofImages">
+                                    <%-- <td align="center" style="border: 0; float: left" runat="server" id="tdProofImages">
                                         <%# LoadControls(Eval("ProofExtensions").ToString(), Eval("ProofImage").ToString(), Eval("ProofFileName").ToString())%>
                                     </td>
---%>                                    <td align="center">
-                                        <asp:LinkButton ID="lnkMail" runat="server" CssClass="LinkButtons" CommandName="Send Mail" OnClientClick="return confirm('Are you sure?')"
-                                            CommandArgument='<%# Eval("ProofUploadId") %>' Text="Send Email"></asp:LinkButton>
+--%>
+                                    <td align="center">
+                                        <asp:LinkButton ID="lnkMail" runat="server" CssClass="LinkButtons" CommandName="Send Mail"
+                                            OnClientClick="return confirm('Are you sure You Want to Send Mail?')" CommandArgument='<%# Eval("ProofUploadId") %>'
+                                            Text="Send Email"></asp:LinkButton>
                                     </td>
                                     <td align="center">
-                                        <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" CommandName="Edit proof" OnClientClick="return confirm('Are you sure?')"
+                                        <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" CommandName="Edit proof"
                                             CommandArgument='<%# Eval("ProofUploadId") %>' Text="Edit / Delete"></asp:LinkButton>
                                     </td>
                                     <td>
                                         <asp:LinkButton ID="bntViewProofImage" runat="server" Text="View" CommandArgument='<%# Eval("ProofUploadId") %>'
-                                         CssClass="LinkButtons" CommandName="View proof"/>
-                                         <asp:HiddenField ID="hdnCpuImage" runat="server" Value='<%# Eval("ProofImage") %>' />
-                                         <asp:HiddenField ID="hdnPdfUrl" runat="server" />
+                                            CssClass="LinkButtons" CommandName="View proof" />
+                                        <asp:HiddenField ID="hdnCpuImage" runat="server" Value='<%# Eval("ProofImage") %>' />
+                                        <asp:HiddenField ID="hdnPdfUrl" runat="server" />
                                     </td>
                                     <td align="center" visible="false">
                                         <asp:LinkButton ID="lnkPrint" Visible="false" runat="server" CssClass="LinkButtons"
