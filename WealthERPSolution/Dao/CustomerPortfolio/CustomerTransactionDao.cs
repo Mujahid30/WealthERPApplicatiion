@@ -3392,11 +3392,14 @@ namespace DaoCustomerPortfolio
                 CancelEQTrnxCmd = db.GetStoredProcCommand("SP_CancelEquityTransaction");
                 db.AddInParameter(CancelEQTrnxCmd, "@EqTransId", DbType.Int32, eqTransactionVo.TransactionId);
                 db.AddInParameter(CancelEQTrnxCmd, "@CETA_AccountId", DbType.Int32, eqTransactionVo.AccountId);
-                db.AddInParameter(CancelEQTrnxCmd, "@PEM_ScripCode", DbType.String, eqTransactionVo.ScripCode);
-                db.AddInParameter(CancelEQTrnxCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeAccountNum);
-                db.AddInParameter(CancelEQTrnxCmd, "@CET_OrderNum", DbType.Int64, eqTransactionVo.OrderNum);
+                db.AddInParameter(CancelEQTrnxCmd, "@PEM_ScripCode", DbType.Int32, eqTransactionVo.ScripCode);
+                if (!string.IsNullOrEmpty(eqTransactionVo.TradeAccountNum))
+                    db.AddInParameter(CancelEQTrnxCmd, "@CET_TradeNum", DbType.Decimal, eqTransactionVo.TradeAccountNum);
+                else
+                    db.AddInParameter(CancelEQTrnxCmd, "@CET_TradeNum", DbType.String, DBNull.Value);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_OrderNum", DbType.Decimal, eqTransactionVo.OrderNum);
                 db.AddInParameter(CancelEQTrnxCmd, "@CET_BuySell", DbType.String, eqTransactionVo.BuySell);
-                db.AddInParameter(CancelEQTrnxCmd, "@CET_IsSpeculative", DbType.Int16, eqTransactionVo.IsSpeculative);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_IsSpeculative", DbType.String, eqTransactionVo.IsSpeculative);
                 if (!string.IsNullOrEmpty(eqTransactionVo.Exchange))
                     db.AddInParameter(CancelEQTrnxCmd, "@XE_ExchangeCode", DbType.String, eqTransactionVo.Exchange);
                 else
