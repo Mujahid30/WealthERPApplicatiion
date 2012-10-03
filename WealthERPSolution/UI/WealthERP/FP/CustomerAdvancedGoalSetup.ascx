@@ -6,6 +6,7 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
+
 <script type="text/javascript">
 
     function MFBasedGoalSelection(value) {
@@ -573,7 +574,7 @@
                             OnClick="btnBackToView_Click" />
                         <asp:Button ID="btnEdit" runat="server" CssClass="PCGButton" Text="Edit" OnClick="btnEdit_Click" />
                         <asp:Button ID="btnUpdate" runat="server" ValidationGroup="btnSave" CssClass="PCGButton"
-                            Text="Update" OnClick="btnUpdate_Click" />                            
+                            Text="Update" OnClick="btnUpdate_Click" />
                         <asp:Button ID="btnFundAdd" runat="server" CssClass="PCGButton" OnClick="btnFundAdd_Click"
                             Text="Fund" ValidationGroup="btnSave" />
                     </td>
@@ -849,6 +850,10 @@
                                                     <asp:DropDownList ID="ddlMemberName" runat="server" CssClass="cmbField" AutoPostBack="true"
                                                         OnSelectedIndexChanged="ddlMemberName_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator18" Text="Please Select Member"
+                                                        InitialValue="Select" ControlToValidate="ddlMemberName" Display="Dynamic" runat="server"
+                                                        CssClass="rfvPCG" ValidationGroup="btnMFSubmit">
+                                                    </asp:RequiredFieldValidator>
                                                     <%-- <asp:Label ID="lblMemberNameAddMode"  CssClass="FieldName"
                                                         runat="server">
                                                     </asp:Label>      --%>
@@ -856,6 +861,7 @@
                                                 <td>
                                                 </td>
                                                 <td id="tdlblSchemeName" runat="server" align="right">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <asp:Label ID="Label133" Text="Scheme:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
@@ -863,6 +869,10 @@
                                                     <asp:DropDownList ID="ddlPickScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
                                                         OnSelectedIndexChanged="ddlPickScheme_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator17" Text="Please Select Scheme"
+                                                        InitialValue="Select" ControlToValidate="ddlPickScheme" Display="Dynamic" runat="server"
+                                                        CssClass="rfvPCG" ValidationGroup="btnMFSubmit">
+                                                    </asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>
                                             <tr runat="server" id="trSchemeTextBox">
@@ -970,6 +980,12 @@
                                                     <cc1:TextBoxWatermarkExtender ID="TextBox4_TextBoxWatermarkExtender" runat="server"
                                                         Enabled="True" TargetControlID="TextBox4" WatermarkText="Please enter here..">
                                                     </cc1:TextBoxWatermarkExtender>
+                                                    <asp:RequiredFieldValidator ID="rfvAllocationEntry" ControlToValidate="TextBox4"
+                                                        ErrorMessage="Please fill the allocation" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                        ValidationGroup="btnMFSubmit"></asp:RequiredFieldValidator>
+                                                    <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator8"
+                                                        runat="server" CssClass="rfvPCG" ControlToValidate="TextBox4" ValidationGroup="btnMFSubmit"
+                                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                                                 </td>
                                             </tr>
                                             <tr id="trOtherGoalAllocation" runat="server">
@@ -1008,7 +1024,7 @@
                                 <tr>
                                     <td align="right" colspan="2">
                                         <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                            runat="server" CssClass="PCGButton" ValidationGroup="btnMFSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                         </asp:Button>&nbsp;
                                         <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                                             CommandName="Cancel"></asp:Button>
@@ -1103,11 +1119,16 @@
                                                     <asp:DropDownList ID="ddlSIPMemberName" runat="server" CssClass="cmbField" AutoPostBack="true"
                                                         OnSelectedIndexChanged="ddlSIPMemberName_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator17" Text="Please Select Member"
+                                                        InitialValue="Select" ControlToValidate="ddlSIPMemberName" Display="Dynamic"
+                                                        runat="server" CssClass="rfvPCG" ValidationGroup="btnSIPSubmit">
+                                                    </asp:RequiredFieldValidator>
                                                     <%-- <asp:Label ID="lblMemberNameAddMode" CssClass="FieldName"
                                                         runat="server">
                                                     </asp:Label>      --%>
                                                 </td>
                                                 <td align="right" runat="server" id="tdSipScheme">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <asp:Label ID="Label20" Text="Scheme-Amount-SIP Date:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
@@ -1115,6 +1136,10 @@
                                                     <asp:DropDownList ID="ddlPickSIPScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
                                                         OnSelectedIndexChanged="ddlPickSIPScheme_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" Text="Please Select SIP"
+                                                        InitialValue="Select" ControlToValidate="ddlPickSIPScheme" Display="Dynamic"
+                                                        runat="server" CssClass="rfvPCG" ValidationGroup="btnSIPSubmit">
+                                                    </asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>
                                             <tr runat="server" id="trSchemeNameText">
@@ -1167,6 +1192,12 @@
                                                     <cc1:TextBoxWatermarkExtender ID="TextBox3_TextBoxWatermarkExtender" runat="server"
                                                         Enabled="True" TargetControlID="TextBox3" WatermarkText="Please enter SIP Amt.">
                                                     </cc1:TextBoxWatermarkExtender>
+                                                    <asp:RequiredFieldValidator ID="rfvAllocationEntry" ControlToValidate="TextBox3"
+                                                        ErrorMessage="Please fill the allocation" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                        ValidationGroup="btnSIPSubmit"></asp:RequiredFieldValidator>
+                                                    <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator8"
+                                                        runat="server" CssClass="rfvPCG" ControlToValidate="TextBox3" ValidationGroup="btnSIPSubmit"
+                                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                                                 </td>
                                                 <td align="right">
                                                     <asp:Label ID="Label23" Text="Other Goal Invested Amount:" CssClass="FieldName" runat="server">
@@ -1240,7 +1271,7 @@
                                 <tr>
                                     <td align="right" colspan="2">
                                         <asp:Button ID="Button3" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                            runat="server" CssClass="PCGButton" ValidationGroup="btnSIPSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                         </asp:Button>&nbsp;
                                         <asp:Button ID="Button4" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                                             CommandName="Cancel"></asp:Button>
@@ -1316,11 +1347,11 @@
                     <EditFormSettings EditFormType="Template">
                         <FormTemplate>
                             <table id="tblEquityFundingHeader" cellspacing="2" cellpadding="1" width="100%" border="0"
-                               class="EditFormSettingsTableColor">
+                                class="EditFormSettingsTableColor">
                                 <tr class="EditFormHeader">
                                     <td colspan="2">
-                                       <%-- <b>EQ Investment Funding</b>--%>
-                                        <asp:Label  runat="server" CssClass="HeaderTextSmall" Text="EQ Investment Funding"></asp:Label>
+                                        <%-- <b>EQ Investment Funding</b>--%>
+                                        <asp:Label runat="server" CssClass="HeaderTextSmall" Text="EQ Investment Funding"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1344,8 +1375,13 @@
                                                     <%-- <asp:Label ID="lblMemberNameAddMode"  CssClass="FieldName"
                                                         runat="server">
                                                     </asp:Label>      --%>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" Text="Please Select Member"
+                                                        InitialValue="Select" ControlToValidate="ddlMemberNameEq" Display="Dynamic" runat="server"
+                                                        CssClass="rfvPCG" ValidationGroup="btnSubmit">
+                                                    </asp:RequiredFieldValidator>
                                                 </td>
                                                 <td align="right" id="tdlblPickScrips" runat="server">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <asp:Label ID="lblPickScrips" Text="Scrips:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
@@ -1353,6 +1389,10 @@
                                                     <asp:DropDownList ID="ddlPickScrips" runat="server" CssClass="cmbField" AutoPostBack="true"
                                                         OnSelectedIndexChanged="ddlPickScrips_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Text="Please Select Scrips"
+                                                        InitialValue="Select" ControlToValidate="ddlPickScrips" Display="Dynamic" runat="server"
+                                                        CssClass="rfvPCG" ValidationGroup="btnSubmit">
+                                                    </asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>
                                             <tr runat="server" id="trScripsTextBox">
@@ -1386,9 +1426,10 @@
                                                     </asp:Label>
                                                     <asp:Label ID="txtSharesAdd" runat="server" CssClass="txtField" Enabled="false" TabIndex="2">
                                                     </asp:Label>
+                                                   
                                                 </td>
                                                 <td align="right">
-                                                    <asp:Label ID="Label11" Text="Available Shares:" CssClass="FieldName" runat="server">
+                                                    <asp:Label ID="Label11" Text="Available Shares After Allocation:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
                                                 <td>
@@ -1452,11 +1493,24 @@
                                                     <cc1:TextBoxWatermarkExtender ID="txtAllocationEntryEquity_TextBoxWatermarkExtender"
                                                         runat="server" Enabled="True" TargetControlID="txtAllocationEntryEquity" WatermarkText="Please enter here..">
                                                     </cc1:TextBoxWatermarkExtender>
-                                                </td>
+                                                    <asp:RequiredFieldValidator ID="rfvAllocationEntry" ControlToValidate="txtAllocationEntryEquity"
+                                                        ErrorMessage="Please fill the allocation" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                        ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                                                    <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator8"
+                                                        runat="server" ValidationGroup="btnSubmit" CssClass="rfvPCG" ControlToValidate="txtAllocationEntryEquity"
+                                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>                                                
+                                                
+                                                 <asp:CompareValidator ID="cvAvlShares" runat="server" CssClass ="rfvPCG" Operator="LessThanEqual" Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalEdit" ControlToValidate="txtAllocationEntryEquity"
+                                                 ErrorMessage="Check Your Available Allocation" ValidationGroup="btnSubmit"></asp:CompareValidator>
+                                                
+                                                 <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass ="rfvPCG" Operator="LessThanEqual" Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalAdd" ControlToValidate="txtAllocationEntryEquity"
+                                                 ErrorMessage="Check Your Available Allocation" ValidationGroup="btnSubmit"></asp:CompareValidator>
+                                                 
+                                                  </td>
                                             </tr>
                                             <tr id="trOtherGoalAllocation" runat="server">
                                                 <td align="right">
-                                                    <asp:Label ID="Label18" Text="Other Goal Allocation(Share):" CssClass="FieldName"
+                                                    <asp:Label ID="Label18" Text="Other Goal Allocation(Shares):" CssClass="FieldName"
                                                         runat="server">
                                                     </asp:Label>
                                                 </td>
@@ -1468,16 +1522,17 @@
                                                         Enabled="false" TabIndex="1">
                                                     </asp:Label>
                                                 </td>
-                                                <td align="right" id="tdAvailableShares" runat="server">
-                                                    <%-- <asp:Label ID="Label19" Text="Available Shares:" CssClass="FieldName" runat="server">
-                                                    </asp:Label>--%>
-                                                </td>
-                                                <td id="tdLblAvailableShares" runat="server">
-                                                    <%-- <asp:Label ID="txtAvailableAllocationEQEditMode" runat="server" CssClass="txtField" Text='<%# Bind("AvailableShares") %>' Enabled="false"                                                         TabIndex="1">
+                                               <td align="right">
+                                                    <asp:Label ID="Label27" Text="Available Shares For Allocation:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
-                                                    <asp:Label ID="txtAvailableAllocationEQAddMode" runat="server" CssClass="txtField" Enabled="false"
-                                                        TabIndex="1">
-                                                    </asp:Label>--%>
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox ID="lblAvailableSharesforCurrentGoalEdit" runat="server" CssClass="txtField" Text='<%# Bind("AvailableSharesforCurrentGoal") %>'
+                                                        Enabled="false" TabIndex="2">
+                                                    </asp:TextBox>
+                                                    <asp:TextBox ID="lblAvailableSharesforCurrentGoalAdd" runat="server" CssClass="txtField" Enabled="false"
+                                                        TabIndex="2">
+                                                    </asp:TextBox>
                                                 </td>
                                             </tr>
                                         </table>
@@ -1488,7 +1543,7 @@
                                 <tr>
                                     <td align="right" colspan="2">
                                         <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                            runat="server" CssClass="PCGButton" ValidationGroup="btnSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                         </asp:Button>&nbsp;
                                         <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
                                             CssClass="PCGButton" CommandName="Cancel"></asp:Button>
@@ -1606,3 +1661,5 @@
         </asp:Panel>
     </telerik:RadPageView>
 </telerik:RadMultiPage>
+
+<asp:HiddenField id="hdfAvailableAmount" runat="server" />

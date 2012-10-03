@@ -1415,6 +1415,7 @@ namespace BoFPSuperlite
             dtCustomerGoalFundingSIPDetails.Columns.Add("EquityProjectedAmount");
             dtCustomerGoalFundingSIPDetails.Columns.Add("EquityNetCost");
             dtCustomerGoalFundingSIPDetails.Columns.Add("TotalSharesAllocation");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("AvailableSharesforCurrentGoal");            
 
             DataRow drCustomerEquityGoalFundingDetails;
             DataRow[] drtotalEquityShares;
@@ -1492,7 +1493,8 @@ namespace BoFPSuperlite
                 drCustomerEquityGoalFundingDetails["TotalHoldingEquityShares"] = double.Parse(dr["CENP_NetHoldings"].ToString()) != 0 ? String.Format("{0:n2}", Math.Round(double.Parse(dr["CENP_NetHoldings"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 drCustomerEquityGoalFundingDetails["EquityProjectedAmount"] = projectedAmount != 0 ? String.Format("{0:n2}", Math.Round(projectedAmount, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 drCustomerEquityGoalFundingDetails["EquityNetCost"] = currentAllocation != 0 ? String.Format("{0:n2}", Math.Round(currentAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0"; ;
-
+                drCustomerEquityGoalFundingDetails["AvailableSharesforCurrentGoal"] = (TotalHoldingEquityShares - (totalAllocation - currentAllocation)).ToString();
+                
                 dtCustomerGoalFundingSIPDetails.Rows.Add(drCustomerEquityGoalFundingDetails);
             }
 

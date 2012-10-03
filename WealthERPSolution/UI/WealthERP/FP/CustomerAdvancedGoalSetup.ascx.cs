@@ -1295,6 +1295,7 @@ namespace WealthERP.FP
                     BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
                     BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
                     ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+                    BindEquityFundedDetails();
                     BindddlModelPortfolioGoalSchemes();
                     SetGoalProgressImage(goalPlanningVo.Goalcode);
                 }
@@ -1311,7 +1312,7 @@ namespace WealthERP.FP
                 }
 
                 goalAction = "View";
-                Session["GoalAction"] = goalAction;
+                Session["GoalAction"] = goalAction;               
 
             }
 
@@ -2812,6 +2813,8 @@ namespace WealthERP.FP
             GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
             DropDownList ddlPickSIPScheme = editedItem.FindControl("ddlPickSIPScheme") as DropDownList;
             HtmlTableCell tdddlPickSIPScheme = (HtmlTableCell)editedItem.FindControl("tdddlPickSIPScheme");
+            HtmlTableCell tdSipScheme = (HtmlTableCell)editedItem.FindControl("tdSipScheme");
+            tdSipScheme.Visible = true;
             tdddlPickSIPScheme.Visible = true;
             BindDDLSIPSchemeAllocated(ddlPickSIPScheme, customerId);
         }
@@ -2850,12 +2853,7 @@ namespace WealthERP.FP
 
 
         protected void RadGrid4_ItemDataBound(object sender, GridItemEventArgs e)
-        {
-            RadTabStripFPGoalDetails.TabIndex = 4;
-            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
-            CustomerFPGoalDetail.SelectedIndex = 4;
-            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
-            RadTabStripFPGoalDetails.Tabs[2].Tabs[1].Selected = true;
+        {          
 
             if ((e.Item is GridEditFormItem) && e.Item.IsInEditMode)
             {
@@ -2879,6 +2877,9 @@ namespace WealthERP.FP
                 Label txtSharesAdd = editedItem.FindControl("txtSharesAdd") as Label;
                 Label txtShares = editedItem.FindControl("txtShares") as Label;
 
+                TextBox lblAvailableSharesforCurrentGoalEdit = editedItem.FindControl("lblAvailableSharesforCurrentGoalEdit") as TextBox;
+                TextBox lblAvailableSharesforCurrentGoalAdd = editedItem.FindControl("lblAvailableSharesforCurrentGoalAdd") as TextBox;
+                
                 HtmlTableRow trTotalShares = editedItem.FindControl("trTotalShares") as HtmlTableRow;
                 HtmlTableRow trOtherGoalAllocation = editedItem.FindControl("trOtherGoalAllocation") as HtmlTableRow;
                 HtmlTableRow trTotalGoalAllocation = editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
@@ -2893,7 +2894,6 @@ namespace WealthERP.FP
                 trOtherGoalAllocation.Visible = true;
                 trCurrentValue.Visible = true;
                 tdddlPickScrips.Visible = true; 
-
                 if (e.Item.RowIndex == -1)
                 {
                     trTotalShares.Visible = false;
@@ -2910,6 +2910,8 @@ namespace WealthERP.FP
                     txtShareAvailableEditMode.Visible = false;
                     txtShareAllocationPerEditMode.Visible = false;
                     txtInvestedAmt.Visible = false;
+                    lblAvailableSharesforCurrentGoalEdit.Visible = false;
+                    lblAvailableSharesforCurrentGoalAdd.Visible = true;
                     TextBox1.Visible = false;
                     txtCurrentValueEditMode.Visible = false;
                     //txtAvailableAllocationEditMode.Visible = false;
@@ -2927,6 +2929,10 @@ namespace WealthERP.FP
                     txtShareAllocationPerEditMode.Visible = true;
                     txtInvestedAmt.Visible = true;
                     TextBox1.Visible = true;
+
+                    lblAvailableSharesforCurrentGoalAdd.Text = lblAvailableSharesforCurrentGoalEdit.Text;
+                    lblAvailableSharesforCurrentGoalEdit.Visible = true;
+                    lblAvailableSharesforCurrentGoalAdd.Visible = false;
                     txtCurrentValueEditMode.Visible = true;
                     txtShareAvailableEditMode.Visible = true;
                     txtCurrentValueAddMode.Visible = false;
@@ -3029,7 +3035,7 @@ namespace WealthERP.FP
             HtmlTableRow trTotalGoalAllocation = editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
             HtmlTableRow trCurrentValue = editedItem.FindControl("trCurrentValue") as HtmlTableRow;
             HtmlTableCell tdlblPickScrips = editedItem.FindControl("tdlblPickScrips") as HtmlTableCell;
-
+            TextBox lblAvailableSharesforCurrentGoalAdd = editedItem.FindControl("lblAvailableSharesforCurrentGoalAdd") as TextBox;
 
             trTotalShares.Visible = true;
             trCurrentValue.Visible = true;
@@ -3102,6 +3108,8 @@ namespace WealthERP.FP
                     txtAllocationTotalAddMode.Text = totalAllocation != 0 ? String.Format("{0:n2}", Math.Round(totalAllocation, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                     txtShareOtherAllocationAddMode.Text = otherAllocation != 0 ? String.Format("{0:n2}", Math.Round(otherAllocation, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                     txtShareAvailableAddMode.Text = AvialableAllocation != 0 ? String.Format("{0:n2}", Math.Round(AvialableAllocation, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    lblAvailableSharesforCurrentGoalAdd.Text = (totalSharesHolding - otherAllocation).ToString();
+                    
                 }
             }
             else
@@ -3127,21 +3135,19 @@ namespace WealthERP.FP
 
             }
 
+           
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
-
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 TextBox txt = (TextBox)e.Item.FindControl("txtAllocationEntryEquity");
                 decimal allocationEntry = decimal.Parse(txt.Text);
                 int eqId = int.Parse(RadGrid4.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CENPS_Id"].ToString());
                 decimal OtherGoalAllocation = decimal.Parse(RadGrid4.MasterTableView.DataKeyValues[e.Item.ItemIndex]["OtherEquityGoalAllocation"].ToString());
                 customerGoalPlanningBo.UpdateEquityGoalAllocation(allocationEntry, eqId, goalId);
-                BindEquityFundedDetails();
+               // BindEquityFundedDetails();
             }
-            if (e.CommandName != RadGrid.UpdateCommandName)
-            {
-                GetGoalFundingProgress();
-            }
+            
+            GetGoalFundingProgress();            
             BindEquityFundedDetails();
 
         }
