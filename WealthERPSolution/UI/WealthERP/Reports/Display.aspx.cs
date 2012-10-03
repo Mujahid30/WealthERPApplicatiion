@@ -2561,12 +2561,12 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "MultiAsset Report";
+                                Headername = "NetWorth Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
                             {
-                                Headername = "MultiAsset Report";
+                                Headername = "NetWorth Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             CrystalReportViewer1.ReportSource = crmain;
