@@ -169,7 +169,7 @@
                                     <asp:ListItem Text="Select" Value="Select" />
                                     <asp:ListItem Text="Dashboard" Value="Dashboard" />
                                     <asp:ListItem Text="Profile" Value="Profile" />
-                                    <asp:ListItem Text="Portfolio" Value="Portfolio" />
+                                    <asp:ListItem Text="Assets" Value="Portfolio" />
                                    <%-- <asp:ListItem Text="User Details" Value="User Details" />--%>
                                     <asp:ListItem Text="Alerts" Value="Alerts" />
                                     <asp:ListItem Text="Delete Profile" />
