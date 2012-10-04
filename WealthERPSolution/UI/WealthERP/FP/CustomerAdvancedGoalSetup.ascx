@@ -1503,7 +1503,7 @@
                                                         Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalEdit" Type="Double" ControlToValidate="txtAllocationEntryEquity"
                                                         ErrorMessage="Check Your Available Allocation" ValidationGroup="btnSubmit"></asp:CompareValidator>
                                                     
-                                                    <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" Operator="LessThanEqual"
+                                                    <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" Operator="LessThanEqual" Type="Double"
                                                         Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalAdd"  ControlToValidate="txtAllocationEntryEquity"
                                                         ErrorMessage="Check Your Available Allocation" ValidationGroup="btnSubmit"></asp:CompareValidator>
                                                 </td>

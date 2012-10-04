@@ -1484,8 +1484,8 @@ namespace BoFPSuperlite
                 drCustomerEquityGoalFundingDetails["CENPS_Id"] = dr["CENPS_Id"].ToString();
                 drCustomerEquityGoalFundingDetails["MemberName"] = dr["MemberName"].ToString();
                 drCustomerEquityGoalFundingDetails["PEM_ScripCode"] = dr["PEM_ScripCode"].ToString();
-                drCustomerEquityGoalFundingDetails["CurrentValue"] = currentEQValue.ToString();
-                drCustomerEquityGoalFundingDetails["TotalSharesAllocation"] = totalAllocation.ToString();
+                drCustomerEquityGoalFundingDetails["CurrentValue"] = Math.Round(currentEQValue,0).ToString();
+                drCustomerEquityGoalFundingDetails["TotalSharesAllocation"] =Math.Round(totalAllocation,0).ToString();
                 drCustomerEquityGoalFundingDetails["PEM_CompanyName"] = dr["PEM_CompanyName"].ToString();
                 drCustomerEquityGoalFundingDetails["AvailableShares"] = double.Parse(dr["CENP_NetHoldings"].ToString()) - totalAllocation != 0 ? String.Format("{0:n2}", Math.Round(double.Parse(dr["CENP_NetHoldings"].ToString()) - totalAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 drCustomerEquityGoalFundingDetails["OtherEquityGoalAllocation"] = (totalAllocation - currentAllocation) != 0 ? String.Format("{0:n2}", Math.Round((totalAllocation - currentAllocation), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0"; ; ;
@@ -1493,7 +1493,7 @@ namespace BoFPSuperlite
                 drCustomerEquityGoalFundingDetails["TotalHoldingEquityShares"] = double.Parse(dr["CENP_NetHoldings"].ToString()) != 0 ? String.Format("{0:n2}", Math.Round(double.Parse(dr["CENP_NetHoldings"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 drCustomerEquityGoalFundingDetails["EquityProjectedAmount"] = projectedAmount != 0 ? String.Format("{0:n2}", Math.Round(projectedAmount, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 drCustomerEquityGoalFundingDetails["EquityNetCost"] = currentAllocation != 0 ? String.Format("{0:n2}", Math.Round(currentAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0"; ;
-                drCustomerEquityGoalFundingDetails["AvailableSharesforCurrentGoal"] = (TotalHoldingEquityShares - (totalAllocation - currentAllocation)).ToString();
+                drCustomerEquityGoalFundingDetails["AvailableSharesforCurrentGoal"] = Math.Round((TotalHoldingEquityShares - (totalAllocation - currentAllocation)),0).ToString();
                 
                 dtCustomerGoalFundingSIPDetails.Rows.Add(drCustomerEquityGoalFundingDetails);
             }

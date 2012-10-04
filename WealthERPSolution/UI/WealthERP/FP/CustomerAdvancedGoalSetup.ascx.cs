@@ -3111,14 +3111,14 @@ namespace WealthERP.FP
                         otherAllocation = totalAllocation;
                     }
                     AvialableAllocation = totalSharesHolding - totalAllocation;
-                    txtSharesAdd.Text = Convert.ToString(totalSharesHolding);
+                    txtSharesAdd.Text = Convert.ToString(Math.Round(totalSharesHolding,0));
                     txtShareAvailableAddMode.Text = AvialableAllocation.ToString();
-                    txtInvestedAmtAddEq.Text = currentAllocation != 0 ? String.Format("{0:n2}", Math.Round(currentAllocation,2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                    txtCurrentValueAddMode.Text = currentValue != 0 ? String.Format("{0:n2}", Math.Round(currentValue, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                    txtAllocationTotalAddMode.Text = totalAllocation != 0 ? String.Format("{0:n2}", Math.Round(totalAllocation, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                    txtShareOtherAllocationAddMode.Text = otherAllocation != 0 ? String.Format("{0:n2}", Math.Round(otherAllocation, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                    txtShareAvailableAddMode.Text = AvialableAllocation != 0 ? String.Format("{0:n2}", Math.Round(AvialableAllocation, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                    lblAvailableSharesforCurrentGoalAdd.Text = (totalSharesHolding - otherAllocation).ToString();
+                    txtInvestedAmtAddEq.Text = currentAllocation != 0 ? String.Format("{0:n2}", Math.Round(currentAllocation,0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtCurrentValueAddMode.Text = currentValue != 0 ? String.Format("{0:n2}", Math.Round(currentValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtAllocationTotalAddMode.Text = totalAllocation != 0 ? String.Format("{0:n2}", Math.Round(totalAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtShareOtherAllocationAddMode.Text = otherAllocation != 0 ? String.Format("{0:n2}", Math.Round(otherAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtShareAvailableAddMode.Text = AvialableAllocation != 0 ? String.Format("{0:n2}", Math.Round(AvialableAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    lblAvailableSharesforCurrentGoalAdd.Text =Math.Round((totalSharesHolding - otherAllocation),0).ToString();
                     
                 }
             }
