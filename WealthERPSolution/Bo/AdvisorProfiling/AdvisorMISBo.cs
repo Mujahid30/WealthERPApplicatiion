@@ -421,6 +421,262 @@ namespace BoAdvisorProfiling
             return dsMIS;
         }
 
+        public DataSet GetCustomerAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate)
+        {
+            DataSet dsMIS;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMISBo.cs:GetCustomerAMCSchemewiseMISForAdviser()");
+
+                object[] objects = new object[2];
+                objects[0] = rmid;
+                objects[1] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsMIS;
+        }
+
+        public DataSet GetCustomerAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate)
+        {
+            DataSet dsMIS;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForRM(rmid, valuationDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMISBo.cs:GetCustomerAMCSchemewiseMISForRM()");
+
+                object[] objects = new object[3];
+                objects[0] = rmid;
+                objects[1] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsMIS;
+        }
+
+        public DataSet GetAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate)
+        {
+            DataSet dsMIS;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsMIS = MISDao.GetAMCSchemewiseAUMForRM(rmid, valuationDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMISBo.cs:GetAMCSchemewiseMISForRM()");
+
+                object[] objects = new object[2];
+                objects[0] = rmid;
+                objects[1] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsMIS;
+        }
+
+        public DataSet GetAMCwiseAUMForRM(int rmid, DateTime valuationDate)
+        {
+            DataSet dsMIS;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsMIS = MISDao.GetAMCwiseAUMForRM(rmid, valuationDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMISBo.cs:GetAMCwiseMISForRM()");
+
+                object[] objects = new object[2];
+                objects[0] = rmid;
+                objects[1] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsMIS;
+        }
+
+        public DataSet GetAUMForBM(int rmid, int branchID, int branchHeadId, int XWise, int all, DateTime valuationDate)
+        {
+            DataSet dsBMMIS;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsBMMIS = MISDao.GetAUMForBM(rmid, branchID, branchHeadId, XWise, all, valuationDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMISBo.cs:GetMISForBM()");
+
+                object[] objects = new object[15];
+                objects[0] = rmid;
+                objects[1] = branchID;
+                objects[2] = branchHeadId;
+                objects[3] = XWise;
+                objects[4] = all;
+                objects[5] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsBMMIS;
+        }
+
+        public DataSet GetAUMForBM(int rmId, int branchId, int branchHeadId,DateTime Valuationdate)
+        {
+            DataSet dsBMMIS;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsBMMIS = MISDao.GetAUMForBM(rmId, branchId, branchHeadId, Valuationdate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorMISBo.cs:GetMISForBM()");
+                object[] objects = new object[15];
+                objects[0] = rmId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsBMMIS;
+        }
+        #region AUM MIS
+        
+        public DataSet GetAMCwiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate)
+        {
+            DataSet dsAmsWiseAUM;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsAmsWiseAUM = MISDao.GetAMCwiseAUMForAdviser(adviserid, branchid, rmid, valuationDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMISBo.cs:GetAMCwiseMISForAdviser()");
+
+                object[] objects = new object[6];
+                objects[0] = rmid;
+                objects[1] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsAmsWiseAUM;
+        }
+
+        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate)
+        {
+            DataSet dsMIS;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsMIS = MISDao.GetAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMISBo.cs:GetAMCSchemewiseMISForAdviser()");
+
+                object[] objects = new object[2];
+                objects[0] = rmid;
+                objects[1] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsMIS;
+        }
+        #endregion
 
         /* For BM Scheeme wise MIS */
 
