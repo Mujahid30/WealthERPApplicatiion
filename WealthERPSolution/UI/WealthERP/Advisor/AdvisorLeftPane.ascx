@@ -506,7 +506,8 @@
                                      </telerik:RadPanelItem>  
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
-                                      
+                                             <telerik:RadPanelItem runat="server" Text="Customer Networth MIS" Value="Prospect List">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF MIS" Value="MF MIS">
                                             </telerik:RadPanelItem>
                                              <telerik:RadPanelItem runat="server" Text="Multi Product MIS" Value="Multi_Product_MIS">
@@ -533,6 +534,10 @@
                                                     <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
                                                     </telerik:RadPanelItem>
                                                 </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Goal MIS" Value="Goal_MIS" Vissble="true">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Asset Allocation MIS"  Value="Asset_Allocation_MIS" Vissble="true">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Loan MIS" Value="Loan MIS" Vissble="false">
                                             </telerik:RadPanelItem>

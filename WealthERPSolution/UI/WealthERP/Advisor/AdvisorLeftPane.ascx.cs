@@ -1141,6 +1141,14 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
 
                 }
+                else if (e.Item.Value == "Prospect List")
+                {
+                    Session["UserType"] = "adviser";
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
+                    Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
+                }
                 else if (e.Item.Value == "MF MIS")
                 {
                     Session["UserType"] = "adviser";
@@ -1164,6 +1172,16 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
+                }
+                else if (e.Item.Value == "Goal_MIS")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GoalMIS','login');", true);
+                }
+                else if (e.Item.Value == "Asset_Allocation_MIS")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AssetAllocationMIS','login');", true);
                 }
                 else if (e.Item.Value == "Loan MIS")
                 {
