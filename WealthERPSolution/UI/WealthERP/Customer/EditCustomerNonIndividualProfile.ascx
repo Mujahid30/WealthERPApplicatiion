@@ -66,7 +66,7 @@
             <asp:DropDownList ID="ddlAdviserBranchList" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span3" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator" runat="server" ControlToValidate="ddlAdviserBranchList"
+            <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator" runat="server" ValidationGroup="btnSubmit" ControlToValidate="ddlAdviserBranchList"
                 ErrorMessage="Please select a Branch" Operator="NotEqual" ValueToCompare="Select a Branch"
                 CssClass="cvPCG">
             </asp:CompareValidator>
@@ -80,7 +80,7 @@
             <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType" ValidationGroup="btnSubmit"
                 ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select a Sub-Type"
                 CssClass="cvPCG"></asp:CompareValidator>
         </td>
@@ -117,6 +117,11 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtCompanyName" runat="server" CssClass="txtField"></asp:TextBox>
+             <span id="spAccountNumber" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="rfvComapanyName" ControlToValidate="txtCompanyName"
+                ValidationGroup="btnSubmit" ErrorMessage="Please enter Company Name" Display="Dynamic"
+                runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
@@ -289,7 +294,7 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtCorrAdrPinCode" runat="server" CssClass="txtField"></asp:TextBox>
                     <asp:CompareValidator ID="txtCorrAdrPinCode_comparevalidator" ControlToValidate="txtCorrAdrPinCode"
-                        runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
+                        runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value" 
                         Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                 </td>
                 <td class="leftField">
@@ -554,7 +559,7 @@
 <table>
     <tr>
         <td colspan="4" class="SubmitCell">
-            <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Update" CssClass="PCGButton"
+            <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Update" CssClass="PCGButton" ValidationGroup="btnSubmit"
                 onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerNonIndividualProfile_btnEdit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EditCustomerNonIndividualProfile_btnEdit', 'S');" />
         </td>

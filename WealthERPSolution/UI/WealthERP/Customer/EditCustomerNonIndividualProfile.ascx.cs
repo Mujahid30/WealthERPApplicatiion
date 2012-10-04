@@ -208,7 +208,12 @@ namespace WealthERP.Customer
                     customerVo.Type = "IND";
                 }
                 else
+                {
                     customerVo.Type = "NIND";
+                    customerVo.FirstName = txtCompanyName.Text;
+                    customerVo.MiddleName = "";
+                    customerVo.LastName = "";
+                }
                 customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue.ToString());
                 customerVo.SubType = ddlCustomerSubType.SelectedItem.Value.ToString();
                 customerVo.ContactFirstName = txtFirstName.Text.ToString();

@@ -52,12 +52,6 @@
     </table>
 <table class="TableBackground" style="width: 100%">
     <tr>
-        <td colspan="2" class="tdRequiredText">
-            <label id="lbl" class="lblRequiredText">
-                Note: Fields marked with ' * ' are compulsory</label>
-        </td>
-    </tr>
-    <tr>
         <td>
             &nbsp;
         </td>

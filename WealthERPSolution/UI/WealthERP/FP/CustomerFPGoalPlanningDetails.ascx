@@ -24,8 +24,21 @@
 </script>
 
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
-<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Goal List"></asp:Label>
-<hr />
+<table width="100%">
+<tr>
+     <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left"> Goal List</td>
+                    
+                </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+</table>
 <table width="100%" cellpadding="0" cellspacing="0">
     <tr id="trDeleteSuccess" runat="server" visible="false">
         <td align="center">

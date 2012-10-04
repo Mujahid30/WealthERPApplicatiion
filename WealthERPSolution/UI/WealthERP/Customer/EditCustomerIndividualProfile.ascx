@@ -260,7 +260,7 @@
                             <asp:Label ID="Label13" CssClass="FieldName" runat="server" Text="Line3(Area):"></asp:Label>
                         </td>
                         <td class="rightField">
-                            <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                            <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField" Style="width: 75%"></asp:TextBox>
                         </td>
                         <td class="leftField">
                             <asp:Label ID="lblResidenceLivingDate" CssClass="FieldName" runat="server" Text="Living Since:"></asp:Label>
@@ -424,7 +424,7 @@
                             <asp:Label ID="Label29" CssClass="FieldName" runat="server" Text="Line3(Area):"></asp:Label>
                         </td>
                         <td class="rightField">
-                            <asp:TextBox ID="txtOfcAdrLine3" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
+                            <asp:TextBox ID="txtOfcAdrLine3" runat="server" CssClass="txtField" Style="width: 78%"></asp:TextBox>
                         </td>
                         <td class="leftField">
                             <asp:Label ID="lblJobStartDate" CssClass="FieldName" runat="server" Text="Job Start Date:"></asp:Label>

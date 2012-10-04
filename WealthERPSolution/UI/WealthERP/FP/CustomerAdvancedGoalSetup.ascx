@@ -325,7 +325,7 @@
                     </tr>
                     <tr>
                         <td class="leftField">
-                            <asp:Label ID="lblUseMFBasedGoal" runat="server" CssClass="FieldName" Text="Use MF Based Goal Planning:"></asp:Label>
+                            <asp:Label ID="lblUseMFBasedGoal" runat="server" CssClass="FieldName" Text="Use Assets to Fund the Goal:"></asp:Label>
                         </td>
                         <td class="rightField">
                             <asp:RadioButton ID="rdoMFBasedGoalYes" Text="Yes" runat="server" GroupName="YesNo"
@@ -1501,7 +1501,7 @@
                                                         
                                                     <asp:CompareValidator ID="cvAvlShares" runat="server" CssClass="rfvPCG" Operator="LessThanEqual"
                                                         Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalEdit" Type="Double" ControlToValidate="txtAllocationEntryEquity"
-                                                        ErrorMessage="Check Your Available Allocation 1" ValidationGroup="btnSubmit"></asp:CompareValidator>
+                                                        ErrorMessage="Check Your Available Allocation" ValidationGroup="btnSubmit"></asp:CompareValidator>
                                                     
                                                     <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" Operator="LessThanEqual"
                                                         Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalAdd"  ControlToValidate="txtAllocationEntryEquity"

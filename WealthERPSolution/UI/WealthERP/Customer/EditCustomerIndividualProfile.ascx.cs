@@ -466,7 +466,36 @@ namespace WealthERP.Customer
                         customerVo.OfcAdrState = ddlOfcAdrState.SelectedValue.ToString();
 
                     customerVo.OfcAdrCountry = txtOfcAdrCountry.Text.ToString();
-                    customerVo.CompanyName = txtOfcCompanyName.Text.ToString();
+                     
+                    string formatstring = "";
+                if (!string.IsNullOrEmpty(customerVo.FirstName.Trim()))
+                    formatstring = customerVo.FirstName.Trim();
+                //array[0] = customerVo.Adr1Line1.Trim();
+                if (!string.IsNullOrEmpty(customerVo.MiddleName.Trim()))
+                {
+                    if (formatstring == "")
+                    {
+                        formatstring = customerVo.MiddleName.Trim();
+                    }
+                    else
+                    {
+                        formatstring = formatstring + " " + customerVo.MiddleName.Trim();
+                        //array[1] = customerVo.Adr1Line2.Trim();
+                    }
+                }
+                if (!string.IsNullOrEmpty(customerVo.LastName.Trim()))
+                {
+                    if (formatstring == "")
+                    {
+                        formatstring = customerVo.LastName.Trim();
+                    }
+                    else
+                    {
+                        formatstring = formatstring + " " + customerVo.LastName.Trim();
+                        //array[1] = customerVo.Adr1Line2.Trim();
+                    }
+                }        //--String.IsNullOrEmpty(customerVo.FirstName) +" " + customerVo.MiddleName + " " + customerVo.LastName;
+                customerVo.CompanyName = formatstring;
                     if (txtResPhoneNoIsd.Text == "")
                         customerVo.ResISDCode = 0;
                     else
