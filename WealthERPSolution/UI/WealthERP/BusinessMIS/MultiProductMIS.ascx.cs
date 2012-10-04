@@ -698,15 +698,13 @@ namespace WealthERP.BusinessMIS
                         dtGrpAssetNetHoldings.Columns.Add("Cash_and_Savings", typeof(double));
                         dtGrpAssetNetHoldings.Columns.Add("C_CustomerId");
                         dtGrpAssetNetHoldings.Columns.Add("TotalAUM",typeof(double));
-
+                        
+                        double totalAUM1 = 0;
                         foreach (DataRow dr in dsGrpAssetNetHoldings.Tables[0].Rows)
                         {
-                            double totalAUM = 0;
-                            double totalAUM1 = 0;
-                            double totalAUM2 = 0;
+                            totalAUM1 = 0;
                             if (int.Parse(dr["C_CustomerId"].ToString()) != tempID)
-                            {
-                                
+                            {                                                  
                                 tempID = int.Parse(dr["C_CustomerId"].ToString());
                                 drNetHoldings = dtGrpAssetNetHoldings.NewRow();
 
@@ -722,7 +720,7 @@ namespace WealthERP.BusinessMIS
                                 drNetHoldings["Personal_Assets"] = 0;
                                 drNetHoldings["Gold_Assets"] = 0;
                                 drNetHoldings["Collectibles"] = 0;
-                                drNetHoldings["Cash_and_Savings"] = 0;
+                                drNetHoldings["Cash_and_Savings"] = 0;                               
                                 
 
                                 drNetHoldings[0] = dr["Customer_Name"].ToString();
@@ -808,17 +806,16 @@ namespace WealthERP.BusinessMIS
                                     else
                                         drNetHoldings["Cash_and_Savings"] = "N/A";
                                 //drNetHoldings["TotalAUM"] = totalAUM;
-                                
+                                drNetHoldings["TotalAUM"] = totalAUM1;
                                 dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);
                             }
                             else
-                            {
-                                
+                            {                                
                                 if (dr["AssetType"].ToString() == "DE")
                                     if (dr["CFPAGD_TotalValue"].ToString() != "")
                                     {
                                        drNetHoldings["Equity"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_TotalValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                                       totalAUM2 = totalAUM2 + double.Parse(drNetHoldings["Equity"].ToString());
+                                       totalAUM1 = totalAUM1 + double.Parse(drNetHoldings["Equity"].ToString());
                                     }
                                     else
                                         drNetHoldings["Equity"] = "N/A";
@@ -826,7 +823,7 @@ namespace WealthERP.BusinessMIS
                                     if (dr["CFPAGD_TotalValue"].ToString() != "")
                                     {
                                         drNetHoldings["Mutual_Fund"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_TotalValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                                        totalAUM2 = totalAUM2 + double.Parse(drNetHoldings["Mutual_Fund"].ToString());
+                                        totalAUM1 = totalAUM1 + double.Parse(drNetHoldings["Mutual_Fund"].ToString());
                                     }
                                     else
                                         drNetHoldings["Mutual_Fund"] = "N/A";
@@ -834,7 +831,7 @@ namespace WealthERP.BusinessMIS
                                     if (dr["CFPAGD_TotalValue"].ToString() != "")
                                     {
                                         drNetHoldings["Fixed_Income"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_TotalValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                                        totalAUM2 = totalAUM2 + double.Parse(drNetHoldings["Fixed_Income"].ToString());
+                                        totalAUM1 = totalAUM1 + double.Parse(drNetHoldings["Fixed_Income"].ToString());
                                     }
                                     else
                                         drNetHoldings["Fixed_Income"] = "N/A";
@@ -842,7 +839,7 @@ namespace WealthERP.BusinessMIS
                                     if (dr["CFPAGD_TotalValue"].ToString() != "")
                                     {
                                         drNetHoldings["Government_Savings"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_TotalValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                                        totalAUM2 = totalAUM2 + double.Parse(drNetHoldings["Government_Savings"].ToString());
+                                        totalAUM1 = totalAUM1 + double.Parse(drNetHoldings["Government_Savings"].ToString());
                                     }
                                     else
                                         drNetHoldings["Government_Savings"] = "N/A";
@@ -850,7 +847,7 @@ namespace WealthERP.BusinessMIS
                                     if (dr["CFPAGD_TotalValue"].ToString() != "")
                                     {
                                         drNetHoldings["Property"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_TotalValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                                        totalAUM2 = totalAUM2 + double.Parse(drNetHoldings["Property"].ToString());
+                                        totalAUM1 = totalAUM1 + double.Parse(drNetHoldings["Property"].ToString());
                                     }
                                     else
                                         drNetHoldings["Property"] = "N/A";
@@ -858,7 +855,7 @@ namespace WealthERP.BusinessMIS
                                     if (dr["CFPAGD_TotalValue"].ToString() != "")
                                     {
                                         drNetHoldings["Pension_and_Gratuity"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_TotalValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                                        totalAUM2 = totalAUM2 + double.Parse(drNetHoldings["Pension_and_Gratuity"].ToString());
+                                        totalAUM1 = totalAUM1 + double.Parse(drNetHoldings["Pension_and_Gratuity"].ToString());
                                     }
                                     else
                                         drNetHoldings["Pension_and_Gratuity"] = "N/A";
@@ -866,7 +863,7 @@ namespace WealthERP.BusinessMIS
                                     if (dr["CFPAGD_TotalValue"].ToString() != "")
                                     {
                                         drNetHoldings["Personal_Assets"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_TotalValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                                        totalAUM2 = totalAUM2 + double.Parse(drNetHoldings["Personal_Assets"].ToString());
+                                        totalAUM1 = totalAUM1 + double.Parse(drNetHoldings["Personal_Assets"].ToString());
                                     }
                                     else
                                         drNetHoldings["Personal_Assets"] = "N/A";
@@ -874,7 +871,7 @@ namespace WealthERP.BusinessMIS
                                     if (dr["CFPAGD_TotalValue"].ToString() != "")
                                     {
                                         drNetHoldings["Gold_Assets"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_TotalValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                                        totalAUM2 = totalAUM2 + double.Parse(drNetHoldings["Gold_Assets"].ToString());
+                                        totalAUM1 = totalAUM1 + double.Parse(drNetHoldings["Gold_Assets"].ToString());
                                     }
                                     else
                                         drNetHoldings["Gold_Assets"] = "N/A";
@@ -882,7 +879,7 @@ namespace WealthERP.BusinessMIS
                                     if (dr["CFPAGD_TotalValue"].ToString() != "")
                                     {
                                         drNetHoldings["Collectibles"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_TotalValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                                        totalAUM2 = totalAUM2 + double.Parse(drNetHoldings["Collectibles"].ToString());
+                                        totalAUM1 = totalAUM1 + double.Parse(drNetHoldings["Collectibles"].ToString());
                                     }
                                     else
                                         drNetHoldings["Collectibles"] = "N/A";
@@ -890,13 +887,12 @@ namespace WealthERP.BusinessMIS
                                     if (dr["CFPAGD_TotalValue"].ToString() != "")
                                     {
                                         drNetHoldings["Cash_and_Savings"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_TotalValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                                        totalAUM2 = totalAUM2 + double.Parse(drNetHoldings["Cash_and_Savings"].ToString());
+                                        totalAUM1 = totalAUM1 + double.Parse(drNetHoldings["Cash_and_Savings"].ToString());
                                     }
                                     else
                                         drNetHoldings["Cash_and_Savings"] = "N/A";
-                                //drNetHoldings["TotalAUM"] = totalAUM;
-                            }
-                            drNetHoldings["TotalAUM"] = totalAUM1 + totalAUM2;
+                                drNetHoldings["TotalAUM"] = double.Parse(drNetHoldings["TotalAUM"].ToString()) + totalAUM1;
+                            }                            
                         }
                         rgvMultiProductMIS.DataSource = dtGrpAssetNetHoldings;
                         ViewState["MultiProductMIS"] = dtGrpAssetNetHoldings;

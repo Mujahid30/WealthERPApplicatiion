@@ -3145,16 +3145,23 @@ namespace WealthERP.FP
 
             }
 
-           
+
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 TextBox txt = (TextBox)e.Item.FindControl("txtAllocationEntryEquity");
-                decimal allocationEntry = decimal.Parse(txt.Text);
-                int eqId = int.Parse(RadGrid4.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CENPS_Id"].ToString());
-                decimal OtherGoalAllocation = decimal.Parse(RadGrid4.MasterTableView.DataKeyValues[e.Item.ItemIndex]["OtherEquityGoalAllocation"].ToString());
-                customerGoalPlanningBo.UpdateEquityGoalAllocation(allocationEntry, eqId, goalId);
-               // BindEquityFundedDetails();
+                if (txt.Text != "")
+                {
+                    decimal allocationEntry = decimal.Parse(txt.Text);
+                    int eqId = int.Parse(RadGrid4.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CENPS_Id"].ToString());
+                    decimal OtherGoalAllocation = decimal.Parse(RadGrid4.MasterTableView.DataKeyValues[e.Item.ItemIndex]["OtherEquityGoalAllocation"].ToString());
+                    customerGoalPlanningBo.UpdateEquityGoalAllocation(allocationEntry, eqId, goalId);
+                    // BindEquityFundedDetails();
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill the allocation');", true);                
+                }
             }
             
             GetGoalFundingProgress();            
