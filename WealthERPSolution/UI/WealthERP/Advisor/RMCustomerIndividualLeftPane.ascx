@@ -161,7 +161,23 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Portfolio" Value="Portfolio Dashboard">
+                             <telerik:RadPanelItem runat="server" Text="Insurance" Value="Insurance">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Life Insurance" Value="Life Insurance">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Life Insurance" Value="Add Life Insurance">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="General Insurance" Value="General Insurance">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add General Insurance" Value="Add General Insurance">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Assets" Value="Portfolio Dashboard">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
                                         <Items>
@@ -241,22 +257,7 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Insurance" Value="Insurance">
-                                <Items>
-                                    <telerik:RadPanelItem runat="server" Text="Life Insurance" Value="Life Insurance">
-                                        <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Add Life Insurance" Value="Add Life Insurance">
-                                            </telerik:RadPanelItem>
-                                        </Items>
-                                    </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="General Insurance" Value="General Insurance">
-                                        <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Add General Insurance" Value="Add General Insurance">
-                                            </telerik:RadPanelItem>
-                                        </Items>
-                                    </telerik:RadPanelItem>
-                                </Items>
-                            </telerik:RadPanelItem>
+                           
                             <telerik:RadPanelItem runat="server" Text="Liabilities Dashboard" Value="Liabilities">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Add Liability" Value="Add Liability">
