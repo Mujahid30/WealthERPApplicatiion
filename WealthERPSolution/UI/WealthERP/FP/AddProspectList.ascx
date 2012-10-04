@@ -35,7 +35,7 @@
 <script type="text/javascript">
 //***********************Deletion of Child Customer**************
     function showmessage() {
-        if (confirm("Are you sure you want to delete this child customer?")) {
+        if (confirm("Are you sure  to delete this Family Member?")) {
             document.getElementById("ctrl_AddProspectList_hdnMsgValue").value = 1;
             document.getElementById("ctrl_AddProspectList_hiddenassociation").click();
             return true;
