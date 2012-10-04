@@ -49,6 +49,8 @@ namespace WealthERP.OPS
                     ddlBranch.SelectedValue = bmID.ToString();
                     ddlBranch.Enabled = false;
                 }
+                lblSelectTypeOfCustomer.Visible = false;
+                ddlCustomerType.Visible = false;
             }
         }
 
@@ -508,6 +510,8 @@ namespace WealthERP.OPS
                         txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMGroupCustomers";
                     }
                 }
+                lblSelectTypeOfCustomer.Visible = true;
+                ddlCustomerType.Visible = true;
             }
             else if (ddlCustomerType.SelectedItem.Value == "1")
             {
@@ -567,11 +571,15 @@ namespace WealthERP.OPS
                         txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMIndividualCustomers";
                     }
                 }
+                lblSelectTypeOfCustomer.Visible = true;
+                ddlCustomerType.Visible = true;
             }
             else
             {
                 txtIndividualCustomer.Enabled = false;
                 hdnCustomerId.Value = null;
+                lblSelectTypeOfCustomer.Visible = false;
+                ddlCustomerType.Visible = false;
             }
         }
     }
