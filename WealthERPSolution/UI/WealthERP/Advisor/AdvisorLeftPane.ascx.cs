@@ -1272,6 +1272,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EquityReports','login');", true);
                 }
+                else if (e.Item.Value == "FP Report")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanningReports", "loadcontrol('FPSectional','login')", true);
+                }
                 else if (e.Item.Value == "Compose")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageCompose','login');", true);
@@ -1670,7 +1675,8 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[0].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if (dr[2].ToString().ToLower() == "message")
+                            if (dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS"
+                                || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
