@@ -167,6 +167,7 @@
                                 <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
                                     OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
                                     <asp:ListItem Text="Select" Value="Select" />
+                                    <asp:ListItem Text="Shortcuts" Value="QuickLinks" />
                                     <asp:ListItem Text="Dashboard" Value="Dashboard" />
                                     <asp:ListItem Text="Profile" Value="Profile" />
                                     <asp:ListItem Text="Assets" Value="Portfolio" />
@@ -174,7 +175,7 @@
                                     <asp:ListItem Text="Alerts" Value="Alerts" />
                                     <asp:ListItem Text="Delete Profile" />
                                     <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
-                                    <asp:ListItem Text="Shortcuts" Value="QuickLinks" />
+                                    
                                 </asp:DropDownList>
                             </ItemTemplate>
                             <%-- <FooterTemplate>
