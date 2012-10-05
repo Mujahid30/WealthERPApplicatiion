@@ -241,18 +241,21 @@ namespace WealthERP.BusinessMIS
         {
             showHideGrid("AMCWise");
             BindAMCWISEAUMDetails();
+            lblMFMISType.Text = "AMC WISE AUM";
         }
 
         public void lnkBtnSCHEMEWISEAUM_OnClick(object sender, EventArgs e)
         {
             showHideGrid("SchemeWise");
             BindSCHEMEWISEAUMDetails();
+            lblMFMISType.Text = "SCHEME WISE AUM";
         }
 
         public void lnkBtnFOLIOWISEAUM_OnClick(object sender, EventArgs e)
         {
             showHideGrid("FolioWise");
             BindFOLIOWISEAUMDetails();
+            lblMFMISType.Text = "FOLIO WISE AUM";
         }
 
         public void showHideGrid(string gridName)
@@ -496,6 +499,7 @@ namespace WealthERP.BusinessMIS
 
         public void BindTurnOverSummaryDetails(DateTime dtFrom, DateTime dtTo)
         {
+            lblMFMISType.Text= "TURNOVER AUM";
             showHideGrid("TurnOverSummary");
             int.TryParse(ddlBranch.SelectedValue, out branchId);
             int.TryParse(ddlRM.SelectedValue, out rmId);
@@ -664,8 +668,8 @@ namespace WealthERP.BusinessMIS
 
         protected void gvTurnOverSummary_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet dtProcessLogDetails = new DataSet();
-            dtProcessLogDetails = (DataSet)Cache["gvTurnOverSummaryDetails" + advisorVo.advisorId.ToString()];
+            DataTable dtProcessLogDetails = new DataTable();
+            dtProcessLogDetails = (DataTable)Cache["gvTurnOverSummaryDetails" + advisorVo.advisorId.ToString()];
             gvTurnOverSummary.DataSource = dtProcessLogDetails;
         }
 

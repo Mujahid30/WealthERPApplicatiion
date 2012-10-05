@@ -16,7 +16,7 @@
     }
 </script>
 
-<div class="divPageHeading" id="main">
+<div class="divPageHeading" id="main" style="margin: 2px">
     <div id="left" style="float: left">
         <asp:Label runat="server" Text="MF MIS"></asp:Label>
     </div>
@@ -74,6 +74,9 @@
     <asp:LinkButton ID="lnkBtnTURNOVERAUM" Text="TURNOVER AUM" CssClass="LinkButtonsWithoutUnderLine"
         runat="server" OnClick="lnkBtnTURNOVERAUM_OnClick"></asp:LinkButton>
 </div>
+<div class="divSectionHeading" style="vertical-align: middle; margin=2px">
+    <asp:Label ID="lblMFMISType" runat="server" CssClass="LinkButtons"></asp:Label>
+</div>
 <div align="center">
     <asp:Label ID="lblErrorMsg" runat="server" CssClass="failure-msg" Visible="false">
     </asp:Label>
@@ -122,7 +125,7 @@
 </div>
 <div>
     <telerik:RadWindow ID="rWTurnOverAUM" runat="server" VisibleOnPageLoad="false" Height="30%"
-        Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None" Title="TURN OVER AUM">
+        Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move,resize,close" Title="TURN OVER AUM">
         <ContentTemplate>
             <div style="margin: 4px">
                 <asp:RadioButton ID="rbtnPickDate" Checked="true" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
@@ -171,9 +174,7 @@
             </div>
             <br />
             <div style="margin: 4px">
-                <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton" />
-                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false"
-                    OnClick="btnCancel_Click" />
+                <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton" />               
             </div>
             <br />
         </ContentTemplate>
@@ -325,7 +326,7 @@
         </ClientSettings>
     </telerik:RadGrid>
 </div>
-<div runat="server" id="divGvTurnOverSummary" visible="false" style="margin:2px">
+<div runat="server" id="divGvTurnOverSummary" visible="false" style="margin: 2px">
     <telerik:RadGrid ID="gvTurnOverSummary" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true"
@@ -337,8 +338,8 @@
             CommandItemDisplay="None">
             <Columns>
                 <telerik:GridBoundColumn HeaderText="Category" DataField="Category" UniqueName="Category"
-                    SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
+                    CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderText="Buy Value" DataField="BuyValue" UniqueName="BuyValue"
@@ -376,7 +377,7 @@
     </telerik:RadGrid>
 </div>
 <br />
-<div style="margin:6px">
+<div style="margin: 6px">
     <label id="lbl" class="lblRequiredText">
         Note: For TURNOVER AUM please donot select "As on Date:"</label>
 </div>
