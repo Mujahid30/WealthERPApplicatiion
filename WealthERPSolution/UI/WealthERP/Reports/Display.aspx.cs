@@ -2860,12 +2860,12 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Equity Summary Report";
+                                Headername = "Sectorwise Summary Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
                             {
-                                Headername = "Equity Summary Report-Sector wise";
+                                Headername = "Sectorwise Summary Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             lblClosingBalanceNote.Visible = false;
