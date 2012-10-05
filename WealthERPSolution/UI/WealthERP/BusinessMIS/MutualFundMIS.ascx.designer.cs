@@ -31,6 +31,25 @@ namespace WealthERP.BusinessMIS {
         protected global::Telerik.Web.UI.RadGrid gvTurnOverSummary;
 
 
+        protected global::Telerik.Web.UI.RadWindow rWTurnOverAUM;
+
+
+
+        protected global::System.Web.UI.WebControls.RadioButton rbtnPickPeriod;
+
+        protected global::System.Web.UI.WebControls.RadioButton rbtnPickDate;
+
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlPeriod;
+
+
+        protected global::System.Web.UI.WebControls.TextBox txtFromDate;
+
+
+        protected global::System.Web.UI.WebControls.TextBox txtToDate;
+            
+        
+        
 
         protected global::Telerik.Web.UI.RadDatePicker txtDate;
         /// <summary>
@@ -42,6 +61,10 @@ namespace WealthERP.BusinessMIS {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBranchRM;
 
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRange;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPeriod;
+        
 
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvTurnOverSummary;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvSchemeWiseAUM;

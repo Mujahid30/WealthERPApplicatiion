@@ -15,11 +15,15 @@ using BoCustomerProfiling;
 using BoCustomerPortfolio;
 using Telerik.Web.UI;
 using VoAdvisorProfiling;
+using BoCommon;
+using System.Configuration;
+using System.Globalization;
 
 namespace WealthERP.BusinessMIS
 {
     public partial class MutualFundMIS : System.Web.UI.UserControl
     {
+        DateBo dtBo = new DateBo();
         AdvisorMISBo adviserMFMIS = new AdvisorMISBo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         DataSet dsMISReport;
@@ -41,9 +45,19 @@ namespace WealthERP.BusinessMIS
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         DateTime LatestValuationdate = new DateTime();
         bool GridViewCultureFlag = true;
+        string path;
+        DateTime dtFrom = new DateTime();
+        DateTime dtTo = new DateTime();
+        DateTime convertedFromDate = new DateTime();
+        DateTime convertedToDate = new DateTime();
+        CultureInfo ci = new CultureInfo("en-GB");
+        DataSet dsMfMIS = new DataSet();
+        DataTable dtAdviserMFMIS = new DataTable();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             advisorBranchVo = (AdvisorBranchVo)Session[SessionContents.AdvisorBranchVo];
@@ -275,6 +289,7 @@ namespace WealthERP.BusinessMIS
                 divGvAmcWiseAUM.Visible = false;
                 divGvFolioWiseAUM.Visible = false;
                 divGvSchemeWiseAUM.Visible = false;
+                divGvTurnOverSummary.Visible = true;
                 imgBtnGvFolioWiseAUM.Visible = false;
                 imgBtnGvAmcWiseAUM.Visible = false;
                 imgBtnGvSchemeWiseAUM.Visible = false;
@@ -478,6 +493,149 @@ namespace WealthERP.BusinessMIS
             }
         }
 
+        public void BindTurnOverSummaryDetails(DateTime dtFrom, DateTime dtTo)
+        {
+            showHideGrid("TurnOverSummary");
+            int.TryParse(ddlBranch.SelectedValue, out branchId);
+            int.TryParse(ddlRM.SelectedValue, out rmId);
+            int advId = 0;
+
+            if (userType == "advisor")
+                advId = advisorVo.advisorId;
+            else if (userType == "rm")
+            {
+                rmVo = (RMVo)Session[SessionContents.RmVo];
+                advId = rmVo.RMId;
+            }
+            else if (userType == "bm")
+            {
+                rmVo = (RMVo)Session[SessionContents.RmVo];
+                advId = rmVo.RMId;
+            }
+
+            try
+            {
+                if (userType == "rm")
+                {
+                    dsMfMIS = adviserMFMIS.GetMFMIS(userType, advId, dtFrom, dtTo, 0, 0, 0, 0);
+                }
+                else if (userType == "advisor")
+                {
+                    //dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, branchId, rmId, dtFrom, dtTo);
+                    if (hdnAll.Value == "0")
+                    {
+                        hdnbranchId.Value = "0";
+                        hdnrmId.Value = "0";
+                        dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, 0, 0, dtFrom, dtTo);
+                    }
+                    else if (hdnAll.Value == "1")
+                    {
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        hdnrmId.Value = "0";
+                        dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, int.Parse(hdnbranchId.Value.ToString()), 0, dtFrom, dtTo);
+                    }
+                    else if (hdnAll.Value == "2")
+                    {
+                        hdnbranchId.Value = "0";
+                        hdnrmId.Value = ddlRM.SelectedValue;
+                        dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, 0, int.Parse(hdnrmId.Value.ToString()), dtFrom, dtTo);
+                    }
+                    else if (hdnAll.Value == "3")
+                    {
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        hdnrmId.Value = ddlRM.SelectedValue;
+                        dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnrmId.Value.ToString()), dtFrom, dtTo);
+                    }
+                }
+                else if (userType == "bm")
+                {
+                    if (hdnAll.Value == "0")
+                    {
+                        hdnrmId.Value = ddlRM.SelectedValue;
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        dsMfMIS = adviserMFMIS.GetMFMIS(userType, advId, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 0);
+                    }
+                    else if (hdnAll.Value == "1")
+                    {
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        dsMfMIS = adviserMFMIS.GetMFMIS(userType, advId, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
+                    }
+                    else if (hdnAll.Value == "2")
+                    {
+                        hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                        dsMfMIS = adviserMFMIS.GetMFMIS(userType, advId, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
+                    }
+                    else if (hdnAll.Value == "3")
+                    {
+                        hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                        hdnrmId.Value = ddlRM.SelectedValue;
+                        dsMfMIS = adviserMFMIS.GetMFMIS(userType, advId, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 3);
+
+                    }
+                }
+                if (dsMfMIS.Tables[0].Rows.Count > 0)
+                {
+                    imgBtnGvTurnOverSummary.Visible = true;
+                    dtAdviserMFMIS.Columns.Add("Category");
+                    dtAdviserMFMIS.Columns.Add("BuyValue");
+                    dtAdviserMFMIS.Columns.Add("SellValue");
+                    dtAdviserMFMIS.Columns.Add("NoOfTrans");
+                    dtAdviserMFMIS.Columns.Add("SIPValue");
+                    dtAdviserMFMIS.Columns.Add("NoOfSIPs");
+                    DataRow drAdvMFMIS;
+
+                    for (int i = 0; i < dsMfMIS.Tables[0].Rows.Count; i++)
+                    {
+                        drAdvMFMIS = dtAdviserMFMIS.NewRow();
+
+                        drAdvMFMIS[0] = dsMfMIS.Tables[0].Rows[i]["Category"].ToString();
+                        drAdvMFMIS[1] = String.Format("{0:n2}", decimal.Parse(dsMfMIS.Tables[0].Rows[i]["BuyValue"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drAdvMFMIS[2] = String.Format("{0:n2}", decimal.Parse(dsMfMIS.Tables[0].Rows[i]["SellValue"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drAdvMFMIS[3] = dsMfMIS.Tables[0].Rows[i]["NoOfTrans"].ToString();
+                        drAdvMFMIS[4] = String.Format("{0:n2}", decimal.Parse(dsMfMIS.Tables[0].Rows[i]["SIPValue"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drAdvMFMIS[5] = dsMfMIS.Tables[0].Rows[i]["NoOfSIPs"].ToString();
+
+                        dtAdviserMFMIS.Rows.Add(drAdvMFMIS);
+                    }
+                    gvTurnOverSummary.DataSource = dtAdviserMFMIS;
+                    gvTurnOverSummary.DataBind();
+
+                    if (Cache["gvTurnOverSummaryDetails" + advisorVo.advisorId.ToString()] == null)
+                    {
+                        Cache.Insert("gvTurnOverSummaryDetails" + advisorVo.advisorId.ToString(), dtAdviserMFMIS);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvTurnOverSummaryDetails" + advisorVo.advisorId.ToString());
+                        Cache.Insert("gvTurnOverSummaryDetails" + advisorVo.advisorId.ToString(), dtAdviserMFMIS);
+                    }
+                }
+                else
+                {
+                    gvTurnOverSummary.Visible = false;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdviserMFMIS.ascx.cs:BindGrid()");
+                object[] objects = new object[2];
+                objects[0] = dtFrom;
+                objects[1] = dtTo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+
         #endregion
 
         #region need data source
@@ -583,6 +741,11 @@ namespace WealthERP.BusinessMIS
 
         public void imgBtnGvTurnOverSummary_OnClick(object sender, ImageClickEventArgs e)
         {
+
+            DataTable dtProcessLogDetails = new DataTable();
+            dtProcessLogDetails = (DataTable)Cache["gvTurnOverSummaryDetails" + advisorVo.advisorId.ToString()];
+            gvTurnOverSummary.DataSource = dtProcessLogDetails;
+
             gvTurnOverSummary.ExportSettings.OpenInNewWindow = true;
             gvTurnOverSummary.ExportSettings.IgnorePaging = true;
             gvTurnOverSummary.ExportSettings.HideStructureColumns = true;
@@ -609,7 +772,7 @@ namespace WealthERP.BusinessMIS
                                 if (e.CommandName == "Select")
                                 {
                                     showHideGrid("FolioWise");
-                                    BindFOLIOWISEAUMDetails();                                  
+                                    BindFOLIOWISEAUMDetails();
                                 }
                             }
                         }
@@ -711,6 +874,192 @@ namespace WealthERP.BusinessMIS
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        #endregion
+
+        #region turn over summary
+
+        protected void lnkBtnTURNOVERAUM_OnClick(object sender, EventArgs e)
+        {
+            rWTurnOverAUM.VisibleOnPageLoad = true;
+            rWTurnOverAUM.Width = 500;
+            divGvTurnOverSummary.Visible = false;
+        }
+
+        protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnPickDate.Checked == true)
+            {
+            }
+            else if (rbtnPickPeriod.Checked == true)
+            {
+                BindPeriodDropDown();
+            }
+        }
+
+        private void BindPeriodDropDown()
+        {
+            DataTable dtPeriod;
+            dtPeriod = XMLBo.GetDatePeriod(path);
+
+            ddlPeriod.DataSource = dtPeriod;
+            ddlPeriod.DataTextField = "PeriodType";
+            ddlPeriod.DataValueField = "PeriodCode";
+            ddlPeriod.DataBind();
+            ddlPeriod.Items.Insert(0, new ListItem("Select a Period", "Select a Period"));
+            ddlPeriod.Items.RemoveAt(15);
+        }
+
+        protected void ddlPeriod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            if (rbtnPickPeriod.Checked)
+            {
+
+                if (ddlPeriod.SelectedIndex != 0)
+                {
+                    dtBo.CalculateFromToDatesUsingPeriod(ddlPeriod.SelectedValue, out dtFrom, out dtTo);
+                }
+            }
+
+            if (rbtnPickDate.Checked)
+            {
+                if (txtFromDate.Text != null && txtFromDate.Text != "")
+                {
+                    convertedFromDate = Convert.ToDateTime(txtFromDate.Text.Trim(), ci);
+                }
+                else
+                {
+                    convertedFromDate = DateTime.MinValue;
+                }
+                if (txtToDate.Text != null && txtToDate.Text != "")
+                {
+                    convertedToDate = Convert.ToDateTime(txtToDate.Text.Trim(), ci);
+                }
+                else
+                {
+                    convertedToDate = DateTime.MinValue;
+                }
+            }
+
+
+
+            /* For BM Branch wise MIS */
+            if (userType == "advisor" || userType == "ops")
+            {
+                if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnAll.Value = "0";
+                    hdnrmId.Value = "0";
+                    if (rbtnPickPeriod.Checked)
+                        this.BindTurnOverSummaryDetails(dtFrom, dtTo);
+                    else
+                        this.BindTurnOverSummaryDetails(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                {
+
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnAll.Value = "1";
+                    hdnrmId.Value = "0";
+                    if (rbtnPickPeriod.Checked)
+                        this.BindTurnOverSummaryDetails(dtFrom, dtTo);
+                    else
+                        this.BindTurnOverSummaryDetails(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnAll.Value = "2";
+                    hdnrmId.Value = ddlRM.SelectedValue;
+                    if (rbtnPickPeriod.Checked)
+                        this.BindTurnOverSummaryDetails(dtFrom, dtTo);
+                    else
+                        this.BindTurnOverSummaryDetails(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnAll.Value = "3";
+                    hdnrmId.Value = ddlRM.SelectedValue;
+                    if (rbtnPickPeriod.Checked)
+                        this.BindTurnOverSummaryDetails(dtFrom, dtTo);
+                    else
+                        this.BindTurnOverSummaryDetails(convertedFromDate, convertedToDate);
+                }
+
+
+            }
+            else if (userType == "bm")
+            {
+                if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnAll.Value = "2";
+                    hdnrmId.Value = "0";
+                    //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindTurnOverSummaryDetails(dtFrom, dtTo);
+                    else
+                        this.BindTurnOverSummaryDetails(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnAll.Value = "3";
+                    hdnrmId.Value = ddlRM.SelectedValue;
+
+                    //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 3);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindTurnOverSummaryDetails(dtFrom, dtTo);
+                    else
+                        this.BindTurnOverSummaryDetails(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                {
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnAll.Value = "1";
+                    //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindTurnOverSummaryDetails(dtFrom, dtTo);
+                    else
+                        this.BindTurnOverSummaryDetails(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnAll.Value = "0";
+                    hdnrmId.Value = ddlRM.SelectedValue;
+
+                    //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 0);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindTurnOverSummaryDetails(dtFrom, dtTo);
+                    else
+                        this.BindTurnOverSummaryDetails(convertedFromDate, convertedToDate);
+                }
+            }
+            else if (userType == "rm")
+            {
+                if (rbtnPickPeriod.Checked)
+                    this.BindTurnOverSummaryDetails(dtFrom, dtTo);
+                else
+                    this.BindTurnOverSummaryDetails(convertedFromDate, convertedToDate);
+
+            }
+            rWTurnOverAUM.VisibleOnPageLoad = false;
+        }
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            rWTurnOverAUM.VisibleOnPageLoad = false;
         }
         #endregion
     }
