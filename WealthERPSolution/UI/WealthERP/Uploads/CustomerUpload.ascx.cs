@@ -6175,7 +6175,7 @@ namespace WealthERP.Uploads
                         //{
                         //    ds = SkipRows(ds);
                         //}
-                        if (ddlAction.SelectedValue != "NSE")
+                        if (ddlAction.SelectedValue == "NSE" || ddlAction.SelectedValue == "BSE")
                             ds.Tables[0].Rows[0].Delete();
                         dsXML = ds;
 
