@@ -781,8 +781,11 @@ namespace WealthERP.Advisor
             int rowIndex = gvRow.RowIndex;
             DataKey dk = gvLifeInsurance.DataKeys[rowIndex];
             int insuranceId = Convert.ToInt32(dk.Value);
+            DataTable dtAssociationId = new DataTable();
 
-            insuranceVo = insuranceBo.GetInsuranceAsset(insuranceId);
+            //insuranceVo = insuranceBo.GetInsuranceAsset(insuranceId);
+            insuranceVo = insuranceBo.GetInsuranceAssetLI(insuranceId, out dtAssociationId);
+            Session["dtAssociationId"] = dtAssociationId;
             Session["insuranceVo"] = insuranceVo;
             Session["customerAccountVo"] = customerAccountsBo.GetCustomerInsuranceAccount(insuranceVo.AccountId);
 
