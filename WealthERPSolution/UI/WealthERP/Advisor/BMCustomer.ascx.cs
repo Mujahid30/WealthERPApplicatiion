@@ -920,6 +920,33 @@ namespace WealthERP.Advisor
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFPDashBoard", "loadcontrol('CustomerFPDashBoard','login');", true);
                 }
+
+                else if (ddlAction.SelectedItem.Value.ToString() == "QuickLinks")
+                {
+
+                    Session["IsDashboard"] = "CusDashBoardQuicklinks";
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                    if (isGrpHead == false)
+                    {
+                        if (customerVo.IsProspect == 1)
+                        {
+                            customerId = customerBo.GetCustomerGroupHead(customerId);
+                        }
+                        else
+                        {
+                            customerId = customerVo.CustomerId;
+                        }
+                    }
+                    else
+                    {
+                        customerId = customerVo.CustomerId;
+                    }
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                    customerVo = customerBo.GetCustomer(customerId);
+                    Session["CustomerVo"] = customerVo;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerDashBoardShortcut", "loadcontrol('CustomerDashBoardShortcut','login');", true);
+                }
                 //else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
                 //{
                 //    tempUser = new UserVo();
