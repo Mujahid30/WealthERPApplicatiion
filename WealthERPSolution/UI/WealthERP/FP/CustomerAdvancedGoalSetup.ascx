@@ -865,7 +865,7 @@
                                                     </asp:Label>
                                                 </td>
                                                 <td id="tdddlPickScheme" runat="server">
-                                                    <asp:DropDownList ID="ddlPickScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                    <asp:DropDownList ID="ddlPickScheme" runat="server" CssClass="cmbLongField" AutoPostBack="true"
                                                         OnSelectedIndexChanged="ddlPickScheme_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator17" Text="Please Select Scheme"
@@ -1132,7 +1132,7 @@
                                                     </asp:Label>
                                                 </td>
                                                 <td id="tdddlPickSIPScheme" runat="server">
-                                                    <asp:DropDownList ID="ddlPickSIPScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                    <asp:DropDownList ID="ddlPickSIPScheme" runat="server" CssClass="cmbLongField" AutoPostBack="true"
                                                         OnSelectedIndexChanged="ddlPickSIPScheme_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" Text="Please Select SIP"
@@ -1379,13 +1379,13 @@
                                                         CssClass="rfvPCG" ValidationGroup="btnSubmit">
                                                     </asp:RequiredFieldValidator>
                                                 </td>
-                                                <td align="right" id="tdlblPickScrips" runat="server">
+                                                <td align="right" id="tdlblPickScrips" runat="server" >
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <asp:Label ID="lblPickScrips" Text="Scrips:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
                                                 </td>
                                                 <td id="tdddlPickScrips" runat="server">
-                                                    <asp:DropDownList ID="ddlPickScrips" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                    <asp:DropDownList ID="ddlPickScrips" runat="server" CssClass="cmbLongField" AutoPostBack="true"
                                                         OnSelectedIndexChanged="ddlPickScrips_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Text="Please Select Scrips"
