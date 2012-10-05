@@ -59,36 +59,7 @@ namespace WealthERP.Reports
                 //txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
 
             }
-            if (Session["IsCustomerDrillDown"] != null)
-            {
-                if (customerVo != null)
-                    customerId = customerVo.CustomerId;
-
-                if (Session["IsCustomerDrillDown"].ToString() == "Yes")
-                {
-                    trIndCustomer.Visible = false;
-                    btnViewReport.Visible = true;
-                    btnViewInPDF.Visible = true;
-                    btnViewInDOC.Visible = true;
-                    btnEdit.Enabled = true;
-                    btnEditRMRec.Enabled = true;
-                    btnSave.Enabled = true;
-                    btnSubmit.Enabled = true;
-                }
-               
-            }
-            else
-            {
-                    trIndCustomer.Visible = true;
-                    btnViewReport.Visible = false;
-                    btnViewInPDF.Visible = false;
-                    btnViewInDOC.Visible = false;
-                    btnEdit.Enabled = false;
-                    btnEditRMRec.Enabled = false;
-                    btnSave.Enabled = false;
-                    btnSubmit.Enabled = false;
-
-            }
+            
                 if (!IsPostBack)
                 {
 
@@ -98,6 +69,36 @@ namespace WealthERP.Reports
                     //{
                     //    customerVo = null;
                     //}
+                    if (Session["IsCustomerDrillDown"] != null)
+                    {
+                        if (customerVo != null)
+                            customerId = customerVo.CustomerId;
+
+                        if (Session["IsCustomerDrillDown"].ToString() == "Yes")
+                        {
+                            trIndCustomer.Visible = false;
+                            btnViewReport.Visible = true;
+                            btnViewInPDF.Visible = true;
+                            btnViewInDOC.Visible = true;
+                            btnEdit.Enabled = true;
+                            btnEditRMRec.Enabled = true;
+                            btnSave.Enabled = true;
+                            btnSubmit.Enabled = true;
+                        }
+
+                    }
+                    else
+                    {
+                        trIndCustomer.Visible = true;
+                        btnViewReport.Visible = false;
+                        btnViewInPDF.Visible = false;
+                        btnViewInDOC.Visible = false;
+                        btnEdit.Enabled = false;
+                        btnEditRMRec.Enabled = false;
+                        btnSave.Enabled = false;
+                        btnSubmit.Enabled = false;
+
+                    }
 
                     SetDefalutView();
                     DefaultFPReportsAssumtion();
