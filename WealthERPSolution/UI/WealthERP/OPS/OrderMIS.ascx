@@ -132,10 +132,12 @@
 <tr>
      <td colspan="5">
             <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
+                <table cellspacing="0"  width="100%">
                 <tr>
                     <td align="left">MF Order Recon</td>
-                    <td align="right">
+                    <td align="right" style="padding-bottom:2px;">
+                    <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
+                OnClick="btnExportExcel_Click" Height="25px" Width="25px" />
                        <img src="../Images/helpImage.png" height="20px" width="25px" style="float: right;"
                 class="flip" />
                     </td>
@@ -198,8 +200,7 @@
                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
                 </div>
             </asp:Panel>
-            <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
-                OnClick="btnExportExcel_Click" Height="31px" Width="35px" />
+            
         </td>
     </tr>
 </table>
@@ -207,7 +208,7 @@
 <table width="80%" onkeypress="return keyPress(this, event)">
     <tr>
         <td align="right" valign="top">
-            <asp:Label ID="lblFrom" runat="server" Text=" Order FromDate: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblFrom" runat="server" Text=" Order From Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField">
@@ -228,7 +229,7 @@
             </asp:CompareValidator>
         </td>
         <td align="right" valign="top">
-            <asp:Label ID="lblTo" runat="server" Text="Order ToDate: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblTo" runat="server" Text="Order To Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td colspan="3">
             <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>

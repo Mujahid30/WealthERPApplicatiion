@@ -23,6 +23,15 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         
         /// <summary>
+        /// btnExportExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportExcel;
+        
+        /// <summary>
         /// imgBtnExport control.
         /// </summary>
         /// <remarks>
@@ -84,15 +93,6 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
-        
-        /// <summary>
-        /// btnExportExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportExcel;
         
         /// <summary>
         /// lblFrom control.
