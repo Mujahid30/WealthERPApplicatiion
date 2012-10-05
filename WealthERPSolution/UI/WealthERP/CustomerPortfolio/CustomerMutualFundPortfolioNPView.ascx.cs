@@ -1181,11 +1181,13 @@ namespace WealthERP.CustomerPortfolio
                         chrtSubCategory.DataBind();
                         //chrtTotalAssets.Series["Assets"]. 
                         chrtSubCategory.Visible = true;
+                        trSubCategoryWise.Visible = true;
                     }
 
                 else
                 {
                     trMFCode.Visible = false;
+                    trSubCategoryWise.Visible = false;
                     chrtSubCategory.Visible = false;
                 }
 
@@ -1817,6 +1819,7 @@ namespace WealthERP.CustomerPortfolio
             if (ddlMFClassificationCode.SelectedValue == "0")
             {
                 trChart.Visible = true;
+                trSubCategoryWise.Visible = true;
                 trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
@@ -1827,6 +1830,7 @@ namespace WealthERP.CustomerPortfolio
             else if (ddlMFClassificationCode.SelectedValue == "1")
             {
                 trChart.Visible = false;
+                trSubCategoryWise.Visible = false;
                 trSchemePerformance.Visible = true;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
@@ -1837,6 +1841,7 @@ namespace WealthERP.CustomerPortfolio
             else if (ddlMFClassificationCode.SelectedValue == "2")
             {
                 trChart.Visible = false;
+                trSubCategoryWise.Visible = false;
                 trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = true;
                 trTop10HoldingsPie.Visible = true;
@@ -1848,6 +1853,7 @@ namespace WealthERP.CustomerPortfolio
             else if (ddlMFClassificationCode.SelectedValue == "3")
             {
                 trChart.Visible = false;
+                trSubCategoryWise.Visible = false;
                 trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = false;
                 trTop10HoldingsPie.Visible = false;
@@ -2147,6 +2153,7 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlMFClassificationCode.SelectedValue == "0")
                 {
                     trChart.Visible = true;
+                    trSubCategoryWise.Visible = true;
                     trSchemePerformance.Visible = false;
                     trHoldingGrid.Visible = false;
                     trTop10HoldingsPie.Visible = false;

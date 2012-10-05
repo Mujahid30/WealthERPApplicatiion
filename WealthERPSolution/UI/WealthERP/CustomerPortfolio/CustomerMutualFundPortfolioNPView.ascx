@@ -643,7 +643,12 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div id="divSubCategory" runat="server">
+                                        
+                                    </td>
+                                </tr>
+                                <tr id="trSubCategoryWise" runat="server">
+                                <td>
+                                <div id="divSubCategory" runat="server">
                                             <asp:Chart ID="chrtSubCategory" runat="server" BackColor="Transparent" Palette="Pastel"
                                                 Width="500px" Height="250px">
                                                 <Series>
@@ -656,7 +661,8 @@
                                                 </ChartAreas>
                                             </asp:Chart>
                                         </div>
-                                    </td>
+                                </td>
+                                <td></td>
                                 </tr>
                             </table>
                         </asp:Panel>
