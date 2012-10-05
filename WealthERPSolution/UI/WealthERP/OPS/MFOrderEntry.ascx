@@ -841,10 +841,10 @@
         
     </tr>
     <tr>
-    <td>
+    <td colspan="3">
     <asp:Label ID="LabelMainNote" runat="server" Text="Note: To print transaction slip with Payment Details, please save the order first." Font-Size="Small" CssClass="cmbField"></asp:Label>
     </td>
-    <td></td>
+
     </tr>
     
 </table>
