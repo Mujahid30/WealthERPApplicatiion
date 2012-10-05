@@ -501,8 +501,8 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("Country", !string.IsNullOrEmpty(customerVo.Adr1Country) ? customerVo.Adr1Country : string.Empty);
                     crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(customerVo.Adr1PinCode.ToString()) ? customerVo.Adr1PinCode.ToString() : string.Empty);
 
-                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$ddlFolioNumber"]))
-                        crmain.SetParameterValue("FolioNo", Request.Form[ctrlPrefix + "ddlFolioNumber"]);
+                    if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnAccountId"]))
+                        crmain.SetParameterValue("FolioNo", Request.Form[ctrlPrefix + "hdnAccountId"]);
                     else
                         crmain.SetParameterValue("FolioNo", string.Empty);
 
