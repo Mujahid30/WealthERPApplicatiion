@@ -171,6 +171,7 @@
                                 <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange"
                                     CssClass="GridViewCmbField">
                                     <asp:ListItem Text="Select" />
+                                    <asp:ListItem Text="Shortcuts" Value="QuickLinks" />
                                     <asp:ListItem Text="Dashboard" />
                                     <asp:ListItem Text="Profile" />
                                     <asp:ListItem Text="Assets" />

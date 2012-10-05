@@ -975,6 +975,32 @@ namespace WealthERP
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
                     }
                 }
+                else if (ddlAction.SelectedItem.Value.ToString() == "QuickLinks")
+                {
+
+                    Session["IsDashboard"] = "CusDashBoardQuicklinks";
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                    if (isGrpHead == false)
+                    {
+                        if (customerVo.IsProspect == 1)
+                        {
+                            customerId = customerBo.GetCustomerGroupHead(customerId);
+                        }
+                        else
+                        {
+                            customerId = customerVo.CustomerId;
+                        }
+                    }
+                    else
+                    {
+                        customerId = customerVo.CustomerId;
+                    }
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                    customerVo = customerBo.GetCustomer(customerId);
+                    Session["CustomerVo"] = customerVo;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerDashBoardShortcut", "loadcontrol('CustomerDashBoardShortcut','login');", true);
+                }
 
             }
             catch (Exception Ex)
