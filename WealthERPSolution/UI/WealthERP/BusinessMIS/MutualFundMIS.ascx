@@ -125,7 +125,7 @@
         Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None" Title="TURN OVER AUM">
         <ContentTemplate>
             <div style="margin: 4px">
-                <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                <asp:RadioButton ID="rbtnPickDate" Checked="true" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
                     runat="server" GroupName="Date" />
                 <asp:Label ID="lblPickDate" runat="server" Text="Pick a date range" CssClass="Field"></asp:Label>
                 <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
@@ -133,7 +133,7 @@
                 <asp:Label ID="lblPickPeriod" runat="server" Text="Pick a Period" CssClass="Field"></asp:Label>
             </div>
             <br />
-            <div style="margin: 4px" id="divPickAdateRange">
+            <div style="margin: 4px" id="divPickAdateRange" runat="server">
                 <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
                 <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField"></asp:TextBox>
                 <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
@@ -163,7 +163,7 @@
                     CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
             </div>
             <br />
-            <div style="margin: 4px" id="divPickAPeriod">
+            <div style="margin: 4px" id="divPickAPeriod" runat="server">
                 <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
                 <asp:DropDownList ID="ddlPeriod" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPeriod_SelectedIndexChanged"
                     CssClass="cmbField">

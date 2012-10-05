@@ -884,16 +884,19 @@ namespace WealthERP.BusinessMIS
             rWTurnOverAUM.VisibleOnPageLoad = true;
             rWTurnOverAUM.Width = 500;
             divGvTurnOverSummary.Visible = false;
+            rbtnDate_CheckedChanged(sender, e);
         }
 
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnPickDate.Checked == true)
             {
-                divPickAdateRange.Visible = true;   
+                divPickAdateRange.Visible = true;
+                divPickAPeriod.Visible = false;
             }
             else if (rbtnPickPeriod.Checked == true)
             {
+                divPickAdateRange.Visible = false;
                 divPickAPeriod.Visible = true;
                 BindPeriodDropDown();
             }
