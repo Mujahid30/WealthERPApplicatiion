@@ -31,8 +31,7 @@ namespace WealthERP.Reports
             adviserVo = (AdvisorVo)Session["advisorVo"];
             RMVo rmVo = new RMVo();
             rmVo = (RMVo)Session[SessionContents.RmVo];
-
-
+            
 
             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
             {
@@ -62,12 +61,19 @@ namespace WealthERP.Reports
             }
             if (Session["IsCustomerDrillDown"] != null)
             {
+                if (customerVo != null)
+                    customerId = customerVo.CustomerId;
+
                 if (Session["IsCustomerDrillDown"].ToString() == "Yes")
                 {
                     trIndCustomer.Visible = false;
                     btnViewReport.Visible = true;
                     btnViewInPDF.Visible = true;
                     btnViewInDOC.Visible = true;
+                    btnEdit.Enabled = true;
+                    btnEditRMRec.Enabled = true;
+                    btnSave.Enabled = true;
+                    btnSubmit.Enabled = true;
                 }
                
             }
@@ -77,6 +83,10 @@ namespace WealthERP.Reports
                     btnViewReport.Visible = false;
                     btnViewInPDF.Visible = false;
                     btnViewInDOC.Visible = false;
+                    btnEdit.Enabled = false;
+                    btnEditRMRec.Enabled = false;
+                    btnSave.Enabled = false;
+                    btnSubmit.Enabled = false;
 
             }
                 if (!IsPostBack)
@@ -100,20 +110,19 @@ namespace WealthERP.Reports
         
         public void DefaultFPReportsAssumtion()
         {
-            DataSet dsDefaultFPReportsAssumtion = new DataSet();
-            if (customerVo != null)
-                customerId = customerVo.CustomerId;
-            else
-            {
-                if (!String.IsNullOrEmpty(hdnCustomerId.Value))
-                    customerId = Convert.ToInt32(hdnCustomerId.Value);
-            }
+            DataSet dsDefaultFPReportsAssumtion = new DataSet();          
             dsDefaultFPReportsAssumtion = customerBo.DefaultFPReportsAssumtion(customerId);
             if (dsDefaultFPReportsAssumtion.Tables[0].Rows.Count > 0)
             {
                 txtInflation.Text = dsDefaultFPReportsAssumtion.Tables[0].Rows[0][0].ToString();
                 txtInvestmentReturn.Text = dsDefaultFPReportsAssumtion.Tables[0].Rows[1][0].ToString();
                 txtDR.Text = dsDefaultFPReportsAssumtion.Tables[0].Rows[2][0].ToString();
+            }
+            else
+            {
+                txtInflation.Text = "";
+                txtInvestmentReturn.Text = "";
+                txtDR.Text = "";
             }
 
         }
@@ -128,6 +137,11 @@ namespace WealthERP.Reports
             decimal assumptionInflation = 0;
             decimal assumptionInvestment = 0;
             decimal assumptionDr = 0;
+            if (Session["IsCustomerDrillDown"] == null)
+            {
+                if (hdnCustomerId.Value != "0")
+                    customerId = int.Parse(hdnCustomerId.Value);
+            }
             if (txtInflation.Text != "")
             {
                 assumptionInflation = decimal.Parse((txtInflation.Text).ToString());
@@ -141,10 +155,14 @@ namespace WealthERP.Reports
             {
                 assumptionDr = decimal.Parse((txtDR.Text).ToString());
             }
-            customerBo.CustomerFPReportsAssumption(customerVo.CustomerId, assumptionInflation, assumptionInvestment, assumptionDr);
+            customerBo.CustomerFPReportsAssumption(customerId, assumptionInflation, assumptionInvestment, assumptionDr);
             msgRecordStatus.Visible = true;
             SetDefalutView();
             btnSubmit.Enabled = false;
+
+            btnViewReport.Visible = true;
+            btnViewInPDF.Visible = true;
+            btnViewInDOC.Visible = true;
 
 
         }
@@ -155,6 +173,9 @@ namespace WealthERP.Reports
             txtInflation.Enabled = true;
             txtInvestmentReturn.Enabled = true;
             btnSubmit.Enabled = true;
+            btnViewReport.Visible = true;
+            btnViewInPDF.Visible = true;
+            btnViewInDOC.Visible = true;
         }
 
         protected void txtInvestmentReturn_TextChanged(object sender, EventArgs e)
@@ -213,15 +234,21 @@ namespace WealthERP.Reports
 
             strRMRecommendationText.Append("</table></body></html>");
 
-            customerBo.AddRMRecommendationForCustomer(customerVo.CustomerId, Convert.ToString(strRMRecommendationText));
+            customerBo.AddRMRecommendationForCustomer(customerId, Convert.ToString(strRMRecommendationText));
             getCustomerRMRecommendationText();
             setRecommendationControlReadOnly(true);
+            btnViewReport.Visible = true;
+            btnViewInPDF.Visible = true;
+            btnViewInDOC.Visible = true;
 
         }
 
         protected void btnEditRMRec_Click(object sender, EventArgs e)
         {
             setRecommendationControlReadOnly(false);
+            btnViewReport.Visible = true;
+            btnViewInPDF.Visible = true;
+            btnViewInDOC.Visible = true;
         }
 
         
@@ -262,13 +289,13 @@ namespace WealthERP.Reports
 
             //if (Session["customerVo"] != null)
             //    customerVo = (CustomerVo)Session["customerVo"];
-            if (customerVo != null)
-                customerId = customerVo.CustomerId;
-            else
-            {
-                if (!String.IsNullOrEmpty(hdnCustomerId.Value))
-                    customerId = Convert.ToInt32(hdnCustomerId.Value);
-            }
+            //if (customerVo != null)
+            //    customerId = customerVo.CustomerId;
+            //else
+            //{
+            //    if (!String.IsNullOrEmpty(hdnCustomerId.Value))
+            //        customerId = Convert.ToInt32(hdnCustomerId.Value);
+            //}
             strRMRecommendationHTML = customerBo.GetRMRecommendationForCustomer(customerId);           
             strRMRecTR = strRMRecommendationHTML.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
             if (strRMRecTR.Count() > 0)
@@ -316,8 +343,8 @@ namespace WealthERP.Reports
         {
             if (!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
             {
-                customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId.Value));
-                Session["customerVo"] = customerVo;
+                //customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId.Value));
+                //Session["customerVo"] = customerVo;
                 customerId = int.Parse(hdnCustomerId.Value);
                 DefaultFPReportsAssumtion();
                 btnSubmit.Enabled = false;
@@ -327,6 +354,10 @@ namespace WealthERP.Reports
                 btnViewReport.Visible = true;
                 btnViewInPDF.Visible = true;
                 btnViewInDOC.Visible = true;
+                btnEdit.Enabled = true;
+                btnEditRMRec.Enabled = true;
+                btnSave.Enabled = true;
+                btnSubmit.Enabled = true;
             }
                  
         }
