@@ -71,6 +71,9 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvFolioWiseAUM;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvAmcWiseAUM;
 
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPickAdateRange;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPickAPeriod;
+
 
 
 

@@ -890,9 +890,11 @@ namespace WealthERP.BusinessMIS
         {
             if (rbtnPickDate.Checked == true)
             {
+                divPickAdateRange.Visible = true;   
             }
             else if (rbtnPickPeriod.Checked == true)
             {
+                divPickAPeriod.Visible = true;
                 BindPeriodDropDown();
             }
         }

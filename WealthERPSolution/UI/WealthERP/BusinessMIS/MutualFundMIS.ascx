@@ -133,7 +133,7 @@
                 <asp:Label ID="lblPickPeriod" runat="server" Text="Pick a Period" CssClass="Field"></asp:Label>
             </div>
             <br />
-            <div style="margin: 4px">
+            <div style="margin: 4px" id="divPickAdateRange">
                 <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
                 <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField"></asp:TextBox>
                 <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
@@ -163,7 +163,7 @@
                     CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
             </div>
             <br />
-            <div style="margin: 4px">
+            <div style="margin: 4px" id="divPickAPeriod">
                 <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
                 <asp:DropDownList ID="ddlPeriod" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPeriod_SelectedIndexChanged"
                     CssClass="cmbField">
