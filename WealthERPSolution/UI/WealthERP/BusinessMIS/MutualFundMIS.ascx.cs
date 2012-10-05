@@ -773,7 +773,7 @@ namespace WealthERP.BusinessMIS
                                 if (e.CommandName == "Select")
                                 {
                                     showHideGrid("FolioWise");
-                                    BindFOLIOWISEAUMDetails();
+                                    BindSCHEMEWISEAUMDetails();
                                 }
                             }
                         }
