@@ -1179,39 +1179,7 @@
                                                 </td>
                                             </tr>
                                             <tr id="trAllocationEntry" runat="server">
-                                                <td align="right">
-                                                    <asp:Label ID="Label22" Text="Current Goal Invested Amount:" CssClass="FieldName"
-                                                        runat="server" Enabled="false">
-                                                    </asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Text='<%# Bind("SIPInvestedAmount") %>'
-                                                        TabIndex="3">
-                                                    </asp:TextBox>
-                                                    <cc1:TextBoxWatermarkExtender ID="TextBox3_TextBoxWatermarkExtender" runat="server"
-                                                        Enabled="True" TargetControlID="TextBox3" WatermarkText="Please enter SIP Amt.">
-                                                    </cc1:TextBoxWatermarkExtender>
-                                                    <asp:RequiredFieldValidator ID="rfvAllocationEntry" ControlToValidate="TextBox3"
-                                                        ErrorMessage="Please fill the allocation" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                                                        ValidationGroup="btnSIPSubmit"></asp:RequiredFieldValidator>
-                                                    <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator8"
-                                                        runat="server" CssClass="rfvPCG" ControlToValidate="TextBox3" ValidationGroup="btnSIPSubmit"
-                                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
-                                                </td>
-                                                <td align="right">
-                                                    <asp:Label ID="Label23" Text="Other Goal Invested Amount:" CssClass="FieldName" runat="server">
-                                                    </asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="txtOtherSchemeAllocationPer" CssClass="txtField" runat="server" Text='<%# Bind("OtherGoalAllocation") %>'
-                                                        Enabled="false" TabIndex="1">
-                                                    </asp:Label>
-                                                    <asp:Label ID="txtOtherSchemeAllocationPerAdd" CssClass="txtField" runat="server"
-                                                        Enabled="false" TabIndex="1">
-                                                    </asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr id="trAvailableAmount" runat="server">
+                                                
                                                 <td align="right">
                                                     <asp:Label ID="Label24" Text="Available Amount:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
@@ -1234,6 +1202,40 @@
                                                     <asp:Label ID="txtTotalSIPAmountAdd" runat="server" CssClass="txtField" Enabled="false"
                                                         TabIndex="1">
                                                     </asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr id="trAvailableAmount" runat="server">
+                                               
+                                                <td align="right">
+                                                    <asp:Label ID="Label23" Text="Other Goal Invested Amount:" CssClass="FieldName" runat="server">
+                                                    </asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="txtOtherSchemeAllocationPer" CssClass="txtField" runat="server" Text='<%# Bind("OtherGoalAllocation") %>'
+                                                        Enabled="false" TabIndex="1">
+                                                    </asp:Label>
+                                                    <asp:Label ID="txtOtherSchemeAllocationPerAdd" CssClass="txtField" runat="server"
+                                                        Enabled="false" TabIndex="1">
+                                                    </asp:Label>
+                                                </td>
+                                                <td align="right">
+                                                    <asp:Label ID="Label22" Text="Current Goal Invested Amount:" CssClass="FieldName"
+                                                        runat="server" Enabled="false">
+                                                    </asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Text='<%# Bind("SIPInvestedAmount") %>'
+                                                        TabIndex="3">
+                                                    </asp:TextBox>
+                                                    <cc1:TextBoxWatermarkExtender ID="TextBox3_TextBoxWatermarkExtender" runat="server"
+                                                        Enabled="True" TargetControlID="TextBox3" WatermarkText="Please enter SIP Amt.">
+                                                    </cc1:TextBoxWatermarkExtender>
+                                                    <asp:RequiredFieldValidator ID="rfvAllocationEntry" ControlToValidate="TextBox3"
+                                                        ErrorMessage="Please fill the allocation" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                        ValidationGroup="btnSIPSubmit"></asp:RequiredFieldValidator>
+                                                    <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator8"
+                                                        runat="server" CssClass="rfvPCG" ControlToValidate="TextBox3" ValidationGroup="btnSIPSubmit"
+                                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                                                 </td>
                                             </tr>
                                             <tr id="trSIPStartDate" runat="server">

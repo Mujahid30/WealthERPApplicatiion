@@ -2053,7 +2053,7 @@ namespace WealthERP.FP
             {
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 TextBox txt = (TextBox)e.Item.FindControl("TextBox3");
-                TextBox txtotherSIPGoalAllocation = (TextBox)e.Item.FindControl("txtOtherSchemeAllocationPer");
+                Label txtotherSIPGoalAllocation = (Label)e.Item.FindControl("txtOtherSchemeAllocationPer");
                 decimal OtherGoalAllocation = decimal.Parse(txtotherSIPGoalAllocation.Text);
                 decimal allocationEntry = decimal.Parse(txt.Text);
                 decimal totalSIPAmount = decimal.Parse(RadGrid2.MasterTableView.DataKeyValues[e.Item.ItemIndex]["TotalSIPamount"].ToString());
