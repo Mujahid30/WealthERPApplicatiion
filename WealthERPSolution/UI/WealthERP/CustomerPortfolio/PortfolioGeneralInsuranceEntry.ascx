@@ -312,7 +312,7 @@
     </tr>
 
     <tr>
-        <td align="right" style="width: 22%" valign="top">
+        <td align="right" style="width: 22%">
             <asp:Label ID="lblPolicyIssuer" runat="server" Text="Insurer:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 22%" colspan="2">
