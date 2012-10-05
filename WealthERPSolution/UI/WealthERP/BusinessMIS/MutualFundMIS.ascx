@@ -57,19 +57,19 @@
     </telerik:RadDatePicker>
     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtDate"
         CssClass="rfvPCG" ErrorMessage="Please select a Date" Display="Dynamic" runat="server"
-        InitialValue="" ValidationGroup="btnGo">
+        InitialValue="" ValidationGroup="vgBtnGo">
     </asp:RequiredFieldValidator>
 </div>
 <div style="margin: 16px;">
     <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
     <asp:LinkButton ID="lnkBtnAMCWISEAUM" Text="AMC WISE AUM" CssClass="LinkButtonsWithoutUnderLine"
-        runat="server" OnClick="lnkBtnAMCWISEAUM_OnClick" ValidationGroup="btnGo"></asp:LinkButton>
+        runat="server" OnClick="lnkBtnAMCWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnSCHEMEWISEAUM" Text="SCHEME WISE AUM" CssClass="LinkButtonsWithoutUnderLine"
-        runat="server" OnClick="lnkBtnSCHEMEWISEAUM_OnClick" ValidationGroup="btnGo"></asp:LinkButton>
+        runat="server" OnClick="lnkBtnSCHEMEWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnFOLIOWISEAUM" Text="FOLIO WISE AUM" CssClass="LinkButtonsWithoutUnderLine"
-        runat="server" OnClick="lnkBtnFOLIOWISEAUM_OnClick" ValidationGroup="btnGo"></asp:LinkButton>
+        runat="server" OnClick="lnkBtnFOLIOWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnTURNOVERAUM" Text="TURNOVER AUM" CssClass="LinkButtonsWithoutUnderLine"
         runat="server" OnClick="lnkBtnTURNOVERAUM_OnClick"></asp:LinkButton>

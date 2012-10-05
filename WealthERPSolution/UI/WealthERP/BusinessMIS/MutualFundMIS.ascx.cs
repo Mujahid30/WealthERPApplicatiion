@@ -265,7 +265,6 @@ namespace WealthERP.BusinessMIS
                 divGvTurnOverSummary.Visible = false;
                 imgBtnGvFolioWiseAUM.Visible = false;
                 imgBtnGvSchemeWiseAUM.Visible = false;
-                imgBtnGvTurnOverSummary.Visible = false;
             }
             else if (gridName == "FolioWise")
             {
@@ -275,7 +274,7 @@ namespace WealthERP.BusinessMIS
                 divGvTurnOverSummary.Visible = false;
                 imgBtnGvAmcWiseAUM.Visible = false;
                 imgBtnGvSchemeWiseAUM.Visible = false;
-                imgBtnGvTurnOverSummary.Visible = false;
+                imgBtnGvTurnOverSummary.Visible=false;
             }
             else if (gridName == "SchemeWise")
             {
@@ -285,7 +284,6 @@ namespace WealthERP.BusinessMIS
                 divGvTurnOverSummary.Visible = false;
                 imgBtnGvFolioWiseAUM.Visible = false;
                 imgBtnGvAmcWiseAUM.Visible = false;
-                imgBtnGvTurnOverSummary.Visible = false;
             }
             else if (gridName == "TurnOverSummary")
             {
