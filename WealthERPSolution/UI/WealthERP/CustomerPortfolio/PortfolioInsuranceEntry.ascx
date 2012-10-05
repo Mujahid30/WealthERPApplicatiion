@@ -232,7 +232,7 @@
 </script>
 
 <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
-    Width="500px" Modal="true" BackColor="#DADADA" Behaviors="Move,resize,close" VisibleStatusbar="false" Behaviors="None"
+    Width="500px" Modal="true" BackColor="#DADADA" Behaviors="Move,resize,close" VisibleStatusbar="false" 
     Title="Insert New Scheme">
     <ContentTemplate>
         <div style="padding: 20px">
