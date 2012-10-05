@@ -408,7 +408,12 @@ namespace WealthERP.Reports
            DateTime chckdate=DateTime.Parse(txtAsOnDate.Text);
              isCorrect=customerBo.ChckBussinessDate(chckdate);
              if (isCorrect == true)
-             { //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
+             {
+                 btnEmailReport.Enabled = true;
+                 btnExportToPDF.Enabled = true;
+                 btnViewInDOC.Enabled = true;
+                 btnViewReport.Enabled = true;
+                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
              }
              else
              {
