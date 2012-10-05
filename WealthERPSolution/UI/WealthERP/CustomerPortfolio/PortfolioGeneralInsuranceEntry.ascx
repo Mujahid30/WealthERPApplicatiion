@@ -351,7 +351,7 @@
         <td colspan="2" style="width: 56%">
             <telerik:RadWindow ID="radwindowPopup" runat="server" Height="30%" Width="500px"
                 Modal="true" BackColor="#DADADA" VisibleOnPageLoad="false" Top="10px" Left="20px"
-                VisibleStatusbar="false" Behaviors="None" Title="Inset New Policy">
+                VisibleStatusbar="false" Behaviors="Move,resize,close" Title="Inset New Policy">
                 <ContentTemplate>
                     <div style="padding: 20px">
                         <table width="100%">
