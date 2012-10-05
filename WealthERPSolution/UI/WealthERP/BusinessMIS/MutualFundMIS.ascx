@@ -337,7 +337,7 @@
             CommandItemDisplay="None">
             <Columns>
                 <telerik:GridBoundColumn HeaderText="Category" DataField="Category" UniqueName="Category"
-                    SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
