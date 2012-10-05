@@ -220,7 +220,7 @@ namespace WealthERP.BusinessMIS
         protected global::System.Web.UI.WebControls.HiddenField hdnbranchHeadId;
 
         protected global::System.Web.UI.WebControls.HiddenField hdnAll;
-
+        protected global::System.Web.UI.WebControls.HiddenField hdnValuationDate;
         protected global::System.Web.UI.WebControls.HiddenField hdnrmId;
         protected global::System.Web.UI.WebControls.HiddenField hdnXWise;
 

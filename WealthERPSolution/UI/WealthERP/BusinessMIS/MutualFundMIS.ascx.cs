@@ -53,7 +53,7 @@ namespace WealthERP.BusinessMIS
         CultureInfo ci = new CultureInfo("en-GB");
         DataSet dsMfMIS = new DataSet();
         DataTable dtAdviserMFMIS = new DataTable();
-
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -90,6 +90,9 @@ namespace WealthERP.BusinessMIS
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
                 }
+
+              LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId,"MF");
+              hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");              
             }
         }
 

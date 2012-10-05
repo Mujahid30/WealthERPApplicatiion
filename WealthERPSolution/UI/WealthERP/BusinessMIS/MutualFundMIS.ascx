@@ -16,6 +16,28 @@
     }
 </script>
 
+<script type="text/javascript" language="javascript">
+    function CheckValuationDate() {
+        var valuationDate= document.getElementById("<%=hdnValuationDate.ClientID %>").value;
+        var txtDate = document.getElementById("<%=txtDate.ClientID %>").value;        
+        txtDate = new Date(txtDate);
+        valuationDate = new Date(valuationDate);
+        txtDate.setHours(0, 0, 0, 0);
+        valuationDate.setHours(0, 0, 0, 0);
+      
+ 
+        if (txtDate <=  valuationDate) {           
+            return true;
+        }
+        else {
+            alert("Please Select Prior Business Date");
+            return false;
+        }
+        
+    }
+</script>
+
+<div class="divPageHeading" id="main">
 <div class="divPageHeading" id="main" style="margin: 2px">
     <div id="left" style="float: left">
         <asp:Label runat="server" Text="MF MIS"></asp:Label>
@@ -63,13 +85,13 @@
 <div style="margin: 16px;">
     <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
     <asp:LinkButton ID="lnkBtnAMCWISEAUM" Text="AMC WISE AUM" CssClass="LinkButtonsWithoutUnderLine"
-        runat="server" OnClick="lnkBtnAMCWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
+        runat="server" OnClientClick="return CheckValuationDate();" OnClick="lnkBtnAMCWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnSCHEMEWISEAUM" Text="SCHEME WISE AUM" CssClass="LinkButtonsWithoutUnderLine"
-        runat="server" OnClick="lnkBtnSCHEMEWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
+        runat="server" OnClientClick="return CheckValuationDate();" OnClick="lnkBtnSCHEMEWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnFOLIOWISEAUM" Text="FOLIO WISE AUM" CssClass="LinkButtonsWithoutUnderLine"
-        runat="server" OnClick="lnkBtnFOLIOWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
+        runat="server" OnClientClick="return CheckValuationDate();" OnClick="lnkBtnFOLIOWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnTURNOVERAUM" Text="TURNOVER AUM" CssClass="LinkButtonsWithoutUnderLine"
         runat="server" OnClick="lnkBtnTURNOVERAUM_OnClick"></asp:LinkButton>
@@ -386,3 +408,4 @@
 <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnXWise" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnValuationDate" runat="server" />

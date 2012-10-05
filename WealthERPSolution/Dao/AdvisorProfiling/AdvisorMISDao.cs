@@ -892,7 +892,7 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, DBNull.Value);
 
-                db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
+                db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate.ToString("dd/MM/yyyy"));
 
                 AMCwiseAUMForAdviser = db.ExecuteDataSet(getLoanMICmd);
             }
@@ -1115,5 +1115,32 @@ namespace DaoAdvisorProfiling
             return dsGetMISCommission;
         }
 
+
+        public DateTime GetLatestValuationDateFromHistory(int adviserId, string assetType)
+        {
+            Database db;
+            DbCommand getLatestValuationDateFromHistoryCmd;
+            DateTime latestValuationDate = new DateTime();
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getLatestValuationDateFromHistoryCmd = db.GetStoredProcCommand("SP_GetLatestValuationDateFromHistory");
+                db.AddInParameter(getLatestValuationDateFromHistoryCmd, "@assetType", DbType.String, assetType);
+                db.AddInParameter(getLatestValuationDateFromHistoryCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddOutParameter(getLatestValuationDateFromHistoryCmd, "@ValuationDate", DbType.DateTime, 0);
+                db.ExecuteDataSet(getLatestValuationDateFromHistoryCmd);
+                if (!string.IsNullOrEmpty(db.GetParameterValue(getLatestValuationDateFromHistoryCmd, "@ValuationDate").ToString()))
+                    latestValuationDate = DateTime.Parse(db.GetParameterValue(getLatestValuationDateFromHistoryCmd, "@ValuationDate").ToString());
+                else
+                    latestValuationDate =DateTime.Now;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return latestValuationDate;
+        }
     }
 }

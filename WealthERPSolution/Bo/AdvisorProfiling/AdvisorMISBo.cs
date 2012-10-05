@@ -810,7 +810,22 @@ namespace BoAdvisorProfiling
             }
             return dsGetMISCommission;
         }
+        public DateTime GetLatestValuationDateFromHistory(int adviserId,string assetType)
+        {
 
+            DateTime latestValuationDate = new DateTime();
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                latestValuationDate = MISDao.GetLatestValuationDateFromHistory(adviserId, assetType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            
+            return latestValuationDate;
+        }
       
     }
 }
