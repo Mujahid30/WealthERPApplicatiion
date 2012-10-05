@@ -74,16 +74,18 @@ namespace WealthERP.OPS
                 mforderVo = (MFOrderVo)Session["mforderVo"];
                 orderVo = (OrderVo)Session["orderVo"];
             }
-            if (Request.QueryString["action"] != null)
-            {
-                lnlBack.Visible = true;
-                ViewForm = Request.QueryString["action"].ToString(); 
-                txtOrderDate.SelectedDate = orderVo.OrderDate;
-                lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
-            }
+            
             
             if (!IsPostBack)
             {
+                if (Request.QueryString["action"] != null)
+                {
+                    lnlBack.Visible = true;
+                    ViewForm = Request.QueryString["action"].ToString();
+                    txtOrderDate.SelectedDate = orderVo.OrderDate;
+                    lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
+                }
+
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
