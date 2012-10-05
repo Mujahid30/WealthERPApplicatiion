@@ -138,6 +138,9 @@
                     <td align="right" style="padding-bottom:2px;">
                     <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
                 OnClick="btnExportExcel_Click" Height="25px" Width="25px" />
+                <asp:ImageButton ID="imgBtnExport" ImageUrl="~/Images/Export_Excel.png" runat="server"
+                AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
+                OnClientClick="setFormat('excel')" CausesValidation="false" Visible="false"/>
                        <img src="../Images/helpImage.png" height="20px" width="25px" style="float: right;"
                 class="flip" />
                     </td>
@@ -164,18 +167,7 @@
             </div>
         </td>
     </tr>
-    <tr>
-        <td class="style12" align="left">
-            <asp:ImageButton ID="imgBtnExport" ImageUrl="~/Images/Export_Excel.png" runat="server"
-                AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
-                OnClientClick="setFormat('excel')" CausesValidation="false" />
-            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
-                TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
-                Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
-                PopupDragHandleControlID="Panel1" X="280" Y="35">
-            </cc1:ModalPopupExtender>
-        </td>
-    </tr>
+    
     <tr id="Tr1" runat="server">
         <td>
             <asp:Panel ID="Panel1" runat="server" Width="208px" Height="112px" BackColor="Wheat"
@@ -708,11 +700,20 @@
     </tr>
 </table>
 
-<table width="50%">
+<table id="tblModalPopUp" width="50%">
     <tr>
         <%--    <td> 
     <asp:Button ID="btnSubmit" CssClass="PCGButton" runat="server" Text="Submit" onclick="btnSubmit_Click" />
     </td>--%>
+    <tr>
+        <td class="style12" align="left"> 
+            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
+                TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
+                Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
+                PopupDragHandleControlID="Panel1" X="280" Y="35">
+            </cc1:ModalPopupExtender>
+        </td>
+    </tr>
     </tr>
 </table>
 <asp:HiddenField ID="hdnBranchId" runat="server" />

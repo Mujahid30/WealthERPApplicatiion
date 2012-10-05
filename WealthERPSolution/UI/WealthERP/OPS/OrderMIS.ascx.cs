@@ -386,6 +386,7 @@ namespace WealthERP.OPS
                 lblCurrentPage.Visible = true;
                 lblTotalRows.Visible = true;
                 btnExportExcel.Visible = true;
+                imgBtnExport.Visible = true;
             }
             else
             {
@@ -399,6 +400,7 @@ namespace WealthERP.OPS
                 tblPager.Visible = false;
                 trPager.Visible = false;
                 btnExportExcel.Visible = false;
+                imgBtnExport.Visible = false;
             }
             
 
