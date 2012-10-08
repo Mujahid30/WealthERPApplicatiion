@@ -18,26 +18,25 @@
 
 <script type="text/javascript" language="javascript">
     function CheckValuationDate() {
-        var valuationDate= document.getElementById("<%=hdnValuationDate.ClientID %>").value;
-        var txtDate = document.getElementById("<%=txtDate.ClientID %>").value;        
+        var valuationDate = document.getElementById("<%=hdnValuationDate.ClientID %>").value;
+        var txtDate = document.getElementById("<%=txtDate.ClientID %>").value;
         txtDate = new Date(txtDate);
         valuationDate = new Date(valuationDate);
         txtDate.setHours(0, 0, 0, 0);
         valuationDate.setHours(0, 0, 0, 0);
-      
- 
-        if (txtDate <=  valuationDate) {           
+
+
+        if (txtDate <= valuationDate) {
             return true;
         }
         else {
             alert("Please Select Prior Business Date");
             return false;
         }
-        
+
     }
 </script>
 
-<div class="divPageHeading" id="main">
 <div class="divPageHeading" id="main" style="margin: 2px">
     <div id="left" style="float: left">
         <asp:Label runat="server" Text="MF MIS"></asp:Label>
@@ -85,13 +84,16 @@
 <div style="margin: 16px;">
     <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
     <asp:LinkButton ID="lnkBtnAMCWISEAUM" Text="AMC WISE AUM" CssClass="LinkButtonsWithoutUnderLine"
-        runat="server" OnClientClick="return CheckValuationDate();" OnClick="lnkBtnAMCWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
+        runat="server" OnClientClick="return CheckValuationDate();" OnClick="lnkBtnAMCWISEAUM_OnClick"
+        ValidationGroup="vgBtnGo"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnSCHEMEWISEAUM" Text="SCHEME WISE AUM" CssClass="LinkButtonsWithoutUnderLine"
-        runat="server" OnClientClick="return CheckValuationDate();" OnClick="lnkBtnSCHEMEWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
+        runat="server" OnClientClick="return CheckValuationDate();" OnClick="lnkBtnSCHEMEWISEAUM_OnClick"
+        ValidationGroup="vgBtnGo"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnFOLIOWISEAUM" Text="FOLIO WISE AUM" CssClass="LinkButtonsWithoutUnderLine"
-        runat="server" OnClientClick="return CheckValuationDate();" OnClick="lnkBtnFOLIOWISEAUM_OnClick" ValidationGroup="vgBtnGo"></asp:LinkButton>
+        runat="server" OnClientClick="return CheckValuationDate();" OnClick="lnkBtnFOLIOWISEAUM_OnClick"
+        ValidationGroup="vgBtnGo"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnTURNOVERAUM" Text="TURNOVER AUM" CssClass="LinkButtonsWithoutUnderLine"
         runat="server" OnClick="lnkBtnTURNOVERAUM_OnClick"></asp:LinkButton>
@@ -99,6 +101,7 @@
 <div class="divSectionHeading" style="vertical-align: middle; margin=2px">
     <asp:Label ID="lblMFMISType" runat="server" CssClass="LinkButtons"></asp:Label>
 </div>
+<br />
 <div align="center">
     <asp:Label ID="lblErrorMsg" runat="server" CssClass="failure-msg" Visible="false">
     </asp:Label>
@@ -147,7 +150,8 @@
 </div>
 <div>
     <telerik:RadWindow ID="rWTurnOverAUM" runat="server" VisibleOnPageLoad="false" Height="30%"
-        Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move,resize,close" Title="TURN OVER AUM">
+        Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move,resize,close"
+        Title="TURN OVER AUM">
         <ContentTemplate>
             <div style="margin: 4px">
                 <asp:RadioButton ID="rbtnPickDate" Checked="true" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
@@ -196,7 +200,7 @@
             </div>
             <br />
             <div style="margin: 4px">
-                <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton" />               
+                <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton" />
             </div>
             <br />
         </ContentTemplate>
@@ -399,9 +403,11 @@
     </telerik:RadGrid>
 </div>
 <br />
-<div style="margin: 6px">
-    <label id="lbl" class="lblRequiredText">
-        Note: For TURNOVER AUM please donot select "As on Date:"</label>
+<div style="margin: 6px" class="Note">
+    <p><b>
+        Note: For TURNOVER AUM please donot select "As on Date:"
+        </b>
+    </p>
 </div>
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />

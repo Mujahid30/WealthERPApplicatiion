@@ -57,6 +57,7 @@ namespace WealthERP.BusinessMIS
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            rWTurnOverAUM.VisibleOnPageLoad = false;
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -88,7 +89,10 @@ namespace WealthERP.BusinessMIS
                 {
                     hidingConrolForRMAndBMLogin(userType);
                     BindBranchForBMDropDown();
-                    BindRMforBranchDropdown(0, bmID);
+                    bmID = rmVo.RMId;
+                    BindRMforBranchDropdown(0, bmID,1);
+
+                    hdnbranchHeadId.Value = ddlBranch.SelectedValue;
                 }
 
               LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId,"MF");
@@ -96,16 +100,16 @@ namespace WealthERP.BusinessMIS
             }
         }
 
-        private void BindRMforBranchDropdown(int branchId, int branchHeadId)
+        private void BindRMforBranchDropdown(int branchId, int branchHeadId, int all)
         {
             try
             {
-                DataSet ds = advisorBranchBo.GetAllRMsWithOutBMRole(branchId, branchHeadId);
+                DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(branchId, branchHeadId, all);
                 if (ds != null)
                 {
                     ddlRM.DataSource = ds.Tables[0]; ;
                     ddlRM.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
-                    ddlRM.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
+                    ddlRM.DataTextField = ds.Tables[0].Columns["RM Name"].ToString();
                     ddlRM.DataBind();
                 }
                 ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
@@ -118,8 +122,11 @@ namespace WealthERP.BusinessMIS
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdviserEQMIS.ascx:BindRMforBranchDropdown()");
+
+                FunctionInfo.Add("Method", "AdviserMFMIS.ascx:BindRMforBranchDropdown()");
+
                 object[] objects = new object[4];
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -193,11 +200,11 @@ namespace WealthERP.BusinessMIS
         {
             if (ddlBranch.SelectedIndex == 0)
             {
-                BindRMforBranchDropdown(0, bmID);
+                BindRMforBranchDropdown(0, bmID,1);
             }
             else
             {
-                BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0);
+                BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0,1);
             }
         }
 
@@ -317,6 +324,10 @@ namespace WealthERP.BusinessMIS
                 brId = int.Parse(ddlBranch.SelectedValue);
             if (userType == "rm")
                 rmgerId = rmVo.RMId;
+            if (userType == "bm")
+            {
+                branchHeadId = rmVo.RMId;
+            }
             else if (userType == "advisor")
             {
                 if (!string.IsNullOrEmpty(ddlRM.SelectedValue))
@@ -336,7 +347,7 @@ namespace WealthERP.BusinessMIS
                 }
                 else if (userType == "bm")
                 {
-                    dsMISReport = adviserMISBo.GetAUMForBM(rmId, brId, branchHeadId, Valuation_Date);
+                    dsMISReport = adviserMISBo.GetAUMForBM(rmgerId, brId, branchHeadId, Valuation_Date);
                 }
             }
             if (dsMISReport.Tables.Count == 0 || dsMISReport.Tables[0].Rows.Count < 1)
