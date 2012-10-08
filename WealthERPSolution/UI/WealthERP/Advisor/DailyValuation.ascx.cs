@@ -53,6 +53,7 @@ namespace WealthERP.Advisor
                 trFPSync.Visible = false;
                 btnFPSync.Visible = false;        
                 trNote.Visible = false;
+                DivMfNote.Visible = false;
                 trValuation.Visible = false;
                 trSubmitButton.Visible = false;
 
@@ -793,6 +794,7 @@ namespace WealthERP.Advisor
                 trFPSync.Visible = false;
                 btnFPSync.Visible = false;
                 trNote.Visible = false;
+                DivMfNote.Visible = false;
                 trValuation.Visible = false;
                 trSubmitButton.Visible = false;
             }
@@ -806,6 +808,7 @@ namespace WealthERP.Advisor
                 trSelectAllFPGrid.Visible = false;
                 trFPSync.Visible = false;
                 trNote.Visible = true;
+                DivMfNote.Visible = false;
                 trHeader.Visible = true;
                 ddTradeYear.Items.Clear();
                 ddTradeMonth.Items.Clear();
@@ -815,22 +818,24 @@ namespace WealthERP.Advisor
             }
             else if (ddlValuationTypes.SelectedValue == "MF")
             {
-                trMf.Visible = true;
+                //trMf.Visible = true;
+                hiddenUpdateNetPosition.Visible = false;
                 trValuation.Visible = false;
-                Button1.Visible = true;
+                Button1.Visible = false;
                 trFPSync.Visible = false;
                 trSelectAllFPGrid.Visible = false;
                 btnFPSync.Visible = false;
-                trValuation.Visible = true;
-                trSubmitButton.Visible = true;
-
-                trNote.Visible = true;
-                trHeader.Visible = true;
+                //trValuation.Visible = true;
+                //trSubmitButton.Visible = true;
+                trValuation.Visible = false;
+                DivMfNote.Visible = true;
+                trNote.Visible = false;
+                trHeader.Visible = false;
                 trEquity.Visible = false;
-                PopulateMFTradeDate();
-                PopulateMFTradeMonth();
-                assetGroup = "MF";
-                GetTradeDate();
+                //PopulateMFTradeDate();
+                //PopulateMFTradeMonth();
+                //assetGroup = "MF";
+                //GetTradeDate();
                 //ddTradeMFYear.SelectedValue=DateTime.Now.Year.ToString();
                 //ddTradeMFMonth.SelectedValue = DateTime.Now.Month.ToString();
                 //ddlTradeDay.Items.Add(DateTime.Now.Day.ToString());
@@ -852,6 +857,7 @@ namespace WealthERP.Advisor
                 trSelectAllFPGrid.Visible = true;
                 btnFPSync.Visible = true;
                 trNote.Visible = true;
+                DivMfNote.Visible = false;
                 trHeader.Visible = false;
                 trEquity.Visible = false;
                 BindFPCustomerData();

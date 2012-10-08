@@ -57,7 +57,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trEquity;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivMfNote;
         /// <summary>
         /// Label2 control.
         /// </summary>
@@ -237,7 +237,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNote;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMfNote;
         /// <summary>
         /// lblNote control.
         /// </summary>

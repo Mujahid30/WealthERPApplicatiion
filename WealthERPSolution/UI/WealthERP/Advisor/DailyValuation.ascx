@@ -224,12 +224,13 @@
             <asp:DropDownList ID="ddlValuationTypes" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlValuationTypes_OnSelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-               <%-- <asp:ListItem Text="Mutual Fund" Value="MF"></asp:ListItem>--%>
+                <asp:ListItem Text="Mutual Fund" Value="MF"></asp:ListItem>
                 <asp:ListItem Text="Equity" Value="EQ"></asp:ListItem>
                 <asp:ListItem Text="Financial Profile" Value="FP"></asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>
+     
     <tr id="trEquity" runat="server">
         <td class="leftField">
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Trade Date:"></asp:Label>
@@ -369,6 +370,10 @@
            
         </td>
     </tr>
+   
+      
+
+    
     <tr id="trNote" runat="server">
         <td colspan="2">
           <%--  <asp:Label ID="lblNote" Text="Note:   The date highlighted is the last valuation date"
@@ -383,6 +388,11 @@
         </td>
     </tr>
 </table>
+<br />
+     <div id="DivMfNote"  runat="server" style="margin: 6px">
+    <label id="lbl" class="lblRequiredText">
+        Note: valuation runs automatically from the back end every 30 min.</label>
+</div>
 <%--<div id="DivPager" runat="server">
     <table style="width: 100%">
         <tr id="trPager" runat="server">
