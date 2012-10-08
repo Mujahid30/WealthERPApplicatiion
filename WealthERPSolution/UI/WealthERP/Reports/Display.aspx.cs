@@ -2855,7 +2855,8 @@ namespace WealthERP.Reports
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
-                            crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("ToDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
