@@ -6,6 +6,26 @@
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 
+
+
+<script type="text/javascript" language="javascript">
+    function CheckValuationDate() {
+        var valuationDate = document.getElementById("<%=hdnValuationDate.ClientID %>").value;
+        var txtDate = document.getElementById("<%=txtDate.ClientID %>").value;
+        txtDate = new Date(txtDate);
+        valuationDate = new Date(valuationDate);
+        txtDate.setHours(0, 0, 0, 0);
+        valuationDate.setHours(0, 0, 0, 0);    
+        if (txtDate <= valuationDate) {
+            return true;
+        }
+        else {
+            alert("Please Select Prior Business Date");
+            return false;
+        }
+
+    }
+</script>
 <script type="text/javascript" language="javascript">
 
 
@@ -113,19 +133,22 @@
         <td align="right" valign="top">
             <asp:Label ID="lblDate" runat="server" CssClass="FieldName">As on Date:</asp:Label>
         </td>
-        <td valign="top">
-            <asp:TextBox ID="txtDate" runat="server" CssClass="txtField" Height="16px" Width="145px"></asp:TextBox>
-            <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtDate"
-                OnClientDateSelectionChanged="checkdate" Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="txtFromDate_TextBoxWatermarkExtender" runat="server"
-                TargetControlID="txtDate" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtDate"
+         <td valign="top">          
+            <telerik:RadDatePicker ID="txtDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar1"  runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select a Date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="btnGo">
             </asp:RequiredFieldValidator>
         </td>
+       
         <td align="right" valign="top">
             <span id="spnRM" runat="server">
                 <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
@@ -144,7 +167,7 @@
             <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
                 onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
-                OnClick="btnGo_Click" />
+                OnClick="btnGo_Click" OnClientClick="return CheckValuationDate();"/>
         </td>
         <td>
         </td>
@@ -582,7 +605,7 @@
 <asp:HiddenField ID="hdnAMCSearchVal" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnSchemeSearchVal" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnCategoryFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="ValuationDate" runat="server" Visible="false" />
+<asp:HiddenField ID="ValuationDate" runat="server" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
@@ -590,7 +613,7 @@
 <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnXWise" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnValuationDate" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnValuationDate" runat="server"  />
 
 <asp:HiddenField ID="hdnBranchSelection" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnRMSelection" runat="server" Visible="false" />

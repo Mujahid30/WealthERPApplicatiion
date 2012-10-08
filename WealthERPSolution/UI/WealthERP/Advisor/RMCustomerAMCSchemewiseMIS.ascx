@@ -5,6 +5,29 @@
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 
+
+
+<script type="text/javascript" language="javascript">
+    function CheckValuationDate() {
+        var valuationDate = document.getElementById("<%=hdnValuationDate.ClientID %>").value;
+        var txtDate = document.getElementById("<%=txtDate.ClientID %>").value;
+        txtDate = new Date(txtDate);
+        valuationDate = new Date(valuationDate);
+        txtDate.setHours(0, 0, 0, 0);
+        valuationDate.setHours(0, 0, 0, 0);
+
+
+        if (txtDate <= valuationDate) {
+            return true;
+        }
+        else {
+            alert("Please Select Prior Business Date");
+            return false;
+        }
+
+    }
+</script>
+
 <script type="text/javascript">
 
     function checkdate(sender, args) {
@@ -112,15 +135,16 @@
             <asp:Label ID="lblDate" runat="server" CssClass="FieldName">As on Date:</asp:Label>
         </td>
         <td valign="top">
-            <asp:TextBox ID="txtDate" runat="server" CssClass="txtField" Height="16px" 
-                Width="145px"></asp:TextBox>
-            <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtDate"
-                OnClientDateSelectionChanged="checkdate" Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="txtFromDate_TextBoxWatermarkExtender" runat="server"
-                TargetControlID="txtDate" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtDate"
+          <telerik:RadDatePicker ID="txtDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar1"  runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select a Date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="btnGo">
             </asp:RequiredFieldValidator>
@@ -144,7 +168,7 @@
             <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
                 onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMCustomerAMCSchemewiseMIS_btnGo', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMCustomerAMCSchemewiseMIS_btnGo', 'S');"
-                OnClick="btnGo_Click" />
+                OnClick="btnGo_Click" OnClientClick="return CheckValuationDate();"/>
      </td>
     <td></td>
     <td></td>
@@ -386,7 +410,7 @@
 <asp:HiddenField ID="hdnCustomerNameVal" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnFolioNumVal" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
-<asp:HiddenField ID="hdnValuationDate" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnValuationDate" runat="server" />
 <asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
