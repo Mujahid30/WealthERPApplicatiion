@@ -284,7 +284,7 @@
                 <td class="rightField">
                     <%-- <asp:DropDownList ID="ddlGuarantor" runat="server" CssClass="cmbField">
                     </asp:DropDownList>--%>
-                    <asp:TextBox ID="txtasset" MaxLength="20" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtasset" MaxLength="40" runat="server" CssClass="txtField"></asp:TextBox>
                     <%--<span id="Span7" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Please select a Guarantor"
                         ValidationGroup="btnSubmit" ControlToValidate="ddlGuarantor" Operator="NotEqual"
@@ -518,13 +518,14 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtInstallmentStartDt" runat="server" CssClass="txtField" onchange="ResetDDL()" >
-                       </asp:TextBox><span id="Span15" class="spnRequiredField">*</span>
+                       </asp:TextBox>
                     <cc1:CalendarExtender ID="txtInstallmentStartDt_CalendarExtender" runat="server"
                         TargetControlID="txtInstallmentStartDt" Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
                     <cc1:TextBoxWatermarkExtender ID="txtInstallmentStartDt_TextBoxWatermarkExtender"
                         runat="server" TargetControlID="txtInstallmentStartDt" WatermarkText="dd/mm/yyyy">
                     </cc1:TextBoxWatermarkExtender>
+                    <span id="Span15" class="spnRequiredField">*</span>
                     <%--<asp:CompareValidator ID="CompareValidator5" runat="server" Operator="LessThanEqual"
                         ErrorMessage="Please Select a valid date" Type="Date" ControlToValidate="txtInstallmentStartDt"
                         CssClass="cvPCG" ValidationGroup="btnSubmit"></asp:CompareValidator>--%>
@@ -536,10 +537,11 @@
                     <asp:DropDownList ID="ddlEMIFrequency" runat="server" CssClass="cmbField" AutoPostBack="true"
                   OnSelectedIndexChanged="ddlEMIFrequency_SelectedIndexChanged"> 
                     </asp:DropDownList>
-                    <span id="Span12" class="spnRequiredField">*</span>
+                    
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />Please select the Installment Frequency"
                         ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlEMIFrequency" Operator="NotEqual"
                         ValueToCompare="Select the Frequency" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>
+               <span id="Span12" class="spnRequiredField">*</span>
                 </td>
             </tr>
             <tr id="trInstallment3" runat="server" visible="false">
@@ -549,13 +551,14 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtInstallmentEndDt" runat="server" CssClass="txtField" Enabled="false"
-                        AutoPostBack="true"></asp:TextBox><span id="Span16" class="spnRequiredField">*</span>
+                        AutoPostBack="true"></asp:TextBox>
                     <cc1:CalendarExtender ID="txtInstallmentEndDt_CalendarExtender" runat="server" TargetControlID="txtInstallmentEndDt"
                         Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
                     <cc1:TextBoxWatermarkExtender ID="txtInstallmentEndDt_TextBoxWatermarkExtender" runat="server"
                         TargetControlID="txtInstallmentEndDt" WatermarkText="dd/mm/yyyy">
                     </cc1:TextBoxWatermarkExtender>
+                    <span id="Span16" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtInstallmentEndDt"
                         ErrorMessage="End Date should be greater than start Date" Type="Date" Operator="GreaterThanEqual"
                         ControlToCompare="txtInstallmentStartDt" ValidationGroup="vgBtnSubmitTemp" Display="Dynamic"
@@ -569,8 +572,7 @@
                         CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtNoOfInstallments" runat="server" Enabled="false" CssClass="txtField" MaxLength="8"></asp:TextBox><span
-                        id="Span13" class="spnRequiredField">*</span>
+                    <asp:TextBox ID="txtNoOfInstallments" runat="server" Enabled="false" CssClass="txtField" MaxLength="8"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtNoOfInstallments"
                         ErrorMessage="<br />Please enter the number of instalments" Display="Dynamic"
                         CssClass="rfvPCG" runat="server" InitialValue="" ValidationGroup="vgBtnSubmitTemp">
@@ -580,6 +582,7 @@
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtNoOfInstallments"
                         ValidationGroup="vgBtnSubmitTemp" Display="Dynamic" runat="server" CssClass="rfvPCG"
                         Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                <span id="Span13" class="spnRequiredField">*</span>
                 </td>
             </tr>
             <tr id="trInstallAmt" runat="server">
@@ -587,11 +590,11 @@
                 <asp:Label ID="lblEMIAmount" runat="server" Text="Installment Amount :" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
-                <asp:TextBox ID="txtEMIAmount" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox><span
-                    id="Span9" class="spnRequiredField">*</span>
+                <asp:TextBox ID="txtEMIAmount" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtEMIAmount"
                     ErrorMessage="<br />Please enter EMI amount" Display="Dynamic" CssClass="rfvPCG"
                     runat="server" InitialValue="" ValidationGroup="vgBtnSubmitTemp">
+                    <span id="Span9" class="spnRequiredField">*</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                     
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </asp:RequiredFieldValidator>
