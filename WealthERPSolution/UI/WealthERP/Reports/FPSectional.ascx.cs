@@ -59,6 +59,17 @@ namespace WealthERP.Reports
                 //txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
 
             }
+            if (Session["IsCustomerDrillDown"] != null)
+            {
+                if (customerVo != null)
+                    customerId = customerVo.CustomerId;
+            }
+            else
+            {
+                if (hdnCustomerId.Value != "0" && hdnCustomerId.Value != "")
+                    customerId = int.Parse(hdnCustomerId.Value);
+            }
+            
             
                 if (!IsPostBack)
                 {
@@ -69,6 +80,7 @@ namespace WealthERP.Reports
                     //{
                     //    customerVo = null;
                     //}
+
                     if (Session["IsCustomerDrillDown"] != null)
                     {
                         if (customerVo != null)
@@ -99,7 +111,6 @@ namespace WealthERP.Reports
                         btnSubmit.Enabled = false;
 
                     }
-
                     SetDefalutView();
                     DefaultFPReportsAssumtion();
                     btnSubmit.Enabled = false;
@@ -138,11 +149,6 @@ namespace WealthERP.Reports
             decimal assumptionInflation = 0;
             decimal assumptionInvestment = 0;
             decimal assumptionDr = 0;
-            if (Session["IsCustomerDrillDown"] == null)
-            {
-                if (hdnCustomerId.Value != "0")
-                    customerId = int.Parse(hdnCustomerId.Value);
-            }
             if (txtInflation.Text != "")
             {
                 assumptionInflation = decimal.Parse((txtInflation.Text).ToString());
@@ -344,8 +350,8 @@ namespace WealthERP.Reports
         {
             if (!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
             {
-                //customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId.Value));
-                //Session["customerVo"] = customerVo;
+                customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId.Value));
+                Session["customerVo"] = customerVo;
                 customerId = int.Parse(hdnCustomerId.Value);
                 DefaultFPReportsAssumtion();
                 btnSubmit.Enabled = false;
