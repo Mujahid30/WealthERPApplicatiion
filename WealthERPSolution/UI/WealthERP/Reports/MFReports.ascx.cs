@@ -3,6 +3,7 @@ using System.Data;
 using BoCustomerProfiling;
 using BoCommon;
 using VoUser;
+using BoAdvisorProfiling;
 using System.Configuration;
 using WealthERP.Base;
 using BoCustomerPortfolio;
@@ -35,8 +36,12 @@ namespace WealthERP.Reports
         int activeTabIndex = 0;
         AdvisorVo advisorVo = null;
         MFReportVo mfReport = new MFReportVo();
-        string reportSubType=string.Empty;
+        string reportSubType = string.Empty;
         int reportFlag = 0;
+        DateTime chckdate = new DateTime();
+        DateTime LatestValuationdate = new DateTime();
+        AdvisorMISBo adviserMISBo = new AdvisorMISBo();
+        int advisorId;
         //For Storing customer Details in to session for Report
         CustomerVo customerVo = new CustomerVo();
         bool isGrpHead = false;
@@ -58,7 +63,7 @@ namespace WealthERP.Reports
             }
         }
 
-        
+
         /// <summary>
         /// This will add selected list Items(Customer) From One Lst to Other List. Author:Pramod 
         /// </summary>
@@ -104,7 +109,7 @@ namespace WealthERP.Reports
                     source.Items.Remove(item);
                 }
             }
-        
+
         }
 
         public void SelectLastItem(DanLudwig.Controls.Web.ListBox ListBox1)
@@ -121,11 +126,11 @@ namespace WealthERP.Reports
                     item.Selected = false;
                 }
 
- 
+
             }
-            
+
         }
-   
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -136,7 +141,7 @@ namespace WealthERP.Reports
             rdoIndividual.Attributes.Add("onClick", "javascript:ChangeCustomerSelectionTextBox(value);");
             rdoCustomerGroup.Attributes.Add("onClick", "javascript:ChangeGroupOrSelf(value);");
             rdoCustomerIndivisual.Attributes.Add("onClick", "javascript:ChangeGroupOrSelf(value);");
-            
+
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             // cvAsOnDate.ValueToCompare = DateTime.Now.ToShortDateString();
@@ -150,7 +155,7 @@ namespace WealthERP.Reports
                 if (Session["UserType"] != null)
                 {
                     if (Session["UserType"].ToString() == "Customer")
-                      strFromCustomerDashBoard = true;
+                        strFromCustomerDashBoard = true;
                 }
 
                 if (Session["UserType"].ToString().Trim() == "Customer" && strFromCustomerDashBoard == true)
@@ -161,13 +166,13 @@ namespace WealthERP.Reports
                     hndCustomerLogin.Value = "true";
                     Session["hndCustomerLogin"] = hndCustomerLogin.Value;
                     tabpnlEmailReports.Visible = false;
-                    
+
                 }
                 else
                 {
                     hndCustomerLogin.Value = "false";
                     Session["hndCustomerLogin"] = hndCustomerLogin.Value;
-                     
+
                 }
 
                 BindPeriodDropDown();
@@ -183,16 +188,16 @@ namespace WealthERP.Reports
                     if (CustomerLogin == true)
                     {
                         trCustomerName.Visible = true;
-                        trIndCustomer.Visible=false;
-                        trGroupCustomer.Visible=false;
+                        trIndCustomer.Visible = false;
+                        trGroupCustomer.Visible = false;
                         IndivisulCustomerLogin();
 
-                        trAdvisorRadioList.Visible=false;
+                        trAdvisorRadioList.Visible = false;
                         trCustomerRadioList.Visible = true;
-                        
+
                         trAdminRM.Visible = false;
                         trCustomer.Visible = true;
-                       
+
                         isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
                         if (isGrpHead == false)
                         {
@@ -221,7 +226,7 @@ namespace WealthERP.Reports
                         trAdminRM.Visible = true;
                         trCustomer.Visible = false;
                     }
-                        
+
 
                     //tabpnlEmailReports.Visible = false;
                     if (CustomerLogin == false)
@@ -242,8 +247,8 @@ namespace WealthERP.Reports
                         //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
 
                         //}
-                        
-                        
+
+
                         //ListBox horizontal Scorling enabled false
                         LBCustomer.HorizontalScrollEnabled = false;
                         LBSelectCustomer.HorizontalScrollEnabled = false;
@@ -264,8 +269,8 @@ namespace WealthERP.Reports
                         else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                         {
                             tabpnlEmailReports.Visible = false;
-                        }                      
-            
+                        }
+
 
                         LBCustomer.DataSource = dtGroupCustomerList;
                         LBCustomer.DataTextField = "C_FirstName";
@@ -274,20 +279,34 @@ namespace WealthERP.Reports
                     }
                     CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
                     DataSet ds = customerTransactionBo.GetLastMFTradeDate();
+                    DateTime AsonDate = new DateTime();
                     if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                     {
-                        txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        txtEmailAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        txtEmailFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
+                        AsonDate = AsonDate.AddDays(-1);
+                        txtAsOnDate.Text = AsonDate.ToShortDateString();
+                        txtFromDate.Text = AsonDate.ToShortDateString();
+                        txtToDate.Text = AsonDate.ToShortDateString();
+                        txtEmailAsOnDate.Text = AsonDate.ToShortDateString();
+                        txtEmailAsOnDate.Text = AsonDate.ToShortDateString();
+                        txtEmailFromDate.Text = AsonDate.ToShortDateString();
+                        txtEmailToDate.Text = AsonDate.ToShortDateString();
+                        //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        ////txtAsOnDate1 = DateTime.Parse(txtAsOnDate.Text.ToString());
+                        //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        //txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        //txtEmailAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        //txtEmailFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        //txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                     }
                     //Transaction Subreport search invissible intitialy..
                     //trTranFilter1.Visible = false;
                     //trTranFilter2.Visible = false;
                     tabViewAndEmailReports.ActiveTabIndex = 0;
                     //ShowFolios();
+                    advisorId = advisorVo.advisorId;
+                    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                    hdnValuationDate.Value = LatestValuationdate.ToString();
                 }
                 if (CustomerLogin == false)
                 {
@@ -323,10 +342,10 @@ namespace WealthERP.Reports
                 {
                     activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
                     tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-                    
+
                 }
             }
-            
+
         }
 
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
@@ -348,7 +367,7 @@ namespace WealthERP.Reports
             ////lblTotalRows.Text = string.Empty;
             ////mypager.Visible = false;
         }
-        
+
         protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
         {
             CustomerBo customerBo = new CustomerBo();
@@ -359,7 +378,7 @@ namespace WealthERP.Reports
                 DataRow dr = dt.Rows[0];
                 hdnCustomerId1.Value = hdnCustomerId.Value;
                 txtCustomerPAN.Text = dr["C_PANNum"].ToString();
-                trCustomerDetails.Style.Add("display","block");
+                trCustomerDetails.Style.Add("display", "block");
                 //trCustomerDetails.Visible = true;
                 //trPortfolioDetails.Visible = true;
                 if (rdoIndividual.Checked)
@@ -382,49 +401,70 @@ namespace WealthERP.Reports
         /// </summary>
         protected void IndivisulCustomerLogin()
         {
-                //CustomerBo customerBo = new CustomerBo();
-                lblCustomerName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
-                DataTable dt = customerBo.GetCustomerPanAddress(customerVo.CustomerId);
-                DataRow dr = dt.Rows[0];
-                hdnCustomerId1.Value = customerVo.CustomerId.ToString();
-                txtCustomerPAN.Text = dr["C_PANNum"].ToString();
-                trCustomerDetails.Style.Add("display", "block");
-               
-                if (rdoIndividual.Checked)
-                    ShowFolios();
-                else
-                    ShowAllCustomer();
-                //Storing Customer details in session to Access in Display.aspx for passing report parameter
-                
-             
-            
+            //CustomerBo customerBo = new CustomerBo();
+            lblCustomerName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
+            DataTable dt = customerBo.GetCustomerPanAddress(customerVo.CustomerId);
+            DataRow dr = dt.Rows[0];
+            hdnCustomerId1.Value = customerVo.CustomerId.ToString();
+            txtCustomerPAN.Text = dr["C_PANNum"].ToString();
+            trCustomerDetails.Style.Add("display", "block");
+
+            if (rdoIndividual.Checked)
+                ShowFolios();
+            else
+                ShowAllCustomer();
+            //Storing Customer details in session to Access in Display.aspx for passing report parameter
+
+
+
             tabViewAndEmailReports.ActiveTab = tabViewAndEmailReports.Tabs[activeTabIndex];
             tabViewAndEmailReports.ActiveTabIndex = 0;
         }
         protected void ChckBussDate_Textchanged(object sender, EventArgs e)
         {
             CustomerBo customerBo = new CustomerBo();
-             bool isCorrect = false;
-           DateTime chckdate=DateTime.Parse(txtAsOnDate.Text);
-             isCorrect=customerBo.ChckBussinessDate(chckdate);
-             if (isCorrect == true)
-             {
-                 btnEmailReport.Enabled = true;
-                 btnExportToPDF.Enabled = true;
-                 btnViewInDOC.Enabled = true;
-                 btnViewReport.Enabled = true;
-                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
-             }
-             else
-             {
-                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid!!!Choose a Valid Bussiness Date ');", true);
-                 btnEmailReport.Enabled = false;
-                 btnExportToPDF.Enabled = false;
-                 btnViewInDOC.Enabled = false;
-                 btnViewReport.Enabled = false;
-             }
+            bool isCorrect = false;
+            DateTime chckdate = DateTime.Parse(txtAsOnDate.Text);
+            DateTime bussdate = new DateTime();
+            bussdate = DateTime.Parse(hdnValuationDate.Value);
+            if (chckdate.Date <= bussdate.Date)
+            {
+                isCorrect = customerBo.ChckBussinessDate(chckdate);
+                if (isCorrect == true)
+                {
+                    btnEmailReport.Enabled = true;
+                    btnExportToPDF.Enabled = true;
+                    btnViewInDOC.Enabled = true;
+                    btnViewReport.Enabled = true;
+
+
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid!!!Choose a Valid Bussiness Date ');", true);
+                    btnEmailReport.Enabled = false;
+                    btnExportToPDF.Enabled = false;
+                    btnViewInDOC.Enabled = false;
+                    btnViewReport.Enabled = false;
+                }
+
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Prior Business Date');", true);
+                btnEmailReport.Enabled = false;
+                btnExportToPDF.Enabled = false;
+                btnViewInDOC.Enabled = false;
+                btnViewReport.Enabled = false;
+
+            }
+
+
+
+
+
         }
-       
+
         /// <summary>
         /// When Customer Indivisua login, then and group report is selected then Show all Customer. Author:Pramod
         /// </summary>
@@ -489,7 +529,7 @@ namespace WealthERP.Reports
                     }
                     strCustomers.Append("</table>");
                     divGroupCustomers.InnerHtml = strCustomers.ToString();
-                    
+
                 }
                 else
                 {
@@ -532,7 +572,7 @@ namespace WealthERP.Reports
         protected void btnView_Click(object sender, EventArgs e)
         {
         }
-        
+
         protected void ddlPortfolioGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selfCheck = string.Empty;
@@ -548,8 +588,8 @@ namespace WealthERP.Reports
         }
 
         /// <summary>
-       /// It Creats checkBox dynamically with folio ID and Name on indivisual report generate. 
-       /// </summary>
+        /// It Creats checkBox dynamically with folio ID and Name on indivisual report generate. 
+        /// </summary>
 
         private void ShowFolios()
         {
@@ -703,36 +743,36 @@ namespace WealthERP.Reports
                 divPortfolios.InnerHtml = "<span class='Error'>Invalid Customer selected.</span>";
             }
             return checkbox.ToString();
- 
+
         }
 
-       /* protected void ddlReportSubType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlReportSubType.SelectedValue == "TRANSACTION_REPORT")
-            {
-                MFReportsBo mfReportBo = new MFReportsBo();
-                DataSet ds=new DataSet();
-                ds = mfReportBo.GetMFTransactionType();
-                trTranFilter1.Visible = true;
-                trTranFilter2.Visible = true;
-                ddlMFTransactionType.DataSource = ds;
-                ddlMFTransactionType.DataValueField = "TransCode";
-                ddlMFTransactionType.DataTextField = "TransName";
-                ddlMFTransactionType.DataBind();
-                ddlMFTransactionType.Items.Insert(0, new ListItem("ALL", "0"));
-                ddlMFTransactionType.SelectedIndex = 0;
-                rddate.Checked = true;
-            }
-            else 
-            {
-                if (trTranFilter1.Visible == true)
-                    trTranFilter1.Visible = false;
-                if (trTranFilter2.Visible == true)
-                    trTranFilter2.Visible = false;
+        /* protected void ddlReportSubType_SelectedIndexChanged(object sender, EventArgs e)
+         {
+             if (ddlReportSubType.SelectedValue == "TRANSACTION_REPORT")
+             {
+                 MFReportsBo mfReportBo = new MFReportsBo();
+                 DataSet ds=new DataSet();
+                 ds = mfReportBo.GetMFTransactionType();
+                 trTranFilter1.Visible = true;
+                 trTranFilter2.Visible = true;
+                 ddlMFTransactionType.DataSource = ds;
+                 ddlMFTransactionType.DataValueField = "TransCode";
+                 ddlMFTransactionType.DataTextField = "TransName";
+                 ddlMFTransactionType.DataBind();
+                 ddlMFTransactionType.Items.Insert(0, new ListItem("ALL", "0"));
+                 ddlMFTransactionType.SelectedIndex = 0;
+                 rddate.Checked = true;
              }
-            tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+             else 
+             {
+                 if (trTranFilter1.Visible == true)
+                     trTranFilter1.Visible = false;
+                 if (trTranFilter2.Visible == true)
+                     trTranFilter2.Visible = false;
+              }
+             tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
             
-        }*/
+         }*/
 
         protected void ddlMFTransactionTypeBind()
         {
@@ -747,14 +787,14 @@ namespace WealthERP.Reports
             ddlMFTransactionType.SelectedIndex = 0;
             rddate.Checked = true;
 
- 
+
         }
 
         protected void rbnGroup_CheckedChanged(object sender, EventArgs e)
         {
             LBSelectCustomer.Items.Clear();
             LBCustomer.Items.Clear();
-            
+
             CustomerBo customerBo = new CustomerBo();
             DataTable dtGroupCustomerList = new DataTable();
 
@@ -768,7 +808,7 @@ namespace WealthERP.Reports
                 dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
 
             }
-            
+
 
             LBCustomer.DataSource = dtGroupCustomerList;
             LBCustomer.DataTextField = "C_FirstName";
@@ -804,7 +844,7 @@ namespace WealthERP.Reports
             tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
         }
 
-       
+
         /// <summary>
         /// Getting All Customer ID From ListBox containing all customers. Author:Pramod
         /// </summary>
@@ -812,24 +852,24 @@ namespace WealthERP.Reports
         /// <returns></returns>
         private string GetAllSelectedCustomerID(DanLudwig.Controls.Web.ListBox CustomerSelectedListBox)
         {
-            String AllCustomerId="";
+            String AllCustomerId = "";
             // loop through all source items to find selected ones
             for (int i = CustomerSelectedListBox.Items.Count - 1; i >= 0; i--)
             {
                 ListItem TempItem = CustomerSelectedListBox.Items[i];
 
                 AllCustomerId = AllCustomerId + "," + TempItem.Value.ToString();
-                
-                
+
+
             }
             return AllCustomerId;
         }
 
-        
+
 
         protected void AddSelected_Click(object sender, EventArgs e)
         {
-            
+
             this.moveSelectedItems(LBCustomer, LBSelectCustomer, false);
             SelectLastItem(LBSelectCustomer);
         }
@@ -862,7 +902,7 @@ namespace WealthERP.Reports
             {
                 dtIndiviCustomerList = customerBo.GetMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
             }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() =="Ops")
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
             {
 
                 dtIndiviCustomerList = customerBo.GetAllCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));

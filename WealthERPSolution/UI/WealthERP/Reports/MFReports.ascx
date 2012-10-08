@@ -1281,6 +1281,10 @@
         </td>
     </tr>
 </table>
+<div style="margin: 6px">
+    <label id="lbl" class="lblRequiredText">
+        Note: Only historical data is accessible from this screen. Recent data for the last 2 Business day will not be available. To view the recent data View Dashboards & Net Positions.</label>
+</div>
 
 <asp:HiddenField ID="hidFromDate" Value="" runat="server" />
 <asp:HiddenField ID="hidToDate" Value="" runat="server" />
@@ -1292,7 +1296,7 @@
 <asp:HiddenField ID="hndCustomerLogin" runat="server" />
 <asp:HiddenField ID="hndSelfOrGroup" runat="server" />
 <asp:HiddenField ID="hidBMLogin" runat="server" />
-
+<asp:HiddenField ID="hdnValuationDate" runat="server" />
 <script type="text/javascript">
     
     if (document.getElementById("<%= rbtnPickDate.ClientID %>").checked) {
