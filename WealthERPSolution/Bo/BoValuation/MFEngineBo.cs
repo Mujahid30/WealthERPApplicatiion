@@ -866,7 +866,7 @@ namespace BoValuation
                                     dtCustomerMutualFundNetPosition.Clear();
 
                                 }
-                                mfEngineDao.CreateAdviserMFNetPosition(adviserId, valuationDate, dtAdviserMFNetPosition);
+                                mfEngineDao.CreateAdviserMFNetPosition(adviserId, valuationDate, dtAdviserMFNetPosition,1);
                                 //DataSet ds = new DataSet();
                                 //ds.WriteXml(Server..MapPath("UploadFiles") + "\\" + processlogVo.ProcessId + ".xml", XmlWriteMode.WriteSchema);
  

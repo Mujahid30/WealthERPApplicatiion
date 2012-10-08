@@ -13,29 +13,30 @@ namespace WERP_DAILY_MF_HISTORICAL_NETPOSITION_VALUATION
             DateTime dtHistoricalValuationDate = DateTime.Parse(ConfigurationSettings.AppSettings["HISTORICAL_VALUATION_DATE"].ToString());
             int isForAllAdviser = int.Parse(ConfigurationSettings.AppSettings["IS_FOR_ALL_ADVISER"].ToString());
             int adviserId = int.Parse(ConfigurationSettings.AppSettings["ADVISER_ID"].ToString());
+            int iSForPreviousDate = int.Parse(ConfigurationSettings.AppSettings["IS_FOR_PREVIOUSDATE"].ToString());
 
             if (isForAllAdviser == 1)
             {
-                ProcessMFTransactionBalance(dtHistoricalValuationDate);
+                ProcessMFTransactionBalance(dtHistoricalValuationDate, iSForPreviousDate);
             }
             else
             {
-                ProcessMFTransactionBalance(dtHistoricalValuationDate, adviserId);
+                ProcessMFTransactionBalance(dtHistoricalValuationDate, adviserId, iSForPreviousDate);
             }
 
 
         }
 
-        public static void ProcessMFTransactionBalance(DateTime dtHistoricalValuationDate)
+        public static void ProcessMFTransactionBalance(DateTime dtHistoricalValuationDate, int iSForPreviousDate)
         {
             MFHistoricalNetpositionProcessBo MFNetposition = new MFHistoricalNetpositionProcessBo();
-            MFNetposition.CreateMFHistoricalNetposition(dtHistoricalValuationDate);
+            MFNetposition.CreateMFHistoricalNetposition(dtHistoricalValuationDate, iSForPreviousDate);
         }
 
-        public static void ProcessMFTransactionBalance(DateTime dtHistoricalValuationDate,int adviserId)
+        public static void ProcessMFTransactionBalance(DateTime dtHistoricalValuationDate, int adviserId, int iSForPreviousDate)
         {
             MFHistoricalNetpositionProcessBo MFNetposition = new MFHistoricalNetpositionProcessBo();
-            MFNetposition.CreateMFHistoricalNetposition(dtHistoricalValuationDate, adviserId);
+            MFNetposition.CreateMFHistoricalNetposition(dtHistoricalValuationDate, adviserId, iSForPreviousDate);
         }
     }
 }

@@ -588,7 +588,7 @@ namespace DaoValuation
         //    throw new NotImplementedException();
         //}
 
-        public void CreateAdviserMFNetPosition(int adviserId, DateTime valuationDate, DataTable dtAdviserMFNetPosition)
+        public void CreateAdviserMFNetPosition(int adviserId, DateTime valuationDate, DataTable dtAdviserMFNetPosition, int iSForPreviousDate)
         {
 
             string conString;
@@ -597,8 +597,16 @@ namespace DaoValuation
 
             try
             {
-                SqlCommand cmd = new SqlCommand("SPROC_BulkInsertAdviserMutualFundNetPosition", sqlCon);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd;
+                if (iSForPreviousDate == 1)
+                {
+                     cmd = new SqlCommand("SPROC_BulkInsertAdviserMutualFundNetPosition", sqlCon);
+                }
+                else
+                {
+                    cmd = new SqlCommand("SPROC_BulkHistoricalInsertAdviserMutualFundNetPosition", sqlCon);
+                }
+                    cmd.CommandType = CommandType.StoredProcedure;
                 //SqlParameter param = new SqlParameter("@BalanceTable", SqlDbType.Structured);
                 //cmd.Parameters.Add(param);
                 //SqlDataAdapter da = new SqlDataAdapter(cmd);

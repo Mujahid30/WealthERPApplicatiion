@@ -19,8 +19,8 @@ namespace WERP_DAILY_MF_HISTORICAL_NETPOSITION_VALUATION
         BoValuation.MFHistoricalValuationBo.ValuationLabel valuationFor = BoValuation.MFHistoricalValuationBo.ValuationLabel.Advisor;
         MFHistoricalValuationBo mfHistoricalValuationBo = new MFHistoricalValuationBo();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
-       
-        public void CreateMFHistoricalNetposition(DateTime dtHistoricalValuationDate)
+
+        public void CreateMFHistoricalNetposition(DateTime dtHistoricalValuationDate, int iSForPreviousDate)
         {
             adviserVoList = adviserMaintenanceBo.GetAdviserList();
             for (int i = 0; i < adviserVoList.Count; i++)
@@ -29,7 +29,7 @@ namespace WERP_DAILY_MF_HISTORICAL_NETPOSITION_VALUATION
                 logId = CreateAdviserEODLog("MF", dtHistoricalValuationDate, adviserVoList[i].advisorId);
                 try
                 {
-                    mfHistoricalValuationBo.MFNetPositionCreation(adviserVoList[i].advisorId, 0, valuationFor, dtHistoricalValuationDate);                   
+                    mfHistoricalValuationBo.MFNetPositionCreation(adviserVoList[i].advisorId, 0, valuationFor, dtHistoricalValuationDate, iSForPreviousDate);                   
                     UpdateAdviserEODLog("MF", 1, logId);
                 }
                 catch
@@ -41,13 +41,13 @@ namespace WERP_DAILY_MF_HISTORICAL_NETPOSITION_VALUATION
             }
         }
 
-        public void CreateMFHistoricalNetposition(DateTime dtHistoricalValuationDate,int adviserId)
+        public void CreateMFHistoricalNetposition(DateTime dtHistoricalValuationDate, int adviserId, int iSForPreviousDate)
         {            
                 int logId = 0;
                 logId = CreateAdviserEODLog("MF", dtHistoricalValuationDate, adviserId);
                 try
                 {
-                    mfHistoricalValuationBo.MFNetPositionCreation(adviserId, 0, valuationFor, dtHistoricalValuationDate);                   
+                    mfHistoricalValuationBo.MFNetPositionCreation(adviserId, 0, valuationFor, dtHistoricalValuationDate, iSForPreviousDate);                   
                     UpdateAdviserEODLog("MF", 1, logId);
                 }
                 catch

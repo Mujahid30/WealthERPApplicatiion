@@ -49,7 +49,7 @@ namespace BoValuation
       };
       #region NetPositionCreation
 
-      public void MFNetPositionCreation(int commonId, int schemePlanCode, ValuationLabel startFrom, DateTime valuationDate)
+      public void MFNetPositionCreation(int commonId, int schemePlanCode, ValuationLabel startFrom, DateTime valuationDate, int iSForPreviousDate)
       {
           try
           {
@@ -68,11 +68,11 @@ namespace BoValuation
                                   //{
 
                                   //}
-                                  MFNetPositionCreation(customerId, 0, ValuationLabel.Customer, valuationDate);                                 
+                                  MFNetPositionCreation(customerId, 0, ValuationLabel.Customer, valuationDate, iSForPreviousDate);                                 
 
                               }
                               if (dtCustomerMutualFundNetPosition.Rows.Count > 0)
-                                  mfEngineDao.CreateAdviserMFNetPosition(adviserId, valuationDate, dtCustomerMutualFundNetPosition);
+                                  mfEngineDao.CreateAdviserMFNetPosition(adviserId, valuationDate, dtCustomerMutualFundNetPosition, iSForPreviousDate);
                               dtCustomerMutualFundNetPosition.Clear();
                           }
                           break;
@@ -91,7 +91,7 @@ namespace BoValuation
                           {
                               foreach (DataRow drProftfolio in dtCustomerPortfolio.Rows)
                               {
-                                  MFNetPositionCreation(Convert.ToInt32(drProftfolio["CP_PortfolioId"].ToString()), 0, ValuationLabel.Portfolio,valuationDate);
+                                  MFNetPositionCreation(Convert.ToInt32(drProftfolio["CP_PortfolioId"].ToString()), 0, ValuationLabel.Portfolio, valuationDate, iSForPreviousDate);
 
                               }
 
@@ -110,7 +110,7 @@ namespace BoValuation
                                   dtMFAccount = dtCustomerAccount.DefaultView.ToTable();
                                   foreach (DataRow drCustomerMFAccount in dtMFAccount.Rows)
                                   {
-                                      MFNetPositionCreation(Convert.ToInt32(drCustomerMFAccount["CMFA_AccountId"].ToString()), Convert.ToInt32(drCustomerMFAccount["PASP_SchemePlanCode"].ToString()), ValuationLabel.AccountScheme,valuationDate);
+                                      MFNetPositionCreation(Convert.ToInt32(drCustomerMFAccount["CMFA_AccountId"].ToString()), Convert.ToInt32(drCustomerMFAccount["PASP_SchemePlanCode"].ToString()), ValuationLabel.AccountScheme, valuationDate, iSForPreviousDate);
                                   }
                               }
 
@@ -185,10 +185,10 @@ namespace BoValuation
                                      // dsTransactionBalanceReadyToProcess.Tables.Add(dtMFTransactionBalance);
                                       //dsTransactionBalanceReadyToProcess.Tables[1].TableName = "Balance";
                                   //}
-                                      if (commonId == 90012)
-                                      {
+                                      //if (commonId == 90012)
+                                      //{
 
-                                      }
+                                      //}
                                   
                                   dsTransactionBalanceReadyToProcess.Tables[0].TableName = "Transaction";
 
