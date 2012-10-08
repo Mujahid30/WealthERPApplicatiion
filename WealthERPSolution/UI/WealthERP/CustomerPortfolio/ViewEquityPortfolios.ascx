@@ -141,7 +141,7 @@
                                         <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Average Price"
                                             DataField="AveragePrice" UniqueName="AveragePrice" SortExpression="AveragePrice"
                                             AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            DataFormatString="{0:N2}">
                                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Cost Of Purchase  "
@@ -311,7 +311,7 @@
                                         <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="No of shares"
                                             DataField="SaleQty" UniqueName="SaleQty" SortExpression="SaleQty" AutoPostBackOnFilter="true"
                                             AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            DataFormatString="{0:N2}">
                                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Cost Of Sales  "
