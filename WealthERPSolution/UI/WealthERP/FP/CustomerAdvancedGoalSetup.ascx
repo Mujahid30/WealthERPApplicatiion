@@ -789,7 +789,7 @@
                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid1_ItemDataBound"
                 OnDeleteCommand="RadGrid1_DeleteCommand" OnInsertCommand="RadGrid1_ItemInserted"
                 OnItemUpdated="RadGrid1_ItemUpdated" OnItemCommand="RadGrid1_ItemCommand">
-                <ExportSettings HideStructureColumns="false" Excel-Format="ExcelML" ExportOnlyData="true" FileName="ExistMFInvestlist">
+                <ExportSettings HideStructureColumns="false"  ExportOnlyData="true" FileName="ExistMFInvestlist">
                 </ExportSettings>
                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                     CommandItemSettings-AddNewRecordText="Select MF Investment" DataKeyNames="SchemeCode,OtherGoalAllocation">
@@ -1317,7 +1317,7 @@
                 OnItemDataBound="RadGrid4_ItemDataBound" OnItemCommand="RadGrid4_ItemCommand"
                 OnDeleteCommand="RadGrid4_DeleteCommand" OnInsertCommand="RadGrid4_ItemInserted"
                 AllowAutomaticUpdates="false" Skin="Telerik">
-                <ExportSettings HideStructureColumns="false" Excel-Format="ExcelML" ExportOnlyData="true" FileName="ExistEQinvestList">
+                <ExportSettings HideStructureColumns="false"  ExportOnlyData="true" FileName="ExistEQinvestList">
                 </ExportSettings>
                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                     CommandItemSettings-AddNewRecordText="Select EQ Investment" DataKeyNames="PEM_ScripCode,CENPS_Id,OtherEquityGoalAllocation">
