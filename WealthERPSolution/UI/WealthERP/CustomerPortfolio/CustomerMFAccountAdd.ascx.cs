@@ -309,8 +309,15 @@ namespace WealthERP.CustomerPortfolio
             BindAMC();
             BindCustomerBankList();
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
-            ddlBankList.SelectedValue = customerAccountsVo.BankId.ToString();
-            txtInvestorName.Text = customerAccountsVo.Name;
+            if (customerAccountsVo.BankId != 0)
+            {
+                ddlBankList.SelectedValue = customerAccountsVo.BankId.ToString();
+            }
+            else
+            {
+                ddlBankList.SelectedValue = "Select Bank";
+            }
+                txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
 
             {
