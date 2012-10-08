@@ -224,12 +224,12 @@
                                         <telerik:GridBoundColumn HeaderStyle-Width="250px" FooterText="Grand Total" HeaderText="Scrip Name"
                                             DataField="CompanyName" UniqueName="CompanyName" SortExpression="CompanyName"
                                             AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="No. of shares sold"
                                             DataField="SaleQty" UniqueName="SaleQty" SortExpression="SaleQty" AutoPostBackOnFilter="true"
                                             AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            Aggregate="Sum" DataFormatString="{0:N2}">
+                                            DataFormatString="{0:N2}">
                                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Sales Proceeds  "
@@ -387,7 +387,7 @@
                                         <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="No of shares"
                                             DataField="Quantity" UniqueName="Quantity" SortExpression="Quantity" AutoPostBackOnFilter="true"
                                             AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            Aggregate="Sum" DataFormatString="{0:n2}">
+                                            DataFormatString="{0:n2}">
                                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Average Price  "
