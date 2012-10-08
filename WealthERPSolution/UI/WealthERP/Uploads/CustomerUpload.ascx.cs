@@ -6175,8 +6175,10 @@ namespace WealthERP.Uploads
                         //{
                         //    ds = SkipRows(ds);
                         //}
-                        if (ddlAction.SelectedValue == "NSE" || ddlAction.SelectedValue == "BSE")
+                        if (ddlAction.SelectedValue != "NSE")
                             ds.Tables[0].Rows[0].Delete();
+                        if (ddlAction.SelectedValue == "NSE")
+                            ds.Tables[0].Rows[ds.Tables[0].Rows.Count-1].Delete();
                         dsXML = ds;
 
                         string uploadtype = ddlAction.SelectedValue;
