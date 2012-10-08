@@ -154,9 +154,11 @@ namespace BoCommon
                 for (int i = 0; i < items.Count(); i++)
                 {
                     if (filetype == "NSE")
-                    {
+                    {                       
                         if (i == 19 || i == 20 || i == 24)
                         {
+                            string type = items[i].GetType().ToString();
+                            if (type=="DateTime")
                             drOdin[i] = DateTime.Parse(items[i]);
 
                         }
