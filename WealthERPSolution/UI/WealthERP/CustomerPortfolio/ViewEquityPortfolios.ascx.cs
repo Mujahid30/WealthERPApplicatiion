@@ -50,6 +50,15 @@ namespace WealthERP.CustomerPortfolio
         static int portfolioId;
         RMVo rmVo = new RMVo();
         string strLblCurrentValue;
+
+        public enum Constants
+        {
+            EQ = 0,     // explicitly specifying the enum constant values will improve performance
+            MF = 1,
+            EQDate = 2,
+            MFDate = 3
+        };
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -60,14 +69,28 @@ namespace WealthERP.CustomerPortfolio
                 userVo = (UserVo)Session["userVo"];
                 customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
                 GetLatestValuationDate();
+
+                if (Session[SessionContents.ValuationDate] == null)
+                    GetLatestValuationDate();
+                genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
+                string strValuationDate = genDict[Constants.EQDate.ToString()].ToString();
+                lblPickDate.Text = DateTime.Parse(genDict[Constants.EQDate.ToString()].ToString()).ToShortDateString();
+
+
                 if (!IsPostBack)
                 {
-                    if (Session[SessionContents.PortfolioId] != null)
-                        portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
-                    else
-                        portfolioId = customerPortfolioVo.PortfolioId;
+                    EQPortfolioTabPages.Visible = false;
+                    RadTabStrip1.Visible = false;
+                    Label4.Visible=false;
+                    lblCurrentValue.Visible = false;
+                    Label1.Visible = false;
+
+                    //if (Session[SessionContents.PortfolioId] != null)
+                    //    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                    //else
+                    //    portfolioId = customerPortfolioVo.PortfolioId;
                     BindPortfolioDropDown();
-                    LoadEquityPortfolio();
+                    //LoadEquityPortfolio();
                     //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     lblCurrentValue.Text = strLblCurrentValue;
                 }
@@ -106,7 +129,7 @@ namespace WealthERP.CustomerPortfolio
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 adviserId = advisorVo.advisorId;
 
-
+               
                 if (portfolioBo.GetLatestValuationDate(adviserId, "EQ") != null)
                 {
                     EQValuationDate = DateTime.Parse(portfolioBo.GetLatestValuationDate(adviserId, "EQ").ToString());
@@ -163,7 +186,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId, portfolioId, tradeDate, hdnScipNameFilter.Value.Trim(), string.Empty);
+                    eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId,int.Parse(ddlPortfolio.SelectedValue), tradeDate, hdnScipNameFilter.Value.Trim(), string.Empty);
                     if (eqPortfolioList != null)
                     {
                         count = eqPortfolioList.Count;
@@ -177,16 +200,25 @@ namespace WealthERP.CustomerPortfolio
                     lblMessageD.Visible = true;
                     lblMessageSpeculative.Visible = true;
                     lblMessageUnrealized.Visible = true;
-                    gvEquityPortfolio.DataSource = null;
-                    //imgBtnExport1.Visible = true;
-                    gvEquityPortfolio.DataBind();
-                    //tblDelivery.Visible = false;
-                    //tblPortfolio.Visible = false;
-                    //tblSpec.Visible = false;
-                    //tblUnrealized.Visible = false;
+
+                    EQPortfolioTabPages.Visible = false;
+                    RadTabStrip1.Visible = false;
+                    Label4.Visible = false;
+                    lblCurrentValue.Visible = false;
+                    Label1.Visible = false;
+                    lblErrorMsg.Visible = true;
+                    lblErrorMsg.Text = "Records not found for '"+ ddlPortfolio.SelectedItem +"' ";
+
                 }
                 else
                 {
+                    lblErrorMsg.Visible = false;
+                    EQPortfolioTabPages.Visible = true;
+                    RadTabStrip1.Visible = true;
+                    Label4.Visible = true;
+                    lblCurrentValue.Visible = true;
+                    Label1.Visible = true;
+
                     lblMessage.Visible = false;
                     lblMessageD.Visible = false;
                     lblMessageSpeculative.Visible = false;
@@ -497,11 +529,11 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
         {
-            portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
-            Session[SessionContents.PortfolioId] = portfolioId;
-            LoadEquityPortfolio();
-            //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-            lblCurrentValue.Text = strLblCurrentValue;
+            //portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+            //Session[SessionContents.PortfolioId] = portfolioId;
+            //LoadEquityPortfolio();
+            ////lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+            //lblCurrentValue.Text = strLblCurrentValue;
         }       
         #region Equity Portfolio Consolidated Grid View Methods     
 
@@ -816,11 +848,21 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void gvEquityPortfolioUnrealized_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataTable dtgvEquityPortfolioUnrealizedDetails = new DataTable();
-            dtgvEquityPortfolioUnrealizedDetails = (DataTable)Cache["gvEquityPortfolioUnrealizedDetails" + customerVo.CustomerId.ToString()];
-            gvEquityPortfolioUnrealized.DataSource = dtgvEquityPortfolioUnrealizedDetails;
+                DataTable dtgvEquityPortfolioUnrealizedDetails = new DataTable();
+                dtgvEquityPortfolioUnrealizedDetails = (DataTable)Cache["gvEquityPortfolioUnrealizedDetails" + customerVo.CustomerId.ToString()];
+                gvEquityPortfolioUnrealized.DataSource = dtgvEquityPortfolioUnrealizedDetails;
+            
         }
         #endregion
 
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            //portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+            //Session[SessionContents.PortfolioId] = portfolioId;
+            LoadEquityPortfolio();
+            //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+            lblCurrentValue.Text = strLblCurrentValue;            
+        }
     }
 }
