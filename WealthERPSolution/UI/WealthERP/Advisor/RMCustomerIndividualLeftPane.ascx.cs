@@ -382,7 +382,7 @@ namespace WealthERP.Advisor
                         RadPanelBar1.Items.Insert(0, Item);
                     }
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMCustomerIndividualLeftPane');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMCustomerIndividualLeftPane');", true);
                     if (Session["NodeType"] == "MF")
                     {
                         RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
