@@ -12,7 +12,7 @@ namespace BoCommon
     public class ReadExternalFile
     {
         //reads Data from an Excel File 
-        
+
         public DataSet ReadExcelfile(string FileName)
         {
             DataSet ds = new DataSet();
@@ -32,7 +32,7 @@ namespace BoCommon
 
                 OleDbDataAdapter myCommand = new OleDbDataAdapter(" SELECT * FROM [" + sheetname + "]", con);
                 myCommand.Fill(ds);
-               
+
                 //foreach (DataRow dr in ds.Tables[0].Rows)
                 //{
 
@@ -47,14 +47,14 @@ namespace BoCommon
                 //        }
                 //        break; 
                 //    }
-                    
+
                 //    //if (dr["Exchange"].ToString().Contains("   ") && dr["Exchange Type"].ToString().Contains("   "))
                 //    //{
                 //    //    //dr.Table.Rows[0].Delete();
                 //    //    ds.Tables[0].Rows.Remove(dr);
 
                 //    //}
-                    
+
                 //}
                 int CountCol = 0; //Counting each column of a row in  Table
                 DataRow dr;      //Data row to check which row contains dummy record. 
@@ -75,7 +75,7 @@ namespace BoCommon
                     }
                     CountCol = 0;
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -90,135 +90,130 @@ namespace BoCommon
 
         public DataSet ReadTxtFile(string FileName, string filetype)
         {
-             DataSet domains = new DataSet();
-             DataRow drOdin;
-             string delimeter;
-             if (filetype == "NSE")
-             {
-                  delimeter = ",";
-             }
-             else
-             {
-                  delimeter = "|";
-             }
-             //domains.Tables.Add(tableName);
-          
-        if (File.Exists(FileName))
-        {
-            StreamReader reader = new StreamReader(FileName);
-           
-             
-            //now we need to read the rest of the text file
-            string data = reader.ReadToEnd();
-            //now we will split the file on the carriage return/line feed
-            //and toss it into a string array
-            DataTable dtOdin = new DataTable();
-            dtOdin.Columns.Add("Col1");
-            dtOdin.Columns.Add("Col2");
-            dtOdin.Columns.Add("Col3");
-            dtOdin.Columns.Add("Col4");
-            dtOdin.Columns.Add("Col5");
-            dtOdin.Columns.Add("Col6");
-
-            dtOdin.Columns.Add("Col7");
-            dtOdin.Columns.Add("Col8");
-            dtOdin.Columns.Add("Col9");
-            dtOdin.Columns.Add("Col10");
-            dtOdin.Columns.Add("Col11");
-            dtOdin.Columns.Add("Col12");
-
-            dtOdin.Columns.Add("Col13");
-            dtOdin.Columns.Add("Col14");
-            dtOdin.Columns.Add("Col15");
-            dtOdin.Columns.Add("Col16");
-            dtOdin.Columns.Add("Col17");
-            dtOdin.Columns.Add("Col18");
-
-            dtOdin.Columns.Add("Col19");
-            dtOdin.Columns.Add("Col20");
-            dtOdin.Columns.Add("Col21");
-            dtOdin.Columns.Add("Col22");
-            dtOdin.Columns.Add("Col23");
-            dtOdin.Columns.Add("Col24");
-            dtOdin.Columns.Add("Col25");
-          
-            string[] rows = data.Split("\r".ToCharArray());
-            //now we will add the rows to our DataTable
-            foreach (string r in rows)
+            DataSet domains = new DataSet();
+            DataRow drOdin;
+            string delimeter;
+            if (filetype == "NSE")
             {
-                string[] items = r.Split(delimeter.ToCharArray());
-                //split the row at the delimiter
-                //domains.Tables[0].Rows.Add(items);                
-                drOdin = dtOdin.NewRow();
-                
-                for (int i = 0; i < items.Count(); i++)
+                delimeter = ",";
+            }
+            else
+            {
+                delimeter = "|";
+            }
+            //domains.Tables.Add(tableName);
+
+            if (File.Exists(FileName))
+            {
+                StreamReader reader = new StreamReader(FileName);
+
+
+                //now we need to read the rest of the text file
+                string data = reader.ReadToEnd();
+                //now we will split the file on the carriage return/line feed
+                //and toss it into a string array
+                DataTable dtOdin = new DataTable();
+                dtOdin.Columns.Add("Col1");
+                dtOdin.Columns.Add("Col2");
+                dtOdin.Columns.Add("Col3");
+                dtOdin.Columns.Add("Col4");
+                dtOdin.Columns.Add("Col5");
+                dtOdin.Columns.Add("Col6");
+
+                dtOdin.Columns.Add("Col7");
+                dtOdin.Columns.Add("Col8");
+                dtOdin.Columns.Add("Col9");
+                dtOdin.Columns.Add("Col10");
+                dtOdin.Columns.Add("Col11");
+                dtOdin.Columns.Add("Col12");
+
+                dtOdin.Columns.Add("Col13");
+                dtOdin.Columns.Add("Col14");
+                dtOdin.Columns.Add("Col15");
+                dtOdin.Columns.Add("Col16");
+                dtOdin.Columns.Add("Col17");
+                dtOdin.Columns.Add("Col18");
+
+                dtOdin.Columns.Add("Col19");
+                dtOdin.Columns.Add("Col20");
+                dtOdin.Columns.Add("Col21");
+                dtOdin.Columns.Add("Col22");
+                dtOdin.Columns.Add("Col23");
+                dtOdin.Columns.Add("Col24");
+                dtOdin.Columns.Add("Col25");
+
+                string[] rows = data.Split("\r".ToCharArray());
+                //now we will add the rows to our DataTable
+                int count=0;
+                foreach (string r in rows)
                 {
                     if (filetype == "NSE")
-                    {                       
-                        if (i == 19 || i == 20 || i == 24)
-                        {
-                            string type = items[i].GetType().ToString();
-                            if (type=="DateTime")
-                            drOdin[i] = DateTime.Parse(items[i]);
-
-                        }
-                        else
-                        {
-                            //items[i] = items[i].Replace("\n", "");
-                            drOdin[i] = items[i].Replace("\n", "");
-                        }
-                    }
-                   else if (filetype == "BSE")
                     {
-                        //if (i == 9)
-                        //{
-                        //    drOdin[i] = DateTime.Parse(items[i]);
+                        if (count != 0)
+                        {
+                            string[] items = r.Split(delimeter.ToCharArray());
+                            //split the row at the delimiter
+                            //domains.Tables[0].Rows.Add(items);                
+                            drOdin = dtOdin.NewRow();
 
-                        //}
-                        //else
-                            //items[i] = items[i].Replace("\n", "");
-                            drOdin[i] = items[i].Replace("\n", "");
+                            for (int i = 0; i < items.Count(); i++)
+                            {
+                                    if (i == 19 || i == 20 || i == 24)
+                                    {
+                                        drOdin[i] = DateTime.Parse(items[i]);
+
+                                    }
+                                    else
+                                    {
+                                        //items[i] = items[i].Replace("\n", "");
+                                        drOdin[i] = items[i].Replace("\n", "");
+                                    }
+
+                             
+                            }
+                            dtOdin.Rows.Add(drOdin);
+                        }
                     }
+                    else
+                    {
+                        string[] items = r.Split(delimeter.ToCharArray());
+                        //split the row at the delimiter
+                        //domains.Tables[0].Rows.Add(items);                
+                        drOdin = dtOdin.NewRow();
 
-                   
-                    
- 
+                        for (int i = 0; i < items.Count(); i++)
+                        {
+                            drOdin[i] = items[i].Replace("\n", "");
+                        }
+                      
+                        dtOdin.Rows.Add(drOdin);
+                    }
+                    count++;
                 }
-                dtOdin.Rows.Add(drOdin);                
-                
+                domains.Tables.Add(dtOdin);
+               
+                //foreach (DataRow dr in domains.Tables[0].Rows)
+                //{
+
+                //    if (dr.IsNull("Col1"))
+                //    {
+                //        //dr.Table.Rows[0].Delete();
+                //        domains.Tables[0].Rows.Remove(dr);
+                //        domains.Tables[0].Rows.Remove(dr);
+
+                //    }
+                //    //if (dr["Exchange"].ToString().Contains("   ") && dr["Exchange Type"].ToString().Contains("   "))
+                //    //{
+                //    //    //dr.Table.Rows[0].Delete();
+                //    //    ds.Tables[0].Rows.Remove(dr);
+
+                //    //}
+
+                //}
             }
 
-            domains.Tables.Add(dtOdin);
-            int count = domains.Tables[0].Rows.Count;
-            if (string.IsNullOrEmpty(domains.Tables[0].Rows[count - 1][0].ToString().Trim()) && string.IsNullOrEmpty(domains.Tables[0].Rows[count - 1][1].ToString().Trim()))
-            {
-                DataRow dr=domains.Tables[0].Rows[count - 1];
-                domains.Tables[0].Rows.Remove(dr);
- 
-            }
-
-            //foreach (DataRow dr in domains.Tables[0].Rows)
-            //{
-
-            //    if (dr.IsNull("Col1"))
-            //    {
-            //        //dr.Table.Rows[0].Delete();
-            //        domains.Tables[0].Rows.Remove(dr);
-            //        domains.Tables[0].Rows.Remove(dr);
-
-            //    }
-            //    //if (dr["Exchange"].ToString().Contains("   ") && dr["Exchange Type"].ToString().Contains("   "))
-            //    //{
-            //    //    //dr.Table.Rows[0].Delete();
-            //    //    ds.Tables[0].Rows.Remove(dr);
-
-            //    //}
-
-            //}
+            return domains;
         }
-      
-    return domains;
-}
 
         public DataSet ReadExcelfile1(string FileName)
         {
@@ -275,7 +270,7 @@ namespace BoCommon
             }
             return ds;
         }
-        
+
 
 
 
@@ -351,4 +346,3 @@ namespace BoCommon
 }
 
 
-        
