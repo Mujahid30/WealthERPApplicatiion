@@ -386,7 +386,7 @@ namespace WealthERP.OPS
                 lblCurrentPage.Visible = true;
                 lblTotalRows.Visible = true;
                 btnExportExcel.Visible = true;
-                imgBtnExport.Visible = true;
+                //imgBtnExport.Visible = true;
             }
             else
             {
@@ -400,7 +400,7 @@ namespace WealthERP.OPS
                 tblPager.Visible = false;
                 trPager.Visible = false;
                 btnExportExcel.Visible = false;
-                imgBtnExport.Visible = false;
+                //imgBtnExport.Visible = false;
             }
             
 
@@ -507,7 +507,7 @@ namespace WealthERP.OPS
             if (ddlMISOrderStatus.SelectedIndex != 0)
                 hdnOrdStatus.Value = ddlMISOrderStatus.SelectedValue;
             else
-                hdnOrdStatus.Value = "0";
+                hdnOrdStatus.Value = " ";
 
              
             if (ddlOrderType.SelectedIndex != -1)
