@@ -200,7 +200,10 @@ namespace DaoOps
                     db.AddInParameter(GetCustomerMFOrderMIScmd, "@trxType", DbType.String, transactionType);
                 else
                     db.AddInParameter(GetCustomerMFOrderMIScmd, "@trxType", DbType.String, DBNull.Value);
-                db.AddInParameter(GetCustomerMFOrderMIScmd, "@orderStatus", DbType.String, status);
+                if (!string.IsNullOrEmpty(status.ToString().Trim()))
+                    db.AddInParameter(GetCustomerMFOrderMIScmd, "@orderStatus", DbType.String, status);
+                else
+                    db.AddInParameter(GetCustomerMFOrderMIScmd, "@orderStatus", DbType.String, DBNull.Value);
                 db.AddInParameter(GetCustomerMFOrderMIScmd, "@ordertype", DbType.String, orderType);
                 if (!string.IsNullOrEmpty(amcCode.ToString().Trim()))
                     db.AddInParameter(GetCustomerMFOrderMIScmd, "@amcCode", DbType.String, amcCode);
