@@ -1282,7 +1282,7 @@
     </tr>
 </table>
 <div style="margin: 6px">
-    <label id="lbl" class="lblRequiredText">
+    <label id="lbl" class="HeaderTextSmall">
         Note: Only historical data is accessible from this screen. Recent data for the last 2 Business day will not be available. To view the recent data View Dashboards & Net Positions.</label>
 </div>
 
