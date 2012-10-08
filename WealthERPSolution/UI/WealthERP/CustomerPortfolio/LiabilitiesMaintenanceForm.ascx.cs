@@ -56,7 +56,7 @@ namespace WealthERP.CustomerPortfolio
                 userVo = (UserVo)Session[SessionContents.UserVo];
                 rmVo = (RMVo)Session[SessionContents.RmVo];
 
-                
+
                 //CompareValidator5.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
                 if (Session["propertyVo"] != null && Session["test"] != null)
                 {
@@ -1401,11 +1401,11 @@ namespace WealthERP.CustomerPortfolio
             DateTime endDate = new DateTime();
             if (ddlEMIFrequency.SelectedItem.Value == "MN")
             {
-                endDate = startDate.AddDays(period);
+                endDate = startDate.AddYears(period);
             }
             else if (ddlEMIFrequency.SelectedItem.Value == "YR")
             {
-                endDate = startDate.AddMonths(period);
+                endDate = startDate.AddYears(period);
             }
             else if (ddlEMIFrequency.SelectedItem.Value == "QT")
             {
@@ -2400,7 +2400,7 @@ namespace WealthERP.CustomerPortfolio
             if ((String.IsNullOrEmpty(txtTenture.Text)) || (String.IsNullOrEmpty(txtInstallmentStartDt.Text)))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill enter values into Previous texboxs');", true);
-                
+
             }
 
             //if 
@@ -2472,14 +2472,14 @@ namespace WealthERP.CustomerPortfolio
                 if ((String.IsNullOrEmpty(txtTenture.Text)) || (String.IsNullOrEmpty(txtInstallmentStartDt.Text)))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill enter values into Previous texboxs');", true);
-                    btnSubmit.Enabled = false; 
+                    btnSubmit.Enabled = false;
                 }
                 else
                 {
                     CalculateNumberOfInvestements();
                     CalculateInstallmentAmount();
                     CalcEndDate(Int16.Parse(txtTenture.Text), DateTime.Parse(txtInstallmentStartDt.Text.ToString()));
-                    btnSubmit.Enabled = true;                
+                    btnSubmit.Enabled = true;
                 }
             }
         }
@@ -2519,7 +2519,7 @@ namespace WealthERP.CustomerPortfolio
             else if (ddlPaymentOption.SelectedValue.ToString() == "2")
             {
                 ddlEMIFrequency.SelectedIndex = 0;
-                if ((String.IsNullOrEmpty(txtTenture.Text)) || (ddlEMIFrequency.SelectedIndex==0))
+                if ((String.IsNullOrEmpty(txtTenture.Text)) || (ddlEMIFrequency.SelectedIndex == 0))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill enter values into Previous texboxs');", true);
                     btnSubmit.Enabled = false;
@@ -2538,7 +2538,7 @@ namespace WealthERP.CustomerPortfolio
         {
             if (ddlPaymentOption.SelectedValue.ToString() == "1")
             {
-                txtInstallmentEndDt.Enabled=false;
+                txtInstallmentEndDt.Enabled = false;
             }
             else if (ddlPaymentOption.SelectedValue.ToString() == "2")
             {
