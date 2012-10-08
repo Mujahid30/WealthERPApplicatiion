@@ -933,8 +933,12 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getLoanMICmd, "@A_AdviserId", DbType.Int32, adviserid);
                 if (branchid != 0)
                     db.AddInParameter(getLoanMICmd, "@AB_BranchId", DbType.Int32, branchid);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AB_BranchId", DbType.Int32, DBNull.Value);
                 if (rmid != 0)
                     db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, rmid);
+                else
+                    db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, DBNull.Value);
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
