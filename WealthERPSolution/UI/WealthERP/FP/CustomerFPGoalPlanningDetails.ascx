@@ -58,8 +58,8 @@
     </tr>
     <tr>
         <td>
-            <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" Height="350px"
-                ScrollBars="Both" HorizontalAlign="Left">
+            <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" 
+                ScrollBars="Horizontal" HorizontalAlign="Left">
                 <div id="dvHoldings" runat="server" style="width: 650px; padding: 4px">
                     <asp:GridView ID="gvGoalList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                         HorizontalAlign="Center" CellPadding="4" EnableViewState="True" AllowPaging="false"
@@ -322,7 +322,7 @@
                         <HeaderStyle CssClass="HeaderStyle" Wrap="true" />
                         <%--<PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />--%>
                         <RowStyle CssClass="RowStyle" />
-                        <SelectedRowStyle CssClass="SelectedRowStyle" />
+                        <SelectedRowStyle CssClass="SelectedRowStyle" Height="100%"/>
                     </asp:GridView>
                 </div>
             </asp:Panel>
