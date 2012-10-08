@@ -154,8 +154,7 @@
                 <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
         </td>
         <td valign="top">
-            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" 
-                AutoPostBack="true" onselectedindexchanged="ddlRM_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" >
             </asp:DropDownList>
             </span>
         </td>

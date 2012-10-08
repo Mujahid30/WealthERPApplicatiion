@@ -193,7 +193,8 @@ namespace WealthERP.Advisor
 
             hdnSchemeSearchVal.Value = SchemeSearchval.Text;
             hdnAMCSearchVal.Value = AMCSearchval.Text;
-
+            hdnRMSelection.Value = ddlRM.SelectedValue.ToString();
+            Session["RMFilterForAMC"] = ddlRM.SelectedValue;
             if (hdnCurrentPage.Value == string.Empty || hdnCurrentPage.Value == "")
             {
                 CurrentPage = 1;
@@ -940,14 +941,14 @@ namespace WealthERP.Advisor
                 BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0, 0);
             }
             Session["BranchFilterForAMC"] = ddlBranch.SelectedValue;
-            GenerateMIS();
+            //GenerateMIS();
         }
 
         protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)
         {
             hdnRMSelection.Value = ddlRM.SelectedValue.ToString();
             Session["RMFilterForAMC"] = ddlRM.SelectedValue;
-            GenerateMIS();
+           // GenerateMIS();
         }
 
         /* For Binding the Branch Dropdowns */

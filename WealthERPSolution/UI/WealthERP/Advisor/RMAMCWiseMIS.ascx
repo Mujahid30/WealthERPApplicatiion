@@ -5,6 +5,26 @@
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 
+
+<script type="text/javascript" language="javascript">
+    function CheckValuationDate() {
+        var valuationDate = document.getElementById("<%=hdnValuationDate.ClientID %>").value;
+        var txtDate = document.getElementById("<%=txtDate.ClientID %>").value;
+        txtDate = new Date(txtDate);
+        valuationDate = new Date(valuationDate);
+        txtDate.setHours(0, 0, 0, 0);
+        valuationDate.setHours(0, 0, 0, 0);
+        if (txtDate <= valuationDate) {
+            return true;
+        }
+        else {
+            alert("Please Select Prior Business Date");
+            return false;
+        }
+
+    }
+</script>
+
 <script type="text/javascript">
 
     function checkdate(sender, args) {
@@ -28,26 +48,6 @@
     }
 </script>
 
-
-
-<script type="text/javascript" language="javascript">
-    function CheckValuationDate() {
-        var valuationDate = document.getElementById("<%=hdnValuationDate.ClientID %>").value;
-        var txtDate = document.getElementById("<%=txtDate.ClientID %>").value;
-        txtDate = new Date(txtDate);
-        valuationDate = new Date(valuationDate);
-        txtDate.setHours(0, 0, 0, 0);
-        valuationDate.setHours(0, 0, 0, 0);
-        if (txtDate <= valuationDate) {
-            return true;
-        }
-        else {
-            alert("Please Select Prior Business Date");
-            return false;
-        }
-
-    }
-</script>
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -135,32 +135,48 @@
                             <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
                     </td>
                     <td valign="top">
-                        <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlRM_SelectedIndexChanged">
+                        <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" 
+                            >
                         </asp:DropDownList>
                         </span>
                     </td>
                 </tr>
-                
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
+                            onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
+                            onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
+                            OnClick="btnGo_Click" OnClientClick="return CheckValuationDate();"  />
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
             </table>
         </td>
     </tr>
     <tr>
         <td>
+            <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/App_Themes/Maroon/Images/Export_Word.jpg"
+                runat="server" AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click"
+                OnClientClick="setFormat('word')" />
+            <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/App_Themes/Maroon/Images/Export_Pdf.gif"
+                runat="server" AlternateText="PDF" OnClientClick="setFormat('pdf')" ToolTip="Export To PDF"
+                OnClick="imgBtnPdf_Click" />
+            <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/App_Themes/Maroon/Images/Print.gif"
+                runat="server" AlternateText="Print" OnClientClick="setFormat('print')" ToolTip="Print"
+                OnClick="imgBtnPrint_Click" />
+            <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
+                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />--%>
         </td>
-        <td>
-            <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
-                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
-                OnClick="btnGo_Click" OnClientClick="return CheckValuationDate();" />
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
+
+
     </tr>
-</table>
-   
+
+
     <%--<table>
     <tr>    
         <td>
@@ -222,7 +238,7 @@
         </td>
     </tr>    
     </table>--%>
-    <table>
+
     <tr id="trMessage" runat="server" visible="false">
         <td colspan="3">
             <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found."></asp:Label>
@@ -274,20 +290,8 @@
             </div>
         </td>
     </tr>
-    <tr id="ValuationNotDoneErrorMsg" align="center" style="width: 100%" runat="server">
-        <td align="center" style="width: 100%">
-            <div class="failure-msg" style="text-align: center" align="center">
-                Valuation not done for this adviser....
-            </div>
-        </td>
-    </tr>
-    <%-- <tr id="ValuationNotDoneErrorMsg" align="center" style="width: 100%" runat="server">
-                    <td align="center" style="width: 100%">
-                        <div class="failure-msg" style="text-align:center" align="center">
-                            Valuation not done for this adviser....
-                        </div>
-                    </td>
-                </tr>--%>
+   
+
 </table>
 <asp:Button ID="btnSearch" runat="server" Text="" BorderStyle="None" BackColor="Transparent"
     OnClick="btnSearch_Click" />

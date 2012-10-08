@@ -815,12 +815,12 @@ namespace WealthERP.Advisor
             {
                 BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0, 0);
             }
-            GenerateMIS();
+           // GenerateMIS();
         }
 
         protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GenerateMIS();
+           // GenerateMIS();
         }
 
         /* For Binding the Branch Dropdowns */

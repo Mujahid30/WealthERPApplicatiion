@@ -164,6 +164,9 @@ namespace WealthERP.Advisor
             }
             hdnAMCSearchVal.Value = AMCSearchval.Text;
 
+            hdnBranchSelection.Value = ddlBranch.SelectedValue;
+
+            hdnRMSelection.Value = ddlRM.SelectedValue;
 
             /* For BM MIS */
 
@@ -630,13 +633,13 @@ namespace WealthERP.Advisor
             {
                 BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0, 0);
             }
-            GenerateMIS();
+            //GenerateMIS();
         }
 
         protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)
         {
             hdnRMSelection.Value = ddlRM.SelectedValue;
-            GenerateMIS();
+            //GenerateMIS();
         }
 
 
