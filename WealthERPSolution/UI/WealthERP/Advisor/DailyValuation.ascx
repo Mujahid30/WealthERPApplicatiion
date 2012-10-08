@@ -390,7 +390,7 @@
 </table>
 <br />
      <div id="DivMfNote"  runat="server" style="margin: 6px">
-    <label id="lbl" class="lblRequiredText">
+    <label id="lbl" class="HeaderTextSmall">
         Note: valuation runs automatically from the back end every 30 min.</label>
 </div>
 <%--<div id="DivPager" runat="server">
