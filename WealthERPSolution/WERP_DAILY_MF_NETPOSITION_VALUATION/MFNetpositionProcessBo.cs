@@ -9,6 +9,8 @@ using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace WERP_DAILY_MF_NETPOSITION_VALUATION
 {
@@ -19,24 +21,30 @@ namespace WERP_DAILY_MF_NETPOSITION_VALUATION
         BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Advisor;
         MFEngineBo mfEngineBo = new MFEngineBo();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
+        bool isValuationDateTradeDate = false;
+
         public void CreateMFNetpositionForAllAdviser()
         {
-            adviserVoList = adviserMaintenanceBo.GetAdviserList();
-            for (int i = 0; i < adviserVoList.Count; i++)
+            CheckForTradeDate(DateTime.Today.AddDays(-1));
+            if (isValuationDateTradeDate)
             {
-                int logId = 0;
-                logId = CreateAdviserEODLog("MF", DateTime.Today.AddDays(-1), adviserVoList[i].advisorId);
-                try
+                adviserVoList = adviserMaintenanceBo.GetAdviserList();
+                for (int i = 0; i < adviserVoList.Count; i++)
                 {
-                    mfEngineBo.MFNetPositionCreation(adviserVoList[i].advisorId, 0, valuationFor, DateTime.Today.AddDays(-1));
-                    UpdateAdviserEODLog("MF", 1, logId);
+                    int logId = 0;
+                    logId = CreateAdviserEODLog("MF", DateTime.Today.AddDays(-1), adviserVoList[i].advisorId);
+                    try
+                    {
+                        mfEngineBo.MFNetPositionCreation(adviserVoList[i].advisorId, 0, valuationFor, DateTime.Today.AddDays(-1));
+                        UpdateAdviserEODLog("MF", 1, logId);
+                    }
+                    catch
+                    {
+
+
+                    }
+
                 }
-                catch
-                {
-
-
-                }
-
             }
         }
 
@@ -106,6 +114,18 @@ namespace WERP_DAILY_MF_NETPOSITION_VALUATION
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+            }
+        }
+
+        protected void CheckForTradeDate(DateTime valuationDate)
+        {
+            SqlParameter[] Params = new SqlParameter[1];
+            Params[0] = new SqlParameter("@ValuationDate", valuationDate);
+            Params[0].DbType = DbType.DateTime;
+            DataSet DS = Utils.ExecuteDataSet("SPROC_CheckForTradeDate", Params);
+            if (DS.Tables[0].Rows.Count > 0)
+            {
+                isValuationDateTradeDate = true;
             }
         }
 

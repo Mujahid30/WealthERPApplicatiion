@@ -104,6 +104,7 @@
     <Compile Include="MFNetpositionProcessBo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bo\BoWerpAdmin\BoWerpAdmin.csproj">
