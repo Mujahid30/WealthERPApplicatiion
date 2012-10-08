@@ -498,6 +498,7 @@ namespace WealthERP.BusinessMIS
 
                            drAssetType = dtRiskProfile.Select("C_CustomerId=" + customerId.ToString());
                            //drAssetType = dtRiskProfile.Select("C_CustomerId=" + customerId1.ToString());
+                           int assetCode=0;
                            if (customerId != customerOld1)
                            {
                                if (drAssetType.Count() > 0)
@@ -505,7 +506,8 @@ namespace WealthERP.BusinessMIS
                                    customerOld1 = customerId;
                                    foreach (DataRow dr1 in drAssetType)
                                    {
-                                       int assetCode = int.Parse(dr1["WAC_AssetClassificationCode"].ToString());
+                                       if(!string.IsNullOrEmpty( dr1["WAC_AssetClassificationCode"].ToString().Trim()))
+                                            assetCode = int.Parse(dr1["WAC_AssetClassificationCode"].ToString());
                                        switch (assetCode)
                                        {
                                            case 1:
