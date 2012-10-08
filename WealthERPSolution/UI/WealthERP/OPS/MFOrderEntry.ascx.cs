@@ -84,6 +84,8 @@ namespace WealthERP.OPS
                     ViewForm = Request.QueryString["action"].ToString();
                     txtOrderDate.SelectedDate = orderVo.OrderDate;
                     lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
+                    btnViewInPDFNew.Visible = false;
+                    btnViewInDOCNew.Visible = false;
                 }
 
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
