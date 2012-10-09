@@ -28,8 +28,10 @@ namespace WealthERP.Reports
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
         int activeTabIndex = 0;
+       
         CustomerVo customerVo = new CustomerVo();
         AdvisorVo advisorVo;
+       
         bool CustomerLogin = false;
         bool strFromCustomerDashBoard = false;
         bool isGrpHead = false;
@@ -166,6 +168,7 @@ namespace WealthERP.Reports
 
 
             }
+                
         }
         public void ChckBussDate_Textchanged(object sender, EventArgs e)
         {
