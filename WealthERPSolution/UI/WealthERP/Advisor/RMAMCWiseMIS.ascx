@@ -5,11 +5,10 @@
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 
-
 <script type="text/javascript" language="javascript">
     function CheckValuationDate() {
-        var valuationDate = document.getElementById("<%=hdnValuationDate.ClientID %>").value;
-        var txtDate = document.getElementById("<%=txtDate.ClientID %>").value;
+        var valuationDate = document.getElementById('ctrl_RMAMCwiseMIS_hdnValuationDate').value;
+        var txtDate = document.getElementById('ctrl_RMAMCwiseMIS_txtDate_dateInput_text').value;
         txtDate = new Date(txtDate);
         valuationDate = new Date(valuationDate);
         txtDate.setHours(0, 0, 0, 0);
@@ -68,15 +67,9 @@
     </tr>
 </table>
 <table style="width: 100%;">
-    <%--    <tr>
-        <td class="HeaderTextBig" colspan="3">
-            <asp:Label ID="lblMfMIS" runat="server" CssClass="HeaderTextBig" Text="MF MIS"></asp:Label>
-            <hr />
-        </td>
-    </tr>--%>
-    <tr>
+    <%--<tr>
         <td>
-            <table style="width: 62%; margin: 0px; padding: 0px;" cellpadding="1" cellspacing="1">
+            <table>--%>
                 <tr>
                     <td align="right">
                         <asp:Label ID="lblMISType" runat="server" CssClass="FieldName">MIS Type:</asp:Label>
@@ -97,11 +90,12 @@
                     <td>
                         <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged"
                             AutoPostBack="true">
-                            <%--<asp:ListItem Value="1086" Text="All"></asp:ListItem>
-                 <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>
-                 <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem> --%>
                         </asp:DropDownList>
                         </span>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="LstValDt" runat="server" CssClass="FieldName" Text="Last Valuation Date:"></asp:Label>
+                        <asp:Label ID="lblValDt" runat="server" CssClass="txtField"></asp:Label>
                     </td>
                 </tr>
                 <tr id="trRange" runat="server">
@@ -135,8 +129,7 @@
                             <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
                     </td>
                     <td valign="top">
-                        <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" 
-                            >
+                        <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                         </span>
                     </td>
@@ -148,99 +141,18 @@
                         <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
                             onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
                             onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
-                            OnClick="btnGo_Click" OnClientClick="return CheckValuationDate();"  />
+                            OnClick="btnGo_Click" OnClientClick="return CheckValuationDate();" />
                     </td>
                     <td>
                     </td>
                     <td>
                     </td>
-                </tr>
+         <%--       </tr>
             </table>
-        </td>
+        </td>--%>
     </tr>
-    <tr>
-        <td>
-            <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/App_Themes/Maroon/Images/Export_Word.jpg"
-                runat="server" AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click"
-                OnClientClick="setFormat('word')" />
-            <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/App_Themes/Maroon/Images/Export_Pdf.gif"
-                runat="server" AlternateText="PDF" OnClientClick="setFormat('pdf')" ToolTip="Export To PDF"
-                OnClick="imgBtnPdf_Click" />
-            <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/App_Themes/Maroon/Images/Print.gif"
-                runat="server" AlternateText="Print" OnClientClick="setFormat('print')" ToolTip="Print"
-                OnClick="imgBtnPrint_Click" />
-            <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />--%>
-        </td>
-
-
-    </tr>
-
-
-    <%--<table>
-    <tr>    
-        <td>
-            <asp:Label ID="lblMISType" runat="server" CssClass="FieldName">&nbsp;&nbsp;&nbsp;MIS Type:</asp:Label>
-            <asp:DropDownList ID="ddlMISType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMISType_SelectedIndexChanged"
-                AutoPostBack="true">
-                <asp:ListItem Value="AMCWiseAUM" Selected="True">AMC Wise AUM</asp:ListItem>
-                <asp:ListItem Value="AMCSchemeWiseAUM">Scheme Wise AUM</asp:ListItem>
-                <asp:ListItem Value="FolioWiseAUM">Folio Wise AUM</asp:ListItem>
-                <asp:ListItem Value="TurnOverSummary">Turn Over Summary</asp:ListItem>
-            </asp:DropDownList>
-        </td>
-        <td>
-            <span id="spnBranch" runat="server">
-                <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
-                <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged"
-                    AutoPostBack="true"> 
-                               
-                </asp:DropDownList>
-            </span>
-        </td>
-        <td>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-    </tr>
-    <tr id="trRange" runat="server">
-        <td>
-            <asp:Label ID="lblDate" runat="server" CssClass="FieldName">As on Date:</asp:Label>
-            <asp:TextBox ID="txtDate" runat="server" CssClass="txtField"></asp:TextBox>
-            <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtDate"
-                OnClientDateSelectionChanged="checkdate" Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="txtFromDate_TextBoxWatermarkExtender" runat="server"
-                TargetControlID="txtDate" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtDate"
-                CssClass="rfvPCG" ErrorMessage="<br />Please select a Date" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="btnGo">
-            </asp:RequiredFieldValidator><br />
-            <asp:Label ID="lblPortfolio" runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;Portfolio:" CssClass="FieldName" Visible="false"></asp:Label>
-            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" Visible="false">
-            </asp:DropDownList>
-            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
-                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAMCwiseMIS_btnGo', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAMCwiseMIS_btnGo', 'S');"
-                OnClick="btnGo_Click" />
-        </td>
-        <td>
-            <span id="spnRM" runat="server">&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
-                <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" 
-                onselectedindexchanged="ddlRM_SelectedIndexChanged" AutoPostBack="true">
-                </asp:DropDownList>
-            </span>
-        </td>
-        <td>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-    </tr>    
-    </table>--%>
-
     <tr id="trMessage" runat="server" visible="false">
-        <td colspan="3">
+        <td>
             <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found."></asp:Label>
         </td>
     </tr>
@@ -250,9 +162,10 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
+    <table width="100%">
     <tr>
-        <td colspan="3">
-            <div style="overflow: scroll;height:300px">
+        <td>
+            <div style="overflow: scroll; height: 300px">
                 <asp:GridView ID="gvMFMIS" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                     CellPadding="4" CssClass="GridViewStyle" ShowFooter="True" DataKeyNames="AMCCode"
                     OnSelectedIndexChanged="gvMFMIS_SelectedIndexChanged" Width="100%">
@@ -290,9 +203,13 @@
             </div>
         </td>
     </tr>
-   
-
 </table>
+<div style="margin: 6px">
+    <label id="lbl" class="HeaderTextSmall">
+        Note: Only historical data is accessible from this screen. Recent data for the last
+        2 Business day will not be available. To view the recent data View Dashboards &
+        Net Positions.</label>
+</div>
 <asp:Button ID="btnSearch" runat="server" Text="" BorderStyle="None" BackColor="Transparent"
     OnClick="btnSearch_Click" />
 <asp:HiddenField ID="hdnAMCSearchVal" runat="server" Visible="false" />

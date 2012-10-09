@@ -84,7 +84,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRange;
-        
+        protected global::System.Web.UI.WebControls.Label lblValDt;
         /// <summary>
         /// lblDate control.
         /// </summary>

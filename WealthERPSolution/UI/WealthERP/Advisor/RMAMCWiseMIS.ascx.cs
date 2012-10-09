@@ -37,7 +37,7 @@ namespace WealthERP.Advisor
         int advisorId;
         int userId;
         int rmid;
-        
+        DateTime vlndte = new DateTime();
         int branchHeadId;
         DateTime Valuationdate;
         int all;
@@ -56,7 +56,7 @@ namespace WealthERP.Advisor
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-
+            Page.Header.DataBind();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userType = Session["UserType"].ToString().ToLower();
             rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -94,7 +94,7 @@ namespace WealthERP.Advisor
 
                         BindBranchDropDown();
                         BindRMDropDown();
-                        bindgrid(LatestValuationdate);
+                        //bindgrid(LatestValuationdate);
 
                     }
                     if (userType == "bm")
@@ -113,8 +113,10 @@ namespace WealthERP.Advisor
 
 
             LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorVo.advisorId, "MF");
-                hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");  
-
+            vlndte = LatestValuationdate;
+                hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");
+                lblValDt.Text = vlndte.ToShortDateString();
+              
                 //if (LatestValuationdate != DateTime.MinValue)
                 //{                   
                 //    bindgrid(LatestValuationdate);
@@ -409,7 +411,7 @@ namespace WealthERP.Advisor
         protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
         {
             gvMFMIS.Columns[0].Visible = false;
-
+            LatestValuationdate = Convert.ToDateTime(txtDate.SelectedDate);
             GridViewCultureFlag = false;
             bindgrid(LatestValuationdate);
             GridViewCultureFlag = true;
