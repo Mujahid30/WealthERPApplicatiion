@@ -137,7 +137,7 @@
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_OrderEntry_btnAddCustomer','S');"
                 OnClientClick="return openpopupAddCustomer()" 
                 onclick="btnAddCustomer_Click" />--%>
-            <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/Images/user_add.png" AlternateText="Add"
+            <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" AlternateText="Add"
                 runat="server" ToolTip="Click here to Add Customer" OnClientClick="return openpopupAddCustomer()"
                 Height="15px" Width="15px" ></asp:ImageButton>
             <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
@@ -492,7 +492,7 @@
             <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
                 onselectedindexchanged="ddlBankName_SelectedIndexChanged">
             </asp:DropDownList><span id="Span4" class="spnRequiredField">*</span>
-            <asp:ImageButton ID="imgAddBank" ImageUrl="~/Images/user_add.png" AlternateText="Add"
+            <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" AlternateText="Add"
                 runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                 Height="15px" Width="15px" ></asp:ImageButton>
                  <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
