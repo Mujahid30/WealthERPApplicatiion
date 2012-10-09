@@ -45,7 +45,7 @@ namespace WealthERP.Advisor
         int Count;
         string BranchSelection = string.Empty;
         string RMSelection = string.Empty;
-
+        DateTime vlndte = new DateTime();
 
         UserVo userVo = new UserVo();
         int bmID;
@@ -106,7 +106,7 @@ namespace WealthERP.Advisor
             rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
             bmID = rmVo.RMId;
             AdviserID = advisorVo.advisorId;
-
+            trExportPopup.Visible = false;
             if (!IsPostBack)
             {
                 PortfolioBo portfoliobo = new PortfolioBo();               
@@ -171,7 +171,9 @@ namespace WealthERP.Advisor
                 LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorVo.advisorId, "MF");
 
             }
-            hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");  
+            hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");
+            vlndte = LatestValuationdate;
+            lblValDt.Text = vlndte.ToShortDateString();
         }
 
 
