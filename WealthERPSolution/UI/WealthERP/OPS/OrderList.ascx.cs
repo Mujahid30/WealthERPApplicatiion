@@ -24,6 +24,7 @@ namespace WealthERP.OPS
         MFOrderBo mforderBo = new MFOrderBo();
         MFOrderVo mforderVo = new MFOrderVo();
         OrderVo orderVo = new OrderVo();
+        OperationBo operationBo = new OperationBo();
         RMVo rmVo = new RMVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         AdvisorVo advisorVo;
@@ -44,6 +45,7 @@ namespace WealthERP.OPS
             {
                 BindBranchDropDown();
                 BindRMDropDown();
+                BindOrderStatus();
                 if (userType == "bm")
                 {
                     ddlBranch.SelectedValue = bmID.ToString();
@@ -51,6 +53,21 @@ namespace WealthERP.OPS
                 }
                 lblselectCustomer.Visible = false;
                 txtIndividualCustomer.Visible = false;
+            }
+        }
+
+        private void BindOrderStatus()
+        {
+            DataSet dsOrderStaus;
+            DataTable dtOrderStatus;
+            dsOrderStaus = operationBo.GetOrderStatus();
+            dtOrderStatus = dsOrderStaus.Tables[0];
+            if (dtOrderStatus.Rows.Count > 0)
+            {
+                ddlOrderStatus.DataSource = dtOrderStatus;
+                ddlOrderStatus.DataValueField = dtOrderStatus.Columns["XS_StatusCode"].ToString();
+                ddlOrderStatus.DataTextField = dtOrderStatus.Columns["XS_Status"].ToString();
+                ddlOrderStatus.DataBind();
             }
         }
 
@@ -142,15 +159,15 @@ namespace WealthERP.OPS
                 hdnTodate.Value = DateTime.MinValue.ToString();
 
             if (ddlOrderStatus.SelectedIndex == 0)
-                hdnOrderStatus.Value = "0";
+                hdnOrderStatus.Value = "OMIP";
             else
-                hdnOrderStatus.Value = "1";
+                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
         }
 
         protected void BindGvOrderList()
         {
             DataTable dtOrder = new DataTable();
-            dtOrder = orderbo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), Convert.ToInt16(hdnOrderStatus.Value), hdnCustomerId.Value,hdnOrderType.Value);
+            dtOrder = orderbo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value,hdnOrderType.Value);
 
             if (dtOrder.Rows.Count > 0)
             {
@@ -172,12 +189,14 @@ namespace WealthERP.OPS
                 ErrorMessage.Visible = false;
                 tblMessage.Visible = false;
                 pnlOrderList.Visible = true;
+                btnExportFilteredDupData.Visible = true;
             }
             else
             {
                 gvOrderList.Visible = false;
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
+                btnExportFilteredDupData.Visible = false;
                 ErrorMessage.InnerText = "No Records Found...!";
                 pnlOrderList.Visible = false;
             }

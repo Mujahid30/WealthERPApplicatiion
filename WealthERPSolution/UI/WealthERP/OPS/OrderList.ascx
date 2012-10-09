@@ -44,10 +44,15 @@
 <tr>
         <td colspan="3">
             <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
+                <table cellspacing="0"  width="100%">
                     <tr>
                         <td align="left">
                             Order MIS
+                        </td>
+                        <td align="right" style="padding-bottom:2px;">
+                        <asp:ImageButton ID="btnExportFilteredDupData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredDupData_OnClick"
+                OnClientClick="setFormat('CSV')" Height="25px" Width="25px" Visible="false" ></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -124,9 +129,11 @@
             <asp:Label ID="lblOrderStatus" runat="server" Text="Order Status:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
+            <%--<asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Open" Value="1"></asp:ListItem>
                 <asp:ListItem Text="Closed" Value="0"></asp:ListItem>
+            </asp:DropDownList>--%>
+            <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
          <td class="leftField">
@@ -207,9 +214,7 @@
     <table width="100%">
     <tr id="trExportFilteredDupData" runat="server">
         <td>
-            <asp:ImageButton ID="btnExportFilteredDupData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredDupData_OnClick"
-                OnClientClick="setFormat('CSV')" Height="25px" Width="25px"></asp:ImageButton>
+            
         </td>
     </tr>
         <tr>
@@ -268,6 +273,11 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="WMTT_TransactionType" AllowFiltering="true" HeaderText="Transaction Type"
                                 UniqueName="WMTT_TransactionType"  SortExpression="WMTT_TransactionType"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="XS_Status" AllowFiltering="true" HeaderText="Order Status"
+                                UniqueName="XS_Status"  SortExpression="XS_Status"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
