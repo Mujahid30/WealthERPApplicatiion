@@ -154,7 +154,9 @@ namespace WealthERP.Advisor
 
                     schemeplanid = int.Parse(Request.QueryString["schemeplanid"].ToString());
                     LatestValuationdate = DateTime.Parse(Request.QueryString["latestValuationdate"].ToString());
-                    hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy"); 
+                    txtDate.SelectedDate = LatestValuationdate;
+                    hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");
+                    GenerateMIS();
                 }
                 else
                 {

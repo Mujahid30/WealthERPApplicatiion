@@ -152,6 +152,8 @@ namespace WealthERP.Advisor
                     }
                     amcCode = int.Parse(Request.QueryString["amcCode"].ToString());
                     LatestValuationdate = DateTime.Parse(Request.QueryString["latestValuationdate"].ToString());
+                    txtDate.SelectedDate = LatestValuationdate;
+                    GenerateMIS();
                 }
                 
              
