@@ -280,17 +280,12 @@ namespace WealthERP.Reports
                     CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
                     DataSet ds = customerTransactionBo.GetLastMFTradeDate();
                     DateTime AsonDate = new DateTime();
+                   
                     if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                     {
-                        AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
-                        AsonDate = AsonDate.AddDays(-1);
-                        txtAsOnDate.Text = AsonDate.ToShortDateString();
-                        txtFromDate.Text = AsonDate.ToShortDateString();
-                        txtToDate.Text = AsonDate.ToShortDateString();
-                        txtEmailAsOnDate.Text = AsonDate.ToShortDateString();
-                        txtEmailAsOnDate.Text = AsonDate.ToShortDateString();
-                        txtEmailFromDate.Text = AsonDate.ToShortDateString();
-                        txtEmailToDate.Text = AsonDate.ToShortDateString();
+                        //AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
+                        //AsonDate = AsonDate.AddDays(-1);
+                       
                         //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                         ////txtAsOnDate1 = DateTime.Parse(txtAsOnDate.Text.ToString());
                         //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
@@ -307,6 +302,13 @@ namespace WealthERP.Reports
                     advisorId = advisorVo.advisorId;
                     LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
                     hdnValuationDate.Value = LatestValuationdate.ToString();
+                    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                    txtFromDate.Text = LatestValuationdate.ToShortDateString();
+                    txtToDate.Text = LatestValuationdate.ToShortDateString();
+                    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
+                    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
                 }
                 if (CustomerLogin == false)
                 {
