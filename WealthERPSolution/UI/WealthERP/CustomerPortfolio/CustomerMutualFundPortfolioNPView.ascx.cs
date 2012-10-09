@@ -1081,7 +1081,6 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    trMFCode.Visible = false;
                     trChart.Visible = false;
                 }
 
@@ -1186,7 +1185,7 @@ namespace WealthERP.CustomerPortfolio
 
                 else
                 {
-                    trMFCode.Visible = false;
+                    trChart.Visible = false;
                     trSubCategoryWise.Visible = false;
                     chrtSubCategory.Visible = false;
                 }
