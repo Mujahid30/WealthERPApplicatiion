@@ -342,7 +342,7 @@
             <span id="span5" class="spnRequiredField">*</span>
             <%--  <asp:Button ID="btnAddScheme" runat="server" Text="++" OnClick="btnAddScheme_OnClick"
     ValidationGroup="btnAddScheme"  />--%>
-            <asp:ImageButton ID="btnAddScheme" ImageUrl="~/Images/user_add.png" runat="server" ToolTip="Add policy Name"
+            <asp:ImageButton ID="btnAddScheme" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" runat="server" ToolTip="Add policy Name"
                 OnClick="btnAddScheme_OnClick" ValidationGroup="btnAddScheme" Height="3.2%" Width="3.2%"/>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please select a Scheme Name:"
                 ControlToValidate="txtPolicyParticular" Operator="NotEqual" ValueToCompare="Select"
