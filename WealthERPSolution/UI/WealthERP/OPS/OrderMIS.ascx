@@ -555,6 +555,11 @@
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="left"></ItemStyle>
                         </asp:BoundField>
+                        <asp:BoundField DataField="XS_Status" HeaderText="Order Status"
+                            HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                            <HeaderStyle HorizontalAlign="Center" />
+                            <ItemStyle HorizontalAlign="left"></ItemStyle>
+                        </asp:BoundField>
                         <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center"
                             ItemStyle-HorizontalAlign="Left">
                             <HeaderTemplate>

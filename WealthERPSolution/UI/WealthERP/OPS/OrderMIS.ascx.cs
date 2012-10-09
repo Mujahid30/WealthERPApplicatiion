@@ -505,9 +505,9 @@ namespace WealthERP.OPS
             //    hdnARDate.Value = DateTime.MinValue.ToString();
 
             if (ddlMISOrderStatus.SelectedIndex != 0)
-                hdnOrdStatus.Value = ddlMISOrderStatus.SelectedValue;
+                hdnOrdStatus.Value = ddlMISOrderStatus.SelectedValue ;
             else
-                hdnOrdStatus.Value = " ";
+                hdnOrdStatus.Value = "OMIP";
 
              
             if (ddlOrderType.SelectedIndex != -1)
