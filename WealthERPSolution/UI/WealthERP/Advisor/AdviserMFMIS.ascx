@@ -32,6 +32,7 @@
                 runat="server" GroupName="Date" />
             <asp:Label ID="lblPickPeriod" runat="server" Text="Pick a Period" CssClass="Field"></asp:Label>
         </td>
+       
     </tr>
     <tr>
         <td>
@@ -167,7 +168,10 @@
     </tr>
 </table>
 
-
+<div style="margin: 6px">
+    <label id="lbl" class="HeaderTextSmall">
+        Note: Only historical data is accessible from this screen. Recent data for the last 2 Business day will not be available. To view the recent data View Dashboards & Net Positions.</label>
+</div>
 <asp:HiddenField ID="hdnbranchId" runat="server" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" />
 <asp:HiddenField ID="hdnall" runat="server" />
