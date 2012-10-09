@@ -5,8 +5,6 @@
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 
-
-
 <script type="text/javascript" language="javascript">
     function CheckValuationDate() {
         var valuationDate = document.getElementById("<%=hdnValuationDate.ClientID %>").value;
@@ -71,8 +69,9 @@
     }
 
 </script>
+
 <table width="100%">
-<tr>
+    <tr>
         <td colspan="3">
             <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
@@ -80,17 +79,16 @@
                         <td align="left">
                             MF MIS
                         </td>
-                        <td align="right" style="padding-bottom:2px;">
-                        <asp:ImageButton ID="imgBtnExport" ImageUrl="../Images/Export_Excel.png" Visible="false"
-                           runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"/>
+                        <td align="right" style="padding-bottom: 2px;">
+                            <asp:ImageButton ID="imgBtnExport" ImageUrl="../Images/Export_Excel.png" Visible="false"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
                         </td>
                     </tr>
                 </table>
             </div>
         </td>
     </tr>
-    </table>
-
+</table>
 <%--    <table style="width: 100%; margin: 0px; padding: 0px;" cellpadding="1" cellspacing="1">
     <tr >
         <td class="HeaderTextBig" colspan="3">
@@ -100,11 +98,11 @@
     </tr>
    
     </table>--%>
-    <table  style="width: 62%; margin: 0px; padding: 0px;" cellpadding="1" cellspacing="1">
+<table style="width: 100%;">
     <tr>
         <td align="right">
             <asp:Label ID="lblMISType" runat="server" CssClass="FieldName">MIS Type:</asp:Label>
-         </td>
+        </td>
         <td>
             <asp:DropDownList ID="ddlMISType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMISType_SelectedIndexChanged"
                 AutoPostBack="true">
@@ -117,28 +115,31 @@
         <td align="right">
             <span id="spnBranch" runat="server">
                 <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
-         </td>
-        <td>
-                <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged"
-                    AutoPostBack="true">
-                    <%-- <asp:ListItem Value="1086" Text="All"></asp:ListItem>
-                     <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>
-                     <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem>--%>      
-                </asp:DropDownList>
-            </span>
         </td>
-        
+        <td>
+            <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged"
+                AutoPostBack="true">
+                <%-- <asp:ListItem Value="1086" Text="All"></asp:ListItem>
+                     <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>
+                     <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem>--%>
+            </asp:DropDownList>
+           </span>
+        </td>
+        <td align="right">
+            <asp:Label ID="LstValDt" runat="server" CssClass="FieldName" Text="Last Valuation Date:"></asp:Label>
+            <asp:Label ID="lblValDt" runat="server" CssClass="txtField"></asp:Label>
+             
+        </td>
     </tr>
-   
     <tr id="trRange" runat="server">
         <td align="right" valign="top">
             <asp:Label ID="lblDate" runat="server" CssClass="FieldName">As on Date:</asp:Label>
         </td>
         <td valign="top">
-          <telerik:RadDatePicker ID="txtDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+            <telerik:RadDatePicker ID="txtDate" CssClass="txtTo" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar ID="Calendar1"  runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
+                <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -152,33 +153,32 @@
         <td align="right" valign="top">
             <span id="spnRM" runat="server">
                 <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
-                </td>
+        </td>
         <td valign="top">
-                <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" 
-                    >
-                </asp:DropDownList>
+            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
             </span>
-               
-       </td>
+        </td>
     </tr>
     <tr>
-    <td>
-    </td>
-    <td>
+        <td>
+        </td>
+        <td>
             <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
                 onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMCustomerAMCSchemewiseMIS_btnGo', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMCustomerAMCSchemewiseMIS_btnGo', 'S');"
-                OnClick="btnGo_Click" OnClientClick="return CheckValuationDate();"/>
-     </td>
-    <td></td>
-    <td></td>
+                OnClick="btnGo_Click" OnClientClick="return CheckValuationDate();" />
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
     </tr>
-    </table>
-    
-    <table style="width: 100%;margin: 0px; padding: 0px;" cellpadding="0" cellspacing="0">
+</table>
+<table style="width: 100%; margin: 0px; padding: 0px;" cellpadding="0" cellspacing="0">
     <tr id="trModalPopup" runat="server">
         <td>
-         <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
+            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
                 Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
                 PopupDragHandleControlID="Panel1" X="280" Y="35">
@@ -186,54 +186,49 @@
         </td>
     </tr>
     <tr id="trExportPopup" runat="server">
-     <td>
-       
-        <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup">
-                <br />               
+        <td>
+            <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup">
+                <br />
                 <table width="100%">
-                <tr>
-                <td>
-                &nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="right">
-                <input id="rbCurrent" runat="server" name="Radio" onclick="setPageType('single')" type="radio" />                
-                </td>
-                <td align="left">
-                 <label for="rbCurrent" style="color:Black;font-family:Verdana;font-size:8pt;text-decoration:none">
-                    Current Page</label>
-                </td>
-                </tr>
-                <tr>
-                <td>
-                &nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="right">
-                 <input id="rbAll" runat="server" name="Radio" onclick="setPageType('multiple')"
-                    type="radio" />                  
-                 </td>
-                <td align="left">
-                  <label for="rbAll" style="color:Black;font-family:Verdana;font-size:8pt;text-decoration:none">
-                    All Pages</label>
-                 </td>
-                </tr>
+                    <tr>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td align="right">
+                            <input id="rbCurrent" runat="server" name="Radio" onclick="setPageType('single')"
+                                type="radio" />
+                        </td>
+                        <td align="left">
+                            <label for="rbCurrent" style="color: Black; font-family: Verdana; font-size: 8pt;
+                                text-decoration: none">
+                                Current Page</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td align="right">
+                            <input id="rbAll" runat="server" name="Radio" onclick="setPageType('multiple')" type="radio" />
+                        </td>
+                        <td align="left">
+                            <label for="rbAll" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
+                                All Pages</label>
+                        </td>
+                    </tr>
                 </table>
-              
                 <table width="100%">
-                 <tr>
-                     <td align="right">
-                    <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" 
-                            />
-                </td>
-                     <td align="left">
-                  <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" 
-                             />
-                </td>
-                </tr>
+                    <tr>
+                        <td align="right">
+                            <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
+                        </td>
+                        <td align="left">
+                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                        </td>
+                    </tr>
                 </table>
-                
-         </asp:Panel>
-
-        <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
+            </asp:Panel>
+            <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
                 OnClick="btnExportExcel_Click" Height="31px" Width="30px" />
         </td>
     </tr>
@@ -243,156 +238,160 @@
         </td>
     </tr>
     <tr>
-    <td colspan="3">
-    <table  style="width: 100%; border:none;margin: 0px; padding: 0px;"  cellpadding="0" cellspacing="0">
-    <tr>
-        <td>
-            
-        </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td class="leftField" align="right">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-    </td>
-    </tr>
-    </table>
-    </td>
-        
-    </tr>
-    </table>
-    <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-    <table width="100%" cellspacing="0" cellpadding="0">
-    <tr>
         <td colspan="3">
-        <asp:UpdatePanel ID="upnl" runat="server">
-         <ContentTemplate>
-            <asp:GridView ID="gvMFMIS" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" CssClass="GridViewStyle" ShowFooter="True" DataKeyNames="FolioNum"
-                OnSelectedIndexChanged="gvMFMIS_SelectedIndexChanged">
-                <%--OnSorting="gvMFMIS_Sorting" OnDataBound="gvMFMIS_DataBound"--%>
-                <RowStyle CssClass="RowStyle" />
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>
-                    <asp:CommandField ShowSelectButton="True" SelectText="Details" />
-                    <asp:TemplateField HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblCustomerName" runat="server" Text="Customer"></asp:Label>
-                            <asp:TextBox ID="txtCustomerSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomerAMCSchemewiseMIS_btnSearch');" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblCustomerHeader" runat="server" Text='<%# Eval("CustomerName").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                    </asp:TemplateField>
-                     <asp:TemplateField HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblRmName" runat="server" Text="RM"></asp:Label>
-                          
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblRMHeader" runat="server" Text='<%# Eval("RmName").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                    </asp:TemplateField>
-                    
-                    <asp:TemplateField HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblBranchName" runat="server" Text="Branch"></asp:Label>
-                           
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblBranchHeader" runat="server" Text='<%# Eval("BranchName").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                    </asp:TemplateField>
-                    <%--<asp:BoundField DataField="CustomerName" HeaderText="Customer Name" 
+            <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+                cellspacing="0">
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="leftField" align="right">
+                        <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+                        <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td colspan="3">
+                <asp:UpdatePanel ID="upnl" runat="server">
+                    <ContentTemplate>
+                        <asp:GridView ID="gvMFMIS" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                            CellPadding="4" CssClass="GridViewStyle" ShowFooter="True" DataKeyNames="FolioNum"
+                            OnSelectedIndexChanged="gvMFMIS_SelectedIndexChanged">
+                            <%--OnSorting="gvMFMIS_Sorting" OnDataBound="gvMFMIS_DataBound"--%>
+                            <RowStyle CssClass="RowStyle" />
+                            <FooterStyle CssClass="FooterStyle" />
+                            <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                            <SelectedRowStyle CssClass="SelectedRowStyle" />
+                            <HeaderStyle CssClass="HeaderStyle" />
+                            <EditRowStyle CssClass="EditRowStyle" />
+                            <AlternatingRowStyle CssClass="AltRowStyle" />
+                            <Columns>
+                                <asp:CommandField ShowSelectButton="True" SelectText="Details" />
+                                <asp:TemplateField HeaderStyle-Wrap="false">
+                                    <HeaderTemplate>
+                                        <asp:Label ID="lblCustomerName" runat="server" Text="Customer"></asp:Label>
+                                        <asp:TextBox ID="txtCustomerSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomerAMCSchemewiseMIS_btnSearch');" />
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCustomerHeader" runat="server" Text='<%# Eval("CustomerName").ToString() %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderStyle-Wrap="false">
+                                    <HeaderTemplate>
+                                        <asp:Label ID="lblRmName" runat="server" Text="RM"></asp:Label>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRMHeader" runat="server" Text='<%# Eval("RmName").ToString() %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderStyle-Wrap="false">
+                                    <HeaderTemplate>
+                                        <asp:Label ID="lblBranchName" runat="server" Text="Branch"></asp:Label>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblBranchHeader" runat="server" Text='<%# Eval("BranchName").ToString() %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                </asp:TemplateField>
+                                <%--<asp:BoundField DataField="CustomerName" HeaderText="Customer Name" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />--%>
-                    <asp:TemplateField HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblFolioNum" runat="server" Text="Folio"></asp:Label>
-                            <asp:TextBox ID="txtFolioSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomerAMCSchemewiseMIS_btnSearch');" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblFolioHeader" runat="server" Text='<%# Eval("FolioNum").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                    </asp:TemplateField>
-                    <%--<asp:BoundField DataField="FolioNum" HeaderText="Folio Num" 
+                                <asp:TemplateField HeaderStyle-Wrap="false">
+                                    <HeaderTemplate>
+                                        <asp:Label ID="lblFolioNum" runat="server" Text="Folio"></asp:Label>
+                                        <asp:TextBox ID="txtFolioSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomerAMCSchemewiseMIS_btnSearch');" />
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblFolioHeader" runat="server" Text='<%# Eval("FolioNum").ToString() %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                </asp:TemplateField>
+                                <%--<asp:BoundField DataField="FolioNum" HeaderText="Folio Num" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />--%>
-                    <asp:TemplateField HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblAMC" runat="server" Text="AMC"></asp:Label>
-                            <asp:TextBox ID="txtAMCSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomerAMCSchemewiseMIS_btnSearch');" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblAMCHeader" runat="server" Text='<%# Eval("AMC").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblScheme" runat="server" Text="Scheme"></asp:Label>
-                            <asp:TextBox ID="txtSchemeSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomerAMCSchemewiseMIS_btnSearch');" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblSchemeHeader" runat="server" Text='<%# Eval("Scheme").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                    </asp:TemplateField>
-                    <%-- <asp:BoundField DataField="AMC" HeaderText="AMC" 
+                                <asp:TemplateField HeaderStyle-Wrap="false">
+                                    <HeaderTemplate>
+                                        <asp:Label ID="lblAMC" runat="server" Text="AMC"></asp:Label>
+                                        <asp:TextBox ID="txtAMCSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomerAMCSchemewiseMIS_btnSearch');" />
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAMCHeader" runat="server" Text='<%# Eval("AMC").ToString() %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderStyle-Wrap="false">
+                                    <HeaderTemplate>
+                                        <asp:Label ID="lblScheme" runat="server" Text="Scheme"></asp:Label>
+                                        <asp:TextBox ID="txtSchemeSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomerAMCSchemewiseMIS_btnSearch');" />
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSchemeHeader" runat="server" Text='<%# Eval("Scheme").ToString() %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                </asp:TemplateField>
+                                <%-- <asp:BoundField DataField="AMC" HeaderText="AMC" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
                     <asp:BoundField DataField="Scheme" HeaderText="Scheme" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />--%>
-                    <asp:BoundField DataField="Category" HeaderText="Category" ItemStyle-HorizontalAlign="Left"
-                        HeaderStyle-Wrap="false">
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="MarketPrice" HeaderText="Curr NAV" ItemStyle-HorizontalAlign="Right"
-                        HeaderStyle-Wrap="false">
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Units" HeaderText="Units" ItemStyle-HorizontalAlign="Right"
-                        HeaderStyle-Wrap="false">
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="AUM" HeaderText="AUM" ItemStyle-HorizontalAlign="Right"
-                        HeaderStyle-Wrap="false">
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Percentage" HeaderText="AUM %" ItemStyle-HorizontalAlign="Right"
-                        HeaderStyle-Wrap="false">
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                </Columns>
-            </asp:GridView>
-              </ContentTemplate>
-      </asp:UpdatePanel>
-        </td>
-    </tr>
-     <tr id="ValuationNotDoneErrorMsg" align="center" style="width: 100%" runat="server">
-                    <td align="center" style="width: 100%">
-                        <div class="failure-msg" style="text-align:center" align="center">
-                            Valuation not done for this adviser....
-                        </div>
-                    </td>
-                </tr>
-</table>
-    </asp:Panel>
+                                <asp:BoundField DataField="Category" HeaderText="Category" ItemStyle-HorizontalAlign="Left"
+                                    HeaderStyle-Wrap="false">
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                    <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                </asp:BoundField>
+                                <asp:BoundField DataField="MarketPrice" HeaderText="Curr NAV" ItemStyle-HorizontalAlign="Right"
+                                    HeaderStyle-Wrap="false">
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                    <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Units" HeaderText="Units" ItemStyle-HorizontalAlign="Right"
+                                    HeaderStyle-Wrap="false">
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                    <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                </asp:BoundField>
+                                <asp:BoundField DataField="AUM" HeaderText="AUM" ItemStyle-HorizontalAlign="Right"
+                                    HeaderStyle-Wrap="false">
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                    <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Percentage" HeaderText="AUM %" ItemStyle-HorizontalAlign="Right"
+                                    HeaderStyle-Wrap="false">
+                                    <HeaderStyle Wrap="False"></HeaderStyle>
+                                    <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                </asp:BoundField>
+                            </Columns>
+                        </asp:GridView>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+        </tr>
+        <tr id="ValuationNotDoneErrorMsg" align="center" style="width: 100%" runat="server">
+            <td align="center" style="width: 100%">
+                <div class="failure-msg" style="text-align: center" align="center">
+                    Valuation not done for this adviser....
+                </div>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
 <div style="margin: 6px">
     <label id="lbl" class="HeaderTextSmall">
-        Note: Only historical data is accessible from this screen. Recent data for the last 2 Business day will not be available. To view the recent data View Dashboards & Net Positions.</label>
+        Note: Only historical data is accessible from this screen. Recent data for the last
+        2 Business day will not be available. To view the recent data View Dashboards &
+        Net Positions.</label>
 </div>
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">

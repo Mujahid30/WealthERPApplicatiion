@@ -45,7 +45,7 @@ namespace WealthERP.Advisor
         int CurrentPage;
         DateTime Valuationdate;
         int rmid;
-
+        DateTime vlndte = new DateTime();
         string BranchSelection = string.Empty;
         string RMSelection = string.Empty;
 
@@ -110,7 +110,7 @@ namespace WealthERP.Advisor
             rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
             bmID = rmVo.RMId;
             AdviserID = advisorVo.advisorId;
-
+            trExportPopup.Visible = false;
 
             if (!IsPostBack)
             {
@@ -156,12 +156,15 @@ namespace WealthERP.Advisor
                     LatestValuationdate = DateTime.Parse(Request.QueryString["latestValuationdate"].ToString());
                     txtDate.SelectedDate = LatestValuationdate;
                     hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");
-                    GenerateMIS();
+
+                     GenerateMIS();
                 }
                 else
                 {
                      LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorVo.advisorId, "MF");            
-                     hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy"); 
+                     hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");
+                     vlndte = LatestValuationdate;
+                     lblValDt.Text = vlndte.ToShortDateString();
                 }
                    
             } 
@@ -605,7 +608,7 @@ namespace WealthERP.Advisor
 
         private void ExportGridView(string Filetype)
         {
-            LatestValuationdate = Convert.ToDateTime(ViewState["Valuationdate"].ToString());
+            LatestValuationdate = Convert.ToDateTime(txtDate.SelectedDate);
             HtmlForm frm = new HtmlForm();
             frm.Controls.Clear();
             frm.Attributes["runat"] = "server";
