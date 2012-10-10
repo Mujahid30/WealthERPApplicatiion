@@ -761,7 +761,10 @@ namespace WealthERP.Uploads
 
         protected void LinkInputRejects_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionInputRejects','processId=" + processlogVo.ProcessId + "');", true);
+            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionInputRejects','processId=" + processId + "');", true);
+
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RejectedSystematicTransactionInputRejects", "loadcontrol('RejectedSystematicTransactionInputRejects','processId=" + processId  + " ');", true);           
+
         }
     }
 }
