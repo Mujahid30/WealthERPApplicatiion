@@ -897,7 +897,7 @@
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="TaxTabs" runat="server" EnableViewState="true" SelectedIndex="0">
                     <telerik:RadPageView ID="TaxHoldingsTabPage" runat="server">
-                        <asp:Panel ID="pnlTaxHoldings" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
+                        <asp:Panel ID="pnlTaxHoldings" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
                             <table id="tblTaxHoldings" runat="server" width="99%">
                                 <tr>
                                     <td>
@@ -1039,7 +1039,7 @@
                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="TaxRealizedTabPage" runat="server">
-                        <asp:Panel ID="pnlTaxRealized" runat="server" class="Landscape" Width="95%" ScrollBars="Horizontal">
+                        <asp:Panel ID="pnlTaxRealized" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
                             <table id="tblTaxRealized" runat="server" width="99%">
                                 <tr>
                                     <td>
