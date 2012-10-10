@@ -164,16 +164,16 @@
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="120px" SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
                                                             HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="103px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridDateTimeColumn UniqueName="FolioStartDate" AllowFiltering="false" HeaderText="Scheme Investment Date"
+                                                        <telerik:GridDateTimeColumn  HeaderStyle-Width="100px" UniqueName="FolioStartDate" AllowFiltering="false" HeaderText="Scheme Investment Date"
                                                             DataField="FolioStartDate" DataFormatString="{0:d}" HtmlEncode="False" AutoPostBackOnFilter="false"
                                                             CurrentFilterFunction="Contains" SortExpression="FolioStartDate">
                                                             <ItemStyle HorizontalAlign="Center"/>
@@ -183,7 +183,7 @@
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
                                                         
-                                                         <telerik:GridDateTimeColumn DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
+                                                         <telerik:GridDateTimeColumn  HeaderStyle-Width="93px" DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
                                                             AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
                                                             HeaderText="Holding Start Date" UniqueName="InvestmentStartDate" DataFormatString="{0:d}">
                                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
@@ -192,45 +192,45 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
-                                                        <telerik:GridBoundColumn UniqueName="PurchasedUnits" HeaderText="Purchased Units"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" UniqueName="PurchasedUnits" HeaderText="Purchased Units"
                                                             DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N3}" Aggregate="Sum"
                                                             FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVRUnits" HeaderText="DVR Units" DataField="DVRUnits"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="77px" UniqueName="DVRUnits" HeaderText="DVR Units" DataField="DVRUnits"
                                                             AllowFiltering="false" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N3}"
                                                             Aggregate="Sum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Total Units" DataField="OpenUnits"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="90px" UniqueName="OpenUnits" HeaderText="Total Units" DataField="OpenUnits"
                                                             AllowFiltering="false" DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="93px" UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost"
                                                             AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="86px" UniqueName="NAV" HeaderText="NAV" DataField="NAV" AllowFiltering="false"
                                                             DataFormatString="{0:N4}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="MarketValue" HeaderText="Market Value" DataField="MarketValue"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="88px" UniqueName="MarketValue" HeaderText="Market Value" DataField="MarketValue"
                                                             AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVP" HeaderText="DVP" DataField="DVP" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="40px" UniqueName="DVP" HeaderText="DVP" DataField="DVP" AllowFiltering="false"
                                                             DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total P/L" DataField="TotalPL"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="77px" UniqueName="TotalPL" HeaderText="Total P/L" DataField="TotalPL"
                                                             AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="79px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)"
                                                             DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
+                                                        <telerik:GridBoundColumn HeaderStyle-Width="54px" UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
                                                             AllowFiltering="false" DataFormatString="{0:N2}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
@@ -333,7 +333,7 @@
                                                             HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
@@ -347,7 +347,7 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>--%>
-                                                        <telerik:GridDateTimeColumn DataField="FolioStartDate" SortExpression="FolioStartDate"
+                                                        <telerik:GridDateTimeColumn   HeaderStyle-Width="100px" DataField="FolioStartDate" SortExpression="FolioStartDate"
                                                             AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
                                                             HeaderText="Scheme Investment Date" UniqueName="FolioStartDate" DataFormatString="{0:d}"
                                                             HtmlEncode="False">
@@ -358,7 +358,7 @@
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
                                                         
-                                                         <telerik:GridDateTimeColumn DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
+                                                         <telerik:GridDateTimeColumn  HeaderStyle-Width="100px" DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
                                                             AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
                                                             HeaderText="Holding Start Date" UniqueName="InvestmentStartDate" DataFormatString="{0:d}">
                                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
@@ -367,17 +367,17 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
-                                                        <telerik:GridBoundColumn UniqueName="PurchasedUnits" HeaderText="Purchased Units"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" UniqueName="PurchasedUnits" HeaderText="Purchased Units"
                                                             DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N3}" Aggregate="Sum"
                                                             FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVRUnits" HeaderText="DVR Units" DataField="DVRUnits"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" UniqueName="DVRUnits" HeaderText="DVR Units" DataField="DVRUnits"
                                                             AllowFiltering="false" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N3}"
                                                             Aggregate="Sum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Total Units" DataField="OpenUnits"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" UniqueName="OpenUnits" HeaderText="Total Units" DataField="OpenUnits"
                                                             FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N3}" Aggregate="Sum"
                                                             AllowFiltering="false">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -387,12 +387,12 @@
                                                         AllowFiltering="false">
                                                         <ItemStyle HorizontalAlign="Right" />
                                                     </telerik:GridBoundColumn>--%>
-                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost"
                                                             FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" Aggregate="Sum"
                                                             AllowFiltering="false">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV" FooterStyle-HorizontalAlign="Right"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" UniqueName="NAV" HeaderText="NAV" DataField="NAV" FooterStyle-HorizontalAlign="Right"
                                                             AllowFiltering="false" DataFormatString="{0:N4}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
@@ -401,38 +401,38 @@
                                                             AllowFiltering="false">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold"
                                                             FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}" Aggregate="Sum"
                                                             AllowFiltering="false">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
+                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
                                                             DataField="RedeemedAmount" FooterStyle-HorizontalAlign="Right" AllowFiltering="false"
                                                             DataFormatString="{0:N0}" Aggregate="Sum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVP" HeaderText="DVP" DataField="DVP" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="46px" UniqueName="DVP" HeaderText="DVP" DataField="DVP" AllowFiltering="false"
                                                             DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total P/L" DataField="TotalPL"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="65px" UniqueName="TotalPL" HeaderText="Total P/L" DataField="TotalPL"
                                                             DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right"
                                                             AllowFiltering="false">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="59px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)"
                                                             DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVR" HeaderText="DVR" DataField="DVR" DataFormatString="{0:N0}"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="59px" UniqueName="DVR" HeaderText="DVR" DataField="DVR" DataFormatString="{0:N0}"
                                                             Aggregate="Sum" AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="63px" UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
                                                             AllowFiltering="false" DataFormatString="{0:N2}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalDividends" HeaderText="Total Dividends"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="87px" UniqueName="TotalDividends" HeaderText="Total Dividends"
                                                             DataField="TotalDividends" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"
                                                             Aggregate="Sum" AllowFiltering="false">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -526,12 +526,12 @@
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn SortExpression="SubCategory" AutoPostBackOnFilter="true"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="SubCategory" AutoPostBackOnFilter="true"
                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
                                                             HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
@@ -545,7 +545,7 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>--%>
-                                                        <telerik:GridDateTimeColumn DataField="FolioStartDate" SortExpression="FolioStartDate"
+                                                        <telerik:GridDateTimeColumn  HeaderStyle-Width="100px" DataField="FolioStartDate" SortExpression="FolioStartDate"
                                                             AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
                                                             HeaderText="Scheme Investment Date" UniqueName="FolioStartDate" DataFormatString="{0:d}">
                                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
@@ -554,7 +554,7 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
-                                                         <telerik:GridDateTimeColumn DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
+                                                         <telerik:GridDateTimeColumn   HeaderStyle-Width="100px" DataField="InvestmentStartDate" SortExpression="InvestmentStartDate"
                                                             AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
                                                             HeaderText="Holding Start Date" UniqueName="InvestmentStartDate" DataFormatString="{0:d}">
                                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
@@ -563,37 +563,37 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
-                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost"
                                                             AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold"
                                                             AllowFiltering="false" DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
+                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
                                                             DataField="RedeemedAmount" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum"
                                                             FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVP" HeaderText="DVP" DataField="DVP" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn HeaderStyle-Width="50px" UniqueName="DVP" HeaderText="DVP" DataField="DVP" AllowFiltering="false"
                                                             DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalDividends" HeaderText="Total Dividends"
+                                                        <telerik:GridBoundColumn HeaderStyle-Width="90px" UniqueName="TotalDividends" HeaderText="Total Dividends"
                                                             DataField="TotalDividends" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum"
                                                             FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total P/L" DataField="TotalPL"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="81px" UniqueName="TotalPL" HeaderText="Total P/L" DataField="TotalPL"
                                                             AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="63px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)"
                                                             DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="63px" UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
                                                             AllowFiltering="false" DataFormatString="{0:N2}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
