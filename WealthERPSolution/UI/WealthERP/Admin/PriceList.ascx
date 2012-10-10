@@ -81,21 +81,30 @@
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                         <asp:Label ID="lblheader" runat="server" Class="HeaderTextBig"></asp:Label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
 <div>
     <div>
         <%--<asp:ScriptManager ID="UploadScripManager" runat="server">
         </asp:ScriptManager>--%>
              
-<table style="width: 100%">
-    <tr>
-        <td class="HeaderCell">
-            <%--<label id="lblheader" class="HeaderTextBig" title="Upload Screen">
-               MF Data Query</label>--%>
-               <asp:Label ID="lblheader" runat="server" Class="HeaderTextBig"></asp:Label>
-               
-        </td>
-    </tr>
-</table>
+
+
+
         <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
             EnableEmbeddedSkins="False" MultiPageID="FactsheetMultiPage" SelectedIndex="0">
             <Tabs>
@@ -578,7 +587,7 @@
                                             </asp:Label>
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="ddlSelectAMC" runat="server" AutoPostBack="true" CssClass="cmbField">
+                                            <asp:DropDownList ID="ddlSelectAMC" runat="server" CssClass="cmbField">
                                             </asp:DropDownList>
                                             <span id="Span4" class="spnRequiredField">*</span>
                                             <asp:CompareValidator ID="ddlAMC_CompareValidator" runat="server" ControlToValidate="ddlSelectAMC"
@@ -609,8 +618,7 @@
                                             </asp:Label>
                                         </td>
                                         <td>
-                                            <asp:DropDownList ID="ddlCategory" runat="server" AutoPostBack="true" CssClass="cmbField"
-                                                OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField">
                                             </asp:DropDownList>
                                             <%--<span id="Span1" class="spnRequiredField">*</span>
                                 <asp:CompareValidator ID="ddlCategory_CompareValidator" runat="server"
@@ -662,7 +670,7 @@
                 <td>--%>
                     <%--  <div 
             style="overflow-x:auto;overflow-y:hidden;width:100%;padding: 0 0 20px 0">--%>
-                    <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
+                    <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal" Visible="false">
                         <tr id="trMFFundPerformance" runat="server">
                             <td>
                                 <asp:ImageButton ID="btnMFFundPerformance" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -670,10 +678,10 @@
                                     OnClientClick="setFormat('CSV')" Height="25px" Width="25px"></asp:ImageButton>
                             </td>
                         </tr>
-                        <telerik:RadGrid ID="gvMFFundPerformance" runat="server" AllowAutomaticInserts="false"
+                        <telerik:RadGrid AllowFilteringByColumn="true" ID="gvMFFundPerformance" runat="server" AllowAutomaticInserts="false"
                             AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" EnableEmbeddedSkins="false"
                             OnItemCommand="RadGrid1_ItemCommand" GridLines="None" PageSize="10" ShowFooter="true"
-                            ShowStatusBar="True" Skin="Telerik" Width="100%">
+                            ShowStatusBar="True" Skin="Telerik" Width="100%" OnNeedDataSource="gvMFFundPerformance_OnNeedDataSource">
                             <%--<PagerStyle Mode="NumericPages"></PagerStyle>--%>
                             <MasterTableView AllowMultiColumnSorting="true" AutoGenerateColumns="false" CommandItemDisplay="none"
                                 Width="99%">
@@ -691,87 +699,88 @@
                                 <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                     ShowExportToCsvButton="true" />
                                 <Columns>
-                                    <telerik:GridBoundColumn DataField="SchemeName" HeaderText="Scheme Name" UniqueName="SchemeName">
+                                    <telerik:GridBoundColumn AndCurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true" SortExpression="SchemeName"
+                                    AutoPostBackOnFilter="true" DataField="SchemeName" HeaderText="Scheme Name" UniqueName="SchemeName">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <%--<telerik:GridBoundColumn  DataField="AUM"  HeaderText="AUM" UniqueName="AUM" >
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>--%>
-                                    <telerik:GridBoundColumn DataField="LaunchDate" DataFormatString="{0:d}" HeaderText="Launch Date"
+                                    <telerik:GridBoundColumn AllowFiltering="false" DataField="LaunchDate" DataFormatString="{0:d}" HeaderText="Launch Date"
                                         UniqueName="LaunchDate">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="ClosingDate" DataFormatString="{0:d}" HeaderText="As On Date"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="ClosingDate" DataFormatString="{0:d}" HeaderText="As On Date"
                                         UniqueName="ClosingDate">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="NAV" DataFormatString="{0:0.0000}" HeaderText="Current NAV"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="NAV" DataFormatString="{0:0.0000}" HeaderText="Current NAV"
                                         UniqueName="NAV">
                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="OneYearHighNAV" DataFormatString="{0:0.0000}"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="OneYearHighNAV" DataFormatString="{0:0.0000}"
                                         HeaderText="52 Weeks Highest NAV" UniqueName="OneYearHighNAV">
                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="OneYearLowNAV" DataFormatString="{0:0.0000}"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="OneYearLowNAV" DataFormatString="{0:0.0000}"
                                         HeaderText="52 Weeks Lowest NAV" UniqueName="OneYearLowNAV">
                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <%--<telerik:GridBoundColumn  DataField="YTD"  HeaderText="YTD" UniqueName="YTD" >
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>--%>
-                                    <telerik:GridBoundColumn DataField="OneWeekReturn" DataFormatString="{0:0.00}" HeaderText="1 Week Return(%)"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="OneWeekReturn" DataFormatString="{0:0.00}" HeaderText="1 Week Return(%)"
                                         UniqueName="OneWeekReturn">
                                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="OneMonthReturn" DataFormatString="{0:0.00}" HeaderText="1 Month Return(%)"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="OneMonthReturn" DataFormatString="{0:0.00}" HeaderText="1 Month Return(%)"
                                         UniqueName="OneMonthReturn">
                                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="ThreeMonthReturn" DataFormatString="{0:0.00}"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="ThreeMonthReturn" DataFormatString="{0:0.00}"
                                         HeaderText="3 Months Return(%)" UniqueName="ThreeMonthReturn">
                                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="SixMonthReturn" DataFormatString="{0:0.00}" HeaderText="6 Months Return(%)"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="SixMonthReturn" DataFormatString="{0:0.00}" HeaderText="6 Months Return(%)"
                                         UniqueName="SixMonthReturn">
                                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="OneYearReturn" DataFormatString="{0:0.00}" HeaderText="1 Year Return(%)"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="OneYearReturn" DataFormatString="{0:0.00}" HeaderText="1 Year Return(%)"
                                         UniqueName="OneYearReturn">
                                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="TwoYearReturn" DataFormatString="{0:0.00}" HeaderText="2 Years Return(%)"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="TwoYearReturn" DataFormatString="{0:0.00}" HeaderText="2 Years Return(%)"
                                         UniqueName="TwoYearReturn">
                                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="ThreeYearReturn" DataFormatString="{0:0.00}"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="ThreeYearReturn" DataFormatString="{0:0.00}"
                                         HeaderText="3 Years Return(%)" UniqueName="ThreeYearReturn">
                                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="FiveYearReturn" DataFormatString="{0:0.00}" HeaderText="5 Years Return(%)"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="FiveYearReturn" DataFormatString="{0:0.00}" HeaderText="5 Years Return(%)"
                                         UniqueName="FiveYearReturn">
                                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="InceptionReturn" DataFormatString="{0:0.00}"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="InceptionReturn" DataFormatString="{0:0.00}"
                                         HeaderText="Inception Ret." UniqueName="InceptionReturn">
                                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="PE" DataFormatString="{0:0.00}" HeaderText="PE"
+                                    <telerik:GridBoundColumn AllowFiltering="false"   DataField="PE" DataFormatString="{0:0.00}" HeaderText="PE"
                                         UniqueName="PE">
                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="PB" DataFormatString="{0:0.00}" HeaderText="PB"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="PB" DataFormatString="{0:0.00}" HeaderText="PB"
                                         UniqueName="PB">
                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <%-- <telerik:GridBoundColumn  DataField="Cash"  HeaderText="Cash %" UniqueName="Cash" >
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>--%>
-                                    <telerik:GridBoundColumn DataField="Sharpe" DataFormatString="{0:0.00}" HeaderText="Sharpe"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="Sharpe" DataFormatString="{0:0.00}" HeaderText="Sharpe"
                                         UniqueName="Sharpe">
                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="SD" DataFormatString="{0:0.00}" HeaderText="SD"
+                                    <telerik:GridBoundColumn AllowFiltering="false"  DataField="SD" DataFormatString="{0:0.00}" HeaderText="SD"
                                         UniqueName="SD">
                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>

@@ -17,6 +17,7 @@ using System.Collections.Specialized;
 using System.Numeric;
 using Telerik.Web.UI;
 using BoCustomerPortfolio;
+using VoUser;
 //using BoProductMaster;
 
 namespace WealthERP.Admin
@@ -31,7 +32,8 @@ namespace WealthERP.Admin
         string categoryCode;
         int amcCode = 0;
         string subCategory = "All";
-       
+        AdvisorVo advisorVo = new AdvisorVo();
+
         //List<GoalProfileSetupVo> MutualFundList = new List<PriceVo>();
         protected override void OnInit(EventArgs e)
         {
@@ -46,7 +48,7 @@ namespace WealthERP.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            advisorVo = (AdvisorVo)Session["advisorVo"];
             compDateValidator.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
             cvChkFutureDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
             trMFFundPerformance.Visible = false;
@@ -62,28 +64,19 @@ namespace WealthERP.Admin
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
                 trgvEquityView.Visible = false;
-                //trgrMfView.Visible = false;
-                //trPageCount.Visible = false;
-                //trPager.Visible = false;
-                //trMfPagecount.Visible = false;
-               lblheader.Text = "MF Data Query";
+                lblheader.Text = "MF Data Query";
                 trSelectMutualFund.Visible = true;
                 trSelectSchemeNAV.Visible = true;
                 trNavCategory.Visible = true;
-                gvMFFundPerformance.Visible = false;
                 gvMFRecord.Visible = false;
-               // BindMFFundPerformance();
                 tblFactSheet.Visible = false;
                 BindYear();
                 BindMonth();
                 if (!IsPostBack)
                 {
                     lblIllegal.Visible = false;
-                    //trFromDate.Style.Add("display", "none");
-                    //trToDate.Style.Add("display", "none");
                     trFromDate.Visible = false;
                     trToDate.Visible = false;
-
                     trbtnSubmit.Visible = false;
                     trSelectMutualFund.Visible = false;
                     BindMutualFundDropDowns();
@@ -92,9 +85,7 @@ namespace WealthERP.Admin
                     BindSchemeCategory();
                     trSelectMutualFund.Visible = false;
                     trSelectSchemeNAV.Visible = false;
-                    trNavCategory.Visible = false;
-
-                    
+                    trNavCategory.Visible = false;                    
                 }
             }
             else if (hdnassetType.Value == "Equity")
@@ -103,10 +94,9 @@ namespace WealthERP.Admin
                 trbtnSubmit.Visible = false;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
-                //RadTabStrip1.Tabs[0].Visible = false;
                 RadTabStrip1.Tabs[1].Visible = false;
                 RadTabStrip1.Tabs[2].Visible = false;
-             lblheader.Text = "Equity Data Query";
+                lblheader.Text = "Equity Data Query";
                 pnlSchemeComparison.Visible = false;
                 rbtnCurrent.Visible = true;
                 rbtnHistorical.Visible = true;
@@ -136,10 +126,7 @@ namespace WealthERP.Admin
                     FactsheetMultiPage.PageViews[2].Selected = true;
                 }
             }
-
-            BindSelectAMCDropdown();
-            BindMFFundPerformance();
-            
+            BindSelectAMCDropdown();            
         }
 
 
@@ -1068,6 +1055,18 @@ namespace WealthERP.Admin
             //{
             gvMFFundPerformance.DataSource = dtGetMFfund.DefaultView;
             gvMFFundPerformance.DataBind();
+
+
+            if (Cache["FundPerformanceDetails" + advisorVo.advisorId] == null)
+            {
+                Cache.Insert("FundPerformanceDetails" + advisorVo.advisorId, dtGetMFfund.DefaultView);
+            }
+            else
+            {
+                Cache.Remove("FundPerformanceDetails" + advisorVo.advisorId);
+                Cache.Insert("FundPerformanceDetails" + advisorVo.advisorId, dtGetMFfund.DefaultView);
+            }
+
             //    ErrorMessage.Visible = false;
             //}
             //else
@@ -1075,6 +1074,7 @@ namespace WealthERP.Admin
             //    ErrorMessage.Visible = true;
             //    //gvMFFundPerformance.Visible = false;
             //}
+            Panel2.Visible = true;
             gvMFFundPerformance.Visible = true;
             trMFFundPerformance.Visible = true;
         }
@@ -1399,7 +1399,13 @@ namespace WealthERP.Admin
         {
             BindMonth();
         }
-
+        
+        protected void gvMFFundPerformance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataView dtFundPerformanceDetailsDetails = new DataView();
+            dtFundPerformanceDetailsDetails = (DataView)Cache["FundPerformanceDetails" + advisorVo.advisorId.ToString()];
+            gvMFFundPerformance.DataSource = dtFundPerformanceDetailsDetails;
+        }
 
         protected void gvMFRecord_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
