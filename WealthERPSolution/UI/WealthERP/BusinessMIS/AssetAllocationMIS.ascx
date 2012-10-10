@@ -80,7 +80,7 @@
             <asp:DropDownList ID="ddlCustomerType" Style="vertical-align: middle" runat="server"
                 CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlCustomerType_SelectedIndexChanged">
                 <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
-                <asp:ListItem Value="0" Text="Group Head"></asp:ListItem>
+                <%--<asp:ListItem Value="0" Text="Group Head"  ></asp:ListItem>--%>
                 <asp:ListItem Value="1" Text="Individual"></asp:ListItem>
             </asp:DropDownList>
         </td>
