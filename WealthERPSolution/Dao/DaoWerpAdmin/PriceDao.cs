@@ -272,11 +272,14 @@ namespace DaoWerpAdmin
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CmdMFFundPerformance = db.GetStoredProcCommand("SP_GetMFFundPerformance");
-                db.AddInParameter(CmdMFFundPerformance, "@amcCode", DbType.Int32, amcCode);
-                //db.AddInParameter(CmdMFFundPerformance, "@selectSchemeCode", DbType.Int32, selectSchemeCode);
-                db.AddInParameter(CmdMFFundPerformance, "@subCategory", DbType.String, subCategory);
-                //db.AddInParameter(CmdMFFundPerformance, "@returnPeriod", DbType.Int32, returnPeriod);
-                //db.AddInParameter(CmdMFFundPerformance, "@conditionType", DbType.Int32, conditionType);
+                if (amcCode!=0)
+                    db.AddInParameter(CmdMFFundPerformance, "@amcCode", DbType.Int32, amcCode);
+                else
+                    db.AddInParameter(CmdMFFundPerformance, "@amcCode", DbType.Int32, DBNull.Value);
+                if (subCategory != "")
+                    db.AddInParameter(CmdMFFundPerformance, "@subCategory", DbType.String, subCategory);
+                else
+                    db.AddInParameter(CmdMFFundPerformance, "@subCategory", DbType.String, DBNull.Value);
                 CmdMFFundPerformance.CommandTimeout = 60 * 60;
                 dsMFFundPerformance = db.ExecuteDataSet(CmdMFFundPerformance);
                 dtMFFundPerformance = dsMFFundPerformance.Tables[0];               
