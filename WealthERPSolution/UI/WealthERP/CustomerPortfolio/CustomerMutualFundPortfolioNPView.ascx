@@ -164,7 +164,7 @@
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="120px" SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
                                                             HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
@@ -328,7 +328,7 @@
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" SortExpression="SubCategoryName"
+                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="SubCategoryName" SortExpression="SubCategoryName"
                                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                             HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
