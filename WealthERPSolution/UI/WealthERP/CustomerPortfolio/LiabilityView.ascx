@@ -21,24 +21,19 @@
         }
     }
 </script>
-
 <table width="100%">
     <tr>
-        <td align="center">
-            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
-                Record has been deleted Successfully.
-            </div>
-        </td>
-    </tr>
-</table>
-<table width="100%">
- <tr>
         <td colspan="5">
             <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
                             Liabilities
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -59,10 +54,14 @@
         </td>
     </tr>
     <tr id="trExportFilteredData" runat="server">
-        <td>
-            <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Record has been deleted Successfully.
+            </div>
         </td>
     </tr>
 </table>
@@ -104,6 +103,9 @@
                             UniqueName="Lender">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn DataField="CL_AssetParticular" AllowFiltering="false" HeaderText="Asset Particular">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Amount" DataFormatString="{0:N0}" AllowFiltering="false"
                             HeaderText="Amount (Rs)" UniqueName="Amount" FooterStyle-HorizontalAlign="Right"
                             Aggregate="Sum">
@@ -127,17 +129,13 @@
                             Aggregate="Sum">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CL_AssetParticular" AllowFiltering="false" HeaderText="Asset Particular"
-                             >
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
+                       
                         <telerik:GridBoundColumn DataField="Frequency" AllowFiltering="false" HeaderText="Frequency"
                             UniqueName="Frequency">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                       
                         <telerik:GridBoundColumn DataField="NextInstallmentDate" AllowFiltering="false" DataFormatString="{0:d}"
-                             HeaderText="Next Installment Date" >
+                            HeaderText="Next Installment Date">
                             <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>

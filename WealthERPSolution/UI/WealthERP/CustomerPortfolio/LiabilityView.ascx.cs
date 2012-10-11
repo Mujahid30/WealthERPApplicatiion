@@ -25,7 +25,7 @@ namespace WealthERP.CustomerPortfolio
         Calculator calculator = new Calculator();
         protected void Page_Load(object sender, EventArgs e)
         {
-            trExportFilteredData.Visible = false;
+            btnExportFilteredData.Visible = false;
             SessionBo.CheckSession();
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             
@@ -47,7 +47,7 @@ namespace WealthERP.CustomerPortfolio
 
             if (liabilitiesListVo != null)
             {
-                trExportFilteredData.Visible = true;
+                btnExportFilteredData.Visible = true;
                 trErrorMessage.Visible = false;
                 dt.Columns.Add("LiabilityId");
                 dt.Columns.Add("Loan Type");
@@ -147,7 +147,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 trErrorMessage.Visible = true;
                 gvLiabilities.Visible = false;
-                trExportFilteredData.Visible = false;
+                btnExportFilteredData.Visible = false;
             }
         }
 
@@ -212,7 +212,7 @@ namespace WealthERP.CustomerPortfolio
             gvLiabilities.Visible = true;
             DataTable dt = new DataTable();
 
-            trExportFilteredData.Visible = true;
+            btnExportFilteredData.Visible = true;
             dt = (DataTable)Cache["dtLiabilities + '" + customerVo.CustomerId + "'"];
             gvLiabilities.DataSource = dt;
         }
