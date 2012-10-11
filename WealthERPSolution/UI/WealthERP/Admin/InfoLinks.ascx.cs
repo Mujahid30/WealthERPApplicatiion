@@ -113,7 +113,7 @@ namespace WealthERP.Admin
             int index = 0;
             index = Convert.ToInt32(e.CommandArgument);
             int linkId = int.Parse(gvAdviserLinks.DataKeys[index].Value.ToString());
-            string Link = adviserOTALink[index].AMCLinks;
+            string Link = adviserOTALink[index].WLMLinks;
 
             if (e.CommandName == "NavigateToLink")
             {
