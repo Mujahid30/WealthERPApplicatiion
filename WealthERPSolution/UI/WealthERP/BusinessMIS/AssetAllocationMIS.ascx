@@ -22,6 +22,22 @@
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 
+
+<script type="text/javascript" language="javascript">
+    function ResetDDL() {
+        var installtype;
+        var tenureYr;
+        var tenureMn;
+        var strtdate = new Date();
+
+        document.getElementById("<%=ddlSelectCustomer.ClientID %>").value = "All Customer";
+        
+        document.getElementById("<%= trCustomerSearch.ClientID %>").visible = false;
+        document.getElementById("<%= lblSelectTypeOfCustomer.ClientID %>").visible = false;
+        document.getElementById("<%= ddlCustomerType.ClientID %>").visible = false;
+    }
+</script>
+
 <table width="100%">
 <tr>
 <td colspan="3" style="width: 100%;">
@@ -48,14 +64,14 @@
         </td>
         <td class="rightField" style="width: 15%">
             <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
-                CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
+                CssClass="cmbField" onchange="ResetDDL()" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
-            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" onchange="ResetDDL()" AutoPostBack="true"
                 Style="vertical-align: middle" >
             </asp:DropDownList>
         </td>
