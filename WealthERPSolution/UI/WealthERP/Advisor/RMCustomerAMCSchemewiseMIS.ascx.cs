@@ -156,7 +156,8 @@ namespace WealthERP.Advisor
                     LatestValuationdate = DateTime.Parse(Request.QueryString["latestValuationdate"].ToString());
                     txtDate.SelectedDate = LatestValuationdate;
                     hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");
-
+                    vlndte = LatestValuationdate;
+                    lblValDt.Text = vlndte.ToShortDateString();
                      GenerateMIS();
                 }
                 else
