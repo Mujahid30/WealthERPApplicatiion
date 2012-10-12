@@ -643,7 +643,7 @@ namespace WealthERP.Advisor
             //bindgrid(LatestValuationdate, amcCode);
 
 
-
+            trExportPopup.Visible = true;
             ModalPopupExtender1.TargetControlID = "imgBtnExport";
             ModalPopupExtender1.Show();
 
