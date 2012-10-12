@@ -8,11 +8,13 @@
 <script type="text/javascript" language="javascript">
     function CheckValuationDate() {
         var valuationDate = document.getElementById('ctrl_RMAMCwiseMIS_hdnValuationDate').value;
-        var txtDate = document.getElementById('ctrl_RMAMCwiseMIS_txtDate_dateInput_text').value;
+        var txtDate = document.getElementById('ctrl_RMAMCwiseMIS_txtDate_dateInput_text').value.split('/');
+        txtDate = txtDate[1] + '/' + txtDate[0] + '/' + txtDate[2];        
         txtDate = new Date(txtDate);
         valuationDate = new Date(valuationDate);
         txtDate.setHours(0, 0, 0, 0);
         valuationDate.setHours(0, 0, 0, 0);
+       
         if (txtDate <= valuationDate) {
             return true;
         }
