@@ -565,6 +565,7 @@ namespace WealthERP.Advisor
             //bindgrid(LatestValuationdate, schemeplanid);
             //trModalPopup.Visible = true;
             //trExportPopup.Visible = true;
+            trExportPopup.Visible = true;
             ModalPopupExtender1.TargetControlID = "imgBtnExport";
             ModalPopupExtender1.Show();
             //trExportPopup.Visible = false;
