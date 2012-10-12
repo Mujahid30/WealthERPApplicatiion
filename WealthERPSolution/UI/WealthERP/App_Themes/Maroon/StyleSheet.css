@@ -1225,6 +1225,8 @@ p.tip
 {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+       -webkit-box-shadow: 3px 3px 3px #DDD;
+    box-shadow: 3px 3px 3px #DDD;
     border-radius: 4px;   
     background-color:#FCD1D1;
     color:#8A0408;
