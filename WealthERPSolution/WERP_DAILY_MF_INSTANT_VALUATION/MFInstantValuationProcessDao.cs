@@ -23,6 +23,48 @@ namespace WERP_DAILY_MF_INSTANT_VALUATION
 {
     public class MFInstantValuationProcessDao
     {
+        public DateTime GetMFLatestValuationDate(string assetType,int adviserId)
+        {
+            Database db;
+            DbCommand getMFLatestValuationDateCmd;
+            DateTime valuationDate=DateTime.Now;
+            DataSet dsValuationDate=new DataSet();
+           
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFLatestValuationDateCmd = db.GetStoredProcCommand("SP_GetAdviserLatestValuationDateForInstantValuation");
+                db.AddInParameter(getMFLatestValuationDateCmd, "@AssetType", DbType.String, assetType);
+                db.AddInParameter(getMFLatestValuationDateCmd, "@AdviserId", DbType.String, adviserId);               
+                //db.ExecuteNonQuery(getMFLatestValuationDateCmd);
+                dsValuationDate = db.ExecuteDataSet(getMFLatestValuationDateCmd);
+                valuationDate = Convert.ToDateTime(dsValuationDate.Tables[0].Rows[0][0].ToString());
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFEngineDao.cs:GetCustomerTransactionsForBalanceCreation()");
+
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return valuationDate;
+
+        }
+
         public DataTable GetMFAccountsForInstantValuation()
         {
             Database db;
