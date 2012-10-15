@@ -231,8 +231,9 @@ namespace WealthERP.Advisor
                 }
 
                 /* ********** */
-                bindgrid(LatestValuationdate);
+             
             }
+            bindgrid(LatestValuationdate);
         }
         private void bindgrid(DateTime Valuationdate)
         {
