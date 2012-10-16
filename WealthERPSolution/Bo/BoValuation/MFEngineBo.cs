@@ -147,7 +147,8 @@ namespace BoValuation
                             if (dtCustomerTransactionsToProcess != null)
                             {
                                 if (dtCustomerTransactionsToProcess.Rows.Count > 0)
-                                {                                 
+                                {
+                                    
 
                                     dtCustomerTransactionsToProcess.DefaultView.RowFilter = "CMFA_AccountId=" + commonId.ToString() + " AND " + "PASP_SchemePlanCode=" + schemePlanCode.ToString();
                                     dtMFTransactionsToProcess = dtCustomerTransactionsToProcess.DefaultView.ToTable();
@@ -209,7 +210,10 @@ namespace BoValuation
 
                                     //}
 
-                                  
+                                    //if (commonId == 420175 && schemePlanCode == 8062)
+                                    //{
+
+                                    //}
                                     if (dsTransactionBalanceReadyToProcess.Tables["Transaction"].Rows.Count > 0)
                                         dsMFTransactionProcessedBalance = TransactionBalanceProcess(dsTransactionBalanceReadyToProcess);
                                     if (dsMFTransactionProcessedBalance.Tables.Count > 0)
@@ -706,10 +710,10 @@ namespace BoValuation
                     // if CMFTB_Id is null then this will get insert in Database with flag 1
                     // else It will update with flag 2
                     // 0 for No change
-                    if (dr["CMFTB_Id"].ToString() != null && dr["CMFTB_Id"].ToString() != "")
-                    {
-                        dr["CMFTB_InsertUpdate_Flag"] = 2;
-                    }
+                    //if (dr["CMFTB_Id"].ToString() != null && dr["CMFTB_Id"].ToString() != "")
+                    //{
+                    //    dr["CMFTB_InsertUpdate_Flag"] = 2;
+                    //}
                     buyUnits = double.Parse(dr["CMFTB_UnitBalanceTAX"].ToString());
                     if (buyUnits != 0)
                     {
@@ -817,7 +821,13 @@ namespace BoValuation
                     double unitBalancereturnOld = double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString());
                     dr1["CMFTB_UnitBalanceRETURN"] =Math.Round( (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) - (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * units),4);
 
-
+                    // if CMFTB_Id is null then this will get insert in Database with flag 1
+                    // else It will update with flag 2
+                    // 0 for No change
+                    if (dr1["CMFTB_Id"].ToString() != null && dr1["CMFTB_Id"].ToString() != "")
+                    {
+                        dr1["CMFTB_InsertUpdate_Flag"] = 2;
+                    }
                     if (dr1["WMTT_TransactionClassificationCode"].ToString() == "BUY" || dr1["WMTT_TransactionClassificationCode"].ToString() == "DVR")
                     {
                         dr1["CMFTB_DivPayout"] = Math.Round( ((double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / unitBalancereturnOld) * double.Parse(dr1["CMFTB_DivPayout"].ToString())),4);
