@@ -20,24 +20,34 @@ namespace WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION
         MFEngineBo mfEngineBo = new MFEngineBo();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         
-        public void CreateMFTransactionBalanceForAllAdviser()
+        public void CreateMFTransactionBalanceForAllAdviser(int isForAllAdviser, int adviserId)
         {
-            adviserVoList = adviserMaintenanceBo.GetAdviserList();
-            for (int i = 0; i < adviserVoList.Count; i++)
-            {              
-                
-                try
-                {
-                    mfEngineBo.MFBalanceCreation(adviserVoList[i].advisorId, 0, valuationFor);
-                   
-                }
-                catch
+            if (isForAllAdviser == 1)
+            {
+                adviserVoList = adviserMaintenanceBo.GetAdviserList();
+                for (int i = 0; i < adviserVoList.Count; i++)
                 {
 
+                    try
+                    {
+                        mfEngineBo.MFBalanceCreation(adviserVoList[i].advisorId, 0, valuationFor);
+
+                    }
+                    catch
+                    {
+
+
+                    }
 
                 }
-
             }
+            else
+            {
+
+                mfEngineBo.MFBalanceCreation(adviserId, 0, valuationFor);
+            }
+                
+
         }
 
     }
