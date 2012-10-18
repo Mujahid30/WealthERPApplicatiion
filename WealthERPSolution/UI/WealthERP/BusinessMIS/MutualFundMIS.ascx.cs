@@ -57,7 +57,7 @@ namespace WealthERP.BusinessMIS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            rWTurnOverAUM.VisibleOnPageLoad = false;
+            //rWTurnOverAUM.VisibleOnPageLoad = false;
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -249,6 +249,7 @@ namespace WealthERP.BusinessMIS
 
         public void lnkBtnAMCWISEAUM_OnClick(object sender, EventArgs e)
         {
+            rWTurnOverAUM.Visible = false;
             showHideGrid("AMCWise");
             BindAMCWISEAUMDetails();
             lblMFMISType.Text = "AMC WISE AUM";
@@ -256,6 +257,7 @@ namespace WealthERP.BusinessMIS
 
         public void lnkBtnSCHEMEWISEAUM_OnClick(object sender, EventArgs e)
         {
+            rWTurnOverAUM.Visible = false;
             showHideGrid("SchemeWise");
             BindSCHEMEWISEAUMDetails();
             lblMFMISType.Text = "SCHEME WISE AUM";
@@ -263,6 +265,7 @@ namespace WealthERP.BusinessMIS
 
         public void lnkBtnFOLIOWISEAUM_OnClick(object sender, EventArgs e)
         {
+            rWTurnOverAUM.Visible = false;
             showHideGrid("FolioWise");
             BindFOLIOWISEAUMDetails();
             lblMFMISType.Text = "FOLIO WISE AUM";
@@ -900,6 +903,7 @@ namespace WealthERP.BusinessMIS
 
         protected void lnkBtnTURNOVERAUM_OnClick(object sender, EventArgs e)
         {
+            rWTurnOverAUM.Visible = true;
             rWTurnOverAUM.VisibleOnPageLoad = true;
             rWTurnOverAUM.Width = 500;
             divGvTurnOverSummary.Visible = false;

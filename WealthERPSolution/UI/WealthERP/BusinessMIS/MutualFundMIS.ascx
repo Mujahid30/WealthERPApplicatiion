@@ -14,6 +14,11 @@
             return false;
         }
     }
+
+    function SetWindowBehavior(sender) {
+        oWnd = sender;
+        oWnd.setActive(true);
+    }
 </script>
 
 <script type="text/javascript" language="javascript">
@@ -37,25 +42,34 @@
     }
 </script>
 
-<div class="divPageHeading" id="main" style="margin: 2px">
-    <div id="left" style="float: left">
-        <asp:Label runat="server" Text="MF MIS"></asp:Label>
-    </div>
-    <div id="right" style="float: right; vertical-align: middle;">
-        <asp:ImageButton ID="imgBtnGvFolioWiseAUM" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvFolioWiseAUM_OnClick"
-            Height="25px" Width="25px" Visible="false"></asp:ImageButton>
-        <asp:ImageButton ID="imgBtnGvAmcWiseAUM" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvAmcWiseAUM_OnClick"
-            Height="25px" Width="25px" Visible="false"></asp:ImageButton>
-        <asp:ImageButton ID="imgBtnGvSchemeWiseAUM" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvSchemeWiseAUM_OnClick"
-            Height="25px" Width="25px" Visible="false"></asp:ImageButton>
-        <asp:ImageButton ID="imgBtnGvTurnOverSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvTurnOverSummary_OnClick"
-            Height="25px" Width="25px" Visible="false"></asp:ImageButton>
-    </div>
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+        <td align="left">Mutual Fund MIS</td>
+        <td  align="right">
+                        <asp:ImageButton ID="imgBtnGvFolioWiseAUM" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvFolioWiseAUM_OnClick"
+                        Height="20px" Width="25px" Visible="false"></asp:ImageButton>
+                    <asp:ImageButton ID="imgBtnGvAmcWiseAUM" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvAmcWiseAUM_OnClick"
+                        Height="20px" Width="25px" Visible="false"></asp:ImageButton>
+                    <asp:ImageButton ID="imgBtnGvSchemeWiseAUM" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvSchemeWiseAUM_OnClick"
+                        Height="20px" Width="25px" Visible="false"></asp:ImageButton>
+                    <asp:ImageButton ID="imgBtnGvTurnOverSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvTurnOverSummary_OnClick"
+                        Height="20px" Width="25px" Visible="false"></asp:ImageButton>        
+        </td>
+        </tr>
+    </table>
 </div>
+</td>
+</tr>
+</table>
+
 <div style="margin: 16px;">
     <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:" Visible="false"></asp:Label>
     <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
@@ -98,7 +112,7 @@
     <asp:LinkButton ID="lnkBtnTURNOVERAUM" Text="TURNOVER AUM" CssClass="LinkButtonsWithoutUnderLine"
         runat="server" OnClick="lnkBtnTURNOVERAUM_OnClick"></asp:LinkButton>
 </div>
-<div class="divSectionHeading" style="vertical-align: middle; margin=2px">
+<div class="divSectionHeading" style="vertical-align: middle; margin:2px">
     <asp:Label ID="lblMFMISType" runat="server" CssClass="LinkButtons"></asp:Label>
 </div>
 <br />
@@ -151,7 +165,7 @@
 <div>
     <telerik:RadWindow ID="rWTurnOverAUM" runat="server" VisibleOnPageLoad="false" Height="30%"
         Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move,resize,close"
-        Title="TURN OVER AUM">
+        OnClientShow="SetWindowBehavior" Title="TURN OVER AUM">
         <ContentTemplate>
             <div style="margin: 4px">
                 <asp:RadioButton ID="rbtnPickDate" Checked="true" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
@@ -194,8 +208,7 @@
             <br />
             <div style="margin: 4px" id="divPickAPeriod" runat="server">
                 <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
-                <asp:DropDownList ID="ddlPeriod" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPeriod_SelectedIndexChanged"
-                    CssClass="cmbField">
+                <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField">
                 </asp:DropDownList>
             </div>
             <br />
@@ -404,9 +417,8 @@
 </div>
 <br />
 <div style="margin: 6px" class="Note">
-    <p><b>
-        Note: For TURNOVER AUM please donot select "As on Date:"
-        </b>
+    <p>
+        <b>Note: For TURNOVER AUM please donot select "As on Date:" </b>
     </p>
 </div>
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
