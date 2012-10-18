@@ -975,7 +975,7 @@ namespace DaoAdvisorProfiling
             DataSet AMCSchemewiseMIS = null;
             try
             {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
+                db = DatabaseFactory.CreateDatabase("wealtherp");   
                 getLoanMICmd = db.GetStoredProcCommand("SP_GetAllAMCwiseMISforBM");
 
                 db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, rmid);
@@ -1133,6 +1133,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getLatestValuationDateFromHistoryCmd, "@assetType", DbType.String, assetType);
                 db.AddInParameter(getLatestValuationDateFromHistoryCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddOutParameter(getLatestValuationDateFromHistoryCmd, "@ValuationDate", DbType.DateTime, 0);
+                getLatestValuationDateFromHistoryCmd.CommandTimeout = 60 * 60;
                 db.ExecuteDataSet(getLatestValuationDateFromHistoryCmd);
                 if (!string.IsNullOrEmpty(db.GetParameterValue(getLatestValuationDateFromHistoryCmd, "@ValuationDate").ToString()))
                     latestValuationDate = DateTime.Parse(db.GetParameterValue(getLatestValuationDateFromHistoryCmd, "@ValuationDate").ToString());
