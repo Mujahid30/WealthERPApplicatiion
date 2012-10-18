@@ -31,6 +31,8 @@ namespace WealthERP.Research
             dtAssumption.Columns.Add("WA_AssumptionName");
             dtAssumption.Columns.Add("AA_Value");
             dtAssumption.Columns.Add("WA_AssumptionId");
+
+            dtAssumption.Columns.Add("WAC_AssumptionCategory");
             DataRow drAssumption;
             foreach (DataRow drStaticAssumption in dsAdviserAssumptions.Tables[0].Rows)
             {
@@ -40,6 +42,7 @@ namespace WealthERP.Research
                     drAssumption["WA_AssumptionName"] = drStaticAssumption["WA_AssumptionName"].ToString();
                     drAssumption["AA_Value"] = Convert.ToInt32(drStaticAssumption["AA_Value"]);
                     drAssumption["WA_AssumptionId"] = drStaticAssumption["WA_AssumptionId"].ToString();
+                    drAssumption["WAC_AssumptionCategory"] = drStaticAssumption["WAC_AssumptionCategory"].ToString();
                     dtAssumption.Rows.Add(drAssumption);
                 }
                 else
@@ -47,6 +50,7 @@ namespace WealthERP.Research
                     drAssumption["WA_AssumptionName"] = drStaticAssumption["WA_AssumptionName"].ToString();
                     drAssumption["AA_Value"] = drStaticAssumption["AA_Value"].ToString();
                     drAssumption["WA_AssumptionId"] = drStaticAssumption["WA_AssumptionId"].ToString();
+                    drAssumption["WAC_AssumptionCategory"] = drStaticAssumption["WAC_AssumptionCategory"].ToString();
                     dtAssumption.Rows.Add(drAssumption);
                 }
             }
@@ -105,5 +109,22 @@ namespace WealthERP.Research
         {
             
         }
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                string assumptionId = dataItem["WA_AssumptionName"].Text;
+
+                if (assumptionId == "Insurance Discount Rate(%)")
+                {
+                    dataItem["EditCommandColumn"].Enabled = false;
+                    //dataItem["WA_AssumptionId"].Enabled = false;
+                }
+
+            }
+        }
+
     }
 }

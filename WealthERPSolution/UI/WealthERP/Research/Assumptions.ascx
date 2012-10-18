@@ -21,7 +21,7 @@
         <td>
         <telerik:RadGrid ID="RadGrid1" runat="server" CssClass="RadGrid" GridLines="None"
         AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="False" Skin="Telerik"
-        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="False"
+        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="False" OnItemDataBound="RadGrid1_ItemDataBound"
         OnItemInserted="RadGrid1_ItemInserted" OnItemUpdated="RadGrid1_ItemUpdated" OnItemCommand="RadGrid1_ItemCommand"
         OnPreRender="RadGrid1_PreRender"  DataKeyNames="WA_AssumptionId"
         AllowAutomaticUpdates="False" HorizontalAlign="NotSet">
@@ -31,8 +31,13 @@
                 </telerik:GridEditCommandColumn>                
                 <telerik:GridBoundColumn UniqueName="WA_AssumptionName" HeaderText="Assumption" DataField="WA_AssumptionName" >
                 </telerik:GridBoundColumn>
+               <telerik:GridBoundColumn UniqueName="WAC_AssumptionCategory" HeaderText="Category" DataField="WAC_AssumptionCategory" >
+             </telerik:GridBoundColumn>  
                 <telerik:GridBoundColumn UniqueName="AA_Value" HeaderText="Value" DataField="AA_Value" >
-             </telerik:GridBoundColumn>                
+             </telerik:GridBoundColumn>    
+             
+                  
+                         
             </Columns>
             <EditFormSettings  InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center" 
             PopUpSettings-Modal="true" PopUpSettings-ZIndex="60" CaptionFormatString="Edit"
@@ -44,7 +49,15 @@
                                 <asp:Label ID="lblPickAssumptions" runat="server" Text="Assumptions:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td align="left">
-                               <asp:TextBox ID="txtAssumptions" runat="server" Text='<%# Bind( "WA_AssumptionName") %>' CssClass="txtField" Enabled="false"></asp:TextBox>
+                               <asp:Label ID="txtAssumptions" runat="server" Text='<%# Bind( "WA_AssumptionName") %>' CssClass="txtField" Enabled="false"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <asp:Label ID="Label1" runat="server" Text="Category Code:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td align="left">
+                               <asp:Label ID="TextBox1" runat="server" Text='<%# Bind("WAC_AssumptionCategory") %>' CssClass="txtField" Enabled="false"></asp:Label>
                             </td>
                         </tr>
                         <tr>

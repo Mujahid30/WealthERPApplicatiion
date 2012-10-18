@@ -71,6 +71,7 @@ namespace WealthERP.Customer
             dtAssumption.Columns.Add("WA_AssumptionName");
             dtAssumption.Columns.Add("CPA_Value");
             dtAssumption.Columns.Add("WA_AssumptionId");
+            dtAssumption.Columns.Add("WAC_AssumptionCategory");
             DataRow drAssumption;
             foreach (DataRow drStaticAssumption in dsBindAllCustomerAssumptions.Tables[0].Rows)
             {
@@ -80,6 +81,7 @@ namespace WealthERP.Customer
                     drAssumption["WA_AssumptionName"] = drStaticAssumption["WA_AssumptionName"].ToString();
                     drAssumption["CPA_Value"] = Math.Round(Decimal.Parse(drStaticAssumption["CPA_Value"].ToString()),0);
                     drAssumption["WA_AssumptionId"] = drStaticAssumption["WA_AssumptionId"].ToString();
+                    drAssumption["WAC_AssumptionCategory"] = drStaticAssumption["WAC_AssumptionCategory"].ToString();
                     dtAssumption.Rows.Add(drAssumption);
                 }
                 else
@@ -87,6 +89,7 @@ namespace WealthERP.Customer
                     drAssumption["WA_AssumptionName"] = drStaticAssumption["WA_AssumptionName"].ToString();
                     drAssumption["CPA_Value"] = drStaticAssumption["CPA_Value"].ToString();
                     drAssumption["WA_AssumptionId"] = drStaticAssumption["WA_AssumptionId"].ToString();
+                    drAssumption["WAC_AssumptionCategory"] = drStaticAssumption["WAC_AssumptionCategory"].ToString();
                     dtAssumption.Rows.Add(drAssumption);
                 }
             }
@@ -118,6 +121,23 @@ namespace WealthERP.Customer
 
         //}
 
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                string assumptionId = dataItem["WA_AssumptionName"].Text;
+
+                if (assumptionId == "Insurance Discount Rate(%)")
+                {
+                    dataItem["EditCommandColumn"].Enabled = false;
+                    //dataItem["WA_AssumptionId"].Enabled = false;
+                }
+
+            }
+        }
+
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {
             string editorText = "unknown";
@@ -140,8 +160,8 @@ namespace WealthERP.Customer
               //string a =  (e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["WA_AssumptionId"]).ToString();
                 int userId = 0;
                 int customerId = 0;
-               
-                if (assumptionValue == "LE" || assumptionValue == "RA")
+
+                if (assumptionValue == "LE" || assumptionValue == "RA" || assumptionValue == "INDR" || assumptionValue == "INR" || assumptionValue == "INIR" || assumptionValue == "INF")
                 {
                     userId = userVo.UserId;
                     customerId = customerVo.CustomerId;
