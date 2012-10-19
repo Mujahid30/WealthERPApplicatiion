@@ -426,12 +426,12 @@ namespace WealthERP.Reports
         {
             CustomerBo customerBo = new CustomerBo();
             bool isCorrect = false;
-            DateTime chckdate = DateTime.Parse(txtAsOnDate.Text);
-            DateTime bussdate = new DateTime();
-            bussdate = DateTime.Parse(hdnValuationDate.Value);
-            if (chckdate.Date <= bussdate.Date)
+            DateTime dtAsOnDate = DateTime.Parse(txtAsOnDate.Text);
+            DateTime maxValuationDate = new DateTime();
+            maxValuationDate = DateTime.Parse(hdnValuationDate.Value);
+            if (dtAsOnDate.Date <= maxValuationDate.Date)
             {
-                isCorrect = customerBo.ChckBussinessDate(chckdate);
+                isCorrect = customerBo.ChckBussinessDate(dtAsOnDate);
                 if (isCorrect == true)
                 {
                     btnEmailReport.Enabled = true;
@@ -449,21 +449,43 @@ namespace WealthERP.Reports
                     btnViewInDOC.Enabled = false;
                     btnViewReport.Enabled = false;
                 }
+              
 
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Prior Business Date');", true);
-                btnEmailReport.Enabled = false;
-                btnExportToPDF.Enabled = false;
-                btnViewInDOC.Enabled = false;
-                btnViewReport.Enabled = false;
+                if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO")
+                {
+                    isCorrect = customerBo.ChckBussinessDate(dtAsOnDate);
+                    if (isCorrect == true)
+                    {
+                        btnEmailReport.Enabled = true;
+                        btnExportToPDF.Enabled = true;
+                        btnViewInDOC.Enabled = true;
+                        btnViewReport.Enabled = true;
+
+
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid!!!Choose a Valid Bussiness Date ');", true);
+                        btnEmailReport.Enabled = false;
+                        btnExportToPDF.Enabled = false;
+                        btnViewInDOC.Enabled = false;
+                        btnViewReport.Enabled = false;
+                    }
+
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Prior Business Date');", true);
+                    btnEmailReport.Enabled = false;
+                    btnExportToPDF.Enabled = false;
+                    btnViewInDOC.Enabled = false;
+                    btnViewReport.Enabled = false;
+                }
 
             }
-
-
-
-
 
         }
 
