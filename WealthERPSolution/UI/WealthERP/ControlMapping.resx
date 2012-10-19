@@ -1429,4 +1429,8 @@
     <value>BusinessMIS//MutualFundMIS.ascx</value>
     <comment>BusinessMIS//MutualFundMIS.ascx</comment>
   </data>
+  <data name="WERPFolioDetails" xml:space="preserve">
+    <value>Uploads//WERPFolioDetails.ascx</value>
+    <comment>Uploads//WERPFolioDetails.ascx</comment>
+  </data>
 </root>

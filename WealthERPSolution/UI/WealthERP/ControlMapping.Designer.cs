@@ -3011,5 +3011,14 @@ namespace WealthERP {
                 return ResourceManager.GetString("WERPAdminDownloadProcessLog", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploads//WERPFolioDetails.ascx.
+        /// </summary>
+        internal static string WERPFolioDetails {
+            get {
+                return ResourceManager.GetString("WERPFolioDetails", resourceCulture);
+            }
+        }
     }
 }
