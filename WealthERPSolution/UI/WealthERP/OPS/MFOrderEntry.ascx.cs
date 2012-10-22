@@ -78,6 +78,7 @@ namespace WealthERP.OPS
             
             if (!IsPostBack)
             {
+                ddlAMCList.Enabled = false;
                 if (Request.QueryString["action"] != null)
                 {
                     lnlBack.Visible = true;
@@ -958,6 +959,7 @@ namespace WealthERP.OPS
         {
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
+                ddlAMCList.Enabled = true;
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
                 Session["customerVo"] = customerVo;
                 lblGetBranch.Text = customerVo.BranchName;
