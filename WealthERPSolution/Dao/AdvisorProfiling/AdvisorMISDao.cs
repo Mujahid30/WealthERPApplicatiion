@@ -837,7 +837,7 @@ namespace DaoAdvisorProfiling
             return AMCSchemewiseMIS;
         }
 
-        public DataSet GetAUMForBM(int rmId, int branchId, int branchHeadId, DateTime Valuationdate)
+        public DataSet GetAUMForBM(int rmId, int branchId, int branchHeadId, DateTime Valuationdate, int Type)
         {
             Database db;
             DbCommand getLoanMICmd;
@@ -850,6 +850,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getLoanMICmd, "@BranchId", DbType.Int32, branchId);
                 db.AddInParameter(getLoanMICmd, "@BranchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, Valuationdate);
+                db.AddInParameter(getLoanMICmd, "@XWise", DbType.Int32, Type);
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
             catch (BaseApplicationException Ex)
