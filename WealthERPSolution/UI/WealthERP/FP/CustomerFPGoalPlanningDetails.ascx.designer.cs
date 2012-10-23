@@ -75,7 +75,7 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel tbl;
-        
+        protected global::System.Web.UI.WebControls.Panel Panel2;
         /// <summary>
         /// gvGoalList control.
         /// </summary>
@@ -84,7 +84,8 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvGoalList;
-        
+        protected global::Telerik.Web.UI.RadGrid gvStandardGoaldetails;
+        protected global::Telerik.Web.UI.RadComboBox ddlActionGoalType;
         /// <summary>
         /// hidRTSaveReq control.
         /// </summary>
@@ -93,6 +94,7 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidRTSaveReq;
+        protected global::System.Web.UI.WebControls.HiddenField hdnGoalType;
         
         /// <summary>
         /// hdnMsgValue control.
@@ -129,6 +131,11 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgGoalImage;
+
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNote1;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNote2;
+        
         
     }
 }

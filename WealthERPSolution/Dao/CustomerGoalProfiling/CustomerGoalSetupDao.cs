@@ -401,6 +401,10 @@ namespace DaoCustomerGoalProfiling
                         GoalProfileVo.GoalYear = int.Parse(dr["CG_GoalYear"].ToString());
                         GoalProfileVo.IsActice = int.Parse(dr["CG_IsActive"].ToString());
                         GoalProfileVo.ExpectedROI = double.Parse(dr["CG_ExpectedROI"].ToString());
+
+                        if (!string.IsNullOrEmpty(dr["CG_LumpsumInvestmentRequired"].ToString()))
+                            GoalProfileVo.LumpsumInvestRequired = double.Parse(dr["CG_LumpsumInvestmentRequired"].ToString());                        
+                       
                         if ((dr["CG_CustomerApprovedOn"].ToString()) != string.Empty)
                         {
                             GoalProfileVo.CustomerApprovedOn = DateTime.Parse(dr["CG_CustomerApprovedOn"].ToString());

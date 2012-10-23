@@ -73,11 +73,14 @@ namespace WealthERP.FP
 
             if (!Page.IsPostBack)
             {
-                GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(customerVo.CustomerId, 1, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
-                if (GoalProfileList != null)
-                    BindGoalOutputGridView(GoalProfileList);
-                else
-                    trNoRecordFound.Visible = true;
+                trNote1.Visible=false;
+                trNote2.Visible = false;
+                tbl.Visible = false;
+                //GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(customerVo.CustomerId, 1, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
+                //if (GoalProfileList != null)
+                //    BindGoalOutputGridView(GoalProfileList);
+                //else
+                //    trNoRecordFound.Visible = true;
             }
 
         }
@@ -182,9 +185,9 @@ namespace WealthERP.FP
                     CustomerGoalFundingProgressVo customerGoalFundingProgressVo = new CustomerGoalFundingProgressVo();
                     DataSet dsGoalFundingDetails;
                     customerGoalFundingProgressVo = goalPlanningBo.GetGoalFundingProgressDetails(goalProfileSetupVo.GoalId, customerVo.CustomerId, advisorVo.advisorId, out dsGoalFundingDetails, out dsExistingInvestment, out dsSIPInvestment, out goalPlanningVo, out dsEQInvestment);
-                    lumpsumInvestment = goalPlanningBo.PV(goalProfileSetupVo.ExpectedROI / 100, goalProfileSetupVo.GoalYear - DateTime.Now.Year, 0, -goalProfileSetupVo.FutureValueOfCostToday, 1);
-                    drGoalProfile["LumpsumInvestment"] = lumpsumInvestment != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", lumpsumInvestment.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
-                    lumpsumInvestmentTotal += lumpsumInvestment;
+                    //lumpsumInvestment = goalPlanningBo.PV(goalProfileSetupVo.ExpectedROI / 100, goalProfileSetupVo.GoalYear - DateTime.Now.Year, 0, -goalProfileSetupVo.FutureValueOfCostToday, 1);
+                    drGoalProfile["LumpsumInvestment"] = goalProfileSetupVo.LumpsumInvestRequired != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.LumpsumInvestRequired.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                    lumpsumInvestmentTotal += goalProfileSetupVo.LumpsumInvestRequired;
                     if (customerGoalFundingProgressVo != null)
                     {
                         if (goalProfileSetupVo.IsFundFromAsset == true)
@@ -313,21 +316,26 @@ namespace WealthERP.FP
                 if (lblGoalCode.Text.Trim() == "BH")
                 {
                     imgGoalImage.ImageUrl = "~/Images/HomeGoal.png";
+                    imgGoalImage.ToolTip = "Buy Home";
                 }
                 else if (lblGoalCode.Text.Trim() == "ED")
                 {
                     imgGoalImage.ImageUrl = "~/Images/EducationGoal.png";
+                    imgGoalImage.ToolTip = "Child Education";
                 }
                 else if (lblGoalCode.Text.Trim() == "MR")
                 {
+                    imgGoalImage.ToolTip = "Child Marriage";
                     imgGoalImage.ImageUrl = "~/Images/ChildMarraiageGoal.png";
                 }
                 else if (lblGoalCode.Text.Trim() == "OT")
                 {
+                    imgGoalImage.ToolTip = "Other";
                     imgGoalImage.ImageUrl = "~/Images/OtherGoal.png";
                 }
                 else if (lblGoalCode.Text.Trim() == "RT")
                 {
+                    imgGoalImage.ToolTip = "Retirement";
                     imgGoalImage.ImageUrl = "~/Images/RetirementGoal.png";
                 }
                 lblGoalCode.Visible = false;
@@ -689,7 +697,16 @@ namespace WealthERP.FP
 
                 GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(customerVo.CustomerId, 1, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
                 if (GoalProfileList != null)
-                    BindGoalOutputGridView(GoalProfileList);
+                {
+                    if (hdnGoalType.Value == "Advanced")
+                    {
+                        BindGoalOutputGridView(GoalProfileList);
+                    }
+                    else
+                    {
+                        BindGoalOutputStandardRadGrid(GoalProfileList);
+                    }
+                }
                 else
                 {
 
@@ -699,6 +716,225 @@ namespace WealthERP.FP
 
 
             }
+        }
+        protected void ddlActionGoalType_OnSelectedIndexChange(object sender, EventArgs e)
+        {
+            RadComboBox ddlAction = (RadComboBox)sender;
+
+                   }
+
+        private void BindGoalOutputStandardRadGrid(List<GoalProfileSetupVo> goalList)
+        {
+
+            DataTable dtGoalProfile = new DataTable();
+            DataSet dsExistingInvestment = new DataSet();
+            DataSet dsSIPInvestment = new DataSet();
+            DataSet dsEQInvestment = new DataSet();
+
+                dtGoalProfile.Columns.Add("GoalID");
+                dtGoalProfile.Columns.Add("GoalCode");
+                dtGoalProfile.Columns.Add("GoalName");
+                dtGoalProfile.Columns.Add("ChildName");
+                dtGoalProfile.Columns.Add("CostToday",typeof(double));
+                dtGoalProfile.Columns.Add("CurrentInvestment");
+                dtGoalProfile.Columns.Add("SavingRequired", typeof(double));
+                dtGoalProfile.Columns.Add("GoalAmount",typeof(double));
+                dtGoalProfile.Columns.Add("ExpROI");
+                dtGoalProfile.Columns.Add("Inflation");
+                dtGoalProfile.Columns.Add("ROIEarned");
+                dtGoalProfile.Columns.Add("GoalPrifileDate");
+                dtGoalProfile.Columns.Add("GoalYear");
+                dtGoalProfile.Columns.Add("IsActive");
+
+                dtGoalProfile.Columns.Add("LumpsumInvestment", typeof(double));
+                dtGoalProfile.Columns.Add("IsGoalBehind");
+            
+                double costTodayTotal = 0;
+                double goalAmountTotal = 0;
+                double lumpsumInvestmentTotal = 0;
+                double monthlySavingReqTotal = 0;
+                double allocAmountToWardsGoalTotal = 0;
+
+                double currentGoalValueTotal = 0;
+                double sipAmountTotal = 0;
+                double projectedValueTotal = 0;
+                double additionalSavingReqTotal = 0;
+                double projectedGapValueTotal = 0;
+
+                DataRow drGoalProfile;
+
+                for (int i = 0; i < GoalProfileList.Count; i++)
+                {
+
+                    drGoalProfile = dtGoalProfile.NewRow();
+                    goalProfileSetupVo = new GoalProfileSetupVo();
+                    goalProfileSetupVo = GoalProfileList[i];
+                    drGoalProfile["GoalID"] = goalProfileSetupVo.GoalId.ToString();
+                    drGoalProfile["GoalCode"] = goalProfileSetupVo.Goalcode;
+                    drGoalProfile["GoalName"] = goalProfileSetupVo.GoalName.ToString();
+                    drGoalProfile["ChildName"] = goalProfileSetupVo.ChildName.ToString();
+                    if (drGoalProfile["GoalCode"].ToString() == "RT")
+                        drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday != 0 ? String.Format("{0:n2}", (goalProfileSetupVo.CostOfGoalToday * 12).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    else
+                        drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday != 0 ? String.Format("{0:n2}", (goalProfileSetupVo.CostOfGoalToday).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    if (goalProfileSetupVo.Goalcode == "RT")
+                        costTodayTotal += (goalProfileSetupVo.CostOfGoalToday * 12);
+                    else
+                        costTodayTotal += goalProfileSetupVo.CostOfGoalToday;
+                    drGoalProfile["ExpROI"] = goalProfileSetupVo.ExpectedROI.ToString();
+                    drGoalProfile["Inflation"] = goalProfileSetupVo.InflationPercent.ToString();
+                    drGoalProfile["ROIEarned"] = goalProfileSetupVo.ROIEarned.ToString();
+                    drGoalProfile["CurrentInvestment"] = goalProfileSetupVo.CurrInvestementForGoal != 0 ? String.Format("{0:n2}", goalProfileSetupVo.CurrInvestementForGoal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    allocAmountToWardsGoalTotal += goalProfileSetupVo.CurrInvestementForGoal;
+                    drGoalProfile["SavingRequired"] = goalProfileSetupVo.MonthlySavingsReq != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.MonthlySavingsReq.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                    monthlySavingReqTotal += goalProfileSetupVo.MonthlySavingsReq;
+                    drGoalProfile["GoalAmount"] = goalProfileSetupVo.FutureValueOfCostToday != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.FutureValueOfCostToday.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                    goalAmountTotal += goalProfileSetupVo.FutureValueOfCostToday;
+                    drGoalProfile["GoalPrifileDate"] = goalProfileSetupVo.GoalProfileDate.ToShortDateString();
+                    drGoalProfile["GoalYear"] = goalProfileSetupVo.GoalYear.ToString();
+                    if (goalProfileSetupVo.IsActice == 0)
+                    {
+                        drGoalProfile["IsActive"] = "Inactive";
+
+                    }
+                    else
+                        drGoalProfile["IsActive"] = "Active";
+
+
+                   
+                    if (goalProfileSetupVo.IsFundFromAsset == true)
+                    {
+                        drGoalProfile["IsGoalBehind"] = "";
+                    }
+                    else
+                    {
+                        drGoalProfile["IsGoalBehind"] = "N/A";
+                    }
+                    drGoalProfile["LumpsumInvestment"] = goalProfileSetupVo.LumpsumInvestRequired;
+                    dtGoalProfile.Rows.Add(drGoalProfile);
+                }
+
+
+                gvStandardGoaldetails.DataSource = dtGoalProfile;
+                gvStandardGoaldetails.DataBind();
+            }
+        public void gvStandardGoaldetails_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem item = (e.Item as GridDataItem);
+                RadComboBox rcb = new RadComboBox();
+                TemplateColumn tm = new TemplateColumn();
+                Label lblGoalCode = new Label();
+                Image imgGoalImage = e.Item.FindControl("imgGoalImage") as Image;
+
+                lblGoalCode = (Label)e.Item.FindControl("lblGoalName");
+
+                if (lblGoalCode.Text.Trim() == "BH")
+                {
+                    imgGoalImage.ImageUrl = "~/Images/HomeGoal.png";
+                    imgGoalImage.ToolTip = "Buy Home";
+                }
+                else if (lblGoalCode.Text.Trim() == "ED")
+                {
+                    imgGoalImage.ImageUrl = "~/Images/EducationGoal.png";
+                    imgGoalImage.ToolTip = "Child Education";
+                }
+                else if (lblGoalCode.Text.Trim() == "MR")
+                {
+                    imgGoalImage.ToolTip = "Child Marriage";
+                    imgGoalImage.ImageUrl = "~/Images/ChildMarraiageGoal.png";
+                }
+                else if (lblGoalCode.Text.Trim() == "OT")
+                {
+                    imgGoalImage.ToolTip = "Other";
+                    imgGoalImage.ImageUrl = "~/Images/OtherGoal.png";
+                }
+                else if (lblGoalCode.Text.Trim() == "RT")
+                {
+                    imgGoalImage.ToolTip = "Retirement";                 
+                    imgGoalImage.ImageUrl = "~/Images/RetirementGoal.png";
+                }
+                lblGoalCode.Visible = false;
+            }
+        }
+        protected void ddlActionSteps_OnSelectedIndexChange(object sender, EventArgs e)
+        {
+            GridViewRow gvGoal = null;
+            int selectedRow = 0;
+            string goalId = "";
+            string goalCatagory = "";
+            string goalAction = "";
+            string goalCode = string.Empty;
+            bool isGoalFundFromAsset = false;
+
+            RadComboBox ddlAction = (RadComboBox)sender;
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            
+            goalId = gvStandardGoaldetails.MasterTableView.DataKeyValues[gvr.ItemIndex]["GoalId"].ToString();
+            goalCode = gvStandardGoaldetails.MasterTableView.DataKeyValues[gvr.ItemIndex]["GoalCode"].ToString();
+            string IsGoalBehind = gvStandardGoaldetails.MasterTableView.DataKeyValues[gvr.ItemIndex]["IsGoalBehind"].ToString();
+            if (IsGoalBehind != "N/A")
+            {
+                isGoalFundFromAsset = true;
+            }
+            hdndeleteId.Value = goalId;
+            //goalCatagory = gvGoalList.DataKeys[selectedRow].Values["GoalCategory"].ToString();
+            goalAction = ddlAction.SelectedValue.ToString();
+            if (ddlAction.SelectedValue == "View" || ddlAction.SelectedValue == "Edit")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalSetUPPage", "loadcontrol('CustomerAdvancedGoalSetup','?GoalId=" + goalId + "&GoalAction=" + goalAction + "');", true);
+            }
+            else if (ddlAction.SelectedValue == "Fund")
+            {
+                if (isGoalFundFromAsset == false)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Goal is not marked for MF Based Goal Planning.Edit the goal and mark it first');", true);
+                }
+                else
+                {
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + goalId + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalSetUPPage", "loadcontrol('CustomerAdvancedGoalSetup','?GoalId=" + goalId + "&GoalAction=" + goalAction + "');", true);
+                }
+            }
+            else if (ddlAction.SelectedValue == "Delete")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+            }
+
+        }
+        protected void btnGo_OnClick(object sender, EventArgs e)
+        {
+            if (ddlActionGoalType.SelectedValue == "Standard")
+            {
+                hdnGoalType.Value = "Standard";
+                tbl.Visible = false;
+                Panel2.Visible = true;
+
+                GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(customerVo.CustomerId, 1, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
+                if (GoalProfileList != null)
+                {
+                    BindGoalOutputStandardRadGrid(GoalProfileList);
+
+                }
+                else
+                    trNoRecordFound.Visible = true;
+            }
+            else if (ddlActionGoalType.SelectedValue == "Advanced")
+            {
+                hdnGoalType.Value = "Advanced";
+                tbl.Visible = true;
+                Panel2.Visible = false;
+                GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(customerVo.CustomerId, 1, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
+                if (GoalProfileList != null)
+                {
+                    BindGoalOutputGridView(GoalProfileList);
+                }
+                else
+                    trNoRecordFound.Visible = true;
+            }
+
+
         }
     }
 }
