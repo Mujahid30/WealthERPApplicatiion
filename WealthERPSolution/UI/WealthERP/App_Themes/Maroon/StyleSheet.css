@@ -1227,16 +1227,30 @@ p.tip
     -webkit-border-radius: 10px;
        -webkit-box-shadow: 3px 3px 3px #DDD;
     box-shadow: 3px 3px 3px #DDD;
-    border-radius: 4px;   
+    border-radius: 4px;  
+    vertical-align:middle; 
+    padding-top:2px;
     background-color:#FCD1D1;
     color:#8A0408;
     font-weight:bold;
     font-size:small;
     height:20px;
     vertical-align:middle;  
-    padding-left:15px;
+    padding-left:12px;
     border:0px;
     
+}
+
+.divSectionHeadingNumber
+{
+    background-color:#A75A5F;
+    color:#FCEFEF;
+height: 18px;
+float:left;
+ text-align:center;
+width: 18px;
+-moz-border-radius: 35px;
+border-radius: 35px;
 }
 
 .divPageHeading
@@ -1271,4 +1285,9 @@ p.tip
     background-color:#FCD1D1;   
     border:"0" ;
     border-collapse: collapse;
+}
+
+.sectionHeadingText
+{
+    padding-left:5px;
 }
