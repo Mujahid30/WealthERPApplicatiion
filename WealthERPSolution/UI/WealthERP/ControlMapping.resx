@@ -1433,4 +1433,8 @@
     <value>Uploads//WERPFolioDetails.ascx</value>
     <comment>Uploads//WERPFolioDetails.ascx</comment>
   </data>
+  <data name="CustomerCategorySetup" xml:space="preserve">
+    <value>AdvsierPreferenceSettings//CustomerCategorySetup.ascx</value>
+    <comment>AdvsierPreferenceSettings//CustomerCategorySetup.ascx</comment>
+  </data>
 </root>

@@ -736,6 +736,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AdvsierPreferenceSettings//CustomerCategorySetup.ascx.
+        /// </summary>
+        internal static string CustomerCategorySetup {
+            get {
+                return ResourceManager.GetString("CustomerCategorySetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alerts//CustomerDataAlertManagement.ascx.
         /// </summary>
         internal static string CustomerConditionalAlertManage {
