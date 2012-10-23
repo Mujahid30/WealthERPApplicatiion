@@ -59,9 +59,7 @@
                     <asp:ImageButton ID="imgBtnGvSchemeWiseAUM" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvSchemeWiseAUM_OnClick"
                         Height="20px" Width="25px" Visible="false"></asp:ImageButton>
-                    <asp:ImageButton ID="imgBtnGvTurnOverSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvTurnOverSummary_OnClick"
-                        Height="20px" Width="25px" Visible="false"></asp:ImageButton>        
+                          
         </td>
         </tr>
     </table>
@@ -71,6 +69,7 @@
 </table>
 
 <div style="margin: 16px;">
+
     <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:" Visible="false"></asp:Label>
     <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
         CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged" Visible="false">
@@ -93,7 +92,10 @@
     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtDate"
         CssClass="rfvPCG" ErrorMessage="Please select a Date" Display="Dynamic" runat="server"
         InitialValue="" ValidationGroup="vgBtnGo">
-    </asp:RequiredFieldValidator>
+    </asp:RequiredFieldValidator>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <asp:Label ID="LstValDt" runat="server"  CssClass="FieldName" Text="Last Valuation Date:"></asp:Label>
+      <asp:Label ID="lblValDt" runat="server" CssClass="txtField"></asp:Label>
+
 </div>
 <div style="margin: 16px;">
     <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
@@ -108,9 +110,7 @@
     <asp:LinkButton ID="lnkBtnFOLIOWISEAUM" Text="FOLIO WISE AUM" CssClass="LinkButtonsWithoutUnderLine"
         runat="server" OnClientClick="return CheckValuationDate();" OnClick="lnkBtnFOLIOWISEAUM_OnClick"
         ValidationGroup="vgBtnGo"></asp:LinkButton>
-    <span>|</span>
-    <asp:LinkButton ID="lnkBtnTURNOVERAUM" Text="TURNOVER AUM" CssClass="LinkButtonsWithoutUnderLine"
-        runat="server" OnClick="lnkBtnTURNOVERAUM_OnClick"></asp:LinkButton>
+
 </div>
 <div class="divSectionHeading" style="vertical-align: middle; margin:2px">
     <asp:Label ID="lblMFMISType" runat="server" CssClass="LinkButtons"></asp:Label>
@@ -162,63 +162,7 @@
         </ClientSettings>
     </telerik:RadGrid>
 </div>
-<div>
-    <telerik:RadWindow ID="rWTurnOverAUM" runat="server" VisibleOnPageLoad="false" Height="30%"
-        Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move,resize,close"
-        OnClientShow="SetWindowBehavior" Title="TURN OVER AUM">
-        <ContentTemplate>
-            <div style="margin: 4px">
-                <asp:RadioButton ID="rbtnPickDate" Checked="true" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                    runat="server" GroupName="Date" />
-                <asp:Label ID="lblPickDate" runat="server" Text="Pick a date range" CssClass="Field"></asp:Label>
-                <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                    runat="server" GroupName="Date" />
-                <asp:Label ID="lblPickPeriod" runat="server" Text="Pick a Period" CssClass="Field"></asp:Label>
-            </div>
-            <br />
-            <div style="margin: 4px" id="divPickAdateRange" runat="server">
-                <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
-                <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField"></asp:TextBox>
-                <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
-                    Format="dd/MM/yyyy">
-                </cc1:CalendarExtender>
-                <cc1:TextBoxWatermarkExtender ID="txtFromDate_TextBoxWatermarkExtender" runat="server"
-                    TargetControlID="txtFromDate" WatermarkText="dd/mm/yyyy">
-                </cc1:TextBoxWatermarkExtender>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtFromDate"
-                    CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
-                    runat="server" InitialValue="" ValidationGroup="btnGo">
-                </asp:RequiredFieldValidator>
-                <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
-                <asp:TextBox ID="txtToDate" runat="server" CssClass="txtField"></asp:TextBox>
-                <cc1:CalendarExtender ID="txtToDate_CalendarExtender" runat="server" TargetControlID="txtToDate"
-                    Format="dd/MM/yyyy">
-                </cc1:CalendarExtender>
-                <cc1:TextBoxWatermarkExtender ID="txtToDate_TextBoxWatermarkExtender" runat="server"
-                    TargetControlID="txtToDate" WatermarkText="dd/mm/yyyy">
-                </cc1:TextBoxWatermarkExtender>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtToDate"
-                    CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
-                    runat="server" InitialValue="" ValidationGroup="btnGo">
-                </asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />To Date should not less than From Date"
-                    Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
-                    CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
-            </div>
-            <br />
-            <div style="margin: 4px" id="divPickAPeriod" runat="server">
-                <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
-                <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField">
-                </asp:DropDownList>
-            </div>
-            <br />
-            <div style="margin: 4px">
-                <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton" />
-            </div>
-            <br />
-        </ContentTemplate>
-    </telerik:RadWindow>
-</div>
+
 <div runat="server" id="divGvFolioWiseAUM" style="overflow: scroll;" visible="false">
     <telerik:RadGrid OnPreRender="gvFolioWiseAUM_PreRender" ID="gvFolioWiseAUM" runat="server"
         GridLines="None" AutoGenerateColumns="False" PageSize="10" AllowSorting="true"
@@ -365,65 +309,19 @@
         </ClientSettings>
     </telerik:RadGrid>
 </div>
-<div runat="server" id="divGvTurnOverSummary" visible="false" style="margin: 2px">
-    <telerik:RadGrid ID="gvTurnOverSummary" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-FileName="TurnOverSummary Details"
-        OnNeedDataSource="gvTurnOverSummary_OnNeedDataSource">
-        <ExportSettings HideStructureColumns="true">
-        </ExportSettings>
-        <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-            CommandItemDisplay="None">
-            <Columns>
-                <telerik:GridBoundColumn HeaderText="Category" DataField="Category" UniqueName="Category"
-                    SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
-                    CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Buy Value" DataField="BuyValue" UniqueName="BuyValue"
-                    SortExpression="BuyValue" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Sell Value" DataField="SellValue" UniqueName="SellValue"
-                    SortExpression="SellValue" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="No. of Transactions" DataField="NoOfTrans" UniqueName="NoOfTrans"
-                    SortExpression="NoOfTrans" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="SIP Value" DataField="SIPValue" UniqueName="SIPValue"
-                    SortExpression="SIPValue" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="No. of SIPs" DataField="NoOfSIPs" UniqueName="NoOfSIPs"
-                    SortExpression="NoOfSIPs" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-            </Columns>
-        </MasterTableView>
-        <HeaderStyle Width="125px" />
-        <ClientSettings>
-            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-            <Resizing AllowColumnResize="true" />
-        </ClientSettings>
-    </telerik:RadGrid>
-</div>
+
 <br />
-<div style="margin: 6px" class="Note">
-    <p>
-        <b>Note: For TURNOVER AUM please donot select "As on Date:" </b>
-    </p>
+<div style="margin: 6px">
+    <label id="lbl" class="HeaderTextSmall">
+        Note: Only historical data is accessible from this screen. Recent data for the last
+        2 Business day will not be available. To view the recent data View Dashboards &
+        Net Positions.</label>
 </div>
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnXWise" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnadviserId" runat="server"/>
 <asp:HiddenField ID="hdnValuationDate" runat="server" />
+<asp:HiddenField ID="hdnType" runat="server"/>
