@@ -596,8 +596,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Equity MIS")
                 {
-                    Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
                 else if (e.Item.Value == "Goal_MIS")
                 {
@@ -874,7 +874,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Equity MIS")
                 {
                     Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
                 else if (e.Item.Value == "Goal_MIS")
                 {
@@ -1014,7 +1014,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Equity MIS")
                 {
                     Session["UserType"] = "bm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserEQMIS", "loadcontrol('AdviserEQMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserEQMIS", "loadcontrol('MutualFundMIS','login');", true);
                 }
                 else if (e.Item.Value == "Goal_MIS")
                 {
