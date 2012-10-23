@@ -663,57 +663,61 @@ namespace WealthERP.OPS
 
         protected void btnSync_Click(object sender, EventArgs e)
         {
-           // int i=0;
-           // int gvOrderId = 0;
-           // //int gvCustomerId = 0;
-           // int gvPortfolioId = 0;
-           // int gvSchemeCode = 0;
-           // int gvaccountId = 0;
-           // string gvTrxType = "";
-           // double gvAmount = 0.0;
-           // DateTime gvOrderDate = DateTime.MinValue;
-           // bool result = false;
-           // foreach (GridViewRow gvRow in gvCustomerOrderMIS.rows)
-           //{
+            int i = 0;
+            int gvOrderId = 0;
+            //int gvCustomerId = 0;
+            int gvPortfolioId = 0;
+            int gvSchemeCode = 0;
+            int gvaccountId = 0;
+            string gvTrxType = "";
+            double gvAmount = 0.0;
+            DateTime gvOrderDate = DateTime.MinValue;
+            bool result = false;
+            foreach (GridDataItem gvRow in gvCustomerOrderMIS.Items)
+            {
 
-           //    CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
-           //    if (chk.Checked)
-           //    {
-           //        i++;
-           //    }
-               
-           //}
-           // if (i == 0)
-           // {
-           //     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
-           //     BindMISGridView();
-           // }
-           // else
-           // {
-           //     foreach (GridViewRow gvRow in gvCustomerOrderMIS.Rows)
-           //     {
-           //         if (((CheckBox)gvRow.FindControl("cbRecons")).Checked == true)
-           //         {
-           //             gvOrderId = Convert.ToInt32(gvCustomerOrderMIS.DataKeys[gvRow.RowIndex].Values["CMFOD_OrderDetailsId"].ToString());
-           //             //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
-           //             gvPortfolioId = Convert.ToInt32(gvCustomerOrderMIS.DataKeys[gvRow.RowIndex].Values["CP_portfolioId"].ToString());
-           //             gvSchemeCode = Convert.ToInt32(gvCustomerOrderMIS.DataKeys[gvRow.RowIndex].Values["PASP_SchemePlanCode"].ToString());
-           //             if (!string.IsNullOrEmpty(gvCustomerOrderMIS.DataKeys[gvRow.RowIndex].Values["CMFA_AccountId"].ToString().Trim()))
-           //                 gvaccountId = Convert.ToInt32(gvCustomerOrderMIS.DataKeys[gvRow.RowIndex].Values["CMFA_AccountId"].ToString());
-           //             else
-           //                 gvaccountId = 0;
-           //             gvTrxType = gvCustomerOrderMIS.DataKeys[gvRow.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
-           //             gvAmount = Convert.ToDouble(gvCustomerOrderMIS.DataKeys[gvRow.RowIndex].Values["CMFOD_Amount"].ToString());
-           //             gvOrderDate = Convert.ToDateTime(gvCustomerOrderMIS.DataKeys[gvRow.RowIndex].Values["CO_OrderDate"].ToString());
-           //             result = operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, gvOrderDate);
-           //             if (result == true)
-           //                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
-           //             else
-           //                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
-           //         }
-           //     }
-           //     BindMISGridView();
-           // }
+                CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
+                if (chk.Checked)
+                {
+                    i++;
+                }
+
+            }
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
+                BindMISGridView();
+            }
+            else
+            {
+                foreach (GridDataItem gvRow1 in gvCustomerOrderMIS.Items)
+                {
+                    if (((CheckBox)gvRow1.FindControl("cbRecons")).Checked == true)
+                    {
+                        LinkButton lnkOrderId = (LinkButton)sender;
+                        GridDataItem gdi;
+                        gdi = (GridDataItem)lnkOrderId.NamingContainer;
+                        int selectedRow = gdi.ItemIndex + 1;
+                        gvOrderId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_OrderDetailsId"].ToString());
+                        //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
+                        gvPortfolioId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CP_portfolioId"].ToString());
+                        gvSchemeCode = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PASP_SchemePlanCode"].ToString());
+                        if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString().Trim()))
+                            gvaccountId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString());
+                        else
+                            gvaccountId = 0;
+                        gvTrxType = gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["WMTT_TransactionClassificationCode"].ToString();
+                        gvAmount = Convert.ToDouble(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString());
+                        gvOrderDate = Convert.ToDateTime(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString());
+                        result = operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, gvOrderDate);
+                        if (result == true)
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
+                        else
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
+                    }
+                }
+                BindMISGridView();
+            }
         }
 
         protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
