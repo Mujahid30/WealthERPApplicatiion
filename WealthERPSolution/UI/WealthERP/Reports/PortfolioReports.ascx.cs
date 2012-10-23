@@ -3,6 +3,7 @@ using System.Data;
 using BoCustomerProfiling;
 using BoCommon;
 using VoUser;
+using BoAdvisorProfiling;
 using System.Configuration;
 using WealthERP.Base;
 using BoCustomerPortfolio;
@@ -29,6 +30,9 @@ namespace WealthERP.Reports
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
         int activeTabIndex = 0;
+        DateTime LatestValuationdate = new DateTime();
+        AdvisorMISBo adviserMISBo = new AdvisorMISBo();
+        int advisorId;
         CustomerVo customerVo = new CustomerVo();
         AdvisorVo advisorVo = null;
         bool CustomerLogin = false;
@@ -107,6 +111,9 @@ namespace WealthERP.Reports
                 if (!IsPostBack)
                 {
                     CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+                      advisorId = advisorVo.advisorId;
+                    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                    hdnValuationDate.Value = LatestValuationdate.ToString();
                     if (CustomerLogin == true)
                     {
                         trCustomerGrHead.Visible = true;
@@ -149,9 +156,12 @@ namespace WealthERP.Reports
                     DataSet ds = customerTransactionBo.GetLastTradeDate();
                     if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                     {
-                        txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                        txtFromDate.Text = LatestValuationdate.ToShortDateString();
+                        txtToDate.Text = LatestValuationdate.ToShortDateString();
+                        //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        //txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                     }
                 }
 

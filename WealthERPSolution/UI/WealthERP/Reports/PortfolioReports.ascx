@@ -499,7 +499,7 @@
                     <td>
                         <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">                            
                              <asp:ListItem Text="" Value="ASSET_ALLOCATION_REPORT" Selected="True">Asset Summary</asp:ListItem>
-                            <%-- <asp:ListItem Text="" Value="INVESTMENT_SUMMARY_REPORT">Investment Summary</asp:ListItem>--%>
+                            <%-- <asp:ListItem Text="" Value="COMPREHENSIVE_NETWORTH_REPORT">Comprehensive Networth</asp:ListItem>--%>
                              <asp:ListItem Text="" Value="MULTI_ASSET_SUMMARY_REPORT">Net Worth</asp:ListItem>
                         </asp:DropDownList>
                     </td>
@@ -622,6 +622,10 @@
         </td>
     </tr>
 </table>
+<div style="margin: 6px">
+    <label id="lbl" class="HeaderTextSmall">
+        Note: Only historical data is accessible from this screen. Recent data for the last 2 Business day will not be available. To view the recent data View Dashboards & Net Positions.</label>
+</div>
 <asp:HiddenField ID="hidFromDate" Value="" runat="server" />
 <asp:HiddenField ID="hidToDate" Value="" runat="server" />
 <asp:HiddenField ID="hidDateType" Value="" runat="server" />
@@ -629,7 +633,7 @@
 <asp:HiddenField ID="hidPortfolioIds" Value="" runat="server" />
 <asp:HiddenField ID="hndCustomerLogin" runat="server" />
 <asp:HiddenField ID="hdnCustomerId1" runat="server" />
-
+<asp:HiddenField ID="hdnValuationDate" runat="server" />
 <script>
     if (document.getElementById("<%= rbtnPickDate.ClientID %>").checked) {
         document.getElementById("<%= rbtnPickDate.ClientID %>").style.display = 'block';
