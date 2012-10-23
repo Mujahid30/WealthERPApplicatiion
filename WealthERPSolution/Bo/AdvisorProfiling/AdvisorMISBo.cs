@@ -585,13 +585,13 @@ namespace BoAdvisorProfiling
             return dsBMMIS;
         }
 
-        public DataSet GetAUMForBM(int rmId, int branchId, int branchHeadId,DateTime Valuationdate)
+        public DataSet GetAUMForBM(int rmId, int branchId, int branchHeadId,DateTime Valuationdate,int type)
         {
             DataSet dsBMMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsBMMIS = MISDao.GetAUMForBM(rmId, branchId, branchHeadId, Valuationdate);
+                dsBMMIS = MISDao.GetAUMForBM(rmId, branchId, branchHeadId, Valuationdate,type);
             }
             catch (BaseApplicationException Ex)
             {
