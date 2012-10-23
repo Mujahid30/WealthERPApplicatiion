@@ -446,15 +446,6 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Panel tbgvMIS;
         
         /// <summary>
-        /// gvMIS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMIS;
-        
-        /// <summary>
         /// btnSync control.
         /// </summary>
         /// <remarks>
@@ -606,5 +597,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
+        protected global::Telerik.Web.UI.RadGrid gvCustomerOrderMIS;
+
+        protected global::System.Web.UI.WebControls.ImageButton btnMForderRecon;
     }
 }
