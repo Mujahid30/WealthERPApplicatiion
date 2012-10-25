@@ -1621,5 +1621,69 @@ namespace BoAdvisorProfiling
 
         }
 
+
+        public DataSet GetAdviserCustomerCategory(int AdviserId)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            DataSet dsGetAdviserCustomerCategory;
+            try
+            {
+                dsGetAdviserCustomerCategory = adviserDao.GetAdviserCustomerCategory(AdviserId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetAdviserCustomerCategory;
+        }
+
+        public bool DeleteAdviserCustomerCategory(int CategoryCode)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            bool isDeleted = false;
+            try
+            {
+                isDeleted=adviserDao.DeleteAdviserCustomerCategory(CategoryCode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isDeleted; 
+        }
+
+        public bool InsertAdviserCustomerCategory(string CategoryName, int AdviserId)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            bool isInserted = false;
+            try
+            {
+                isInserted = adviserDao.InsertAdviserCustomerCategory(CategoryName, AdviserId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isInserted;
+        }
+
+        public bool EditAdviserCustomerCategory(int CategoryCode, string CategoryName, int AdviserId)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            bool isUpdate = false;
+            try
+            {
+                isUpdate = adviserDao.EditAdviserCustomerCategory(CategoryCode, CategoryName, AdviserId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isUpdate;
+        }
     }
 }
