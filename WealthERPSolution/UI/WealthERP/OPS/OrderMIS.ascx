@@ -625,7 +625,7 @@
                 <telerik:RadGrid ID="gvCustomerOrderMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"  
                     OnItemDataBound="gvCustomerOrderMIS_ItemDataBound" OnNeedDataSource="gvCustomerOrderMIS_OnNeedDataSource"
-                    ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                    ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="false"
                     AllowAutomaticInserts="false" ExportSettings-FileName="MF Order Recon" > 
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="MF Order Recon" Excel-Format="ExcelML">
                     </ExportSettings>

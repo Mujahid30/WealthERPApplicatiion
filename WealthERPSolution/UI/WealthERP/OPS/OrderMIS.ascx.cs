@@ -690,13 +690,14 @@ namespace WealthERP.OPS
             }
             else
             {
-                foreach (GridDataItem gvRow1 in gvCustomerOrderMIS.Items)
+                foreach (GridDataItem gdi in gvCustomerOrderMIS.Items)
+                    
                 {
-                    if (((CheckBox)gvRow1.FindControl("cbRecons")).Checked == true)
+                    if (((CheckBox)gdi.FindControl("cbRecons")).Checked == true)
                     {
-                        LinkButton lnkOrderId = (LinkButton)sender;
-                        GridDataItem gdi;
-                        gdi = (GridDataItem)lnkOrderId.NamingContainer;
+                        //CheckBox lnkOrderId = (CheckBox)sender;
+                        //GridDataItem gdi;
+                        //gdi = (GridDataItem)lnkOrderId.NamingContainer;
                         int selectedRow = gdi.ItemIndex + 1;
                         gvOrderId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_OrderDetailsId"].ToString());
                         //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
@@ -720,11 +721,7 @@ namespace WealthERP.OPS
             }
         }
 
-        protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
-        {
-            ModalPopupExtender1.TargetControlID = "imgBtnExport";
-            ModalPopupExtender1.Show();
-        }
+
 
         //protected void btnExportExcel_Click(object sender, EventArgs e)
         //{
@@ -955,15 +952,15 @@ namespace WealthERP.OPS
                 int schemeCodeSwitch = 0;
                 string TrxType = string.Empty;
                 DateTime OrderDate = DateTime.MinValue;
-               
-                foreach (GridDataItem gvRow1 in gvCustomerOrderMIS.Items)
+
+                foreach (GridDataItem gdi in gvCustomerOrderMIS.Items)
                 {
-                    if (((CheckBox)gvRow1.FindControl("cbRecons")).Checked == true)
+                    if (((CheckBox)gdi.FindControl("cbRecons")).Checked == true)
                     {
 
-                        LinkButton lnkOrderId = (LinkButton)sender;
-                        GridDataItem gdi;
-                        gdi = (GridDataItem)lnkOrderId.NamingContainer;
+                        //LinkButton lnkOrderId = (LinkButton)sender;
+                        //GridDataItem gdi;
+                        //gdi = (GridDataItem)lnkOrderId.NamingContainer;
                         int selectedRow = gdi.ItemIndex + 1;
                         OrderId = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_OrderDetailsId"].ToString());
                         //OrderId = Convert.ToInt32(gvCustomerOrderMIS.DataKeys[gvRow1.RowIndex].Values["CMFOD_OrderDetailsId"].ToString());
