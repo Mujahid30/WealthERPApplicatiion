@@ -2601,6 +2601,93 @@ namespace DaoAdvisorProfiling
             }
           
         }
+        public DataSet GetAdviserCustomerCategory(int AdviserId)
+        {
+            DataSet dsGetAdviserCustomerCategory;
+            Database db;
+            DbCommand GetAdviserCustomerCategoryCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserCustomerCategoryCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerCategory");
+                db.AddInParameter(GetAdviserCustomerCategoryCmd, "@AdviserId", DbType.Int16, AdviserId);
+                dsGetAdviserCustomerCategory= db.ExecuteDataSet(GetAdviserCustomerCategoryCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetAdviserCustomerCategory;
+        }
+
+        public bool DeleteAdviserCustomerCategory(int CategoryCode)
+        {
+            Database db;
+            DbCommand deleteAdviserCustomerCategoryCmd;
+            bool bResult = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteAdviserCustomerCategoryCmd = db.GetStoredProcCommand("SP_DeleteAdviserCustomerCategory");
+                db.AddInParameter(deleteAdviserCustomerCategoryCmd, "@CategoryCode", DbType.Int16, CategoryCode);
+                //db.ExecuteNonQuery(deleteAdviserCustomerCategoryCmd);
+                if (db.ExecuteNonQuery(deleteAdviserCustomerCategoryCmd) != 0)
+                    bResult = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public bool InsertAdviserCustomerCategory(string CategoryName, int AdviserId)
+        {
+            Database db;
+            DbCommand insertAdviserCustomerCategoryCmd;
+            bool isInserted = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                insertAdviserCustomerCategoryCmd = db.GetStoredProcCommand("SP_CreateAdviserCustomerCategory");
+                db.AddInParameter(insertAdviserCustomerCategoryCmd, "@CategoryName", DbType.String, CategoryName);
+                db.AddInParameter(insertAdviserCustomerCategoryCmd, "@adviserId", DbType.Int32, AdviserId);
+                //db.ExecuteNonQuery(deleteAdviserCustomerCategoryCmd);
+                if (db.ExecuteNonQuery(insertAdviserCustomerCategoryCmd) != 0)
+                    isInserted = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isInserted;
+        }
+
+        public bool EditAdviserCustomerCategory(int CategoryCode, string CategoryName, int AdviserId)
+        {
+            Database db;
+            DbCommand updateAdviserCustomerCategoryCmd;
+            bool isupdate = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateAdviserCustomerCategoryCmd = db.GetStoredProcCommand("SP_UpdateAdviserCustomerCategory");
+                db.AddInParameter(updateAdviserCustomerCategoryCmd, "@CategoryCode", DbType.Int32, CategoryCode);
+                db.AddInParameter(updateAdviserCustomerCategoryCmd, "@CategoryName", DbType.String, CategoryName);
+                db.AddInParameter(updateAdviserCustomerCategoryCmd, "@adviserId", DbType.Int32, AdviserId);
+                //db.ExecuteNonQuery(deleteAdviserCustomerCategoryCmd);
+                if (db.ExecuteNonQuery(updateAdviserCustomerCategoryCmd) != 0)
+                    isupdate = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isupdate;
+        }
     }
 }
 
