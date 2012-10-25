@@ -161,7 +161,7 @@ namespace WealthERP.Customer
                 int userId = 0;
                 int customerId = 0;
 
-                if (assumptionValue == "LE" || assumptionValue == "RA" || assumptionValue == "INDR" || assumptionValue == "INR" || assumptionValue == "INIR" || assumptionValue == "INF")
+                if (assumptionValue == "LE" || assumptionValue == "RA" || assumptionValue == "INR")
                 {
                     userId = userVo.UserId;
                     customerId = customerVo.CustomerId;
