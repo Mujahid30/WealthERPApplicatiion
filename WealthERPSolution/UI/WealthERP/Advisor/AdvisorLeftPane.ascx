@@ -67,6 +67,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Set Theme" Value="Set Theme">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Setup customer category" Value="Setup_customer_category">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
