@@ -325,7 +325,7 @@ namespace WealthERP.FP
                 }
                 else if (lblGoalCode.Text.Trim() == "MR")
                 {
-                    imgGoalImage.ToolTip = "Child Marriage";
+                    imgGoalImage.ToolTip = "Children Marriage";
                     imgGoalImage.ImageUrl = "~/Images/ChildMarraiageGoal.png";
                 }
                 else if (lblGoalCode.Text.Trim() == "OT")
@@ -751,15 +751,9 @@ namespace WealthERP.FP
             
                 double costTodayTotal = 0;
                 double goalAmountTotal = 0;
-                double lumpsumInvestmentTotal = 0;
                 double monthlySavingReqTotal = 0;
                 double allocAmountToWardsGoalTotal = 0;
 
-                double currentGoalValueTotal = 0;
-                double sipAmountTotal = 0;
-                double projectedValueTotal = 0;
-                double additionalSavingReqTotal = 0;
-                double projectedGapValueTotal = 0;
 
                 DataRow drGoalProfile;
 
@@ -817,6 +811,7 @@ namespace WealthERP.FP
 
                 gvStandardGoaldetails.DataSource = dtGoalProfile;
                 gvStandardGoaldetails.DataBind();
+                Cache[customerVo.CustomerId + "dtGoalProfile"] = dtGoalProfile;
             }
         public void gvStandardGoaldetails_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -838,11 +833,11 @@ namespace WealthERP.FP
                 else if (lblGoalCode.Text.Trim() == "ED")
                 {
                     imgGoalImage.ImageUrl = "~/Images/EducationGoal.png";
-                    imgGoalImage.ToolTip = "Child Education";
+                    imgGoalImage.ToolTip = "Children Education";
                 }
                 else if (lblGoalCode.Text.Trim() == "MR")
                 {
-                    imgGoalImage.ToolTip = "Child Marriage";
+                    imgGoalImage.ToolTip = "Children Marriage";
                     imgGoalImage.ImageUrl = "~/Images/ChildMarraiageGoal.png";
                 }
                 else if (lblGoalCode.Text.Trim() == "OT")
@@ -915,10 +910,16 @@ namespace WealthERP.FP
                 if (GoalProfileList != null)
                 {
                     BindGoalOutputStandardRadGrid(GoalProfileList);
-
+                    imgBtnStandardGoalList.Visible = true;
+                    trNote1.Visible = true;
+                    trNote2.Visible = true;
                 }
                 else
+                {
                     trNoRecordFound.Visible = true;
+                    trNote1.Visible = false;
+                    trNote2.Visible = false;
+                }
             }
             else if (ddlActionGoalType.SelectedValue == "Advanced")
             {
@@ -928,13 +929,63 @@ namespace WealthERP.FP
                 GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(customerVo.CustomerId, 1, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
                 if (GoalProfileList != null)
                 {
+                    trNote1.Visible = true;
+                    trNote2.Visible = true;
                     BindGoalOutputGridView(GoalProfileList);
                 }
                 else
+                {
+                    trNote1.Visible = false;
+                    trNote2.Visible = false;
                     trNoRecordFound.Visible = true;
+                    tbl.Visible = false;
+                }
             }
 
 
         }
+
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+           DataTable dtGoalProfile=  (DataTable)Cache[customerVo.CustomerId + "dtGoalProfile"];
+           foreach (DataRow dr in dtGoalProfile.Rows)
+           {    
+               if (dr["GoalCode"].ToString() == "MR")
+               {
+                   dr["GoalCode"] = "Children Marriage";
+               }
+               else if (dr["GoalCode"].ToString() == "RT")
+               {
+                   dr["GoalCode"] = "Retirement";
+               }
+
+               else if (dr["GoalCode"].ToString() == "OT")
+               {
+                   dr["GoalCode"] = "Other";
+               }
+
+               else if (dr["GoalCode"].ToString() == "ED")
+               {
+                   dr["GoalCode"] = "Children Education";
+               }
+
+               else if (dr["GoalCode"].ToString() == "BH")
+               {
+                   dr["GoalCode"] = "Buy Home";
+               }
+
+
+           }
+           gvStandardGoaldetails.DataSource = dtGoalProfile;
+            //if(dtGoalProfile.Columns[
+            gvStandardGoaldetails.ExportSettings.OpenInNewWindow = true;
+            gvStandardGoaldetails.ExportSettings.IgnorePaging = true;
+            gvStandardGoaldetails.ExportSettings.HideStructureColumns = true;
+            gvStandardGoaldetails.ExportSettings.ExportOnlyData = true;
+            gvStandardGoaldetails.ExportSettings.FileName = "Standard Goal Details";
+            gvStandardGoaldetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvStandardGoaldetails.MasterTableView.ExportToExcel();
+        }
+
     }
 }

@@ -33,6 +33,11 @@
                         <td align="left">
                             Goal List
                         </td>
+                        <td>
+                        <asp:ImageButton ID="imgBtnStandardGoalList" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px" Visible="false"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -68,14 +73,18 @@
        </td>
     </tr>
 </table>
-<table width="100%" cellpadding="0" cellspacing="0">
-    <tr id="trNoRecordFound" runat="server" visible="false">
+<table width="100%">
+<tr id="trNoRecordFound" runat="server" visible="false">
+        
         <td align="center">
             <div id="Div1" runat="server" class="failure-msg" align="center">
                 No Records Found...
             </div>
         </td>
     </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+    
     <tr>
         <td>
             <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
@@ -329,22 +338,7 @@
             </asp:Panel>
         </td>
     </tr>
-    <tr>
-        <td>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-    </tr>
-    <tr id="trNote1" runat="server">
-        <td>
-            <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbField" Text="Note :"></asp:Label>
-        </td>
-    </tr>
-    <tr id="trNote2" runat="server">
-        <td>
-            <asp:Label ID="trRequiedNote" CssClass="cmbField" runat="server" Text="1)For retirement 'Cost At Start' is the required annual cost at today value."></asp:Label>
-        </td>
-    </tr>
+    
 </table>
 <table>
 <tr>
@@ -356,7 +350,7 @@
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false"   AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" OnItemDataBound="gvStandardGoaldetails_ItemDataBound">
-                   <ExportSettings HideStructureColumns="false"  ExportOnlyData="true" FileName="ExistMFInvestlist">
+                   <ExportSettings HideStructureColumns="false">
                 </ExportSettings>
                     <MasterTableView Width="100%" DataKeyNames="GoalId,GoalCode,IsGoalBehind" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
@@ -379,7 +373,7 @@
                                     </telerik:RadComboBox>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                             <telerik:GridTemplateColumn HeaderText="Goal" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="60Px"
+                             <telerik:GridTemplateColumn HeaderText="Goal" DataField="GoalCode" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="60Px"
                                 ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     <%--<asp:LinkButton ID="lnkGoalType" runat="server" CssClass="cmbField" 
@@ -395,7 +389,7 @@
                                     </asp:Label>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn HeaderText="Target Yr" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
+                            <telerik:GridTemplateColumn HeaderText="Target Yr" DataField="GoalYear" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="lblGoalYear" runat="server" CssClass="cmbField" Text='<%#Eval("GoalYear") %>'>
                                     </asp:Label>
@@ -410,7 +404,7 @@
                                 </ItemTemplate>
                                
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn HeaderText="Goal Start Dt" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center">
+                            <telerik:GridTemplateColumn HeaderText="Goal Start Dt" DataField="GoalPrifileDate" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="lblGoalDate" runat="server" CssClass="cmbField" Text='<%#Eval("GoalPrifileDate", "{0:M-dd-yyyy}")  %>'>
                                     </asp:Label>
@@ -423,21 +417,21 @@
                                     </asp:Label>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn HeaderText="Infl.(%)" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right"
+                            <telerik:GridTemplateColumn HeaderText="Infl.(%)" DataField="Inflation" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right"
                                 FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
                                     <asp:Label ID="lblInflation" runat="server" CssClass="cmbField" Text='<%#Eval("Inflation")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn HeaderText="Return on  Existing Investment(%)" HeaderStyle-Width="30px" ItemStyle-Wrap="true" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
+                            <telerik:GridTemplateColumn HeaderText="Rtn on Existing Invsetment(%)" DataField="ROIEarned" HeaderStyle-Width="10%" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRtnOnExistingInvestment" runat="server" CssClass="cmbField" Text='<%#Eval("ROIEarned")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn HeaderText="Return on Future Investment(%)" AllowFiltering="false" HeaderStyle-Width="70px"   HeaderStyle-HorizontalAlign="Center"
+                            <telerik:GridTemplateColumn HeaderText="Rtn on Future Invsetment(%)" DataField="ExpROI" AllowFiltering="false" HeaderStyle-Width="10%" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
                                     <asp:Label ID="lblExpROI" runat="server" CssClass="cmbField" Text='<%#Eval("ExpROI")%>'>
@@ -483,6 +477,16 @@
 </tr>
 
 </table>
+<table><tr id="trNote1" runat="server">
+        <td>
+            <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbField" Text="Note :"></asp:Label>
+        </td>
+    </tr>
+    <tr id="trNote2" runat="server">
+        <td>
+            <asp:Label ID="trRequiedNote" CssClass="cmbField" runat="server" Text="1)For retirement 'Cost At Start' is the required annual cost at today value."></asp:Label>
+        </td>
+    </tr></table>
 <asp:HiddenField ID="hidRTSaveReq" runat="server" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdndeleteId" runat="server" />
