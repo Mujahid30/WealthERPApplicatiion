@@ -1437,4 +1437,12 @@
     <value>AdvsierPreferenceSettings//CustomerCategorySetup.ascx</value>
     <comment>AdvsierPreferenceSettings//CustomerCategorySetup.ascx</comment>
   </data>
+  <data name="CustomerISARequest" xml:space="preserve">
+    <value>Customer//CustomerISARequest.ascx</value>
+    <comment>Customer//CustomerISARequest.ascx</comment>
+  </data>
+  <data name="MFDashBoard" xml:space="preserve">
+    <value>BusinessMIS//MFDashBoard.ascx</value>
+    <comment>BusinessMIS//MFDashBoard.ascx</comment>
+  </data>
 </root>

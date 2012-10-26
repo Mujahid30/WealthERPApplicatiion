@@ -952,6 +952,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer//CustomerISARequest.ascx.
+        /// </summary>
+        internal static string CustomerISARequest {
+            get {
+                return ResourceManager.GetString("CustomerISARequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//CustomerMFAccountAdd.ascx.
         /// </summary>
         internal static string CustomerMFAccountAdd {
@@ -1731,6 +1740,15 @@ namespace WealthERP {
         internal static string MessageOutbox {
             get {
                 return ResourceManager.GetString("MessageOutbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//MFDashBoard.ascx.
+        /// </summary>
+        internal static string MFDashBoard {
+            get {
+                return ResourceManager.GetString("MFDashBoard", resourceCulture);
             }
         }
         
