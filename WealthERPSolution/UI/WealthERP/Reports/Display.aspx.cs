@@ -277,7 +277,7 @@ namespace WealthERP.Reports
             //else
             //    chkBoxsList.Add("KeyAssumptions", "N");
 
-            chkBoxsList.Add("KeyAssumptions", "N");
+            chkBoxsList.Add("KeyAssumptions", "Y");
 
             if (Request.Form[ctrlPrefix + "chkGoalProfile"] == "on")
                 chkBoxsList.Add("GoalProfile", "Y");
@@ -861,7 +861,7 @@ namespace WealthERP.Reports
             double currentAssetPer = 0;
             double recAssetPer = 0;
             double financialHealthTotal = 0;
-            double totalAnnualIncome = 0;
+            double totalAnnualIncome = 0;           
             int dynamicRiskClass = 0;
             string fpImage = "SCBFPImage.jpg";
             string fpCoverHeaderImage = "FPReportHeader.jpg";
@@ -924,6 +924,7 @@ namespace WealthERP.Reports
             //dtHLVAnalysis = dsCustomerFPReportDetails.Tables[18];
             //dtAdvisorRiskClass = dsCustomerFPReportDetails.Tables[16];
             //dtPortfolioAllocation = dsCustomerFPReportDetails.Tables[17];
+            
 
             dtAdvisorPortfolioAllocation = CreatePortfolioAllocationTable(dtAdvisorPortfolioAllocation, dynamicRiskClass);
 
@@ -975,6 +976,7 @@ namespace WealthERP.Reports
             crmain.SetParameterValue("Networth", convertUSCurrencyFormat(Math.Round(double.Parse(networth.ToString()), 0)));
             crmain.SetParameterValue("AnnualIncomeTotal", totalAnnualIncome);
             crmain.SetParameterValue("FinancialAssetTotal", Math.Round(double.Parse(financialAssetTotal.ToString()), 0).ToString());
+           
 
 
             if (!string.IsNullOrEmpty(riskClass.Trim()))
@@ -1582,7 +1584,7 @@ namespace WealthERP.Reports
             string strIncomeExpenseSurplus = string.Empty;
             string strAssetAllocation = string.Empty;
             string strHLVNote = string.Empty;
-            string strRMRecommendations = string.Empty;
+            string strRMRecommendations = string.Empty;            
 
             DataTable dtReportSectionAndText = dsCustomerFPReportDetails.Tables["ReportSection"];
             DataTable dtMonthlyGoalTotal = dsCustomerFPReportDetails.Tables["MonthlyGoalTotal"];
@@ -1602,6 +1604,7 @@ namespace WealthERP.Reports
             double totalExpense = 0;
             double totalMonthlySurplus = 0;
             double equityGapPercent = 0;
+            double insuranceRecommendation = 0;
 
 
             if (dtIncome.Rows.Count > 0)
@@ -2436,6 +2439,10 @@ namespace WealthERP.Reports
                 {
                     strHLVNote = strHLVNote.Replace("#DiscountRate#", dr["Assumption_Values"].ToString());
                 }
+                else if (dr["Assumption_Type"].ToString() == "Insurance Recommendation")
+                {
+                    insuranceRecommendation = double.Parse(dr["Assumption_Values"].ToString());
+                }
             }
 
 
@@ -2523,7 +2530,7 @@ namespace WealthERP.Reports
             crmain.SetParameterValue("HLV_Note", strHLVNote);
             crmain.SetParameterValue("RatioTest", 65);
             crmain.SetParameterValue("RMRecommendations", strRMRecommendations);
-
+            crmain.SetParameterValue("InsuranceRecommendation", insuranceRecommendation);
 
         }
         private string convertUSCurrencyFormat(double value)
