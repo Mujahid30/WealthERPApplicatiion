@@ -1231,6 +1231,13 @@
     <Compile Include="BusinessMIS\MFDashBoard.ascx.designer.cs">
       <DependentUpon>MFDashBoard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="BusinessMIS\MFTurnOverMIS.ascx.cs">
+      <DependentUpon>MFTurnOverMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\MFTurnOverMIS.ascx.designer.cs">
+      <DependentUpon>MFTurnOverMIS.ascx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\MultiProductMIS.ascx.cs">
       <DependentUpon>MultiProductMIS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2164,6 +2171,13 @@
     </Compile>
     <Compile Include="FP\CustomerFPProjections.ascx.designer.cs">
       <DependentUpon>CustomerFPProjections.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\CustomerFPRecommendation.ascx.cs">
+      <DependentUpon>CustomerFPRecommendation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerFPRecommendation.ascx.designer.cs">
+      <DependentUpon>CustomerFPRecommendation.ascx</DependentUpon>
     </Compile>
     <Compile Include="FP\CustomerProspect.ascx.cs">
       <DependentUpon>CustomerProspect.ascx</DependentUpon>
@@ -5616,6 +5630,7 @@
     <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
     <Content Include="BusinessMIS\GoalMIS.ascx" />
     <Content Include="BusinessMIS\MFDashBoard.ascx" />
+    <Content Include="BusinessMIS\MFTurnOverMIS.ascx" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
     <Content Include="BusinessMIS\MutualFundMIS.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
@@ -5694,6 +5709,7 @@
     <Content Include="FP\CustomerFPGoalPlanningDetails.ascx" />
     <Content Include="FP\CustomerFPGoalSetup.ascx" />
     <Content Include="FP\CustomerFPProjections.ascx" />
+    <Content Include="FP\CustomerFPRecommendation.ascx" />
     <Content Include="FP\CustomerProspect.ascx" />
     <Content Include="FP\FinancialPlanning.htm" />
     <Content Include="FP\OfflineForm.aspx" />

@@ -1445,4 +1445,12 @@
     <value>BusinessMIS//MFDashBoard.ascx</value>
     <comment>BusinessMIS//MFDashBoard.ascx</comment>
   </data>
+  <data name="CustomerFPRecommendation" xml:space="preserve">
+    <value>FP//CustomerFPRecommendation.ascx</value>
+    <comment>FP//CustomerFPRecommendation.ascx</comment>
+  </data>
+  <data name="MFTurnOverMIS" xml:space="preserve">
+    <value>BusinessMIS//MFTurnOverMIS.ascx</value>
+    <comment>BusinessMIS//MFTurnOverMIS.ascx</comment>
+  </data>
 </root>

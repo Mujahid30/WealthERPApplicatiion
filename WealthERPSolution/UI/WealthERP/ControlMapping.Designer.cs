@@ -898,6 +898,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FP//CustomerFPRecommendation.ascx.
+        /// </summary>
+        internal static string CustomerFPRecommendation {
+            get {
+                return ResourceManager.GetString("CustomerFPRecommendation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OPS//CustomerGeneralInsuranceOrder.ascx.
         /// </summary>
         internal static string CustomerGeneralInsuranceOrder {
@@ -1785,6 +1794,15 @@ namespace WealthERP {
         internal static string MFReports {
             get {
                 return ResourceManager.GetString("MFReports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//MFTurnOverMIS.ascx.
+        /// </summary>
+        internal static string MFTurnOverMIS {
+            get {
+                return ResourceManager.GetString("MFTurnOverMIS", resourceCulture);
             }
         }
         
