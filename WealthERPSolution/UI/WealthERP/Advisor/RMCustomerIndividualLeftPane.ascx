@@ -110,6 +110,9 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                    
+                                    <telerik:RadPanelItem runat="server" Text="Advisor Notes" Value="Advisor Notes">
+                                    </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server"  Value="Customer_Order" Text="Product Order">
@@ -127,7 +130,7 @@
                                     <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" ImagePosition="Right"
                                         Text="Assumptions and Preferences" Value="Preferences">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Advisor Notes" Value="Advisor Notes">
+                                    <telerik:RadPanelItem runat="server" Text="Recommendation" Value="CustomerFPRecommendation">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Risk Profile and Asset Allocation" Value="Risk profile and asset allocation">
                                     </telerik:RadPanelItem>

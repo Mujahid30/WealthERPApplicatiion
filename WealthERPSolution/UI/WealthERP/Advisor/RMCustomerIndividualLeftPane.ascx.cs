@@ -1050,6 +1050,10 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Advisor Notes")
                 {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerAdvisorsNote", "loadcontrol('CustomerAdvisorsNote','none');", true);
+                }
+                else if (e.Item.Value == "CustomerFPRecommendation")
+                {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerAdvisorsNote", "loadcontrol('CustomerFPRecommendation','none');", true);
                 }
                 else if (e.Item.Value == "Risk profile and asset allocation")
