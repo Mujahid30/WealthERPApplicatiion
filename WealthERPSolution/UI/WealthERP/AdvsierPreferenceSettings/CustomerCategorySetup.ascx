@@ -4,6 +4,14 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
+<script type="text/javascript" language="javascript">
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
+
+</script>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager> 
 
@@ -13,7 +21,7 @@
 <div class="divPageHeading">
     <table cellspacing="0"  width="100%">
         <tr>
-        <td align="left">Setup customer category</td>
+        <td align="left">Setup Customer Category</td>
         <td  align="right" id="tdGoalExport" runat="server" style="padding-bottom:2px;">
         </td>
         </tr>
@@ -53,13 +61,13 @@
             PopUpSettings-Height="200px" PopUpSettings-Width="300px">            
                 <FormTemplate>
                     <table>
-                      <tr id="trAddCategory" runat="server">
+                      <tr id="trAddCategory" runat="server" >
                         <td class="leftField">
                             <asp:Label ID="lblCategoryCode" runat="server" Text="CategoryCode :" CssClass="FieldName"></asp:Label>
                         </td>
-                        <td class="rightField">
+                        <td class="rightField" onkeypress="return keyPress(this, event)">
                             <asp:TextBox ID="txtCategoryCode" CssClass="txtField" Text='<%# Bind( "ACC_CustomerCategoryCode") %>' Enabled="false" runat="server">
-                            </asp:TextBox> <span id="Span6" class="spnRequiredField">*</span>                              
+                            </asp:TextBox>                              
                         </td>
                         
                       </tr>
@@ -67,13 +75,13 @@
                         <td class="leftField">
                             <asp:Label ID="lblCategoryName" runat="server" Text="CategoryName :" CssClass="FieldName"></asp:Label>
                         </td>
-                        <td class="rightField">
+                        <td class="rightField" onkeypress="return keyPress(this, event)">
                            <asp:TextBox ID="txtCategoryName" CssClass="txtField" Text='<%# Bind( "ACC_customerCategoryName") %>'  runat="server">
-                           </asp:TextBox>
+                           </asp:TextBox><span id="Span6" class="spnRequiredField">*</span> 
                         </td>
                         <td>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtCategoryName"
-                            ErrorMessage="Please Enter Category name " Display="Dynamic" runat="server"
+                            ErrorMessage="<br />Please Enter Category name " Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="Button1">
                         </asp:RequiredFieldValidator>
                         </td>
@@ -82,7 +90,7 @@
                       <tr>
                             <td align="right" colspan="2">
                                 <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' ValidationGroup="Button1" 
-                                  CssClass="PCGButton"   runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' OnClientClick="return SumValidate();">
+                                  CssClass="PCGButton"   runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' >
                                 </asp:Button>&nbsp;
                                 <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
                                 </asp:Button>
