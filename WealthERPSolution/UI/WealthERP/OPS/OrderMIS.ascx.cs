@@ -1467,6 +1467,16 @@ namespace WealthERP.OPS
             dtOrderMIS = (DataTable)Cache["OrderMIS" + userVo.UserId];
             gvCustomerOrderMIS.DataSource = dtOrderMIS;
             gvCustomerOrderMIS.Visible = true;
+            if (ddlMISOrderStatus.SelectedValue == "OMIP")
+            {
+                btnSync.Visible = true;
+                btnMannualMatch.Visible = true;
+            }
+            else
+            {
+                btnSync.Visible = false;
+                btnMannualMatch.Visible = false;
+            }
         }
 
         protected void btnMForderRecon_Click(object sender, ImageClickEventArgs e)
