@@ -367,11 +367,10 @@
                 OnClick="Button1_Click" />
             <asp:Button ID="hiddenUpdateNetPosition" runat="server" OnClick="hiddenUpdateNetPosition_Click"
                 Text="" BorderStyle="None" BackColor="Transparent" />
-           
+           `
         </td>
     </tr>
-   
-      
+    
 
     
     <tr id="trNote" runat="server">

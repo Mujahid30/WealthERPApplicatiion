@@ -802,12 +802,14 @@ namespace WealthERP.Advisor
             {
                 trMf.Visible = false;
                 trEquity.Visible = true;
+                trFPSync.Visible = false;
                 btnFPSync.Visible = false;
                 trValuation.Visible = true;
                 trSubmitButton.Visible = true;
+                hiddenUpdateNetPosition.Visible = false;
                 trSelectAllFPGrid.Visible = false;
-                trFPSync.Visible = false;
                 trNote.Visible = true;
+                Button1.Visible = true;
                 DivMfNote.Visible = false;
                 trHeader.Visible = true;
                 ddTradeYear.Items.Clear();
@@ -819,7 +821,8 @@ namespace WealthERP.Advisor
             else if (ddlValuationTypes.SelectedValue == "MF")
             {
                 //trMf.Visible = true;
-                hiddenUpdateNetPosition.Visible = false;
+                trSubmitButton.Visible = false;
+                hiddenUpdateNetPosition.Visible = true;
                 trValuation.Visible = false;
                 Button1.Visible = false;
                 trFPSync.Visible = false;
