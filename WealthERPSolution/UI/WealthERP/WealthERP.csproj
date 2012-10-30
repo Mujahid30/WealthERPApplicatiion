@@ -5574,6 +5574,7 @@
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\BoAdvisorProfiling.pdb" />
     <Content Include="bin\BoCommon.pdb" />
+    <Content Include="bin\BoCustomerPortfolio.pdb" />
     <Content Include="bin\BoCustomerRiskProfiling.dll" />
     <Content Include="bin\BoCustomerRiskProfiling.pdb" />
     <Content Include="bin\BoFPSuperlite.pdb" />

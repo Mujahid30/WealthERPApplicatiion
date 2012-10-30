@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VoCustomerPortfolio;
+using VoCustomerProfiling;
 
 namespace VoCustomerPortfolio
 {
     /// <summary>
     /// added field name to capture original costumer name
     /// </summary>
-    public class CustomerAccountsVo
+    public class CustomerAccountsVo : CustomerBankAccountVo
     {
         #region Fields
 

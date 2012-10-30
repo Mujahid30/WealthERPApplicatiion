@@ -79,6 +79,12 @@
     <Compile Include="RealEstateBo.cs" />
     <Compile Include="SystematicSetupBo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Vo\CustomerProfiling\VoCustomerProfiling.csproj">
+      <Project>{9ADEC963-65FF-407E-A710-E8DFAAE884C9}</Project>
+      <Name>VoCustomerProfiling</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
