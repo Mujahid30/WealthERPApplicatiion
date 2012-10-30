@@ -515,6 +515,7 @@ namespace DaoAdvisorProfiling
                         advisorVo.HostId = Int16.Parse(dr["A_HostId"].ToString());
 
                     advisorVo.IsLoginWidgetEnable = Convert.ToBoolean(Int16.Parse(dr["A_IsloginWidgetEnable"].ToString()));
+                    advisorVo.IsISASubscribed = Convert.ToBoolean(Int16.Parse(dr["AS_IsISASubscribed"].ToString()));
 
                 }
 
@@ -1523,6 +1524,7 @@ namespace DaoAdvisorProfiling
                         advisorVo.HostId = Int16.Parse(dr["A_HostId"].ToString());
 
                     advisorVo.IsLoginWidgetEnable = Convert.ToBoolean(Int16.Parse(dr["A_IsloginWidgetEnable"].ToString()));
+                    advisorVo.IsISASubscribed = Convert.ToBoolean(Int16.Parse(dr["AS_IsISASubscribed"].ToString()));
 
                 }
             }
