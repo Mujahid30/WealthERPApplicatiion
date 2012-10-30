@@ -21,7 +21,7 @@ namespace VoUser
         private string m_Email;
         private string m_UserType;
         private int m_IsTempPassword;
-
+        public string[] PermisionList { get; set; } 
         public string[] RoleList { get; set; } 
 
         public int IsTempPassword
