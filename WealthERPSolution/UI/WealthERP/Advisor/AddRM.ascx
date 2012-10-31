@@ -236,7 +236,7 @@
      <tr id="tr3" runat="server" visible="true">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Section Details
+                Staff Details
             </div>
         </td>
     </tr>
