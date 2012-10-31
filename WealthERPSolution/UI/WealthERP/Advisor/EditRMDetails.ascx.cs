@@ -24,6 +24,7 @@ namespace WealthERP.Advisor
         int rmId;
         int rmIDRef;
         int userId;
+        string Action;
         RMVo rmVo = new RMVo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         UserVo userVo = new UserVo();
@@ -49,6 +50,21 @@ namespace WealthERP.Advisor
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             uvo = (UserVo)Session["userVo"];
+            this.Action = Request.QueryString[0];
+            if (Action == "Edit Profile")
+            {
+                SetStaffDetails();
+                SetControlstate(Action);
+                lblHeader.Text = "Edit Staff Details";
+                lnkBtnBack.Visible = false;
+                lnkEdit.Visible = false;
+            }
+            else
+            {
+                SetStaffDetails();
+                SetControlstate(Action);
+                lblHeader.Text = "View Staff Details";
+            }
              if (Session["CurrentrmVo"] != null)
              {
                   rmVo = (RMVo)Session["CurrentrmVo"];
@@ -64,17 +80,17 @@ namespace WealthERP.Advisor
                 htRMInfo = advisorStaffBo.CheckRMDependency(rmVo.RMId);
                 hndRmCustomerCount.Value = htRMInfo["RMCustomerCount"].ToString();
                 hndBMBranchHead.Value = htRMInfo["BMBranchHead"].ToString(); 
-                editRMDetails();
-            }
+               
+                            }
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
             
             lblEmail.CssClass = "FieldName";
             lblISD.CssClass = "FieldName";
             //lblName.CssClass = "FieldName";
-            lblFirst.CssClass = "FieldName";
-            lblMiddle.CssClass = "FieldName";
-            lblLast.CssClass = "FieldName";
+            //lblFirst.CssClass = "FieldName";
+            //lblMiddle.CssClass = "FieldName";
+            //lblLast.CssClass = "FieldName";
             lblStaffCode.CssClass = "FieldName";
             lblPhoneDirectNumber.CssClass = "FieldName";
             lblPhoneNumber.CssClass = "FieldName";
@@ -95,6 +111,46 @@ namespace WealthERP.Advisor
            
 
         //}
+        protected void lnkEdit_Click(object sender, EventArgs e)
+        {
+            RMVo newrmVo = null;
+
+            try
+            {
+                if (Session["CurrentrmVo"] != null)
+                {
+                    newrmVo = (RMVo)Session["CurrentrmVo"];
+                }
+                else
+                {
+                    newrmVo = (RMVo)Session["rmVo"];
+                }
+                Action = "Edit Profile";
+                SetStaffDetails();
+                SetControlstate(Action);
+                lnkEdit.Visible = false;
+                lnkBtnBack.Visible = false;
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewRMDetails.cs:lnkEdit_Click()");
+                object[] objects = new object[1];
+                objects[0] = newrmVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
+        }
 
         public bool chkAvailability()
         {
@@ -189,6 +245,183 @@ namespace WealthERP.Advisor
 
             return result;
         }
+       public   void SetControlstate( String Action)
+       {
+           if (Action == "Edit Profile")
+           {
+               txtFirstName.Enabled = true;
+               txtLastName.Enabled = true;
+               txtMiddleName.Enabled = true;
+               txtStaffCode.Enabled = true;
+               txtEmail.Enabled = true;
+               txtExtSTD.Enabled = true;
+               txtFaxISD.Enabled = true;
+               txtFaxNumber.Enabled = true;
+               txtFaxSTD.Enabled = true;
+               txtMobileNumber.Enabled = true;
+               txtPhDirectISD.Enabled = true;
+               txtPhDirectPhoneNumber.Enabled = true;
+               txtPhDirectSTD.Enabled = true;
+               txtPhExtISD.Enabled = true;
+               txtPhExtPhoneNumber.Enabled = true;
+               txtPhResiISD.Enabled = true;
+               txtPhResiPhoneNumber.Enabled = true;
+               txtResiSTD.Enabled = true;
+               txtCTC.Enabled = true;
+               ChklistRMBM.Enabled = true;
+               chkExternalStaff.Enabled = true;
+               chkOps.Enabled = true;
+               chkExternalStaff.Enabled = true;
+               ChklistRMBM.Enabled = true;
+               availableBranch.Enabled = true;
+               associatedBranch.Enabled = true;   
+           }
+           else 
+           {
+               txtFirstName.Enabled = false;
+               txtLastName.Enabled = false;
+               txtMiddleName.Enabled = false;
+               txtStaffCode.Enabled = false;
+               txtEmail.Enabled = false;
+               txtExtSTD.Enabled = false;
+               txtFaxISD.Enabled = false;
+               txtFaxNumber.Enabled = false;
+               txtFaxSTD.Enabled = false;
+               txtMobileNumber.Enabled = false;
+               txtPhDirectISD.Enabled = false;
+               txtPhDirectPhoneNumber.Enabled = false;
+               txtPhDirectSTD.Enabled = false;
+               txtPhExtISD.Enabled = false;
+               txtPhExtPhoneNumber.Enabled = false;
+               txtPhResiISD.Enabled = false;
+               txtPhResiPhoneNumber.Enabled = false;
+               txtResiSTD.Enabled = false;
+               txtCTC.Enabled = false;
+               ChklistRMBM.Enabled = false;
+               chkExternalStaff.Enabled = false;
+               chkOps.Enabled = false;
+               chkExternalStaff.Enabled = false;
+               ChklistRMBM.Enabled = false;
+               availableBranch.Enabled = false;
+               associatedBranch.Enabled = false;
+           }
+
+       }
+        //public void ViewRMDetail()
+        //{
+
+        //    try
+        //    {
+        //        RMVo rmVo = new RMVo();
+        //        if (Session["CurrentrmVo"] != null)
+        //        {
+        //            rmVo = (RMVo)Session["CurrentrmVo"];
+        //        }
+        //        else
+        //        {
+        //            rmVo = (RMVo)Session["rmVo"];
+        //        }
+        //        txtFirstName.Text = rmVo.FirstName.ToString();
+        //        txtFirstName.Enabled = false;
+        //        txtLastName.Text = rmVo.LastName.ToString();
+        //        txtLastName.Enabled = false;
+        //        txtMiddleName.Text = rmVo.MiddleName.ToString();
+        //        txtMiddleName.Enabled = false;
+        //        if (!string.IsNullOrEmpty(rmVo.StaffCode))
+        //            txtStaffCode.Text = rmVo.StaffCode.ToString();
+        //        else
+        //            txtStaffCode.Text = string.Empty;
+        //        txtStaffCode.Enabled = false;
+        //        txtEmail.Text = rmVo.Email.ToString();
+        //        txtEmail.Enabled = false;
+        //        txtExtSTD.Text = rmVo.OfficePhoneExtStd.ToString();
+        //        txtExtSTD.Enabled = false;
+        //        txtFaxISD.Text = rmVo.FaxIsd.ToString();
+        //        txtFaxISD.Enabled = false;
+        //        txtFaxNumber.Text = rmVo.Fax.ToString();
+        //        txtFaxNumber.Enabled = false;
+        //        txtFaxSTD.Text = rmVo.FaxStd.ToString();
+        //        txtFaxSTD.Enabled = false;
+        //        txtMobileNumber.Text = rmVo.Mobile.ToString();
+        //        txtMobileNumber.Enabled = false;
+        //        txtPhDirectISD.Text = rmVo.OfficePhoneDirectIsd.ToString();
+        //        txtPhDirectISD.Enabled = false;
+        //        txtPhDirectPhoneNumber.Text = rmVo.OfficePhoneDirectNumber.ToString();
+        //        txtPhDirectPhoneNumber.Enabled = false;
+        //        txtPhDirectSTD.Text = rmVo.OfficePhoneDirectStd.ToString();
+        //        txtPhDirectSTD.Enabled = false;
+        //        txtPhExtISD.Text = rmVo.OfficePhoneExtIsd.ToString();
+        //        txtPhExtISD.Enabled = false;
+        //        txtPhExtPhoneNumber.Text = rmVo.OfficePhoneExtNumber.ToString();
+        //        txtPhExtPhoneNumber.Enabled = false;
+        //        txtPhResiISD.Text = rmVo.ResPhoneIsd.ToString();
+        //        txtPhResiISD.Enabled = false;
+        //        txtPhResiPhoneNumber.Text = rmVo.ResPhoneNumber.ToString();
+        //        txtPhResiPhoneNumber.Enabled = false;
+        //        txtResiSTD.Text = rmVo.ResPhoneStd.ToString();
+        //        txtResiSTD.Enabled = false;
+        //        txtCTC.Text = rmVo.CTC.ToString();
+        //        txtCTC.Enabled = false;
+        //        string[] RoleListArray = rmVo.RMRoleList.Split(new char[] { ',' });
+        //        foreach (string Role in RoleListArray)
+        //        {
+        //            if ((Role == "RM" || Role == "BM") || (Role == "Research"))
+        //            {
+        //                ChklistRMBM.Items.FindByText(Role).Selected = true;
+        //                ChklistRMBM.Enabled = false;
+        //            }
+
+        //        }
+
+
+
+        //        if (rmVo.IsExternal == 1)
+        //            chkExternalStaff.Checked = true;
+        //        else
+        //            chkExternalStaff.Checked = false;
+        //        chkExternalStaff.Enabled = false;
+        //        BindBranchAssociation();
+        //        if (rmVo.RMRole == "Ops")
+        //        {
+        //            chkOps.Checked = true;
+        //            chkOps.Enabled = false;
+        //            chkExternalStaff.Enabled = false;
+        //            ChklistRMBM.Enabled = false;
+        //            availableBranch.Enabled = false;
+        //            associatedBranch.Enabled = false;
+        //        }
+        //        else
+        //        {
+        //            chkOps.Enabled = false;
+        //            chkExternalStaff.Enabled = false;
+        //            ChklistRMBM.Enabled = false;
+        //            availableBranch.Enabled = false;
+        //            associatedBranch.Enabled = false;
+        //        }
+        //        Session["rmId"] = rmVo.RMId;
+        //        rmIDRef = rmVo.RMId;
+        //        Session["userId"] = rmVo.UserId;
+
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewRMDetails.ascx:ViewRMDetail()");
+        //        object[] objects = new object[1];
+        //        objects[0] = rmVo;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+
+        //}
 
         public bool ChkMailId(string email)
         {
@@ -368,6 +601,7 @@ namespace WealthERP.Advisor
 
                 if (advisorBranchList != null)
                 {
+                    
                     for (int i = 0; i < advisorBranchList.Count; i++)
                     {
                         drAdvisorBranch = dtAdvisorBranch.NewRow();
@@ -421,7 +655,7 @@ namespace WealthERP.Advisor
 
             }
         }
-        public void editRMDetails()
+        public void SetStaffDetails()
         {
             RMVo rmVo = new RMVo();
             if (Session["CurrentrmVo"] != null)
