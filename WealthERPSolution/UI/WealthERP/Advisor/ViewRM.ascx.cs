@@ -563,13 +563,13 @@ namespace WealthERP.Advisor
                 //Session["S_CurrentUserRole"] = "RM";
                 if (menu == "Edit Profile")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','?Menu=" + menu + "');", true);
                 }
                 if (menu == "View profile")
                 {
                     Session["FromAdvisorView"] = "FromAdvView";
 
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewRMDetails','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','?Menu="+ menu + "');", true);
                 }
                 if (menu == "RM Dashboard")
                 {
