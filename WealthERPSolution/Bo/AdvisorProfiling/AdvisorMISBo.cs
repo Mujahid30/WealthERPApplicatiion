@@ -421,13 +421,13 @@ namespace BoAdvisorProfiling
             return dsMIS;
         }
 
-        public DataSet GetCustomerAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate)
+        public DataSet GetCustomerAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate,int SchemeCode)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate);
+                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate, SchemeCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -453,13 +453,13 @@ namespace BoAdvisorProfiling
             return dsMIS;
         }
 
-        public DataSet GetCustomerAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate)
+        public DataSet GetCustomerAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate,int SchemeCode)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForRM(rmid, valuationDate);
+                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForRM(rmid, valuationDate, SchemeCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -485,13 +485,13 @@ namespace BoAdvisorProfiling
             return dsMIS;
         }
 
-        public DataSet GetAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate)
+        public DataSet GetAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate,int AmcCode)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetAMCSchemewiseAUMForRM(rmid, valuationDate);
+                dsMIS = MISDao.GetAMCSchemewiseAUMForRM(rmid, valuationDate, AmcCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -585,13 +585,13 @@ namespace BoAdvisorProfiling
             return dsBMMIS;
         }
 
-        public DataSet GetAUMForBM(int rmId, int branchId, int branchHeadId,DateTime Valuationdate,int type)
+        public DataSet GetAUMForBM(int rmId, int branchId, int branchHeadId, DateTime Valuationdate, int type, int AmcCode, int SchemeCode)
         {
             DataSet dsBMMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsBMMIS = MISDao.GetAUMForBM(rmId, branchId, branchHeadId, Valuationdate,type);
+                dsBMMIS = MISDao.GetAUMForBM(rmId, branchId, branchHeadId, Valuationdate, type, AmcCode, SchemeCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -645,13 +645,13 @@ namespace BoAdvisorProfiling
             return dsAmsWiseAUM;
         }
 
-        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate)
+        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate,int AmcCode)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate);
+                dsMIS = MISDao.GetAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate, AmcCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -826,6 +826,21 @@ namespace BoAdvisorProfiling
             
             return latestValuationDate;
         }
-      
+
+
+        public DataSet GetMFDashBoard(int adviserId)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsMfDashBoard;
+            try
+            {
+                dsMfDashBoard = MISDao.GetMFDashBoard(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsMfDashBoard;
+        }
     }
 }

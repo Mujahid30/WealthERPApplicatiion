@@ -248,7 +248,7 @@
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true"
         AllowAutomaticInserts="false" ExportSettings-FileName="SchemeWiseAUM Details"
-        OnNeedDataSource="gvSchemeWiseAUM_OnNeedDataSource">
+        OnNeedDataSource="gvSchemeWiseAUM_OnNeedDataSource" OnItemCommand="gvSchemeWiseAUM_OnItemCommand">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
         <MasterTableView DataKeyNames="SchemePlanCode" Width="100%" AllowMultiColumnSorting="True"
@@ -325,3 +325,4 @@
 <asp:HiddenField ID="hdnadviserId" runat="server"/>
 <asp:HiddenField ID="hdnValuationDate" runat="server" />
 <asp:HiddenField ID="hdnType" runat="server"/>
+

@@ -54,6 +54,9 @@ namespace WealthERP.BusinessMIS
         CultureInfo ci = new CultureInfo("en-GB");
         DataSet dsMfMIS = new DataSet();
         DataTable dtAdviserMFMIS = new DataTable();
+
+        int AmcCode = 0;
+        int SchemeCode = 0;
         
 
         protected void Page_Load(object sender, EventArgs e)
@@ -405,7 +408,7 @@ namespace WealthERP.BusinessMIS
                 }
                 else if (userType == "bm")
                 {
-                    dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date,int.Parse(hdnType.Value));
+                    dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date,int.Parse(hdnType.Value),AmcCode,SchemeCode);
                 }
             }
             if (dsMISReport.Tables.Count == 0 || dsMISReport.Tables[0].Rows.Count < 1)
@@ -481,16 +484,16 @@ namespace WealthERP.BusinessMIS
             DateTime Valuation_Date = Convert.ToDateTime(txtDate.SelectedDate.ToString());
             if (userType == "rm")
             {
-                dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForRM(int.Parse(hdnrmId.Value), Valuation_Date);
+                dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForRM(int.Parse(hdnrmId.Value), Valuation_Date, AmcCode);
             }
             else if (userType == "bm")
             {
-                dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date,int.Parse(hdnType.Value));
+                dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date,int.Parse(hdnType.Value),AmcCode,SchemeCode);
 
             }
             else if (userType == "advisor")
             {
-                dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviser(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuation_Date);
+                dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviser(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuation_Date, AmcCode);
 
             }
             if (dsMISReport.Tables.Count == 0 || dsMISReport.Tables[0].Rows.Count < 1)
@@ -532,7 +535,7 @@ namespace WealthERP.BusinessMIS
             Valuationdate = DateTime.Parse(txtDate.SelectedDate.ToString());
             if (userType == "rm")
             {
-                dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForRM(int.Parse(hdnrmId.Value), Valuationdate);
+                dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForRM(int.Parse(hdnrmId.Value), Valuationdate,SchemeCode);
             }
             else if (userType == "bm")
             {
@@ -541,11 +544,11 @@ namespace WealthERP.BusinessMIS
                 //if (ddlRM.SelectedValue != "0")
                 //    rmId = int.Parse(ddlRM.SelectedValue);
 
-                dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuationdate, int.Parse(hdnType.Value));
+                dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuationdate, int.Parse(hdnType.Value),AmcCode,SchemeCode);
             }
             else if (userType == "advisor")
             {
-                dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviser(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuationdate);
+                dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviser(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuationdate,SchemeCode);
             }
             if (dsMISReport.Tables.Count == 0 || dsMISReport.Tables[0].Rows.Count < 1)
             {
@@ -687,7 +690,11 @@ namespace WealthERP.BusinessMIS
                             {
                                 if (e.CommandName == "Select")
                                 {
-                                    showHideGrid("FolioWise");
+                                    GridDataItem gvr = (GridDataItem)e.Item;
+                                    int selectedRow = gvr.ItemIndex + 1;
+                                    AmcCode = int.Parse( gvr.GetDataKeyValue("AMCCode").ToString());
+
+                                    showHideGrid("SchemeWise");
                                     BindSCHEMEWISEAUMDetails();
                                 }
                             }
@@ -767,6 +774,9 @@ namespace WealthERP.BusinessMIS
                             {
                                 if (e.CommandName == "Select")
                                 {
+                                    GridDataItem gvr = (GridDataItem)e.Item;
+                                    int selectedRow = gvr.ItemIndex + 1;
+                                    SchemeCode = int.Parse(gvr.GetDataKeyValue("SchemePlanCode").ToString());
                                     showHideGrid("FolioWise");
                                     BindFOLIOWISEAUMDetails();
                                 }

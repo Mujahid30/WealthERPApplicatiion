@@ -30,7 +30,7 @@ namespace WealthERP.AdvsierPreferenceSettings
             //SetControls(false);
             dsCustomerCategoryList = advisorBo.GetAdviserCustomerCategory(AdviserId);
             dtCustomerCategoryList = dsCustomerCategoryList.Tables[0];
-            if (dtCustomerCategoryList.Rows.Count > 0)
+            if (dtCustomerCategoryList!= null)
             {
                 gvCustomerCategory.DataSource = dtCustomerCategoryList;
                 gvCustomerCategory.DataBind();

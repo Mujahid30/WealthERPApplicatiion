@@ -280,11 +280,16 @@
                                     Aggregate="Sum" DataFormatString="{0:N2}">
                                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderText="Gross Price" UniqueName="GrossPrice" SortExpression="Gross Price"
+                                <telerik:GridBoundColumn  FooterStyle-HorizontalAlign="Right" HeaderText="Gross Price" DataField="GrossPrice" UniqueName="GrossPrice"
+                                    SortExpression="GrossPrice" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N2}">
+                                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <%--<telerik:GridBoundColumn HeaderText="Gross Price" DataField="Gross Price" UniqueName="Gross Price" SortExpression="Gross Price"
                                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     DataFormatString="{0:N2}">
                                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
+                                </telerik:GridBoundColumn>--%>
                                 <telerik:GridBoundColumn HeaderText="Speculative/Delivery" DataField="Speculative Or Delivery"
                                     UniqueName="Speculative Or Delivery" SortExpression="Speculative Or Delivery"
                                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">

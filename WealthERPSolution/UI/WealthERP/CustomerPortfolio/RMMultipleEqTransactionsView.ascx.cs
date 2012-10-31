@@ -253,7 +253,7 @@ namespace WealthERP.CustomerPortfolio
                     dtEQTransactions.Columns.Add("Brokerage", typeof(double));
                     dtEQTransactions.Columns.Add("OtherCharges", typeof(double));
                     dtEQTransactions.Columns.Add("STT", typeof(double));
-                    dtEQTransactions.Columns.Add("Gross Price");
+                    dtEQTransactions.Columns.Add("GrossPrice", typeof(double));
                     dtEQTransactions.Columns.Add("Speculative Or Delivery");
                     dtEQTransactions.Columns.Add("Portfolio Name");
 
@@ -282,7 +282,8 @@ namespace WealthERP.CustomerPortfolio
                         drEQTransaction["Brokerage"] = dtTransactions.Rows[i]["CET_Brokerage"].ToString();
                         drEQTransaction["OtherCharges"] = dtTransactions.Rows[i]["CET_OtherCharges"].ToString();
                         drEQTransaction["STT"] = dtTransactions.Rows[i]["CET_STT"].ToString();
-                        drEQTransaction["Gross Price"] = dtTransactions.Rows[i]["XES_SourceCode"].ToString();
+                        if (dtTransactions.Rows[i]["XES_SourceCode"] != DBNull.Value)
+                            drEQTransaction["GrossPrice"] = Convert.ToDouble( dtTransactions.Rows[i]["XES_SourceCode"].ToString());
                         drEQTransaction["Speculative Or Delivery"] = dtTransactions.Rows[i]["CET_IsSpeculative"].ToString();
                         drEQTransaction["Portfolio Name"] = dtTransactions.Rows[i]["CP_PortfolioName"].ToString();
 

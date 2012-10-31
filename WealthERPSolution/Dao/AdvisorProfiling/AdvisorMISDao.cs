@@ -638,7 +638,7 @@ namespace DaoAdvisorProfiling
 
         }
 
-        public DataSet GetCustomerAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate)
+        public DataSet GetCustomerAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate,int SchemeCode)
         {
 
             Database db;
@@ -659,7 +659,10 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, DBNull.Value);
 
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
-             
+                if (SchemeCode != 0)
+                    db.AddInParameter(getLoanMICmd, "@SchemeCode", DbType.Int32, SchemeCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@SchemeCode", DbType.Int32, DBNull.Value);
                 getLoanMICmd.CommandTimeout = 60 * 60;
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
@@ -686,7 +689,7 @@ namespace DaoAdvisorProfiling
 
         }
 
-        public DataSet GetCustomerAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate)
+        public DataSet GetCustomerAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate,int SchemeCode)
         {
 
             Database db;
@@ -699,7 +702,10 @@ namespace DaoAdvisorProfiling
                 getLoanMICmd = db.GetStoredProcCommand("SP_GetCustomerAMCSchemewiseAUMForRM");
                 db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, rmid);
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
-         
+                if (SchemeCode != 0)
+                    db.AddInParameter(getLoanMICmd, "@SchemeCode", DbType.Int32, SchemeCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@SchemeCode", DbType.Int32, DBNull.Value);
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
             catch (BaseApplicationException Ex)
@@ -724,7 +730,7 @@ namespace DaoAdvisorProfiling
             return AMCSchemewiseMIS;
         }
 
-        public DataSet GetAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate)
+        public DataSet GetAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate,int AmcCode)
         {
             Database db;
             DbCommand getLoanMICmd;
@@ -732,9 +738,13 @@ namespace DaoAdvisorProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getLoanMICmd = db.GetStoredProcCommand("SP_GetAMCSchemewiseMISForRM");
+                getLoanMICmd = db.GetStoredProcCommand("SP_GetAMCSchemewiseAUMForRM");
                 db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, rmid);
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
+                if (AmcCode != 0)
+                    db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, DBNull.Value);
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
             catch (BaseApplicationException Ex)
@@ -837,7 +847,7 @@ namespace DaoAdvisorProfiling
             return AMCSchemewiseMIS;
         }
 
-        public DataSet GetAUMForBM(int rmId, int branchId, int branchHeadId, DateTime Valuationdate, int Type)
+        public DataSet GetAUMForBM(int rmId, int branchId, int branchHeadId, DateTime Valuationdate, int Type,int AmcCode,int SchemeCode)
         {
             Database db;
             DbCommand getLoanMICmd;
@@ -851,6 +861,14 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getLoanMICmd, "@BranchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, Valuationdate);
                 db.AddInParameter(getLoanMICmd, "@XWise", DbType.Int32, Type);
+                if (AmcCode != 0)
+                    db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, DBNull.Value);
+                if (SchemeCode != 0)
+                    db.AddInParameter(getLoanMICmd, "@SchemeCode", DbType.Int32, SchemeCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@SchemeCode", DbType.Int32, DBNull.Value);
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
             catch (BaseApplicationException Ex)
@@ -921,7 +939,7 @@ namespace DaoAdvisorProfiling
 
         }
 
-        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate)
+        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate,int AmcCode)
         {
 
             Database db;
@@ -941,6 +959,10 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, DBNull.Value);
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
+                if (AmcCode != 0)
+                    db.AddInParameter(getLoanMICmd, "@AmcCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AmcCode", DbType.Int32, DBNull.Value);
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
             catch (BaseApplicationException Ex)
@@ -1147,6 +1169,25 @@ namespace DaoAdvisorProfiling
             }
 
             return latestValuationDate;
+        }
+        public DataSet GetMFDashBoard(int adviserId)
+        {
+            Database db;
+            DbCommand getMFDashBoardCmd;
+            DataSet dsGetMFDashBoard = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFDashBoardCmd = db.GetStoredProcCommand("SP_GetMFDashBoard");
+                db.AddInParameter(getMFDashBoardCmd, "@adviserId", DbType.Int32, adviserId);
+                dsGetMFDashBoard = db.ExecuteDataSet(getMFDashBoardCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetMFDashBoard;
         }
     }
 }
