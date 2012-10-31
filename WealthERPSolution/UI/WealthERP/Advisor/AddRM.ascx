@@ -1,6 +1,22 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddRM.ascx.cs" Inherits="WealthERP.Advisor.AddRM" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+
 <script type="text/javascript">
     var content_Prefix = "ctrl_AddRM_";
     function CalculateYear(txtMonth, txtYearName) {
@@ -27,7 +43,7 @@
         var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
 
         if (chk4ops.checked == false) {
-            
+
             var chkControlId = '<%=ChklistRMBM.ClientID%>';
             var options = document.getElementById(chkControlId).getElementsByTagName('input');
             var ischecked = false;
@@ -44,7 +60,7 @@
             }
         }
         else {
-           
+
         }
     }
 
@@ -102,7 +118,7 @@
             var opt = options[i];
             if (opt.type == "checkbox") {
                 if (opt.checked == true) {
-                   
+
                     ischecked = true;
                     document.getElementById("<%= chkOps.ClientID %>").disabled = true;
                     document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
@@ -112,13 +128,13 @@
 
                 }
                 else {
-                   
+
                     ischecked = false;
                     document.getElementById("<%= chkOps.ClientID %>").disabled = false;
                     document.getElementById("<%= availableBranch.ClientID %>").disabled = true;
                     document.getElementById("<%= associatedBranch.ClientID %>").disabled = true;
                     document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = true;
-                  
+
 
                 }
             }
@@ -126,7 +142,7 @@
         var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
 
         if (chk4ops.checked == true) {
-           
+
             document.getElementById("<%= availableBranch.ClientID %>").disabled = true;
             document.getElementById("<%= associatedBranch.ClientID %>").disabled = true;
             document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = true;
@@ -139,7 +155,7 @@
 
             var options = document.getElementById(chkControlId).getElementsByTagName('input');
 
-            for (a = 0; a<=options.length; a++) {
+            for (a = 0; a <= options.length; a++) {
 
                 options[a].disabled = true;
             }
@@ -155,7 +171,7 @@
 
             var options = document.getElementById(chkControlId).getElementsByTagName('input');
 
-            for (a = 0; a<=options.length; a++) {
+            for (a = 0; a <= options.length; a++) {
 
                 options[a].disabled = false;
             }
@@ -170,24 +186,60 @@
 </asp:ScriptManager>
 <%--<asp:UpdatePanel ID="updatePnl" runat="server">
     <ContentTemplate>--%>
-    <table width="100%" class="TableBackground">
-<tr>
+<table width="100%" class="TableBackground">
+    <%--<tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Add Staff"></asp:Label>
             <hr />
         </td>
+    </tr>--%>
+    <tr>
+        <td colspan="4">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            <asp:Label ID="lblTitle" runat="server" Text="Add Staff"></asp:Label>
+                        </td>
+                        <td colspan="4" align="right">
+                            <%-- <asp:LinkButton ID="LnkBack" Text="Back" runat="server" CssClass="LinkButtons" OnClick="lnkBack_Click"
+                                        CausesValidation="false"></asp:LinkButton>&nbsp;&nbsp;
+                                    <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click"
+                                        CausesValidation="false"></asp:LinkButton>&nbsp;&nbsp;--%>
+                        </td>
+                        <td>
+                            <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
+                                class="flip" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
     </tr>
 </table>
-
-<table class="TableBackground" width="100%" >
-
+<table class="TableBackground" width="100%">
     <tr>
+        <td colspan="3">
+            <div class="panel">
+                <p>
+                    Note: Fields marked with a ' * ' are compulsory
+                </p>
+            </div>
+        </td>
+    </tr>
+    <%-- <tr>
         <td colspan="4" class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
                 Note: Fields marked with ' * ' are mandatory</label>
         </td>
+    </tr>--%>
+     <tr id="tr3" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Section Details
+            </div>
+        </td>
     </tr>
-   
     <tr>
         <td class="leftField">
             <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Staff Name:"></asp:Label>
@@ -207,53 +259,50 @@
             <cc1:TextBoxWatermarkExtender ID="txtLastName_TextBoxWatermarkExtender" runat="server"
                 Enabled="True" TargetControlID="txtLastName" WatermarkText="LastName">
             </cc1:TextBoxWatermarkExtender>
-            
             <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtFirstName" ErrorMessage="<br />Please Enter the Name"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
-    <td class="leftField">
-    <asp:Label ID="lblStaffCode" runat="server" CssClass="FieldName" Text="Staff Code:"></asp:Label>
-    </td>
-    <td class="rightField">
-     <asp:TextBox ID="txtStaffCode" runat="server" CssClass="txtField"></asp:TextBox>
-     <%--<span id="Span5" class="spnRequiredField">*</span>--%>
-       <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtStaffCode" ErrorMessage="<br />Please Enter the Staff Code"
+        <td class="leftField">
+            <asp:Label ID="lblStaffCode" runat="server" CssClass="FieldName" Text="Staff Code:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtStaffCode" runat="server" CssClass="txtField"></asp:TextBox>
+            <%--<span id="Span5" class="spnRequiredField">*</span>--%>
+            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtStaffCode" ErrorMessage="<br />Please Enter the Staff Code"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
        </asp:RequiredFieldValidator>--%>
-    </td>
+        </td>
     </tr>
     <tr>
         <td class="leftField">
             <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="Staff Role:"></asp:Label>
         </td>
         <td class="rightField">
-            
-              
-            <asp:CheckBoxList ID="ChklistRMBM" runat="server" CausesValidation="True" 
-                RepeatDirection="Horizontal" CssClass="cmbField" RepeatLayout="Flow" onclick="DisableControls()" >
+            <asp:CheckBoxList ID="ChklistRMBM" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
+                CssClass="cmbField" RepeatLayout="Flow" onclick="DisableControls()">
                 <asp:ListItem Value="1001">RM</asp:ListItem>
                 <asp:ListItem Value="1002">BM</asp:ListItem>
                 <asp:ListItem Value="1005">Research</asp:ListItem>
             </asp:CheckBoxList>
             <asp:Label ID="lblOr" runat="server" Text="&nbsp;/&nbsp;" CssClass="FieldName"></asp:Label>
-            <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" value="1004" onclick="DisableControls()" />&nbsp;
-            <span id="Span4" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                   
-            <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged" runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
-           <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail" ValidationGroup="btnSubmit" ErrorMessage="<br />Select at least one role" ClientValidationFunction="CheckItem" ValidateEmptyText="true"></asp:CustomValidator>
-            
-              
+            <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" value="1004"
+                onclick="DisableControls()" />&nbsp; <span id="Span4" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged"
+                runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
+            <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail"
+                ValidationGroup="btnSubmit" ErrorMessage="<br />Select at least one role" ClientValidationFunction="CheckItem"
+                ValidateEmptyText="true"></asp:CustomValidator>
         </td>
-      <%--  <td class="style1">
+        <%--  <td class="style1">
         
           <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged" runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
            
         </td>--%>
     </tr>
-    <tr>
+      <tr>
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="CTC:"></asp:Label>
         </td>
@@ -267,41 +316,45 @@
         </td>
         <td class="rightField" colspan="2">
             &nbsp;
-       </td>
+        </td>
     </tr>
     <tr>
         <td>
         </td>
         <td class="style2">
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text=" per month"></asp:Label>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text=" per year"></asp:Label>
         </td>
         <td class="style1">
-            &nbsp;</td>
+            &nbsp;
+        </td>
         <td colspan="2">
             &nbsp;
         </td>
     </tr>
-    <tr>
+    <tr id="tr1" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Contact Details
+            </div>
+        </td>
+    </tr>
+    <%--<tr>
         <td colspan="4">
             <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Contact Details"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             &nbsp;
         </td>
-        <td >
+        <td>
             <asp:Label ID="lblISD" runat="server" Text="ISD" CssClass="FieldName"></asp:Label>
-      
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      
             <asp:Label ID="lblSTD" runat="server" Text="STD" CssClass="FieldName"></asp:Label>
-       
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       
             <asp:Label ID="lblPhoneNumber" runat="server" CssClass="FieldName" Text="PhoneNumber"></asp:Label>
         </td>
     </tr>
@@ -312,26 +365,19 @@
         <td class="style2">
             <asp:TextBox ID="txtPhDirectISD" runat="server" CssClass="txtField" Width="55px"
                 MaxLength="4">91</asp:TextBox>
-          
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtPhDirectISD"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-       
             <asp:TextBox ID="txtPhDirectSTD" runat="server" CssClass="txtField" Width="55px"
                 MaxLength="4"></asp:TextBox>
-          
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPhDirectSTD"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-       
             <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
-            
-           
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtPhDirectPhoneNumber"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-           
         </td>
     </tr>
     <tr>
@@ -340,20 +386,15 @@
         </td>
         <td>
             <asp:TextBox ID="txtPhExtISD" runat="server" CssClass="txtField" Width="55px" MaxLength="4">91</asp:TextBox>
-           
             <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtPhExtISD"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-       
             <asp:TextBox ID="txtExtSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="4"></asp:TextBox>
-           
             <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtExtSTD"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-      
             <asp:TextBox ID="txtPhExtPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
-            
             <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtPhExtPhoneNumber"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
@@ -389,19 +430,14 @@
         </td>
         <td>
             <asp:TextBox ID="txtFaxISD" runat="server" CssClass="txtField" Width="55px" MaxLength="4">91</asp:TextBox>
-     
             <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtFaxISD"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-        
             <asp:TextBox ID="txtFaxSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="4"></asp:TextBox>
-          
             <asp:RegularExpressionValidator ID="RegularExpressionValidator12" ControlToValidate="txtFaxSTD"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-        
             <asp:TextBox ID="txtFaxNumber" runat="server" CssClass="txtField" Width="150px" MaxLength="8"></asp:TextBox>
-      
             <asp:RegularExpressionValidator ID="RegularExpressionValidator13" ControlToValidate="txtFaxNumber"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
@@ -419,9 +455,9 @@
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
                 ValidationGroup="btnSubmit" ValidationExpression="^\d{10,10}$">
             </asp:RegularExpressionValidator>
-             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobileNumber"
-                ErrorMessage="Please enter a Contact Number" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
-                CssClass="rfvPCG">
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobileNumber"
+                ErrorMessage="Please enter a Contact Number" Display="Dynamic" runat="server"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -432,68 +468,76 @@
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"  CssClass="cmbField"/>
+            <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"
+                CssClass="cmbField" />
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEmail" ValidationGroup="btnSubmit"
-                ErrorMessage="Please enter an Email ID" Display="Dynamic" runat="server" CssClass="rfvPCG">
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEmail"
+                ValidationGroup="btnSubmit" ErrorMessage="Please enter an Email ID" Display="Dynamic"
+                runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
-                ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
-                ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
+                ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
+                ValidationGroup="btnSubmit" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                CssClass="revPCG"></asp:RegularExpressionValidator>
             <asp:Label ID="lblEmailDuplicate" runat="server" CssClass="Error" Text="Email Id already exists"></asp:Label>
         </td>
     </tr>
-    <tr>
+     <tr id="tr2" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Branch Association
+            </div>
+        </td>
+    </tr>
+    <%--<tr>
         <td colspan="4">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Branch Association"></asp:Label>
             <hr />
         </td>
-    </tr>
-     <tr>
+    </tr>--%>
+    <tr>
         <td colspan="4">
             <asp:Label ID="lblError" runat="server" CssClass="FieldName" Text="Branch List"></asp:Label>
-         </td>
-     </tr>
-    <tr>
-    <td colspan="4">
-        <table border="1">
-    <tr>
-        <td>
-            <asp:Label ID="Label6" runat="server" Text="Available Branches" CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-        </td>
-        <td>
-            <asp:Label ID="Label7" runat="server" Text="Associated Branches" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
     <tr>
-        <td>
-            <asp:ListBox ID="availableBranch" runat="server" Height="150px" Width="130px"></asp:ListBox>
-        </td>
-        <td>
+        <td colspan="4">
             <table border="1">
                 <tr>
                     <td>
-                        <input type="button" id="addBranch" value=">>" onclick="addbranches();return false;" />
+                        <asp:Label ID="Label6" runat="server" Text="Available Branches" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <asp:Label ID="Label7" runat="server" Text="Associated Branches" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="button" id="deleteBranch" value="<<" onclick="deletebranches();return false;" />
+                        <asp:ListBox ID="availableBranch" runat="server" Height="150px" Width="130px"></asp:ListBox>
+                    </td>
+                    <td>
+                        <table border="1">
+                            <tr>
+                                <td>
+                                    <input type="button" id="addBranch" value=">>" onclick="addbranches();return false;" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="button" id="deleteBranch" value="<<" onclick="deletebranches();return false;" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <asp:ListBox ID="associatedBranch" runat="server" Height="150px" Width="128px"></asp:ListBox>
                     </td>
                 </tr>
             </table>
         </td>
-        <td>
-            <asp:ListBox ID="associatedBranch" runat="server" Height="150px" Width="128px"></asp:ListBox>
-        </td>
     </tr>
-    
-</table>
-</td>
-    </tr>
-    
     <tr>
         <td colspan="4">
             &nbsp;
@@ -522,9 +566,9 @@
                                 OnCheckedChanged="rbtnMainBranch_CheckedChanged" />
                         </ItemTemplate>
                     </asp:TemplateField>--%>
-                    <asp:BoundField DataField="Branch Name" HeaderText="Branch Name"  />
-                    <asp:BoundField DataField="Branch Address" HeaderText="Branch Address"  />
-                    <asp:BoundField DataField="Branch Phone" HeaderText="Branch Phone"  />
+                    <asp:BoundField DataField="Branch Name" HeaderText="Branch Name" />
+                    <asp:BoundField DataField="Branch Address" HeaderText="Branch Address" />
+                    <asp:BoundField DataField="Branch Phone" HeaderText="Branch Phone" />
                 </Columns>
             </asp:GridView>
         </td>
@@ -539,20 +583,20 @@
             &nbsp;
         </td>
     </tr>
-<%--     <tr>
+     <%--    <tr>
         <td colspan="4">            
             <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"  CssClass="cmbField"/>
         </td>
     </tr>--%>
-     <tr>
+  <%--  <tr>
         <td colspan="4">
             &nbsp;
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="4" class="SubmitCell">
-            <asp:Button ID="btnNext" runat="server" OnClick="btnNext_Click" Text="Submit" CssClass="PCGButton" OnClientClick="GetSelectedBranches()"
-                ValidationGroup="btnSubmit" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddRM_btnNext', 'S');"
+            <asp:Button ID="btnNext" runat="server" OnClick="btnNext_Click" Text="Submit" CssClass="PCGButton"
+                OnClientClick="GetSelectedBranches()" ValidationGroup="btnSubmit" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddRM_btnNext', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddRM_btnNext', 'S');" />
         </td>
     </tr>
