@@ -682,6 +682,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer//CompleteCustomerProfile.ascx.
+        /// </summary>
+        internal static string CompleteCustomerProfile {
+            get {
+                return ResourceManager.GetString("CompleteCustomerProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//CustomerAssociationSetup.ascx.
         /// </summary>
         internal static string CuCustomerAssociationSetup {

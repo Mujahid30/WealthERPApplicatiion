@@ -1453,4 +1453,8 @@
     <value>BusinessMIS//MFTurnOverMIS.ascx</value>
     <comment>BusinessMIS//MFTurnOverMIS.ascx</comment>
   </data>
+  <data name="CompleteCustomerProfile" xml:space="preserve">
+    <value>Customer//CompleteCustomerProfile.ascx</value>
+    <comment>Customer//CompleteCustomerProfile.ascx</comment>
+  </data>
 </root>

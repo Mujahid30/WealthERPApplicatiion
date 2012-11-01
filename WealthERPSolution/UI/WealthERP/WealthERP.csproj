@@ -1850,6 +1850,13 @@
     <Compile Include="Customer\AddDematAccountDetails.ascx.designer.cs">
       <DependentUpon>AddDematAccountDetails.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Customer\CompleteCustomerProfile.ascx.cs">
+      <DependentUpon>CompleteCustomerProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CompleteCustomerProfile.ascx.designer.cs">
+      <DependentUpon>CompleteCustomerProfile.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Customer\CustomerAdvisorsNote.ascx.cs">
       <DependentUpon>CustomerAdvisorsNote.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5572,6 +5579,7 @@
     <Content Include="App_Themes\Yellow\Telerik\Window\WindowVerticalSprites.gif" />
     <Content Include="App_Themes\Yellow\Telerik\Window\WindowVerticalSprites.png" />
     <Content Include="bin\AjaxControlToolkit.dll" />
+    <Content Include="bin\BoAdvisorProfiling.dll" />
     <Content Include="bin\BoAdvisorProfiling.pdb" />
     <Content Include="bin\BoCommon.pdb" />
     <Content Include="bin\BoCustomerPortfolio.pdb" />
@@ -5655,6 +5663,7 @@
     <Content Include="CustomerPortfolio\ViewGeneralInsuranceDetails.ascx" />
     <Content Include="CustomerPortfolio\ViewMFPortfolioValuation.ascx" />
     <Content Include="Customer\AddDematAccountDetails.ascx" />
+    <Content Include="Customer\CompleteCustomerProfile.ascx" />
     <Content Include="Customer\CustomerAdvisorsNote.ascx" />
     <Content Include="Customer\CustomerAssumptionsPreferencesSetup.ascx" />
     <Content Include="Customer\CustomerDashBoardShortcut.ascx" />
