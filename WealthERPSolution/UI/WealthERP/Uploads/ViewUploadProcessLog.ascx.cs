@@ -285,7 +285,7 @@ namespace WealthERP.Uploads
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == Contants.ManageRejects)
                 {
-                    if ((filetypeId == 28) || (filetypeId == 29))
+                    if ((filetypeId == 28) || (filetypeId == 29) || (filetypeId == 30))
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TrailCommisionTransactionRejects','processId=" + processID + "');", true);
                     }
@@ -333,7 +333,7 @@ namespace WealthERP.Uploads
                     else if (filetypeId == 20 || filetypeId == 26 || filetypeId == 27)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processID + "');", true);
-                    }
+                    }                 
 
                 }
                 else
