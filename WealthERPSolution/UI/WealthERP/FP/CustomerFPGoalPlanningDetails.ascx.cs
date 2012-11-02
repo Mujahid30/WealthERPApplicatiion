@@ -321,7 +321,7 @@ namespace WealthERP.FP
                 else if (lblGoalCode.Text.Trim() == "ED")
                 {
                     imgGoalImage.ImageUrl = "~/Images/EducationGoal.png";
-                    imgGoalImage.ToolTip = "Child Education";
+                    imgGoalImage.ToolTip = "Children Education";
                 }
                 else if (lblGoalCode.Text.Trim() == "MR")
                 {
