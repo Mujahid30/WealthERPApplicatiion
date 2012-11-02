@@ -629,7 +629,7 @@ namespace WealthERP.CustomerPortfolio
                     {
                         if (txtDividentRate.Text != string.Empty || txtDividentRate.Text != "")
                             mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
-                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                        //mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
                         //mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
                         mfTransactionVo.Price = 0;
                         mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
