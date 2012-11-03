@@ -112,7 +112,7 @@
                                     </telerik:RadComboBoxItem>
                                     <telerik:RadComboBoxItem ImageUrl="~/Images/HomeGoal.png" Text="Buy Home" Value="BH"
                                         runat="server"></telerik:RadComboBoxItem>
-                                    <telerik:RadComboBoxItem ImageUrl="~/Images/EducationGoal.png" Text="Child Education"
+                                    <telerik:RadComboBoxItem ImageUrl="~/Images/EducationGoal.png" Text="Children Education"
                                         Value="ED" runat="server"></telerik:RadComboBoxItem>
                                     <telerik:RadComboBoxItem ImageUrl="~/Images/ChildMarraiageGoal.png" Text="Children Marriage"
                                         Value="MR" runat="server"></telerik:RadComboBoxItem>
