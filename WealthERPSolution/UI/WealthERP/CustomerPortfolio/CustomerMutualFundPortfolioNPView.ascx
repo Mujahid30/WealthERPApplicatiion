@@ -135,6 +135,11 @@
                                                             ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
                                                             FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" AllowFiltering="true">
                                                         </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
+                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
+                                                            HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
+                                                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
+                                                        </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplate>
                                                             <asp:Label CssClass="label" ID="lblHeaderCategory" runat="server" Text="Category"></asp:Label>
@@ -164,11 +169,7 @@
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
-                                                            HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
-                                                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
-                                                        </telerik:GridBoundColumn>
+                                                        
                                                         <telerik:GridBoundColumn  HeaderStyle-Width="103px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -299,6 +300,11 @@
                                                             AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="left" />
                                                         </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="SubCategoryName" SortExpression="SubCategoryName"
+                                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                            HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
+                                                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
+                                                        </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplateFolioStartDate
                                                             <asp:Label CssClass="label" ID="lblAllHeader" runat="server" Text="Category"></asp:Label>
@@ -328,11 +334,7 @@
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="SubCategoryName" SortExpression="SubCategoryName"
-                                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                            HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
-                                                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
-                                                        </telerik:GridBoundColumn>
+                                                        
                                                         <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -497,6 +499,11 @@
                                                             ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
                                                             AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="SubCategory" AutoPostBackOnFilter="true"
+                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
+                                                            HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
+                                                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
+                                                        </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplate>
                                                             <asp:Label CssClass="label" ID="lblRealizedHeader" runat="server" Text="Category"></asp:Label>
@@ -526,11 +533,7 @@
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="SubCategory" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
-                                                            HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
-                                                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
-                                                        </telerik:GridBoundColumn>
+                                                        
                                                         <telerik:GridBoundColumn  HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -928,6 +931,11 @@
                                                             ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
                                                             AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn SortExpression="SubCategory" AutoPostBackOnFilter="true"
+                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
+                                                            HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
+                                                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
+                                                        </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                             <HeaderTemplate>
                                                                 <asp:Label CssClass="label" ID="lblTaxHoldingsHeader" runat="server" Text="Category"></asp:Label>
@@ -957,11 +965,7 @@
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn SortExpression="SubCategory" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
-                                                            HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
-                                                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
-                                                        </telerik:GridBoundColumn>
+                                                        
                                                         <telerik:GridBoundColumn SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -1070,6 +1074,11 @@
                                                             ShowFilterIcon="false" UniqueName="Category" HeaderText="Category" DataField="Category"
                                                             AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
+                                                         <telerik:GridBoundColumn SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
+                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
+                                                            HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
+                                                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
+                                                        </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                             <HeaderTemplate>
                                                                 <asp:Label CssClass="label" ID="lblTaxRealizedHeader" runat="server" Text="Category"></asp:Label>
@@ -1099,11 +1108,7 @@
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn SortExpression="SubCategoryName" AutoPostBackOnFilter="true"
-                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="SubCategoryName"
-                                                            HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
-                                                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
-                                                        </telerik:GridBoundColumn>
+                                                       
                                                         <telerik:GridBoundColumn SortExpression="FolioNum" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum"
                                                             AllowFiltering="true">
