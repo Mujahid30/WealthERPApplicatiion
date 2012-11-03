@@ -250,7 +250,13 @@ namespace WealthERP.Uploads
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
+            DataSet dsRejectedSIP = new DataSet();
+
+            dsRejectedSIP =(DataSet)Cache["TrailCommissionRejectDetails" + advisorVo.advisorId.ToString()];
+
+
             GVTrailTransactionRejects.ExportSettings.OpenInNewWindow = true;
+            GVTrailTransactionRejects.DataSource = dsRejectedSIP;
             GVTrailTransactionRejects.ExportSettings.IgnorePaging = true;
             GVTrailTransactionRejects.ExportSettings.HideStructureColumns = true;           
             GVTrailTransactionRejects.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
