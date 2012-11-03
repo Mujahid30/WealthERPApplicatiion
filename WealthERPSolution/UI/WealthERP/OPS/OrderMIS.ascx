@@ -462,14 +462,6 @@
     </tr>
 </table>
 
-<table width="100%">
-    <tr id="trPager" runat="server">
-        <td align="right">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-        </td>
-    </tr>
-</table>
 <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
     visible="false">
     <tr>
@@ -623,7 +615,7 @@
                 </asp:GridView>--%>
                 <div id="dvOrderMIS" runat="server" style="width: 640px;">
                 <telerik:RadGrid ID="gvCustomerOrderMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"  
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" 
                     OnItemDataBound="gvCustomerOrderMIS_ItemDataBound" OnNeedDataSource="gvCustomerOrderMIS_OnNeedDataSource"
                     ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="false"
                     AllowAutomaticInserts="false" ExportSettings-FileName="MF Order Recon" > 
@@ -651,7 +643,7 @@
                         
                          <%--<telerik:GridButtonColumn HeaderStyle-Width="50px" ButtonType="LinkButton" Text='<%#Eval("CMFOD_OrderNumber").ToString() %>' CommandName="ViewOrder">
                           </telerik:GridButtonColumn>--%>
-                          <telerik:GridTemplateColumn HeaderText="Order Nbr" AllowFiltering="false">
+                          <telerik:GridTemplateColumn HeaderText="Order No" AllowFiltering="false" DataField="CMFOD_OrderNumber" >
                             <ItemStyle />
                             <ItemTemplate>
                                 <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbField" Text='<%# Eval("CMFOD_OrderNumber") %>'
@@ -660,11 +652,11 @@
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         
-                        <telerik:GridBoundColumn DataField="CO_OrderDate" HeaderText="OrderDate"
+                        <telerik:GridDateTimeColumn DataField="CO_OrderDate" HeaderText="Order Date"
                                 SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                 AutoPostBackOnFilter="true" UniqueName="CO_OrderDate" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:d}">
                                 <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
+                        </telerik:GridDateTimeColumn>
                       
                         <telerik:GridBoundColumn DataField="Customer_Name" HeaderText="Customer"
                                 SortExpression="Customer_Name" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
@@ -683,7 +675,7 @@
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                        
-                        <telerik:GridTemplateColumn >
+                        <telerik:GridTemplateColumn DataField="CMFOD_IsImmediate" HeaderText="Order Type" >
                         <HeaderTemplate>
                                 <asp:Label ID="lblOrderTypeHeader" runat="server" Text="Order Type"></asp:Label>
                             </HeaderTemplate>
@@ -692,13 +684,13 @@
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         
-                        <telerik:GridBoundColumn DataField="CMFA_FolioNum" HeaderText="FolioNum"
+                        <telerik:GridBoundColumn DataField="CMFA_FolioNum" HeaderText="Folio No"
                                 SortExpression="CMFA_FolioNum" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                 AutoPostBackOnFilter="true" UniqueName="CMFA_FolioNum" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderText="SchemePlanName"
+                        <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderText="Scheme Name"
                                 SortExpression="PASP_SchemePlanName" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                 AutoPostBackOnFilter="true" UniqueName="PASP_SchemePlanName" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -711,7 +703,7 @@
                                 <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderText="App Nbr"
+                        <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderText="App No"
                                 SortExpression="CO_ApplicationNumber" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                 AutoPostBackOnFilter="true" UniqueName="CO_ApplicationNumber" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -743,7 +735,7 @@
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="CMFT_TransactionNumber" HeaderText="Trans Nbr"
+                        <telerik:GridBoundColumn DataField="CMFT_TransactionNumber" HeaderText="Trans No"
                                 SortExpression="CMFT_TransactionNumber" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                 AutoPostBackOnFilter="true" UniqueName="CMFT_TransactionNumber" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -801,13 +793,6 @@
         </tr>
     </table>
 </asp:Panel>
-<table style="width: 100%" id="tblPager" runat="server" visible="false">
-    <tr>
-        <td>
-            <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-        </td>
-    </tr>
-</table>
 
 <table width="50%">
     <tr>

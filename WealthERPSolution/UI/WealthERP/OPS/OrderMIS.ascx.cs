@@ -51,109 +51,109 @@ namespace WealthERP.OPS
         string customerType = string.Empty;
 
 
-        protected override void OnInit(EventArgs e)
-        {
-           try
-            {
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "PortfolioSystematicView.ascx.cs:OnInit()");
-                object[] objects = new object[0];
+       // protected override void OnInit(EventArgs e)
+       // {
+       //    try
+       //     {
+       //         ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+       //         mypager.EnableViewState = true;
+       //         base.OnInit(e);
+       //     }
+       //     catch (BaseApplicationException Ex)
+       //     {
+       //         throw Ex;
+       //     }
+       //     catch (Exception Ex)
+       //     {
+       //         BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+       //         NameValueCollection FunctionInfo = new NameValueCollection();
+       //         FunctionInfo.Add("Method", "PortfolioSystematicView.ascx.cs:OnInit()");
+       //         object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-       }
+       //         FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+       //         exBase.AdditionalInformation = FunctionInfo;
+       //         ExceptionManager.Publish(exBase);
+       //         throw exBase;
+       //     }
+       //}
 
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                GetPageCount();
-                this.BindMISGridView();
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "PortfolioSystematicView.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[2];
-                objects[0] = customerVo;
-                objects[1] = portfolioId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        GetPageCount();
+        //        this.BindMISGridView();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "PortfolioSystematicView.ascx.cs:HandlePagerEvent()");
+        //        object[] objects = new object[2];
+        //        objects[0] = customerVo;
+        //        objects[1] = portfolioId;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
-        }
+        //}
 
-        private void GetPageCount()
-        {
-            string upperlimit = null;
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = null;
-            string PageRecords = null;
-            try
-            {
-                if (hdnRecordCount.Value.ToString() != "")
-                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                if (rowCount > 0)
-                {
-                    ratio = rowCount / 30;
-                    mypager.PageCount = rowCount % 30 == 0 ? ratio : ratio + 1;
-                    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    if (((mypager.CurrentPage - 1) * 30) != 0)
-                        lowerlimit = (((mypager.CurrentPage - 1) * 30) + 1).ToString();
-                    else
-                        lowerlimit = "1";
-                    upperlimit = (mypager.CurrentPage * 30).ToString();
-                    if (mypager.CurrentPage == mypager.PageCount)
-                        upperlimit = hdnRecordCount.Value;
-                    PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                    lblCurrentPage.Text = PageRecords;
-                    hdnRecordCount.Value = mypager.CurrentPage.ToString();
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "PortfolioSystematicView.ascx.cs:GetPageCount()");
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //private void GetPageCount()
+        //{
+        //    string upperlimit = null;
+        //    int rowCount = 0;
+        //    int ratio = 0;
+        //    string lowerlimit = null;
+        //    string PageRecords = null;
+        //    try
+        //    {
+        //        if (hdnRecordCount.Value.ToString() != "")
+        //            rowCount = Convert.ToInt32(hdnRecordCount.Value);
+        //        if (rowCount > 0)
+        //        {
+        //            ratio = rowCount / 30;
+        //            mypager.PageCount = rowCount % 30 == 0 ? ratio : ratio + 1;
+        //            mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+        //            if (((mypager.CurrentPage - 1) * 30) != 0)
+        //                lowerlimit = (((mypager.CurrentPage - 1) * 30) + 1).ToString();
+        //            else
+        //                lowerlimit = "1";
+        //            upperlimit = (mypager.CurrentPage * 30).ToString();
+        //            if (mypager.CurrentPage == mypager.PageCount)
+        //                upperlimit = hdnRecordCount.Value;
+        //            PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //            lblCurrentPage.Text = PageRecords;
+        //            hdnRecordCount.Value = mypager.CurrentPage.ToString();
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "PortfolioSystematicView.ascx.cs:GetPageCount()");
+        //        object[] objects = new object[5];
+        //        objects[0] = upperlimit;
+        //        objects[1] = rowCount;
+        //        objects[2] = ratio;
+        //        objects[3] = lowerlimit;
+        //        objects[4] = PageRecords;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
-        }
+        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -368,11 +368,11 @@ namespace WealthERP.OPS
             dtOrderMIS = dsOrderMIS.Tables[0];
             if (dtOrderMIS.Rows.Count > 0)
             {
-                lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+                //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
                 gvCustomerOrderMIS.DataSource = dtOrderMIS;
                 gvCustomerOrderMIS.DataBind();
                 gvCustomerOrderMIS.Visible = true;
-                this.GetPageCount();
+                //this.GetPageCount();
                 if (ddlMISOrderStatus.SelectedValue == "OMIP")
                 {
                     btnSync.Visible = true;
@@ -396,10 +396,7 @@ namespace WealthERP.OPS
                 ErrorMessage.Visible = false;
                 tblMessage.Visible = false;
                 Session["GridView"] = dtOrderMIS;
-                tblPager.Visible = true;
-                trPager.Visible = true;
-                lblCurrentPage.Visible = true;
-                lblTotalRows.Visible = true;
+                
                 btnMForderRecon.Visible = true;
                 //imgBtnExport.Visible = true;
             }
@@ -412,8 +409,7 @@ namespace WealthERP.OPS
                 ErrorMessage.InnerText = "No Records Found...!";
                 btnSync.Visible = false;
                 btnMannualMatch.Visible = false;
-                tblPager.Visible = false;
-                trPager.Visible = false;
+                
                 btnMForderRecon.Visible = false;
                 //imgBtnExport.Visible = false;
             }
@@ -1482,11 +1478,11 @@ namespace WealthERP.OPS
         protected void btnMForderRecon_Click(object sender, ImageClickEventArgs e)
         {
             gvCustomerOrderMIS.ExportSettings.OpenInNewWindow = true;
+            gvCustomerOrderMIS.ExportSettings.OpenInNewWindow = true;
             gvCustomerOrderMIS.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvCustomerOrderMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
+            gvCustomerOrderMIS.ExportSettings.HideStructureColumns = true;
+            gvCustomerOrderMIS.ExportSettings.ExportOnlyData = true;
+            gvCustomerOrderMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvCustomerOrderMIS.MasterTableView.ExportToExcel();
         }
     }
