@@ -160,9 +160,7 @@
         <td class="rightField" style="width: 20%">
             <asp:Label ID="lblGetRM" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
-        <td style="width: 25%">
-            &nbsp;
-        </td>
+
     </tr>
     
       <tr>
