@@ -62,7 +62,7 @@ namespace WealthERP.CustomerPortfolio
             if (!IsPostBack)
             {
                 userVo = (UserVo)Session[SessionContents.UserVo];
-                
+                trSipAutoTranx.Visible = false;
                 //customerAccountsVo = (CustomerAccountsVo)Session["customerAccountVo"];
                 if (Session["systematicSetupVo"] != null)
                 {
@@ -883,6 +883,14 @@ namespace WealthERP.CustomerPortfolio
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             int folioAccountId = 0;
+            if (SipAutoTranx.Checked)
+            {
+                systematicSetupVo.IsAutoTransaction = 1;
+            }
+            else
+            {
+                systematicSetupVo.IsAutoTransaction = 0;
+            }
             if (ddlPaymentMode.SelectedItem.Value == "ES")
             {
                 hdnddlPaymentMode.Value = "ES";
@@ -1478,6 +1486,10 @@ namespace WealthERP.CustomerPortfolio
         protected void ddlportfolio_SelectedIndexChanged(object sender, EventArgs e)
         {
             portfolioId = int.Parse(ddlportfolio.SelectedItem.Value.ToString());
+            if (ddlportfolio.SelectedItem.Value != "MyPortfolio")
+            {
+                trSipAutoTranx.Visible = true;
+            }
             if (txtSchemeCode.Value != "")
                 schemePlanCode = int.Parse(txtSchemeCode.Value);
             else

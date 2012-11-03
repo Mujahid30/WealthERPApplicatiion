@@ -48,7 +48,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_CreatedBy",DbType.Int32,userId);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_ModifiedBy",DbType.Int32,userId);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_Tenure",DbType.Int32, systematicSetupVo.Period);
-
+                db.AddInParameter(createSystematicSchemeSetupCmd, "@IsAutoTranx", DbType.Int32, systematicSetupVo.IsAutoTransaction);
                 db.AddInParameter(createSystematicSchemeSetupCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
 
                 if (systematicSetupVo.SipChequeDate!=DateTime.MinValue)
@@ -121,7 +121,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XF_FrequencyCode", DbType.String, systematicSetupVo.FrequencyCode);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XPM_PaymentModeCode", DbType.String, systematicSetupVo.PaymentModeCode);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_ModifiedBy", DbType.Int32, userId);
-
+                db.AddInParameter(updateSystematicSchemeSetupCmd, "@IsAutoTranx", DbType.Int32, systematicSetupVo.IsAutoTransaction);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@Tenure", DbType.Int16, systematicSetupVo.Period);
 
@@ -341,7 +341,8 @@ namespace DaoCustomerPortfolio
                     if (!string.IsNullOrEmpty(dr["XPM_PaymentModeCode"].ToString()))
                         systematicSetupVo.PaymentModeCode = dr["XPM_PaymentModeCode"].ToString();
                     systematicSetupVo.PeriodSelection = dr["CMFSS_TenureCycle"].ToString();
-
+                    if (!string.IsNullOrEmpty(dr["CMFSS_IsAutoTransaction"].ToString()))
+                        systematicSetupVo.IsAutoTransaction = int.Parse(dr["CMFSS_IsAutoTransaction"].ToString());
                     
 
 

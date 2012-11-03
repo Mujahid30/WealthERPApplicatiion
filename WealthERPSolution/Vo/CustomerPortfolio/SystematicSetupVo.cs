@@ -36,13 +36,18 @@ namespace VoCustomerPortfolio
         private DateTime m_RegistrationDate;
         private string m_Portfolio;
         private int m_portfolioId;
-       
+        private int m_IsAutoTransaction;
 
         #endregion
 
 
         #region Properties
 
+        public int IsAutoTransaction
+        {
+            get { return m_IsAutoTransaction; }
+            set { m_IsAutoTransaction = value; }
+        }
 
         public int SystematicSetupId
         {
