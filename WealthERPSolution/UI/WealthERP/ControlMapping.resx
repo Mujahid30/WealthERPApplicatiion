@@ -1457,4 +1457,8 @@
     <value>Customer//CompleteCustomerProfile.ascx</value>
     <comment>Customer//CompleteCustomerProfile.ascx</comment>
   </data>
+  <data name="CustomerISARequestList" xml:space="preserve">
+    <value>Customer//CustomerISARequestList.ascx</value>
+    <comment>Customer//CustomerISARequestList.ascx</comment>
+  </data>
 </root>

@@ -1927,6 +1927,13 @@
     <Compile Include="Customer\CustomerISARequest.ascx.designer.cs">
       <DependentUpon>CustomerISARequest.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Customer\CustomerISARequestList.ascx.cs">
+      <DependentUpon>CustomerISARequestList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerISARequestList.ascx.designer.cs">
+      <DependentUpon>CustomerISARequestList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Customer\CustomerNonIndividualAdd.ascx.cs">
       <DependentUpon>CustomerNonIndividualAdd.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5670,6 +5677,7 @@
     <Content Include="Customer\CustomerExpense.ascx" />
     <Content Include="Customer\CustomerIncome.ascx" />
     <Content Include="Customer\CustomerISARequest.ascx" />
+    <Content Include="Customer\CustomerISARequestList.ascx" />
     <Content Include="Customer\CustomerProofView.ascx" />
     <Content Include="Customer\DematAccountDetails.ascx" />
     <Content Include="Customer\GroupAccountSetup.ascx" />
