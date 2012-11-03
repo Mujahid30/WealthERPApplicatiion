@@ -149,10 +149,18 @@
                          <td>
                         </td>
                         <td>
-                        <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
+                      <%--  <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
                               ControlToValidate="txtAssumptionValue" CssClass="cvPCG" Display="Dynamic" 
                               ErrorMessage="Please enter value less than 100" MaximumValue="99.9" 
-                              MinimumValue="0.0" Type="Double" ValidationGroup="vgbtnSubmit"></asp:RangeValidator>
+                              MinimumValue="0.0" Type="Double" ValidationGroup="vgbtnSubmit"></asp:RangeValidator>--%>
+                               <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator1" runat="server"
+                                        CssClass="rfvPCG" ControlToValidate="txtAssumptionValue" ErrorMessage="Please Enter Integer"
+                                        ValidationGroup="vgbtnSubmit">
+                                    </asp:RequiredFieldValidator>
+                                         
+                             <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator3"
+                                        runat="server" CssClass="rfvPCG" ControlToValidate="txtAssumptionValue" ValidationGroup="vgbtnSubmit"
+                                        ErrorMessage="Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                         </td>
                        
                         </tr>                                           

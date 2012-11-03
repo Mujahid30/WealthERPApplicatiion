@@ -68,10 +68,14 @@
                                 <asp:TextBox ID="txtAssumptionValue"  runat="server" CssClass="txtField" Text='<%# Bind( "AA_Value") %>'>
                                 </asp:TextBox><span id="Span5" class="spnRequiredField">*</span>
                                 
-                                <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
+                               <%-- <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
                               ControlToValidate="txtAssumptionValue" CssClass="cvPCG" Display="Dynamic" 
                               ErrorMessage="Please enter correct value" MaximumValue="100.00" 
-                              MinimumValue="-100.00" Type="Double" ValidationGroup="vgbtnSubmit"></asp:RangeValidator>
+                              MinimumValue="-100.00" Type="Double" ValidationGroup="vgbtnSubmit"></asp:RangeValidator>--%>
+                              
+                             <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator3"
+                                        runat="server" CssClass="rfvPCG" ControlToValidate="txtAssumptionValue" ValidationGroup="vgbtnSubmit"
+                                        ErrorMessage="Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                             
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator14" ControlToValidate="txtAssumptionValue"
                                 ErrorMessage="Enter the Value" Display="Dynamic" runat="server"
