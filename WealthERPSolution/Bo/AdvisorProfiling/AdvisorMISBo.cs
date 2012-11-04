@@ -842,5 +842,95 @@ namespace BoAdvisorProfiling
             }
             return dsMfDashBoard;
         }
+
+        public DataSet getTurnOverCategoryList()
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsCategoryList;
+            try
+            {
+                dsCategoryList = MISDao.getTurnOverCategoryList();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsCategoryList;
+        }
+
+        public DataSet GetAMCTransactionDeatails(string userType,int AdviserId,int rmId,int branchId,int branchHeadId,int all,DateTime FromDate,DateTime Todate)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsAMCTransactionDeatails;
+            try
+            {
+                dsAMCTransactionDeatails = MISDao.GetAMCTransactionDeatails(userType,AdviserId,rmId,branchId,branchHeadId,all,FromDate,Todate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsAMCTransactionDeatails;
+        }
+
+        public DataSet GetSchemeTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AmcCode)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsSchemeTransactionDeatails;
+            try
+            {
+                dsSchemeTransactionDeatails = MISDao.GetSchemeTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AmcCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsSchemeTransactionDeatails;
+        }
+
+        public DataSet GetBranchTransactionDeatails(int AdviserId)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsBranchTransactionDeatails;
+            try
+            {
+                dsBranchTransactionDeatails = MISDao.GetBranchTransactionDeatails(AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsBranchTransactionDeatails;
+        }
+
+        public DataSet GetFolioTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,int SchemeCode)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsFolioTransactionDeatails;
+            try
+            {
+                dsFolioTransactionDeatails = MISDao.GetFolioTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, SchemeCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsFolioTransactionDeatails;
+        }
+
+        public DataSet GetCategoryTransactionDeatails(int AdviserId)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsCategoryTransactionDeatails;
+            try
+            {
+                dsCategoryTransactionDeatails = MISDao.GetCategoryTransactionDeatails(AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsCategoryTransactionDeatails;
+        }
     }
 }
