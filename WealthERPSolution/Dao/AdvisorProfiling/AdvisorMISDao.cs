@@ -1189,5 +1189,160 @@ namespace DaoAdvisorProfiling
             }
             return dsGetMFDashBoard;
         }
+        public DataSet getTurnOverCategoryList()
+        {
+            Database db;
+            DbCommand GetCategoryListCmd;
+            DataSet dsGetCategoryList = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetCategoryListCmd = db.GetStoredProcCommand("SP_GetMFTurnOverSummaryCategoryList");
+                dsGetCategoryList = db.ExecuteDataSet(GetCategoryListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetCategoryList;
+        }
+        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
+        {
+            Database db;
+            DbCommand AMCTransactionDeatailsCmd;
+            DataSet dsAMCTransactionDeatails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                AMCTransactionDeatailsCmd = db.GetStoredProcCommand("SP_GetAMCWiseTransactionDetails");
+                db.AddInParameter(AMCTransactionDeatailsCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(AMCTransactionDeatailsCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(AMCTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(AMCTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(AMCTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(AMCTransactionDeatailsCmd, "@all", DbType.Int32, all);
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(AMCTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    FromDate = DateTime.MinValue;
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(AMCTransactionDeatailsCmd, "@ToDate", DbType.DateTime, Todate);
+                else
+                    Todate = DateTime.MinValue;
+
+                dsAMCTransactionDeatails = db.ExecuteDataSet(AMCTransactionDeatailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsAMCTransactionDeatails;
+        }
+        public DataSet GetSchemeTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AmcCode)
+        {
+            Database db;
+            DbCommand GetSchemeTransactionDeatailsCmd;
+            DataSet dsSchemeTransactionDeatails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSchemeTransactionDeatailsCmd = db.GetStoredProcCommand("SP_GetSchemeWiseTransactionDetails");
+                db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@all", DbType.Int32, all);
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    FromDate = DateTime.MinValue;
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@ToDate", DbType.DateTime, Todate);
+                else
+                    Todate = DateTime.MinValue;
+                if (AmcCode != 0)
+                    db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@amcCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@amcCode", DbType.Int32, DBNull.Value);
+                dsSchemeTransactionDeatails = db.ExecuteDataSet(GetSchemeTransactionDeatailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsSchemeTransactionDeatails;
+        }
+        public DataSet GetBranchTransactionDeatails(int AdviserId)
+        {
+            Database db;
+            DbCommand GetBranchTransactionDeatailsCmd;
+            DataSet dsBranchTransactionDeatails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetBranchTransactionDeatailsCmd = db.GetStoredProcCommand("SP_GetBranchWiseTransactionDetails");
+                db.AddInParameter(GetBranchTransactionDeatailsCmd, "@adviserId", DbType.Int32, AdviserId);
+                dsBranchTransactionDeatails = db.ExecuteDataSet(GetBranchTransactionDeatailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsBranchTransactionDeatails;
+        }
+        public DataSet GetFolioTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int SchemeCode)
+        {
+            Database db;
+            DbCommand GetFolioTransactionDeatailsCmd;
+            DataSet dsFolioTransactionDeatails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetFolioTransactionDeatailsCmd = db.GetStoredProcCommand("SP_GetFolio/CustomerTransactionDetails");
+                db.AddInParameter(GetFolioTransactionDeatailsCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(GetFolioTransactionDeatailsCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetFolioTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(GetFolioTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(GetFolioTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetFolioTransactionDeatailsCmd, "@all", DbType.Int32, all);
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(GetFolioTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    FromDate = DateTime.MinValue;
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(GetFolioTransactionDeatailsCmd, "@ToDate", DbType.DateTime, Todate);
+                else
+                    Todate = DateTime.MinValue;
+                if (SchemeCode != 0)
+                    db.AddInParameter(GetFolioTransactionDeatailsCmd, "@amcCode", DbType.Int32, SchemeCode);
+                else
+                    db.AddInParameter(GetFolioTransactionDeatailsCmd, "@amcCode", DbType.Int32, DBNull.Value);
+                dsFolioTransactionDeatails = db.ExecuteDataSet(GetFolioTransactionDeatailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsFolioTransactionDeatails;
+        }
+        public DataSet GetCategoryTransactionDeatails(int AdviserId)
+        {
+            Database db;
+            DbCommand GetCategoryTransactionDeatailsCmd;
+            DataSet dsCategoryTransactionDeatails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetCategoryTransactionDeatailsCmd = db.GetStoredProcCommand("SP_GetCategoryWiseTransactionDetails");
+                db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@adviserId", DbType.Int32, AdviserId);
+                dsCategoryTransactionDeatails = db.ExecuteDataSet(GetCategoryTransactionDeatailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsCategoryTransactionDeatails;
+        }
     }
 }
