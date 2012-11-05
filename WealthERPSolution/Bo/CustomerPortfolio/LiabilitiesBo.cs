@@ -1203,13 +1203,13 @@ namespace BoCustomerPortfolio
 
             return blResult;
         }
-        public List<LiabilitiesVo> GetISAQueueList(int AdviserId)
+        public List<LiabilitiesVo> GetISAQueueList(int advisorId)
         {
-            List<LiabilitiesVo> liabilitiesList = null;
+            List<LiabilitiesVo> ISAQueueList = null;
             LiabilitiesDao liabilitiesDao = new LiabilitiesDao();
             try
             {
-                liabilitiesList = liabilitiesDao.GetISAQueueList(AdviserId);
+                ISAQueueList = liabilitiesDao.GetISAQueueList(advisorId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1221,7 +1221,7 @@ namespace BoCustomerPortfolio
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "LiabilitiesBo.cs:GetLiabilities()");
                 object[] objects = new object[1];
-                objects[0] = AdviserId;
+                objects[0] = advisorId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1229,7 +1229,7 @@ namespace BoCustomerPortfolio
 
             }
 
-            return liabilitiesList;
+            return ISAQueueList;
         }
         public List<LiabilitiesVo> GetLiabilities(int customerId)
         {
