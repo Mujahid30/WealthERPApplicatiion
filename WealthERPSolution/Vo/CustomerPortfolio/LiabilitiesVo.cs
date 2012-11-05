@@ -41,11 +41,61 @@ namespace VoCustomerPortfolio
         private DateTime m_LoanStartDate;
         private int m_Tenure;
         private string m_AssetParticular;
-
-
+        private int m_ISARequestId;
+        private DateTime m_RequestDate;
+        private string m_Status;
+        private string m_Priority;
+        private string m_CustomerName;
+        private string m_StepCode;
+        private string m_BranchName;
+        private string m_CurrentStatus;
         #endregion Fields
 
         #region Properties
+
+        public DateTime RequestDate
+        {
+            get { return m_RequestDate; }
+            set { m_RequestDate = value; }
+        }
+
+        public string StepCode
+        {
+            get { return m_StepCode; }
+            set { m_StepCode = value; }
+        }
+
+        public int ISARequestId
+        {
+            get { return m_ISARequestId; }
+            set { m_ISARequestId = value; }
+        }
+        public string BranchName
+        {
+            get { return m_BranchName; }
+            set { m_BranchName = value; }
+        }
+        public string CustomerName
+        {
+            get { return m_CustomerName; }
+            set { m_CustomerName = value; }
+        }
+        public string CurrentStatus
+        {
+            get { return m_CurrentStatus; }
+            set { m_CurrentStatus = value; }
+        }
+        public string Priority
+        {
+            get { return m_Priority; }
+            set { m_Priority = value; }
+        }
+
+        public string Status
+        {
+            get { return m_Status; }
+            set { m_Status = value; }
+        }
 
         public string AssetParticular
         {
