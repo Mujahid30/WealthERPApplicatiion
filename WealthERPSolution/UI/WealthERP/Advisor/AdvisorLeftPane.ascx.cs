@@ -983,6 +983,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BMCustomer", "loadcontrol('BMCustomer','login');", true);
                 }
+                else if (e.Item.Value == "Status_ISA")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BMCustomer", "loadcontrol('CustomerISARequestList','login');", true);
+                }
                 else if (e.Item.Value == "Generate_ISA")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BMCustomer", "loadcontrol('CustomerISARequest','login');", true);

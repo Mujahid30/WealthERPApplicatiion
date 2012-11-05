@@ -401,7 +401,10 @@
                                     <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
                                     </telerik:RadPanelItem>
                                      <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
-                                      
+                                      <Items>
+                                            <telerik:RadPanelItem runat="server" Text="ISA Status" Value="Status_ISA">
+                                            </telerik:RadPanelItem>
+                                            </Items>
                                       <Items>
                                             <telerik:RadPanelItem runat="server" Text="Generate ISA" Value="Generate_ISA">
                                             </telerik:RadPanelItem>
