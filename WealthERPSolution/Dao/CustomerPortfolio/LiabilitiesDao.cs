@@ -2269,9 +2269,9 @@ namespace DaoCustomerPortfolio
 
             return LiabilityId;//GetISAQueue
         }
-        public List<LiabilitiesVo> GetISAQueueList(int AdviserId)
+        public List<LiabilitiesVo> GetISAQueueList(int advisorId)
         {
-            List<LiabilitiesVo> liabilitiesList = null;
+            List<LiabilitiesVo> ISAQueueList = null;
             LiabilitiesVo liabilitiesVo;
             Database db;
             DbCommand cmdGetISAQueue;
@@ -2282,12 +2282,12 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetISAQueue = db.GetStoredProcCommand("SP_GetAdviserISAQueue");
-                db.AddInParameter(cmdGetISAQueue, "@AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(cmdGetISAQueue, "@AdviserId", DbType.Int32, advisorId);
                 dsGetISAQueue = db.ExecuteDataSet(cmdGetISAQueue);
                 if (dsGetISAQueue.Tables[0].Rows.Count > 0)
                 {
                     dtGetISAQueue = dsGetISAQueue.Tables[0];
-                    liabilitiesList = new List<LiabilitiesVo>();
+                    ISAQueueList = new List<LiabilitiesVo>();
                     foreach (DataRow dr in dtGetISAQueue.Rows)
                     {
                         liabilitiesVo = new LiabilitiesVo();
@@ -2295,19 +2295,19 @@ namespace DaoCustomerPortfolio
                         if (!String.IsNullOrEmpty(dr["AISAQ_date"].ToString()))
                             liabilitiesVo.RequestDate = DateTime.Parse(dr["AISAQ_date"].ToString());
                         if (!String.IsNullOrEmpty(dr["AISAQ_Status"].ToString()))
-                            liabilitiesVo.Status = dr["AISAQ_Status"].ToString();
+                            liabilitiesVo.CurrentStatus = dr["AISAQ_Status"].ToString();
                         if (!String.IsNullOrEmpty(dr["AISAQ_Priority"].ToString()))
                             liabilitiesVo.Priority = dr["AISAQ_Priority"].ToString();
                         if (!String.IsNullOrEmpty(dr["CustomerName"].ToString()))
                             liabilitiesVo.CustomerName = dr["CustomerName"].ToString();
-                        if (!String.IsNullOrEmpty(dr["StepCode"].ToString()))
-                            liabilitiesVo.StepCode = dr["StepCode"].ToString();
+                        if (!String.IsNullOrEmpty(dr["WWFSM_StepCode"].ToString()))
+                            liabilitiesVo.StepCode = dr["WWFSM_StepCode"].ToString();
                         if (!String.IsNullOrEmpty(dr["AISAQD_Status"].ToString()))
                             liabilitiesVo.Status = (dr["AISAQD_Status"].ToString());
                         if (!String.IsNullOrEmpty(dr["BranchName"].ToString()))
                             liabilitiesVo.BranchName = dr["BranchName"].ToString();
 
-                        liabilitiesList.Add(liabilitiesVo);
+                        ISAQueueList.Add(liabilitiesVo);
                     }
                 }
 
@@ -2323,7 +2323,7 @@ namespace DaoCustomerPortfolio
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "LiabilitiesDao.cs:GetLiabilities()");
                 object[] objects = new object[1];
-                objects[0] = AdviserId;
+                objects[0] = advisorId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -2331,7 +2331,7 @@ namespace DaoCustomerPortfolio
 
             }
 
-            return liabilitiesList;
+            return ISAQueueList;
         }
         public List<LiabilitiesVo> GetLiabilities(int customerId)
         {
