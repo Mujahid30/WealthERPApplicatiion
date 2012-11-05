@@ -291,7 +291,7 @@
                                     <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
-                                        <Items>
+                                      <Items>
                                             <%--<telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
                                             </telerik:RadPanelItem>--%>
                                             <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
@@ -400,7 +400,12 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
+                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
+                                      
+                                      <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Generate ISA" Value="Generate_ISA">
+                                            </telerik:RadPanelItem>
+                                            </Items>
                                     </telerik:RadPanelItem>
                                     
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
