@@ -14,5 +14,9 @@ namespace WealthERP.Customer
 
     public partial class CustomerISARequestList
     {
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trErrorMessage;
+        protected global::Telerik.Web.UI.RadGrid gvISArequest;
     }
 }
