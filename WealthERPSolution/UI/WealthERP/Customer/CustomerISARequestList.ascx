@@ -1,4 +1,6 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerISARequestList.ascx.cs" Inherits="WealthERP.Customer.CustomerISARequestList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerISARequestList.ascx.cs"
+    Inherits="WealthERP.Customer.CustomerISARequestList" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 <table width="100%" class="TableBackground">
@@ -28,16 +30,17 @@
         </td>
     </tr>
     <tr>
-        <telerik:RadGrid ID="gvISArequest" runat="server" GridLines="None" AutoGenerateColumns="False"
-            Width="100%" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
-            ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
-            AllowAutomaticInserts="false" ExportSettings-Excel-Format="ExcelML" OnNeedDataSource="gvISArequest_OnNeedDataSource">
-            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="ISArequest Details">
-            </ExportSettings>
-            <MasterTableView AllowFilteringByColumn="false" Width="100%" AllowMultiColumnSorting="True"
-                AutoGenerateColumns="false" CommandItemDisplay="None">
-                <Columns>
-                    <%--<telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
+        <td>
+            <telerik:RadGrid ID="gvISArequest" runat="server" CssClass="RadGrid" GridLines="None" OnNeedDataSource="gvISArequest_OnNeedDataSource"
+                Width="100%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+                ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+                AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true"
+                EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
+                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ISAQueuelist">
+                </ExportSettings>
+                <MasterTableView CommandItemDisplay="None" DataKeyNames="AISAQ_RequestQueueid,WWFSM_StepCode">
+                    <Columns>
+                        <%--<telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
                         <ItemTemplate>
                             <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
                                 CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
@@ -55,40 +58,43 @@
                             </telerik:RadComboBox>
                         </ItemTemplate>
                     </telerik:GridTemplateColumn>--%>
-                    <telerik:GridBoundColumn DataField="AISAQ_RequestQueueid" AllowFiltering="false"
-                        HeaderText="ISA RequestId">
-                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="AISAQ_date" AllowFiltering="false" HeaderText="Request Date">
-                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="AISAQ_Status" AllowFiltering="false" HeaderText="Status">
-                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="AISAQ_Priority" AllowFiltering="false" HeaderText="Priority"
-                        FooterStyle-HorizontalAlign="Right">
-                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="false" HeaderText="Customer Name">
-                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="AISAQD.WWFSM_StepCode" AllowFiltering="false"
-                        HeaderText="Current Stage">
-                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="AISAQD.AISAQD_Status" AllowFiltering="false"
-                        HeaderText="Current Stage Status">
-                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="AB_BranchName" AllowFiltering="false" HeaderText="Branch"
-                        FooterStyle-HorizontalAlign="Right">
-                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                </Columns>
-            </MasterTableView>
-            <ClientSettings>
-                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-            </ClientSettings>
-        </telerik:RadGrid>
+                        <telerik:GridBoundColumn DataField="AISAQ_RequestQueueid" AllowFiltering="false"
+                            HeaderText="ISA RequestId">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="AISAQ_date" AllowFiltering="false" HeaderText="Request Date">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="AISAQ_Status" AllowFiltering="false" HeaderText="Status">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="AISAQ_Priority" AllowFiltering="false" HeaderText="Priority"
+                            FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="false" HeaderText="Customer Name">
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="WWFSM_StepCode" AllowFiltering="false"
+                            HeaderText="Current Stage">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="AISAQD_Status" AllowFiltering="false"
+                            HeaderText="Current Stage Status">
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="BranchName" AllowFiltering="false" HeaderText="Branch"
+                            FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+                  
+                    <Resizing AllowColumnResize="true" />
+                    <Selecting AllowRowSelect="true" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </td>
     </tr>
 </table>

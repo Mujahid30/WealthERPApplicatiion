@@ -28,7 +28,7 @@ namespace WealthERP.Customer
     {
         UserBo userBo;
         UserVo userVo;
-        List<LiabilitiesVo> liabilitiesListVo = null;
+        List<LiabilitiesVo> ISAQueueListVo = null;
         LiabilitiesBo liabilitiesBo = new LiabilitiesBo();
         CustomerVo customerVo = null;
         Calculator calculator = new Calculator();
@@ -40,10 +40,12 @@ namespace WealthERP.Customer
             SessionBo.CheckSession();
             userBo = new UserBo();
             userVo = (UserVo)Session[SessionContents.UserVo];
+            advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             if (!IsPostBack)
             {
                 
                 advisorId = advisorVo.advisorId;
+                BindGridview();
             }
         }
         protected void gvISArequest_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
@@ -69,15 +71,15 @@ namespace WealthERP.Customer
         }
         protected void BindGridview()
         {
-            liabilitiesListVo = new List<LiabilitiesVo>();
+            ISAQueueListVo = new List<LiabilitiesVo>();
             LiabilitiesVo liabilityVo = new LiabilitiesVo();
-            liabilitiesListVo = liabilitiesBo.GetISAQueueList(advisorVo.advisorId);
+            ISAQueueListVo = liabilitiesBo.GetISAQueueList(advisorVo.advisorId);
             DataTable dt = new DataTable();
             DataRow dr;
             Double loanOutStanding = 0;
             DateTime nextInsDate = new DateTime();
 
-            if (liabilitiesListVo != null)
+            if (ISAQueueListVo != null)
             {
                 btnExportFilteredData.Visible = true;
                 trErrorMessage.Visible = false;
@@ -89,16 +91,16 @@ namespace WealthERP.Customer
                 dt.Columns.Add("WWFSM_StepCode");
                 dt.Columns.Add("AISAQD_Status");
                 dt.Columns.Add("BranchName");
-                           
-                for (int i = 0; i < liabilitiesListVo.Count; i++)
+
+                for (int i = 0; i < ISAQueueListVo.Count; i++)
                 {
                     dr = dt.NewRow();
-                    liabilityVo = liabilitiesListVo[i];
+                    liabilityVo = ISAQueueListVo[i];
                     dr[0] = liabilityVo.ISARequestId;
                     if (liabilityVo.RequestDate != DateTime.MinValue)
                         dr[1] = liabilityVo.RequestDate.ToShortDateString();
-                    if (liabilityVo.Status != null)
-                        dr[2] = liabilityVo.Status;
+                    if (liabilityVo.CurrentStatus != null)
+                        dr[2] = liabilityVo.CurrentStatus;
                     if (liabilityVo.Priority != null)
                         dr[3] = liabilityVo.Priority;
                     if (liabilityVo.CustomerName != null)
@@ -109,7 +111,7 @@ namespace WealthERP.Customer
                         dr[6] = liabilityVo.Status;
                     if (liabilityVo.BranchName != null)
                         dr[7] = liabilityVo.BranchName;
-                    
+                    dt.Rows.Add(dr);
                 }
                 gvISArequest.DataSource = dt;
                 gvISArequest.DataBind();

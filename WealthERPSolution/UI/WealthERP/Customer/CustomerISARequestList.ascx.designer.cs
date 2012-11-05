@@ -14,6 +14,7 @@ namespace WealthERP.Customer
 
     public partial class CustomerISARequestList
     {
+        protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
 
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trErrorMessage;
