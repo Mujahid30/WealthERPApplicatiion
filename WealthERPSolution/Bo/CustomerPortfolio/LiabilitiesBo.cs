@@ -1203,6 +1203,34 @@ namespace BoCustomerPortfolio
 
             return blResult;
         }
+        public List<LiabilitiesVo> GetISAQueueList(int AdviserId)
+        {
+            List<LiabilitiesVo> liabilitiesList = null;
+            LiabilitiesDao liabilitiesDao = new LiabilitiesDao();
+            try
+            {
+                liabilitiesList = liabilitiesDao.GetISAQueueList(AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "LiabilitiesBo.cs:GetLiabilities()");
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return liabilitiesList;
+        }
         public List<LiabilitiesVo> GetLiabilities(int customerId)
         {
             List<LiabilitiesVo> liabilitiesList = null;
