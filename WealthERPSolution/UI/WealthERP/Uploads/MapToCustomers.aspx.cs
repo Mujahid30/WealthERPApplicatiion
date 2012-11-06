@@ -862,9 +862,37 @@ namespace WealthERP.Uploads
                 BindRMforBranchDropdown(int.Parse(ddlAdviserBranchList.SelectedValue.ToString()), 0);
 
             }
-
         }
 
+        protected void chkUseDummyPan_CheckedChanged(object sender, EventArgs e)
+        {
+            //if (rbtnNo.Checked == true)
+            //{
+            //    txtPanNumber.Enabled = true;
+            //    txtPanNumber.Text = string.Empty;
+            //}
+            //else if (rbtnYes.Checked == true)
+            //{
+            if (chkUseDummyPan.Checked == true)
+            {
+                int adviserId = advisorVo.advisorId;
+                int createdBy = advisorVo.advisorId;
+                int modifiedBy = advisorVo.advisorId;
+                int dummyPan = 0;
+                //DateTime modifiedOn = DateTime.Now;
+                //DateTime createdOn = DateTime.Now;
 
+                RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
+                dummyPan = rejectedTransactionsBo.GetNewDummyPan(adviserId, createdBy, modifiedBy, out dummyPan);
+
+                txtPanNumber.Text = "WERPAN" + dummyPan.ToString();
+                txtPanNumber.Enabled = false;
+            }
+            else
+            {
+                txtPanNumber.Enabled = true;
+                txtPanNumber.Text = string.Empty;
+            }
+        }
     }
 }

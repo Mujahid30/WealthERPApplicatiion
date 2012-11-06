@@ -52,6 +52,8 @@
 </head>
 <body class="TDBackground" onbeforeunload="doUnload()" onmousedown="somefunction()">
     <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
     <div id="divheader" runat="server">
         <table class="TDBackground" width="100%">
             <tr>
@@ -227,31 +229,71 @@
     </tr>--%>
             <tr id="trIndividualName" runat="server">
                 <td class="leftField">
-                    <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name (First/Middle/Last):"></asp:Label>
+                    <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="First Name:"></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="txtFirstNameCreation" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:TextBox ID="txtLastNameCreation" runat="server" CssClass="txtField"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtFirstNameCreation"
                         ErrorMessage="<br />Please enter the First Name" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
+                    <cc1:TextBoxWatermarkExtender ID="txtWMFirstNameCreation" runat="server" TargetControlID="txtFirstNameCreation"
+                        WatermarkText="Enter Middle Name">
+                    </cc1:TextBoxWatermarkExtender>
                 </td>
+            </tr>
+            <tr id="trIndividualMiddleName" runat="server">
+                <td class="leftField">
+                    <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Middle Name:"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="txtWMMiddleName" runat="server" TargetControlID="txtMiddleName"
+                        WatermarkText="Enter Middle Name">
+                    </cc1:TextBoxWatermarkExtender>
+                </td>
+            </tr>
+            <tr id="trIndividualLastName" runat="server">
+                <td class="leftField">
+                    <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Last Name:"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtLastNameCreation" runat="server" CssClass="txtField"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="txtWMLastNameCreation" runat="server" TargetControlID="txtLastNameCreation"
+                        WatermarkText="Enter Last Name">
+                    </cc1:TextBoxWatermarkExtender>
+                </td>
+            </tr>
+            <tr>
             </tr>
             <tr>
                 <td class="leftField">
                     <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
                 </td>
-                <td class="rightField" width="75%">
+                <td class="rightField" width="27%">
                     <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender runat="server" TargetControlID="txtPanNumber" WatermarkText="Enter PAN No.">
+                    </cc1:TextBoxWatermarkExtender>
                     <span id="Span6" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                         Display="Dynamic" runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
                     <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
-                </td>
+                </td>               
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
+                        <td>
+                        <asp:CheckBox CssClass="cmbField" ID="chkUseDummyPan" runat="server" Text="Generate Dummy Pan" AutoPostBack="true" OnCheckedChanged="chkUseDummyPan_CheckedChanged" />
+                           <%-- <asp:RadioButton ToolTip="Pan Not Available" CssClass="txtField" runat="server" ID="rbtnNo"
+                                Text="No" Checked="true" GroupName="btnDummyPan" OnCheckedChanged="rbtnHavePanNo_CheckedChanged"
+                                AutoPostBack="true" />
+                            <asp:RadioButton AutoPostBack="true" ToolTip="Pan Available" CssClass="txtField"
+                                runat="server" ID="rbtnYes" Text="Yes" OnCheckedChanged="rbtnHavePanNo_CheckedChanged"
+                                GroupName="btnDummyPan" />--%>
+                        </td>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </tr>
             <tr id="trNonIndividualName" runat="server">
                 <td class="leftField">
@@ -273,6 +315,9 @@
                 </td>
                 <td>
                     <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="txtWMEmail" runat="server" TargetControlID="txtEmail"
+                        WatermarkText="Enter Email Id">
+                    </cc1:TextBoxWatermarkExtender>
                     <%--  <span id="Span5" class="spnRequiredField">*</span>
             <br />
            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtEmail"
@@ -295,8 +340,6 @@
                     &nbsp;
                 </td>
                 <td>
-                    <asp:ScriptManager ID="ScriptManager1" runat="server">
-                    </asp:ScriptManager>
                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
                         CssClass="PCGButton" />
                 </td>
