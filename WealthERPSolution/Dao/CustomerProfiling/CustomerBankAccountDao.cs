@@ -28,7 +28,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(createCustomerBankCmd, "@CB_BankName", DbType.String, customerBankAccountVo.BankName);
                 db.AddInParameter(createCustomerBankCmd, "@XBAT_BankAccountTypeCode", DbType.String, customerBankAccountVo.AccountType);
-                db.AddInParameter(createCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.AccountNum);
+                db.AddInParameter(createCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
                 db.AddInParameter(createCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
                 db.AddInParameter(createCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
                 db.AddInParameter(createCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
@@ -104,7 +104,7 @@ namespace DaoCustomerProfiling
                         customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
                         customerBankAccountVo.BankName = dr["CB_BankName"].ToString();
                         customerBankAccountVo.AccountType = dr["XBAT_BankAccountTye"].ToString();
-                        customerBankAccountVo.AccountNum = dr["CB_AccountNum"].ToString();
+                        customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
                         customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString();
                         customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
                         ////customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
@@ -183,7 +183,7 @@ namespace DaoCustomerProfiling
                     {
                         customerBankAccountVo.AccountType = dr["XBAT_BankAccountTypeCode"].ToString();
                     }
-                    customerBankAccountVo.AccountNum = dr["CB_AccountNum"].ToString();
+                    customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
                     customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHoldingCode"].ToString();
                     customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
                     customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
@@ -245,7 +245,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(updateCustomerBankCmd, "@CB_CustBankAccId", DbType.Int32, customerBankAccountVo.CustBankAccId);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BankName", DbType.String, customerBankAccountVo.BankName);
                 db.AddInParameter(updateCustomerBankCmd, "@XBAT_BankAccountTypeCode", DbType.String, customerBankAccountVo.AccountType);
-                db.AddInParameter(updateCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.AccountNum);
+                db.AddInParameter(updateCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
                 db.AddInParameter(updateCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
