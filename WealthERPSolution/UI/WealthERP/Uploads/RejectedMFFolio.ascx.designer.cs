@@ -21,7 +21,8 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnBack;
-        
+        protected global::System.Web.UI.WebControls.Button btnViewTran;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRejectReason;
         /// <summary>
         /// msgReprocessComplete control.
         /// </summary>
@@ -30,6 +31,13 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessComplete;
+
+
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divProfileMessage;
+
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvCAMSProfileReject;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBtnActionSection;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
         
         /// <summary>
         /// msgReprocessincomplete control.
@@ -115,11 +123,16 @@ namespace WealthERP.Uploads {
         /// <summary>
         /// gvCAMSProfileReject control.
         /// </summary>
-        /// <remarks>
+    /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvCAMSProfileReject;
+
+        protected global::Telerik.Web.UI.RadDatePicker txtFromTran;
+
+        protected global::Telerik.Web.UI.RadDatePicker txtToTran;
+
         
         /// <summary>
         /// trReprocess control.

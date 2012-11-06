@@ -16,12 +16,17 @@ using BoCommon;
 using System.Collections;
 using Telerik.Web.UI;
 using System.Web.Services;
+using VoAdvisorProfiling;
 
+using BoAdvisorProfiling;
 
 namespace WealthERP.Uploads
 {
     public partial class RejectedMFFolio : System.Web.UI.UserControl
     {
+
+
+        AdvisorLOBBo advisorLOBBo = new AdvisorLOBBo();
         int ProcessId;
         int filetypeId;
         RejectedRecordsBo rejectedRecordsBo;
@@ -33,6 +38,10 @@ namespace WealthERP.Uploads
         UploadProcessLogVo processlogVo;
         public delegate void btnClick(object sender, EventArgs e);
         public event btnClick btnReprocessOnClick;
+        DateTime fromDate;
+        DateTime toDate;
+        int rejectReasonCode;
+        AdvisorLOBVo advisorLOBVo = new AdvisorLOBVo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,7 +51,7 @@ namespace WealthERP.Uploads
             adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session[SessionContents.UserVo];
-
+            BindddlRejectReason();
             if (Request.QueryString["processId"] != null)
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
             if (Request.QueryString["filetypeid"] != null)
@@ -60,27 +69,47 @@ namespace WealthERP.Uploads
             {
                 Session.Clear();
                 Session.Abandon();
-                // If User Sessions are empty, load the login control 
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('SessionExpired','');", true);
             }
             if (!IsPostBack)
             {
-                //mypager.CurrentPage = 1;
-                //hdnProcessIdFilter.Value = ProcessId.ToString();
-                //Session["ProcessId"] = "";
-                //Session["ProcessIdMaptoCustomers"] = "";
-                //if (Session["ProcessIdMaptoCustomers"].ToString() == "1")
-                //{
-                //    ProcessId = int.Parse(Session["ProcessId"].ToString());
-                //}
-
-                //ProcessId = int.Parse(hdnProcessIdFilter.Value.ToString());
-                BindGrid(ProcessId);
-                //Session["ProcessId"] = "";
-                //Session["ProcessIdMaptoCustomers"]="";
-
+                if (ProcessId != 0)
+                {
+                    divConditional.Visible = false;
+                    BindGrid(ProcessId);
+                }
+                else
+                {
+                    divGvCAMSProfileReject.Visible = false;
+                }
             }
         }
+
+        public void BindddlRejectReason()
+        {
+            Dictionary<string, string> genDictPriority = new Dictionary<string, string>();
+            processlogVo = new UploadProcessLogVo();
+            rejectedRecordsBo = new RejectedRecordsBo();
+            DataSet ds = rejectedRecordsBo.GetRejectReasonList(1);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    genDictPriority.Add(dr["WRR_RejectReasonDescription"].ToString(), dr["WRR_RejectReasonCode"].ToString());
+                }
+
+                if (ddlRejectReason != null)
+                {
+                    ddlRejectReason.DataSource = genDictPriority;
+                    ddlRejectReason.DataTextField = "Key";
+                    ddlRejectReason.DataValueField = "Value";
+                    ddlRejectReason.DataBind();
+                }
+            }
+
+            ddlRejectReason.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+        }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string newPan = string.Empty;
@@ -110,8 +139,8 @@ namespace WealthERP.Uploads
                     GridDataItem gdi;
                     gdi = (GridDataItem)checkBox.NamingContainer;
                     selectedRow = gdi.ItemIndex + 1;
-                    StagingId = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["MFFolioStagingId"].ToString()));
-                    MainStagingId = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["MainStagingId"].ToString()));
+                    StagingId = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CMFFS_Id"].ToString()));
+                    MainStagingId = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CMFFS_MainStagingId"].ToString()));
 
                     blResult = rejectedRecordsBo.UpdateMFFolioStaging(StagingId, MainStagingId, newPan, newFolio);
                 }
@@ -136,27 +165,25 @@ namespace WealthERP.Uploads
 
         private void BindGrid(int ProcessId)
         {
+            fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
+            toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
+            rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
+
             Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
             Dictionary<string, string> genDictRejectReason = new Dictionary<string, string>();
             Dictionary<string, string> genDictIsCustomerExisting = new Dictionary<string, string>();
             try
             {
                 rejectedRecordsBo = new RejectedRecordsBo();
-                if (ProcessId == 0)
-                {   // Bind All Processes
-                    //dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSortProcessID.Value, hdnIsRejectedFilter.Value, hdnPANFilter.Value.Trim(), hdnRejectReasonFilter.Value, hdnNameFilter.Value.Trim(), hdnFolioFilter.Value.Trim());
-                    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId);
-                }
-                else
-                {   // Bind Grid for the specific Process Id
-                    //dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSortProcessID.Value, hdnIsRejectedFilter.Value, hdnPANFilter.Value.Trim(), hdnRejectReasonFilter.Value, hdnNameFilter.Value.Trim(), hdnFolioFilter.Value.Trim());
-                    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId);
-                }
-
+                dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId, fromDate,toDate,rejectReasonCode);
+         
                 if (dsRejectedRecords.Tables[0].Rows.Count > 0)
                 {   // If Records found, then bind them to grid
-                    trProfileMessage.Visible = false;
-                    trReprocess.Visible = true;
+                    divProfileMessage.Visible = false;
+                    divGvCAMSProfileReject.Visible = true;
+                    imgBtnrgHoldings.Visible = true;
+                    divBtnActionSection.Visible = true;
+
                     gvCAMSProfileReject.DataSource = dsRejectedRecords.Tables[0];
                     gvCAMSProfileReject.DataBind();
 
@@ -171,11 +198,11 @@ namespace WealthERP.Uploads
                     }
                 }
                 else
-                {
-                    gvCAMSProfileReject.DataSource = null;
-                    gvCAMSProfileReject.DataBind();
-                    trProfileMessage.Visible = true;
-                    trReprocess.Visible = false;
+                {                    
+                    divProfileMessage.Visible = true;
+                    divBtnActionSection.Visible = false;
+                    divGvCAMSProfileReject.Visible = false;
+                    imgBtnrgHoldings.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -388,5 +415,69 @@ namespace WealthERP.Uploads
 
         }
 
+        protected void btnViewTran_Click(object sender, EventArgs e)
+        {
+            BindGrid(ProcessId);
+        }
+
+        protected void btnAddLob_Click(object sender, EventArgs e)
+        {
+            string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+            int advisorId = adviserVo.advisorId;
+            int userId = userVo.UserId;
+            string segment = "";
+            string assetClass = "MF";
+            string category = "INT";
+            CheckBox chkBrokerCode = new CheckBox();
+            int selectedRow;
+            int lob = 0;
+            chkBrokerCode = (CheckBox)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)chkBrokerCode.NamingContainer;
+            selectedRow = gdi.ItemIndex + 1;
+            lob = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CMFSS_BrokerCode"].ToString()));
+           
+            try
+            {
+                advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
+                advisorLOBVo.IdentifierTypeCode = "ARN";
+                //advisorLOBVo.OrganizationName = txtMFOrgName.Text.ToString();
+                //advisorLOBVo.Identifier = txtMFARNCode.Text.ToString();
+                //advisorLOBVo.ValidityDate = DateTime.Parse(txtMFValidity.Text.ToString());
+                advisorLOBVo.LicenseNumber = "";
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);              
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "EditLOB.ascx:btnMFSubmit_Click()");
+
+
+                object[] objects = new object[9];
+                objects[0] = assetClass;
+
+                objects[2] = advisorLOBBo;
+                objects[3] = advisorLOBVo;
+                objects[4] = path;
+                objects[5] = advisorId;
+                objects[6] = userId;
+                objects[7] = segment;
+                objects[8] = category;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            
+        }
     }
 }
