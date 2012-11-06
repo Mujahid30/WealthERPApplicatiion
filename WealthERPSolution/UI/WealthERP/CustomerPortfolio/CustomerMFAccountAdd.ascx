@@ -2,14 +2,31 @@
     Inherits="WealthERP.CustomerPortfolio.CustomerMFAccountAdd" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
-<style>
-    body
-    {
-        background-color: #EBEFF9;
+<script type="text/javascript">
+    function ShowPopup() {
+        var i = 0;
+        var form = document.forms[0];
+        var folioId = "";
+        var count = 0;
+        for (var i = 0; i < form.elements.length; i++) {
+            if (form.elements[i].type == 'checkbox') {
+                if (form.elements[i].checked == true) {
+                    count++;
+                }
+            }
+        }
+        if (count == 0) {
+            alert("Please select one record.")
+            return false;
+        }
     }
+</script>
+
+<style type="text/css">
     .error
     {
         color: Red;
@@ -22,48 +39,27 @@
         font-weight: bold;
         font-size: 12px;
     }
-    .spnRequiredField
-    {
-        color: #FF0033;
-        font-size: x-small;
-    }
-    .DisableClass
-    {
-        background: url(../App_Themes/Blue/Images/PCG_gradient_ButtonsDisable.jpg) no-repeat left top;
-        font-weight: bolder;
-        color: White;
-        font-size: x-small;
-        font-family: Verdana,Tahoma;
-        height: 22px;
-        width: 69px;
-        cursor: pointer;
-    }
 </style>
-<style type="text/css">
-    </style>
-<script  language="javascript" type="text/javascript">
 
+<script language="javascript" type="text/javascript">
     function openpopupAddBank() {
         window.open('PopUp.aspx?PageId=AddBankDetails', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-        return false;    
+        return false;
     }
 </script>
 
 <script type="text/javascript">
     function UseProfileName() {
-    
         if (document.getElementById("<%=chkUseProfileName.ClientID %>").checked == true) {
             document.getElementById("<%=txtInvestorName.ClientID %>").value = document.getElementById("ctrl_CustomerMFAccountAdd_hdnCustomerName").value;
-//            var sessionValue = '<%= Session["CustomerName"] %>';
+            //            var sessionValue = '<%= Session["CustomerName"] %>';
         }
-           else
-           {
-           document.getElementById("<%=txtInvestorName.ClientID %>").value="";
-           }
-
-        
+        else {
+            document.getElementById("<%=txtInvestorName.ClientID %>").value = "";
+        }
     }
-        </script>
+</script>
+
 <script type="text/javascript">
     function checkLoginId2() {
         $("#<%= hidValidCheck.ClientID %>").val("0");
@@ -71,7 +67,6 @@
             $("#spnLoginStatus").html("");
             return;
         }
-
         $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
         $.ajax({
             type: "POST",
@@ -115,28 +110,18 @@
         if ($("#<%= hidValidCheck.ClientID %>").val() == '1') {
             return Page_IsValid;
         }
-
-
-
     }
-
-
     function checkDate(sender, args) {
-
         var selectedDate = new Date();
         selectedDate = sender._selectedDate;
-
         var todayDate = new Date();
         var msg = "";
-
         if (selectedDate > todayDate) {
             sender._selectedDate = todayDate;
             sender._textbox.set_Value(sender._selectedDate.format(sender._format));
             alert("Warning! - Date Cannot be in the future");
         }
-    }
-
-    
+    }    
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -144,6 +129,118 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+<telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForGuardian" runat="server"
+    Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
+    Behaviors="Move,resize,close" Title="Inset New Policy">
+    <ContentTemplate>
+        <div style="padding: 20px">
+            <telerik:RadGrid ID="gvGuardian" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="true"
+                AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView DataKeyNames="MemberCustomerId, AssociationId" NoDetailRecordsText="Records not found"
+                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridTemplateColumn HeaderStyle-Width="15px" AllowFiltering="false" HeaderText="Select">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chkId0" runat="server" />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="110px" DataField="Name"
+                            HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="100px" DataField="Relationship"
+                            HeaderText="Relationship" />
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </div>
+        <div style="padding: 20px">
+            <asp:Button ID="btnAddMinor" runat="server" CssClass="PCGButton" Text="Associate"
+                OnClick="btnAddGuardian_Click" OnClientClick="return ShowPopup()" />
+        </div>
+    </ContentTemplate>
+</telerik:RadWindow>
+<telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForNominee" runat="server"
+    Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
+    Behaviors="Move,resize,close" Title="Inset New Policy">
+    <ContentTemplate>
+        <div style="padding: 20px">
+            <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="true"
+                AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView DataKeyNames="MemberCustomerId, AssociationId" NoDetailRecordsText="Records not found"
+                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridTemplateColumn HeaderStyle-Width="15px" AllowFiltering="false" HeaderText="Select">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chkId0" runat="server" />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="110px" DataField="Name"
+                            HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="100px" DataField="Relationship"
+                            HeaderText="Relationship" />
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </div>
+        <div style="padding: 20px">
+            <asp:Button ID="btnAddNominee" runat="server" CssClass="PCGButton" Text="Associate"
+                OnClick="btnAddNominee_Click" OnClientClick="return ShowPopup()" />
+        </div>
+    </ContentTemplate>
+</telerik:RadWindow>
+<telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForJointHolder" runat="server"
+    Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
+    Behaviors="Move,resize,close" Title="Inset New Policy">
+    <ContentTemplate>
+        <div style="padding: 20px">
+            <telerik:RadGrid ID="gvJointHoldersList" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="true"
+                AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView NoDetailRecordsText="Records not found" DataKeyNames="AssociationId"
+                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <NoRecordsTemplate>
+                        <div>
+                            There are no records to display</div>
+                    </NoRecordsTemplate>
+                    <Columns>
+                        <telerik:GridTemplateColumn HeaderStyle-Width="15px" AllowFiltering="false" HeaderText="Select">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chkId" runat="server" />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn HeaderStyle-Width="110px" ShowFilterIcon="false" DataField="Name"
+                            HeaderText="Name" />
+                        <telerik:GridBoundColumn HeaderStyle-Width="100px" ShowFilterIcon="false" DataField="Relationship"
+                            HeaderText="Relationship" />
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </div>
+        <div style="padding: 20px">
+            <asp:Button ID="btnAddJointHolder" runat="server" CssClass="PCGButton" Text="Associate"
+                OnClick="btnAddJointHolder_Click" OnClientClick="return ShowPopup()" />
+        </div>
+    </ContentTemplate>
+</telerik:RadWindow>
 <table width="100%" class="TableBackground">
     <tr>
         <td>
@@ -158,36 +255,44 @@
             </div>
         </td>
     </tr>
-    <%-- <tr>
-                <td class="HeaderCell">
-                    <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Add MF Folio"></asp:Label>
-                    <hr />
-                </td>
-            </tr>--%>
+    <tr>
+       
+    </tr>
 </table>
-<table>
+<table width="100%" class="TableBackground">
+    <tr>
+        <td style="width:300px" align="right">
+            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name : "></asp:Label>
+        </td>
+        <td colspan="4" style="width:50px">
+            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+    </tr>
+</table>
+<table width="100%" class="TableBackground">
     <tr>
         <td colspan="4">
             <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click">Edit</asp:LinkButton>
         </td>
     </tr>
 </table>
-<table>
+<table width="100%" class="TableBackground">
     <tr>
-        <td class="leftField">
-            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name : "></asp:Label>
-        </td>
-        <td colspan="4" class="rightField">
-            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
-            </asp:DropDownList>
+        <td colspan="5">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                <div class="divSectionHeadingNumber">
+                    1</div>
+                &nbsp;&nbsp;Folio Details
+            </div>
         </td>
     </tr>
     <tr>
         <td class="leftField">
             <asp:Label ID="lblFolioNum0" runat="server" CssClass="FieldName" Text="AMC Code :"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" colspan="4">
             <asp:DropDownList ID="ddlProductAmc" AutoPostBack="true" runat="server" OnSelectedIndexChanged="btn_amccheck"
                 CssClass="cmbLongField">
             </asp:DropDownList>
@@ -201,7 +306,7 @@
         <td class="leftField">
             <asp:Label ID="lblFolioNum" runat="server" CssClass="FieldName" Text="Folio Number :"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" colspan="4">
             <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" Enabled="false"
                 MaxLength="15" onblur="return checkLoginId2()"></asp:TextBox>
             <span id="Span3" class="spnRequiredField">*</span><span id="spnLoginStatus"></span>
@@ -214,7 +319,7 @@
         <td class="leftField">
             <asp:Label ID="lblJointHolding" runat="server" CssClass="FieldName" Text="Joint Holding :"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" colspan="4">
             <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
                 Text="Yes" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged1" />
             <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
@@ -225,7 +330,7 @@
         <td class="leftField">
             <asp:Label ID="lblModeOfHolding" runat="server" CssClass="FieldName" Text="Mode Of Holding :"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" colspan="4">
             <asp:DropDownList ID="ddlModeOfHolding" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <%--<span id="Span3" class="spnRequiredField">*</span>
@@ -238,206 +343,483 @@
         <td class="leftField">
             <asp:Label ID="lblAccountStartingDate" runat="server" CssClass="FieldName" Text="Account Starting Date :"></asp:Label>
         </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtAccountDate" runat="server" CssClass="txtField"></asp:TextBox>
-            <ajaxToolkit:CalendarExtender ID="txtAccountDate_CalendarExtender" runat="server"
-                TargetControlID="txtAccountDate" Format="dd/MM/yyyy">
-            </ajaxToolkit:CalendarExtender>
-            <ajaxToolkit:TextBoxWatermarkExtender ID="txtAccountDate_TextBoxWatermarkExtender"
-                runat="server" TargetControlID="txtAccountDate" WatermarkText="dd/mm/yyyy">
-            </ajaxToolkit:TextBoxWatermarkExtender>
-            <%--<span id="Span4" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtAccountDate"
-                ErrorMessage="Please select an Account Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>--%>
+        <td class="rightField" colspan="4">
+            <telerik:RadDatePicker ID="txtAccountDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
         </td>
-    </tr>
-    <tr id="trbankList" runat="server">
-        <td class="leftField">
-            <asp:Label ID="lblddlBankList" runat="server" CssClass="FieldName" Text="Bank:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:DropDownList ID="ddlBankList" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png"
-                runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
-                Height="15px" Width="15px" ></asp:ImageButton>
-                  <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
-                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
-                Height="15px" Width="25px" ></asp:ImageButton>
-        </td>
-        
-         
-               
     </tr>
     <tr>
         <td class="leftField">
             <asp:Label ID="lblInvestorName" runat="server" CssClass="FieldName" Text="Investor Name:"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" colspan="4">
             <asp:TextBox ID="txtInvestorName" runat="server" CssClass="txtField"></asp:TextBox>
-             <asp:Checkbox ID="chkUseProfileName" runat="server" Text="Use Profile Name" CssClass="FieldName" onClick="return UseProfileName()"
-                AutoPostBack="false"  />
+            <asp:CheckBox ID="chkUseProfileName" runat="server" Text="Use Profile Name" CssClass="FieldName"
+                onClick="return UseProfileName()" AutoPostBack="false" />
         </td>
     </tr>
-    <tr id="trJointHolders" runat="server" visible="false">
-     
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="Label23" runat="server" CssClass="FieldName" Text="Broker Code:"></asp:Label>
+        </td>
+        <td class="rightField" colspan="4">
+            <asp:TextBox ID="txtBrokerCode" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+    </tr>
+    <tr visible="false">
+        <td class="leftField">
+            <asp:Label  visible="false" ID="Label25" runat="server" CssClass="FieldName" Text="Tax Status:"></asp:Label>
+        </td>
+        <td class="rightField" colspan="4">
+            <asp:TextBox  visible="false" ID="txtTaxStatus" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
         <td colspan="5">
-        <br />
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Joint Holders
-            </div>
-        </td>
-    
-        <%--<td colspan="2">
-            <asp:Label ID="lblJointHolders" runat="server" CssClass="HeaderTextSmall" Text="Joint Holders"></asp:Label>
-            <hr />
-        </td>--%>
-    </tr>
-    <tr id="trJointHoldersGrid" runat="server">
-        <td colspan="2" align="center">
-            <asp:GridView ID="gvJointHoldersList" runat="server" AutoGenerateColumns="False"
-                CellPadding="4" DataKeyNames="AssociationId" CssClass="GridViewStyle">
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <Columns>
-                    <asp:TemplateField HeaderText="Select">
-                        <ItemTemplate>
-                            <asp:CheckBox ID="chkId" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Name" HeaderText="Name" />
-                    <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
-                </Columns>
-            </asp:GridView>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            &nbsp;
-        </td>
-    </tr>
-    <tr id="trNominees" runat="server" visible="false">
-        <%--<td colspan="2">
-            <asp:Label ID="lblNominees" runat="server" CssClass="HeaderTextSmall" Text="Nominees"></asp:Label>
-            <hr />
-        </td>
-        --%>
-         <td colspan="5">
-         <br />
-            <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Nominees
+                <div class="divSectionHeadingNumber">
+                    2</div>
+                &nbsp;&nbsp;Associate Details
             </div>
         </td>
     </tr>
-    <tr id="trNomineesGrid" runat="server">
-        <td colspan="2" align="center">
-            <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                DataKeyNames="MemberCustomerId, AssociationId" CssClass="GridViewStyle">
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <Columns>
-                    <asp:TemplateField HeaderText="Select">
-                        <ItemTemplate>
-                            <asp:CheckBox ID="chkId0" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Name" HeaderText="Name" />
-                    <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
-                </Columns>
-            </asp:GridView>
-        </td>
-    </tr>
     <tr>
-        <td colspan="2">
-            &nbsp;
+        <td class="leftField">
+            <asp:Label CssClass="FieldName" Text="Add Nominee :" runat="server"></asp:Label>
         </td>
-    </tr>
-    <tr id="trJoint2Header" runat="server">
-        <td colspan="2">
-            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Joint Holders"></asp:Label>
-            <hr />
+        <td colspan="4">
+            <asp:ImageButton OnClick="imgAddNominee_Click" ID="imgAddNominee" Text="AddNominee"
+                runat="server"></asp:ImageButton>
         </td>
-    </tr>
-    <tr id="trJoint2" runat="server">
-        <td align="center" colspan="2">
-            <asp:GridView ID="gvJoint2" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                DataKeyNames="AssociateId" AllowSorting="True" CssClass="GridViewStyle" OnRowDataBound="gvJoint2_RowDataBound">
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <Columns>
-                    <asp:TemplateField HeaderText="Select">
-                        <ItemTemplate>
-                            <asp:CheckBox ID="chkId" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Name" HeaderText="Name" />
-                    <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
-                    <asp:BoundField DataField="Stat" HeaderText="Stat" />
-                </Columns>
-            </asp:GridView>
-        </td>
-    </tr>
-    <tr id="trNominee2Header" runat="server" align="left">
-        <td colspan="2">
-            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Nominees"></asp:Label>
-            <hr />
-        </td>
-    </tr>
-    <tr id="trNominee2" runat="server">
-        <td colspan="2" align="center">
-            <asp:GridView ID="gvNominee2" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                DataKeyNames="AssociateId" AllowSorting="True" CssClass="GridViewStyle" OnRowDataBound="gvNominee2_RowDataBound">
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <Columns>
-                    <asp:TemplateField HeaderText="Select">
-                        <ItemTemplate>
-                            <asp:CheckBox ID="chkId" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Name" HeaderText="Name" />
-                    <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
-                    <asp:BoundField DataField="Stat" HeaderText="Stat" />
-                </Columns>
-            </asp:GridView>
-        </td>
-    </tr>
-    <tr>
     </tr>
     <tr>
         <td>
         </td>
+        <td colspan="4">
+            <telerik:RadGrid Visible="false" ID="gvNominee2" runat="server" GridLines="None"
+                AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+                ShowStatusBar="false" ShowFooter="false" Skin="Telerik" EnableEmbeddedSkins="false"
+                Width="500px" AllowFilteringByColumn="false" AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView NoDetailRecordsText="Records not found" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="110px"
+                            DataField="MemberCustomerId" HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="50px"
+                            DataField="AssociationId" HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="100px" DataField="NAME"
+                            HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="25px" DataField="XR_Relationship"
+                            HeaderText="Relation" />
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label CssClass="FieldName" Text="Add Guardian :" runat="server"></asp:Label>
+        </td>
+        <td colspan="4">
+            <asp:ImageButton OnClick="imgAddGuardian_Click" ID="imgAddGuardian" Text="AddGuardian"
+                runat="server"></asp:ImageButton>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td colspan="4">
+            <telerik:RadGrid Visible="false" ID="gvGuardian2" runat="server" GridLines="None"
+                AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+                ShowStatusBar="True" ShowFooter="false" Skin="Telerik" EnableEmbeddedSkins="false"
+                Width="500px" AllowFilteringByColumn="false" AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView NoDetailRecordsText="Records not found" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="110px"
+                            DataField="MemberCustomerId" HeaderText="Name" />
+                            
+                            
+                            
+                        <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="50px"
+                            DataField="AssociationId" HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="100px" DataField="NAME"
+                            HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="25px" DataField="XR_Relationship"
+                            HeaderText="Relation" />
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </td>
+    </tr>
+    <tr id="trAddJointHolder" runat="server" visible="false">
+        <td class="leftField">
+            <asp:Label CssClass="FieldName" Text="Add JointHolder :" runat="server"></asp:Label>
+        </td>
+        <td colspan="4">
+            <asp:ImageButton OnClick="imgAddJointHolder_Click" ID="imgAddJointHolder" Text="AddJTHolder"
+                runat="server"></asp:ImageButton>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td colspan="4">
+            <telerik:RadGrid Visible="false" ID="gvJoint2" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
+                AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView NoDetailRecordsText="Records not found" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="110px"
+                            DataField="MemberCustomerId" HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="50px"
+                            DataField="AssociationId" HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="100px" DataField="NAME"
+                            HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="25px" DataField="XR_Relationship"
+                            HeaderText="Relation" />
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                <div class="divSectionHeadingNumber">
+                    3</div>
+                &nbsp;&nbsp;Bank Details
+            </div>
+        </td>
+    </tr>
+    <tr id="trbankList" runat="server">
+        <td class="leftField">
+            <asp:Label ID="lblddlBankList" runat="server" CssClass="FieldName" Text="Bank :"></asp:Label>
+        </td>
+        <td class="rightField" colspan="4">
+            <asp:DropDownList ID="ddlBankList" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlBankList_SelectedIndexChanged">
+            </asp:DropDownList>
+            <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
+                Width="15px"></asp:ImageButton>
+            <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
+                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
+                Height="15px" Width="25px"></asp:ImageButton>
+        </td>
+    </tr>
+    <asp:UpdatePanel runat="server" ID="upBankDetails">
+        <ContentTemplate>
+            <div id="divBankDetails" runat="server" visible="false">
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label22" CssClass="FieldName" Text="Account Type :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:DropDownList ID="ddlAccType" CssClass="cmbField" runat="server">
+                        </asp:DropDownList>
+                    </td>
+                    <td colspan="3">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label CssClass="FieldName" Text="Account Number :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtAccNo" CssClass="txtField" runat="server"></asp:TextBox>
+                    </td>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="Label10" CssClass="FieldName" Text="Mode of Operation :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:DropDownList ID="ddlModeOfOpn" CssClass="cmbField" runat="server">
+                        </asp:DropDownList>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label11" CssClass="FieldName" Text="Bank Name :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtBankName" CssClass="txtField" runat="server"></asp:TextBox>
+                    </td>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="Label14" CssClass="FieldName" Text="Branch Name :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtBranchName" CssClass="txtField" runat="server"></asp:TextBox>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label12" CssClass="FieldName" Text="Line1(House No/Building) :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtBLine1" CssClass="txtField" runat="server"></asp:TextBox>
+                    </td>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="Label13" CssClass="FieldName" Text="Line2(Street) :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtBLine2" CssClass="txtField" runat="server"></asp:TextBox>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label15" CssClass="FieldName" Text="Line3(Area) :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtBLine3" CssClass="txtField" runat="server"></asp:TextBox>
+                    </td>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="Label16" CssClass="FieldName" Text="City :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtCity" CssClass="txtField" runat="server"></asp:TextBox>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label17" CssClass="FieldName" Text="Pin Code :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtPinCode" CssClass="txtField" runat="server"></asp:TextBox>
+                    </td>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="Label18" CssClass="FieldName" Text="MICR :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtMicr" CssClass="txtField" runat="server"></asp:TextBox>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label19" CssClass="FieldName" Text="State :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:DropDownList CssClass="cmbField" ID="ddlBState" runat="server">
+                        </asp:DropDownList>
+                    </td>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="Label20" CssClass="FieldName" Text="Country :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:DropDownList ID="ddlBCountry" runat="server" CssClass="cmbField">
+                            <asp:ListItem Text="India" Value="0" Selected="True"></asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label21" CssClass="FieldName" Text="IFSC :" runat="server"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtIfsc" CssClass="txtField" runat="server"></asp:TextBox>
+                    </td>
+                    <td colspan="3">
+                    </td>
+                </tr>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <tr>
+        <td colspan="5">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                <div class="divSectionHeadingNumber">
+                    4</div>
+                &nbsp;&nbsp;Personal Details
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="Label24" runat="server" CssClass="FieldName" Text="Pan Number:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtPanNo" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+        <td class="leftField" style="width: 20%">
+            <asp:Label CssClass="FieldName" Text="Address1 :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <asp:TextBox CssClass="txtField" ID="txtPAddress1" runat="server"></asp:TextBox>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="Label1" CssClass="FieldName" Text="Address2 :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <asp:TextBox CssClass="txtField" ID="txtPAddress2" runat="server"></asp:TextBox>
+        </td>
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="Label2" CssClass="FieldName" Text="Address3 :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <asp:TextBox CssClass="txtField" ID="txtPAddress3" runat="server"></asp:TextBox>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="Label3" CssClass="FieldName" Text="City :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <asp:TextBox CssClass="txtField" ID="txtPCity" runat="server"></asp:TextBox>
+        </td>
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="Label4" CssClass="FieldName" Text="Pincode :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <asp:TextBox CssClass="txtField" ID="txtPPinCode" runat="server"></asp:TextBox>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="Label5" CssClass="FieldName" Text="JointName1 :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <asp:TextBox CssClass="txtField" ID="txtCustJName1" runat="server"></asp:TextBox>
+        </td>
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="Label6" CssClass="FieldName" Text="JointName2 :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <asp:TextBox CssClass="txtField" ID="txtCustJName2" runat="server"></asp:TextBox>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="Label7" CssClass="FieldName" Text="Ph. no(office) :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <asp:TextBox CssClass="txtField" ID="txtCustPhNoOff" runat="server"></asp:TextBox>
+        </td>
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="Label8" CssClass="FieldName" Text="Ph. no(res) :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <asp:TextBox CssClass="txtField" ID="txtCustPhNoRes" runat="server"></asp:TextBox>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="Label9" CssClass="FieldName" Text="Email :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <asp:TextBox CssClass="txtField" ID="txtCustEmail" runat="server"></asp:TextBox>
+        </td>
+        <td class="leftField" style="width: 20%">
+            <asp:Label CssClass="FieldName" Text="DOB :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <telerik:RadDatePicker ID="rdpDOB" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr id="trJointHolders" runat="server" visible="false">
+    </tr>
+    <tr id="trJointHoldersGrid" runat="server">
+        <td colspan="2" align="center">
+        </td>
+    </tr>
+    <tr id="trNomineesGrid" runat="server">
+        <td colspan="2" align="center">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            &nbsp;
+        </td>
+    </tr>
+    <tr id="trJoint2" runat="server">
+        <td align="center" colspan="2">
+        </td>
+    </tr>
+    <tr id="trNominee2" runat="server">
+        <td colspan="2" align="center">
+        </td>
     </tr>
 </table>
-<td colspan="2" class="SubmitCell">
+<br />
+<div style="padding: 4px;">
+    <telerik:RadMultiPage ID="AssociateMultiPage" EnableViewState="true" runat="server"
+        SelectedIndex="0">
+        <telerik:RadPageView ID="RadPageView2" runat="server">
+            <div>
+            </div>
+        </telerik:RadPageView>
+        <telerik:RadPageView ID="RadPageView3" runat="server">
+            <div>
+            </div>
+        </telerik:RadPageView>
+    </telerik:RadMultiPage>
+</div>
+<div>
     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnSubmit', 'S');"
         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnSubmit', 'S');"
         Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
         Text="Update" OnClick="btnUpdate_Click" />
-</td>
+</div>
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
 <asp:HiddenField ID="hdnCustomerName" runat="server" />
+<asp:HiddenField ID="hdnAssociationIdForNominee" runat="server" />
+<asp:HiddenField ID="hdnAssociationIdForGuardian" runat="server" />
+<asp:HiddenField ID="hdnAssociationIdForJointHolder" runat="server" />
