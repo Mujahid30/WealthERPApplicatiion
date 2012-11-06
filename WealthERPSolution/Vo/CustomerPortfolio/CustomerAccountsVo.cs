@@ -40,11 +40,123 @@ namespace VoCustomerPortfolio
         private double m_BrokerageSpeculativePercentage;
         private double m_OtherCharges;
         private string m_BrokerName;
-        private int m_BankId;        
+        private int m_BankId;
+        private string m_PanNumber;
+        private string m_TaxStaus;
+
         #endregion Fields
 
 
+                private string m_CAddress1;
+                private string m_CAddress2;
+                private string m_CAddress3;
+                private string m_CCity;
+                private int m_CPinCode;
+                private string m_JointName1;
+                private string m_JointName2;
+                private int m_CPhoneOffice;
+                private int m_CPhoneRes;
+                private string m_CEmail;
+                private DateTime m_CDOB;
+                private string m_CMGCXP_BankAddress1;
+                private string m_CMGCXP_BankAddress2;
+                private string m_CMGCXP_BankAddress3;
+                private string m_CMGCXP_BankCity;
+
+
+
         #region Properties
+
+                public string PanNumber
+                {
+                    get { return m_PanNumber; }
+                    set { m_PanNumber = value; }
+                }
+
+                public string TaxStaus
+                {
+                    get { return m_TaxStaus; }
+                    set { m_TaxStaus = value; }
+                }
+
+                public string CAddress1
+                {
+                    get { return m_CAddress1; }
+                    set { m_CAddress1 = value; }
+                }
+                public string CAddress2
+                {
+                    get { return m_CAddress2; }
+                    set { m_CAddress2 = value; }
+                }
+                public string CAddress3
+                {
+                    get { return m_CAddress3; }
+                    set { m_CAddress3 = value; }
+                }
+                public string CCity
+                {
+                    get { return m_CCity; }
+                    set { m_CCity = value; }
+                }
+                public int CPinCode
+                {
+                    get { return m_CPinCode; }
+                    set { m_CPinCode = value; }
+                }
+                public string JointName1
+                {
+                    get { return m_JointName1; }
+                    set { m_JointName1 = value; }
+                }
+                public string JointName2
+                {
+                    get { return m_JointName2; }
+                    set { m_JointName2 = value; }
+                }
+                public int CPhoneOffice
+                {
+                    get { return m_CPhoneOffice; }
+                    set { m_CPhoneOffice = value; }
+                }
+                public int CPhoneRes
+                {
+                    get { return m_CPhoneRes; }
+                    set { m_CPhoneRes = value; }
+                }
+                public string CEmail
+                {
+                    get { return m_CEmail; }
+                    set { m_CEmail = value; }
+                }
+                public DateTime CDOB
+                {
+                    get { return m_CDOB; }
+                    set { m_CDOB = value; }
+                }
+                public string CMGCXP_BankAddress1
+                {
+                    get { return m_CMGCXP_BankAddress1; }
+                    set { m_CMGCXP_BankAddress1 = value; }
+                }
+                public string CMGCXP_BankAddress2
+                {
+                    get { return m_CMGCXP_BankAddress2; }
+                    set { m_CMGCXP_BankAddress2 = value; }
+                }
+                public string CMGCXP_BankAddress3
+                {
+                    get { return m_CMGCXP_BankAddress3; }
+                    set { m_CMGCXP_BankAddress3 = value; }
+                }
+                public string CMGCXP_BankCity
+                {
+                    get { return m_CMGCXP_BankCity; }
+                    set { m_CMGCXP_BankCity = value; }
+                }
+
+
+
         public string ModeOfHoldingCode
         {
             get { return m_ModeOfHoldingCode; }
