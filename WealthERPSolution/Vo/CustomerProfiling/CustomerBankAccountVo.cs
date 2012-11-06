@@ -15,7 +15,7 @@ namespace VoCustomerProfiling
         private int m_CustBankAccId;
         private string m_BankName;
         private string m_AccountType;
-        private string m_AccountNum;
+        private string m_BankAccountNum;
 
        
         private string m_ModeOfOperation;
@@ -36,10 +36,10 @@ namespace VoCustomerProfiling
         #endregion Fields
 
         #region Properties
-        public string AccountNum
+        public string BankAccountNum
         {
-            get { return m_AccountNum; }
-            set { m_AccountNum = value; }
+            get { return m_BankAccountNum; }
+            set { m_BankAccountNum = value; }
         }
         public int CustBankAccId
         {
