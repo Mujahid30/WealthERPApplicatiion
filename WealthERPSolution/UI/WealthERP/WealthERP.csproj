@@ -2621,6 +2621,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\IndivisualCustomerInvestmentDetailsDS.Designer.cs" />
+    <Compile Include="Reports\ISAWelcomeMessage.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ISAWelcomeMessage.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\MFComprehensiveNetworth.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3305,6 +3311,10 @@
     <EmbeddedResource Include="Reports\IndivisualCustomerInvestmentDetails.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>IndivisualCustomerInvestmentDetails1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ISAWelcomeMessage.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ISAWelcomeMessage.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFComprehensiveNetworth.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
