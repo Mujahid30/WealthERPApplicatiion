@@ -38,7 +38,7 @@ namespace WealthERP.Customer
                 customerBankAccId = int.Parse(Session["CustBankAccId"].ToString());
                 customerBankAccountVo = customerBankAccountBo.GetCustomerBankAccount(customerId, customerBankAccId);
 
-                lblAccNum.Text = customerBankAccountVo.AccountNum.ToString();
+                lblAccNum.Text = customerBankAccountVo.BankAccountNum.ToString();
                 //lblAccType.Text = customerBankAccountVo.AccountType;
                 if (customerBankAccountVo.AccountType == "CC")
                 {

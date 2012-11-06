@@ -163,7 +163,7 @@ namespace WealthERP.Customer
                     //customerBankAccountBo.CreateCustomerBankAccount(customerBankAccountVo, customerId, userId);
 
                     customerBankAccountVo.AccountType = ddlAccountType.SelectedValue.ToString();
-                    customerBankAccountVo.AccountNum = txtAccountNumber.Text.ToString();
+                    customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
 
                     if (ddlModeOfOperation.SelectedValue.ToString() != "Select a Mode of Holding")
                         customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedValue.ToString();
@@ -262,7 +262,7 @@ namespace WealthERP.Customer
                     customerId = customerVo.CustomerId;
 
                     customerBankAccountVo.AccountType = ddlAccountType.SelectedValue.ToString();
-                    customerBankAccountVo.AccountNum = txtAccountNumber.Text.ToString();
+                    customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
 
                     if (ddlModeOfOperation.SelectedValue.ToString() != "Select a Mode of Holding")
                         customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedValue.ToString();

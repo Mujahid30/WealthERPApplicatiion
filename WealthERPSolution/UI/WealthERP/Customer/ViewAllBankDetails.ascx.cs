@@ -30,7 +30,7 @@ namespace WealthERP.Customer
                 customerBankAccId = int.Parse(Session["CustBankAccId"].ToString());
                 customerBankAccountVo = customerBankAccountBo.GetCustomerBankAccount(customerId, customerBankAccId);
 
-                txtAccountNumber.Text = customerBankAccountVo.AccountNum.ToString();
+                txtAccountNumber.Text = customerBankAccountVo.BankAccountNum.ToString();
                 ddlAccountType.SelectedValue = customerBankAccountVo.AccountType;
                 ddlModeOfOperation.SelectedValue = customerBankAccountVo.ModeOfOperation;
                 txtBankName.Text = customerBankAccountVo.BankName.ToString();
@@ -81,7 +81,7 @@ namespace WealthERP.Customer
                 customerBankAccId = int.Parse(Session["CustBankAccId"].ToString());
 
                 customerBankAccountVo.CustBankAccId = customerBankAccId;
-                customerBankAccountVo.AccountNum = txtAccountNumber.Text.ToString();
+                customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
                 customerBankAccountVo.AccountType = ddlAccountType.SelectedItem.Value.ToString();
                 customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedItem.Value.ToString();
                 customerBankAccountVo.BankName = txtBankName.Text.ToString();

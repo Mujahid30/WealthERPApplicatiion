@@ -59,7 +59,7 @@ namespace WealthERP.Customer
                         drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
                         drCustomerBankAccount[3] = customerBankAccountVo.AccountType.ToString();
                         drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
-                        drCustomerBankAccount[5] = customerBankAccountVo.AccountNum.ToString();
+                        drCustomerBankAccount[5] = customerBankAccountVo.BankAccountNum.ToString();
 
                         dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
                     }

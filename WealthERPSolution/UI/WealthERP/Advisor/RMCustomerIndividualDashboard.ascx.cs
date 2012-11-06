@@ -176,7 +176,7 @@ namespace WealthERP.Advisor
                         //drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
                         drCustomerBankAccount[1] = customerBankAccountVo.AccountType;
                         //drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
-                        drCustomerBankAccount[2] = customerBankAccountVo.AccountNum;
+                        drCustomerBankAccount[2] = customerBankAccountVo.BankAccountNum;
 
                         dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
                     }
