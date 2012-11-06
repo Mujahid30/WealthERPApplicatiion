@@ -49,6 +49,32 @@ namespace DaoUploads
             return getRejectedTransactionsDs;
         }
 
+
+        public int GetNewDummyPan(int adviserId, int createdBy, int modifiedBy,out int dummyPan)
+        {
+            Database db;
+            DbCommand getGetNewDummyPanCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetNewDummyPanCmd = db.GetStoredProcCommand("SP_GetDummyPan");
+                db.AddInParameter(getGetNewDummyPanCmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getGetNewDummyPanCmd, "@CreatedBy", DbType.Int32, createdBy);
+                db.AddInParameter(getGetNewDummyPanCmd, "@ModifiedBy", DbType.Int32, modifiedBy);
+                db.AddOutParameter(getGetNewDummyPanCmd, "@dummyPan", DbType.Int32, 0);
+                db.ExecuteNonQuery(getGetNewDummyPanCmd);
+
+                dummyPan = int.Parse((db.GetParameterValue(getGetNewDummyPanCmd, "@dummyPan")).ToString());
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dummyPan;
+        }
+
         public bool MapFolioToCustomer(int MFTransactionStagingId, int customerId, int userId)
         {
             Database db;
