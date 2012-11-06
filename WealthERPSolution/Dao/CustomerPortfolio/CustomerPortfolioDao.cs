@@ -2144,6 +2144,26 @@ namespace DaoCustomerPortfolio
             return dsGetCustomerSchemeHolding;
         }
 
+        public DataSet getBankDetailsForCustomer(int customerId, int bankId)
+        {
+            DataSet dsGetBankDetailsForCustomer = new DataSet();
+            Database db;
+            DbCommand getBankDetailsForCustomerCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBankDetailsForCustomerCmd = db.GetStoredProcCommand("SP_GetBankDetailsForCustomer");
+                db.AddInParameter(getBankDetailsForCustomerCmd, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getBankDetailsForCustomerCmd, "@CB_CustBankAccId", DbType.Int32, bankId);
+                dsGetBankDetailsForCustomer = db.ExecuteDataSet(getBankDetailsForCustomerCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetBankDetailsForCustomer;
+        }
 
     }
 }
