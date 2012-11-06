@@ -142,13 +142,52 @@ namespace BoUploads
 
             return dsCAMSRejectedProfiles;
         }
-        public DataSet getMFRejectedFolios(int adviserId, int processId)
+
+        public DataSet GetRejectReasonList(int uploadFileType)
+        {
+            DataSet dsRejectReasonList;
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            try
+            {
+                dsRejectReasonList = rejecetedRecords.GetRejectReasonList(uploadFileType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:GetRejectReasonList()");
+                object[] objects = new object[9];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsRejectReasonList;
+
+        }
+
+         public DataSet getFolioDetails(int advisorId,DateTime fromDate, DateTime toDate)
+         {
+             
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+             DataSet dsGetFolioDetails = new DataSet();
+             dsGetFolioDetails = rejecetedRecords.getFolioDetails(advisorId, fromDate, toDate);
+
+             return dsGetFolioDetails;
+         }
+
+        public DataSet getMFRejectedFolios(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
         {
             DataSet dsCAMSRejectedProfiles;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsCAMSRejectedProfiles = rejecetedRecords.getMFRejectedFolios(adviserId, processId);
+                dsCAMSRejectedProfiles = rejecetedRecords.getMFRejectedFolios(adviserId, processId, fromDate, toDate, rejectReasonCode);
             }
             catch (BaseApplicationException Ex)
             {
