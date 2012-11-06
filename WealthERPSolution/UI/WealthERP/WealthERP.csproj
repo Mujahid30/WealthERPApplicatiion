@@ -5909,6 +5909,7 @@
     <Content Include="Images\ManageRejects.png" />
     <Content Include="Images\MenuSeparator.jpg" />
     <Content Include="Images\messageread.png" />
+    <Content Include="Images\MFRightArrow.png" />
     <Content Include="Images\Money_Touch_360_logo1.gif" />
     <Content Include="Images\msgUnRead.png" />
     <Content Include="Images\new.gif" />
