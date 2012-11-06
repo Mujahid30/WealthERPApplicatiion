@@ -461,10 +461,7 @@ namespace WealthERP.BusinessMIS
                 {
                   
                     Int32.TryParse(drAssetAllCustomer["C_CustomerId"].ToString(), out customerId);
-                    if (customerId == 22728)
-                    {
 
-                    }
                     if(customerId != customerIdOld)
                     { //go for another row to find new customer
                         customerIdOld = customerId;

@@ -23,13 +23,49 @@ namespace WealthERP.BusinessMIS {
         protected global::Telerik.Web.UI.RadScriptManager scptMgr;
         
         /// <summary>
-        /// tdGoalExport control.
+        /// btnAMCExport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdGoalExport;
+        protected global::System.Web.UI.WebControls.ImageButton btnAMCExport;
+        
+        /// <summary>
+        /// btnSchemeExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnSchemeExport;
+        
+        /// <summary>
+        /// btnFolioExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnFolioExport;
+        
+        /// <summary>
+        /// btnBranchExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnBranchExport;
+        
+        /// <summary>
+        /// btnCategoryExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnCategoryExport;
         
         /// <summary>
         /// trBranchRM control.

@@ -12,7 +12,27 @@
     <table cellspacing="0"  width="100%">
         <tr>
         <td align="left">MF TurnOver MIS</td>
-        <td  align="right" id="tdGoalExport" runat="server" style="padding-bottom:2px;">
+        <td  align="right"  style="padding-bottom:2px;">
+        <asp:ImageButton ID="btnAMCExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
+            onclick="btnAMCExport_Click"></asp:ImageButton>
+            <asp:ImageButton ID="btnSchemeExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
+            onclick="btnSchemeExport_Click"></asp:ImageButton>
+            <asp:ImageButton ID="btnFolioExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
+            onclick="btnFolioExport_Click"></asp:ImageButton>
+            <asp:ImageButton ID="btnBranchExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
+            onclick="btnBranchExport_Click"></asp:ImageButton>
+            <asp:ImageButton ID="btnCategoryExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
+            onclick="btnCategoryExport_Click"></asp:ImageButton>
     </td>
         </tr>
     </table>
@@ -183,7 +203,7 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Buy Amount" DataField="BUYAmount"
+                <telerik:GridBoundColumn  HeaderText="Buy Amount" DataField="BUYAmount" DataFormatString="{0:N0}"
                     UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -194,7 +214,7 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SEL Amount" DataField="SELAmount"
+                <telerik:GridBoundColumn  HeaderText="SEL Amount" DataField="SELAmount" DataFormatString="{0:N0}"
                     UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -374,7 +394,7 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn  HeaderText="Buy Amount" DataField="BUYAmount"
-                    UniqueName="BUYAmount" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
+                    UniqueName="BUYAmount" DataFormatString="{0:N0}" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -385,7 +405,7 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn  HeaderText="SEL Amount" DataField="SELAmount"
-                    UniqueName="SELAmount" SortExpression="SELAmount" AutoPostBackOnFilter="true"
+                    UniqueName="SELAmount" DataFormatString="{0:N0}" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>

@@ -109,7 +109,7 @@
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                         <telerik:GridBoundColumn DataField="Type"  HeaderText="Type" UniqueName="Type"
-                                SortExpression="Type" DataFormatString="{0:N0}">
+                                SortExpression="Type" >
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         

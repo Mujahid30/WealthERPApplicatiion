@@ -1273,7 +1273,7 @@ namespace DaoAdvisorProfiling
             }
             return dsSchemeTransactionDeatails;
         }
-        public DataSet GetBranchTransactionDeatails(int AdviserId)
+        public DataSet GetBranchTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
         {
             Database db;
             DbCommand GetBranchTransactionDeatailsCmd;
@@ -1282,7 +1282,20 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetBranchTransactionDeatailsCmd = db.GetStoredProcCommand("SP_GetBranchWiseTransactionDetails");
+                db.AddInParameter(GetBranchTransactionDeatailsCmd, "@UserType", DbType.String, userType);
                 db.AddInParameter(GetBranchTransactionDeatailsCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetBranchTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(GetBranchTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(GetBranchTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetBranchTransactionDeatailsCmd, "@all", DbType.Int32, all);
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(GetBranchTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    FromDate = DateTime.MinValue;
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(GetBranchTransactionDeatailsCmd, "@ToDate", DbType.DateTime, Todate);
+                else
+                    Todate = DateTime.MinValue;
                 dsBranchTransactionDeatails = db.ExecuteDataSet(GetBranchTransactionDeatailsCmd);
             }
             catch (BaseApplicationException Ex)
