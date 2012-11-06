@@ -87,7 +87,38 @@ namespace DaoUploads
 
             return dsGetCAMSRejectedProfiles;
         }
-        public DataSet getMFRejectedFolios(int adviserId, int processId)
+
+        public DataSet GetRejectReasonList(int uploadFileType)
+        {
+            DataSet dsGetRejectReasonList;
+            Database db;
+            DbCommand getGetRejectReasonListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetRejectReasonListCmd = db.GetStoredProcCommand("SP_GetRejectReasonList");
+                db.AddInParameter(getGetRejectReasonListCmd, "@uploadFileType", DbType.Int32, uploadFileType);
+                dsGetRejectReasonList = db.ExecuteDataSet(getGetRejectReasonListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:GetRejectReasonList()");
+                object[] objects = new object[9];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetRejectReasonList;
+        }
+
+        public DataSet getMFRejectedFolios(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
         {
             DataSet dsGetCAMSRejectedProfiles;
             Database db;
@@ -97,7 +128,25 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCAMSRejectedProfilesCmd = db.GetStoredProcCommand("SP_GetMFUploadRejectsFolios");
                 db.AddInParameter(getCAMSRejectedProfilesCmd, "@adviserId", DbType.Int32, adviserId);
-                db.AddInParameter(getCAMSRejectedProfilesCmd, "@processId", DbType.Int32, processId);
+                if (processId != 0)
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@processId", DbType.Int32, processId);
+                else
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@processId", DbType.Int32, DBNull.Value);
+
+                if (fromDate != null)
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@fromDate", DbType.DateTime, fromDate);
+                else
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@fromDate", DbType.DateTime, DBNull.Value);
+
+                if (toDate != null)
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@toDate", DbType.DateTime, toDate);
+                else
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@toDate", DbType.DateTime, DBNull.Value);
+                if (rejectReasonCode != 0)
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
+                else
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonCode", DbType.Int32, DBNull.Value);
+
                 #region unused
                 //db.AddInParameter(getCAMSRejectedProfilesCmd, "@currentPage", DbType.Int32, CurrentPage);
                 //db.AddInParameter(getCAMSRejectedProfilesCmd, "@processIdSortOrder", DbType.String, SortExpression);
@@ -1217,7 +1266,7 @@ namespace DaoUploads
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "RejectedRecordsDao.cs:GetProfileFolioInputRejects()");
                 object[] objects = new object[3];
-                objects[0] = ProcessId;             
+                objects[0] = ProcessId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1934,5 +1983,36 @@ namespace DaoUploads
         }
 
 
+        public DataSet getFolioDetails(int advisorId, DateTime fromDate, DateTime toDate)
+        {
+            DataSet dsGetFolioDetails;
+            Database db;
+            DbCommand getFolioDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getFolioDetailsCmd = db.GetStoredProcCommand("SP_GetFolioDetails");
+                db.AddInParameter(getFolioDetailsCmd, "@advisorId", DbType.Int32, advisorId);
+                db.AddInParameter(getFolioDetailsCmd, "@fromDate", DbType.DateTime, fromDate);
+                db.AddInParameter(getFolioDetailsCmd, "@toDate", DbType.DateTime, toDate);
+                dsGetFolioDetails = db.ExecuteDataSet(getFolioDetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:getFolioDetails()");
+                object[] objects = new object[6];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetFolioDetails;
+        }
     }
 }
