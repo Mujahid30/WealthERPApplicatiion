@@ -26,6 +26,42 @@ namespace DaoReports
         /// <param name="report"></param>
         /// <remarks>Porfolio is per Portfolio but Liability is per Customer.</remarks>
         /// <returns></returns>
+        public DataSet GetComprehensiveNetworthSummary(PortfolioReportVo report, int adviserId)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_RPT_GetComprehensiveNetworthSummary");
+                db.AddInParameter(cmd, "@PortfolioIds", DbType.String, report.PortfolioIds);
+                db.AddInParameter(cmd, "@AsonDate", DbType.DateTime, DateBo.GetPreviousMonthLastDate(report.ToDate));
+                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
+                cmd.CommandTimeout = 60 * 60;
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "Reports.cs:GetPortfolioSummary()");
+
+                object[] objects = new object[1];
+                objects[0] = report;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
         public DataSet GetPortfolioSummary(PortfolioReportVo report, int adviserId)
         {
             Database db;

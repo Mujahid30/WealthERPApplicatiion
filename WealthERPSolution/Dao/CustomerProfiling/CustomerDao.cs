@@ -317,10 +317,10 @@ namespace DaoCustomerProfiling
                         customerVo.ProspectAddDate = Convert.ToDateTime(dr["C_ProspectAddDate"].ToString());
 
                     customerVo.AdviseNote = dr["C_Comments"].ToString();
-                    if (!string.IsNullOrEmpty(dr["ACC_CustomerClassificationId"].ToString()))
+                    if (!string.IsNullOrEmpty(dr["ACC_CustomerCategoryCode"].ToString()))
                     {
 
-                        customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerClassificationId"].ToString());
+                        customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerCategoryCode"].ToString());
 
                     }
                     else

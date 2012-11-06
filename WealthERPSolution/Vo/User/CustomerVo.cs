@@ -99,6 +99,7 @@ namespace VoUser
         private int m_mail;
         private DateTime? m_ProspectAddDate;
         private int m_TaxSlab;
+        
 
       
 

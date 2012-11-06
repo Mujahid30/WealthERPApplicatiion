@@ -18,25 +18,30 @@ using WealthERP.Base;
 using System.Data.Sql;
 
 
-namespace WealthERP.Customer{
+namespace WealthERP.Customer
+{
     public partial class CustomerAdvisorsNote : System.Web.UI.UserControl
     {
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
-        UserVo userVo = null;
+        UserVo userVo;
         string path = "";
         AdvisorBo advisorBo = new AdvisorBo();
+        AdvisorVo advisorVo = new AdvisorVo();
         DataSet classificationDs;
+        int advisorId;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             customerVo = (CustomerVo)Session["CustomerVo"];
             userVo = (UserVo)Session["userVo"];
-            
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+
 
             if (!Page.IsPostBack)
             {
+                advisorId = advisorVo.advisorId;
                 if (customerVo.IsActive == 1)
                 {
                     chkdeactivatecustomer.Checked = false;
@@ -54,7 +59,7 @@ namespace WealthERP.Customer{
                     txtComments.Text = "";
                 }
 
-                 bindClassification();
+                bindClassification();
                 if (!string.IsNullOrEmpty(customerVo.CustomerClassificationID.ToString()))
                 {
                     if (customerVo.CustomerClassificationID == 0)
@@ -62,52 +67,53 @@ namespace WealthERP.Customer{
                         ddlClassification.SelectedIndex = 0;
                     }
                     else
-                    ddlClassification.SelectedValue = customerVo.CustomerClassificationID.ToString();
+                        ddlClassification.SelectedValue = customerVo.CustomerClassificationID.ToString();
 
                 }
-              
- 
+
+
             }
         }
 
         protected void bindClassification()
         {
             classificationDs = new DataSet();
-            classificationDs = advisorBo.GetAdviserClassification(1000);
+            classificationDs = advisorBo.GetAdviserCustomerCategory(advisorId);
+            //classificationDs = advisorBo.GetAdviserClassification(1000);
             ddlClassification.DataSource = classificationDs;
-            ddlClassification.DataValueField = classificationDs.Tables[0].Columns["ACC_CustomerClassificationId"].ToString();
-            ddlClassification.DataTextField = classificationDs.Tables[0].Columns["ACC_CustomerClassification"].ToString();
+            ddlClassification.DataValueField = classificationDs.Tables[0].Columns["ACC_CustomerCategoryCode"].ToString();
+            ddlClassification.DataTextField = classificationDs.Tables[0].Columns["ACC_customerCategoryName"].ToString();
             ddlClassification.DataBind();
- 
+
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (chkdeactivatecustomer.Checked)
             {
-                if (chkdeactivatecustomer.Checked)
-                {
-                    customerVo.IsActive = 0;
-                }
-                else
-                {
-                    customerVo.IsActive = 1;
-                }
-                customerVo.AdviseNote = txtComments.Text.ToString();
-                customerVo.CustomerClassificationID = int.Parse(ddlClassification.SelectedValue.ToString());
-                if (customerBo.UpdateCustomer(customerVo))
-                {
-                    customerVo = customerBo.GetCustomer(customerVo.CustomerId);
-                    Session["CustomerVo"] = customerVo;
-                    //if (customerVo.Type.ToUpper().ToString() == "IND")
-                    //{
-                    //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
-                    //}
-                    //else
-                    //{
-                    //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewNonIndividualProfile','none');", true);
-                    //}
-                }
+                customerVo.IsActive = 0;
             }
-
+            else
+            {
+                customerVo.IsActive = 1;
+            }
+            customerVo.AdviseNote = txtComments.Text.ToString();
+            customerVo.CustomerClassificationID = int.Parse(ddlClassification.SelectedValue.ToString());
+            if (customerBo.UpdateCustomer(customerVo))
+            {
+                customerVo = customerBo.GetCustomer(customerVo.CustomerId);
+                Session["CustomerVo"] = customerVo;
+                //if (customerVo.Type.ToUpper().ToString() == "IND")
+                //{
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                //}
+                //else
+                //{
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewNonIndividualProfile','none');", true);
+                //}
+            }
         }
+
     }
+}
 
