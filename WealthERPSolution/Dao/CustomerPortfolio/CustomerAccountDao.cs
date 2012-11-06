@@ -340,21 +340,22 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createCustomerMFAccountCmd, "@PA_AMCCode", DbType.Int32, customerAccountVo.AMCCode);
                 db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_IsJointlyHeld", DbType.Int16, customerAccountVo.IsJointHolding);
                 db.AddInParameter(createCustomerMFAccountCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerAccountVo.ModeOfHolding);
-                if (customerAccountVo.AccountOpeningDate == DateTime.MinValue)
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
+                if (customerAccountVo.AccountOpeningDate != DateTime.MinValue)
+                      db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, customerAccountVo.AccountOpeningDate);
                 else
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, customerAccountVo.AccountOpeningDate);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
+                  
                 db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_CreatedBy", DbType.String, userId);
                 db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_ModifiedBy", DbType.String, userId);
                 db.AddOutParameter(createCustomerMFAccountCmd, "@CMFA_AccountId", DbType.Int32, 5000);
                 db.AddOutParameter(createCustomerMFAccountCmd, "@IsFolioExist", DbType.Int32, 5000);
                 if (customerAccountVo.BankId != 0)
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@BankId", DbType.Int32, customerAccountVo.BankId);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_CustBankAccId", DbType.Int32, customerAccountVo.BankId);
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@BankId", DbType.String, DBNull.Value);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_CustBankAccId", DbType.Int32, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(customerAccountVo.Name))
                 {
@@ -364,12 +365,261 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_InvestorName", DbType.String, DBNull.Value);
                 }
-               
+                if (!string.IsNullOrEmpty(customerAccountVo.PanNumber))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_PANNO", DbType.String, customerAccountVo.PanNumber);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_PANNO", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.BrokerCode))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_BROKERCODE", DbType.String, customerAccountVo.BrokerCode);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_BROKERCODE", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.TaxStaus))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_TAXSTATUS", DbType.String, customerAccountVo.TaxStaus);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_TAXSTATUS", DbType.String, DBNull.Value);
+                }
+                //newly added 
+                if (!string.IsNullOrEmpty(customerAccountVo.CAddress1))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_ADDRESS1", DbType.String, customerAccountVo.CAddress1);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_ADDRESS1", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.CAddress2))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_ADDRESS2", DbType.String, customerAccountVo.CAddress2);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_ADDRESS2", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.CAddress3))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_ADDRESS3", DbType.String, customerAccountVo.CAddress3);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_ADDRESS3", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.CCity))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_CITY", DbType.String, customerAccountVo.CCity);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_CITY", DbType.String, DBNull.Value);
+                }
+                if (customerAccountVo.CPinCode == 0)
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PINCODE", DbType.Int32, customerAccountVo.CPinCode);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PINCODE", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.JointName1))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_JOINT_NAME1", DbType.String, customerAccountVo.JointName1);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_JOINT_NAME1", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.JointName2))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_JOINT_NAME2", DbType.String, customerAccountVo.JointName2);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_JOINT_NAME2", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.Name))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Int32, customerAccountVo.CPhoneOffice);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.Name))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Int32, customerAccountVo.CPhoneRes);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.CEmail))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_EMAIL", DbType.String, customerAccountVo.CEmail);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_EMAIL", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.CMGCXP_BankCity))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_BankCity", DbType.String, customerAccountVo.CMGCXP_BankCity);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_BankCity", DbType.String, DBNull.Value);
+                }
+                if (customerAccountVo.CDOB != DateTime.MinValue)
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_DOB", DbType.DateTime, customerAccountVo.CDOB);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_DOB", DbType.DateTime, DBNull.Value);
+                }
+
+                //added for Bank details 
+
+                if (!string.IsNullOrEmpty(customerAccountVo.BankName))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BankName", DbType.String, customerAccountVo.BankName);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BankName", DbType.String, DBNull.Value);
+                }
+
+                if (customerAccountVo.CustomerId == 0)
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@C_CustomerId", DbType.Int32, customerAccountVo.CustomerId);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@C_CustomerId", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.AccountType))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@XBAT_BankAccountTypeCode", DbType.String, customerAccountVo.AccountType);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@XBAT_BankAccountTypeCode", DbType.String, DBNull.Value);
+                }
+
+                if (!string.IsNullOrEmpty(customerAccountVo.BankAccountNum))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_AccountNum", DbType.String, customerAccountVo.BankAccountNum);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_AccountNum", DbType.String, DBNull.Value);
+                }
+
+                if (!string.IsNullOrEmpty(customerAccountVo.BranchName))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchName", DbType.String, customerAccountVo.BranchName);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchName", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.BranchAdrLine1))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrLine1", DbType.String, customerAccountVo.BranchAdrLine1);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrLine1", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.BranchAdrLine2))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrLine2", DbType.String, customerAccountVo.BranchAdrLine2);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrLine2", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.BranchAdrLine3))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrLine3", DbType.String, customerAccountVo.BranchAdrLine3);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrLine3", DbType.String, DBNull.Value);
+                }
+                if (customerAccountVo.BranchAdrPinCode != 0)
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrPinCode", DbType.Int32, customerAccountVo.BranchAdrPinCode);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrPinCode", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.BranchAdrCity))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrCity", DbType.String, customerAccountVo.BranchAdrCity);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrCity", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.BranchAdrState))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrState", DbType.String, customerAccountVo.BranchAdrState);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrState", DbType.String, DBNull.Value);
+                }
+
+                db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrCountry", DbType.String, "India");
+
+
+                if (customerAccountVo.Balance != 0)
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_Balance", DbType.Int32, customerAccountVo.Balance);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_Balance", DbType.Int32, DBNull.Value);
+                }
+                if (customerAccountVo.MICR != 0)
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_MICR", DbType.Int32, customerAccountVo.MICR);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_MICR", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.IFSC))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_IFSC", DbType.String, customerAccountVo.IFSC);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_IFSC", DbType.String, DBNull.Value);
+                }
+
+                db.AddInParameter(createCustomerMFAccountCmd, "@CB_CreatedBy", DbType.Int32, userId);
+
+
+                db.AddInParameter(createCustomerMFAccountCmd, "@CB_ModifiedBy", DbType.Int32, userId);
+
+
                 if (db.ExecuteNonQuery(createCustomerMFAccountCmd) > 0)
                     accountId = int.Parse(db.GetParameterValue(createCustomerMFAccountCmd, "CMFA_AccountId").ToString());
                 else
                     accountId = int.Parse(db.GetParameterValue(createCustomerMFAccountCmd, "IsFolioExist").ToString());
-
+                //DataSet ds = db.ExecuteDataSet(createCustomerMFAccountCmd);
             }
             catch (BaseApplicationException Ex)
             {
@@ -418,7 +668,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(createCustomerEQAccountCmd, "@CETA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
                 }
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_CreatedBy", DbType.String, userId);
-                db.AddInParameter(createCustomerEQAccountCmd, "@CETA_ModifiedBy", DbType.String, userId);                
+                db.AddInParameter(createCustomerEQAccountCmd, "@CETA_ModifiedBy", DbType.String, userId);
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_BrokerDeliveryPercentage", DbType.Double, customerAccountVo.BrokerageDeliveryPercentage);
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_BrokerSpeculativePercentage", DbType.Double, customerAccountVo.BrokerageSpeculativePercentage);
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_OtherCharges", DbType.Double, customerAccountVo.OtherCharges);
@@ -662,23 +912,23 @@ namespace DaoCustomerPortfolio
             DataSet ds;
 
             db = DatabaseFactory.CreateDatabase("wealtherp");
-                chkAvailabilityCmd = db.GetStoredProcCommand("SP_CheckTradeMFAccAvailability");
+            chkAvailabilityCmd = db.GetStoredProcCommand("SP_CheckTradeMFAccAvailability");
 
-                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_No", DbType.String, TradeAccNo);
-                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_BrokerCode", DbType.String, BrokerCode);
-                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_PortfolioId", DbType.Int32, PortfolioId);
+            db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_No", DbType.String, TradeAccNo);
+            db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_BrokerCode", DbType.String, BrokerCode);
+            db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_PortfolioId", DbType.Int32, PortfolioId);
 
-                ds = db.ExecuteDataSet(chkAvailabilityCmd);
-                rowCount = ds.Tables[0].Rows.Count;
-                if (rowCount > 0)
-                {
-                    bResult = false;
-                }
-                else
-                {
-                    bResult = true;
-                }
-             return bResult;
+            ds = db.ExecuteDataSet(chkAvailabilityCmd);
+            rowCount = ds.Tables[0].Rows.Count;
+            if (rowCount > 0)
+            {
+                bResult = false;
+            }
+            else
+            {
+                bResult = true;
+            }
+            return bResult;
         }
 
         public bool CheckTradeNoAvailabilityAccount(string TradeAccNo, string BrokerCode, int PortfolioId)
@@ -1162,6 +1412,44 @@ namespace DaoCustomerPortfolio
                 throw exBase;
 
             }
+            return dsCustomerAssociates;
+        }
+
+        public DataSet GetCustomerGuardians(int customerId)
+        {
+            DataSet dsCustomerAssociates = null;
+            DbCommand getCustomerAssociatesCmd;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerAssociatesCmd = db.GetStoredProcCommand("SP_GetCustomerAssociatesRel");
+                db.AddInParameter(getCustomerAssociatesCmd, "@C_CustomerId", DbType.Int32, customerId);
+                dsCustomerAssociates = db.ExecuteDataSet(getCustomerAssociatesCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:GetCustomerAssociatesRel()");
+
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+
             return dsCustomerAssociates;
         }
 
@@ -2137,23 +2425,23 @@ namespace DaoCustomerPortfolio
         public bool DeleteInsuranceAccount(int accountId)
         {
 
-            
-               Database db;
-               DbCommand chkAvailabilityCmd;
-               bool bResult = false;
 
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                chkAvailabilityCmd = db.GetStoredProcCommand("SP_DeleteLifeInsurance");
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            bool bResult = false;
 
-                db.AddInParameter(chkAvailabilityCmd, "@InsuranceAccount", DbType.String, accountId);
-                
-                db.ExecuteDataSet(chkAvailabilityCmd);
-                bResult = true;
-                return bResult;
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            chkAvailabilityCmd = db.GetStoredProcCommand("SP_DeleteLifeInsurance");
 
-               
-                
-            }
+            db.AddInParameter(chkAvailabilityCmd, "@InsuranceAccount", DbType.String, accountId);
+
+            db.ExecuteDataSet(chkAvailabilityCmd);
+            bResult = true;
+            return bResult;
+
+
+
+        }
         public DataSet GetBankName(int customerId, string accountNo)
         {
             Database db;
