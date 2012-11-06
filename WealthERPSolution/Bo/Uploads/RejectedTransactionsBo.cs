@@ -74,6 +74,12 @@ namespace BoUploads
             return getRejectedTransactionsDs;
         }
 
+        public int GetNewDummyPan(int adviserId, int createdBy, int modifiedBy, out int dummyPan)
+        {
+            RejectedTransactionsDao rejectedTransactionsDao = new RejectedTransactionsDao();
+            dummyPan = rejectedTransactionsDao.GetNewDummyPan(adviserId, createdBy, modifiedBy,out dummyPan);
+            return dummyPan;
+        }
         
         public bool MapFolioToCustomer(int MFTransactionStagingId, int customerId, int userId)
         {
