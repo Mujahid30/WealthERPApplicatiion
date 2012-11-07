@@ -302,4 +302,18 @@ namespace VoCustomerPortfolio
 
 
     }
+
+    public class CustomerISAAccountsVo
+    {
+        public bool IsJointHolding { get; set; }
+        public string ModeOfHolding { get; set; }
+        public int ISAAccountId { get; set; }
+        public bool IsOperatedByPOA { get; set; }
+        public string ISAAccountNumber { get; set; }
+        public int AssociationId { get; set; }
+        public string AssociationTypeCode { get; set; }          
+        public string JointHoldersIds { get; set; }
+        public string NomineeIds { get; set; }
+
+    }
 }
