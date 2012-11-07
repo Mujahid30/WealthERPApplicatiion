@@ -3029,7 +3029,7 @@ namespace DaoCustomerPortfolio
                 {
                     dr1 = dsGetMFTransaction.Tables[1].Rows[0];
                     AccountVo.AccountType = dr1["XBAT_BankAccountTypeCode"].ToString();
-                    AccountVo.AccountNum = dr1["CB_AccountNum"].ToString();
+                    AccountVo.BankAccountNum = dr1["CB_AccountNum"].ToString();
                     AccountVo.ModeOfOperation = dr1["XMOH_ModeOfHoldingCode"].ToString();
                     AccountVo.BankName = dr1["CB_BankName"].ToString();
                     AccountVo.BranchName = dr1["CB_BranchName"].ToString();
