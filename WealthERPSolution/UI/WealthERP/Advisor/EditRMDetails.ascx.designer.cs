@@ -221,6 +221,33 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.CheckBox chkExternalStaff;
         
         /// <summary>
+        /// trCKMK control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCKMK;
+        
+        /// <summary>
+        /// OpsCKMK control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label OpsCKMK;
+        
+        /// <summary>
+        /// CheckListCKMK control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList CheckListCKMK;
+        
+        /// <summary>
         /// tr1 control.
         /// </summary>
         /// <remarks>
@@ -678,6 +705,15 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hndBMBranchHead;
+        
+        /// <summary>
+        /// hdnIsSubscripted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsSubscripted;
         
         /// <summary>
         /// hiddenDelete control.

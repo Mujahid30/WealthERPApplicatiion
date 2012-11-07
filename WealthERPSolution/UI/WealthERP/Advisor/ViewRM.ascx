@@ -92,6 +92,24 @@
 </script>
 
 <table class="TableBackground" width="100%">
+    <tr>
+        <td colspan="4">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                            <asp:Label ID="lblTitle" runat="server" Text="View Staff"></asp:Label>
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
     <tr id="trMessage" runat="server" visible="false">
         <td>
             <asp:Label ID="lblMessage" runat="server" Text="No Records Found..." CssClass="Error"></asp:Label>
@@ -127,24 +145,6 @@
 </table>
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%">
-        <tr>
-            <td colspan="4">
-                <div class="divPageHeading">
-                    <table cellspacing="0" cellpadding="2" width="100%">
-                        <tr>
-                            <td align="left">
-                                <asp:Label ID="lblTitle" runat="server" Text="View Staff"></asp:Label>
-                            </td>
-                            <td align="right">
-                            <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
-                            </td>
-                            </tr>
-                    </table>
-                </div>
-            </td>
-        </tr>
         <%--<tr>
             <td class="HeaderCell">
                 <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="View Staff"></asp:Label>
@@ -153,7 +153,7 @@
         </tr>--%>
         <tr>
             <td>
-                   <telerik:RadGrid ID="gvRMList" runat="server" GridLines="None" AutoGenerateColumns="False"
+                <telerik:RadGrid ID="gvRMList" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" OnNeedDataSource="gvRMList_OnNeedDataSource" OnPreRender="gvRMList_PreRender">

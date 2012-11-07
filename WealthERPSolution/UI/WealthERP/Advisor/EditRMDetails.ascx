@@ -124,7 +124,87 @@
             }
         }
     }
+    function DisableControls() {
 
+        var chkControlId = '<%=ChklistRMBM.ClientID%>';
+
+        var options = document.getElementById(chkControlId).getElementsByTagName('input');
+        var ischecked = false;
+        for (i = 0; i < options.length; i++) {
+            var opt = options[i];
+            if (opt.type == "checkbox") {
+                if (opt.checked == true) {
+
+                    ischecked = true;
+                    document.getElementById("<%= chkOps.ClientID %>").disabled = true;
+                    document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
+                    document.getElementById("<%= associatedBranch.ClientID %>").disabled = false;
+                    document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = false;
+                    break;
+
+                }
+                else {
+
+                    ischecked = false;
+                    document.getElementById("<%= chkOps.ClientID %>").disabled = false;
+                    document.getElementById("<%= availableBranch.ClientID %>").disabled = true;
+                    document.getElementById("<%= associatedBranch.ClientID %>").disabled = true;
+                    document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = true;
+
+
+                }
+            }
+        }
+        var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
+
+        if (chk4ops.checked == true) {
+            
+            document.getElementById("<%= availableBranch.ClientID %>").disabled = true;
+            document.getElementById("<%= associatedBranch.ClientID %>").disabled = true;
+            document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = true;
+            document.getElementById('addBranch').disabled = true;
+            document.getElementById('deleteBranch').disabled = true;
+            var chkckmk = '<%=ChklistRMBM.ClientID%>';
+            var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
+            if (hdn == 'True') {
+                document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'visible';
+            }
+
+
+            var chkControlId = '<%=ChklistRMBM.ClientID%>';
+
+            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+
+            for (a = 0; a <= options.length; a++) {
+
+                options[a].disabled = true;
+            }
+        }
+        else {
+
+
+            document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
+
+
+            document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
+            document.getElementById("<%= associatedBranch.ClientID %>").disabled = false;
+            document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = false;
+            document.getElementById('addBranch').disabled = false;
+            document.getElementById('deleteBranch').disabled = false;
+
+            var chkControlId = '<%=ChklistRMBM.ClientID%>';
+
+            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+
+            for (a = 0; a <= options.length; a++) {
+
+                options[a].disabled = false;
+            }
+        }
+    }
+    function CheckSubscription() {
+        document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
+    }
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -244,12 +324,12 @@
         </td>
         <td class="rightField">
             <asp:CheckBoxList ID="ChklistRMBM" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
-                CssClass="cmbField" RepeatLayout="Flow" OnDataBound="ChklistRMBM_DataBound">
+                CssClass="cmbField" RepeatLayout="Flow" onclick="DisableControls()" OnDataBound="ChklistRMBM_DataBound">
                 <asp:ListItem Value="1001">RM</asp:ListItem>
                 <asp:ListItem Value="1002">BM</asp:ListItem>
                 <asp:ListItem Value="1005">Research</asp:ListItem>
             </asp:CheckBoxList>
-            <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" />
+            <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField"  onclick="DisableControls()"/>
             &nbsp;<span id="Span4" class="spnRequiredField">*</span>
             <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail"
                 ValidationGroup="btnUpdate" ErrorMessage="select at least one role" ClientValidationFunction="CheckItem"
@@ -257,6 +337,21 @@
             &nbsp;
             <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged"
                 runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
+        </td>
+        <td colspan="2">
+            &nbsp;
+        </td>
+    </tr>
+    <tr id="trCKMK" runat="server">
+        <td class="leftField">
+            <asp:Label ID="OpsCKMK" runat="server" CssClass="FieldName" Text="Ops Role:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:CheckBoxList ID="CheckListCKMK" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
+                CssClass="cmbField" RepeatLayout="Flow">
+                <asp:ListItem Value="2000">Checker</asp:ListItem>
+                <asp:ListItem Value="2001">Maker</asp:ListItem>
+            </asp:CheckBoxList>
         </td>
         <td colspan="2">
             &nbsp;
@@ -467,6 +562,7 @@
             <asp:HiddenField ID="hdnSelectedBranches" runat="server" />
             <asp:HiddenField ID="hndRmCustomerCount" runat="server" />
             <asp:HiddenField ID="hndBMBranchHead" runat="server" />
+            <asp:HiddenField ID="hdnIsSubscripted" runat="server" />
             <br />
             <br />
         </td>

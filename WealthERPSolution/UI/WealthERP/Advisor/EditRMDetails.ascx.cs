@@ -50,21 +50,10 @@ namespace WealthERP.Advisor
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             uvo = (UserVo)Session["userVo"];
-            this.Action = Request.QueryString[0];
-            if (Action == "Edit Profile")
-            {
-                SetStaffDetails();
-                SetControlstate(Action);
-                lblHeader.Text = "Edit Staff Details";
-                lnkBtnBack.Visible = false;
-                lnkEdit.Visible = false;
-            }
-            else
-            {
-                SetStaffDetails();
-                SetControlstate(Action);
-                lblHeader.Text = "View Staff Details";
-            }
+
+
+           
+           
              if (Session["CurrentrmVo"] != null)
              {
                   rmVo = (RMVo)Session["CurrentrmVo"];
@@ -76,11 +65,26 @@ namespace WealthERP.Advisor
        
             if (!Page.IsPostBack)
             {
-               
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
+              this.Action = Request.QueryString[0];
+                if (Action == "Edit Profile")
+                {
+                    SetStaffDetails();
+                    SetControlstate(Action);
+                    lblHeader.Text = "Edit Staff Details";
+                    lnkBtnBack.Visible = false;
+                    lnkEdit.Visible = false;
+                }
+                else
+                {
+                    SetStaffDetails();
+                    SetControlstate(Action);
+                    lblHeader.Text = "View Staff Details";
+                }
                 htRMInfo = advisorStaffBo.CheckRMDependency(rmVo.RMId);
                 hndRmCustomerCount.Value = htRMInfo["RMCustomerCount"].ToString();
-                hndBMBranchHead.Value = htRMInfo["BMBranchHead"].ToString(); 
-               
+                hndBMBranchHead.Value = htRMInfo["BMBranchHead"].ToString();
+                hdnIsSubscripted.Value = true.ToString();
                             }
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
@@ -130,7 +134,7 @@ namespace WealthERP.Advisor
                 SetControlstate(Action);
                 lnkEdit.Visible = false;
                 lnkBtnBack.Visible = false;
-                
+                lblHeader.Text = "Edit Staff Details";
             }
             catch (BaseApplicationException Ex)
             {
@@ -151,7 +155,7 @@ namespace WealthERP.Advisor
 
 
         }
-
+       
         public bool chkAvailability()
         {
             bool result = false;
@@ -274,7 +278,8 @@ namespace WealthERP.Advisor
                chkExternalStaff.Enabled = true;
                ChklistRMBM.Enabled = true;
                availableBranch.Enabled = true;
-               associatedBranch.Enabled = true;   
+               associatedBranch.Enabled = true;
+               CheckListCKMK.Enabled = true;
            }
            else 
            {
@@ -304,6 +309,7 @@ namespace WealthERP.Advisor
                ChklistRMBM.Enabled = false;
                availableBranch.Enabled = false;
                associatedBranch.Enabled = false;
+               CheckListCKMK.Enabled = false;
            }
 
        }
@@ -858,6 +864,31 @@ namespace WealthERP.Advisor
                     {
                         rmVo.RMRole = "Ops";
                         userBo.CreateRoleAssociation(rmVo.UserId, 1004);
+                        //if (advisorVo.IsISASubscribed == true)
+                        //{
+                        //    foreach (ListItem Items in CheckListCKMK.Items)
+                        //    {
+                        //        if (Items.Selected)
+                        //        {
+                        //            if (Items.Text == "Checker")
+                        //            {
+                        //                // Create Association for RM
+                        //                userBo.CreateUserPermisionAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+
+                        //            }
+                        //            else if (Items.Text == "Maker")
+                        //            {
+                        //                // Create Association for RM
+                        //                userBo.CreateUserPermisionAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                        //            }
+
+                        //        }
+                        //    }
+                        //}
+                        //else
+                        //{
+ 
+                        //}
                     }
                     else
                     {
@@ -1339,7 +1370,7 @@ namespace WealthERP.Advisor
 
         protected void chkExternalStaff_CheckedChanged(object sender, EventArgs e)
         {
- 
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
         }
 
         //protected void gvBranchList_SelectedIndexChanged(object sender, EventArgs e)
