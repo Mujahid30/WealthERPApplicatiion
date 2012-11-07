@@ -4472,7 +4472,7 @@ namespace DaoCustomerProfiling
         }
 
 
-        public void UpdateCustomerISAStageDetails(int requestNumber, string stageStatusCode, string priorityCode, string stepCode, string reasonCode,string comments)
+        public void UpdateCustomerISAStageDetails(int requestNumber, string stageStatusCode, string priorityCode, string stepCode, string reasonCode, string comments, string stageToMarkReprocess)
         {
             Database db;
             DbCommand createCustomerCmd;
@@ -4483,9 +4483,24 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@requestNumber", DbType.Int32, requestNumber);
                 db.AddInParameter(createCustomerCmd, "@stageStatusCode", DbType.String, stageStatusCode);
                 db.AddInParameter(createCustomerCmd, "@priorityCode", DbType.String, priorityCode);
-                db.AddInParameter(createCustomerCmd, "@stepCode", DbType.String, stepCode);                
-                db.AddInParameter(createCustomerCmd, "@reasonCode", DbType.String, reasonCode);
-                db.AddInParameter(createCustomerCmd, "@comments", DbType.String, comments);
+                db.AddInParameter(createCustomerCmd, "@stepCode", DbType.String, stepCode);
+                if (reasonCode != "Select" && reasonCode != "")
+                {
+                    db.AddInParameter(createCustomerCmd, "@reasonCode", DbType.String, reasonCode);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerCmd, "@reasonCode", DbType.String,DBNull.Value);
+                }
+                if (stageToMarkReprocess != "Select" && stageToMarkReprocess != "")
+                {
+                    db.AddInParameter(createCustomerCmd, "@stageToMarkReprocess", DbType.String, stageToMarkReprocess);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerCmd, "@stageToMarkReprocess", DbType.String, DBNull.Value);
+                }
+                    db.AddInParameter(createCustomerCmd, "@comments", DbType.String, comments);
                 
                 
                 db.ExecuteNonQuery(createCustomerCmd);
@@ -4516,7 +4531,7 @@ namespace DaoCustomerProfiling
             return dsGetReasonAndStatus;
         }
 
-        public DataSet GetISARequestDetails(int customerId)
+        public DataSet GetISARequestDetails(int requestId)
         {
             Database db;
             DbCommand createCustomerCmd;
@@ -4524,8 +4539,8 @@ namespace DaoCustomerProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                createCustomerCmd = db.GetStoredProcCommand("SP_GetISARequestDetails");
-                db.AddInParameter(createCustomerCmd, "@C_CustomerId", DbType.Int32, customerId);
+                createCustomerCmd = db.GetStoredProcCommand("SPROC_GetISARequestDetails");
+                db.AddInParameter(createCustomerCmd, "@RequestId", DbType.Int32, requestId);
                 dsGetISARequestDetails = db.ExecuteDataSet(createCustomerCmd);
             }
             catch (BaseApplicationException Ex)

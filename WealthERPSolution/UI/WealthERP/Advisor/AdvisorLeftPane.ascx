@@ -500,6 +500,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF Folios" Value="MF Folios">
                                             </telerik:RadPanelItem>
+                                              <telerik:RadPanelItem runat="server" Text="ISA Status" Value="Status_ISA">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">

@@ -63,77 +63,81 @@ namespace WealthERP.Customer
         {
             SessionBo.CheckSession();
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
-            Session[SessionContents.RmVo] = advisorStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
-            rmVo = (RMVo)Session[SessionContents.RmVo];
-            Session.Remove("Button");
-            adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+            
+                Session[SessionContents.RmVo] = advisorStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                rmVo = (RMVo)Session[SessionContents.RmVo];
+                Session.Remove("Button");
+                adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
 
-            // Method to get the Storage Balance & Maximum Storage
-            repoBo = new RepositoryBo();
-            fStorageBalance = repoBo.GetAdviserStorageValues(adviserVo.advisorId, out fMaxStorage);
-            string linkAction = "";
-            if (Session["LinkAction"] != null)
-            {
-                linkAction = Convert.ToString(Session["LinkAction"]);
-                BindProofTypeDP();
-                BindProofCopy();
-                if(linkAction.Trim() == "AddISA")
+                // Method to get the Storage Balance & Maximum Storage
+                repoBo = new RepositoryBo();
+                fStorageBalance = repoBo.GetAdviserStorageValues(adviserVo.advisorId, out fMaxStorage);
+                string linkAction = "";
+                if (Session["LinkAction"] != null)
                 {
-                    BindddlProof(11);
-                    ddlProofType.SelectedValue = "11";
-                    ddlProof.SelectedValue = "99";
-                    ddlProofCopyType.SelectedValue = "SC";
-                    radPOCProof.TabIndex = 0;
-                    multiPageView.SelectedIndex = 0;
-                    radPOCProof.Tabs[0].Selected = true;
-                    radPOCProof.Tabs[1].Visible = false;
-                }
-                else if (linkAction.Trim() == "AddPan")
-                {
-                    BindddlProof(2);
-                    ddlProofType.SelectedValue = "2";
-                    ddlProof.SelectedValue = "72";
-                    ddlProofCopyType.SelectedValue = "SC";
-                    radPOCProof.TabIndex = 0;
-                    multiPageView.SelectedIndex = 0; 
-                    radPOCProof.Tabs[0].Selected = true;
-                    radPOCProof.Tabs[1].Visible = false;
-                }
-                else if (linkAction.Trim() == "AddAddress")
-                {
-                    BindddlProof(1);
-                    ddlProofType.SelectedValue = "1";
-                    ddlProof.SelectedValue = "66";
-                    ddlProofCopyType.SelectedValue = "SC";
-                    radPOCProof.TabIndex = 0;
-                    multiPageView.SelectedIndex = 0;
-                    radPOCProof.Tabs[0].Selected = true;
-                    radPOCProof.Tabs[1].Visible = false;
-                }
-                else if (linkAction.Trim() == "ViewFormsAndProofs")
-                {
-                    LoadImages();
-                    radPOCProof.TabIndex = 1;
-                    multiPageView.SelectedIndex = 1;
-                    radPOCProof.Tabs[1].Selected = true;
-                    radPOCProof.Tabs[0].Visible= false;
-                }
-            }
-            if (!IsPostBack)
-            {
-                if (Session["LinkAction"] == null)
-                {
+                    linkAction = Convert.ToString(Session["LinkAction"]);
                     BindProofTypeDP();
                     BindProofCopy();
-                    LoadImages();
-                    btnDelete.Visible = false;
-                    lblFileUploaded.Visible = false;
-                    ChangeTelerikRadTab(0);
-                    // Only on initial page load bind a default select text to Proof dropdown as it gets bound only on Proof Type value
-                    ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
+                    if (linkAction.Trim() == "AddISA")
+                    {
+                        BindddlProof(11);
+                        ddlProofType.SelectedValue = "11";
+                        ddlProof.SelectedValue = "99";
+                        ddlProofCopyType.SelectedValue = "SC";
+                        radPOCProof.TabIndex = 0;
+                        multiPageView.SelectedIndex = 0;
+                        radPOCProof.Tabs[0].Selected = true;
+                        // radPOCProof.Tabs[1].Visible = false;
+                    }
+                    else if (linkAction.Trim() == "AddPan")
+                    {
+                        BindddlProof(2);
+                        ddlProofType.SelectedValue = "2";
+                        ddlProof.SelectedValue = "72";
+                        ddlProofCopyType.SelectedValue = "SC";
+                        radPOCProof.TabIndex = 0;
+                        multiPageView.SelectedIndex = 0;
+                        radPOCProof.Tabs[0].Selected = true;
+                        // radPOCProof.Tabs[1].Visible = false;
+                    }
+                    else if (linkAction.Trim() == "AddAddress")
+                    {
+                        BindddlProof(1);
+                        ddlProofType.SelectedValue = "1";
+                        ddlProof.SelectedValue = "66";
+                        ddlProofCopyType.SelectedValue = "SC";
+                        radPOCProof.TabIndex = 0;
+                        multiPageView.SelectedIndex = 0;
+                        radPOCProof.Tabs[0].Selected = true;
+                        //radPOCProof.Tabs[1].Visible = false;
+                    }
+                    else if (linkAction.Trim() == "ViewFormsAndProofs")
+                    {
+                        LoadImages();
+                        radPOCProof.TabIndex = 1;
+                        multiPageView.SelectedIndex = 1;
+                        radPOCProof.Tabs[1].Selected = true;
+                        //radPOCProof.Tabs[0].Visible= false;
+                    }
                 }
-               
-            }
+                if (!IsPostBack)
+                {
+                    if (Session["LinkAction"] == null)
+                    {
+                        BindProofTypeDP();
+                        BindProofCopy();
+                        LoadImages();
+                        btnDelete.Visible = false;
+                        lblFileUploaded.Visible = false;
+                        ChangeTelerikRadTab(0);
+                        // Only on initial page load bind a default select text to Proof dropdown as it gets bound only on Proof Type value
+                        ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
+                    }
+
+                }
+          
+           
+       
         }
 
         private void BindEditFields()

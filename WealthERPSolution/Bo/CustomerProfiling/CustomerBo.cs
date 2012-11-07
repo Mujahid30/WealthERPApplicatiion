@@ -2428,12 +2428,12 @@ namespace BoCustomerProfiling
             return customerIds;
         }
 
-        public void UpdateCustomerISAStageDetails(int requestNumber, string stageStatusCode, string priorityCode, string stepCode, string reasonCode, string comments)
+        public void UpdateCustomerISAStageDetails(int requestNumber, string stageStatusCode, string priorityCode, string stepCode, string reasonCode, string comments, string stageToMarkReprocess)
         {
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                customerDao.UpdateCustomerISAStageDetails(requestNumber, stageStatusCode, priorityCode, stepCode, reasonCode,comments);
+                customerDao.UpdateCustomerISAStageDetails(requestNumber, stageStatusCode, priorityCode, stepCode, reasonCode, comments, stageToMarkReprocess);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2456,13 +2456,13 @@ namespace BoCustomerProfiling
             return dsReasonandStatus;
         }
 
-        public DataSet GetISARequestDetails(int customerId)
+        public DataSet GetISARequestDetails(int requestId)
         {
             DataSet dsGetISARequestDetails = new DataSet();
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                dsGetISARequestDetails = customerDao.GetISARequestDetails(customerId);
+                dsGetISARequestDetails = customerDao.GetISARequestDetails(requestId);
             }
             catch (BaseApplicationException Ex)
             {

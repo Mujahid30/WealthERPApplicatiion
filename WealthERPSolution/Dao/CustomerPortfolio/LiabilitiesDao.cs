@@ -2294,22 +2294,22 @@ namespace DaoCustomerPortfolio
                         liabilitiesVo.ISARequestId = int.Parse(dr["AISAQ_RequestQueueid"].ToString());
                         if (!String.IsNullOrEmpty(dr["AISAQ_date"].ToString()))
                             liabilitiesVo.RequestDate = DateTime.Parse(dr["AISAQ_date"].ToString());
-                        if (!String.IsNullOrEmpty(dr["AISAQ_Status"].ToString()))
-                            liabilitiesVo.CurrentStatus = dr["AISAQ_Status"].ToString();
+                        if (!String.IsNullOrEmpty(dr["AISAQ_StatusName"].ToString()))
+                            liabilitiesVo.CurrentStatus = dr["AISAQ_StatusName"].ToString();
                         if (!String.IsNullOrEmpty(dr["AISAQ_Priority"].ToString()))
                             liabilitiesVo.Priority = dr["AISAQ_Priority"].ToString();
                         if (!String.IsNullOrEmpty(dr["CustomerName"].ToString()))
                             liabilitiesVo.CustomerName = dr["CustomerName"].ToString();
                         if (!String.IsNullOrEmpty(dr["StepCode"].ToString()))
                             liabilitiesVo.StepCode = dr["StepCode"].ToString();
-                        if (!String.IsNullOrEmpty(dr["AISAQD_Status"].ToString()))
-                            liabilitiesVo.Status = (dr["AISAQD_Status"].ToString());
+                        if (!String.IsNullOrEmpty(dr["XS_Status"].ToString()))
+                            liabilitiesVo.Status = (dr["XS_Status"].ToString());
                         if (!String.IsNullOrEmpty(dr["BranchName"].ToString()))
                             liabilitiesVo.BranchName = dr["BranchName"].ToString();
                         if (!String.IsNullOrEmpty(dr["WWFSM_StepName"].ToString()))
                             liabilitiesVo.StepName = dr["WWFSM_StepName"].ToString();
-                        if (!String.IsNullOrEmpty(dr["AISAQ_Status1"].ToString()))
-                            liabilitiesVo.StatusCode = dr["AISAQ_Status1"].ToString();
+                        if (!String.IsNullOrEmpty(dr["AISAQD_Status"].ToString()))
+                            liabilitiesVo.StatusCode = dr["AISAQD_Status"].ToString();
 
                         ISAQueueList.Add(liabilitiesVo);
                     }

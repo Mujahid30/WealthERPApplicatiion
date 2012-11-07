@@ -113,6 +113,9 @@ namespace DaoUser
                     
                     if(!string.IsNullOrEmpty(dr["RoleList"].ToString()))
                         userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
+
+                    if (!string.IsNullOrEmpty(dr["PermissionList"].ToString()))
+                        userVo.PermisionList = dr["PermissionList"].ToString().Split(new char[] { ',' });
                     if (!string.IsNullOrEmpty(dr["U_PwdSaltValue"].ToString()))
                         userVo.PasswordSaltValue = dr["U_PwdSaltValue"].ToString().Trim();
                 }

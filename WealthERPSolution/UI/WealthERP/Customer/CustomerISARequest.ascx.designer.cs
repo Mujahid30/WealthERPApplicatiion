@@ -797,6 +797,24 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.DropDownList ddlReasonStage2;
         
         /// <summary>
+        /// lblBackToStepStage2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBackToStepStage2;
+        
+        /// <summary>
+        /// ddlBackToStepStage2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBackToStepStage2;
+        
+        /// <summary>
         /// btnSubmitStage2 control.
         /// </summary>
         /// <remarks>
@@ -896,13 +914,13 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label txtClosingDate3;
         
         /// <summary>
-        /// Label9 control.
+        /// lblVerifyForms control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label9;
+        protected global::System.Web.UI.WebControls.Label lblVerifyForms;
         
         /// <summary>
         /// lnkbtnAddEditCustomerProfile control.
@@ -957,6 +975,24 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlStatusReason3;
+        
+        /// <summary>
+        /// lblBackToStepStage3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBackToStepStage3;
+        
+        /// <summary>
+        /// ddlBackToStepStage3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBackToStepStage3;
         
         /// <summary>
         /// btnSubmitStage3 control.
@@ -1103,6 +1139,24 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.DropDownList ddlReasonStage4;
         
         /// <summary>
+        /// lblBackToStepStage4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBackToStepStage4;
+        
+        /// <summary>
+        /// ddlBackToStepStage4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBackToStepStage4;
+        
+        /// <summary>
         /// btnSubmitStage4 control.
         /// </summary>
         /// <remarks>
@@ -1128,6 +1182,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAddcommentsStage4;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// txtCustomerId control.

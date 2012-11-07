@@ -1126,6 +1126,10 @@ namespace WealthERP.Advisor
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                 }
+                else if (e.Item.Value == "Status_ISA")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerISARequestList','login');", true);
+                }
                 else if (e.Item.Value == "Add Customer")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
