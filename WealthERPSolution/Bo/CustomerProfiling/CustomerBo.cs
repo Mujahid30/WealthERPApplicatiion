@@ -2440,7 +2440,71 @@ namespace BoCustomerProfiling
                 throw Ex;
             }
             return dsGetISARequestDetails;
-        }     
+        }
+
+        public int CreateCustomerBasicProfileDetails(CustomerVo customerVo, int cretaedBy, string PortfolioTypeCode, string PortfolioName)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            int customerId = 0;
+            try
+            {
+                customerId = customerDao.CreateCustomerBasicProfileDetails(customerVo, cretaedBy, PortfolioTypeCode, PortfolioName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:CreateCustomerBasicProfileDetails()");
+                object[] objects = new object[4];
+                objects[0] = customerVo;
+                objects[1] = cretaedBy;
+                objects[2] = PortfolioTypeCode;
+                objects[3] = PortfolioName;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return customerId;
+
+        }
+
+        public DataTable GetCustomerISAAccounts(int customerId)
+        {
+            DataTable dtCustomerISAAccountList = new DataTable();
+            CustomerDao customerDao = new CustomerDao();
+
+            try
+            {
+                dtCustomerISAAccountList = customerDao.GetCustomerISAAccounts(customerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerISAAccounts(int customerId)");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerISAAccountList;
+        }
       
     }
 }
