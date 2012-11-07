@@ -104,19 +104,22 @@ namespace DaoCustomerProfiling
                         customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
                         customerBankAccountVo.BankName = dr["CB_BankName"].ToString();
                         customerBankAccountVo.AccountType = dr["XBAT_BankAccountTye"].ToString();
-                        customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
+                        customerBankAccountVo.BankAccountNum =dr["CB_AccountNum"].ToString();
                         customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString();
                         customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
-                        ////customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
-                        ////customerBankAccountVo.BranchAdrLine2 = dr["CB_BranchAdrLine2"].ToString();
-                        ////customerBankAccountVo.BranchAdrLine3 = dr["CB_BranchAdrLine3"].ToString();
-                        ////customerBankAccountVo.BranchAdrPinCode = int.Parse(dr["CB_BranchAdrPinCode"].ToString());
-                        ////customerBankAccountVo.BranchAdrCity = dr["CB_BranchAdrCity"].ToString();
-                        ////customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
-                        ////customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
-                        ////customerBankAccountVo.Balance = float.Parse(dr["CB_Balance"].ToString());
-                        ////customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
-                        ////customerBankAccountVo.IFSC = dr["CB_IFSC"].ToString();
+                        customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
+                        customerBankAccountVo.BranchAdrLine2 = dr["CB_BranchAdrLine2"].ToString();
+                        customerBankAccountVo.BranchAdrLine3 = dr["CB_BranchAdrLine3"].ToString();
+                        customerBankAccountVo.BranchAdrPinCode = int.Parse(dr["CB_BranchAdrPinCode"].ToString());
+                        customerBankAccountVo.BranchAdrCity = dr["CB_BranchAdrCity"].ToString();
+                        customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
+                        customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
+                        customerBankAccountVo.ModeOfOperationCode = dr["XMOH_ModeOfHoldingCode"].ToString();
+                        customerBankAccountVo.AccountTypeCode = dr["XBAT_BankAccountTypeCode"].ToString();
+                        if (dr["CB_Balance"].ToString()!="")
+                        customerBankAccountVo.Balance = float.Parse(dr["CB_Balance"].ToString());
+                        customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
+                        customerBankAccountVo.IFSC = dr["CB_IFSC"].ToString();
                         accountList.Add(customerBankAccountVo);
 
                     }
