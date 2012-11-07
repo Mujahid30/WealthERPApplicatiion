@@ -1555,5 +1555,71 @@ namespace BoCustomerPortfolio
             }
             return dsgetAccountNo;
         }
+
+        public bool CreateISAAccountAssociation(CustomerISAAccountsVo customerISAAccountAssociationVo, int userId)
+        {
+            bool bResult = false;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            try
+            {
+                bResult = customerAccountDao.CreateISAAccountAssociation(customerISAAccountAssociationVo, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateISAAccountAssociation()");
+
+                object[] objects = new object[2];
+                objects[0] = customerISAAccountAssociationVo;
+                objects[1] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+        public int CreateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo, int customerId, int userId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();            
+            int customerISAAccountId = 0;
+            try
+            {
+                customerISAAccountId = customerAccountDao.CreateCustomerISAAccount(customerISAAccountVo, customerId, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCustomerISAAccount()");
+
+                object[] objects = new object[3];
+                objects[0] = customerISAAccountVo;
+                objects[1] = userId;
+                objects[2] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return customerISAAccountId;
+        }
+
     }
 }
