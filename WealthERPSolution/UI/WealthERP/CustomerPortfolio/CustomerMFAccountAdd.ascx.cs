@@ -93,15 +93,18 @@ namespace WealthERP.CustomerPortfolio
                         {
                             if (Request.QueryString["action"].Trim() == "Edit")
                             {
-
                                 EditFolioDetails();
+                                imgAddNominee.Visible = true;
+                                imgAddJointHolder.Visible = true;
+                                imgAddGuardian.Visible = true;
 
                             }
                             else if (Request.QueryString["action"].Trim() == "View")
                             {
                                 ViewFolioDetails();
-
-
+                                imgAddNominee.Visible = false;
+                                imgAddJointHolder.Visible = false;
+                                imgAddGuardian.Visible = false;
                             }
 
                         }
@@ -217,7 +220,7 @@ namespace WealthERP.CustomerPortfolio
 
             BindDropDowns(path);
             ddlAccType.SelectedValue = customerAccountsVo.AccountType;
-            txtAccNo.Text = customerAccountsVo.AccountNum;
+            txtAccNo.Text = customerAccountsVo.BankAccountNum;
             ddlModeOfOpn.Text = customerAccountsVo.ModeOfOperation;
             txtBankName.Text = customerAccountsVo.BankName;
             txtBranchName.Text = customerAccountsVo.BranchName;
@@ -255,7 +258,7 @@ namespace WealthERP.CustomerPortfolio
             DataTable dtGuardian = new DataTable();
             DataTable dtNominees = new DataTable();
             DataTable dtNomineesGV = new DataTable();
-            
+
             try
             {
                 dsCustomerAssociates = customerTransactionBo.GetMFFolioAccountAssociates(AccountVo.AccountId, customerVo.CustomerId);
@@ -272,7 +275,7 @@ namespace WealthERP.CustomerPortfolio
                         ViewState["JointHold"] = dtJoinHolder;
                         gvJoint2.DataSource = dtJoinHolder;
                         gvJoint2.DataBind();
-                        gvJoint2.Visible = true;                     
+                        gvJoint2.Visible = true;
                     }
                     else
                     {
@@ -381,9 +384,9 @@ namespace WealthERP.CustomerPortfolio
 
             BindDropDowns(path);
             ddlAccType.SelectedValue = customerAccountsVo.AccountType;
-            txtAccNo.Text = customerAccountsVo.AccountNum;
-            if(!string.IsNullOrEmpty(customerAccountsVo.ModeOfOperation))
-            ddlModeOfOpn.Text = customerAccountsVo.ModeOfOperation;
+            txtAccNo.Text = customerAccountsVo.BankAccountNum;
+            if (!string.IsNullOrEmpty(customerAccountsVo.ModeOfOperation))
+                ddlModeOfOpn.Text = customerAccountsVo.ModeOfOperation;
             txtBankName.Text = customerAccountsVo.BankName;
             txtBranchName.Text = customerAccountsVo.BranchName;
             txtBLine1.Text = customerAccountsVo.BranchAdrLine1;
@@ -428,12 +431,72 @@ namespace WealthERP.CustomerPortfolio
                 btnSubmit.Visible = false;
                 btnUpdate.Visible = false;
                 lnkEdit.Visible = true;
+
+                txtAccNo.Enabled = false;
+                txtAccountDate.Enabled = false;
+                txtBankName.Enabled = false;
+                txtBLine1.Enabled = false;
+                txtBLine2.Enabled = false;
+                txtBLine3.Enabled = false;
+                txtBranchName.Enabled = false;
+                txtBrokerCode.Enabled = false;
+                txtCity.Enabled = false;
+                txtCustEmail.Enabled = false;
+                txtCustJName1.Enabled = false;
+                txtCustJName2.Enabled = false;
+                txtCustPhNoOff.Enabled = false;
+                txtCustPhNoRes.Enabled = false;
+                txtFolioNumber.Enabled = false;
+                txtIfsc.Enabled = true;
+                txtInvestorName.Enabled = false;
+                txtMicr.Enabled = false;
+                txtModeOfOpn.Enabled = false;
+                txtPAddress1.Enabled = false;
+                txtPAddress2.Enabled = false;
+                txtPAddress3.Enabled = false;
+                txtPanNo.Enabled = false;
+                txtPCity.Enabled = false;
+                txtPinCode.Enabled = false;
+                txtPPhone.Enabled = false;
+                txtPPinCode.Enabled = false;
+                txtTaxStatus.Enabled = false;
+
             }
             else
             {
                 txtAccountDate.Enabled = true;
                 txtFolioNumber.Enabled = true;
                 //ddlModeOfHolding.Enabled = true;
+
+                txtAccNo.Enabled = true;
+                txtAccountDate.Enabled = true;
+                txtBankName.Enabled = true;
+                txtBLine1.Enabled = true;
+                txtBLine2.Enabled = true;
+                txtBLine3.Enabled = true;
+                txtBranchName.Enabled = true;
+                txtBrokerCode.Enabled = true;
+                txtCity.Enabled = true;
+                txtCustEmail.Enabled = true;
+                txtCustJName1.Enabled = true;
+                txtCustJName2.Enabled = true;
+                txtCustPhNoOff.Enabled = true;
+                txtCustPhNoRes.Enabled = true;
+                txtFolioNumber.Enabled = true;
+                txtIfsc.Enabled = true;
+                txtInvestorName.Enabled = true;
+                txtMicr.Enabled = true;
+                txtModeOfOpn.Enabled = true;
+                txtPAddress1.Enabled = true;
+                txtPAddress2.Enabled = true;
+                txtPAddress3.Enabled = true;
+                txtPanNo.Enabled = true;
+                txtPCity.Enabled = true;
+                txtPinCode.Enabled = true;
+                txtPPhone.Enabled = true;
+                txtPPinCode.Enabled = true;
+                txtTaxStatus.Enabled = true;
+
                 ddlPortfolio.Enabled = true;
                 ddlProductAmc.Enabled = true;
                 rbtnNo.Enabled = true;
@@ -750,7 +813,7 @@ namespace WealthERP.CustomerPortfolio
                 //added fields for bank details
                 customerAccountsVo.BankId = int.Parse(ddlBankList.SelectedValue);
                 customerAccountsVo.AccountType = ddlAccType.SelectedValue.ToString();
-                customerAccountsVo.BankAccountNum =txtAccNo.Text;
+                customerAccountsVo.BankAccountNum = txtAccNo.Text;
                 customerAccountsVo.ModeOfOperation = ddlModeOfOpn.SelectedValue.ToString();
                 customerAccountsVo.BankName = txtBankName.Text;
                 customerAccountsVo.BranchName = txtBranchName.Text;
@@ -1060,6 +1123,10 @@ namespace WealthERP.CustomerPortfolio
         {
             EditFolioDetails();
             btnUpdate.Visible = true;
+
+            imgAddNominee.Visible = true;
+            imgAddJointHolder.Visible = true;
+            imgAddGuardian.Visible = true;
         }
 
         protected void rbtnYes_CheckedChanged1(object sender, EventArgs e)
@@ -1221,8 +1288,8 @@ namespace WealthERP.CustomerPortfolio
             txtBLine2.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine2"].ToString();
             txtBLine3.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine3"].ToString();
             ddlBState.SelectedValue = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString();
-            if(dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString()!="")
-            ddlModeOfOpn.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString();
+            if (dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString() != "")
+                ddlModeOfOpn.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString();
             ddlAccType.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XBAT_BankAccountTypeCode"].ToString();
             txtPinCode.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrPinCode"].ToString();
             txtMicr.Text = dsbankDetails.Tables[0].Rows[0]["CB_MICR"].ToString();

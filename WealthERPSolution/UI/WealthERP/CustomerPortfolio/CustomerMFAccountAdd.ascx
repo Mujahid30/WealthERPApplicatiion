@@ -395,8 +395,9 @@
             <asp:Label CssClass="FieldName" Text="Add Nominee :" runat="server"></asp:Label>
         </td>
         <td colspan="4">
-            <asp:ImageButton OnClick="imgAddNominee_Click" ID="imgAddNominee" Text="AddNominee"
-                runat="server"></asp:ImageButton>
+            <asp:ImageButton OnClick="imgAddNominee_Click" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Click here to Add Nominee" Height="15px"
+                Width="15px" ID="imgAddNominee" Text="AddNominee"></asp:ImageButton>
         </td>
     </tr>
     <tr>
@@ -434,7 +435,9 @@
         </td>
         <td colspan="4">
             <asp:ImageButton OnClick="imgAddGuardian_Click" ID="imgAddGuardian" Text="AddGuardian"
-                runat="server"></asp:ImageButton>
+                runat="server" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Click here to Add Nominee" Height="15px"
+                Width="15px"></asp:ImageButton>
         </td>
     </tr>
     <tr>
@@ -475,7 +478,9 @@
         </td>
         <td colspan="4">
             <asp:ImageButton OnClick="imgAddJointHolder_Click" ID="imgAddJointHolder" Text="AddJTHolder"
-                runat="server"></asp:ImageButton>
+                runat="server" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Click here to Add Nominee" Height="15px"
+                Width="15px"></asp:ImageButton>
         </td>
     </tr>
     <tr>

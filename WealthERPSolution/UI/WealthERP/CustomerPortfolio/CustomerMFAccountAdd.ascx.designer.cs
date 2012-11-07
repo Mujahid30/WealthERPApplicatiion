@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.CustomerPortfolio {
-    
-    
-    public partial class CustomerMFAccountAdd {
-        
+namespace WealthERP.CustomerPortfolio
+{
+
+
+    public partial class CustomerMFAccountAdd
+    {
+
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -27,7 +29,7 @@ namespace WealthERP.CustomerPortfolio {
         protected global::Telerik.Web.UI.RadWindow radwindowForNominee;
 
         protected global::Telerik.Web.UI.RadWindow radwindowForJointHolder;
-        
+
         /// <summary>
         /// lnkEdit control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace WealthERP.CustomerPortfolio {
 
 
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAddJointHolder;
-        
+
         /// <summary>
         /// lblPortfolio control.
         /// </summary>
@@ -48,7 +50,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPortfolio;
-        
+
         /// <summary>
         /// ddlPortfolio control.
         /// </summary>
@@ -57,7 +59,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPortfolio;
-        
+
         /// <summary>
         /// lblFolioNum0 control.
         /// </summary>
@@ -66,7 +68,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFolioNum0;
-        
+
         /// <summary>
         /// ddlProductAmc control.
         /// </summary>
@@ -77,7 +79,7 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.DropDownList ddlProductAmc;
 
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBankDetails;
-        
+
         /// <summary>
         /// cvProductAmc control.
         /// </summary>
@@ -86,7 +88,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvProductAmc;
-        
+
         /// <summary>
         /// lblFolioNum control.
         /// </summary>
@@ -95,7 +97,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFolioNum;
-        
+
         /// <summary>
         /// txtFolioNumber control.
         /// </summary>
@@ -104,7 +106,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFolioNumber;
-        
+
         protected global::System.Web.UI.WebControls.TextBox txtTaxStatus;
         protected global::System.Web.UI.WebControls.TextBox txtBrokerCode;
         protected global::System.Web.UI.WebControls.TextBox txtPanNo;
@@ -117,7 +119,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFolioNumber;
-        
+
         /// <summary>
         /// lblJointHolding control.
         /// </summary>
@@ -126,7 +128,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblJointHolding;
-        
+
         /// <summary>
         /// rbtnYes control.
         /// </summary>
@@ -135,7 +137,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnYes;
-        
+
         /// <summary>
         /// rbtnNo control.
         /// </summary>
@@ -144,7 +146,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnNo;
-        
+
         /// <summary>
         /// lblModeOfHolding control.
         /// </summary>
@@ -153,7 +155,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblModeOfHolding;
-        
+
         /// <summary>
         /// ddlModeOfHolding control.
         /// </summary>
@@ -162,7 +164,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlModeOfHolding;
-        
+
         /// <summary>
         /// lblAccountStartingDate control.
         /// </summary>
@@ -171,7 +173,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAccountStartingDate;
-        
+
         /// <summary>
         /// txtAccountDate control.
         /// </summary>
@@ -183,7 +185,7 @@ namespace WealthERP.CustomerPortfolio {
         protected global::Telerik.Web.UI.RadDatePicker txtAccountDate;
 
         protected global::Telerik.Web.UI.RadDatePicker rdpDOB;
-        
+
         /// <summary>
         /// txtAccountDate_CalendarExtender control.
         /// </summary>
@@ -192,7 +194,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender txtAccountDate_CalendarExtender;
-        
+
         /// <summary>
         /// txtAccountDate_TextBoxWatermarkExtender control.
         /// </summary>
@@ -201,7 +203,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtAccountDate_TextBoxWatermarkExtender;
-        
+
         /// <summary>
         /// trbankList control.
         /// </summary>
@@ -210,7 +212,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trbankList;
-        
+
         /// <summary>
         /// lblddlBankList control.
         /// </summary>
@@ -219,7 +221,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblddlBankList;
-        
+
         /// <summary>
         /// ddlBankList control.
         /// </summary>
@@ -228,7 +230,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBankList;
-        
+
         /// <summary>
         /// imgBtnAddBank control.
         /// </summary>
@@ -237,7 +239,10 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnAddBank;
-        
+
+        protected global::System.Web.UI.WebControls.ImageButton imgAddNominee;
+        protected global::System.Web.UI.WebControls.ImageButton imgAddGuardian;
+        protected global::System.Web.UI.WebControls.ImageButton imgAddJointHolder;
         /// <summary>
         /// imgBtnRefereshBank control.
         /// </summary>
@@ -246,7 +251,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnRefereshBank;
-        
+
         /// <summary>
         /// lblInvestorName control.
         /// </summary>
@@ -255,7 +260,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblInvestorName;
-        
+
         /// <summary>
         /// txtInvestorName control.
         /// </summary>
@@ -297,13 +302,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.TextBox txtCustPhNoOff;
         protected global::System.Web.UI.WebControls.TextBox txtCustPhNoRes;
 
-        
+
         protected global::System.Web.UI.WebControls.TextBox txtCustEmail;
 
 
 
-        
-        
+
+
         /// <summary>
         /// chkUseProfileName control.
         /// </summary>
@@ -312,7 +317,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkUseProfileName;
-        
+
         /// <summary>
         /// trJointHolders control.
         /// </summary>
@@ -321,7 +326,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trJointHolders;
-        
+
         /// <summary>
         /// trJointHoldersGrid control.
         /// </summary>
@@ -330,7 +335,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trJointHoldersGrid;
-        
+
         /// <summary>
         /// gvJointHoldersList control.
         /// </summary>
@@ -350,7 +355,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNominees;
-        
+
         /// <summary>
         /// trNomineesGrid control.
         /// </summary>
@@ -359,8 +364,8 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNomineesGrid;
-        
-        
+
+
         /// <summary>
         /// gvNominees control.
         /// </summary>
@@ -380,7 +385,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trJoint2Header;
-        
+
         /// <summary>
         /// Label1 control.
         /// </summary>
@@ -389,7 +394,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
+
         /// <summary>
         /// trJoint2 control.
         /// </summary>
@@ -398,7 +403,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trJoint2;
-        
+
         /// <summary>
         /// gvJoint2 control.
         /// </summary>
@@ -406,7 +411,7 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-       //protected global::System.Web.UI.WebControls.GridView gvJoint2;
+        //protected global::System.Web.UI.WebControls.GridView gvJoint2;
 
         protected global::Telerik.Web.UI.RadGrid gvJoint2;
         /// <summary>
@@ -417,7 +422,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNominee2Header;
-        
+
         /// <summary>
         /// Label2 control.
         /// </summary>
@@ -426,7 +431,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label2;
-        
+
         /// <summary>
         /// trNominee2 control.
         /// </summary>
@@ -435,7 +440,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNominee2;
-        
+
         /// <summary>
         /// gvNominee2 control.
         /// </summary>
@@ -454,7 +459,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmit;
-        
+
         /// <summary>
         /// btnUpdate control.
         /// </summary>
@@ -463,7 +468,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdate;
-        
+
         /// <summary>
         /// hidValidCheck control.
         /// </summary>
@@ -472,7 +477,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidValidCheck;
-        
+
         /// <summary>
         /// hdnCustomerName control.
         /// </summary>
