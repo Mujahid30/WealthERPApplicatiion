@@ -412,6 +412,8 @@ namespace BoUploads
                     customerVo.ContactFirstName = StandardProfileUploadVo.ContactGuardianFirstName;
                     customerVo.ContactMiddleName = StandardProfileUploadVo.ContactGuardianMiddleName;
                     customerVo.ContactLastName = StandardProfileUploadVo.ContactGuardianLastName;
+                    if (!string.IsNullOrEmpty(StandardProfileUploadVo.GuardPANNum))
+                        customerVo.GuardPANNum = StandardProfileUploadVo.GuardPANNum;
                     if(StandardProfileUploadVo.Mobile1 != "")
                         customerVo.Mobile1 = Int64.Parse(StandardProfileUploadVo.Mobile1);
                     if (StandardProfileUploadVo.Mobile2 != "")
