@@ -2509,5 +2509,42 @@ namespace DaoCustomerPortfolio
 
         #endregion
 
+        public bool CheckPANNoAvailability(string PanNumber, string BranchId, int adviserId)
+        {
+
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int rowCount;
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkAvailabilityCmd = db.GetStoredProcCommand("SP_CheckPanNumberAvailability");
+
+                db.AddInParameter(chkAvailabilityCmd, "@PanNumber", DbType.String, PanNumber);
+                db.AddInParameter(chkAvailabilityCmd, "@BranchId", DbType.String, BranchId);
+                db.AddInParameter(chkAvailabilityCmd, "@adviserId", DbType.Int32, adviserId);
+
+                ds = db.ExecuteDataSet(chkAvailabilityCmd);
+                rowCount = ds.Tables[0].Rows.Count;
+                if (rowCount > 0)
+                {
+                    bResult = false;
+                }
+                else
+                {
+                    bResult = true;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+            return bResult;
+        }
+
+
     }
 }

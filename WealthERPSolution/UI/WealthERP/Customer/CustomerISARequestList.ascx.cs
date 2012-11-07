@@ -32,9 +32,9 @@ namespace WealthERP.Customer
         LiabilitiesBo liabilitiesBo = new LiabilitiesBo();
         CustomerVo customerVo = null;
         Calculator calculator = new Calculator();
-        AdvisorVo advisorVo=new AdvisorVo();
+        AdvisorVo advisorVo = new AdvisorVo();
         int advisorId;
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -43,7 +43,7 @@ namespace WealthERP.Customer
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             if (!IsPostBack)
             {
-                
+
                 advisorId = advisorVo.advisorId;
                 BindGridview();
             }
@@ -54,7 +54,7 @@ namespace WealthERP.Customer
             DataTable dt = new DataTable();
 
             btnExportFilteredData.Visible = true;
-            dt = (DataTable)Cache["dtLiabilities + '" + advisorVo.advisorId + "'"];
+            dt = (DataTable)Cache["IsaRequestDetails  + '" + advisorVo.advisorId + "'"];
             gvISArequest.DataSource = dt;
         }
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
@@ -91,6 +91,8 @@ namespace WealthERP.Customer
                 dt.Columns.Add("WWFSM_StepCode");
                 dt.Columns.Add("AISAQD_Status");
                 dt.Columns.Add("BranchName");
+                dt.Columns.Add("StepName");
+                dt.Columns.Add("StatusCode");
 
                 for (int i = 0; i < ISAQueueListVo.Count; i++)
                 {
@@ -111,19 +113,23 @@ namespace WealthERP.Customer
                         dr[6] = liabilityVo.Status;
                     if (liabilityVo.BranchName != null)
                         dr[7] = liabilityVo.BranchName;
+                    if (liabilityVo.StepName != null)
+                        dr[8] = liabilityVo.StepName;
+                    if (liabilityVo.StatusCode != null)
+                        dr[9] = liabilityVo.StatusCode;
                     dt.Rows.Add(dr);
                 }
                 gvISArequest.DataSource = dt;
                 gvISArequest.DataBind();
 
-                if (Cache["dtLiabilities + '" + advisorVo.advisorId + "'"] == null)
+                if (Cache["IsaRequestDetails + '" + advisorVo.advisorId + "'"] == null)
                 {
-                    Cache.Insert("dtLiabilities + '" + advisorVo.advisorId + "'", dt);
+                    Cache.Insert("IsaRequestDetails  + '" + advisorVo.advisorId + "'", dt);
                 }
                 else
                 {
-                    Cache.Remove("dtLiabilities + '" + advisorVo.advisorId + "'");
-                    Cache.Insert("dtLiabilities + '" + advisorVo.advisorId + "'", dt);
+                    Cache.Remove("IsaRequestDetails  + '" + advisorVo.advisorId + "'");
+                    Cache.Insert("IsaRequestDetails  + '" + advisorVo.advisorId + "'", dt);
                 }
 
             }
@@ -135,6 +141,20 @@ namespace WealthERP.Customer
                 btnExportFilteredData.Visible = false;
             }
         }
-       
+        protected void ddlAction_OnSelectedIndexChange(object sender, EventArgs e)
+        {
+            RadComboBox ddlAction = (RadComboBox)sender;
+            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "Page_ClientValidate();Loading(true);", true); 
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            int selectedRow = gvr.ItemIndex + 1;
+            int requestId = int.Parse(gvISArequest.MasterTableView.DataKeyValues[selectedRow - 1]["AISAQ_RequestQueueid"].ToString());
+            string statusCode = gvISArequest.MasterTableView.DataKeyValues[selectedRow - 1]["StatusCode"].ToString();
+            string stepCode = gvISArequest.MasterTableView.DataKeyValues[selectedRow - 1]["WWFSM_StepCode"].ToString();
+            if (ddlAction.SelectedValue == "View")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GenerateISA", "loadcontrol('CustomerISARequest','?RequestId=" + requestId + "&stepCode=" + stepCode + "&statusCode=" + statusCode + "');", true);
+            }
+
+        }
     }
-    }
+}

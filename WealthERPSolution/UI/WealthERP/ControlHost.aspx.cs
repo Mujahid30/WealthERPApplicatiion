@@ -103,6 +103,13 @@ namespace WealthERP
         }
 
         [WebMethod]
+        public static bool CheckPANNoAvailability(string PanNumber, string BranchId, int adviserId)
+        {
+            CustomerAccountDao checkAccDao = new CustomerAccountDao();
+            return checkAccDao.CheckPANNoAvailability(PanNumber, BranchId, adviserId);
+        }
+
+        [WebMethod]
         public static bool CheckTradeNoAvailabilityForUpdate(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
             CustomerAccountDao checkAccDao = new CustomerAccountDao();

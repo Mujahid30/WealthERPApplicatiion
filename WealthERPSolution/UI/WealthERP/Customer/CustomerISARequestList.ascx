@@ -38,7 +38,7 @@
                 EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ISAQueuelist">
                 </ExportSettings>
-                <MasterTableView CommandItemDisplay="None" DataKeyNames="AISAQ_RequestQueueid,WWFSM_StepCode">
+                <MasterTableView CommandItemDisplay="None" DataKeyNames="AISAQ_RequestQueueid,WWFSM_StepCode,StatusCode">
                     <Columns>
                         <%--<telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
                         <ItemTemplate>
@@ -58,6 +58,19 @@
                             </telerik:RadComboBox>
                         </ItemTemplate>
                     </telerik:GridTemplateColumn>--%>
+                       <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                                <ItemTemplate>
+                                    <telerik:RadComboBox ID="ddlAction" CssClass="cmbField" runat="server" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange" EnableEmbeddedSkins="false" Skin="Telerik"
+                                        AllowCustomText="true" Width="120px" AutoPostBack="true">
+                                        <Items>
+                                            <telerik:RadComboBoxItem Text="Select" Value="Select"
+                                                Selected="true"></telerik:RadComboBoxItem>
+                                            <telerik:RadComboBoxItem Text="View" Value="View"
+                                                runat="server"></telerik:RadComboBoxItem>                                         
+                                        </Items>
+                                    </telerik:RadComboBox>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn DataField="AISAQ_RequestQueueid" AllowFiltering="false"
                             HeaderText="ISA RequestId">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -75,7 +88,7 @@
                         <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="false" HeaderText="Customer Name">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="WWFSM_StepCode" AllowFiltering="false"
+                        <telerik:GridBoundColumn DataField="StepName" AllowFiltering="false"
                             HeaderText="Current Stage">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>

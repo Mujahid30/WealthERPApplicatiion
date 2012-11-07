@@ -71,17 +71,68 @@ namespace WealthERP.Customer
             // Method to get the Storage Balance & Maximum Storage
             repoBo = new RepositoryBo();
             fStorageBalance = repoBo.GetAdviserStorageValues(adviserVo.advisorId, out fMaxStorage);
-
-            if (!IsPostBack)
+            string linkAction = "";
+            if (Session["LinkAction"] != null)
             {
+                linkAction = Convert.ToString(Session["LinkAction"]);
                 BindProofTypeDP();
                 BindProofCopy();
-                // Only on initial page load bind a default select text to Proof dropdown as it gets bound only on Proof Type value
-                ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
-                LoadImages();
-                btnDelete.Visible = false;
-                lblFileUploaded.Visible = false;
-                ChangeTelerikRadTab(0);
+                if(linkAction.Trim() == "AddISA")
+                {
+                    BindddlProof(11);
+                    ddlProofType.SelectedValue = "11";
+                    ddlProof.SelectedValue = "99";
+                    ddlProofCopyType.SelectedValue = "SC";
+                    radPOCProof.TabIndex = 0;
+                    multiPageView.SelectedIndex = 0;
+                    radPOCProof.Tabs[0].Selected = true;
+                    radPOCProof.Tabs[1].Visible = false;
+                }
+                else if (linkAction.Trim() == "AddPan")
+                {
+                    BindddlProof(2);
+                    ddlProofType.SelectedValue = "2";
+                    ddlProof.SelectedValue = "72";
+                    ddlProofCopyType.SelectedValue = "SC";
+                    radPOCProof.TabIndex = 0;
+                    multiPageView.SelectedIndex = 0; 
+                    radPOCProof.Tabs[0].Selected = true;
+                    radPOCProof.Tabs[1].Visible = false;
+                }
+                else if (linkAction.Trim() == "AddAddress")
+                {
+                    BindddlProof(1);
+                    ddlProofType.SelectedValue = "1";
+                    ddlProof.SelectedValue = "66";
+                    ddlProofCopyType.SelectedValue = "SC";
+                    radPOCProof.TabIndex = 0;
+                    multiPageView.SelectedIndex = 0;
+                    radPOCProof.Tabs[0].Selected = true;
+                    radPOCProof.Tabs[1].Visible = false;
+                }
+                else if (linkAction.Trim() == "ViewFormsAndProofs")
+                {
+                    LoadImages();
+                    radPOCProof.TabIndex = 1;
+                    multiPageView.SelectedIndex = 1;
+                    radPOCProof.Tabs[1].Selected = true;
+                    radPOCProof.Tabs[0].Visible= false;
+                }
+            }
+            if (!IsPostBack)
+            {
+                if (Session["LinkAction"] == null)
+                {
+                    BindProofTypeDP();
+                    BindProofCopy();
+                    LoadImages();
+                    btnDelete.Visible = false;
+                    lblFileUploaded.Visible = false;
+                    ChangeTelerikRadTab(0);
+                    // Only on initial page load bind a default select text to Proof dropdown as it gets bound only on Proof Type value
+                    ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+               
             }
         }
 
@@ -213,9 +264,14 @@ namespace WealthERP.Customer
 
         protected void ddlProofType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dtDpProofsForTypes = new DataTable();
             if (ddlProofType.SelectedIndex != 0)
-                dtDpProofsForTypes = customerBo.GetCustomerProofsForTypes(Convert.ToInt32(ddlProofType.SelectedValue));
+            BindddlProof(Convert.ToInt32(ddlProofType.SelectedValue));
+        }
+
+        protected void BindddlProof(int proofTypeSelectedValue)
+        {
+            DataTable dtDpProofsForTypes = new DataTable();
+            dtDpProofsForTypes = customerBo.GetCustomerProofsForTypes(proofTypeSelectedValue);
 
             ddlProof.Items.Clear();
             ddlProof.SelectedValue = null;
@@ -228,7 +284,6 @@ namespace WealthERP.Customer
             }
             ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
         }
-
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             Session["Button"] = "Submit";

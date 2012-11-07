@@ -24,27 +24,34 @@ namespace WealthERP
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string linkId = "";
             if (Request.QueryString["PageId"] != null)
                 pageID = Request.QueryString["PageId"].ToString();
-            if (pageID == "CustomerProofView")
+
+            if (Request.QueryString["LinkId"] != null)
+            {
+                linkId = Request.QueryString["LinkId"].ToString();
+                Session["LinkAction"] = linkId;
+            }
+            if (pageID.Trim() == "CustomerProofView")
             {
                 customerImageProofPath = Request.QueryString["ImagePath"].ToString();
                 customerProofExt = Request.QueryString["strExt"].ToString();
                 customerProofFileName = Request.QueryString["strFileName"].ToString();
                 strAdvisorIdWithFielName = Request.QueryString["strAdvisorIdWithFielName"].ToString();
             }
-           
-            path = Getpagepath(pageID);           
+
+            path = Getpagepath(pageID.Trim());           
             UserControl uc1 = new UserControl();
             uc1 = (UserControl)this.Page.LoadControl(path);
 
             if (!string.IsNullOrEmpty(customerImageProofPath))
             {
-                uc1.ID = "ctrl_" + pageID + "-" + customerImageProofPath + "-" + customerProofExt + "-" + customerProofFileName + "-" + strAdvisorIdWithFielName;
+                uc1.ID = "ctrl_" + pageID.Trim() + "-" + customerImageProofPath + "-" + customerProofExt + "-" + customerProofFileName + "-" + strAdvisorIdWithFielName;
             }
             else
             {
-                uc1.ID = "ctrl_" + pageID;
+                uc1.ID = "ctrl_" + pageID.Trim();
             }
 
             phLoadControl.Controls.Clear();

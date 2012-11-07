@@ -2382,5 +2382,65 @@ namespace BoCustomerProfiling
             }
             return isEdited;            
         }
+
+        public List<int> CreateISACustomerRequest(CustomerVo customerVo, int custCreateFlag)
+        {
+            List<int> customerIds = new List<int>();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                customerIds = customerDao.CreateISACustomerRequest(customerVo, custCreateFlag);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+          
+            return customerIds;
+        }
+
+        public void UpdateCustomerISAStageDetails(int requestNumber, string stageStatusCode, string priorityCode, string stepCode, string reasonCode, string comments)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                customerDao.UpdateCustomerISAStageDetails(requestNumber, stageStatusCode, priorityCode, stepCode, reasonCode,comments);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }          
+        }
+
+        public DataSet GetReasonAndStatus(string purpose)
+        {
+            DataSet dsReasonandStatus = new DataSet();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dsReasonandStatus = customerDao.GetReasonAndStatus(purpose);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsReasonandStatus;
+        }
+
+        public DataSet GetISARequestDetails(int customerId)
+        {
+            DataSet dsGetISARequestDetails = new DataSet();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dsGetISARequestDetails = customerDao.GetISARequestDetails(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetISARequestDetails;
+        }     
+      
     }
 }

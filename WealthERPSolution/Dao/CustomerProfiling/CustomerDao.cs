@@ -283,7 +283,7 @@ namespace DaoCustomerProfiling
 
                         customerVo.ViaSMS = 0;
 
-                    }
+                    }   
                     else
                     {
                         customerVo.ViaSMS = int.Parse(dr["C_AlertViaSMS"].ToString());
@@ -4395,6 +4395,144 @@ namespace DaoCustomerProfiling
 
             }
             return dtGetCustomerUploadedProofPurpose;
+        }
+
+        public List<int> CreateISACustomerRequest(CustomerVo customerVo, int custCreateFlag)
+        {
+            //bool bReturn = false;
+            int customerId;
+            int customerUserId;
+            int requestId;
+            int customerPortfolioId;
+            List<int> customerIds = new List<int>();
+            Database db;
+            DbCommand createCustomerCmd;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCustomerCmd = db.GetStoredProcCommand("SP_CreateISACustomerRequest");
+
+                if (custCreateFlag == 0)
+                {
+                    db.AddInParameter(createCustomerCmd, "@AR_RMId", DbType.Int32, customerVo.RmId);
+                    db.AddInParameter(createCustomerCmd, "@CustId", DbType.Int32, customerVo.CustomerId);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerCmd, "@AR_RMId", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(createCustomerCmd, "@CustId", DbType.Int32, DBNull.Value);
+                }
+                db.AddInParameter(createCustomerCmd, "@AB_BranchId", DbType.Int32, customerVo.BranchId);
+                if (customerVo.ProfilingDate == DateTime.MinValue || customerVo.ProfilingDate == null)
+                {
+                    db.AddInParameter(createCustomerCmd, "@C_ProfilingDate", DbType.DateTime, DBNull.Value);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerCmd, "@C_ProfilingDate", DbType.DateTime, customerVo.ProfilingDate);
+                }
+                db.AddInParameter(createCustomerCmd, "@custCreateFlag", DbType.Int32, custCreateFlag);
+                db.AddInParameter(createCustomerCmd, "@CustomerCategoryCode", DbType.String, customerVo.CustomerCategoryCode);
+                db.AddInParameter(createCustomerCmd, "@C_FirstName", DbType.String, customerVo.FirstName);
+                db.AddInParameter(createCustomerCmd, "@C_Mobile1", DbType.String, customerVo.Mobile1);
+                db.AddInParameter(createCustomerCmd, "@C_PanNum", DbType.String, customerVo.PANNum);
+                db.AddInParameter(createCustomerCmd, "@C_EmailId", DbType.String, customerVo.Email);
+                db.AddOutParameter(createCustomerCmd, "@C_CustomerId", DbType.Int32, 10);
+                db.AddOutParameter(createCustomerCmd, "@RequestNumber", DbType.Int32, 10);
+                db.AddOutParameter(createCustomerCmd, "@U_UserId", DbType.Int32, 10);
+                db.AddOutParameter(createCustomerCmd, "@CP_PortfolioId", DbType.Int32, 10);
+                db.AddInParameter(createCustomerCmd, "@C_CreatedBy", DbType.Int32, customerVo.UserId);
+               if (db.ExecuteNonQuery(createCustomerCmd) != 0)
+                {
+
+                    customerUserId = int.Parse(db.GetParameterValue(createCustomerCmd, "U_UserId").ToString());
+                    customerId = int.Parse(db.GetParameterValue(createCustomerCmd, "C_CustomerId").ToString());
+                    customerPortfolioId = int.Parse(db.GetParameterValue(createCustomerCmd, "CP_PortfolioId").ToString());
+                    requestId = int.Parse(db.GetParameterValue(createCustomerCmd, "@RequestNumber").ToString());
+
+                    customerIds.Add(customerUserId);
+                    customerIds.Add(customerId);
+                    customerIds.Add(customerPortfolioId);
+                    customerIds.Add(requestId);
+                }
+                else
+                {
+                    customerIds = null;
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+            return customerIds;
+        }
+
+
+        public void UpdateCustomerISAStageDetails(int requestNumber, string stageStatusCode, string priorityCode, string stepCode, string reasonCode,string comments)
+        {
+            Database db;
+            DbCommand createCustomerCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCustomerCmd = db.GetStoredProcCommand("SP_UpdateCustomerISAStageDetails");
+                db.AddInParameter(createCustomerCmd, "@requestNumber", DbType.Int32, requestNumber);
+                db.AddInParameter(createCustomerCmd, "@stageStatusCode", DbType.String, stageStatusCode);
+                db.AddInParameter(createCustomerCmd, "@priorityCode", DbType.String, priorityCode);
+                db.AddInParameter(createCustomerCmd, "@stepCode", DbType.String, stepCode);                
+                db.AddInParameter(createCustomerCmd, "@reasonCode", DbType.String, reasonCode);
+                db.AddInParameter(createCustomerCmd, "@comments", DbType.String, comments);
+                
+                
+                db.ExecuteNonQuery(createCustomerCmd);
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public DataSet GetReasonAndStatus(string purpose)
+        {
+            Database db;
+            DbCommand createCustomerCmd;
+            DataSet dsGetReasonAndStatus = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCustomerCmd = db.GetStoredProcCommand("SP_GetReasonAndStatus");
+                db.AddInParameter(createCustomerCmd, "@purpose", DbType.String, purpose);                                
+                dsGetReasonAndStatus=db.ExecuteDataSet(createCustomerCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetReasonAndStatus;
+        }
+
+        public DataSet GetISARequestDetails(int customerId)
+        {
+            Database db;
+            DbCommand createCustomerCmd;
+            DataSet dsGetISARequestDetails = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCustomerCmd = db.GetStoredProcCommand("SP_GetISARequestDetails");
+                db.AddInParameter(createCustomerCmd, "@C_CustomerId", DbType.Int32, customerId);
+                dsGetISARequestDetails = db.ExecuteDataSet(createCustomerCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetISARequestDetails;
         }
     }
 }

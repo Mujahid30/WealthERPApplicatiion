@@ -2300,12 +2300,16 @@ namespace DaoCustomerPortfolio
                             liabilitiesVo.Priority = dr["AISAQ_Priority"].ToString();
                         if (!String.IsNullOrEmpty(dr["CustomerName"].ToString()))
                             liabilitiesVo.CustomerName = dr["CustomerName"].ToString();
-                        if (!String.IsNullOrEmpty(dr["WWFSM_StepCode"].ToString()))
-                            liabilitiesVo.StepCode = dr["WWFSM_StepCode"].ToString();
+                        if (!String.IsNullOrEmpty(dr["StepCode"].ToString()))
+                            liabilitiesVo.StepCode = dr["StepCode"].ToString();
                         if (!String.IsNullOrEmpty(dr["AISAQD_Status"].ToString()))
                             liabilitiesVo.Status = (dr["AISAQD_Status"].ToString());
                         if (!String.IsNullOrEmpty(dr["BranchName"].ToString()))
                             liabilitiesVo.BranchName = dr["BranchName"].ToString();
+                        if (!String.IsNullOrEmpty(dr["WWFSM_StepName"].ToString()))
+                            liabilitiesVo.StepName = dr["WWFSM_StepName"].ToString();
+                        if (!String.IsNullOrEmpty(dr["AISAQ_Status1"].ToString()))
+                            liabilitiesVo.StatusCode = dr["AISAQ_Status1"].ToString();
 
                         ISAQueueList.Add(liabilitiesVo);
                     }

@@ -99,8 +99,13 @@ namespace VoUser
         private int m_mail;
         private DateTime? m_ProspectAddDate;
         private int m_TaxSlab;
-        
+        private string m_CustomerCategoryCode;
 
+        public string CustomerCategoryCode
+        {
+            get { return m_CustomerCategoryCode; }
+            set { m_CustomerCategoryCode = value; }
+        }
       
 
         public long RMMobile

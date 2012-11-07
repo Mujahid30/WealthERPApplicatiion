@@ -103,7 +103,7 @@
 
     function showDeleteConfirmAlert() {
 
-        var bool = window.confirm('Are you sure you want to delete this proof ?');
+        var bool = window.confirm('Are you sure you want to delete ?');
 
         if (bool) {
             document.getElementById("ctrl_ViewCustomerProofs_hdnMsgValue").value = 1;
@@ -128,7 +128,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Vault Proof
+                            Vault
                         </td>
                     </tr>
                 </table>
@@ -141,10 +141,10 @@
 <telerik:RadTabStrip ID="radPOCProof" runat="server" EnableTheming="True" Skin="Telerik"
     MultiPageID="multiPageView" EnableEmbeddedSkins="false">
     <Tabs>
-        <telerik:RadTab runat="server" Text="Proof Upload" onclick="ShowValidations();" Value="Proof_Upload"
+        <telerik:RadTab runat="server" Text="Upload" onclick="ShowValidations();" Value="Proof_Upload"
             TabIndex="0">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Proof View" onclick="HideValidations();" Value="Proof_View"
+        <telerik:RadTab runat="server" Text="View" onclick="HideValidations();" Value="Proof_View"
             TabIndex="1">
         </telerik:RadTab>
     </Tabs>
@@ -165,7 +165,7 @@
                 <tr>
                     <td align="right">
                         <label class="cmbField">
-                            Proof Type:
+                            Type:
                         </label>
                     </td>
                     <td align="left">
@@ -173,7 +173,7 @@
                             CssClass="cmbField">
                         </asp:DropDownList>
                         <asp:CompareValidator ID="cmpProofType" ValidationGroup="VaultValidations" runat="server"
-                            ControlToValidate="ddlProofType" ErrorMessage="Please select a Proof type" Operator="NotEqual"
+                            ControlToValidate="ddlProofType" ErrorMessage="Please select a type" Operator="NotEqual"
                             ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
                         </asp:CompareValidator>
                     </td>
@@ -186,14 +186,14 @@
                 <tr>
                     <td align="right">
                         <label class="cmbField">
-                            Proof:
+                            Proof/Form:
                         </label>
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlProof" AutoPostBack="false" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                         <asp:CompareValidator ID="cmpProof" runat="server" ValidationGroup="VaultValidations"
-                            ControlToValidate="ddlProof" ErrorMessage="Please select a Proof" Operator="NotEqual"
+                            ControlToValidate="ddlProof" ErrorMessage="Please select a Proof or Form" Operator="NotEqual"
                             ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
                         </asp:CompareValidator>
                     </td>
@@ -206,14 +206,14 @@
                 <tr>
                     <td align="right">
                         <label class="cmbField">
-                            Proof Copy type:
+                            Copy type:
                         </label>
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlProofCopyType" runat="server" AutoPostBack="false" CssClass="cmbField">
                         </asp:DropDownList>
                         <asp:CompareValidator ID="cmpProofCopyType" runat="server" ValidationGroup="VaultValidations"
-                            ControlToValidate="ddlProofCopyType" ErrorMessage="Please select a Proof copy type"
+                            ControlToValidate="ddlProofCopyType" ErrorMessage="Please select a copy type"
                             Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
                         </asp:CompareValidator>
                     </td>
@@ -273,7 +273,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Customer proof 
+                            Customer proof/Form 
                         </td>
                     </tr>
                 </table>
@@ -301,10 +301,10 @@
                                 <table width="100%">
                                     <tr>
                                         <th align="center" style="text-decoration: underline" class="HeaderText">
-                                            Proof type
+                                            type
                                         </th>
                                         <th align="center" style="text-decoration: underline" class="HeaderText">
-                                            Proof
+                                            Proof/Form
                                         </th>
                                         <th align="center" style="text-decoration: underline" class="HeaderText">
                                             Copy type

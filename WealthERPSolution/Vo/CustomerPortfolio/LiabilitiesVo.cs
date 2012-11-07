@@ -47,6 +47,20 @@ namespace VoCustomerPortfolio
         private string m_Priority;
         private string m_CustomerName;
         private string m_StepCode;
+        private string m_StepName;
+        private string m_StatusCode;
+
+        public string StatusCode
+        {
+            get { return m_StatusCode; }
+            set { m_StatusCode = value; }
+        }
+
+        public string StepName
+        {
+            get { return m_StepName; }
+            set { m_StepName = value; }
+        }
         private string m_BranchName;
         private string m_CurrentStatus;
         #endregion Fields
