@@ -84,7 +84,7 @@ namespace WealthERP.Advisor
                 htRMInfo = advisorStaffBo.CheckRMDependency(rmVo.RMId);
                 hndRmCustomerCount.Value = htRMInfo["RMCustomerCount"].ToString();
                 hndBMBranchHead.Value = htRMInfo["BMBranchHead"].ToString();
-                hdnIsSubscripted.Value = true.ToString();
+                hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
                             }
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
@@ -129,7 +129,7 @@ namespace WealthERP.Advisor
                 {
                     newrmVo = (RMVo)Session["rmVo"];
                 }
-                Action = "Edit Profile";
+                //Action = "Edit Profile";
                 SetStaffDetails();
                 SetControlstate(Action);
                 lnkEdit.Visible = false;
