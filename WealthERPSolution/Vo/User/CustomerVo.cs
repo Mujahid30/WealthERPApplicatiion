@@ -23,6 +23,8 @@ namespace VoUser
         private string m_SubType;
         private string m_Salutation;
         private string m_PANNum;
+        private string m_GuardPANNum;
+        
         private string m_Adr1Line1;
         private string m_Adr1Line2;
         private string m_Adr1Line3;
@@ -303,6 +305,13 @@ namespace VoUser
             get { return m_PANNum; }
             set { m_PANNum = value; }
         }
+
+        public string GuardPANNum
+        {
+            get { return m_GuardPANNum; }
+            set { m_GuardPANNum = value; }
+        }
+        
         public string Adr1Line1
         {
             get { return m_Adr1Line1; }
