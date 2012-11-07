@@ -4534,6 +4534,39 @@ namespace DaoCustomerProfiling
             }
             return dsGetISARequestDetails;
         }
+        public DataTable GetMemberRelationShip()
+        {
+            Database db;
+            DbCommand cmdGetMemberRelationShip;
+            DataSet dsRelationship;
+            DataTable dtRelationship;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetMemberRelationShip = db.GetStoredProcCommand("SPROC_GetMemberRealationShip");
+                dsRelationship = db.ExecuteDataSet(cmdGetMemberRelationShip);
+                dtRelationship = dsRelationship.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetMemberRelationShip()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtRelationship;
+        }
 
         public DataTable GetCustomerISAAccounts(int customerId)
         {
