@@ -59,8 +59,7 @@ namespace WealthERP.Customer
         int associateId = 0;
         string relCode = string.Empty;
 
-        protected void 
-            Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             cvDepositDate1.ValueToCompare = DateTime.Now.ToShortDateString();
             txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
@@ -82,8 +81,9 @@ namespace WealthERP.Customer
                     trNewISAAccountSection.Visible = false;
                     lblPanDuplicate.Visible = false;
                     btnGenerateISA.Visible = false;
-
+                    trCustomerTypeSelection.Visible = false;
                     BindBankDetails(customerVo.CustomerId);
+                   
 
                     trExCustHeader.Visible = false;
                     trExCustomerType.Visible = false;
@@ -319,7 +319,7 @@ namespace WealthERP.Customer
             {
                 gvFamilyAssociate.DataSource = dtCustomerAssociates;
                 gvFamilyAssociate.DataBind();
-                pnlFamilyAssociates.Visible = true;
+                trFamilyAssociates.Visible = true;
                 gvFamilyAssociate.Visible = true;
             }
 
@@ -1147,7 +1147,7 @@ namespace WealthERP.Customer
 
         protected void btnImgAddExMember_Click(object sender, ImageClickEventArgs e)
         {
-            trSelectRadio.Visible = true;
+            trCustomerTypeSelection.Visible = true;
             trExCustHeader.Visible = false;
             trExCustomerType.Visible = false;
             trNewCustHeader.Visible = false;
@@ -1157,12 +1157,18 @@ namespace WealthERP.Customer
 
         protected void btnImgAddCustomer_Click(object sender, ImageClickEventArgs e)
         {
+           
             trNewISAAccountSection.Visible = true;
+            
+            JointHolderHeading.Visible = false;
+            pnlJointholders.Visible = false;
+
             LoadNominees();
             BindModeOfHolding();
             ddlModeOfHolding.SelectedValue = "SI";
             ddlModeOfHolding.Enabled = false;
             btnGenerateISA.Visible = true;
+            
         }
 
         public void BindCustomerISAAccountGrid()
@@ -1180,6 +1186,8 @@ namespace WealthERP.Customer
             ddlModeOfHolding.SelectedIndex = 0;
             tdJointHolders.Visible = true;
             JointHolderHeading.Visible = true;
+            pnlJointholders.Visible = true;
+            
         }
 
         protected void rbtnNo_CheckedChanged(object sender, EventArgs e)
@@ -1302,9 +1310,12 @@ namespace WealthERP.Customer
                     }
                 }
 
+                JointHolderHeading.Visible = false;
+                pnlJointholders.Visible = false;
                 trNewISAAccountSection.Visible = false;
                 BindCustomerISAAccountGrid();
                 btnGenerateISA.Visible = false;
+                
             }
 
             catch (BaseApplicationException Ex)

@@ -383,6 +383,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Button btnGetSlab;
         
         /// <summary>
+        /// UpdatePanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        
+        /// <summary>
         /// btnImgAddExMember control.
         /// </summary>
         /// <remarks>
@@ -392,31 +401,13 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.ImageButton btnImgAddExMember;
         
         /// <summary>
-        /// lblMemberBranch control.
+        /// trFamilyAssociates control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMemberBranch;
-        
-        /// <summary>
-        /// ddlMemberBranch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMemberBranch;
-        
-        /// <summary>
-        /// pnlFamilyAssociates control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlFamilyAssociates;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trFamilyAssociates;
         
         /// <summary>
         /// dvFamilyAssociate control.
@@ -437,13 +428,13 @@ namespace WealthERP.Customer {
         protected global::Telerik.Web.UI.RadGrid gvFamilyAssociate;
         
         /// <summary>
-        /// trSelectRadio control.
+        /// trCustomerTypeSelection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSelectRadio;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerTypeSelection;
         
         /// <summary>
         /// lblSelectCustomerType control.
@@ -507,6 +498,24 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trExCustomerType;
+        
+        /// <summary>
+        /// lblMemberBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMemberBranch;
+        
+        /// <summary>
+        /// ddlMemberBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMemberBranch;
         
         /// <summary>
         /// lblMember control.
@@ -2118,5 +2127,24 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtCustomerId;
+
+        /// <summary>
+        /// pnlNominiees control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNominiees;
+
+        /// <summary>
+        /// pnlNominiees control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlJointholders;
+
     }
 }
