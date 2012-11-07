@@ -17,7 +17,11 @@ namespace VoCustomerProfiling
         private string m_AccountType;
         private string m_BankAccountNum;
 
-       
+
+        private string m_ModeOfOperationCode;
+        private string m_AccountTypeCode;
+
+
         private string m_ModeOfOperation;
         private string m_BranchName;
         private string m_BranchAdrLine1;
@@ -36,6 +40,22 @@ namespace VoCustomerProfiling
         #endregion Fields
 
         #region Properties
+
+        public string ModeOfOperationCode
+        {
+            get { return m_ModeOfOperationCode; }
+            set { m_ModeOfOperationCode = value; }
+        }
+
+
+
+        public string AccountTypeCode
+        {
+            get { return m_AccountTypeCode; }
+            set { m_AccountTypeCode = value; }
+        }
+
+
         public string BankAccountNum
         {
             get { return m_BankAccountNum; }
@@ -56,7 +76,7 @@ namespace VoCustomerProfiling
             get { return m_AccountType; }
             set { m_AccountType = value; }
         }
-    
+
         public string ModeOfOperation
         {
             get { return m_ModeOfOperation; }
