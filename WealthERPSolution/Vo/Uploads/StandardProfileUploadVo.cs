@@ -14,6 +14,15 @@ namespace VoUploads
             get { return m_PANNum; }
             set { m_PANNum = value; }
         }
+
+        private string m_GuardPANNum;
+
+        public string GuardPANNum
+        {
+            get { return m_GuardPANNum; }
+            set { m_GuardPANNum = value; }
+        }
+
         private string m_FirstName;
 
         public string FirstName
