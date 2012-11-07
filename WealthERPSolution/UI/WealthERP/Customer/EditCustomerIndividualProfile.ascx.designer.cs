@@ -599,6 +599,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Button btnGenerateISA;
         
         /// <summary>
+        /// gvBankDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvBankDetails;
+        
+        /// <summary>
         /// Label10 control.
         /// </summary>
         /// <remarks>

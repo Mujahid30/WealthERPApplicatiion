@@ -273,25 +273,21 @@
                     </tr>
                     <tr id="trNewISAAccountSection" runat="server">
                         <td>
-                            <div class="divSectionHeading" style="vertical-align: text-bottom;width:100%">
-                                <table style="width:100%">
-                                <tr>
-                                <td style="width:33%" align="left">
-                                <asp:Label ID="lblISAAccountheading" Text="ISA Account Set up" runat="server"></asp:Label>
-                                
-                                </td>
-                                <td style="width:30%" align="left">
-                                <asp:Label ID="lblNomineeListHeading" Text="Nominee List" runat="server"></asp:Label>
-                                
-                                </td>
-                                
-                                <td style="width:20%" align="left">
-                                <asp:Label ID="JointHolderHeading" Text="JointHolder List" runat="server"></asp:Label>
-                                
-                                </td>
-                                <td  style="width:17%" align="left">
-                                </td>
-                                </tr>
+                            <div class="divSectionHeading" style="vertical-align: text-bottom; width: 100%">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td style="width: 33%" align="left">
+                                            <asp:Label ID="lblISAAccountheading" Text="ISA Account Set up" runat="server"></asp:Label>
+                                        </td>
+                                        <td style="width: 30%" align="left">
+                                            <asp:Label ID="lblNomineeListHeading" Text="Nominee List" runat="server"></asp:Label>
+                                        </td>
+                                        <td style="width: 20%" align="left">
+                                            <asp:Label ID="JointHolderHeading" Text="JointHolder List" runat="server"></asp:Label>
+                                        </td>
+                                        <td style="width: 17%" align="left">
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                             <div style="width: 30%; float: left; padding-left: 10px; padding-top: 5px;">
@@ -361,7 +357,7 @@
                                                 </Columns>
                                             </asp:GridView>
                                         </td>
-                                           <td id="tdJointHolders" align="left" style="padding-left: 30px;" runat="server">
+                                        <td id="tdJointHolders" align="left" style="padding-left: 30px;" runat="server">
                                             <asp:GridView ID="gvJointHoldersList" runat="server" AutoGenerateColumns="False"
                                                 CellPadding="4" DataKeyNames="AssociationId" CssClass="GridViewStyle">
                                                 <FooterStyle CssClass="FooterStyle" />
@@ -388,7 +384,6 @@
                         </td>
                     </tr>
                     <tr>
-                    
                         <td align="left" style="padding-left: 230px; padding-top: 5px;">
                             <asp:Button ID="btnGenerateISA" runat="server" Text="Generate ISA" CssClass="PCGLongButton"
                                 OnClick="btnGenerateISA_Click" />
@@ -399,6 +394,325 @@
             <Triggers>
             </Triggers>
         </asp:UpdatePanel>
+    </div>
+    <div class="tabbertab" style="height: 500px;">
+        <telerik:RadGrid ID="gvBankDetails" runat="server" CssClass="RadGrid" GridLines="Both"
+            Width="700px" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+            ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+            AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvBankDetails_ItemDataBound"
+            OnItemCommand="gvBankDetails_ItemCommand" OnNeedDataSource="gvBankDetails_NeedDataSource">
+            <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
+            </ExportSettings>
+            <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,BankAccountTypeCode,CB_BranchAdrState"
+                EditMode="EditForms" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                CommandItemSettings-AddNewRecordText="Add New Bank Details">
+                <Columns>
+                    <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="Update"
+                        UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
+                    </telerik:GridEditCommandColumn>
+                    <telerik:GridBoundColumn UniqueName="CB_BankName" HeaderStyle-Width="100px" HeaderText="Bank Name"
+                        DataField="CB_BankName" SortExpression="CB_BankName" AllowFiltering="true" ShowFilterIcon="false"
+                        AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="CB_BranchName" HeaderStyle-Width="100px" HeaderText="Branch Name"
+                        DataField="CB_BranchName" SortExpression="CB_BranchName" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="XBAT_BankAccountTypeCode" HeaderStyle-Width="100px"
+                        HeaderText="Account Type" DataField="XBAT_BankAccountTypeCode" SortExpression="XBAT_BankAccountTypeCode"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="XMOH_ModeOfHoldingCode" HeaderStyle-Width="100px"
+                        HeaderText="Mode Of Operation" DataField="XMOH_ModeOfHoldingCode" SortExpression="XMOH_ModeOfHoldingCode"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="CB_AccountNum" HeaderStyle-Width="100px" HeaderText="Account Number"
+                        DataField="CB_AccountNum" SortExpression="CB_AccountNum" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridButtonColumn Visible="false" UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Scheme?"
+                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                        Text="Delete">
+                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                    </telerik:GridButtonColumn>
+                    <telerik:GridBoundColumn Visible="false" UniqueName="CB_IFSC" HeaderStyle-Width="150px"
+                        HeaderText="IFSC" DataField="CB_IFSC" SortExpression="CB_IFSC" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="false" UniqueName="CB_MICR" HeaderStyle-Width="150px"
+                        HeaderText="MICR" DataField="CB_MICR" SortExpression="CB_MICR" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrCountry" HeaderStyle-Width="150px"
+                        HeaderText="Branch Country" DataField="CB_BranchAdrCountry" SortExpression="CB_BranchAdrCountry"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrState" HeaderStyle-Width="150px"
+                        HeaderText="Branch State" DataField="CB_BranchAdrState" SortExpression="CB_BranchAdrState"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrCity" HeaderStyle-Width="150px"
+                        HeaderText="Branch City" DataField="CB_BranchAdrCity" SortExpression="CB_BranchAdrCity"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrPinCode" HeaderStyle-Width="150px"
+                        HeaderText="PinCode" DataField="CB_BranchAdrPinCode" SortExpression="CB_BranchAdrPinCode"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrLine3" HeaderStyle-Width="150px"
+                        HeaderText="Branch Line3" DataField="CB_BranchAdrLine3" SortExpression="CB_BranchAdrLine3"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrLine2" HeaderStyle-Width="150px"
+                        HeaderText="Branch Line2" DataField="CB_BranchAdrLine2" SortExpression="CB_BranchAdrLine2"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrLine1" HeaderStyle-Width="150px"
+                        HeaderText="Branch Line1" DataField="CB_BranchAdrLine1" SortExpression="CB_BranchAdrLine1"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                </Columns>
+                <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
+                    <FormTemplate>
+                        <table width="100%" style="background-color: White">
+                            <tr>
+                                <td colspan="4">
+                                    <asp:Label ID="lblHeader" runat="server" Text="Add Bank Details" CssClass="HeaderTextBig"></asp:Label>
+                                    <hr />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="tdRequiredText">
+                                    <label id="lbl" class="lblRequiredText">
+                                        Note: Fields marked with ' * ' are mandatory</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblAccountType" runat="server" CssClass="FieldName" Text="Account Type:"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:DropDownList ID="ddlAccountType" runat="server" CssClass="cmbField">
+                                    </asp:DropDownList>
+                                    <span id="Span1" class="spnRequiredField">*</span>
+                                    <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAccountType"
+                                        ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Account Type"
+                                        Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG"></asp:CompareValidator>
+                                </td>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblAccountNumber" runat="server" CssClass="FieldName" Text="Account Number:"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="txtField" Text='<%# Bind("CB_AccountNum") %>'></asp:TextBox>
+                                    <span id="spAccountNumber" class="spnRequiredField">*</span>
+                                    <asp:RequiredFieldValidator ID="rfvAccountNumber" ControlToValidate="txtAccountNumber"
+                                        ValidationGroup="btnSubmit" ErrorMessage="<br />Please enter a Account Number"
+                                        Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                    </asp:RequiredFieldValidator>
+                                </td>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblModeOfOperation" runat="server" Text="Mode of Operation:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:DropDownList ID="ddlModeOfOperation" CssClass="cmbField" runat="server">
+                                    </asp:DropDownList>
+                                    <span id="Span2" class="spnRequiredField">*</span>
+                                    <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlModeOfOperation"
+                                        ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a mode of holding"
+                                        Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG"></asp:CompareValidator>
+                                </td>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" Style="width: 250px;"
+                                        Text='<%# Bind("CB_BankName") %>'></asp:TextBox>
+                                    <span id="spBankName" class="spnRequiredField">*</span>
+                                    <asp:RequiredFieldValidator ID="rfvBankName" ControlToValidate="txtBankName" ErrorMessage="<br />Please enter a Bank Name"
+                                        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
+                                    </asp:RequiredFieldValidator>
+                                </td>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblBranchName" runat="server" Text="Branch Name:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField" Style="width: 250px;"
+                                        Text='<%# Bind("CB_BranchName") %>'></asp:TextBox>
+                                    <span id="spBranchName" class="spnRequiredField">*</span>
+                                    <asp:RequiredFieldValidator ID="rfvBranchName" ControlToValidate="txtBranchName"
+                                        ValidationGroup="btnSubmit" ErrorMessage="<br />Please enter a Branch Name" Display="Dynamic"
+                                        runat="server" CssClass="rfvPCG">
+                                    </asp:RequiredFieldValidator>
+                                </td>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <asp:Label ID="Label26" runat="server" Text="Branch Details" CssClass="HeaderTextSmall"></asp:Label>
+                                    <hr />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblAdrLine1" runat="server" Text="Line1(House No/Building):" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtBankAdrLine1" runat="server" CssClass="txtField" Style="width: 250px;"
+                                        Text='<%# Bind("CB_BranchAdrLine1") %>'></asp:TextBox>
+                                </td>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="Label20" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtBankAdrLine2" runat="server" CssClass="txtField" Style="width: 250px;"
+                                        Text='<%# Bind("CB_BranchAdrLine2") %>'></asp:TextBox>
+                                </td>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="Label21" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtBankAdrLine3" runat="server" CssClass="txtField" Style="width: 250px;"
+                                        Text='<%# Bind("CB_BranchAdrLine3") %>'></asp:TextBox>
+                                </td>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblCity" runat="server" CssClass="FieldName" Text="City:"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField" Text='<%# Bind("CB_BranchAdrCity") %>'></asp:TextBox>
+                                </td>
+                                <td class="leftField">
+                                    <asp:Label ID="Label23" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:DropDownList ID="ddlBankAdrState" runat="server" CssClass="txtField">
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblPinCode" runat="server" Text="Pin Code:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtBankAdrPinCode" runat="server" CssClass="txtField" MaxLength="6"
+                                        Text='<%# Bind("CB_BranchAdrPinCode") %>'></asp:TextBox>
+                                    <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="<br />Enter a numeric value"
+                                        CssClass="rfvPCG" Type="Integer" ControlToValidate="txtBankAdrPinCode" ValidationGroup="btnSubmit"
+                                        Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                                </td>
+                                <td class="leftField">
+                                    <asp:Label ID="Label25" runat="server" Text="Country:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:DropDownList ID="ddlBankAdrCountry" runat="server" CssClass="cmbField">
+                                        <asp:ListItem>India</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField">
+                                    <asp:Label ID="lblMicr" runat="server" Text="MICR:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtMicr" runat="server" CssClass="txtField" MaxLength="9" Text='<%# Bind("CB_MICR") %>'></asp:TextBox>
+                                    <asp:CompareValidator ID="cvMicr" runat="server" ErrorMessage="<br />Enter a numeric value"
+                                        CssClass="rfvPCG" Type="Integer" ValidationGroup="btnSubmit" ControlToValidate="txtMicr"
+                                        Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                                </td>
+                                <td class="leftField">
+                                    <asp:Label ID="lblIfsc" runat="server" Text="IFSC:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField">
+                                    <asp:TextBox ID="txtIfsc" runat="server" CssClass="txtField" MaxLength="11" Text='<%# Bind("CB_IFSC") %>'></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                        runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                        ValidationGroup="btnSubmit"></asp:Button>
+                                </td>
+                                <td visible="false">
+                                    <asp:Button Visible="false" ID="btnYes" runat="server" Text="Submit and Addmore"
+                                        CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddBankDetails_btnYes','L');"
+                                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddBankDetails_btnYes','L');"
+                                        ValidationGroup="btnSubmit" />
+                                </td>
+                                <td>
+                                    <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                        CommandName="Cancel"></asp:Button>
+                                </td>
+                            </tr>
+                        </table>
+                    </FormTemplate>
+                </EditFormSettings>
+            </MasterTableView>
+            <ClientSettings>
+                <Selecting AllowRowSelect="true" />
+            </ClientSettings>
+        </telerik:RadGrid>
     </div>
     <div class="tabbertab" style="height: 250px;">
         <h6>

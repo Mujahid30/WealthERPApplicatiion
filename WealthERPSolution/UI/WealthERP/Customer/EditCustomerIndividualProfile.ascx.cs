@@ -17,6 +17,9 @@ using System.Data;
 using WealthERP.Base;
 using BoCustomerPortfolio;
 using VoCustomerPortfolio;
+using Telerik.Web.UI;
+using System.Web.UI.HtmlControls;
+using BoCustomerProfiling;
 
 
 namespace WealthERP.Customer
@@ -37,6 +40,14 @@ namespace WealthERP.Customer
         DataTable dtState = new DataTable();
         DataTable dtCustomerSubType = new DataTable();
         DataSet dsCustomerAssociates = new DataSet();
+        CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
+        CustomerBankAccountVo customerBankAccountVo;
+        List<CustomerBankAccountVo> customerBankAccountList = null;
+        string strExternalCodeToBeEdited;
+        
+
+        DataSet dsBankDetails;
+        int bankId;
        
         DataSet dsGetSlab = new DataSet();
         int years;
@@ -61,6 +72,8 @@ namespace WealthERP.Customer
                     trNewISAAccountSection.Visible = false;
                     lblPanDuplicate.Visible = false;
                     btnGenerateISA.Visible = false;
+
+                    BindBankDetails(customerVo.CustomerId);
                    
                     if (customerVo.SubType != "NRI")
                     {
@@ -1120,6 +1133,373 @@ namespace WealthERP.Customer
                           
            
         }
+
+
+        //Bank Details Functionality start
+        public void BindBankDetails(int customerIdForGettingBankDetails)
+        {
+            try
+            {
+                SessionBo.CheckSession();
+                customerVo = (CustomerVo)Session["CustomerVo"];
+                customerIdForGettingBankDetails = customerVo.CustomerId;
+
+                customerBankAccountList = customerBankAccountBo.GetCustomerBankAccounts(customerIdForGettingBankDetails);
+                if (customerBankAccountList.Count != 0)
+                {
+                    DataTable dtCustomerBankAccounts = new DataTable();
+                    dtCustomerBankAccounts.Columns.Add("CB_CustBankAccId");
+                    dtCustomerBankAccounts.Columns.Add("CB_BankName");
+                    dtCustomerBankAccounts.Columns.Add("CB_BranchName");
+                    dtCustomerBankAccounts.Columns.Add("XBAT_BankAccountTypeCode");
+                    dtCustomerBankAccounts.Columns.Add("XMOH_ModeOfHoldingCode");
+                    dtCustomerBankAccounts.Columns.Add("CB_AccountNum");
+
+
+                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine1");
+                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine2");
+                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine3");
+                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrPinCode");
+                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrCity");
+                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrState");
+                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrCountry");
+                    dtCustomerBankAccounts.Columns.Add("CB_MICR");
+                    dtCustomerBankAccounts.Columns.Add("CB_IFSC");
+
+                    dtCustomerBankAccounts.Columns.Add("BankAccountTypeCode");
+                    dtCustomerBankAccounts.Columns.Add("ModeOfHoldingCode");
+
+                    DataRow drCustomerBankAccount;
+                    for (int i = 0; i < customerBankAccountList.Count; i++)
+                    {
+                        drCustomerBankAccount = dtCustomerBankAccounts.NewRow();
+                        customerBankAccountVo = new CustomerBankAccountVo();
+                        customerBankAccountVo = customerBankAccountList[i];
+                        drCustomerBankAccount[0] = customerBankAccountVo.CustBankAccId.ToString();
+                        drCustomerBankAccount[1] = customerBankAccountVo.BankName.ToString();
+                        drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
+                        drCustomerBankAccount[3] = customerBankAccountVo.AccountType.ToString();
+                        drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
+                        drCustomerBankAccount[5] = customerBankAccountVo.BankAccountNum.ToString();
+
+                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
+                            drCustomerBankAccount[6] = customerBankAccountVo.BranchAdrLine1.ToString();
+                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
+                            drCustomerBankAccount[7] = customerBankAccountVo.BranchAdrLine2.ToString();
+                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
+                            drCustomerBankAccount[8] = customerBankAccountVo.BranchAdrLine3.ToString();
+                        if (customerBankAccountVo.BranchAdrPinCode != 0)
+                            drCustomerBankAccount["CB_BranchAdrPinCode"] = customerBankAccountVo.BranchAdrPinCode.ToString();
+                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
+                            drCustomerBankAccount[10] = customerBankAccountVo.BranchAdrCity.ToString();
+
+                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
+                            drCustomerBankAccount[11] = customerBankAccountVo.BranchAdrState.ToString();
+                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
+                            drCustomerBankAccount[12] = customerBankAccountVo.BranchAdrCountry.ToString();
+                        if (customerBankAccountVo.MICR != 0)
+                            drCustomerBankAccount["CB_MICR"] = customerBankAccountVo.MICR.ToString();
+                        if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
+                            drCustomerBankAccount[14] = customerBankAccountVo.IFSC.ToString();
+                        drCustomerBankAccount[15] = customerBankAccountVo.AccountTypeCode.ToString();
+                        drCustomerBankAccount[16] = customerBankAccountVo.ModeOfOperationCode.ToString();
+                        dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
+                    }
+                    if (dtCustomerBankAccounts != null)
+                        btnExportFilteredDataForBank.Visible = true;
+                    if (Cache["gvDetailsForBank" + userVo.UserId] == null)
+                    {
+                        Cache.Insert("gvDetailsForBank" + userVo.UserId, dtCustomerBankAccounts);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvDetailsForBank" + userVo.UserId);
+                        Cache.Insert("gvDetailsForBank" + userVo.UserId, dtCustomerBankAccounts);
+                    }
+                    gvBankDetails.DataSource = dtCustomerBankAccounts;
+                    gvBankDetails.DataBind();
+                    gvBankDetails.Visible = true;
+                }
+                else
+                {
+                    gvBankDetails.DataSource = null;
+                    gvBankDetails.DataBind();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewBankDetails.ascx:Page_Load()");
+                object[] objects = new object[5];
+                objects[0] = customerVo;
+                objects[2] = customerBankAccountVo;
+                objects[3] = customerBankAccountList;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+        }
+
+        protected void gvBankDetails_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            int customerId = 0;
+            string strExternalCode = string.Empty;
+            string strExternalType = string.Empty;
+            DateTime createdDate = new DateTime();
+            DateTime editedDate = new DateTime();
+            DateTime deletedDate = new DateTime();
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+
+                DropDownList ddlAccountType = (DropDownList)e.Item.FindControl("ddlAccountType");
+                TextBox txtAccountNumber = (TextBox)e.Item.FindControl("txtAccountNumber");
+                DropDownList ddlModeOfOperation = (DropDownList)e.Item.FindControl("ddlModeOfOperation");
+                TextBox txtBankName = (TextBox)e.Item.FindControl("txtBankName");
+                TextBox txtBranchName = (TextBox)e.Item.FindControl("txtBranchName");
+                TextBox txtBankAdrLine1 = (TextBox)e.Item.FindControl("txtBankAdrLine1");
+                TextBox txtBankAdrLine2 = (TextBox)e.Item.FindControl("txtBankAdrLine2");
+                TextBox txtBankAdrLine3 = (TextBox)e.Item.FindControl("txtBankAdrLine3");
+                TextBox txtBankAdrCity = (TextBox)e.Item.FindControl("txtBankAdrCity");
+                TextBox txtBankAdrPinCode = (TextBox)e.Item.FindControl("txtBankAdrPinCode");
+                TextBox txtMicr = (TextBox)e.Item.FindControl("txtMicr");
+                DropDownList ddlBankAdrState = (DropDownList)e.Item.FindControl("ddlBankAdrState");
+                TextBox txtIfsc = (TextBox)e.Item.FindControl("txtIfsc");
+
+                customerVo = (CustomerVo)Session["customerVo"];
+                customerId = customerVo.CustomerId;
+
+                customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
+                customerBankAccountVo.AccountType = ddlAccountType.SelectedItem.Value.ToString();
+                customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedItem.Value.ToString();
+                customerBankAccountVo.BankName = txtBankName.Text.ToString();
+                customerBankAccountVo.BranchName = txtBranchName.Text.ToString();
+                customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
+                customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
+                customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
+                if (txtBankAdrPinCode.Text.ToString() != "")
+                    customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
+                else
+                    customerBankAccountVo.BranchAdrPinCode = 0;
+                customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
+                if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
+                    customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
+
+                //customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedItem.Value.ToString();
+                customerBankAccountVo.CustBankAccId = bankId;
+                customerBankAccountVo.BranchAdrCountry = "India";
+                customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
+                if (txtMicr.Text.ToString() != "")
+                    customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
+                else
+                    customerBankAccountVo.MICR = 0;
+                customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId);
+
+
+            }
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                CustomerBo customerBo = new CustomerBo();
+                bool isInserted = false;
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+
+                DropDownList ddlAccountType = (DropDownList)e.Item.FindControl("ddlAccountType");
+                TextBox txtAccountNumber = (TextBox)e.Item.FindControl("txtAccountNumber");
+                DropDownList ddlModeOfOperation = (DropDownList)e.Item.FindControl("ddlModeOfOperation");
+                TextBox txtBankName = (TextBox)e.Item.FindControl("txtBankName");
+                TextBox txtBranchName = (TextBox)e.Item.FindControl("txtBranchName");
+                TextBox txtBankAdrLine1 = (TextBox)e.Item.FindControl("txtBankAdrLine1");
+                TextBox txtBankAdrLine2 = (TextBox)e.Item.FindControl("txtBankAdrLine2");
+                TextBox txtBankAdrLine3 = (TextBox)e.Item.FindControl("txtBankAdrLine3");
+                TextBox txtBankAdrCity = (TextBox)e.Item.FindControl("txtBankAdrCity");
+                TextBox txtBankAdrPinCode = (TextBox)e.Item.FindControl("txtBankAdrPinCode");
+                TextBox txtMicr = (TextBox)e.Item.FindControl("txtMicr");
+                DropDownList ddlBankAdrState = (DropDownList)e.Item.FindControl("ddlBankAdrState");
+                TextBox txtIfsc = (TextBox)e.Item.FindControl("txtIfsc");
+
+
+                RMVo rmVo = new RMVo();
+                int userId;
+                rmVo = (RMVo)Session["RmVo"];
+                userId = rmVo.UserId;
+                string chk;
+
+                if (Session["Check"] != null)
+                {
+                    chk = Session["Check"].ToString();
+                }
+
+                customerVo = (CustomerVo)Session["customerVo"];
+                customerId = customerVo.CustomerId;
+
+
+                customerBankAccountVo.AccountType = ddlAccountType.SelectedValue.ToString();
+                customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
+
+                if (ddlModeOfOperation.SelectedValue.ToString() != "Select a Mode of Holding")
+                    customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedValue.ToString();
+                customerBankAccountVo.BankName = txtBankName.Text.ToString();
+                customerBankAccountVo.BranchName = txtBranchName.Text.ToString();
+                customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
+                customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
+                customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
+                if (txtBankAdrPinCode.Text.ToString() != "")
+                    customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
+                customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
+                if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
+                    customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
+                customerBankAccountVo.BranchAdrCountry = "India";
+                if (txtMicr.Text.ToString() != "")
+                    customerBankAccountVo.MICR = long.Parse(txtMicr.Text.ToString());
+                customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
+                customerBankAccountVo.Balance = 0;
+                //customerBankAccountVo.Balance = long.Parse(txtBalance.Text.ToString());
+
+                customerBankAccountBo.CreateCustomerBankAccount(customerBankAccountVo, customerId, userId);
+
+
+                txtAccountNumber.Text = "";
+                txtBankAdrLine1.Text = "";
+                txtBankAdrLine2.Text = "";
+                txtBankAdrLine3.Text = "";
+                txtBankAdrPinCode.Text = "";
+                txtBankAdrCity.Text = "";
+                txtBankName.Text = "";
+                txtBranchName.Text = "";
+                txtIfsc.Text = "";
+                txtMicr.Text = "";
+                ddlAccountType.SelectedIndex = 0;
+                ddlModeOfOperation.SelectedIndex = 0;
+
+
+                //isInserted = customerBo.InsertProductAMCSchemeMappingDetalis(customerId, strExternalCode, strExternalType, createdDate, editedDate, deletedDate);
+            }
+
+            if (e.CommandName == "Delete")
+            {
+                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
+                customerBankAccountBo.DeleteCustomerBankAccount(bankId);
+            }
+            BindBankDetails(customerId);
+        }
+
+        protected void gvBankDetails_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            customerBo = new CustomerBo();
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                DataTable dtAccType = new DataTable();
+                DataTable dtModeOfOpn = new DataTable();
+                DataTable dtBankState = new DataTable();
+
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList ddlAccountType = (DropDownList)gefi.FindControl("ddlAccountType");
+                dtAccType = XMLBo.GetBankAccountTypes(path);
+                ddlAccountType.DataSource = dtAccType;
+                ddlAccountType.DataTextField = "BankAccountType";
+                ddlAccountType.DataValueField = "BankAccountTypeCode";
+                ddlAccountType.DataBind();
+                ddlAccountType.Items.Insert(0, new ListItem("Select", "Select"));
+
+                DropDownList ddlModeOfOperation = (DropDownList)gefi.FindControl("ddlModeOfOperation");
+                dtModeOfOpn = XMLBo.GetModeOfHolding(path);
+                ddlModeOfOperation.DataSource = dtModeOfOpn;
+                ddlModeOfOperation.DataTextField = "ModeOfHolding";
+                ddlModeOfOperation.DataValueField = "ModeOfHoldingCode";
+                ddlModeOfOperation.DataBind();
+                ddlModeOfOperation.Items.Insert(0, new ListItem("Select", "Select"));
+
+                DropDownList ddlBankAdrState = (DropDownList)gefi.FindControl("ddlBankAdrState");
+                dtBankState = XMLBo.GetStates(path);
+                ddlBankAdrState.DataSource = dtBankState;
+                ddlBankAdrState.DataTextField = "StateName";
+                ddlBankAdrState.DataValueField = "StateCode";
+                ddlBankAdrState.DataBind();
+                ddlBankAdrState.Items.Insert(0, new ListItem("Select", "Select"));
+
+            }
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+
+            }
+            string strBankAdrState;
+            string strModeOfOperation;
+            string strAccountType;
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+            {
+                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
+                strBankAdrState = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_BranchAdrState"].ToString();
+                strModeOfOperation = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ModeOfHoldingCode"].ToString();
+                strAccountType = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BankAccountTypeCode"].ToString();
+
+                GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+
+                DataTable dtAccType = new DataTable();
+                DataTable dtModeOfOpn = new DataTable();
+                DataTable dtBankState = new DataTable();
+
+                DropDownList ddlAccountType = (DropDownList)editedItem.FindControl("ddlAccountType");
+                dtAccType = XMLBo.GetBankAccountTypes(path);
+                ddlAccountType.DataSource = dtAccType;
+                ddlAccountType.DataTextField = "BankAccountType";
+                ddlAccountType.DataValueField = "BankAccountTypeCode";
+                ddlAccountType.DataBind();
+                ddlAccountType.SelectedValue = strAccountType;
+
+                DropDownList ddlModeOfOperation = (DropDownList)editedItem.FindControl("ddlModeOfOperation");
+                dtModeOfOpn = XMLBo.GetModeOfHolding(path);
+                ddlModeOfOperation.DataSource = dtModeOfOpn;
+                ddlModeOfOperation.DataTextField = "ModeOfHolding";
+                ddlModeOfOperation.DataValueField = "ModeOfHoldingCode";
+                ddlModeOfOperation.DataBind();
+                ddlModeOfOperation.SelectedValue = strModeOfOperation;
+
+                DropDownList ddlBankAdrState = (DropDownList)editedItem.FindControl("ddlBankAdrState");
+                dtBankState = XMLBo.GetStates(path);
+                ddlBankAdrState.DataSource = dtBankState;
+                ddlBankAdrState.DataTextField = "StateName";
+                ddlBankAdrState.DataValueField = "StateCode";
+                ddlBankAdrState.DataBind();
+                ddlBankAdrState.SelectedValue = strBankAdrState;
+
+
+
+            }
+        }
+
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            DataSet dtGvSchemeDetails = new DataSet();
+            dtGvSchemeDetails = (DataSet)Cache["gvSchemeDetailsForMappinginSuperAdmin"];
+            gvBankDetails.DataSource = dtGvSchemeDetails;
+
+            gvBankDetails.ExportSettings.OpenInNewWindow = true;
+            gvBankDetails.ExportSettings.IgnorePaging = true;
+            gvBankDetails.ExportSettings.HideStructureColumns = true;
+            gvBankDetails.ExportSettings.ExportOnlyData = true;
+            gvBankDetails.ExportSettings.FileName = "Scheme Mapping Details";
+            gvBankDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvBankDetails.MasterTableView.ExportToExcel();
+        }
+
+        protected void gvBankDetails_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataSet dtGvBankDetails = new DataSet();
+            dtGvBankDetails = (DataSet)Cache["gvDetailsForBank" + userVo.UserId];
+            gvBankDetails.DataSource = dtGvBankDetails;
+        }
+        //Bank Details Functionality End
 
        
         //private void BindTaxSlabDropDown()
