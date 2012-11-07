@@ -970,6 +970,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer//CustomerISAFolioMapping.ascx.
+        /// </summary>
+        internal static string CustomerISAFolioMapping {
+            get {
+                return ResourceManager.GetString("CustomerISAFolioMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//CustomerISARequest.ascx.
         /// </summary>
         internal static string CustomerISARequest {

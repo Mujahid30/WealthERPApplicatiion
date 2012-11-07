@@ -1920,6 +1920,13 @@
     <Compile Include="Customer\CustomerIndividualLeftPane.ascx.designer.cs">
       <DependentUpon>CustomerIndividualLeftPane.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Customer\CustomerISAFolioMapping.ascx.cs">
+      <DependentUpon>CustomerISAFolioMapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerISAFolioMapping.ascx.designer.cs">
+      <DependentUpon>CustomerISAFolioMapping.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Customer\CustomerISARequest.ascx.cs">
       <DependentUpon>CustomerISARequest.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5686,6 +5693,7 @@
     <Content Include="Customer\CustomerDashBoardShortcut.ascx" />
     <Content Include="Customer\CustomerExpense.ascx" />
     <Content Include="Customer\CustomerIncome.ascx" />
+    <Content Include="Customer\CustomerISAFolioMapping.ascx" />
     <Content Include="Customer\CustomerISARequest.ascx" />
     <Content Include="Customer\CustomerISARequestList.ascx" />
     <Content Include="Customer\CustomerProofView.ascx" />

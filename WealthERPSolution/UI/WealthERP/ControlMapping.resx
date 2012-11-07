@@ -1461,4 +1461,8 @@
     <value>Customer//CustomerISARequestList.ascx</value>
     <comment>Customer//CustomerISARequestList.ascx</comment>
   </data>
+  <data name="CustomerISAFolioMapping" xml:space="preserve">
+    <value>Customer//CustomerISAFolioMapping.ascx</value>
+    <comment>Customer//CustomerISAFolioMapping.ascx</comment>
+  </data>
 </root>
