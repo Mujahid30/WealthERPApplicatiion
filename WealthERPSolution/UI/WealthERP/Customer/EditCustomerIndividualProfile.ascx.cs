@@ -1157,17 +1157,20 @@ namespace WealthERP.Customer
 
         protected void btnImgAddCustomer_Click(object sender, ImageClickEventArgs e)
         {
-           
+
+            pnlJointholders.Visible = false;
             trNewISAAccountSection.Visible = true;
             
             JointHolderHeading.Visible = false;
-            pnlJointholders.Visible = false;
+            
 
             LoadNominees();
             BindModeOfHolding();
             ddlModeOfHolding.SelectedValue = "SI";
             ddlModeOfHolding.Enabled = false;
             btnGenerateISA.Visible = true;
+
+            pnlJointholders.Visible = false;
             
         }
 
@@ -1184,7 +1187,7 @@ namespace WealthERP.Customer
           
             ddlModeOfHolding.Enabled = true;
             ddlModeOfHolding.SelectedIndex = 0;
-            tdJointHolders.Visible = true;
+            //tdJointHolders.Visible = true;
             JointHolderHeading.Visible = true;
             pnlJointholders.Visible = true;
             
@@ -1194,8 +1197,9 @@ namespace WealthERP.Customer
         {
             ddlModeOfHolding.SelectedValue = "SI";
             ddlModeOfHolding.Enabled = false;
-            tdJointHolders.Visible = false;
+            //tdJointHolders.Visible = false;
             JointHolderHeading.Visible = false;
+            pnlJointholders.Visible = false;
             
         }
 
@@ -1250,7 +1254,8 @@ namespace WealthERP.Customer
                     gvJointHoldersList.DataBind();
 
                     gvJointHoldersList.Visible = true;
-                    tdJointHolders.Visible = true;
+                    pnlJointholders.Visible = true;
+                    //tdJointHolders.Visible = true;
                     
                 }
                 else
@@ -1315,7 +1320,7 @@ namespace WealthERP.Customer
                 trNewISAAccountSection.Visible = false;
                 BindCustomerISAAccountGrid();
                 btnGenerateISA.Visible = false;
-                
+                rbtnNo.Checked = true;
             }
 
             catch (BaseApplicationException Ex)
