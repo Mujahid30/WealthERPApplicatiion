@@ -203,7 +203,7 @@
         }
     }
     function CheckSubscription() {
-    alert('history')
+   
         document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
     }
 </script>
