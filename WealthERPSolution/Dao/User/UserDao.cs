@@ -572,6 +572,45 @@ namespace DaoUser
 
         }
 
+
+        public bool CreateUserPermisionAssociation(int userId, int PermisionId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createRoleAssociationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createRoleAssociationCmd = db.GetStoredProcCommand("SP_CreateUserPermisionAssociation");
+                db.AddInParameter(createRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
+                db.AddInParameter(createRoleAssociationCmd, "@UP_PermisionId", DbType.Int32, PermisionId);
+                db.AddInParameter(createRoleAssociationCmd, "@URA_CreatedBy", DbType.Int32, 100);
+                db.AddInParameter(createRoleAssociationCmd, "@URA_ModifiedBy", DbType.Int32, 100);
+                db.ExecuteNonQuery(createRoleAssociationCmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserDao.cs:CreateRoleAssociation()");
+                object[] objects = new object[2];
+                objects[0] = userId;
+                objects[1] = PermisionId;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+
+        }
+
         public bool CreateRoleAssociation(int userId, int roleId)
         {
             bool bResult = false;

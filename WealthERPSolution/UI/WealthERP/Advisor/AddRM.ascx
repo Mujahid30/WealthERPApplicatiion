@@ -108,12 +108,10 @@
 
     function DisableControls() {
 
-
         var chkControlId = '<%=ChklistRMBM.ClientID%>';
 
         var options = document.getElementById(chkControlId).getElementsByTagName('input');
         var ischecked = false;
-
         for (i = 0; i < options.length; i++) {
             var opt = options[i];
             if (opt.type == "checkbox") {
@@ -148,7 +146,11 @@
             document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = true;
             document.getElementById('addBranch').disabled = true;
             document.getElementById('deleteBranch').disabled = true;
-
+            var chkckmk = '<%=ChklistRMBM.ClientID%>';
+            var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
+            if (hdn == 'True') {
+                document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'visible';
+            }
 
 
             var chkControlId = '<%=ChklistRMBM.ClientID%>';
@@ -161,6 +163,11 @@
             }
         }
         else {
+            
+            
+                document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
+                
+           
             document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
             document.getElementById("<%= associatedBranch.ClientID %>").disabled = false;
             document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = false;
@@ -177,9 +184,31 @@
             }
         }
     }
-    
-    
-
+    function CheckSubscription() {
+        document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
+    }
+//    function XYZ() {
+//        var flag = 0;
+//        var chkControlId = '<%=CheckListCKMK.ClientID%>';
+//           if document.getElementById("<%= trCKMK.ClientID %>").Visible=true;
+//           {
+//            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+//          
+//            for (a = 0; a <= options.length; a++) {
+//               
+//                if (options[a].checked) {
+//                    flag++;
+//                    alert(flag);
+//            }
+//        
+//        if (flag != 1) {
+//            alert("You must check one and only one checkbox!");
+//            return false;
+//        }
+//        return true;
+//        alert('hi');
+//    }
+//        }
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -233,7 +262,7 @@
                 Note: Fields marked with ' * ' are mandatory</label>
         </td>
     </tr>--%>
-     <tr id="tr3" runat="server" visible="true">
+    <tr id="tr3" runat="server" visible="true">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Staff Details
@@ -290,8 +319,8 @@
             <asp:Label ID="lblOr" runat="server" Text="&nbsp;/&nbsp;" CssClass="FieldName"></asp:Label>
             <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" value="1004"
                 onclick="DisableControls()" />&nbsp; <span id="Span4" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                  <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged"
-                runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
+            <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged"
+                runat="server" AutoPostBack="true"  Text="IsExternalStaff" CssClass="cmbField" />
             <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail"
                 ValidationGroup="btnSubmit" ErrorMessage="<br />Select at least one role" ClientValidationFunction="CheckItem"
                 ValidateEmptyText="true"></asp:CustomValidator>
@@ -302,7 +331,20 @@
            
         </td>--%>
     </tr>
-      <tr>
+    <tr id="trCKMK" runat="server">
+        <td class="leftField">
+            <asp:Label ID="OpsCKMK" runat="server" CssClass="FieldName" Text="Ops Role:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:CheckBoxList ID="CheckListCKMK" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
+                CssClass="cmbField" RepeatLayout="Flow" onclick="XYZ()">
+                <asp:ListItem Value="2000">Checker</asp:ListItem>
+                <asp:ListItem Value="2001">Maker</asp:ListItem>
+            </asp:CheckBoxList>
+        </td>
+    </tr>
+    
+    <tr>
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="CTC:"></asp:Label>
         </td>
@@ -482,7 +524,7 @@
             <asp:Label ID="lblEmailDuplicate" runat="server" CssClass="Error" Text="Email Id already exists"></asp:Label>
         </td>
     </tr>
-     <tr id="tr2" runat="server" visible="true">
+    <tr id="tr2" runat="server" visible="true">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Branch Association
@@ -496,12 +538,12 @@
         </td>
     </tr>--%>
     <tr>
-        <td colspan="4">
-            <asp:Label ID="lblError" runat="server" CssClass="FieldName" Text="Branch List"></asp:Label>
+        <td align="right">
+            <asp:Label ID="lblError" runat="server" CssClass="FieldName" Text="Branch List: "></asp:Label>
         </td>
-    </tr>
-    <tr>
-        <td colspan="4">
+        <%--</tr>
+    <tr>--%>
+        <td colspan="3">
             <table border="1">
                 <tr>
                     <td>
@@ -583,12 +625,12 @@
             &nbsp;
         </td>
     </tr>
-     <%--    <tr>
+    <%--    <tr>
         <td colspan="4">            
             <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"  CssClass="cmbField"/>
         </td>
     </tr>--%>
-  <%--  <tr>
+    <%--  <tr>
         <td colspan="4">
             &nbsp;
         </td>
@@ -608,4 +650,5 @@
 </table>
 <asp:HiddenField ID="hdnExistingBranches" runat="server" />
 <asp:HiddenField ID="hdnSelectedBranches" runat="server" />
+<asp:HiddenField ID="hdnIsSubscripted" runat="server" />
 <%--</ContentTemplate>--%><%--</asp:UpdatePanel>--%>
