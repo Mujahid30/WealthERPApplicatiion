@@ -15,6 +15,9 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Data;
 using WealthERP.Base;
+using BoCustomerPortfolio;
+using VoCustomerPortfolio;
+
 
 namespace WealthERP.Customer
 {
@@ -24,6 +27,8 @@ namespace WealthERP.Customer
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
         AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
+        CustomerAccountBo customerAccountBo = new CustomerAccountBo();
+        CustomerISAAccountsVo customerISAAccountsVo = new CustomerISAAccountsVo();
         string path;
         DataTable dtMaritalStatus = new DataTable();
         DataTable dtNationality = new DataTable();
@@ -31,7 +36,8 @@ namespace WealthERP.Customer
         DataTable dtQualification = new DataTable();
         DataTable dtState = new DataTable();
         DataTable dtCustomerSubType = new DataTable();
-
+        DataSet dsCustomerAssociates = new DataSet();
+       
         DataSet dsGetSlab = new DataSet();
         int years;
 
@@ -51,7 +57,10 @@ namespace WealthERP.Customer
                 RMVo customerRMVo = new RMVo();
                 if (!IsPostBack)
                 {
+                    BindCustomerISAAccountGrid();
+                    trNewISAAccountSection.Visible = false;
                     lblPanDuplicate.Visible = false;
+                    btnGenerateISA.Visible = false;
                    
                     if (customerVo.SubType != "NRI")
                     {
@@ -921,6 +930,195 @@ namespace WealthERP.Customer
                 --years;
 
             return years;
+        }
+
+        protected void btnImgAddCustomer_Click(object sender, ImageClickEventArgs e)
+        {
+            trNewISAAccountSection.Visible = true;
+            LoadNominees();
+            BindModeOfHolding();
+            ddlModeOfHolding.SelectedValue = "SI";
+            ddlModeOfHolding.Enabled = false;
+            btnGenerateISA.Visible = true;
+        }
+
+        public void BindCustomerISAAccountGrid()
+        {
+            DataTable dtCustomerISAAccounts = new DataTable();
+            dtCustomerISAAccounts = customerBo.GetCustomerISAAccounts(customerVo.CustomerId);
+            gvISAAccountList.DataSource = dtCustomerISAAccounts;
+            gvISAAccountList.DataBind();
+        }
+
+        protected void rbtnYes_CheckedChanged(object sender, EventArgs e)
+        {
+          
+            ddlModeOfHolding.Enabled = true;
+            ddlModeOfHolding.SelectedIndex = 0;
+            tdJointHolders.Visible = true;
+            JointHolderHeading.Visible = true;
+        }
+
+        protected void rbtnNo_CheckedChanged(object sender, EventArgs e)
+        {
+            ddlModeOfHolding.SelectedValue = "SI";
+            ddlModeOfHolding.Enabled = false;
+            tdJointHolders.Visible = false;
+            JointHolderHeading.Visible = false;
+            
+        }
+
+
+        private void BindModeOfHolding()
+        {
+            DataTable dtModeOfHolding = XMLBo.GetModeOfHolding(path);
+            ddlModeOfHolding.DataSource = dtModeOfHolding;
+            ddlModeOfHolding.DataTextField = "ModeOfHolding";
+            ddlModeOfHolding.DataValueField = "ModeOfHoldingCode";
+            ddlModeOfHolding.DataBind();
+            ddlModeOfHolding.Items.Insert(0, new ListItem("Select Mode of Holding", "Select Mode of Holding"));
+        }
+
+        private void LoadNominees()
+        {
+            DataTable dtCustomerAssociates = new DataTable();
+            DataTable dtNewCustomerAssociate = new DataTable();
+            DataRow drCustomerAssociates;
+            try
+            {
+
+                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                dtCustomerAssociates = dsCustomerAssociates.Tables[0];
+
+                dtNewCustomerAssociate.Columns.Add("MemberCustomerId");
+                dtNewCustomerAssociate.Columns.Add("AssociationId");
+                dtNewCustomerAssociate.Columns.Add("Name");
+                dtNewCustomerAssociate.Columns.Add("Relationship");
+
+                foreach (DataRow dr in dtCustomerAssociates.Rows)
+                {
+
+                    drCustomerAssociates = dtNewCustomerAssociate.NewRow();
+                    drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
+                    drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
+                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                    drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                    dtNewCustomerAssociate.Rows.Add(drCustomerAssociates);
+                }
+
+                if (dtNewCustomerAssociate.Rows.Count > 0)
+                {
+
+                    gvNominees.DataSource = dtNewCustomerAssociate;
+                    gvNominees.DataBind();
+
+                    gvNominees.Visible = true;
+                    tdNominees.Visible = true;
+
+                    gvJointHoldersList.DataSource = dtNewCustomerAssociate;
+                    gvJointHoldersList.DataBind();
+
+                    gvJointHoldersList.Visible = true;
+                    tdJointHolders.Visible = true;
+                    
+                }
+                else
+                {
+                    trAssociate.Visible = false;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerMFAccountAdd.ascx:LoadNominees()");
+                object[] objects = new object[1];
+                objects[0] = customerVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
+        protected void btnGenerateISA_Click(object sender, EventArgs e)
+        {
+          
+            try
+            {
+                CollectDataForISAAccountSetup();
+                customerISAAccountsVo.ISAAccountId = customerAccountBo.CreateCustomerISAAccount(customerISAAccountsVo, customerVo.CustomerId, userVo.UserId);
+                
+                foreach (GridViewRow gvr in this.gvJointHoldersList.Rows)
+                {
+                    
+                        if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                        {  
+                            customerISAAccountsVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
+                            customerISAAccountsVo.AssociationTypeCode = "JointHolder";
+                            customerAccountBo.CreateISAAccountAssociation(customerISAAccountsVo, userVo.UserId);
+                        }
+                      
+                    
+                }
+                             
+
+                foreach (GridViewRow gvr in this.gvNominees.Rows)
+                {
+                    if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
+                    {
+                        customerISAAccountsVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
+                        customerISAAccountsVo.AssociationTypeCode = "Nominee";
+                        customerAccountBo.CreateISAAccountAssociation(customerISAAccountsVo, userVo.UserId);
+                    }
+                }
+
+                trNewISAAccountSection.Visible = false;
+                BindCustomerISAAccountGrid();
+                btnGenerateISA.Visible = false;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "EditCustomerIndivisualProfile.ascx:btnGenerateISA_Click()");
+                object[] objects = new object[1];
+                objects[0] = customerVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+        }
+
+        private void CollectDataForISAAccountSetup()
+        {
+            if (rbtnYes.Checked)
+                customerISAAccountsVo.IsJointHolding = true;
+            else
+                customerISAAccountsVo.IsJointHolding = false;
+
+            customerISAAccountsVo.ModeOfHolding = ddlModeOfHolding.SelectedValue.ToString();
+            if (rbtnPOAYes.Checked)
+                customerISAAccountsVo.IsOperatedByPOA = true;
+            else
+                customerISAAccountsVo.IsOperatedByPOA = false;
+                          
+           
         }
 
        
