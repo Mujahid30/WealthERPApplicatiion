@@ -24,7 +24,7 @@
 <tr>
 <td colspan="2">
 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                MfDashBoard Count List
+                Customer Added
             </div>
 </td>
 </tr>
@@ -47,7 +47,7 @@
                     <MasterTableView 
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                        <telerik:GridBoundColumn DataField="Type"  HeaderText="Type" UniqueName="Type"
+                        <telerik:GridBoundColumn DataField="Type"  HeaderText="Account" UniqueName="Type"
                                 SortExpression="Type" >
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -85,7 +85,7 @@
 <tr>
 <td colspan="2">
 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                MfDashBoard Amount List
+               Business Generated
             </div>
 </td>
 </tr>
@@ -108,7 +108,7 @@
                     <MasterTableView 
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                        <telerik:GridBoundColumn DataField="Type"  HeaderText="Type" UniqueName="Type"
+                        <telerik:GridBoundColumn DataField="Type"  HeaderText="Business" UniqueName="Type"
                                 SortExpression="Type" >
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -121,7 +121,7 @@
                                 AllowFiltering="false" UniqueName="CostCurrent" DataFormatString="{0:N0}">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CostYear" HeaderText="Yearly" DataFormatString="{0:N0}"
+                        <telerik:GridBoundColumn DataField="CostYear" HeaderText="YTD" DataFormatString="{0:N0}"
                                 AllowFiltering="false" UniqueName="CostYear"   FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -130,6 +130,8 @@
                                 AllowFiltering="false" UniqueName="CostTotal"   FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
+                        
+                        
                        </Columns>
                     </MasterTableView>
                     <ClientSettings>
@@ -149,12 +151,12 @@
 <tr>
 <td style="width:50%">
 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Top 5 Scheme
+                Top 5 Scheme by AUM
             </div>
 </td>
 <td style="width:50%">
 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Top 5 Branch
+                Top 5 Branch by AUM 
             </div>
 </td>
 </tr>
@@ -194,12 +196,12 @@
 <tr>
 <td style="width:50%">
 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Top 5 Customer
+                Top 5 Customer by AUM
             </div>
 </td>
 <td style="width:50%">
 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Subcategory Wise AUM
+                Sub Category wise AUM
             </div>
 </td>
 </tr>
@@ -242,7 +244,7 @@
                         
                         <telerik:GridBoundColumn DataField="AUM" HeaderText="AUM"
                                 AllowFiltering="false" UniqueName="AUM">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                        </Columns>
                     </MasterTableView>
