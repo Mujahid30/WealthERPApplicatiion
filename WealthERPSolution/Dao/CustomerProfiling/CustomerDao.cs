@@ -4534,5 +4534,148 @@ namespace DaoCustomerProfiling
             }
             return dsGetISARequestDetails;
         }
+
+        public DataTable GetCustomerISAAccounts(int customerId)
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerISAAccount;
+            DataSet dsGetCustomerISAAccount;
+            DataTable dtCustomerISAAccountList = new DataTable();
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerISAAccount = db.GetStoredProcCommand("SPROC_GetCustomerISAAccounts");
+
+                db.AddInParameter(cmdGetCustomerISAAccount, "@C_CustomerId", DbType.Int32, customerId);
+
+                dsGetCustomerISAAccount = db.ExecuteDataSet(cmdGetCustomerISAAccount);
+                if (dsGetCustomerISAAccount.Tables.Count != 0)
+                    dtCustomerISAAccountList = dsGetCustomerISAAccount.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerISAAccounts(int customerId)");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerISAAccountList;
+        }
+
+        public int CreateCustomerBasicProfileDetails(CustomerVo customerVo, int cretaedBy, string PortfolioTypeCode, string PortfolioName)
+        {
+            int customerId = 0;
+            Database db;
+            DbCommand CreateCustomerBasicProfileCmd;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateCustomerBasicProfileCmd = db.GetStoredProcCommand("SP_CreateCustomerBasicProfileDetails");
+                if (customerVo.ProcessId != 0)
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@ADUL_ProcessId", DbType.Int32, customerVo.ProcessId);
+                else
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@ADUL_ProcessId", DbType.Int32, DBNull.Value);
+                if (!string.IsNullOrEmpty(customerVo.CustCode))
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_CustCode", DbType.String, customerVo.CustCode);
+                else
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_CustCode", DbType.String, DBNull.Value);
+
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@AR_RMId", DbType.Int32, customerVo.RmId);
+
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_ProfilingDate", DbType.DateTime, customerVo.ProfilingDate);
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@AB_BranchId", DbType.Int32, customerVo.BranchId);
+                if (!string.IsNullOrEmpty(customerVo.FirstName))
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_FirstName", DbType.String, customerVo.FirstName);
+                if (!string.IsNullOrEmpty(customerVo.MiddleName))
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_MiddleName", DbType.String, customerVo.MiddleName.Trim());
+                if (!string.IsNullOrEmpty(customerVo.LastName))
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_LastName", DbType.String, customerVo.LastName.Trim());
+
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_Gender", DbType.String, customerVo.Gender.Trim());
+
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@XCT_CustomerTypeCode", DbType.String, customerVo.Type);
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@XCST_CustomerSubTypeCode", DbType.String, customerVo.SubType);
+                if (!string.IsNullOrEmpty(customerVo.Salutation))
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_Salutation", DbType.String, customerVo.Salutation);
+                else
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_Salutation", DbType.String, DBNull.Value);
+
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_PANNum", DbType.String, customerVo.PANNum);
+                if (!string.IsNullOrEmpty(customerVo.Email))
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_Email", DbType.String, customerVo.Email);
+                else
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_Email", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(customerVo.CompanyName))
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_CompanyName", DbType.String, customerVo.CompanyName);
+                else
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_CompanyName", DbType.String, DBNull.Value);
+
+                if (!string.IsNullOrEmpty(customerVo.CompanyWebsite))
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_CompanyWebsite", DbType.String, customerVo.CompanyWebsite);
+                else
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_CompanyWebsite", DbType.String, DBNull.Value);
+
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_CreatedBy", DbType.Int16, cretaedBy);
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_ModifiedBy", DbType.Int16, cretaedBy);
+
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@U_UserType", DbType.String, customerVo.UserType);
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@XPT_PortfolioTypeCode", DbType.String, PortfolioTypeCode);
+                db.AddInParameter(CreateCustomerBasicProfileCmd, "@CP_PortfolioName", DbType.String, PortfolioName);
+
+                //db.AddInParameter(CreateCustomerBasicProfileCmd, "@C_DummyPAN", DbType.Byte, customerVo.DummyPAN);
+                if (customerVo.CustomerClassificationID != 0)
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@ACC_CustomerClassificationId", DbType.Int16, customerVo.CustomerClassificationID);
+                else
+                    db.AddInParameter(CreateCustomerBasicProfileCmd, "@ACC_CustomerClassificationId", DbType.Int16, DBNull.Value);
+
+                db.AddOutParameter(CreateCustomerBasicProfileCmd, "@U_UserId", DbType.Int32, 10000);
+                db.AddOutParameter(CreateCustomerBasicProfileCmd, "@C_CustomerId", DbType.Int32, 10000);
+                db.AddOutParameter(CreateCustomerBasicProfileCmd, "@CP_PortfolioId", DbType.Int32, 10000);
+
+                if (db.ExecuteNonQuery(CreateCustomerBasicProfileCmd) != 0)
+
+                    customerId = int.Parse(db.GetParameterValue(CreateCustomerBasicProfileCmd, "@C_CustomerId").ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:CreateCustomerBasicProfileDetails()");
+
+
+                object[] objects = new object[4];
+                objects[0] = customerVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return customerId;
+
+        }
     }
 }
