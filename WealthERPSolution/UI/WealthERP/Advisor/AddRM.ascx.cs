@@ -55,7 +55,7 @@ namespace WealthERP.Advisor
                 //chkRM.Visible = false;
                 //chkExternalStaff.Visible = false;advisorVo.IsISASubscribed.ToString()
                 setBranchList("N");
-                hdnIsSubscripted.Value = true.ToString();
+                hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
             }
             
         }
