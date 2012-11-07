@@ -21,8 +21,8 @@ namespace DaoAdvisorProfiling
 {
     public class AdvisorLOBDao
     {
-       
-        public bool CreateAdvisorLOB(AdvisorLOBVo advisorLOBVo, int advisorId,int userId) 
+
+        public bool CreateAdvisorLOB(AdvisorLOBVo advisorLOBVo, int advisorId, int userId)
         {
             bool result = false;
             Database db;
@@ -46,7 +46,7 @@ namespace DaoAdvisorProfiling
                 {
                     db.AddInParameter(createAdvisorLOBCmd, "@BrokerCode", DbType.String, advisorLOBVo.BrokerCode);
                 }
-                if(advisorLOBVo.ValidityDate != DateTime.MinValue)
+                if (advisorLOBVo.ValidityDate != DateTime.MinValue)
                     db.AddInParameter(createAdvisorLOBCmd, "@AL_Validity", DbType.DateTime, advisorLOBVo.ValidityDate);
                 else
                     db.AddInParameter(createAdvisorLOBCmd, "@AL_Validity", DbType.DateTime, DBNull.Value);
@@ -54,13 +54,13 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createAdvisorLOBCmd, "@AL_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createAdvisorLOBCmd, "@XALAT_AgentTypeCode", DbType.String, advisorLOBVo.AgentType);
                 db.AddInParameter(createAdvisorLOBCmd, "@AL_AgentNo", DbType.String, advisorLOBVo.AgentNum);
-                db.AddInParameter(createAdvisorLOBCmd, "@AL_TargetAccounts", DbType.Double,advisorLOBVo.TargetAccount);
-                db.AddInParameter(createAdvisorLOBCmd, "@AL_TargetAmount", DbType.Double,advisorLOBVo.TargetAmount);
+                db.AddInParameter(createAdvisorLOBCmd, "@AL_TargetAccounts", DbType.Double, advisorLOBVo.TargetAccount);
+                db.AddInParameter(createAdvisorLOBCmd, "@AL_TargetAmount", DbType.Double, advisorLOBVo.TargetAmount);
                 db.AddInParameter(createAdvisorLOBCmd, "@AL_TargetPremiumAmount", DbType.Double, advisorLOBVo.TargetPremiumAmount);
-               if( db.ExecuteNonQuery(createAdvisorLOBCmd)!=0)
-                   result = true;
+                if (db.ExecuteNonQuery(createAdvisorLOBCmd) != 0)
+                    result = true;
 
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -88,21 +88,98 @@ namespace DaoAdvisorProfiling
             return result;
         }
 
-        public bool UpdateLOB(AdvisorLOBVo advisorLOBVo,int adviserId,int userId)
+        public bool AddLOBFromUploadScreen(AdvisorLOBVo advisorLOBVo, int adviserId, int userId)
         {
             bool bResult = false;
             Database db;
             DbCommand updateLOBCmd;
             try
             {
-                db = DatabaseFactory.CreateDatabase("wealtherp");                
-                updateLOBCmd = db.GetStoredProcCommand("SP_UpdateLOB");                
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateLOBCmd = db.GetStoredProcCommand("sproc_AddLObFromRejectScreen");
                 db.AddInParameter(updateLOBCmd, "@AL_LOBId", DbType.Int32, advisorLOBVo.LOBId);
-                db.AddInParameter(updateLOBCmd,"@A_AdviserId",DbType.Int32,advisorLOBVo.AdviserId);
+                db.AddInParameter(updateLOBCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(updateLOBCmd, "@AL_OrgName", DbType.String, advisorLOBVo.OrganizationName);
+                db.AddInParameter(updateLOBCmd, "@AL_Identifier", DbType.String, advisorLOBVo.Identifier);
+
+                db.AddInParameter(updateLOBCmd, "@XALC_LOBClassificationCode", DbType.String, advisorLOBVo.LOBClassificationCode);
+                if (advisorLOBVo.IdentifierTypeCode == "")
+                    db.AddInParameter(updateLOBCmd, "@XALIT_IdentifierTypeCode", DbType.String, DBNull.Value);
+                else
+                    db.AddInParameter(updateLOBCmd, "@XALIT_IdentifierTypeCode", DbType.String, advisorLOBVo.IdentifierTypeCode);
+                if (!string.IsNullOrEmpty(advisorLOBVo.LicenseNumber))
+                    db.AddInParameter(updateLOBCmd, "@AL_LicenseNo", DbType.String, advisorLOBVo.LicenseNumber);
+                else
+                    db.AddInParameter(updateLOBCmd, "@AL_LicenseNo", DbType.String, DBNull.Value);
+                if (advisorLOBVo.BrokerCode == "")
+                {
+                    db.AddInParameter(updateLOBCmd, "@BrokerCode", DbType.String, DBNull.Value);
+                }
+                else
+                {
+                    db.AddInParameter(updateLOBCmd, "@BrokerCode", DbType.String, advisorLOBVo.BrokerCode);
+                }
+                if (advisorLOBVo.ValidityDate != DateTime.MinValue)
+                    db.AddInParameter(updateLOBCmd, "@AL_Validity", DbType.DateTime, advisorLOBVo.ValidityDate);
+                else
+                    db.AddInParameter(updateLOBCmd, "@AL_Validity", DbType.DateTime, DBNull.Value);
+                db.AddInParameter(updateLOBCmd, "@AL_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(updateLOBCmd, "@XALAT_AgentTypeCode", DbType.String, advisorLOBVo.AgentType);
+                db.AddInParameter(updateLOBCmd, "@AL_AgentNo", DbType.String, advisorLOBVo.AgentNum);
+                db.AddInParameter(updateLOBCmd, "@AL_TargetAccounts", DbType.Double, advisorLOBVo.TargetAccount);
+                db.AddInParameter(updateLOBCmd, "@AL_TargetAmount", DbType.Double, advisorLOBVo.TargetAmount);
+                db.AddInParameter(updateLOBCmd, "@AL_TargetPremiumAmount", DbType.Double, advisorLOBVo.TargetPremiumAmount);
+                db.AddInParameter(updateLOBCmd, "@AL_CreatedBy", DbType.Double, userId);
+
+
+
+
+                if (db.ExecuteNonQuery(updateLOBCmd) != 0)
+
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorLOBDao.cs:UpdateLOB()");
+
+
+                object[] objects = new object[1];
+                objects[0] = advisorLOBVo;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+
+
+        }
+
+        public bool UpdateLOB(AdvisorLOBVo advisorLOBVo, int adviserId, int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand updateLOBCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateLOBCmd = db.GetStoredProcCommand("SP_UpdateLOB");
+                db.AddInParameter(updateLOBCmd, "@AL_LOBId", DbType.Int32, advisorLOBVo.LOBId);
+                db.AddInParameter(updateLOBCmd, "@A_AdviserId", DbType.Int32, advisorLOBVo.AdviserId);
                 db.AddInParameter(updateLOBCmd, "@AL_OrgName", DbType.String, advisorLOBVo.OrganizationName);
                 db.AddInParameter(updateLOBCmd, "@AL_Identifier", DbType.String, advisorLOBVo.Identifier);
                 db.AddInParameter(updateLOBCmd, "@XALC_LOBClassificationCode", DbType.String, advisorLOBVo.LOBClassificationCode);
-                if(advisorLOBVo.IdentifierTypeCode=="")
+                if (advisorLOBVo.IdentifierTypeCode == "")
                     db.AddInParameter(updateLOBCmd, "@XALIT_IdentifierTypeCode", DbType.String, DBNull.Value);
                 else
                     db.AddInParameter(updateLOBCmd, "@XALIT_IdentifierTypeCode", DbType.String, advisorLOBVo.IdentifierTypeCode);
@@ -127,16 +204,16 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateLOBCmd, "@AL_TargetAmount", DbType.Double, advisorLOBVo.TargetAmount);
                 db.AddInParameter(updateLOBCmd, "@AL_TargetPremiumAmount", DbType.Double, advisorLOBVo.TargetPremiumAmount);
 
-                
-                
-                
-               if( db.ExecuteNonQuery(updateLOBCmd)!=0)
 
-                bResult = true;
-                 
-	
-	
-	
+
+
+                if (db.ExecuteNonQuery(updateLOBCmd) != 0)
+
+                    bResult = true;
+
+
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -173,8 +250,8 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deleteLOBCmd = db.GetStoredProcCommand("SP_DeleteLOB");
                 db.AddInParameter(deleteLOBCmd, "@AL_LOBId", DbType.Int32, lobId);
-               if( db.ExecuteNonQuery(deleteLOBCmd)!=0)
-                bResult = true;
+                if (db.ExecuteNonQuery(deleteLOBCmd) != 0)
+                    bResult = true;
             }
             catch (BaseApplicationException Ex)
             {
@@ -227,7 +304,7 @@ namespace DaoAdvisorProfiling
                     advisorLOBVo.BrokerCode = dr["XB_BrokerCode"].ToString();
                     advisorLOBVo.AgentType = dr["XALAT_AgentTypeCode"].ToString();
                     advisorLOBVo.AgentNum = dr["AL_AgentNo"].ToString();
-                    if(dr["AL_TargetAccounts"].ToString()!=string.Empty)
+                    if (dr["AL_TargetAccounts"].ToString() != string.Empty)
                         advisorLOBVo.TargetAccount = float.Parse(dr["AL_TargetAccounts"].ToString());
                     if (dr["AL_TargetAmount"].ToString() != string.Empty)
                         advisorLOBVo.TargetAmount = double.Parse(dr["AL_TargetAmount"].ToString());
@@ -288,16 +365,16 @@ namespace DaoAdvisorProfiling
                     advisorLOBVo.LOBClassificationCode = dr["XALC_LOBClassificationCode"].ToString();
                     advisorLOBVo.IdentifierTypeCode = dr["XALIT_IdentifierTypeCode"].ToString();
                     advisorLOBVo.Identifier = dr["AL_Identifier"].ToString();
-                    advisorLOBVo.BrokerCode=dr["XB_BrokerCode"].ToString();
-                    advisorLOBVo.AgentType=dr["XALAT_AgentTypeCode"].ToString();
-                    advisorLOBVo.AgentNum=dr["AL_AgentNo"].ToString();
+                    advisorLOBVo.BrokerCode = dr["XB_BrokerCode"].ToString();
+                    advisorLOBVo.AgentType = dr["XALAT_AgentTypeCode"].ToString();
+                    advisorLOBVo.AgentNum = dr["AL_AgentNo"].ToString();
                     if (dr["AL_TargetAccounts"].ToString() != string.Empty)
-			            advisorLOBVo.TargetAccount=float.Parse(dr["AL_TargetAccounts"].ToString());
+                        advisorLOBVo.TargetAccount = float.Parse(dr["AL_TargetAccounts"].ToString());
                     if (dr["AL_TargetAmount"].ToString() != string.Empty)
-      		            advisorLOBVo.TargetAmount=double.Parse(dr["AL_TargetAmount"].ToString());
+                        advisorLOBVo.TargetAmount = double.Parse(dr["AL_TargetAmount"].ToString());
                     if (dr["AL_TargetPremiumAmount"].ToString() != string.Empty)
-                        advisorLOBVo.TargetPremiumAmount=double.Parse(dr["AL_TargetPremiumAmount"].ToString());
-			
+                        advisorLOBVo.TargetPremiumAmount = double.Parse(dr["AL_TargetPremiumAmount"].ToString());
+
                     advisorLOBList.Add(advisorLOBVo);
                 }
             }
@@ -327,7 +404,7 @@ namespace DaoAdvisorProfiling
 
         }
 
-        public string GetLOBCode(string path,string assetClass, string category, string segment)
+        public string GetLOBCode(string path, string assetClass, string category, string segment)
         {
             string LOBCode = "";
 
@@ -342,11 +419,11 @@ namespace DaoAdvisorProfiling
                 DataRow dr = row[0];
                 LOBCode = dr["Code"].ToString();
                 return LOBCode;*/
-               ds = new DataSet();
+                ds = new DataSet();
                 ds.ReadXml(path);
-                
+
                 DataRow[] row = ds.Tables["LOBCode"].Select("AssetClass = '" + assetClass + "' and Category = '" + category + "' and Segment = '" + segment + "'");
-                
+
 
                 DataRow dr = row[0];
                 LOBCode = dr["Code"].ToString();
@@ -380,11 +457,11 @@ namespace DaoAdvisorProfiling
 
         }
 
-        public string GetBusinessType(string path,string LOBCode)
+        public string GetBusinessType(string path, string LOBCode)
         {
-         
+
             string businessType = "";
-            DataSet ds ;
+            DataSet ds;
             DataRow[] row;
             DataRow dr;
             try
@@ -456,7 +533,7 @@ namespace DaoAdvisorProfiling
                 object[] objects = new object[2];
                 objects[0] = classificationCode;
                 objects[1] = advisorId;
-                
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
