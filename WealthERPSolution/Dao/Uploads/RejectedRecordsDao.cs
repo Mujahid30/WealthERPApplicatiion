@@ -133,12 +133,12 @@ namespace DaoUploads
                 else
                     db.AddInParameter(getCAMSRejectedProfilesCmd, "@processId", DbType.Int32, DBNull.Value);
 
-                if (fromDate != null)
+                if (fromDate != DateTime.MinValue)
                     db.AddInParameter(getCAMSRejectedProfilesCmd, "@fromDate", DbType.DateTime, fromDate);
                 else
                     db.AddInParameter(getCAMSRejectedProfilesCmd, "@fromDate", DbType.DateTime, DBNull.Value);
 
-                if (toDate != null)
+                if (toDate != DateTime.MinValue)
                     db.AddInParameter(getCAMSRejectedProfilesCmd, "@toDate", DbType.DateTime, toDate);
                 else
                     db.AddInParameter(getCAMSRejectedProfilesCmd, "@toDate", DbType.DateTime, DBNull.Value);
