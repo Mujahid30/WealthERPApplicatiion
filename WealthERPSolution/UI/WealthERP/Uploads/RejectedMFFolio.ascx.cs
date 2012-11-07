@@ -164,16 +164,21 @@ namespace WealthERP.Uploads
         }
 
         private void BindGrid(int ProcessId)
-        {
-            fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
-            toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
-            rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
-
-            Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
-            Dictionary<string, string> genDictRejectReason = new Dictionary<string, string>();
-            Dictionary<string, string> genDictIsCustomerExisting = new Dictionary<string, string>();
+        {         
             try
             {
+                if (ProcessId == null || ProcessId == 0)
+                {
+                    fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
+                    toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
+                    rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
+                }
+
+
+                Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
+                Dictionary<string, string> genDictRejectReason = new Dictionary<string, string>();
+                Dictionary<string, string> genDictIsCustomerExisting = new Dictionary<string, string>();
+
                 rejectedRecordsBo = new RejectedRecordsBo();
                 dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId, fromDate,toDate,rejectReasonCode);
          
@@ -422,32 +427,34 @@ namespace WealthERP.Uploads
 
         protected void btnAddLob_Click(object sender, EventArgs e)
         {
-            string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+           string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
             int advisorId = adviserVo.advisorId;
+            string adviserOrgName = adviserVo.OrganizationName;
             int userId = userVo.UserId;
             string segment = "";
             string assetClass = "MF";
             string category = "INT";
-            CheckBox chkBrokerCode = new CheckBox();
-            int selectedRow;
-            int lob = 0;
-            chkBrokerCode = (CheckBox)sender;
-            GridDataItem gdi;
-            gdi = (GridDataItem)chkBrokerCode.NamingContainer;
-            selectedRow = gdi.ItemIndex + 1;
-            lob = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CMFSS_BrokerCode"].ToString()));
-           
             try
             {
+                int i = 0;
+                string strLob = string.Empty;
+                foreach (GridDataItem item in this.gvCAMSProfileReject.Items)
+                {
+                    if (((CheckBox)item.FindControl("chkBx")).Checked == true)
+                    {
+                        strLob = Convert.ToString(gvCAMSProfileReject.MasterTableView.DataKeyValues[i]["CMFSS_BrokerCode"]);
+                        break;
+                    }
+
+                }
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.IdentifierTypeCode = "ARN";
-                //advisorLOBVo.OrganizationName = txtMFOrgName.Text.ToString();
-                //advisorLOBVo.Identifier = txtMFARNCode.Text.ToString();
-                //advisorLOBVo.ValidityDate = DateTime.Parse(txtMFValidity.Text.ToString());
+                advisorLOBVo.OrganizationName = adviserOrgName;
+                advisorLOBVo.Identifier = strLob;
+                advisorLOBVo.ValidityDate = DateTime.Now.AddYears(2);
                 advisorLOBVo.LicenseNumber = "";
-                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);              
-               
-            }
+                advisorLOBBo.AddLOBFromUploadScreen(advisorLOBVo, advisorId, userId);                
+            }              
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -456,13 +463,9 @@ namespace WealthERP.Uploads
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-
                 FunctionInfo.Add("Method", "EditLOB.ascx:btnMFSubmit_Click()");
-
-
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -470,14 +473,11 @@ namespace WealthERP.Uploads
                 objects[6] = userId;
                 objects[7] = segment;
                 objects[8] = category;
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
-            }
-            
+            }            
         }
     }
 }
