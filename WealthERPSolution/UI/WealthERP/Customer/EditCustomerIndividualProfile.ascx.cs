@@ -27,10 +27,12 @@ namespace WealthERP.Customer
     public partial class EditCustomerIndividualProfile : System.Web.UI.UserControl
     {
         UserVo userVo = null;
+        RMVo rmVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
-        AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
+        AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
+        AdvisorVo advisorVo = new AdvisorVo();
         CustomerISAAccountsVo customerISAAccountsVo = new CustomerISAAccountsVo();
         string path;
         DataTable dtMaritalStatus = new DataTable();
@@ -39,6 +41,8 @@ namespace WealthERP.Customer
         DataTable dtQualification = new DataTable();
         DataTable dtState = new DataTable();
         DataTable dtCustomerSubType = new DataTable();
+        CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
+        CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         DataSet dsCustomerAssociates = new DataSet();
         CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
         CustomerBankAccountVo customerBankAccountVo;
@@ -51,8 +55,12 @@ namespace WealthERP.Customer
        
         DataSet dsGetSlab = new DataSet();
         int years;
+        int customerId = 0;
+        int associateId = 0;
+        string relCode = string.Empty;
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected void 
+            Page_Load(object sender, EventArgs e)
         {
             cvDepositDate1.ValueToCompare = DateTime.Now.ToShortDateString();
             txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
@@ -65,7 +73,9 @@ namespace WealthERP.Customer
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
+                advisorVo = (AdvisorVo)Session["advisorVo"];
                 RMVo customerRMVo = new RMVo();
+                rmVo = (RMVo)Session[SessionContents.RmVo];
                 if (!IsPostBack)
                 {
                     BindCustomerISAAccountGrid();
@@ -74,6 +84,11 @@ namespace WealthERP.Customer
                     btnGenerateISA.Visible = false;
 
                     BindBankDetails(customerVo.CustomerId);
+
+                    trExCustHeader.Visible = false;
+                    trExCustomerType.Visible = false;
+                    trNewCustHeader.Visible = false;
+                    trNewCustomer.Visible = false;
                    
                     if (customerVo.SubType != "NRI")
                     {
@@ -262,6 +277,15 @@ namespace WealthERP.Customer
                         txtJobStartDate.Text = customerVo.JobStartDate.ToShortDateString();
 
                     txtMotherMaidenName.Text = customerVo.MothersMaidenName;
+                    BindBranchDropDown();
+                    BindRelationshipDropDown();
+                    
+                }
+                BindFamilyAssociationList(customerVo.CustomerId);
+                if (ddlMemberBranch.SelectedIndex == 0)
+                {
+                    txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                 }
             }
             catch (BaseApplicationException Ex)
@@ -278,6 +302,60 @@ namespace WealthERP.Customer
                 objects[0] = customerVo;
                 objects[1] = path;
                 objects[2] = userVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        private void BindFamilyAssociationList(int CustomerId)
+        {
+            DataSet dsCustomerAssociates;
+            DataTable dtCustomerAssociates;
+            dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+            dtCustomerAssociates = dsCustomerAssociates.Tables[0];
+            if (dtCustomerAssociates != null)
+            {
+                gvFamilyAssociate.DataSource = dtCustomerAssociates;
+                gvFamilyAssociate.DataBind();
+                pnlFamilyAssociates.Visible = true;
+                gvFamilyAssociate.Visible = true;
+            }
+
+        }
+
+        private void BindBranchDropDown()
+        {
+            RMVo rmVo = new RMVo();
+            rmVo = (RMVo)Session[SessionContents.RmVo];
+            int bmID = rmVo.RMId;
+            try
+            {
+                UploadCommonBo uploadsCommonDao = new UploadCommonBo();
+                DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+                if (ds != null)
+                {
+                    ddlMemberBranch.DataSource = ds;
+                    ddlMemberBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
+                    ddlMemberBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
+                    ddlMemberBranch.DataBind();
+                }
+                ddlMemberBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -945,6 +1023,138 @@ namespace WealthERP.Customer
             return years;
         }
 
+        protected void rbtnType_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnExisting.Checked == true)
+            {
+                trExCustHeader.Visible = true;
+                trExCustomerType.Visible=true;
+                trNewCustHeader.Visible = false;
+                trNewCustomer.Visible = false;
+            }
+            else if (rbtnNew.Checked == true)
+            {
+                trExCustHeader.Visible = false;
+                trExCustomerType.Visible = false;
+                trNewCustHeader.Visible = true;
+                trNewCustomer.Visible = true;
+            }
+        }
+
+        protected void ddlMemberBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlMemberBranch.SelectedIndex == 0)
+            {
+                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+            }
+            else
+            {
+                txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+            }
+
+
+        }
+        private void BindRelationshipDropDown()
+        {
+            DataTable dtRelationship = customerBo.GetMemberRelationShip();
+            if (dtRelationship.Rows.Count > 0)
+            {
+                ddlRelation.DataSource = dtRelationship;
+                ddlRelation.DataTextField = dtRelationship.Columns["XR_Relationship"].ToString();
+                ddlRelation.DataValueField = dtRelationship.Columns["XR_RelationshipCode"].ToString();
+                ddlRelation.DataBind();
+                ddlRelation.Items.Insert(0, new ListItem("Select", "Select"));
+                /*----------------------------------------------------------*/
+                ddlNewRelationship.DataSource = dtRelationship;
+                ddlNewRelationship.DataTextField = dtRelationship.Columns["XR_Relationship"].ToString();
+                ddlNewRelationship.DataValueField = dtRelationship.Columns["XR_RelationshipCode"].ToString();
+                ddlNewRelationship.DataBind();
+                ddlNewRelationship.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            
+        }
+
+        protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
+        {
+            if (txtCustomerId.Value != string.Empty)
+            {
+                DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
+                DataRow dr = dt.Rows[0];
+                lblGetPan.Text = dr["C_PANNum"].ToString();
+
+            }
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            
+            if(customerVo !=null)
+                customerId = customerVo.CustomerId;
+            if(!string.IsNullOrEmpty(txtCustomerId.Value))
+                associateId = int.Parse(txtCustomerId.Value);
+            if(ddlRelation.SelectedIndex!=0)
+                relCode= ddlRelation.SelectedItem.Value;
+            customerFamilyBo.CustomerAssociateUpdate(customerId, associateId, relCode, userVo.UserId);
+            BindFamilyAssociationList(customerId);
+
+            txtMember.Text = "";
+            lblGetPan.Text = "";
+            ddlRelation.SelectedIndex =0;
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            CustomerVo customerNewVo= new CustomerVo();
+            List<int> customerIds = null;
+            UserVo tempUserVo = (UserVo)Session["userVo"];
+
+            customerNewVo.RmId = customerVo.RmId;
+            customerNewVo.BranchId = customerVo.BranchId;
+            customerNewVo.Type = "IND";
+            customerNewVo.FirstName = txtNewName.Text;
+            customerNewVo.PANNum = txtNewPan.Text;
+            customerVo.ProfilingDate = DateTime.Today;
+            customerNewVo.UserId = customerVo.UserId;
+            userVo.Email = txtEmail.Text.ToString();
+            customerPortfolioVo.IsMainPortfolio = 1;
+            customerPortfolioVo.PortfolioTypeCode = "RGL";
+            customerPortfolioVo.PortfolioName = "MyPortfolio";
+            customerVo.ViaSMS = 1;
+            customerIds = customerBo.CreateCompleteCustomer(customerNewVo, userVo, customerPortfolioVo, tempUserVo.UserId);
+            if (customerIds != null)
+            {
+                associateId = customerIds[1];
+                CustomerFamilyVo familyVo = new CustomerFamilyVo();
+                CustomerFamilyBo familyBo = new CustomerFamilyBo();
+                familyVo.AssociateCustomerId = customerIds[1];
+                familyVo.CustomerId = associateId;
+                familyVo.Relationship = "SELF";
+                familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
+            }
+            if (customerVo != null)
+                customerId = customerVo.CustomerId;
+            if (ddlNewRelationship.SelectedIndex != 0)
+                relCode = ddlNewRelationship.SelectedItem.Value;
+            customerFamilyBo.CustomerAssociateUpdate(customerId, associateId, relCode, userVo.UserId);
+            BindFamilyAssociationList(customerId);
+
+            txtNewName.Text = "";
+            txtNewPan.Text = "";
+            ddlNewRelationship.SelectedIndex = 0;
+        }
+
+        protected void btnImgAddExMember_Click(object sender, ImageClickEventArgs e)
+        {
+            trSelectRadio.Visible = true;
+            trExCustHeader.Visible = false;
+            trExCustomerType.Visible = false;
+            trNewCustHeader.Visible = false;
+            trNewCustomer.Visible = false;
+        }
+
+
         protected void btnImgAddCustomer_Click(object sender, ImageClickEventArgs e)
         {
             trNewISAAccountSection.Visible = true;
@@ -1205,8 +1415,7 @@ namespace WealthERP.Customer
                         drCustomerBankAccount[16] = customerBankAccountVo.ModeOfOperationCode.ToString();
                         dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
                     }
-                    if (dtCustomerBankAccounts != null)
-                        btnExportFilteredDataForBank.Visible = true;
+                  
                     if (Cache["gvDetailsForBank" + userVo.UserId] == null)
                     {
                         Cache.Insert("gvDetailsForBank" + userVo.UserId, dtCustomerBankAccounts);

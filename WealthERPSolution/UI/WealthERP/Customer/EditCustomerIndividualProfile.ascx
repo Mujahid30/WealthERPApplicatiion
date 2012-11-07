@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditCustomerIndividualProfile.ascx.cs"
     Inherits="WealthERP.Customer.EditCustomerIndividualProfile" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
 
@@ -35,7 +36,10 @@
 </script>
 
 <script type="text/javascript">
-   
+    function GetCustomerId(source, eventArgs) {
+        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+        return false;
+    }
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -227,6 +231,219 @@
                 </td>
             </tr>
 </table>
+
+        <div class="tabber">
+<div class="tabbertab" >
+<h6>Family Associates</h6>
+
+ <table style="width: 100%;">
+                    <tr>
+                        <td colspan="4">
+                            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                              Family Associates
+                            </div>
+                        </td>
+                    </tr>
+<tr>
+<td>
+<asp:ImageButton ID="btnImgAddExMember" 
+        ImageUrl="~/App_Themes/Maroon/Images/user_add.png" AlternateText="Add" 
+                runat="server" ToolTip="Click here to Add Existing Customer" OnClientClick="return openpopupAddCustomer()"
+                Height="15px" Width="15px" onclick="btnImgAddExMember_Click" ></asp:ImageButton>
+</td>
+              
+</tr>
+<tr>
+<td class="leftField" align="right">
+                    <asp:Label ID="lblMemberBranch" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlMemberBranch" runat="server" CssClass="cmbField" 
+                        onselectedindexchanged="ddlMemberBranch_SelectedIndexChanged">
+                    </asp:DropDownList>
+</td>
+</tr>
+<tr>
+ <td colspan="4">
+ <table width="100%">
+<tr>
+    <td colspan="3">
+    <asp:Panel ID="pnlFamilyAssociates" runat="server" Visible="true">
+    <table>
+     <tr>
+       <td>
+       <div id="dvFamilyAssociate" runat="server" style="width: 640px;">
+                <telerik:RadGrid ID="gvFamilyAssociate" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false"  AllowFilteringByColumn="false"
+                    AllowAutomaticInserts="false" ExportSettings-FileName="Count" >
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="Goal MIS" Excel-Format="ExcelML">
+                    </ExportSettings>
+                    <MasterTableView 
+                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                        <Columns>
+                        <telerik:GridBoundColumn DataField="AssociateName"  HeaderText="Member name" UniqueName="AssociateName"
+                                SortExpression="AssociateName" >
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+
+                        <telerik:GridBoundColumn DataField="XR_Relationship" HeaderText="Relationship"
+                                AllowFiltering="false" UniqueName="XR_Relationship" SortExpression="XR_Relationship"  >
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid></div>
+               </td></tr></table>
+            </asp:Panel>
+    </td>
+    </tr>
+</table>
+ </td>                   
+</tr>
+<tr id="trSelectRadio" runat="server">
+<td  align="right">
+<asp:Label ID="lblSelectCustomerType" runat="server" CssClass="FieldName" Text="Select Customer Type :"></asp:Label>
+</td>
+                 <td align="left">
+                   <asp:RadioButton ID="rbtnExisting" AutoPostBack="true"  
+                   runat="server" GroupName="Date" oncheckedchanged="rbtnType_CheckedChanged" />
+                 <asp:Label ID="lblNew" runat="server" Text="Existing Customer" CssClass="Field"></asp:Label>
+                  &nbsp;
+                 <asp:RadioButton ID="rbtnNew" AutoPostBack="true" OnCheckedChanged="rbtnType_CheckedChanged"
+                  runat="server" GroupName="Date" />
+                  <asp:Label ID="lblPickPeriod" runat="server" Text="New Customer" CssClass="Field"></asp:Label>
+                 </td>
+  <td></td>               
+</tr>
+<tr id="trExCustHeader" runat="server">
+<td colspan="4">
+<div class="divSectionHeading" style="vertical-align: text-bottom">
+                              Add existing customer as Member
+                            </div>
+</td>
+</tr>
+<tr id="trExCustomerType" runat="server">
+<td colspan="4">
+<table width="50%">
+<tr>
+<td class="leftField" align="right">
+    <asp:Label ID="lblMember" runat="server" CssClass="FieldName" Text="Member Name:"></asp:Label>
+</td>
+<td class="rightField">
+  <asp:TextBox ID="txtMember" runat="server" CssClass="txtField" AutoComplete="Off"
+                AutoPostBack="True"></asp:TextBox>
+                <span id="Span8" class="spnRequiredField">*</span>
+  <cc1:TextBoxWatermarkExtender ID="txtMember_water" TargetControlID="txtMember"
+                WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtMember_autoCompleteExtender" runat="server"
+                TargetControlID="txtMember" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                Enabled="True" />
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtMember"
+                ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>   
+</td>
+</tr>
+<tr>
+<td class="leftField" align="right">
+  <asp:Label ID="lblPan" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
+</td>
+<td class="rightField">
+ <asp:Label ID="lblGetPan" runat="server" CssClass="FieldName" ></asp:Label>
+</td>
+</tr>
+<tr>
+<td class="leftField" align="right">
+  <asp:Label ID="lblRelation" runat="server" CssClass="FieldName" Text="RelationShip:"></asp:Label>
+</td>
+<td class="rightField">
+ <asp:DropDownList ID="ddlRelation" runat="server" CssClass="cmbField" ></asp:DropDownList>
+ <span id="Span7" class="spnRequiredField">*</span>
+ <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlRelation"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select Relation"
+                Operator="NotEqual" ValidationGroup="Submit" ValueToCompare="Select"></asp:CompareValidator>
+</td>
+</tr>
+<tr>
+<td align="right">
+<asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" 
+                ValidationGroup="Submit" onclick="btnSubmit_Click"  />
+</td>
+<td></td>
+</tr>
+</table>
+</td>
+
+</tr>
+
+<tr id="trNewCustHeader" runat="server">
+<td colspan="4">
+<div class="divSectionHeading" style="vertical-align: text-bottom">
+                              Add new customer as Member
+                            </div>
+</td>
+</tr>
+<tr id="trNewCustomer" runat="server">
+<td colspan="4">
+<table width="50%">
+<tr>
+<td class="leftField" align="right">
+    <asp:Label ID="lblNewName" runat="server" CssClass="FieldName" Text="Member Name:"></asp:Label>
+</td>
+<td class="rightField">
+  <asp:TextBox ID="txtNewName" runat="server" CssClass="txtField"></asp:TextBox>
+  <span id="spnTransType" class="spnRequiredField">*</span>
+  <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNewName"
+                ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+</td>
+</tr>
+<tr>
+<td class="leftField" align="right">
+    <asp:Label ID="lblNewPan" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
+</td>
+<td class="rightField">
+  <asp:TextBox ID="txtNewPan" runat="server" CssClass="txtField"></asp:TextBox>
+  <span id="Span6" class="spnRequiredField">*</span>
+</td>
+</tr>
+<tr>
+<td class="leftField" align="right">
+  <asp:Label ID="lblNewRelationShip" runat="server" CssClass="FieldName" Text="RelationShip :"></asp:Label>
+</td>
+<td class="rightField">
+ <asp:DropDownList ID="ddlNewRelationship" runat="server" CssClass="cmbField" ></asp:DropDownList>
+ <span id="Span5" class="spnRequiredField">*</span>
+ <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddlNewRelationship"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select Relation"
+                Operator="NotEqual" ValidationGroup="Submit" ValueToCompare="Select"></asp:CompareValidator>
+</td>
+</tr>
+<td align="right">
+<asp:Button ID="btnSave" runat="server" Text="Submit" CssClass="PCGButton" 
+                ValidationGroup="Submit" onclick="btnSave_Click"  />
+</td>
+<td></td>
+</tr>
+</table>
+</td>
+
+</tr>
+</table>
+</div>
+        
+            <div class="tabbertab" style="height: 250px;">
+                <h6>
+                    Correspondence Address</h6>
+                <table style="width: 100%; height: 196px;">
 <div class="tabber">
     <div class="tabbertab" style="height: 350px;">
         <h6>
@@ -1246,3 +1463,5 @@
 <asp:HiddenField ID="hdnGender" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAge" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnTaxSlabValue" runat="server" Visible="false" />
+<asp:HiddenField ID="txtCustomerId" runat="server" 
+    onvaluechanged="txtCustomerId_ValueChanged" />
