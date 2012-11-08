@@ -450,14 +450,14 @@ namespace WealthERP.CustomerPortfolio
                 txtIfsc.Enabled = true;
                 txtInvestorName.Enabled = false;
                 txtMicr.Enabled = false;
-                txtModeOfOpn.Enabled = false;
+                //txtModeOfOpn.Enabled = false;
                 txtPAddress1.Enabled = false;
                 txtPAddress2.Enabled = false;
                 txtPAddress3.Enabled = false;
                 txtPanNo.Enabled = false;
                 txtPCity.Enabled = false;
                 txtPinCode.Enabled = false;
-                txtPPhone.Enabled = false;
+                //txtPPhone.Enabled = false;
                 txtPPinCode.Enabled = false;
                 txtTaxStatus.Enabled = false;
 
@@ -493,7 +493,7 @@ namespace WealthERP.CustomerPortfolio
                 txtPanNo.Enabled = true;
                 txtPCity.Enabled = true;
                 txtPinCode.Enabled = true;
-                txtPPhone.Enabled = true;
+                //txtPPhone.Enabled = true;
                 txtPPinCode.Enabled = true;
                 txtTaxStatus.Enabled = true;
 
