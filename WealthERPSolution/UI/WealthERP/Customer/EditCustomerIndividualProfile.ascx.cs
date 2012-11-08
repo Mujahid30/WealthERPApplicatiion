@@ -1500,6 +1500,7 @@ namespace WealthERP.Customer
                 DropDownList ddlBankAdrState = (DropDownList)e.Item.FindControl("ddlBankAdrState");
                 TextBox txtIfsc = (TextBox)e.Item.FindControl("txtIfsc");
 
+                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
                 customerVo = (CustomerVo)Session["customerVo"];
                 customerId = customerVo.CustomerId;
 
