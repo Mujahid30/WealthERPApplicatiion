@@ -486,7 +486,7 @@ namespace WealthERP.CustomerPortfolio
                 txtIfsc.Enabled = true;
                 txtInvestorName.Enabled = true;
                 txtMicr.Enabled = true;
-                txtModeOfOpn.Enabled = true;
+                //txtModeOfOpn.Enabled = true;
                 txtPAddress1.Enabled = true;
                 txtPAddress2.Enabled = true;
                 txtPAddress3.Enabled = true;
