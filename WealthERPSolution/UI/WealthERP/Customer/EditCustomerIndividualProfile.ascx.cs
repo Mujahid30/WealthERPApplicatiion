@@ -1565,7 +1565,7 @@ namespace WealthERP.Customer
 
                 customerVo = (CustomerVo)Session["customerVo"];
                 customerId = customerVo.CustomerId;
-
+                customerBankAccountVo = new CustomerBankAccountVo();
 
                 customerBankAccountVo.AccountType = ddlAccountType.SelectedValue.ToString();
                 customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
