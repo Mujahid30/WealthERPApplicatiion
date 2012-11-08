@@ -411,6 +411,10 @@
                                             <telerik:RadPanelItem runat="server" Text="Generate ISA" Value="Generate_ISA">
                                             </telerik:RadPanelItem>
                                             </Items>
+                                            <Items>
+                                            <telerik:RadPanelItem runat="server" Text="ISA to Folio Mapping" Value="ISA_Mapp">
+                                            </telerik:RadPanelItem>
+                                            </Items>
                                     </telerik:RadPanelItem>
                                     
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
