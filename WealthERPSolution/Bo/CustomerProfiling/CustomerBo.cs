@@ -68,7 +68,33 @@ namespace BoCustomerProfiling
         /// <param name="customerId"></param>
         /// <returns></returns>
         /// 
+        public DataTable GetISaList(int customerId)
+        {
+            DataTable dtGetISaList = new DataTable();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dtGetISaList = customerDao.GetISaList(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetSchemeDetails()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
+            }
+            return dtGetISaList;
+        }
         public DataSet GetSchemeDetails(int schemePlanCode)
         {
             DataSet dsGetSchemeDetails = new DataSet();

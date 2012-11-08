@@ -186,7 +186,42 @@ namespace DaoCustomerProfiling
             }
             return customerId;
         }
-
+        public DataTable GetISaList(int customerId)
+        {
+            CustomerVo customerVo = null;
+            Database db;
+            DbCommand GetISaListCmd;
+            DataTable GetISaListDt;
+            DataSet GetISaListDs;
+            DataRow dr;
+            try
+            {
+                
+                customerVo = new CustomerVo();
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetISaListCmd = db.GetStoredProcCommand("SP_GetIsaList");
+                db.AddInParameter(GetISaListCmd, "@CustomerId", DbType.String, customerId.ToString());
+                GetISaListDs = db.ExecuteDataSet(GetISaListCmd);
+                GetISaListDt = GetISaListDs.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetSchemeDetails()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return GetISaListDt;
+        }
         public DataSet GetSchemeDetails(int schemePlanCode)
         {
             CustomerVo customerVo = null;
