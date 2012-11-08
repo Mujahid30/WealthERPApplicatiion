@@ -60,7 +60,7 @@ namespace WealthERP.OPS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             orderNumber = mfOrderBo.GetOrderNumber();
@@ -82,7 +82,7 @@ namespace WealthERP.OPS
                 trRegretMsg.Visible = false;
                 BtnIsa.Visible = false;
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+              
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
                 ddlAMCList.Enabled = false;
                 if (Request.QueryString["action"] != null)
@@ -996,6 +996,7 @@ namespace WealthERP.OPS
         {
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 ddlAMCList.Enabled = true;
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
                 Session["customerVo"] = customerVo;
@@ -1024,12 +1025,13 @@ namespace WealthERP.OPS
                         }
                     }
                     lblIsaNo.Text = formatstring;
-                    BtnIsa.Visible = true;
+                    
                 }
 
                 else
                 {
                     trRegretMsg.Visible = true;
+                    BtnIsa.Visible = true;
                 }
                 //ClearAllFields();
 

@@ -55,7 +55,10 @@
 
             document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
         }
-        
+        else {
+            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
+        }
+
     }
     function CheckSubscription() {
         document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
@@ -141,7 +144,7 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True">
+                onclientClick="ShowIsa()" AutoPostBack="True">
             </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
             <%--<asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" CssClass="PCGMediumButton"
                 CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','S');"
@@ -187,14 +190,13 @@
         </td>
     </tr>
     <tr id="trIsa" runat="server">
-        <td class="leftField" style="width: 20%" >
+        <td class="leftField" style="width: 20%">
             <asp:Label ID="lblIsa" runat="server" CssClass="FieldName" Text="ISA No:"></asp:Label>
-         </td>
+        </td>
         <td class="rightField" style="width: 20%">
-        <asp:Label ID="lblIsaNo" runat="server" CssClass="txtField"></asp:Label>
-           </td>
+            <asp:Label ID="lblIsaNo" runat="server" CssClass="txtField"></asp:Label>
+        </td>
         <td class="rightField" style="width: 20%">
-        <asp:Button ID="BtnIsa" runat="server" CssClass="PCGLongButton"  OnClick="ISA_Onclick" Text="Request ISA Account" /> 
         </td>
         <td class="rightField" style="width: 20%">
         </td>
@@ -203,11 +205,30 @@
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblRegretMsg" runat="server" CssClass="FieldName" Text="Folio not Created for this Adviser"></asp:Label>
         </td>
-        <td style="width: 20%"></td>
-        <td style="width: 20%"></td>
-        <td style="width: 20%"></td>
-        <td style="width: 20%"></td>
+        <td style="width: 20%">
+        <asp:Button ID="BtnIsa" runat="server" CssClass="PCGLongButton" OnClick="ISA_Onclick"
+                Text="Request ISA Account" />
+        </td>
+        <td style="width: 20%">
+        </td>
+        <td style="width: 20%">
+        </td>
+        <td style="width: 20%">
+        </td>
     </tr>
+    <%--<tr id=trBtnIsa runat="server">
+        <td class="rightField" style="width: 20%">
+            
+        </td>
+        <td class="rightField" style="width: 20%">
+        </td>
+        <td class="rightField" style="width: 20%">
+        </td>
+        <td class="rightField" style="width: 20%">
+        </td>
+        <td class="rightField" style="width: 20%">
+        </td>
+    </tr>--%>
     <tr>
         <td colspan="5">
         </td>
