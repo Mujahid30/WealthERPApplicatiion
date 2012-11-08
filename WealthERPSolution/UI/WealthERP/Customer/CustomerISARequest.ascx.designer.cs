@@ -734,24 +734,6 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label txtClosingDate2;
         
         /// <summary>
-        /// lblViewFormsandProofs control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblViewFormsandProofs;
-        
-        /// <summary>
-        /// lnkBtnViewFormsandProofs control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnViewFormsandProofs;
-        
-        /// <summary>
         /// lblStatusStage2 control.
         /// </summary>
         /// <remarks>

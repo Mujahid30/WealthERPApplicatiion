@@ -32,7 +32,7 @@
     ExpandDirection="Vertical" />--%>
 
 <script type="text/javascript" language="javascript">
-    function GetCustomerId(source, eventArgs) {
+    function GetCustomerId(source, eventArgs) {        
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
         return false;
     }
@@ -86,9 +86,6 @@
 
             document.getElementById("<%= btnSubmitStage3.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitStage4.ClientID %>").disabled = true;
-
-
-
         }
 
         if (val == "ISARQNewEntryDisable") {
@@ -366,8 +363,7 @@
 
     function HideAndShowStepBack2(val) {
         //in val u get dropdown list selected value
-        var ddlIndex = document.getElementById("<%= ddlStatusStage2.ClientID %>").selectedIndex;
-        alert(ddlIndex);
+        var ddlIndex = document.getElementById("<%= ddlStatusStage2.ClientID %>").selectedIndex;        
         if (val == "PD") {
             document.getElementById("<%= ddlBackToStepStage2.ClientID %>").disabled = false;
         }
@@ -378,8 +374,7 @@
     function HideAndShowStepBack3(val) {
         //in val u get dropdown list selected value
 
-        var ddlIndex = document.getElementById("<%= ddlStatusStage3.ClientID %>").selectedIndex;
-        alert(val);
+        var ddlIndex = document.getElementById("<%= ddlStatusStage3.ClientID %>").selectedIndex;      
         if (val == "PD") {
             document.getElementById("<%= ddlBackToStepStage3.ClientID %>").disabled = false;
         }
@@ -554,17 +549,7 @@
 
     }
 
-    function openpopupViewFormsAndProofs() {
-        if (document.getElementById("<%= txtGenerateReqstNum.ClientID %>").value != "") {
-            window.open('PopUp.aspx?PageId=ViewCustomerProofs &LinkId= ViewFormsAndProofs', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-            return false;
-        }
-        else {
-            alert("Please generate your request first");
-            return false;
-        }
-    }
-
+  
 
     function openpopupAddAddress() {
 
@@ -825,7 +810,7 @@
             </tr>
             <tr>
                 <td align="right">
-                    <asp:Label ID="lblPanNum" runat="server" Text="Pan Number:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblPanNum" runat="server" Text="PAN:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td align="left">
                     <asp:TextBox ID="txtPanNum" runat="server" CssClass="txtField" onblur="return chkPanExists()"></asp:TextBox>
@@ -836,7 +821,7 @@
                         ErrorMessage="CustomValidator">Either Name or Pan Number is must</asp:CustomValidator>
                 </td>
                 <td align="right">
-                    <asp:Label ID="lblEmailID" runat="server" Text="Email Id:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblEmailID" runat="server" Text="Email:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td align="left">
                     <asp:TextBox ID="txtEmailID" runat="server" CssClass="txtField"></asp:TextBox>
@@ -847,7 +832,7 @@
                         CssClass="revPCG"></asp:RegularExpressionValidator>
                 </td>
                 <td align="right">
-                    <asp:Label ID="lblMobileNum" runat="server" Text="Mobile Number:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblMobileNum" runat="server" Text="Mobile:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td align="left">
                     <asp:TextBox ID="txtMobileNum" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
@@ -1036,11 +1021,11 @@
             <asp:Label ID="lblStep1" runat="server" Text="Step 1" CssClass="FieldName"></asp:Label>
         </td>--%>
                 <td align="right">
-                    <asp:Label ID="lblViewFormsandProofs" runat="server" Text="View Forms/Proofs:" CssClass="FieldName"></asp:Label>
+                 <%--   <asp:Label ID="lblViewFormsandProofs" runat="server" Text="View Forms/Proofs:" CssClass="FieldName"></asp:Label>--%>
                 </td>
                 <td align="left">
-                    <asp:LinkButton ID="lnkBtnViewFormsandProofs" runat="server" CausesValidation="False"
-                        Font-Size="X-Small" Text="View Forms/Proofs" OnClientClick="return openpopupViewFormsAndProofs()"></asp:LinkButton>
+                   <%-- <asp:LinkButton ID="lnkBtnViewFormsandProofs" runat="server" CausesValidation="False"
+                        Font-Size="X-Small" Text="View Forms/Proofs" OnClientClick="return openpopupViewFormsAndProofs()"></asp:LinkButton>--%>
                 </td>
                 <td align="right">
                     <asp:Label ID="lblStatusStage2" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
@@ -1134,7 +1119,7 @@
                     <asp:Label ID="lblStatus3" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td align="left">
-                    <asp:Label ID="txtStatus3" runat="server" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="txtStatus3" runat="server" CssClass="txtField"></asp:Label>
                 </td>
                 <td align="right">
                     <asp:Label ID="lblClosingDate3" runat="server" Text="Closing Date:" CssClass="FieldName"></asp:Label>
