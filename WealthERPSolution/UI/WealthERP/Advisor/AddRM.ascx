@@ -148,7 +148,7 @@
             document.getElementById('deleteBranch').disabled = true;
             var chkckmk = '<%=ChklistRMBM.ClientID%>';
             var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
-            if (hdn == 'True') {
+            if (hdn == "True") {
                 document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'visible';
             }
 

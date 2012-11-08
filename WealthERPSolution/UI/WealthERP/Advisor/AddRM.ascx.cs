@@ -531,6 +531,11 @@ namespace WealthERP.Advisor
                 {
                     isOpsIsChecked = true;
                     CreateOps(isOpsIsChecked);
+                    if ((CheckListCKMK.Items[0].Selected == true) || (CheckListCKMK.Items[1].Selected != true) )
+                     {
+                        isPurelyResearchLogin = true;
+                    }
+                    CreateRM(isPurelyResearchLogin);
                 }
                 else
                 {
