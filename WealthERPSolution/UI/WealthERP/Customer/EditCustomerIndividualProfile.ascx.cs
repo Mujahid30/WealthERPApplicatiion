@@ -45,7 +45,7 @@ namespace WealthERP.Customer
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         DataSet dsCustomerAssociates = new DataSet();
         CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
-        CustomerBankAccountVo customerBankAccountVo;
+        CustomerBankAccountVo customerBankAccountVo=new CustomerBankAccountVo();
         List<CustomerBankAccountVo> customerBankAccountList = null;
         string strExternalCodeToBeEdited;
         
