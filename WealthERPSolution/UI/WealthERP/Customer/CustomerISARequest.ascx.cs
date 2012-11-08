@@ -486,7 +486,7 @@ namespace WealthERP.Customer
             else if (userRole == "Ops" && stepCode == "VERIfY" && userVo.PermisionList.Contains("Checker") && stageStatus == "DO")
             {
                 //Disable Step 3 and disable other Step and fill old steps details
-                if (advisorVo.PermisionList.Contains("Maker"))
+                if (userVo.PermisionList.Contains("Maker"))
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "HideAndShowBasedOnRole", " HideAndShowBasedOnRole('ISAGE');", true);
                 }
