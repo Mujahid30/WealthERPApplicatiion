@@ -989,9 +989,22 @@ p.tip
     font-size:small;
     height:20px;
     vertical-align:middle;  
-    padding-left:15px;
+    padding-left:12px;
     border:0px;
-    
+     padding-top:2px;
+}
+
+
+.divSectionHeadingNumber
+{
+    background-color:#749E3C;
+    color:#FCEFEF;
+height: 18px;
+float:left;
+ text-align:center;
+width: 18px;
+-moz-border-radius: 35px;
+border-radius: 35px;
 }
 
 .divPageHeading

@@ -13,6 +13,19 @@ div#wrapper
     min-height: 700px;
 }
 
+.divSectionHeadingNumber
+{
+    background-color:#A75A5F;
+    color:#FCEFEF;
+height: 18px;
+float:left;
+ text-align:center;
+width: 18px;
+-moz-border-radius: 35px;
+border-radius: 35px;
+}
+
+
 div#MainDivLeft
 {
     width: 120px;
@@ -1098,7 +1111,7 @@ p.tip
     vertical-align:middle;  
     padding-left:15px;
     border:0px;
-    
+     padding-top:2px;
 }
 
 .divPageHeading

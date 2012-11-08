@@ -6,6 +6,19 @@
      
 }
 
+.divSectionHeadingNumber
+{
+    background-color:#FCD244;
+    color:#FCEFEF;
+height: 18px;
+float:left;
+ text-align:center;
+width: 18px;
+-moz-border-radius: 35px;
+border-radius: 35px;
+}
+
+
 div#wrapper
 {
     text-align: left; /* reset text alignment */
@@ -1186,8 +1199,11 @@ p.tip
     vertical-align:middle;  
     padding-left:15px;
     border:0px;
+     padding-top:2px;
     
 }
+
+
 
 .divPageHeading
 {

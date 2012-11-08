@@ -1199,6 +1199,20 @@ p.tip
         }
 /* End */
 
+
+.divSectionHeadingNumber
+{
+    background-color:#110C0B;
+    color:#FCEFEF;
+height: 18px;
+float:left;
+ text-align:center;
+width: 18px;
+-moz-border-radius: 35px;
+border-radius: 35px;
+
+}
+
 .divSectionHeading
 {
     -moz-border-radius: 10px;
@@ -1215,6 +1229,7 @@ p.tip
     padding-left:15px;
     border:0px;
     
+     padding-top:2px;
 }
 
 .divPageHeading
