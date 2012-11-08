@@ -294,7 +294,12 @@ namespace WealthERP.Uploads
                         filetypeId == (int)Contants.UploadTypes.DeutscheProfile || filetypeId == (int)Contants.UploadTypes.StandardProfile || filetypeId == 21)
                         && (extracttype == "PO" || extracttype == "PAF"))
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                       // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+
+                        
+                        
+                    
                     }
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId == (int)Contants.UploadTypes.KarvyProfile || filetypeId == (int)Contants.UploadTypes.TempletonProfile ||
