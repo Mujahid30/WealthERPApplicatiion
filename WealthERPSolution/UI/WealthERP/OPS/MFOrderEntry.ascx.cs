@@ -43,6 +43,7 @@ namespace WealthERP.OPS
         string path;
         DataTable dtBankName = new DataTable();
         DataTable dtFrequency;
+        DataTable ISAList;
         int customerId;
         int amcCode;
         string categoryCode;
@@ -59,7 +60,7 @@ namespace WealthERP.OPS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             orderNumber = mfOrderBo.GetOrderNumber();
@@ -74,13 +75,19 @@ namespace WealthERP.OPS
                 mforderVo = (MFOrderVo)Session["mforderVo"];
                 orderVo = (OrderVo)Session["orderVo"];
             }
-            
-            
+
+
             if (!IsPostBack)
             {
+                trRegretMsg.Visible = false;
+                BtnIsa.Visible = false;
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+                hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
                 ddlAMCList.Enabled = false;
                 if (Request.QueryString["action"] != null)
                 {
+                    
                     lnlBack.Visible = true;
                     ViewForm = Request.QueryString["action"].ToString();
                     txtOrderDate.SelectedDate = orderVo.OrderDate;
@@ -104,6 +111,31 @@ namespace WealthERP.OPS
                 {
                     customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
                     customerVo = customerBo.GetCustomer(customerId);
+
+                    //ISAList = customerBo.GetISaList(customerId);
+                    //if (ISAList != null)
+                    //{
+                    //    string formatstring = "";
+                    //    string[] arr = new string[ISAList.Rows.Count];
+                    //    int i;
+                    //    for (i = 0; i < ISAList.Rows.Count; i++)
+                    //    {
+                    //        if (!string.IsNullOrEmpty(formatstring))
+                    //        {
+                    //            formatstring = formatstring + "," + arr[i];
+                    //        }
+                    //        else
+                    //        {
+                    //            formatstring = arr[i];
+                    //        }
+                    //    }
+                    //    lblIsaNo.Text = formatstring;
+
+                    //}
+                    //else
+                    //{
+                    //    trRegretMsg.Visible = true;
+                    //}
                     hdnCustomerId.Value = customerVo.CustomerId.ToString();
                     txtCustomerName.Text = customerVo.FirstName + customerVo.MiddleName + customerVo.LastName;
                     lblGetBranch.Text = customerVo.BranchName;
@@ -122,7 +154,7 @@ namespace WealthERP.OPS
                 BindFrequency();
                 ShowHideFields(1);
                 ShowTransactionType(0);
-                
+
 
                 if (mforderVo != null && orderVo != null)
                 {
@@ -154,7 +186,7 @@ namespace WealthERP.OPS
                 }
 
             }
-            
+
 
             //ShowHideFields(1);
         }
@@ -359,11 +391,11 @@ namespace WealthERP.OPS
                             BindFolioNumber(0);
                             ddlFolioNumber.SelectedValue = mforderVo.accountid.ToString();
                         }
-                            //else
+                        //else
                         //    ddlFolioNumber.SelectedValue = "";
                     }
                     txtReceivedDate.Enabled = false;
-                    txtReceivedDate.SelectedDate =orderVo.ApplicationReceivedDate;
+                    txtReceivedDate.SelectedDate = orderVo.ApplicationReceivedDate;
                     txtApplicationNumber.Enabled = false;
                     txtApplicationNumber.Text = orderVo.ApplicationNumber;
                     txtOrderDate.SelectedDate = orderVo.OrderDate;
@@ -666,7 +698,7 @@ namespace WealthERP.OPS
                         //lblGetAvailableUnits.Text = operationVo.Units.ToString();
                     }
 
-                    ddlPaymentMode.SelectedValue =orderVo.PaymentMode;
+                    ddlPaymentMode.SelectedValue = orderVo.PaymentMode;
                     txtPaymentNumber.Text = orderVo.ChequeNumber;
                     if (orderVo.PaymentDate != DateTime.MinValue)
                         txtPaymentInstDate.SelectedDate = orderVo.PaymentDate;
@@ -692,9 +724,9 @@ namespace WealthERP.OPS
                     ddlCorrAdrState.SelectedItem.Text = mforderVo.State;
                     txtCorrAdrPinCode.Text = mforderVo.Pincode;
 
-                    Session["mforderVo"]= mforderVo ;
-                    Session["orderVo"]= orderVo;
-                   
+                    Session["mforderVo"] = mforderVo;
+                    Session["orderVo"] = orderVo;
+
                     btnSubmit.Visible = false;
                     btnUpdate.Visible = false;
                     //trReportButtons.Visible = true;
@@ -777,6 +809,11 @@ namespace WealthERP.OPS
             ddlFrequencySTP.DataBind();
 
         }
+        public void ISA_Onclick(object obj, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerISARequest','');", true);
+        }
+
         private void ShowHideFields(int flag)
         {
             if (flag == 0)
@@ -970,6 +1007,30 @@ namespace WealthERP.OPS
                 BindBank(customerId);
                 BindPortfolioDropdown(customerId);
                 ddltransType.SelectedIndex = 0;
+                ISAList = customerBo.GetISaList(customerId);
+                if (ISAList != null)
+                {
+                    string formatstring = "";
+
+                    foreach (DataRow dRow in ISAList.Rows)
+                    {
+                        if (!string.IsNullOrEmpty(formatstring))
+                        {
+                            formatstring = formatstring + "," + dRow[0];
+                        }
+                        else
+                        {
+                            formatstring = dRow[0].ToString();
+                        }
+                    }
+                    lblIsaNo.Text = formatstring;
+                    BtnIsa.Visible = true;
+                }
+
+                else
+                {
+                    trRegretMsg.Visible = true;
+                }
                 //ClearAllFields();
 
             }
@@ -1008,7 +1069,7 @@ namespace WealthERP.OPS
         }
         private void ClearAllFields()
         {
-           
+
 
             ddltransType.SelectedIndex = 0;
             txtReceivedDate.SelectedDate = null;
@@ -1149,7 +1210,7 @@ namespace WealthERP.OPS
             DataTable dtgetfolioNo;
             try
             {
-                if (ddlAMCList.SelectedIndex != 0 && ddlAmcSchemeList.SelectedIndex!=0)
+                if (ddlAMCList.SelectedIndex != 0 && ddlAmcSchemeList.SelectedIndex != 0)
                 {
                     amcCode = int.Parse(ddlAMCList.SelectedValue);
                     schemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
@@ -1376,10 +1437,10 @@ namespace WealthERP.OPS
                 GridDataItem dataItem = e.Item as GridDataItem;
                 //((Literal)dataItem["DropDownColumnStatus"].Controls[0]).Text = dataItem.GetDataKeyValue("WOS_OrderStepCode").ToString();
                 //((Literal)dataItem["DropDownColumnStatusReason"].Controls[0]).Text = dataItem.GetDataKeyValue("WOS_OrderStepCode").ToString();
-                 
+
                 TemplateColumn tm = new TemplateColumn();
                 Label lblStatusCode = new Label();
-                 Label lblOrderStep = new Label();
+                Label lblOrderStep = new Label();
                 LinkButton editButton = dataItem["EditCommandColumn"].Controls[0] as LinkButton;
                 Label lblOrderStatus = new Label();
                 Label lblOrderStatusReason = new Label();
@@ -1391,7 +1452,7 @@ namespace WealthERP.OPS
                 if (lblOrderStep.Text.Trim() == "IP")
                 {
                     if (lblStatusCode.Text == "OMIP")
-                    {                       
+                    {
                         editButton.Text = "Mark as Pending";
                         result = mfOrderBo.MFOrderAutoMatch(orderVo.OrderId, mforderVo.SchemePlanCode, mforderVo.accountid, mforderVo.TransactionCode, orderVo.CustomerId, mforderVo.Amount, orderVo.OrderDate);
                         if (result == true)
@@ -1399,21 +1460,21 @@ namespace WealthERP.OPS
                             editButton.Text = "";
                             lblOrderStatusReason.Text = "";
                         }
-                        
+
                     }
 
                     else if (lblStatusCode.Text == "OMPD")
                     {
                         editButton.Text = "Mark as InProcess";
                     }
-                    
+
                 }
                 else if (lblOrderStep.Text.Trim() == "PR")
                 {
                     if (result == true)
                     {
                         lblOrderStatus.Text = "Executed";
-                        lblOrderStatusReason.Text = "Order Confirmed";                     
+                        lblOrderStatusReason.Text = "Order Confirmed";
                     }
                     else
                     {
@@ -1428,7 +1489,7 @@ namespace WealthERP.OPS
                     lblOrderStatusReason.Text = "";
                     editButton.Text = "";
                 }
-             
+
                 //string editColumn = dataItem["COS_IsEditable"].Text;
                 //if (editColumn == "1")
                 //{
@@ -1453,8 +1514,8 @@ namespace WealthERP.OPS
             {
                 GridEditableItem edititem = e.Item as GridEditableItem;
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
-            
-               
+
+
                 RadComboBox rcStatus = edititem.FindControl("ddlCustomerOrderStatus") as RadComboBox;
                 RadComboBox rcPendingReason = edititem.FindControl("ddlCustomerOrderStatusReason") as RadComboBox;
 
@@ -1466,7 +1527,7 @@ namespace WealthERP.OPS
                 string updatedStatus = rcStatus.SelectedValue;
                 string updatedReason = rcPendingReason.SelectedValue;
 
-             
+
                 bResult = orderbo.UpdateOrderStep(updatedStatus, updatedReason, orderId, orderStepCode);
                 if (bResult == true)
                 {
@@ -1606,7 +1667,7 @@ namespace WealthERP.OPS
         {
             List<int> OrderIds = new List<int>();
             SaveOrderDetails();
-            OrderIds=mfOrderBo.CreateCustomerMFOrderDetails(orderVo,mforderVo);
+            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo);
             rgvOrderSteps.Visible = true;
             orderId = int.Parse(OrderIds[0].ToString());
             Session["CO_OrderId"] = orderId;
@@ -1628,7 +1689,7 @@ namespace WealthERP.OPS
         private void SaveOrderDetails()
         {
             orderVo.CustomerId = int.Parse(txtCustomerId.Value);
-            orderVo.AssetGroup="MF";
+            orderVo.AssetGroup = "MF";
             mforderVo.CustomerName = txtCustomerName.Text;
             mforderVo.BMName = lblGetBranch.Text;
             mforderVo.RMName = lblGetRM.Text;
@@ -1715,7 +1776,7 @@ namespace WealthERP.OPS
                 if (ddlBankName.SelectedValue != "Select")
                     mforderVo.BankName = ddlBankName.SelectedItem.Text;
                 else
-                    mforderVo.BankName = ""; 
+                    mforderVo.BankName = "";
             }
             else
                 mforderVo.BankName = "";
@@ -1803,9 +1864,9 @@ namespace WealthERP.OPS
             OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo);
             rgvOrderSteps.Visible = false;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
-            
+
             ClearAllFields();
-            
+
             txtCustomerName.Text = "";
             lblGetRM.Text = "";
             lblGetBranch.Text = "";
@@ -1987,7 +2048,7 @@ namespace WealthERP.OPS
 
         private void UpdateMFOrderDetails()
         {
-            
+
             //operationVo.CustomerId = int.Parse(txtCustomerId.Value);
             mforderVo.CustomerName = txtCustomerName.Text;
             if (orderVo.CustomerId != 0)
@@ -2106,7 +2167,7 @@ namespace WealthERP.OPS
                 if (ddlBankName.SelectedValue != "Select")
                     mforderVo.BankName = ddlBankName.SelectedItem.Text;
                 else
-                    mforderVo.BankName = ""; 
+                    mforderVo.BankName = "";
             }
             else
                 mforderVo.BankName = "";
@@ -2148,7 +2209,7 @@ namespace WealthERP.OPS
             else
                 mforderVo.Pincode = "";
             mforderVo.Country = ddlCorrAdrCountry.SelectedValue;
-       }
+        }
 
         protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2177,7 +2238,7 @@ namespace WealthERP.OPS
                     mfOrderBo.DeleteMFOrder(orderId);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order has been deleted.');", true);
                     ClearAllFields();
-                    
+
                     lblGetRM.Text = "";
                     lblGetBranch.Text = "";
                     lblgetPan.Text = "";
@@ -2192,11 +2253,11 @@ namespace WealthERP.OPS
                     btnAddMore.Visible = true;
                     rgvOrderSteps.Visible = false;
                     SetEditViewMode(false);
-                    btnImgAddCustomer.Enabled= true;
+                    btnImgAddCustomer.Enabled = true;
                     btnImgAddCustomer.Visible = true;
                     txtCustomerName.Enabled = true;
                     txtCustomerName.Text = "";
-                    
+
                 }
 
             }

@@ -30,6 +30,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnEdit;
+        protected global::System.Web.UI.WebControls.Button BtnIsa;
         
         /// <summary>
         /// lnlBack control.
@@ -102,7 +103,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomer;
-        
+        protected global::System.Web.UI.WebControls.Label lblIsaNo;
+        protected global::System.Web.UI.WebControls.Label lblIsa;
         /// <summary>
         /// txtCustomerName control.
         /// </summary>
@@ -210,7 +212,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trTransactionType;
-        
+         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegretMsg;
         /// <summary>
         /// ddlTransactionType control.
         /// </summary>
@@ -345,7 +347,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsSubscripted;
         /// <summary>
         /// trAplNumber control.
         /// </summary>
