@@ -249,6 +249,10 @@ namespace WealthERP.CustomerPortfolio
             chkUseProfileName.Visible = false;
             imgBtnAddBank.Visible = false;
             imgBtnRefereshBank.Visible = false;
+            ddlAccType.Enabled = false;
+            ddlBCountry.Enabled = false;
+            ddlBState.Enabled = false;
+
         }
 
         private void BindAssociates(CustomerAccountsVo AccountVo)
@@ -393,6 +397,7 @@ namespace WealthERP.CustomerPortfolio
             txtBLine2.Text = customerAccountsVo.BranchAdrLine2;
             txtBLine3.Text = customerAccountsVo.BranchAdrLine3;
             txtCity.Text = customerAccountsVo.BranchAdrCity;
+
             txtPinCode.Text = Convert.ToInt32(customerAccountsVo.BranchAdrPinCode).ToString();
             txtMicr.Text = Convert.ToInt32(customerAccountsVo.MICR).ToString();
             ddlBState.Text = customerAccountsVo.BranchAdrState;
@@ -822,9 +827,13 @@ namespace WealthERP.CustomerPortfolio
                 customerAccountsVo.BranchAdrLine3 = txtBLine3.Text;
                 customerAccountsVo.BranchAdrCity = txtCity.Text;
                 customerAccountsVo.BranchAdrState = ddlBState.SelectedValue;
+                if(txtPinCode.Text!="")
                 customerAccountsVo.BranchAdrPinCode = int.Parse(txtPinCode.Text);
+                if(txtMicr.Text!="")
                 customerAccountsVo.MICR = int.Parse(txtMicr.Text);
+                if (txtIfsc.Text != "")
                 customerAccountsVo.IFSC = txtIfsc.Text;
+                if(ddlBCountry.SelectedValue!="0")
                 customerAccountsVo.BranchAdrCountry = ddlBCountry.SelectedValue;
 
 
