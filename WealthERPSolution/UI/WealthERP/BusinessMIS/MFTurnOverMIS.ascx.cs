@@ -345,7 +345,7 @@ namespace WealthERP.BusinessMIS
 
             DataRow drGetAMCTransactionDeatails;
             DataRow[] drTransactionAMCWise;
-            if (dsGetAMCTransactionDeatails.Tables[0].Rows.Count > 0)
+            if (dsGetAMCTransactionDeatails.Tables[0]!=null)
             {
                 DataTable dtGetAMCTransaction = dsGetAMCTransactionDeatails.Tables[0];
 
@@ -523,7 +523,7 @@ namespace WealthERP.BusinessMIS
 
             DataRow drGetSchemeTransactionDeatails;
             DataRow[] drTransactionSchemeWise;
-            if (dsGetSchemeTransactionDeatails.Tables[0].Rows.Count > 0)
+            if (dsGetSchemeTransactionDeatails.Tables[0] != null)
             {
                 DataTable dtGetSchemeTransaction = dsGetSchemeTransactionDeatails.Tables[0];
 
@@ -704,7 +704,7 @@ namespace WealthERP.BusinessMIS
 
             DataRow drGetFolioTransactionDeatails;
             DataRow[] drTransactionFolioWise;
-            if (dsGetFolioTransactionDeatails.Tables[0].Rows.Count > 0)
+            if (dsGetFolioTransactionDeatails.Tables[0] != null)
             {
                 DataTable dtGetFolioTransaction = dsGetFolioTransactionDeatails.Tables[0];
 
@@ -849,7 +849,7 @@ namespace WealthERP.BusinessMIS
             string subcategoryCode = string.Empty;
             string subCategoryCodeOld = string.Empty;
             DataSet dsGetCategoryTransactionDeatails = new DataSet();
-            dsGetCategoryTransactionDeatails = adviserMFMIS.GetCategoryTransactionDeatails(int.Parse(hdnadviserId.Value));
+            dsGetCategoryTransactionDeatails = adviserMFMIS.GetCategoryTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value);
 
             DataTable dtGetCategoryTransactionDeatails = new DataTable();
 
@@ -883,7 +883,7 @@ namespace WealthERP.BusinessMIS
             dtGetCategoryTransactionDeatails.Columns.Add("PRJAmount");
             DataRow[] drTransactionCategoryWise;
             DataRow drGetCategoryTransactionDeatails;
-            if (dsGetCategoryTransactionDeatails.Tables[0].Rows.Count > 0)
+            if (dsGetCategoryTransactionDeatails.Tables[0] != null)
             {
                 DataTable dtGetCategoryTransaction = dsGetCategoryTransactionDeatails.Tables[0];
 
@@ -1060,7 +1060,7 @@ namespace WealthERP.BusinessMIS
 
             DataRow drGetBranchTransactionDeatails;
             DataRow[] drTransactionBranchWise;
-            if (dsGetBranchTransactionDeatails.Tables[0].Rows.Count > 0)
+            if (dsGetBranchTransactionDeatails.Tables[0] != null)
             {
                 DataTable dtGetBranchTransaction = dsGetBranchTransactionDeatails.Tables[0];
 
@@ -1241,7 +1241,14 @@ namespace WealthERP.BusinessMIS
             }
             else if (userType == "bm")
             {
-                if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
+                if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                {
+
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnAll.Value = "0";
+                    hdnrmId.Value = "0";
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
                 {
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
@@ -1249,6 +1256,13 @@ namespace WealthERP.BusinessMIS
                     hdnrmId.Value = "0";
                 }
                 else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
+                {
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnbranchId.Value = "0";
+                    hdnAll.Value = "2";
+                    hdnrmId.Value = ddlRM.SelectedValue; ;
+                }
+                else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
                 {
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
@@ -1267,6 +1281,12 @@ namespace WealthERP.BusinessMIS
 
             if (hdnrmId.Value == "")
                 hdnrmId.Value = "0";
+
+            if (ddlCategory.SelectedIndex == 0)
+                hdnCategory.Value = "";
+            else
+                hdnCategory.Value = ddlCategory.SelectedValue;
+
             if (rbtnPickDate.Checked)
             {
                 hdnFromDate.Value = txtFromDate.SelectedDate.ToString();
