@@ -42,40 +42,56 @@
 </table>
 <table class="TableBackground" width="60%">
 <tr id="trBranchRM" runat="server">
-        <td align="left" style="width: 30%">
-            <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
-            <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
-                CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
-            </asp:DropDownList>
-        </td>
-        <td align="left" style="width: 30%">
-            <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
-             <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            <td align="right" valign="top">
+                                <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
+                            </td>
+                            <td valign="top">
+                                <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
+                                CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </td>
+                             <td>
+                                &nbsp;
+                            </td>
+                            <td align="right" valign="top">
+                            <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
+                            </td>
+                            <td valign="top">
+                                <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Style="vertical-align: middle" >
             </asp:DropDownList>
-        </td>
-</tr>
+                            </td>
+                        </tr>
 <tr id="trCategoryAction" runat="server">
-        <td align="left" style="width: 30%">
-            <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
-            <asp:DropDownList ID="ddlCategory" runat="server" Style="vertical-align: middle" AutoPostBack="true"
+                            <td align="right" valign="top">
+                                <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
+                            </td>
+                            <td valign="top">
+                                <asp:DropDownList ID="ddlCategory" runat="server" Style="vertical-align: middle" AutoPostBack="true"
                 CssClass="cmbField" >
             </asp:DropDownList>
-        </td>
-        <td align="left" style="width: 30%">
-            <asp:Label ID="Action" runat="server" CssClass="FieldName" Text="Action:"></asp:Label>
-             <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            </td>
+                            <td>
+                            &nbsp;&nbsp;
+                            </td>
+                            <td align="right" valign="top">
+                                <asp:Label ID="Action" runat="server" CssClass="FieldName" Text="Action:"></asp:Label>
+                            </td>
+                            <td valign="top">
+                                <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Style="vertical-align: middle" 
                 onselectedindexchanged="ddlAction_SelectedIndexChanged" >
                 <asp:ListItem Text="Product Level" Value="Product" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Organization Level" Value="Organization"></asp:ListItem>
             </asp:DropDownList>
-        </td>
-</tr>
-<tr>
-<td align="left" colspan="2">
-                      <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type :"></asp:Label>
+                            </td>
+                        </tr>
 
+<tr>
+                            <td align="right" valign="top">
+                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type :"></asp:Label>
+                            </td>
+                            <td align="left" colspan="3">
                                 <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
                                     runat="server" GroupName="Date" />
                                 <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field"></asp:Label>
@@ -83,12 +99,16 @@
                                 <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
                                     runat="server" GroupName="Date" />
                                 <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field"></asp:Label>
-                      </td>
-</tr> 
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
 <tr id="trRange" visible="false" runat="server" onkeypress="return keyPress(this, event)">
-                            <td align="Left" valign="top">
+                            <td align="right" valign="top">
                                 <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
-
+                            </td>
+                            <td valign="top">
                                 <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                                     <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -100,10 +120,16 @@
                                 </telerik:RadDatePicker>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFromDate"
                                     CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
-                                    runat="server" InitialValue="" ValidationGroup="vgBtnGo"> </asp:RequiredFieldValidator>
+                                    runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
                             </td>
-                            <td align="Left" valign="top">
+                            
+                            <td>
+                            &nbsp;&nbsp;
+                            </td>
+                            <td align="right" valign="top">
                                 <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
+                            </td>
+                            <td valign="top">
                                 <telerik:RadDatePicker ID="txtToDate" CssClass="txtTo" runat="server" Culture="English (United States)"
                                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                                     <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -115,25 +141,33 @@
                                 </telerik:RadDatePicker>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToDate"
                                     CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
-                                    runat="server" InitialValue="" ValidationGroup="vgBtnGo"> </asp:RequiredFieldValidator>
+                                    runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="To Date should not be less than From Date"
                                     Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
-                                    CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgBtnGo"></asp:CompareValidator>
+                                    CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
                             </td>
-                        </tr> 
-   <tr id="trPeriod" visible="false" runat="server">
-                            <td align="Left" valign="top">
+                        </tr>
+
+                        <tr id="trPeriod" visible="false" runat="server">
+                            <td align="right" valign="top">
                                 <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
+                            </td>
+                            <td valign="top">
                                 <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField">
                                 </asp:DropDownList>
                                 <span id="Span4" class="spnRequiredField"></span>
                                 <br />
                                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPeriod"
                                     CssClass="rfvPCG" ErrorMessage="Please select a Period" Operator="NotEqual" ValueToCompare="Select a Period"
-                                    ValidationGroup="vgBtnGo"> </asp:CompareValidator>
+                                    ValidationGroup="btnGo"> </asp:CompareValidator>
                             </td>
-
-                        </tr>  
+                            <td>
+                            &nbsp;&nbsp;
+                            </td>
+                            <td colspan="2">
+                                &nbsp;
+                            </td>
+                        </tr>
   </table>                      
     <div id="dvProduct" runat="server">
     <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select MIS: "></asp:Label>
@@ -151,6 +185,9 @@
     <asp:LinkButton ID="lnkBtnFOLIOWISEAUM" Text="Customer/Folio Wise"  CssClass="LinkButtonsWithoutUnderLine"
         runat="server" ValidationGroup="vgBtnGo" onclick="lnkBtnFOLIOWISEAUM_Click"></asp:LinkButton>
 
+</div>
+<div>
+<br />
 </div>     
 
     <div id="dvOrganization" runat="server">

@@ -392,7 +392,7 @@ namespace WealthERP.BusinessMIS
                                         case "DVP":
                                             {
                                                 drGetAMCTransactionDeatails["DVPCount"] = dr["TrnsCount"].ToString();
-                                                drGetAMCTransactionDeatails["DVPCount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                drGetAMCTransactionDeatails["DVPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                                 break;
                                             }
                                         case "SIP":
@@ -423,6 +423,24 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetAMCTransactionDeatails["STSCount"] = dr["TrnsCount"].ToString();
                                                 drGetAMCTransactionDeatails["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWB":
+                                            {
+                                                drGetAMCTransactionDeatails["SWBCount"] = dr["TrnsCount"].ToString();
+                                                drGetAMCTransactionDeatails["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWP":
+                                            {
+                                                drGetAMCTransactionDeatails["SWPCount"] = dr["TrnsCount"].ToString();
+                                                drGetAMCTransactionDeatails["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWS":
+                                            {
+                                                drGetAMCTransactionDeatails["SWSCount"] = dr["TrnsCount"].ToString();
+                                                drGetAMCTransactionDeatails["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                                 break;
                                             }
                                         case "PRJ":
@@ -554,7 +572,7 @@ namespace WealthERP.BusinessMIS
                                         case "DVP":
                                             {
                                                 drGetSchemeTransactionDeatails["DVPCount"] = dr["TrnsCount"].ToString();
-                                                drGetSchemeTransactionDeatails["DVPCount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                drGetSchemeTransactionDeatails["DVPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                                 break;
                                             }
                                         case "SIP":
@@ -585,6 +603,24 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["STSCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWB":
+                                            {
+                                                drGetSchemeTransactionDeatails["SWBCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWP":
+                                            {
+                                                drGetSchemeTransactionDeatails["SWPCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWS":
+                                            {
+                                                drGetSchemeTransactionDeatails["SWSCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                                 break;
                                             }
                                         case "PRJ":
@@ -716,7 +752,7 @@ namespace WealthERP.BusinessMIS
                                         case "DVP":
                                             {
                                                 drGetFolioTransactionDeatails["DVPCount"] = dr["TrnsCount"].ToString();
-                                                drGetFolioTransactionDeatails["DVPCount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                drGetFolioTransactionDeatails["DVPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                                 break;
                                             }
                                         case "SIP":
@@ -747,6 +783,24 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetFolioTransactionDeatails["STSCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWB":
+                                            {
+                                                drGetFolioTransactionDeatails["SWBCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWP":
+                                            {
+                                                drGetFolioTransactionDeatails["SWPCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWS":
+                                            {
+                                                drGetFolioTransactionDeatails["SWSCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                                 break;
                                             }
                                         case "PRJ":
@@ -876,7 +930,7 @@ namespace WealthERP.BusinessMIS
                         case "DVP":
                             {
                                 drGetCategoryTransactionDeatails["DVPCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["DVPCount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                drGetCategoryTransactionDeatails["DVPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                 break;
                             }
                         case "SIP":
@@ -907,6 +961,24 @@ namespace WealthERP.BusinessMIS
                             {
                                 drGetCategoryTransactionDeatails["STSCount"] = dr["TrnsCount"].ToString();
                                 drGetCategoryTransactionDeatails["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                break;
+                            }
+                        case "SWB":
+                            {
+                                drGetCategoryTransactionDeatails["SWBCount"] = dr["TrnsCount"].ToString();
+                                drGetCategoryTransactionDeatails["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                break;
+                            }
+                        case "SWP":
+                            {
+                                drGetCategoryTransactionDeatails["SWPCount"] = dr["TrnsCount"].ToString();
+                                drGetCategoryTransactionDeatails["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                break;
+                            }
+                        case "SWS":
+                            {
+                                drGetCategoryTransactionDeatails["SWSCount"] = dr["TrnsCount"].ToString();
+                                drGetCategoryTransactionDeatails["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                 break;
                             }
                         case "PRJ":
@@ -1035,7 +1107,7 @@ namespace WealthERP.BusinessMIS
                                         case "DVP":
                                             {
                                                 drGetBranchTransactionDeatails["DVPCount"] = dr["TrnsCount"].ToString();
-                                                drGetBranchTransactionDeatails["DVPCount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                drGetBranchTransactionDeatails["DVPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                                 break;
                                             }
                                         case "SIP":
@@ -1066,6 +1138,24 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetBranchTransactionDeatails["STSCount"] = dr["TrnsCount"].ToString();
                                                 drGetBranchTransactionDeatails["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWB":
+                                            {
+                                                drGetBranchTransactionDeatails["SWBCount"] = dr["TrnsCount"].ToString();
+                                                drGetBranchTransactionDeatails["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWP":
+                                            {
+                                                drGetBranchTransactionDeatails["SWPCount"] = dr["TrnsCount"].ToString();
+                                                drGetBranchTransactionDeatails["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SWS":
+                                            {
+                                                drGetBranchTransactionDeatails["SWSCount"] = dr["TrnsCount"].ToString();
+                                                drGetBranchTransactionDeatails["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                                 break;
                                             }
                                         case "PRJ":
