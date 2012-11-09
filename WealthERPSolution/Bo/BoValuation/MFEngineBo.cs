@@ -819,7 +819,7 @@ namespace BoValuation
                 foreach (DataRow dr1 in dt.Rows)
                 {
                     double unitBalancereturnOld = double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString());
-                    dr1["CMFTB_UnitBalanceRETURN"] =Math.Round( (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) - (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * units),4);
+                    dr1["CMFTB_UnitBalanceRETURN"] =Math.Round( (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) - (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * units),10);
 
                     // if CMFTB_Id is null then this will get insert in Database with flag 1
                     // else It will update with flag 2
