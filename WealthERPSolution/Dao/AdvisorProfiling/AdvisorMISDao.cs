@@ -1339,7 +1339,7 @@ namespace DaoAdvisorProfiling
             }
             return dsFolioTransactionDeatails;
         }
-        public DataSet GetCategoryTransactionDeatails(int AdviserId)
+        public DataSet GetCategoryTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, string Category)
         {
             Database db;
             DbCommand GetCategoryTransactionDeatailsCmd;
@@ -1348,7 +1348,24 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetCategoryTransactionDeatailsCmd = db.GetStoredProcCommand("SP_GetCategoryWiseTransactionDetails");
+                db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@UserType", DbType.String, userType);
                 db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@all", DbType.Int32, all);
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    FromDate = DateTime.MinValue;
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@ToDate", DbType.DateTime, Todate);
+                else
+                    Todate = DateTime.MinValue;
+                if (!string.IsNullOrEmpty(Category))
+                    db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@Category", DbType.String, Category);
+                else
+                    db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@Category", DbType.String, DBNull.Value);
                 dsCategoryTransactionDeatails = db.ExecuteDataSet(GetCategoryTransactionDeatailsCmd);
             }
             catch (BaseApplicationException Ex)
