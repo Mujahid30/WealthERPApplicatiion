@@ -1721,9 +1721,12 @@ namespace WealthERP.Customer
 
         protected void gvBankDetails_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet dtGvBankDetails = new DataSet();
-            dtGvBankDetails = (DataSet)Cache["gvDetailsForBank" + userVo.UserId];
-            gvBankDetails.DataSource = dtGvBankDetails;
+            DataTable dtGvBankDetails = new DataTable();
+            if (Cache["gvDetailsForBank" + userVo.UserId] != null)
+            {
+                dtGvBankDetails = (DataTable)Cache["gvDetailsForBank" + userVo.UserId];
+                gvBankDetails.DataSource = dtGvBankDetails;
+            }
         }
         //Bank Details Functionality End
 
