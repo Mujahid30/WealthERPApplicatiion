@@ -60,27 +60,33 @@
         }
     }
 </script>
-<table width="100%">
-<tr>
-<td>
-<div class="divPageHeading">
-    <table cellspacing="0" cellpadding="3" width="100%">
-        <tr>
-        <td align="left">Upload History</td>
-            <td align="right">
-                <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
-                    class="flip" />
-               
-            </td>
-        </tr>
-    </table>
-</div>
-</td>
-</tr>
-</table>
 
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Upload History
+                        </td>
+                        <td align="right" style="width: 10px">
+                            <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
+                                class="flip" />
+                        </td>
+                        <td align="right" style="width: 10px">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
 <table width="100%" class="TableBackground">
-   <%-- <tr>
+    <%-- <tr>
         <td class="HeaderCell">
             <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
                 class="flip" />
@@ -150,9 +156,6 @@
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td>
-                <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                 <telerik:RadGrid ID="gvProcessLog" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
@@ -186,12 +189,12 @@
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                           <%-- <telerik:GridNumericColumn DataField="ADUL_ProcessId" HeaderText="Process Id" SortExpression="ADUL_ProcessId"
+                            <%-- <telerik:GridNumericColumn DataField="ADUL_ProcessId" HeaderText="Process Id" SortExpression="ADUL_ProcessId"
                                 UniqueName="ADUL_ProcessId" FilterControlWidth="40px" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                ShowFilterIcon="false">
                             </telerik:GridNumericColumn>--%>
                             <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="Process Id" UniqueName="ADUL_ProcessId"
-                              AllowFiltering="false">
+                                AllowFiltering="false">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="Actual FileName" UniqueName="ADUL_FileName"
