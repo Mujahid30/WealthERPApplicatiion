@@ -795,37 +795,65 @@ namespace WealthERP.CustomerPortfolio
                 customerAccountsVo.Name = txtInvestorName.Text;
 
                 //newly added fields for profile
-
+                if (!string.IsNullOrEmpty(txtPAddress1.Text))
                 customerAccountsVo.CAddress1 = txtPAddress1.Text;
+                if (!string.IsNullOrEmpty(txtPAddress2.Text))
                 customerAccountsVo.CAddress2 = txtPAddress2.Text;
+                if (!string.IsNullOrEmpty(txtPAddress3.Text))
                 customerAccountsVo.CAddress3 = txtPAddress3.Text;
+                if (!string.IsNullOrEmpty(txtPCity.Text))
                 customerAccountsVo.CCity = txtPCity.Text;
+                if(txtPPinCode.Text!="")
                 customerAccountsVo.CPinCode = int.Parse(txtPPinCode.Text);
+                if (!string.IsNullOrEmpty(txtCustJName1.Text))
                 customerAccountsVo.JointName1 = txtCustJName1.Text;
+                if (!string.IsNullOrEmpty(txtCustJName2.Text))
                 customerAccountsVo.JointName2 = txtCustJName2.Text;
+                if (txtCustPhNoOff.Text!="")
                 customerAccountsVo.CPhoneOffice = int.Parse(txtCustPhNoOff.Text);
+                if (txtCustPhNoRes.Text != "")
                 customerAccountsVo.CPhoneRes = int.Parse(txtCustPhNoRes.Text);
+                if (!string.IsNullOrEmpty(txtCustEmail.Text))
                 customerAccountsVo.CEmail = txtCustEmail.Text;
+                if(rdpDOB.SelectedDate!=null)
                 customerAccountsVo.CDOB = DateTime.Parse(rdpDOB.SelectedDate.ToString());
+                if (!string.IsNullOrEmpty(txtBLine1.Text))
                 customerAccountsVo.CMGCXP_BankAddress1 = txtBLine1.Text;
+                if (!string.IsNullOrEmpty(txtBLine2.Text))
                 customerAccountsVo.CMGCXP_BankAddress2 = txtBLine2.Text;
+                if (!string.IsNullOrEmpty(txtBLine3.Text))
                 customerAccountsVo.CMGCXP_BankAddress3 = txtBLine3.Text;
+                if (!string.IsNullOrEmpty(txtCity.Text))
                 customerAccountsVo.CMGCXP_BankCity = txtCity.Text;
+                if (!string.IsNullOrEmpty(txtPanNo.Text))
                 customerAccountsVo.PanNumber = txtPanNo.Text;
+                if (!string.IsNullOrEmpty(txtTaxStatus.Text))
                 customerAccountsVo.TaxStaus = txtTaxStatus.Text;
+                if (!string.IsNullOrEmpty(txtBrokerCode.Text))
                 customerAccountsVo.BrokerCode = txtBrokerCode.Text;
                 //CustomerBankAccountVo CustomerBankAccountVo = new CustomerBankAccountVo();
                 //added fields for bank details
+                if(ddlBankList.SelectedValue!="Select Bank")
                 customerAccountsVo.BankId = int.Parse(ddlBankList.SelectedValue);
+                if(ddlAccType.SelectedIndex!=-1)
                 customerAccountsVo.AccountType = ddlAccType.SelectedValue.ToString();
+                if(!string.IsNullOrEmpty(txtAccNo.Text))
                 customerAccountsVo.BankAccountNum = txtAccNo.Text;
+                if (ddlModeOfOpn.SelectedIndex != -1)
                 customerAccountsVo.ModeOfOperation = ddlModeOfOpn.SelectedValue.ToString();
+                if (!string.IsNullOrEmpty(txtBankName.Text))
                 customerAccountsVo.BankName = txtBankName.Text;
+                if (!string.IsNullOrEmpty(txtBranchName.Text))
                 customerAccountsVo.BranchName = txtBranchName.Text;
+                if (!string.IsNullOrEmpty(txtBLine1.Text))
                 customerAccountsVo.BranchAdrLine1 = txtBLine1.Text;
+                if (!string.IsNullOrEmpty(txtBLine2.Text))
                 customerAccountsVo.BranchAdrLine2 = txtBLine2.Text;
+                if (!string.IsNullOrEmpty(txtBLine3.Text))
                 customerAccountsVo.BranchAdrLine3 = txtBLine3.Text;
+                if (!string.IsNullOrEmpty(txtCity.Text))
                 customerAccountsVo.BranchAdrCity = txtCity.Text;
+                if(ddlBState.SelectedIndex!=-1)
                 customerAccountsVo.BranchAdrState = ddlBState.SelectedValue;
                 if(txtPinCode.Text!="")
                 customerAccountsVo.BranchAdrPinCode = int.Parse(txtPinCode.Text);
