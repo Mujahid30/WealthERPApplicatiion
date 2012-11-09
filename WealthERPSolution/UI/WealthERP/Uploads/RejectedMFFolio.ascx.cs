@@ -423,6 +423,7 @@ namespace WealthERP.Uploads
         protected void btnViewTran_Click(object sender, EventArgs e)
         {
             BindGrid(ProcessId);
+            divLobAdded.Visible = false;
         }
 
         protected void btnAddLob_Click(object sender, EventArgs e)
@@ -434,6 +435,8 @@ namespace WealthERP.Uploads
             string segment = "";
             string assetClass = "MF";
             string category = "INT";
+            bool lobAdded = false;
+
             try
             {
                 int i = 0;
@@ -453,7 +456,11 @@ namespace WealthERP.Uploads
                 advisorLOBVo.Identifier = strLob;
                 advisorLOBVo.ValidityDate = DateTime.Now.AddYears(2);
                 advisorLOBVo.LicenseNumber = "";
-                advisorLOBBo.AddLOBFromUploadScreen(advisorLOBVo, advisorId, userId);                
+                lobAdded=advisorLOBBo.AddLOBFromUploadScreen(advisorLOBVo, advisorId, userId);
+                if (lobAdded == true)
+                {
+                    divLobAdded.Visible = true;
+                }
             }              
             catch (BaseApplicationException Ex)
             {

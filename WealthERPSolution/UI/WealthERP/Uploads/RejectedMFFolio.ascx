@@ -178,14 +178,32 @@
         </tr>
     </table>
 </div>
-<div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
-    visible="false">
-    Reprocess successfully Completed
-</div>
-<div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
-    visible="false">
-    Reprocess Failed!
-</div>
+<table width="100%">
+    <tr align="center">
+        <td>
+            <div id="divLobAdded" runat="server" class="success-msg"
+                align="center" visible="false">
+                WERP Broker Code Added successfully
+            </div>
+        </td>
+    </tr>
+    <tr align="center">
+        <td>
+            <div id="msgReprocessComplete" runat="server" class="success-msg"
+                align="center" visible="false">
+                Reprocess successfully Completed
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <div id="msgReprocessincomplete" runat="server" class="failure-msg"
+                align="center" visible="false">
+                Reprocess Failed!
+            </div>
+        </td>
+    </tr>
+</table>
 <div>
     <asp:LinkButton ID="LinkInputRejects" runat="server" Text="View Input Rejects" CssClass="LinkButtons"
         OnClick="LinkInputRejects_Click"></asp:LinkButton>
@@ -199,8 +217,8 @@
         OnNeedDataSource="gvCAMSProfileReject_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView DataKeyNames="CMFFS_Id,CMFFS_MainStagingId,ADUL_ProcessId,CMFSS_BrokerCode" Width="100%"
-            AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+        <MasterTableView DataKeyNames="CMFFS_Id,CMFFS_MainStagingId,ADUL_ProcessId,CMFSS_BrokerCode"
+            Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn HeaderStyle-Width="80px" AllowFiltering="false" UniqueName="action"
                     DataField="action">

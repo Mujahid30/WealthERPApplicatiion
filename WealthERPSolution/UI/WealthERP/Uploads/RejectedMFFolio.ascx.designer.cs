@@ -35,6 +35,8 @@ namespace WealthERP.Uploads {
 
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divProfileMessage;
 
+
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLobAdded;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvCAMSProfileReject;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBtnActionSection;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
