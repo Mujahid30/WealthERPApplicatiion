@@ -918,13 +918,13 @@ namespace BoAdvisorProfiling
             return dsFolioTransactionDeatails;
         }
 
-        public DataSet GetCategoryTransactionDeatails(int AdviserId)
+        public DataSet GetCategoryTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,string Category)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsCategoryTransactionDeatails;
             try
             {
-                dsCategoryTransactionDeatails = MISDao.GetCategoryTransactionDeatails(AdviserId);
+                dsCategoryTransactionDeatails = MISDao.GetCategoryTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate,Category);
             }
             catch (BaseApplicationException Ex)
             {
