@@ -5030,7 +5030,7 @@ namespace WealthERP.Uploads
 
                     dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 20);
 
-                    string periodicity = dsXML.Tables[0].Rows[0]["periodicity"].ToString();
+                    //string periodicity = dsXML.Tables[0].Rows[0]["periodicity"].ToString();
                     //string periodday = dsXML.Tables[0].Rows[0]["period_day"].ToString();
                     //string[] periodArray =new string[0];
                     //periodArray = periodday.Split(',');
@@ -6868,7 +6868,7 @@ namespace WealthERP.Uploads
                                 int iterateColumn = 0;
                                 while (iterateColumn < ds.Tables[0].Columns.Count)
                                 {
-                                    if (ds.Tables[0].Columns[iterateColumn].ToString().Trim() == s.ToString().Trim())
+                                    if (ds.Tables[0].Columns[iterateColumn].ToString().Trim().ToLower()== s.ToString().Trim().ToLower())
                                     {
                                         count++;
                                         isValidFile = true;
