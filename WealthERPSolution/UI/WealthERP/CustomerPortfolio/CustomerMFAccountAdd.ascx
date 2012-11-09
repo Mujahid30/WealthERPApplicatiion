@@ -133,6 +133,10 @@
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
     Behaviors="Move,resize,close" Title="Inset New Policy">
     <ContentTemplate>
+        <div id="divForGuardian" style="width:75%;text-align:center; " runat="server" class="failure-msg" align="center"
+            visible="false">
+            Records not found
+        </div>
         <div style="padding: 20px">
             <telerik:RadGrid ID="gvGuardian" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
@@ -169,6 +173,9 @@
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
     Behaviors="Move,resize,close" Title="Inset New Policy">
     <ContentTemplate>
+        <div id="DivForNominee" style="width:75%;text-align:center; " runat="server" class="failure-msg" align="center" visible="false">
+            Records not found
+        </div>
         <div style="padding: 20px">
             <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
@@ -205,6 +212,9 @@
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
     Behaviors="Move,resize,close" Title="Inset New Policy">
     <ContentTemplate>
+        <div id="DivForJH" style="width:75%;text-align:center; " runat="server" class="failure-msg" align="center" visible="false">
+            Records not found
+        </div>
         <div style="padding: 20px">
             <telerik:RadGrid ID="gvJointHoldersList" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
@@ -256,15 +266,14 @@
         </td>
     </tr>
     <tr>
-       
     </tr>
 </table>
 <table width="100%" class="TableBackground">
     <tr>
-        <td style="width:300px" align="right">
+        <td style="width: 300px" align="right">
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name : "></asp:Label>
         </td>
-        <td colspan="4" style="width:50px">
+        <td colspan="4" style="width: 50px">
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
@@ -375,10 +384,10 @@
     </tr>
     <tr visible="false">
         <td class="leftField">
-            <asp:Label  visible="false" ID="Label25" runat="server" CssClass="FieldName" Text="Tax Status:"></asp:Label>
+            <asp:Label Visible="false" ID="Label25" runat="server" CssClass="FieldName" Text="Tax Status:"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
-            <asp:TextBox  visible="false" ID="txtTaxStatus" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox Visible="false" ID="txtTaxStatus" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -396,8 +405,8 @@
         </td>
         <td colspan="4">
             <asp:ImageButton OnClick="imgAddNominee_Click" ImageUrl="~/Images/user_add.png" runat="server"
-                ToolTip="Click here to Add Nominee" Height="15px"
-                Width="15px" ID="imgAddNominee" Text="AddNominee"></asp:ImageButton>
+                ToolTip="Click here to Add Nominee" Height="15px" Width="15px" ID="imgAddNominee"
+                Text="AddNominee"></asp:ImageButton>
         </td>
     </tr>
     <tr>
@@ -435,9 +444,8 @@
         </td>
         <td colspan="4">
             <asp:ImageButton OnClick="imgAddGuardian_Click" ID="imgAddGuardian" Text="AddGuardian"
-                runat="server" ImageUrl="~/Images/user_add.png" runat="server"
-                ToolTip="Click here to Add Nominee" Height="15px"
-                Width="15px"></asp:ImageButton>
+                runat="server" ImageUrl="~/Images/user_add.png" runat="server" ToolTip="Click here to Add Nominee"
+                Height="15px" Width="15px"></asp:ImageButton>
         </td>
     </tr>
     <tr>
@@ -455,9 +463,6 @@
                     <Columns>
                         <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="110px"
                             DataField="MemberCustomerId" HeaderText="Name" />
-                            
-                            
-                            
                         <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="50px"
                             DataField="AssociationId" HeaderText="Name" />
                         <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="100px" DataField="NAME"
@@ -478,9 +483,8 @@
         </td>
         <td colspan="4">
             <asp:ImageButton OnClick="imgAddJointHolder_Click" ID="imgAddJointHolder" Text="AddJTHolder"
-                runat="server" ImageUrl="~/Images/user_add.png" runat="server"
-                ToolTip="Click here to Add Nominee" Height="15px"
-                Width="15px"></asp:ImageButton>
+                runat="server" ImageUrl="~/Images/user_add.png" runat="server" ToolTip="Click here to Add Nominee"
+                Height="15px" Width="15px"></asp:ImageButton>
         </td>
     </tr>
     <tr>

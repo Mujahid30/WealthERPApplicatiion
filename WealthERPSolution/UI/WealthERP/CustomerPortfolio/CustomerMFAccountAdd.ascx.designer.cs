@@ -39,7 +39,6 @@ namespace WealthERP.CustomerPortfolio
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkEdit;
 
-
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAddJointHolder;
 
         /// <summary>
@@ -79,6 +78,11 @@ namespace WealthERP.CustomerPortfolio
         protected global::System.Web.UI.WebControls.DropDownList ddlProductAmc;
 
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBankDetails;
+
+
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divForGuardian;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivForNominee;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivForJH;
 
         /// <summary>
         /// cvProductAmc control.
@@ -239,6 +243,13 @@ namespace WealthERP.CustomerPortfolio
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnAddBank;
+
+        protected global::System.Web.UI.WebControls.Button btnAddMinor;
+            
+        protected global::System.Web.UI.WebControls.Button btnAddJointHolder;
+            
+        protected global::System.Web.UI.WebControls.Button btnAddNominee;
+
 
         protected global::System.Web.UI.WebControls.ImageButton imgAddNominee;
         protected global::System.Web.UI.WebControls.ImageButton imgAddGuardian;

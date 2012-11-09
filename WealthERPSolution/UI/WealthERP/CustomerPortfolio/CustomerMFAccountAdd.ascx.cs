@@ -594,6 +594,8 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
+                    btnAddMinor.Visible = false;
+                    divForGuardian.Visible = true;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -652,6 +654,8 @@ namespace WealthERP.CustomerPortfolio
                 {
                     //trJoint2Header.Visible = false;
                     //trJoint2HeaderGrid.Visible = true;
+                    btnAddNominee.Visible = false;
+                    DivForNominee.Visible = true;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -747,6 +751,8 @@ namespace WealthERP.CustomerPortfolio
                         {
                             //trJointHolders.Visible = false;
                             //trJointHoldersGrid.Visible = false;
+                            btnAddJointHolder.Visible = false;
+                            DivForJH.Visible = true;
                         }
                     }
                 }
