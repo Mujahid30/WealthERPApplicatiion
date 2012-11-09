@@ -381,7 +381,7 @@ namespace WealthERP.Uploads
             if (Request.QueryString["filetypeid"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RejectedWERPProfile','processId=" + ProcessId + "');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog');", true);
 
         }
 
@@ -448,7 +448,7 @@ namespace WealthERP.Uploads
                         strLob = Convert.ToString(gvCAMSProfileReject.MasterTableView.DataKeyValues[i]["CMFSS_BrokerCode"]);
                         break;
                     }
-
+                    i++;
                 }
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.IdentifierTypeCode = "ARN";
