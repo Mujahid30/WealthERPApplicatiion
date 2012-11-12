@@ -57,6 +57,7 @@ namespace WealthERP.BusinessMIS
 
         int AmcCode = 0;
         int SchemeCode = 0;
+        string type;
         
 
         protected void Page_Load(object sender, EventArgs e)
@@ -106,6 +107,25 @@ namespace WealthERP.BusinessMIS
                 vlndte = LatestValuationdate;
                 hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");
                 lblValDt.Text = vlndte.ToShortDateString();
+                if (Request.QueryString["action"] != null)
+                {
+                    type = Request.QueryString["action"].ToString();
+                    SetParameters();
+                    if (type == "SchemeWise")
+                    {
+                        txtDate.SelectedDate = Convert.ToDateTime(vlndte.ToShortDateString());
+                        showHideGrid("SchemeWise");
+                        BindSCHEMEWISEAUMDetails();
+                        lblMFMISType.Text = "SCHEME WISE AUM";
+                    }
+                    else if (type == "FolioWise")
+                    {
+                        txtDate.SelectedDate = Convert.ToDateTime(vlndte.ToShortDateString());
+                        showHideGrid("FolioWise");
+                        BindFOLIOWISEAUMDetails();
+                        lblMFMISType.Text = "FOLIO WISE AUM";
+                    }
+                }
             }
         }
 
