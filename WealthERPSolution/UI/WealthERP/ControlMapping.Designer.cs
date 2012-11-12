@@ -808,6 +808,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//CustomerExceptionHandling.ascx.
+        /// </summary>
+        internal static string CustomerExceptionHandling {
+            get {
+                return ResourceManager.GetString("CustomerExceptionHandling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//CustomerExpense.ascx.
         /// </summary>
         internal static string CustomerExpense {

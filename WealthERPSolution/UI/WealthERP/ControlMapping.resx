@@ -1465,4 +1465,8 @@
     <value>Customer//CustomerISAFolioMapping.ascx</value>
     <comment>Customer//CustomerISAFolioMapping.ascx</comment>
   </data>
+  <data name="CustomerExceptionHandling" xml:space="preserve">
+    <value>Advisor//CustomerExceptionHandling.ascx</value>
+    <comment>Advisor//CustomerExceptionHandling.ascx</comment>
+  </data>
 </root>
