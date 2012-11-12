@@ -82,7 +82,7 @@ namespace WealthERP.Customer
                     lblPanDuplicate.Visible = false;
                     btnGenerateISA.Visible = false;
                     trCustomerTypeSelection.Visible = false;
-                    BindBankDetails(customerVo.CustomerId);
+                   
                    
 
                     trExCustHeader.Visible = false;
@@ -279,14 +279,14 @@ namespace WealthERP.Customer
                     txtMotherMaidenName.Text = customerVo.MothersMaidenName;
                     BindBranchDropDown();
                     BindRelationshipDropDown();
-                    
-                }
-                BindFamilyAssociationList(customerVo.CustomerId);
-                if (ddlMemberBranch.SelectedIndex == 0)
-                {
                     txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                    BindFamilyAssociationList(customerVo.CustomerId);
+                    BindBankDetails(customerVo.CustomerId);
+                    
                 }
+               
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -1050,7 +1050,7 @@ namespace WealthERP.Customer
             }
             else
             {
-                txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtMember_autoCompleteExtender.ContextKey = ddlMemberBranch.SelectedValue.ToString();
                 txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
             }
 
