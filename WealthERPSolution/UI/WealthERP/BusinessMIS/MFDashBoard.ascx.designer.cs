@@ -104,6 +104,15 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.DataVisualization.Charting.Chart chrtScheme;
         
         /// <summary>
+        /// lnkSchemeNavi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkSchemeNavi;
+        
+        /// <summary>
         /// divBranch control.
         /// </summary>
         /// <remarks>
@@ -122,6 +131,15 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.DataVisualization.Charting.Chart chrtBranch;
         
         /// <summary>
+        /// lnkBranchNavi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBranchNavi;
+        
+        /// <summary>
         /// dvCustomer control.
         /// </summary>
         /// <remarks>
@@ -138,6 +156,15 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.DataVisualization.Charting.Chart chrtCustomer;
+        
+        /// <summary>
+        /// lnkFolioNavi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkFolioNavi;
         
         /// <summary>
         /// gvSubcategory control.

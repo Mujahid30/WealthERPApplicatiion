@@ -61,7 +61,7 @@
                                                             UniqueName="CurrentCount" DataFormatString="{0:N0}">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Yearly" HeaderText="Yearly" DataFormatString="{0:N0}"
+                                                        <telerik:GridBoundColumn DataField="Yearly" HeaderText="YTD" DataFormatString="{0:N0}"
                                                             AllowFiltering="false" UniqueName="Yearly" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
@@ -177,6 +177,9 @@
                     </ChartAreas>
                 </asp:Chart>
             </div>
+            <br />
+            <asp:LinkButton  ID="lnkSchemeNavi" Text=" >>More" runat="server"
+                            CssClass="LinkButtons" onclick="lnkSchemeNavi_Click"></asp:LinkButton>
         </td>
         <td style="width: 50%">
             <div id="divBranch" runat="server">
@@ -191,6 +194,9 @@
                         </asp:ChartArea>
                     </ChartAreas>
                 </asp:Chart>
+                <br />
+                <asp:LinkButton  ID="lnkBranchNavi" Text=" >>More" runat="server"
+                            CssClass="LinkButtons" onclick="lnkBranchNavi_Click"></asp:LinkButton>
             </div>
         </td>
     </tr>
@@ -220,6 +226,9 @@
                         </asp:ChartArea>
                     </ChartAreas>
                 </asp:Chart>
+                <br />
+                <asp:LinkButton  ID="lnkFolioNavi" Text=" >>More" runat="server"
+                            CssClass="LinkButtons" onclick="lnkFolioNavi_Click"></asp:LinkButton>
             </div>
         </td>
         <td style="width: 50%">

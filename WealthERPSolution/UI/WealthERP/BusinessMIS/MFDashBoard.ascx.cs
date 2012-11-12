@@ -282,5 +282,20 @@ namespace WealthERP.BusinessMIS
             /* END*/
         }
 
+        protected void lnkSchemeNavi_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MutualFundMIS", "loadcontrol('MutualFundMIS','action=SchemeWise');", true);
+        }
+
+        protected void lnkBranchNavi_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMainDashboardOld", "loadcontrol('IFAAdminMainDashboardOld');", true);
+        }
+
+        protected void lnkFolioNavi_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MutualFundMIS", "loadcontrol('MutualFundMIS','action=FolioWise');", true);
+        }
+
     }
 }
