@@ -6868,7 +6868,7 @@ namespace WealthERP.Uploads
                                 int iterateColumn = 0;
                                 while (iterateColumn < ds.Tables[0].Columns.Count)
                                 {
-                                    if (ds.Tables[0].Columns[iterateColumn].ToString().Trim().ToLower()== s.ToString().Trim().ToLower())
+                                    if (ds.Tables[0].Columns[iterateColumn].ToString().Trim().ToUpper() == s.ToString().Trim().ToUpper())
                                     {
                                         count++;
                                         isValidFile = true;
