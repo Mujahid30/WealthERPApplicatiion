@@ -363,12 +363,20 @@
 
     function HideAndShowStepBack2(val) {
         //in val u get dropdown list selected value
-        var ddlIndex = document.getElementById("<%= ddlStatusStage2.ClientID %>").selectedIndex;        
+        var ddlIndex = document.getElementById("<%= ddlStatusStage2.ClientID %>").selectedIndex;
         if (val == "PD") {
             document.getElementById("<%= ddlBackToStepStage2.ClientID %>").disabled = false;
+            document.getElementById("<%= ddlReasonStage2.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= lblReasonStage2.ClientID %>").style.visibility = 'visible';
+        }
+        else if (val == "DO") {
+        document.getElementById("<%= ddlReasonStage2.ClientID %>").style.visibility = 'collapse';
+        document.getElementById("<%= lblReasonStage2.ClientID %>").style.visibility = 'collapse';
         }
         else {
             document.getElementById("<%= ddlBackToStepStage2.ClientID %>").disabled = true;
+            document.getElementById("<%= ddlReasonStage2.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= lblReasonStage2.ClientID %>").style.visibility = 'visible';
         }
     }
     function HideAndShowStepBack3(val) {
@@ -377,9 +385,17 @@
         var ddlIndex = document.getElementById("<%= ddlStatusStage3.ClientID %>").selectedIndex;      
         if (val == "PD") {
             document.getElementById("<%= ddlBackToStepStage3.ClientID %>").disabled = false;
+            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'visible';
+        }
+        else if (val == "DO") {
+            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'collapse';
+            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'collapse';
         }
         else {
             document.getElementById("<%= ddlBackToStepStage3.ClientID %>").disabled = true;
+            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'visible';
         }
     }
 
@@ -389,11 +405,35 @@
 
         if (val == "PD") {
             document.getElementById("<%= ddlBackToStepStage4.ClientID %>").disabled = false;
+            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'visible';
+        }
+        else if (val == "DO") {
+            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'collapse';
+            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'collapse';
         }
         else {
             document.getElementById("<%= ddlBackToStepStage4.ClientID %>").disabled = true;
+            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'visible';
         }
     }
+</script>
+<script type="text/javascript">
+    function DisableStatusReason(val) {
+        var status = val;
+        if (status == "DO") {
+            document.getElementById("<%= lblReasonStage1.ClientID %>").style.visibility = 'collapse';
+            document.getElementById("<%= ddlReasonStage1.ClientID %>").style.visibility = 'collapse';
+         }
+        else {
+            document.getElementById("<%= lblReasonStage1.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= ddlReasonStage1.ClientID %>").style.visibility = 'visible';
+ 
+        }
+
+    }   
+
 </script>
 
 <script type="text/javascript">
@@ -934,7 +974,7 @@
                     <asp:Label ID="lblStatusStage1" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td align="left">
-                    <asp:DropDownList ID="ddlStatusStage1" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddlStatusStage1" runat="server" CssClass="cmbField" onchange="DisableStatusReason(this.options[this.selectedIndex].value);">
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvddlStatusStage1" runat="server" CssClass="rfvPCG"
