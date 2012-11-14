@@ -48,7 +48,7 @@
 <div class="divPageHeading">
     <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
-        <td align="left">Mutual Fund MIS</td>
+        <td align="left">Mutual Fund AUM MIS</td>
         <td  align="right">
                         <asp:ImageButton ID="imgBtnGvFolioWiseAUM" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnGvFolioWiseAUM_OnClick"
@@ -133,7 +133,7 @@
             AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn HeaderStyle-Width="50px" AllowFiltering="false" UniqueName="action"
-                    DataField="action">
+                    DataField="action" FooterText="Grand Total:">
                     <ItemTemplate>
                         <asp:LinkButton runat="server" CommandName="Select" Text="Details" ItemStyle-Width="12px" />
                     </ItemTemplate>
@@ -144,14 +144,16 @@
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderText="AUM" HeaderStyle-Width="150px" DataField="AUM"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="AUM %" DataField="Percentage"
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="AUM %" DataField="Percentage" 
+                HeaderStyle-HorizontalAlign="Center"
                     UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
-                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    DataFormatString="{0:N2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" >
+                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
             </Columns>
         </MasterTableView>
@@ -175,7 +177,7 @@
             AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn HeaderStyle-Width="50px" AllowFiltering="false" UniqueName="action"
-                    DataField="action">
+                    DataField="action" FooterText="Grand Total:">
                     <ItemTemplate>
                         <asp:LinkButton ID="LinkButton1" CommandName="Select" runat="server" Text="Details"
                             ItemStyle-Width="12px" />
@@ -217,22 +219,25 @@
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Curr NAV" DataField="MarketPrice"
                     UniqueName="MarketPrice" SortExpression="MarketPrice" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Units" DataField="Units"
                     UniqueName="Units" SortExpression="Units" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                    DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="AUM" DataField="AUM"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="AUM %" DataField="Percentage"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
-                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    DataFormatString="{0:N2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
             </Columns>
         </MasterTableView>
@@ -255,7 +260,7 @@
             AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn HeaderStyle-Width="50px" AllowFiltering="false" UniqueName="action"
-                    DataField="action">
+                    DataField="action" FooterText="Grand Total:">
                     <ItemTemplate>
                         <asp:LinkButton ID="LinkButton1" CommandName="Select" runat="server" Text="Details"
                             ItemStyle-Width="12px" />
@@ -287,18 +292,21 @@
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderText="Units" HeaderStyle-Width="100px" DataField="Units"
                     UniqueName="Units" SortExpression="Units" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                    DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="AUM" DataField="AUM"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                     HeaderStyle-HorizontalAlign="Center" UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="AUM %" DataField="Percentage"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
-                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    DataFormatString="{0:N2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
             </Columns>
         </MasterTableView>
