@@ -141,20 +141,32 @@ namespace WealthERP.Customer
                 btnExportFilteredData.Visible = false;
             }
         }
-        protected void ddlAction_OnSelectedIndexChange(object sender, EventArgs e)
+        
+        protected void LnkRQ_Click(object sender, EventArgs e)
         {
-            RadComboBox ddlAction = (RadComboBox)sender;
-            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "Page_ClientValidate();Loading(true);", true); 
-            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-            int selectedRow = gvr.ItemIndex + 1;
-            int requestId = int.Parse(gvISArequest.MasterTableView.DataKeyValues[selectedRow - 1]["AISAQ_RequestQueueid"].ToString());
+            GridDataItem gvRow = ((GridDataItem)(((LinkButton)sender).Parent.Parent));
+
+            int selectedRow = gvRow.ItemIndex + 1;
+          int requestId = int.Parse(gvISArequest.MasterTableView.DataKeyValues[selectedRow - 1]["AISAQ_RequestQueueid"].ToString());
             string statusCode = gvISArequest.MasterTableView.DataKeyValues[selectedRow - 1]["StatusCode"].ToString();
             string stepCode = gvISArequest.MasterTableView.DataKeyValues[selectedRow - 1]["WWFSM_StepCode"].ToString();
-            if (ddlAction.SelectedValue == "View")
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GenerateISA", "loadcontrol('CustomerISARequest','?RequestId=" + requestId + "&stepCode=" + stepCode + "&statusCode=" + statusCode + "');", true);
-            }
-
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GenerateISA", "loadcontrol('CustomerISARequest','?RequestId=" + requestId + "&stepCode=" + stepCode + "&statusCode=" + statusCode + "');", true);
         }
+        //protected void ddlAction_OnSelectedIndexChange(object sender, EventArgs e)
+        //{
+        //    RadComboBox ddlAction = (RadComboBox)sender;
+        //    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "Page_ClientValidate();Loading(true);", true); 
+        //    GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+        //    int selectedRow = gvr.ItemIndex + 1;
+        //    int requestId = int.Parse(gvISArequest.MasterTableView.DataKeyValues[selectedRow - 1]["AISAQ_RequestQueueid"].ToString());
+        //    string statusCode = gvISArequest.MasterTableView.DataKeyValues[selectedRow - 1]["StatusCode"].ToString();
+        //    string stepCode = gvISArequest.MasterTableView.DataKeyValues[selectedRow - 1]["WWFSM_StepCode"].ToString();
+        //    if (ddlAction.SelectedValue == "View")
+        //    {
+        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GenerateISA", "loadcontrol('CustomerISARequest','?RequestId=" + requestId + "&stepCode=" + stepCode + "&statusCode=" + statusCode + "');", true);
+        //    }
+
+        //}
+        
     }
 }
