@@ -385,17 +385,17 @@
         var ddlIndex = document.getElementById("<%= ddlStatusStage3.ClientID %>").selectedIndex;      
         if (val == "PD") {
             document.getElementById("<%= ddlBackToStepStage3.ClientID %>").disabled = false;
-            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= ddlStatusReason3.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= lblStatusReason3.ClientID %>").style.visibility = 'visible';
         }
         else if (val == "DO") {
-            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'collapse';
-            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'collapse';
+        document.getElementById("<%= ddlStatusReason3.ClientID %>").style.visibility = 'collapse';
+        document.getElementById("<%= lblStatusReason3.ClientID %>").style.visibility = 'collapse';
         }
         else {
             document.getElementById("<%= ddlBackToStepStage3.ClientID %>").disabled = true;
-            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= ddlStatusReason3.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= lblStatusReason3.ClientID %>").style.visibility = 'visible';
         }
     }
 
@@ -405,17 +405,17 @@
 
         if (val == "PD") {
             document.getElementById("<%= ddlBackToStepStage4.ClientID %>").disabled = false;
-            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= ddlReasonStage4.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= lblReasonStage4.ClientID %>").style.visibility = 'visible';
         }
         else if (val == "DO") {
-            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'collapse';
-            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'collapse';
+        document.getElementById("<%= ddlReasonStage4.ClientID %>").style.visibility = 'collapse';
+        document.getElementById("<%= lblReasonStage4.ClientID %>").style.visibility = 'collapse';
         }
         else {
             document.getElementById("<%= ddlBackToStepStage4.ClientID %>").disabled = true;
-            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= lblReasonStage3.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= ddlReasonStage4.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= lblReasonStage4.ClientID %>").style.visibility = 'visible';
         }
     }
 </script>
