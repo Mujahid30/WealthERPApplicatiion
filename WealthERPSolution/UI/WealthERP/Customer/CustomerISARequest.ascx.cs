@@ -96,6 +96,7 @@ namespace WealthERP.Customer
                 txtMobileNum.Enabled = false;
                 txtEmailID.Text = customerVo.Email;
                 txtEmailID.Enabled = false;
+                trCustomerNameDetails.Visible = false;
             }
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch", " HideCustomerSearch();", true);
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " GetVerificationType('Normal');", true);

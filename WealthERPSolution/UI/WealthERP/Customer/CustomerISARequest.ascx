@@ -370,8 +370,8 @@
             document.getElementById("<%= lblReasonStage2.ClientID %>").style.visibility = 'visible';
         }
         else if (val == "DO") {
-        document.getElementById("<%= ddlReasonStage2.ClientID %>").style.visibility = 'collapse';
-        document.getElementById("<%= lblReasonStage2.ClientID %>").style.visibility = 'collapse';
+            document.getElementById("<%= ddlReasonStage2.ClientID %>").style.visibility = 'collapse';
+            document.getElementById("<%= lblReasonStage2.ClientID %>").style.visibility = 'collapse';
         }
         else {
             document.getElementById("<%= ddlBackToStepStage2.ClientID %>").disabled = true;
@@ -382,15 +382,15 @@
     function HideAndShowStepBack3(val) {
         //in val u get dropdown list selected value
 
-        var ddlIndex = document.getElementById("<%= ddlStatusStage3.ClientID %>").selectedIndex;      
+        var ddlIndex = document.getElementById("<%= ddlStatusStage3.ClientID %>").selectedIndex;
         if (val == "PD") {
             document.getElementById("<%= ddlBackToStepStage3.ClientID %>").disabled = false;
             document.getElementById("<%= ddlStatusReason3.ClientID %>").style.visibility = 'visible';
             document.getElementById("<%= lblStatusReason3.ClientID %>").style.visibility = 'visible';
         }
         else if (val == "DO") {
-        document.getElementById("<%= ddlStatusReason3.ClientID %>").style.visibility = 'collapse';
-        document.getElementById("<%= lblStatusReason3.ClientID %>").style.visibility = 'collapse';
+            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'collapse';
+            document.getElementById("<%= lblStatusReason3.ClientID %>").style.visibility = 'collapse';
         }
         else {
             document.getElementById("<%= ddlBackToStepStage3.ClientID %>").disabled = true;
@@ -409,8 +409,8 @@
             document.getElementById("<%= lblReasonStage4.ClientID %>").style.visibility = 'visible';
         }
         else if (val == "DO") {
-        document.getElementById("<%= ddlReasonStage4.ClientID %>").style.visibility = 'collapse';
-        document.getElementById("<%= lblReasonStage4.ClientID %>").style.visibility = 'collapse';
+            document.getElementById("<%= ddlReasonStage4.ClientID %>").style.visibility = 'collapse';
+            document.getElementById("<%= lblReasonStage4.ClientID %>").style.visibility = 'collapse';
         }
         else {
             document.getElementById("<%= ddlBackToStepStage4.ClientID %>").disabled = true;
@@ -425,11 +425,11 @@
         if (status == "DO") {
             document.getElementById("<%= lblReasonStage1.ClientID %>").style.visibility = 'collapse';
             document.getElementById("<%= ddlReasonStage1.ClientID %>").style.visibility = 'collapse';
-         }
+        }
         else {
             document.getElementById("<%= lblReasonStage1.ClientID %>").style.visibility = 'visible';
             document.getElementById("<%= ddlReasonStage1.ClientID %>").style.visibility = 'visible';
- 
+
         }
 
     }   
