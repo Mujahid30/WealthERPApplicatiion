@@ -674,6 +674,8 @@ namespace WealthERP.BusinessMIS
             DataTable dtGetFolioTransactionDeatails = new DataTable();
 
             dtGetFolioTransactionDeatails.Columns.Add("Customer");
+            dtGetFolioTransactionDeatails.Columns.Add("BranchName");
+            dtGetFolioTransactionDeatails.Columns.Add("RMName");
             dtGetFolioTransactionDeatails.Columns.Add("Folio");
             dtGetFolioTransactionDeatails.Columns.Add("BUYCount");
             dtGetFolioTransactionDeatails.Columns.Add("BUYAmount");
@@ -722,6 +724,8 @@ namespace WealthERP.BusinessMIS
                             drTransactionFolioWise = dtGetFolioTransaction.Select("CMFA_AccountId=" + AcountId.ToString());
                             //drGetSchemeTransactionDeatails["PA_AMCName"] = drAMCTransaction["PA_AMCName"].ToString();
                             drGetFolioTransactionDeatails["Customer"] = drFolioTransaction["CustomerName"].ToString();
+                            drGetFolioTransactionDeatails["BranchName"] = drFolioTransaction["AB_BranchName"].ToString();
+                            drGetFolioTransactionDeatails["RMName"] = drFolioTransaction["RmName"].ToString();
                             drGetFolioTransactionDeatails["Folio"] = drFolioTransaction["CMFA_FolioNum"].ToString();
                             if (drTransactionFolioWise.Count() > 0)
                             {

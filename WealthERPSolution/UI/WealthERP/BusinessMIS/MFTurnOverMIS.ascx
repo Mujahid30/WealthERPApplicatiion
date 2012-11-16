@@ -89,7 +89,7 @@
 
 <tr>
                             <td align="right" valign="top">
-                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type :"></asp:Label>
+                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:"></asp:Label>
                             </td>
                             <td align="left" colspan="3">
                                 <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
@@ -120,7 +120,7 @@
                                 </telerik:RadDatePicker>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFromDate"
                                     CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
-                                    runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
+                                    runat="server" InitialValue="" ValidationGroup="vgBtnGo"> </asp:RequiredFieldValidator>
                             </td>
                             
                             <td>
@@ -141,10 +141,10 @@
                                 </telerik:RadDatePicker>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToDate"
                                     CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
-                                    runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
+                                    runat="server" InitialValue="" ValidationGroup="vgBtnGo"> </asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="To Date should not be less than From Date"
                                     Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
-                                    CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
+                                    CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgBtnGo"></asp:CompareValidator>
                             </td>
                         </tr>
 
@@ -159,7 +159,7 @@
                                 <br />
                                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPeriod"
                                     CssClass="rfvPCG" ErrorMessage="Please select a Period" Operator="NotEqual" ValueToCompare="Select a Period"
-                                    ValidationGroup="btnGo"> </asp:CompareValidator>
+                                    ValidationGroup="vgBtnGo"> </asp:CompareValidator>
                             </td>
                             <td>
                             &nbsp;&nbsp;
@@ -235,23 +235,23 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Buy Count"  DataField="BUYCount"
+                <telerik:GridBoundColumn HeaderText="Purchage Transaction"  DataField="BUYCount"
                     UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Buy Amount" DataField="BUYAmount" DataFormatString="{0:N0}"
+                <telerik:GridBoundColumn  HeaderText="Purchage Amount" DataField="BUYAmount" DataFormatString="{0:N0}"
                     UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="SEL Count"  DataField="SELCount"
+                 <telerik:GridBoundColumn HeaderText="Sell Transaction"  DataField="SELCount"
                     UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SEL Amount" DataField="SELAmount" DataFormatString="{0:N0}"
+                <telerik:GridBoundColumn  HeaderText="Sell Amount" DataField="SELAmount" DataFormatString="{0:N0}"
                     UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -425,23 +425,23 @@
                     UniqueName="ExternalCode" SortExpression="ExternalCode" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Buy Count"  DataField="BUYCount"
+                <telerik:GridBoundColumn HeaderText="Purchase Transaction"  DataField="BUYCount"
                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Buy Amount" DataField="BUYAmount"
+                <telerik:GridBoundColumn  HeaderText="Purchase Amount" DataField="BUYAmount"
                     UniqueName="BUYAmount" DataFormatString="{0:N0}" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="SEL Count"  DataField="SELCount"
+                 <telerik:GridBoundColumn HeaderText="Sell Transaction"  DataField="SELCount"
                     UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SEL Amount" DataField="SELAmount"
+                <telerik:GridBoundColumn  HeaderText="Sell Amount" DataField="SELAmount"
                     UniqueName="SELAmount" DataFormatString="{0:N0}" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -610,23 +610,23 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Buy Count"  DataField="BUYCount"
+                <telerik:GridBoundColumn HeaderText="Purchase Transaction"  DataField="BUYCount"
                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Buy Amount" DataField="BUYAmount"
+                <telerik:GridBoundColumn  HeaderText="Purchase Amount" DataField="BUYAmount"
                     UniqueName="BUYAmount" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="SEL Count"  DataField="SELCount"
+                 <telerik:GridBoundColumn HeaderText="Sell Transaction"  DataField="SELCount"
                     UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SEL Amount" DataField="SELAmount"
+                <telerik:GridBoundColumn  HeaderText="Sell Amount" DataField="SELAmount"
                     UniqueName="SELAmount" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -795,28 +795,38 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderText="Branch"  DataField="BranchName"
+                    UniqueName="BranchName" SortExpression="BranchName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderText="RM"  DataField="RMName"
+                    UniqueName="RMName" SortExpression="RMName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderText="Folio"  DataField="Folio"
                     UniqueName="Folio" SortExpression="Folio" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Buy Count"  DataField="BUYCount"
+                <telerik:GridBoundColumn HeaderText="Purchase Transaction"  DataField="BUYCount"
                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Buy Amount" DataField="BUYAmount"
+                <telerik:GridBoundColumn  HeaderText="Purchase Amount" DataField="BUYAmount"
                     UniqueName="BUYAmount" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="SEL Count"  DataField="SELCount"
+                 <telerik:GridBoundColumn HeaderText="Sell Transaction"  DataField="SELCount"
                     UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SEL Amount" DataField="SELAmount"
+                <telerik:GridBoundColumn  HeaderText="Sell Amount" DataField="SELAmount"
                     UniqueName="SELAmount" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -990,23 +1000,23 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Buy Count"  DataField="BUYCount"
+                <telerik:GridBoundColumn HeaderText="Purchase Transaction"  DataField="BUYCount"
                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Buy Amount" DataField="BUYAmount"
+                <telerik:GridBoundColumn  HeaderText="Purchase Amount" DataField="BUYAmount"
                     UniqueName="BUYAmount" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="SEL Count"  DataField="SELCount"
+                 <telerik:GridBoundColumn HeaderText="Sell Transaction"  DataField="SELCount"
                     UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SEL Amount" DataField="SELAmount"
+                <telerik:GridBoundColumn  HeaderText="Sell Amount" DataField="SELAmount"
                     UniqueName="SELAmount" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
