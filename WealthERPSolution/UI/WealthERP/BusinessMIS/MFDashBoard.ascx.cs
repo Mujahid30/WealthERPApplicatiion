@@ -77,7 +77,7 @@ namespace WealthERP.BusinessMIS
                     chrtScheme.Legends.Clear();
                     chrtScheme.Legends.Add(legend);
                     chrtScheme.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
-                    //chrtScheme.Legends["AssetsLegend"].Title = "Top 5 Scheme";
+                    chrtScheme.Legends["AssetsLegend"].Title = "Top 5 Scheme";
                     chrtScheme.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
                     chrtScheme.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
                     chrtScheme.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
@@ -152,7 +152,7 @@ namespace WealthERP.BusinessMIS
                     chrtBranch.Legends.Clear();
                     chrtBranch.Legends.Add(legend);
                     chrtBranch.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
-                    //chrtBranch.Legends["AssetsLegend"].Title = "Top 5 Branches";
+                    chrtBranch.Legends["AssetsLegend"].Title = "Top 5 Branches";
                     chrtBranch.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
                     chrtBranch.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
                     chrtBranch.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;

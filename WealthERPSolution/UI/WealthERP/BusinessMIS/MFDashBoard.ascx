@@ -53,20 +53,20 @@
                                                             SortExpression="Type">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="PreviousCount" HeaderText="Previous Month" AllowFiltering="false"
-                                                            UniqueName="PreviousCount" DataFormatString="{0:N0}">
-                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <telerik:GridBoundColumn DataField="PreviousCount" HeaderText="Oct" AllowFiltering="false"
+                                                           HeaderStyle-HorizontalAlign="Right" UniqueName="PreviousCount" DataFormatString="{0:N0}">
+                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="CurrentCount" HeaderText="Current Month" AllowFiltering="false"
-                                                            UniqueName="CurrentCount" DataFormatString="{0:N0}">
+                                                        <telerik:GridBoundColumn DataField="CurrentCount" HeaderText="Nov" AllowFiltering="false"
+                                                          HeaderStyle-HorizontalAlign="Right"  UniqueName="CurrentCount" DataFormatString="{0:N0}">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Yearly" HeaderText="YTD" DataFormatString="{0:N0}"
-                                                            AllowFiltering="false" UniqueName="Yearly" FooterStyle-HorizontalAlign="Right">
+                                                          HeaderStyle-HorizontalAlign="Right"  AllowFiltering="false" UniqueName="Yearly" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Total" HeaderText="Total" DataFormatString="{0:N0}"
-                                                            AllowFiltering="false" UniqueName="Total" FooterStyle-HorizontalAlign="Right">
+                                                          HeaderStyle-HorizontalAlign="Right"  AllowFiltering="false" UniqueName="Total" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
@@ -112,23 +112,23 @@
                                                     CommandItemDisplay="None">
                                                     <Columns>
                                                         <telerik:GridBoundColumn DataField="Type" HeaderText="Business" UniqueName="Type"
-                                                            SortExpression="Type">
+                                                            SortExpression="Type" >
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="CostPrevious" HeaderText="Previous Month" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn DataField="CostPrevious" HeaderText="Oct" AllowFiltering="false" HeaderStyle-HorizontalAlign="Right"
                                                             UniqueName="CostPrevious" DataFormatString="{0:N0}">
-                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="CostCurrent" HeaderText="Current Month" AllowFiltering="false"
-                                                            UniqueName="CostCurrent" DataFormatString="{0:N0}">
+                                                        <telerik:GridBoundColumn DataField="CostCurrent" HeaderText="Nov" AllowFiltering="false"
+                                                            HeaderStyle-HorizontalAlign="Right" UniqueName="CostCurrent" DataFormatString="{0:N0}">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CostYear" HeaderText="YTD" DataFormatString="{0:N0}"
-                                                            AllowFiltering="false" UniqueName="CostYear" FooterStyle-HorizontalAlign="Right">
+                                                           HeaderStyle-HorizontalAlign="Right"  AllowFiltering="false" UniqueName="CostYear" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CostTotal" HeaderText="Total" DataFormatString="{0:N0}"
-                                                            AllowFiltering="false" UniqueName="CostTotal" FooterStyle-HorizontalAlign="Right">
+                                                            HeaderStyle-HorizontalAlign="Right" AllowFiltering="false" UniqueName="CostTotal" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
@@ -245,11 +245,11 @@
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="SubCategory" HeaderText="SubCategory" UniqueName="SubCategory"
                                             SortExpression="SubCategory">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="60%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="AUM" HeaderText="AUM" AllowFiltering="false"
-                                            UniqueName="AUM">
-                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        <telerik:GridBoundColumn DataField="AUM" HeaderText="AUM" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
+                                            UniqueName="AUM" DataFormatString="{0:N0}">
+                                            <ItemStyle Width="40%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                     </Columns>
                                 </MasterTableView>
