@@ -2560,6 +2560,21 @@ namespace BoCustomerProfiling
             }
             return dtCustomerISAAccountList;
         }
-      
+
+
+        public bool UpdateMemberRelation(int AssociationId, string relationCode)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            bool isEdited = false;
+            try
+            {
+                isEdited = customerDao.UpdateMemberRelation(AssociationId, relationCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isEdited;   
+        }
     }
 }
