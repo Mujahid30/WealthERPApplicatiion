@@ -144,7 +144,7 @@
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderText="AUM" HeaderStyle-Width="150px" DataField="AUM"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -228,7 +228,7 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="AUM" DataField="AUM"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
