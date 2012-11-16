@@ -4760,5 +4760,26 @@ namespace DaoCustomerProfiling
             return customerId;
 
         }
+
+        public bool UpdateMemberRelation(int AssociationId, string relationCode)
+        {
+            bool isEdited = false;
+            Database db;
+            DbCommand updateMemberRelationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateMemberRelationCmd = db.GetStoredProcCommand("SP_UpdateMemberRelationShip");
+                db.AddInParameter(updateMemberRelationCmd, "@associationId", DbType.Int32, AssociationId);
+                db.AddInParameter(updateMemberRelationCmd, "@relationCode", DbType.String, relationCode);
+                if (db.ExecuteNonQuery(updateMemberRelationCmd) != 0)
+                    isEdited = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isEdited;
+        }
     }
 }
