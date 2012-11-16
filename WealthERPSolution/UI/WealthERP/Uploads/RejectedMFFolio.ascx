@@ -181,24 +181,23 @@
 <table width="100%">
     <tr align="center">
         <td>
-            <div id="divLobAdded" runat="server" class="success-msg"
-                align="center" visible="false">
+            <div id="divLobAdded" runat="server" class="success-msg" align="center" visible="false">
                 WERP Broker Code Added successfully
             </div>
         </td>
     </tr>
     <tr align="center">
         <td>
-            <div id="msgReprocessComplete" runat="server" class="success-msg"
-                align="center" visible="false">
+            <div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
+                visible="false">
                 Reprocess successfully Completed
             </div>
         </td>
     </tr>
     <tr>
         <td align="center">
-            <div id="msgReprocessincomplete" runat="server" class="failure-msg"
-                align="center" visible="false">
+            <div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
+                visible="false">
                 Reprocess Failed!
             </div>
         </td>
@@ -217,7 +216,7 @@
         OnNeedDataSource="gvCAMSProfileReject_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView DataKeyNames="CMFFS_Id,CMFFS_MainStagingId,ADUL_ProcessId,CMFSS_BrokerCode"
+        <MasterTableView DataKeyNames="CMFFS_Id,CMFFS_MainStagingId,ADUL_ProcessId,CMFSS_BrokerCode,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
             Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn HeaderStyle-Width="80px" AllowFiltering="false" UniqueName="action"
@@ -241,6 +240,19 @@
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="322px" HeaderText="WUXFT_XMLFileTypeId"
+                    DataField="WUXFT_XMLFileTypeId" UniqueName="WUXFT_XMLFileTypeId" SortExpression="WUXFT_XMLFileTypeId"
+                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="322px" HeaderText="XUET_ExtractTypeCode"
+                    DataField="XUET_ExtractTypeCode" UniqueName="XUET_ExtractTypeCode" SortExpression="XUET_ExtractTypeCode"
+                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                
                 <telerik:GridBoundColumn HeaderText="ProcessId" HeaderStyle-Width="100px" DataField="ADUL_ProcessId"
                     UniqueName="ProcessId" SortExpression="ProcessId" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -314,15 +326,15 @@
     </telerik:RadGrid>
 </div>
 <div runat="server" id="divBtnActionSection" visible="false">
-    <asp:Button Visible="false" ID="btnReprocess" OnClick="btnReprocess_Click" runat="server"
-        Text="Reprocess" CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedMFFolio_btnReprocess','L');"
+    <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
+        CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedMFFolio_btnReprocess','L');"
         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedMFFolio_btnReprocess','L');" />
     <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
         OnClientClick="return ShowPopup()" />
     <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" OnClick="btnDelete_Click"
         Text="Delete Records" />
-    <asp:Button ID="btnAddLob" runat="server" CssClass="PCGLongButton" OnClick="btnAddLob_Click"
-        Text="Add Broker Code" />
+    <asp:Button ID="btnAddLob" OnClientClick="return ShowPopup()" runat="server" CssClass="PCGLongButton"
+        OnClick="btnAddLob_Click" Text="Add Broker Code" />
     <br />
 </div>
 <div id="divProfileMessage" runat="server" visible="false" class="message">
