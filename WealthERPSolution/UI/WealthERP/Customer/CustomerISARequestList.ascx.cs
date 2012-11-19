@@ -33,6 +33,7 @@ namespace WealthERP.Customer
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         RMVo rmVo = new RMVo();
         string currentUserRole = string.Empty;
+        string userrole = "adviser";
   
 
         protected void Page_Load(object sender, EventArgs e)
@@ -215,6 +216,7 @@ namespace WealthERP.Customer
                 }
                 gvISArequest.DataSource = dt;
                 gvISArequest.DataBind();
+                gvISArequest.Visible = true;
 
                 if (Cache["IsaRequestDetails + '" + advisorVo.advisorId + "'"] == null)
                 {
