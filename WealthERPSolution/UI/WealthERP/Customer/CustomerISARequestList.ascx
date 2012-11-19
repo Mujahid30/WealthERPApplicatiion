@@ -22,13 +22,6 @@
             </div>
         </td>
     </tr>
-    <tr id="trErrorMessage" align="center" style="width: 100%" runat="server">
-        <td align="center" style="width: 100%">
-            <div class="failure-msg" style="text-align: center" align="center">
-                No ISAQueue Records found!!!!
-            </div>
-        </td>
-    </tr>
     <tr>
         <td>
             <asp:Label ID="lblbranch" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName"
@@ -36,6 +29,13 @@
             <asp:DropDownList ID="ddlBMBranch" runat="server" OnSelectedIndexChanged="ddlBMBranch_SelectedIndexChanged"
                 CssClass="cmbField" Style="vertical-align: middle" AutoPostBack="true">
             </asp:DropDownList>
+        </td>
+    </tr>
+    <tr id="trErrorMessage" align="center" style="width: 100%" runat="server">
+        <td align="center" style="width: 100%">
+            <div class="failure-msg" style="text-align: center" align="center">
+                No ISAQueue Records found!!!!
+            </div>
         </td>
     </tr>
     <tr>
@@ -60,8 +60,8 @@
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="false" HeaderStyle-Width="90px"
-                            HeaderText="Customer Name">
+                        <telerik:GridBoundColumn DataField="CustomerName"  AllowFiltering="true" HeaderStyle-Width="90px"
+                            HeaderText="Customer Name" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="AISAQ_date" AllowFiltering="false" HeaderStyle-Width="70px"
