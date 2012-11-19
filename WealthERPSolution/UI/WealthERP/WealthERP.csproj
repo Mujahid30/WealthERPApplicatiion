@@ -114,11 +114,6 @@
     <Reference Include="VoWerpAdmin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\Download.ascx" />
-    <Content Include="Admin\Maintenance.ascx" />
-    <Content Include="Admin\Mapping.ascx" />
-    <Content Include="Admin\PriceList.ascx" />
-    <Content Include="Admin\Upload.ascx" />
     <Content Include="Advisor\AddBranch.ascx" />
     <Content Include="Advisor\AddLOB.ascx" />
     <Content Include="Advisor\AdviserRMCustNonIndiDashboard.ascx" />
@@ -456,111 +451,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\Download.ascx.cs">
-      <DependentUpon>Download.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Download.ascx.designer.cs">
-      <DependentUpon>Download.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\GoldPriceList.ascx.cs">
-      <DependentUpon>GoldPriceList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\GoldPriceList.ascx.designer.cs">
-      <DependentUpon>GoldPriceList.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\InfoLinks.ascx.cs">
-      <DependentUpon>InfoLinks.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\InfoLinks.ascx.designer.cs">
-      <DependentUpon>InfoLinks.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Maintenance.ascx.cs">
-      <DependentUpon>Maintenance.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Maintenance.ascx.designer.cs">
-      <DependentUpon>Maintenance.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\ManageRepository.ascx.cs">
-      <DependentUpon>ManageRepository.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\ManageRepository.ascx.designer.cs">
-      <DependentUpon>ManageRepository.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\ManageRepositoryCategory.ascx.cs">
-      <DependentUpon>ManageRepositoryCategory.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\ManageRepositoryCategory.ascx.designer.cs">
-      <DependentUpon>ManageRepositoryCategory.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Mapping.ascx.cs">
-      <DependentUpon>Mapping.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Mapping.ascx.designer.cs">
-      <DependentUpon>Mapping.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\MarketData.ascx.cs">
-      <DependentUpon>MarketData.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\MarketData.ascx.designer.cs">
-      <DependentUpon>MarketData.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\PriceList.ascx.cs">
-      <DependentUpon>PriceList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\PriceList.ascx.designer.cs">
-      <DependentUpon>PriceList.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\TransactBusinessOnlineLinks.ascx.cs">
-      <DependentUpon>TransactBusinessOnlineLinks.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\TransactBusinessOnlineLinks.ascx.designer.cs">
-      <DependentUpon>TransactBusinessOnlineLinks.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Upload.ascx.cs">
-      <DependentUpon>Upload.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Upload.ascx.designer.cs">
-      <DependentUpon>Upload.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\UploadProcessLog.ascx.cs">
-      <DependentUpon>UploadProcessLog.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\UploadProcessLog.ascx.designer.cs">
-      <DependentUpon>UploadProcessLog.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\UploadRejects.ascx.cs">
-      <DependentUpon>UploadRejects.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\UploadRejects.ascx.designer.cs">
-      <DependentUpon>UploadRejects.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\ViewRepository.ascx.cs">
-      <DependentUpon>ViewRepository.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\ViewRepository.ascx.designer.cs">
-      <DependentUpon>ViewRepository.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\WERPAdminDownloadProcessLog.ascx.cs">
-      <DependentUpon>WERPAdminDownloadProcessLog.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\WERPAdminDownloadProcessLog.ascx.designer.cs">
-      <DependentUpon>WERPAdminDownloadProcessLog.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Advisor\AddBranch.ascx.cs">
       <DependentUpon>AddBranch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2490,6 +2380,111 @@
     <Compile Include="PopUp.aspx.designer.cs">
       <DependentUpon>PopUp.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Download.ascx.cs">
+      <DependentUpon>Download.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Download.ascx.designer.cs">
+      <DependentUpon>Download.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\GoldPriceList.ascx.cs">
+      <DependentUpon>GoldPriceList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GoldPriceList.ascx.designer.cs">
+      <DependentUpon>GoldPriceList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\InfoLinks.ascx.cs">
+      <DependentUpon>InfoLinks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\InfoLinks.ascx.designer.cs">
+      <DependentUpon>InfoLinks.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Maintenance.ascx.cs">
+      <DependentUpon>Maintenance.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Maintenance.ascx.designer.cs">
+      <DependentUpon>Maintenance.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageRepository.ascx.cs">
+      <DependentUpon>ManageRepository.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageRepository.ascx.designer.cs">
+      <DependentUpon>ManageRepository.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageRepositoryCategory.ascx.cs">
+      <DependentUpon>ManageRepositoryCategory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageRepositoryCategory.ascx.designer.cs">
+      <DependentUpon>ManageRepositoryCategory.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Mapping.ascx.cs">
+      <DependentUpon>Mapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Mapping.ascx.designer.cs">
+      <DependentUpon>Mapping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MarketData.ascx.cs">
+      <DependentUpon>MarketData.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MarketData.ascx.designer.cs">
+      <DependentUpon>MarketData.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PriceList.ascx.cs">
+      <DependentUpon>PriceList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PriceList.ascx.designer.cs">
+      <DependentUpon>PriceList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\TransactBusinessOnlineLinks.ascx.cs">
+      <DependentUpon>TransactBusinessOnlineLinks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TransactBusinessOnlineLinks.ascx.designer.cs">
+      <DependentUpon>TransactBusinessOnlineLinks.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Upload.ascx.cs">
+      <DependentUpon>Upload.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Upload.ascx.designer.cs">
+      <DependentUpon>Upload.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UploadProcessLog.ascx.cs">
+      <DependentUpon>UploadProcessLog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UploadProcessLog.ascx.designer.cs">
+      <DependentUpon>UploadProcessLog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UploadRejects.ascx.cs">
+      <DependentUpon>UploadRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UploadRejects.ascx.designer.cs">
+      <DependentUpon>UploadRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ViewRepository.ascx.cs">
+      <DependentUpon>ViewRepository.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ViewRepository.ascx.designer.cs">
+      <DependentUpon>ViewRepository.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\WERPAdminDownloadProcessLog.ascx.cs">
+      <DependentUpon>WERPAdminDownloadProcessLog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\WERPAdminDownloadProcessLog.ascx.designer.cs">
+      <DependentUpon>WERPAdminDownloadProcessLog.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Advisor\RMProfile.ascx.cs">
       <DependentUpon>RMProfile.ascx</DependentUpon>
@@ -3670,16 +3665,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\GoldPriceList.ascx" />
-    <Content Include="Admin\InfoLinks.ascx" />
-    <Content Include="Admin\ManageRepository.ascx" />
-    <Content Include="Admin\ManageRepositoryCategory.ascx" />
-    <Content Include="Admin\MarketData.ascx" />
-    <Content Include="Admin\TransactBusinessOnlineLinks.ascx" />
-    <Content Include="Admin\UploadProcessLog.ascx" />
-    <Content Include="Admin\UploadRejects.ascx" />
-    <Content Include="Admin\ViewRepository.ascx" />
-    <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />
     <Content Include="Advisor\AddCustomerFinancialPlanningGoalSetup.ascx" />
     <Content Include="Advisor\AddRM.ascx" />
     <Content Include="Advisor\AdviserAssociateCategorySetup.ascx" />
@@ -6011,6 +5996,21 @@
     <Content Include="OPS\OrderMIS.ascx" />
     <Content Include="OPS\OrderRecon.ascx" />
     <Content Include="PopUp.aspx" />
+    <Content Include="Admin\Download.ascx" />
+    <Content Include="Admin\GoldPriceList.ascx" />
+    <Content Include="Admin\InfoLinks.ascx" />
+    <Content Include="Admin\Maintenance.ascx" />
+    <Content Include="Admin\ManageRepository.ascx" />
+    <Content Include="Admin\ManageRepositoryCategory.ascx" />
+    <Content Include="Admin\Mapping.ascx" />
+    <Content Include="Admin\MarketData.ascx" />
+    <Content Include="Admin\PriceList.ascx" />
+    <Content Include="Admin\TransactBusinessOnlineLinks.ascx" />
+    <Content Include="Admin\Upload.ascx" />
+    <Content Include="Admin\UploadProcessLog.ascx" />
+    <Content Include="Admin\UploadRejects.ascx" />
+    <Content Include="Admin\ViewRepository.ascx" />
+    <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />
     <Content Include="Register.aspx" />
     <Content Include="RegistrationConfirmation.aspx" />
     <Content Include="Releases.html" />
