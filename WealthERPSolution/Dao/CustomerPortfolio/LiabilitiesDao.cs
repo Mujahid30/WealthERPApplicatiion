@@ -2282,6 +2282,7 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetISAQueue = db.GetStoredProcCommand("SP_GetAdviserISAQueue");
+                db.AddInParameter(cmdGetISAQueue, "@id", DbType.Int16, Convert.ToInt32(id));
                 db.AddInParameter(cmdGetISAQueue, "@isAdviser", DbType.Int16, Convert.ToInt16(isAdviser));
                 db.AddInParameter(cmdGetISAQueue, "@isBranchHead", DbType.Int16, Convert.ToInt16(isBranchHead));
                 db.AddInParameter(cmdGetISAQueue, "@isBranchId", DbType.Int16, Convert.ToInt16(isBranchId));
