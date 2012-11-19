@@ -88,9 +88,9 @@ namespace WealthERP.Customer
                 if (!IsPostBack)
                 {
                     BindCustomerISAAccountGrid();
-                    trNewISAAccountSection.Visible = false;
+                    //trNewISAAccountSection.Visible = false;
                     lblPanDuplicate.Visible = false;
-                    btnGenerateISA.Visible = false;
+                    //btnGenerateISA.Visible = false;
                     //trCustomerTypeSelection.Visible = false;
 
                     //trExCustHeader.Visible = false;
@@ -1203,7 +1203,7 @@ namespace WealthERP.Customer
         {
 
             pnlJointholders.Visible = false;
-            trNewISAAccountSection.Visible = true;
+            //trNewISAAccountSection.Visible = true;
 
             JointHolderHeading.Visible = false;
 
@@ -1224,10 +1224,28 @@ namespace WealthERP.Customer
             dtCustomerISAAccounts = customerBo.GetCustomerISAAccounts(customerVo.CustomerId);
             gvISAAccountList.DataSource = dtCustomerISAAccounts;
             gvISAAccountList.DataBind();
+
+            if (Cache["gvISAAccountList" + userVo.UserId] == null)
+            {
+                Cache.Insert("gvISAAccountList" + userVo.UserId, dtCustomerISAAccounts);
+            }
+            else
+            {
+                Cache.Remove("gvISAAccountList" + userVo.UserId);
+                Cache.Insert("gvISAAccountList" + userVo.UserId, dtCustomerISAAccounts);
+            }
+
         }
 
         protected void rbtnYes_CheckedChanged(object sender, EventArgs e)
         {
+            RadioButton dropdown = (RadioButton)sender;
+
+            GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
+            DropDownList ddlModeOfHolding = editedItem.FindControl("ddlModeOfHolding") as DropDownList;
+
+            Label JointHolderHeading = editedItem.FindControl("JointHolderHeading") as Label;
+            Panel pnlJointholders = editedItem.FindControl("pnlJointholders") as Panel;
 
             ddlModeOfHolding.Enabled = true;
             ddlModeOfHolding.SelectedIndex = 0;
@@ -1239,6 +1257,15 @@ namespace WealthERP.Customer
 
         protected void rbtnNo_CheckedChanged(object sender, EventArgs e)
         {
+
+            RadioButton dropdown = (RadioButton)sender;
+
+            GridEditableItem editedItem = dropdown.NamingContainer as GridEditableItem;
+            DropDownList ddlModeOfHolding = editedItem.FindControl("ddlModeOfHolding") as DropDownList;
+
+            Label JointHolderHeading = editedItem.FindControl("JointHolderHeading") as Label;
+            Panel pnlJointholders = editedItem.FindControl("pnlJointholders") as Panel;
+
             ddlModeOfHolding.SelectedValue = "SI";
             ddlModeOfHolding.Enabled = false;
             //tdJointHolders.Visible = false;
@@ -1332,10 +1359,41 @@ namespace WealthERP.Customer
 
             try
             {
-                CollectDataForISAAccountSetup();
+
+
+                Button Button = (Button)sender;
+
+                GridEditableItem editedItem = Button.NamingContainer as GridEditableItem;
+                RadioButton rbtnYes = editedItem.FindControl("rbtnYes") as RadioButton;
+                RadioButton rbtnNo = editedItem.FindControl("rbtnNo") as RadioButton;
+                RadioButton rbtnPOAYes = editedItem.FindControl("rbtnPOAYes") as RadioButton;
+                DropDownList ddlModeOfHolding = editedItem.FindControl("ddlModeOfHolding") as DropDownList;
+                Label JointHolderHeading = editedItem.FindControl("JointHolderHeading") as Label;
+                Panel pnlJointholders = editedItem.FindControl("pnlJointholders") as Panel;
+                Button btnGenerateISA = editedItem.FindControl("btnGenerateISA") as Button;
+
+                BindCustomerISAAccountGrid();
+                btnGenerateISA.Visible = false;
+                rbtnNo.Checked = true;
+
+                if (rbtnYes.Checked)
+                    customerISAAccountsVo.IsJointHolding = true;
+                else
+                    customerISAAccountsVo.IsJointHolding = false;
+
+                customerISAAccountsVo.ModeOfHolding = ddlModeOfHolding.SelectedValue.ToString();
+                if (rbtnPOAYes.Checked)
+                    customerISAAccountsVo.IsOperatedByPOA = true;
+                else
+                    customerISAAccountsVo.IsOperatedByPOA = false;
+
+
                 customerISAAccountsVo.ISAAccountId = customerAccountBo.CreateCustomerISAAccount(customerISAAccountsVo, customerVo.CustomerId, userVo.UserId);
 
-                foreach (GridViewRow gvr in this.gvJointHoldersList.Rows)
+                GridView gvJointHoldersList = editedItem.FindControl("gvJointHoldersList") as GridView;
+                GridView gvNominees = editedItem.FindControl("gvNominees") as GridView;
+
+                foreach (GridViewRow gvr in gvJointHoldersList.Rows)
                 {
 
                     if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
@@ -1349,7 +1407,7 @@ namespace WealthERP.Customer
                 }
 
 
-                foreach (GridViewRow gvr in this.gvNominees.Rows)
+                foreach (GridViewRow gvr in gvNominees.Rows)
                 {
                     if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
                     {
@@ -1361,7 +1419,7 @@ namespace WealthERP.Customer
 
                 JointHolderHeading.Visible = false;
                 pnlJointholders.Visible = false;
-                trNewISAAccountSection.Visible = false;
+                //trNewISAAccountSection.Visible = false;
                 BindCustomerISAAccountGrid();
                 btnGenerateISA.Visible = false;
                 rbtnNo.Checked = true;
@@ -1390,6 +1448,8 @@ namespace WealthERP.Customer
 
         private void CollectDataForISAAccountSetup()
         {
+
+
             if (rbtnYes.Checked)
                 customerISAAccountsVo.IsJointHolding = true;
             else
@@ -1752,7 +1812,7 @@ namespace WealthERP.Customer
                 ddlMemberBranch.DataBind();
                 ddlMemberBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
                 ddlMemberBranch.SelectedValue = branchId.ToString();
-                 
+
             }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
             {
@@ -1815,7 +1875,7 @@ namespace WealthERP.Customer
             {
                 CustomerBo customerBo = new CustomerBo();
                 bool isUpdated = false;
-                string relationCode=string.Empty;
+                string relationCode = string.Empty;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 int AssociationId = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CA_AssociationId"].ToString());
                 Button Button3 = (Button)e.Item.FindControl("Button3");
@@ -1838,7 +1898,7 @@ namespace WealthERP.Customer
                     lblGetPan.Enabled = false;
                     relationCode = ddlNewRelationship.SelectedValue;
                 }
-                
+
                 isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode);
 
             }
@@ -1989,6 +2049,254 @@ namespace WealthERP.Customer
             }
         }
         //Bank Details Functionality End
+
+        #region ISA Details Functionality Start
+
+        protected void gvISAAccountList_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            //int customerId = 0;
+            //string strExternalCode = string.Empty;
+            //string strExternalType = string.Empty;
+            //DateTime createdDate = new DateTime();
+            //DateTime editedDate = new DateTime();
+            //DateTime deletedDate = new DateTime();
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                //    GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+
+                //    DropDownList ddlAccountType = (DropDownList)e.Item.FindControl("ddlAccountType");
+                //    TextBox txtAccountNumber = (TextBox)e.Item.FindControl("txtAccountNumber");
+                //    DropDownList ddlModeOfOperation = (DropDownList)e.Item.FindControl("ddlModeOfOperation");
+                //    TextBox txtBankName = (TextBox)e.Item.FindControl("txtBankName");
+                //    TextBox txtBranchName = (TextBox)e.Item.FindControl("txtBranchName");
+                //    TextBox txtBankAdrLine1 = (TextBox)e.Item.FindControl("txtBankAdrLine1");
+                //    TextBox txtBankAdrLine2 = (TextBox)e.Item.FindControl("txtBankAdrLine2");
+                //    TextBox txtBankAdrLine3 = (TextBox)e.Item.FindControl("txtBankAdrLine3");
+                //    TextBox txtBankAdrCity = (TextBox)e.Item.FindControl("txtBankAdrCity");
+                //    TextBox txtBankAdrPinCode = (TextBox)e.Item.FindControl("txtBankAdrPinCode");
+                //    TextBox txtMicr = (TextBox)e.Item.FindControl("txtMicr");
+                //    DropDownList ddlBankAdrState = (DropDownList)e.Item.FindControl("ddlBankAdrState");
+                //    TextBox txtIfsc = (TextBox)e.Item.FindControl("txtIfsc");
+
+                //    bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
+                //    customerVo = (CustomerVo)Session["customerVo"];
+                //    customerId = customerVo.CustomerId;
+
+                //    customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
+                //    customerBankAccountVo.AccountType = ddlAccountType.SelectedItem.Value.ToString();
+                //    customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedItem.Value.ToString();
+                //    customerBankAccountVo.BankName = txtBankName.Text.ToString();
+                //    customerBankAccountVo.BranchName = txtBranchName.Text.ToString();
+                //    customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
+                //    customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
+                //    customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
+                //    if (txtBankAdrPinCode.Text.ToString() != "")
+                //        customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
+                //    else
+                //        customerBankAccountVo.BranchAdrPinCode = 0;
+                //    customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
+                //    if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
+                //        customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
+
+                //    //customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedItem.Value.ToString();
+                //    customerBankAccountVo.CustBankAccId = bankId;
+                //    customerBankAccountVo.BranchAdrCountry = "India";
+                //    customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
+                //    if (txtMicr.Text.ToString() != "")
+                //        customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
+                //    else
+                //        customerBankAccountVo.MICR = 0;
+                //    customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId);
+
+
+                CollectDataForISAAccountSetup();
+                customerISAAccountsVo.ISAAccountId = customerAccountBo.CreateCustomerISAAccount(customerISAAccountsVo, customerVo.CustomerId, userVo.UserId);
+
+                foreach (GridViewRow gvr in this.gvJointHoldersList.Rows)
+                {
+
+                    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                    {
+                        customerISAAccountsVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
+                        customerISAAccountsVo.AssociationTypeCode = "JointHolder";
+                        customerAccountBo.CreateISAAccountAssociation(customerISAAccountsVo, userVo.UserId);
+                    }
+
+
+                }
+
+
+                foreach (GridViewRow gvr in this.gvNominees.Rows)
+                {
+                    if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
+                    {
+                        customerISAAccountsVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
+                        customerISAAccountsVo.AssociationTypeCode = "Nominee";
+                        customerAccountBo.CreateISAAccountAssociation(customerISAAccountsVo, userVo.UserId);
+                    }
+                }
+
+                JointHolderHeading.Visible = false;
+                pnlJointholders.Visible = false;
+                //trNewISAAccountSection.Visible = false;
+                BindCustomerISAAccountGrid();
+                btnGenerateISA.Visible = false;
+                rbtnNo.Checked = true;
+
+
+            }
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+
+            }
+
+            if (e.CommandName == "Delete")
+            {
+            }
+
+
+
+            BindFamilyAssociationList(customerVo.CustomerId);
+            BindCustomerISAAccountGrid();
+        }
+
+
+
+
+
+        protected void gvISAAccountList_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtGvBankDetails = new DataTable();
+            if (Cache["gvISAAccountList" + userVo.UserId] != null)
+            {
+                dtGvBankDetails = (DataTable)Cache["gvISAAccountList" + userVo.UserId];
+                gvISAAccountList.DataSource = dtGvBankDetails;
+            }
+        }
+
+
+
+
+        protected void gvISAAccountList_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                DataTable dtModeOfHolding = new DataTable(); 
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList ddlModeOfHolding = (DropDownList)gefi.FindControl("ddlModeOfHolding");
+                dtModeOfHolding = XMLBo.GetModeOfHolding(path);
+                ddlModeOfHolding.DataSource = dtModeOfHolding;
+                ddlModeOfHolding.DataTextField = "ModeOfHolding";
+                ddlModeOfHolding.DataValueField = "ModeOfHoldingCode";
+                ddlModeOfHolding.DataBind();
+                ddlModeOfHolding.Items.Insert(0, new ListItem("Select Mode of Holding", "Select Mode of Holding"));
+               
+            }
+            if (e.Item is GridDataItem)
+            {
+                // GridDataItem dataItem = e.Item as GridDataItem;
+
+            }
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+            {
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList ddlModeOfHolding = (DropDownList)gefi.FindControl("ddlModeOfHolding");  
+                DataTable dtModeOfHolding = XMLBo.GetModeOfHolding(path);
+                ddlModeOfHolding.DataSource = dtModeOfHolding;
+                ddlModeOfHolding.DataTextField = "ModeOfHolding";
+                ddlModeOfHolding.DataValueField = "ModeOfHoldingCode";
+                ddlModeOfHolding.DataBind();
+                ddlModeOfHolding.Items.Insert(0, new ListItem("Select Mode of Holding", "Select Mode of Holding"));
+            }
+
+
+            if (e.Item is GridEditFormInsertItem)
+            {
+
+                GridEditFormInsertItem gridEditableItem = (GridEditFormInsertItem)e.Item;
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                Label JointHolderHeading = (Label)gefi.FindControl("JointHolderHeading");
+                GridView gvNominees = (GridView)gefi.FindControl("gvJointHoldersList");
+                GridView gvJointHoldersList = (GridView)gefi.FindControl("gvNominees");
+                DropDownList ddlModeOfHolding = (DropDownList)gefi.FindControl("ddlModeOfHolding");
+                Button btnGenerateISA = (Button)gefi.FindControl("btnGenerateISA");
+                Panel pnlJointholders = (Panel)gefi.FindControl("pnlJointholders");
+                HtmlTableCell tdNominees = (HtmlTableCell)gefi.FindControl("tdNominees");
+
+                JointHolderHeading.Visible = false;
+
+                #region loadnominnes
+
+                DataTable dtCustomerAssociates = new DataTable();
+                DataTable dtNewCustomerAssociate = new DataTable();
+                DataRow drCustomerAssociates;
+
+
+                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                dtCustomerAssociates = dsCustomerAssociates.Tables[0];
+
+                dtNewCustomerAssociate.Columns.Add("MemberCustomerId");
+                dtNewCustomerAssociate.Columns.Add("AssociationId");
+                dtNewCustomerAssociate.Columns.Add("Name");
+                dtNewCustomerAssociate.Columns.Add("Relationship");
+
+                foreach (DataRow dr in dtCustomerAssociates.Rows)
+                {
+
+                    drCustomerAssociates = dtNewCustomerAssociate.NewRow();
+                    drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
+                    drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
+                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                    drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                    dtNewCustomerAssociate.Rows.Add(drCustomerAssociates);
+                }
+
+                if (dtNewCustomerAssociate.Rows.Count > 0)
+                {
+
+                    gvNominees.DataSource = dtNewCustomerAssociate;
+                    gvNominees.DataBind();
+
+                    gvNominees.Visible = true;
+                    tdNominees.Visible = true;
+
+                    gvJointHoldersList.DataSource = dtNewCustomerAssociate;
+                    gvJointHoldersList.DataBind();
+
+                    gvJointHoldersList.Visible = true;
+                    pnlJointholders.Visible = true;
+
+                }
+                else
+                {
+                    trAssociate.Visible = false;
+                }
+
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                DataTable dtModeOfHolding = new DataTable();
+                
+
+                dtModeOfHolding = XMLBo.GetModeOfHolding(path);
+                ddlModeOfHolding.DataSource = dtModeOfHolding;
+                ddlModeOfHolding.DataTextField = "ModeOfHolding";
+                ddlModeOfHolding.DataValueField = "ModeOfHoldingCode";
+                ddlModeOfHolding.DataBind();
+                ddlModeOfHolding.Items.Insert(0, new ListItem("Select Mode of Holding", "Select Mode of Holding"));
+
+                ddlModeOfHolding.SelectedValue = "SI";
+                ddlModeOfHolding.Enabled = false;
+                btnGenerateISA.Visible = true;
+                pnlJointholders.Visible = false;
+                #endregion           
+
+            }
+        }
+
+        #endregion
+
+
+        //ISA Details Functionality End
 
 
         //private void BindTaxSlabDropDown()

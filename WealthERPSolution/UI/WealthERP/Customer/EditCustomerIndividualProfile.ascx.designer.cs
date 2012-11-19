@@ -488,8 +488,11 @@ namespace WealthERP.Customer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvISAAccountList;
-        
+        //protected global::System.Web.UI.WebControls.GridView gvISAAccountList;
+
+
+        protected global::Telerik.Web.UI.RadGrid gvISAAccountList;
+
         /// <summary>
         /// trNewISAAccountSection control.
         /// </summary>
