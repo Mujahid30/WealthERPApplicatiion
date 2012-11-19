@@ -2269,7 +2269,7 @@ namespace DaoCustomerPortfolio
 
             return LiabilityId;//GetISAQueue
         }
-        public List<LiabilitiesVo> GetISAQueueList(int advisorId)
+        public List<LiabilitiesVo> GetISAQueueList(int id, bool isAdviser, bool isBranchHead, bool isBranchId)
         {
             List<LiabilitiesVo> ISAQueueList = null;
             LiabilitiesVo liabilitiesVo;
@@ -2282,7 +2282,9 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetISAQueue = db.GetStoredProcCommand("SP_GetAdviserISAQueue");
-                db.AddInParameter(cmdGetISAQueue, "@AdviserId", DbType.Int32, advisorId);
+                db.AddInParameter(cmdGetISAQueue, "@isAdviser", DbType.Int16, Convert.ToInt16(isAdviser));
+                db.AddInParameter(cmdGetISAQueue, "@isBranchHead", DbType.Int16, Convert.ToInt16(isBranchHead));
+                db.AddInParameter(cmdGetISAQueue, "@isBranchId", DbType.Int16, Convert.ToInt16(isBranchId));
                 dsGetISAQueue = db.ExecuteDataSet(cmdGetISAQueue);
                 if (dsGetISAQueue.Tables[0].Rows.Count > 0)
                 {
@@ -2310,7 +2312,6 @@ namespace DaoCustomerPortfolio
                             liabilitiesVo.StepName = dr["WWFSM_StepName"].ToString();
                         if (!String.IsNullOrEmpty(dr["AISAQD_Status"].ToString()))
                             liabilitiesVo.StatusCode = dr["AISAQD_Status"].ToString();
-
                         ISAQueueList.Add(liabilitiesVo);
                     }
                 }
@@ -2327,7 +2328,7 @@ namespace DaoCustomerPortfolio
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "LiabilitiesDao.cs:GetLiabilities()");
                 object[] objects = new object[1];
-                objects[0] = advisorId;
+                objects[0] = id;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
