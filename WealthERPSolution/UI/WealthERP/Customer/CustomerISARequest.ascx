@@ -7,32 +7,28 @@
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
+<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
 <asp:ScriptManager ID="scrptMgr" runat="server">
     <Services>
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
-<%--
-<ajaxToolkit:CollapsiblePanelExtender ID="cpe" runat="Server"
-    TargetControlID="Panel1"
-    CollapsedSize="0"
-    ExpandedSize="300"
-    Collapsed="True"
-    ExpandControlID="LinkButton1"
-    CollapseControlID="LinkButton1"
-    AutoCollapse="False"
-    AutoExpand="False"
-    ScrollContents="True"
-    TextLabelID="Label1"
-    CollapsedText="Show Details..."
-    ExpandedText="Hide Details" 
-    ImageControlID="Image1"
-    ExpandedImage="~/images/collapse.jpg"
-    CollapsedImage="~/images/expand.jpg"
-    ExpandDirection="Vertical" />--%>
+<style type="text/css">
+    /*CollapsiblePanel*/</style>
 
 <script type="text/javascript" language="javascript">
-    function GetCustomerId(source, eventArgs) {        
+    function GetCustomerId(source, eventArgs) {
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
         return false;
     }
@@ -102,7 +98,7 @@
             document.getElementById("<%= ddlReasonStage4.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitStage2.ClientID %>").disabled = true;
 
-            document.getElementById("<%= trSelectNewOrExistingCustomer.ClientID %>").style.visibility = 'collapse';
+
             document.getElementById("<%= ddlCustomerCategory.ClientID %>").disabled = true;
             document.getElementById("<%= ddlBMBranch.ClientID %>").disabled = true;
             document.getElementById("<%= txtCustomerNameEntry.ClientID %>").disabled = true;
@@ -134,7 +130,7 @@
             document.getElementById("<%= ddlReasonStage4.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitStage2.ClientID %>").disabled = true;
 
-            document.getElementById("<%= trSelectNewOrExistingCustomer.ClientID %>").style.visibility = 'collapse';
+
             document.getElementById("<%= ddlCustomerCategory.ClientID %>").disabled = true;
             document.getElementById("<%= ddlBMBranch.ClientID %>").disabled = true;
             document.getElementById("<%= txtCustomerNameEntry.ClientID %>").disabled = true;
@@ -152,7 +148,7 @@
 
         }
         if (val == "CUSCR") {
-            document.getElementById("<%= trSelectNewOrExistingCustomer.ClientID %>").style.visibility = 'collapse';
+
             document.getElementById("<%= ddlCustomerCategory.ClientID %>").disabled = true;
             document.getElementById("<%= ddlBMBranch.ClientID %>").disabled = true;
             document.getElementById("<%= txtCustomerNameEntry.ClientID %>").disabled = true;
@@ -184,7 +180,7 @@
         }
         if (val == "VERIfY") {
 
-            document.getElementById("<%= trSelectNewOrExistingCustomer.ClientID %>").style.visibility = 'collapse';
+
             document.getElementById("<%= ddlCustomerCategory.ClientID %>").disabled = true;
             document.getElementById("<%= ddlBMBranch.ClientID %>").disabled = true;
             document.getElementById("<%= txtCustomerNameEntry.ClientID %>").disabled = true;
@@ -215,7 +211,7 @@
         }
         if (val == "VERIfYDisable") {
 
-            document.getElementById("<%= trSelectNewOrExistingCustomer.ClientID %>").style.visibility = 'collapse';
+
             document.getElementById("<%= ddlCustomerCategory.ClientID %>").disabled = true;
             document.getElementById("<%= ddlBMBranch.ClientID %>").disabled = true;
             document.getElementById("<%= txtCustomerNameEntry.ClientID %>").disabled = true;
@@ -247,7 +243,7 @@
 
 
         if (val == "ISAGE") {
-            document.getElementById("<%= trSelectNewOrExistingCustomer.ClientID %>").style.visibility = 'collapse';
+
             document.getElementById("<%= ddlCustomerCategory.ClientID %>").disabled = true;
             document.getElementById("<%= ddlBMBranch.ClientID %>").disabled = true;
             document.getElementById("<%= txtCustomerNameEntry.ClientID %>").disabled = true;
@@ -279,7 +275,7 @@
         }
 
         if (val == "ISAGEDisable") {
-            document.getElementById("<%= trSelectNewOrExistingCustomer.ClientID %>").style.visibility = 'collapse';
+
             document.getElementById("<%= ddlCustomerCategory.ClientID %>").disabled = true;
             document.getElementById("<%= ddlBMBranch.ClientID %>").disabled = true;
             document.getElementById("<%= txtCustomerNameEntry.ClientID %>").disabled = true;
@@ -389,7 +385,7 @@
             document.getElementById("<%= lblStatusReason3.ClientID %>").style.visibility = 'visible';
         }
         else if (val == "DO") {
-            document.getElementById("<%= ddlReasonStage3.ClientID %>").style.visibility = 'collapse';
+
             document.getElementById("<%= lblStatusReason3.ClientID %>").style.visibility = 'collapse';
         }
         else {
@@ -419,6 +415,7 @@
         }
     }
 </script>
+
 <script type="text/javascript">
     function DisableStatusReason(val) {
         var status = val;
@@ -589,7 +586,7 @@
 
     }
 
-  
+
 
     function openpopupAddAddress() {
 
@@ -622,6 +619,234 @@
     }
 </script>
 
+<script type="text/javascript">
+
+
+    $(document).ready(function() {
+        $(".StepOneContentTable").hide();
+        $("#imgCEStepOne").click(function() {
+            $(".StepOneContentTable").slideToggle(50);
+            var src = $(this).attr('src');
+            if (src == '../Images/Section-Expand.png') {
+                $("#imgCEStepOne").attr("src", "../Images/Section-Collapse.png");
+               
+                if ($("#imgCEStepTwo").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepTwoContentTable").slideToggle(50);
+                    $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepThree").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepThreeContentTable").slideToggle(50);
+                    $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepFour").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepFourContentTable").slideToggle(50);
+                    $("#imgCEStepFour").attr("src", "../Images/Section-Expand.png");
+                }
+                
+            }
+            else if (src == '../Images/Section-Collapse.png') {
+                $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
+            }
+        });
+
+    });
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
+
+    $(document).ready(function() {
+        $(".StepTwoContentTable").hide();
+        $("#imgCEStepTwo").click(function() {
+            $(".StepTwoContentTable").slideToggle(50);
+            var src = $(this).attr('src');
+            if (src == '../Images/Section-Expand.png') {
+                $("#imgCEStepTwo").attr("src", "../Images/Section-Collapse.png");
+                if ($("#imgCEStepOne").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepOneContentTable").slideToggle(50);
+                    $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepThree").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepThreeContentTable").slideToggle(50);
+                    $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepFour").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepFourContentTable").slideToggle(50);
+                    $("#imgCEStepFour").attr("src", "../Images/Section-Expand.png");
+                }
+            }
+            else if (src == '../Images/Section-Collapse.png')
+                $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
+        });
+
+    });
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
+
+    $(document).ready(function() {
+        $(".StepThreeContentTable").hide();
+        $("#imgCEStepThree").click(function() {
+            $(".StepThreeContentTable").slideToggle(50);
+            var src = $(this).attr('src');
+            if (src == '../Images/Section-Expand.png') {
+                $("#imgCEStepThree").attr("src", "../Images/Section-Collapse.png");
+
+                if ($("#imgCEStepTwo").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepTwoContentTable").slideToggle(50);
+                    $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepOne").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepOneContentTable").slideToggle(50);
+                    $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepFour").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepFourContentTable").slideToggle(50);
+                    $("#imgCEStepFour").attr("src", "../Images/Section-Expand.png");
+                }
+            }
+            else if (src == '../Images/Section-Collapse.png')
+                $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+        });
+
+    });
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
+
+    $(document).ready(function() {
+        $(".StepFourContentTable").hide();
+        $("#imgCEStepFour").click(function() {
+            $(".StepFourContentTable").slideToggle(50);
+            var src = $(this).attr('src');
+            if (src == '../Images/Section-Expand.png') {
+                $("#imgCEStepFour").attr("src", "../Images/Section-Collapse.png");
+                
+                if ($("#imgCEStepTwo").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepTwoContentTable").slideToggle(50);
+                    $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepThree").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepThreeContentTable").slideToggle(50);
+                    $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+                }
+                if ($("#imgCEStepOne").attr('src') == '../Images/Section-Collapse.png') {
+                    $(".StepOneContentTable").slideToggle(50);
+                    $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
+                }
+            }
+            else if (src == '../Images/Section-Collapse.png')
+                $("#imgCEStepFour").attr("src", "../Images/Section-Expand.png");
+        });
+
+    });
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
+    
+</script>
+
+<style type="text/css">
+    .table
+    {
+        border: 1px solid orange;
+    }
+    select
+    {
+        width: 98% !important;
+    }
+    .leftLabel
+    {
+        width: 10%;
+        text-align: right;
+    }
+    .rightData
+    {
+        width: 15%;
+        text-align: left;
+    }
+    .rightDataTwoColumn
+    {
+        width: 25%;
+        text-align: left;
+    }
+    .rightDataFourColumn
+    {
+        width: 50%;
+        text-align: left;
+    }
+    .tdSectionHeading
+    {
+        padding-bottom: 6px;
+        padding-top: 6px;
+        width: 100%;
+    }
+    .divSectionHeading table td span
+    {
+        padding-bottom: 5px !important;
+    }
+    .fltlft
+    {
+        float: left;
+        padding-left: 3px;
+        width: 20%;
+    }
+    .divCollapseImage
+    {
+        float: left;
+        padding-left: 5px;
+        width: 2%;
+        float: right;
+        text-align: right;
+        cursor: pointer;
+        cursor: hand;
+    }
+    .imgCollapse
+    {
+        background: Url(../Images/Section-Expand.png);
+        cursor: pointer;
+        cursor: hand;
+    }
+    .imgExpand
+    {
+        background: Url(../Images/Section-Collapse.png) no-repeat left top;
+        cursor: pointer;
+        cursor: hand;
+    }
+    .fltlftStep
+    {
+        float: left;
+    }
+    .StepOneContentTable, .StepTwoContentTable, .StageRequestTable, .StepThreeContentTable, .StepFourContentTable
+    {
+        width: 100%;
+    }
+    .SectionBody
+    {
+        width: 100%;
+    }
+    .collapse
+    {
+        text-align: right;
+    }
+    .divStepStatus
+    {
+        float: left;
+        padding-left: 2px;
+        padding-right: 5px;
+    }
+</style>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <table width="100%">
@@ -640,731 +865,656 @@
             </tr>
         </table>
         <table width="100%">
-            <tr>
-                <td colspan="8">
-                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+            <%--***********************************************REQUEST STATUS********************************--%>
+            <tr id="trRequestHeading" runat="server">
+                <td class="tdSectionHeading">
+                    <div class="divSectionHeading">
                         ISA Request Details
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td colspan="8">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    <asp:Label ID="lblCustomerName" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtCusName" runat="server" CssClass="txtField">
-                    </asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblRequestNumber" runat="server" Text="Request No: " CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtRequestNumber" runat="server" CssClass="txtField">
-                    </asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblBranchCode" runat="server" Text="Branch: " CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtBranchCode" runat="server" CssClass="txtField">
-                    </asp:Label>
-                </td>
+            <tr id="trRequestContent" runat="server">
                 <td>
-                </td>
-                <td>
+                    <table width="100%">
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblCustomerName" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:Label ID="txtCusName" runat="server" CssClass="txtField">
+                                </asp:Label>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblRequestNumber" runat="server" Text="Request No: " CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:Label ID="txtRequestNumber" runat="server" CssClass="txtField">
+                                </asp:Label>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblBranchCode" runat="server" Text="Branch: " CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:Label ID="txtBranchCode" runat="server" CssClass="txtField">
+                                </asp:Label>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="txtRequestTimeText" runat="server" CssClass="FieldName" Text="Request Time: ">
+                                </asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:Label ID="txtRequestTimeValue" runat="server" CssClass="txtField">
+                                </asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblISAGenerationStatus" runat="server" Text="ISA Status: " CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:Label ID="txtlblISAGenerationStatus" runat="server" CssClass="txtField">
+                                </asp:Label>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblRequestdate" runat="server" Text="Request Date: " CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:Label ID="txtRequestdate" runat="server" CssClass="txtField">
+                                </asp:Label>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblRBLCode" runat="server" Text="RBL Code: " CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:Label ID="txtRBLCode" runat="server" CssClass="txtField">
+                                </asp:Label>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="txtRequestedByText" runat="server" CssClass="FieldName" Text="Requested By: ">
+                                </asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:Label ID="txtRequestedByValue" runat="server" CssClass="txtField">
+                                </asp:Label>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
-            <tr>
-                <td align="right">
-                    <asp:Label ID="lblISAGenerationStatus" runat="server" Text="ISA Generation Status: "
-                        CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtlblISAGenerationStatus" runat="server" CssClass="txtField">
-                    </asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblRequestdate" runat="server" Text="Request Date: " CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtRequestdate" runat="server" CssClass="txtField">
-                    </asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblRBLCode" runat="server" Text="RBL Code: " CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtRBLCode" runat="server" CssClass="txtField">
-                    </asp:Label>
-                </td>
-                <td colspan="2">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                    <div class="divSectionHeading" style="vertical-align: text-bottom">
-                        <div class="divSectionHeadingNumber">
-                            1</div>
-                        &nbsp; Step
+            <%--***********************************************BM STEP ONE***************************************--%>
+            <tr id="trStepOneHeading" runat="server">
+                <td class="tdSectionHeading">
+                    <div class="divSectionHeading">
+                        <div class="divSectionHeadingNumber fltlftStep">
+                            1
+                        </div>
+                        <%-- <div class="fltlftStep">
+                            &nbsp; Step &nbsp;
+                        </div>--%>
+                        <div class="divStepStatus">
+                            &nbsp;
+                            <asp:Image ID="imgStepOneStatus" ImageUrl="" alt="" runat="server" />
+                            &nbsp;
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblStage" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblStageName" runat="server" Text="ISA Request" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblResponsibility" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblResponsibilityName" runat="server" Text="BM" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblStatus" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblHeaderStatusStage1" runat="server" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblClosingDate" runat="server" Text="Closing Date:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtClosingDate" runat="server" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="divCollapseImage">
+                            <img id="imgCEStepOne" src="../Images/Section-Expand.png" alt="Collapse/Expand"
+                                class="imgCollapse" />
+                        </div>
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td colspan="8">
+            <tr id="trStepOneContent" runat="server">
+                <td class="SectionBody">
+                    <table class="StepOneContentTable">
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblCustomerNeworExisting" runat="server" Text="Relationship:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:RadioButton ID="rdbNewCustomer" runat="server" GroupName="CustomerType" Text="New"
+                                    Checked="true" Class="FieldName" onClick="DisplayCustomerSearch()" />
+                                <asp:RadioButton ID="rdbExistingCustomer" runat="server" GroupName="CustomerType"
+                                    Text="Existing" Class="FieldName" onClick="DisplayCustomerSearch()" />
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblCustomerCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlCustomerCategory" runat="server" onchange="GetVerificationTypeThroughCustCategory(this.options[this.selectedIndex].value);"
+                                    CssClass="cmbField">
+                                    <asp:ListItem Text="RBL" Value="RBL" Selected="True">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Non RBL" Value="NRBL">
+                                    </asp:ListItem>
+                                </asp:DropDownList>
+                                <br />
+                                <asp:RequiredFieldValidator ID="rfvddlCustomerCategory" runat="server" CssClass="revPCG"
+                                    ErrorMessage="Please Select Customer Category" Display="Dynamic" ValidationGroup="vgbtnSubmit"
+                                    ControlToValidate="ddlCustomerCategory" InitialValue="Select">
+                                </asp:RequiredFieldValidator>
+                            </td>
+                            <td colspan="4" class="rightDataFourColumn">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr id="trCustomerSearch" runat="server">
+                            <td class="leftLabel">
+                                <asp:Label ID="lblCustomerSearch" runat="server" Text="Search Customer:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
+                                    AutoPostBack="True"></asp:TextBox>
+                                <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
+                                    WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
+                                </cc1:TextBoxWatermarkExtender>
+                                <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
+                                    TargetControlID="txtCustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                                    MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                                    CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                                    CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                                    UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                                    Enabled="True" />
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblRM" runat="server" Text="RM: " CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:Label ID="lblGetRM" runat="server" Text="" CssClass="txtField"></asp:Label>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblBranch" runat="server" Text="Branch: " CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="txtField"></asp:Label>
+                            </td>
+                            <td colspan="2" class="rightDataTwoColumn">
+                            </td>
+                        </tr>
+                        <tr id="trCustomerNameDetails" runat="server">
+                            <td class="leftLabel">
+                                <asp:Label ID="lblCustomerNameEntry" runat="server" Text="Customer Name:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtCustomerNameEntry" runat="server" CssClass="txtField"></asp:TextBox>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblChooseBr" runat="server" CssClass="FieldName" Text="Branch: "></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlBMBranch" runat="server" CssClass="cmbField">
+                                </asp:DropDownList>
+                            </td>
+                            <td colspan="4" class="rightDataFourColumn">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblPanNum" runat="server" Text="PAN:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtPanNum" runat="server" MaxLength="10" CssClass="txtField" onblur="return chkPanExists()"></asp:TextBox>
+                                <span id="spnLoginStatus"></span>
+                                <br />
+                                <asp:CustomValidator ID="cvPanOrName" runat="server" ValidationGroup="vgbtnSubmit"
+                                    Display="Dynamic" ClientValidationFunction="chkPanorCustomerNameRequired" CssClass="revPCG"
+                                    ErrorMessage="CustomValidator">Either Name or Pan Number is must</asp:CustomValidator>
+                                <asp:RegularExpressionValidator ID="revPANNum" ControlToValidate="txtPanNum" ValidationGroup="vgbtnSubmit"
+                                    ErrorMessage="Not A Valid PAN" Display="Dynamic" runat="server" ValidationExpression="^[0-9a-zA-Z]+$"
+                                    CssClass="revPCG"></asp:RegularExpressionValidator>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblEmailID" runat="server" Text="Email:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtEmailID" runat="server" CssClass="txtField"></asp:TextBox>
+                                <br />
+                                <asp:RegularExpressionValidator ID="revValidEmailID" ControlToValidate="txtEmailID"
+                                    ValidationGroup="vgbtnSubmit" ErrorMessage="Please enter a valid Email ID" Display="Dynamic"
+                                    runat="server" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                                    CssClass="revPCG"></asp:RegularExpressionValidator>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblMobileNum" runat="server" Text="Mobile:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtMobileNum" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                            </td>
+                            <td colspan="2" class="rightDataTwoColumn">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblGenerateReqstNum" runat="server" Text="Request Number:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtGenerateReqstNum" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
+                                <br />
+                                <asp:RequiredFieldValidator ID="rfvtxtGenerateReqstNum" runat="server" CssClass="rfvPCG"
+                                    ErrorMessage="Please Generate Request No." Display="Dynamic" ControlToValidate="txtGenerateReqstNum"
+                                    ValidationGroup="vgBtnSubmitQueue"> 
+                                </asp:RequiredFieldValidator>
+                            </td>
+                            <td class="leftLabel">
+                            </td>
+                            <td class="rightData">
+                                <asp:Button ID="btnGenerateReqstNum" runat="server" Text="Generate Req No." ValidationGroup="vgbtnSubmit"
+                                    CssClass="PCGMediumButton" OnClick="btnGenerateReqstNum_OnClick" />
+                            </td>
+                            <td colspan="4" class="rightDataFourColumn">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblPriority" runat="server" Text="Priority:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlPriority" runat="server" CssClass="cmbField" onchange="GetVerificationType(this.options[this.selectedIndex].value);">
+                                    <asp:ListItem Text="Urgent" Value="Urgent">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Normal" Value="Normal" Selected="True">
+                                    </asp:ListItem>
+                                </asp:DropDownList>
+                                <br />
+                                <asp:RequiredFieldValidator ID="reqValddlPriority" runat="server" CssClass="rfvPCG"
+                                    ErrorMessage="Please Select Priority Type" Display="Dynamic" ControlToValidate="ddlPriority"
+                                    InitialValue="Select" ValidationGroup="vgBtnSubmitQueue">
+                                </asp:RequiredFieldValidator>
+                            </td>
+                            <td colspan="4" class="rightDataFourColumn">
+                                &nbsp;
+                            </td>
+                            <td colspan="2" class="rightDataTwoColumn">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr id="trLinkToUpload" runat="server">
+                            <td class="leftLabel">
+                                &nbsp;
+                            </td>
+                            <td id="tdISALink" runat="server" class="rightData">
+                                <asp:LinkButton ID="lbtnUploadISAForm" runat="server" Font-Size="X-Small" CausesValidation="False"
+                                    Text="Upload/View ISA Form" OnClientClick="return openpopupAddISA()"></asp:LinkButton>
+                            </td>
+                            <td id="tdPanLink" runat="server" class="leftLabel">
+                                <asp:LinkButton ID="lbtnUploadPanProof" runat="server" Font-Size="X-Small" CausesValidation="False"
+                                    Text="Upload/View PAN Proof" OnClientClick="return openpopupAddPan()"></asp:LinkButton>
+                            </td>
+                            <td id="tdAddressLink" runat="server" class="rightData">
+                                <asp:LinkButton ID="lbtnUploadAddressProof" runat="server" Font-Size="X-Small" CausesValidation="False"
+                                    Text="Upload/View Address Proof" OnClientClick="return openpopupAddAddress()"></asp:LinkButton>
+                            </td>
+                            <td colspan="4" class="rightDataFourColumn">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblStatusStage1" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlStatusStage1" runat="server" CssClass="cmbField" onchange="DisableStatusReason(this.options[this.selectedIndex].value);">
+                                </asp:DropDownList>
+                                <br />
+                                <asp:RequiredFieldValidator ID="rfvddlStatusStage1" runat="server" CssClass="rfvPCG"
+                                    ErrorMessage="Please Select Status" Display="Dynamic" ControlToValidate="ddlStatusStage1"
+                                    InitialValue="Select" ValidationGroup="vgBtnSubmitQueue">
+                                </asp:RequiredFieldValidator>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblReasonStage1" runat="server" Text="Reason:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlReasonStage1" runat="server" CssClass="cmbField">
+                                </asp:DropDownList>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Button ID="btnSubmitAddStage1" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitQueue"
+                                    CausesValidation="true" CssClass="PCGButton" OnClick="btnSubmitAddStage1_Click" />
+                            </td>
+                            <td class="rightData">
+                                <asp:Button ID="btnSubmitAddMoreStage1" runat="server" Text="Submit & Add More" CssClass="PCGMediumButton"
+                                    ValidationGroup="vgBtnSubmitQueue" OnClick="btnSubmitAddMoreStage1_Click" />
+                            </td>
+                            <td colspan="2" class="rightDataTwoColumn">
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
-            <tr>
-                <%-- <td>
-            <asp:Label ID="lblStep1" runat="server" Text="Step 1" CssClass="FieldName"></asp:Label>
-        </td>--%>
-                <td align="right">
-                    <asp:Label ID="lblStage" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="lblStageName" runat="server" Text="ISA Request" CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblResponsibility" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="lblResponsibilityName" runat="server" Text="BM" CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblStatus" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="lblHeaderStatusStage1" runat="server" CssClass="txtField"></asp:Label>
-                    <%--<asp:DropDownList ID="ddlStatus" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="Select" Value="Select">
-                </asp:ListItem>
-                <asp:ListItem Text="Pending" Value="Pending">
-                </asp:ListItem>
-                <asp:ListItem Text="Done" Value="Done">
-                </asp:ListItem>
-            </asp:DropDownList>--%>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblClosingDate" runat="server" Text="Closing Date:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtClosingDate" runat="server" CssClass="txtField"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    <asp:Label ID="lblCustomerCategory" runat="server" Text="Customer Category:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left" colspan="7">
-                    <asp:DropDownList ID="ddlCustomerCategory" runat="server" onchange="GetVerificationTypeThroughCustCategory(this.options[this.selectedIndex].value);"
-                        CssClass="cmbField">
-                        <asp:ListItem Text="Select" Value="Select">
-                        </asp:ListItem>
-                        <asp:ListItem Text="RBL" Value="RBL">
-                        </asp:ListItem>
-                        <asp:ListItem Text="Non RBL" Value="NRBL">
-                        </asp:ListItem>
-                    </asp:DropDownList>
-                    <br />
-                    <asp:RequiredFieldValidator ID="rfvddlCustomerCategory" runat="server" CssClass="revPCG"
-                        ErrorMessage="Please Select Customer Category" Display="Dynamic" ValidationGroup="vgbtnSubmit"
-                        ControlToValidate="ddlCustomerCategory" InitialValue="Select">
-                    </asp:RequiredFieldValidator>
-                </td>
-            </tr>
-            <tr id="trSelectNewOrExistingCustomer" runat="server">
-                <td align="right">
-                    <asp:Label ID="lblCustomerNeworExisting" runat="server" Text="Customer:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left" colspan="7">
-                    <asp:RadioButton ID="rdbNewCustomer" runat="server" GroupName="CustomerType" Text="New"
-                        Checked="true" Class="FieldName" onClick="DisplayCustomerSearch()" />
-                    <asp:RadioButton ID="rdbExistingCustomer" runat="server" GroupName="CustomerType"
-                        Text="Existing" Class="FieldName" onClick="DisplayCustomerSearch()" />
-                </td>
-            </tr>
-            <tr id="trCustomerSearch" runat="server">
-                <td align="right">
-                    <asp:Label ID="lblCustomerSearch" runat="server" Text="Search Customer:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
-                        AutoPostBack="True"></asp:TextBox>
-                    <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
-                        WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
-                    </cc1:TextBoxWatermarkExtender>
-                    <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
-                        TargetControlID="txtCustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                        MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                        UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
-                        Enabled="True" />
-                    <%-- <br />
-                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtCustomerName"
-                ErrorMessage="Please Enter Customer Name" Display="Dynamic" runat="server"
-                CssClass="revPCG" ValidationGroup="vgbtnSubmit"></asp:RequiredFieldValidator>--%>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblRM" runat="server" Text="RM: " CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="lblGetRM" runat="server" Text="" CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblBranch" runat="server" Text="Branch: " CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="txtField"></asp:Label>
-                </td>
-                <td colspan="2">
-                </td>
-            </tr>
-            <tr id="trCustomerNameDetails" runat="server">
-                <td align="right">
-                    <asp:Label ID="lblCustomerNameEntry" runat="server" Text="Customer Name:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:TextBox ID="txtCustomerNameEntry" runat="server" CssClass="txtField"></asp:TextBox>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblChooseBr" runat="server" CssClass="FieldName" Text="Branch: "></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlBMBranch" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                </td>
-                <td colspan="4">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    <asp:Label ID="lblPanNum" runat="server" Text="PAN:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:TextBox ID="txtPanNum" runat="server" CssClass="txtField" onblur="return chkPanExists()"></asp:TextBox>
-                    <span id="spnLoginStatus"></span>
-                    <br />
-                    <asp:CustomValidator ID="cvPanOrName" runat="server" ValidationGroup="vgbtnSubmit"
-                        Display="Dynamic" ClientValidationFunction="chkPanorCustomerNameRequired" CssClass="revPCG"
-                        ErrorMessage="CustomValidator">Either Name or Pan Number is must</asp:CustomValidator>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblEmailID" runat="server" Text="Email:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:TextBox ID="txtEmailID" runat="server" CssClass="txtField"></asp:TextBox>
-                    <br />
-                    <asp:RegularExpressionValidator ID="revValidEmailID" ControlToValidate="txtEmailID"
-                        ValidationGroup="vgbtnSubmit" ErrorMessage="Please enter a valid Email ID" Display="Dynamic"
-                        runat="server" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
-                        CssClass="revPCG"></asp:RegularExpressionValidator>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblMobileNum" runat="server" Text="Mobile:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:TextBox ID="txtMobileNum" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                    <%--<br />
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtMobileNum"
-                ValidationGroup="vgbtnSubmit" ErrorMessage="Enter a valid 10 Digit Mobile No."
-                Display="Dynamic" runat="server" ValidationExpression="^([1-9]{1})([0-9]{9})$"
-                CssClass="revPCG"></asp:RegularExpressionValidator>--%>
-                </td>
-                <td colspan="2">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    <asp:Label ID="lblGenerateReqstNum" runat="server" Text="Request Number:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:TextBox ID="txtGenerateReqstNum" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
-                    <br />
-                    <asp:RequiredFieldValidator ID="rfvtxtGenerateReqstNum" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Generate Request No." Display="Dynamic" ControlToValidate="txtGenerateReqstNum"
-                        ValidationGroup="vgBtnSubmitQueue"> 
-                    </asp:RequiredFieldValidator>
-                </td>
-                <td align="left" colspan="2">
-                    <asp:Button ID="btnGenerateReqstNum" runat="server" Text="Generate Req No." ValidationGroup="vgbtnSubmit"
-                        CssClass="PCGMediumButton" OnClick="btnGenerateReqstNum_OnClick" />
-                </td>
-                <td colspan="4">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    <asp:Label ID="lblPriority" runat="server" Text="Priority:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left" colspan="7">
-                    <asp:DropDownList ID="ddlPriority" runat="server" CssClass="cmbField" onchange="GetVerificationType(this.options[this.selectedIndex].value);">
-                        <asp:ListItem Text="Select" Value="Select">
-                        </asp:ListItem>
-                        <asp:ListItem Text="Urgent" Value="Urgent">
-                        </asp:ListItem>
-                        <asp:ListItem Text="Normal" Value="Normal">
-                        </asp:ListItem>
-                    </asp:DropDownList>
-                    <br />
-                    <asp:RequiredFieldValidator ID="reqValddlPriority" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Select Priority Type" Display="Dynamic" ControlToValidate="ddlPriority"
-                        InitialValue="Select" ValidationGroup="vgBtnSubmitQueue">
-                    </asp:RequiredFieldValidator>
-                </td>
-            </tr>
-            <%--    <tr>
-        <td align="right" colspan="3">
-            <asp:Label ID="lblVerificationType" runat="server" Text="verification Type:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td align="left" colspan="6">
-               <asp:DropDownList ID="ddlVerificationType" runat="server" CssClass="cmbField" onchange="GetVerificationType(this.options[this.selectedIndex].value);">
-                <asp:ListItem Text="Select" Value="Select">
-                </asp:ListItem>
-                <asp:ListItem Text="Offline" Value="Offline">
-                </asp:ListItem>
-                <asp:ListItem Text="Online" Value="Online">
-                </asp:ListItem>
-            </asp:DropDownList>
-        
-        </td>
-    </tr>--%>
-            <%-- <tr id="trDocsType" runat="server">
-        <td align="right">
-            <asp:Label ID="lblDocumentType" runat="server" Text="Document Type:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td colspan="7">
-            <asp:RadioButton ID="rdbProofType" runat="server" GroupName="DocsType" Text="Proof"
-                Class="FieldName" onClick="DisplayProofFormType()" />
-            <asp:RadioButton ID="rdbFormType" runat="server" GroupName="DocsType" Text="Form"
-                Class="FieldName" onClick="DisplayProofFormType()" />
-        </td>
-    </tr>--%>
-            <tr id="trLinkToUpload" runat="server">
-                <td>
-                </td>
-                <td id="tdISALink" align="center" runat="server">
-                    <asp:LinkButton ID="lbtnUploadISAForm" runat="server" Font-Size="X-Small" CausesValidation="False"
-                        Text="Upload/View ISA Form" OnClientClick="return openpopupAddISA()"></asp:LinkButton>
-                </td>
-                <td id="tdPanLink" align="left" runat="server">
-                    <asp:LinkButton ID="lbtnUploadPanProof" runat="server" Font-Size="X-Small" CausesValidation="False"
-                        Text="Upload/View PAN Proof" OnClientClick="return openpopupAddPan()"></asp:LinkButton>
-                </td>
-                <td id="tdAddressLink" align="left" runat="server">
-                    <asp:LinkButton ID="lbtnUploadAddressProof" runat="server" Font-Size="X-Small" CausesValidation="False"
-                        Text="Upload/View Address Proof" OnClientClick="return openpopupAddAddress()"></asp:LinkButton>
-                </td>
-                <td colspan="4">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    <asp:Label ID="lblStatusStage1" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlStatusStage1" runat="server" CssClass="cmbField" onchange="DisableStatusReason(this.options[this.selectedIndex].value);">
-                    </asp:DropDownList>
-                    <br />
-                    <asp:RequiredFieldValidator ID="rfvddlStatusStage1" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Select Status" Display="Dynamic" ControlToValidate="ddlStatusStage1"
-                        InitialValue="Select" ValidationGroup="vgBtnSubmitQueue">
-                    </asp:RequiredFieldValidator>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblReasonStage1" runat="server" Text="Reason:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlReasonStage1" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                    <%--
-            <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Select Reason" Display="Dynamic" 
-                ControlToValidate="ddlReasonStage2" InitialValue="Select" ValidationGroup="vgBtnSubmitQueue">
-            </asp:RequiredFieldValidator>--%>
-                </td>
-                <td align="left">
-                    <asp:Button ID="btnSubmitAddStage1" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitQueue"
-                        CausesValidation="true" CssClass="PCGButton" OnClick="btnSubmitAddStage1_Click" />
-                </td>
-                <td align="left">
-                    <asp:Button ID="btnSubmitAddMoreStage1" runat="server" Text="Submit & Add More" CssClass="PCGMediumButton"
-                        ValidationGroup="vgBtnSubmitQueue" OnClick="btnSubmitAddMoreStage1_Click" />
-                </td>
-                <td colspan="2">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
+            <%--***********************************************OPS MAKER STEP TWO***************************************--%>
+            <tr id="trStepTwoHeading" runat="server">
+                <td class="tdSectionHeading">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
-                        &nbsp;&nbsp;Step
-                        <div class="divSectionHeadingNumber">
-                            2</div>
+                        <div class="divSectionHeadingNumber fltlftStep">
+                            2
+                        </div>
+                        <%-- <div class="fltlftStep">
+                            &nbsp; Step &nbsp;
+                        </div>--%>
+                        <div class="divStepStatus">
+                            &nbsp;
+                            <asp:Image ID="imgStepTwoStatus" ImageUrl="" alt="" runat="server" />
+                            &nbsp;
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblStage2" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtStage2" runat="server" Text="Verify Forms/Proofs" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblResponsibility2" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtResponsibility2" runat="server" Text="Ops-Date Entry" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblStatus2" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtStatus2" runat="server" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblClosingDate2" runat="server" Text="Closing Date:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtClosingDate2" runat="server" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="divCollapseImage">
+                            <img id="imgCEStepTwo" src="../Images/Section-Expand.png" alt="Collapse/Expand"
+                                class="imgCollapse" />
+                        </div>
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td colspan="8">
+            <tr id="trStepTwoContent" runat="server">
+                <td class="SectionBody">
+                    <table class="StepTwoContentTable">
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblStatusStage2" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlStatusStage2" runat="server" CssClass="cmbField" onchange="HideAndShowStepBack2(this.options[this.selectedIndex].value);">
+                                </asp:DropDownList>
+                                <br />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
+                                    ErrorMessage="Please Select Status" Display="Dynamic" ControlToValidate="ddlStatusStage2"
+                                    InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
+                                </asp:RequiredFieldValidator>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblReasonStage2" runat="server" Text="Reason:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlReasonStage2" runat="server" CssClass="cmbField">
+                                </asp:DropDownList>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblBackToStepStage2" runat="server" Text="Send back to:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlBackToStepStage2" runat="server" CssClass="cmbField">
+                                    <asp:ListItem Text="Select" Value="Select">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Step 1" Value="ISARQ">
+                                    </asp:ListItem>
+                                </asp:DropDownList>
+                            </td>
+                            <td colspan="2" class="rightDataTwoColumn">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblCommentsStage2" runat="server" Text="Comments:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtComments" runat="server" CssClass="txtField" TextMode="MultiLine"
+                                    Height="40px"></asp:TextBox>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Button ID="btnSubmitStage2" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitStage2"
+                                    CausesValidation="true" CssClass="PCGButton" OnClick="btnSubmitStage2_Click" />
+                            </td>
+                            <td class="rightData">
+                            </td>
+                            <td colspan="4" class="rightDataFourColumn">
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
-            <tr>
-                <%-- <td>
-            <asp:Label ID="lblStep1" runat="server" Text="Step 1" CssClass="FieldName"></asp:Label>
-        </td>--%>
-                <td align="right">
-                    <asp:Label ID="lblStage2" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtStage2" runat="server" Text="Verify Forms/Proofs" CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblResponsibility2" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtResponsibility2" runat="server" Text="Ops-Date Entry" CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblStatus2" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtStatus2" runat="server" CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblClosingDate2" runat="server" Text="Closing Date:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtClosingDate2" runat="server" CssClass="txtField"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                </td>
-            </tr>
-            <tr>
-                <%-- <td>
-            <asp:Label ID="lblStep1" runat="server" Text="Step 1" CssClass="FieldName"></asp:Label>
-        </td>--%>
-                <td align="right">
-                 <%--   <asp:Label ID="lblViewFormsandProofs" runat="server" Text="View Forms/Proofs:" CssClass="FieldName"></asp:Label>--%>
-                </td>
-                <td align="left">
-                   <%-- <asp:LinkButton ID="lnkBtnViewFormsandProofs" runat="server" CausesValidation="False"
-                        Font-Size="X-Small" Text="View Forms/Proofs" OnClientClick="return openpopupViewFormsAndProofs()"></asp:LinkButton>--%>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblStatusStage2" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlStatusStage2" runat="server" CssClass="cmbField" onchange="HideAndShowStepBack2(this.options[this.selectedIndex].value);">
-                    </asp:DropDownList>
-                    <br />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Select Status" Display="Dynamic" ControlToValidate="ddlStatusStage2"
-                        InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
-                    </asp:RequiredFieldValidator>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblReasonStage2" runat="server" Text="Reason:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlReasonStage2" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                    <%-- 
-            <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Select Reason" Display="Dynamic" 
-                ControlToValidate="ddlReasonStage2" InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
-            </asp:RequiredFieldValidator>--%>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblBackToStepStage2" runat="server" Text="Send back to:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlBackToStepStage2" runat="server" CssClass="cmbField">
-                        <asp:ListItem Text="Select" Value="Select">
-                        </asp:ListItem>
-                        <asp:ListItem Text="Step 1" Value="ISARQ">
-                        </asp:ListItem>
-                    </asp:DropDownList>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                </td>
-                <td align="left">
-                    <asp:Button ID="btnSubmitStage2" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitStage2"
-                        CausesValidation="true" CssClass="PCGButton" OnClick="btnSubmitStage2_Click" />
-                </td>
-                <td colspan="2">
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblCommentsStage2" runat="server" Text="Comments:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:TextBox ID="txtComments" runat="server" CssClass="txtField" TextMode="MultiLine"
-                        Width="130px" Height="50px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                    <div class="divSectionHeading" style="vertical-align: text-bottom">
-                        &nbsp;&nbsp;Step
-                        <div class="divSectionHeadingNumber">
-                            3</div>
+            <%--***********************************************OPS CHECKER STEP THREE***************************************--%>
+            <tr id="trStepThreeHeading" runat="server">
+                <td class="tdSectionHeading">
+                    <div class="divSectionHeading">
+                        <div class="divSectionHeadingNumber fltlftStep">
+                            3
+                        </div>
+                        <%--<div class="fltlftStep">
+                            &nbsp; Step &nbsp;
+                        </div>--%>
+                        <div class="divStepStatus">
+                            &nbsp;
+                            <asp:Image ID="imgStepThreeStatus" ImageUrl="" alt="" runat="server" />
+                            &nbsp;
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblStage3" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtStage3" runat="server" Text="Profile-ISA Account" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblResponsibility3" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtResponsibility3" runat="server" Text="Ops-Date Entry" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblStatus3" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtStatus3" runat="server" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblClosingDate3" runat="server" Text="Closing Date:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtClosingDate3" runat="server" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="divCollapseImage">
+                            <img id="imgCEStepThree" src="../Images/Section-Expand.png" alt="Collapse/Expand"
+                                class="imgCollapse" />
+                        </div>
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td colspan="8">
+            <tr id="trStepThreeContent" runat="server">
+                <td class="SectionBody">
+                    <table class="StepThreeContentTable">
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblVerifyForms" runat="server" Text="Forms/Proofs:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:LinkButton ID="lnkbtnAddEditCustomerProfile" runat="server" Font-Size="X-Small"
+                                    Text="Add/Edit Customer Profile" OnClientClick="return openpopupAdd_EditCustomerDetails()"></asp:LinkButton>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblStatusStage3" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlStatusStage3" runat="server" CssClass="cmbField" onchange="HideAndShowStepBack3(this.options[this.selectedIndex].value);">
+                                </asp:DropDownList>
+                                <br />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
+                                    ErrorMessage="Please Select Status" Display="Dynamic" ControlToValidate="ddlStatusStage3"
+                                    InitialValue="Select" ValidationGroup="vgBtnSubmitStage3">
+                                </asp:RequiredFieldValidator>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblStatusReason3" runat="server" Text="Reason:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlStatusReason3" runat="server" CssClass="cmbField">
+                                </asp:DropDownList>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblBackToStepStage3" runat="server" Text="Send back to:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlBackToStepStage3" runat="server" CssClass="cmbField">
+                                    <asp:ListItem Text="Select" Value="Select">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Step 1" Value="ISARQ">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Step 2" Value="CUSCR">
+                                    </asp:ListItem>
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblAddComments3" runat="server" Text="Comments:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtAddComments3" runat="server" CssClass="txtField" TextMode="MultiLine"
+                                    Height="40px"></asp:TextBox>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Button ID="btnSubmitStage3" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitStage3"
+                                    CausesValidation="true" CssClass="PCGButton" OnClick="btnSubmitStage3_Click" />
+                            </td>
+                            <td class="rightData">
+                            </td>
+                            <td colspan="4" class="rightDataFourColumn">
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
-            <tr>
-                <%-- <td>
-            <asp:Label ID="lblStep1" runat="server" Text="Step 1" CssClass="FieldName"></asp:Label>
-        </td>--%>
-                <td align="right">
-                    <asp:Label ID="lblStage3" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtStage3" runat="server" Text="Create Customer Profile-ISA Account"
-                        CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblResponsibility3" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtResponsibility3" runat="server" Text="Ops-Date Entry" CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblStatus3" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtStatus3" runat="server" CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblClosingDate3" runat="server" Text="Closing Date:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtClosingDate3" runat="server" CssClass="txtField"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                </td>
-            </tr>
-            <tr>
-                <%-- <td>
-            <asp:Label ID="lblStep1" runat="server" Text="Step 1" CssClass="FieldName"></asp:Label>
-        </td>--%>
-                <td align="right">
-                    <asp:Label ID="lblVerifyForms" runat="server" Text="View Forms/Proofs:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:LinkButton ID="lnkbtnAddEditCustomerProfile" runat="server" Font-Size="X-Small"
-                        Text="Add/Edit Customer Profile" OnClientClick="return openpopupAdd_EditCustomerDetails()"></asp:LinkButton>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblStatusStage3" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlStatusStage3" runat="server" CssClass="cmbField" onchange="HideAndShowStepBack3(this.options[this.selectedIndex].value);">
-                    </asp:DropDownList>
-                    <br />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Select Status" Display="Dynamic" ControlToValidate="ddlStatusStage3"
-                        InitialValue="Select" ValidationGroup="vgBtnSubmitStage3">
-                    </asp:RequiredFieldValidator>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblStatusReason3" runat="server" Text="Reason:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlStatusReason3" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblBackToStepStage3" runat="server" Text="Send back to:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlBackToStepStage3" runat="server" CssClass="cmbField">
-                        <asp:ListItem Text="Select" Value="Select">
-                        </asp:ListItem>
-                        <asp:ListItem Text="Step 1" Value="ISARQ">
-                        </asp:ListItem>
-                        <asp:ListItem Text="Step 2" Value="CUSCR">
-                        </asp:ListItem>
-                    </asp:DropDownList>
-                </td>
-            </tr>
-            </tr>
-            <tr>
-                <td colspan="3">
-                </td>
-                <td align="left">
-                    <asp:Button ID="btnSubmitStage3" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitStage3"
-                        CausesValidation="true" CssClass="PCGButton" OnClick="btnSubmitStage3_Click" />
-                </td>
-                <td colspan="2">
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblAddComments3" runat="server" Text="Comments:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:TextBox ID="txtAddComments3" runat="server" CssClass="txtField" TextMode="MultiLine"
-                        Width="130px" Height="50px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                    <div class="divSectionHeading" style="vertical-align: text-bottom">
-                        &nbsp;&nbsp;Step
-                        <div class="divSectionHeadingNumber">
-                            4</div>
+            <%--***********************************************STEP FOUR***************************************--%>
+            <tr id="trStepFourHeading" runat="server">
+                <td class="tdSectionHeading">
+                    <div class="divSectionHeading">
+                        <div class="divSectionHeadingNumber fltlftStep">
+                            4
+                        </div>
+                        <%--<div class="fltlftStep">
+                            &nbsp; Step &nbsp;
+                        </div>--%>
+                        <div class="divStepStatus">
+                            &nbsp;
+                            <asp:Image ID="imgStepFourStatus" ImageUrl="" alt="" runat="server" />
+                            &nbsp;
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblStage4" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtStage4" runat="server" Text="Approve ISA Account" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblResponsibility4" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtResponsibility4" runat="server" Text="Ops-Date Authoriser" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblHeaderStatusStage4" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtStatusStage4" runat="server" CssClass="FieldName"></asp:Label>
+                        </div>
+                        <div class="fltlft">
+                            <asp:Label ID="lblClosingDateStage4" runat="server" Text="Closing Date:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtClosingDateStage4" runat="server" CssClass="txtField"></asp:Label>
+                        </div>
+                        <div class="divCollapseImage">
+                            <img id="imgCEStepFour" src="../Images/Section-Expand.png" alt="Collapse/Expand"
+                                class="imgCollapse" />
+                        </div>
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td colspan="8">
+            <tr id="trStepFourContent" runat="server">
+                <td class="SectionBody">
+                    <table class="StepFourContentTable">
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblStatusStage4" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlStatusStage4" runat="server" CssClass="cmbField" onchange="HideAndShowStepBack4(this.options[this.selectedIndex].value);">
+                                </asp:DropDownList>
+                                <br />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
+                                    ErrorMessage="Please Select Status" Display="Dynamic" ControlToValidate="ddlStatusStage4"
+                                    InitialValue="Select" ValidationGroup="vgBtnSubmitStage4">
+                                </asp:RequiredFieldValidator>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblReasonStage4" runat="server" Text="Reason:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlReasonStage4" runat="server" CssClass="cmbField">
+                                </asp:DropDownList>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblBackToStepStage4" runat="server" Text="Send back to:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlBackToStepStage4" runat="server" CssClass="cmbField">
+                                    <asp:ListItem Text="Select" Value="Select">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Step 1" Value="ISARQ">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Step 2" Value="CUSCR">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Step 3" Value="VERIfY">
+                                    </asp:ListItem>
+                                </asp:DropDownList>
+                            </td>
+                            <td colspan="2" class="rightDataTwoColumn">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblAddcommentsStage4" runat="server" Text="Comments:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtAddcommentsStage4" runat="server" CssClass="txtField" TextMode="MultiLine"
+                                    Height="40px"></asp:TextBox>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Button ID="btnSubmitStage4" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitStage4"
+                                    CausesValidation="true" CssClass="PCGButton" OnClick="btnSubmitStage4_Click" />
+                            </td>
+                            <td class="rightData">
+                            </td>
+                            <td colspan="4" class="rightDataFourColumn">
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
-            <tr>
-                <%-- <td>
-            <asp:Label ID="lblStep1" runat="server" Text="Step 1" CssClass="FieldName"></asp:Label>
-        </td>--%>
-                <td align="right">
-                    <asp:Label ID="lblStage4" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtStage4" runat="server" Text="Approve Customer/ISA Account" CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblResponsibility4" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtResponsibility4" runat="server" Text="Ops-Date Authoriser" CssClass="txtField"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblHeaderStatusStage4" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtStatusStage4" runat="server" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblClosingDateStage4" runat="server" Text="Closing Date:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:Label ID="txtClosingDateStage4" runat="server" CssClass="txtField"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                </td>
-            </tr>
-            <tr>
-                <%-- <td>
-            <asp:Label ID="lblStep1" runat="server" Text="Step 1" CssClass="FieldName"></asp:Label>
-        </td>--%>
-                <td align="right">
-                    <%-- <asp:Label ID="lbl" runat="server" Text="View Forms and Proofs:"
-                CssClass="FieldName"></asp:Label>--%>
-                </td>
-                <td align="left">
-                    <%--   <asp:LinkButton ID="LinkButton1" runat="server" 
-                Font-Size="X-Small" Text="Add/Edit Customer Profile" ></asp:LinkButton>
---%>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblStatusStage4" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlStatusStage4" runat="server" CssClass="cmbField" onchange="HideAndShowStepBack4(this.options[this.selectedIndex].value);">
-                    </asp:DropDownList>
-                    <br />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Select Status" Display="Dynamic" ControlToValidate="ddlStatusStage4"
-                        InitialValue="Select" ValidationGroup="vgBtnSubmitStage4">
-                    </asp:RequiredFieldValidator>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblReasonStage4" runat="server" Text="Reason:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlReasonStage4" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblBackToStepStage4" runat="server" Text="Send back to:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:DropDownList ID="ddlBackToStepStage4" runat="server" CssClass="cmbField">
-                        <asp:ListItem Text="Select" Value="Select">
-                        </asp:ListItem>
-                        <asp:ListItem Text="Step 1" Value="ISARQ">
-                        </asp:ListItem>
-                        <asp:ListItem Text="Step 2" Value="CUSCR">
-                        </asp:ListItem>
-                        <asp:ListItem Text="Step 3" Value="VERIfY">
-                        </asp:ListItem>
-                    </asp:DropDownList>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                </td>
-                <td align="left">
-                    <asp:Button ID="btnSubmitStage4" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitStage4"
-                        CausesValidation="true" CssClass="PCGButton" OnClick="btnSubmitStage4_Click" />
-                </td>
-                <td colspan="2">
-                </td>
-                <td align="right">
-                    <asp:Label ID="lblAddcommentsStage4" runat="server" Text="Comments:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td align="left">
-                    <asp:TextBox ID="txtAddcommentsStage4" runat="server" CssClass="txtField" TextMode="MultiLine"
-                        Width="130px" Height="50px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
+            <%--***********************************************STEP FIVE***************************************--%>
+            <tr id="trStepFiveHeading" runat="server">
+                <td style="padding-bottom: 6px; padding-top: 6px;">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
-                        &nbsp;&nbsp;Step
+                        &nbsp;&nbsp;Step &nbsp;
                         <div class="divSectionHeadingNumber">
                             5</div>
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td colspan="8" align="center">
-                    <asp:Label ID="Label1" runat="server" Text="Coming Soon..." class="HeaderTextBig"></asp:Label>
+            <tr id="trStepFiveContent" runat="server">
+                <td>
+                    <table>
+                        <tr>
+                            <td colspan="8" align="center">
+                                <asp:Label ID="Label1" runat="server" Text="Coming Soon..." class="HeaderTextBig"></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
