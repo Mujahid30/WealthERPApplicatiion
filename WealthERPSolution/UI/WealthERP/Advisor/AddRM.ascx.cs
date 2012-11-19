@@ -531,11 +531,26 @@ namespace WealthERP.Advisor
                 {
                     isOpsIsChecked = true;
                     CreateOps(isOpsIsChecked);
-                    if ((CheckListCKMK.Items[0].Selected == true) || (CheckListCKMK.Items[1].Selected != true) )
-                     {
-                        isPurelyResearchLogin = true;
-                    }
-                    CreateRM(isPurelyResearchLogin);
+                    if ((CheckListCKMK.Items[0].Selected == true) || (CheckListCKMK.Items[1].Selected != true))
+                        foreach (ListItem Items in CheckListCKMK.Items)
+                        {
+                            if (Items.Selected)
+                            {
+                                if (Items.Text == "Checker")
+                                {
+                                    // Create Association for RM
+                                    userBo.CreateUserPermisionAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+
+                                }
+                                else if (Items.Text == "Maker")
+                                {
+                                    // Create Association for RM
+                                    userBo.CreateUserPermisionAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                                }
+
+                            }
+                        }
+                   
                 }
                 else
                 {
