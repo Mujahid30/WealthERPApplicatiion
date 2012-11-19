@@ -1907,7 +1907,7 @@ namespace WealthERP.Customer
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 CustomerVo customerNewVo = new CustomerVo();
                 List<int> customerIds = null;
-                UserVo tempUserVo = (UserVo)Session["userVo"];
+                UserVo tempUserVo = new UserVo();
 
                 Button Button3 = (Button)e.Item.FindControl("Button3");
                 Button Button1 = (Button)e.Item.FindControl("Button1");
@@ -1923,13 +1923,13 @@ namespace WealthERP.Customer
                     customerNewVo.FirstName = txtNewMemName.Text;
                     customerNewVo.PANNum = txtNewMemPan.Text;
                     customerVo.ProfilingDate = DateTime.Today;
-                    customerNewVo.UserId = customerVo.UserId;
-                    userVo.Email = txtEmail.Text.ToString();
+                    tempUserVo.FirstName = txtNewMemName.Text;
+                    tempUserVo.Email = txtEmail.Text;
                     customerPortfolioVo.IsMainPortfolio = 1;
                     customerPortfolioVo.PortfolioTypeCode = "RGL";
                     customerPortfolioVo.PortfolioName = "MyPortfolio";
                     customerVo.ViaSMS = 1;
-                    customerIds = customerBo.CreateCompleteCustomer(customerNewVo, userVo, customerPortfolioVo, tempUserVo.UserId);
+                    customerIds = customerBo.CreateCompleteCustomer(customerNewVo, tempUserVo, customerPortfolioVo, tempUserVo.UserId);
                     if (customerIds != null)
                     {
                         associateId = customerIds[1];
