@@ -19,5 +19,6 @@ namespace WealthERP.Customer
 
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trErrorMessage;
         protected global::Telerik.Web.UI.RadGrid gvISArequest;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBMBranch;
     }
 }
