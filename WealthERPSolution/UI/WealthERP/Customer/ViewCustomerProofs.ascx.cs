@@ -82,6 +82,7 @@ namespace WealthERP.Customer
                     {
                         BindddlProof(11);
                         ddlProofType.SelectedValue = "11";
+                        ddlProofType.Enabled = false;
                         ddlProof.SelectedValue = "99";
                         ddlProofCopyType.SelectedValue = "SC";
                         radPOCProof.TabIndex = 0;
@@ -93,6 +94,7 @@ namespace WealthERP.Customer
                     {
                         BindddlProof(2);
                         ddlProofType.SelectedValue = "2";
+                        ddlProofType.Enabled = false;
                         ddlProof.SelectedValue = "72";
                         ddlProofCopyType.SelectedValue = "SC";
                         radPOCProof.TabIndex = 0;
@@ -104,6 +106,7 @@ namespace WealthERP.Customer
                     {
                         BindddlProof(1);
                         ddlProofType.SelectedValue = "1";
+                        ddlProofType.Enabled = false;
                         ddlProof.SelectedValue = "66";
                         ddlProofCopyType.SelectedValue = "SC";
                         radPOCProof.TabIndex = 0;
@@ -117,7 +120,7 @@ namespace WealthERP.Customer
                         radPOCProof.TabIndex = 1;
                         multiPageView.SelectedIndex = 1;
                         radPOCProof.Tabs[1].Selected = true;
-                        //radPOCProof.Tabs[0].Visible= false;
+                        radPOCProof.Tabs[0].Enabled=false;
                     }
                 }
                 if (!IsPostBack)
