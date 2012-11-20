@@ -217,10 +217,11 @@
     <telerik:RadGrid ID="gvAmcWise" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-FileName="AmcWise Details" OnNeedDataSource="gvAmcWise_OnNeedDataSource"
+        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvAmcWise_OnNeedDataSource"
         OnItemCommand="gvAmcWise_OnItemCommand">
-        <ExportSettings HideStructureColumns="true">
-        </ExportSettings>
+        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                    FileName="AmcWise Details" Excel-Format="ExcelML">
+                </ExportSettings>
         <MasterTableView DataKeyNames="AMCCode" Width="100%"  AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
@@ -403,9 +404,10 @@
     <telerik:RadGrid ID="gvSchemeWise" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-FileName="Scheme Details" OnNeedDataSource="gvSchemeWise_OnNeedDataSource"
+        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvSchemeWise_OnNeedDataSource"
         OnItemCommand="gvSchemeWise_OnItemCommand">
-        <ExportSettings HideStructureColumns="true">
+        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                    FileName="Scheme Details" Excel-Format="ExcelML">
         </ExportSettings>
         <MasterTableView DataKeyNames="SchemeCode" Width="100%"  AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
@@ -593,8 +595,9 @@
     <telerik:RadGrid ID="gvBranchWise" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-FileName="Branch Details" OnNeedDataSource="gvBranchWise_OnNeedDataSource">
-        <ExportSettings HideStructureColumns="true">
+        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvBranchWise_OnNeedDataSource">
+        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                    FileName="Branch Details" Excel-Format="ExcelML">
         </ExportSettings>
         <MasterTableView Width="100%"  AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
@@ -778,8 +781,9 @@
     <telerik:RadGrid ID="gvFolioWise" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-FileName="Folio Details" OnNeedDataSource="gvFolioWise_OnNeedDataSource">
-        <ExportSettings HideStructureColumns="true">
+        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvFolioWise_OnNeedDataSource">
+        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                    FileName="Folio Details" Excel-Format="ExcelML">
         </ExportSettings>
         <MasterTableView Width="100%"  AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
@@ -978,8 +982,9 @@
     <telerik:RadGrid ID="gvCategoryWise" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-FileName="Category Details" OnNeedDataSource="gvCategoryWise_OnNeedDataSource">
-        <ExportSettings HideStructureColumns="true">
+        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvCategoryWise_OnNeedDataSource">
+        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                    FileName="Category Details" Excel-Format="ExcelML">
         </ExportSettings>
         <MasterTableView Width="100%"  AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
