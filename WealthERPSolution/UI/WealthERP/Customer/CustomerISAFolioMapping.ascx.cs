@@ -53,10 +53,10 @@ namespace WealthERP.Customer
                 gvAvailableFolio.Visible = false;
                 gvAttachedFolio.Visible = false;
                 btnGo.Visible = false;
-                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                //txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                //txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+                //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                //txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
                 
             }
 
@@ -122,10 +122,10 @@ namespace WealthERP.Customer
         {
             if (ddlMemberBranch.SelectedIndex == 0)
             {
-                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                //txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                //txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+                //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                //txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
             }
             else
             {
