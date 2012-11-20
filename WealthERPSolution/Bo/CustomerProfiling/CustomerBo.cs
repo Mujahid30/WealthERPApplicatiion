@@ -2576,5 +2576,32 @@ namespace BoCustomerProfiling
             }
             return isEdited;   
         }
+
+        public DataTable GetISAHoldings(int accountId)
+        {
+            DataTable dt = new DataTable();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dt = customerDao.GetISAHoldings(accountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetISAHoldings(int accountId)");
+                object[] objects = new object[1];
+                objects[0] = accountId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
     }
 }
