@@ -755,6 +755,44 @@ namespace DaoCustomerPortfolio
             return customerAccountsList;
         }
 
+
+        public DataSet GetISADetails(int IsaAccountId)
+        {
+
+            Database db;
+            DbCommand getCustomerAssetAccountsCmd;
+            DataSet dsGetISADetails = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerAssetAccountsCmd = db.GetStoredProcCommand("SPROC_GetISADetails");
+                db.AddInParameter(getCustomerAssetAccountsCmd, "@CISAA_accountid", DbType.Int32, IsaAccountId);
+
+                dsGetISADetails = db.ExecuteDataSet(getCustomerAssetAccountsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:GetCustomerAccount()");
+
+
+                object[] objects = new object[2];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetISADetails;
+        }
+
         public DataSet GetCustomerAssetAccounts(int portfolioId, string assetGroup)
         {
 
@@ -2545,6 +2583,43 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
+        public bool UpdateISAAccountAssociation(CustomerISAAccountsVo customerISAAccountAssociationVo,string associationIds)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createISAAccountAssociationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createISAAccountAssociationCmd = db.GetStoredProcCommand("SPROC_UpdateISAAccountAssociation");
+                db.AddInParameter(createISAAccountAssociationCmd, "@ISA_Accountid", DbType.Int32, customerISAAccountAssociationVo.ISAAccountId);
+                db.AddInParameter(createISAAccountAssociationCmd, "@CA_AssociationId", DbType.String, associationIds);
+                db.AddInParameter(createISAAccountAssociationCmd, "@CISAAA_Associationtype", DbType.String, customerISAAccountAssociationVo.AssociationTypeCode);
+                if (db.ExecuteNonQuery(createISAAccountAssociationCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CreateISAAccountAssociation()");
+
+                object[] objects = new object[2];
+                objects[0] = customerISAAccountAssociationVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
         public bool CreateISAAccountAssociation(CustomerISAAccountsVo customerISAAccountAssociationVo, int userId)
         {
             bool bResult = false;
@@ -2576,6 +2651,51 @@ namespace DaoCustomerPortfolio
                 object[] objects = new object[2];
                 objects[0] = customerISAAccountAssociationVo;
                 objects[1] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+        public int UpdateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo)
+        {
+
+            Database db;
+            DbCommand createISAAccountAssociationCmd;
+            int customerISAAccountId = 0;
+            int bResult = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createISAAccountAssociationCmd = db.GetStoredProcCommand("SPROC_UpdateISADetails");
+                db.AddInParameter(createISAAccountAssociationCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerISAAccountVo.ModeOfHolding);
+                db.AddInParameter(createISAAccountAssociationCmd, "@CISAA_Isjointlyheld", DbType.Int16, Convert.ToInt16(customerISAAccountVo.IsJointHolding));
+                db.AddInParameter(createISAAccountAssociationCmd, "@CISAA_IsPOAOperated", DbType.Int16, Convert.ToInt16(customerISAAccountVo.IsOperatedByPOA));
+                db.AddInParameter(createISAAccountAssociationCmd, "@ISA_Accountid", DbType.Int16, Convert.ToInt16(customerISAAccountVo.ISAAccountId));
+
+                if (db.ExecuteNonQuery(createISAAccountAssociationCmd) != 0)
+                    bResult = 1;
+
+               
+                   
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CreateCustomerISAAccount()");
+
+                object[] objects = new object[2];
+                objects[0] = customerISAAccountVo;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
