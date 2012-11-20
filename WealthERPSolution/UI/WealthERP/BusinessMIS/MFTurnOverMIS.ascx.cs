@@ -49,7 +49,7 @@ namespace WealthERP.BusinessMIS
             userVo = (UserVo)Session["userVo"];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
 
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                 userType = "rm";

@@ -224,7 +224,7 @@
         <MasterTableView DataKeyNames="AMCCode" Width="100%"  AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
-                <telerik:GridTemplateColumn  AllowFiltering="false" UniqueName="action"
+                <telerik:GridTemplateColumn HeaderStyle-Width="80px"  AllowFiltering="false" UniqueName="action"
                     DataField="action">
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text="Details" ItemStyle-Width="12px" />
@@ -233,149 +233,149 @@
                 <telerik:GridBoundColumn HeaderText="AMC"  DataField="AMC"
                     UniqueName="AMC" SortExpression="AMC" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Purchage Transaction"  DataField="BUYCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Purchase Transaction" HeaderTooltip="Purchase Transaction" DataField="BUYCount"
                     UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Purchage Amount" DataField="BUYAmount" DataFormatString="{0:N0}"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px"  HeaderText="Purchase Amount" HeaderTooltip="Purchase Amount" DataField="BUYAmount" DataFormatString="{0:N0}"
                     UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="Sell Transaction"  DataField="SELCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Sell Transaction" HeaderTooltip="Sell Transaction"  DataField="SELCount"
                     UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains" >
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Sell Amount" DataField="SELAmount" DataFormatString="{0:N0}"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px"  HeaderText="Sell Amount" HeaderTooltip="Sell  Amount" DataField="SELAmount" DataFormatString="{0:N0}"
+                    UniqueName="Percentage" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="DVR Count"  DataField="DVRCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="DVR Count" HeaderTooltip="Dividend Reinvested Count"  DataField="DVRCount" 
                     UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="DVR Amount" DataField="DVRAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px"  HeaderText="DVR Amount" HeaderTooltip="Dividend Reinvested Amount"  DataField="DVRAmount"
+                    UniqueName="DVRAmount" SortExpression="DVRAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="DVP Count"  DataField="DVPCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="DVP Count" HeaderTooltip="Dividend Payout Count"  DataField="DVPCount"
+                    UniqueName="DVPCount" SortExpression="DVPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="DVP Amount" DataField="DVPAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Amount"  HeaderText="DVP Amount" DataField="DVPAmount"
+                    UniqueName="DVPAmount" SortExpression="DVPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SIP Count"  DataField="SIPCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Investment Plan Count" HeaderText="SIP Count"  DataField="SIPCount"
+                    UniqueName="SIPCount" SortExpression="SIPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SIP Amount" DataField="SIPAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Investment Plan Amount"  HeaderText="SIP Amount" DataField="SIPAmount"
+                    UniqueName="SIPAmount" SortExpression="SIPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="BCI Count"  DataField="BCICount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Count" HeaderText="BCI Count"  DataField="BCICount"
+                    UniqueName="BCICount" SortExpression="BCICount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="BCI Amount" DataField="BCIAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Amount"  HeaderText="BCI Amount" DataField="BCIAmount"
+                    UniqueName="BCIAmount" SortExpression="BCIAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="BCO Count"  DataField="BCOCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderText="BCO Count" HeaderTooltip="Broker Change Out Count"  DataField="BCOCount"
+                    UniqueName="BCOCount" SortExpression="BCOCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="BCO Amount" DataField="BCOAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Amount" HeaderText="BCO Amount" DataField="BCOAmount"
+                    UniqueName="BCOAmount" SortExpression="BCOAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="STB Count"  DataField="STBCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Count" HeaderText="STB Count"  DataField="STBCount"
+                    UniqueName="STBCount" SortExpression="STBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="STB Amount" DataField="STBAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Amount" HeaderText="STB Amount" DataField="STBAmount"
+                    UniqueName="STBAmount" SortExpression="STBAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="STS Count" HeaderStyle-Width="150px" DataField="STSCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Count" HeaderText="STS Count"  DataField="STSCount"
+                    UniqueName="STSCount" SortExpression="STSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="STS Amount" DataField="STSAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Amount" HeaderText="STS Amount" DataField="STSAmount"
+                    UniqueName="STSAmount" SortExpression="STSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWB Count"  DataField="SWBCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Count" HeaderText="SWB Count"  DataField="SWBCount"
+                    UniqueName="SWBCount" SortExpression="SWBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWB Amount" DataField="SWBAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Amount" HeaderText="SWB Amount" DataField="SWBAmount"
+                    UniqueName="SWBAmount" SortExpression="SWBAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWP Count"  DataField="SWPCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Count" HeaderText="SWP Count"  DataField="SWPCount"
+                    UniqueName="SWPCount" SortExpression="SWPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWP Amount" DataField="SWPAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Amount"  HeaderText="SWP Amount" DataField="SWPAmount"
+                    UniqueName="SWPCount" SortExpression="SWPCount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWS Count"  DataField="SWSCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Count" HeaderText="SWS Count"  DataField="SWSCount"
+                    UniqueName="SWSCount" SortExpression="SWSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWS Amount" DataField="SWSAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Amount"  HeaderText="SWS Amount" DataField="SWSAmount"
+                    UniqueName="SWSAmount" SortExpression="SWSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="PRJ Count"  DataField="PRJCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Count" HeaderText="PRJ Count"  DataField="PRJCount"
+                    UniqueName="PRJCount" SortExpression="PRJCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="PRJ Amount" DataField="PRJAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Amount"  HeaderText="PRJ Amount" DataField="PRJAmount"
+                    UniqueName="PRJAmount" SortExpression="PRJAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle  HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
             </Columns>
         </MasterTableView>
@@ -410,159 +410,159 @@
         <MasterTableView DataKeyNames="SchemeCode" Width="100%"  AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
-                <telerik:GridTemplateColumn  AllowFiltering="false" UniqueName="action"
+                <telerik:GridTemplateColumn HeaderStyle-Width="80px"  AllowFiltering="false" UniqueName="action"
                     DataField="action">
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text="Details" ItemStyle-Width="12px" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn HeaderText="Scheme"  DataField="Scheme"
+                <telerik:GridBoundColumn HeaderTooltip="Scheme HeaderText="Scheme"  DataField="Scheme"
                     UniqueName="Scheme" SortExpression="Scheme" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="ExternalCode" AllowFiltering="false"  DataField="ExternalCode"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="External Code" HeaderText="ExternalCode" AllowFiltering="false"  DataField="ExternalCode"
                     UniqueName="ExternalCode" SortExpression="ExternalCode" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Purchase Transaction"  DataField="BUYCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction" HeaderText="Purchase Transaction"  DataField="BUYCount"
                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Purchase Amount" DataField="BUYAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Amount"  HeaderText="Purchase Amount" DataField="BUYAmount"
                     UniqueName="BUYAmount" DataFormatString="{0:N0}" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="Sell Transaction"  DataField="SELCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction" HeaderText="Sell Transaction"  DataField="SELCount"
                     UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Sell Amount" DataField="SELAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Amount"   HeaderText="Sell Amount" DataField="SELAmount"
                     UniqueName="SELAmount" DataFormatString="{0:N0}" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="DVR Count"  DataField="DVRCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Count"  HeaderText="DVR Count"  DataField="DVRCount"
                     UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="DVR Amount" DataField="DVRAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Amount"  HeaderText="DVR Amount" DataField="DVRAmount"
                     UniqueName="DVRAmount" SortExpression="DVRAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="DVP Count"  DataField="DVPCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Count" HeaderText="DVP Count"  DataField="DVPCount"
                     UniqueName="DVPCount" SortExpression="DVPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="DVP Amount" DataField="DVPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Amount"  HeaderText="DVP Amount" DataField="DVPAmount"
                     UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SIP Count"  DataField="SIPCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Investment Plan Count" HeaderText="SIP Count"  DataField="SIPCount"
                     UniqueName="SIPCount" SortExpression="SIPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SIP Amount" DataField="SIPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Investment Plan Amount" HeaderText="SIP Amount" DataField="SIPAmount"
                     UniqueName="SIPAmount" SortExpression="SIPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="BCI Count"  DataField="BCICount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Count" HeaderText="BCI Count"  DataField="BCICount"
                     UniqueName="BCICount" SortExpression="BCICount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="BCI Amount" DataField="BCIAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Amount" HeaderText="BCI Amount" DataField="BCIAmount"
                     UniqueName="BCIAmount" SortExpression="BCIAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="BCO Count"  DataField="BCOCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Count" HeaderText="BCO Count"  DataField="BCOCount"
                     UniqueName="BCOCount" SortExpression="BCOCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="BCO Amount" DataField="BCOAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Amount" HeaderText="BCO Amount" DataField="BCOAmount"
                     UniqueName="BCOAmount" SortExpression="BCOAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="STB Count"  DataField="STBCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Count" HeaderText="STB Count"  DataField="STBCount"
                     UniqueName="STBCount" SortExpression="STBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="STB Amount" DataField="STBAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Amount"  HeaderText="STB Amount" DataField="STBAmount"
                     UniqueName="STBAmount" SortExpression="STBAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="STS Count"  DataField="STSCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Count" HeaderText="STS Count"  DataField="STSCount"
                     UniqueName="STSCount" SortExpression="STSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="STS Amount" DataField="STSAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Amount" HeaderText="STS Amount" DataField="STSAmount"
                     UniqueName="STSAmount" SortExpression="STSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWB Count"  DataField="SWBCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Count" HeaderText="SWB Count"  DataField="SWBCount"
                     UniqueName="SWBCount" SortExpression="SWBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWB Amount" DataField="SWBAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Amount" HeaderText="SWB Amount" DataField="SWBAmount"
                     UniqueName="SWBAmount" SortExpression="SWBAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWP Count"  DataField="SWPCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Count" HeaderText="SWP Count"  DataField="SWPCount"
                     UniqueName="SWPCount" SortExpression="SWPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWP Amount" DataField="SWPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Amount"  HeaderText="SWP Amount" DataField="SWPAmount"
                     UniqueName="SWPAmount" SortExpression="SWPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWS Count"  DataField="SWSCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Count" HeaderText="SWS Count"  DataField="SWSCount"
                     UniqueName="SWSCount" SortExpression="SWSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWS Amount" DataField="SWSAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Amount" HeaderText="SWS Amount" DataField="SWSAmount"
                     UniqueName="SWSAmount" SortExpression="SWSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="PRJ Count"  DataField="PRJCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Count" HeaderText="PRJ Count"  DataField="PRJCount"
                     UniqueName="PRJCount" SortExpression="PRJCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="PRJ Amount" DataField="PRJAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Amount" HeaderText="PRJ Amount" DataField="PRJAmount"
                     UniqueName="PRJAmount" SortExpression="PRJAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -610,144 +610,144 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Purchase Transaction"  DataField="BUYCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction" HeaderText="Purchase Transaction"  DataField="BUYCount"
                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Purchase Amount" DataField="BUYAmount"
+                <telerik:GridBoundColumn  HeaderStyle-Width="80px" HeaderTooltip="Purchase Amount" HeaderText="Purchase Amount" DataField="BUYAmount"
                     UniqueName="BUYAmount" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="Sell Transaction"  DataField="SELCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction" HeaderText="Sell Transaction"  DataField="SELCount"
                     UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Sell Amount" DataField="SELAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Amount" HeaderText="Sell Amount" DataField="SELAmount"
                     UniqueName="SELAmount" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="DVR Count"  DataField="DVRCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Count" HeaderText="DVR Count"  DataField="DVRCount"
                     UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="DVR Amount" DataField="DVRAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Amount"  HeaderText="DVR Amount" DataField="DVRAmount"
                     UniqueName="DVRAmount" SortExpression="DVRAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="DVP Count"  DataField="DVPCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Count" HeaderText="DVP Count"  DataField="DVPCount"
                     UniqueName="DVPCount" SortExpression="DVPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="DVP Amount" DataField="DVPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Amount" HeaderText="DVP Amount" DataField="DVPAmount"
                     UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SIP Count"  DataField="SIPCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Transaction Plan Count" HeaderText="SIP Count"  DataField="SIPCount"
                     UniqueName="SIPCount" SortExpression="SIPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SIP Amount" DataField="SIPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Transaction Plan Amount" HeaderText="SIP Amount" DataField="SIPAmount"
                     UniqueName="SIPAmount" SortExpression="SIPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="BCI Count"  DataField="BCICount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Count" HeaderText="BCI Count"  DataField="BCICount"
                     UniqueName="BCICount" SortExpression="BCICount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="BCI Amount" DataField="BCIAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Amount"  HeaderText="BCI Amount" DataField="BCIAmount"
                     UniqueName="BCIAmount" SortExpression="BCIAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="BCO Count"  DataField="BCOCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Count" HeaderText="BCO Count"  DataField="BCOCount"
                     UniqueName="BCOCount" SortExpression="BCOCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="BCO Amount" DataField="BCOAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Amount" HeaderText="BCO Amount" DataField="BCOAmount"
                     UniqueName="BCOAmount" SortExpression="BCOAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="STB Count"  DataField="STBCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Count" HeaderText="STB Count"  DataField="STBCount"
                     UniqueName="STBCount" SortExpression="STBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="STB Amount" DataField="STBAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Amount" HeaderText="STB Amount" DataField="STBAmount"
                     UniqueName="STBAmount" SortExpression="STBAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="STS Count"  DataField="STSCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Count" HeaderText="STS Count"  DataField="STSCount"
                     UniqueName="STSCount" SortExpression="STSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="STS Amount" DataField="STSAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Amount" HeaderText="STS Amount" DataField="STSAmount"
                     UniqueName="STSAmount" SortExpression="STSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWB Count"  DataField="SWBCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Count" HeaderText="SWB Count"  DataField="SWBCount"
                     UniqueName="SWBCount" SortExpression="SWBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWB Amount" DataField="SWBAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Amount"  HeaderText="SWB Amount" DataField="SWBAmount"
                     UniqueName="SWBAmount" SortExpression="SWBAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWP Count"  DataField="SWPCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic WithDrawal Plan Count" HeaderText="SWP Count"  DataField="SWPCount"
                     UniqueName="SWPCount" SortExpression="SWPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWP Amount" DataField="SWPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic WithDrawal Plan Amount" HeaderText="SWP Amount" DataField="SWPAmount"
                     UniqueName="SWPAmount" SortExpression="SWPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWS Count"  DataField="SWSCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Count" HeaderText="SWS Count"  DataField="SWSCount"
                     UniqueName="SWSCount" SortExpression="SWSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWS Amount" DataField="SWSAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Amount" HeaderText="SWS Amount" DataField="SWSAmount"
                     UniqueName="SWSAmount" SortExpression="SWSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="PRJ Count"  DataField="PRJCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Count" HeaderText="PRJ Count"  DataField="PRJCount"
                     UniqueName="PRJCount" SortExpression="PRJCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="PRJ Amount" DataField="PRJAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Amount" HeaderText="PRJ Amount" DataField="PRJAmount"
                     UniqueName="PRJAmount" SortExpression="PRJAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -790,164 +790,164 @@
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text="Details" ItemStyle-Width="12px" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>--%>
-                <telerik:GridBoundColumn HeaderText="Customer"  DataField="Customer"
+                <telerik:GridBoundColumn HeaderText="Customer" HeaderTooltip="Customer"  DataField="Customer"
                     UniqueName="Customer" SortExpression="Customer" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Branch"  DataField="BranchName"
+                <telerik:GridBoundColumn HeaderText="Branch" HeaderTooltip="Branch"  DataField="BranchName"
                     UniqueName="BranchName" SortExpression="BranchName" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="RM"  DataField="RMName"
+                <telerik:GridBoundColumn HeaderText="RM" HeaderTooltip="RM" DataField="RMName"
                     UniqueName="RMName" SortExpression="RMName" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Folio"  DataField="Folio"
+                <telerik:GridBoundColumn HeaderText="Folio" HeaderTooltip="Folio"  DataField="Folio"
                     UniqueName="Folio" SortExpression="Folio" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Purchase Transaction"  DataField="BUYCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction" HeaderText="Purchase Transaction"  DataField="BUYCount"
                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Purchase Amount" DataField="BUYAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Amount" HeaderText="Purchase Amount" DataField="BUYAmount"
                     UniqueName="BUYAmount" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="Sell Transaction"  DataField="SELCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction" HeaderText="Sell Transaction"  DataField="SELCount"
                     UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Sell Amount" DataField="SELAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Amount" HeaderText="Sell Amount" DataField="SELAmount"
                     UniqueName="SELAmount" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="DVR Count"  DataField="DVRCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Count" HeaderText="DVR Count"  DataField="DVRCount"
                     UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="DVR Amount" DataField="DVRAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Amount" HeaderText="DVR Amount" DataField="DVRAmount"
                     UniqueName="DVRAmount" SortExpression="DVRAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="DVP Count"  DataField="DVPCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Count" HeaderText="DVP Count"  DataField="DVPCount"
                     UniqueName="DVPCount" SortExpression="DVPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="DVP Amount" DataField="DVPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Amount" HeaderText="DVP Amount" DataField="DVPAmount"
                     UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SIP Count"  DataField="SIPCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Syatematic Investment Plan Count" HeaderText="SIP Count"  DataField="SIPCount"
                     UniqueName="SIPCount" SortExpression="SIPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SIP Amount" DataField="SIPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Syatematic Investment Plan Amount" HeaderText="SIP Amount" DataField="SIPAmount"
                     UniqueName="SIPAmount" SortExpression="SIPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="BCI Count"  DataField="BCICount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Count" HeaderText="BCI Count"  DataField="BCICount"
                     UniqueName="BCICount" SortExpression="BCICount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="BCI Amount" DataField="BCIAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Amount"  HeaderText="BCI Amount" DataField="BCIAmount"
                     UniqueName="BCIAmount" SortExpression="BCIAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="BCO Count"  DataField="BCOCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Count" HeaderText="BCO Count"  DataField="BCOCount"
                     UniqueName="BCOCount" SortExpression="BCOCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="BCO Amount" DataField="BCOAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Amount"  HeaderText="BCO Amount" DataField="BCOAmount"
                     UniqueName="BCOAmount" SortExpression="BCOAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="STB Count"  DataField="STBCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Vt Count" HeaderText="STB Count"  DataField="STBCount"
                     UniqueName="STBCount" SortExpression="STBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="STB Amount" DataField="STBAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Amount" HeaderText="STB Amount" DataField="STBAmount"
                     UniqueName="STBAmount" SortExpression="STBAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="STS Count"  DataField="STSCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Count" HeaderText="STS Count"  DataField="STSCount"
                     UniqueName="STSCount" SortExpression="STSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="STS Amount" DataField="STSAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Amount" HeaderText="STS Amount" DataField="STSAmount"
                     UniqueName="STSAmount" SortExpression="STSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWB Count"  DataField="SWBCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Count" HeaderText="SWB Count"  DataField="SWBCount"
                     UniqueName="SWBCount" SortExpression="SWBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWB Amount" DataField="SWBAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Amount"  HeaderText="SWB Amount" DataField="SWBAmount"
                     UniqueName="SWBAmount" SortExpression="SWBAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWP Count"  DataField="SWPCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Count" HeaderText="SWP Count"  DataField="SWPCount"
                     UniqueName="SWPCount" SortExpression="SWPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWP Amount" DataField="SWPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Amount" HeaderText="SWP Amount" DataField="SWPAmount"
                     UniqueName="SWPAmount" SortExpression="SWPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWS Count"  DataField="SWSCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Count" HeaderText="SWS Count"  DataField="SWSCount"
                     UniqueName="SWSCount" SortExpression="SWSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWS Amount" DataField="SWSAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Amount" HeaderText="SWS Amount" DataField="SWSAmount"
                     UniqueName="SWSAmount" SortExpression="SWSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="PRJ Count"  DataField="PRJCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Count" HeaderText="PRJ Count"  DataField="PRJCount"
                     UniqueName="PRJCount" SortExpression="PRJCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="PRJ Amount" DataField="PRJAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Amount" HeaderText="PRJ Amount" DataField="PRJAmount"
                     UniqueName="PRJAmount" SortExpression="PRJAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -990,154 +990,154 @@
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text="Details" ItemStyle-Width="12px" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>--%>
-                <telerik:GridBoundColumn HeaderText="Category"  DataField="Category"
+                <telerik:GridBoundColumn HeaderText="Category" HeaderTooltip="Category"  DataField="Category"
                     UniqueName="Category" SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="SubCategory"  DataField="SubCategory"
+                <telerik:GridBoundColumn HeaderText="SubCategory" HeaderTooltip="SubCategory" DataField="SubCategory"
                     UniqueName="SubCategory" SortExpression="SubCategory" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Purchase Transaction"  DataField="BUYCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction Count" HeaderText="Purchase Transaction"  DataField="BUYCount"
                     UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Purchase Amount" DataField="BUYAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Amount" HeaderText="Purchase Amount" DataField="BUYAmount"
                     UniqueName="BUYAmount" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="Sell Transaction"  DataField="SELCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction" HeaderText="Sell Transaction"  DataField="SELCount"
                     UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="Sell Amount" DataField="SELAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Amount" HeaderText="Sell Amount" DataField="SELAmount"
                     UniqueName="SELAmount" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="DVR Count"  DataField="DVRCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Count" HeaderText="DVR Count"  DataField="DVRCount"
                     UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="DVR Amount" DataField="DVRAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Amount" HeaderText="DVR Amount" DataField="DVRAmount"
                     UniqueName="DVRAmount" SortExpression="DVRAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderText="DVP Count"  DataField="DVPCount"
+                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Count" HeaderText="DVP Count"  DataField="DVPCount"
                     UniqueName="DVPCount" SortExpression="DVPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="DVP Amount" DataField="DVPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Amount" HeaderText="DVP Amount" DataField="DVPAmount"
                     UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SIP Count"  DataField="SIPCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Investment Plan Count" HeaderText="SIP Count"  DataField="SIPCount"
                     UniqueName="SIPCount" SortExpression="SIPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SIP Amount" DataField="SIPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Investment Plan Amount" HeaderText="SIP Amount" DataField="SIPAmount"
                     UniqueName="SIPAmount" SortExpression="SIPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="BCI Count"  DataField="BCICount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Count" HeaderText="BCI Count"  DataField="BCICount"
                     UniqueName="BCICount" SortExpression="BCICount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="BCI Amount" DataField="BCIAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Amount" HeaderText="BCI Amount" DataField="BCIAmount"
                     UniqueName="BCIAmount" SortExpression="BCIAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="BCO Count"  DataField="BCOCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Count" HeaderText="BCO Count"  DataField="BCOCount"
                     UniqueName="BCOCount" SortExpression="BCOCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="BCO Amount" DataField="BCOAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Amount" HeaderText="BCO Amount" DataField="BCOAmount"
                     UniqueName="BCOAmount" SortExpression="BCOAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="STB Count"  DataField="STBCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Count" HeaderText="STB Count"  DataField="STBCount"
                     UniqueName="STBCount" SortExpression="STBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="STB Amount" DataField="STBAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Amount" HeaderText="STB Amount" DataField="STBAmount"
                     UniqueName="STBAmount" SortExpression="STBAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="STS Count"  DataField="STSCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Count" HeaderText="STS Count"  DataField="STSCount"
                     UniqueName="STSCount" SortExpression="STSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="STS Amount" DataField="STSAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Amount" HeaderText="STS Amount" DataField="STSAmount"
                     UniqueName="STSAmount" SortExpression="STSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWB Count"  DataField="SWBCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Count" HeaderText="SWB Count"  DataField="SWBCount"
                     UniqueName="SWBCount" SortExpression="SWBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWB Amount" DataField="SWBAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Amount" HeaderText="SWB Amount" DataField="SWBAmount"
                     UniqueName="SWBAmount" SortExpression="SWBAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWP Count"  DataField="SWPCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Count" HeaderText="SWP Count"  DataField="SWPCount"
                     UniqueName="SWPCount" SortExpression="SWPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWP Amount" DataField="SWPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Amount" HeaderText="SWP Amount" DataField="SWPAmount"
                     UniqueName="SWPAmount" SortExpression="SWPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="SWS Count"  DataField="SWSCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Count" HeaderText="SWS Count"  DataField="SWSCount"
                     UniqueName="SWSCount" SortExpression="SWSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="SWS Amount" DataField="SWSAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Amount" HeaderText="SWS Amount" DataField="SWSAmount"
                     UniqueName="SWSAmount" SortExpression="SWSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderText="PRJ Count"  DataField="PRJCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejectiont Count" HeaderText="PRJ Count"  DataField="PRJCount"
                     UniqueName="PRJCount" SortExpression="PRJCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderText="PRJ Amount" DataField="PRJAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Amount" HeaderText="PRJ Amount" DataField="PRJAmount"
                     UniqueName="PRJAmount" SortExpression="PRJAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
