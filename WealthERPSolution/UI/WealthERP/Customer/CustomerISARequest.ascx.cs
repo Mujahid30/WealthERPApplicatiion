@@ -11,6 +11,7 @@ using System.Text;
 using WealthERP.Base;
 using BoAdvisorProfiling;
 using System.Data;
+using BoUploads;
 
 namespace WealthERP.Customer
 {
@@ -35,10 +36,10 @@ namespace WealthERP.Customer
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             hdnAdviserID.Value = advisorVo.advisorId.ToString();
-            
+
             if (!String.IsNullOrEmpty(Session[SessionContents.CurrentUserRole].ToString()))
             {
-                currentUserRole = Session[SessionContents.CurrentUserRole].ToString();
+                currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
             }
 
 
@@ -61,19 +62,37 @@ namespace WealthERP.Customer
                 {
                     stageStatus = Request.QueryString["StatusCode"].ToString();
                 }
-                
-                BindReasonAndStatus();
-                BindBranchDropDown();
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " GetVerificationType('Normal');", true);
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch1", " DisplayCustomerSearch();", true);
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('true');", true);
 
-                txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-                //txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                //txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                HideAndShowBasedOnRole(requestId);
-                SetStepStatusImage(0);
+
+                BindReasonAndStatus();
+                BindBranchDropDown(currentUserRole);
+                if (requestId != 0)
+                {
+
+                    //txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    //txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                    HideAndShowBasedOnRole(requestId);
+                    
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " GetVerificationType('Normal');", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch1", " DisplayCustomerSearch();", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('true');", true);
+
+                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+
+
+                    MarkAllFieldEnableFalse();
+                    EnableCurrentStep(0);
+                    tdCustomerSelection1.Visible = true;
+                    tdCustomerSelection2.Visible = true;
+                    txtCustomerNameEntry.Enabled = true;
+                    ddlBMBranch.Enabled = true;
+                    ddlCustomerCategory.Enabled = true;
+                }
+
             }
         }
 
@@ -100,8 +119,16 @@ namespace WealthERP.Customer
                 txtEmailID.Enabled = false;
                 trCustomerNameDetails.Visible = false;
             }
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch", " HideCustomerSearch();", true);
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " GetVerificationType('Normal');", true);
+
+            MarkAllFieldEnableFalse();           
+
+            EnableCurrentStep(0);
+
+            SetStepStatusImage(100);
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
+
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch", " HideCustomerSearch();", true);
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " GetVerificationType('Normal');", true);
         }
 
         protected void btnGenerateReqstNum_OnClick(object sender, EventArgs e)
@@ -132,7 +159,8 @@ namespace WealthERP.Customer
                 Int32.TryParse(txtMobileNum.Text, out mobileNum);
                 newCustomerVo.PANNum = txtPanNum.Text;
                 newCustomerVo.FirstName = txtCustomerNameEntry.Text;
-                newCustomerVo.Mobile1 = mobileNum;
+                if (!string.IsNullOrEmpty(txtMobileNum.Text.Trim()))
+                    newCustomerVo.Mobile1 = Convert.ToInt64(txtMobileNum.Text.Trim());
                 newCustomerVo.Email = txtEmailID.Text;
                 newCustomerVo.RmId = rmVo.RMId;
                 newCustomerVo.UserId = userVo.UserId;
@@ -146,6 +174,7 @@ namespace WealthERP.Customer
                 customerVo = customerBo.GetCustomer(customerIds[1]);
                 Session["customerVo"] = customerVo;
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('false');", true);
+
             }
             else
             {
@@ -153,19 +182,40 @@ namespace WealthERP.Customer
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('true');", true);
             }
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch", " HideCustomerSearch();", true);
-            HideAndShowBasedOnRole(customerIds[3]);
+            if (customerIds.Count > 0)
+            {
+                HideAndShowBasedOnRole(customerIds[3]);
+            }
+
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
         }
 
-        private void BindBranchDropDown()
+        private void BindBranchDropDown(string currentUserRole)
         {
-            DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(0, rmVo.RMId, 0);
-            if (ds != null)
+            UploadCommonBo uploadCommonBo = new UploadCommonBo();
+            DataSet dsBranchList = new DataSet();
+
+            if (currentUserRole == "ops" || currentUserRole == "admin")
             {
-                ddlBMBranch.DataSource = ds.Tables[1]; ;
-                ddlBMBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString();
-                ddlBMBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
+                dsBranchList = uploadCommonBo.GetAdviserBranchList(advisorVo.advisorId, currentUserRole);
+                ddlBMBranch.DataSource = dsBranchList.Tables[0];
+                ddlBMBranch.DataTextField = "AB_BranchName";
+                ddlBMBranch.DataValueField = "AB_BranchId";
+                ddlBMBranch.DataBind();
+
+            }
+            else if (currentUserRole == "bm")
+            {
+                dsBranchList = advisorBranchBo.GetBranchsRMForBMDp(0, rmVo.RMId, 0);
+                ddlBMBranch.DataSource = dsBranchList.Tables[1]; ;
+                ddlBMBranch.DataTextField = "AB_BranchName";
+                ddlBMBranch.DataValueField = "AB_BranchId";
                 ddlBMBranch.DataBind();
             }
+
+
+
+
         }
 
         protected void btnSubmitAddStage1_Click(object sender, EventArgs e)
@@ -173,26 +223,29 @@ namespace WealthERP.Customer
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage1.SelectedValue, ddlPriority.SelectedValue, "ISARQ", ddlReasonStage1.SelectedValue, string.Empty, string.Empty);
-                lblHeaderStatusStage1.Text = ddlStatusStage1.SelectedItem.ToString();
-                txtClosingDate.Text = DateTime.Now.ToShortDateString();
-                if (!string.IsNullOrEmpty(Session["customerVo"].ToString()))
-                    customerVo = (CustomerVo)Session["customerVo"];
+                //lblHeaderStatusStage1.Text = ddlStatusStage1.SelectedItem.ToString();
+                //txtClosingDate.Text = DateTime.Now.ToShortDateString();
+                //if (!string.IsNullOrEmpty(Session["customerVo"].ToString()))
+                //    customerVo = (CustomerVo)Session["customerVo"];
 
-                txtCusName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
-                txtBranchCode.Text = ddlBMBranch.SelectedItem.Text;
-                txtRBLCode.Text = ddlCustomerCategory.SelectedItem.ToString();
-                txtRequestNumber.Text = txtGenerateReqstNum.Text;
-                txtRequestdate.Text = DateTime.Now.ToShortDateString();
-                txtlblISAGenerationStatus.Text = "In Process";
-                string msg = "Your request has been sent to Ops. Your Request number is" + " " + txtGenerateReqstNum.Text;
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch", " HideCustomerSearch();", true);
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('false');", true);
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "HideAndShowBasedOnRole", " HideAndShowBasedOnRole('ISARQStatusDone');", true);
-                if (ddlPriority.SelectedValue == "Normal")
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "HideVerification", " GetVerificationType('Normal');", true);
-                else
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ShowVerification", " GetVerificationType('Urgent');", true);
+                //txtCusName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
+                //txtBranchCode.Text = ddlBMBranch.SelectedItem.Text;
+                //txtRBLCode.Text = ddlCustomerCategory.SelectedItem.ToString();
+                //txtRequestNumber.Text = txtGenerateReqstNum.Text;
+                //txtRequestdate.Text = DateTime.Now.ToShortDateString();
+                //txtlblISAGenerationStatus.Text = "In Process";
+                HideAndShowBasedOnRole(Convert.ToInt32(txtRequestNumber.Text));
+                //string msg = "Your request has been sent to Ops. Your Request number is" + " " + txtGenerateReqstNum.Text;
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch", " HideCustomerSearch();", true);
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('false');", true);
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "HideAndShowBasedOnRole", " HideAndShowBasedOnRole('ISARQStatusDone');", true);
+                //if (ddlPriority.SelectedValue == "Normal")
+                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "HideVerification", " GetVerificationType('Normal');", true);
+                //else
+                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ShowVerification", " GetVerificationType('Urgent');", true);
+
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
             }
         }
 
@@ -201,17 +254,19 @@ namespace WealthERP.Customer
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage1.SelectedValue, ddlPriority.SelectedValue, "ISARQ", ddlReasonStage1.SelectedValue, string.Empty, string.Empty);
-                ResetPageState();
-                if (!string.IsNullOrEmpty(Session["customerVo"].ToString()))
-                    customerVo = (CustomerVo)Session["customerVo"];
+                //ResetPageState();
+                //if (!string.IsNullOrEmpty(Session["customerVo"].ToString()))
+                //    customerVo = (CustomerVo)Session["customerVo"];
 
-                txtCusName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
-                if (!string.IsNullOrEmpty(Session["customerVo"].ToString()))
-                    Session.Remove("customerVo");
+                //txtCusName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
+                //if (!string.IsNullOrEmpty(Session["customerVo"].ToString()))
+                //    Session.Remove("customerVo");
 
-                lblHeaderStatusStage1.Text = ddlStatusStage1.SelectedItem.ToString();
-                txtClosingDate.Text = DateTime.Now.ToString();
+                //lblHeaderStatusStage1.Text = ddlStatusStage1.SelectedItem.ToString();
+                //txtClosingDate.Text = DateTime.Now.ToString();
 
+                HideAndShowBasedOnRole(Convert.ToInt32(txtRequestNumber.Text));
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
             }
         }
 
@@ -219,6 +274,7 @@ namespace WealthERP.Customer
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ResetPageLoad", " ResetPagetoFirstLoadState();", true);
         }
+
         protected void BindReasonAndStatus()
         {
             DataSet ds = customerBo.GetReasonAndStatus("ISA");
@@ -274,11 +330,13 @@ namespace WealthERP.Customer
             }
         }
 
+
         protected void HideAndShowBasedOnRole(int requestId)
         {
             DataSet dsISARequestDetails = new DataSet();
             string stepCode = string.Empty;
             string stageStatus = string.Empty;
+            int currentStep = 0;
 
             if (requestId != 0)
             {
@@ -296,10 +354,10 @@ namespace WealthERP.Customer
 
                             if (Convert.ToBoolean(drISARequestDetails["AISAQD_IsActiveStep"]) == true)
                             {
-                                SetStepStatusImage(Convert.ToInt16(drISARequestDetails["WWFSM_StepOrder"].ToString()));
+                                currentStep = Convert.ToInt16(drISARequestDetails["WWFSM_StepOrder"].ToString());
                                 stepCode = drISARequestDetails["WWFSM_StepCode"].ToString();
                                 stageStatus = drISARequestDetails["AISAQD_Status"].ToString();
-                               
+
                             }
 
 
@@ -319,7 +377,7 @@ namespace WealthERP.Customer
                                     txtRequestTimeValue.Text = DateTime.Parse(drISARequestDetails["AISAQ_date"].ToString()).TimeOfDay.ToString();
                                 }
 
-                             
+
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["CustomerName"].ToString()))
                                     txtCusName.Text = drISARequestDetails["CustomerName"].ToString();
@@ -327,8 +385,8 @@ namespace WealthERP.Customer
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQ_RequestQueueid"].ToString()))
                                     txtRequestNumber.Text = drISARequestDetails["AISAQ_RequestQueueid"].ToString();
 
-                                if (!String.IsNullOrEmpty(drISARequestDetails["CustomerName"].ToString()))
-                                    txtBranchCode.Text = drISARequestDetails["CustomerName"].ToString();
+                                if (!String.IsNullOrEmpty(drISARequestDetails["AB_BranchName"].ToString()))
+                                    txtBranchCode.Text = drISARequestDetails["AB_BranchName"].ToString();
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQ_StatusName"].ToString()))
                                     txtlblISAGenerationStatus.Text = drISARequestDetails["AISAQ_StatusName"].ToString();
@@ -361,16 +419,22 @@ namespace WealthERP.Customer
                                 if (!String.IsNullOrEmpty(drISARequestDetails["C_PANNum"].ToString()))
                                     txtPanNum.Text = drISARequestDetails["C_PANNum"].ToString();
 
+                                if (!String.IsNullOrEmpty(drISARequestDetails["C_Email"].ToString()))
+                                    txtEmailID.Text = drISARequestDetails["C_Email"].ToString();
+
+                                if (!String.IsNullOrEmpty(drISARequestDetails["C_Mobile1"].ToString()))
+                                    txtMobileNum.Text = drISARequestDetails["C_Mobile1"].ToString();
+
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQ_RequestQueueid"].ToString()))
                                     txtGenerateReqstNum.Text = drISARequestDetails["AISAQ_RequestQueueid"].ToString();
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQ_Priority"].ToString()))
                                 {
                                     ddlPriority.SelectedValue = drISARequestDetails["AISAQ_Priority"].ToString();
-                                    if (ddlPriority.SelectedValue == "Normal")
-                                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "VerificationHide", " GetVerificationType('Normal');", true);
-                                    else
-                                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "VerificationHide", " GetVerificationType('Urgent');", true);
+                                    //if (ddlPriority.SelectedValue == "Normal")
+                                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "VerificationHide", " GetVerificationType('Normal');", true);
+                                    //else
+                                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "VerificationHide", " GetVerificationType('Urgent');", true);
                                 }
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQD_Status"].ToString()))
@@ -386,7 +450,7 @@ namespace WealthERP.Customer
 
                             //------------****************************STEP 2***********************------------------------------\\
 
-                            if (drISARequestDetails["WWFSM_StepCode"].ToString() == "CUSCR" && drISARequestDetails["AISAQD_Status"].ToString() != null)
+                            if (drISARequestDetails["WWFSM_StepCode"].ToString() == "VERIfY" && drISARequestDetails["AISAQD_Status"].ToString() != null)
                             {
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQD_Status"].ToString()))
                                     ddlStatusStage2.SelectedValue = drISARequestDetails["AISAQD_Status"].ToString();
@@ -407,7 +471,7 @@ namespace WealthERP.Customer
 
                             //------------****************************STEP 3***********************------------------------------\\
 
-                            if (drISARequestDetails["WWFSM_StepCode"].ToString() == "VERIfY" && drISARequestDetails["AISAQD_Status"].ToString() != null)
+                            if (drISARequestDetails["WWFSM_StepCode"].ToString() == "CUSCR" && drISARequestDetails["AISAQD_Status"].ToString() != null)
                             {
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQD_Status"].ToString()))
                                     ddlStatusStage3.SelectedValue = drISARequestDetails["AISAQD_Status"].ToString();
@@ -451,8 +515,29 @@ namespace WealthERP.Customer
 
                 }
             }
+
+            MarkAllFieldEnableFalse();
+            if (currentStep == 4 && txtlblISAGenerationStatus.Text.Trim().ToLower() == "completed")
+            {
+                txtlblISAGenerationStatus.Style["color"] = "green";
+                txtlblISAGenerationStatus.Style["font-weight"] = "bold";
+                SetStepStatusImage(0);
+                EnableCurrentStep(100); //False Case Make all enable false in case of completed ISA Request
+            }
+            else
+            {
+                SetStepStatusImage(currentStep);
+                EnableCurrentStep(currentStep);
+            }
+            EnableControlBasedOnUserRole();
+
+
+
+
             //if (userRole == "BM" && stepCode == "" && stageStatus != "DO")
             //{
+
+            /*
             if (currentUserRole == "BM" && requestId == 0)
             {
 
@@ -528,8 +613,12 @@ namespace WealthERP.Customer
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "HideAndShowBasedOnRole", " HideAndShowBasedOnRole('ISARQStatusDone');", true);
             }
+             * 
+             */
 
-           
+
+
+
         }
 
         protected void btnSubmitStage2_Click(object sender, EventArgs e)
@@ -537,17 +626,18 @@ namespace WealthERP.Customer
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 string stageToMarkReprocess = ddlBackToStepStage2.SelectedValue;
-                customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage2.SelectedValue, string.Empty, "CUSCR", ddlReasonStage2.SelectedValue, txtComments.Text, stageToMarkReprocess);
-                txtStatus2.Text = ddlStatusStage2.SelectedItem.ToString();
-                txtClosingDate2.Text = DateTime.Now.ToShortDateString();
+                customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage2.SelectedValue, string.Empty, "VERIfY", ddlReasonStage2.SelectedValue, txtComments.Text, stageToMarkReprocess);
+                //txtStatus2.Text = ddlStatusStage2.SelectedItem.ToString();
+                //txtClosingDate2.Text = DateTime.Now.ToShortDateString();
                 //HideAndShowBasedOnRole("Ops", "CUSCR", ddlStatusStage2.SelectedValue, int.Parse(txtGenerateReqstNum.Text));
                 HideAndShowBasedOnRole(int.Parse(txtGenerateReqstNum.Text));
 
-                if (ddlStatusStage2.SelectedValue == "DO")
-                {
-                    string msg = "Your request is in next stage";
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
-                }
+                //if (ddlStatusStage2.SelectedValue == "DO")
+                //{
+                //    string msg = "Your request is in next stage";
+                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
+                //}
+               //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepTwo event Fire", " StepEventFireCollapseExpand('two');", true);
             }
         }
 
@@ -556,38 +646,46 @@ namespace WealthERP.Customer
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 string stageToMarkReprocess = ddlBackToStepStage3.SelectedValue;
-                customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage3.SelectedValue, string.Empty, "ISAGE", ddlStatusReason3.SelectedValue, txtAddComments3.Text, stageToMarkReprocess);
-                txtStatus3.Text = ddlStatusStage3.SelectedItem.ToString();
-                txtClosingDate3.Text = DateTime.Now.ToShortDateString();
+                customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage3.SelectedValue, string.Empty, "CUSCR", ddlStatusReason3.SelectedValue, txtAddComments3.Text, stageToMarkReprocess);
+                //txtStatus3.Text = ddlStatusStage3.SelectedItem.ToString();
+                //txtClosingDate3.Text = DateTime.Now.ToShortDateString();
                 //HideAndShowBasedOnRole("Ops", "VERIfY", ddlStatusStage3.SelectedValue, int.Parse(txtGenerateReqstNum.Text));
                 HideAndShowBasedOnRole(int.Parse(txtGenerateReqstNum.Text));
 
-                if (ddlStatusStage3.SelectedValue == "DO")
-                {
-                    string msg = "Your request is in next stage";
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
-                }
+                //if (ddlStatusStage3.SelectedValue == "DO")
+                //{
+                //    string msg = "Your request is in next stage";
+                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
+                //}
+              //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepThree event Fire", " StepEventFireCollapseExpand('three');", true);
 
             }
         }
+
         protected void btnSubmitStage4_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 string stageToMarkReprocess = ddlBackToStepStage4.SelectedValue;
                 customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage4.SelectedValue, string.Empty, "ISAGE", ddlReasonStage4.SelectedValue, txtAddcommentsStage4.Text, stageToMarkReprocess);
-                txtStatusStage4.Text = ddlStatusStage4.SelectedItem.ToString();
-                txtClosingDateStage4.Text = DateTime.Now.ToShortDateString();
+                //txtStatusStage4.Text = ddlStatusStage4.SelectedItem.ToString();
+                //txtClosingDateStage4.Text = DateTime.Now.ToShortDateString();
                 //HideAndShowBasedOnRole("Ops", "ISAGE", ddlStatusStage4.SelectedValue, int.Parse(txtGenerateReqstNum.Text));
                 HideAndShowBasedOnRole(int.Parse(txtGenerateReqstNum.Text));
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepFour event Fire", " StepEventFireCollapseExpand('four');", true);
             }
         }
-
 
         protected void SetStepStatusImage(int currentStepId)
         {
             switch (currentStepId)
             {
+                case 0:
+                    imgStepOneStatus.ImageUrl = "~/Images/StepCompleted.png";
+                    imgStepTwoStatus.ImageUrl = "~/Images/StepCompleted.png";
+                    imgStepThreeStatus.ImageUrl = "~/Images/StepCompleted.png";
+                    imgStepFourStatus.ImageUrl = "~/Images/StepCompleted.png";
+                    break;
                 case 1:
                     imgStepOneStatus.ImageUrl = "~/Images/CurrentStep.png";
                     imgStepTwoStatus.ImageUrl = "~/Images/StepPending.png";
@@ -610,13 +708,202 @@ namespace WealthERP.Customer
                     imgStepOneStatus.ImageUrl = "~/Images/StepCompleted.png";
                     imgStepTwoStatus.ImageUrl = "~/Images/StepCompleted.png";
                     imgStepThreeStatus.ImageUrl = "~/Images/StepCompleted.png";
-                    imgStepFourStatus.ImageUrl = "~/Images/StepPending.png";
+                    imgStepFourStatus.ImageUrl = "~/Images/CurrentStep.png";
                     break;
                 case 5:
                     Console.WriteLine(5);
                     break;
             }
 
+        }
+
+        protected void MarkAllFieldEnableFalse()
+        {
+
+            //**********------------------STEP ONE-------------*****************//
+
+            tdCustomerSelection1.Visible = false;
+            tdCustomerSelection2.Visible = false;
+            trCustomerSearch.Visible = false;
+            tdpriorityUrgent.Visible = false;
+
+
+            ddlCustomerCategory.Enabled = false;
+            txtCustomerNameEntry.Enabled = false;
+
+            ddlBMBranch.Enabled = false;
+            txtCusName.Enabled = false;
+            txtPanNum.Enabled = false;
+            txtEmailID.Enabled = false;
+            txtMobileNum.Enabled = false;
+            txtGenerateReqstNum.Enabled = false;
+
+
+
+            ddlPriority.Enabled = false;
+
+            //lbtnUploadISAForm.Enabled = false;
+            //lbtnUploadPanProof.Enabled = false;
+            //lbtnUploadAddressProof.Enabled = false;
+
+         
+
+            //trLinkToUpload.Visible = false;
+
+            ddlStatusStage1.Enabled = false;
+            ddlReasonStage1.Enabled = false;
+
+            btnSubmitAddStage1.Visible = false;
+            btnSubmitAddMoreStage1.Visible = false;
+            btnGenerateReqstNum.Visible = false;
+            lnkViewFormsAndProofBM.Visible = false;
+
+            //**********------------------STEP TWO-OPS MAKER-------------*****************//
+            ddlStatusStage2.Enabled = false;
+            ddlReasonStage2.Enabled = false;
+            ddlBackToStepStage2.Enabled = false;
+            txtComments.Enabled = false;
+
+            lnkViewFormsAndProofOPS.Visible = false;
+            btnSubmitStage2.Visible = false;
+
+
+            //**********------------------STEP TWO-OPS CHECKER-------------*****************//
+
+            ddlStatusStage3.Enabled = false;
+            ddlStatusReason3.Enabled = false;
+            ddlBackToStepStage3.Enabled = false;
+            txtAddComments3.Enabled = false;
+
+            btnSubmitStage3.Visible = false;
+            lnkbtnAddEditCustomerProfile.Visible = false;
+
+            //**********------------------STEP TWO-OPS CHECKER-------------*****************//
+            ddlStatusStage4.Enabled = false;
+            ddlReasonStage4.Enabled = false;
+            ddlBackToStepStage4.Enabled = false;
+            txtAddcommentsStage4.Enabled = false;
+
+            btnSubmitStage4.Visible = false;
+
+        }
+
+        protected void EnableCurrentStep(int currentStepId)
+        {
+            switch (currentStepId)
+            {
+                case 0:
+                    if (userVo.RoleList.Contains("BM"))
+                    {
+                    trCustomerSearch.Visible = true;
+                    trCustomerNameDetails.Visible = true;
+                    btnGenerateReqstNum.Visible = true;
+                    ddlPriority.Enabled = false;
+                    }   
+                   
+                    break;
+                case 1:
+                    //txtCusName.Enabled = true;
+                    //txtPanNum.Enabled = true;
+                    //txtEmailID.Enabled = true;
+                    //txtMobileNum.Enabled = true;
+                    //ddlPriority.Enabled = true;
+                    if (userVo.RoleList.Contains("BM"))
+                    {
+                        ddlStatusStage1.Enabled = true;
+                        ddlReasonStage1.Enabled = true;
+                        ddlPriority.Enabled = true;
+
+                        btnSubmitAddStage1.Visible = true;
+                        btnSubmitAddMoreStage1.Visible = true;
+                        
+                    }
+                   
+                    break;
+                case 2:                    
+
+                    if (userVo.RoleList.Contains("Ops"))
+                    {
+                        ddlStatusStage2.Enabled = true;
+                        ddlReasonStage2.Enabled = true;
+                        ddlBackToStepStage2.Enabled = true;
+                        txtComments.Enabled = true;
+                        btnSubmitStage2.Visible = true;                      
+                                                
+                    }
+                    break;
+                case 3:
+
+                    if (userVo.RoleList.Contains("Ops"))
+                    {
+                        ddlStatusStage3.Enabled = true;
+                        ddlStatusReason3.Enabled = true;
+                        ddlBackToStepStage3.Enabled = true;
+                        txtAddComments3.Enabled = true;
+
+                        lnkbtnAddEditCustomerProfile.Visible = true;
+                        btnSubmitStage3.Visible = true;
+                                               
+                    }
+                    break;
+                case 4:
+                    if (userVo.RoleList.Contains("Ops"))
+                    {
+                        ddlStatusStage4.Enabled = true;
+                        ddlReasonStage4.Enabled = true;
+                        ddlBackToStepStage4.Enabled = true;
+                        txtAddcommentsStage4.Enabled = true;
+
+                        btnSubmitStage4.Visible = true;
+                        lnkbtnAddEditCustomerProfile.Visible = true;
+                    }
+                    break;
+                case 5:
+                    
+                    break;
+            }
+ 
+        }
+
+        protected void ddlPriority_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlPriority.SelectedValue == "Urgent")
+            {
+                tdpriorityUrgent.Visible = true;
+
+                lbtnUploadISAForm.Enabled = true;
+                lbtnUploadPanProof.Enabled = true;
+                lbtnUploadAddressProof.Enabled = true;
+            }
+            else
+            {
+                tdpriorityUrgent.Visible = false;
+
+            }
+
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
+
+        }
+
+        protected void EnableControlBasedOnUserRole()
+        {
+            switch (currentUserRole)
+            {
+                case "bm":
+                    if (ddlPriority.SelectedValue.ToLower() == "urgent")
+                    {
+                        lnkViewFormsAndProofBM.Visible = true;
+                    }
+                    
+                    break;
+                case "ops":
+                    if (ddlPriority.SelectedValue.ToLower() == "urgent")
+                    {
+                        lnkViewFormsAndProofOPS.Visible = true;
+                    }
+                   break;
+             }
+           
         }
 
     }

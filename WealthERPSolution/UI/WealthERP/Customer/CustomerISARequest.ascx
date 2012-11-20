@@ -44,7 +44,7 @@
         document.getElementById("<%= ddlStatusStage1.ClientID %>").selectedIndex = "0";
         document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = true;
         document.getElementById("<%= rdbNewCustomer.ClientID %>").checked = true;
-        document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'collapse';
+
         document.getElementById("<%= trCustomerSearch.ClientID %>").style.visibility = 'collapse';
         document.getElementById("<%= trCustomerNameDetails.ClientID %>").style.visibility = 'visible';
         document.getElementById("<%= txtPanNum.ClientID %>").value = "";
@@ -314,23 +314,19 @@
         //in val u get dropdown list selected value
         var verificationType = val;
         var cusType = document.getElementById("<%= ddlCustomerCategory.ClientID %>").selectedIndex;
-        document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'collapse';
+
         if (verificationType == "Normal" || verificationType == "Select") {
-            document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'collapse';
+
         }
         else if (verificationType == "Urgent" && cusType == "1") {
-            document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= tdPanLink.ClientID %>").style.visibility = 'collapse';
-            document.getElementById("<%= tdAddressLink.ClientID %>").style.visibility = 'collapse';
-            document.getElementById("<%= tdISALink.ClientID %>").style.visibility = 'visible';
+
+
 
 
         }
         else if (verificationType == "Urgent" && cusType == "2") {
-            document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= tdPanLink.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= tdAddressLink.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= tdISALink.ClientID %>").style.visibility = 'visible';
+
+
 
         }
     }
@@ -339,21 +335,17 @@
         var verificationType = val;
         var priorityType = document.getElementById("<%= ddlPriority.ClientID %>").selectedIndex;
 
-        document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'collapse';
+
         if (priorityType == "0" || priorityType == "2") {
-            document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'collapse';
+
         }
         else if (verificationType == "RBL" && priorityType == "1") {
-            document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= tdPanLink.ClientID %>").style.visibility = 'collapse';
-            document.getElementById("<%= tdAddressLink.ClientID %>").style.visibility = 'collapse';
-            document.getElementById("<%= tdISALink.ClientID %>").style.visibility = 'visible';
+
+
         }
         else if (verificationType == "NRBL" && priorityType == "1") {
-            document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= tdPanLink.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= tdAddressLink.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= tdISALink.ClientID %>").style.visibility = 'visible';
+
+
         }
     }
 
@@ -435,7 +427,7 @@
 
 <script type="text/javascript">
     function enableDisablePriority(val) {
-        document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'collapse';
+
         if (val == "true") {
             document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
             document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = true;
@@ -539,9 +531,10 @@
 
     function DisplayCustomerSearch() {
         //in val u get dropdown list selected value
-        document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'collapse';
+
         document.getElementById("<%= trCustomerSearch.ClientID %>").style.visibility = 'collapse';
         if (document.getElementById("<%= rdbExistingCustomer.ClientID %>").checked == true) {
+            document.getElementById("<%= trCustomerNameDetails.ClientID %>").style.visibility = 'collapse';
             document.getElementById("<%= trCustomerSearch.ClientID %>").style.visibility = 'visible';
             document.getElementById("<%= txtCustomerName.ClientID %>").value = null;
             document.getElementById("<%= lblGetBranch.ClientID %>").innerHTML = null;
@@ -549,7 +542,7 @@
             document.getElementById("<%= txtPanNum.ClientID %>").value = null;
             document.getElementById("<%= txtMobileNum.ClientID %>").value = null;
             document.getElementById("<%= txtEmailID.ClientID %>").value = null;
-            document.getElementById("<%= trCustomerNameDetails.ClientID %>").style.visibility = 'collapse';
+           
 
         }
         else if (document.getElementById("<%= rdbNewCustomer.ClientID %>").checked == true) {
@@ -595,6 +588,13 @@
 
     }
 
+    function openpopupViewFormsProof() {
+
+        window.open('PopUp.aspx?PageId=ViewCustomerProofs &LinkId= ViewFormsAndProofs', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+        return false;
+
+    }
+
     function openpopupAdd_EditCustomerDetails() {
         if (document.getElementById("<%= txtGenerateReqstNum.ClientID %>").value != "") {
             window.open('PopUp.aspx?PageId=EditCustomerIndividualProfile &LinkId= AddEditProfile', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
@@ -612,16 +612,6 @@
 
 <script type="text/javascript">
 
-    function DisplayProofFormType() {
-
-        document.getElementById("<%= trLinkToUpload.ClientID %>").style.visibility = 'visible';
-
-    }
-</script>
-
-<script type="text/javascript">
-
-
     $(document).ready(function() {
         $(".StepOneContentTable").hide();
         $("#imgCEStepOne").click(function() {
@@ -629,7 +619,7 @@
             var src = $(this).attr('src');
             if (src == '../Images/Section-Expand.png') {
                 $("#imgCEStepOne").attr("src", "../Images/Section-Collapse.png");
-               
+
                 if ($("#imgCEStepTwo").attr('src') == '../Images/Section-Collapse.png') {
                     $(".StepTwoContentTable").slideToggle(50);
                     $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
@@ -642,7 +632,7 @@
                     $(".StepFourContentTable").slideToggle(50);
                     $("#imgCEStepFour").attr("src", "../Images/Section-Expand.png");
                 }
-                
+
             }
             else if (src == '../Images/Section-Collapse.png') {
                 $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
@@ -729,7 +719,7 @@
             var src = $(this).attr('src');
             if (src == '../Images/Section-Expand.png') {
                 $("#imgCEStepFour").attr("src", "../Images/Section-Collapse.png");
-                
+
                 if ($("#imgCEStepTwo").attr('src') == '../Images/Section-Collapse.png') {
                     $(".StepTwoContentTable").slideToggle(50);
                     $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
@@ -756,6 +746,8 @@
     }
     
 </script>
+
+
 
 <style type="text/css">
     .table
@@ -973,8 +965,7 @@
                             <asp:Label ID="txtClosingDate" runat="server" CssClass="txtField"></asp:Label>
                         </div>
                         <div class="divCollapseImage">
-                            <img id="imgCEStepOne" src="../Images/Section-Expand.png" alt="Collapse/Expand"
-                                class="imgCollapse" />
+                            <img id="imgCEStepOne" src="../Images/Section-Expand.png" alt="Collapse/Expand" class="imgCollapse" />
                         </div>
                     </div>
                 </td>
@@ -983,10 +974,10 @@
                 <td class="SectionBody">
                     <table class="StepOneContentTable">
                         <tr>
-                            <td class="leftLabel">
+                            <td class="leftLabel" id="tdCustomerSelection1" runat="server">
                                 <asp:Label ID="lblCustomerNeworExisting" runat="server" Text="Relationship:" CssClass="FieldName"></asp:Label>
                             </td>
-                            <td class="rightData">
+                            <td class="rightData" id="tdCustomerSelection2" runat="server">
                                 <asp:RadioButton ID="rdbNewCustomer" runat="server" GroupName="CustomerType" Text="New"
                                     Checked="true" Class="FieldName" onClick="DisplayCustomerSearch()" />
                                 <asp:RadioButton ID="rdbExistingCustomer" runat="server" GroupName="CustomerType"
@@ -1126,7 +1117,8 @@
                                 <asp:Label ID="lblPriority" runat="server" Text="Priority:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightData">
-                                <asp:DropDownList ID="ddlPriority" runat="server" CssClass="cmbField" onchange="GetVerificationType(this.options[this.selectedIndex].value);">
+                                <asp:DropDownList ID="ddlPriority" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                    OnSelectedIndexChanged="ddlPriority_SelectedIndexChanged">
                                     <asp:ListItem Text="Urgent" Value="Urgent">
                                     </asp:ListItem>
                                     <asp:ListItem Text="Normal" Value="Normal" Selected="True">
@@ -1138,31 +1130,21 @@
                                     InitialValue="Select" ValidationGroup="vgBtnSubmitQueue">
                                 </asp:RequiredFieldValidator>
                             </td>
-                            <td colspan="4" class="rightDataFourColumn">
-                                &nbsp;
-                            </td>
-                            <td colspan="2" class="rightDataTwoColumn">
-                                &nbsp;
-                            </td>
-                        </tr>
-                        <tr id="trLinkToUpload" runat="server">
-                            <td class="leftLabel">
-                                &nbsp;
-                            </td>
-                            <td id="tdISALink" runat="server" class="rightData">
+                            <td colspan="4" class="rightDataFourColumn" id="tdpriorityUrgent" runat="server" visible="false">
+                                &nbsp; &nbsp; &nbsp; &nbsp;
                                 <asp:LinkButton ID="lbtnUploadISAForm" runat="server" Font-Size="X-Small" CausesValidation="False"
                                     Text="Upload/View ISA Form" OnClientClick="return openpopupAddISA()"></asp:LinkButton>
-                            </td>
-                            <td id="tdPanLink" runat="server" class="leftLabel">
+                                &nbsp;
                                 <asp:LinkButton ID="lbtnUploadPanProof" runat="server" Font-Size="X-Small" CausesValidation="False"
                                     Text="Upload/View PAN Proof" OnClientClick="return openpopupAddPan()"></asp:LinkButton>
-                            </td>
-                            <td id="tdAddressLink" runat="server" class="rightData">
+                                &nbsp;
                                 <asp:LinkButton ID="lbtnUploadAddressProof" runat="server" Font-Size="X-Small" CausesValidation="False"
                                     Text="Upload/View Address Proof" OnClientClick="return openpopupAddAddress()"></asp:LinkButton>
                             </td>
-                            <td colspan="4" class="rightDataFourColumn">
-                                &nbsp;
+                            <td colspan="2" class="rightDataTwoColumn">
+                                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+                                <asp:LinkButton ID="lnkViewFormsAndProofBM" runat="server" Font-Size="X-Small" CausesValidation="False"
+                                    Text="View Forms/Proof" OnClientClick="return openpopupViewFormsProof()" Visible="false"></asp:LinkButton>
                             </td>
                         </tr>
                         <tr>
@@ -1232,8 +1214,7 @@
                             <asp:Label ID="txtClosingDate2" runat="server" CssClass="txtField"></asp:Label>
                         </div>
                         <div class="divCollapseImage">
-                            <img id="imgCEStepTwo" src="../Images/Section-Expand.png" alt="Collapse/Expand"
-                                class="imgCollapse" />
+                            <img id="imgCEStepTwo" src="../Images/Section-Expand.png" alt="Collapse/Expand" class="imgCollapse" />
                         </div>
                     </div>
                 </td>
@@ -1273,6 +1254,8 @@
                                 </asp:DropDownList>
                             </td>
                             <td colspan="2" class="rightDataTwoColumn">
+                                <asp:LinkButton ID="lnkViewFormsAndProofOPS" runat="server" Font-Size="X-Small" CausesValidation="False"
+                                    Text="View Forms/Proof" OnClientClick="return openpopupViewFormsProof()"></asp:LinkButton>
                             </td>
                         </tr>
                         <tr>
@@ -1422,7 +1405,7 @@
                         </div>
                         <div class="fltlft">
                             <asp:Label ID="lblHeaderStatusStage4" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
-                            <asp:Label ID="txtStatusStage4" runat="server" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtStatusStage4" runat="server" CssClass="txtField"></asp:Label>
                         </div>
                         <div class="fltlft">
                             <asp:Label ID="lblClosingDateStage4" runat="server" Text="Closing Date:" CssClass="FieldName"></asp:Label>

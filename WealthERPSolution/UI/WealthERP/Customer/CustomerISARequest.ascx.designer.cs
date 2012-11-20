@@ -293,6 +293,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trStepOneContent;
         
         /// <summary>
+        /// tdCustomerSelection1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomerSelection1;
+        
+        /// <summary>
         /// lblCustomerNeworExisting control.
         /// </summary>
         /// <remarks>
@@ -300,6 +309,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomerNeworExisting;
+        
+        /// <summary>
+        /// tdCustomerSelection2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomerSelection2;
         
         /// <summary>
         /// rdbNewCustomer control.
@@ -617,22 +635,13 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reqValddlPriority;
         
         /// <summary>
-        /// trLinkToUpload control.
+        /// tdpriorityUrgent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trLinkToUpload;
-        
-        /// <summary>
-        /// tdISALink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdISALink;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdpriorityUrgent;
         
         /// <summary>
         /// lbtnUploadISAForm control.
@@ -644,15 +653,6 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.LinkButton lbtnUploadISAForm;
         
         /// <summary>
-        /// tdPanLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdPanLink;
-        
-        /// <summary>
         /// lbtnUploadPanProof control.
         /// </summary>
         /// <remarks>
@@ -662,15 +662,6 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.LinkButton lbtnUploadPanProof;
         
         /// <summary>
-        /// tdAddressLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdAddressLink;
-        
-        /// <summary>
         /// lbtnUploadAddressProof control.
         /// </summary>
         /// <remarks>
@@ -678,6 +669,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnUploadAddressProof;
+        
+        /// <summary>
+        /// lnkViewFormsAndProofBM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkViewFormsAndProofBM;
         
         /// <summary>
         /// lblStatusStage1 control.
@@ -903,6 +903,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBackToStepStage2;
+        
+        /// <summary>
+        /// lnkViewFormsAndProofOPS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkViewFormsAndProofOPS;
         
         /// <summary>
         /// lblCommentsStage2 control.
