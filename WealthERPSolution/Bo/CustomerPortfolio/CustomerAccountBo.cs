@@ -1621,5 +1621,80 @@ namespace BoCustomerPortfolio
             return customerISAAccountId;
         }
 
+
+        public DataTable GetISAListForFolioMapping(int CustomerId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataTable dtgetISAList;
+            try
+            {
+                dtgetISAList = customerAccountDao.GetISAListForFolioMapping(CustomerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCustomerISAAccount()");
+
+                object[] objects = new object[1];
+                objects[0] = CustomerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtgetISAList;
+        }
+
+        public DataTable GetBindAttachedFolioGrid(int AccountId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataTable dtBindAttachedFolioGrid;
+            try
+            {
+                dtBindAttachedFolioGrid = customerAccountDao.GetBindAttachedFolioGrid(AccountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtBindAttachedFolioGrid;
+        }
+
+        public DataTable GetAvailableFolioList(int CustomerId, int AccountId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataTable dtAvailableFolioList;
+            try
+            {
+                dtAvailableFolioList = customerAccountDao.GetAvailableFolioList(CustomerId, AccountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtAvailableFolioList;
+        }
+
+        public bool UpdateMFAccount(int cmfaAccountId, int isaAccountId, int AMCCode, int PortfolioId, string ModeOfHoldingCode, int IsJointlyHeld)
+        {
+            bool Result = false;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            try
+            {
+                Result = customerAccountDao.UpdateMFAccount(cmfaAccountId, isaAccountId, AMCCode, PortfolioId, ModeOfHoldingCode, IsJointlyHeld, out Result);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return Result;
+        }
     }
 }
