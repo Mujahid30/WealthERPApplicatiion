@@ -609,6 +609,38 @@ namespace BoCustomerPortfolio
 
             return dsAssetAccounts;
         }
+
+
+        public DataSet GetISADetails(int IsaAccountId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataSet dsISADetails;
+            try
+            {
+                dsISADetails = customerAccountDao.GetISADetails(IsaAccountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetISADetails()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return dsISADetails;
+        }
+
+
         public DataSet GetCustomerInsuranceAccounts(int portfolioId, string assetGroup)
         {
             CustomerAccountDao customerAccountDao = new CustomerAccountDao();
@@ -1586,6 +1618,69 @@ namespace BoCustomerPortfolio
 
             }
             return bResult;
+        }
+
+        public bool UpdateISAAccountAssociation(CustomerISAAccountsVo customerISAAccountAssociationVo ,string associationIds)
+        {
+            bool bResult = false;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            try
+            {
+                bResult = customerAccountDao.UpdateISAAccountAssociation(customerISAAccountAssociationVo, associationIds);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateISAAccountAssociation()");
+
+                object[] objects = new object[2];
+                objects[0] = customerISAAccountAssociationVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+        public bool UpdateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo)
+        {
+            bool IsISAUpdated = false;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            int customerISAAccountId = 0;
+            try
+            {
+                IsISAUpdated =Convert.ToBoolean(customerAccountDao.UpdateCustomerISAAccount(customerISAAccountVo));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCustomerISAAccount()");
+
+                object[] objects = new object[3];
+                objects[0] = customerISAAccountVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return IsISAUpdated;
         }
 
         public int CreateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo, int customerId, int userId)
