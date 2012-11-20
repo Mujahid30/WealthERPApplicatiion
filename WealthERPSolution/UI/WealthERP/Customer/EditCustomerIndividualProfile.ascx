@@ -263,8 +263,8 @@
                             <div id="dvFamilyAssociate" runat="server" style="width: 95%; padding-top: 5px; padding-left: 10px;">
                                 <telerik:RadGrid ID="gvFamilyAssociate" runat="server" CssClass="RadGrid" GridLines="Both"
                                     Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
-                                    ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                                    AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvFamilyAssociate_ItemDataBound"
+                                    ShowStatusBar="true" AllowAutomaticDeletes="True"  
+                                      Skin="Telerik" OnItemDataBound="gvFamilyAssociate_ItemDataBound"
                                     OnItemCommand="gvFamilyAssociate_ItemCommand" OnNeedDataSource="gvFamilyAssociate_NeedDataSource">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                         FileName="Family Associates" Excel-Format="ExcelML">
@@ -508,10 +508,10 @@
                 </div>
                 <div style="width: 100%; padding-left: 10px; padding-top: 5px;">
                     <telerik:RadGrid ID="gvISAAccountList" runat="server" CssClass="RadGrid" GridLines="Both"
-                        Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
-                        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                        AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvISAAccountList_ItemDataBound"
-                        OnItemCommand="gvISAAccountList_ItemCommand" OnNeedDataSource="gvISAAccountList_NeedDataSource">
+                        Width="90%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                        ShowStatusBar="true" AllowAutomaticDeletes="True"  
+                          Skin="Telerik" OnItemDataBound="gvISAAccountList_ItemDataBound"
+                        OnNeedDataSource="gvISAAccountList_NeedDataSource">
                         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                         </ExportSettings>
                         <MasterTableView DataKeyNames="CISAA_accountid" EditMode="EditForms" CommandItemDisplay="Top"
@@ -520,7 +520,7 @@
                                 <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
                                     UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
                                 </telerik:GridEditCommandColumn>
-                                <telerik:GridBoundColumn UniqueName="CISAA_AccountNumber" HeaderStyle-Width="100px"
+                                <telerik:GridBoundColumn  UniqueName="CISAA_AccountNumber" HeaderStyle-Width="100px"
                                     HeaderText="ISA Number" DataField="CISAA_AccountNumber" SortExpression="CISAA_AccountNumber"
                                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                     <HeaderStyle></HeaderStyle>
@@ -623,6 +623,9 @@
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="Name" HeaderText="Name" />
                                                                             <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
+                                                                            <asp:BoundField DataField="C_AssociateCustomerId" HeaderText="CA_AssociationId" Visible="false" />
+                                                                            <asp:BoundField DataField="CISAAA_Associationtype" HeaderText="CISAAA_Associationtype" Visible="false" />
+                                                                            
                                                                         </Columns>
                                                                     </asp:GridView>
                                                                 </asp:Panel>
@@ -630,7 +633,7 @@
                                                             <td id="tdJointHolders" align="left" style="padding-left: 30px;" runat="server">
                                                                 <asp:Panel ID="pnlJointholders" runat="server" Height="145px" ScrollBars="Vertical">
                                                                     <asp:GridView ID="gvJointHoldersList" runat="server" AutoGenerateColumns="False"
-                                                                        CellPadding="4" DataKeyNames="AssociationId" CssClass="GridViewStyle">
+                                                                        CellPadding="4" DataKeyNames="MemberCustomerId, AssociationId" CssClass="GridViewStyle">
                                                                         <FooterStyle CssClass="FooterStyle" />
                                                                         <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                                                                         <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -646,6 +649,9 @@
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="Name" HeaderText="Name" />
                                                                             <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
+                                                                            <asp:BoundField DataField="C_AssociateCustomerId" HeaderText="CA_AssociationId" Visible="false" />
+                                                                            <asp:BoundField DataField="CISAAA_Associationtype" HeaderText="CISAAA_Associationtype" Visible="false" />
+                                                                            
                                                                         </Columns>
                                                                     </asp:GridView>
                                                                 </asp:Panel>
@@ -659,6 +665,14 @@
                                             <td align="left" style="padding-left: 230px; padding-top: 5px;">
                                                 <asp:Button ID="btnGenerateISA" runat="server" Text="Generate ISA" CssClass="PCGLongButton"
                                                     OnClick="btnGenerateISA_Click" ValidationGroup="GenerateISA" />
+                                                    
+                                               <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update ISA" %>'
+                                                            runat="server" CssClass="PCGLongButton" OnClick="btnUpdateISA_Click"
+                                                            ValidationGroup="btnSubmit"></asp:Button>     
+                                                    
+                                                    
+                                                    
+                                                    
                                                 <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                                                     CommandName="Cancel"></asp:Button>
                                             </td>
@@ -707,8 +721,8 @@
                         <td style="padding-left: 5px;">
                             <telerik:RadGrid ID="gvBankDetails" runat="server" CssClass="RadGrid" GridLines="Both"
                                 Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
-                                ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                                AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvBankDetails_ItemDataBound"
+                                ShowStatusBar="true" AllowAutomaticDeletes="True"  
+                                  Skin="Telerik" OnItemDataBound="gvBankDetails_ItemDataBound"
                                 OnItemCommand="gvBankDetails_ItemCommand" OnNeedDataSource="gvBankDetails_NeedDataSource">
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                                 </ExportSettings>
