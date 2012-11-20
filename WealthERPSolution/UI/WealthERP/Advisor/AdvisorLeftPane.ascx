@@ -506,6 +506,8 @@
                                             </telerik:RadPanelItem>
                                               <telerik:RadPanelItem runat="server" Text="ISA Status" Value="Status_ISA">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="ISA Folio Mapping" Value="ISA_Folio_Mapp">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">

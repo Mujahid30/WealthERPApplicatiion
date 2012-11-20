@@ -1134,6 +1134,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerISARequestList','login');", true);
                 }
+                else if (e.Item.Value == "ISA_Folio_Mapp")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerISAFolioMapping','login');", true);
+                }
                 else if (e.Item.Value == "Add Customer")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
