@@ -2629,7 +2629,110 @@ namespace DaoCustomerPortfolio
             }
             return customerISAAccountId;
         }
+        public DataTable GetISAListForFolioMapping(int CustomerId)
+        {
+            DataSet dsgetISAList;
+            DataTable dtgetISAList;
+            Database db;
+            DbCommand GetISAListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetISAListCmd = db.GetStoredProcCommand("SPROC_GetISAListForFolioMapping");
+                db.AddInParameter(GetISAListCmd, "@CustomerId", DbType.Int32, CustomerId);
+                dsgetISAList = db.ExecuteDataSet(GetISAListCmd);
+                dtgetISAList = dsgetISAList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCustomerISAAccount()");
+
+                object[] objects = new object[1];
+                objects[0] = CustomerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtgetISAList;
+        }
+        public DataTable GetBindAttachedFolioGrid(int AccountId)
+        {
+            DataTable dtBindAttachedFolioGrid;
+            DataSet dsBindAttachedFolioGrid;
+            Database db;
+            DbCommand BindAttachedFolioGridCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                BindAttachedFolioGridCmd = db.GetStoredProcCommand("SPROC_GetAttachedfolioForISA");
+                db.AddInParameter(BindAttachedFolioGridCmd, "@accountId", DbType.Int32, AccountId);
+                dsBindAttachedFolioGrid = db.ExecuteDataSet(BindAttachedFolioGridCmd);
+                dtBindAttachedFolioGrid = dsBindAttachedFolioGrid.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtBindAttachedFolioGrid;
+        }
+        public DataTable GetAvailableFolioList(int CustomerId, int AccountId)
+        {
+            DataTable dtGetAvailableFolioList;
+            DataSet dsGetAvailableFolioList;
+            Database db;
+            DbCommand GetAvailableFolioListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAvailableFolioListCmd = db.GetStoredProcCommand("SPROC_GetAvailablefolioForISA");
+                db.AddInParameter(GetAvailableFolioListCmd, "@accountId", DbType.Int32, AccountId);
+                db.AddInParameter(GetAvailableFolioListCmd, "@CustomerId", DbType.Int32, CustomerId);
+                dsGetAvailableFolioList = db.ExecuteDataSet(GetAvailableFolioListCmd);
+                dtGetAvailableFolioList = dsGetAvailableFolioList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAvailableFolioList;
+        }
+        public bool UpdateMFAccount(int cmfaAccountId, int isaAccountId, int AMCCode, int PortfolioId, string ModeOfHoldingCode, int IsJointlyHeld, out bool result)
+        {
+            Database db;
+            DbCommand updateMFAccountCmd;
+            int affectedRecords = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateMFAccountCmd = db.GetStoredProcCommand("SPROC_UpdateMutualFundAccount");
+                db.AddInParameter(updateMFAccountCmd, "@cmfaAccountId", DbType.Int32, cmfaAccountId);
+                db.AddInParameter(updateMFAccountCmd, "@isaAccount", DbType.Int32, isaAccountId);
+                db.AddInParameter(updateMFAccountCmd, "@amcCode", DbType.Int32, AMCCode);
+                db.AddInParameter(updateMFAccountCmd, "@PortfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(updateMFAccountCmd, "@ModeOfHoldings", DbType.String, ModeOfHoldingCode);
+                db.AddInParameter(updateMFAccountCmd, "@IsJointlyHeld", DbType.Int32, IsJointlyHeld);
+                db.AddOutParameter(updateMFAccountCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(updateMFAccountCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(updateMFAccountCmd, "@IsSuccess").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            if (affectedRecords > 0)
+                return result = true;
+            else
+                return result = false;
+        }
 
     }
 }
