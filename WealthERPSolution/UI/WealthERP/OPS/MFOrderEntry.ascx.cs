@@ -1009,7 +1009,7 @@ namespace WealthERP.OPS
                 BindPortfolioDropdown(customerId);
                 ddltransType.SelectedIndex = 0;
                 ISAList = customerBo.GetISaList(customerId);
-                if (ISAList != null)
+                if (ISAList.Rows.Count!=0)
                 {
                     string formatstring = "";
 
@@ -1025,11 +1025,13 @@ namespace WealthERP.OPS
                         }
                     }
                     lblIsaNo.Text = formatstring;
-                    
+                    trRegretMsg.Visible = false;
+                    BtnIsa.Visible = false;
                 }
 
                 else
                 {
+                    lblIsaNo.Text = null;
                     trRegretMsg.Visible = true;
                     BtnIsa.Visible = true;
                 }
