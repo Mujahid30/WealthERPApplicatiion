@@ -4449,7 +4449,7 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCustomerCmd = db.GetStoredProcCommand("SP_CreateISACustomerRequest");
 
-                if (custCreateFlag == 0)
+                if (custCreateFlag == 1)
                 {
                     db.AddInParameter(createCustomerCmd, "@AR_RMId", DbType.Int32, customerVo.RmId);
                     db.AddInParameter(createCustomerCmd, "@CustId", DbType.Int32, customerVo.CustomerId);
@@ -4457,7 +4457,7 @@ namespace DaoCustomerProfiling
                 else
                 {
                     db.AddInParameter(createCustomerCmd, "@AR_RMId", DbType.Int32, DBNull.Value);
-                    db.AddInParameter(createCustomerCmd, "@CustId", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(createCustomerCmd, "@CustId", DbType.Int32, customerVo.CustomerId);
                 }
                 db.AddInParameter(createCustomerCmd, "@AB_BranchId", DbType.Int32, customerVo.BranchId);
                 if (customerVo.ProfilingDate == DateTime.MinValue || customerVo.ProfilingDate == null)

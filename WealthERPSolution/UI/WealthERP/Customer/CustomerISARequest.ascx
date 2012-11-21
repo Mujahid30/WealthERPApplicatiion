@@ -24,6 +24,8 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+
+
 <style type="text/css">
     /*CollapsiblePanel*/</style>
 
@@ -45,8 +47,8 @@
         document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = true;
         document.getElementById("<%= rdbNewCustomer.ClientID %>").checked = true;
 
-        document.getElementById("<%= trCustomerSearch.ClientID %>").style.visibility = 'collapse';
-        document.getElementById("<%= trCustomerNameDetails.ClientID %>").style.visibility = 'visible';
+
+
         document.getElementById("<%= txtPanNum.ClientID %>").value = "";
         document.getElementById("<%= txtGenerateReqstNum.ClientID %>").value = "";
         document.getElementById("<%= ddlBMBranch.ClientID %>").selectedIndex = "0";
@@ -513,41 +515,29 @@
 </script>
 
 <script type="text/javascript">
-    function HideCustomerSearch() {
 
-        if (document.getElementById("<%= rdbExistingCustomer.ClientID %>").checked == true) {
-            document.getElementById("<%= trCustomerSearch.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= trCustomerNameDetails.ClientID %>").style.visibility = 'collapse';
-        }
-        else if (document.getElementById("<%= rdbNewCustomer.ClientID %>").checked == true) {
-            document.getElementById("<%= trCustomerSearch.ClientID %>").style.visibility = 'collapse';
-            document.getElementById("<%= trCustomerNameDetails.ClientID %>").style.visibility = 'visible';
-        }
-
-    }
-</script>
-
-<script type="text/javascript">
-
-    function DisplayCustomerSearch() {
+    function DisplayCustomerSearch(val) {
         //in val u get dropdown list selected value
 
-        document.getElementById("<%= trCustomerSearch.ClientID %>").style.visibility = 'collapse';
-        if (document.getElementById("<%= rdbExistingCustomer.ClientID %>").checked == true) {
-            document.getElementById("<%= trCustomerNameDetails.ClientID %>").style.visibility = 'collapse';
-            document.getElementById("<%= trCustomerSearch.ClientID %>").style.visibility = 'visible';
+        if (val == 'EXISTING') {
+            alert('EXISTING');
+            document.getElementById("<%= trExistingCustomer.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= trNewCustomer.ClientID %>").style.visibility = 'collapse';
+
             document.getElementById("<%= txtCustomerName.ClientID %>").value = null;
             document.getElementById("<%= lblGetBranch.ClientID %>").innerHTML = null;
             document.getElementById("<%= lblGetRM.ClientID %>").innerHTML = null;
             document.getElementById("<%= txtPanNum.ClientID %>").value = null;
             document.getElementById("<%= txtMobileNum.ClientID %>").value = null;
             document.getElementById("<%= txtEmailID.ClientID %>").value = null;
-           
+
 
         }
-        else if (document.getElementById("<%= rdbNewCustomer.ClientID %>").checked == true) {
-            document.getElementById("<%= trCustomerSearch.ClientID %>").style.visibility = 'collapse';
-            document.getElementById("<%= trCustomerNameDetails.ClientID %>").style.visibility = 'visible';
+        else if (val == 'NEW') {
+            alert('NEW');
+            document.getElementById("<%= trExistingCustomer.ClientID %>").style.display = 'collapse';
+            document.getElementById("<%= trNewCustomer.ClientID %>").style.display = 'visible';
+
             document.getElementById("<%= txtPanNum.ClientID %>").disabled = false;
             document.getElementById("<%= txtMobileNum.ClientID %>").disabled = false;
             document.getElementById("<%= txtEmailID.ClientID %>").disabled = false;
@@ -612,7 +602,70 @@
 
 <script type="text/javascript">
 
+    function pageLoad() {
+        function StepEventFireCollapseExpand(stepName) {
+
+            if (stepName == 'one') {
+                alert(stepName);
+                $(document).ready(function() {
+                    $("#imgCEStepOne").attr("src", "../Images/Section-Collapse.png");
+
+                    $(".StepTwoContentTable").slideToggle(50);
+                    $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
+
+                    $(".StepThreeContentTable").slideToggle(50);
+                    $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+
+                    $(".StepFourContentTable").slideToggle(50);
+                    $("#imgCEStepFour").attr("src", "../Images/Section-Expand.png");
+                });
+
+            } else if (stepName == 'two') {
+                $(document).ready(function() {
+
+                    $(".StepOneContentTable").slideToggle(50);
+                    $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
+
+                    $(".StepThreeContentTable").slideToggle(50);
+                    $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+
+                    $(".StepFourContentTable").slideToggle(50);
+                    $("#imgCEStepFour").attr("src", "../Images/Section-Expand.png");
+                });
+
+            } else if (stepName == 'three') {
+                $(document).ready(function() {
+
+                    $(".StepTwoContentTable").slideToggle(50);
+                    $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
+
+                    $(".StepOneContentTable").slideToggle(50);
+                    $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
+
+                    $(".StepFourContentTable").slideToggle(50);
+                    $("#imgCEStepFour").attr("src", "../Images/Section-Expand.png");
+                });
+            } else if (stepName == 'four') {
+                $(document).ready(function() {
+
+                    $(".StepTwoContentTable").slideToggle(50);
+                    $("#imgCEStepTwo").attr("src", "../Images/Section-Expand.png");
+
+                    $(".StepThreeContentTable").slideToggle(50);
+                    $("#imgCEStepThree").attr("src", "../Images/Section-Expand.png");
+
+                    $(".StepOneContentTable").slideToggle(50);
+                    $("#imgCEStepOne").attr("src", "../Images/Section-Expand.png");
+                });
+            }
+        }
+    }
+</script>
+
+<script type="text/javascript">
+            
     $(document).ready(function() {
+        //    alert($("#imgCEStepOne").attr('src'))
         $(".StepOneContentTable").hide();
         $("#imgCEStepOne").click(function() {
             $(".StepOneContentTable").slideToggle(50);
@@ -640,6 +693,7 @@
         });
 
     });
+
 
     function keyPress(sender, args) {
         if (args.keyCode == 13) {
@@ -744,6 +798,11 @@
             return false;
         }
     }
+
+    /*---SECTION FOR POSTBACK HANDEL--*/
+
+
+
     
 </script>
 
@@ -979,9 +1038,11 @@
                             </td>
                             <td class="rightData" id="tdCustomerSelection2" runat="server">
                                 <asp:RadioButton ID="rdbNewCustomer" runat="server" GroupName="CustomerType" Text="New"
-                                    Checked="true" Class="FieldName" onClick="DisplayCustomerSearch()" />
+                                    Checked="true" Class="FieldName" OnCheckedChanged="rdbNewCustomer_CheckedChanged"
+                                    AutoPostBack="true" />
                                 <asp:RadioButton ID="rdbExistingCustomer" runat="server" GroupName="CustomerType"
-                                    Text="Existing" Class="FieldName" onClick="DisplayCustomerSearch()" />
+                                    Text="Existing" Class="FieldName" OnCheckedChanged="rdbExistingCustomer_CheckedChanged"
+                                    AutoPostBack="true" />
                             </td>
                             <td class="leftLabel">
                                 <asp:Label ID="lblCustomerCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
@@ -1004,7 +1065,24 @@
                                 &nbsp;
                             </td>
                         </tr>
-                        <tr id="trCustomerSearch" runat="server">
+                        <tr id="trNewCustomer" runat="server">
+                            <td class="leftLabel">
+                                <asp:Label ID="lblCustomerNameEntry" runat="server" Text="Customer Name:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtCustomerNameEntry" runat="server" CssClass="txtField"></asp:TextBox>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblChooseBr" runat="server" CssClass="FieldName" Text="Branch: "></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlBMBranch" runat="server" CssClass="cmbField">
+                                </asp:DropDownList>
+                            </td>
+                            <td colspan="4" class="rightDataFourColumn">
+                            </td>
+                        </tr>
+                        <tr id="trExistingCustomer" runat="server">
                             <td class="leftLabel">
                                 <asp:Label ID="lblCustomerSearch" runat="server" Text="Search Customer:" CssClass="FieldName"></asp:Label>
                             </td>
@@ -1035,23 +1113,6 @@
                                 <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="txtField"></asp:Label>
                             </td>
                             <td colspan="2" class="rightDataTwoColumn">
-                            </td>
-                        </tr>
-                        <tr id="trCustomerNameDetails" runat="server">
-                            <td class="leftLabel">
-                                <asp:Label ID="lblCustomerNameEntry" runat="server" Text="Customer Name:" CssClass="FieldName"></asp:Label>
-                            </td>
-                            <td class="rightData">
-                                <asp:TextBox ID="txtCustomerNameEntry" runat="server" CssClass="txtField"></asp:TextBox>
-                            </td>
-                            <td class="leftLabel">
-                                <asp:Label ID="lblChooseBr" runat="server" CssClass="FieldName" Text="Branch: "></asp:Label>
-                            </td>
-                            <td class="rightData">
-                                <asp:DropDownList ID="ddlBMBranch" runat="server" CssClass="cmbField">
-                                </asp:DropDownList>
-                            </td>
-                            <td colspan="4" class="rightDataFourColumn">
                             </td>
                         </tr>
                         <tr>
@@ -1130,7 +1191,8 @@
                                     InitialValue="Select" ValidationGroup="vgBtnSubmitQueue">
                                 </asp:RequiredFieldValidator>
                             </td>
-                            <td colspan="4" class="rightDataFourColumn" id="tdpriorityUrgent" runat="server" visible="false">
+                            <td colspan="4" class="rightDataFourColumn" id="tdpriorityUrgent" runat="server"
+                                visible="false">
                                 &nbsp; &nbsp; &nbsp; &nbsp;
                                 <asp:LinkButton ID="lbtnUploadISAForm" runat="server" Font-Size="X-Small" CausesValidation="False"
                                     Text="Upload/View ISA Form" OnClientClick="return openpopupAddISA()"></asp:LinkButton>

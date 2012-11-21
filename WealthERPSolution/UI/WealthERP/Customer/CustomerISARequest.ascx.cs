@@ -72,28 +72,16 @@ namespace WealthERP.Customer
                     //txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     //txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                     HideAndShowBasedOnRole(requestId);
-                    
+                    trExistingCustomer.Visible = false;
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " GetVerificationType('Normal');", true);
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch1", " DisplayCustomerSearch();", true);
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('true');", true);
-
-                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-
-
-                    MarkAllFieldEnableFalse();
-                    EnableCurrentStep(0);
-                    tdCustomerSelection1.Visible = true;
-                    tdCustomerSelection2.Visible = true;
-                    txtCustomerNameEntry.Enabled = true;
-                    ddlBMBranch.Enabled = true;
-                    ddlCustomerCategory.Enabled = true;
+                    //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch1retyui", "DisplayCustomerSearch('NEW');", true);
+                    ResetControlsToInitialState();
                 }
 
             }
+            //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "SectionCollapseExpand();", true);
         }
 
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
@@ -107,25 +95,25 @@ namespace WealthERP.Customer
                 txtPanNum.Text = customerVo.PANNum;
                 hdnCustomerId.Value = txtCustomerId.Value;
                 customerId = int.Parse(txtCustomerId.Value);
-                txtPanNum.Enabled = false;
+
                 if (customerVo.Mobile1.ToString() != "0" && customerVo.Mobile1.ToString() != "")
                     txtMobileNum.Text = customerVo.Mobile1.ToString();
                 else
                 {
                     txtMobileNum.Text = string.Empty;
                 }
-                txtMobileNum.Enabled = false;
                 txtEmailID.Text = customerVo.Email;
-                txtEmailID.Enabled = false;
-                trCustomerNameDetails.Visible = false;
+
+                //trNewCustomer.Visible = false;
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Existing Customer Control State", " DisplayCustomerSearch('EXISTING');", true);
             }
 
-            MarkAllFieldEnableFalse();           
+            //MarkAllFieldEnableFalse();           
 
-            EnableCurrentStep(0);
+            //EnableCurrentStep(0);
 
-            SetStepStatusImage(100);
-            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
+            //SetStepStatusImage(100);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
 
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch", " HideCustomerSearch();", true);
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " GetVerificationType('Normal');", true);
@@ -154,7 +142,7 @@ namespace WealthERP.Customer
             }
             else if (rdbNewCustomer.Checked == true && hidValidCheck.Value != "0")
             {
-                custCreateFlag = 0;
+                custCreateFlag = 1;
                 Int32 mobileNum = 0;
                 Int32.TryParse(txtMobileNum.Text, out mobileNum);
                 newCustomerVo.PANNum = txtPanNum.Text;
@@ -223,29 +211,8 @@ namespace WealthERP.Customer
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage1.SelectedValue, ddlPriority.SelectedValue, "ISARQ", ddlReasonStage1.SelectedValue, string.Empty, string.Empty);
-                //lblHeaderStatusStage1.Text = ddlStatusStage1.SelectedItem.ToString();
-                //txtClosingDate.Text = DateTime.Now.ToShortDateString();
-                //if (!string.IsNullOrEmpty(Session["customerVo"].ToString()))
-                //    customerVo = (CustomerVo)Session["customerVo"];
 
-                //txtCusName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
-                //txtBranchCode.Text = ddlBMBranch.SelectedItem.Text;
-                //txtRBLCode.Text = ddlCustomerCategory.SelectedItem.ToString();
-                //txtRequestNumber.Text = txtGenerateReqstNum.Text;
-                //txtRequestdate.Text = DateTime.Now.ToShortDateString();
-                //txtlblISAGenerationStatus.Text = "In Process";
                 HideAndShowBasedOnRole(Convert.ToInt32(txtRequestNumber.Text));
-                //string msg = "Your request has been sent to Ops. Your Request number is" + " " + txtGenerateReqstNum.Text;
-                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
-                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch", " HideCustomerSearch();", true);
-                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('false');", true);
-                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "HideAndShowBasedOnRole", " HideAndShowBasedOnRole('ISARQStatusDone');", true);
-                //if (ddlPriority.SelectedValue == "Normal")
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "HideVerification", " GetVerificationType('Normal');", true);
-                //else
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "ShowVerification", " GetVerificationType('Urgent');", true);
-
-                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
             }
         }
 
@@ -254,19 +221,7 @@ namespace WealthERP.Customer
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage1.SelectedValue, ddlPriority.SelectedValue, "ISARQ", ddlReasonStage1.SelectedValue, string.Empty, string.Empty);
-                //ResetPageState();
-                //if (!string.IsNullOrEmpty(Session["customerVo"].ToString()))
-                //    customerVo = (CustomerVo)Session["customerVo"];
-
-                //txtCusName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
-                //if (!string.IsNullOrEmpty(Session["customerVo"].ToString()))
-                //    Session.Remove("customerVo");
-
-                //lblHeaderStatusStage1.Text = ddlStatusStage1.SelectedItem.ToString();
-                //txtClosingDate.Text = DateTime.Now.ToString();
-
-                HideAndShowBasedOnRole(Convert.ToInt32(txtRequestNumber.Text));
-                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
+                ResetControlsToInitialState();
             }
         }
 
@@ -329,7 +284,6 @@ namespace WealthERP.Customer
                 ddlReasonStage4.Items.Insert(0, new ListItem("Select", "Select"));
             }
         }
-
 
         protected void HideAndShowBasedOnRole(int requestId)
         {
@@ -446,6 +400,8 @@ namespace WealthERP.Customer
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQD_StatusDate"].ToString()))
                                     txtClosingDate.Text = DateTime.Parse(drISARequestDetails["AISAQD_StatusDate"].ToString()).ToShortDateString();
 
+                                ShowHideReasonDropListBasedOnStatus(drISARequestDetails["AISAQD_Status"].ToString(), 1);
+
                             }
 
                             //------------****************************STEP 2***********************------------------------------\\
@@ -467,6 +423,9 @@ namespace WealthERP.Customer
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQD_StatusDate"].ToString()))
                                     txtClosingDate2.Text = DateTime.Parse(drISARequestDetails["AISAQD_StatusDate"].ToString()).ToShortDateString();
 
+                                ShowHideReasonDropListBasedOnStatus(drISARequestDetails["AISAQD_Status"].ToString(), 2
+                                    );
+
                             }
 
                             //------------****************************STEP 3***********************------------------------------\\
@@ -487,6 +446,8 @@ namespace WealthERP.Customer
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQD_StatusDate"].ToString()))
                                     txtClosingDate3.Text = DateTime.Parse(drISARequestDetails["AISAQD_StatusDate"].ToString()).ToShortDateString();
+
+                                ShowHideReasonDropListBasedOnStatus(drISARequestDetails["AISAQD_Status"].ToString(), 3);
                             }
 
                             //------------****************************STEP 4***********************------------------------------\\
@@ -508,6 +469,8 @@ namespace WealthERP.Customer
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQD_StatusDate"].ToString()))
                                     txtClosingDateStage4.Text = DateTime.Parse(drISARequestDetails["AISAQD_StatusDate"].ToString()).ToShortDateString();
+
+                                ShowHideReasonDropListBasedOnStatus(drISARequestDetails["AISAQD_Status"].ToString(), 4);
                             }
 
                         }
@@ -637,7 +600,7 @@ namespace WealthERP.Customer
                 //    string msg = "Your request is in next stage";
                 //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
                 //}
-               //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepTwo event Fire", " StepEventFireCollapseExpand('two');", true);
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepTwo event Fire", " StepEventFireCollapseExpand('two');", true);
             }
         }
 
@@ -657,7 +620,7 @@ namespace WealthERP.Customer
                 //    string msg = "Your request is in next stage";
                 //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
                 //}
-              //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepThree event Fire", " StepEventFireCollapseExpand('three');", true);
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepThree event Fire", " StepEventFireCollapseExpand('three');", true);
 
             }
         }
@@ -724,7 +687,7 @@ namespace WealthERP.Customer
 
             tdCustomerSelection1.Visible = false;
             tdCustomerSelection2.Visible = false;
-            trCustomerSearch.Visible = false;
+            //trExistingCustomer.Visible = false;
             tdpriorityUrgent.Visible = false;
 
 
@@ -746,7 +709,7 @@ namespace WealthERP.Customer
             //lbtnUploadPanProof.Enabled = false;
             //lbtnUploadAddressProof.Enabled = false;
 
-         
+
 
             //trLinkToUpload.Visible = false;
 
@@ -795,46 +758,45 @@ namespace WealthERP.Customer
                 case 0:
                     if (userVo.RoleList.Contains("BM"))
                     {
-                    trCustomerSearch.Visible = true;
-                    trCustomerNameDetails.Visible = true;
-                    btnGenerateReqstNum.Visible = true;
-                    ddlPriority.Enabled = false;
-                    }   
-                   
+                        trExistingCustomer.Visible = false;
+                        trNewCustomer.Visible = true;
+                        txtCustomerNameEntry.Enabled = true;
+                        txtEmailID.Enabled = true;
+                        txtMobileNum.Enabled = true;
+                        txtPanNum.Enabled = true;
+                        btnGenerateReqstNum.Visible = true;
+                        ddlPriority.Enabled = false;
+                    }
+
                     break;
                 case 1:
-                    //txtCusName.Enabled = true;
-                    //txtPanNum.Enabled = true;
-                    //txtEmailID.Enabled = true;
-                    //txtMobileNum.Enabled = true;
-                    //ddlPriority.Enabled = true;
+
                     if (userVo.RoleList.Contains("BM"))
                     {
                         ddlStatusStage1.Enabled = true;
                         ddlReasonStage1.Enabled = true;
                         ddlPriority.Enabled = true;
-
                         btnSubmitAddStage1.Visible = true;
                         btnSubmitAddMoreStage1.Visible = true;
-                        
-                    }
-                   
-                    break;
-                case 2:                    
 
-                    if (userVo.RoleList.Contains("Ops"))
+                    }
+
+                    break;
+                case 2:
+
+                    if (userVo.RoleList.Contains("Ops") && userVo.PermisionList.Contains("Maker"))
                     {
                         ddlStatusStage2.Enabled = true;
                         ddlReasonStage2.Enabled = true;
                         ddlBackToStepStage2.Enabled = true;
                         txtComments.Enabled = true;
-                        btnSubmitStage2.Visible = true;                      
-                                                
+                        btnSubmitStage2.Visible = true;
+
                     }
                     break;
                 case 3:
 
-                    if (userVo.RoleList.Contains("Ops"))
+                    if (userVo.RoleList.Contains("Ops") && userVo.PermisionList.Contains("Maker"))
                     {
                         ddlStatusStage3.Enabled = true;
                         ddlStatusReason3.Enabled = true;
@@ -843,11 +805,11 @@ namespace WealthERP.Customer
 
                         lnkbtnAddEditCustomerProfile.Visible = true;
                         btnSubmitStage3.Visible = true;
-                                               
+
                     }
                     break;
                 case 4:
-                    if (userVo.RoleList.Contains("Ops"))
+                    if (userVo.RoleList.Contains("Ops") && userVo.PermisionList.Contains("Checker"))
                     {
                         ddlStatusStage4.Enabled = true;
                         ddlReasonStage4.Enabled = true;
@@ -859,10 +821,13 @@ namespace WealthERP.Customer
                     }
                     break;
                 case 5:
-                    
+                    if (userVo.RoleList.Contains("Ops"))
+                    {
+
+                    }
                     break;
             }
- 
+
         }
 
         protected void ddlPriority_SelectedIndexChanged(object sender, EventArgs e)
@@ -894,17 +859,134 @@ namespace WealthERP.Customer
                     {
                         lnkViewFormsAndProofBM.Visible = true;
                     }
-                    
+
                     break;
                 case "ops":
                     if (ddlPriority.SelectedValue.ToLower() == "urgent")
                     {
                         lnkViewFormsAndProofOPS.Visible = true;
                     }
-                   break;
-             }
-           
+                    break;
+            }
+
         }
 
+        protected void rdbNewCustomer_CheckedChanged(object sender, EventArgs e)
+        {
+            trNewCustomer.Visible = true;
+            trExistingCustomer.Visible = false;
+            txtCustomerNameEntry.Enabled = true;
+            txtEmailID.Enabled = true;
+            txtMobileNum.Enabled = true;
+            txtPanNum.Enabled = true;
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
+
+        }
+
+        protected void rdbExistingCustomer_CheckedChanged(object sender, EventArgs e)
+        {
+            trNewCustomer.Visible = false;
+            trExistingCustomer.Visible = true;
+
+            txtCustomerNameEntry.Enabled = false;
+            txtEmailID.Enabled = false;
+            txtMobileNum.Enabled = false;
+            txtPanNum.Enabled = false;
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
+
+        }
+
+        protected void ResetControlsToInitialState()
+        {
+            trNewCustomer.Visible = true;
+            trExistingCustomer.Visible = false;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " GetVerificationType('Normal');", true);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('true');", true);
+
+            txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+
+
+            MarkAllFieldEnableFalse();
+            EnableCurrentStep(0);
+            tdCustomerSelection1.Visible = true;
+            tdCustomerSelection2.Visible = true;
+            txtCustomerNameEntry.Enabled = true;
+            ddlBMBranch.Enabled = true;
+            ddlCustomerCategory.Enabled = true;
+
+            txtCusName.Text = string.Empty;
+            txtRequestNumber.Text = string.Empty;
+            txtBranchCode.Text = string.Empty;
+            txtBranchCode.Text = string.Empty;
+            txtRequestTimeValue.Text = string.Empty;
+            txtlblISAGenerationStatus.Text = string.Empty;
+            txtRequestdate.Text = string.Empty;
+            txtRBLCode.Text = string.Empty;
+            txtRequestedByValue.Text = string.Empty;
+
+            if (Session["customerVo"] != null)
+                Session.Remove("customerVo");
+
+
+
+
+        }
+
+        protected void ShowHideReasonDropListBasedOnStatus(string statusCode, int currentStepId)
+        {
+            switch (currentStepId)
+            {
+                case 1:
+                    if (statusCode == "DO")
+                    {
+                        lblReasonStage1.Visible = false;
+                        ddlReasonStage1.Visible = false;
+                    }
+                    else
+                    {
+                        lblReasonStage1.Visible = true;
+                        ddlReasonStage1.Visible = true;
+                    }
+                    break;
+                case 2:
+                    if (statusCode == "DO")
+                    {
+                        lblReasonStage2.Visible = false;
+                        ddlReasonStage2.Visible = false;
+                    }
+                    else
+                    {
+                        lblReasonStage2.Visible = true;
+                        ddlReasonStage2.Visible = true;
+                    }
+                    break;
+                case 3:
+                    if (statusCode == "DO")
+                    {
+                        lblStatusReason3.Visible = false;
+                        ddlStatusReason3.Visible = false;
+                    }
+                    else
+                    {
+                        lblStatusReason3.Visible = true;
+                        ddlStatusReason3.Visible = true;
+                    }
+                    break;
+                case 4:
+                    if (statusCode == "DO")
+                    {
+                        lblReasonStage4.Visible = false;
+                        ddlReasonStage4.Visible = false;
+                    }
+                    else
+                    {
+                        lblReasonStage4.Visible = true;
+                        ddlReasonStage4.Visible = true;
+                    }
+                    break;
+            }
+
+        }
     }
 }

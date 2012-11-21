@@ -365,13 +365,58 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvddlCustomerCategory;
         
         /// <summary>
-        /// trCustomerSearch control.
+        /// trNewCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerSearch;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNewCustomer;
+        
+        /// <summary>
+        /// lblCustomerNameEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCustomerNameEntry;
+        
+        /// <summary>
+        /// txtCustomerNameEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCustomerNameEntry;
+        
+        /// <summary>
+        /// lblChooseBr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChooseBr;
+        
+        /// <summary>
+        /// ddlBMBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBMBranch;
+        
+        /// <summary>
+        /// trExistingCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExistingCustomer;
         
         /// <summary>
         /// lblCustomerSearch control.
@@ -444,51 +489,6 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGetBranch;
-        
-        /// <summary>
-        /// trCustomerNameDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerNameDetails;
-        
-        /// <summary>
-        /// lblCustomerNameEntry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCustomerNameEntry;
-        
-        /// <summary>
-        /// txtCustomerNameEntry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomerNameEntry;
-        
-        /// <summary>
-        /// lblChooseBr control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblChooseBr;
-        
-        /// <summary>
-        /// ddlBMBranch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBMBranch;
         
         /// <summary>
         /// lblPanNum control.
