@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditCustomerIndividualProfile.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="EditCustomerIndividualProfile.ascx.cs"
     Inherits="WealthERP.Customer.EditCustomerIndividualProfile" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -52,6 +52,7 @@
                     <tr>
                         <td align="left">
                             Edit Profile
+                            
                         </td>
                     </tr>
                 </table>
