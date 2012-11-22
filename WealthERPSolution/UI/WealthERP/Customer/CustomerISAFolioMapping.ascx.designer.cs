@@ -275,6 +275,15 @@ namespace WealthERP.Customer {
         protected global::Telerik.Web.UI.RadGrid gvJointHoldersList;
         
         /// <summary>
+        /// lblAvailableFolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAvailableFolio;
+        
+        /// <summary>
         /// gvAvailableFolio control.
         /// </summary>
         /// <remarks>
@@ -291,6 +300,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGo;
+        
+        /// <summary>
+        /// lblAttachedFolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAttachedFolio;
         
         /// <summary>
         /// gvAttachedFolio control.

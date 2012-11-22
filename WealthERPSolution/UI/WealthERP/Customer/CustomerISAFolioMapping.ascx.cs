@@ -36,7 +36,7 @@ namespace WealthERP.Customer
          
 
         protected void Page_Load(object sender, EventArgs e)
-       {
+      {
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -50,7 +50,9 @@ namespace WealthERP.Customer
                 trPan.Visible = false;
                 trISAList.Visible = false;
                 trHoldings.Visible = false;
+                lblAvailableFolio.Visible = false;
                 gvAvailableFolio.Visible = false;
+                lblAttachedFolio.Visible = false;
                 gvAttachedFolio.Visible = false;
                 btnGo.Visible = false;
                 trHoldingType.Visible = false;
@@ -157,7 +159,6 @@ namespace WealthERP.Customer
                 DataRow dr = dt.Rows[0];
                 trPan.Visible = true;
                 trISAList.Visible = true;
-                trHoldings.Visible = true;
                 lblGetPan.Text = dr["C_PANNum"].ToString();
                 BindISAList();
                 
@@ -171,24 +172,28 @@ namespace WealthERP.Customer
             if (ddlCustomerISAAccount.SelectedIndex != 0)
             {
                 LoadNominees();
+                trHoldings.Visible = true;
                 btnGo.Visible = true;
+                trHoldingType.Visible = true;
                 DataTable dt = customerBo.GetISAHoldings(int.Parse(ddlCustomerISAAccount.SelectedValue));
                 DataRow dr = dt.Rows[0];
                 lblModeOfHoldingValue.Text = dr["XMOH_ModeOfHolding"].ToString();
                 if (int.Parse(dr["CISAA_Isjointlyheld"].ToString()) == 0)
                 {
-                    lblGetISAHoldingType.Text = "Singly";
+                    lblGetISAHoldingType.Text = "No";
                     lblJointHoldersGv.Visible = false;
                     gvJointHoldersList.Visible = false;
                 }
                 else
                 {
-                    lblGetISAHoldingType.Text = "Jointly";
+                    lblGetISAHoldingType.Text = "Yes";
                     lblJointHoldersGv.Visible = true;
                     lblNomineegv.Visible = true;
                     gvJointHoldersList.Visible = true;
                     gvNominees.Visible = true;
                 }
+                lblAvailableFolio.Visible = true;
+                lblAttachedFolio.Visible = true;
                 BindAvailableFolioGrid(int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedValue));
                 BindAttachedFolioGrid(int.Parse(ddlCustomerISAAccount.SelectedValue));
             }

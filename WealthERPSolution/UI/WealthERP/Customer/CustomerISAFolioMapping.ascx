@@ -147,7 +147,7 @@
                 </tr>
                 <tr id="trHoldingType" runat="server">
                     <td class="leftField" align="right">
-                        <asp:Label ID="lblHoldingType" runat="server" CssClass="FieldName" Text="ISA Holding Type:"></asp:Label>
+                        <asp:Label ID="lblHoldingType" runat="server" CssClass="FieldName" Text="Joint Holding:"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:Label ID="lblGetISAHoldingType" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -163,8 +163,8 @@
                 </tr>
                 <tr id="trAssociate" runat="server">
                     <td id="tdNominees" align="left" style="padding-left: 30px;" runat="server">
-                        <asp:Label ID="lblNomineegv" runat="server" CssClass="FieldName" Text="Nominee List"></asp:Label>
-                        <br /><br />
+                        <asp:Label ID="lblNomineegv" runat="server" CssClass="HeaderTextSmall" Text="Nominee List"></asp:Label>
+                        <br />
                         <asp:Panel ID="pnlNominiees" runat="server" >
                             <%--<asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" CellPadding="4"
                                 DataKeyNames="MemberCustomerId, AssociationId" CssClass="GridViewStyle">
@@ -207,8 +207,8 @@
                         </asp:Panel>
                     </td>
                     <td id="tdJointHolders" align="left" style="padding-left: 30px;" runat="server">
-                    <asp:Label ID="lblJointHoldersGv" runat="server" CssClass="FieldName" Text="JointHolders List"></asp:Label>
-                        <br /><br />
+                    <asp:Label ID="lblJointHoldersGv" runat="server" CssClass="HeaderTextSmall" Text="JointHolders List"></asp:Label>
+                        <br />
                         <asp:Panel ID="pnlJointholders" runat="server">
                            <%-- <asp:GridView ID="gvJointHoldersList" runat="server" AutoGenerateColumns="False"
                                 CellPadding="4" DataKeyNames="AssociationId" CssClass="GridViewStyle">
@@ -268,7 +268,9 @@
     <td colspan="4"></td>
     </tr>
     <tr>
-        <td>
+        <td valign="top">
+        <asp:Label ID="lblAvailableFolio" runat="server" CssClass="HeaderTextSmall" Text="Available Folio"></asp:Label>
+        <br />
         <telerik:RadGrid ID="gvAvailableFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
                                 Width="100%" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
@@ -292,9 +294,9 @@
                                             SortExpression="CMFA_FolioNum">
                                             <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PA_AMCName" HeaderText="AMC" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
+                                        <telerik:GridBoundColumn DataField="PA_AMCName" HeaderText="AMC" AllowFiltering="false" HeaderStyle-HorizontalAlign="Left"
                                             UniqueName="PA_AMCName">
-                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                     </Columns>
                                 </MasterTableView>
@@ -307,7 +309,9 @@
         <asp:Button ID="btnGo" runat="server" Text=">>" CssClass="PCGButton" 
             ValidationGroup="ButtonGo" onclick="btnGo_Click" />
         </td>
-        <td>
+        <td valign="top">
+        <asp:Label ID="lblAttachedFolio" runat="server" CssClass="HeaderTextSmall" Text="Attached Folio"></asp:Label>
+        <br />
         <telerik:RadGrid ID="gvAttachedFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
                                 Width="100%" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
@@ -331,9 +335,9 @@
                                             SortExpression="CMFA_FolioNum">
                                             <ItemStyle  HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PA_AMCName" HeaderText="AMC" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
+                                        <telerik:GridBoundColumn DataField="PA_AMCName" HeaderText="AMC" AllowFiltering="false" HeaderStyle-HorizontalAlign="Left"
                                             UniqueName="PA_AMCName">
-                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                     </Columns>
                                 </MasterTableView>
