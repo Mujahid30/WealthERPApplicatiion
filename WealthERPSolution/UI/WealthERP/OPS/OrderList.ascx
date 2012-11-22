@@ -253,6 +253,11 @@
                                 HeaderText="Order No." DataTextField="CO_OrderId" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridButtonColumn>--%>
+                            <telerik:GridBoundColumn DataField="CMFOD_OrderNumber" AllowFiltering="true" HeaderText="Order No."
+                                UniqueName="CO_OrderId"
+                                SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                              <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy}"
                                 AllowFiltering="true" HeaderText="Order Date" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
@@ -286,11 +291,7 @@
                                  ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Order No."
-                                UniqueName="CO_OrderId"
-                                SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            
                             
                             
                             <%--<telerik:GridBoundColumn DataField="IS_SchemeName" AllowFiltering="false" HeaderText="Scheme Name"

@@ -23,6 +23,15 @@ namespace WealthERP.OPS {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
+        /// btnExportFilteredDupData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredDupData;
+        
+        /// <summary>
         /// lblFrom control.
         /// </summary>
         /// <remarks>
@@ -39,7 +48,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFrom;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredDupData;
+        
         /// <summary>
         /// CalendarExtender1 control.
         /// </summary>
@@ -311,6 +320,15 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Panel pnlOrderList;
         
         /// <summary>
+        /// trExportFilteredDupData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredDupData;
+        
+        /// <summary>
         /// gvOrderList control.
         /// </summary>
         /// <remarks>
@@ -408,6 +426,5 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnOrderType;
-        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredDupData;
     }
 }
