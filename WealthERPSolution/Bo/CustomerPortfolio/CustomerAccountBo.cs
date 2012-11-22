@@ -1774,6 +1774,21 @@ namespace BoCustomerPortfolio
             {
                 throw Ex;
             }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetAvailableFolioList()");
+                object[] objects = new object[2];
+                objects[0] = CustomerId;
+                objects[1] = AccountId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
             return dtAvailableFolioList;
         }
 
@@ -1790,6 +1805,21 @@ namespace BoCustomerPortfolio
                 throw (Ex);
             }
             return Result;
+        }
+
+        public DataSet GetCustomerISAAssociatedRel(int IsaAccountId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataSet dsGetISAAssociatedRel;
+            try
+            {
+                dsGetISAAssociatedRel = customerAccountDao.GetCustomerISAAssociatedRel(IsaAccountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetISAAssociatedRel;
         }
     }
 }
