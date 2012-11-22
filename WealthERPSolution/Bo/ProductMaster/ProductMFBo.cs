@@ -113,6 +113,38 @@ namespace BoProductMaster
             return codeSchemePlanList;
         }
 
+        public DataSet GetCustomerTypes()
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            DataSet dsCustomerTypes;
+            try
+            {
+                dsCustomerTypes = productMFDao.GetCustomerTypes();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetProductAmc()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsCustomerTypes;
+        }
+
         public DataSet GetProductAmc()
         {
             ProductMFDao productMFDao = new ProductMFDao();
