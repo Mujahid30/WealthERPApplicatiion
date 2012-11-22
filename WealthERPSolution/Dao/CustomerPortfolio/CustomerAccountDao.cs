@@ -2853,6 +2853,24 @@ namespace DaoCustomerPortfolio
             else
                 return result = false;
         }
+        public DataSet GetCustomerISAAssociatedRel(int IsaAccountId)
+        {
+            DataSet dsGetISAAssociatedRel;
+            Database db;
+            DbCommand GetISAAssociatedRelCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetISAAssociatedRelCmd = db.GetStoredProcCommand("SPROC_GetCustomerISAAssociatedRel");
+                db.AddInParameter(GetISAAssociatedRelCmd, "@IsaAccountId", DbType.Int32, IsaAccountId);
+                dsGetISAAssociatedRel = db.ExecuteDataSet(GetISAAssociatedRelCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetISAAssociatedRel;
+        }
 
     }
 }
