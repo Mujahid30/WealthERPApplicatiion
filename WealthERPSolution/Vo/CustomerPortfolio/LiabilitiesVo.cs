@@ -49,6 +49,7 @@ namespace VoCustomerPortfolio
         private string m_StepCode;
         private string m_StepName;
         private string m_StatusCode;
+        private string m_IsaNo;
 
         public string StatusCode
         {
@@ -78,7 +79,11 @@ namespace VoCustomerPortfolio
             get { return m_StepCode; }
             set { m_StepCode = value; }
         }
-
+        public string IsaNo
+        {
+            get { return m_IsaNo; }
+            set { m_IsaNo = value; }
+        }  
         public int ISARequestId
         {
             get { return m_ISARequestId; }
