@@ -34,7 +34,7 @@ namespace WealthERP.Customer
         RMVo rmVo = new RMVo();
         string currentUserRole = string.Empty;
         string userrole = "adviser";
-  
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -171,7 +171,7 @@ namespace WealthERP.Customer
             DataRow dr;
             Double loanOutStanding = 0;
             DateTime nextInsDate = new DateTime();
-
+            string format = "MMM ddd d HH:mm yyyy";
             if (ISAQueueListVo != null)
             {
                 btnExportFilteredData.Visible = true;
@@ -186,14 +186,14 @@ namespace WealthERP.Customer
                 dt.Columns.Add("BranchName");
                 dt.Columns.Add("StepName");
                 dt.Columns.Add("StatusCode");
-                dt.Columns.Add("RequestTime");
+                dt.Columns.Add("CISAA_AccountNumber");
                 for (int i = 0; i < ISAQueueListVo.Count; i++)
                 {
                     dr = dt.NewRow();
                     liabilityVo = ISAQueueListVo[i];
                     dr[0] = liabilityVo.ISARequestId;
                     if (liabilityVo.RequestDate != DateTime.MinValue)
-                        dr[1] = liabilityVo.RequestDate.ToShortDateString();
+                        dr[1] = liabilityVo.RequestDate.ToString("g");
                     if (liabilityVo.CurrentStatus != null)
                         dr[2] = liabilityVo.CurrentStatus;
                     if (liabilityVo.Priority != null)
@@ -210,8 +210,8 @@ namespace WealthERP.Customer
                         dr[8] = liabilityVo.StepName;
                     if (liabilityVo.StatusCode != null)
                         dr[9] = liabilityVo.StatusCode;
-                    if (liabilityVo.RequestDate != DateTime.MinValue)
-                        dr[10] = liabilityVo.RequestDate.TimeOfDay.ToString();
+                    if (liabilityVo.IsaNo != null)
+                        dr[10] = liabilityVo.IsaNo;
                     dt.Rows.Add(dr);
                 }
                 gvISArequest.DataSource = dt;

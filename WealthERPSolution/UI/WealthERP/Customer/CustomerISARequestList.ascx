@@ -60,36 +60,40 @@
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn DataField="CustomerName"  AllowFiltering="true" HeaderStyle-Width="90px"
-                            HeaderText="Customer Name" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <telerik:GridBoundColumn DataField="AISAQ_Priority" AllowFiltering="false" HeaderStyle-Width="70px"
+                            HeaderText="Priority" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="AISAQ_date" AllowFiltering="false" HeaderStyle-Width="70px"
                             HeaderText="Request Date">
                             <ItemStyle Width="" Wrap="false" VerticalAlign="Top" HorizontalAlign="Center" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="RequestTime" AllowFiltering="false" HeaderStyle-Width="70px"
-                            HeaderText="Request Time">
-                            <ItemStyle Width="" Wrap="false" VerticalAlign="Top" HorizontalAlign="Center" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AISAQ_Status" AllowFiltering="true" AutoPostBackOnFilter="true"
-                            ShowFilterIcon="False" HeaderStyle-Width="90px" HeaderText="Status">
+                        <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="true" HeaderStyle-Width="90px"
+                            HeaderText="Customer Name" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AISAQ_Priority" AllowFiltering="false" HeaderStyle-Width="70px"
-                            HeaderText="Priority" FooterStyle-HorizontalAlign="Right">
+                        <%-- <telerik:GridBoundColumn DataField="RequestTime" AllowFiltering="false" HeaderStyle-Width="70px"
+                            HeaderText="Request Time">
+                            <ItemStyle Width="" Wrap="false" VerticalAlign="Top" HorizontalAlign="Center" />
+                        </telerik:GridBoundColumn>--%>
+                        <telerik:GridBoundColumn DataField="AISAQ_Status" AllowFiltering="true" AutoPostBackOnFilter="true"
+                            ShowFilterIcon="False" HeaderStyle-Width="90px" HeaderText="Status">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="StepName" AllowFiltering="false" HeaderStyle-Width="120px"
                             HeaderText="Current Stage">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AISAQD_Status" HeaderStyle-Width="100px" AllowFiltering="false"
-                            HeaderText="Current Stage Status">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="BranchName" AllowFiltering="false" HeaderStyle-Width="110px"
                             HeaderText="Branch" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="CISAA_AccountNumber" AllowFiltering="false" HeaderStyle-Width="90px"
+                            HeaderText="Process Date/Time " FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="CISAA_AccountNumber" AllowFiltering="false" HeaderStyle-Width="90px"
+                            HeaderText="ISA No." FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
