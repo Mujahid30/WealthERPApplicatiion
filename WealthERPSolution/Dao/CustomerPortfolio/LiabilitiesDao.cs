@@ -2313,6 +2313,8 @@ namespace DaoCustomerPortfolio
                             liabilitiesVo.StepName = dr["WWFSM_StepName"].ToString();
                         if (!String.IsNullOrEmpty(dr["AISAQD_Status"].ToString()))
                             liabilitiesVo.StatusCode = dr["AISAQD_Status"].ToString();
+                        if (!String.IsNullOrEmpty(dr["CISAA_AccountNumber"].ToString()))
+                        liabilitiesVo.IsaNo = dr["CISAA_AccountNumber"].ToString();
                         ISAQueueList.Add(liabilitiesVo);
                     }
                 }
