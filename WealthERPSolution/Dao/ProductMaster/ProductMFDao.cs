@@ -308,6 +308,43 @@ namespace DaoProductMaster
             return dsGetBrokerCode;
         }
 
+        public DataSet GetCustomerTypes()
+        {
+            Database db;
+            DbCommand getCustomerTypesCmd;
+            DataSet dsGetCustomerTypes;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerTypesCmd = db.GetStoredProcCommand("SPROC_GetCustomerTypes");
+                dsGetCustomerTypes = db.ExecuteDataSet(getCustomerTypesCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFDao.cs:GetProductAmc()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return dsGetCustomerTypes;
+        }
+
+
         public DataSet GetProductAmc()
         {
             Database db;
