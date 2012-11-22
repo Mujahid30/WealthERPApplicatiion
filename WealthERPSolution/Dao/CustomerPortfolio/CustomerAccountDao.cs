@@ -381,15 +381,35 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_BROKERCODE", DbType.String, DBNull.Value);
                 }
-                if (!string.IsNullOrEmpty(customerAccountVo.TaxStaus))
+                //if (!string.IsNullOrEmpty(customerAccountVo.TaxStaus))
+                //{
+                //    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_TAXSTATUS", DbType.String, customerAccountVo.TaxStaus);
+                //}
+                //else
+                //{
+                //    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_TAXSTATUS", DbType.String, DBNull.Value);
+                //}
+                //newly added 
+                if (!string.IsNullOrEmpty(customerAccountVo.XCT_CustomerTypeCode))
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_TAXSTATUS", DbType.String, customerAccountVo.TaxStaus);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@XCT_CustomerTypeCode", DbType.String, customerAccountVo.XCT_CustomerTypeCode);
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_TAXSTATUS", DbType.String, DBNull.Value);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@XCT_CustomerTypeCode", DbType.String, DBNull.Value);
+                } 
+                
+                if (!string.IsNullOrEmpty(customerAccountVo.XCST_CustomerSubTypeCode))
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@XCST_CustomerSubTypeCode", DbType.String, customerAccountVo.XCST_CustomerSubTypeCode);
                 }
-                //newly added 
+                else
+                {
+                    db.AddInParameter(createCustomerMFAccountCmd, "@XCST_CustomerSubTypeCode", DbType.String, DBNull.Value);
+                }
+
+
+
                 if (!string.IsNullOrEmpty(customerAccountVo.CAddress1))
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_ADDRESS1", DbType.String, customerAccountVo.CAddress1);
