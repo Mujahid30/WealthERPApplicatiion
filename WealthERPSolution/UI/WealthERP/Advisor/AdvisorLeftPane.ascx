@@ -215,8 +215,9 @@
                                                     <telerik:RadPanelItem runat="server" Text="Trail Commission Exception"
                                                         Value="Trail_Commission_Exception">
                                                     </telerik:RadPanelItem>
-                                                   
-                                                </Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Customer Accounts Compare" Value="Customer_Accounts_Compare">
+                                                    </telerik:RadPanelItem>
+                                                   </Items>
                                             </telerik:RadPanelItem>
                                           
                                             <telerik:RadPanelItem runat="server" Text="User Management" Value="User Management">

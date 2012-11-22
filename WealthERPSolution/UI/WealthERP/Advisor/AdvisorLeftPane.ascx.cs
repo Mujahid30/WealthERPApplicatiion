@@ -665,6 +665,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TrailCommisionTransactionRejects','login');", true);
                 }
+                else if (e.Item.Value == "Customer_Accounts_Compare")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerExceptionHandling','login');", true);
+                }
                 else if (e.Item.Value == "OrderEntry")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
