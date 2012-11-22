@@ -1587,8 +1587,8 @@ namespace WealthERP.Customer
                 customerIdForGettingBankDetails = customerVo.CustomerId;
 
                 customerBankAccountList = customerBankAccountBo.GetCustomerBankAccounts(customerIdForGettingBankDetails);
-                if (customerBankAccountList.Count != 0)
-                {
+                //if (customerBankAccountList.Count != 0)
+                //{
                     DataTable dtCustomerBankAccounts = new DataTable();
                     dtCustomerBankAccounts.Columns.Add("CB_CustBankAccId");
                     dtCustomerBankAccounts.Columns.Add("CB_BankName");
@@ -1660,12 +1660,13 @@ namespace WealthERP.Customer
                     gvBankDetails.DataSource = dtCustomerBankAccounts;
                     gvBankDetails.DataBind();
                     gvBankDetails.Visible = true;
-                }
-                else
-                {
-                    gvBankDetails.DataSource = null;
-                    gvBankDetails.DataBind();
-                }
+                //}
+                //else
+                //{
+                //    gvBankDetails.DataSource = customerBankAccountList;
+                //    gvBankDetails.DataBind();
+                //    gvBankDetails.Visible = true;
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -1831,7 +1832,7 @@ namespace WealthERP.Customer
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
                 customerBankAccountBo.DeleteCustomerBankAccount(bankId);
             }
-            BindBankDetails(customerId);
+            BindBankDetails(customerVo.CustomerId);
         }
 
         protected void gvFamilyAssociate_ItemDataBound(object sender, GridItemEventArgs e)
