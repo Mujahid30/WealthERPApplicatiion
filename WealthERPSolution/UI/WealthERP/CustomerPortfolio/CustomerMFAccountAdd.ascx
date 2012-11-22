@@ -677,6 +677,26 @@
             </div>
         </td>
     </tr>
+     <tr>
+        <td class="leftField">
+            <asp:Label ID="Label26" runat="server" CssClass="FieldName" Text="Customer Type :"></asp:Label>
+        </td>
+        <td class="rightField">
+              <asp:DropDownList ID="ddlCustomerType" runat="server" CssClass="cmbField" 
+                >
+            </asp:DropDownList>
+        </td>
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="Label27" CssClass="FieldName" Text="Customer SubType :" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 25%">
+              <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField" 
+                >
+            </asp:DropDownList>
+        </td>
+        <td>
+        </td>
+    </tr>
     <tr>
         <td class="leftField">
             <asp:Label ID="Label24" runat="server" CssClass="FieldName" Text="Pan Number:"></asp:Label>

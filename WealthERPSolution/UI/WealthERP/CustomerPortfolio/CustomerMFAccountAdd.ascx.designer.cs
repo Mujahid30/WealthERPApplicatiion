@@ -77,6 +77,10 @@ namespace WealthERP.CustomerPortfolio
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProductAmc;
 
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerSubType;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerType;
+
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBankDetails;
 
 

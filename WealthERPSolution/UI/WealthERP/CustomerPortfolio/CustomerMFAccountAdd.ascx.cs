@@ -33,6 +33,7 @@ namespace WealthERP.CustomerPortfolio
         DataTable dtModeOfHolding;
         DataSet dsCustomerAssociates;
         DataSet dsProductAmc;
+        DataSet dsCustomerTypes;
         DataTable dtCustomerAssociatesRaw = new DataTable();
         DataTable dtCustomerAssociates = new DataTable();
         DataRow drCustomerAssociates;
@@ -135,6 +136,7 @@ namespace WealthERP.CustomerPortfolio
                         //pra..
                         BindPortfolioDropDown();
                         ddlPortfolio.SelectedValue = portfolioId.ToString();
+                        BindCustomerSubType();
                     }
 
                     //BindPortfolioDropDown();
@@ -215,7 +217,7 @@ namespace WealthERP.CustomerPortfolio
             txtBLine3.Text = customerAccountsVo.CMGCXP_BankAddress3;
             txtCity.Text = customerAccountsVo.CMGCXP_BankCity;
             txtPanNo.Text = customerAccountsVo.PanNumber;
-            txtTaxStatus.Text = customerAccountsVo.TaxStaus;
+            //txtTaxStatus.Text = customerAccountsVo.TaxStaus;
             txtBrokerCode.Text = customerAccountsVo.BrokerCode;
 
             BindDropDowns(path);
@@ -233,7 +235,8 @@ namespace WealthERP.CustomerPortfolio
             ddlBState.Text = customerAccountsVo.BranchAdrState;
             ddlBCountry.Text = ddlBCountry.SelectedValue;
             txtIfsc.Text = customerAccountsVo.AccountType;
-
+            ddlCustomerType.SelectedValue = customerAccountsVo.XCT_CustomerTypeCode;
+            ddlCustomerSubType.SelectedValue = customerAccountsVo.XCST_CustomerSubTypeCode;
 
             if (customerAccountsVo.CDOB != DateTime.MinValue)
                 rdpDOB.SelectedDate = customerAccountsVo.CDOB;
@@ -383,7 +386,7 @@ namespace WealthERP.CustomerPortfolio
             txtBLine3.Text = customerAccountsVo.CMGCXP_BankAddress3;
             txtCity.Text = customerAccountsVo.CMGCXP_BankCity;
             txtPanNo.Text = customerAccountsVo.PanNumber;
-            txtTaxStatus.Text = customerAccountsVo.TaxStaus;
+            //txtTaxStatus.Text = customerAccountsVo.TaxStaus;
             txtBrokerCode.Text = customerAccountsVo.BrokerCode;
 
             BindDropDowns(path);
@@ -522,6 +525,24 @@ namespace WealthERP.CustomerPortfolio
             ddlProductAmc.DataBind();
             ddlProductAmc.Items.Insert(0, new ListItem("Select an AMC Code", "Select an AMC Code"));
         }
+
+
+        private void BindCustomerSubType()
+        {
+            dsCustomerTypes = productMfBo.GetCustomerTypes();
+            ddlCustomerSubType.DataSource = dsCustomerTypes.Tables[1];
+            ddlCustomerSubType.DataTextField = "XCST_CustomersubTypeName";
+            ddlCustomerSubType.DataValueField = "XCST_CustomerSubTypeCode";
+            ddlCustomerSubType.DataBind();
+            ddlCustomerSubType.Items.Insert(0, new ListItem("Select a CustomerSubType", "0"));
+
+            ddlCustomerType.DataSource = dsCustomerTypes.Tables[0];
+            ddlCustomerType.DataTextField = "XCT_CustomerTypeName";
+            ddlCustomerType.DataValueField = "XCT_CustomerTypeCode";
+            ddlCustomerType.DataBind();
+            ddlCustomerType.Items.Insert(0, new ListItem("Select a CustomerType", "0"));
+        }
+
 
         private void BindModeOfHolding()
         {
@@ -833,8 +854,8 @@ namespace WealthERP.CustomerPortfolio
                 customerAccountsVo.CMGCXP_BankCity = txtCity.Text;
                 if (!string.IsNullOrEmpty(txtPanNo.Text))
                 customerAccountsVo.PanNumber = txtPanNo.Text;
-                if (!string.IsNullOrEmpty(txtTaxStatus.Text))
-                customerAccountsVo.TaxStaus = txtTaxStatus.Text;
+                //if (!string.IsNullOrEmpty(txtTaxStatus.Text))
+                //customerAccountsVo.TaxStaus = txtTaxStatus.Text;
                 if (!string.IsNullOrEmpty(txtBrokerCode.Text))
                 customerAccountsVo.BrokerCode = txtBrokerCode.Text;
                 //CustomerBankAccountVo CustomerBankAccountVo = new CustomerBankAccountVo();
@@ -869,7 +890,8 @@ namespace WealthERP.CustomerPortfolio
                 customerAccountsVo.IFSC = txtIfsc.Text;
                 if(ddlBCountry.SelectedValue!="0")
                 customerAccountsVo.BranchAdrCountry = ddlBCountry.SelectedValue;
-
+                customerAccountsVo.XCT_CustomerTypeCode = ddlCustomerType.SelectedValue;
+                customerAccountsVo.XCST_CustomerSubTypeCode = ddlCustomerSubType.SelectedValue;
 
                 if (rbtnNo.Checked)
                     customerAccountsVo.IsJointHolding = 0;
@@ -1001,6 +1023,90 @@ namespace WealthERP.CustomerPortfolio
                 newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
                 newAccountVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
                 newAccountVo.AccountId = customerAccountsVo.AccountId;
+
+
+                //Newly added 
+                //newly added fields for profile
+                if (!string.IsNullOrEmpty(txtPAddress1.Text))
+                    newAccountVo.CAddress1 = txtPAddress1.Text;
+                if (!string.IsNullOrEmpty(txtPAddress2.Text))
+                    newAccountVo.CAddress2 = txtPAddress2.Text;
+                if (!string.IsNullOrEmpty(txtPAddress3.Text))
+                    newAccountVo.CAddress3 = txtPAddress3.Text;
+                if (!string.IsNullOrEmpty(txtPCity.Text))
+                    newAccountVo.CCity = txtPCity.Text;
+                if (txtPPinCode.Text != "")
+                    newAccountVo.CPinCode = int.Parse(txtPPinCode.Text);
+                if (!string.IsNullOrEmpty(txtCustJName1.Text))
+                    newAccountVo.JointName1 = txtCustJName1.Text;
+                if (!string.IsNullOrEmpty(txtCustJName2.Text))
+                    newAccountVo.JointName2 = txtCustJName2.Text;
+                if (txtCustPhNoOff.Text != "")
+                    newAccountVo.CPhoneOffice = int.Parse(txtCustPhNoOff.Text);
+                if (txtCustPhNoRes.Text != "")
+                    newAccountVo.CPhoneRes = int.Parse(txtCustPhNoRes.Text);
+                if (!string.IsNullOrEmpty(txtCustEmail.Text))
+                    newAccountVo.CEmail = txtCustEmail.Text;
+                if (rdpDOB.SelectedDate != null)
+                    newAccountVo.CDOB = DateTime.Parse(rdpDOB.SelectedDate.ToString());
+                if (!string.IsNullOrEmpty(txtBLine1.Text))
+                    newAccountVo.CMGCXP_BankAddress1 = txtBLine1.Text;
+                if (!string.IsNullOrEmpty(txtBLine2.Text))
+                    newAccountVo.CMGCXP_BankAddress2 = txtBLine2.Text;
+                if (!string.IsNullOrEmpty(txtBLine3.Text))
+                    newAccountVo.CMGCXP_BankAddress3 = txtBLine3.Text;
+                if (!string.IsNullOrEmpty(txtCity.Text))
+                    newAccountVo.CMGCXP_BankCity = txtCity.Text;
+                if (!string.IsNullOrEmpty(txtPanNo.Text))
+                    newAccountVo.PanNumber = txtPanNo.Text;
+                if (!string.IsNullOrEmpty(txtBrokerCode.Text))
+                    newAccountVo.BrokerCode = txtBrokerCode.Text;
+                //added fields for bank details
+                if (ddlBankList.SelectedValue != "Select Bank")
+                    newAccountVo.BankId = int.Parse(ddlBankList.SelectedValue);
+                if (ddlAccType.SelectedIndex != -1)
+                    newAccountVo.AccountType = ddlAccType.SelectedValue.ToString();
+                if (!string.IsNullOrEmpty(txtAccNo.Text))
+                    newAccountVo.BankAccountNum = txtAccNo.Text;
+                if (ddlModeOfOpn.SelectedIndex != -1)
+                    newAccountVo.ModeOfOperation = ddlModeOfOpn.SelectedValue.ToString();
+                if (!string.IsNullOrEmpty(txtBankName.Text))
+                    newAccountVo.BankName = txtBankName.Text;
+                if (!string.IsNullOrEmpty(txtBranchName.Text))
+                    newAccountVo.BranchName = txtBranchName.Text;
+                if (!string.IsNullOrEmpty(txtBLine1.Text))
+                    newAccountVo.BranchAdrLine1 = txtBLine1.Text;
+                if (!string.IsNullOrEmpty(txtBLine2.Text))
+                    newAccountVo.BranchAdrLine2 = txtBLine2.Text;
+                if (!string.IsNullOrEmpty(txtBLine3.Text))
+                    newAccountVo.BranchAdrLine3 = txtBLine3.Text;
+                if (!string.IsNullOrEmpty(txtCity.Text))
+                    newAccountVo.BranchAdrCity = txtCity.Text;
+                if (ddlBState.SelectedIndex != -1)
+                    newAccountVo.BranchAdrState = ddlBState.SelectedValue;
+                if (txtPinCode.Text != "")
+                    newAccountVo.BranchAdrPinCode = int.Parse(txtPinCode.Text);
+                if (txtMicr.Text != "")
+                    newAccountVo.MICR = int.Parse(txtMicr.Text);
+                if (txtIfsc.Text != "")
+                    newAccountVo.IFSC = txtIfsc.Text;
+                if (ddlBCountry.SelectedValue != "0")
+                    newAccountVo.BranchAdrCountry = ddlBCountry.SelectedValue;
+                newAccountVo.XCT_CustomerTypeCode = ddlCustomerType.SelectedValue;
+                newAccountVo.XCST_CustomerSubTypeCode = ddlCustomerSubType.SelectedValue;
+
+                if (rbtnNo.Checked)
+                    newAccountVo.IsJointHolding = 0;
+                else
+                    newAccountVo.IsJointHolding = 1;
+                if (ddlModeOfHolding.SelectedValue != "Select Mode of Holding")
+                    newAccountVo.ModeOfHolding = ddlModeOfHolding.SelectedItem.Value.ToString();
+                if (txtAccountDate.SelectedDate.ToString() != "")
+                    newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountDate.SelectedDate.ToString());
+                newAccountVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
+
+                //End
+
                 if (customerTransactionBo.UpdateCustomerMFFolioDetails(newAccountVo, userVo.UserId))
                 {
                     customerTransactionBo.DeleteMFFolioAccountAssociates(newAccountVo.AccountId);
@@ -1069,6 +1175,89 @@ namespace WealthERP.CustomerPortfolio
                     newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
                     newAccountVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
                     newAccountVo.AccountId = customerAccountsVo.AccountId;
+                    //newly added
+                    //newly added fields for profile
+                    if (!string.IsNullOrEmpty(txtPAddress1.Text))
+                        newAccountVo.CAddress1 = txtPAddress1.Text;
+                    if (!string.IsNullOrEmpty(txtPAddress2.Text))
+                        newAccountVo.CAddress2 = txtPAddress2.Text;
+                    if (!string.IsNullOrEmpty(txtPAddress3.Text))
+                        newAccountVo.CAddress3 = txtPAddress3.Text;
+                    if (!string.IsNullOrEmpty(txtPCity.Text))
+                        newAccountVo.CCity = txtPCity.Text;
+                    if (txtPPinCode.Text != "")
+                        newAccountVo.CPinCode = int.Parse(txtPPinCode.Text);
+                    if (!string.IsNullOrEmpty(txtCustJName1.Text))
+                        newAccountVo.JointName1 = txtCustJName1.Text;
+                    if (!string.IsNullOrEmpty(txtCustJName2.Text))
+                        newAccountVo.JointName2 = txtCustJName2.Text;
+                    if (txtCustPhNoOff.Text != "")
+                        newAccountVo.CPhoneOffice = int.Parse(txtCustPhNoOff.Text);
+                    if (txtCustPhNoRes.Text != "")
+                        newAccountVo.CPhoneRes = int.Parse(txtCustPhNoRes.Text);
+                    if (!string.IsNullOrEmpty(txtCustEmail.Text))
+                        newAccountVo.CEmail = txtCustEmail.Text;
+                    if (rdpDOB.SelectedDate != null)
+                        newAccountVo.CDOB = DateTime.Parse(rdpDOB.SelectedDate.ToString());
+                    if (!string.IsNullOrEmpty(txtBLine1.Text))
+                        newAccountVo.CMGCXP_BankAddress1 = txtBLine1.Text;
+                    if (!string.IsNullOrEmpty(txtBLine2.Text))
+                        newAccountVo.CMGCXP_BankAddress2 = txtBLine2.Text;
+                    if (!string.IsNullOrEmpty(txtBLine3.Text))
+                        newAccountVo.CMGCXP_BankAddress3 = txtBLine3.Text;
+                    if (!string.IsNullOrEmpty(txtCity.Text))
+                        newAccountVo.CMGCXP_BankCity = txtCity.Text;
+                    if (!string.IsNullOrEmpty(txtPanNo.Text))
+                        newAccountVo.PanNumber = txtPanNo.Text;
+                    if (!string.IsNullOrEmpty(txtBrokerCode.Text))
+                        newAccountVo.BrokerCode = txtBrokerCode.Text;
+                    //added fields for bank details
+                    if (ddlBankList.SelectedValue != "Select Bank")
+                        newAccountVo.BankId = int.Parse(ddlBankList.SelectedValue);
+                    if (ddlAccType.SelectedIndex != -1)
+                        newAccountVo.AccountType = ddlAccType.SelectedValue.ToString();
+                    if (!string.IsNullOrEmpty(txtAccNo.Text))
+                        newAccountVo.BankAccountNum = txtAccNo.Text;
+                    if (ddlModeOfOpn.SelectedIndex != -1)
+                        newAccountVo.ModeOfOperation = ddlModeOfOpn.SelectedValue.ToString();
+                    if (!string.IsNullOrEmpty(txtBankName.Text))
+                        newAccountVo.BankName = txtBankName.Text;
+                    if (!string.IsNullOrEmpty(txtBranchName.Text))
+                        newAccountVo.BranchName = txtBranchName.Text;
+                    if (!string.IsNullOrEmpty(txtBLine1.Text))
+                        newAccountVo.BranchAdrLine1 = txtBLine1.Text;
+                    if (!string.IsNullOrEmpty(txtBLine2.Text))
+                        newAccountVo.BranchAdrLine2 = txtBLine2.Text;
+                    if (!string.IsNullOrEmpty(txtBLine3.Text))
+                        newAccountVo.BranchAdrLine3 = txtBLine3.Text;
+                    if (!string.IsNullOrEmpty(txtCity.Text))
+                        newAccountVo.BranchAdrCity = txtCity.Text;
+                    if (ddlBState.SelectedIndex != -1)
+                        newAccountVo.BranchAdrState = ddlBState.SelectedValue;
+                    if (txtPinCode.Text != "")
+                        newAccountVo.BranchAdrPinCode = int.Parse(txtPinCode.Text);
+                    if (txtMicr.Text != "")
+                        newAccountVo.MICR = int.Parse(txtMicr.Text);
+                    if (txtIfsc.Text != "")
+                        newAccountVo.IFSC = txtIfsc.Text;
+                    if (ddlBCountry.SelectedValue != "0")
+                        newAccountVo.BranchAdrCountry = ddlBCountry.SelectedValue;
+                    newAccountVo.XCT_CustomerTypeCode = ddlCustomerType.SelectedValue;
+                    newAccountVo.XCST_CustomerSubTypeCode = ddlCustomerSubType.SelectedValue;
+
+                    if (rbtnNo.Checked)
+                        newAccountVo.IsJointHolding = 0;
+                    else
+                        newAccountVo.IsJointHolding = 1;
+                    if (ddlModeOfHolding.SelectedValue != "Select Mode of Holding")
+                        newAccountVo.ModeOfHolding = ddlModeOfHolding.SelectedItem.Value.ToString();
+                    if (txtAccountDate.SelectedDate.ToString() != "")
+                        newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountDate.SelectedDate.ToString());
+                    newAccountVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
+                    //end
+
+
+
                     if (customerTransactionBo.UpdateCustomerMFFolioDetails(newAccountVo, userVo.UserId))
                     {
                         customerTransactionBo.DeleteMFFolioAccountAssociates(newAccountVo.AccountId);
