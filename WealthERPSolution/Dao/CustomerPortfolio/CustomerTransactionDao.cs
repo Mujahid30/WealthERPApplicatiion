@@ -3016,9 +3016,11 @@ namespace DaoCustomerPortfolio
                     if (!string.IsNullOrEmpty(dr["CMFA_PANNO"].ToString()))
                         AccountVo.PanNumber = dr["CMFA_PANNO"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMFA_BROKERCODE"].ToString()))
-                        AccountVo.TaxStaus = dr["CMFA_BROKERCODE"].ToString();
-                    if (!string.IsNullOrEmpty(dr["CMFA_TAXSTATUS"].ToString()))
-                    AccountVo.BrokerCode = dr["CMFA_TAXSTATUS"].ToString();
+                        AccountVo.BrokerCode = dr["CMFA_BROKERCODE"].ToString();
+                    if (!string.IsNullOrEmpty(dr["XCT_CustomerTypeCode"].ToString()))
+                        AccountVo.XCT_CustomerTypeCode = dr["XCT_CustomerTypeCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["XCST_CustomerSubTypeCode"].ToString()))
+                        AccountVo.XCST_CustomerSubTypeCode = dr["XCST_CustomerSubTypeCode"].ToString();
 
                     if (!string.IsNullOrEmpty(dr["CMGCXP_DOB"].ToString()))
                     AccountVo.CDOB = DateTime.Parse(dr["CMGCXP_DOB"].ToString());                    
@@ -3087,15 +3089,21 @@ namespace DaoCustomerPortfolio
                 else
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@XMOH_ModeOfHoldingCode", DbType.String, AccountVo.ModeOfHoldingCode);
+                
+
+                #region newly added
                 db.AddInParameter(updateMFFolioDetailsCmd, "@CP_PortfolioId", DbType.Int32, AccountVo.PortfolioId);
-                db.AddInParameter(updateMFFolioDetailsCmd, "@ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(updateMFFolioDetailsCmd, "@PAG_AssetGroupCode", DbType.String, AccountVo.AssetClass);
+
+
+                db.AddInParameter(updateMFFolioDetailsCmd, "@ModifiedBy", DbType.String, userId);
                 if (AccountVo.BankId != 0)
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@BankId", DbType.Int32, AccountVo.BankId);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_CustBankAccId", DbType.Int32, AccountVo.BankId);
                 }
                 else
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@BankId", DbType.String, DBNull.Value);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_CustBankAccId", DbType.Int32, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(AccountVo.Name))
                 {
@@ -3105,6 +3113,267 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_InvestorName", DbType.String, DBNull.Value);
                 }
+                if (!string.IsNullOrEmpty(AccountVo.PanNumber))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_PANNO", DbType.String, AccountVo.PanNumber);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_PANNO", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.BrokerCode))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_BROKERCODE", DbType.String, AccountVo.BrokerCode);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_BROKERCODE", DbType.String, DBNull.Value);
+                }
+
+                if (!string.IsNullOrEmpty(AccountVo.XCT_CustomerTypeCode))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@XCT_CustomerTypeCode", DbType.String, AccountVo.XCT_CustomerTypeCode);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@XCT_CustomerTypeCode", DbType.String, DBNull.Value);
+                }
+
+                if (!string.IsNullOrEmpty(AccountVo.XCST_CustomerSubTypeCode))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@XCST_CustomerSubTypeCode", DbType.String, AccountVo.XCST_CustomerSubTypeCode);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@XCST_CustomerSubTypeCode", DbType.String, DBNull.Value);
+                }
+
+
+
+                if (!string.IsNullOrEmpty(AccountVo.CAddress1))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_ADDRESS1", DbType.String, AccountVo.CAddress1);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_ADDRESS1", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.CAddress2))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_ADDRESS2", DbType.String, AccountVo.CAddress2);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_ADDRESS2", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.CAddress3))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_ADDRESS3", DbType.String, AccountVo.CAddress3);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_ADDRESS3", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.CCity))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_CITY", DbType.String, AccountVo.CCity);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_CITY", DbType.String, DBNull.Value);
+                }
+                if (AccountVo.CPinCode == 0)
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PINCODE", DbType.Int32, AccountVo.CPinCode);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PINCODE", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.JointName1))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_JOINT_NAME1", DbType.String, AccountVo.JointName1);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_JOINT_NAME1", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.JointName2))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_JOINT_NAME2", DbType.String, AccountVo.JointName2);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_JOINT_NAME2", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.Name))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Int32, AccountVo.CPhoneOffice);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.Name))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_RES", DbType.Int32, AccountVo.CPhoneRes);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_RES", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.CEmail))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_EMAIL", DbType.String, AccountVo.CEmail);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_EMAIL", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.CMGCXP_BankCity))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_BankCity", DbType.String, AccountVo.CMGCXP_BankCity);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_BankCity", DbType.String, DBNull.Value);
+                }
+                if (AccountVo.CDOB != DateTime.MinValue)
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_DOB", DbType.DateTime, AccountVo.CDOB);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_DOB", DbType.DateTime, DBNull.Value);
+                }
+
+                //added for Bank details 
+
+                if (!string.IsNullOrEmpty(AccountVo.BankName))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BankName", DbType.String, AccountVo.BankName);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BankName", DbType.String, DBNull.Value);
+                }
+
+                if (AccountVo.CustomerId == 0)
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@C_CustomerId", DbType.Int32, AccountVo.CustomerId);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@C_CustomerId", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.AccountType))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@XBAT_BankAccountTypeCode", DbType.String, AccountVo.AccountType);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@XBAT_BankAccountTypeCode", DbType.String, DBNull.Value);
+                }
+
+                if (!string.IsNullOrEmpty(AccountVo.BankAccountNum))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_AccountNum", DbType.String, AccountVo.BankAccountNum);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_AccountNum", DbType.String, DBNull.Value);
+                }
+
+                if (!string.IsNullOrEmpty(AccountVo.BranchName))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchName", DbType.String, AccountVo.BranchName);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchName", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.BranchAdrLine1))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrLine1", DbType.String, AccountVo.BranchAdrLine1);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrLine1", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.BranchAdrLine2))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrLine2", DbType.String, AccountVo.BranchAdrLine2);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrLine2", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.BranchAdrLine3))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrLine3", DbType.String, AccountVo.BranchAdrLine3);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrLine3", DbType.String, DBNull.Value);
+                }
+                if (AccountVo.BranchAdrPinCode != 0)
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrPinCode", DbType.Int32, AccountVo.BranchAdrPinCode);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrPinCode", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.BranchAdrCity))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrCity", DbType.String, AccountVo.BranchAdrCity);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrCity", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.BranchAdrState))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrState", DbType.String, AccountVo.BranchAdrState);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrState", DbType.String, DBNull.Value);
+                }
+
+                db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BranchAdrCountry", DbType.String, "India");
+
+
+                if (AccountVo.Balance != 0)
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_Balance", DbType.Int32, AccountVo.Balance);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_Balance", DbType.Int32, DBNull.Value);
+                }
+                if (AccountVo.MICR != 0)
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_MICR", DbType.Int32, AccountVo.MICR);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_MICR", DbType.Int32, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(AccountVo.IFSC))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_IFSC", DbType.String, AccountVo.IFSC);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_IFSC", DbType.String, DBNull.Value);
+                }
+
+               
+                #endregion
+
+
+
                 if (db.ExecuteNonQuery(updateMFFolioDetailsCmd) != 0)
                     blResult = true;
             }
