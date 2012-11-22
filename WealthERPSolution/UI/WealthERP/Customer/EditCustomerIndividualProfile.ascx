@@ -249,11 +249,11 @@
                                         <td align="left">
                                             Family Associates
                                         </td>
-                                        <td align="left">
+                                       <%-- <td align="left">
                                             <asp:ImageButton ID="btnImgAddExMember" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                                                 AlternateText="Add" runat="server" ToolTip="Click here to Add Associate" Height="15px"
                                                 Width="15px" OnClick="btnImgAddExMember_Click"></asp:ImageButton>
-                                        </td>
+                                        </td>--%>
                                     </tr>
                                 </table>
                             </div>
@@ -274,7 +274,7 @@
                                         CommandItemDisplay="None">--%>
                                     <MasterTableView DataKeyNames="CA_AssociationId,XR_RelationshipCode,C_PANNum,AB_BranchId"
                                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" EditMode="EditForms"
-                                        CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add New Bank Details">
+                                        CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add Family Associates">
                                         <Columns>
                                             <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
                                                 UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
@@ -326,7 +326,7 @@
                                                                         <asp:Label ID="lblMemberBranch" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
                                                                     </td>
                                                                     <td>
-                                                                        <asp:DropDownList ID="ddlMemberBranch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMemberBranch_SelectedIndexChanged">
+                                                                        <asp:DropDownList ID="ddlMemberBranch" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlMemberBranch_SelectedIndexChanged">
                                                                         </asp:DropDownList>
                                                                     </td>
                                                                 </tr>
@@ -380,7 +380,7 @@
                                                                     <td>
                                                                         <asp:Button ID="Button3" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                                             runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                                            ValidationGroup="btnSubmit"></asp:Button>
+                                                                            ValidationGroup="Submit"></asp:Button>
                                                                     </td>
                                                                     <td>
                                                                         <asp:Button ID="Button4" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
@@ -419,6 +419,9 @@
                                                                     <td class="rightField">
                                                                         <asp:TextBox ID="txtNewPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="txtField"></asp:TextBox>
                                                                         <span id="Span6" class="spnRequiredField">*</span>
+                                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
+                                                                            ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
+                                                                            CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -448,7 +451,7 @@
                                                                     <td>
                                                                         <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                                             runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                                            ValidationGroup="btnSubmit"></asp:Button>
+                                                                            ValidationGroup="Submit"></asp:Button>
                                                                     </td>
                                                                     <td>
                                                                         <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"

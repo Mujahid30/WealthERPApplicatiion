@@ -1183,21 +1183,21 @@ namespace WealthERP.Customer
         //    ddlNewRelationship.SelectedIndex = 0;
         //}
 
-        protected void btnImgAddExMember_Click(object sender, ImageClickEventArgs e)
-        {
-            RadioButton radio = (RadioButton)sender;
-            GridEditableItem editedItem = radio.NamingContainer as GridEditableItem;
-            HtmlTableRow trExCustHeader = editedItem.FindControl("trExCustHeader") as HtmlTableRow;
-            HtmlTableRow trExCustomerType = editedItem.FindControl("trExCustomerType") as HtmlTableRow;
-            HtmlTableRow trNewCustHeader = editedItem.FindControl("trNewCustHeader") as HtmlTableRow;
-            HtmlTableRow trNewCustomer = editedItem.FindControl("trNewCustomer") as HtmlTableRow;
-            HtmlTableRow trCustomerTypeSelection = editedItem.FindControl("trCustomerTypeSelection") as HtmlTableRow;
-            trCustomerTypeSelection.Visible = true;
-            trExCustHeader.Visible = false;
-            trExCustomerType.Visible = false;
-            trNewCustHeader.Visible = false;
-            trNewCustomer.Visible = false;
-        }
+        //protected void btnImgAddExMember_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    RadioButton radio = (RadioButton)sender;
+        //    GridEditableItem editedItem = radio.NamingContainer as GridEditableItem;
+        //    HtmlTableRow trExCustHeader = editedItem.FindControl("trExCustHeader") as HtmlTableRow;
+        //    HtmlTableRow trExCustomerType = editedItem.FindControl("trExCustomerType") as HtmlTableRow;
+        //    HtmlTableRow trNewCustHeader = editedItem.FindControl("trNewCustHeader") as HtmlTableRow;
+        //    HtmlTableRow trNewCustomer = editedItem.FindControl("trNewCustomer") as HtmlTableRow;
+        //    HtmlTableRow trCustomerTypeSelection = editedItem.FindControl("trCustomerTypeSelection") as HtmlTableRow;
+        //    trCustomerTypeSelection.Visible = true;
+        //    trExCustHeader.Visible = false;
+        //    trExCustomerType.Visible = false;
+        //    trNewCustHeader.Visible = false;
+        //    trNewCustomer.Visible = false;
+        //}
 
         #region unused
         
@@ -1936,6 +1936,10 @@ namespace WealthERP.Customer
                 HtmlTableRow trExCustomerType = editedItem.FindControl("trExCustomerType") as HtmlTableRow;
                 HtmlTableRow trNewCustHeader = editedItem.FindControl("trNewCustHeader") as HtmlTableRow;
                 HtmlTableRow trNewCustomer = editedItem.FindControl("trNewCustomer") as HtmlTableRow;
+                AutoCompleteExtender txtMember_autoCompleteExtender = editedItem.FindControl("txtMember_autoCompleteExtender") as AutoCompleteExtender;
+
+                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
 
                 trExCustHeader.Visible = true;
                 trExCustomerType.Visible = true;
