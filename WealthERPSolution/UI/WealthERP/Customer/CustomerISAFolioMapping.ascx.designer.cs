@@ -77,15 +77,6 @@ namespace WealthERP.Customer {
         protected global::AjaxControlToolkit.AutoCompleteExtender txtMember_autoCompleteExtender;
         
         /// <summary>
-        /// RequiredFieldValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
-        
-        /// <summary>
         /// trPan control.
         /// </summary>
         /// <remarks>
@@ -149,22 +140,49 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trHoldings;
         
         /// <summary>
-        /// lblISAHoldingType control.
+        /// lblModeofHolding control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblISAHoldingType;
+        protected global::System.Web.UI.WebControls.Label lblModeofHolding;
         
         /// <summary>
-        /// lblISAHoldingTypeValue control.
+        /// lblModeOfHoldingValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblISAHoldingTypeValue;
+        protected global::System.Web.UI.WebControls.Label lblModeOfHoldingValue;
+        
+        /// <summary>
+        /// trHoldingType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trHoldingType;
+        
+        /// <summary>
+        /// lblHoldingType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHoldingType;
+        
+        /// <summary>
+        /// lblGetISAHoldingType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGetISAHoldingType;
         
         /// <summary>
         /// tblAssociate control.
@@ -194,6 +212,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdNominees;
         
         /// <summary>
+        /// lblNomineegv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNomineegv;
+        
+        /// <summary>
         /// pnlNominiees control.
         /// </summary>
         /// <remarks>
@@ -209,7 +236,7 @@ namespace WealthERP.Customer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvNominees;
+        protected global::Telerik.Web.UI.RadGrid gvNominees;
         
         /// <summary>
         /// tdJointHolders control.
@@ -219,6 +246,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdJointHolders;
+        
+        /// <summary>
+        /// lblJointHoldersGv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblJointHoldersGv;
         
         /// <summary>
         /// pnlJointholders control.
@@ -236,7 +272,7 @@ namespace WealthERP.Customer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvJointHoldersList;
+        protected global::Telerik.Web.UI.RadGrid gvJointHoldersList;
         
         /// <summary>
         /// gvAvailableFolio control.

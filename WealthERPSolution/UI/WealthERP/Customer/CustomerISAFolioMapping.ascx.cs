@@ -53,10 +53,15 @@ namespace WealthERP.Customer
                 gvAvailableFolio.Visible = false;
                 gvAttachedFolio.Visible = false;
                 btnGo.Visible = false;
-                //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                //txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+                trHoldingType.Visible = false;
+                lblJointHoldersGv.Visible = false;
+                lblNomineegv.Visible = false;
+                gvJointHoldersList.Visible = false;
+                gvNominees.Visible = false;
+                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                //txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
                 
             }
 
@@ -75,9 +80,17 @@ namespace WealthERP.Customer
                     ddlCustomerISAAccount.DataValueField = dtGetISAList.Columns["CISAA_accountid"].ToString();
                     ddlCustomerISAAccount.DataTextField = dtGetISAList.Columns["CISAA_AccountNumber"].ToString();
                     ddlCustomerISAAccount.DataBind();
+                    ddlCustomerISAAccount.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
 
                 }
-                ddlCustomerISAAccount.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                else
+                {
+                    ddlCustomerISAAccount.Items.Clear();
+                    ddlCustomerISAAccount.DataSource = null;
+                    ddlCustomerISAAccount.DataBind();
+                    ddlCustomerISAAccount.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+                
             }
 
         }
@@ -122,10 +135,10 @@ namespace WealthERP.Customer
         {
             if (ddlMemberBranch.SelectedIndex == 0)
             {
-                //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                //txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                //txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
             }
             else
             {
@@ -147,7 +160,7 @@ namespace WealthERP.Customer
                 trHoldings.Visible = true;
                 lblGetPan.Text = dr["C_PANNum"].ToString();
                 BindISAList();
-                LoadNominees();
+                
 
             }
         }
@@ -157,10 +170,25 @@ namespace WealthERP.Customer
            
             if (ddlCustomerISAAccount.SelectedIndex != 0)
             {
+                LoadNominees();
                 btnGo.Visible = true;
                 DataTable dt = customerBo.GetISAHoldings(int.Parse(ddlCustomerISAAccount.SelectedValue));
                 DataRow dr = dt.Rows[0];
-                lblISAHoldingTypeValue.Text = dr["XMOH_ModeOfHolding"].ToString();
+                lblModeOfHoldingValue.Text = dr["XMOH_ModeOfHolding"].ToString();
+                if (int.Parse(dr["CISAA_Isjointlyheld"].ToString()) == 0)
+                {
+                    lblGetISAHoldingType.Text = "Singly";
+                    lblJointHoldersGv.Visible = false;
+                    gvJointHoldersList.Visible = false;
+                }
+                else
+                {
+                    lblGetISAHoldingType.Text = "Jointly";
+                    lblJointHoldersGv.Visible = true;
+                    lblNomineegv.Visible = true;
+                    gvJointHoldersList.Visible = true;
+                    gvNominees.Visible = true;
+                }
                 BindAvailableFolioGrid(int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedValue));
                 BindAttachedFolioGrid(int.Parse(ddlCustomerISAAccount.SelectedValue));
             }
@@ -188,9 +216,9 @@ namespace WealthERP.Customer
             DataTable dtCustomerAssociates = new DataTable();
             DataTable dtNewCustomerAssociate = new DataTable();
             DataRow drCustomerAssociates;
-            if (txtCustomerId.Value != string.Empty)
+            if (ddlCustomerISAAccount.SelectedIndex != 0)
             {
-                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(int.Parse(txtCustomerId.Value));
+                dsCustomerAssociates = customerAccountBo.GetCustomerISAAssociatedRel(int.Parse(ddlCustomerISAAccount.SelectedValue));
                 dtCustomerAssociates = dsCustomerAssociates.Tables[0];
 
                 dtNewCustomerAssociate.Columns.Add("MemberCustomerId");
@@ -202,14 +230,14 @@ namespace WealthERP.Customer
                 {
 
                     drCustomerAssociates = dtNewCustomerAssociate.NewRow();
-                    drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
-                    drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
-                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
-                    drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                    drCustomerAssociates["MemberCustomerId"] = dr["C_AssociateCustomerId"].ToString();
+                    drCustomerAssociates["AssociationId"] = dr["CA_AssociationId"].ToString();
+                    drCustomerAssociates["Name"] = dr["AssociateName"].ToString();
+                    drCustomerAssociates["Relationship"] = dr["XR_Relationship"].ToString();
                     dtNewCustomerAssociate.Rows.Add(drCustomerAssociates);
                 }
 
-                if (dtNewCustomerAssociate.Rows.Count > 0)
+                if (dtNewCustomerAssociate!=null)
                 {
 
                     gvNominees.DataSource = dtNewCustomerAssociate;
@@ -218,18 +246,15 @@ namespace WealthERP.Customer
                     gvNominees.Visible = true;
                     tdNominees.Visible = true;
 
-                    gvJointHoldersList.DataSource = dtNewCustomerAssociate;
+                }
+                if (dsCustomerAssociates.Tables[1] != null)
+                {
+                    gvJointHoldersList.DataSource = dsCustomerAssociates.Tables[1];
                     gvJointHoldersList.DataBind();
-
                     gvJointHoldersList.Visible = true;
                     pnlJointholders.Visible = true;
-                    //tdJointHolders.Visible = true;
+                }
 
-                }
-                else
-                {
-                    trAssociate.Visible = false;
-                }
             }
         }
 
@@ -277,6 +302,7 @@ namespace WealthERP.Customer
                     }
                 }
                 BindAttachedFolioGrid(isaAccountId);
+                BindAvailableFolioGrid(int.Parse(txtCustomerId.Value), isaAccountId);
             }
         }
 
