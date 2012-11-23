@@ -237,29 +237,29 @@
                     <ItemStyle  HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Purchase Transaction" HeaderTooltip="Purchase Transaction" DataField="BUYCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px"  HeaderText="Purchase Amount" HeaderTooltip="Purchase Amount" DataField="BUYAmount" DataFormatString="{0:N0}"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                    UniqueName="BUYAmount" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
                  <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Sell Transaction" HeaderTooltip="Sell Transaction"  DataField="SELCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" >
                     <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px"  HeaderText="Sell Amount" HeaderTooltip="Sell  Amount" DataField="SELAmount" DataFormatString="{0:N0}"
-                    UniqueName="Percentage" SortExpression="SELAmount" AutoPostBackOnFilter="true"
+                    UniqueName="SELAmount" SortExpression="SELAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
                  <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="DVR Count" HeaderTooltip="Dividend Reinvested Count"  DataField="DVRCount" 
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    UniqueName="DVRCount" SortExpression="DVRCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle  HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -352,7 +352,7 @@
                     <ItemStyle  HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Amount"  HeaderText="SWP Amount" DataField="SWPAmount"
-                    UniqueName="SWPCount" SortExpression="SWPCount" AutoPostBackOnFilter="true"
+                    UniqueName="SWPAmount" SortExpression="SWPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -450,7 +450,7 @@
                 </telerik:GridBoundColumn>
                 
                  <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Count"  HeaderText="DVR Count"  DataField="DVRCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    UniqueName="DVRCount" SortExpression="DVRCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -466,7 +466,7 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Amount"  HeaderText="DVP Amount" DataField="DVPAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                    UniqueName="DVPAmount" SortExpression="DVPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -609,7 +609,7 @@
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>--%>
                 <telerik:GridBoundColumn HeaderText="Branch"  DataField="Branch"
-                    UniqueName="Scheme" SortExpression="Branch" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    UniqueName="Branch" SortExpression="Branch" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -636,7 +636,7 @@
                 </telerik:GridBoundColumn>
                 
                  <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Count" HeaderText="DVR Count"  DataField="DVRCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    UniqueName="DVRCount" SortExpression="DVRCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -652,7 +652,7 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Amount" HeaderText="DVP Amount" DataField="DVPAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                    UniqueName="DVPAmount" SortExpression="DVPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -837,7 +837,7 @@
                 </telerik:GridBoundColumn>
                 
                  <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Count" HeaderText="DVR Count"  DataField="DVRCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    UniqueName="DVRCount" SortExpression="DVRCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -853,7 +853,7 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Amount" HeaderText="DVP Amount" DataField="DVPAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                    UniqueName="DVPAmount" SortExpression="DVPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -1028,7 +1028,7 @@
                 </telerik:GridBoundColumn>
                 
                  <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Count" HeaderText="DVR Count"  DataField="DVRCount"
-                    UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true" AllowFiltering="false"
+                    UniqueName="DVRCount" SortExpression="DVRCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -1044,7 +1044,7 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Amount" HeaderText="DVP Amount" DataField="DVPAmount"
-                    UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
+                    UniqueName="DVPAmount" SortExpression="DVPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -1161,6 +1161,12 @@
 </asp:Panel>
 </td>
 </tr>
+<tr>
+        <td colspan="3">
+            <asp:Label ID="LabelMainNote" runat="server" Text="Note:To sort on a field click on its label."
+                Font-Size="Small" CssClass="cmbField"></asp:Label>
+        </td>
+    </tr>
 </table> 
 
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
