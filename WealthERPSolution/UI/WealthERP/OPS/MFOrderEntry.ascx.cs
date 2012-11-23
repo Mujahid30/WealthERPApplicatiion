@@ -57,6 +57,7 @@ namespace WealthERP.OPS
         string updatedStatus = "";
         string updatedReason = "";
         bool result = false;
+        string userType = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -70,6 +71,10 @@ namespace WealthERP.OPS
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
                 rmVo = (RMVo)Session[SessionContents.RmVo];
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                userType = "advisor";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                userType = "bm";
             if (Session["mforderVo"] != null && Session["orderVo"] != null)
             {
                 mforderVo = (MFOrderVo)Session["mforderVo"];
@@ -731,7 +736,10 @@ namespace WealthERP.OPS
                     btnUpdate.Visible = false;
                     //trReportButtons.Visible = true;
                     btnImgAddCustomer.Visible = false;
-                    lnkBtnEdit.Visible = true;
+                    if(userType == "bm")
+                        lnkBtnEdit.Visible = false;
+                    else
+                        lnkBtnEdit.Visible = true;
                     if (Request.QueryString["FromPage"] != null)
                     {
                         lnkBtnEdit.Visible = false;
