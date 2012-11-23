@@ -1227,4 +1227,11 @@ p.tip
     border:"0" ;
     border-collapse: collapse;
 }
+.UserPermissionList
+{
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size: xx-small;
+    color: #FFFFFF;
+}
 /* End */

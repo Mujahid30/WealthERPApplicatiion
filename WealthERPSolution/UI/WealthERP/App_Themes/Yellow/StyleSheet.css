@@ -1251,4 +1251,12 @@ p.tip
     color: #16721A;
     padding-left:5px;
 }
+
+.UserPermissionList
+{
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size: xx-small;
+    color: #FFFFFF;
+}
 /* End */
