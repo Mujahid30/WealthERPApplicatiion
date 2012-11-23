@@ -161,7 +161,7 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr id="trAssociate" runat="server">
+                <tr id="trAssociate" runat="server" valign="top">
                     <td id="tdNominees" align="left" style="padding-left: 30px;" runat="server">
                         <asp:Label ID="lblNomineegv" runat="server" CssClass="HeaderTextSmall" Text="Nominee List"></asp:Label>
                         <br />
@@ -181,7 +181,7 @@
                                 </Columns>
                             </asp:GridView>--%>
                             <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                Width="100%" PageSize="4" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
+                                Width="100%" PageSize="4" AllowSorting="false" AllowPaging="True" ShowStatusBar="True"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                                 AllowAutomaticInserts="false" ExportSettings-FileName="Count" Visible="True" >
                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -206,7 +206,7 @@
                             </telerik:RadGrid>
                         </asp:Panel>
                     </td>
-                    <td id="tdJointHolders" align="left" style="padding-left: 30px;" runat="server">
+                    <td id="tdJointHolders" align="left" style="padding-left: 30px;" runat="server" valign="top">
                     <asp:Label ID="lblJointHoldersGv" runat="server" CssClass="HeaderTextSmall" Text="JointHolders List"></asp:Label>
                         <br />
                         <asp:Panel ID="pnlJointholders" runat="server">
@@ -225,7 +225,7 @@
                                 </Columns>
                             </asp:GridView>--%>
                               <telerik:RadGrid ID="gvJointHoldersList" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                Width="100%" PageSize="4" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
+                                Width="100%" PageSize="4" AllowSorting="false" AllowPaging="True" ShowStatusBar="True"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                                 AllowAutomaticInserts="false" ExportSettings-FileName="Count">
                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -254,8 +254,10 @@
             </table>
         </td>
     </tr>
+    </table>
+    <table width="100%">
     <tr>
-        <td colspan="4">
+        <td colspan="4" width="100%">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Folio ISA Mapping
             </div>
@@ -268,11 +270,16 @@
     <td colspan="4"></td>
     </tr>
     <tr>
-        <td valign="top">
+        <td valign="top" style="width:40%">
         <asp:Label ID="lblAvailableFolio" runat="server" CssClass="HeaderTextSmall" Text="Available Folio"></asp:Label>
         <br />
+        <asp:Panel ID="pnlAvailableFolio" runat="server"  ScrollBars="Vertical" Width="98%" Visible="true">
+       <table width="100%">
+        <tr>
+       <td>
+       <div id="dvAvailableFolio" runat="server" style="height:200px;">
         <telerik:RadGrid ID="gvAvailableFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                Width="100%" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
+                                Width="100%" PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                                 AllowAutomaticInserts="false" ExportSettings-FileName="Count">
                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -304,33 +311,37 @@
                                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                 </ClientSettings>
                             </telerik:RadGrid>
+                            </div>
+               </td></tr></table>
+            </asp:Panel>
         </td>
-        <td>
-        <asp:Button ID="btnGo" runat="server" Text=">>" CssClass="PCGButton" 
-            ValidationGroup="ButtonGo" onclick="btnGo_Click" />
-        </td>
-        <td valign="top">
+        <td valign="top" style="width:40%">
         <asp:Label ID="lblAttachedFolio" runat="server" CssClass="HeaderTextSmall" Text="Attached Folio"></asp:Label>
         <br />
+        <asp:Panel ID="pnlAttachedFolio" runat="server"  ScrollBars="Vertical" Width="98%" Visible="true">
+       <table Width="100%">
+        <tr>
+       <td>
+       <div id="divAttachedFolio" runat="server" style="height:200px;">
         <telerik:RadGrid ID="gvAttachedFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                Width="100%" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
+                                Width="100%" PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                                 AllowAutomaticInserts="false" ExportSettings-FileName="Count">
                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                                    FileName="Goal MIS" Excel-Format="ExcelML">
+                                     Excel-Format="ExcelML">
                                 </ExportSettings>
                                 <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                     CommandItemDisplay="None">
                                     <Columns>
-                                    <telerik:GridTemplateColumn HeaderText="Select">
-                        <HeaderTemplate>
-                        <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
-                         <%--<input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />--%>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                        <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
-                        </ItemTemplate>
-                        </telerik:GridTemplateColumn>
+                                    <%--<telerik:GridTemplateColumn HeaderText="Select">
+                                        <HeaderTemplate>
+                                        <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
+                                        <%--<input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                        <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
+                                        </ItemTemplate>
+                                    </telerik:GridTemplateColumn>--%>
                                         <telerik:GridBoundColumn DataField="CMFA_FolioNum" HeaderText="Folio" UniqueName="CMFA_FolioNum"
                                             SortExpression="CMFA_FolioNum">
                                             <ItemStyle  HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -345,9 +356,19 @@
                                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                 </ClientSettings>
                             </telerik:RadGrid>
+                             </div>
+               </td></tr></table>
+            </asp:Panel>
         </td>
-        <td>
+        <td colspan="2" style="width:20%">
         </td>
+    </tr>
+    <tr>
+    <td>
+        <asp:Button ID="btnGo" runat="server" Text="Save" CssClass="PCGButton" 
+            ValidationGroup="ButtonGo" onclick="btnGo_Click" />
+        </td>
+    <td colspan="3"></td>
     </tr>
 </table>
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />

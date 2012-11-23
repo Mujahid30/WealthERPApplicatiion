@@ -284,6 +284,24 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label lblAvailableFolio;
         
         /// <summary>
+        /// pnlAvailableFolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAvailableFolio;
+        
+        /// <summary>
+        /// dvAvailableFolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvAvailableFolio;
+        
+        /// <summary>
         /// gvAvailableFolio control.
         /// </summary>
         /// <remarks>
@@ -291,15 +309,6 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvAvailableFolio;
-        
-        /// <summary>
-        /// btnGo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
         /// lblAttachedFolio control.
@@ -311,6 +320,24 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label lblAttachedFolio;
         
         /// <summary>
+        /// pnlAttachedFolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAttachedFolio;
+        
+        /// <summary>
+        /// divAttachedFolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAttachedFolio;
+        
+        /// <summary>
         /// gvAttachedFolio control.
         /// </summary>
         /// <remarks>
@@ -318,6 +345,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvAttachedFolio;
+        
+        /// <summary>
+        /// btnGo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
         /// txtCustomerId control.

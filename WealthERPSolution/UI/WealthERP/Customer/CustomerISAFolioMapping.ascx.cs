@@ -58,6 +58,8 @@ namespace WealthERP.Customer
                 trHoldingType.Visible = false;
                 lblJointHoldersGv.Visible = false;
                 lblNomineegv.Visible = false;
+                pnlAttachedFolio.Visible = false;
+                pnlAvailableFolio.Visible = false;
                 gvJointHoldersList.Visible = false;
                 gvNominees.Visible = false;
                 txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -147,7 +149,22 @@ namespace WealthERP.Customer
                 txtMember_autoCompleteExtender.ContextKey = ddlMemberBranch.SelectedValue.ToString();
                 txtMember_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllIndividualCustomers";
             }
-
+            trPan.Visible = false;
+            trISAList.Visible = false;
+            trHoldings.Visible = false;
+            lblAvailableFolio.Visible = false;
+            gvAvailableFolio.Visible = false;
+            lblAttachedFolio.Visible = false;
+            gvAttachedFolio.Visible = false;
+            btnGo.Visible = false;
+            trHoldingType.Visible = false;
+            lblJointHoldersGv.Visible = false;
+            lblNomineegv.Visible = false;
+            pnlAttachedFolio.Visible = false;
+            pnlAvailableFolio.Visible = false;
+            gvJointHoldersList.Visible = false;
+            gvNominees.Visible = false;
+            txtMember.Text = "";
 
         }
 
@@ -161,7 +178,19 @@ namespace WealthERP.Customer
                 trISAList.Visible = true;
                 lblGetPan.Text = dr["C_PANNum"].ToString();
                 BindISAList();
-                
+                trHoldings.Visible = false;
+                lblAvailableFolio.Visible = false;
+                gvAvailableFolio.Visible = false;
+                lblAttachedFolio.Visible = false;
+                gvAttachedFolio.Visible = false;
+                btnGo.Visible = false;
+                trHoldingType.Visible = false;
+                lblJointHoldersGv.Visible = false;
+                lblNomineegv.Visible = false;
+                pnlAttachedFolio.Visible = false;
+                pnlAvailableFolio.Visible = false;
+                gvJointHoldersList.Visible = false;
+                gvNominees.Visible = false;
 
             }
         }
@@ -182,7 +211,9 @@ namespace WealthERP.Customer
                 {
                     lblGetISAHoldingType.Text = "No";
                     lblJointHoldersGv.Visible = false;
+                    lblNomineegv.Visible = true;
                     gvJointHoldersList.Visible = false;
+                    gvNominees.Visible = true;
                 }
                 else
                 {
@@ -205,6 +236,7 @@ namespace WealthERP.Customer
             dtGetAttachedFolioGrid = customerAccountBo.GetBindAttachedFolioGrid(AccountId);
             gvAttachedFolio.DataSource = dtGetAttachedFolioGrid;
             gvAttachedFolio.DataBind();
+            pnlAttachedFolio.Visible = true;
             gvAttachedFolio.Visible = true;
         }
 
@@ -214,6 +246,7 @@ namespace WealthERP.Customer
             dtGetAvailableFolioList = customerAccountBo.GetAvailableFolioList(CustomerId,AccountId);
             gvAvailableFolio.DataSource = dtGetAvailableFolioList;
             gvAvailableFolio.DataBind();
+            pnlAvailableFolio.Visible = true;
             gvAvailableFolio.Visible = true;
         }
         private void LoadNominees()
