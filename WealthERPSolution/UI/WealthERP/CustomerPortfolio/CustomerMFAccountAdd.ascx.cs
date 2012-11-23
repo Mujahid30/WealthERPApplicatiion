@@ -235,6 +235,9 @@ namespace WealthERP.CustomerPortfolio
             ddlBState.Text = customerAccountsVo.BranchAdrState;
             ddlBCountry.Text = ddlBCountry.SelectedValue;
             txtIfsc.Text = customerAccountsVo.AccountType;
+
+            BindCustomerSubType();
+
             if(customerAccountsVo.XCT_CustomerTypeCode!="0")
             ddlCustomerType.SelectedValue = customerAccountsVo.XCT_CustomerTypeCode;
             if(customerAccountsVo.XCST_CustomerSubTypeCode!="0")
@@ -409,6 +412,10 @@ namespace WealthERP.CustomerPortfolio
             ddlBCountry.Text = ddlBCountry.SelectedValue;
             txtIfsc.Text = customerAccountsVo.IFSC;
 
+            BindCustomerSubType();
+
+            ddlCustomerType.SelectedValue = customerAccountsVo.XCT_CustomerTypeCode;
+            ddlCustomerSubType.SelectedValue = customerAccountsVo.XCST_CustomerSubTypeCode;
 
             if (customerAccountsVo.CDOB != DateTime.MinValue)
                 rdpDOB.SelectedDate = customerAccountsVo.CDOB;
