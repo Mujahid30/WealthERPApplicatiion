@@ -2465,22 +2465,21 @@ namespace BoCustomerProfiling
             return dtRelationship;
         }
 
-        public List<int> CreateISACustomerRequest(CustomerVo customerVo, int custCreateFlag)
+        public List<int> CreateISACustomerRequest(CustomerVo customerVo, int custCreateFlag, string priority)
         {
             List<int> customerIds = new List<int>();
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                customerIds = customerDao.CreateISACustomerRequest(customerVo, custCreateFlag);
+                customerIds = customerDao.CreateISACustomerRequest(customerVo, custCreateFlag, priority);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-          
+
             return customerIds;
         }
-
         public void UpdateCustomerISAStageDetails(int requestNumber, string stageStatusCode, string priorityCode, string stepCode, string reasonCode, string comments, string stageToMarkReprocess)
         {
             CustomerDao customerDao = new CustomerDao();
