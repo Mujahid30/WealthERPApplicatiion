@@ -215,9 +215,7 @@
                                                     <telerik:RadPanelItem runat="server" Text="Trail Commission Exception"
                                                         Value="Trail_Commission_Exception">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Customer Accounts Compare" Value="Customer_Accounts_Compare">
-                                                    </telerik:RadPanelItem>
-                                                   </Items>
+                                                    </Items>
                                             </telerik:RadPanelItem>
                                           
                                             <telerik:RadPanelItem runat="server" Text="User Management" Value="User Management">
@@ -246,6 +244,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Loan Partner Commission" Value="Loan Partner Commission">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Customer Accounts Compare" Value="Customer_Accounts_Compare">
+                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer Reports" Value="Customer Report">
@@ -599,6 +599,7 @@
                                                      <telerik:RadPanelItem runat="server" Text="Trail Commission Exception"
                                                         Value="Trail_Commission_Exception">
                                                         </telerik:RadPanelItem>
+                                                        
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Management"
@@ -641,6 +642,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Loan Partner Commission" Value="Loan Partner Commission">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Customer Accounts Compare" Value="Customer_Accounts_Compare">
+                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer Reports" Value="Customer Report">
