@@ -365,6 +365,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvddlCustomerCategory;
         
         /// <summary>
+        /// divSuccessMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSuccessMsg;
+        
+        /// <summary>
         /// trNewCustomer control.
         /// </summary>
         /// <remarks>
@@ -572,42 +581,6 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtMobileNum;
         
         /// <summary>
-        /// lblGenerateReqstNum control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGenerateReqstNum;
-        
-        /// <summary>
-        /// txtGenerateReqstNum control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGenerateReqstNum;
-        
-        /// <summary>
-        /// rfvtxtGenerateReqstNum control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtGenerateReqstNum;
-        
-        /// <summary>
-        /// btnGenerateReqstNum control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGenerateReqstNum;
-        
-        /// <summary>
         /// lblPriority control.
         /// </summary>
         /// <remarks>
@@ -635,6 +608,60 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reqValddlPriority;
         
         /// <summary>
+        /// btnGenerateReqstNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGenerateReqstNum;
+        
+        /// <summary>
+        /// lblGenerateReqstNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGenerateReqstNum;
+        
+        /// <summary>
+        /// txtGenerateReqstNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGenerateReqstNum;
+        
+        /// <summary>
+        /// rfvtxtGenerateReqstNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtGenerateReqstNum;
+        
+        /// <summary>
+        /// trFormUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trFormUpload;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
         /// tdpriorityUrgent control.
         /// </summary>
         /// <remarks>
@@ -642,6 +669,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdpriorityUrgent;
+        
+        /// <summary>
+        /// tdUploadSection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tdUploadSection;
         
         /// <summary>
         /// lbtnUploadISAForm control.

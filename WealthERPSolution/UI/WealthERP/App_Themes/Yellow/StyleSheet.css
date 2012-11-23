@@ -171,6 +171,26 @@ div#MainDivLeft
     color: #FCD23C;
 }
 
+.ISAAccountMsg
+{
+    margin: 2px 0;
+    padding: 2px 2px;
+    position: relative;
+    -moz-border-radius: 0.7em 0.7em 0.7em 0.7em;
+    font-size:x-small;
+    widows:95%;
+   
+   
+    /*z-index: -1;*/
+}
+
+.ISAAccountMsg
+{
+    border: solid #22AA22 1px;
+    color: Black;
+    background: #FCD23C url('Images/ISARequest.png') no-repeat;
+}
+
 .Message
 {
     background-color: White;

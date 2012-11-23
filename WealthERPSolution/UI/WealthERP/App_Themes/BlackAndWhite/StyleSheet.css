@@ -767,11 +767,32 @@ ul.tabbernav li.tabberactive a:hover
     color: Black;
     background: #B0B1B2 url('images/success.png') no-repeat;
 }
+
+ .ISAAccountMsg
+{
+    margin: 2px 0;
+    padding: 2px 2px;
+    position: relative;
+    -moz-border-radius: 0.7em 0.7em 0.7em 0.7em;
+    font-size:x-small;
+    widows:95%;
+   
+   
+    /*z-index: -1;*/
+}
+
+.ISAAccountMsg
+{
+    border: solid #22AA22 1px;
+    color: Black;
+    background: #6D005B url('Images/ISARequest.png') no-repeat;
+}
+
 .failure-msg
 {
     border: solid #C49292 1px;
     color: Black;
-    background: #B0B1B2 url('images/warning.png') no-repeat;
+    background: #B0B1B2  url('images/warning.png') no-repeat;
 }
 .warning-msg
 {

@@ -51,6 +51,7 @@ namespace WealthERP.Customer
         RepositoryBo repoBo;
         float fStorageBalance;
         float fMaxStorage;
+        string linkAction = "";
 
         public enum Constants
         {
@@ -72,7 +73,7 @@ namespace WealthERP.Customer
                 // Method to get the Storage Balance & Maximum Storage
                 repoBo = new RepositoryBo();
                 fStorageBalance = repoBo.GetAdviserStorageValues(adviserVo.advisorId, out fMaxStorage);
-                string linkAction = "";
+                
                 if (Session["LinkAction"] != null)
                 {
                     linkAction = Convert.ToString(Session["LinkAction"]);
@@ -89,6 +90,9 @@ namespace WealthERP.Customer
                         multiPageView.SelectedIndex = 0;
                         radPOCProof.Tabs[0].Selected = true;
                         // radPOCProof.Tabs[1].Visible = false;
+                        radPOCProof.Tabs[1].Visible=false;
+                        btnDelete.Visible = false;
+                        btnSubmitAdd.Visible = false;
                     }
                     else if (linkAction.Trim() == "AddPan")
                     {
@@ -100,6 +104,9 @@ namespace WealthERP.Customer
                         radPOCProof.TabIndex = 0;
                         multiPageView.SelectedIndex = 0;
                         radPOCProof.Tabs[0].Selected = true;
+                        radPOCProof.Tabs[1].Visible = false;
+                        btnDelete.Visible = false;
+                        btnSubmitAdd.Visible = false;
                         // radPOCProof.Tabs[1].Visible = false;
                     }
                     else if (linkAction.Trim() == "AddAddress")
@@ -112,7 +119,10 @@ namespace WealthERP.Customer
                         radPOCProof.TabIndex = 0;
                         multiPageView.SelectedIndex = 0;
                         radPOCProof.Tabs[0].Selected = true;
+                        btnDelete.Visible = false;
                         //radPOCProof.Tabs[1].Visible = false;
+                        radPOCProof.Tabs[1].Visible = false;
+                        btnSubmitAdd.Visible = false;
                     }
                     else if (linkAction.Trim() == "ViewFormsAndProofs")
                     {
@@ -120,8 +130,8 @@ namespace WealthERP.Customer
                         radPOCProof.TabIndex = 1;
                         multiPageView.SelectedIndex = 1;
                         radPOCProof.Tabs[1].Selected = true;
-                        radPOCProof.Tabs[0].Enabled=false;
-                    }
+                        radPOCProof.Tabs[0].Visible=false;
+                      }
                 }
                 if (!IsPostBack)
                 {
@@ -133,7 +143,7 @@ namespace WealthERP.Customer
                         btnDelete.Visible = false;
                         lblFileUploaded.Visible = false;
                         ChangeTelerikRadTab(0);
-                        // Only on initial page load bind a default select text to Proof dropdown as it gets bound only on Proof Type value
+                        // Only on initial page load bind a default select text to Document dropdown as it gets bound only on Document Type value
                         ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
                     }
 
@@ -320,16 +330,20 @@ namespace WealthERP.Customer
             {
                 if (blResult)
                 {
+                  
                     ResetControls();
-                    LoadImages();
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Proof added successfully!');", true);
+                    if (string.IsNullOrEmpty(linkAction))
+                    {
+                        LoadImages();
+                    }
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Document uploaded Successfully!');", true);
                 }
                 else
                 {
                     if (blFileSizeExceeded)
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Sorry your proof file size exceeds the allowable 2 MB limit!');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Sorry your Document file size exceeds the allowable 2 MB limit!');", true);
                     else
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Error adding proof!');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Error in uploading Document!');", true);
                 }
             }
         }
@@ -406,7 +420,7 @@ namespace WealthERP.Customer
 
                                 if (blResult)
                                 {
-                                    // Once the adding of proof is a success, then update the balance storage in advisor subscription table
+                                    // Once the adding of Document is a success, then update the balance storage in advisor subscription table
                                     fStorageBalance = UpdateAdvisorStorageBalance(fileSize, 0, fStorageBalance);
                                     LoadImages();
                                 }
@@ -426,7 +440,7 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a proof file to upload!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a document file to upload!');", true);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -520,7 +534,7 @@ namespace WealthERP.Customer
             //    }
             //    else
             //    {
-            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your proof attachment size exceeds the allowable limit..!');", true);
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your Document attachment size exceeds the allowable limit..!');", true);
             //    }
             //}
 
@@ -548,7 +562,7 @@ namespace WealthERP.Customer
             strRenameFilename = strRenameFilename.Replace(' ', '_');
             string newFileName = intCustId + "_" + strGuid + "_" + strRenameFilename;
 
-            // Save proof file in the path
+            // Save Document file in the path
             if (fileExtension != ".pdf")
                 UploadImage(strPath, file, newFileName);
             else
@@ -593,14 +607,14 @@ namespace WealthERP.Customer
                 // Change the tab
                 ChangeTelerikRadTab(1);
                 LoadImages();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Proof updated successfully!');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Document updated successfully!');", true);
             }
             else
             {
                 if (blZeroBalance)
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
                 else if (blFileSizeExceeded)
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Sorry your proof file size exceeds the allowable 2 MB limit!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Sorry your Document file size exceeds the allowable 2 MB limit!');", true);
                 else
                 {
                     // Display error message
@@ -712,7 +726,7 @@ namespace WealthERP.Customer
 
                                 if (blResult)
                                 {
-                                    // Once updating the proof is a success, then update the balance storage in advisor subscription table
+                                    // Once updating the Document is a success, then update the balance storage in advisor subscription table
                                     fStorageBalance = UpdateAdvisorStorageBalance(fileSize, oldFileSize, fStorageBalance);
                                 }
                             }
@@ -992,7 +1006,7 @@ namespace WealthERP.Customer
             if (e.CommandName == "Send Mail")
             {
                 SendMail(imageAttachmentPath);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Proof Image sent successfully..!');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Document Image sent successfully..!');", true);
             }
             else if (e.CommandName == "Print proof")
             {
@@ -1000,7 +1014,7 @@ namespace WealthERP.Customer
                 if (printerCount != 0)
                 {
                     PrintProof(imageAttachmentPath);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Proof Image printing is done successfully..!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Document Image printing is done successfully..!');", true);
                 }
                 else
                 {
@@ -1117,12 +1131,12 @@ namespace WealthERP.Customer
             Attachment inline = new Attachment(imageAttachmentPath);
             inline.ContentDisposition.Inline = true;
             email.Attachments.Add(inline);
-            email.Subject = "Customer proof uploads";
+            email.Subject = "Customer Document uploads";
             email.Body = "Dear " + customerVo.FirstName + customerVo.MiddleName + customerVo.LastName + ""
                           + "<br />"
                           + "<br />"
                           + "<br />"
-                          + "Please find attached Proof.";
+                          + "Please find attached Document.";
             email.IsBodyHtml = true;
             email.To.Add(customerVo.Email);
 
@@ -1214,7 +1228,7 @@ namespace WealthERP.Customer
                         if (customerBo.DeleteCustomerUploadedProofs(customerVo.CustomerId, ProofIdToDelete, flRemainingBal, adviserVo.advisorId))
                         {
                             ResetControls();
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Proof deleted successfully..!');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Document deleted successfully..!');", true);
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','login');", true);
                         }
                     }

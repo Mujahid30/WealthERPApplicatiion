@@ -24,8 +24,6 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
-
-
 <style type="text/css">
     /*CollapsiblePanel*/</style>
 
@@ -41,7 +39,7 @@
     function ResetPagetoFirstLoadState() {
         document.getElementById("<%= ddlCustomerCategory.ClientID %>").selectedIndex = "0";
         document.getElementById("<%= ddlReasonStage1.ClientID %>").disabled = true;
-        document.getElementById("<%= ddlPriority.ClientID %>").selectedIndex = "0";
+        //        document.getElementById("<%= ddlPriority.ClientID %>").selectedIndex = "0";
         document.getElementById("<%= ddlReasonStage1.ClientID %>").selectedIndex = "0";
         document.getElementById("<%= ddlStatusStage1.ClientID %>").selectedIndex = "0";
         document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = true;
@@ -55,7 +53,7 @@
         document.getElementById("<%= txtMobileNum.ClientID %>").value = "";
         document.getElementById("<%= txtEmailID.ClientID %>").value = "";
         document.getElementById("<%= txtCustomerNameEntry.ClientID %>").value = "";
-        document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
+        //        document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
         document.getElementById("<%= ddlStatusStage1.ClientID %>").selectedIndex = "0";
     }
 </script>
@@ -108,7 +106,7 @@
             document.getElementById("<%= txtEmailID.ClientID %>").disabled = true;
             document.getElementById("<%= txtMobileNum.ClientID %>").disabled = true;
             document.getElementById("<%= btnGenerateReqstNum.ClientID %>").disabled = true;
-            document.getElementById("<%= ddlPriority.ClientID %>").disabled = false;
+            //            document.getElementById("<%= ddlPriority.ClientID %>").disabled = false;
             document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = false;
             document.getElementById("<%= btnSubmitAddStage1.ClientID %>").disabled = false;
             document.getElementById("<%= btnSubmitAddMoreStage1.ClientID %>").disabled = false;
@@ -140,7 +138,7 @@
             document.getElementById("<%= txtEmailID.ClientID %>").disabled = true;
             document.getElementById("<%= txtMobileNum.ClientID %>").disabled = true;
             document.getElementById("<%= btnGenerateReqstNum.ClientID %>").disabled = true;
-            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
+            //            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
             document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddMoreStage1.ClientID %>").disabled = true;
@@ -158,7 +156,7 @@
             document.getElementById("<%= txtEmailID.ClientID %>").disabled = true;
             document.getElementById("<%= txtMobileNum.ClientID %>").disabled = true;
             document.getElementById("<%= btnGenerateReqstNum.ClientID %>").disabled = true;
-            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
+            //            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
             document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddMoreStage1.ClientID %>").disabled = true;
@@ -190,7 +188,7 @@
             document.getElementById("<%= txtEmailID.ClientID %>").disabled = true;
             document.getElementById("<%= txtMobileNum.ClientID %>").disabled = true;
             document.getElementById("<%= btnGenerateReqstNum.ClientID %>").disabled = true;
-            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
+            //            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
             document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddMoreStage1.ClientID %>").disabled = true;
@@ -221,7 +219,7 @@
             document.getElementById("<%= txtEmailID.ClientID %>").disabled = true;
             document.getElementById("<%= txtMobileNum.ClientID %>").disabled = true;
             document.getElementById("<%= btnGenerateReqstNum.ClientID %>").disabled = true;
-            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
+            //            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
             document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddMoreStage1.ClientID %>").disabled = true;
@@ -253,7 +251,7 @@
             document.getElementById("<%= txtEmailID.ClientID %>").disabled = true;
             document.getElementById("<%= txtMobileNum.ClientID %>").disabled = true;
             document.getElementById("<%= btnGenerateReqstNum.ClientID %>").disabled = true;
-            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
+            //            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
             document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddMoreStage1.ClientID %>").disabled = true;
@@ -285,7 +283,7 @@
             document.getElementById("<%= txtEmailID.ClientID %>").disabled = true;
             document.getElementById("<%= txtMobileNum.ClientID %>").disabled = true;
             document.getElementById("<%= btnGenerateReqstNum.ClientID %>").disabled = true;
-            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
+            //            document.getElementById("<%= ddlPriority.ClientID %>").disabled = true;
             document.getElementById("<%= ddlStatusStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddStage1.ClientID %>").disabled = true;
             document.getElementById("<%= btnSubmitAddMoreStage1.ClientID %>").disabled = true;
@@ -663,7 +661,7 @@
 </script>
 
 <script type="text/javascript">
-            
+
     $(document).ready(function() {
         //    alert($("#imgCEStepOne").attr('src'))
         $(".StepOneContentTable").hide();
@@ -806,8 +804,6 @@
     
 </script>
 
-
-
 <style type="text/css">
     .table
     {
@@ -835,6 +831,11 @@
     .rightDataFourColumn
     {
         width: 50%;
+        text-align: left;
+    }
+    .rightDataThreeColumn
+    {
+        width: 40%;
         text-align: left;
     }
     .tdSectionHeading
@@ -996,18 +997,18 @@
             <tr id="trStepOneHeading" runat="server">
                 <td class="tdSectionHeading">
                     <div class="divSectionHeading">
+                        <div class="divStepStatus">
+                            <asp:Image ID="imgStepOneStatus" ImageUrl="" alt="" runat="server" />
+                            &nbsp;
+                        </div>
                         <div class="divSectionHeadingNumber fltlftStep">
                             1
                         </div>
                         <%-- <div class="fltlftStep">
                             &nbsp; Step &nbsp;
                         </div>--%>
-                        <div class="divStepStatus">
-                            &nbsp;
-                            <asp:Image ID="imgStepOneStatus" ImageUrl="" alt="" runat="server" />
-                            &nbsp;
-                        </div>
                         <div class="fltlft">
+                            &nbsp;
                             <asp:Label ID="lblStage" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
                             <asp:Label ID="lblStageName" runat="server" Text="ISA Request" CssClass="txtField"></asp:Label>
                         </div>
@@ -1062,7 +1063,9 @@
                                 </asp:RequiredFieldValidator>
                             </td>
                             <td colspan="4" class="rightDataFourColumn">
-                                &nbsp;
+                                <div class="ISAAccountMsg" align="center" id="divSuccessMsg" runat="server" visible="false">
+                                    Request Created Successfully, Please enter the "Request Number" on the ISA Form
+                                </div>
                             </td>
                         </tr>
                         <tr id="trNewCustomer" runat="server">
@@ -1153,33 +1156,10 @@
                         </tr>
                         <tr>
                             <td class="leftLabel">
-                                <asp:Label ID="lblGenerateReqstNum" runat="server" Text="Request Number:" CssClass="FieldName"></asp:Label>
-                            </td>
-                            <td class="rightData">
-                                <asp:TextBox ID="txtGenerateReqstNum" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
-                                <br />
-                                <asp:RequiredFieldValidator ID="rfvtxtGenerateReqstNum" runat="server" CssClass="rfvPCG"
-                                    ErrorMessage="Please Generate Request No." Display="Dynamic" ControlToValidate="txtGenerateReqstNum"
-                                    ValidationGroup="vgBtnSubmitQueue"> 
-                                </asp:RequiredFieldValidator>
-                            </td>
-                            <td class="leftLabel">
-                            </td>
-                            <td class="rightData">
-                                <asp:Button ID="btnGenerateReqstNum" runat="server" Text="Generate Req No." ValidationGroup="vgbtnSubmit"
-                                    CssClass="PCGMediumButton" OnClick="btnGenerateReqstNum_OnClick" />
-                            </td>
-                            <td colspan="4" class="rightDataFourColumn">
-                                &nbsp;
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftLabel">
                                 <asp:Label ID="lblPriority" runat="server" Text="Priority:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightData">
-                                <asp:DropDownList ID="ddlPriority" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                    OnSelectedIndexChanged="ddlPriority_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlPriority" runat="server" CssClass="cmbField">
                                     <asp:ListItem Text="Urgent" Value="Urgent">
                                     </asp:ListItem>
                                     <asp:ListItem Text="Normal" Value="Normal" Selected="True">
@@ -1191,22 +1171,55 @@
                                     InitialValue="Select" ValidationGroup="vgBtnSubmitQueue">
                                 </asp:RequiredFieldValidator>
                             </td>
-                            <td colspan="4" class="rightDataFourColumn" id="tdpriorityUrgent" runat="server"
-                                visible="false">
-                                &nbsp; &nbsp; &nbsp; &nbsp;
-                                <asp:LinkButton ID="lbtnUploadISAForm" runat="server" Font-Size="X-Small" CausesValidation="False"
-                                    Text="Upload/View ISA Form" OnClientClick="return openpopupAddISA()"></asp:LinkButton>
-                                &nbsp;
-                                <asp:LinkButton ID="lbtnUploadPanProof" runat="server" Font-Size="X-Small" CausesValidation="False"
-                                    Text="Upload/View PAN Proof" OnClientClick="return openpopupAddPan()"></asp:LinkButton>
-                                &nbsp;
-                                <asp:LinkButton ID="lbtnUploadAddressProof" runat="server" Font-Size="X-Small" CausesValidation="False"
-                                    Text="Upload/View Address Proof" OnClientClick="return openpopupAddAddress()"></asp:LinkButton>
+                            <td class="leftLabel">
                             </td>
-                            <td colspan="2" class="rightDataTwoColumn">
-                                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
-                                <asp:LinkButton ID="lnkViewFormsAndProofBM" runat="server" Font-Size="X-Small" CausesValidation="False"
-                                    Text="View Forms/Proof" OnClientClick="return openpopupViewFormsProof()" Visible="false"></asp:LinkButton>
+                            <td class="rightData">
+                                <asp:Button ID="btnGenerateReqstNum" runat="server" Text="Generate Req No." ValidationGroup="vgbtnSubmit"
+                                    CssClass="PCGMediumButton" OnClick="btnGenerateReqstNum_OnClick" />
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblGenerateReqstNum" runat="server" Text="Request Number:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:TextBox ID="txtGenerateReqstNum" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
+                                <br />
+                                <asp:RequiredFieldValidator ID="rfvtxtGenerateReqstNum" runat="server" CssClass="rfvPCG"
+                                    ErrorMessage="Please Generate Request No." Display="Dynamic" ControlToValidate="txtGenerateReqstNum"
+                                    ValidationGroup="vgBtnSubmitQueue"> 
+                                </asp:RequiredFieldValidator>
+                            </td>
+                            <td colspan="4" class="rightDataTwoColumn">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="8">
+                                <div style="height: 4px; border-color: Gray; float: left; width: 100%">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="trFormUpload" runat="server">
+                            <td class="leftLabel">
+                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Upload/View Document:"></asp:Label>
+                            </td>
+                            <td colspan="7" id="tdpriorityUrgent" runat="server">
+                                <div runat="server" id="tdUploadSection" style="float: left">
+                                    &nbsp;
+                                    <asp:LinkButton ID="lbtnUploadISAForm" runat="server" Font-Size="X-Small" CausesValidation="False"
+                                        Text="Upload ISA Form" OnClientClick="return openpopupAddISA()"></asp:LinkButton>
+                                    &nbsp;
+                                    <asp:LinkButton ID="lbtnUploadPanProof" runat="server" Font-Size="X-Small" CausesValidation="False"
+                                        Text="Upload PAN Proof" OnClientClick="return openpopupAddPan()"></asp:LinkButton>
+                                    &nbsp;
+                                    <asp:LinkButton ID="lbtnUploadAddressProof" runat="server" Font-Size="X-Small" CausesValidation="False"
+                                        Text="Upload Address Proof" OnClientClick="return openpopupAddAddress()"></asp:LinkButton>
+                                </div>
+                                <div style="float: left">
+                                    &nbsp;
+                                    <asp:LinkButton ID="lnkViewFormsAndProofBM" runat="server" Font-Size="X-Small" CausesValidation="False"
+                                        Text="View Uploaded Forms/Proof" OnClientClick="return openpopupViewFormsProof()"
+                                        Visible="false"></asp:LinkButton>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -1248,18 +1261,19 @@
             <tr id="trStepTwoHeading" runat="server">
                 <td class="tdSectionHeading">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
+                        <div class="divStepStatus">
+                           
+                            <asp:Image ID="imgStepTwoStatus" ImageUrl="" alt="" runat="server" />
+                             &nbsp;
+                        </div>
                         <div class="divSectionHeadingNumber fltlftStep">
                             2
                         </div>
                         <%-- <div class="fltlftStep">
                             &nbsp; Step &nbsp;
                         </div>--%>
-                        <div class="divStepStatus">
-                            &nbsp;
-                            <asp:Image ID="imgStepTwoStatus" ImageUrl="" alt="" runat="server" />
-                            &nbsp;
-                        </div>
                         <div class="fltlft">
+                          &nbsp;
                             <asp:Label ID="lblStage2" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
                             <asp:Label ID="txtStage2" runat="server" Text="Verify Forms/Proofs" CssClass="txtField"></asp:Label>
                         </div>
@@ -1344,18 +1358,19 @@
             <tr id="trStepThreeHeading" runat="server">
                 <td class="tdSectionHeading">
                     <div class="divSectionHeading">
+                        <div class="divStepStatus">
+                           
+                            <asp:Image ID="imgStepThreeStatus" ImageUrl="" alt="" runat="server" />
+                             &nbsp;
+                        </div>
                         <div class="divSectionHeadingNumber fltlftStep">
                             3
                         </div>
                         <%--<div class="fltlftStep">
                             &nbsp; Step &nbsp;
                         </div>--%>
-                        <div class="divStepStatus">
-                            &nbsp;
-                            <asp:Image ID="imgStepThreeStatus" ImageUrl="" alt="" runat="server" />
-                            &nbsp;
-                        </div>
                         <div class="fltlft">
+                          &nbsp;
                             <asp:Label ID="lblStage3" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
                             <asp:Label ID="txtStage3" runat="server" Text="Profile-ISA Account" CssClass="txtField"></asp:Label>
                         </div>
@@ -1446,18 +1461,20 @@
             <tr id="trStepFourHeading" runat="server">
                 <td class="tdSectionHeading">
                     <div class="divSectionHeading">
+                      <div class="divStepStatus">
+                           
+                            <asp:Image ID="imgStepFourStatus" ImageUrl="" alt="" runat="server" />
+                             &nbsp;
+                        </div>
                         <div class="divSectionHeadingNumber fltlftStep">
                             4
                         </div>
                         <%--<div class="fltlftStep">
                             &nbsp; Step &nbsp;
                         </div>--%>
-                        <div class="divStepStatus">
-                            &nbsp;
-                            <asp:Image ID="imgStepFourStatus" ImageUrl="" alt="" runat="server" />
-                            &nbsp;
-                        </div>
+                      
                         <div class="fltlft">
+                          &nbsp;
                             <asp:Label ID="lblStage4" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
                             <asp:Label ID="txtStage4" runat="server" Text="Approve ISA Account" CssClass="txtField"></asp:Label>
                         </div>

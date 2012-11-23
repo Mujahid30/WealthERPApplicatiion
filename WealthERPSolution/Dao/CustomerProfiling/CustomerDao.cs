@@ -4432,7 +4432,7 @@ namespace DaoCustomerProfiling
             return dtGetCustomerUploadedProofPurpose;
         }
 
-        public List<int> CreateISACustomerRequest(CustomerVo customerVo, int custCreateFlag)
+        public List<int> CreateISACustomerRequest(CustomerVo customerVo, int custCreateFlag,string priority)
         {
             //bool bReturn = false;
             int customerId;
@@ -4479,6 +4479,7 @@ namespace DaoCustomerProfiling
                 db.AddOutParameter(createCustomerCmd, "@U_UserId", DbType.Int32, 10);
                 db.AddOutParameter(createCustomerCmd, "@CP_PortfolioId", DbType.Int32, 10);
                 db.AddInParameter(createCustomerCmd, "@C_CreatedBy", DbType.Int32, customerVo.UserId);
+                db.AddInParameter(createCustomerCmd, "@Priority", DbType.String, priority);
                if (db.ExecuteNonQuery(createCustomerCmd) != 0)
                 {
 

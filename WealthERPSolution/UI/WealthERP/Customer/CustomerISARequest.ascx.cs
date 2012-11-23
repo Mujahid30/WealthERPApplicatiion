@@ -136,9 +136,9 @@ namespace WealthERP.Customer
                 if (Session["customerVo"] != null)
                     customerVo = (CustomerVo)Session["customerVo"];
                 customerVo.CustomerCategoryCode = ddlCustomerCategory.SelectedValue;
-                customerIds = customerBo.CreateISACustomerRequest(customerVo, custCreateFlag);
+                customerIds = customerBo.CreateISACustomerRequest(customerVo, custCreateFlag,ddlPriority.SelectedValue);
                 txtGenerateReqstNum.Text = customerIds[3].ToString();
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('false');", true);
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('false');", true);
             }
             else if (rdbNewCustomer.Checked == true && hidValidCheck.Value != "0")
             {
@@ -157,17 +157,17 @@ namespace WealthERP.Customer
                 newCustomerVo.CustomerCategoryCode = ddlCustomerCategory.SelectedValue;
 
                 //newCustomerVo.BranchId = rmVo.BranchList
-                customerIds = customerBo.CreateISACustomerRequest(newCustomerVo, custCreateFlag);
+                customerIds = customerBo.CreateISACustomerRequest(newCustomerVo, custCreateFlag, ddlPriority.SelectedValue);
                 txtGenerateReqstNum.Text = customerIds[3].ToString();
                 customerVo = customerBo.GetCustomer(customerIds[1]);
                 Session["customerVo"] = customerVo;
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('false');", true);
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('false');", true);
 
             }
             else
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Pan Number Already Exists');", true);
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('true');", true);
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('true');", true);
             }
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearch", " HideCustomerSearch();", true);
             if (customerIds.Count > 0)
@@ -175,6 +175,7 @@ namespace WealthERP.Customer
                 HideAndShowBasedOnRole(customerIds[3]);
             }
 
+            divSuccessMsg.Visible = true;
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
         }
 
@@ -688,7 +689,9 @@ namespace WealthERP.Customer
             tdCustomerSelection1.Visible = false;
             tdCustomerSelection2.Visible = false;
             //trExistingCustomer.Visible = false;
-            tdpriorityUrgent.Visible = false;
+            tdUploadSection.Visible = false;
+            trFormUpload.Visible = false;
+           
 
 
             ddlCustomerCategory.Enabled = false;
@@ -704,7 +707,7 @@ namespace WealthERP.Customer
 
 
             ddlPriority.Enabled = false;
-
+            divSuccessMsg.Visible = false;
             //lbtnUploadISAForm.Enabled = false;
             //lbtnUploadPanProof.Enabled = false;
             //lbtnUploadAddressProof.Enabled = false;
@@ -749,6 +752,11 @@ namespace WealthERP.Customer
 
             btnSubmitStage4.Visible = false;
 
+            //**********------------------STEP FIVE--------------*****************//
+            trStepFiveHeading.Visible = false;
+            trStepFiveContent.Visible = false;
+
+
         }
 
         protected void EnableCurrentStep(int currentStepId)
@@ -765,7 +773,19 @@ namespace WealthERP.Customer
                         txtMobileNum.Enabled = true;
                         txtPanNum.Enabled = true;
                         btnGenerateReqstNum.Visible = true;
-                        ddlPriority.Enabled = false;
+                        ddlPriority.Enabled = true;
+
+                        trStepTwoHeading.Visible = false;
+                        trStepTwoContent.Visible = false;
+
+                        trStepThreeHeading.Visible = false;
+                        trStepThreeContent.Visible = false;
+
+                        trStepFourHeading.Visible = false;
+                        trStepFourContent.Visible = false;
+
+                        trStepFiveHeading.Visible = false;
+                        trStepFiveContent.Visible = false;
                     }
 
                     break;
@@ -775,10 +795,23 @@ namespace WealthERP.Customer
                     {
                         ddlStatusStage1.Enabled = true;
                         ddlReasonStage1.Enabled = true;
-                        ddlPriority.Enabled = true;
+                        //ddlPriority.Enabled = true;
                         btnSubmitAddStage1.Visible = true;
                         btnSubmitAddMoreStage1.Visible = true;
 
+                        tdUploadSection.Visible = true;
+
+                        trStepTwoHeading.Visible = false;
+                        trStepTwoContent.Visible = false;
+
+                        trStepThreeHeading.Visible = false;
+                        trStepThreeContent.Visible = false;
+
+                        trStepFourHeading.Visible = false;
+                        trStepFourContent.Visible = false;
+
+                        trStepFiveHeading.Visible = false;
+                        trStepFiveContent.Visible = false;
                     }
 
                     break;
@@ -834,7 +867,7 @@ namespace WealthERP.Customer
         {
             if (ddlPriority.SelectedValue == "Urgent")
             {
-                tdpriorityUrgent.Visible = true;
+                tdUploadSection.Visible = true;
 
                 lbtnUploadISAForm.Enabled = true;
                 lbtnUploadPanProof.Enabled = true;
@@ -842,7 +875,7 @@ namespace WealthERP.Customer
             }
             else
             {
-                tdpriorityUrgent.Visible = false;
+                tdUploadSection.Visible = false;
 
             }
 
@@ -857,7 +890,14 @@ namespace WealthERP.Customer
                 case "bm":
                     if (ddlPriority.SelectedValue.ToLower() == "urgent")
                     {
-                        lnkViewFormsAndProofBM.Visible = true;
+                        trFormUpload.Visible = true;
+
+                        if (ddlStatusStage1.SelectedIndex == 0)
+                        {                           
+                            tdUploadSection.Visible = true;
+                        }
+                         lnkViewFormsAndProofBM.Visible = true;
+                                               
                     }
 
                     break;
@@ -898,23 +938,28 @@ namespace WealthERP.Customer
 
         protected void ResetControlsToInitialState()
         {
+            MarkAllFieldEnableFalse();
             trNewCustomer.Visible = true;
             trExistingCustomer.Visible = false;
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " GetVerificationType('Normal');", true);
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('true');", true);
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('true');", true);
 
             txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
             txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
 
-
-            MarkAllFieldEnableFalse();
-            EnableCurrentStep(0);
+            divSuccessMsg.Visible = false;
             tdCustomerSelection1.Visible = true;
             tdCustomerSelection2.Visible = true;
             txtCustomerNameEntry.Enabled = true;
             ddlBMBranch.Enabled = true;
             ddlCustomerCategory.Enabled = true;
+            ddlPriority.Enabled = true;
+            ddlPriority.SelectedIndex = 0;
+            ddlStatusStage1.SelectedIndex = 0;
+            ddlReasonStage1.SelectedIndex = 0;
 
+            txtMobileNum.Text = string.Empty;
+            txtEmailID.Text = string.Empty;
             txtCusName.Text = string.Empty;
             txtRequestNumber.Text = string.Empty;
             txtBranchCode.Text = string.Empty;
@@ -928,7 +973,8 @@ namespace WealthERP.Customer
             if (Session["customerVo"] != null)
                 Session.Remove("customerVo");
 
-
+            EnableCurrentStep(0);
+            
 
 
         }
@@ -948,6 +994,7 @@ namespace WealthERP.Customer
                         lblReasonStage1.Visible = true;
                         ddlReasonStage1.Visible = true;
                     }
+                   
                     break;
                 case 2:
                     if (statusCode == "DO")
