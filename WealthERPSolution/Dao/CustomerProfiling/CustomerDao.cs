@@ -196,11 +196,11 @@ namespace DaoCustomerProfiling
             DataRow dr;
             try
             {
-                
+
                 customerVo = new CustomerVo();
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetISaListCmd = db.GetStoredProcCommand("SP_GetIsaList");
-                db.AddInParameter(GetISaListCmd, "@CustomerId", DbType.String, customerId.ToString());
+                db.AddInParameter(GetISaListCmd, "@CustomerId", DbType.Int32, customerId);
                 GetISaListDs = db.ExecuteDataSet(GetISaListCmd);
                 GetISaListDt = GetISaListDs.Tables[0];
             }
@@ -318,7 +318,7 @@ namespace DaoCustomerProfiling
 
                         customerVo.ViaSMS = 0;
 
-                    }   
+                    }
                     else
                     {
                         customerVo.ViaSMS = int.Parse(dr["C_AlertViaSMS"].ToString());
@@ -4061,7 +4061,72 @@ namespace DaoCustomerProfiling
             }
             return bResult;
         }
+        public DataSet GetExceptionType()
+        {
+            Database db;
+            DataSet dsGetExceptionType = new DataSet();
+            DbCommand cmdGetExceptionType;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdGetExceptionType = db.GetStoredProcCommand("GetExceptionType");
+                dsGetExceptionType = db.ExecuteDataSet(cmdGetExceptionType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:PANNumberDuplicateChild()");
+                //object[] objects = new object[2];
+                //objects[0] = adviserId;
+                //objects[1] = Pan;
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetExceptionType;
+        }
+        public DataSet GetExceptionList()
+        {
+            Database db;
+            DataSet dsGetExceptionList = new DataSet();
+            DbCommand cmdGetGetExceptionList;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdGetGetExceptionList = db.GetStoredProcCommand("GetExceptionList");
+                dsGetExceptionList = db.ExecuteDataSet(cmdGetGetExceptionList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:PANNumberDuplicateChild()");
+                //object[] objects = new object[2];
+                //objects[0] = adviserId;
+                //objects[1] = Pan;
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetExceptionList;
+        }
         public DataTable GetCustomerProofTypes()
         {
 
@@ -4503,7 +4568,7 @@ namespace DaoCustomerProfiling
             {
                 throw Ex;
             }
-           
+
             return customerIds;
         }
 
@@ -4526,7 +4591,7 @@ namespace DaoCustomerProfiling
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerCmd, "@reasonCode", DbType.String,DBNull.Value);
+                    db.AddInParameter(createCustomerCmd, "@reasonCode", DbType.String, DBNull.Value);
                 }
                 if (stageToMarkReprocess != "Select" && stageToMarkReprocess != "")
                 {
@@ -4536,11 +4601,11 @@ namespace DaoCustomerProfiling
                 {
                     db.AddInParameter(createCustomerCmd, "@stageToMarkReprocess", DbType.String, DBNull.Value);
                 }
-                    db.AddInParameter(createCustomerCmd, "@comments", DbType.String, comments);
-                
-                
+                db.AddInParameter(createCustomerCmd, "@comments", DbType.String, comments);
+
+
                 db.ExecuteNonQuery(createCustomerCmd);
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -4557,8 +4622,8 @@ namespace DaoCustomerProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCustomerCmd = db.GetStoredProcCommand("SP_GetReasonAndStatus");
-                db.AddInParameter(createCustomerCmd, "@purpose", DbType.String, purpose);                                
-                dsGetReasonAndStatus=db.ExecuteDataSet(createCustomerCmd);
+                db.AddInParameter(createCustomerCmd, "@purpose", DbType.String, purpose);
+                dsGetReasonAndStatus = db.ExecuteDataSet(createCustomerCmd);
             }
             catch (BaseApplicationException Ex)
             {
@@ -4781,6 +4846,194 @@ namespace DaoCustomerProfiling
                 throw Ex;
             }
             return isEdited;
+        }
+            public DataSet GetExceptionReportMismatchDetails(string userType, int adviserId, int rmId, int CustomerId, int branchheadId, int branchId, int All, int isIndividualOrGroup, string Explist, string Exptype, int Mismatch)
+        {
+            DataSet dsGetExceptionReportMismatchDetails= new DataSet();
+            Database db;
+            DbCommand GetExceptionReportMismatchDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetExceptionReportMismatchDetailsCmd = db.GetStoredProcCommand("GetExceptionReportMismatchDetails");
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@CustomerId", DbType.Int32, CustomerId);
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@branchHeadId", DbType.Int32, branchheadId);
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@all", DbType.Int32, All);
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@isIndividualOrGroup", DbType.Int16, isIndividualOrGroup);
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@ExpListCode", DbType.String, Explist);
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@ExptypeCode", DbType.String, Exptype);
+                db.AddInParameter(GetExceptionReportMismatchDetailsCmd, "@Mismatch", DbType.Int16, Mismatch);
+
+                dsGetExceptionReportMismatchDetails = db.ExecuteDataSet(GetExceptionReportMismatchDetailsCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "SystematicSetupDao.cs:GetAllSystematicMISData()");
+                //object[] objects = new object[16];
+                //objects[0] = UserType;
+                //objects[1] = AdviserId;
+                //objects[2] = RmId;
+                //objects[3] = CustomerId;
+                //objects[4] = BranchHeadId;
+                //objects[5] = BranchId;
+                //objects[6] = All;
+                //objects[7] = Category;
+                //objects[8] = SysType;
+                //objects[9] = AmcCode;
+                //objects[10] = SchemePlanCode;
+                //objects[11] = StartDate;
+                //objects[12] = EndDate;
+                //objects[13] = dtFrom;
+                //objects[14] = dtTo;
+
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetExceptionReportMismatchDetails;
+        }
+        public DataSet GetExceptionReportDetails(string userType, int adviserId, int rmId, int CustomerId, int branchheadId, int branchId, int All, int isIndividualOrGroup, string Explist, string Exptype, int Mismatch)
+        {
+            DataSet dsGetExceptionReportDetails = new DataSet();
+            Database db;
+            DbCommand GetExceptionReportDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetExceptionReportDetailsCmd = db.GetStoredProcCommand("GetExceptionReportDetails");
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@CustomerId", DbType.Int32, CustomerId);
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@branchHeadId", DbType.Int32, branchheadId);
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@all", DbType.Int32, All);
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@isIndividualOrGroup", DbType.Int16, isIndividualOrGroup);
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@ExpListCode", DbType.String, Explist);
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@ExptypeCode", DbType.String, Exptype);
+                db.AddInParameter(GetExceptionReportDetailsCmd, "@Mismatch", DbType.Int16, Mismatch);
+
+                dsGetExceptionReportDetails = db.ExecuteDataSet(GetExceptionReportDetailsCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "SystematicSetupDao.cs:GetAllSystematicMISData()");
+                //object[] objects = new object[16];
+                //objects[0] = UserType;
+                //objects[1] = AdviserId;
+                //objects[2] = RmId;
+                //objects[3] = CustomerId;
+                //objects[4] = BranchHeadId;
+                //objects[5] = BranchId;
+                //objects[6] = All;
+                //objects[7] = Category;
+                //objects[8] = SysType;
+                //objects[9] = AmcCode;
+                //objects[10] = SchemePlanCode;
+                //objects[11] = StartDate;
+                //objects[12] = EndDate;
+                //objects[13] = dtFrom;
+                //objects[14] = dtTo;
+
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetExceptionReportDetails;
+        }
+        public bool EditData(string ProData, string FolioData, string FolioNumber, int CustomerId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand EditDataCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                EditDataCmd = db.GetStoredProcCommand("editData");
+                db.AddInParameter(EditDataCmd, "@ProfileData", DbType.String, ProData);
+                db.AddInParameter(EditDataCmd, "@customerId", DbType.Int32, CustomerId);
+                db.AddInParameter(EditDataCmd, "@folioData", DbType.String, FolioData);
+                db.AddInParameter(EditDataCmd, "@folionum", DbType.String, FolioNumber);
+
+                if (db.ExecuteNonQuery(EditDataCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:DeleteMappedSchemeDetails()");
+                //object[] objects = new object[2];
+                //objects[0] = schemePlanCode;
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+        public Boolean GetFixedMapped(string explist)
+        {
+            bool Isfixed = false;
+            DataSet result;
+            object value;
+            Database db;
+            DbCommand GetFixedMappedCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetFixedMappedCmd = db.GetStoredProcCommand("GetFixedMapped");
+                db.AddInParameter(GetFixedMappedCmd, "@explist", DbType.String, explist);
+                result = (db.ExecuteDataSet(GetFixedMappedCmd));
+                value = result.Tables[0].Rows[0][0];
+                if (int.Parse(value.ToString()) == 1)
+                    Isfixed = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetSchemeDetails()");
+                //object[] objects = new object[1];
+                //objects[0] = customerId;
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return Isfixed;
         }
         public DataTable GetISAHoldings(int accountId)
         {
