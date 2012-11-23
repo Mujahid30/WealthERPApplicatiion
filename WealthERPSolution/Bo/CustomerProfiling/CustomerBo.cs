@@ -68,6 +68,32 @@ namespace BoCustomerProfiling
         /// <param name="customerId"></param>
         /// <returns></returns>
         /// 
+        public Boolean GetFixedMapped(string explist)
+        {
+            bool Isfixed = false;
+            CustomerDao customerDao = new CustomerDao();
+            try {
+                Isfixed = customerDao.GetFixedMapped(explist);
+            }
+             catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetSchemeDetails()");
+                //object[] objects = new object[1];
+                //objects[0] = customerId;
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return Isfixed;
+        }
         public DataTable GetISaList(int customerId)
         {
             DataTable dtGetISaList = new DataTable();
@@ -95,6 +121,7 @@ namespace BoCustomerProfiling
             }
             return dtGetISaList;
         }
+
         public DataSet GetSchemeDetails(int schemePlanCode)
         {
             DataSet dsGetSchemeDetails = new DataSet();
@@ -2438,13 +2465,13 @@ namespace BoCustomerProfiling
             return dtRelationship;
         }
 
-        public List<int> CreateISACustomerRequest(CustomerVo customerVo, int custCreateFlag,string priority)
+        public List<int> CreateISACustomerRequest(CustomerVo customerVo, int custCreateFlag)
         {
             List<int> customerIds = new List<int>();
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                customerIds = customerDao.CreateISACustomerRequest(customerVo, custCreateFlag, priority);
+                customerIds = customerDao.CreateISACustomerRequest(customerVo, custCreateFlag);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2576,14 +2603,13 @@ namespace BoCustomerProfiling
             }
             return isEdited;   
         }
-
-        public DataTable GetISAHoldings(int accountId)
+        public DataSet GetExceptionList()
         {
-            DataTable dt = new DataTable();
+            DataSet dsGetExceptionList = new DataSet();
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                dt = customerDao.GetISAHoldings(accountId);
+                dsGetExceptionList = customerDao.GetExceptionList();
             }
             catch (BaseApplicationException Ex)
             {
@@ -2593,15 +2619,142 @@ namespace BoCustomerProfiling
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CustomerBo.cs:GetISAHoldings(int accountId)");
-                object[] objects = new object[1];
-                objects[0] = accountId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetSchemeDetails()");
+                //object[] objects = new object[1];
+                //objects[0] = schemePlanCode;
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+
             }
-            return dt;
+            return dsGetExceptionList;
         }
+        public DataSet GetExceptionType()
+        {
+            DataSet dsGetExceptionType = new DataSet();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dsGetExceptionType = customerDao.GetExceptionType();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetSchemeDetails()");
+                //object[] objects = new object[1];
+                //objects[0] = schemePlanCode;
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetExceptionType;
+        }
+        public DataSet GetExceptionReportMismatchDetails(string userType, int adviserId, int rmId, int CustomerId, int branchheadId, int branchId, int All, int isIndividualOrGroup, string Explist, string Exptype, int Mismatch)
+        {
+            DataSet dsGetExceptionReportMismatchDetails = new DataSet();
+            CustomerDao customerDao=new CustomerDao();
+            try
+            {
+                dsGetExceptionReportMismatchDetails = customerDao.GetExceptionReportMismatchDetails(userType, adviserId, rmId, CustomerId, branchheadId, branchId, All, isIndividualOrGroup, Explist, Exptype, Mismatch);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "SystematicSetupBo.cs:GetAllSystematicMISData()");
+                //object[] objects = new object[16];
+                //objects[0] = UserType;
+                //objects[1] = AdviserId;
+                //objects[2] = RmId;
+                //objects[3] = CustomerId;
+                //objects[4] = BranchHeadId;
+                //objects[5] = BranchId;
+                //objects[6] = All;
+                //objects[7] = Category;
+                //objects[8] = SysType;
+                //objects[9] = AmcCode;
+                //objects[10] = SchemePlanCode;
+                //objects[11] = StartDate;
+                //objects[12] = EndDate;
+                //objects[13] = dtFrom;
+                //objects[14] = dtTo;
+
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetExceptionReportMismatchDetails;
+        }
+        public DataSet GetExceptionReportDetails(string userType, int adviserId, int rmId, int CustomerId, int branchheadId, int branchId, int All, int isIndividualOrGroup, string Explist, string Exptype,int Mismatch)
+        {
+            DataSet dsGetExceptionReportDetails = new DataSet();
+            CustomerDao customerDao=new CustomerDao();
+            try
+            {
+                dsGetExceptionReportDetails = customerDao.GetExceptionReportDetails(userType, adviserId, rmId, CustomerId, branchheadId, branchId, All, isIndividualOrGroup, Explist, Exptype, Mismatch);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "SystematicSetupBo.cs:GetAllSystematicMISData()");
+                //object[] objects = new object[16];
+                //objects[0] = UserType;
+                //objects[1] = AdviserId;
+                //objects[2] = RmId;
+                //objects[3] = CustomerId;
+                //objects[4] = BranchHeadId;
+                //objects[5] = BranchId;
+                //objects[6] = All;
+                //objects[7] = Category;
+                //objects[8] = SysType;
+                //objects[9] = AmcCode;
+                //objects[10] = SchemePlanCode;
+                //objects[11] = StartDate;
+                //objects[12] = EndDate;
+                //objects[13] = dtFrom;
+                //objects[14] = dtTo;
+
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetExceptionReportDetails;
+        }
+        public bool EditData(string ProData,string FolioData, string FolioNumber,int CustomerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            bool isUpdated = false;
+            try
+            {
+                isUpdated = customerDao.EditData(ProData, FolioData, FolioNumber, CustomerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isUpdated;
+        }
+
     }
 }
