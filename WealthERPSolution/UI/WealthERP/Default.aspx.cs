@@ -131,6 +131,19 @@ namespace WealthERP
                         }
 
                         lblUserName.Text = "Welcome " + " " + userVo.FirstName + " " + userVo.LastName;
+
+                        if (userVo.PermisionList!=null && userVo.RoleList.Contains("Ops") && userVo.PermisionList.Count()>0)
+                        {   
+                            lblPermissionList.Visible = true;
+                            foreach(string PName in userVo.PermisionList)
+                            {
+                                lblPermissionList.Text+= PName + ",";
+                                
+                            }
+
+                            lblPermissionList.Text = lblPermissionList.Text.TrimEnd(',');
+                        }
+                        
                         lblSignOut.Text = "SignOut";
                         LinkButtonSignIn.Text = "";
                         if (Session[SessionContents.LogoPath] != null)

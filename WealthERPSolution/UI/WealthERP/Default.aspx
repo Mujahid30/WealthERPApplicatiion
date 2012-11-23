@@ -214,6 +214,8 @@
                             <tr style="height: 35px; border: border 2 #0000FF">
                                 <td class="PCGRedBcknd" style="width: 18%;">
                                     <asp:Label ID="lblUserName" runat="server" CssClass="HeaderDateText"></asp:Label>
+                                    <br />
+                                    <asp:Label ID="lblPermissionList" runat="server" CssClass="UserPermissionList" Text="Permission: " Visible="false"></asp:Label>
                                 </td>
                                 <td colspan="2" class="PCGRedBcknd" valign="middle">
                                     <%-- <div id="GeneralMenu" style="height: auto; width: 78%; float: left;" runat="server">
