@@ -36,7 +36,10 @@ namespace WealthERP.OPS
             SessionBo.CheckSession();            
             advisorVo = (AdvisorVo)Session["advisorVo"];           
             userType = Session[SessionContents.CurrentUserRole].ToString();
-
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                userType = "advisor";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                userType = "bm";
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int bmID = rmVo.RMId;           
             gvOrderList.Visible = false;
@@ -232,7 +235,27 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + " ');", true);
             }
         }
+        protected void gvOrderList_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem item = (e.Item as GridDataItem);
+                RadComboBox rcb = new RadComboBox();
+                TemplateColumn tm = new TemplateColumn();
+                RadComboBox lbl = new RadComboBox();
+                 if (userType=="bm")
+                {
 
+                    rcb = (RadComboBox)e.Item.FindControl("ddlMenu");
+                    if (rcb != null)
+                    {
+                        rcb.Items.FindItemByValue("Edit").Remove();
+                    }
+                }
+
+
+            }
+        }
         protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlOrderType.SelectedValue == "IN")
