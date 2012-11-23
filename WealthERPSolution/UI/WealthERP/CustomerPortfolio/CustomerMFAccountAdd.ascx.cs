@@ -1372,99 +1372,55 @@ namespace WealthERP.CustomerPortfolio
 
         protected void rbtnYes_CheckedChanged1(object sender, EventArgs e)
         {
-            trAddJointHolder.Visible = true;
-            CustomerAccountsVo AccountVo = new CustomerAccountsVo();
-            if (Session["CustomerAccountVo"] != null)
-            {
-                AccountVo = (CustomerAccountsVo)Session["CustomerAccountVo"];
-            }
+            #region unused
+            
+           
+            //trAddJointHolder.Visible = true;
+            //CustomerAccountsVo AccountVo = new CustomerAccountsVo();
+            //if (Session["CustomerAccountVo"] != null)
+            //{
+            //    AccountVo = (CustomerAccountsVo)Session["CustomerAccountVo"];
+            //}
             ddlModeOfHolding.Enabled = true;
             ddlModeOfHolding.SelectedIndex = 0;
-            if (txtFolioNumber.Text != "" && btnUpdate.Visible == true)
-            {
-                if (!string.IsNullOrEmpty(ViewState["ModeOfHolding"].ToString()))
-                    ddlModeOfHolding.SelectedValue = ViewState["ModeOfHolding"].ToString();
+          
+            //    //when addding MF Folio Account 
+            //    dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+            //    dtCustomerAssociates.Rows.Clear();
+            //    dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
+            //    dtCustomerAssociatesRaw.Columns.Add("MemberCustomerId");
+            //    dtCustomerAssociatesRaw.Columns.Add("AssociationId");
+            //    dtCustomerAssociatesRaw.Columns.Add("Name");
+            //    dtCustomerAssociatesRaw.Columns.Add("Relationship");
 
-                DataTable dtJoinHolder = new DataTable();
-                DataTable dtJoinHolderGV = new DataTable();
-                DataRow drJoinHolder;
-                dsCustomerAssociates = customerTransactionBo.GetMFFolioAccountAssociates(AccountVo.AccountId, customerVo.CustomerId);
-                dtJoinHolder = dsCustomerAssociates.Tables[2];
-                if (dtJoinHolder.Rows.Count > 0 && dtJoinHolder != null)
-                {
-                    dtJoinHolderGV.Columns.Add("AssociateId");
-                    dtJoinHolderGV.Columns.Add("Name");
-                    dtJoinHolderGV.Columns.Add("Relationship");
-                    dtJoinHolderGV.Columns.Add("Stat");
+            //    DataRow drCustomerAssociates;
+            //    foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
+            //    {
 
-                    foreach (DataRow dr in dtJoinHolder.Rows)
-                    {
-                        drJoinHolder = dtJoinHolderGV.NewRow();
-                        drJoinHolder[0] = dr["CA_AssociationId"].ToString();
-                        drJoinHolder[1] = dr["NAME"].ToString();
-                        drJoinHolder[2] = dr["XR_Relationship"].ToString();
-                        drJoinHolder[3] = dr["Stat"].ToString();
+            //        drCustomerAssociates = dtCustomerAssociates.NewRow();
+            //        drCustomerAssociates[0] = dr["MemberCustomerId"].ToString();
+            //        drCustomerAssociates[1] = dr["AssociationId"].ToString();
+            //        drCustomerAssociates[2] = dr["Name"].ToString();
+            //        drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+            //        dtCustomerAssociates.Rows.Add(drCustomerAssociates);
+            //    }
 
-                        dtJoinHolderGV.Rows.Add(drJoinHolder);
+            //    if (dtCustomerAssociatesRaw.Rows.Count > 0)
+            //    {
+            //        trJointHolders.Visible = true;
+            //        trJointHoldersGrid.Visible = true;
+            //        gvJointHoldersList.DataSource = dtCustomerAssociates;
+            //        gvJointHoldersList.DataBind();
+            //    }
+            //    else
+            //    {
+            //        trJointHolders.Visible = false;
+            //        trJointHoldersGrid.Visible = false;
+            //    }
 
-                    }
-
-                    gvJoint2.DataSource = dtJoinHolderGV;
-                    ViewState["JointHold"] = dtJoinHolderGV;
-                    gvJoint2.DataBind();
-                    //trJoint2Header.Visible = true;
-                    trJoint2.Visible = true;
-                    if (gvJoint2.Visible == false)
-                    {
-                        gvJoint2.Visible = true;
-                    }
-
-                    //trJointHolders.Visible = true;
-                    gvJoint2.Columns[3].Visible = false;
-                    //trJoint2Header.Visible = true;
-                }
-                else
-                {
-                    //trJoint2Header.Visible = false;
-                }
-
-            }
-            else
-            {
-                //when addding MF Folio Account 
-                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
-                dtCustomerAssociates.Rows.Clear();
-                dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
-                dtCustomerAssociates.Columns.Add("MemberCustomerId");
-                dtCustomerAssociates.Columns.Add("AssociationId");
-                dtCustomerAssociates.Columns.Add("Name");
-                dtCustomerAssociates.Columns.Add("Relationship");
-
-                DataRow drCustomerAssociates;
-                foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
-                {
-
-                    drCustomerAssociates = dtCustomerAssociates.NewRow();
-                    drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
-                    drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
-                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
-                    drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
-                    dtCustomerAssociates.Rows.Add(drCustomerAssociates);
-                }
-
-                if (dtCustomerAssociatesRaw.Rows.Count > 0)
-                {
-                    trJointHolders.Visible = true;
-                    trJointHoldersGrid.Visible = true;
-                    gvJointHoldersList.DataSource = dtCustomerAssociates;
-                    gvJointHoldersList.DataBind();
-                }
-                else
-                {
-                    trJointHolders.Visible = false;
-                    trJointHoldersGrid.Visible = false;
-                }
-            }
+            #endregion
+            trAddJointHolder.Visible = true;
+            gvJoint2.Visible = true;
         }
 
         //protected void foliobutton_click(object sender, EventArgs e)
@@ -1483,7 +1439,8 @@ namespace WealthERP.CustomerPortfolio
             ddlModeOfHolding.Enabled = false;
             trJointHolders.Visible = false;
             trJointHoldersGrid.Visible = false;
-            //trJoint2Header.Visible = false;
+
+            gvJoint2.Visible = false;
             trJoint2.Visible = false;
 
 
@@ -1596,7 +1553,44 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void imgAddJointHolder_Click(object sender, EventArgs e)
         {
-            rbtnYes_CheckedChanged(sender, e);
+           
+                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
+
+                dtCustomerAssociates.Columns.Add("MemberCustomerId");
+                dtCustomerAssociates.Columns.Add("AssociationId");
+                dtCustomerAssociates.Columns.Add("Name");
+                dtCustomerAssociates.Columns.Add("Relationship");
+
+                foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
+                {
+                    drCustomerAssociates = dtCustomerAssociates.NewRow();
+                    drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
+                    drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
+                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                    drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                    dtCustomerAssociates.Rows.Add(drCustomerAssociates);
+                }
+
+                if (dtCustomerAssociates.Rows.Count > 0)
+                {
+                    gvJointHoldersList.DataSource = dtCustomerAssociates;
+                    gvJointHoldersList.DataBind();
+                    gvJointHoldersList.Visible = true;
+
+                    Session["JointHolder"] = dtCustomerAssociates;
+                    //trJoint2Header.Visible = true;
+                    //trJoint2HeaderGrid.Visible = true;
+                }
+                else
+                {
+                    //trJoint2Header.Visible = false;
+                    //trJoint2HeaderGrid.Visible = true;
+                    btnAddJointHolder.Visible = false;
+                    DivForJH.Visible = true;
+                }
+           
+
             radwindowForJointHolder.VisibleOnPageLoad = true;
         }
 

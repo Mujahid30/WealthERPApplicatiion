@@ -139,7 +139,7 @@
         </div>
         <div style="padding: 20px">
             <telerik:RadGrid ID="gvGuardian" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
                 AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
                 <ExportSettings HideStructureColumns="true">
@@ -179,7 +179,7 @@
         </div>
         <div style="padding: 20px">
             <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
                 AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
                 <ExportSettings HideStructureColumns="true">
@@ -219,7 +219,7 @@
         </div>
         <div style="padding: 20px">
             <telerik:RadGrid ID="gvJointHoldersList" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
                 AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
                 <ExportSettings HideStructureColumns="true">
