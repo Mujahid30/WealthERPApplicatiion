@@ -133,8 +133,8 @@
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
     Behaviors="Move,resize,close" Title="Inset New Policy">
     <ContentTemplate>
-        <div id="divForGuardian" style="width:75%;text-align:center; " runat="server" class="failure-msg" align="center"
-            visible="false">
+        <div id="divForGuardian" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
+            align="center" visible="false">
             Records not found
         </div>
         <div style="padding: 20px">
@@ -173,7 +173,8 @@
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
     Behaviors="Move,resize,close" Title="Inset New Policy">
     <ContentTemplate>
-        <div id="DivForNominee" style="width:75%;text-align:center; " runat="server" class="failure-msg" align="center" visible="false">
+        <div id="DivForNominee" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
+            align="center" visible="false">
             Records not found
         </div>
         <div style="padding: 20px">
@@ -212,7 +213,8 @@
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
     Behaviors="Move,resize,close" Title="Inset New Policy">
     <ContentTemplate>
-        <div id="DivForJH" style="width:75%;text-align:center; " runat="server" class="failure-msg" align="center" visible="false">
+        <div id="DivForJH" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
+            align="center" visible="false">
             Records not found
         </div>
         <div style="padding: 20px">
@@ -260,6 +262,9 @@
                         <td align="left">
                             Add MF Folio
                         </td>
+                        <td align="right">
+                            <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click">Edit</asp:LinkButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -277,13 +282,6 @@
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
-        </td>
-    </tr>
-</table>
-<table width="100%" class="TableBackground">
-    <tr>
-        <td colspan="4">
-            <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click">Edit</asp:LinkButton>
         </td>
     </tr>
 </table>
@@ -677,21 +675,19 @@
             </div>
         </td>
     </tr>
-     <tr>
+    <tr>
         <td class="leftField">
             <asp:Label ID="Label26" runat="server" CssClass="FieldName" Text="Customer Type :"></asp:Label>
         </td>
         <td class="rightField">
-              <asp:DropDownList ID="ddlCustomerType" runat="server" CssClass="cmbField" 
-                >
+            <asp:DropDownList ID="ddlCustomerType" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="Label27" CssClass="FieldName" Text="Customer SubType :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
-              <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField" 
-                >
+            <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
         <td>

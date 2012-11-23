@@ -235,7 +235,9 @@ namespace WealthERP.CustomerPortfolio
             ddlBState.Text = customerAccountsVo.BranchAdrState;
             ddlBCountry.Text = ddlBCountry.SelectedValue;
             txtIfsc.Text = customerAccountsVo.AccountType;
+            if(customerAccountsVo.XCT_CustomerTypeCode!="0")
             ddlCustomerType.SelectedValue = customerAccountsVo.XCT_CustomerTypeCode;
+            if(customerAccountsVo.XCST_CustomerSubTypeCode!="0")
             ddlCustomerSubType.SelectedValue = customerAccountsVo.XCST_CustomerSubTypeCode;
 
             if (customerAccountsVo.CDOB != DateTime.MinValue)
@@ -269,9 +271,9 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 dsCustomerAssociates = customerTransactionBo.GetMFFolioAccountAssociates(AccountVo.AccountId, customerVo.CustomerId);
-                dtJoinHolder = dsCustomerAssociates.Tables[0];
+                dtJoinHolder = dsCustomerAssociates.Tables[2];
                 dtNominees = dsCustomerAssociates.Tables[1];
-                dtGuardian = dsCustomerAssociates.Tables[2];
+                dtGuardian = dsCustomerAssociates.Tables[0];
 
                 if (AccountVo.IsJointHolding == 1)
                 {
@@ -723,20 +725,20 @@ namespace WealthERP.CustomerPortfolio
                 if (rbtnYes.Checked)
                 {
 
-                    if ((object)(Request.QueryString["action"]) != null && Request.QueryString["action"] != "")
-                    {
-                        trJoint2.Visible = true;
-                        if (Request.QueryString["action"].Trim() == "Edit")
-                        {
-                            EditFolioDetails();
-                        }
-                        else if (Request.QueryString["action"].Trim() == "View")
-                        {
-                            ViewFolioDetails();
-                        }
-                    }
-                    else
-                    {
+                    //if ((object)(Request.QueryString["action"]) != null && Request.QueryString["action"] != "")
+                    //{
+                    //    trJoint2.Visible = true;
+                    //    if (Request.QueryString["action"].Trim() == "Edit")
+                    //    {
+                    //        EditFolioDetails();
+                    //    }
+                    //    else if (Request.QueryString["action"].Trim() == "View")
+                    //    {
+                    //        ViewFolioDetails();
+                    //    }
+                    //}
+                    //else
+                    //{
 
                         ddlModeOfHolding.Enabled = true;
                         ddlModeOfHolding.SelectedIndex = 0;
@@ -775,7 +777,7 @@ namespace WealthERP.CustomerPortfolio
                             btnAddJointHolder.Visible = false;
                             DivForJH.Visible = true;
                         }
-                    }
+                    
                 }
                 else
                 {
@@ -1380,7 +1382,7 @@ namespace WealthERP.CustomerPortfolio
                 DataTable dtJoinHolderGV = new DataTable();
                 DataRow drJoinHolder;
                 dsCustomerAssociates = customerTransactionBo.GetMFFolioAccountAssociates(AccountVo.AccountId, customerVo.CustomerId);
-                dtJoinHolder = dsCustomerAssociates.Tables[0];
+                dtJoinHolder = dsCustomerAssociates.Tables[2];
                 if (dtJoinHolder.Rows.Count > 0 && dtJoinHolder != null)
                 {
                     dtJoinHolderGV.Columns.Add("AssociateId");
@@ -1609,7 +1611,7 @@ namespace WealthERP.CustomerPortfolio
                 chkbox = (CheckBox)gvr.FindControl("chkId0"); // accessing the CheckBox control
                 if (chkbox.Checked == true)
                 {
-                    hdnAssociationIdForGuardian.Value = gvNominees.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString();
+                    hdnAssociationIdForGuardian.Value = gvGuardian.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString();
                     strNomineeAssnId = strNomineeAssnId + hdnAssociationIdForGuardian.Value + ",";
                 }
             }
