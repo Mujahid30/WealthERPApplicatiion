@@ -264,7 +264,7 @@
                         HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
                                                 
                        <telerik:RadGrid ID="gvSystematicMIS" AllowSorting="true"  runat="server" 
-                           AllowAutomaticInserts="false" AllowFilteringByColumn="false" AllowPaging="True" 
+                           AllowAutomaticInserts="false" AllowFilteringByColumn="true" AllowPaging="True" 
                             AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
                            GridLines="None" PageSize="15" ShowFooter="true" ShowStatusBar="True" 
                            Skin="Telerik">
@@ -273,11 +273,11 @@
                            FileName="SystematicMIS Details" Excel-Format="ExcelML"></ExportSettings>
                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false">
                                <Columns>
-                                   <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" 
+                                   <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" ShowFilterIcon="false"  AutoPostBackOnFilter="true"
                                        UniqueName="CustomerName" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn DataField="SystematicTransactionType" 
+                                   <telerik:GridBoundColumn DataField="SystematicTransactionType"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                        HeaderText="Type" UniqueName="SystematicTransactionType">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
@@ -285,36 +285,46 @@
                                        UniqueName="AMCname">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>--%>
-                                   <telerik:GridBoundColumn DataField="SchemePlaneName" 
+                                   <telerik:GridBoundColumn DataField="SchemePlaneName"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                        HeaderText="Scheme" UniqueName="SchemePlaneName">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="160px" Wrap="true" />
                                    </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn DataField="FolioNumber" HeaderText="Folio" 
+                                   <telerik:GridBoundColumn DataField="FolioNumber" HeaderText="Folio"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                        UniqueName="FolioNumber">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn SortExpression="StartDate" DataField="StartDate" 
+                                   <telerik:GridDateTimeColumn SortExpression="StartDate" DataField="StartDate"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                        DataFormatString="{0:dd/MM/yyyy}" HeaderText="Start Date" UniqueName="StartDate">
                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
-                                   </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn DataField="EndDate" DataFormatString="{0:dd/MM/yyyy}" 
+                                   </telerik:GridDateTimeColumn>
+                                   <telerik:GridDateTimeColumn DataField="EndDate" DataFormatString="{0:dd/MM/yyyy}"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                        HeaderText="End Date" UniqueName="EndDate" SortExpression="EndDate">
                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
-                                   </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn DataField="Frequency" HeaderText="Frequency" 
+                                   </telerik:GridDateTimeColumn>
+                                   <telerik:GridBoundColumn DataField="Frequency" HeaderText="Frequency"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                        UniqueName="Frequency">
                                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    
-                                   <telerik:GridBoundColumn  DataField="NextSystematicDate" HeaderText="Next Date" 
+                                   <telerik:GridDateTimeColumn  DataField="NextSystematicDate" HeaderText="Next Date"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                    DataFormatString="{0:dd/MM/yyyy}" UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
                                          <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                    </telerik:GridBoundColumn>
+                                    </telerik:GridDateTimeColumn>
                                    
-                                   <telerik:GridBoundColumn Aggregate="Sum" DataField="Amount" DataType="System.Decimal" 
+                                   <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" DataField="Amount" DataType="System.Decimal"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                    HeaderText="Amount" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
                                        UniqueName="Amount">
                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                   </telerik:GridBoundColumn>
+                                   
+                                   <telerik:GridDateTimeColumn DataField="CMFSS_CEASEDATE" DataFormatString="{0:dd/MM/yyyy}"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                       HeaderText="CEASE DATE" UniqueName="CMFSS_CEASEDATE" SortExpression="CMFSS_CEASEDATE">
+                                       <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
+                                   </telerik:GridDateTimeColumn>
+                                   
+                                    <telerik:GridBoundColumn DataField="REMARKS" HeaderText="REMARKS"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                       UniqueName="REMARKS">
+                                       <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                </Columns>
                            </MasterTableView>                          

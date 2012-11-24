@@ -961,6 +961,10 @@ namespace WealthERP.Advisor
                 dtSystematicDetails.Columns.Add("NextSystematicDate", typeof(DateTime));
                 dtSystematicDetails.Columns.Add("Amount", typeof(Decimal));
 
+                dtSystematicDetails.Columns.Add("CeaseDate");
+                dtSystematicDetails.Columns.Add("Remarks");
+
+
                 DataRow drSystematicDetails;
                 foreach (DataRow dr in dtSystematicMIS1.Rows)
                 {
@@ -987,6 +991,10 @@ namespace WealthERP.Advisor
                     //    drSystematicDetails["NextSystematicDate"] = "---";
                     //}
                     drSystematicDetails["Amount"] = decimal.Parse(dr["Amount"].ToString());
+
+                    drSystematicDetails["CeaseDate"] =dr["CMFSS_CEASEDATE"];
+                    drSystematicDetails["Remarks"] = dr["CMFSS_REMARKS"];
+
 
                     dtSystematicDetails.Rows.Add(drSystematicDetails);
                 }
