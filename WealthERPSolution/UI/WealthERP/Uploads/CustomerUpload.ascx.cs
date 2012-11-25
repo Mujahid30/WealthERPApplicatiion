@@ -7178,14 +7178,17 @@ namespace WealthERP.Uploads
             string extracttype = processlogVo.ExtractTypeCode;
 
 
+            if (filetype == (int)Contants.UploadTypes.StandardProfile && (extracttype == "PO" || extracttype == "PAF"))
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processid + "&filetypeid=" + filetype + "');", true);
 
-            if (( filetype == (int)Contants.UploadTypes.KarvyProfile || filetype == (int)Contants.UploadTypes.TempletonProfile ||
-                filetype == (int)Contants.UploadTypes.DeutscheProfile || filetype == (int)Contants.UploadTypes.StandardProfile || filetype == 21)
+            }
+            else if (( filetype == (int)Contants.UploadTypes.KarvyProfile || filetype == (int)Contants.UploadTypes.TempletonProfile ||
+                filetype == (int)Contants.UploadTypes.DeutscheProfile  || filetype == 21)
                 && (extracttype == "PO" || extracttype == "PAF"))
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "&filetypeid=" + filetype + "');", true);
 
-              //  Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processid + "&filetypeid=" + filetype + "');", true);
             }
             else if (filetype == 2 || extracttype == "PAF")
             {
