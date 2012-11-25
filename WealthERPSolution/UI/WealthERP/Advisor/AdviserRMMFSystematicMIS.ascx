@@ -317,8 +317,8 @@
                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    
-                                   <telerik:GridDateTimeColumn DataField="CMFSS_CEASEDATE" DataFormatString="{0:dd/MM/yyyy}"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                       HeaderText="CEASE DATE" UniqueName="CMFSS_CEASEDATE" SortExpression="CMFSS_CEASEDATE">
+                                   <telerik:GridDateTimeColumn DataField="CeaseDate" DataFormatString="{0:dd/MM/yyyy}"  ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                       HeaderText="CEASE DATE" UniqueName="CeaseDate" SortExpression="CeaseDate">
                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridDateTimeColumn>
                                    
