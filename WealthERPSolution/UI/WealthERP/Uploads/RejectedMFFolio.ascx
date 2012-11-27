@@ -333,7 +333,7 @@
         OnClientClick="return ShowPopup()" />
     <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" OnClick="btnDelete_Click"
         Text="Delete Records" />
-    <asp:Button ID="btnAddLob" OnClientClick="return ShowPopup()" runat="server" CssClass="PCGLongButton"
+    <asp:Button ID="btnAddLob" runat="server" CssClass="PCGLongButton"
         OnClick="btnAddLob_Click" Text="Add Broker Code" />
     <br />
 </div>
