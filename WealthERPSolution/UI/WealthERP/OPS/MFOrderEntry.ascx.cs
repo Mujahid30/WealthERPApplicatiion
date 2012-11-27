@@ -84,6 +84,7 @@ namespace WealthERP.OPS
 
             if (!IsPostBack)
             {
+                pnlJointholders.Visible = false;
                 trRegretMsg.Visible = false;
                 BtnIsa.Visible = false;
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
@@ -999,7 +1000,81 @@ namespace WealthERP.OPS
             }
 
         }
+        protected void ddlCustomerISAAccount_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable GetHoldersName = new DataTable();
+            GetHoldersName = customerBo.GetholdersName(int.Parse(ddlCustomerISAAccount.SelectedItem.Value.ToString()));
 
+            gvJointHoldersList.DataSource = GetHoldersName;
+            gvJointHoldersList.DataBind();
+            gvJointHoldersList.Visible = true;
+
+        }
+        private void BindISAList()
+        {
+            DataTable ISAList;
+            if (!string.IsNullOrEmpty(txtCustomerId.Value))
+            {
+                ISAList = customerBo.GetISaList(customerId);
+                DataTable ISANewList = new DataTable();
+                int i;
+                //ISANewList.Rows.Count = ISAList.Rows.Count;
+                ISANewList.Columns.Add("CISAA_accountid");
+                ISANewList.Columns.Add("CISAA_AccountNumber");
+                for (i = 0; i <= ISAList.Rows.Count; i++)
+                {
+                    
+                }
+                    //foreach (DataRow drISA in ISAList.Rows)
+                    //{
+                    //    foreach (DataRow drNewISA in ISANewList.Rows)
+                    //    {
+                    //        if (drISA["XMOH_ModeOfHoldingCode"].ToString() == "JO")
+                    //        {
+
+                    //            drNewISA["CISAA_accountid"] = drISA["CISAA_accountid"].ToString() + drISA["XMOH_ModeOfHoldingCode"].ToString();
+                    //            drNewISA["CISAA_AccountNumber"] = drISA["CISAA_AccountNumber"];
+                    //            break;
+                    //        }
+                    //        else
+                    //        {
+                    //            drNewISA["CISAA_accountid"] = drISA["CISAA_accountid"].ToString() + drISA["XMOH_ModeOfHoldingCode"].ToString();
+                    //            drNewISA["CISAA_AccountNumber"] = drISA["CISAA_AccountNumber"];
+
+                    //        }
+                    //    }
+                    //    ISANewList.ImportRow(drISA);
+                    //}
+                    
+                //}
+
+                if (ISAList.Rows.Count > 0)
+                {
+                    pnlJointholders.Visible = true;
+                    ddlCustomerISAAccount.DataSource = ISAList;
+                    ddlCustomerISAAccount.DataValueField = ISAList.Columns["CISAA_accountid"].ToString();
+                    ddlCustomerISAAccount.DataTextField = ISAList.Columns["CISAA_AccountNumber"].ToString();
+                    ddlCustomerISAAccount.DataBind();
+                    ddlCustomerISAAccount.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                    trRegretMsg.Visible = false;
+                    BtnIsa.Visible = false;
+                    ddlCustomerISAAccount.Visible = true;
+                }
+                else
+                {
+                    pnlJointholders.Visible = false;
+                    ddlCustomerISAAccount.Visible = true;                  
+                    trRegretMsg.Visible = true;
+                    BtnIsa.Visible = true;
+                    ddlCustomerISAAccount.Items.Clear();
+                    ddlCustomerISAAccount.DataSource = null;
+                    ddlCustomerISAAccount.DataBind();
+                    ddlCustomerISAAccount.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+
+            }
+
+        }
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
@@ -1016,34 +1091,34 @@ namespace WealthERP.OPS
                 BindBank(customerId);
                 BindPortfolioDropdown(customerId);
                 ddltransType.SelectedIndex = 0;
-                ISAList = customerBo.GetISaList(customerId);
-                if (ISAList.Rows.Count!=0)
-                {
-                    string formatstring = "";
+                BindISAList();
+            //    if (ISAList.Rows.Count!=0)
+            //    {
+            //        string formatstring = "";
 
-                    foreach (DataRow dRow in ISAList.Rows)
-                    {
-                        if (!string.IsNullOrEmpty(formatstring))
-                        {
-                            formatstring = formatstring + "," + dRow[0];
-                        }
-                        else
-                        {
-                            formatstring = dRow[0].ToString();
-                        }
-                    }
-                    lblIsaNo.Text = formatstring;
-                    trRegretMsg.Visible = false;
-                    BtnIsa.Visible = false;
-                }
+            //        foreach (DataRow dRow in ISAList.Rows)
+            //        {
+            //            if (!string.IsNullOrEmpty(formatstring))
+            //            {
+            //                formatstring = formatstring + "," + dRow[0];
+            //            }
+            //            else
+            //            {
+            //                formatstring = dRow[0].ToString();
+            //            }
+            //        }
+            //        lblIsaNo.Text = formatstring;
+            //        trRegretMsg.Visible = false;
+            //        BtnIsa.Visible = false;
+            //    }
 
-                else
-                {
-                    lblIsaNo.Text = null;
-                    trRegretMsg.Visible = true;
-                    BtnIsa.Visible = true;
-                }
-                //ClearAllFields();
+            //    else
+            //    {
+            //        lblIsaNo.Text = null;
+            //        trRegretMsg.Visible = true;
+            //        BtnIsa.Visible = true;
+            //    }
+            //    //ClearAllFields();
 
             }
         }

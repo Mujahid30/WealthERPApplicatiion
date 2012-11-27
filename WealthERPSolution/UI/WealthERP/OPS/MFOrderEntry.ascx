@@ -193,12 +193,47 @@
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblIsa" runat="server" CssClass="FieldName" Text="ISA No:"></asp:Label>
         </td>
-        <td class="rightField" style="width: 20%">
+        <%--<td class="rightField" style="width: 20%">
             <asp:Label ID="lblIsaNo" runat="server" CssClass="txtField"></asp:Label>
+        </td>--%>
+        <td>
+            <asp:DropDownList ID="ddlCustomerISAAccount" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlCustomerISAAccount_SelectedIndexChanged">
+            </asp:DropDownList>
         </td>
         <td class="rightField" style="width: 20%">
+           <%-- <asp:Label ID="lblJointholders" runat="server" CssClass="HeaderTextSmall" Text="JointHolders List"></asp:Label>--%>
+            
+            
         </td>
         <td class="rightField" style="width: 20%">
+        <asp:Panel ID="pnlJointholders" runat="server" ScrollBars="Horizontal">
+                <telerik:RadGrid ID="gvJointHoldersList" Height="70px" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    Width="100%" PageSize="4" AllowSorting="true" AllowPaging="True"  ShowStatusBar="True"
+                    ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
+                    AllowAutomaticInserts="false" ExportSettings-FileName="Count">
+                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                        CommandItemDisplay="None">
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="AccountNumber" HeaderText="Account Number" UniqueName="AccountNumber"
+                                SortExpression="Account Number">
+                                <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Customer" HeaderText="Customer" AllowFiltering="false"
+                                HeaderStyle-HorizontalAlign="Left" UniqueName="Customer">
+                                <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ModeOfHolding" HeaderText="Mode Of Holding" AllowFiltering="false"
+                                HeaderStyle-HorizontalAlign="Left" UniqueName="ModeOfHolding">
+                                <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid>
+            </asp:Panel>
         </td>
     </tr>
     <tr id="trRegretMsg" runat="server">
@@ -206,7 +241,7 @@
             <asp:Label ID="lblRegretMsg" runat="server" CssClass="FieldName" Text="Folio not Created for this Adviser"></asp:Label>
         </td>
         <td style="width: 20%">
-        <asp:Button ID="BtnIsa" runat="server" CssClass="PCGLongButton" OnClick="ISA_Onclick"
+            <asp:Button ID="BtnIsa" runat="server" CssClass="PCGLongButton" OnClick="ISA_Onclick"
                 Text="Request ISA Account" />
         </td>
         <td style="width: 20%">
@@ -214,8 +249,12 @@
         <td style="width: 20%">
         </td>
         <td style="width: 20%">
+        
         </td>
     </tr>
+   
+    
+    
     <%--<tr id=trBtnIsa runat="server">
         <td class="rightField" style="width: 20%">
             

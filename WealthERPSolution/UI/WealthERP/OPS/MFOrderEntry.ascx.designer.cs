@@ -21,6 +21,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
+        protected global::System.Web.UI.WebControls.Panel pnlJointholders;
         
         /// <summary>
         /// lnkBtnEdit control.
@@ -76,7 +77,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnViewInDOC;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerISAAccount;
         /// <summary>
         /// btnViewInPDFNew control.
         /// </summary>
@@ -131,7 +132,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtCustomer_water;
-        
+        protected global::Telerik.Web.UI.RadGrid gvJointHoldersList;
         /// <summary>
         /// txtCustomerName_autoCompleteExtender control.
         /// </summary>
