@@ -64,7 +64,7 @@
                             HeaderText="Priority" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AISAQ_date" AllowFiltering="false" HeaderStyle-Width="70px"
+                        <telerik:GridBoundColumn DataField="AISAQ_date" AllowFiltering="false" HeaderStyle-Width="130px"
                             HeaderText="Request Date">
                             <ItemStyle Width="" Wrap="false" VerticalAlign="Top" HorizontalAlign="Center" />
                         </telerik:GridBoundColumn>

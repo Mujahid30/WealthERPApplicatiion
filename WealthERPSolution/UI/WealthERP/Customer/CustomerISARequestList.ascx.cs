@@ -171,7 +171,7 @@ namespace WealthERP.Customer
             DataRow dr;
             Double loanOutStanding = 0;
             DateTime nextInsDate = new DateTime();
-            string format = "MMM ddd d HH:mm yyyy";
+            string format = "dd/MM/yyyy hh:mm tt";
             if (ISAQueueListVo != null)
             {
                 btnExportFilteredData.Visible = true;
@@ -193,7 +193,7 @@ namespace WealthERP.Customer
                     liabilityVo = ISAQueueListVo[i];
                     dr[0] = liabilityVo.ISARequestId;
                     if (liabilityVo.RequestDate != DateTime.MinValue)
-                        dr[1] = liabilityVo.RequestDate.ToString("g");
+                        dr[1] = liabilityVo.RequestDate.ToString(format);
                     if (liabilityVo.CurrentStatus != null)
                         dr[2] = liabilityVo.CurrentStatus;
                     if (liabilityVo.Priority != null)
