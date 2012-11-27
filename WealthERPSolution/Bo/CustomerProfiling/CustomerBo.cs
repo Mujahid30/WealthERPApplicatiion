@@ -2740,13 +2740,13 @@ namespace BoCustomerProfiling
             }
             return dsGetExceptionReportDetails;
         }
-        public bool EditData(string ProData,string FolioData, string FolioNumber,int CustomerId)
+        public bool EditData(string ProData, string FolioData, string FolioNumber, int CustomerId, string Explist)
         {
             CustomerDao customerDao = new CustomerDao();
             bool isUpdated = false;
             try
             {
-                isUpdated = customerDao.EditData(ProData, FolioData, FolioNumber, CustomerId);
+                isUpdated = customerDao.EditData(ProData, FolioData, FolioNumber, CustomerId, Explist);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2781,6 +2781,33 @@ namespace BoCustomerProfiling
             }
             return dt;
         }
+        public DataTable GetholdersName(int ISANumber)
+        {
+            DataTable dtGetholdersName = new DataTable();
+             CustomerDao customerDao = new CustomerDao();
+             try
+             {
+                 dtGetholdersName = customerDao.GetholdersName(ISANumber);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "CustomerBo.cs:GetISAHoldings(int accountId)");
+                 //object[] objects = new object[1];
+                 //objects[0] = accountId;
+                 //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+             return dtGetholdersName;
+        }
+
 
     }
 }

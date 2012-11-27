@@ -4497,7 +4497,7 @@ namespace DaoCustomerProfiling
             return dtGetCustomerUploadedProofPurpose;
         }
 
-        public List<int> CreateISACustomerRequest(CustomerVo customerVo, int custCreateFlag,string priority)
+        public List<int> CreateISACustomerRequest(CustomerVo customerVo, int custCreateFlag, string priority)
         {
             //bool bReturn = false;
             int customerId;
@@ -4545,7 +4545,7 @@ namespace DaoCustomerProfiling
                 db.AddOutParameter(createCustomerCmd, "@CP_PortfolioId", DbType.Int32, 10);
                 db.AddInParameter(createCustomerCmd, "@C_CreatedBy", DbType.Int32, customerVo.UserId);
                 db.AddInParameter(createCustomerCmd, "@Priority", DbType.String, priority);
-               if (db.ExecuteNonQuery(createCustomerCmd) != 0)
+                if (db.ExecuteNonQuery(createCustomerCmd) != 0)
                 {
 
                     customerUserId = int.Parse(db.GetParameterValue(createCustomerCmd, "U_UserId").ToString());
@@ -4847,9 +4847,9 @@ namespace DaoCustomerProfiling
             }
             return isEdited;
         }
-            public DataSet GetExceptionReportMismatchDetails(string userType, int adviserId, int rmId, int CustomerId, int branchheadId, int branchId, int All, int isIndividualOrGroup, string Explist, string Exptype, int Mismatch)
+        public DataSet GetExceptionReportMismatchDetails(string userType, int adviserId, int rmId, int CustomerId, int branchheadId, int branchId, int All, int isIndividualOrGroup, string Explist, string Exptype, int Mismatch)
         {
-            DataSet dsGetExceptionReportMismatchDetails= new DataSet();
+            DataSet dsGetExceptionReportMismatchDetails = new DataSet();
             Database db;
             DbCommand GetExceptionReportMismatchDetailsCmd;
             try
@@ -4963,7 +4963,7 @@ namespace DaoCustomerProfiling
             }
             return dsGetExceptionReportDetails;
         }
-        public bool EditData(string ProData, string FolioData, string FolioNumber, int CustomerId)
+        public bool EditData(string ProData, string FolioData, string FolioNumber, int CustomerId, string Explist)
         {
             bool bResult = false;
             Database db;
@@ -4976,7 +4976,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(EditDataCmd, "@customerId", DbType.Int32, CustomerId);
                 db.AddInParameter(EditDataCmd, "@folioData", DbType.String, FolioData);
                 db.AddInParameter(EditDataCmd, "@folionum", DbType.String, FolioNumber);
-
+                db.AddInParameter(EditDataCmd, "@Explist", DbType.String, Explist);
                 if (db.ExecuteNonQuery(EditDataCmd) != 0)
                     bResult = true;
             }
@@ -5069,6 +5069,41 @@ namespace DaoCustomerProfiling
 
             }
             return dtGetISAHoldings;
+        }
+        public DataTable GetholdersName(int ISANumber)
+        {
+            Database db;
+            DbCommand cmdGetholdersName;
+            DataTable dtGetholdersName;
+            DataSet dsGetholdersName = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetholdersName = db.GetStoredProcCommand("GetHoldersName");
+                db.AddInParameter(cmdGetholdersName, "@AccountNumber", DbType.Int32, ISANumber);
+                dsGetholdersName = db.ExecuteDataSet(cmdGetholdersName);
+                dtGetholdersName = dsGetholdersName.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                //FunctionInfo.Add("Method", "CustomerDao.cs:GetISAHoldings(accountId)");
+                //object[] objects = new object[1];
+                //objects[0] = accountId;
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetholdersName;
         }
     }
 }
