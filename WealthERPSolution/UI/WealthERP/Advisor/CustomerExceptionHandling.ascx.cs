@@ -70,6 +70,7 @@ namespace WealthERP.Advisor
             //ErrorMessage.Visible = false;
             if (!IsPostBack)
             {
+               
                 gvExceptionReport.Visible = false;
                 BindExceptionList();
                 BindExceptionType();
@@ -94,6 +95,8 @@ namespace WealthERP.Advisor
                 }
             }
         }
+        protected void ddlDisplay_SelectedIndexChanged(object sender, EventArgs e)
+        { }
         protected void ddlExpList_SelectedIndexChanged(object sender, EventArgs e)
         {
             IsfixedMapped = customerBo.GetFixedMapped(ddlExpList.SelectedValue);
@@ -242,7 +245,7 @@ namespace WealthERP.Advisor
                 strFolioNumber = txtFolioNumber.Text;
                 ProData = txtProfileData.Text;
                 customerId = int.Parse(txtCustomerId.Text);
-                isUpdated = customerBo.EditData(ProData, strFolioData, strFolioNumber, customerId);
+                isUpdated = customerBo.EditData(ProData, strFolioData, strFolioNumber, customerId, hdnExplist.Value);
 
             }
 
@@ -333,7 +336,7 @@ namespace WealthERP.Advisor
         }
         private void Bindgrid()
         {
-            if (ddlDisplay.SelectedItem.Text=="MisMatch")
+            if (ddlDisplay.SelectedItem.Text == "MisMatch")
             {
                 hdnMismatch.Value = "1";
                 dsBindgvExceptionReport = customerBo.GetExceptionReportMismatchDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), isIndividualOrGroup, hdnExplist.Value, hdnExptype.Value, int.Parse(hdnMismatch.Value));
@@ -343,7 +346,7 @@ namespace WealthERP.Advisor
                 hdnMismatch.Value = "0";
                 dsBindgvExceptionReport = customerBo.GetExceptionReportDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), isIndividualOrGroup, hdnExplist.Value, hdnExptype.Value, int.Parse(hdnMismatch.Value));
             }
-           
+
             if (dsBindgvExceptionReport.Tables.Count != 0)
             {
                 gvExceptionReport.DataSource = dsBindgvExceptionReport;
@@ -724,21 +727,20 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
-        protected void ddlDisplay_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlExpType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (ddlDisplay.SelectedItem.Value == "MISMATCH")
-            //{
-            //    ddlSelectCustomer.SelectedIndex = 1;
-            //    ddlSelectCustomer.Enabled = false;
-            //    ddlSelectCustomer_SelectedIndexChanged(sender, e);
-            //}
-            //else
-            //{
-            //    ddlSelectCustomer.SelectedIndex = 0;
-            //    ddlSelectCustomer.Enabled = true;
-            //    ddlSelectCustomer_SelectedIndexChanged(sender, e);
-            //}
+            if (ddlExpType.SelectedItem.Value == "ISAF")
+            {
+                lblExceptionList.Visible = false;
+                ddlExpList.Visible = false;
+            }
+            else
+            {
+                lblExceptionList.Visible = true;
+                ddlExpList.Visible = true;
+            }
         }
+
         protected void ddlSelectCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlSelectCustomer.SelectedItem.Value == "All Customer")

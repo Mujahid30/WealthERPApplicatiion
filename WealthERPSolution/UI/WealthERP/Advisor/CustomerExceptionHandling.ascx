@@ -36,15 +36,15 @@
         </tr>
         <tr>
             <td align="right" width="10%">
-                <asp:Label ID="lblExceptionType" runat="server" CssClass="FieldName" Text="Compare Type"></asp:Label>
+                <asp:Label ID="lblExceptionType" runat="server" CssClass="FieldName" Text="Compare"></asp:Label>
             </td>
             <td align="left" style="width: 10%;">
                 <asp:DropDownList ID="ddlExpType" runat="server" Style="vertical-align: middle" AutoPostBack="true"
-                    CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
+                    CssClass="cmbField" OnSelectedIndexChanged="ddlExpType_SelectedIndexChanged">
                 </asp:DropDownList>
             </td>
             <td align="right" width="10%">
-                <asp:Label ID="lblExceptionList" runat="server" CssClass="FieldName" Text="Compare Fields"></asp:Label>
+                <asp:Label ID="lblExceptionList" runat="server" CssClass="FieldName" Text="Fields to compare"></asp:Label>
             </td>
             <td align="left" style="width: 10%;">
                 <asp:DropDownList ID="ddlExpList" runat="server" Style="vertical-align: middle" AutoPostBack="true"
@@ -52,21 +52,21 @@
                 </asp:DropDownList>
             </td>
             <td align="right" width="10%">
-                <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Display For:"></asp:Label>
+                <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Display:"></asp:Label>
             </td>
             <td align="left" style="width: 10%;">
                 <asp:DropDownList ID="ddlDisplay" runat="server" Style="vertical-align: middle" AutoPostBack="true"
                     CssClass="cmbField" OnSelectedIndexChanged="ddlDisplay_SelectedIndexChanged">
                     <asp:ListItem Text="All" Value="ALL">
                     </asp:ListItem>
-                    <asp:ListItem Text="MisMatch" Value="MISMATCH">
+                    <asp:ListItem Text="MisMatch Only" Value="MISMATCH">
                     </asp:ListItem>
                 </asp:DropDownList>
                 </td>
         </tr>
         <tr>
             <td align="right" width="10%">
-                <asp:Label ID="lblGrpOrInd" runat="server" CssClass="FieldName" Text="Compare for :"></asp:Label>
+                <asp:Label ID="lblGrpOrInd" runat="server" CssClass="FieldName" Text="Select:"></asp:Label>
             </td>
             <td id="tdSelectCusto" runat="server" align="left" width="10%">
                 <asp:DropDownList ID="ddlSelectCustomer" runat="server" CssClass="cmbField" Style="vertical-align: middle"
@@ -151,6 +151,22 @@
                     <telerik:GridEditCommandColumn EditText="Update" HeaderStyle-Width="70px" UniqueName="editColumn"
                         UpdateText="Update">
                     </telerik:GridEditCommandColumn>
+                    <telerik:GridBoundColumn UniqueName="CustomerId" ItemStyle-HorizontalAlign="Right"
+                        HeaderStyle-Width="50px" ItemStyle-Width="50px" HeaderText="Customer Id" DataField="CustomerId"
+                        SortExpression="CustomerId" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                     <telerik:GridBoundColumn UniqueName="CustomerName" ItemStyle-HorizontalAlign="left"
+                        HeaderStyle-Width="100px" HeaderText="Customer" DataField="CustomerName"
+                        SortExpression="CustomerName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    
+                     <telerik:GridBoundColumn UniqueName="Folioname" ItemStyle-HorizontalAlign="left"
+                        HeaderStyle-Width="100px" HeaderText="Folio Name" DataField="Folioname"
+                        SortExpression="Folioname" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
                    <telerik:GridBoundColumn UniqueName="FolioNumber" HeaderText="FolioNumber" DataField="FolioNumber"
                         HeaderStyle-Width="100px" SortExpression="FolioNumber" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
@@ -161,21 +177,13 @@
                         AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="CustomerName" ItemStyle-HorizontalAlign="left"
-                        HeaderStyle-Width="100px" HeaderText="Customer Name" DataField="CustomerName"
-                        SortExpression="CustomerName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                        <HeaderStyle></HeaderStyle>
-                    </telerik:GridBoundColumn>
+                   
                     <telerik:GridBoundColumn UniqueName="ProfileFolio" HeaderText="ProfileFolio" DataField="ProfileFolio"
                         HeaderStyle-Width="100px" SortExpression="ProfileFolio" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn UniqueName="CustomerId" ItemStyle-HorizontalAlign="Right"
-                        HeaderStyle-Width="50px" ItemStyle-Width="50px" HeaderText="Customer Id" DataField="CustomerId"
-                        SortExpression="CustomerId" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                        <HeaderStyle></HeaderStyle>
-                    </telerik:GridBoundColumn>
+                     
                     <telerik:GridBoundColumn UniqueName="Exceptionlist" HeaderText="Exceptionlist" DataField="Exceptionlist"
                         HeaderStyle-Width="100px" SortExpression="Exceptionlist" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
@@ -266,7 +274,7 @@
             </ClientSettings>
         </telerik:RadGrid>
     </div>
-</body>
+    </body>
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />

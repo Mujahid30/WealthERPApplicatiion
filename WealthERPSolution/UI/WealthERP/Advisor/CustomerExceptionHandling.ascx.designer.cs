@@ -357,6 +357,7 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.HiddenField hdnExptype;
         protected global::System.Web.UI.WebControls.HiddenField hdnExplist;
         protected global::Telerik.Web.UI.RadGrid gvExceptionReport;
+        protected global::Telerik.Web.UI.RadGrid GvISAFolio;
         /// <summary>
         /// hdnIndividualOrGroup control.
         /// </summary>
