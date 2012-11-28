@@ -5,6 +5,13 @@
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
 
+
+<script type="text/javascript">
+    function DisplayPanId(val) {
+        document.getElementById('ctrl_EditCustomerIndividualProfile_gvFamilyAssociate_ctl00_ctl02_ctl03_lblGetPan').innerHTML = val;
+      }
+      </script>      
+            
 <script type="text/javascript" language="javascript">
     function checkDate(sender, args) {
 
@@ -1540,3 +1547,4 @@
 <asp:HiddenField ID="hdnAge" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnTaxSlabValue" runat="server" Visible="false" />
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
+<asp:HiddenField ID="hdnPannum" runat="server" />

@@ -1113,14 +1113,13 @@ namespace WealthERP.Customer
 
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
-            Label lbl = (Label)sender;
-            GridEditableItem editedItem = lbl.NamingContainer as GridEditableItem;
-            Label lblGetPan = editedItem.FindControl("lblGetPan") as Label;
             if (txtCustomerId.Value != string.Empty)
             {
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                 DataRow dr = dt.Rows[0];
-                lblGetPan.Text = dr["C_PANNum"].ToString();
+                hdnPannum.Value = dr["C_PANNum"].ToString();
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearchPannum", "DisplayPanId('" + hdnPannum.Value + "');", true);                
+               
 
             }
         }
@@ -1837,6 +1836,30 @@ namespace WealthERP.Customer
         protected void gvFamilyAssociate_ItemDataBound(object sender, GridItemEventArgs e)
         {
             customerBo = new CustomerBo();
+            if ((e.Item is GridEditFormItem) && e.Item.IsInEditMode)
+            {
+                GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+                DropDownList ddlMemberBranch = (DropDownList)editedItem.FindControl("ddlMemberBranch");
+                HtmlTableRow trCustomerTypeSelection = (HtmlTableRow)editedItem.FindControl("trCustomerTypeSelection");
+                TextBox txtMember = editedItem.FindControl("txtMember") as TextBox;
+
+
+                if (e.Item.RowIndex == -1)
+                {
+                    txtMember.Enabled = true;
+                    ddlMemberBranch.Enabled = true;
+                    trCustomerTypeSelection.Visible = true;
+                }
+                else
+                {
+                    txtMember.Enabled = false;
+                    ddlMemberBranch.Enabled = false;
+                    trCustomerTypeSelection.Visible = false;
+                }
+               
+
+
+            }
             if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
@@ -1846,7 +1869,7 @@ namespace WealthERP.Customer
                 TextBox txtMember = (TextBox)item.FindControl("txtMember");
                 Label lblGetPan = (Label)item.FindControl("lblGetPan");
                 TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
-
+                Session["lblGetPan"] = lblGetPan;
 
                 DropDownList ddlRelation = (DropDownList)gefi.FindControl("ddlRelation");
                 ddlRelation.DataSource = dtRelationship;
