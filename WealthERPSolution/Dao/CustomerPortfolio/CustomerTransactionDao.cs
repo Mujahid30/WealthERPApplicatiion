@@ -3046,7 +3046,9 @@ namespace DaoCustomerPortfolio
                     AccountVo.BranchAdrCity = dr1["CB_BranchAdrCity"].ToString();
                     if (!string.IsNullOrEmpty(dr1["CB_BranchAdrPinCode"].ToString()))
                     AccountVo.BranchAdrPinCode = int.Parse(dr1["CB_BranchAdrPinCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr1["CB_MICR"].ToString()))
                     AccountVo.MICR = int.Parse(dr1["CB_MICR"].ToString());
+                    if (!string.IsNullOrEmpty(dr1["CB_IFSC"].ToString()))
                     AccountVo.IFSC = dr1["CB_IFSC"].ToString();
                 }
   
