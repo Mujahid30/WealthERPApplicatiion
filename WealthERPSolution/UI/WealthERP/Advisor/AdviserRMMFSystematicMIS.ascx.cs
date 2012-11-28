@@ -96,14 +96,14 @@ namespace WealthERP.Advisor
             bmID = rmVo.RMId;
 
             //gvCalenderDetailView.Visible = true;
+           
             gvSystematicMIS.Visible = true;
             ErrorMessage.Visible = false;
             hdnRecordCount.Value = "1";
             //GetPageCount();
 
             if (!IsPostBack)
-            {
-                ddlSelectCutomer.Visible = false;
+            {   ddlSelectCutomer.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
                 lblselectCustomer.Visible = false;
                 txtIndividualCustomer.Visible = false;
@@ -115,7 +115,8 @@ namespace WealthERP.Advisor
                 CategoryDropdown(dsSystematicMIS.Tables[2]);
                 Session["ButtonGo"] = null;
                 rquiredFieldValidatorIndivudialCustomer.Visible = false;
-                txtFrom.SelectedDate = DateTime.Now;
+                DateTime fromDate = DateTime.Now.AddYears(-2);
+                txtFrom.SelectedDate = fromDate;
                 txtTo.SelectedDate = DateTime.Now;
                 if (userType == "advisor")
                 {
@@ -132,11 +133,12 @@ namespace WealthERP.Advisor
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
                 }
+                btnExportSystematicMIS.Visible = false;
+                btnExportSummary.Visible = false;
             }
             if (Session["ButtonGo"] != null)
-                CallAllGridBindingFunctions();
-
-
+              CallAllGridBindingFunctions();
+      
         }
         /// <summary>
         /// Bind All the Dropdowns 
@@ -156,7 +158,6 @@ namespace WealthERP.Advisor
             ddlSystematicType.Items.Insert(0, "All");
             ddlSystematicType.Items.Remove("STP");
         }
-
 
         /* Binding AMC DropDown */
         private void BindAMCDropDown(DataTable dtAMC)
@@ -232,7 +233,6 @@ namespace WealthERP.Advisor
         {
             try
             {
-
                 if (dtCategory != null)
                 {
                     //dtCategory = dsSystematicMIS.Tables[2];
@@ -266,9 +266,7 @@ namespace WealthERP.Advisor
 
         /* Binding Branch DropDown*/
         private void BindBranchDropDown()
-        {
-
-            RMVo rmVo = new RMVo();
+        {   RMVo rmVo = new RMVo();
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int bmID = rmVo.RMId;
             try
@@ -386,9 +384,6 @@ namespace WealthERP.Advisor
         //    tblMessage.Visible = true;
         //    ErrorMessage.Visible = true;
         //    ErrorMessage.InnerText = "No Records Found...!";
-
-
-
         //}
 
         protected void ddlSelectCustomer_SelectedIndexChanged(object sender, EventArgs e)
@@ -496,6 +491,9 @@ namespace WealthERP.Advisor
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
                 tblNote.Visible = false;
+            
+              
+               
             }
         }
 
@@ -504,7 +502,6 @@ namespace WealthERP.Advisor
             dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup);
             CreateCalenderViewSummaryDataTable();
         }
-
         private void SetParameter()
         {
             if ((ddlSelectCustomer.SelectedItem.Value == "All Customer") && (userType == "advisor"))
@@ -892,7 +889,9 @@ namespace WealthERP.Advisor
             Label lblSysNxt = (Label)e.Item.FindControl("lblNextSystematicDate");
             //lblSysNxt.Text = dtCalenderDetail.ToShortDateString();
         }
-
+       
+       
+       
         private DateTime GetNextSystematicDate(string frequency, int systematicDate, DateTime endDate)
         {
 
@@ -939,11 +938,7 @@ namespace WealthERP.Advisor
         private void BindgvSystematicMIS()
         {
             try
-            {
-
-
-
-
+            {               
                 dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
                 dtSystematicMIS2 = dsBindGvSystematicMIS.Tables[1];
                 //dtSystematicMIS3 = dsBindGvSystematicMIS.Tables[2];
@@ -1008,6 +1003,8 @@ namespace WealthERP.Advisor
                     gvSystematicMIS.Visible = true;
                     tblMessage.Visible = false;
                     ErrorMessage.Visible = false;
+                    btnExportSystematicMIS.Visible = true;
+                   
                     //trPager.Visible = true;
                 }
 
@@ -1017,6 +1014,8 @@ namespace WealthERP.Advisor
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = "No Records Found...!";
+                    btnExportSystematicMIS.Visible = false;
+           
                     //trPager.Visible = false;
                 }
 
@@ -1531,6 +1530,7 @@ namespace WealthERP.Advisor
                     reptCalenderSummaryView.Visible = true;
                     tblMessage.Visible = false;
                     ErrorMessage.Visible = false;
+                    btnExportSummary.Visible = true;
                     //trPager.Visible = true;
                 }
             }
@@ -1540,6 +1540,7 @@ namespace WealthERP.Advisor
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
+                btnExportSummary.Visible = false;
                 //trPager.Visible = false;
             }
 
