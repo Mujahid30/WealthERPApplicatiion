@@ -261,7 +261,7 @@ namespace WealthERP.Uploads
             {
                 if (((CheckBox)item.FindControl("chkBx")).Checked == true)
                 {
-                    StagingID += Convert.ToString(gvCAMSProfileReject.MasterTableView.DataKeyValues[i]["MFFolioStagingId"]) + "~";
+                    StagingID += Convert.ToString(gvCAMSProfileReject.MasterTableView.DataKeyValues[i]["CMFFS_Id"]) + "~";
                     i = i + 1;
                 }
 
@@ -273,9 +273,9 @@ namespace WealthERP.Uploads
             else
             {
                 rejectedRecordsBo = new RejectedRecordsBo();
-                rejectedRecordsBo.DeleteMFRejectedFolios(StagingID);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFFolio','login');", true);
+                rejectedRecordsBo.DeleteMFRejectedFolios(StagingID);                
             }
+            BindGrid(0);
         }
 
         protected void btnReprocess_Click(object sender, EventArgs e)
