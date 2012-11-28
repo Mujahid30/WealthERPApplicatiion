@@ -266,6 +266,7 @@ namespace WealthERP.Advisor
             }
 
             string panNum = string.Empty;
+            string ISAChck = string.Empty;
 
             if (e.Item is GridDataItem)
             {
@@ -273,6 +274,12 @@ namespace WealthERP.Advisor
                 LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
                 string ProfileDate = dataItem["ProfileFolio"].Text;
                 panNum = dataItem["Exception"].Text;
+                ISAChck = dataItem["CustomerName"].Text;
+                if (ISAChck == "ISAF")
+                {
+                    buttonEdit.Visible = false;
+
+                }
                 ProfileDate = ProfileDate.ToUpper();
                 if (ProfileDate == "P")
                 {
@@ -281,22 +288,20 @@ namespace WealthERP.Advisor
                 }
                 int customerId = int.Parse(dataItem["CustomerId"].Text);
 
-                ////LinkButton buttonDelete = dataItem["deleteColumn"].Controls[0] as LinkButton;
-                //Label lbl = new Label();
-                //lbl = (Label)e.Item.FindControl("lblFiletypeId");
-                //if (schemeName == "AMFI" || schemeName == "ValueResearch" || schemeName == "AF")
-                //{
-                //    buttonEdit.Enabled = false;
-                //    buttonDelete.Enabled = false;
-                //    buttonDelete.Attributes["onclick"] = "return alert('You cannot delete this scheme')";
-                //    buttonEdit.Attributes["onclick"] = "return alert('You cannot Edit this scheme')";
-                //}
+                
             }
             if (e.Item is GridHeaderItem)
             {
                 GridHeaderItem headeritem = e.Item as GridHeaderItem;
                 string value = ddlExpList.SelectedItem.Text;
                 headeritem["Exception"].Text = value;
+                string NewValue = ddlExpType.SelectedItem.Value;
+                if (NewValue == "ISAF")
+                {
+                    headeritem["ProfileFolio"].Text = "Folio Mode Of Holding";
+                    headeritem["Exception"].Text = "ISA Mode Of Holding";
+                    headeritem["Exceptionlist"].Text = "ISA Number";
+                }
             }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             {
@@ -336,7 +341,7 @@ namespace WealthERP.Advisor
         }
         private void Bindgrid()
         {
-            if (ddlDisplay.SelectedItem.Text == "MisMatch")
+            if (ddlDisplay.SelectedItem.Text == "MisMatch Only")
             {
                 hdnMismatch.Value = "1";
                 dsBindgvExceptionReport = customerBo.GetExceptionReportMismatchDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), isIndividualOrGroup, hdnExplist.Value, hdnExptype.Value, int.Parse(hdnMismatch.Value));
@@ -539,6 +544,10 @@ namespace WealthERP.Advisor
                 {
                     hdnExplist.Value = ddlExpList.SelectedValue;
                 }
+                hdnExptype.Value = ddlExpType.SelectedValue;
+            }
+            else if (ddlExpType.SelectedValue == "ISAF")
+            {
                 hdnExptype.Value = ddlExpType.SelectedValue;
             }
             if (hdnCustomerId.Value != "")
