@@ -46,7 +46,7 @@ namespace WealthERP.Customer
             int bmID = rmVo.RMId;
             if (!IsPostBack)
             {
-                BindBranchDropDown();
+                //BindBranchDropDown();
                 trPan.Visible = false;
                 trISAList.Visible = false;
                 trHoldings.Visible = false;
@@ -99,74 +99,74 @@ namespace WealthERP.Customer
 
         }
 
-        private void BindBranchDropDown()
-        {
+        //private void BindBranchDropDown()
+        //{
            
-            try
-            {
-                UploadCommonBo uploadsCommonDao = new UploadCommonBo();
-                DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
-                if (ds != null)
-                {
-                    ddlMemberBranch.DataSource = ds;
-                    ddlMemberBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
-                    ddlMemberBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
-                    ddlMemberBranch.DataBind();
-                }
-                ddlMemberBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+        //    try
+        //    {
+        //        UploadCommonBo uploadsCommonDao = new UploadCommonBo();
+        //        DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+        //        if (ds != null)
+        //        {
+        //            ddlMemberBranch.DataSource = ds;
+        //            ddlMemberBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
+        //            ddlMemberBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
+        //            ddlMemberBranch.DataBind();
+        //        }
+        //        ddlMemberBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindBranchDropDown()");
+        //        FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindBranchDropDown()");
 
-                object[] objects = new object[4];
+        //        object[] objects = new object[4];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
-        protected void ddlMemberBranch_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlMemberBranch.SelectedIndex == 0)
-            {
-                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                //txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                //txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-            }
-            else
-            {
-                txtMember_autoCompleteExtender.ContextKey = ddlMemberBranch.SelectedValue.ToString();
-                txtMember_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllIndividualCustomers";
-            }
-            trPan.Visible = false;
-            trISAList.Visible = false;
-            trHoldings.Visible = false;
-            lblAvailableFolio.Visible = false;
-            gvAvailableFolio.Visible = false;
-            lblAttachedFolio.Visible = false;
-            gvAttachedFolio.Visible = false;
-            btnGo.Visible = false;
-            trHoldingType.Visible = false;
-            lblJointHoldersGv.Visible = false;
-            lblNomineegv.Visible = false;
-            pnlAttachedFolio.Visible = false;
-            pnlAvailableFolio.Visible = false;
-            gvJointHoldersList.Visible = false;
-            gvNominees.Visible = false;
-            txtMember.Text = "";
+        //protected void ddlMemberBranch_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddlMemberBranch.SelectedIndex == 0)
+        //    {
+        //        txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+        //        txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+        //        //txtMember_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+        //        //txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+        //    }
+        //    else
+        //    {
+        //        txtMember_autoCompleteExtender.ContextKey = ddlMemberBranch.SelectedValue.ToString();
+        //        txtMember_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllIndividualCustomers";
+        //    }
+        //    trPan.Visible = false;
+        //    trISAList.Visible = false;
+        //    trHoldings.Visible = false;
+        //    lblAvailableFolio.Visible = false;
+        //    gvAvailableFolio.Visible = false;
+        //    lblAttachedFolio.Visible = false;
+        //    gvAttachedFolio.Visible = false;
+        //    btnGo.Visible = false;
+        //    trHoldingType.Visible = false;
+        //    lblJointHoldersGv.Visible = false;
+        //    lblNomineegv.Visible = false;
+        //    pnlAttachedFolio.Visible = false;
+        //    pnlAvailableFolio.Visible = false;
+        //    gvJointHoldersList.Visible = false;
+        //    gvNominees.Visible = false;
+        //    txtMember.Text = "";
 
-        }
+        //}
 
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {

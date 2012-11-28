@@ -87,8 +87,8 @@
     </tr>
     <tr>
         <td colspan="2" style="width: 50%">
-            <table width="100%">
-                <tr>
+            <table width="60%">
+<%--                <tr>
                     <td class="leftField" align="right">
                         <asp:Label ID="lblMemberBranch" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
                     </td>
@@ -96,8 +96,8 @@
                         <asp:DropDownList ID="ddlMemberBranch" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlMemberBranch_SelectedIndexChanged">
                         </asp:DropDownList>
                     </td>
-                </tr>
-                <tr>
+                </tr>--%>
+                <tr >
                     <td class="leftField" align="right">
                         <asp:Label ID="lblMember" runat="server" CssClass="FieldName" Text="Member Name:"></asp:Label>
                     </td>
@@ -119,14 +119,15 @@
                             ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>--%>
                     </td>
-                </tr>
-                <tr id="trPan" runat="server">
-                    <td class="leftField" align="right">
+                     <td class="leftField" align="right">
                         <asp:Label ID="lblPan" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:Label ID="lblGetPan" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
+                </tr>
+                <tr id="trPan" runat="server">
+                   
                 </tr>
                 <tr id="trISAList" runat="server">
                     <td class="leftField" align="right">
@@ -136,14 +137,15 @@
                         <asp:DropDownList ID="ddlCustomerISAAccount" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlCustomerISAAccount_SelectedIndexChanged">
                         </asp:DropDownList>
                     </td>
-                </tr>
-                <tr id="trHoldings" runat="server">
-                    <td class="leftField" align="right">
+                     <td class="leftField" align="right">
                         <asp:Label ID="lblModeofHolding" runat="server" CssClass="FieldName" Text="Mode Of Holdings:"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:Label ID="lblModeOfHoldingValue" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
+                </tr>
+                <tr id="trHoldings" runat="server">
+                   
                 </tr>
                 <tr id="trHoldingType" runat="server">
                     <td class="leftField" align="right">
@@ -152,35 +154,26 @@
                     <td class="rightField">
                         <asp:Label ID="lblGetISAHoldingType" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
+                    <td colspan="2"></td>
                 </tr>
             </table>
+            
         </td>
-        <td colspan="2" style="width: 50%">
+        
+    </tr>
+    <tr>
+    <td colspan="2" style="width: 50%">
             <table style="width: 100%;" id="tblAssociate" runat="server">
                 <tr>
                     <td colspan="2">
                     </td>
                 </tr>
                 <tr id="trAssociate" runat="server" valign="top">
-                    <td id="tdNominees" align="left" style="padding-left: 30px;" runat="server">
+                    <td id="tdNominees" align="left" runat="server"  style="width:20%;">
                         <asp:Label ID="lblNomineegv" runat="server" CssClass="HeaderTextSmall" Text="Nominee List"></asp:Label>
                         <br />
                         <asp:Panel ID="pnlNominiees" runat="server" >
-                            <%--<asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                                DataKeyNames="MemberCustomerId, AssociationId" CssClass="GridViewStyle">
-                                <FooterStyle CssClass="FooterStyle" />
-                                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                                <HeaderStyle CssClass="HeaderStyle" />
-                                <EditRowStyle CssClass="EditRowStyle" />
-                                <AlternatingRowStyle CssClass="AltRowStyle" />
-                                <RowStyle CssClass="RowStyle" />
-                                <Columns>
-                                    <asp:BoundField DataField="Name" HeaderText="Name" />
-                                    <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
-                                </Columns>
-                            </asp:GridView>--%>
-                            <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" AutoGenerateColumns="False"
+                           <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" AutoGenerateColumns="False"
                                 Width="100%" PageSize="4" AllowSorting="false" AllowPaging="True" ShowStatusBar="True"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                                 AllowAutomaticInserts="false" ExportSettings-FileName="Count" Visible="True" >
@@ -206,25 +199,11 @@
                             </telerik:RadGrid>
                         </asp:Panel>
                     </td>
-                    <td id="tdJointHolders" align="left" style="padding-left: 30px;" runat="server" valign="top">
+                    <td id="tdJointHolders" align="left" style="padding-left: 30px;width:20%;" runat="server" valign="top">
                     <asp:Label ID="lblJointHoldersGv" runat="server" CssClass="HeaderTextSmall" Text="JointHolders List"></asp:Label>
                         <br />
                         <asp:Panel ID="pnlJointholders" runat="server">
-                           <%-- <asp:GridView ID="gvJointHoldersList" runat="server" AutoGenerateColumns="False"
-                                CellPadding="4" DataKeyNames="AssociationId" CssClass="GridViewStyle">
-                                <FooterStyle CssClass="FooterStyle" />
-                                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                                <HeaderStyle CssClass="HeaderStyle" />
-                                <EditRowStyle CssClass="EditRowStyle" />
-                                <AlternatingRowStyle CssClass="AltRowStyle" />
-                                <RowStyle CssClass="RowStyle" />
-                                <Columns>
-                                    <asp:BoundField DataField="Name" HeaderText="Name" />
-                                    <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
-                                </Columns>
-                            </asp:GridView>--%>
-                              <telerik:RadGrid ID="gvJointHoldersList" runat="server" GridLines="None" AutoGenerateColumns="False"
+                           <telerik:RadGrid ID="gvJointHoldersList" runat="server" GridLines="None" AutoGenerateColumns="False"
                                 Width="100%" PageSize="4" AllowSorting="false" AllowPaging="True" ShowStatusBar="True"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                                 AllowAutomaticInserts="false" ExportSettings-FileName="Count">
@@ -264,9 +243,50 @@
         </td>
     </tr>
     <tr>
-    <td colspan="4"></td>
+    <td colspan="6"></td>
     </tr>
     <tr>
+    <td valign="top" style="width:40%">
+        <asp:Label ID="lblAttachedFolio" runat="server" CssClass="HeaderTextSmall" Text="Attached Folio"></asp:Label>
+        <br />
+        <asp:Panel ID="pnlAttachedFolio" runat="server"  ScrollBars="Vertical" Width="98%" Visible="true">
+       <table width="100%">
+        <tr>
+       <td>
+       <div id="Div1" runat="server" style="height:200px;">
+        <telerik:RadGrid ID="gvAttachedFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                Width="100%" PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True"
+                                ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
+                                AllowAutomaticInserts="false" ExportSettings-FileName="Count">
+                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                                    FileName="Goal MIS" Excel-Format="ExcelML">
+                                </ExportSettings>
+                                <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                    CommandItemDisplay="None">
+                                    <Columns>
+                                    
+                                        <telerik:GridBoundColumn DataField="CMFA_FolioNum" HeaderText="Folio" UniqueName="CMFA_FolioNum"
+                                            SortExpression="CMFA_FolioNum">
+                                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="PA_AMCName" HeaderText="AMC" AllowFiltering="false" HeaderStyle-HorizontalAlign="Left"
+                                            UniqueName="PA_AMCName">
+                                            <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="XMOH_ModeOfHolding" HeaderText="Holding" AllowFiltering="false" HeaderStyle-HorizontalAlign="Left"
+                                            UniqueName="XMOH_ModeOfHolding">
+                                            <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                    </Columns>
+                                </MasterTableView>
+                                <ClientSettings>
+                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                </ClientSettings>
+                            </telerik:RadGrid>
+                            </div>
+               </td></tr></table>
+            </asp:Panel>
+        </td>
     <td colspan="4"></td>
     </tr>
     <tr>
@@ -305,6 +325,10 @@
                                             UniqueName="PA_AMCName">
                                             <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="XMOH_ModeOfHolding" HeaderText="Holding" AllowFiltering="false" HeaderStyle-HorizontalAlign="Left"
+                                            UniqueName="XMOH_ModeOfHolding">
+                                            <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
                                     </Columns>
                                 </MasterTableView>
                                 <ClientSettings>
@@ -315,14 +339,15 @@
                </td></tr></table>
             </asp:Panel>
         </td>
-        <td valign="top" style="width:40%">
+        <td colspan="2"></td>
+        <%--<td valign="top" style="width:40%">
         <asp:Label ID="lblAttachedFolio" runat="server" CssClass="HeaderTextSmall" Text="Attached Folio"></asp:Label>
         <br />
         <asp:Panel ID="pnlAttachedFolio" runat="server"  ScrollBars="Vertical" Width="98%" Visible="true">
-       <table Width="100%">
+       <table width="100%">
         <tr>
        <td>
-       <div id="divAttachedFolio" runat="server" style="height:200px;">
+       <div id="Div1" runat="server" style="height:200px;">
         <telerik:RadGrid ID="gvAttachedFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
                                 Width="100%" PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True"
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
@@ -333,7 +358,7 @@
                                 <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                     CommandItemDisplay="None">
                                     <Columns>
-                                    <%--<telerik:GridTemplateColumn HeaderText="Select">
+                                    <telerik:GridTemplateColumn HeaderText="Select">
                                         <HeaderTemplate>
                                         <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
                                         <%--<input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
@@ -341,7 +366,7 @@
                                         <ItemTemplate>
                                         <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
                                         </ItemTemplate>
-                                    </telerik:GridTemplateColumn>--%>
+                                    </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn DataField="CMFA_FolioNum" HeaderText="Folio" UniqueName="CMFA_FolioNum"
                                             SortExpression="CMFA_FolioNum">
                                             <ItemStyle  HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -356,10 +381,10 @@
                                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                 </ClientSettings>
                             </telerik:RadGrid>
-                             </div>
+                            </div>
                </td></tr></table>
             </asp:Panel>
-        </td>
+        </td>--%>
         <td colspan="2" style="width:20%">
         </td>
     </tr>
@@ -368,7 +393,14 @@
         <asp:Button ID="btnGo" runat="server" Text="Save" CssClass="PCGButton" 
             ValidationGroup="ButtonGo" onclick="btnGo_Click" />
         </td>
-    <td colspan="3"></td>
+        <td colspan="5"></td>
     </tr>
+    <%--<tr>
+    <td>
+        <asp:Button ID="btnGo" runat="server" Text="Save" CssClass="PCGButton" 
+            ValidationGroup="ButtonGo" onclick="btnGo_Click" />
+        </td>
+    <td colspan="3"></td>
+    </tr>--%>
 </table>
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
