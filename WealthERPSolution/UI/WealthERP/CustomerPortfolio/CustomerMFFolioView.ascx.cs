@@ -133,12 +133,14 @@ namespace WealthERP.CustomerPortfolio
                         FolioVo = FolioList[i];
                         drMFFolio[0] = FolioVo.AccountId.ToString();
                         drMFFolio[1] = FolioVo.AccountNum.ToString();
+                        if(FolioVo.AMCName!=null)
                         drMFFolio[2] = FolioVo.AMCName.ToString();
                         if(FolioVo.ModeOfHolding =="Jointly")
                         {
 
                         }
                         drMFFolio[3] = FolioVo.Name.ToString();
+                        if(FolioVo.ModeOfHolding!=null)
                         drMFFolio[4] = FolioVo.ModeOfHolding.ToString();
                         if (FolioVo.AccountOpeningDate != DateTime.MinValue)
                             drMFFolio[5] = FolioVo.AccountOpeningDate.ToShortDateString();

@@ -2904,11 +2904,16 @@ namespace DaoCustomerPortfolio
                         else
                             AccountVo.AccountOpeningDate = DateTime.MinValue;
 
-
+                        if (dr["PA_AMCCode"].ToString() != string.Empty)                         
                         AccountVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        if (dr["PA_AMCName"].ToString() != string.Empty) 
                         AccountVo.AMCName = dr["PA_AMCName"].ToString();
                         //AccountVo.Name = dr["CMFA_INV_NAME"].ToString(); // to capture the original cosumer name
+
+                        if (dr["XMOH_ModeOfHolding"].ToString() != string.Empty) 
                         AccountVo.ModeOfHolding = dr["XMOH_ModeOfHolding"].ToString();
+                        if (dr["XMOH_ModeOfHoldingCode"].ToString() != string.Empty) 
+                        
                         AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
                         if (AccountVo.ModeOfHoldingCode == "JO")
                         {
