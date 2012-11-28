@@ -3013,9 +3013,9 @@ namespace DaoCustomerPortfolio
                     AccountVo.JointName1 = dr["CMGCXP_JOINT_NAME1"].ToString();
                     AccountVo.JointName2 = dr["CMGCXP_JOINT_NAME2"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMGCXP_PHONE_OFF"].ToString()))
-                        AccountVo.CPhoneOffice = int.Parse(dr["CMGCXP_PHONE_OFF"].ToString());
+                        AccountVo.CPhoneOffice = double.Parse(dr["CMGCXP_PHONE_OFF"].ToString());
                     if (!string.IsNullOrEmpty(dr["CMGCXP_PHONE_RES"].ToString()))
-                        AccountVo.CPhoneRes = int.Parse(dr["CMGCXP_PHONE_RES"].ToString());
+                        AccountVo.CPhoneRes = double.Parse(dr["CMGCXP_PHONE_RES"].ToString());
                     if (!string.IsNullOrEmpty(dr["CMGCXP_PHONE_OFF"].ToString()))
                         AccountVo.CEmail = dr["CMGCXP_EMAIL"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMFA_PANNO"].ToString()))
