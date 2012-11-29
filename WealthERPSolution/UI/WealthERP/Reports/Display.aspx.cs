@@ -2623,6 +2623,59 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
+                                Headername = "Comprehensive NetWorth Report";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
+                            else
+                            {
+                                Headername = "Comprehensive NetWorth Report";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
+                            CrystalReportViewer1.ReportSource = crmain;
+                            CrystalReportViewer1.EnableDrillDown = true;
+                            CrystalReportViewer1.HasCrystalLogo = false;
+                            //AssignReportViewerProperties();
+                            lblClosingBalanceNote.Visible = false;
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
+                        }
+                        else
+                        {
+                            SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
+                        break;
+                    case "COMPREHENSIVE_NETWORTH_REPORT":
+
+                        //crmain.SetDatabaseLogon("sa", "pcg123#", "122.166.49.39", "wealtherpQA");
+                        crmain.Load(Server.MapPath("MFComprehensiveNetworth.rpt"));
+
+
+                        DataSet ds = portfolioReports.GetComprehensiveNetworthSummary(report, advisorVo.advisorId);
+                        DataTable dt = ds.Tables[0];
+                        if (dt.Rows.Count > 0)
+                        {
+                            crmain.Subreports["CustomerNetworth"].Database.Tables[0].SetDataSource(ds.Tables[0]);
+                           crmain.Subreports["Networth"].Database.Tables[0].SetDataSource(ds.Tables[1]);
+                            crmain.Subreports["Liabilities"].Database.Tables[0].SetDataSource(ds.Tables[2]);
+
+                            setLogo();
+
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
+                            crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            AssignReportViewerProperties();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            string Headername;
+                            if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            {
                                 Headername = "NetWorth Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
