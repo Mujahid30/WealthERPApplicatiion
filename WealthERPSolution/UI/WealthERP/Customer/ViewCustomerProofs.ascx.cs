@@ -76,6 +76,7 @@ namespace WealthERP.Customer
                 
                 if (Session["LinkAction"] != null)
                 {
+
                     linkAction = Convert.ToString(Session["LinkAction"]);
                     BindProofTypeDP();
                     BindProofCopy();
@@ -131,6 +132,9 @@ namespace WealthERP.Customer
                         multiPageView.SelectedIndex = 1;
                         radPOCProof.Tabs[1].Selected = true;
                         radPOCProof.Tabs[0].Visible=false;
+                        tdVaultSendMail.Visible = false;
+                        tdVaultEditDelete.Visible = false;
+
                       }
                 }
                 if (!IsPostBack)

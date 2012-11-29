@@ -210,5 +210,10 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button hdnbtnDelete;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdVaultSendMail;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdVaultEditDelete;
+       
+            
     }
 }

@@ -138,6 +138,8 @@ namespace WealthERP.Customer
                 customerVo.CustomerCategoryCode = ddlCustomerCategory.SelectedValue;
                 customerIds = customerBo.CreateISACustomerRequest(customerVo, custCreateFlag,ddlPriority.SelectedValue);
                 txtGenerateReqstNum.Text = customerIds[3].ToString();
+                txtCustomerName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
+                txtCustomerName.Enabled = false;
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Priority", " enableDisablePriority('false');", true);
             }
             else if (rdbNewCustomer.Checked == true && hidValidCheck.Value != "0")
@@ -892,6 +894,16 @@ namespace WealthERP.Customer
                     {
                         trFormUpload.Visible = true;
 
+                        if (ddlCustomerCategory.SelectedIndex != 0)
+                        {
+                            lbtnUploadAddressProof.Visible = true;
+                            lbtnUploadPanProof.Visible = true;
+                        }
+                        else
+                        {
+                            lbtnUploadAddressProof.Visible = false;
+                            lbtnUploadPanProof.Visible = false;
+                        }
                         if (ddlStatusStage1.SelectedIndex == 0)
                         {                           
                             tdUploadSection.Visible = true;
@@ -919,6 +931,12 @@ namespace WealthERP.Customer
             txtEmailID.Enabled = true;
             txtMobileNum.Enabled = true;
             txtPanNum.Enabled = true;
+            txtCustomerNameEntry.Text = string.Empty;
+            txtPanNum.Text = string.Empty;
+            txtEmailID.Text = string.Empty;
+            txtMobileNum.Text = string.Empty;
+            ddlBMBranch.SelectedIndex = 0;
+            
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
 
         }
@@ -932,6 +950,12 @@ namespace WealthERP.Customer
             txtEmailID.Enabled = false;
             txtMobileNum.Enabled = false;
             txtPanNum.Enabled = false;
+            txtCustomerName.Text = string.Empty;
+            txtPanNum.Text = string.Empty;
+            txtEmailID.Text = string.Empty;
+            txtMobileNum.Text = string.Empty;
+            ddlBMBranch.SelectedIndex = 0;
+
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
 
         }
@@ -969,6 +993,13 @@ namespace WealthERP.Customer
             txtRequestdate.Text = string.Empty;
             txtRBLCode.Text = string.Empty;
             txtRequestedByValue.Text = string.Empty;
+            txtPanNum.Text = string.Empty;
+            txtCustomerNameEntry.Text = string.Empty;
+            txtGenerateReqstNum.Text = string.Empty;
+            ddlCustomerCategory.SelectedIndex = 0;
+            ddlBMBranch.SelectedIndex = 0;
+            rdbNewCustomer.Checked = true;
+            rdbExistingCustomer.Checked = false;
 
             if (Session["customerVo"] != null)
                 Session.Remove("customerVo");

@@ -1019,6 +1019,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "VaultProof")
                 {
+                    Session.Remove("LinkAction");
                     Session.Remove("SessionSpecificProof");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','none');", true);
                 }
