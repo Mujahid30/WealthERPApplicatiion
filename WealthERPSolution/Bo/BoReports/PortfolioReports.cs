@@ -95,6 +95,8 @@ namespace BoReports
         /// </summary>
         /// <param name="dsPortfolio"></param>
         /// <returns></returns>
+        //public DataSet GetComprehensiveNetworthReport(PortfolioReportVo report, int adviserId)
+        //{ }
         private DataTable CalculateCustomersNetWorth(DataSet dsPortfolio)
         {
             
@@ -565,6 +567,19 @@ namespace BoReports
                 
             }
             return dsAssetAllocation;
+        }
+        public DataSet GetComprehensiveNetworthSummary(PortfolioReportVo report, int adviserId)
+        {
+            PortfolioReportsDao portfolioReport = new PortfolioReportsDao();
+            DataSet dsComprehensiveNetworthSummary = null;
+            try {
+                dsComprehensiveNetworthSummary = portfolioReport.GetComprehensiveNetworthSummary(report, adviserId);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dsComprehensiveNetworthSummary;
         }
     }
 }
