@@ -952,7 +952,9 @@ namespace WealthERP.Advisor
                         }
                         else if(customerVo.IsProspect == 0)
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerIndividualProfile", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                            Session.Remove("LinkAction");
+                            Session["action"]="View";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerIndividualProfile", "loadcontrol('EditCustomerIndividualProfile','none');", true);
                         }
                         if (customerVo.IsProspect == 1)
                         {
@@ -968,7 +970,9 @@ namespace WealthERP.Advisor
                             //}
                             //else
                             //{
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerIndividualProfile", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                            Session.Remove("LinkAction");
+                            Session["action"] = "View";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerIndividualProfile", "loadcontrol('EditCustomerIndividualProfile','none');", true);
                             //}
                         }
                     }
@@ -988,6 +992,8 @@ namespace WealthERP.Advisor
                         }
                         else if (customerVo.IsProspect == 0)
                         {
+                            Session.Remove("LinkAction");
+                            Session["action"] = "Edit";
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerIndividualProfile", "loadcontrol('EditCustomerIndividualProfile','none');", true);
                         }
                     }
