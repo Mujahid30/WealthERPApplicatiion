@@ -335,12 +335,12 @@
                                         <%# LoadControls(Eval("ProofExtensions").ToString(), Eval("ProofImage").ToString(), Eval("ProofFileName").ToString())%>
                                     </td>
 --%>
-                                    <td id="tdVaultSendMail" runat="server" align="center">
+                                    <td runat="server" id="tdVaultSendMail" align="center">
                                         <asp:LinkButton ID="lnkMail" runat="server" CssClass="LinkButtons" CommandName="Send Mail"
                                             OnClientClick="return confirm('Are you sure You Want to Send Mail?')" CommandArgument='<%# Eval("ProofUploadId") %>'
                                             Text="Send Email"></asp:LinkButton>
                                     </td>
-                                    <td id="tdVaultEditDelete" runat="server" align="center">
+                                    <td runat="server" id="tdVaultEditDelete" align="center">
                                         <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" CommandName="Edit proof"
                                             CommandArgument='<%# Eval("ProofUploadId") %>' Text="Edit / Delete"></asp:LinkButton>
                                     </td>

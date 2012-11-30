@@ -2808,6 +2808,19 @@ namespace BoCustomerProfiling
              return dtGetholdersName;
         }
 
-
+        public bool CheckIfISAAccountGenerated(string requestNumber)
+        {
+            bool result = false;           
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                result = customerDao.CheckIfISAAccountGenerated(int.Parse(requestNumber));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
     }
 }

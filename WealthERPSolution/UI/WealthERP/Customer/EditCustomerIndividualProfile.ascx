@@ -125,10 +125,11 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Customer Code:"></asp:Label>
+            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Customer Id:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="txtField" MaxLength="16"></asp:TextBox>
+            <asp:RegularExpressionValidator ID="revCustCode" runat="server" Display="Dynamic" CssClass="cvPCG"  ControlToValidate="txtCustomerCode" ValidationExpression="^[0-9a-zA-Z ]+$" ErrorMessage="Please enter alphanumeric of max 16 digit" ></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>

@@ -216,6 +216,7 @@ namespace WealthERP.Customer
                 customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage1.SelectedValue, ddlPriority.SelectedValue, "ISARQ", ddlReasonStage1.SelectedValue, string.Empty, string.Empty);
 
                 HideAndShowBasedOnRole(Convert.ToInt32(txtRequestNumber.Text));
+                EnableControlBasedOnUserRole();
             }
         }
 
@@ -426,8 +427,7 @@ namespace WealthERP.Customer
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AISAQD_StatusDate"].ToString()))
                                     txtClosingDate2.Text = DateTime.Parse(drISARequestDetails["AISAQD_StatusDate"].ToString()).ToShortDateString();
 
-                                ShowHideReasonDropListBasedOnStatus(drISARequestDetails["AISAQD_Status"].ToString(), 2
-                                    );
+                                ShowHideReasonDropListBasedOnStatus(drISARequestDetails["AISAQD_Status"].ToString(), 2);
 
                             }
 
@@ -609,13 +609,22 @@ namespace WealthERP.Customer
 
         protected void btnSubmitStage3_Click(object sender, EventArgs e)
         {
+           
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 string stageToMarkReprocess = ddlBackToStepStage3.SelectedValue;
-                customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage3.SelectedValue, string.Empty, "CUSCR", ddlStatusReason3.SelectedValue, txtAddComments3.Text, stageToMarkReprocess);
-                //txtStatus3.Text = ddlStatusStage3.SelectedItem.ToString();
-                //txtClosingDate3.Text = DateTime.Now.ToShortDateString();
-                //HideAndShowBasedOnRole("Ops", "VERIfY", ddlStatusStage3.SelectedValue, int.Parse(txtGenerateReqstNum.Text));
+                if ((customerBo.CheckIfISAAccountGenerated(txtGenerateReqstNum.Text) && ddlStatusStage3.SelectedValue == "DO") || ddlStatusStage3.SelectedValue != "DO")
+                {
+
+                    customerBo.UpdateCustomerISAStageDetails(int.Parse(txtGenerateReqstNum.Text), ddlStatusStage3.SelectedValue, string.Empty, "CUSCR", ddlStatusReason3.SelectedValue, txtAddComments3.Text, stageToMarkReprocess);
+                    //txtStatus3.Text = ddlStatusStage3.SelectedItem.ToString();
+                    //txtClosingDate3.Text = DateTime.Now.ToShortDateString();
+                    //HideAndShowBasedOnRole("Ops", "VERIfY", ddlStatusStage3.SelectedValue, int.Parse(txtGenerateReqstNum.Text));
+                }
+                else
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Script", "alert('Please generate ISA Account');", true);
+                }
                 HideAndShowBasedOnRole(int.Parse(txtGenerateReqstNum.Text));
 
                 //if (ddlStatusStage3.SelectedValue == "DO")
@@ -1066,5 +1075,77 @@ namespace WealthERP.Customer
             }
 
         }
+
+        protected void ddlStatusStage2_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlBackToStepStage2.SelectedIndex = 0;
+            if (ddlStatusStage2.SelectedValue == "PD")
+            {
+                ddlBackToStepStage2.Enabled=true;
+                ddlReasonStage2.Visible=true;
+                lblReasonStage2.Visible = true;
+            }
+            else  if (ddlStatusStage2.SelectedValue == "DO")
+            {
+                ddlBackToStepStage2.Enabled=false;
+                ddlReasonStage2.Visible = false;
+                lblReasonStage2.Visible = false;
+            }
+            else  
+            {  
+                ddlBackToStepStage2.Enabled=false;
+                ddlReasonStage2.Visible = true;
+                lblReasonStage2.Visible = true;
+            }
+        }
+        protected void ddlStatusStage3_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            ddlBackToStepStage3.SelectedIndex = 0;
+            if (ddlStatusStage3.SelectedValue == "PD")
+            {
+                ddlBackToStepStage3.Enabled = true;
+                ddlStatusReason3.Visible = true;
+                lblStatusReason3.Visible = true;
+            }
+            else if (ddlStatusStage2.SelectedValue == "DO")
+            {
+                ddlBackToStepStage3.Enabled = false;
+                ddlStatusReason3.Visible = false;
+                lblStatusReason3.Visible = false;
+            }
+            else
+            {
+                ddlBackToStepStage3.Enabled = false;
+                ddlStatusReason3.Visible = true;
+                lblStatusReason3.Visible = true;
+            }
+            
+        }
+        protected void ddlStatusStage4_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            ddlBackToStepStage4.SelectedIndex = 0;
+            if (ddlStatusStage4.SelectedValue == "PD")
+            {
+                ddlBackToStepStage4.Enabled = true;
+                ddlReasonStage4.Visible = true;
+                lblReasonStage4.Visible = true;
+            }
+            else if (ddlStatusStage2.SelectedValue == "DO")
+            {
+                ddlBackToStepStage4.Enabled = false;
+                ddlReasonStage4.Visible = false;
+                lblReasonStage4.Visible = false;
+            }
+            else
+            {
+                ddlBackToStepStage4.Enabled = false;
+                ddlReasonStage4.Visible = true;
+                lblReasonStage4.Visible = true;
+            }
+           
+        }
+       
     }
 }

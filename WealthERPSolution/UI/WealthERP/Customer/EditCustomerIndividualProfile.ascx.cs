@@ -782,6 +782,7 @@ namespace WealthERP.Customer
                     {
                         customerVo = customerBo.GetCustomer(customerVo.CustomerId);
                         Session["CustomerVo"] = customerVo;
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Profile updated Succesfully');", true);
                         if (customerVo.Type.ToUpper().ToString() == "IND")
                         {
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
@@ -822,6 +823,10 @@ namespace WealthERP.Customer
                 {
                     result = false;
                     lblPanDuplicate.Visible = true;
+                }
+                else
+                {
+                    lblPanDuplicate.Visible = false;
                 }
             }
 

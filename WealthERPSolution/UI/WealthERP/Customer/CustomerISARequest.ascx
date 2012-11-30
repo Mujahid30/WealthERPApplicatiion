@@ -358,6 +358,7 @@
             document.getElementById("<%= lblReasonStage2.ClientID %>").style.visibility = 'visible';
         }
         else if (val == "DO") {
+        document.getElementById("<%= ddlBackToStepStage2.ClientID %>").disabled = true;
             document.getElementById("<%= ddlReasonStage2.ClientID %>").style.visibility = 'collapse';
             document.getElementById("<%= lblReasonStage2.ClientID %>").style.visibility = 'collapse';
         }
@@ -377,7 +378,7 @@
             document.getElementById("<%= lblStatusReason3.ClientID %>").style.visibility = 'visible';
         }
         else if (val == "DO") {
-
+            document.getElementById("<%= ddlBackToStepStage3.ClientID %>").disabled = true;
             document.getElementById("<%= lblStatusReason3.ClientID %>").style.visibility = 'collapse';
         }
         else {
@@ -397,6 +398,7 @@
             document.getElementById("<%= lblReasonStage4.ClientID %>").style.visibility = 'visible';
         }
         else if (val == "DO") {
+            document.getElementById("<%= ddlBackToStepStage4.ClientID %>").disabled = true;
             document.getElementById("<%= ddlReasonStage4.ClientID %>").style.visibility = 'collapse';
             document.getElementById("<%= lblReasonStage4.ClientID %>").style.visibility = 'collapse';
         }
@@ -937,7 +939,7 @@
                                 </asp:Label>
                             </td>
                             <td class="leftLabel">
-                                <asp:Label ID="lblRequestNumber" runat="server" Text="Request No: " CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="lblRequestNumber" runat="server" Text="Request No.: " CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightData">
                                 <asp:Label ID="txtRequestNumber" runat="server" CssClass="txtField">
@@ -1064,7 +1066,7 @@
                             </td>
                             <td colspan="4" class="rightDataFourColumn">
                                 <div class="ISAAccountMsg" align="center" id="divSuccessMsg" runat="server" visible="false">
-                                    Request Created Successfully, Please enter the "Request Number" on the ISA Form
+                                    Request Created Successfully, Please enter the "Request No." on the ISA Form
                                 </div>
                             </td>
                         </tr>
@@ -1178,7 +1180,7 @@
                                     CssClass="PCGMediumButton" OnClick="btnGenerateReqstNum_OnClick" />
                             </td>
                             <td class="leftLabel">
-                                <asp:Label ID="lblGenerateReqstNum" runat="server" Text="Request Number:" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="lblGenerateReqstNum" runat="server" Text="Request No.:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightData">
                                 <asp:TextBox ID="txtGenerateReqstNum" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
@@ -1303,7 +1305,7 @@
                                 <asp:Label ID="lblStatusStage2" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightData">
-                                <asp:DropDownList ID="ddlStatusStage2" runat="server" CssClass="cmbField" onchange="HideAndShowStepBack2(this.options[this.selectedIndex].value);">
+                                <asp:DropDownList ID="ddlStatusStage2" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlStatusStage2_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
@@ -1398,7 +1400,7 @@
                     <table class="StepThreeContentTable">
                         <tr>
                             <td class="leftLabel">
-                                <asp:Label ID="lblVerifyForms" runat="server" Text="Forms/Proofs:" CssClass="FieldName"></asp:Label>
+                                <%--<asp:Label ID="lblVerifyForms" runat="server" Text="Forms/Proofs:" CssClass="FieldName"></asp:Label>--%>
                             </td>
                             <td class="rightData">
                                 <asp:LinkButton ID="lnkbtnAddEditCustomerProfile" runat="server" Font-Size="X-Small"
@@ -1408,7 +1410,7 @@
                                 <asp:Label ID="lblStatusStage3" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightData">
-                                <asp:DropDownList ID="ddlStatusStage3" runat="server" CssClass="cmbField" onchange="HideAndShowStepBack3(this.options[this.selectedIndex].value);">
+                                <asp:DropDownList ID="ddlStatusStage3" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlStatusStage3_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
@@ -1505,7 +1507,7 @@
                                 <asp:Label ID="lblStatusStage4" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightData">
-                                <asp:DropDownList ID="ddlStatusStage4" runat="server" CssClass="cmbField" onchange="HideAndShowStepBack4(this.options[this.selectedIndex].value);">
+                                <asp:DropDownList ID="ddlStatusStage4" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlStatusStage4_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
@@ -1529,9 +1531,9 @@
                                     </asp:ListItem>
                                     <asp:ListItem Text="Step 1" Value="ISARQ">
                                     </asp:ListItem>
-                                    <asp:ListItem Text="Step 2" Value="CUSCR">
+                                    <asp:ListItem Text="Step 2" Value="VERIfY">
                                     </asp:ListItem>
-                                    <asp:ListItem Text="Step 3" Value="VERIfY">
+                                    <asp:ListItem Text="Step 3" Value="CUSCR">
                                     </asp:ListItem>
                                 </asp:DropDownList>
                             </td>

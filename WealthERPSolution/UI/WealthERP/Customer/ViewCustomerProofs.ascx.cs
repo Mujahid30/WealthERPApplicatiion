@@ -24,6 +24,7 @@ using System.Web;
 using System.Transactions;
 using WealthERP.Base;
 using System.Text;
+using System.Windows;
 
 namespace WealthERP.Customer
 {
@@ -132,8 +133,7 @@ namespace WealthERP.Customer
                         multiPageView.SelectedIndex = 1;
                         radPOCProof.Tabs[1].Selected = true;
                         radPOCProof.Tabs[0].Visible=false;
-                        tdVaultSendMail.Visible = false;
-                        tdVaultEditDelete.Visible = false;
+                        
 
                       }
                 }
@@ -955,8 +955,17 @@ namespace WealthERP.Customer
                 {
                     if (Session["Button"] == "Submit")
                     {
-                        radPOCProof.SelectedIndex = 1;
-                        multiPageView.SelectedIndex = 1;
+                        if (Session["LinkAction"] != null)
+                        {
+                            radPOCProof.SelectedIndex = 0;
+                            multiPageView.SelectedIndex = 0;
+                            //this.Close();
+                        }
+                        else
+                        {
+                            radPOCProof.SelectedIndex = 1;
+                            multiPageView.SelectedIndex = 1;
+                        }
                     }
                     else if (Session["Button"] == "Submit & Add More")
                     {
@@ -1248,6 +1257,17 @@ namespace WealthERP.Customer
 
         protected void repProofImages_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                if (Session["LinkAction"] != null)
+                {                   
+                    var tdVaultSendMail = e.Item.FindControl("tdVaultSendMail");
+                    var tdVaultEditDelete = e.Item.FindControl("tdVaultEditDelete");
+                    tdVaultSendMail.Visible = false;
+                    tdVaultEditDelete.Visible = false;
+                }
+            }
+
             if (customerVo.Email.Trim().Equals(String.Empty))
             {
                 LinkButton lnkBtn = (LinkButton)e.Item.FindControl("lnkMail");

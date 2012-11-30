@@ -5121,5 +5121,34 @@ namespace DaoCustomerProfiling
             }
             return dtGetholdersName;
         }
+
+        public bool CheckIfISAAccountGenerated(int requestNumber)
+        {
+            Database db;
+            bool result = false;
+            DbCommand cmdCheckIfISAAccount;
+            DataSet dsCheckIfISAAccount = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdCheckIfISAAccount = db.GetStoredProcCommand("SP_CheckIfISAAccountGenerated");
+                db.AddInParameter(cmdCheckIfISAAccount, "@requestNumber", DbType.Int32, requestNumber);
+                dsCheckIfISAAccount = db.ExecuteDataSet(cmdCheckIfISAAccount);
+                if (dsCheckIfISAAccount.Tables[0].Rows.Count > 0)
+                {
+                    result = true;
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+            return result;
+        }
+        
     }
 }
