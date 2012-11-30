@@ -587,7 +587,7 @@
 
     function openpopupAdd_EditCustomerDetails() {
         if (document.getElementById("<%= txtGenerateReqstNum.ClientID %>").value != "") {
-            window.open('PopUp.aspx?PageId=EditCustomerIndividualProfile &LinkId= AddEditProfile', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+            window.open('PopUp.aspx?PageId=EditCustomerIndividualProfile &LinkId=AddEditProfile', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
             return false;
         }
         else {
