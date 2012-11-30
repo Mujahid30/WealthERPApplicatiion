@@ -2726,7 +2726,7 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
-        public int CreateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo, int customerId, int userId)
+        public int CreateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo, int customerId, int userId,int requestId)
         {
           
             Database db;
@@ -2743,6 +2743,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createISAAccountAssociationCmd, "@CISAA_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createISAAccountAssociationCmd, "@CISAA_ModifedBy", DbType.Int32, userId);
                 db.AddOutParameter(createISAAccountAssociationCmd, "@CISAA_AccountId", DbType.Int32, 1000000);
+                db.AddInParameter(createISAAccountAssociationCmd, "@RequestId", DbType.Int32, requestId);
                 if (db.ExecuteNonQuery(createISAAccountAssociationCmd) != 0)
                     customerISAAccountId = int.Parse(db.GetParameterValue(createISAAccountAssociationCmd, "@CISAA_AccountId").ToString());
             }
@@ -2890,6 +2891,47 @@ namespace DaoCustomerPortfolio
                 throw (Ex);
             }
             return dsGetISAAssociatedRel;
+        }
+        public int GetRequestNo(int customerId)
+        {
+            Database db;
+            DbCommand getRequestNoCmd;
+            int requestNo = 0;
+            DataSet dsRequestNo;
+            DataTable dtRequestNo;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getRequestNoCmd = db.GetStoredProcCommand("SPROC_GetRequestNumber");
+                db.AddInParameter(getRequestNoCmd, "@CustomerId", DbType.Int32, customerId);
+                dsRequestNo = db.ExecuteDataSet(getRequestNoCmd);
+                dtRequestNo = dsRequestNo.Tables[0];
+                if (dtRequestNo.Rows.Count > 0)
+                    requestNo = int.Parse(dtRequestNo.Rows[0]["AISAQ_RequestQueueid"].ToString());
+                //if (db.ExecuteNonQuery(getRequestNoCmd) != 0)
+                //    requestNo = int.Parse(db.GetParameterValue(getRequestNoCmd, "@CISAA_AccountId").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCustomerISAAccount()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return requestNo;
         }
 
     }

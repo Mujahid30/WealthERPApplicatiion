@@ -340,13 +340,10 @@ namespace DaoCustomerProfiling
                     if (dr["C_IsProspect"] == null || dr["C_IsProspect"].ToString() == "")
                     {
                         customerVo.IsProspect = 0;
-
-
                     }
                     else
                     {
                         customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
-
                     }
                     if (!string.IsNullOrEmpty(dr["C_ProspectAddDate"].ToString()))
                         customerVo.ProspectAddDate = Convert.ToDateTime(dr["C_ProspectAddDate"].ToString());
@@ -354,9 +351,7 @@ namespace DaoCustomerProfiling
                     customerVo.AdviseNote = dr["C_Comments"].ToString();
                     if (!string.IsNullOrEmpty(dr["ACC_CustomerCategoryCode"].ToString()))
                     {
-
                         customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerCategoryCode"].ToString());
-
                     }
                     else
                     {
@@ -457,6 +452,9 @@ namespace DaoCustomerProfiling
                         customerVo.RMMobile = 0;
                     if (!string.IsNullOrEmpty(dr["C_TaxSlab"].ToString()))
                         customerVo.TaxSlab = int.Parse(dr["C_TaxSlab"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_IsKYCAvailable"].ToString()))
+                        customerVo.MfKYC = int.Parse(dr["C_IsKYCAvailable"].ToString());
+                   
                 }
             }
 
@@ -1002,6 +1000,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_ClassCode", DbType.Int32, customerVo.CustomerClassificationID);
                 db.AddInParameter(editCustomerCmd, "@C_ProspectAddDate", DbType.DateTime, customerVo.ProspectAddDate);
                 db.AddInParameter(editCustomerCmd, "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
+                db.AddInParameter(editCustomerCmd, "@C_MfKYC", DbType.String, customerVo.MfKYC);
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;
 

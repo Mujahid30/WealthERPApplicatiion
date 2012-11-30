@@ -1683,13 +1683,13 @@ namespace BoCustomerPortfolio
             return IsISAUpdated;
         }
 
-        public int CreateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo, int customerId, int userId)
+        public int CreateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo, int customerId, int userId,int requestId)
         {
             CustomerAccountDao customerAccountDao = new CustomerAccountDao();            
             int customerISAAccountId = 0;
             try
             {
-                customerISAAccountId = customerAccountDao.CreateCustomerISAAccount(customerISAAccountVo, customerId, userId);
+                customerISAAccountId = customerAccountDao.CreateCustomerISAAccount(customerISAAccountVo, customerId, userId, requestId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1820,6 +1820,37 @@ namespace BoCustomerPortfolio
                 throw (Ex);
             }
             return dsGetISAAssociatedRel;
+        }
+
+        public int GetRequestNo(int customerId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            int requestNo = 0;
+            try
+            {
+                requestNo = customerAccountDao.GetRequestNo(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCustomerISAAccount()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return requestNo;
         }
     }
 }
