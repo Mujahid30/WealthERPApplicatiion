@@ -520,6 +520,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add Customer")
                 {
+                    Session.Remove("LinkAction");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
                 }
                 else if (e.Item.Value == "Manage Group Account")
@@ -1146,6 +1147,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add Customer")
                 {
+                    Session.Remove("LinkAction");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
                 }
                 else if (e.Item.Value == "Manage Group Account")
