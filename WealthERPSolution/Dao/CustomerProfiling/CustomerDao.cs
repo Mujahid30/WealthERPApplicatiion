@@ -4966,18 +4966,34 @@ namespace DaoCustomerProfiling
         public bool EditData(string ProData, string FolioData, string FolioNumber, int CustomerId, string Explist)
         {
             bool bResult = false;
+            //string Exp;
             Database db;
             DbCommand EditDataCmd;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                EditDataCmd = db.GetStoredProcCommand("editData");
+                EditDataCmd = db.GetStoredProcCommand("UpDateProfile");
                 db.AddInParameter(EditDataCmd, "@ProfileData", DbType.String, ProData);
                 db.AddInParameter(EditDataCmd, "@customerId", DbType.Int32, CustomerId);
                 db.AddInParameter(EditDataCmd, "@folioData", DbType.String, FolioData);
                 db.AddInParameter(EditDataCmd, "@folionum", DbType.String, FolioNumber);
+               
+                if (Explist == "Pan")
+                    Explist = "C_PANNum";
+                else if (Explist == "Email")
+                    Explist = "C_Email";
+                else if (Explist == "Mob(r)")
+                    Explist = "C_ResPhoneNum";
+                else if (Explist == "Dob")
+                    Explist = "C_DOB";
+                else if (Explist == "TS")
+                    Explist = "XCST_CustomerSubTypeCode";
+                //else if (Explist == "Add")
+                //    Exp = "C_Adr1Line1";
+                else if (Explist == "Mob(o)")
+                    Explist = "C_OfcPhoneNum";
                 db.AddInParameter(EditDataCmd, "@Explist", DbType.String, Explist);
-                if (db.ExecuteNonQuery(EditDataCmd) != 0)
+               if (db.ExecuteNonQuery(EditDataCmd) != 0)
                     bResult = true;
             }
             catch (BaseApplicationException Ex)

@@ -224,6 +224,7 @@ namespace WealthERP.Advisor
             string strProfileData = string.Empty;
             string ProData = string.Empty;
             string strFolioData = string.Empty;
+            String Exptype = string.Empty;
             DateTime createdDate = new DateTime();
             DateTime editedDate = new DateTime();
             DateTime deletedDate = new DateTime();
@@ -245,6 +246,7 @@ namespace WealthERP.Advisor
                 strFolioNumber = txtFolioNumber.Text;
                 ProData = txtProfileData.Text;
                 customerId = int.Parse(txtCustomerId.Text);
+               
                 isUpdated = customerBo.EditData(ProData, strFolioData, strFolioNumber, customerId, hdnExplist.Value);
 
             }
