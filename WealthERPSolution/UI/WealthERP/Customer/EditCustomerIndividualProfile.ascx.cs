@@ -60,18 +60,11 @@ namespace WealthERP.Customer
         int customerId = 0;
         int associateId = 0;
         string relCode = string.Empty;
+        string viewForm = string.Empty;
+        int requestNo = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //DropDownList dropdown = (DropDownList)sender;
-            //GridEditableItem editedItem = .NamingContainer as GridEditableItem;
-            //AutoCompleteExtender txtMember_autoCompleteExtender = editedItem.FindControl("txtMember_autoCompleteExtender") as AutoCompleteExtender;
-            //HtmlTableRow trExCustHeader = editedItem.FindControl("trExCustHeader") as HtmlTableRow;
-            //HtmlTableRow trExCustomerType = editedItem.FindControl("trExCustomerType") as HtmlTableRow;
-            //HtmlTableRow trNewCustHeader = editedItem.FindControl("trNewCustHeader") as HtmlTableRow;
-            //HtmlTableRow trNewCustomer = editedItem.FindControl("trNewCustomer") as HtmlTableRow;
-            //HtmlTableRow trCustomerTypeSelection = editedItem.FindControl("trCustomerTypeSelection") as HtmlTableRow;
-
             cvDepositDate1.ValueToCompare = DateTime.Now.ToShortDateString();
             txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
             cvJobStartDate.ValueToCompare = DateTime.Now.ToShortDateString();
@@ -86,19 +79,43 @@ namespace WealthERP.Customer
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 RMVo customerRMVo = new RMVo();
                 rmVo = (RMVo)Session[SessionContents.RmVo];
+                if (advisorVo.IsISASubscribed != true)
+                {
+                    RadTabStripCustomerProfile.Tabs[1].Visible = false;
+                }
+
+                if (Session["LinkAction"] != null && Session["LinkAction"].ToString().Trim() == "AddEditProfile")
+                {
+                    gvFamilyAssociate.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
+                    gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
+                    gvBankDetails.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
+                    requestNo = customerAccountBo.GetRequestNo(customerVo.CustomerId);
+                    hdnRequestId.Value = requestNo.ToString();
+                }
+                else
+                {
+                    if (Session["action"] != null)
+                    {
+                        viewForm = Session["action"].ToString();
+                        SetControlstate(viewForm);
+                    }
+                }
                 if (!IsPostBack)
                 {
+                    if (Request.QueryString["action"] != null)
+                    {
+                        viewForm = Request.QueryString["action"].ToString();
+                        if (viewForm == "Edit")
+                            SetControlstate("Edit");
+                        else if (viewForm == "View")
+                            SetControlstate("View");
+                    }
+                    
                     BindCustomerISAAccountGrid();
                     //trNewISAAccountSection.Visible = false;
                     lblPanDuplicate.Visible = false;
-                    //btnGenerateISA.Visible = false;
-                    //trCustomerTypeSelection.Visible = false;
-
-                    //trExCustHeader.Visible = false;
-                    //trExCustomerType.Visible = false;
-                    //trNewCustHeader.Visible = false;
-                    //trNewCustomer.Visible = false;
-
+                   
+                        //"None";
                     if (customerVo.SubType != "NRI")
                     {
                         txtRBIRefDate.Visible = false;
@@ -290,6 +307,11 @@ namespace WealthERP.Customer
                     //txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                     BindFamilyAssociationList(customerVo.CustomerId);
                     BindBankDetails(customerVo.CustomerId);
+                    if (customerVo.MfKYC == 1)
+                        chkKYC.Checked = true;
+                    else
+                        chkKYC.Checked = false;
+
 
                 }
 
@@ -313,6 +335,27 @@ namespace WealthERP.Customer
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+            }
+        }
+
+        private void SetControlstate(string action)
+        {
+            if (action == "View")
+            {
+                btnGetSlab.Enabled = false;
+                btnEdit.Visible = false;
+                gvFamilyAssociate.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
+                gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
+                gvBankDetails.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
+                
+            }
+            else if (action == "Edit")
+            {
+                btnGetSlab.Enabled = true;
+                btnEdit.Visible = true;
+                gvFamilyAssociate.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
+                gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
+                gvBankDetails.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
             }
         }
 
@@ -765,6 +808,14 @@ namespace WealthERP.Customer
                     else
                         customerVo.JobStartDate = DateTime.Parse(txtJobStartDate.Text.ToString());
                     customerVo.MothersMaidenName = txtMotherMaidenName.Text.ToString();
+                    if (chkKYC.Checked)
+                    {
+                        customerVo.MfKYC = 1;
+                    }
+                    else
+                    {
+                        customerVo.MfKYC = 0;
+                    }
 
                     if (chkCorrPerm.Checked)
                     {
@@ -785,7 +836,9 @@ namespace WealthERP.Customer
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Profile updated Succesfully');", true);
                         if (customerVo.Type.ToUpper().ToString() == "IND")
                         {
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                            viewForm = "View";
+                            SetControlstate(viewForm);
                         }
                         else
                         {
@@ -1230,6 +1283,20 @@ namespace WealthERP.Customer
         {
             DataTable dtCustomerISAAccounts = new DataTable();
             dtCustomerISAAccounts = customerBo.GetCustomerISAAccounts(customerVo.CustomerId);
+            if (hdnRequestId.Value != "")
+            {
+                DataRow[] drCustomerISAAccounts;
+                drCustomerISAAccounts = dtCustomerISAAccounts.Select("AISAQ_RequestQueueid=" + hdnRequestId.Value);
+                if (drCustomerISAAccounts.Count() > 0)
+                {
+                    gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
+                    
+                }
+                else
+                {
+                    gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
+                }
+            }
             gvISAAccountList.DataSource = dtCustomerISAAccounts;
             gvISAAccountList.DataBind();
 
@@ -1472,7 +1539,7 @@ namespace WealthERP.Customer
 
         protected void btnGenerateISA_Click(object sender, EventArgs e)
         {
-
+            bool result = false;
             try
             {
 
@@ -1503,11 +1570,11 @@ namespace WealthERP.Customer
                 else
                     customerISAAccountsVo.IsOperatedByPOA = false;
 
-
-                customerISAAccountsVo.ISAAccountId = customerAccountBo.CreateCustomerISAAccount(customerISAAccountsVo, customerVo.CustomerId, userVo.UserId);
-
                 GridView gvJointHoldersList = editedItem.FindControl("gvJointHoldersList") as GridView;
                 GridView gvNominees = editedItem.FindControl("gvNominees") as GridView;
+                //Check ISA Account Combination 
+                
+                customerISAAccountsVo.ISAAccountId = customerAccountBo.CreateCustomerISAAccount(customerISAAccountsVo, customerVo.CustomerId, userVo.UserId,int.Parse(hdnRequestId.Value));
 
                 foreach (GridViewRow gvr in gvJointHoldersList.Rows)
                 {
@@ -1907,8 +1974,12 @@ namespace WealthERP.Customer
             }
             if (e.Item is GridDataItem)
             {
-                GridDataItem dataItem = e.Item as GridDataItem;
-
+                    GridDataItem dataItem = e.Item as GridDataItem;
+                    LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
+                    if (viewForm == "View")
+                        buttonEdit.Visible = false;
+                    else if (viewForm == "Edit")
+                        buttonEdit.Visible = true;
             }
             string strRelationshipCode = string.Empty;
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
@@ -2056,6 +2127,8 @@ namespace WealthERP.Customer
                 Button Button3 = (Button)e.Item.FindControl("Button3");
                 Button Button1 = (Button)e.Item.FindControl("Button1");
 
+               
+
                 if (Button1.Visible == true)
                 {
                     customerNewVo.RmId = customerVo.RmId;
@@ -2146,7 +2219,11 @@ namespace WealthERP.Customer
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
-
+                LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
+                if (viewForm == "View")
+                    buttonEdit.Visible = false;
+                else if (viewForm == "Edit")
+                    buttonEdit.Visible = true;
             }
             string strBankAdrState;
             string strModeOfOperation;
@@ -2345,7 +2422,13 @@ namespace WealthERP.Customer
             if (e.Item is GridDataItem)
             {
                 // GridDataItem dataItem = e.Item as GridDataItem;
-
+                 
+                GridDataItem dataItem = e.Item as GridDataItem;              
+                LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
+                if(viewForm=="View")
+                    buttonEdit.Visible = false;
+                else if(viewForm=="Edit")
+                    buttonEdit.Visible = true;
             }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             {

@@ -58,7 +58,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Edit Profile
+                            Complete Profile
                         </td>
                     </tr>
                 </table>
@@ -201,6 +201,17 @@
             <asp:TextBox ID="txtGuardianLastName" runat="server" CssClass="txtField" Style="width: 30%"></asp:TextBox>
         </td>
     </tr>
+    <tr>
+        <td class="leftField">
+            <%--<asp:Label ID="lblMfKYC" runat="server" CssClass="FieldName" Text="MF KYC:"></asp:Label>--%>
+        </td>
+        <td class="rightField">
+        <asp:CheckBox ID="chkKYC" runat="server" CssClass="txtField" Text="MF KYC"
+                AutoPostBack="true" />
+            <%--<asp:RadioButton ID="rbtnkycYes" runat="server" CssClass="txtField" Text="Yes" GroupName="rbtnKYC" />
+            <asp:RadioButton ID="rbtnKycNo" runat="server" CssClass="txtField" Text="No" Checked="true" GroupName="rbtnKYC" />--%>
+        </td>
+    </tr>
     <tr id="trForResidence" runat="server">
         <td class="leftField">
             <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable(%):"></asp:Label>
@@ -226,7 +237,7 @@
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="ISA Account" Value="ISAAccount" TabIndex="1">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Bank Deatils" Value="BankDeatils" TabIndex="2">
+        <telerik:RadTab runat="server" Text="Bank Details" Value="BankDeatils" TabIndex="2">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Correspondence Address" Value="CorrespondenceAddress"
             TabIndex="3">
@@ -249,7 +260,7 @@
             <ContentTemplate>
                 <table style="width: 100%;">
                     <tr>
-                        <td colspan="4">
+                        <td>
                             <div class="divSectionHeading" style="vertical-align: text-bottom">
                                 <table>
                                     <tr>
@@ -267,7 +278,7 @@
                         </td>
                     </tr>
                     <tr id="trFamilyAssociates" runat="server">
-                        <td colspan="4" style="width: 45%">
+                        <td style="width: 45%">
                             <div id="dvFamilyAssociate" runat="server" style="width: 95%; padding-top: 5px; padding-left: 10px;">
                                 <telerik:RadGrid ID="gvFamilyAssociate" runat="server" CssClass="RadGrid" GridLines="Both"
                                     Width="90%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
@@ -386,7 +397,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <asp:Button ID="Button3" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                            runat="server"  CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                                             ValidationGroup="Submit"></asp:Button>
                                                                     </td>
                                                                     <td>
@@ -481,8 +492,6 @@
                     </tr>
                 </table>
             </ContentTemplate>
-            <Triggers>
-            </Triggers>
         </asp:UpdatePanel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="rpvISAAccount" runat="server">
@@ -1538,7 +1547,7 @@
     </tr>
     <tr>
         <td colspan="3" class="SubmitCell">
-            <asp:Button ID="btnEdit" runat="server" Text="Update" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerIndividualProfile_btnEdit');"
+            <asp:Button ID="btnEdit" runat="server" Text="Save" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerIndividualProfile_btnEdit');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EditCustomerIndividualProfile_btnEdit');"
                 OnClick="btnEdit_Click" />
         </td>
@@ -1549,3 +1558,4 @@
 <asp:HiddenField ID="hdnTaxSlabValue" runat="server" Visible="false" />
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnPannum" runat="server" />
+<asp:HiddenField ID="hdnRequestId" runat="server" />
