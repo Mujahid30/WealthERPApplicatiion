@@ -102,6 +102,7 @@ namespace VoUser
         private DateTime? m_ProspectAddDate;
         private int m_TaxSlab;
         private string m_CustomerCategoryCode;
+        private int m_mfKYC;
 
         public string CustomerCategoryCode
         {
@@ -573,6 +574,11 @@ namespace VoUser
         {
             get { return m_IsProspect; }
             set { m_IsProspect = value; }
+        }
+        public int MfKYC
+        {
+            get { return m_mfKYC; }
+            set { m_mfKYC = value; }
         }
        
         #endregion Properties
