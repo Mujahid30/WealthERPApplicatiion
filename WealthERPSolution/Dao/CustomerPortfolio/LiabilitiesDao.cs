@@ -2315,6 +2315,9 @@ namespace DaoCustomerPortfolio
                             liabilitiesVo.StatusCode = dr["AISAQD_Status"].ToString();
                         if (!String.IsNullOrEmpty(dr["CISAA_AccountNumber"].ToString()))
                         liabilitiesVo.IsaNo = dr["CISAA_AccountNumber"].ToString();
+
+                        if (!String.IsNullOrEmpty(dr["AISAQ_ProcessedDate"].ToString()))
+                            liabilitiesVo.ProcessedDate =DateTime.Parse(dr["AISAQ_ProcessedDate"].ToString());
                         ISAQueueList.Add(liabilitiesVo);
                     }
                 }

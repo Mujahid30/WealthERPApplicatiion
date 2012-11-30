@@ -88,7 +88,7 @@
                             HeaderText="Branch" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CISAA_AccountNumber" AllowFiltering="false" HeaderStyle-Width="90px"
+                        <telerik:GridBoundColumn DataField="AISAQ_ProcessedDate" AllowFiltering="false" HeaderStyle-Width="90px"
                             HeaderText="Process Date/Time " FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>

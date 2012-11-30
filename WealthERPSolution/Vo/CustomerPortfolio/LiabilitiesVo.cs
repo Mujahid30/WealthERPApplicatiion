@@ -50,6 +50,13 @@ namespace VoCustomerPortfolio
         private string m_StepName;
         private string m_StatusCode;
         private string m_IsaNo;
+        private DateTime m_ProcessedDate;
+
+        public DateTime ProcessedDate
+        {
+            get { return m_ProcessedDate; }
+            set { m_ProcessedDate = value; }
+        }
 
         public string StatusCode
         {

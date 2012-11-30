@@ -623,7 +623,10 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Script", "alert('Please generate ISA Account');", true);
+                    string msg = "Please generate ISA Account";
+                      ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Please generate ISA Account');", true);
+                    
                 }
                 HideAndShowBasedOnRole(int.Parse(txtGenerateReqstNum.Text));
 
@@ -1079,6 +1082,7 @@ namespace WealthERP.Customer
         protected void ddlStatusStage2_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             ddlBackToStepStage2.SelectedIndex = 0;
+            ddlReasonStage2.SelectedIndex = 0;
             if (ddlStatusStage2.SelectedValue == "PD")
             {
                 ddlBackToStepStage2.Enabled=true;
@@ -1102,6 +1106,7 @@ namespace WealthERP.Customer
         {
 
             ddlBackToStepStage3.SelectedIndex = 0;
+            ddlStatusReason3.SelectedIndex = 0;
             if (ddlStatusStage3.SelectedValue == "PD")
             {
                 ddlBackToStepStage3.Enabled = true;
@@ -1126,6 +1131,7 @@ namespace WealthERP.Customer
         {
 
             ddlBackToStepStage4.SelectedIndex = 0;
+            ddlReasonStage4.SelectedIndex = 0;
             if (ddlStatusStage4.SelectedValue == "PD")
             {
                 ddlBackToStepStage4.Enabled = true;

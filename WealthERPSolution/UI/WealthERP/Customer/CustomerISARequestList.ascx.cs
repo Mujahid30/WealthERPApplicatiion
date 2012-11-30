@@ -187,6 +187,9 @@ namespace WealthERP.Customer
                 dt.Columns.Add("StepName");
                 dt.Columns.Add("StatusCode");
                 dt.Columns.Add("CISAA_AccountNumber");
+                dt.Columns.Add("AISAQ_ProcessedDate");
+                
+
                 for (int i = 0; i < ISAQueueListVo.Count; i++)
                 {
                     dr = dt.NewRow();
@@ -212,6 +215,8 @@ namespace WealthERP.Customer
                         dr[9] = liabilityVo.StatusCode;
                     if (liabilityVo.IsaNo != null)
                         dr[10] = liabilityVo.IsaNo;
+                    if (liabilityVo.ProcessedDate != null)
+                        dr[11] = liabilityVo.ProcessedDate;
                     dt.Rows.Add(dr);
                 }
                 gvISArequest.DataSource = dt;

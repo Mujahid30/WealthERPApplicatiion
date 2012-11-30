@@ -1434,7 +1434,7 @@
                                     </asp:ListItem>
                                     <asp:ListItem Text="Step 1" Value="ISARQ">
                                     </asp:ListItem>
-                                    <asp:ListItem Text="Step 2" Value="CUSCR">
+                                    <asp:ListItem Text="Step 2" Value="VERIfY">
                                     </asp:ListItem>
                                 </asp:DropDownList>
                             </td>
