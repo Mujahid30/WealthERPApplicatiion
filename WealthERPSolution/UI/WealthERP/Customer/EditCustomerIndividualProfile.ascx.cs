@@ -834,6 +834,7 @@ namespace WealthERP.Customer
                         customerVo = customerBo.GetCustomer(customerVo.CustomerId);
                         Session["CustomerVo"] = customerVo;
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Profile updated Succesfully');", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true); 
                         if (customerVo.Type.ToUpper().ToString() == "IND")
                         {
                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);

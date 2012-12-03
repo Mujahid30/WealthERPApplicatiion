@@ -341,6 +341,7 @@ namespace WealthERP.Customer
                         LoadImages();
                     }
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Document uploaded Successfully!');", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true); 
                 }
                 else
                 {

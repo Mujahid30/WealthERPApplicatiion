@@ -188,6 +188,7 @@ namespace WealthERP.Customer
 
             if (currentUserRole == "ops" || currentUserRole == "admin")
             {
+                
                 dsBranchList = uploadCommonBo.GetAdviserBranchList(advisorVo.advisorId, currentUserRole);
                 ddlBMBranch.DataSource = dsBranchList.Tables[0];
                 ddlBMBranch.DataTextField = "AB_BranchName";
@@ -509,7 +510,7 @@ namespace WealthERP.Customer
             }
 
             MarkAllFieldEnableFalse();
-            if (currentStep == 4 && txtlblISAGenerationStatus.Text.Trim().ToLower() == "completed")
+            if (currentStep == 4 && txtlblISAGenerationStatus.Text.Trim().ToLower() == "isa generated")
             {
                 txtlblISAGenerationStatus.Style["color"] = "green";
                 txtlblISAGenerationStatus.Style["font-weight"] = "bold";
@@ -993,6 +994,7 @@ namespace WealthERP.Customer
             txtEmailID.Text = string.Empty;
             txtMobileNum.Text = string.Empty;
             ddlBMBranch.SelectedIndex = 0;
+            txtCustomerName.Enabled = true;
 
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "StepOne event Fire", " StepEventFireCollapseExpand('one');", true);
 

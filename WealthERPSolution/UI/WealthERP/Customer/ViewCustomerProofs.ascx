@@ -19,6 +19,13 @@
 
 <script type="text/javascript">
 
+    function CloseWindowsPopUp() {
+        window.close();
+    }
+</script>
+
+<script type="text/javascript">
+
     function HideValidations() {
         document.getElementById("<%= cmpProofType.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= cmpProof.ClientID %>").style.visibility = 'hidden';

@@ -5,6 +5,12 @@
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
 
+<script type="text/javascript">
+
+    function CloseWindowsPopUp() {
+        window.close();
+    }
+</script>
 
 <script type="text/javascript">
     function DisplayPanId(val) {
