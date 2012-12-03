@@ -70,7 +70,8 @@ namespace WealthERP.Advisor
             //ErrorMessage.Visible = false;
             if (!IsPostBack)
             {
-               
+                rquiredFieldValidatorIndivudialCustomer.Visible = false;
+                btnExportFilteredData.Visible = false;
                 gvExceptionReport.Visible = false;
                 BindExceptionList();
                 BindExceptionType();
@@ -283,7 +284,7 @@ namespace WealthERP.Advisor
 
                 }
                 ProfileDate = ProfileDate.ToUpper();
-                if (ProfileDate == "P")
+                if (ProfileDate == "PROFILE")
                 {
                     buttonEdit.Visible = false;
 
@@ -302,7 +303,7 @@ namespace WealthERP.Advisor
                 {
                     headeritem["ProfileFolio"].Text = "Folio Mode Of Holding";
                     headeritem["Exception"].Text = "ISA Mode Of Holding";
-                    headeritem["Exceptionlist"].Text = "ISA Number";
+                    headeritem["Exceptionlist"].Text = "ISA No.";
                 }
             }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
@@ -359,6 +360,7 @@ namespace WealthERP.Advisor
                 gvExceptionReport.DataSource = dsBindgvExceptionReport;
                 gvExceptionReport.DataBind();
                 gvExceptionReport.Visible = true;
+                btnExportFilteredData.Visible = true;
             }
             if (Cache["gvExceptionReport + '" + advisorVo.advisorId + "'"] == null)
             {
@@ -777,7 +779,7 @@ namespace WealthERP.Advisor
                 txtIndividualCustomer.Visible = true;
                 txtIndividualCustomer.Text = string.Empty;
                 lblselectCustomer.Visible = true;
-                rquiredFieldValidatorIndivudialCustomer.Visible = false;
+                rquiredFieldValidatorIndivudialCustomer.Visible = true;
                 ViewState["GroupHeadCustomers"] = null;
                 ViewState["IndividualCustomers"] = null;
                 ddlSelectCutomer.SelectedIndex = 0;
@@ -853,7 +855,7 @@ namespace WealthERP.Advisor
                 txtIndividualCustomer.Visible = true;
                 customerType = "IND";
 
-                //rquiredFieldValidatorIndivudialCustomer.Visible = true;
+                rquiredFieldValidatorIndivudialCustomer.Visible = true;
                 if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                 {
                     txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();

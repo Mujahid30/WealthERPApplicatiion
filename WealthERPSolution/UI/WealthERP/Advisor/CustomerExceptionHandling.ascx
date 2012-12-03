@@ -167,7 +167,7 @@
                         SortExpression="Folioname" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
-                   <telerik:GridBoundColumn UniqueName="FolioNumber" HeaderText="FolioNumber" DataField="FolioNumber"
+                   <telerik:GridBoundColumn UniqueName="FolioNumber" HeaderText="Folio No." DataField="FolioNumber"
                         HeaderStyle-Width="100px" SortExpression="FolioNumber" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
@@ -178,13 +178,13 @@
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                    
-                    <telerik:GridBoundColumn UniqueName="ProfileFolio" HeaderText="ProfileFolio" DataField="ProfileFolio"
+                    <telerik:GridBoundColumn UniqueName="ProfileFolio" HeaderText="Profile Folio" DataField="ProfileFolio"
                         HeaderStyle-Width="100px" SortExpression="ProfileFolio" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                      
-                    <telerik:GridBoundColumn UniqueName="Exceptionlist" HeaderText="Exceptionlist" DataField="Exceptionlist"
+                    <telerik:GridBoundColumn UniqueName="Exceptionlist" HeaderText="Exception List" DataField="Exceptionlist"
                         HeaderStyle-Width="100px" SortExpression="Exceptionlist" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
                         <HeaderStyle></HeaderStyle>
