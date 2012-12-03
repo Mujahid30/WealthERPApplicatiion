@@ -17,6 +17,7 @@ using System.Collections;
 using Telerik.Web.UI;
 using System.Web.Services;
 using VoAdvisorProfiling;
+using DaoUploads;
 
 using BoAdvisorProfiling;
 
@@ -25,7 +26,7 @@ namespace WealthERP.Uploads
     public partial class RejectedMFFolio : System.Web.UI.UserControl
     {
 
-
+        RejectedRecordsDao rejectedRecordsDao;
         AdvisorLOBBo advisorLOBBo = new AdvisorLOBBo();
         int ProcessId;
         int filetypeId;
@@ -4305,6 +4306,11 @@ namespace WealthERP.Uploads
                 {
                     divLobAdded.Visible = true;
                 }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('LOB already exists !!');", true);
+                    divLobAdded.Visible = false;
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -4329,6 +4335,13 @@ namespace WealthERP.Uploads
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+
+        public void CheckLOBAvailability(string fromUI, int adviserId, bool found)
+        {
+            found= rejectedRecordsBo.CheckLOBAvailability(fromUI, adviserId, found);
+            if(found==true)
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Saved Successfully !!');", true);
         }
     }
 }

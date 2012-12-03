@@ -6,6 +6,43 @@
 <asp:ScriptManager runat="server">
 </asp:ScriptManager>
 
+
+
+
+<script type="text/javascript">
+      function GetSelectedNames() {
+        var TargetBaseControl = null;
+        var count = 0;
+        try {
+            //get target base control.
+            TargetBaseControl = document.getElementById('<%= this.gvCAMSProfileReject.ClientID %>');
+        }
+        catch (err) {
+            TargetBaseControl = null;
+        }
+        if (TargetBaseControl == null) return false;
+
+        //get target child control.
+
+        var TargetChildControl = "chkBx";
+
+        //get all the control of the type INPUT in the base control.
+        var Inputs = TargetBaseControl.getElementsByTagName("input");
+
+        for (var n = 0; n < Inputs.length; ++n)
+            if (Inputs[n].type == 'checkbox' &&
+            Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 &&
+            Inputs[n].checked) {
+                count++;
+            }
+        if (count == 0 || count>1) {
+            alert('Please select a single processid');
+            return false;
+        }
+    }
+</script>
+
+
 <script language="javascript" type="text/javascript">
     function checkAllFPBoxes() {
         var totalChkBoxes = parseInt('<%= gvCAMSProfileReject.Items.Count %>');
@@ -254,22 +291,22 @@
                 
                 
                 <telerik:GridBoundColumn HeaderText="ProcessId" HeaderStyle-Width="100px" DataField="ADUL_ProcessId"
-                    UniqueName="ProcessId" SortExpression="ProcessId" AutoPostBackOnFilter="true"
+                    UniqueName="ProcessId" SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="220px" HeaderText="InvName" DataField="CMFFS_INV_NAME"
-                    UniqueName="InvName" SortExpression="InvName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    UniqueName="InvName" SortExpression="CMFFS_INV_NAME" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="PAN Number" DataField="CMFSFS_PANNum"
-                    UniqueName="PANNumber" SortExpression="PANNumber" AutoPostBackOnFilter="true"
+                    UniqueName="PANNumber" SortExpression="CMFSFS_PANNum" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="Folio" DataField="CMFSFS_FolioNum"
-                    SortExpression="Folio" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    SortExpression="CMFSFS_FolioNum" AutoPostBackOnFilter="true" ShowFilterIcon="false">
                     <ItemTemplate>
                         <asp:TextBox ID="txtFolio" CssClass="txtField" runat="server" Text='<%# Bind("CMFSFS_FolioNum") %>'></asp:TextBox>
                     </ItemTemplate>
@@ -339,10 +376,13 @@
     <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" OnClick="btnDelete_Click"
         Text="Delete Records" />
     <asp:Button ID="btnAddLob" runat="server" CssClass="PCGLongButton"
-        OnClick="btnAddLob_Click" Text="Add Broker Code" />
+        OnClick="btnAddLob_Click" Text="Add Broker Code" OnClientClick="return  GetSelectedNames();" />
     <br />
 </div>
 <div id="divProfileMessage" runat="server" visible="false" class="message">
     <asp:Label ID="lblEmptyMsg" class="FieldName" runat="server" Text="There are no records to be displayed!">
     </asp:Label>
 </div>
+
+
+ 
