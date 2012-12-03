@@ -2995,6 +2995,7 @@ namespace DaoCustomerPortfolio
                         AccountVo.AccountOpeningDate = DateTime.Parse(dr["CMFA_AccountOpeningDate"].ToString());
                     else
                         AccountVo.AccountOpeningDate = DateTime.MinValue;
+                    if(!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString()))
                     AccountVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
                     Int32.TryParse(dr["CB_CustPrimaryBankAccId"].ToString(), out bankId);
                     if (dr["CMFA_IsJointlyHeld"].ToString() != string.Empty)
