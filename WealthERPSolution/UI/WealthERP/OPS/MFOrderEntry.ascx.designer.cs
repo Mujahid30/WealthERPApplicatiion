@@ -21,7 +21,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        protected global::System.Web.UI.WebControls.Panel pnlJointholders;
+        //protected global::System.Web.UI.WebControls.Panel pnlJointholders;
         
         /// <summary>
         /// lnkBtnEdit control.
@@ -214,7 +214,8 @@ namespace WealthERP.OPS {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trTransactionType;
          protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegretMsg;
-        /// <summary>
+         protected global::System.Web.UI.HtmlControls.HtmlTableRow trJointHoldersList;
+             /// <summary>
         /// ddlTransactionType control.
         /// </summary>
         /// <remarks>
