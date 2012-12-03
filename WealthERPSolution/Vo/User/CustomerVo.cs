@@ -101,10 +101,10 @@ namespace VoUser
         private int m_mail;
         private DateTime? m_ProspectAddDate;
         private int m_TaxSlab;
-        private string m_CustomerCategoryCode;
+        private int m_CustomerCategoryCode;
         private int m_mfKYC;
 
-        public string CustomerCategoryCode
+        public int CustomerCategoryCode
         {
             get { return m_CustomerCategoryCode; }
             set { m_CustomerCategoryCode = value; }

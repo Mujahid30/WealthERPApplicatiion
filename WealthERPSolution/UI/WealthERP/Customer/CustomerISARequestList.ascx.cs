@@ -215,8 +215,8 @@ namespace WealthERP.Customer
                         dr[9] = liabilityVo.StatusCode;
                     if (liabilityVo.IsaNo != null)
                         dr[10] = liabilityVo.IsaNo;
-                    if (liabilityVo.ProcessedDate != null)
-                        dr[11] = liabilityVo.ProcessedDate;
+                    if (liabilityVo.ProcessedDate != DateTime.MinValue)
+                        dr[11] = liabilityVo.ProcessedDate.ToString(format);
                     dt.Rows.Add(dr);
                 }
                 gvISArequest.DataSource = dt;

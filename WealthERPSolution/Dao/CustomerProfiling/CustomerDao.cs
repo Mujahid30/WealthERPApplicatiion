@@ -4533,7 +4533,7 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(createCustomerCmd, "@C_ProfilingDate", DbType.DateTime, customerVo.ProfilingDate);
                 }
                 db.AddInParameter(createCustomerCmd, "@custCreateFlag", DbType.Int32, custCreateFlag);
-                db.AddInParameter(createCustomerCmd, "@CustomerCategoryCode", DbType.String, customerVo.CustomerCategoryCode);
+                db.AddInParameter(createCustomerCmd, "@CustomerCategoryCode", DbType.Int16, customerVo.CustomerCategoryCode);
                 db.AddInParameter(createCustomerCmd, "@C_FirstName", DbType.String, customerVo.FirstName);
                 db.AddInParameter(createCustomerCmd, "@C_Mobile1", DbType.String, customerVo.Mobile1);
                 db.AddInParameter(createCustomerCmd, "@C_PanNum", DbType.String, customerVo.PANNum);

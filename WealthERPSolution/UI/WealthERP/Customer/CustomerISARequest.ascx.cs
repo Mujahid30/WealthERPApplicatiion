@@ -135,7 +135,7 @@ namespace WealthERP.Customer
                 custCreateFlag = 0;
                 if (Session["customerVo"] != null)
                     customerVo = (CustomerVo)Session["customerVo"];
-                customerVo.CustomerCategoryCode = ddlCustomerCategory.SelectedValue;
+                customerVo.CustomerCategoryCode = Convert.ToInt16(ddlCustomerCategory.SelectedValue);
                 customerIds = customerBo.CreateISACustomerRequest(customerVo, custCreateFlag,ddlPriority.SelectedValue);
                 txtGenerateReqstNum.Text = customerIds[3].ToString();
                 txtCustomerName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
@@ -156,7 +156,7 @@ namespace WealthERP.Customer
                 newCustomerVo.UserId = userVo.UserId;
                 newCustomerVo.ProfilingDate = DateTime.Now;
                 newCustomerVo.BranchId = int.Parse(ddlBMBranch.SelectedValue);
-                newCustomerVo.CustomerCategoryCode = ddlCustomerCategory.SelectedValue;
+                newCustomerVo.CustomerCategoryCode =Convert.ToInt16(ddlCustomerCategory.SelectedValue);
 
                 //newCustomerVo.BranchId = rmVo.BranchList
                 customerIds = customerBo.CreateISACustomerRequest(newCustomerVo, custCreateFlag, ddlPriority.SelectedValue);
@@ -203,6 +203,32 @@ namespace WealthERP.Customer
                 ddlBMBranch.DataValueField = "AB_BranchId";
                 ddlBMBranch.DataBind();
             }
+
+            DataTable dtCustomerCategory = new DataTable();
+            dtCustomerCategory.Columns.Add("Category_Name");            
+            dtCustomerCategory.Columns.Add("Category_Id");
+
+            DataRow drCustomerCategory;
+
+            drCustomerCategory = dtCustomerCategory.NewRow();
+            drCustomerCategory["Category_Name"] = advisorVo.OrganizationName;
+            drCustomerCategory["Category_Id"] = 1;
+
+            dtCustomerCategory.Rows.Add(drCustomerCategory);
+
+            drCustomerCategory = dtCustomerCategory.NewRow();
+            drCustomerCategory["Category_Name"]="Non" + " " + advisorVo.OrganizationName;
+            drCustomerCategory["Category_Id"]= 0;
+
+            dtCustomerCategory.Rows.Add(drCustomerCategory);
+
+     
+
+
+            ddlCustomerCategory.DataSource = dtCustomerCategory;
+            ddlCustomerCategory.DataTextField = "Category_Name";
+            ddlCustomerCategory.DataValueField = "Category_Id";
+            ddlCustomerCategory.DataBind();
 
 
 
@@ -906,7 +932,7 @@ namespace WealthERP.Customer
                     {
                         trFormUpload.Visible = true;
 
-                        if (ddlCustomerCategory.SelectedIndex != 0)
+                        if (ddlCustomerCategory.SelectedValue == "0")
                         {
                             lbtnUploadAddressProof.Visible = true;
                             lbtnUploadPanProof.Visible = true;

@@ -1053,10 +1053,7 @@
                             <td class="rightData">
                                 <asp:DropDownList ID="ddlCustomerCategory" runat="server" onchange="GetVerificationTypeThroughCustCategory(this.options[this.selectedIndex].value);"
                                     CssClass="cmbField">
-                                    <asp:ListItem Text="RBL" Value="RBL" Selected="True">
-                                    </asp:ListItem>
-                                    <asp:ListItem Text="Non RBL" Value="NRBL">
-                                    </asp:ListItem>
+                                  
                                 </asp:DropDownList>
                                 <br />
                                 <asp:RequiredFieldValidator ID="rfvddlCustomerCategory" runat="server" CssClass="revPCG"
