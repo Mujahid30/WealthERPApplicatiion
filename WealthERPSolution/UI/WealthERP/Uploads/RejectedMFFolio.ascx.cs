@@ -4335,13 +4335,6 @@ namespace WealthERP.Uploads
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-        }
-
-        public void CheckLOBAvailability(string fromUI, int adviserId, bool found)
-        {
-            found= rejectedRecordsBo.CheckLOBAvailability(fromUI, adviserId, found);
-            if(found==true)
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Saved Successfully !!');", true);
-        }
+        }      
     }
 }
