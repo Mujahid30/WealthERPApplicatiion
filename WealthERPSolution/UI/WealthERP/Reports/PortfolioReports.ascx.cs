@@ -190,7 +190,7 @@ namespace WealthERP.Reports
             bool isCorrect = false;
             isCorrect = customerBo.ChckBussinessDate(chckdate);
             if (isCorrect == true)
-            { //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
+            { ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
             }
             else
             {

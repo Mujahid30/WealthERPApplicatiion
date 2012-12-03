@@ -499,7 +499,7 @@
                     <td>
                         <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">                            
                              <asp:ListItem Text="" Value="ASSET_ALLOCATION_REPORT" Selected="True">Asset Summary</asp:ListItem>
-                            <%-- <asp:ListItem Text="" Value="COMPREHENSIVE_NETWORTH_REPORT">Comprehensive Networth</asp:ListItem>--%>
+                             <asp:ListItem Text="" Value="COMPREHENSIVE_NETWORTH_REPORT">Comprehensive Networth</asp:ListItem>
                              <asp:ListItem Text="" Value="MULTI_ASSET_SUMMARY_REPORT">Net Worth</asp:ListItem>
                         </asp:DropDownList>
                     </td>
@@ -592,7 +592,7 @@
                                     <asp:Label ID="lblAsOnDate" runat="server" CssClass="FieldName">As on date :</asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtAsOnDate" runat="server" OnTextChanged="ChckBussDate_Textchanged"  AutoPostBack="True" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtAsOnDate" runat="server" OnTextChanged="ChckBussDate_Textchanged"  AutoPostBack="true" CssClass="txtField"></asp:TextBox>
                                     <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAsOnDate"
                                         Format="dd/MM/yyyy">
                                     </ajaxToolkit:CalendarExtender>
