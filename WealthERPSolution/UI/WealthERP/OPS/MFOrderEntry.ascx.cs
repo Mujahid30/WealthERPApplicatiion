@@ -84,7 +84,7 @@ namespace WealthERP.OPS
 
             if (!IsPostBack)
             {
-                pnlJointholders.Visible = false;
+                gvJointHoldersList.Visible = false;
                 trRegretMsg.Visible = false;
                 BtnIsa.Visible = false;
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
@@ -1004,11 +1004,17 @@ namespace WealthERP.OPS
         {
             DataTable GetHoldersName = new DataTable();
             GetHoldersName = customerBo.GetholdersName(int.Parse(ddlCustomerISAAccount.SelectedItem.Value.ToString()));
-
-            gvJointHoldersList.DataSource = GetHoldersName;
-            gvJointHoldersList.DataBind();
-            gvJointHoldersList.Visible = true;
-
+            if (GetHoldersName.Rows.Count > 0)
+            {
+                gvJointHoldersList.DataSource = GetHoldersName;
+                gvJointHoldersList.DataBind();
+                gvJointHoldersList.Visible = true;
+                //pnlJointholders.Visible = true;
+            }
+            else
+            {
+                gvJointHoldersList.Visible = false;
+            }
         }
         private void BindISAList()
         {
@@ -1018,39 +1024,19 @@ namespace WealthERP.OPS
                 ISAList = customerBo.GetISaList(customerId);
                 DataTable ISANewList = new DataTable();
                 int i;
+                
                 //ISANewList.Rows.Count = ISAList.Rows.Count;
                 ISANewList.Columns.Add("CISAA_accountid");
                 ISANewList.Columns.Add("CISAA_AccountNumber");
+                           
                 for (i = 0; i <= ISAList.Rows.Count; i++)
                 {
                     
                 }
-                    //foreach (DataRow drISA in ISAList.Rows)
-                    //{
-                    //    foreach (DataRow drNewISA in ISANewList.Rows)
-                    //    {
-                    //        if (drISA["XMOH_ModeOfHoldingCode"].ToString() == "JO")
-                    //        {
-
-                    //            drNewISA["CISAA_accountid"] = drISA["CISAA_accountid"].ToString() + drISA["XMOH_ModeOfHoldingCode"].ToString();
-                    //            drNewISA["CISAA_AccountNumber"] = drISA["CISAA_AccountNumber"];
-                    //            break;
-                    //        }
-                    //        else
-                    //        {
-                    //            drNewISA["CISAA_accountid"] = drISA["CISAA_accountid"].ToString() + drISA["XMOH_ModeOfHoldingCode"].ToString();
-                    //            drNewISA["CISAA_AccountNumber"] = drISA["CISAA_AccountNumber"];
-
-                    //        }
-                    //    }
-                    //    ISANewList.ImportRow(drISA);
-                    //}
-                    
-                //}
-
-                if (ISAList.Rows.Count > 0)
+                  if (ISAList.Rows.Count > 0)
                 {
-                    pnlJointholders.Visible = true;
+                    //pnlJointholders.Visible = true;
+                    trJointHoldersList.Visible = true;
                     ddlCustomerISAAccount.DataSource = ISAList;
                     ddlCustomerISAAccount.DataValueField = ISAList.Columns["CISAA_accountid"].ToString();
                     ddlCustomerISAAccount.DataTextField = ISAList.Columns["CISAA_AccountNumber"].ToString();
@@ -1062,7 +1048,8 @@ namespace WealthERP.OPS
                 }
                 else
                 {
-                    pnlJointholders.Visible = false;
+                    trJointHoldersList.Visible = false;
+                    //pnlJointholders.Visible = false;
                     ddlCustomerISAAccount.Visible = true;                  
                     trRegretMsg.Visible = true;
                     BtnIsa.Visible = true;
@@ -1079,6 +1066,7 @@ namespace WealthERP.OPS
         {
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
+                trJointHoldersList.Visible = false;
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 ddlAMCList.Enabled = true;
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));

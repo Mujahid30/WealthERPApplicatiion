@@ -207,12 +207,36 @@
             
         </td>
         <td class="rightField" style="width: 20%">
-        <asp:Panel ID="pnlJointholders" runat="server" ScrollBars="Horizontal">
+        
+        </td>
+    </tr>
+    <tr id="trRegretMsg" runat="server">
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblRegretMsg" runat="server" CssClass="FieldName" Text="Folio not Created for this Adviser"></asp:Label>
+        </td>
+        <td style="width: 20%">
+            <asp:Button ID="BtnIsa" runat="server" CssClass="PCGLongButton" OnClick="ISA_Onclick"
+                Text="Request ISA Account" />
+        </td>
+        <td style="width: 20%">
+        </td>
+        <td style="width: 20%">
+        </td>
+        <td style="width: 20%">
+        
+        </td> 
+    </tr>
+   <tr id="trJointHoldersList" runat="server">
+    <td class="leftField" style="width: 20%">
+            
+        </td>
+   <td colspan="4">
+   <%-- <asp:Panel ID="pnlJointholders" runat="server" ScrollBars="Horizontal">--%>
                 <telerik:RadGrid ID="gvJointHoldersList" Height="70px" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    Width="100%" PageSize="4" AllowSorting="true" AllowPaging="True"  ShowStatusBar="True"
+                    Width="45%" PageSize="4" AllowSorting="false" AllowPaging="True"  ShowStatusBar="True"
                     ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                     AllowAutomaticInserts="false" ExportSettings-FileName="Count">
-                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                    <MasterTableView Width="100%" AllowMultiColumnSorting="false" AutoGenerateColumns="false"
                         CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridBoundColumn DataField="AccountNumber" HeaderText="Account Number" UniqueName="AccountNumber"
@@ -233,41 +257,14 @@
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
-            </asp:Panel>
-        </td>
-    </tr>
-    <tr id="trRegretMsg" runat="server">
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblRegretMsg" runat="server" CssClass="FieldName" Text="Folio not Created for this Adviser"></asp:Label>
-        </td>
-        <td style="width: 20%">
-            <asp:Button ID="BtnIsa" runat="server" CssClass="PCGLongButton" OnClick="ISA_Onclick"
-                Text="Request ISA Account" />
-        </td>
-        <td style="width: 20%">
-        </td>
-        <td style="width: 20%">
-        </td>
-        <td style="width: 20%">
-        
-        </td>
-    </tr>
-   
-    
-    
-    <%--<tr id=trBtnIsa runat="server">
-        <td class="rightField" style="width: 20%">
-            
-        </td>
-        <td class="rightField" style="width: 20%">
-        </td>
-        <td class="rightField" style="width: 20%">
-        </td>
-        <td class="rightField" style="width: 20%">
-        </td>
-        <td class="rightField" style="width: 20%">
-        </td>
-    </tr>--%>
+           <%-- </asp:Panel>  --%>
+   </td>
+   <%--<td></td>
+   <td></td>
+   <td></td>
+   <td></td>--%>
+   </tr>
+     
     <tr>
         <td colspan="5">
         </td>
