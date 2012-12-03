@@ -2934,5 +2934,28 @@ namespace DaoCustomerPortfolio
             return requestNo;
         }
 
+        public bool DeleteISAAccount(int ISAAccounts)
+        {
+            Database db;
+            DbCommand deleteISAaccountCmd;
+            bool IsDelete = false; ;
+            try
+            {
+                
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteISAaccountCmd = db.GetStoredProcCommand("SPROC_DeleteCustomerISAAccount");
+                db.AddInParameter(deleteISAaccountCmd, "@ISAAccount", DbType.Int32, ISAAccounts);
+                if (db.ExecuteNonQuery(deleteISAaccountCmd) != 0)
+                    IsDelete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return IsDelete;
+        }
+
     }
 }

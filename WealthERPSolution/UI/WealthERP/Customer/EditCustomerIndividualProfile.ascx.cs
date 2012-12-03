@@ -2165,10 +2165,16 @@ namespace WealthERP.Customer
                 }
                 if (Button3.Visible == true)
                 {
+                    CustomerFamilyBo familyBo = new CustomerFamilyBo();
+                    CustomerFamilyVo familyVo = new CustomerFamilyVo();
                     if (customerVo != null)
                         customerId = customerVo.CustomerId;
                     if (!string.IsNullOrEmpty(txtCustomerId.Value))
                         associateId = int.Parse(txtCustomerId.Value);
+                    familyVo.AssociateCustomerId = associateId;
+                    familyVo.CustomerId = associateId;
+                    familyVo.Relationship = "SELF";
+                    familyBo.CreateCustomerFamily(familyVo, associateId, userVo.UserId);
                     DropDownList ddlRelation = (DropDownList)e.Item.FindControl("ddlRelation");
                     if (ddlRelation.SelectedIndex != 0)
                         relCode = ddlRelation.SelectedItem.Value;
@@ -2276,6 +2282,7 @@ namespace WealthERP.Customer
         #region unused     
         protected void gvISAAccountList_ItemCommand(object source, GridCommandEventArgs e)
         {
+            int ISAAccounts = 0;
             //int customerId = 0;
             //string strExternalCode = string.Empty;
             //string strExternalType = string.Empty;
@@ -2372,8 +2379,14 @@ namespace WealthERP.Customer
 
             }
 
-            if (e.CommandName == "Delete")
+            if (e.CommandName == RadGrid.DeleteCommandName)
             {
+                bool isDeleted = false;
+                customerBo = new CustomerBo();
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                TableCell strISAAccounts = dataItem["CISAA_accountid"];
+                ISAAccounts = int.Parse(strISAAccounts.Text);
+                isDeleted = customerAccountBo.DeleteISAAccount(ISAAccounts);
             }
 
 

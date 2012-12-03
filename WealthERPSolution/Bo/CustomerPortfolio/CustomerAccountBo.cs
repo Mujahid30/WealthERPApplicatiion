@@ -1852,5 +1852,20 @@ namespace BoCustomerPortfolio
             }
             return requestNo;
         }
+
+        public bool DeleteISAAccount(int ISAAccounts)
+        {
+            bool IsDelete;
+            try
+            {
+                CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+                IsDelete = customerAccountDao.DeleteISAAccount(ISAAccounts);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return IsDelete;
+        }
     }
 }

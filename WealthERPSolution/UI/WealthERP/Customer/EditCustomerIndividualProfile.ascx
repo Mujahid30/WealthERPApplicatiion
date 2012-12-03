@@ -548,6 +548,11 @@
                                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                     <HeaderStyle></HeaderStyle>
                                 </telerik:GridBoundColumn>
+                                <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this ISA Account?"
+                                  ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                  Text="Delete">
+                                 <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                </telerik:GridButtonColumn>
                             </Columns>
                             <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
                                 <FormTemplate>

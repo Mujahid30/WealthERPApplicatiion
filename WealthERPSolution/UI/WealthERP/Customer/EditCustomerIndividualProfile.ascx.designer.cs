@@ -158,6 +158,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
         
         /// <summary>
+        /// revCustCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revCustCode;
+        
+        /// <summary>
         /// lblGender control.
         /// </summary>
         /// <remarks>
