@@ -194,7 +194,9 @@ namespace WealthERP.Uploads
             {
                 if (ProcessId == null || ProcessId == 0)
                 {
+                    if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
                     fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
+                    if (!string.IsNullOrEmpty(txtToTran.SelectedDate.ToString()))                    
                     toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
                     rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
                 }
@@ -276,7 +278,7 @@ namespace WealthERP.Uploads
                 rejectedRecordsBo = new RejectedRecordsBo();
                 rejectedRecordsBo.DeleteMFRejectedFolios(StagingID);                
             }
-            BindGrid(0);
+            BindGrid(ProcessId);
         }
 
         protected void btnReprocess_Click(object sender, EventArgs e)
