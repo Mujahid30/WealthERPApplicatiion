@@ -535,7 +535,7 @@
                     <telerik:RadGrid ID="gvISAAccountList" runat="server" CssClass="RadGrid" GridLines="Both"
                         Width="90%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
                         ShowStatusBar="true" AllowAutomaticDeletes="True" Skin="Telerik" OnItemDataBound="gvISAAccountList_ItemDataBound"
-                        OnNeedDataSource="gvISAAccountList_NeedDataSource">
+                        OnNeedDataSource="gvISAAccountList_NeedDataSource" OnItemCommand="gvISAAccountList_ItemCommand">
                         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                         </ExportSettings>
                         <MasterTableView DataKeyNames="CISAA_accountid" EditMode="EditForms" CommandItemDisplay="Top"
@@ -554,6 +554,11 @@
                                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                     <HeaderStyle></HeaderStyle>
                                 </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn Visible="false" UniqueName="CISAA_accountid" HeaderStyle-Width="100px" HeaderText="AccountId"
+                        DataField="CISAA_accountid" SortExpression="CISAA_accountid" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
                                 <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this ISA Account?"
                                   ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
                                   Text="Delete">

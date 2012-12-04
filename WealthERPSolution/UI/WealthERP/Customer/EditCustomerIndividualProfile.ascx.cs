@@ -353,9 +353,9 @@ namespace WealthERP.Customer
             {
                 btnGetSlab.Enabled = true;
                 btnEdit.Visible = true;
-                gvFamilyAssociate.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
-                gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
-                gvBankDetails.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
+                gvFamilyAssociate.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
+                gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
+                gvBankDetails.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
             }
         }
 
@@ -2483,22 +2483,7 @@ namespace WealthERP.Customer
                 ddlModeOfHolding.Items.Insert(0, new ListItem("Select Mode of Holding", "Select Mode of Holding"));
                 ddlModeOfHolding.SelectedValue = dsISADetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString();
 
-                if (dsISADetails.Tables[0].Rows[0]["CISAA_Isjointlyheld"].ToString() == "1")
-                {
-                    rbtnYes.Checked = true;
-                    rbtnNo.Checked = false;
 
-                    JointHolderHeading.Visible = true;
-                    pnlJointholders.Visible = true;
-                }
-                else
-                {
-                    rbtnYes.Checked = false;
-                    rbtnNo.Checked = true;
-
-                    JointHolderHeading.Visible = false;
-                    pnlJointholders.Visible = false;
-                }
                 if (dsISADetails.Tables[0].Rows[0]["CISAA_IsPOAOperated"].ToString() == "1")
                 {
                     rbtnPOAYes.Checked = true;
@@ -2555,6 +2540,23 @@ namespace WealthERP.Customer
                 else
                 {
                     trAssociate.Visible = false;
+                }
+
+                if (dsISADetails.Tables[0].Rows[0]["CISAA_Isjointlyheld"].ToString() == "1")
+                {
+                    rbtnYes.Checked = true;
+                    rbtnNo.Checked = false;
+
+                    JointHolderHeading.Visible = true;
+                    pnlJointholders.Visible = true;
+                }
+                else
+                {
+                    rbtnYes.Checked = false;
+                    rbtnNo.Checked = true;
+
+                    JointHolderHeading.Visible = false;
+                    pnlJointholders.Visible = false;
                 }
 
                 if (dsISADetails.Tables[1].Rows.Count > 0)
