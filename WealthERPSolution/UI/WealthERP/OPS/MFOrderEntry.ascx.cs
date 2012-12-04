@@ -85,8 +85,8 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
                 gvJointHoldersList.Visible = false;
-                trRegretMsg.Visible = false;
-                BtnIsa.Visible = false;
+                //trRegretMsg.Visible = false;
+               
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
               
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
@@ -1042,8 +1042,8 @@ namespace WealthERP.OPS
                     ddlCustomerISAAccount.DataTextField = ISAList.Columns["CISAA_AccountNumber"].ToString();
                     ddlCustomerISAAccount.DataBind();
                     ddlCustomerISAAccount.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-                    trRegretMsg.Visible = false;
-                    BtnIsa.Visible = false;
+                    //trRegretMsg.Visible = false;
+                   
                     ddlCustomerISAAccount.Visible = true;
                 }
                 else
@@ -1051,8 +1051,8 @@ namespace WealthERP.OPS
                     trJointHoldersList.Visible = false;
                     //pnlJointholders.Visible = false;
                     ddlCustomerISAAccount.Visible = true;                  
-                    trRegretMsg.Visible = true;
-                    BtnIsa.Visible = true;
+                    //trRegretMsg.Visible = true;
+                  
                     ddlCustomerISAAccount.Items.Clear();
                     ddlCustomerISAAccount.DataSource = null;
                     ddlCustomerISAAccount.DataBind();

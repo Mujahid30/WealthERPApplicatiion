@@ -31,7 +31,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnEdit;
-        protected global::System.Web.UI.WebControls.Button BtnIsa;
+      
         
         /// <summary>
         /// lnlBack control.
@@ -123,7 +123,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnImgAddCustomer;
-        
+        protected global::System.Web.UI.WebControls.ImageButton btnIsa;
         /// <summary>
         /// txtCustomer_water control.
         /// </summary>

@@ -54,14 +54,19 @@
         if (hdn == "True") {
 
             document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'visible';
+          
         }
         else {
             document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
+            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
+           
         }
 
     }
     function CheckSubscription() {
         document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
+        document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
     }
 </script>
 
@@ -189,33 +194,32 @@
             <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
-    <tr id="trIsa" runat="server">
+  <tr id="trIsa" runat="server">
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblIsa" runat="server" CssClass="FieldName" Text="ISA No:"></asp:Label>
         </td>
-        <%--<td class="rightField" style="width: 20%">
-            <asp:Label ID="lblIsaNo" runat="server" CssClass="txtField"></asp:Label>
-        </td>--%>
         <td>
             <asp:DropDownList ID="ddlCustomerISAAccount" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlCustomerISAAccount_SelectedIndexChanged">
             </asp:DropDownList>
+            <asp:ImageButton ID="btnIsa" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                AlternateText="Add" runat="server" ToolTip="Click here to Request ISA" OnClick="ISA_Onclick"
+                Height="15px" Width="15px"></asp:ImageButton>
         </td>
+        
         <td class="rightField" style="width: 20%">
-           <%-- <asp:Label ID="lblJointholders" runat="server" CssClass="HeaderTextSmall" Text="JointHolders List"></asp:Label>--%>
-            
-            
+                    
         </td>
         <td class="rightField" style="width: 20%">
         
         </td>
     </tr>
-    <tr id="trRegretMsg" runat="server">
+ <%-- <tr id="trRegretMsg" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblRegretMsg" runat="server" CssClass="FieldName" Text="Folio not Created for this Adviser"></asp:Label>
+            <asp:Label ID="lblRegretMsg" runat="server" CssClass="FieldName" Text="ISA not Created for this Adviser"></asp:Label>
         </td>
         <td style="width: 20%">
-            <asp:Button ID="BtnIsa" runat="server" CssClass="PCGLongButton" OnClick="ISA_Onclick"
+            <%--<asp:Button ID="btnIsa" runat="server" CssClass="PCGLongButton" OnClick="ISA_Onclick"
                 Text="Request ISA Account" />
         </td>
         <td style="width: 20%">
@@ -225,10 +229,10 @@
         <td style="width: 20%">
         
         </td> 
-    </tr>
-   <tr id="trJointHoldersList" runat="server">
+    </tr>--%>
+  <tr id="trJointHoldersList" runat="server">
     <td class="leftField" style="width: 20%">
-            
+           
         </td>
    <td colspan="4">
    <%-- <asp:Panel ID="pnlJointholders" runat="server" ScrollBars="Horizontal">--%>
@@ -264,8 +268,7 @@
    <td></td>
    <td></td>--%>
    </tr>
-     
-    <tr>
+         <tr>
         <td colspan="5">
         </td>
     </tr>
