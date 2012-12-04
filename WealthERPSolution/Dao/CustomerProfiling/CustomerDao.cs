@@ -1712,6 +1712,7 @@ namespace DaoCustomerProfiling
                 db.AddOutParameter(createCustomerCmd, "@CP_PortfolioId", DbType.Int32, 10);
                 db.AddInParameter(createCustomerCmd, "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
                 db.AddInParameter(createCustomerCmd, "@C_AlertViaSMS", DbType.Int16, customerVo.ViaSMS);
+                db.AddInParameter(createCustomerCmd, "@CPS_GuardPan", DbType.String, customerVo.GuardPANNum);
                 if (db.ExecuteNonQuery(createCustomerCmd) != 0)
                 {
 
