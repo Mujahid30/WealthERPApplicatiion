@@ -225,7 +225,7 @@
         <MasterTableView DataKeyNames="AMCCode" Width="100%"  AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
-                <telerik:GridTemplateColumn HeaderStyle-Width="80px"  AllowFiltering="false" UniqueName="action"
+                <telerik:GridTemplateColumn HeaderStyle-Width="100px"  AllowFiltering="false" UniqueName="action"
                     DataField="action" FooterText="Grand Total:">
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text="Details" ItemStyle-Width="12px" />
@@ -375,7 +375,7 @@
                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" >
                     <ItemStyle  HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Amount"  HeaderText="SWP Amount" DataField="SWPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Amount"  HeaderText="SWP Amt" DataField="SWPAmount"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="SWPAmount" SortExpression="SWPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                      DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -388,7 +388,7 @@
                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" >
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Amount"  HeaderText="SWS Amount" DataField="SWSAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Amount"  HeaderText="SWS Amt" DataField="SWSAmount"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="SWSAmount" SortExpression="SWSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                      DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -441,7 +441,7 @@
         <MasterTableView DataKeyNames="SchemeCode" Width="100%"  AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
-                <telerik:GridTemplateColumn HeaderStyle-Width="80px"  AllowFiltering="false" UniqueName="action"
+                <telerik:GridTemplateColumn HeaderStyle-Width="100px"  AllowFiltering="false" UniqueName="action"
                     DataField="action" FooterText="Grand Total:">
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text="Details" ItemStyle-Width="12px" />
@@ -1031,7 +1031,7 @@
                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" >
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Amount" HeaderText="SWP Amount" DataField="SWPAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Amount" HeaderText="SWP Amt" DataField="SWPAmount"
                    HeaderStyle-HorizontalAlign="Right" UniqueName="SWPAmount" SortExpression="SWPAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                      DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -1044,7 +1044,7 @@
                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" >
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Amount" HeaderText="SWS Amount" DataField="SWSAmount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Amount" HeaderText="SWS Amt" DataField="SWSAmount"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="SWSAmount" SortExpression="SWSAmount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                      DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -1268,7 +1268,7 @@
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejectiont Count" HeaderText="PRJ Count"  DataField="PRJCount"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Count" HeaderText="PRJ Count"  DataField="PRJCount"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="PRJCount" SortExpression="PRJCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" >
