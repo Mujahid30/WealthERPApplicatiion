@@ -5148,6 +5148,62 @@ namespace DaoCustomerProfiling
            
             return result;
         }
+
+        public DataTable GetBMParentCustomers(string prefixText, int bmId)
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetBMParentCustomers");
+                db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetCustomerNames, "@AB_BranchId", DbType.Int32, bmId);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+         
+            return dtCustomerNames;
+        }
+
+        public DataTable GetAdviserAllCustomerForAssociations(string prefixText, int adviserId)
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetAdviserAllCustomerForAssociations");
+                db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetCustomerNames, "@A_AdviserId", DbType.Int32, adviserId);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+         
+            return dtCustomerNames;
+        }
+     
+     
         
     }
 }

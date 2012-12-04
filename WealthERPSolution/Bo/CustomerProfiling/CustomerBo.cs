@@ -2822,5 +2822,40 @@ namespace BoCustomerProfiling
             }
             return result;
         }
+
+        public DataTable GetBMParentCustomers(string prefixText, int bmId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetBMParentCustomers(prefixText, bmId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+            return dtCustomerNames;
+        }
+        public DataTable GetAdviserAllCustomerForAssociations(string prefixText, int adviserId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetAdviserAllCustomerForAssociations(prefixText, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+            return dtCustomerNames;
+        }
+
+        
     }
 }
