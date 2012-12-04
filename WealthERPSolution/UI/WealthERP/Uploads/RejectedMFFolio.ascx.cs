@@ -276,7 +276,9 @@ namespace WealthERP.Uploads
             else
             {
                 rejectedRecordsBo = new RejectedRecordsBo();
-                rejectedRecordsBo.DeleteMFRejectedFolios(StagingID);                
+                rejectedRecordsBo.DeleteMFRejectedFolios(StagingID);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('selected item deleted !!');", true);
+                
             }
             BindGrid(ProcessId);
         }
