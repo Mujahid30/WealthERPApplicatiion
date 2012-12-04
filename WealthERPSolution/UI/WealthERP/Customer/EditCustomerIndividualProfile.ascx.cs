@@ -2172,10 +2172,6 @@ namespace WealthERP.Customer
                         customerId = customerVo.CustomerId;
                     if (!string.IsNullOrEmpty(txtCustomerId.Value))
                         associateId = int.Parse(txtCustomerId.Value);
-                    familyVo.AssociateCustomerId = associateId;
-                    familyVo.CustomerId = associateId;
-                    familyVo.Relationship = "SELF";
-                    familyBo.CreateCustomerFamily(familyVo, associateId, userVo.UserId);
                     DropDownList ddlRelation = (DropDownList)e.Item.FindControl("ddlRelation");
                     if (ddlRelation.SelectedIndex != 0)
                         relCode = ddlRelation.SelectedItem.Value;
