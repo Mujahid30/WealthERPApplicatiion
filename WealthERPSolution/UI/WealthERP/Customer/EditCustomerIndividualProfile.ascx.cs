@@ -1137,15 +1137,19 @@ namespace WealthERP.Customer
 
             if (ddlMemberBranch.SelectedIndex == 0)
             {
+
                 txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerForAssociations";
+
+                //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                //txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
             }
             else
             {
                 //txtMember_autoCompleteExtender.ContextKey = ddlMemberBranch.SelectedValue.ToString();
                 //txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
                 txtMember_autoCompleteExtender.ContextKey = ddlMemberBranch.SelectedValue;
-                txtMember_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllIndividualCustomers";
+                txtMember_autoCompleteExtender.ServiceMethod = "GetBMParentCustomers";
             }
 
 
@@ -1174,11 +1178,11 @@ namespace WealthERP.Customer
         {
             if (txtCustomerId.Value != string.Empty)
             {
-                DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
-                DataRow dr = dt.Rows[0];
-                hdnPannum.Value = dr["C_PANNum"].ToString();
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearchPannum", "DisplayPanId('" + hdnPannum.Value + "');", true);                
-               
+                    DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
+                    DataRow dr = dt.Rows[0];                
+                    hdnPannum.Value = dr["C_PANNum"].ToString();              
+
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearchPannum", "DisplayPanId('" + hdnPannum.Value + "');", true);
 
             }
         }
@@ -2039,7 +2043,10 @@ namespace WealthERP.Customer
                 AutoCompleteExtender txtMember_autoCompleteExtender = editedItem.FindControl("txtMember_autoCompleteExtender") as AutoCompleteExtender;
 
                 txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerForAssociations";
+
+                //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                //txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
 
                 trExCustHeader.Visible = true;
                 trExCustomerType.Visible = true;
@@ -2176,7 +2183,7 @@ namespace WealthERP.Customer
                     if (ddlRelation.SelectedIndex != 0)
                         relCode = ddlRelation.SelectedItem.Value;
                     customerFamilyBo.CustomerAssociateUpdate(customerId, associateId, relCode, userVo.UserId);
-                    BindFamilyAssociationList(customerId);
+                   // BindFamilyAssociationList(customerId);
                 }
 
             }
