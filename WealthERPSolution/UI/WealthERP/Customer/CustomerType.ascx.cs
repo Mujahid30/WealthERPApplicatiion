@@ -549,7 +549,7 @@ namespace WealthERP.Customer
                     else if (rbtnIndividual.Checked)
                     {
                         //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerIndividualAdd','none');", true);
-                        Response.Redirect("ControlHost.aspx?pageid=EditCustomerIndividualProfile&RmId=" + customerVo.RmId + "&action=" + "View" +"", false);
+                        Response.Redirect("ControlHost.aspx?pageid=EditCustomerIndividualProfile&RmId=" + customerVo.RmId + "&action=" + "Edit" +"", false);
                     }
                 }
                 else
