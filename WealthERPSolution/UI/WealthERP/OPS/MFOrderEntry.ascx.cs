@@ -61,7 +61,7 @@ namespace WealthERP.OPS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+            
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             orderNumber = mfOrderBo.GetOrderNumber();
@@ -86,10 +86,10 @@ namespace WealthERP.OPS
             {
                 gvJointHoldersList.Visible = false;
                 //trRegretMsg.Visible = false;
-               
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
-              
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
+
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
+               
                 ddlAMCList.Enabled = false;
                 if (Request.QueryString["action"] != null)
                 {
@@ -1036,7 +1036,7 @@ namespace WealthERP.OPS
                   if (ISAList.Rows.Count > 0)
                 {
                     //pnlJointholders.Visible = true;
-                    trJointHoldersList.Visible = true;
+                    //trJointHoldersList.Visible = true;
                     ddlCustomerISAAccount.DataSource = ISAList;
                     ddlCustomerISAAccount.DataValueField = ISAList.Columns["CISAA_accountid"].ToString();
                     ddlCustomerISAAccount.DataTextField = ISAList.Columns["CISAA_AccountNumber"].ToString();
@@ -1048,7 +1048,7 @@ namespace WealthERP.OPS
                 }
                 else
                 {
-                    trJointHoldersList.Visible = false;
+                   // trJointHoldersList.Visible = false;
                     //pnlJointholders.Visible = false;
                     ddlCustomerISAAccount.Visible = true;                  
                     //trRegretMsg.Visible = true;
@@ -1064,9 +1064,11 @@ namespace WealthERP.OPS
         }
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification1", " CheckSubscription();", true);
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
-                trJointHoldersList.Visible = false;
+                //trJointHoldersList.Visible = false;
+               
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 ddlAMCList.Enabled = true;
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));

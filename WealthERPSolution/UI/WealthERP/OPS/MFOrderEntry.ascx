@@ -8,7 +8,8 @@
 
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
-        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();      
+       
         return false;
     }
 
@@ -49,7 +50,7 @@
 
     }
     function ShowIsa() {
-
+       
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
         if (hdn == "True") {
 
@@ -64,8 +65,15 @@
         }
 
     }
-    function CheckSubscription() {
+    function ShowInitialIsa() {
+
         document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
+        document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
+
+    }
+    function CheckSubscription() {
+  
+        document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
         document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
     }
 </script>

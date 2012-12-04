@@ -354,7 +354,7 @@ namespace WealthERP.Customer
                 btnGetSlab.Enabled = true;
                 btnEdit.Visible = true;
                 gvFamilyAssociate.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
-                gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
+                gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
                 gvBankDetails.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
             }
         }
@@ -2439,13 +2439,35 @@ namespace WealthERP.Customer
             if (e.Item is GridDataItem)
             {
                 // GridDataItem dataItem = e.Item as GridDataItem;
-                 
-                GridDataItem dataItem = e.Item as GridDataItem;              
+
+                GridDataItem dataItem = e.Item as GridDataItem;
                 LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
-                if(viewForm=="View")
+                LinkButton buttonDelete = dataItem["deleteColumn"].Controls[0] as LinkButton;
+
+                if (hdnRequestId.Value != "")
+                {
+                    string AISAQ_RequestQueueid = dataItem["AISAQ_RequestQueueid"].Text;
+
+
+                    if (hdnRequestId.Value == AISAQ_RequestQueueid)
+                    {
+                        buttonDelete.Visible = true;
+                    }
+                    else
+                    {
+                        buttonDelete.Visible = false;
+                    }
+                }
+                if (viewForm == "View")
+                {
                     buttonEdit.Visible = false;
-                else if(viewForm=="Edit")
+                    buttonDelete.Visible = false;
+                }
+                else if (viewForm == "Edit")
+                {
                     buttonEdit.Visible = true;
+                    buttonDelete.Visible = true;
+                }
             }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             {

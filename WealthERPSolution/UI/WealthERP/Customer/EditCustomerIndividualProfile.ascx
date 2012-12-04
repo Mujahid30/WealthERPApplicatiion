@@ -554,6 +554,11 @@
                                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                     <HeaderStyle></HeaderStyle>
                                 </telerik:GridBoundColumn>
+                                   <telerik:GridBoundColumn UniqueName="AISAQ_RequestQueueid" HeaderStyle-Width="100px"
+                                    HeaderText="Request Id" DataField="AISAQ_RequestQueueid" SortExpression="AISAQ_RequestQueueid"
+                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                    <HeaderStyle></HeaderStyle>
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn Visible="false" UniqueName="CISAA_accountid" HeaderStyle-Width="100px" HeaderText="AccountId"
                         DataField="CISAA_accountid" SortExpression="CISAA_accountid" AllowFiltering="true"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true">
@@ -756,7 +761,7 @@
                         </ExportSettings>
                          <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,BankAccountTypeCode,CB_BranchAdrState" 
                          EditMode="EditForms" CommandItemDisplay="Top"
-                            CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add New BAnk Details">
+                            CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add New Bank Details">
                              <Columns>
                                 <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
                                     UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">

@@ -1203,13 +1203,13 @@ namespace BoCustomerPortfolio
 
             return blResult;
         }
-        public List<LiabilitiesVo> GetISAQueueList(int id, bool isAdviser, bool isBranchHead, bool isBranchId)
+        public List<LiabilitiesVo> GetISAQueueList(int id, bool isAdviser, bool isBranchHead, bool isBranchId,string currentUserRole)
         {
             List<LiabilitiesVo> ISAQueueList = null;
             LiabilitiesDao liabilitiesDao = new LiabilitiesDao();
             try
             {
-                ISAQueueList = liabilitiesDao.GetISAQueueList(id, isAdviser, isBranchHead, isBranchId);
+                ISAQueueList = liabilitiesDao.GetISAQueueList(id, isAdviser, isBranchHead, isBranchId, currentUserRole);
             }
             catch (BaseApplicationException Ex)
             {

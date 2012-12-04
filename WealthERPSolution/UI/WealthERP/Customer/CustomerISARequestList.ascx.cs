@@ -166,7 +166,7 @@ namespace WealthERP.Customer
         {
             ISAQueueListVo = new List<LiabilitiesVo>();
             LiabilitiesVo liabilityVo = new LiabilitiesVo();
-            ISAQueueListVo = liabilitiesBo.GetISAQueueList(id, isAdviser, isBranchHead, isBranchId);
+            ISAQueueListVo = liabilitiesBo.GetISAQueueList(id, isAdviser, isBranchHead, isBranchId, currentUserRole);
             DataTable dt = new DataTable();
             DataRow dr;
             Double loanOutStanding = 0;

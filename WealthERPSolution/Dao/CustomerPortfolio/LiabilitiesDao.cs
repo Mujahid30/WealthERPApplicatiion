@@ -2269,7 +2269,7 @@ namespace DaoCustomerPortfolio
 
             return LiabilityId;//GetISAQueue
         }
-        public List<LiabilitiesVo> GetISAQueueList(int id, bool isAdviser, bool isBranchHead, bool isBranchId)
+        public List<LiabilitiesVo> GetISAQueueList(int id, bool isAdviser, bool isBranchHead, bool isBranchId,string currentUserRole)
         {
             List<LiabilitiesVo> ISAQueueList = null;
             LiabilitiesVo liabilitiesVo;
@@ -2286,6 +2286,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdGetISAQueue, "@isAdviser", DbType.Int16, Convert.ToInt16(isAdviser));
                 db.AddInParameter(cmdGetISAQueue, "@isBranchHead", DbType.Int16, Convert.ToInt16(isBranchHead));
                 db.AddInParameter(cmdGetISAQueue, "@isBranchId", DbType.Int16, Convert.ToInt16(isBranchId));
+                db.AddInParameter(cmdGetISAQueue, "@currentUserRole", DbType.String, currentUserRole);
                 dsGetISAQueue = db.ExecuteDataSet(cmdGetISAQueue);
                 if (dsGetISAQueue.Tables[0].Rows.Count > 0)
                 {
