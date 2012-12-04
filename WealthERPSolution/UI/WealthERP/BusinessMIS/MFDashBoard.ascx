@@ -371,7 +371,7 @@
             </div>
         </td>
         <td style="width: 50%" valign="top">
-        <asp:Label ID="Label3" runat="server" CssClass="HeaderTextSmall" Text="Subcategory wise AUM"></asp:Label>
+        <asp:Label ID="Label3" runat="server" CssClass="HeaderTextSmall" Text="Sub category wise AUM"></asp:Label>
         <br />
                              <div>   
                             <telerik:RadGrid ID="gvSubcategory" runat="server" GridLines="None" AutoGenerateColumns="False"
