@@ -284,8 +284,8 @@
             </asp:DropDownList>
         </td>
     </tr>
-</table>
-<table width="100%" class="TableBackground">
+<%--</table>
+<table width="100%" class="TableBackground">--%>
     <tr>
         <td colspan="5">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
