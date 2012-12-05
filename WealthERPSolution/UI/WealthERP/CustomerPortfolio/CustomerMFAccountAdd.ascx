@@ -477,7 +477,7 @@
     </tr>
     <tr id="trAddJointHolder" runat="server" visible="false">
         <td class="leftField">
-            <asp:Label CssClass="FieldName" Text="Add JointHolder :" runat="server"></asp:Label>
+            <asp:Label CssClass="FieldName" Text="Add Joint Holder :" runat="server"></asp:Label>
         </td>
         <td colspan="4">
             <asp:ImageButton OnClick="imgAddJointHolder_Click" ID="imgAddJointHolder" Text="AddJTHolder"
