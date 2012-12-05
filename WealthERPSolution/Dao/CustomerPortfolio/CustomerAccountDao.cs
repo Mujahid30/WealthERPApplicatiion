@@ -442,7 +442,7 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_CITY", DbType.String, DBNull.Value);
                 }
-                if (customerAccountVo.CPinCode == 0)
+                if (customerAccountVo.CPinCode != 0)
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PINCODE", DbType.Int32, customerAccountVo.CPinCode);
                 }
