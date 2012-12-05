@@ -28,6 +28,9 @@ namespace WealthERP.General
     public partial class UserLogin : System.Web.UI.UserControl
     {
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
+        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
+        AdviserPreferenceBo adviserPreferenceBo = new AdviserPreferenceBo();
+        AdvisorVo advisorVo = new AdvisorVo();
         string strUserTheme;
         string currentPageUrl;
         int userId = 0;
@@ -39,10 +42,10 @@ namespace WealthERP.General
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
             RMVo rmVo = new RMVo();
-            AdvisorBo advisorBo = new AdvisorBo();
-            AdvisorVo advisorVo = new AdvisorVo();
+            AdvisorBo advisorBo = new AdvisorBo();            
             CustomerBo customerBo = new CustomerBo();
-            CustomerVo customerVo = new CustomerVo();
+            CustomerVo customerVo = new CustomerVo();           
+
             if (Request.QueryString["UserId"] != null)
             {
                 userId = int.Parse(Encryption.Decrypt(Request.QueryString["UserId"].ToString()));
@@ -63,6 +66,8 @@ namespace WealthERP.General
                 }
 
                 Session["advisorVo"] = advisorVo;
+                SetAdviserPreference();
+
                 if (!string.IsNullOrEmpty(advisorVo.theme))
                 {
                     //Page.Theme = advisorVo.theme.ToString();
@@ -185,6 +190,7 @@ namespace WealthERP.General
                         }
 
                         Session["advisorVo"] = advisorVo;
+                        SetAdviserPreference();
 
                         currentUserIP = HttpContext.Current.Request.UserHostAddress.Trim();
                         if ((advisorVo != null) && (userVo.UserType != "Customer"))
@@ -726,7 +732,7 @@ namespace WealthERP.General
                 }
             }
         }
-
+        
         private bool CheckIPAuthentication(List<string> roleList, AdvisorVo advisorVo)
         {
             UserBo userBo = new UserBo();
@@ -1432,6 +1438,14 @@ namespace WealthERP.General
             UserBo.AddLoginTrack(txtLoginId.Text, securedPassword, isSuccess, IPAddress, browser, createdBy);
 
         }
+
+        private void SetAdviserPreference()
+        {
+            advisorPreferenceVo = adviserPreferenceBo.GetAdviserPreference(advisorVo.advisorId);
+            Session["AdvisorPreferenceVo"] = advisorPreferenceVo;
+
+        }
+
 
     }
 }

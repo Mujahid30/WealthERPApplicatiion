@@ -15,6 +15,8 @@ using WealthERP.Base;
 using System.IO;
 using VoHostConfig;
 using BoHostConfig;
+using VoAdvisorProfiling;
+
 
 namespace WealthERP
 {
@@ -24,12 +26,15 @@ namespace WealthERP
         string branchLogoPath = "";
         UserVo userVo = new UserVo();
         string xmlPath = "";
+        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
             GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
-            AdvisorVo advisorVo = new AdvisorVo();
+            AdvisorVo advisorVo = new AdvisorVo();  
+          
+
             if (!IsPostBack)
             {
                 if (Session["advisorVo"] != null)
@@ -59,6 +64,7 @@ namespace WealthERP
                         Page.Title = generalconfigurationvo.ApplicationName;
                     }
                 }
+               
             }
             //if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
             //{
@@ -66,13 +72,22 @@ namespace WealthERP
             //}
 
             //Page.Theme = Session["Theme"].ToString();
+            if (Session["AdvisorPreferenceVo"] != null)
+            {
+                advisorPreferenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
+                Page.Title = advisorPreferenceVo.BrowserTitleBarName;
+                lnkBrowserIcon.Href = advisorPreferenceVo.ValtPath + "\\advisor_" + advisorVo.advisorId + "\\" + advisorPreferenceVo.BrowserTitleBarIconImageName;
+                hidUserLogOutPageUrl.Value = advisorPreferenceVo.LoginWidgetLogOutPageURL;
+            }
+
+
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             RMVo rmVo = new RMVo();
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
-            GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
+            GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();         
 
             tdTermsCondition.Visible = false;
             try
@@ -342,7 +357,7 @@ namespace WealthERP
                 }
             }
         }
-
+                
         [System.Web.Services.WebMethod(EnableSession = true)]
         public static void AjaxSetSession(string key, string value)
         {
@@ -380,6 +395,18 @@ namespace WealthERP
             CustType = customerVo.Type;
 
             return CustType;
+        }
+
+        protected void lblSignOut_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(hidUserLogOutPageUrl.Value))
+            {
+                Response.Redirect(hidUserLogOutPageUrl.Value);
+            }
+            else
+            {
+                Response.Redirect("https://app.wealtherp.com/");
+            }
         }
 
     }
