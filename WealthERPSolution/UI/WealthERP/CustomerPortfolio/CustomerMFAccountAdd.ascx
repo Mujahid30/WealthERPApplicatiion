@@ -131,7 +131,7 @@
 </asp:ScriptManager>
 <telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForGuardian" runat="server"
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
-    Behaviors="Move,resize,close" Title="Inset New Policy">
+    Behaviors="Move,resize,close" Title="Add Guardian">
     <ContentTemplate>
         <div id="divForGuardian" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
             align="center" visible="false">
@@ -171,7 +171,7 @@
 </telerik:RadWindow>
 <telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForNominee" runat="server"
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
-    Behaviors="Move,resize,close" Title="Inset New Policy">
+    Behaviors="Move,resize,close" Title="Add Nominee">
     <ContentTemplate>
         <div id="DivForNominee" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
             align="center" visible="false">
@@ -211,7 +211,7 @@
 </telerik:RadWindow>
 <telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForJointHolder" runat="server"
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
-    Behaviors="Move,resize,close" Title="Inset New Policy">
+    Behaviors="Move,resize,close" Title="Add Joint Holder">
     <ContentTemplate>
         <div id="DivForJH" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
             align="center" visible="false">
@@ -623,7 +623,11 @@
                         <asp:Label ID="Label17" CssClass="FieldName" Text="Pin Code :" runat="server"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 25%">
-                        <asp:TextBox ID="txtPinCode" CssClass="txtField" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtPinCode" MaxLength="6" CssClass="txtField" runat="server"></asp:TextBox>
+                     <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="<br />Enter a numeric value"
+                                                    CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPinCode" ValidationGroup="btnSubmit"
+                                                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+
                     </td>
                     <td class="leftField" style="width: 20%">
                         <asp:Label ID="Label18" CssClass="FieldName" Text="MICR :" runat="server"></asp:Label>
@@ -736,7 +740,11 @@
             <asp:Label ID="Label4" CssClass="FieldName" Text="Pincode :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
-            <asp:TextBox CssClass="txtField" ID="txtPPinCode" runat="server"></asp:TextBox>
+            <asp:TextBox CssClass="txtField" MaxLength="6" ID="txtPPinCode" runat="server"></asp:TextBox>
+             <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Enter a numeric value"
+                                                    CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPPinCode" ValidationGroup="btnSubmit"
+                                                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+
         </td>
         <td>
         </td>
@@ -763,12 +771,20 @@
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtCustPhNoOff" runat="server"></asp:TextBox>
+         <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Enter a numeric value"
+                                                    CssClass="rfvPCG" Type="Integer" ControlToValidate="txtCustPhNoOff" ValidationGroup="btnSubmit"
+                                                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="Label8" CssClass="FieldName" Text="Ph. no(res) :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtCustPhNoRes" runat="server"></asp:TextBox>
+         <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Enter a numeric value"
+                                                    CssClass="rfvPCG" Type="Integer" ControlToValidate="txtCustPhNoRes" ValidationGroup="btnSubmit"
+                                                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+
         </td>
         <td>
         </td>
@@ -779,6 +795,10 @@
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtCustEmail" runat="server"></asp:TextBox>
+         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtCustEmail"
+                            ErrorMessage="<br />Please enter a valid Email ID" Display="Dynamic" runat="server"
+                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
+
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label CssClass="FieldName" Text="DOB :" runat="server"></asp:Label>
