@@ -196,7 +196,6 @@
                 <asp:ListItem Value="0">Select Action</asp:ListItem>
                 <asp:ListItem Value="TF">Transfer Folio</asp:ListItem>
                 <asp:ListItem Value="MFtoAP">Move Folio to another Portfolio</asp:ListItem>
-                <asp:ListItem Value="UPWFD">Update Profile With Folio Details</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td style="width: 150px">
