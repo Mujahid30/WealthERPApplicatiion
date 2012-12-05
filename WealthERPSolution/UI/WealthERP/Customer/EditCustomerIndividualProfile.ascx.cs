@@ -883,10 +883,10 @@ namespace WealthERP.Customer
                 if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
                 {
                     result = false;
-                    lblPanDuplicate.Visible = true;
+                    lblPanDuplicate.Visible = true;                   
                 }
                 else
-                {
+                {                  
                     lblPanDuplicate.Visible = false;
                 }
             }
@@ -2148,37 +2148,47 @@ namespace WealthERP.Customer
 
                 if (Button1.Visible == true)
                 {
-                    customerNewVo.RmId = customerVo.RmId;
-                    customerNewVo.BranchId = customerVo.BranchId;
-                    customerNewVo.Type = "IND";
-                    TextBox txtNewMemName = (TextBox)e.Item.FindControl("txtNewName");
-                    TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
-                    DropDownList ddlNewMemRel = (DropDownList)e.Item.FindControl("ddlNewRelationship");
-                    customerNewVo.FirstName = txtNewMemName.Text;
-                    customerNewVo.PANNum = txtNewMemPan.Text;
-                    customerVo.ProfilingDate = DateTime.Today;
-                    tempUserVo.FirstName = txtNewMemName.Text;
-                    tempUserVo.Email = txtEmail.Text;
-                    customerPortfolioVo.IsMainPortfolio = 1;
-                    customerPortfolioVo.PortfolioTypeCode = "RGL";
-                    customerPortfolioVo.PortfolioName = "MyPortfolio";
-                    customerVo.ViaSMS = 1;
-                    customerIds = customerBo.CreateCompleteCustomer(customerNewVo, tempUserVo, customerPortfolioVo, tempUserVo.UserId);
-                    if (customerIds != null)
-                    {
-                        associateId = customerIds[1];
-                        CustomerFamilyVo familyVo = new CustomerFamilyVo();
-                        CustomerFamilyBo familyBo = new CustomerFamilyBo();
-                        familyVo.AssociateCustomerId = customerIds[1];
-                        familyVo.CustomerId = associateId;
-                        familyVo.Relationship = "SELF";
-                        familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
+                   
+                        customerNewVo.RmId = customerVo.RmId;
+                        customerNewVo.BranchId = customerVo.BranchId;
+                        customerNewVo.Type = "IND";
+                        TextBox txtNewMemName = (TextBox)e.Item.FindControl("txtNewName");
+                        TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
+                        DropDownList ddlNewMemRel = (DropDownList)e.Item.FindControl("ddlNewRelationship");
+                        customerNewVo.FirstName = txtNewMemName.Text;
+                        customerNewVo.PANNum = txtNewMemPan.Text;
+                        if (!(customerBo.PANNumberDuplicateCheck(advisorVo.advisorId, customerNewVo.PANNum, customerVo.CustomerId)))
+                        {
+                        customerVo.ProfilingDate = DateTime.Today;
+                        tempUserVo.FirstName = txtNewMemName.Text;
+                        tempUserVo.Email = txtEmail.Text;
+                        customerPortfolioVo.IsMainPortfolio = 1;
+                        customerPortfolioVo.PortfolioTypeCode = "RGL";
+                        customerPortfolioVo.PortfolioName = "MyPortfolio";
+                        customerVo.ViaSMS = 1;
+                        customerIds = customerBo.CreateCompleteCustomer(customerNewVo, tempUserVo, customerPortfolioVo, tempUserVo.UserId);
+                        if (customerIds != null)
+                        {
+                            associateId = customerIds[1];
+                            CustomerFamilyVo familyVo = new CustomerFamilyVo();
+                            CustomerFamilyBo familyBo = new CustomerFamilyBo();
+                            familyVo.AssociateCustomerId = customerIds[1];
+                            familyVo.CustomerId = associateId;
+                            familyVo.Relationship = "SELF";
+                            familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
+                        }
+                        if (customerVo != null)
+                            customerId = customerVo.CustomerId;
+                        if (ddlNewMemRel.SelectedIndex != 0)
+                            relCode = ddlNewMemRel.SelectedItem.Value;
+                        customerFamilyBo.CustomerAssociateUpdate(customerId, associateId, relCode, userVo.UserId);
                     }
-                    if (customerVo != null)
-                        customerId = customerVo.CustomerId;
-                    if (ddlNewMemRel.SelectedIndex != 0)
-                        relCode = ddlNewMemRel.SelectedItem.Value;
-                    customerFamilyBo.CustomerAssociateUpdate(customerId, associateId, relCode, userVo.UserId);
+                    else
+                    {
+                        string msg = "PAN Number already exists";
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
+                    }
+
                 }
                 if (Button3.Visible == true)
                 {
