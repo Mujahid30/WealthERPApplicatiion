@@ -588,7 +588,7 @@
                 </tr>
                 <tr>
                     <td class="leftField">
-                        <asp:Label ID="Label12" CssClass="FieldName" Text="Line1(House No/Building) :" runat="server"></asp:Label>
+                        <asp:Label ID="Label12" CssClass="FieldName" Text="Line1(House No./Building) :" runat="server"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 25%">
                         <asp:TextBox ID="txtBLine1" CssClass="txtField" runat="server"></asp:TextBox>
@@ -705,7 +705,7 @@
             <asp:TextBox ID="txtPanNo" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
         <td class="leftField" style="width: 20%">
-            <asp:Label CssClass="FieldName" Text="Address1 :" runat="server"></asp:Label>
+            <asp:Label CssClass="FieldName" Text="Address 1 :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtPAddress1" runat="server"></asp:TextBox>
@@ -715,13 +715,13 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label1" CssClass="FieldName" Text="Address2 :" runat="server"></asp:Label>
+            <asp:Label ID="Label1" CssClass="FieldName" Text="Address 2 :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtPAddress2" runat="server"></asp:TextBox>
         </td>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label2" CssClass="FieldName" Text="Address3 :" runat="server"></asp:Label>
+            <asp:Label ID="Label2" CssClass="FieldName" Text="Address 3 :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtPAddress3" runat="server"></asp:TextBox>
@@ -751,13 +751,13 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label5" CssClass="FieldName" Text="JointName1 :" runat="server"></asp:Label>
+            <asp:Label ID="Label5" CssClass="FieldName" Text="Joint Holder 1 :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtCustJName1" runat="server"></asp:TextBox>
         </td>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label6" CssClass="FieldName" Text="JointName2 :" runat="server"></asp:Label>
+            <asp:Label ID="Label6" CssClass="FieldName" Text="Joint Holder 2 :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtCustJName2" runat="server"></asp:TextBox>
@@ -767,7 +767,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label7" CssClass="FieldName" Text="Ph. no(office) :" runat="server"></asp:Label>
+            <asp:Label ID="Label7" CssClass="FieldName" Text="Ph. No.(office) :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtCustPhNoOff" runat="server"></asp:TextBox>
@@ -777,7 +777,7 @@
 
         </td>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label8" CssClass="FieldName" Text="Ph. no(res) :" runat="server"></asp:Label>
+            <asp:Label ID="Label8" CssClass="FieldName" Text="Ph. No.(res) :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtCustPhNoRes" runat="server"></asp:TextBox>
