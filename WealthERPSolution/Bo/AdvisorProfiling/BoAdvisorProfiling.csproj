@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="AdviserAssociateCategorySetupBo.cs" />
     <Compile Include="AdviserLoanCommsnStrucWithLoanPartnerBo.cs" />
+    <Compile Include="AdviserPreferenceBo.cs" />
     <Compile Include="AdviserStaffSMTPBo.cs" />
     <Compile Include="AdvisorBo.cs" />
     <Compile Include="AdvisorBranchBo.cs" />
