@@ -401,10 +401,12 @@ namespace WealthERP
         {
             if (!string.IsNullOrEmpty(hidUserLogOutPageUrl.Value))
             {
+                Session.Abandon();
                 Response.Redirect(hidUserLogOutPageUrl.Value);
             }
             else
             {
+                Session.Abandon();
                 Response.Redirect("https://app.wealtherp.com/");
             }
         }
