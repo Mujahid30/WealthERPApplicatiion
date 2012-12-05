@@ -349,7 +349,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
-                ddlBankList.SelectedValue = "Select Bank";
+                ddlBankList.SelectedValue = "Select";
             }
             txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
@@ -532,7 +532,7 @@ namespace WealthERP.CustomerPortfolio
             ddlProductAmc.DataTextField = "PA_AMCName";
             ddlProductAmc.DataValueField = "PA_AMCCode";
             ddlProductAmc.DataBind();
-            ddlProductAmc.Items.Insert(0, new ListItem("Select an AMC Code", "Select an AMC Code"));
+            ddlProductAmc.Items.Insert(0, new ListItem("Select", "0"));
         }
 
 
@@ -560,7 +560,7 @@ namespace WealthERP.CustomerPortfolio
             ddlModeOfHolding.DataTextField = "ModeOfHolding";
             ddlModeOfHolding.DataValueField = "ModeOfHoldingCode";
             ddlModeOfHolding.DataBind();
-            ddlModeOfHolding.Items.Insert(0, new ListItem("Select", "Select Mode of Holding"));
+            ddlModeOfHolding.Items.Insert(0, new ListItem("Select","0"));
         }
 
         private void BindPortfolioDropDown()
@@ -583,7 +583,7 @@ namespace WealthERP.CustomerPortfolio
             ddlBankList.DataValueField = ds.Tables[0].Columns["CB_CustBankAccId"].ToString();
             ddlBankList.DataTextField = ds.Tables[0].Columns["CB_BankName"].ToString();
             ddlBankList.DataBind();
-            ddlBankList.Items.Insert(0, new ListItem("Select Bank", "Select Bank"));
+            ddlBankList.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
@@ -1485,6 +1485,7 @@ namespace WealthERP.CustomerPortfolio
             txtBLine1.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine1"].ToString();
             txtBLine2.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine2"].ToString();
             txtBLine3.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine3"].ToString();
+            if( dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString()!="Select")
             ddlBState.SelectedValue = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString();
             if (dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString() != "")
                 ddlModeOfOpn.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString();
@@ -1504,21 +1505,21 @@ namespace WealthERP.CustomerPortfolio
                 ddlAccType.DataTextField = "BankAccountType";
                 ddlAccType.DataValueField = "BankAccountTypeCode";
                 ddlAccType.DataBind();
-                ddlAccType.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlAccType.Items.Insert(0, new ListItem("Select", "0"));
 
                 dtModeofOperation = XMLBo.GetModeOfHolding(path);
                 ddlModeOfOpn.DataSource = dtModeofOperation;
                 ddlModeOfOpn.DataTextField = "ModeOfHolding";
                 ddlModeOfOpn.DataValueField = "ModeOfHoldingCode";
                 ddlModeOfOpn.DataBind();
-                ddlModeOfOpn.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlModeOfOpn.Items.Insert(0, new ListItem("Select", "0"));
 
                 dtStates = XMLBo.GetStates(path);
                 ddlBState.DataSource = dtStates;
                 ddlBState.DataTextField = "StateName";
                 ddlBState.DataValueField = "StateCode";
                 ddlBState.DataBind();
-                ddlBState.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlBState.Items.Insert(0, new ListItem("Select", "0"));
             }
 
             catch (BaseApplicationException Ex)
