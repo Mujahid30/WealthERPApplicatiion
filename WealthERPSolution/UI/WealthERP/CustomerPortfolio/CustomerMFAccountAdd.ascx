@@ -139,7 +139,7 @@
         </div>
         <div style="padding: 20px">
             <telerik:RadGrid ID="gvGuardian" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
+                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
                 AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
                 <ExportSettings HideStructureColumns="true">
@@ -179,7 +179,7 @@
         </div>
         <div style="padding: 20px">
             <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
+                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
                 AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
                 <ExportSettings HideStructureColumns="true">
@@ -219,7 +219,7 @@
         </div>
         <div style="padding: 20px">
             <telerik:RadGrid ID="gvJointHoldersList" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
+                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
                 AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
                 <ExportSettings HideStructureColumns="true">
@@ -412,7 +412,7 @@
         </td>
         <td colspan="4">
             <telerik:RadGrid Visible="false" ID="gvNominee2" runat="server" GridLines="None"
-                AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+                AutoGenerateColumns="False" PageSize="10" AllowSorting="false" AllowPaging="True"
                 ShowStatusBar="false" ShowFooter="false" Skin="Telerik" EnableEmbeddedSkins="false"
                 Width="500px" AllowFilteringByColumn="false" AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
                 <ExportSettings HideStructureColumns="true">
@@ -451,7 +451,7 @@
         </td>
         <td colspan="4">
             <telerik:RadGrid Visible="false" ID="gvGuardian2" runat="server" GridLines="None"
-                AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+                AutoGenerateColumns="False" PageSize="10" AllowSorting="false" AllowPaging="True"
                 ShowStatusBar="True" ShowFooter="false" Skin="Telerik" EnableEmbeddedSkins="false"
                 Width="500px" AllowFilteringByColumn="false" AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
                 <ExportSettings HideStructureColumns="true">
@@ -490,7 +490,7 @@
         </td>
         <td colspan="4">
             <telerik:RadGrid Visible="false" ID="gvJoint2" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
+                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
                 AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
                 <ExportSettings HideStructureColumns="true">
@@ -541,7 +541,7 @@
     </tr>
     <asp:UpdatePanel runat="server" ID="upBankDetails">
         <ContentTemplate>
-            <div id="divBankDetails" runat="server" visible="false">
+            <div id="divBankDetails" runat="server">
                 <tr>
                     <td class="leftField">
                         <asp:Label ID="Label22" CssClass="FieldName" Text="Account Type :" runat="server"></asp:Label>

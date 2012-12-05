@@ -234,7 +234,7 @@ namespace WealthERP.CustomerPortfolio
             txtMicr.Text = Convert.ToInt32(customerAccountsVo.MICR).ToString();
             ddlBState.Text = customerAccountsVo.BranchAdrState;
             ddlBCountry.Text = ddlBCountry.SelectedValue;
-            txtIfsc.Text = customerAccountsVo.AccountType;
+            txtIfsc.Text = customerAccountsVo.IFSC;
 
             BindCustomerSubType();
 
@@ -349,7 +349,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
-                ddlBankList.SelectedValue = "Select";
+                ddlBankList.SelectedValue = "0";
             }
             txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
@@ -406,6 +406,7 @@ namespace WealthERP.CustomerPortfolio
             txtBLine3.Text = customerAccountsVo.BranchAdrLine3;
             txtCity.Text = customerAccountsVo.BranchAdrCity;
 
+
             txtPinCode.Text = Convert.ToInt32(customerAccountsVo.BranchAdrPinCode).ToString();
             txtMicr.Text = Convert.ToInt32(customerAccountsVo.MICR).ToString();
             ddlBState.Text = customerAccountsVo.BranchAdrState;
@@ -413,8 +414,9 @@ namespace WealthERP.CustomerPortfolio
             txtIfsc.Text = customerAccountsVo.IFSC;
 
             BindCustomerSubType();
-
+            if(customerAccountsVo.XCT_CustomerTypeCode!="0")
             ddlCustomerType.SelectedValue = customerAccountsVo.XCT_CustomerTypeCode;
+            if(customerAccountsVo.XCST_CustomerSubTypeCode!="0")
             ddlCustomerSubType.SelectedValue = customerAccountsVo.XCST_CustomerSubTypeCode;
 
             if (customerAccountsVo.CDOB != DateTime.MinValue)
