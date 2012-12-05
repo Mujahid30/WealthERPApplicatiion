@@ -335,7 +335,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="lblModeOfHolding" runat="server" CssClass="FieldName" Text="Mode Of Holding :"></asp:Label>
+            <asp:Label ID="lblModeOfHolding" runat="server" CssClass="FieldName" Text="Mode of Holding :"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
             <asp:DropDownList ID="ddlModeOfHolding" runat="server" CssClass="cmbField">
