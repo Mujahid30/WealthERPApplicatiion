@@ -311,7 +311,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="lblFolioNum" runat="server" CssClass="FieldName" Text="Folio Number :"></asp:Label>
+            <asp:Label ID="lblFolioNum" runat="server" CssClass="FieldName" Text="Folio No. :"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
             <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" Enabled="false"
@@ -555,7 +555,7 @@
                 </tr>
                 <tr>
                     <td class="leftField">
-                        <asp:Label CssClass="FieldName" Text="Account Number :" runat="server"></asp:Label>
+                        <asp:Label CssClass="FieldName" Text="Account No. :" runat="server"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 25%">
                         <asp:TextBox ID="txtAccNo" CssClass="txtField" runat="server"></asp:TextBox>
@@ -699,7 +699,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label24" runat="server" CssClass="FieldName" Text="Pan Number:"></asp:Label>
+            <asp:Label ID="Label24" runat="server" CssClass="FieldName" Text="Pan No.:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtPanNo" runat="server" CssClass="txtField"></asp:TextBox>
