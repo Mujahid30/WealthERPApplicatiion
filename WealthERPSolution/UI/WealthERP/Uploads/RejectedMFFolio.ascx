@@ -324,8 +324,8 @@
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="BankName" DataField="CB_BankName"
-                    UniqueName="CB_BankName" SortExpression="CB_BankName" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="BankName" DataField="CMFFS_BANK_NAME"
+                    UniqueName="CMFFS_BANK_NAME" SortExpression="CMFFS_BANK_NAME" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
