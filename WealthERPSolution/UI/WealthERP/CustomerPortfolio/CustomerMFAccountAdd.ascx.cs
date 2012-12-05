@@ -543,13 +543,13 @@ namespace WealthERP.CustomerPortfolio
             ddlCustomerSubType.DataTextField = "XCST_CustomersubTypeName";
             ddlCustomerSubType.DataValueField = "XCST_CustomerSubTypeCode";
             ddlCustomerSubType.DataBind();
-            ddlCustomerSubType.Items.Insert(0, new ListItem("Select a CustomerSubType", "0"));
+            ddlCustomerSubType.Items.Insert(0, new ListItem("Select", "0"));
 
             ddlCustomerType.DataSource = dsCustomerTypes.Tables[0];
             ddlCustomerType.DataTextField = "XCT_CustomerTypeName";
             ddlCustomerType.DataValueField = "XCT_CustomerTypeCode";
             ddlCustomerType.DataBind();
-            ddlCustomerType.Items.Insert(0, new ListItem("Select a CustomerType", "0"));
+            ddlCustomerType.Items.Insert(0, new ListItem("Select", "0"));
         }
 
 
@@ -560,7 +560,7 @@ namespace WealthERP.CustomerPortfolio
             ddlModeOfHolding.DataTextField = "ModeOfHolding";
             ddlModeOfHolding.DataValueField = "ModeOfHoldingCode";
             ddlModeOfHolding.DataBind();
-            ddlModeOfHolding.Items.Insert(0, new ListItem("Select Mode of Holding", "Select Mode of Holding"));
+            ddlModeOfHolding.Items.Insert(0, new ListItem("Select", "Select Mode of Holding"));
         }
 
         private void BindPortfolioDropDown()
