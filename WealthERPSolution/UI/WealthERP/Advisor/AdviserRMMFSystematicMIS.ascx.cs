@@ -94,16 +94,17 @@ namespace WealthERP.Advisor
             customerId = customerVo.CustomerId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
+            // RadComboBox Combo=sender as RadComboBox;
 
-            //gvCalenderDetailView.Visible = true;
-           
             gvSystematicMIS.Visible = true;
             ErrorMessage.Visible = false;
             hdnRecordCount.Value = "1";
             //GetPageCount();
 
+
             if (!IsPostBack)
-            {   ddlSelectCutomer.Visible = false;
+            {
+                ddlSelectCutomer.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
                 lblselectCustomer.Visible = false;
                 txtIndividualCustomer.Visible = false;
@@ -137,8 +138,8 @@ namespace WealthERP.Advisor
                 btnExportSummary.Visible = false;
             }
             if (Session["ButtonGo"] != null)
-              CallAllGridBindingFunctions();
-      
+                CallAllGridBindingFunctions();
+
         }
         /// <summary>
         /// Bind All the Dropdowns 
@@ -162,7 +163,6 @@ namespace WealthERP.Advisor
         /* Binding AMC DropDown */
         private void BindAMCDropDown(DataTable dtAMC)
         {
-
             try
             {
                 if (dtAMC != null)
@@ -263,10 +263,10 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
-
         /* Binding Branch DropDown*/
         private void BindBranchDropDown()
-        {   RMVo rmVo = new RMVo();
+        {
+            RMVo rmVo = new RMVo();
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int bmID = rmVo.RMId;
             try
@@ -491,9 +491,9 @@ namespace WealthERP.Advisor
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
                 tblNote.Visible = false;
-            
-              
-               
+
+
+
             }
         }
 
@@ -885,13 +885,13 @@ namespace WealthERP.Advisor
 
         protected void gvCalenderDetailView_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-            DateTime nextSystematicDate = GetNextSystematicDate(frequency, systematicDate,endDate);
+            DateTime nextSystematicDate = GetNextSystematicDate(frequency, systematicDate, endDate);
             Label lblSysNxt = (Label)e.Item.FindControl("lblNextSystematicDate");
             //lblSysNxt.Text = dtCalenderDetail.ToShortDateString();
         }
-       
-       
-       
+
+
+
         private DateTime GetNextSystematicDate(string frequency, int systematicDate, DateTime endDate)
         {
 
@@ -935,10 +935,58 @@ namespace WealthERP.Advisor
 
         }
 
+        //private void GetDatble()
+        //{
+        //    DataTable dtMIS = new DataTable();
+        //    dtMIS.Columns.Add("CustomerName");
+        //    dtMIS.Columns.Add("SystematicTransactionType");
+
+        //    dtMIS.Rows.Add("Kiro", "SIP");
+        //    dtMIS.Rows.Add("Monish", "SIP");
+        //}
+        //   protected void gvSystematicMIS_ItemDataBound(object sender, GridItemEventArgs e)
+        //   {
+        //    if (e.Item is GridFilteringItem && e.Item.ItemIndex==-1)
+        //    {
+        //        GridFilteringItem filterItem = (GridFilteringItem)e.Item;
+        //        //{
+        //        // GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;              
+        //        RadComboBox combo = (RadComboBox)filterItem.FindControl("RadComboBoxSip");
+        //        dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
+
+        //        //dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
+        //        DataTable dtcustMIS = new DataTable();
+        //        dtcustMIS.Columns.Add("CustomerName");
+        //        // dtcustMIS.Columns.Add("SystematicTransactionType");
+        //        DataRow drcustMIS;
+        //        foreach (DataRow dr in dtSystematicMIS1.Rows)
+        //        {
+        //            drcustMIS = dtcustMIS.NewRow();
+        //            drcustMIS["CustomerName"] = dr["CustomerName"].ToString();
+        //            //drcustMIS["SystematicTransactionType"] = dr["TypeCode"].ToString();
+        //            dtcustMIS.Rows.Add(drcustMIS);
+        //        }
+
+        //           // gvSystematicMIS.MasterTableView.Rebind();  
+
+        //            //combo.Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("ALL", "0"));
+        //            combo.DataSource = dtcustMIS;
+        //            combo.DataValueField = dtcustMIS.Columns["CustomerName"].ToString();
+        //            combo.DataTextField = dtcustMIS.Columns["CustomerName"].ToString();
+        //            combo.ClearSelection();
+        //            combo.DataBind();
+
+
+        //    }
+
+
+
+
+        //}
         private void BindgvSystematicMIS()
         {
             try
-            {               
+            {
                 dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
                 dtSystematicMIS2 = dsBindGvSystematicMIS.Tables[1];
                 //dtSystematicMIS3 = dsBindGvSystematicMIS.Tables[2];
@@ -958,7 +1006,6 @@ namespace WealthERP.Advisor
 
                 dtSystematicDetails.Columns.Add("CeaseDate", typeof(DateTime));
                 dtSystematicDetails.Columns.Add("Remarks");
-
 
                 DataRow drSystematicDetails;
                 foreach (DataRow dr in dtSystematicMIS1.Rows)
@@ -986,8 +1033,8 @@ namespace WealthERP.Advisor
                     //    drSystematicDetails["NextSystematicDate"] = "---";
                     //}
                     drSystematicDetails["Amount"] = decimal.Parse(dr["Amount"].ToString());
-                    if (dr["CMFSS_CEASEDATE"]!="")
-                    drSystematicDetails["CeaseDate"] =dr["CMFSS_CEASEDATE"];
+                    if (dr["CMFSS_CEASEDATE"] != "")
+                        drSystematicDetails["CeaseDate"] = dr["CMFSS_CEASEDATE"];
                     drSystematicDetails["Remarks"] = dr["CMFSS_REMARKS"];
 
 
@@ -1004,7 +1051,7 @@ namespace WealthERP.Advisor
                     tblMessage.Visible = false;
                     ErrorMessage.Visible = false;
                     btnExportSystematicMIS.Visible = true;
-                   
+
                     //trPager.Visible = true;
                 }
 
@@ -1015,7 +1062,7 @@ namespace WealthERP.Advisor
                     ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = "No Records Found...!";
                     btnExportSystematicMIS.Visible = false;
-           
+
                     //trPager.Visible = false;
                 }
 
@@ -1038,6 +1085,7 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            // BindCustSystematicMIS();
         }
 
         private void BindRMforBranchDropdown(int branchId, int branchHeadId)
@@ -1322,7 +1370,7 @@ namespace WealthERP.Advisor
                 int newSwpCount = 0;
                 int runningSwpCount = 0;
 
-           
+
 
                 while (startSipSwpDate <= endSipSwpDate)
                 {
@@ -1332,7 +1380,7 @@ namespace WealthERP.Advisor
 
                         drCalenderSummary["Year"] = startYear;
                         drCalenderSummary["Month"] = month;
-                        drCalenderSummary["FinalMonth"] = GetMonth(month);                           
+                        drCalenderSummary["FinalMonth"] = GetMonth(month);
 
                         foreach (DataRow dr in dtSIPDetails.Rows)
                         {
@@ -1342,14 +1390,14 @@ namespace WealthERP.Advisor
                                 {
 
                                 }
-                                      newSipCount++;
-                                
+                                newSipCount++;
+
                             }
                             if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SWP" && DateTime.Parse(dr["StartDate"].ToString()).Year == startSipSwpDate.Year)
                             {
                                 if (startYear >= DateTime.Parse(dr["StartDate"].ToString()).Year && startYear <= DateTime.Parse(dr["EndDate"].ToString()).Year)
                                 {
-                                    
+
                                 }
                                 newSwpCount++;
                             }
@@ -1367,7 +1415,7 @@ namespace WealthERP.Advisor
                                         if (dr["TypeCode"].ToString().Trim() == "SIP")
                                         {
                                             monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
-                                            runningSipCount ++;
+                                            runningSipCount++;
                                         }
                                         else if (dr["TypeCode"].ToString().Trim() == "SWP")
                                         {
@@ -1392,7 +1440,7 @@ namespace WealthERP.Advisor
                                         if (dr["TypeCode"].ToString().Trim() == "SIP")
                                         {
                                             monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
-                                            runningSipCount ++;
+                                            runningSipCount++;
                                         }
                                         else if (dr["TypeCode"].ToString().Trim() == "SWP")
                                         {
@@ -1608,6 +1656,63 @@ namespace WealthERP.Advisor
             }
             reptCalenderSummaryView.MasterTableView.ExportToExcel();
         }
+        //protected void gvSystematicMIS_PreRender(object sender, System.EventArgs e)
+        //{
+        //    if (gvSystematicMIS.MasterTableView.FilterExpression != string.Empty)
+        //        //gvSystematicMIS.MasterTableView.FilterExpression = " ";
+        //        //gvSystematicMIS.Rebind();
+        //        BindgvSystematicMIS();
+        //   // gvSystematicMIS.MasterTableView.FilterExpression = " ";
+        //   // gvSystematicMIS.Rebind();
+
+
+        //}
+        //protected void RadComboBoxSip_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        //{
+        //    string filterExpression;
+        //    filterExpression = "([CustomerName] = '" + e.Value + "')";
+        //    gvSystematicMIS.MasterTableView.FilterExpression = filterExpression;
+        //    //GridColumn column = gvSystematicMIS.MasterTableView.GetColumnSafe("CustomerName");
+        //    //column.CurrentFilterValue = combo.SelectedValue;
+        //    gvSystematicMIS.MasterTableView.Rebind();
+        //}
+        //protected void RadComboBoxSip_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        //{
+        //        gvSystematicMIS.MasterTableView.FilterExpression = " ";
+
+        //        gvSystematicMIS.MasterTableView.Rebind();
+
+        //        RadComboBox Combo = o as RadComboBox;
+        //        ViewState["CustomerName"] = Combo.SelectedValue.ToString();
+        //            //filter the grid  
+
+        //        if (ViewState["CustomerName"] != "")
+        //        {
+        //            gvSystematicMIS.MasterTableView.FilterExpression = "([CustomerName]= '" + Combo.SelectedValue + "')";
+        //            GridColumn column = gvSystematicMIS.MasterTableView.GetColumnSafe("CustomerName");
+        //            column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+        //            gvSystematicMIS.MasterTableView.Rebind();
+        //            //+ Combo.SelectedValue +
+
+        //        }
+        //        else
+        //        {
+        //            gvSystematicMIS.MasterTableView.FilterExpression = "";
+        //            GridColumn column = gvSystematicMIS.MasterTableView.GetColumnSafe("CustomerName");
+        //            column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+        //            gvSystematicMIS.MasterTableView.Rebind();
+
+        //        }
+        //}
+        //protected void rcbContinents_PreRender(object sender, EventArgs e)
+        // {
+        //     //persist the combo selected value  
+        //     if (ViewState["CustomerName"] != null)
+        //     {
+        //         RadComboBox Combo = sender as RadComboBox;
+        //         Combo.SelectedValue = ViewState["CustomerName"].ToString();
+        //     }
+        // } 
 
         protected void btnExportSystematicMIS_OnClick(object sender, ImageClickEventArgs e)
         {

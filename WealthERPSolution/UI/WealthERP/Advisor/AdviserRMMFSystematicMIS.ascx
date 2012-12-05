@@ -20,8 +20,7 @@
     };
 </script>
 
-
-  <table width="100%">
+<table width="100%">
     <tr>
         <td>
             <div class="divPageHeading">
@@ -32,11 +31,11 @@
                         </td>
                     </tr>
                 </table>
-              </div>
-             </td>
-           </tr>
-         </table>
-    <table style="width: 100%;">
+            </div>
+        </td>
+    </tr>
+</table>
+<table style="width: 100%;">
     <tr>
         <td style="width: 100%;">
             <table style="width: 100%;">
@@ -119,8 +118,8 @@
                     </td>
                     <td>
                     </td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                     <td align="right" width="10%">
                         <asp:Label ID="lblSystematicType" runat="server" Text="Systematic Type:" CssClass="FieldName"></asp:Label>
                     </td>
@@ -210,9 +209,9 @@
                             <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                             </DateInput>
                         </telerik:RadDatePicker>
-                      </td>
+                    </td>
                     <td>
-                  </td>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="8">
@@ -241,37 +240,39 @@
     </telerik:RadTabStrip>
     <telerik:RadMultiPage ID="SystameticMISMultiPage" EnableViewState="true" runat="server"
         SelectedIndex="0" Width="100%">
-        <telerik:RadPageView ID="RadPageView1" runat="server" >
-        <table id="Table1" runat="server">
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblNote1" runat="server" Text="NOTE:To view SIP details select filters and click Go.Sort on field by click on label."
+        <telerik:RadPageView ID="RadPageView1" runat="server">
+            <table id="Table1" runat="server">
+                <tr>
+                    <td>
+                        <asp:Label ID="lblNote1" runat="server" Text="NOTE: To view SIP details Please select filters and click go. To sort on a field click on its label."
                             Font-Size="Small" CssClass="cmbField"></asp:Label>
-                        </td>
-                    </tr>
-                </table>
-            <div style="overflow:auto">
+                    </td>
+                </tr>
+            </table>
+            <div style="overflow: auto">
+           
                 <asp:ImageButton ID="btnExportSystematicMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportSystematicMIS_OnClick"
                     Height="25px" Width="25px"></asp:ImageButton>
                 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="100%" EnableHistory="True"
-                    HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
-                    <telerik:RadGrid  ID="gvSystematicMIS" AllowSorting="true" runat="server" AllowAutomaticInserts="false"
+                                      HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">   
+                    
+                <telerik:RadGrid ID="gvSystematicMIS" AllowSorting="true" runat="server" AllowAutomaticInserts="false"
                         AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
-                        EnableEmbeddedSkins="false" GridLines="None" PageSize="10" ShowFooter="true" 
-                        ShowStatusBar="True" Skin="Telerik">
+                        EnableEmbeddedSkins="false" GridLines="none" PageSize="10" ShowFooter="true"  PagerStyle-AlwaysVisible="true" EnableViewState="true"
+                         ShowStatusBar="True" Skin="Telerik"  >
                         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="SystematicMIS Details" Excel-Format="ExcelML">
-                        </ExportSettings>
+                       </ExportSettings>
                         <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false">
                             <Columns>
-                             <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" HeaderStyle-Width="133px" ShowFilterIcon="false"
-                                    AutoPostBackOnFilter="true" UniqueName="CustomerName" FooterText="Grand Total:"
-                                    FooterStyle-HorizontalAlign="Right">
+                                <telerik:GridBoundColumn  DataField="CustomerName" HeaderText="CustomerName" HeaderStyle-Width="146px"
+                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="CustomerName"
+                                    FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                            </telerik:GridBoundColumn>
-                                                                                          
+                                    
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="SystematicTransactionType" ShowFilterIcon="false"
                                     AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="SystematicTransactionType">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -280,21 +281,20 @@
                                        UniqueName="AMCname">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>--%>
-                                <telerik:GridBoundColumn DataField="SchemePlaneName" HeaderStyle-Width="200px" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                    HeaderText="Scheme" UniqueName="SchemePlaneName">
+                                <telerik:GridBoundColumn DataField="SchemePlaneName" HeaderStyle-Width="200px" ShowFilterIcon="false"
+                                    AutoPostBackOnFilter="true" HeaderText="Scheme" UniqueName="SchemePlaneName">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="true" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="FolioNumber" HeaderText="Folio" ShowFilterIcon="false"
                                     AutoPostBackOnFilter="true" UniqueName="FolioNumber">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
-                               <%-- <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" ShowFilterIcon="false"
+                                <%-- <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" ShowFilterIcon="false"
                                     AutoPostBackOnFilter="true" UniqueName="CustomerName" FooterText="Grand Total:"
                                     FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>--%>
-                                 
-                                  <%--<telerik:RadComboBox ID="RadComboBoxSip" runat="server" width ="120px" CssClass="cmbField" OnClientSelectedIndexChanged="SipIndexChanged" AutoPostBack="true" >
+                                <%--<telerik:RadComboBox ID="RadComboBoxSip" runat="server" width ="120px" CssClass="cmbField" OnClientSelectedIndexChanged="SipIndexChanged" AutoPostBackOnFilter="true" AutoPostBack="true" >
                                            <Items>
                                             <telerik:RadComboBoxItem Text="Select" Value="Select"
                                                 Selected="true"></telerik:RadComboBoxItem>
@@ -313,67 +313,68 @@
                                         tableView.filter("Select", args.get_item().get_text(), 1);
                                     } 
                                 </script> 
-                                 </telerik:RadScriptBlock> --%>                        
-                                                                                                               
-                                <telerik:GridDateTimeColumn SortExpression="StartDate" DataField="StartDate" HeaderStyle-Width="146px" ShowFilterIcon="false"
-                                  AllowFiltering="false"  AutoPostBackOnFilter="true" DataFormatString="{0:dd/MM/yyyy}" HeaderText="Start Date" 
-                                    UniqueName="StartDate">
+                                 </telerik:RadScriptBlock> --%>
+                                <telerik:GridDateTimeColumn SortExpression="StartDate" DataField="StartDate" HeaderStyle-Width="85px"
+                                    ShowFilterIcon="false" AllowFiltering="false" AutoPostBackOnFilter="true" DataFormatString="{0:dd/MM/yyyy}"
+                                    HeaderText="Start Date" UniqueName="StartDate">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="false" />
-                                     <FilterTemplate>
-                                <telerik:RadDatePicker ID="StartDateFilter" AutoPostBack="true" runat="server">
-                                </telerik:RadDatePicker>
-                            </FilterTemplate>
+                                    <FilterTemplate>
+                                        <telerik:RadDatePicker ID="StartDateFilter" AutoPostBack="true" runat="server">
+                                        </telerik:RadDatePicker>
+                                    </FilterTemplate>
                                 </telerik:GridDateTimeColumn>
-                                <telerik:GridDateTimeColumn DataField="EndDate" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="146px"
-                                    ShowFilterIcon="false" AllowFiltering="false"  AutoPostBackOnFilter="true" HeaderText="End Date" UniqueName="EndDate"
-                                    SortExpression="EndDate">
+                                <telerik:GridDateTimeColumn DataField="EndDate" DataFormatString="{0:dd/MM/yyyy}"
+                                    HeaderStyle-Width="85px" ShowFilterIcon="false" AllowFiltering="false" AutoPostBackOnFilter="true"
+                                    HeaderText="End Date" UniqueName="EndDate" SortExpression="EndDate">
                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Wrap="false" />
-                                     <FilterTemplate>
-                                <telerik:RadDatePicker ID="EndDateFilter" AutoPostBack="true" runat="server">
-                                </telerik:RadDatePicker>
-                            </FilterTemplate>
+                                    <FilterTemplate>
+                                        <telerik:RadDatePicker ID="EndDateFilter" AutoPostBack="true" runat="server">
+                                        </telerik:RadDatePicker>
+                                    </FilterTemplate>
                                 </telerik:GridDateTimeColumn>
-                                <telerik:GridBoundColumn DataField="Frequency" HeaderText="Frequency" ShowFilterIcon="false"
-                                    AutoPostBackOnFilter="true" UniqueName="Frequency">
-                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridDateTimeColumn DataField="NextSystematicDate" HeaderText="Next Date" HeaderStyle-Width="146px"
-                                    ShowFilterIcon="false" AllowFiltering="false"  AutoPostBackOnFilter="false" DataFormatString="{0:dd/MM/yyyy}"
-                                    UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
-                                    <ItemStyle  HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridDateTimeColumn>
-                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" DataField="Amount"
-                                    DataType="System.Decimal" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                    HeaderText="Amount" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
-                                    UniqueName="Amount">
-                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridDateTimeColumn DataField="CeaseDate" DataFormatString="{0:d}" HeaderStyle-Width="146px" ShowFilterIcon="false" 
-                                    AllowFiltering="false"  AutoPostBackOnFilter="true" HeaderText="Cease Date" UniqueName="CeaseDate" SortExpression="CeaseDate">
+                                 <telerik:GridDateTimeColumn DataField="CeaseDate" DataFormatString="{0:d}" HeaderStyle-Width="85px"
+                                    ShowFilterIcon="false" AllowFiltering="false" AutoPostBackOnFilter="true" HeaderText="Cease Date"
+                                    UniqueName="CeaseDate" SortExpression="CeaseDate">
                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Wrap="false" />
                                     <FilterTemplate>
                                         <telerik:RadDatePicker ID="CeaseDateFilter" AutoPostBack="true" runat="server">
                                         </telerik:RadDatePicker>
                                     </FilterTemplate>
                                 </telerik:GridDateTimeColumn>
+                                <telerik:GridBoundColumn DataField="Frequency" HeaderText="Frequency" ShowFilterIcon="false"
+                                    AutoPostBackOnFilter="true" UniqueName="Frequency">
+                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridDateTimeColumn DataField="NextSystematicDate" HeaderText="Next Date"
+                                    HeaderStyle-Width="85px" ShowFilterIcon="false" AllowFiltering="false" AutoPostBackOnFilter="false"
+                                    DataFormatString="{0:dd/MM/yyyy}" UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
+                                    <ItemStyle HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridDateTimeColumn>
+                                <telerik:GridBoundColumn Aggregate="Sum" AllowFiltering="false" DataField="Amount" HeaderStyle-Width="85px"
+                                    DataType="System.Decimal" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                    HeaderText="Amount" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
+                                    UniqueName="Amount">
+                                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                               
                                 <telerik:GridBoundColumn DataField="REMARKS" HeaderText="Remarks" ShowFilterIcon="false"
                                     AutoPostBackOnFilter="true" UniqueName="REMARKS">
                                     <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                             </Columns>
-                           <HeaderStyle Width="100px" />
-                                                   
+                            <HeaderStyle Width="100px" />
                         </MasterTableView>
                         <ClientSettings>
-                            <Scrolling AllowScroll="false" UseStaticHeaders="True" SaveScrollPosition="true"
-                                FrozenColumnsCount="1"></Scrolling>
-                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                            <Resizing AllowColumnResize="true" />
-                           
-                        </ClientSettings>
-                    </telerik:RadGrid>
-                </telerik:RadAjaxPanel>
-            </div>
+                      
+                       <Scrolling AllowScroll="false" UseStaticHeaders="True" SaveScrollPosition="true"
+                       FrozenColumnsCount="1"></Scrolling>
+                       <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" UseClientSelectColumnOnly />
+                      <Resizing AllowColumnResize="true" />
+                        </ClientSettings> 
+                       </telerik:RadGrid> 
+                                     
+          </telerik:RadAjaxPanel>            
+         </div>
         </telerik:RadPageView>
         <telerik:RadPageView ID="RadPageView2" runat="server">
             <asp:Panel ID="pnlCalenderSummaryView" runat="server" Width="100%">
@@ -386,23 +387,24 @@
                     </tr>
                 </table>
                 <asp:ImageButton ID="btnExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportSummary_OnClick" 
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportSummary_OnClick"
                     Height="25px" Width="25px"></asp:ImageButton>
-                <telerik:RadGrid ID="reptCalenderSummaryView" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false"
+                  
+                     <telerik:RadGrid ID="reptCalenderSummaryView" runat="server" GridLines="Both" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true" 
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" AllowAutomaticDeletes="True"
                     AllowAutomaticInserts="false" OnItemDataBound="reptCalenderSummaryView_ItemDataBound"
                     OnPreRender="reptCalenderSummaryView_PreRender">
-                    <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                    <PagerStyle Mode="NextPrevAndNumeric" ></PagerStyle>
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                        FileName="CalenderSummary Details" Excel-Format="ExcelML">
+                                    FileName="CalenderSummary Details" Excel-Format="ExcelML">
                     </ExportSettings>
                     <MasterTableView Width="100%" ExpandCollapseColumn-ButtonType="ImageButton">
                         <Columns>
-                            <telerik:GridBoundColumn DataField="Year" HeaderText="Year" UniqueName="Year" FooterText="Grand Total: ">
+                            <telerik:GridBoundColumn DataField="Year" HeaderText="Year" UniqueName="Year" HeaderStyle-Width="90px" FooterText="Grand Total: ">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="FinalMonth" HeaderText="Month" UniqueName="FinalMonth">
+                            <telerik:GridBoundColumn DataField="FinalMonth" HeaderText="Month" HeaderStyle-Width="90px" UniqueName="FinalMonth">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <%--<telerik:GridTemplateColumn HeaderText="SIP Amount" UniqueName="SIPAmount"  ItemStyle-HorizontalAlign="Right">
@@ -413,12 +415,12 @@
                         <asp:Label runat="server" ID="lblSIPAmountFooter" Text=""></asp:Label>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>--%>
-                            <telerik:GridBoundColumn Aggregate="sum" DataField="SIPAmount" DataType="System.Decimal"
+                            <telerik:GridBoundColumn Aggregate="sum" DataField="SIPAmount" HeaderStyle-Width="90px" DataType="System.Decimal"
                                 HeaderText="SIP Amount" UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right"
                                 DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Aggregate="Sum" DataField="NoOfSIP" HeaderText="No. of SIPs"
+                            <telerik:GridBoundColumn Aggregate="Sum" DataField="NoOfSIP"  HeaderStyle-Width="90px" HeaderText="No. of SIPs"
                                 DataFormatString="{0:N0}" UniqueName="SIPAmount" DataType="System.Int16" FooterText=""
                                 FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
@@ -431,7 +433,7 @@
                         <asp:Label runat="server" ID="lblNoOfFreshSIPFooter" Text=""></asp:Label>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>--%>
-                            <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSIP" DataType="System.Int16"
+                            <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSIP" HeaderStyle-Width="90px" DataType="System.Int16"
                                 HeaderText="No. of Fresh SIPs" UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right"
                                 DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
@@ -444,7 +446,7 @@
                         <asp:Label runat="server" ID="lblSWPAmountFooter" Text=""></asp:Label>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>--%>
-                            <telerik:GridBoundColumn Aggregate="sum" DataField="SWPAmount" DataType="System.Decimal"
+                            <telerik:GridBoundColumn Aggregate="sum" DataField="SWPAmount" HeaderStyle-Width="90px" DataType="System.Decimal"
                                 HeaderText="SWP Amount" UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right"
                                 DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
@@ -457,7 +459,7 @@
                         <asp:Label runat="server" ID="lblNoOfSWPFooter" Text=""></asp:Label>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>--%>
-                            <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfSWP" DataType="System.Int16"
+                            <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfSWP" HeaderStyle-Width="90px" DataType="System.Int16"
                                 HeaderText="No. of SWPs" UniqueName="NoOfSWP" FooterText="" FooterStyle-HorizontalAlign="Right"
                                 DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
@@ -470,23 +472,34 @@
                         <asp:Label runat="server" ID="lblNoOfFreshSWPFooter" Text=""></asp:Label>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>--%>
-                            <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSWP" DataType="System.Decimal"
+                            <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSWP"  HeaderStyle-Width="90px" DataType="System.Decimal"
                                 HeaderText="No. of fresh SWPs" UniqueName="NoOfFreshSWP" FooterText="" FooterStyle-HorizontalAlign="Right"
                                 DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                        </Columns>
+                                              </Columns>
                     </MasterTableView>
+                  
+                   <%-- <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
+                <ProgressTemplate>
+                <img alt="" src="upload_progress.gif"
+                style="width: 100px; height: 100px" />
+                </ProgressTemplate>
+              </asp:UpdateProgress>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        </asp:UpdatePanel>--%>
+       
                     <ClientSettings>
+                   <%-- <ClientEvents OnRowSelected="RowSelected" /> --%>
                         <Resizing AllowColumnResize="True"></Resizing>
                     </ClientSettings>
                 </telerik:RadGrid>
+                </ContentTemplate>
             </asp:Panel>
         </telerik:RadPageView>
     </telerik:RadMultiPage>
 </div>
-<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
-    visible="false">
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
     <tr>
         <td align="center">
             <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
@@ -494,6 +507,8 @@
         </td>
     </tr>
 </table>
+<%--<%--<asp:HiddenField ID="hdnALL" runat="server" />--%>
+
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
