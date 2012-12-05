@@ -67,6 +67,7 @@
     <Compile Include="AdvisorDao.cs" />
     <Compile Include="AdvisorLOBDao.cs" />
     <Compile Include="AdvisorMISDao.cs" />
+    <Compile Include="AdvisorPreferenceDao.cs" />
     <Compile Include="AdvisorStaffDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
