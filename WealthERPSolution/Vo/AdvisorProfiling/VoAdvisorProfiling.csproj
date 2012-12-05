@@ -54,6 +54,7 @@
     <Compile Include="AdvisorAssociateCommissionVo.cs" />
     <Compile Include="AdvisorBranchVo.cs" />
     <Compile Include="AdvisorLOBVo.cs" />
+    <Compile Include="AdvisorPreferenceVo.cs" />
     <Compile Include="AssociateCategoryVo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
