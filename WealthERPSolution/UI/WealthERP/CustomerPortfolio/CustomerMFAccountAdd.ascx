@@ -699,7 +699,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label24" runat="server" CssClass="FieldName" Text="Pan No.:"></asp:Label>
+            <asp:Label ID="Label24" runat="server" CssClass="FieldName" Text="PAN No.:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtPanNo" runat="server" CssClass="txtField"></asp:TextBox>
