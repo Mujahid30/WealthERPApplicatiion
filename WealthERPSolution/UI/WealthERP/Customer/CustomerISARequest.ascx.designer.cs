@@ -1085,6 +1085,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnAddEditCustomerProfile;
         
         /// <summary>
+        /// lnkbtnViewCustomerProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkbtnViewCustomerProfile;
+        
+        /// <summary>
         /// lblStatusStage3 control.
         /// </summary>
         /// <remarks>

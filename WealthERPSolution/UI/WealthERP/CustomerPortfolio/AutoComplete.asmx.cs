@@ -408,10 +408,18 @@ namespace WealthERP.CustomerPortfolio
         {
             CustomerBo customerBo = new CustomerBo();
             DataTable dtCustomerName = new DataTable();
-            int i = 0;
+           
+            int selectedParentId = 0;
+            int rmId = 0;
+            string[] splitStr = contextKey.Split('|');
+            rmId = int.Parse(splitStr[0].ToString());
+            selectedParentId = int.Parse(splitStr[1].ToString());
             List<string> names = new List<string>();
 
-            dtCustomerName = customerBo.GetAdviserAllCustomerForAssociations(prefixText, int.Parse(contextKey));
+            dtCustomerName = customerBo.GetAdviserAllCustomerForAssociations(prefixText, rmId, selectedParentId);
+
+
+            //dtCustomerName = customerBo.GetAdviserAllCustomerForAssociations(prefixText, int.Parse(contextKey));
             foreach (DataRow dr in dtCustomerName.Rows)
             {
 
@@ -426,10 +434,16 @@ namespace WealthERP.CustomerPortfolio
         {
             CustomerBo customerBo = new CustomerBo();
             DataTable dtCustomerName = new DataTable();
-            int i = 0;
             List<string> names = new List<string>();
 
-            dtCustomerName = customerBo.GetBMParentCustomers(prefixText, int.Parse(contextKey));
+            int selectedParentId = 0;
+            int rmId = 0;
+            string[] splitStr = contextKey.Split('|');
+            rmId = int.Parse(splitStr[0].ToString());
+            selectedParentId = int.Parse(splitStr[1].ToString());
+
+
+            dtCustomerName = customerBo.GetBMParentCustomers(prefixText, rmId, selectedParentId);           
             //string[] customerNameList = new string[dtCustomerName.Rows.Count];
 
             foreach (DataRow dr in dtCustomerName.Rows)

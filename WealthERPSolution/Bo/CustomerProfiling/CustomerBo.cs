@@ -2823,14 +2823,14 @@ namespace BoCustomerProfiling
             return result;
         }
 
-        public DataTable GetBMParentCustomers(string prefixText, int bmId)
+        public DataTable GetBMParentCustomers(string prefixText, int bmId, int parentId)
         {
             CustomerDao customerDao = new CustomerDao();
 
             DataTable dtCustomerNames = new DataTable();
             try
             {
-                dtCustomerNames = customerDao.GetBMParentCustomers(prefixText, bmId);
+                dtCustomerNames = customerDao.GetBMParentCustomers(prefixText, bmId,parentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2839,14 +2839,14 @@ namespace BoCustomerProfiling
            
             return dtCustomerNames;
         }
-        public DataTable GetAdviserAllCustomerForAssociations(string prefixText, int adviserId)
+        public DataTable GetAdviserAllCustomerForAssociations(string prefixText, int adviserId,int parentId)
         {
             CustomerDao customerDao = new CustomerDao();
 
             DataTable dtCustomerNames = new DataTable();
             try
             {
-                dtCustomerNames = customerDao.GetAdviserAllCustomerForAssociations(prefixText, adviserId);
+                dtCustomerNames = customerDao.GetAdviserAllCustomerForAssociations(prefixText, adviserId,parentId);
             }
             catch (BaseApplicationException Ex)
             {

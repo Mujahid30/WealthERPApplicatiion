@@ -533,7 +533,7 @@
                 </div>
                 <div style="width: 100%; padding-left: 10px; padding-top: 5px;">
                     <telerik:RadGrid ID="gvISAAccountList" runat="server" CssClass="RadGrid" GridLines="Both"
-                        Width="90%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                        Width="70%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
                         ShowStatusBar="true" AllowAutomaticDeletes="True" Skin="Telerik" OnItemDataBound="gvISAAccountList_ItemDataBound"
                         OnNeedDataSource="gvISAAccountList_NeedDataSource" OnItemCommand="gvISAAccountList_ItemCommand">
                         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">

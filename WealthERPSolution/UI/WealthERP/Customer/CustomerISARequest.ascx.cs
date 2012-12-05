@@ -647,6 +647,7 @@ namespace WealthERP.Customer
                     //txtStatus3.Text = ddlStatusStage3.SelectedItem.ToString();
                     //txtClosingDate3.Text = DateTime.Now.ToShortDateString();
                     //HideAndShowBasedOnRole("Ops", "VERIfY", ddlStatusStage3.SelectedValue, int.Parse(txtGenerateReqstNum.Text));
+                    lnkbtnViewCustomerProfile.Visible = true;
                 }
                 else
                 {
@@ -827,6 +828,7 @@ namespace WealthERP.Customer
 
                         trStepFiveHeading.Visible = false;
                         trStepFiveContent.Visible = false;
+                        lnkbtnViewCustomerProfile.Visible = false;
                     }
 
                     break;
@@ -853,6 +855,8 @@ namespace WealthERP.Customer
 
                         trStepFiveHeading.Visible = false;
                         trStepFiveContent.Visible = false;
+
+                        lnkbtnViewCustomerProfile.Visible = false;
                     }
 
                     break;
@@ -865,6 +869,7 @@ namespace WealthERP.Customer
                         ddlBackToStepStage2.Enabled = true;
                         txtComments.Enabled = true;
                         btnSubmitStage2.Visible = true;
+                        lnkbtnViewCustomerProfile.Visible = false;
 
                     }
                     break;
@@ -880,6 +885,8 @@ namespace WealthERP.Customer
                         lnkbtnAddEditCustomerProfile.Visible = true;
                         btnSubmitStage3.Visible = true;
 
+                        lnkbtnViewCustomerProfile.Visible = false;
+
                     }
                     break;
                 case 4:
@@ -891,7 +898,9 @@ namespace WealthERP.Customer
                         txtAddcommentsStage4.Enabled = true;
 
                         btnSubmitStage4.Visible = true;
-                        lnkbtnAddEditCustomerProfile.Visible = true;
+                        lnkbtnAddEditCustomerProfile.Visible = false;
+
+                        lnkbtnViewCustomerProfile.Visible = true;
                     }
                     break;
                 case 5:

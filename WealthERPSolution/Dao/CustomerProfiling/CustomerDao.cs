@@ -5150,7 +5150,7 @@ namespace DaoCustomerProfiling
             return result;
         }
 
-        public DataTable GetBMParentCustomers(string prefixText, int bmId)
+        public DataTable GetBMParentCustomers(string prefixText, int bmId, int parentId)
         {
 
             Database db;
@@ -5165,6 +5165,7 @@ namespace DaoCustomerProfiling
                 cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetBMParentCustomers");
                 db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
                 db.AddInParameter(cmdGetCustomerNames, "@AB_BranchId", DbType.Int32, bmId);
+                db.AddInParameter(cmdGetCustomerNames, "@selectedParentId", DbType.Int32, parentId);
                 dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
                 dtCustomerNames = dsCustomerNames.Tables[0];
 
@@ -5177,7 +5178,7 @@ namespace DaoCustomerProfiling
             return dtCustomerNames;
         }
 
-        public DataTable GetAdviserAllCustomerForAssociations(string prefixText, int adviserId)
+        public DataTable GetAdviserAllCustomerForAssociations(string prefixText, int adviserId, int parentId)
         {
 
             Database db;
@@ -5192,6 +5193,8 @@ namespace DaoCustomerProfiling
                 cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetAdviserAllCustomerForAssociations");
                 db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
                 db.AddInParameter(cmdGetCustomerNames, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetCustomerNames, "@selectedParentId", DbType.Int32,parentId);
+                
                 dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
                 dtCustomerNames = dsCustomerNames.Tables[0];
 

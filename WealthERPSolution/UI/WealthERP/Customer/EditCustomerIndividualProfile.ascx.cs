@@ -84,6 +84,12 @@ namespace WealthERP.Customer
                     RadTabStripCustomerProfile.Tabs[1].Visible = false;
                 }
 
+                if (Session["LinkAction"] != null && Session["LinkAction"].ToString().Trim() == "ViewEditProfile")
+                {
+                    Session["action"] = "View";
+                    viewForm = Session["action"].ToString();
+                    SetControlstate(viewForm);
+                }
                 if (Session["LinkAction"] != null && Session["LinkAction"].ToString().Trim() == "AddEditProfile")
                 {
                     gvFamilyAssociate.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
@@ -91,6 +97,7 @@ namespace WealthERP.Customer
                     gvBankDetails.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.Top;
                     requestNo = customerAccountBo.GetRequestNo(customerVo.CustomerId);
                     hdnRequestId.Value = requestNo.ToString();
+                    Session["action"] = "Edit";
                 }
                 else
                 {
@@ -1138,7 +1145,7 @@ namespace WealthERP.Customer
             if (ddlMemberBranch.SelectedIndex == 0)
             {
 
-                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString() + "|" + customerVo.CustomerId;
                 txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerForAssociations";
 
                 //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -1148,7 +1155,7 @@ namespace WealthERP.Customer
             {
                 //txtMember_autoCompleteExtender.ContextKey = ddlMemberBranch.SelectedValue.ToString();
                 //txtMember_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-                txtMember_autoCompleteExtender.ContextKey = ddlMemberBranch.SelectedValue;
+                txtMember_autoCompleteExtender.ContextKey = ddlMemberBranch.SelectedValue + "|" + customerVo.CustomerId;
                 txtMember_autoCompleteExtender.ServiceMethod = "GetBMParentCustomers";
             }
 
@@ -1552,6 +1559,7 @@ namespace WealthERP.Customer
                 Button Button = (Button)sender;
 
                 GridEditableItem editedItem = Button.NamingContainer as GridEditableItem;
+                editedItem.OwnerTableView.IsItemInserted = false;  
                 RadioButton rbtnYes = editedItem.FindControl("rbtnYes") as RadioButton;
                 RadioButton rbtnNo = editedItem.FindControl("rbtnNo") as RadioButton;
                 RadioButton rbtnPOAYes = editedItem.FindControl("rbtnPOAYes") as RadioButton;
@@ -2042,7 +2050,7 @@ namespace WealthERP.Customer
                 HtmlTableRow trNewCustomer = editedItem.FindControl("trNewCustomer") as HtmlTableRow;
                 AutoCompleteExtender txtMember_autoCompleteExtender = editedItem.FindControl("txtMember_autoCompleteExtender") as AutoCompleteExtender;
 
-                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString() + "|" + customerVo.CustomerId;
                 txtMember_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerForAssociations";
 
                 //txtMember_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -2100,6 +2108,7 @@ namespace WealthERP.Customer
                 bool isUpdated = false;
                 string relationCode = string.Empty;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                gridEditableItem.OwnerTableView.IsItemInserted = false; 
                 int AssociationId = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CA_AssociationId"].ToString());
                 Button Button3 = (Button)e.Item.FindControl("Button3");
                 Button Button1 = (Button)e.Item.FindControl("Button1");
@@ -2135,7 +2144,7 @@ namespace WealthERP.Customer
                 Button Button3 = (Button)e.Item.FindControl("Button3");
                 Button Button1 = (Button)e.Item.FindControl("Button1");
 
-               
+                gridEditableItem.OwnerTableView.IsItemInserted = false; 
 
                 if (Button1.Visible == true)
                 {

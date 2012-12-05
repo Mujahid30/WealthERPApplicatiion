@@ -594,12 +594,29 @@
             alert("Please generate your request first");
             return false;
         }
+
+       
+        
     }
 
     
 
 </script>
 
+
+<script type="text/javascript">
+ function openpopup_View_CustomerDetails() {
+            if (document.getElementById("<%= txtGenerateReqstNum.ClientID %>").value != "") {
+                window.open('PopUp.aspx?PageId=EditCustomerIndividualProfile &LinkId=ViewEditProfile', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+                return false;
+            }
+
+            else {
+                alert("Please generate your request first");
+                return false;
+            }
+        }
+</script>
 <script type="text/javascript">
 
     function pageLoad() {
@@ -1402,6 +1419,9 @@
                             <td class="rightData">
                                 <asp:LinkButton ID="lnkbtnAddEditCustomerProfile" runat="server" Font-Size="X-Small"
                                     Text="Add/Edit Customer Profile" OnClientClick="return openpopupAdd_EditCustomerDetails()"></asp:LinkButton>
+                                    
+                                    <asp:LinkButton ID="lnkbtnViewCustomerProfile" runat="server" Font-Size="X-Small"
+                                    Text="View Customer Profile" OnClientClick="return openpopup_View_CustomerDetails()"></asp:LinkButton>
                             </td>
                             <td class="leftLabel">
                                 <asp:Label ID="lblStatusStage3" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
