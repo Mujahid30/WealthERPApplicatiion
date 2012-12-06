@@ -929,6 +929,7 @@ namespace WealthERP.FP
                 GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(customerVo.CustomerId, 1, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
                 if (GoalProfileList != null)
                 {
+                    imgBtnStandardGoalList.Visible = false;
                     trNote1.Visible = true;
                     trNote2.Visible = true;
                     BindGoalOutputGridView(GoalProfileList);

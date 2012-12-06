@@ -63,9 +63,9 @@
             <telerik:RadComboBox ID="ddlActionGoalType" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
                 Skin="Telerik" AllowCustomText="true" Width="120px">
                 <Items>
-                    <telerik:RadComboBoxItem Text="Standard" Value="Standard" Selected="true" runat="server">
+                    <telerik:RadComboBoxItem Text="Standard View" Value="Standard" Selected="true" runat="server">
                     </telerik:RadComboBoxItem>
-                    <telerik:RadComboBoxItem Text="Advanced" Value="Advanced" runat="server"></telerik:RadComboBoxItem>
+                    <telerik:RadComboBoxItem Text="Funding View" Value="Advanced" runat="server"></telerik:RadComboBoxItem>
                 </Items>
             </telerik:RadComboBox>
         </td>
@@ -91,7 +91,7 @@
                 <div id="dvHoldings" runat="server" style="width: 650px; padding: 4px">
                     <asp:GridView ID="gvGoalList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                         HorizontalAlign="Center" CellPadding="4" EnableViewState="True" AllowPaging="false"
-                        ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="GoalId,GoalCode,IsGoalBehind"
+                        ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="GoalId,GoalCode,IsGoalBehind" 
                         OnRowDataBound="gvGoalList_RowDataBound">
                         <FooterStyle CssClass="FooterStyle" />
                         <RowStyle CssClass="RowStyle" />
@@ -201,7 +201,7 @@
                                     </asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Investmnt Required-Lumpsum" HeaderStyle-HorizontalAlign="Center"
+                            <asp:TemplateField HeaderText="Investment Required-Lumpsum" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
                                     <asp:Label ID="lblLumpsumInvestment" runat="server" CssClass="cmbField" Text='<%#Eval("LumpsumInvestment")%>'>
@@ -426,7 +426,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn HeaderText="Rtn on Existing Invsetment(%)" DataField="ROIEarned"
+                                <telerik:GridTemplateColumn HeaderText="Rtn on Existing Investment(%)" DataField="ROIEarned"
                                     HeaderStyle-Width="10%" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
                                     ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
@@ -434,7 +434,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn HeaderText="Rtn on Future Invsetment(%)" DataField="ExpROI"
+                                <telerik:GridTemplateColumn HeaderText="Rtn on Future Investment(%)" DataField="ExpROI"
                                     AllowFiltering="false" HeaderStyle-Width="10%" HeaderStyle-HorizontalAlign="Center"
                                     ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
@@ -442,7 +442,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn HeaderText="Investmnt Required-Lumpsum" DataField="LumpsumInvestment"
+                                <telerik:GridTemplateColumn HeaderText="Investment Required-Lumpsum" DataField="LumpsumInvestment"
                                     Aggregate="Sum" FooterAggregateFormatString="{0:N0}" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
                                     ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
