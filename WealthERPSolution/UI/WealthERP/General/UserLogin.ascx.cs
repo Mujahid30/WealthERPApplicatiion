@@ -148,7 +148,7 @@ namespace WealthERP.General
             AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
             RMVo rmVo = new RMVo();
             AdvisorBo advisorBo = new AdvisorBo();
-            AdvisorVo advisorVo = new AdvisorVo();
+            //AdvisorVo advisorVo = new AdvisorVo();
             CustomerBo customerBo = new CustomerBo();
             CustomerVo customerVo = new CustomerVo();
 
@@ -1311,12 +1311,12 @@ namespace WealthERP.General
                             isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
                             if (isGrpHead == true)
                             {
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('AdvisorRMCustGroupDashboard','login');", true);
+                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('CustomerDashBoardShortcut','login');", true);
                                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustGroupDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                             }
                             else
                             {
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('AdvisorRMCustIndiDashboard','login');", true);
+                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('CustomerDashBoardShortcut','login');", true);
                                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                             }
                         }
