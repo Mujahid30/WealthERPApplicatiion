@@ -29,12 +29,24 @@ namespace WealthERP.BusinessMIS
 
         private void BindMfDashBoard()
         {
+            string preMonth = string.Empty;
+            string currMonth = string.Empty;
+            int i, j;
             DataSet dsMFDashBoard = new DataSet();
-            dsMFDashBoard=adviserMFMIS.GetMFDashBoard(advisorVo.advisorId);
+            dsMFDashBoard=adviserMFMIS.GetMFDashBoard(advisorVo.advisorId,out i);
+            //i = DateTime.Now.Month;
+            if (i == 1)
+                j = 12;
+            else
+                j = i - 1;
             /* Bind mf dashboard count grid*/
             if (dsMFDashBoard.Tables[0].Rows.Count > 0)
             {
                 gvMFDashboardCount.DataSource = dsMFDashBoard.Tables[0];
+                GridBoundColumn gvItemPrev = gvMFDashboardCount.MasterTableView.Columns.FindByUniqueName("PreviousCount") as GridBoundColumn;
+                GridBoundColumn gvItemCurr = gvMFDashboardCount.MasterTableView.Columns.FindByUniqueName("CurrentCount") as GridBoundColumn;
+                gvItemPrev.HeaderText = preMonth = GetMonthName(j);
+                gvItemCurr.HeaderText = currMonth = GetMonthName(i);
                 gvMFDashboardCount.DataBind();
                 gvMFDashboardCount.Visible = true;
             }
@@ -42,12 +54,20 @@ namespace WealthERP.BusinessMIS
             if (dsMFDashBoard.Tables[1].Rows.Count > 0)
             {
                 gvMFDashboardAmount.DataSource = dsMFDashBoard.Tables[1];
+                GridBoundColumn gvItemPrev = gvMFDashboardAmount.MasterTableView.Columns.FindByUniqueName("CostPrevious") as GridBoundColumn;
+                GridBoundColumn gvItemCurr = gvMFDashboardAmount.MasterTableView.Columns.FindByUniqueName("CostCurrent") as GridBoundColumn;
+                gvItemPrev.HeaderText = preMonth = GetMonthName(j);
+                gvItemCurr.HeaderText = currMonth = GetMonthName(i);
                 gvMFDashboardAmount.DataBind();
                 gvMFDashboardAmount.Visible = true;
             }
             if (dsMFDashBoard.Tables[6]!=null)
             {
                 gvAUM.DataSource = dsMFDashBoard.Tables[6];
+                GridBoundColumn gvItemPrev = gvAUM.MasterTableView.Columns.FindByUniqueName("CostPrevious") as GridBoundColumn;
+                GridBoundColumn gvItemCurr = gvAUM.MasterTableView.Columns.FindByUniqueName("CostCurrent") as GridBoundColumn;
+                gvItemPrev.HeaderText = preMonth = GetMonthName(j);
+                gvItemCurr.HeaderText = currMonth = GetMonthName(i);
                 gvAUM.DataBind();
                 gvAUM.Visible = true;
             }
@@ -305,6 +325,52 @@ namespace WealthERP.BusinessMIS
                     gvSubcategory.DataBind();
                 }
             /* END*/
+        }
+
+        private string GetMonthName(int i)
+        {
+            string monthName=string.Empty;
+            switch (i)
+            {
+                case 1:
+                    monthName = "Jan";
+                    break; 
+                case 2:
+                    monthName = "Feb";
+                    break;
+                case 3:
+                    monthName = "Mar";
+                    break;
+                case 4:
+                    monthName = "Apr";
+                    break;
+                case 5:
+                    monthName = "May";
+                    break;
+                case 6:
+                    monthName = "Jun";
+                    break;
+                case 7:
+                    monthName = "Jul";
+                    break;
+                case 8:
+                    monthName = "Aug";
+                    break;
+                case 9:
+                    monthName = "Sep";
+                    break;
+                case 10:
+                    monthName = "Oct";
+                    break;
+                case 11:
+                    monthName = "Nov";
+                    break;
+                case 12:
+                    monthName = "Dec";
+                    break;
+
+            }
+            return monthName;
         }
 
         protected void lnkSchemeNavi_Click(object sender, EventArgs e)
