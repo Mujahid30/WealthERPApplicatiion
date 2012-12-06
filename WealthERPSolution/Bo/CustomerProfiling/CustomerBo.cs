@@ -2629,13 +2629,13 @@ namespace BoCustomerProfiling
             }
             return dsGetExceptionList;
         }
-        public DataSet GetExceptionType()
+        public DataSet GetExceptionType(bool isISA)
         {
             DataSet dsGetExceptionType = new DataSet();
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                dsGetExceptionType = customerDao.GetExceptionType();
+                dsGetExceptionType = customerDao.GetExceptionType(isISA);
             }
             catch (BaseApplicationException Ex)
             {

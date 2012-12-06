@@ -4061,7 +4061,7 @@ namespace DaoCustomerProfiling
             }
             return bResult;
         }
-        public DataSet GetExceptionType()
+        public DataSet GetExceptionType(bool isISA)
         {
             Database db;
             DataSet dsGetExceptionType = new DataSet();
@@ -4072,6 +4072,7 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //Adding Data to the table 
                 cmdGetExceptionType = db.GetStoredProcCommand("GetExceptionType");
+                db.AddInParameter(cmdGetExceptionType, "@isISA", DbType.Boolean, isISA);
                 dsGetExceptionType = db.ExecuteDataSet(cmdGetExceptionType);
             }
             catch (BaseApplicationException Ex)
