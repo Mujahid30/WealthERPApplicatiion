@@ -399,7 +399,7 @@
             &nbsp;
         </td>
     </tr>
-    <tr>
+    <tr style="display:none">
         <td style="width: 100%;" colspan="2">
             <table style="width: 500px;">
                 <tr>
