@@ -131,10 +131,10 @@
         var options = document.getElementById(chkControlId).getElementsByTagName('input');
         var ischecked = false;
         for (i = 0; i < options.length; i++) {
-            var opt = options[i];
+               var opt = options[i];
             if (opt.type == "checkbox") {
                 if (opt.checked == true) {
-
+                    alert(options.length);
                     ischecked = true;
                     document.getElementById("<%= chkOps.ClientID %>").disabled = true;
                     document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
@@ -158,7 +158,7 @@
         var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
 
         if (chk4ops.checked == true) {
-            
+         
             document.getElementById("<%= availableBranch.ClientID %>").disabled = true;
             document.getElementById("<%= associatedBranch.ClientID %>").disabled = true;
             document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = true;
@@ -202,10 +202,7 @@
             }
         }
     }
-    function CheckSubscription() {
    
-        document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
-    }
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
