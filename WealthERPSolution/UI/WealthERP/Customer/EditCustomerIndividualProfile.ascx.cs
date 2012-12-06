@@ -89,6 +89,11 @@ namespace WealthERP.Customer
                     Session["action"] = "View";
                     viewForm = Session["action"].ToString();
                     SetControlstate(viewForm);
+                    rbtnNonIndividual.Visible = false;
+                }
+                else
+                {
+                    rbtnNonIndividual.Visible = true;
                 }
                 if (Session["LinkAction"] != null && Session["LinkAction"].ToString().Trim() == "AddEditProfile")
                 {
@@ -98,6 +103,7 @@ namespace WealthERP.Customer
                     requestNo = customerAccountBo.GetRequestNo(customerVo.CustomerId);
                     hdnRequestId.Value = requestNo.ToString();
                     Session["action"] = "Edit";
+                    rbtnNonIndividual.Visible = false;
                 }
                 else
                 {
@@ -105,6 +111,7 @@ namespace WealthERP.Customer
                     {
                         viewForm = Session["action"].ToString();
                         SetControlstate(viewForm);
+                       
                     }
                 }
                 if (!IsPostBack)
