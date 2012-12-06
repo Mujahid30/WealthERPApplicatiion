@@ -2670,18 +2670,18 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
-                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            //crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "NetWorth Report";
+                                Headername = "Comprehensive NetWorth Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
                             {
-                                Headername = "NetWorth Report";
+                                Headername = "Comprehensive NetWorth Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             CrystalReportViewer1.ReportSource = crmain;
