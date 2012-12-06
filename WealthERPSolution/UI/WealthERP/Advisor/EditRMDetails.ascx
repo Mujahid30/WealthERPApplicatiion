@@ -134,7 +134,7 @@
                var opt = options[i];
             if (opt.type == "checkbox") {
                 if (opt.checked == true) {
-                    alert(options.length);
+                   
                     ischecked = true;
                     document.getElementById("<%= chkOps.ClientID %>").disabled = true;
                     document.getElementById("<%= availableBranch.ClientID %>").disabled = false;

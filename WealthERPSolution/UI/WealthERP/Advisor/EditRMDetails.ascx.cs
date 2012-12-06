@@ -712,27 +712,34 @@ namespace WealthERP.Advisor
             BindBranchAssociation();
             if (rmVo.RMRole == "Ops")
             {
-                trCKMK.Visible = true;
-                bool Value;
-                foreach (ListItem Items in CheckListCKMK.Items)
+                if (advisorVo.IsISASubscribed == true)
                 {
-
-                    Value = userBo.CheckCheckerMaker(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
-                    if (Value == true)
+                    chkOps.Checked = true;
+                    trCKMK.Visible = true;
+                    bool Value;
+                    foreach (ListItem Items in CheckListCKMK.Items)
                     {
-                       
-                        CheckListCKMK.Items.FindByText(Items.Text).Selected = true;
+
+                        Value = userBo.CheckCheckerMaker(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                        if (Value == true)
+                        {
+
+                            CheckListCKMK.Items.FindByText(Items.Text).Selected = true;
+                        }
+                        else
+                        {
+
+                        }
                     }
-                    else
-                    {
-                      
-                    }
-
-
-
                 }
-            }
+                else
+                {
+                    trCKMK.Visible = false;
+                }
 
+                
+            }
+           
 
 
             else
