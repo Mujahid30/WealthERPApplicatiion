@@ -52,8 +52,6 @@ namespace WealthERP.Advisor
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
                 lblEmailDuplicate.Visible = false;
-                //chkRM.Visible = false;
-                //chkExternalStaff.Visible = false;advisorVo.IsISASubscribed.ToString()
                 setBranchList("N");
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
             }
@@ -492,60 +490,29 @@ namespace WealthERP.Advisor
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
-
-            //int i = 0;
-            //int j = 0,temp=0;
+         
             try
             {
-                //if (gvBranchList.Rows.Count != 0)
-                //{
-                //    foreach (GridViewRow gvr in this.gvBranchList.Rows)
-                //    {
-                //        if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
-                //        {
-                //            i = i + 1;
-                //            j = gvr.RowIndex;
-                //        }
-                //    }
-                //    if (i == 1)
-                //    {
-                //        ((RadioButton)gvBranchList.Rows[j].FindControl("rbtnMainBranch")).Checked = true;
-                //        CreateRM();
-                //    }
-                //    else if (i > 1)
-                //    {
-                //        foreach (GridViewRow row in gvBranchList.Rows)
-                //        {
-                //            if (((RadioButton)row.FindControl("rbtnMainBranch")).Checked)
-                //            {
-                //                temp = temp + 1;
-                //            }
-                //        }
-                //        if (temp == 0)
-                //        {
-                //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Please select the branch..!');", true);
-                //        }
-                //        else
-                //        {
+                
                 if (chkOps.Checked == true)
                 {
                     isOpsIsChecked = true;
                     CreateOps(isOpsIsChecked);
-                    if ((CheckListCKMK.Items[0].Selected == true) || (CheckListCKMK.Items[1].Selected != true))
+                    if ((CheckListCKMK.Items[0].Selected == true) || (CheckListCKMK.Items[1].Selected = true))
                         foreach (ListItem Items in CheckListCKMK.Items)
                         {
                             if (Items.Selected)
                             {
                                 if (Items.Text == "Checker")
                                 {
-                                    // Create Association for RM
-                                    userBo.CreateUserPermisionAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                                    // Create Association for checker
+                                    userBo.CreateUserPermisionAssociation(userVo.UserId, Int16.Parse(Items.Value.ToString()));
 
                                 }
                                 else if (Items.Text == "Maker")
                                 {
-                                    // Create Association for RM
-                                    userBo.CreateUserPermisionAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                                    // Create Association for Maker
+                                    userBo.CreateUserPermisionAssociation(userVo.UserId, Int16.Parse(Items.Value.ToString()));
                                 }
 
                             }
