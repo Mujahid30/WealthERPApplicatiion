@@ -173,7 +173,8 @@ namespace WealthERP.CustomerPortfolio
                     trSipChequeNo.Visible = true;
                     trPaymentMode.Visible = true;
                     trSystematicDate.Visible = false;
-
+                    
+                       
                 }
                 else if (ddlSystematicType.SelectedValue == "STP")
                 {
@@ -194,6 +195,17 @@ namespace WealthERP.CustomerPortfolio
 
                 BindPortfolioDropDown();
                 ddlportfolio.SelectedValue = hashRetainPreviousState["Portfolio"].ToString();
+                if (ddlportfolio.SelectedItem.Text != "MyPortfolio")
+                {
+                    if (ddlSystematicType.SelectedItem.Value == "SIP")
+                    {
+                        trSipAutoTranx.Visible = true;
+                    }
+                    else
+                    {
+                        trSipAutoTranx.Visible = false;
+                    }
+                }
                 schemePlanCode = int.Parse(hashRetainPreviousState["SchemeCode"].ToString());
                 BindFolioDropDown(int.Parse(ddlportfolio.SelectedValue.ToString()));
                 ddlFolioNumber.SelectedValue = folioId;
@@ -778,9 +790,9 @@ namespace WealthERP.CustomerPortfolio
                 ddlPeriodSelection.Enabled = true;
                 txtRegistrationDate.Enabled = true;
                 ddlPaymentMode.Visible = true;
-
+                
                 SipAutoTranx.Enabled = true;
-
+              
 
 
             }
@@ -1510,6 +1522,8 @@ namespace WealthERP.CustomerPortfolio
             {
                 trSipAutoTranx.Visible = true;
             }
+            else
+                trSipAutoTranx.Visible = false;
             if (txtSchemeCode.Value != "")
                 schemePlanCode = int.Parse(txtSchemeCode.Value);
             else
