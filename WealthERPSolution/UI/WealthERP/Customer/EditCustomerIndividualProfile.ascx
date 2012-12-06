@@ -706,7 +706,7 @@
                                                 <asp:Button ID="btnGenerateISA" runat="server" Text="Generate ISA" CssClass="PCGLongButton"
                                                     OnClick="btnGenerateISA_Click" ValidationGroup="GenerateISA" />
                                                 <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update ISA" %>'
-                                                    runat="server" CssClass="PCGLongButton" OnClick="btnUpdateISA_Click" ValidationGroup="btnSubmit">
+                                                    runat="server" CssClass="PCGLongButton" OnClick="btnUpdateISA_Click" ValidationGroup="GenerateISA">
                                                 </asp:Button>
                                                 <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                                                     CommandName="Cancel"></asp:Button>

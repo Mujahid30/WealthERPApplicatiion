@@ -1452,8 +1452,7 @@ namespace WealthERP.Customer
 
 
                 GridEditableItem editedItem = Button.NamingContainer as GridEditableItem;
-
-
+              
 
                 RadioButton rbtnYes = editedItem.FindControl("rbtnYes") as RadioButton;
                 RadioButton rbtnNo = editedItem.FindControl("rbtnNo") as RadioButton;
@@ -1463,10 +1462,10 @@ namespace WealthERP.Customer
                 Panel pnlJointholders = editedItem.FindControl("pnlJointholders") as Panel;
                 Button btnGenerateISA = editedItem.FindControl("btnGenerateISA") as Button;
 
-                BindCustomerISAAccountGrid();
+                //BindCustomerISAAccountGrid();
                 btnGenerateISA.Visible = false;
                 rbtnNo.Checked = true;
-
+               
                 if (rbtnYes.Checked)
                     customerISAAccountsVo.IsJointHolding = true;
                 else
@@ -1525,6 +1524,8 @@ namespace WealthERP.Customer
                 BindCustomerISAAccountGrid();
                 btnGenerateISA.Visible = false;
                 rbtnNo.Checked = true;
+                editedItem.OwnerTableView.ClearEditItems();
+                editedItem.OwnerTableView.OwnerGrid.Rebind(); 
             }
 
             catch (BaseApplicationException Ex)
