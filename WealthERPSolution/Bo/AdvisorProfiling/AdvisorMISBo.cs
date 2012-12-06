@@ -828,13 +828,13 @@ namespace BoAdvisorProfiling
         }
 
 
-        public DataSet GetMFDashBoard(int adviserId)
+        public DataSet GetMFDashBoard(int adviserId,out int i)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsMfDashBoard;
             try
             {
-                dsMfDashBoard = MISDao.GetMFDashBoard(adviserId);
+                dsMfDashBoard = MISDao.GetMFDashBoard(adviserId,out i);
             }
             catch (BaseApplicationException Ex)
             {

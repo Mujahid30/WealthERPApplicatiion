@@ -1170,18 +1170,22 @@ namespace DaoAdvisorProfiling
 
             return latestValuationDate;
         }
-        public DataSet GetMFDashBoard(int adviserId)
+        public DataSet GetMFDashBoard(int adviserId,out int i)
         {
             Database db;
             DbCommand getMFDashBoardCmd;
             DataSet dsGetMFDashBoard = null;
-
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getMFDashBoardCmd = db.GetStoredProcCommand("SP_GetMFDashBoard");
                 db.AddInParameter(getMFDashBoardCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddOutParameter(getMFDashBoardCmd, "@month", DbType.Int32, 0);
                 dsGetMFDashBoard = db.ExecuteDataSet(getMFDashBoardCmd);
+                if (!string.IsNullOrEmpty(db.GetParameterValue(getMFDashBoardCmd, "@month").ToString()))
+                    i = int.Parse(db.GetParameterValue(getMFDashBoardCmd, "@month").ToString());
+                else
+                    i = 0;
             }
             catch (BaseApplicationException Ex)
             {
