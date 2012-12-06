@@ -165,14 +165,15 @@ namespace WealthERP.Advisor
         }
         private void BindExceptionType()
         {
-
+            bool isISA;
             RMVo rmVo = new RMVo();
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int bmID = rmVo.RMId;
             try
             {
+                isISA = advisorVo.IsISASubscribed;
                 CustomerBo customerBo = new CustomerBo();
-                DataSet ds = customerBo.GetExceptionType();
+                DataSet ds = customerBo.GetExceptionType(isISA);
                 if (ds != null)
                 {
                     ddlExpType.DataSource = ds;
