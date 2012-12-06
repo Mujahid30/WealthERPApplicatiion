@@ -129,7 +129,7 @@ namespace WealthERP.Advisor
                 {
                     newrmVo = (RMVo)Session["rmVo"];
                 }
-                //Action = "Edit Profile";
+                Action = "Edit Profile";
                 SetStaffDetails();
                 SetControlstate(Action);
                 lnkEdit.Visible = false;
