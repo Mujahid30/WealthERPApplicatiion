@@ -712,6 +712,36 @@ namespace BoUser
 
             return hashUserAuthenticationDetails;
         }
+        public bool CheckCheckerMaker(int userId, int PermisionId)
+        {
+            bool bResult = false;
+            UserDao userDao = new UserDao();
+            try
+            {
+                bResult = userDao.CheckCheckerMaker(userId, PermisionId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserBo.cs:CreateRoleAssociation()");
+                object[] objects = new object[4];
+                objects[0] = userId;
+                objects[1] = PermisionId;
+                objects[2] = bResult;
+                objects[3] = userDao;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+        }
         
     }
 }
