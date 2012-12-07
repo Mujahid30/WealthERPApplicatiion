@@ -270,12 +270,12 @@ namespace BoOps
         }
 
 
-        public DataSet GetFolioForOrderEntry(int SchemeCode, int amcCode, int Fflag, int customerId)
+        public DataSet GetFolioForOrderEntry(int SchemeCode, int amcCode, int Fflag, int customerId,int IsaNo)
         {
             DataSet dsfolio;
             try
             {
-                dsfolio = operationDao.GetFolioForOrderEntry(SchemeCode, amcCode, Fflag, customerId);
+                dsfolio = operationDao.GetFolioForOrderEntry(SchemeCode, amcCode, Fflag, customerId, IsaNo);
             }
             catch (BaseApplicationException Ex)
             {
