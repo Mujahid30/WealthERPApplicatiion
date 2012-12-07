@@ -146,6 +146,9 @@
             <asp:RadioButton ID="rbtnMale" runat="server" CssClass="txtField" Text="Male" GroupName="rbtnGender" />
             <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female"
                 GroupName="rbtnGender" />
+                &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+            <asp:CheckBox ID="chkKYC" runat="server" CssClass="txtField" Text="MF KYC"
+                AutoPostBack="true" />    
         </td>
     </tr>
     <tr>
@@ -212,8 +215,7 @@
             <%--<asp:Label ID="lblMfKYC" runat="server" CssClass="FieldName" Text="MF KYC:"></asp:Label>--%>
         </td>
         <td class="rightField">
-        <asp:CheckBox ID="chkKYC" runat="server" CssClass="txtField" Text="MF KYC"
-                AutoPostBack="true" />
+        
             <%--<asp:RadioButton ID="rbtnkycYes" runat="server" CssClass="txtField" Text="Yes" GroupName="rbtnKYC" />
             <asp:RadioButton ID="rbtnKycNo" runat="server" CssClass="txtField" Text="No" Checked="true" GroupName="rbtnKYC" />--%>
         </td>
@@ -236,9 +238,9 @@
     </tr>
 </table>
 <telerik:RadTabStrip ID="RadTabStripCustomerProfile" runat="server" EnableTheming="True"
-    Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="CustomerProfileDetails">
+    Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="CustomerProfileDetails" SelectedIndex="0">
     <Tabs>
-        <telerik:RadTab runat="server" Text="Family Associates" Value="FamilyAssociates"
+        <telerik:RadTab runat="server" Text="Family Associates" Value="FamilyAssociates" 
             TabIndex="0">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="ISA Account" Value="ISAAccount" TabIndex="1">
