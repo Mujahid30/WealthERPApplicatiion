@@ -383,14 +383,14 @@ namespace WealthERP.Customer
             {
                 gvFamilyAssociate.DataSource = dtCustomerAssociates;
                 gvFamilyAssociate.DataBind();
-                if (Cache["gvFamilyAssociate" + userVo.UserId] == null)
+                if (Cache["gvFamilyAssociate" + userVo.UserId + customerVo.CustomerId] == null)
                 {
-                    Cache.Insert("gvFamilyAssociate" + userVo.UserId, dtCustomerAssociates);
+                    Cache.Insert("gvFamilyAssociate" + userVo.UserId + customerVo.CustomerId, dtCustomerAssociates);
                 }
                 else
                 {
-                    Cache.Remove("gvFamilyAssociate" + userVo.UserId);
-                    Cache.Insert("gvFamilyAssociate" + userVo.UserId, dtCustomerAssociates);
+                    Cache.Remove("gvFamilyAssociate" + userVo.UserId + customerVo.CustomerId);
+                    Cache.Insert("gvFamilyAssociate" + userVo.UserId + customerVo.CustomerId, dtCustomerAssociates);
                 }
                 trFamilyAssociates.Visible = true;
                 gvFamilyAssociate.Visible = true;
@@ -1319,14 +1319,14 @@ namespace WealthERP.Customer
             gvISAAccountList.DataSource = dtCustomerISAAccounts;
             gvISAAccountList.DataBind();
 
-            if (Cache["gvISAAccountList" + userVo.UserId] == null)
+            if (Cache["gvISAAccountList" + userVo.UserId + customerVo.CustomerId] == null)
             {
-                Cache.Insert("gvISAAccountList" + userVo.UserId, dtCustomerISAAccounts);
+                Cache.Insert("gvISAAccountList" + userVo.UserId + customerVo.CustomerId, dtCustomerISAAccounts);
             }
             else
             {
-                Cache.Remove("gvISAAccountList" + userVo.UserId);
-                Cache.Insert("gvISAAccountList" + userVo.UserId, dtCustomerISAAccounts);
+                Cache.Remove("gvISAAccountList" + userVo.UserId + customerVo.CustomerId);
+                Cache.Insert("gvISAAccountList" + userVo.UserId + customerVo.CustomerId, dtCustomerISAAccounts);
             }
 
         }
@@ -1740,14 +1740,14 @@ namespace WealthERP.Customer
                         dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
                     }
 
-                    if (Cache["gvDetailsForBank" + userVo.UserId] == null)
+                    if (Cache["gvDetailsForBank" + userVo.UserId + customerVo.CustomerId] == null)
                     {
-                        Cache.Insert("gvDetailsForBank" + userVo.UserId, dtCustomerBankAccounts);
+                        Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dtCustomerBankAccounts);
                     }
                     else
                     {
-                        Cache.Remove("gvDetailsForBank" + userVo.UserId);
-                        Cache.Insert("gvDetailsForBank" + userVo.UserId, dtCustomerBankAccounts);
+                        Cache.Remove("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId);
+                        Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dtCustomerBankAccounts);
                     }
                     gvBankDetails.DataSource = dtCustomerBankAccounts;
                     gvBankDetails.DataBind();
@@ -2091,18 +2091,18 @@ namespace WealthERP.Customer
         protected void gvBankDetails_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtGvBankDetails = new DataTable();
-            if (Cache["gvDetailsForBank" + userVo.UserId] != null)
+            if (Cache["gvDetailsForBank" + userVo.UserId + customerVo.CustomerId] != null)
             {
-                dtGvBankDetails = (DataTable)Cache["gvDetailsForBank" + userVo.UserId];
+                dtGvBankDetails = (DataTable)Cache["gvDetailsForBank" + userVo.UserId + customerVo.CustomerId];
                 gvBankDetails.DataSource = dtGvBankDetails;
             }
         }
         protected void gvFamilyAssociate_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtFamilyAssociate = new DataTable();
-            if (Cache["gvFamilyAssociate" + userVo.UserId] != null)
+            if (Cache["gvFamilyAssociate" + userVo.UserId + customerVo.CustomerId] != null)
             {
-                dtFamilyAssociate = (DataTable)Cache["gvFamilyAssociate" + userVo.UserId];
+                dtFamilyAssociate = (DataTable)Cache["gvFamilyAssociate" + userVo.UserId + customerVo.CustomerId];
                 gvFamilyAssociate.DataSource = dtFamilyAssociate;
             }
         }
@@ -2433,9 +2433,9 @@ namespace WealthERP.Customer
         protected void gvISAAccountList_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtGvBankDetails = new DataTable();
-            if (Cache["gvISAAccountList" + userVo.UserId] != null)
+            if (Cache["gvISAAccountList" + userVo.UserId + customerVo.CustomerId] != null)
             {
-                dtGvBankDetails = (DataTable)Cache["gvISAAccountList" + userVo.UserId];
+                dtGvBankDetails = (DataTable)Cache["gvISAAccountList" + userVo.UserId + customerVo.CustomerId];
                 gvISAAccountList.DataSource = dtGvBankDetails;
             }
         }
