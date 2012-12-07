@@ -118,6 +118,9 @@
                 <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtFromTran"
+                                    CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
+                                    runat="server" InitialValue="" ValidationGroup="btnSubmit"> </asp:RequiredFieldValidator>
         </td>
         <td>
             <asp:Label ID="lblToTran" Text="To" CssClass="Field" runat="server" />
@@ -131,7 +134,7 @@
                 TargetControlID="txtToTran" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>--%>
              <telerik:RadDatePicker ID="txtToTran" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" >
                 <Calendar ID="Calendar2"  runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
@@ -139,13 +142,16 @@
                 <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtToTran"
+                                    CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
+                                    runat="server" InitialValue="" ValidationGroup="btnSubmit"> </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtToTran"
-                ErrorMessage="To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
+                ErrorMessage="<br />To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
                 ControlToCompare="txtFromTran" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic">
             </asp:CompareValidator>
         </td>
         <td>
-            <asp:Button ID="btnViewTran" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewTran_Click" />
+            <asp:Button ID="btnViewTran" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnSubmit" OnClick="btnViewTran_Click" />
         </td>
     </tr>
 </table>
