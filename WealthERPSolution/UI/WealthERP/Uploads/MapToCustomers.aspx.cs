@@ -68,6 +68,12 @@ namespace WealthERP.Uploads
             advisorVo = (AdvisorVo)Session["advisorVo"];
             lblRefine.Visible = false;
             lblMessage.Text = "";
+            if (advisorVo.IsISASubscribed == true)
+            {
+
+                rdbtnCreateNewCust.Visible = false;
+            }
+
             string folioId = Convert.ToString(Request.Params["Folioid"]);
             if (folioId != null)
             {

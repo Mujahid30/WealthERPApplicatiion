@@ -113,6 +113,14 @@ namespace WealthERP.Uploads
 
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
+            if (adviserVo.IsISASubscribed == true)
+            {
+                ddlUploadType.Items.Remove(ddlUploadType.Items.FindByValue("PMFF"));
+                ddlUploadType.Items.Remove(ddlUploadType.Items.FindByValue("P"));
+             
+            }
+
+
             if (lastUploadDate != "")
             {
                 //DateTime dt = new DateTime();
