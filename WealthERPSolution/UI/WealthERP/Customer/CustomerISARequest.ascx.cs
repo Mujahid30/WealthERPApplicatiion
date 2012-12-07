@@ -73,6 +73,10 @@ namespace WealthERP.Customer
                     //txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                     HideAndShowBasedOnRole(requestId);
                     trExistingCustomer.Visible = false;
+                    if (currentUserRole == "bm")
+                    {
+                        EnableCurrentStep(0);
+                    }
                 }
                 else
                 {
