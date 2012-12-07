@@ -901,6 +901,7 @@ namespace WealthERP.OPS
         }
         private void BindFolioNumber(int Fflag)
         {
+            int IsaNo=3;
             DataSet dsgetfolioNo = new DataSet();
             DataTable dtgetfolioNo;
             try
@@ -911,14 +912,14 @@ namespace WealthERP.OPS
                     if (txtCustomerId.Value == "")
                         dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 1);
                     else
-                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value));
+                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value),IsaNo);
                 }
                 else
                 {
                     if (txtCustomerId.Value == "")
                         dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 0);
                     else
-                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value));
+                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value),IsaNo);
                 }
                 if (dsgetfolioNo.Tables.Count > 0)
                 {
