@@ -61,7 +61,7 @@ namespace WealthERP.OPS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             orderNumber = mfOrderBo.GetOrderNumber();
@@ -1003,13 +1003,20 @@ namespace WealthERP.OPS
         protected void ddlCustomerISAAccount_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataTable GetHoldersName = new DataTable();
-            GetHoldersName = customerBo.GetholdersName(int.Parse(ddlCustomerISAAccount.SelectedItem.Value.ToString()));
-            if (GetHoldersName.Rows.Count > 0)
+            if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
             {
-                gvJointHoldersList.DataSource = GetHoldersName;
-                gvJointHoldersList.DataBind();
-                gvJointHoldersList.Visible = true;
-                //pnlJointholders.Visible = true;
+                GetHoldersName = customerBo.GetholdersName(int.Parse(ddlCustomerISAAccount.SelectedItem.Value.ToString()));
+                if (GetHoldersName.Rows.Count > 0)
+                {
+                    gvJointHoldersList.DataSource = GetHoldersName;
+                    gvJointHoldersList.DataBind();
+                    gvJointHoldersList.Visible = true;
+                    //pnlJointholders.Visible = true;
+                }
+                else
+                {
+                    gvJointHoldersList.Visible = false;
+                }
             }
             else
             {
@@ -1064,11 +1071,12 @@ namespace WealthERP.OPS
         }
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification1", " CheckSubscription();", true);
+            
+           
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
                 //trJointHoldersList.Visible = false;
-               
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 ddlAMCList.Enabled = true;
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
@@ -1294,14 +1302,14 @@ namespace WealthERP.OPS
                     if (txtCustomerId.Value == "")
                         dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 1);
                     else
-                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value));
+                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value),int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
                 }
                 else
                 {
                     if (txtCustomerId.Value == "")
                         dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 0);
                     else
-                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value));
+                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
                 }
                 if (dsgetfolioNo.Tables[0].Rows.Count > 0)
                 {

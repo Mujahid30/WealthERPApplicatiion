@@ -50,8 +50,9 @@
 
     }
     function ShowIsa() {
-       
+
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
+      
         if (hdn == "True") {
 
             document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
@@ -209,7 +210,7 @@
         <td>
             <asp:DropDownList ID="ddlCustomerISAAccount" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlCustomerISAAccount_SelectedIndexChanged">
-            </asp:DropDownList>
+            </asp:DropDownList>&nbsp
             <asp:ImageButton ID="btnIsa" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Request ISA" OnClick="ISA_Onclick"
                 Height="15px" Width="15px"></asp:ImageButton>
@@ -366,8 +367,8 @@
             <asp:Label ID="lblApplicationNumber" runat="server" Text="Application Number: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox><span
-                id="Span1" class="spnRequiredField">*</span>
+            <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtApplicationNumber"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application number" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
