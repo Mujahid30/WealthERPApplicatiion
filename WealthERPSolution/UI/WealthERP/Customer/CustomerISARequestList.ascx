@@ -52,7 +52,7 @@
                 </exportsettings>
                 <mastertableview commanditemdisplay="None" datakeynames="AISAQ_RequestQueueid,WWFSM_StepCode,StatusCode">
                     <Columns>
-                        <telerik:GridTemplateColumn HeaderText="ISA RequestId" ItemStyle-HorizontalAlign="Right"
+                        <telerik:GridTemplateColumn HeaderText="ISA Request Id" ItemStyle-HorizontalAlign="Right"
                             HeaderStyle-Width="80px" AllowFiltering="true" DataField="AISAQ_RequestQueueid"
                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <ItemTemplate>
@@ -66,11 +66,11 @@
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="AISAQ_date" AllowFiltering="false" HeaderStyle-Width="130px"
-                            HeaderText="Request Date">
+                            HeaderText="Request Date/Time">
                             <ItemStyle Width="" Wrap="false" VerticalAlign="Top" HorizontalAlign="Center" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="true" HeaderStyle-Width="90px"
-                            HeaderText="Customer Name" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            HeaderText="Customer" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <%-- <telerik:GridBoundColumn DataField="RequestTime" AllowFiltering="false" HeaderStyle-Width="70px"
