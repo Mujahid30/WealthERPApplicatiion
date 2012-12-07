@@ -1277,7 +1277,80 @@ namespace DaoUser
 
             return bResult;
 
-        }        
+        }
+        public DataTable CheckChMk(int userId)
+        {
+            DataTable bResult;
+            Database db;
+            DbCommand CheckRoleAssociationCmd;
+            DataSet Role;
+            int rowcount;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CheckRoleAssociationCmd = db.GetStoredProcCommand("SP_CheckChMk");
+                db.AddInParameter(CheckRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
 
+                Role = db.ExecuteDataSet(CheckRoleAssociationCmd);
+                bResult = Role.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                //functionInfo.Add("Method", "UserDao.cs:CreateRoleAssociation()");
+                //object[] objects = new object[2];
+                //objects[0] = userId;
+                //objects[1] = PermisionId;
+                //functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+
+        }
+        public bool DeleteCKMK(int userId, int PermisionId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CheckRoleAssociationCmd;
+            DataSet Role;
+            int rowcount;
+            try{
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+                CheckRoleAssociationCmd = db.GetStoredProcCommand("SP_DeleteCHMK");
+                db.AddInParameter(CheckRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
+                db.AddInParameter(CheckRoleAssociationCmd, "@UP_PermisionId", DbType.Int32, PermisionId);
+                 Role = db.ExecuteDataSet(CheckRoleAssociationCmd);
+                 rowcount = Role.Tables[0].Rows.Count;
+                 bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserDao.cs:CreateRoleAssociation()");
+                object[] objects = new object[2];
+                objects[0] = userId;
+                objects[1] = PermisionId;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+
+        } 
     }
 }

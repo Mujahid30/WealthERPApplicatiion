@@ -47,6 +47,7 @@ namespace WealthERP.Advisor
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["UserVo"];
+            rmVo = (RMVo)Session["RMVo"];
 
             if (!IsPostBack)
             {
@@ -462,14 +463,7 @@ namespace WealthERP.Advisor
         {
             try
             {
-                //if (ddlRMRole.SelectedValue.ToString() == "RM")
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMBranchAssociation','none');", true);
-                //}
-                //else
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('BMBranchAssociation','none');", true);
-                //}
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -494,38 +488,20 @@ namespace WealthERP.Advisor
             try
             {
                 
-                if (chkOps.Checked == true)
-                {
-                    isOpsIsChecked = true;
-                    CreateOps(isOpsIsChecked);
-                    if ((CheckListCKMK.Items[0].Selected == true) || (CheckListCKMK.Items[1].Selected = true))
-                        foreach (ListItem Items in CheckListCKMK.Items)
-                        {
-                            if (Items.Selected)
-                            {
-                                if (Items.Text == "Checker")
-                                {
-                                    // Create Association for checker
-                                    userBo.CreateUserPermisionAssociation(userVo.UserId, Int16.Parse(Items.Value.ToString()));
-
-                                }
-                                else if (Items.Text == "Maker")
-                                {
-                                    // Create Association for Maker
-                                    userBo.CreateUserPermisionAssociation(userVo.UserId, Int16.Parse(Items.Value.ToString()));
-                                }
-
-                            }
-                        }
-                   
-                }
-                else
+                if (chkOps.Checked != true)
                 {
                     if ((ChklistRMBM.Items[2].Selected == true) && ((ChklistRMBM.Items[0].Selected != true) && (ChklistRMBM.Items[1].Selected != true)))
                     {
                         isPurelyResearchLogin = true;
                     }
                     CreateRM(isPurelyResearchLogin);
+                   
+                }
+                else
+                {
+                    isOpsIsChecked = true;
+                    CreateOps(isOpsIsChecked);
+                   
                 }
                 //        }
                 //    }
@@ -700,6 +676,25 @@ namespace WealthERP.Advisor
                 rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked, isPurelyResearchLogin);
 
                 rmVo.UserId = rmIds[0];
+                if ((CheckListCKMK.Items[0].Selected == true) || (CheckListCKMK.Items[1].Selected = true))
+                    foreach (ListItem Items in CheckListCKMK.Items)
+                    {
+                        if (Items.Selected)
+                        {
+                            if (Items.Text == "Checker")
+                            {
+                                // Create Association for checker
+                                userBo.CreateUserPermisionAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+
+                            }
+                            else if (Items.Text == "Maker")
+                            {
+                                // Create Association for Maker
+                                userBo.CreateUserPermisionAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                            }
+
+                        }
+                    }
                 userBo.CreateRoleAssociation(rmVo.UserId, 1004);
                 Session["rmId"] = rmIds[1];
                 Session["rmUserVo"] = userBo.GetUserDetails(rmVo.UserId);

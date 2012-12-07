@@ -278,6 +278,8 @@ namespace WealthERP.Advisor
                 availableBranch.Enabled = true;
                 associatedBranch.Enabled = true;
                 CheckListCKMK.Enabled = true;
+                btnSave.Enabled = true;
+                btnDelete.Enabled = true;
             }
             else
             {
@@ -308,6 +310,8 @@ namespace WealthERP.Advisor
                 availableBranch.Enabled = false;
                 associatedBranch.Enabled = false;
                 CheckListCKMK.Enabled = false;
+                btnDelete.Enabled = false;
+                btnSave.Enabled = false;
             }
 
         }
@@ -887,6 +891,24 @@ namespace WealthERP.Advisor
                     {
                         rmVo.RMRole = "Ops";
                         userBo.CreateRoleAssociation(rmVo.UserId, 1004);
+                        DataTable ChMk;
+                        bool bresult;
+                        ChMk = userBo.CheckChMk(rmVo.UserId);
+                        foreach (ListItem Items in CheckListCKMK.Items)
+                        {
+                            foreach (DataRow dr in ChMk.Rows)
+                            {
+                                if (CheckListCKMK.Items.FindByText(Items.Text).Selected == true && int.Parse(dr["UP_PermisionId"].ToString()) != 2000)
+                                {
+
+                                }
+
+                            //    bresult = userBo.DeleteCKMK(rmVo.UserId, int.Parse(dr["UP_PermisionId"].ToString()));
+                            }
+                            
+                        }
+                        
+
                         //if (advisorVo.IsISASubscribed == true)
                         //{
                         //    foreach (ListItem Items in CheckListCKMK.Items)
