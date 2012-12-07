@@ -80,15 +80,13 @@ namespace WealthERP.Customer
         }
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-
             gvISArequest.ExportSettings.OpenInNewWindow = true;
             gvISArequest.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvISArequest.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
+            gvISArequest.ExportSettings.HideStructureColumns = true;
+            gvISArequest.ExportSettings.ExportOnlyData = true;
+            gvISArequest.ExportSettings.FileName = "ISA status Details";
+            gvISArequest.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvISArequest.MasterTableView.ExportToExcel();
-
         }
         private void BindBranchDropDown(int id)
         {

@@ -24,6 +24,7 @@
     </tr>
     <tr>
         <td>
+            <br />
             <asp:Label ID="lblbranch" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName"
                 Text="Branch: "></asp:Label>
             <asp:DropDownList ID="ddlBMBranch" runat="server" OnSelectedIndexChanged="ddlBMBranch_SelectedIndexChanged"
@@ -47,16 +48,16 @@
                 AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
                 Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
                 AllowFilteringByColumn="true">
-                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ISAQueuelist">
-                </ExportSettings>
-                <MasterTableView CommandItemDisplay="None" DataKeyNames="AISAQ_RequestQueueid,WWFSM_StepCode,StatusCode">
+                <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="ISAQueuelist">
+                </exportsettings>
+                <mastertableview commanditemdisplay="None" datakeynames="AISAQ_RequestQueueid,WWFSM_StepCode,StatusCode">
                     <Columns>
                         <telerik:GridTemplateColumn HeaderText="ISA RequestId" ItemStyle-HorizontalAlign="Right"
                             HeaderStyle-Width="80px" AllowFiltering="true" DataField="AISAQ_RequestQueueid"
                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <ItemTemplate>
                                 <asp:LinkButton ID="LnkRQ" runat="server" CssClass="CmbField" OnClick="LnkRQ_Click"
-                                    Text='<%# Eval("AISAQ_RequestQueueid").ToString() %>'>
+                                    Text='<%#Eval("AISAQ_RequestQueueid") %>'>
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
@@ -97,11 +98,11 @@
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
-                </MasterTableView>
-                <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+                </mastertableview>
+                <clientsettings reordercolumnsonclient="True" allowcolumnsreorder="True" enablerowhoverstyle="true">
                     <Resizing AllowColumnResize="true" />
                     <Selecting AllowRowSelect="true" />
-                </ClientSettings>
+                </clientsettings>
             </telerik:RadGrid>
         </td>
     </tr>
