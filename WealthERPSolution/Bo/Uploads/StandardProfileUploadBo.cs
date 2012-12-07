@@ -708,15 +708,14 @@ namespace BoUploads
             return result;
         }
 
-        public bool StdCreationOfNewBankAccounts(int processId, string Packagepath, string configPath)
+        public bool StdCreationOfNewBankAccounts(int processId, string Packagepath, string configPath, int adviserId)
         {
             bool IsProcessComplete = false;
             try
             {
-
-
                 Package stdProPkg5 = App.LoadPackage(Packagepath, null);
                 stdProPkg5.Variables["varProcessId"].Value = processId;
+                stdProPkg5.Variables["varAdviserId"].Value = adviserId;
                 stdProPkg5.ImportConfigurationFile(configPath);
                 DTSExecResult stdProResult5 = stdProPkg5.Execute();
                 if (stdProResult5.ToString() == "Success")
