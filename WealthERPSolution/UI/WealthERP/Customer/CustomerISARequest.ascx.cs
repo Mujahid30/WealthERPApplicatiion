@@ -62,8 +62,6 @@ namespace WealthERP.Customer
                 {
                     stageStatus = Request.QueryString["StatusCode"].ToString();
                 }
-
-
                 BindReasonAndStatus();
                 BindBranchDropDown(currentUserRole);
                 if (requestId != 0)
@@ -73,10 +71,12 @@ namespace WealthERP.Customer
                     //txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                     HideAndShowBasedOnRole(requestId);
                     trExistingCustomer.Visible = false;
-                    if (currentUserRole == "bm")
-                    {
-                        EnableCurrentStep(0);
-                    }
+                    //if (currentUserRole == "bm")
+                    //{
+                    //    //EnableCurrentStep(0);
+                    //    EnableControlBasedOnUserRole();
+
+                    //}
                 }
                 else
                 {
@@ -807,6 +807,22 @@ namespace WealthERP.Customer
 
         protected void EnableCurrentStep(int currentStepId)
         {
+
+            if (currentUserRole == "bm")
+            {
+                trStepTwoHeading.Visible = false;
+                trStepTwoContent.Visible = false;
+
+                trStepThreeHeading.Visible = false;
+                trStepThreeContent.Visible = false;
+
+                trStepFourHeading.Visible = false;
+                trStepFourContent.Visible = false;
+
+                trStepFiveHeading.Visible = false;
+                trStepFiveContent.Visible = false;
+            }
+
             switch (currentStepId)
             {
                 case 0:
@@ -821,17 +837,7 @@ namespace WealthERP.Customer
                         btnGenerateReqstNum.Visible = true;
                         ddlPriority.Enabled = true;
 
-                        trStepTwoHeading.Visible = false;
-                        trStepTwoContent.Visible = false;
-
-                        trStepThreeHeading.Visible = false;
-                        trStepThreeContent.Visible = false;
-
-                        trStepFourHeading.Visible = false;
-                        trStepFourContent.Visible = false;
-
-                        trStepFiveHeading.Visible = false;
-                        trStepFiveContent.Visible = false;
+                    
                         lnkbtnViewCustomerProfile.Visible = false;
                     }
 
@@ -846,20 +852,7 @@ namespace WealthERP.Customer
                         btnSubmitAddStage1.Visible = true;
                         btnSubmitAddMoreStage1.Visible = true;
 
-                        tdUploadSection.Visible = true;
-
-                        trStepTwoHeading.Visible = false;
-                        trStepTwoContent.Visible = false;
-
-                        trStepThreeHeading.Visible = false;
-                        trStepThreeContent.Visible = false;
-
-                        trStepFourHeading.Visible = false;
-                        trStepFourContent.Visible = false;
-
-                        trStepFiveHeading.Visible = false;
-                        trStepFiveContent.Visible = false;
-
+                        tdUploadSection.Visible = true;    
                         lnkbtnViewCustomerProfile.Visible = false;
                     }
 
