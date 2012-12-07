@@ -338,12 +338,12 @@
             <asp:Label ID="lblModeOfHolding" runat="server" CssClass="FieldName" Text="Mode of Holding :"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
-            <asp:DropDownList ID="ddlModeOfHolding" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <%--<span id="Span3" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlModeOfHolding"
-                ErrorMessage="Please select a Mode of Holding" Operator="NotEqual" ValueToCompare="Select Mode of Holding"
-                CssClass="cvPCG"></asp:CompareValidator>--%>
+            <asp:DropDownList ID="ddlModeOfHolding" runat="server" CssClass="cmbField" ValidationGroup="btnSubmit">
+            </asp:DropDownList >
+            <span id="Span3" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlModeOfHolding"
+                ErrorMessage="Please select a Mode of Holding" Operator="NotEqual" ValueToCompare="0"
+                CssClass="cvPCG" ValidationGroup="btnSubmit"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -858,10 +858,10 @@
 <div>
     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnSubmit', 'S');"
         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnSubmit', 'S');"
-        Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
+        Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" ValidationGroup="btnSubmit"/>
     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
-        Text="Update" OnClick="btnUpdate_Click" />
+        Text="Update" OnClick="btnUpdate_Click"  ValidationGroup="btnSubmit"/>
 </div>
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
 <asp:HiddenField ID="hdnCustomerName" runat="server" />
