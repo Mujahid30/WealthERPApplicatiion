@@ -555,7 +555,7 @@ namespace WealthERP.Uploads
                         {
                             //Create new Bank Accounts
                             packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                            bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(ProcessId, packagePath, configPath);
+                            bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(ProcessId, packagePath, configPath, adviserVo.advisorId);
                             if (stdProCreateBankAccountResult)
                             {
                                 processlogVo.IsInsertionToWERPComplete = 1;
@@ -611,7 +611,7 @@ namespace WealthERP.Uploads
                             {
                                 //Create new Bank Accounts
                                 packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(processIdReprocessAll, packagePath, configPath);
+                                bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(processIdReprocessAll, packagePath, configPath, adviserVo.advisorId);
                                 if (stdProCreateBankAccountResult)
                                 {
                                     processlogVo.IsInsertionToWERPComplete = 1;
