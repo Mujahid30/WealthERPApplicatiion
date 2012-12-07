@@ -118,7 +118,7 @@
     <tr>
         <td>
             <asp:GridView ID="gvMFFolio" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                CssClass="GridViewStyle" DataKeyNames="FolioId" HorizontalAlign="Center" ShowFooter="True">
+                CssClass="GridViewStyle" DataKeyNames="FolioId" HorizontalAlign="Center" ShowFooter="True" OnRowDataBound="gvMFFolio_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
                 <EditRowStyle HorizontalAlign="Left" VerticalAlign="Top" CssClass="EditRowStyle" />
@@ -136,10 +136,10 @@
                         <ItemTemplate>
                             <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
                                 OnSelectedIndexChanged="ddlAction_SelectedIndexChanged">
-                                <asp:ListItem Text="Select" />
-                                <asp:ListItem Text="View" />
-                                <asp:ListItem Text="Edit" />
-                                <asp:ListItem Text="Delete" />
+                                <asp:ListItem Text="Select" Value="Select" />
+                                <asp:ListItem Text="View" Value="View" />
+                                <asp:ListItem Text="Edit" Value="Edit" />
+                                <asp:ListItem Text="Delete" Value="Delete" />
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>

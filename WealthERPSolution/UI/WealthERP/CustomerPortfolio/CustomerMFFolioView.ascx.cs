@@ -107,9 +107,13 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
+                    {
                         trSelectAction.Visible = false;
+                    }
                     else
+                    {
                         trSelectAction.Visible = true;
+                    }
                     trErrorMsg.Visible = false;
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
@@ -149,6 +153,7 @@ namespace WealthERP.CustomerPortfolio
                         dtMFFolio.Rows.Add(drMFFolio);
                     }
                     gvMFFolio.DataSource = dtMFFolio;
+                    
                     gvMFFolio.DataBind();
 
                 }
@@ -499,6 +504,25 @@ namespace WealthERP.CustomerPortfolio
                 //lblTransferMsg.Text = string.Empty;
                 
             }
+        }
+
+        protected void gvMFFolio_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DropDownList ddl = e.Row.FindControl("ddlAction") as DropDownList;
+                if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
+                {
+                    if (ddl != null)
+                    {
+                        //ddl.Items.FindByValue("Edit").
+                        //ddl.Items.RemoveAt(2);
+                        ddl.Items.Remove(ddl.Items.FindByValue("Edit"));
+                        ddl.Items.Remove(ddl.Items.FindByValue("Delete"));
+                       
+                    }
+                }
+             }
         }
     }
 }
