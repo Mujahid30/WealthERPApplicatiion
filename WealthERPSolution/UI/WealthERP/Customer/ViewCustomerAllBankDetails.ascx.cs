@@ -162,21 +162,7 @@ namespace WealthERP.Customer
             }
             catch (BaseApplicationException Ex)
             {
-                throw Ex;
-            }
-
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewCustomerAllBankDetails.ascx:btnDelete_Click()");
-                object[] objects = new object[1];
-                objects[0] = customerBankAccId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Record cannot be delete due to association with folio!');", true);
             }
         }
         protected void btnBack_Click(object sender, EventArgs e)
