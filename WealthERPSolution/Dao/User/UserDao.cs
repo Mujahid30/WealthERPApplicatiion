@@ -1329,7 +1329,7 @@ namespace DaoUser
                 db.AddInParameter(CheckRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
                 db.AddInParameter(CheckRoleAssociationCmd, "@UP_PermisionId", DbType.Int32, PermisionId);
                  Role = db.ExecuteDataSet(CheckRoleAssociationCmd);
-                 rowcount = Role.Tables[0].Rows.Count;
+                
                  bResult = true;
             }
             catch (BaseApplicationException Ex)
@@ -1351,6 +1351,43 @@ namespace DaoUser
             }
             return bResult;
 
-        } 
+        }
+        public bool DeletefromPermision(int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CheckRoleAssociationCmd;
+            DataSet Role;
+            int rowcount;
+            try{
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+                CheckRoleAssociationCmd = db.GetStoredProcCommand("SP_DeleteFromPermission");
+                db.AddInParameter(CheckRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
+               
+                 Role = db.ExecuteDataSet(CheckRoleAssociationCmd);
+                
+                 bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                //functionInfo.Add("Method", "UserDao.cs:CreateRoleAssociation()");
+                //object[] objects = new object[2];
+                //objects[0] = userId;
+                //objects[1] = PermisionId;
+                //functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+
+        }
     }
 }

@@ -36,6 +36,7 @@ namespace WealthERP.Advisor
         DataSet _commondatasetdestination;
         UserVo uvo = new UserVo();
         int branchHead;
+        string menu;
         protected void Page_PreInit(object sender, EventArgs e)
         {
 
@@ -63,6 +64,7 @@ namespace WealthERP.Advisor
             if (!Page.IsPostBack)
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
+               
                 this.Action = Request.QueryString[0];
                 if (Action == "Edit Profile")
                 {
@@ -741,9 +743,9 @@ namespace WealthERP.Advisor
                     trCKMK.Visible = false;
                 }
 
-                
+
             }
-           
+
 
 
             else
@@ -892,22 +894,114 @@ namespace WealthERP.Advisor
                         rmVo.RMRole = "Ops";
                         userBo.CreateRoleAssociation(rmVo.UserId, 1004);
                         DataTable ChMk;
-                        bool bresult;
+                        int count=0;
+                        int role=0;
+                      
                         ChMk = userBo.CheckChMk(rmVo.UserId);
-                        foreach (ListItem Items in CheckListCKMK.Items)
+                        if (ChMk.Rows.Count > 0)
                         {
-                            foreach (DataRow dr in ChMk.Rows)
+                            foreach (ListItem Items in CheckListCKMK.Items)
                             {
-                                if (CheckListCKMK.Items.FindByText(Items.Text).Selected == true && int.Parse(dr["UP_PermisionId"].ToString()) != 2000)
+                                foreach (DataRow dr in ChMk.Rows)
                                 {
+                                    if (CheckListCKMK.Items.FindByText(Items.Text).Selected == true)
+                                    {
+                                        if ((CheckListCKMK.Items.FindByText(Items.Text).Text == "Maker") && (int.Parse(dr["UP_PermisionId"].ToString()) != 2001))
+                                        {
+                                            //bresult = userBo.DeleteCKMK(rmVo.UserId, int.Parse(dr["UP_PermisionId"].ToString()));
+                                            userBo.CreateUserPermisionAssociation(rmVo.UserId, 2001);
+                                        }
+                                        else if ((CheckListCKMK.Items.FindByText(Items.Text).Text == "Checker") && (int.Parse(dr["UP_PermisionId"].ToString()) != 2000))
+                                        {
+                                            //bresult = userBo.DeleteCKMK(rmVo.UserId, int.Parse(dr["UP_PermisionId"].ToString()));
+                                            userBo.CreateUserPermisionAssociation(rmVo.UserId, 2000);
+                                        }
+                                    }
+
 
                                 }
 
-                            //    bresult = userBo.DeleteCKMK(rmVo.UserId, int.Parse(dr["UP_PermisionId"].ToString()));
+                            }
+                        }
+                        else if (ChMk.Rows.Count == 0)
+                        {
+                            foreach (ListItem Items in CheckListCKMK.Items)
+                            {
+
+                                if (CheckListCKMK.Items.FindByText(Items.Text).Selected == true)
+                                {
+                                    if ((CheckListCKMK.Items.FindByText(Items.Text).Text == "Maker"))
+                                    {
+                                        //bresult = userBo.DeleteCKMK(rmVo.UserId, int.Parse(dr["UP_PermisionId"].ToString()));
+                                        userBo.CreateUserPermisionAssociation(rmVo.UserId, 2001);
+                                    }
+                                    else if ((CheckListCKMK.Items.FindByText(Items.Text).Text == "Checker"))
+                                    {
+                                        //bresult = userBo.DeleteCKMK(rmVo.UserId, int.Parse(dr["UP_PermisionId"].ToString()));
+                                        userBo.CreateUserPermisionAssociation(rmVo.UserId, 2000);
+                                    }
+                                }
+
+                            }
+
+
+
+                        }
+                        foreach (ListItem Items in CheckListCKMK.Items)
+                        {
+
+
+                            if ((CheckListCKMK.Items.FindByText(Items.Text).Selected==true))
+                            {
+
+                                count = count + 1;
+                                if (Items.Text=="Checker")
+                                role = 2001;
+                                else
+                                    role = 2000;
+                              
                             }
                             
                         }
-                        
+
+                        if (count != 2)
+                        {
+                            ChMk = userBo.CheckChMk(rmVo.UserId);
+                            if(ChMk.Rows.Count>=2)
+                            userBo.DeleteCKMK(rmVo.UserId, role);
+                        }
+                       if (count == 0)
+                        {
+                            userBo.DeletefromPermision(rmVo.UserId);
+                            foreach (ListItem Items in CheckListCKMK.Items)
+                            {
+                                CheckListCKMK.Items.FindByText(Items.Text).Selected = false;
+                            }
+                        }
+
+                        //foreach (ListItem Items in CheckListCKMK.Items)
+                        //{
+                        //    foreach (DataRow dr in ChMk.Rows)
+                        //    {
+                        //        if (CheckListCKMK.Items.FindByText(Items.Text).Selected == true)
+                        //        {
+                        //            if ((CheckListCKMK.Items.FindByText(Items.Text).Text == "Maker") && (int.Parse(dr["UP_PermisionId"].ToString()) != 2001))
+                        //            {
+                        //                bresult = userBo.DeleteCKMK(rmVo.UserId, int.Parse(dr["UP_PermisionId"].ToString()));
+                        //                //userBo.CreateUserPermisionAssociation(rmVo.UserId, 2001);
+                        //            }
+                        //            else if ((CheckListCKMK.Items.FindByText(Items.Text).Text == "Checker") && (int.Parse(dr["UP_PermisionId"].ToString()) != 2000))
+                        //            {
+                        //                bresult = userBo.DeleteCKMK(rmVo.UserId, int.Parse(dr["UP_PermisionId"].ToString()));
+                        //                //userBo.CreateUserPermisionAssociation(rmVo.UserId, 2000);
+                        //            }
+                        //        }
+
+
+                        //    }
+
+                        //}
+
 
                         //if (advisorVo.IsISASubscribed == true)
                         //{
@@ -1231,7 +1325,13 @@ namespace WealthERP.Advisor
                 }
                 else if (string.IsNullOrEmpty(rmVo.BranchList.ToString().Trim()))
                 {
-                    result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
+                    if (bool.Parse(advisorVo.IsISASubscribed.ToString()) == true)
+                    {
+                        userBo.DeletefromPermision(rmVo.UserId);
+                        result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
+                    }
+                    else
+                        result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
                 }
                 if (result)
                 {
