@@ -1191,6 +1191,20 @@ namespace DaoAdvisorProfiling
             {
                 throw Ex;
             }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetMFDashBoard()");
+
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
             return dsGetMFDashBoard;
         }
         public DataSet getTurnOverCategoryList()
@@ -1233,12 +1247,28 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(AMCTransactionDeatailsCmd, "@ToDate", DbType.DateTime, Todate);
                 else
                     Todate = DateTime.MinValue;
-
+                AMCTransactionDeatailsCmd.CommandTimeout = 60 * 60;
                 dsAMCTransactionDeatails = db.ExecuteDataSet(AMCTransactionDeatailsCmd);
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetAMCTransactionDeatails()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
             return dsAMCTransactionDeatails;
         }
@@ -1269,11 +1299,28 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@amcCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@amcCode", DbType.Int32, DBNull.Value);
+                GetSchemeTransactionDeatailsCmd.CommandTimeout = 60 * 60;
                 dsSchemeTransactionDeatails = db.ExecuteDataSet(GetSchemeTransactionDeatailsCmd);
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetSchemeTransactionDeatails()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
             return dsSchemeTransactionDeatails;
         }
@@ -1300,11 +1347,28 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(GetBranchTransactionDeatailsCmd, "@ToDate", DbType.DateTime, Todate);
                 else
                     Todate = DateTime.MinValue;
+                GetBranchTransactionDeatailsCmd.CommandTimeout = 60 * 60;
                 dsBranchTransactionDeatails = db.ExecuteDataSet(GetBranchTransactionDeatailsCmd);
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetBranchTransactionDeatails()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
             return dsBranchTransactionDeatails;
         }
@@ -1335,11 +1399,29 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(GetFolioTransactionDeatailsCmd, "@amcCode", DbType.Int32, SchemeCode);
                 else
                     db.AddInParameter(GetFolioTransactionDeatailsCmd, "@amcCode", DbType.Int32, DBNull.Value);
+
+                GetFolioTransactionDeatailsCmd.CommandTimeout = 60 * 60;
                 dsFolioTransactionDeatails = db.ExecuteDataSet(GetFolioTransactionDeatailsCmd);
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetFolioTransactionDeatails()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
             return dsFolioTransactionDeatails;
         }
@@ -1370,11 +1452,28 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@Category", DbType.String, Category);
                 else
                     db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@Category", DbType.String, DBNull.Value);
+                GetCategoryTransactionDeatailsCmd.CommandTimeout = 60 * 60;
                 dsCategoryTransactionDeatails = db.ExecuteDataSet(GetCategoryTransactionDeatailsCmd);
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetCategoryTransactionDeatails()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
             return dsCategoryTransactionDeatails;
         }
