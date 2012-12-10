@@ -19,7 +19,17 @@
         return false;
     };
 </script>
-
+<script src="jquery.js"></script>
+<script>
+    $(document).ready(function() {
+        $("div").ajaxStart(function() {
+        $(this).html("<img src='upload_progress.gif' />");
+        });
+        $("btnGo_Click").click(function() {
+            $("div").load("demo_ajax_load.asp");
+        });
+    });
+</script>
 <table width="100%">
     <tr>
         <td>
@@ -256,11 +266,10 @@
                     Height="25px" Width="25px"></asp:ImageButton>
                 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="100%" EnableHistory="True"
                                       HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">   
-                    
-                <telerik:RadGrid ID="gvSystematicMIS" AllowSorting="true" runat="server" AllowAutomaticInserts="false"
-                        AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
+                 <telerik:RadGrid ID="gvSystematicMIS" AllowSorting="true" runat="server" AllowAutomaticInserts="false" EnableLoadOnDemand="True"
+                        AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False" 
                         EnableEmbeddedSkins="false" GridLines="none" PageSize="10" ShowFooter="true"  PagerStyle-AlwaysVisible="true" EnableViewState="true"
-                         ShowStatusBar="True" Skin="Telerik"  >
+                         ShowStatusBar="True" Skin="Telerik" OnPreRender="gvSystematicMIS_PreRender" >
                         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="SystematicMIS Details" Excel-Format="ExcelML">
@@ -271,7 +280,7 @@
                                     ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="CustomerName"
                                     FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    
+                                 
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="SystematicTransactionType" ShowFilterIcon="false"
                                     AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="SystematicTransactionType">
@@ -332,8 +341,8 @@
                                         </telerik:RadDatePicker>
                                     </FilterTemplate>
                                 </telerik:GridDateTimeColumn>
-                                 <telerik:GridDateTimeColumn DataField="CeaseDate" DataFormatString="{0:d}" HeaderStyle-Width="85px"
-                                    ShowFilterIcon="false" AllowFiltering="false" AutoPostBackOnFilter="true" HeaderText="Cease Date"
+                                 <telerik:GridDateTimeColumn DataField="CeaseDate" DataFormatString="{0:d}" HeaderStyle-Width="91px"
+                                    ShowFilterIcon="false" AllowFiltering="false" AutoPostBackOnFilter="true" HeaderText="Stoped Date"
                                     UniqueName="CeaseDate" SortExpression="CeaseDate">
                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Wrap="false" />
                                     <FilterTemplate>

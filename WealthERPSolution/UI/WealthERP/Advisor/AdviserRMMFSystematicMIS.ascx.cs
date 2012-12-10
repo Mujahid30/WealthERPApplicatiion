@@ -944,13 +944,13 @@ namespace WealthERP.Advisor
         //    dtMIS.Rows.Add("Kiro", "SIP");
         //    dtMIS.Rows.Add("Monish", "SIP");
         //}
-        //   protected void gvSystematicMIS_ItemDataBound(object sender, GridItemEventArgs e)
-        //   {
-        //    if (e.Item is GridFilteringItem && e.Item.ItemIndex==-1)
-        //    {
-        //        GridFilteringItem filterItem = (GridFilteringItem)e.Item;
-        //        //{
-        //        // GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;              
+        //protected void gvSystematicMIS_ItemDataBound(object sender, GridItemEventArgs e)
+        //{
+        //    //if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
+        //    //{
+           
+        //    if (e.Item is GridFilteringItem)
+        //    {   GridFilteringItem filterItem = (GridFilteringItem)e.Item; 
         //        RadComboBox combo = (RadComboBox)filterItem.FindControl("RadComboBoxSip");
         //        dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
 
@@ -967,22 +967,17 @@ namespace WealthERP.Advisor
         //            dtcustMIS.Rows.Add(drcustMIS);
         //        }
 
-        //           // gvSystematicMIS.MasterTableView.Rebind();  
+        //        // gvSystematicMIS.MasterTableView.Rebind();  
 
-        //            //combo.Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("ALL", "0"));
-        //            combo.DataSource = dtcustMIS;
-        //            combo.DataValueField = dtcustMIS.Columns["CustomerName"].ToString();
-        //            combo.DataTextField = dtcustMIS.Columns["CustomerName"].ToString();
-        //            combo.ClearSelection();
-        //            combo.DataBind();
-
-
-        //    }
-
-
-
-
+        //        //combo.Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("ALL", "0"));
+        //        combo.DataSource = dtcustMIS;
+        //        combo.DataValueField = dtcustMIS.Columns["CustomerName"].ToString();
+        //        combo.DataTextField = dtcustMIS.Columns["CustomerName"].ToString();
+        //        combo.ClearSelection();
+        //        combo.DataBind();
+        //   }
         //}
+       
         private void BindgvSystematicMIS()
         {
             try
@@ -1656,17 +1651,23 @@ namespace WealthERP.Advisor
             }
             reptCalenderSummaryView.MasterTableView.ExportToExcel();
         }
-        //protected void gvSystematicMIS_PreRender(object sender, System.EventArgs e)
-        //{
+       protected void gvSystematicMIS_PreRender(object sender, System.EventArgs e)
+        {
+           // if (ViewState["CustomerName"]=="")
+    //       // {
+               // RadComboBox Combo = sender as RadComboBox;
+                //Combo.SelectedValue = ViewState["CustomerName"].ToString();
+           // }
         //    if (gvSystematicMIS.MasterTableView.FilterExpression != string.Empty)
-        //        //gvSystematicMIS.MasterTableView.FilterExpression = " ";
+           //  gvSystematicMIS.MasterTableView.FilterExpression = string.Empty;
+            // gvSystematicMIS.MasterTableView.Rebind();    
         //        //gvSystematicMIS.Rebind();
         //        BindgvSystematicMIS();
         //   // gvSystematicMIS.MasterTableView.FilterExpression = " ";
         //   // gvSystematicMIS.Rebind();
 
 
-        //}
+        }
         //protected void RadComboBoxSip_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         //{
         //    string filterExpression;
@@ -1678,41 +1679,41 @@ namespace WealthERP.Advisor
         //}
         //protected void RadComboBoxSip_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         //{
-        //        gvSystematicMIS.MasterTableView.FilterExpression = " ";
+        //   // gvSystematicMIS.MasterTableView.FilterExpression = " ";
 
+        //   // gvSystematicMIS.MasterTableView.Rebind();
+
+        //    RadComboBox Combo = o as RadComboBox;
+        //    ViewState["CustomerName"] = Combo.SelectedValue.ToString();
+        //    //filter the grid  
+
+        //    if (ViewState["CustomerName"] != "")
+        //    {
+        //        gvSystematicMIS.MasterTableView.FilterExpression = "([CustomerName]= '" + Combo.SelectedValue + "')";
+        //        GridColumn column = gvSystematicMIS.MasterTableView.GetColumnSafe("CustomerName");
+        //        column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+        //        gvSystematicMIS.MasterTableView.Rebind();
+        //        //+ Combo.SelectedValue +
+
+        //    }
+        //    else
+        //    {
+        //        gvSystematicMIS.MasterTableView.FilterExpression = "";
+        //        GridColumn column = gvSystematicMIS.MasterTableView.GetColumnSafe("CustomerName");
+        //        column.CurrentFilterFunction = GridKnownFunction.EqualTo;
         //        gvSystematicMIS.MasterTableView.Rebind();
 
-        //        RadComboBox Combo = o as RadComboBox;
-        //        ViewState["CustomerName"] = Combo.SelectedValue.ToString();
-        //            //filter the grid  
-
-        //        if (ViewState["CustomerName"] != "")
-        //        {
-        //            gvSystematicMIS.MasterTableView.FilterExpression = "([CustomerName]= '" + Combo.SelectedValue + "')";
-        //            GridColumn column = gvSystematicMIS.MasterTableView.GetColumnSafe("CustomerName");
-        //            column.CurrentFilterFunction = GridKnownFunction.EqualTo;
-        //            gvSystematicMIS.MasterTableView.Rebind();
-        //            //+ Combo.SelectedValue +
-
-        //        }
-        //        else
-        //        {
-        //            gvSystematicMIS.MasterTableView.FilterExpression = "";
-        //            GridColumn column = gvSystematicMIS.MasterTableView.GetColumnSafe("CustomerName");
-        //            column.CurrentFilterFunction = GridKnownFunction.EqualTo;
-        //            gvSystematicMIS.MasterTableView.Rebind();
-
-        //        }
+        //    }
         //}
         //protected void rcbContinents_PreRender(object sender, EventArgs e)
-        // {
-        //     //persist the combo selected value  
-        //     if (ViewState["CustomerName"] != null)
-        //     {
-        //         RadComboBox Combo = sender as RadComboBox;
-        //         Combo.SelectedValue = ViewState["CustomerName"].ToString();
-        //     }
-        // } 
+        //{
+        //    //persist the combo selected value  
+        // if (ViewState["CustomerName"] != null)
+        //  {
+        //  RadComboBox Combo = sender as RadComboBox;
+        //   Combo.SelectedValue = ViewState["CustomerName"].ToString();
+        // }
+        //} 
 
         protected void btnExportSystematicMIS_OnClick(object sender, ImageClickEventArgs e)
         {
