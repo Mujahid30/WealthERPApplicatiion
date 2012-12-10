@@ -11,7 +11,7 @@
 <div class="divPageHeading">
     <table cellspacing="0"  width="100%">
         <tr>
-        <td align="left">MF TurnOver MIS</td>
+        <td align="left">MF Turnover MIS</td>
         <td  align="right"  style="padding-bottom:2px;">
         <asp:ImageButton ID="btnAMCExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
@@ -1296,7 +1296,8 @@
 </tr>
 <tr>
         <td colspan="3">
-            <asp:Label ID="LabelMainNote" runat="server" Text="Note:To sort on a field click on its label."
+            <asp:Label ID="LabelMainNote" runat="server" Text="Note:1.To sort on a field click on its label. <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.To know field details browse over the label"
                 Font-Size="Small" CssClass="cmbField"></asp:Label>
         </td>
     </tr>
