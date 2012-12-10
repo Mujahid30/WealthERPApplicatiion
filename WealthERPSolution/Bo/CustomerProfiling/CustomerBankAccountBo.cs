@@ -193,6 +193,7 @@ namespace BoCustomerProfiling
             }
             catch (BaseApplicationException Ex)
             {
+                bResult = false;
                 throw Ex;
             }
             catch (Exception Ex)
