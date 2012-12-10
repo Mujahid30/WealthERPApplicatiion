@@ -449,7 +449,12 @@ namespace WealthERP.CustomerPortfolio
                 rbtnYes.Enabled = false;
                 btnSubmit.Visible = false;
                 btnUpdate.Visible = false;
-                lnkEdit.Visible = true;
+                if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
+                {
+                    lnkEdit.Visible = false;
+                }
+                else
+                    lnkEdit.Visible = true;
 
                 txtAccNo.Enabled = false;
                 txtAccountDate.Enabled = false;
