@@ -13,7 +13,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            MF DashBoard
+                            MF Dashboard
                         </td>
                         <td align="right" id="tdGoalExport" runat="server" style="padding-bottom: 2px;">
                         </td>
@@ -29,61 +29,7 @@
             </div>
         </td>
     </tr>--%>
-    <tr>
-        <td colspan="2">
-            <table width="100%">
-                <tr>
-                    <td>
-                        <asp:Panel ID="tbl" runat="server" Visible="true">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div id="dvMSDashBoardCount" runat="server" style="width: 640px;">
-                                            <telerik:RadGrid ID="gvMFDashboardCount" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
-                                                ExportSettings-FileName="Count">
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                                                    FileName="Goal MIS" Excel-Format="ExcelML">
-                                                </ExportSettings>
-                                                <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                                                    CommandItemDisplay="None">
-                                                    <Columns>
-                                                        <telerik:GridBoundColumn DataField="Type" HeaderText="Customer Added" UniqueName="Type"
-                                                            SortExpression="Type">
-                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="PreviousCount" HeaderText=" " AllowFiltering="false"
-                                                           HeaderStyle-HorizontalAlign="Right" UniqueName="PreviousCount" DataFormatString="{0:N0}">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="CurrentCount" HeaderText=" " AllowFiltering="false"
-                                                          HeaderStyle-HorizontalAlign="Right"  UniqueName="CurrentCount" DataFormatString="{0:N0}">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Yearly" HeaderText="YTD" DataFormatString="{0:N0}"
-                                                          HeaderStyle-HorizontalAlign="Right"  AllowFiltering="false" UniqueName="Yearly" FooterStyle-HorizontalAlign="Right">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Total" HeaderText="Total" DataFormatString="{0:N0}"
-                                                          HeaderStyle-HorizontalAlign="Right"  AllowFiltering="false" UniqueName="Total" FooterStyle-HorizontalAlign="Right">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                    </Columns>
-                                                </MasterTableView>
-                                                <ClientSettings>
-                                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                                                </ClientSettings>
-                                            </telerik:RadGrid></div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </asp:Panel>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
+
     
     <tr>
         <td colspan="2">
@@ -96,7 +42,7 @@
                                     <td>
                                         <div id="divAUM" runat="server" style="width: 640px;">
                                             <telerik:RadGrid ID="gvAUM" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                                 Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
                                                 ExportSettings-FileName="Count">
                                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -107,23 +53,23 @@
                                                     <Columns>
                                                         <telerik:GridBoundColumn DataField="Type" HeaderText="AUM" UniqueName="Type"
                                                             SortExpression="Type" >
-                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="280px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CostPrevious" HeaderText=" " AllowFiltering="false" HeaderStyle-HorizontalAlign="Right"
                                                             UniqueName="CostPrevious" DataFormatString="{0:N0}">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CostCurrent" HeaderText=" " AllowFiltering="false"
                                                             HeaderStyle-HorizontalAlign="Right" UniqueName="CostCurrent" DataFormatString="{0:N0}">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CostYear" HeaderText="YTD" DataFormatString="{0:N0}"
                                                            HeaderStyle-HorizontalAlign="Right"  AllowFiltering="false" UniqueName="CostYear" FooterStyle-HorizontalAlign="Right">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CostTotal" HeaderText="Total" DataFormatString="{0:N0}"
                                                             HeaderStyle-HorizontalAlign="Right" AllowFiltering="false" UniqueName="CostTotal" FooterStyle-HorizontalAlign="Right">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
                                                 </MasterTableView>
@@ -159,7 +105,7 @@
                                     <td>
                                         <div id="dvMFDashboardAmount" runat="server" style="width: 640px;">
                                             <telerik:RadGrid ID="gvMFDashboardAmount" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                                 Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
                                                 ExportSettings-FileName="Count">
                                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -170,23 +116,78 @@
                                                     <Columns>
                                                         <telerik:GridBoundColumn DataField="Type" HeaderText="Business Generated" UniqueName="Type"
                                                             SortExpression="Type" >
-                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="280px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CostPrevious" HeaderText=" " AllowFiltering="false" HeaderStyle-HorizontalAlign="Right"
                                                             UniqueName="CostPrevious" DataFormatString="{0:N0}">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CostCurrent" HeaderText=" " AllowFiltering="false"
                                                             HeaderStyle-HorizontalAlign="Right" UniqueName="CostCurrent" DataFormatString="{0:N0}">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CostYear" HeaderText="YTD" DataFormatString="{0:N0}"
                                                            HeaderStyle-HorizontalAlign="Right"  AllowFiltering="false" UniqueName="CostYear" FooterStyle-HorizontalAlign="Right">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CostTotal" HeaderText="Total" DataFormatString="{0:N0}"
                                                             HeaderStyle-HorizontalAlign="Right" AllowFiltering="false" UniqueName="CostTotal" FooterStyle-HorizontalAlign="Right">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                    </Columns>
+                                                </MasterTableView>
+                                                <ClientSettings>
+                                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                                </ClientSettings>
+                                            </telerik:RadGrid></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </asp:Panel>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+        <tr>
+        <td colspan="2">
+            <table width="100%">
+                <tr>
+                    <td>
+                        <asp:Panel ID="tbl" runat="server" Visible="true">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div id="dvMSDashBoardCount" runat="server" style="width: 640px;">
+                                            <telerik:RadGrid ID="gvMFDashboardCount" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
+                                                ExportSettings-FileName="Count">
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                                                    FileName="Goal MIS" Excel-Format="ExcelML">
+                                                </ExportSettings>
+                                                <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                                    CommandItemDisplay="None">
+                                                    <Columns>
+                                                        <telerik:GridBoundColumn DataField="Type" HeaderText="Customers Added" UniqueName="Type"
+                                                            SortExpression="Type">
+                                                            <ItemStyle Width="280px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="PreviousCount" HeaderText=" " AllowFiltering="false"
+                                                           HeaderStyle-HorizontalAlign="Right" UniqueName="PreviousCount" DataFormatString="{0:N0}">
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="CurrentCount" HeaderText=" " AllowFiltering="false"
+                                                          HeaderStyle-HorizontalAlign="Right"  UniqueName="CurrentCount" DataFormatString="{0:N0}">
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="Yearly" HeaderText="YTD" DataFormatString="{0:N0}"
+                                                          HeaderStyle-HorizontalAlign="Right"  AllowFiltering="false" UniqueName="Yearly" FooterStyle-HorizontalAlign="Right">
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="Total" HeaderText="Total" DataFormatString="{0:N0}"
+                                                          HeaderStyle-HorizontalAlign="Right"  AllowFiltering="false" UniqueName="Total" FooterStyle-HorizontalAlign="Right">
+                                                            <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
                                                 </MasterTableView>
@@ -221,9 +222,10 @@
         </td>--%>
     </tr>
     <tr>
-        <td style="width: 50%" valign="top">
+        <td style="padding-left: 5px;padding-right:10px;width: 50%" valign="top">
         <asp:Label ID="lblAvailableFolio" runat="server" CssClass="HeaderTextSmall" Text="Top 5 Scheme by AUM"></asp:Label>
         <br />
+        
             <div id="dvScheme" runat="server">
                 <%--<asp:Chart ID="chrtScheme" runat="server" BackColor="Transparent" Palette="Pastel"
                     Width="500px" Height="250px">
@@ -248,11 +250,11 @@
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="Scheme" HeaderText="Scheme" UniqueName="Scheme"
                                             SortExpression="Scheme">
-                                            <ItemStyle Width="60%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="75%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AUM" HeaderText="AUM" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
                                             UniqueName="AUM" DataFormatString="{0:N0}">
-                                            <ItemStyle Width="40%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="25%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                     </Columns>
                                 </MasterTableView>
@@ -265,7 +267,7 @@
             <asp:LinkButton  ID="lnkSchemeNavi" Text=" >>More" runat="server"
                             CssClass="LinkButtons" onclick="lnkSchemeNavi_Click"></asp:LinkButton>
         </td>
-        <td style="width: 50%" valign="top">
+        <td style="padding-left: 10px;padding-right:5px; width: 50%" valign="top">
         <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Top 5 Branch by AUM"></asp:Label>
         <br />
             <div id="divBranch" runat="server">
@@ -281,11 +283,11 @@
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="BranchName" HeaderText="Branch" UniqueName="BranchName"
                                             SortExpression="BranchName">
-                                            <ItemStyle Width="60%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="75%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AUM" HeaderText="AUM" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
                                             UniqueName="AUM" DataFormatString="{0:N0}">
-                                            <ItemStyle Width="40%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="25%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                     </Columns>
                                 </MasterTableView>
@@ -326,7 +328,7 @@
         </td>--%>
     </tr>
     <tr>
-        <td style="width: 50%" valign="top">
+        <td style="padding-left: 5px;padding-right:10px;width: 50%" valign="top">
         <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Top 5 Customer by AUM"></asp:Label>
         <br />
             <div id="dvCustomer" runat="server">
@@ -353,11 +355,11 @@
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" UniqueName="CustomerName"
                                             SortExpression="CustomerName">
-                                            <ItemStyle Width="60%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="75%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AUM" HeaderText="AUM" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
                                             UniqueName="AUM" DataFormatString="{0:N0}">
-                                            <ItemStyle Width="40%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="25%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                     </Columns>
                                 </MasterTableView>
@@ -370,7 +372,7 @@
                             CssClass="LinkButtons" onclick="lnkFolioNavi_Click"></asp:LinkButton>
             </div>
         </td>
-        <td style="width: 50%" valign="top">
+        <td style="padding-left: 10px;padding-right:5px; width: 50%" valign="top">
         <asp:Label ID="Label3" runat="server" CssClass="HeaderTextSmall" Text="Sub category wise AUM"></asp:Label>
         <br />
                              <div>   
@@ -386,11 +388,11 @@
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="SubCategory" HeaderText="SubCategory" UniqueName="SubCategory"
                                             SortExpression="SubCategory">
-                                            <ItemStyle Width="60%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="75%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AUM" HeaderText="AUM" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
                                             UniqueName="AUM" DataFormatString="{0:N0}">
-                                            <ItemStyle Width="40%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="25%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                     </Columns>
                                 </MasterTableView>
