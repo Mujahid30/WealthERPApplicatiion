@@ -1302,15 +1302,22 @@ namespace WealthERP.OPS
                     if (txtCustomerId.Value == "")
                         dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 1);
                     else
-                        dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value),int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
+                        if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
+                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
+                        else
+                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0); 
                 }
                 else
                 {
                     if (txtCustomerId.Value == "")
                         dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 0);
                     else
+                        if(ddlCustomerISAAccount.SelectedItem.Value!="Select")
                         dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
+                        else
+                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0); 
                 }
+
                 if (dsgetfolioNo.Tables[0].Rows.Count > 0)
                 {
                     dtgetfolioNo = dsgetfolioNo.Tables[0];
