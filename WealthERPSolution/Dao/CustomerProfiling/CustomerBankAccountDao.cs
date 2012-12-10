@@ -317,6 +317,7 @@ namespace DaoCustomerProfiling
             }
             catch (Exception Ex)
             {
+                bResult = false;
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
