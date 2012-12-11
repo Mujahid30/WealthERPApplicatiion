@@ -740,6 +740,7 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
+                    chkOps.Checked = true;
                     trCKMK.Visible = false;
                 }
 
