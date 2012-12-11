@@ -342,7 +342,7 @@
                                     </FilterTemplate>
                                 </telerik:GridDateTimeColumn>
                                  <telerik:GridDateTimeColumn DataField="CeaseDate" DataFormatString="{0:d}" HeaderStyle-Width="91px"
-                                    ShowFilterIcon="false" AllowFiltering="false" AutoPostBackOnFilter="true" HeaderText="Stoped Date"
+                                    ShowFilterIcon="false" AllowFiltering="false" AutoPostBackOnFilter="true" HeaderText="Stopped Date"
                                     UniqueName="CeaseDate" SortExpression="CeaseDate">
                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Wrap="false" />
                                     <FilterTemplate>
