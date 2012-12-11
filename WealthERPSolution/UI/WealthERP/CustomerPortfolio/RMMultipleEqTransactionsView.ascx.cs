@@ -282,8 +282,8 @@ namespace WealthERP.CustomerPortfolio
                         drEQTransaction["Brokerage"] = dtTransactions.Rows[i]["CET_Brokerage"].ToString();
                         drEQTransaction["OtherCharges"] = dtTransactions.Rows[i]["CET_OtherCharges"].ToString();
                         drEQTransaction["STT"] = dtTransactions.Rows[i]["CET_STT"].ToString();
-                        if (dtTransactions.Rows[i]["XES_SourceCode"] != DBNull.Value)
-                            drEQTransaction["GrossPrice"] = Convert.ToDouble( dtTransactions.Rows[i]["XES_SourceCode"].ToString());
+                        //if (dtTransactions.Rows[i]["XES_SourceCode"] != DBNull.Value)
+                        //    drEQTransaction["GrossPrice"] = Convert.ToDouble( dtTransactions.Rows[i]["XES_SourceCode"].ToString());
                         drEQTransaction["Speculative Or Delivery"] = dtTransactions.Rows[i]["CET_IsSpeculative"].ToString();
                         drEQTransaction["Portfolio Name"] = dtTransactions.Rows[i]["CP_PortfolioName"].ToString();
 
@@ -339,9 +339,9 @@ namespace WealthERP.CustomerPortfolio
         }
 
 
-        protected void gvMFTransactions_RowDataBound(object sender, GridItemEventArgs e) 
+        protected void gvMFTransactions_RowDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is  GridDataItem)
+            if (e.Item is GridDataItem)
             {
                 double otherCharges = 0;
                 double brokerage = 0;
@@ -349,28 +349,32 @@ namespace WealthERP.CustomerPortfolio
                 double quantity = 0;
 
                 double rate = 0;
-                if (e.Item.Cells[8].Text != string.Empty)
-                    rate = Convert.ToDouble(e.Item.Cells[8].Text.ToString().Trim());
+                GridDataItem dataItem = e.Item as GridDataItem;
+                if (dataItem["Rate"].Text != string.Empty)
+                    rate = Convert.ToDouble(dataItem["Rate"].Text.ToString().Trim());
                 double STT = 0;
 
-                if (e.Item.Cells[9].Text != string.Empty)
-                    brokerage = Convert.ToDouble(e.Item.Cells[9].Text.ToString().Trim());
-                if (e.Item.Cells[10].Text != string.Empty)
-                    quantity = Convert.ToDouble(e.Item.Cells[10].Text.ToString().Trim());
+                if (dataItem["Brokerage"].Text != string.Empty)
+                    brokerage = Convert.ToDouble(dataItem["Brokerage"].Text.ToString().Trim());
+                if (dataItem["Quantity"].Text != string.Empty)
+                    quantity = Convert.ToDouble(dataItem["Quantity"].Text.ToString().Trim());
 
-                if (e.Item.Cells[11].Text != string.Empty)
-                    otherCharges = Convert.ToDouble(e.Item.Cells[11].Text.ToString().Trim());
-                if (e.Item.Cells[12].Text != string.Empty)
-                    STT = Convert.ToDouble(e.Item.Cells[12].Text.ToString().Trim());
+                if (dataItem["OtherCharges"].Text != string.Empty)
+                    otherCharges = Convert.ToDouble(dataItem["OtherCharges"].Text.ToString().Trim());
+                if (dataItem["STT"].Text != string.Empty)
+                    STT = Convert.ToDouble(dataItem["STT"].Text.ToString().Trim());
 
                 grossPrice = ((rate) * quantity) + STT + brokerage + otherCharges;
 
                 totalGrossPrice += grossPrice;
 
-                e.Item.Cells[13].Text = grossPrice.ToString();
+                dataItem["GrossPrice"].Text = grossPrice.ToString();
             }
-            if(e.Item is GridFooterItem)
-                e.Item.Cells[13].Text = totalGrossPrice.ToString();
+            if (e.Item is GridFooterItem)
+            {
+                GridFooterItem Footeritem = e.Item as GridFooterItem;
+                Footeritem["GrossPrice"].Text = totalGrossPrice.ToString();
+            }
         }
 
         protected void gvMFTransactions_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
