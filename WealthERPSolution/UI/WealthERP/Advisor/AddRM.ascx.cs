@@ -676,7 +676,7 @@ namespace WealthERP.Advisor
                 rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked, isPurelyResearchLogin);
 
                 rmVo.UserId = rmIds[0];
-                if ((CheckListCKMK.Items[0].Selected == true) || (CheckListCKMK.Items[1].Selected = true))
+                if ((CheckListCKMK.Items[0].Selected == true) || (CheckListCKMK.Items[1].Selected == true))
                     foreach (ListItem Items in CheckListCKMK.Items)
                     {
                         if (Items.Selected)

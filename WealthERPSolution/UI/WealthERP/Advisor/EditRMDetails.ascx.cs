@@ -1315,24 +1315,18 @@ namespace WealthERP.Advisor
                 if (!string.IsNullOrEmpty(rmVo.BranchList.ToString()))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Sorry... You need to delete branch associations first');", true);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewRMDetails','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('EditRMDetails','none');", true);
 
                 }
                 else if (int.Parse(hndRmCustomerCount.Value.ToString()) > 0 || int.Parse(hndBMBranchHead.Value.ToString()) > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Sorry... You need to delete your internal associations first');", true);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewRMDetails','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('EditRMDetails','none');", true);
 
                 }
                 else if (string.IsNullOrEmpty(rmVo.BranchList.ToString().Trim()))
                 {
-                    if (bool.Parse(advisorVo.IsISASubscribed.ToString()) == true)
-                    {
-                        userBo.DeletefromPermision(rmVo.UserId);
-                        result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
-                    }
-                    else
-                        result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
+                     result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
                 }
                 if (result)
                 {
