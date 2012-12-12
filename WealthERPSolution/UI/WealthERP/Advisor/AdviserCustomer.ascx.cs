@@ -141,9 +141,17 @@ namespace WealthERP.Advisor
             try
             {
                 GetPageCount();
-                if (Session["Customer"].ToString() == "Customer")
+                if (Session["Customer"] != null)
                 {
-                    this.BindGrid(mypager.CurrentPage, 0);
+                    if (Session["Customer"].ToString() == "Customer")
+                    {
+                        this.BindGrid(mypager.CurrentPage, 0);
+                    }
+                    else
+                    {
+                        this.BindCustomer(mypager.CurrentPage);
+
+                    }
                 }
                 else
                 {
