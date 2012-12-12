@@ -213,7 +213,7 @@
                 CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtBeneficiaryAcctNbr" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtBeneficiaryAcctNbr" runat="server" CssClass="txtField" MaxLength="25"></asp:TextBox>
             <%--<span id="Span4" class="spnRequiredField">*  </td>--%>
         <td>
             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Beneficiary Account Number Required"
