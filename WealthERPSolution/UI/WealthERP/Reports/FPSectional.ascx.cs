@@ -41,7 +41,7 @@ namespace WealthERP.Reports
                 txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
                 //txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
             }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 //hidBMLogin.Value = "False";
                 txtCustomer_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
