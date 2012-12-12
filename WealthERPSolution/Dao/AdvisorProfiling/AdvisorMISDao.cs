@@ -1224,7 +1224,7 @@ namespace DaoAdvisorProfiling
             }
             return dsGetCategoryList;
         }
-        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
+        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, string Category)
         {
             Database db;
             DbCommand AMCTransactionDeatailsCmd;
@@ -1247,6 +1247,10 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(AMCTransactionDeatailsCmd, "@ToDate", DbType.DateTime, Todate);
                 else
                     Todate = DateTime.MinValue;
+                if (!string.IsNullOrEmpty(Category))
+                    db.AddInParameter(AMCTransactionDeatailsCmd, "@Category", DbType.String, Category);
+                else
+                    db.AddInParameter(AMCTransactionDeatailsCmd, "@Category", DbType.String, DBNull.Value);
                 AMCTransactionDeatailsCmd.CommandTimeout = 60 * 60;
                 dsAMCTransactionDeatails = db.ExecuteDataSet(AMCTransactionDeatailsCmd);
             }
@@ -1272,7 +1276,7 @@ namespace DaoAdvisorProfiling
             }
             return dsAMCTransactionDeatails;
         }
-        public DataSet GetSchemeTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AmcCode)
+        public DataSet GetSchemeTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AmcCode, string Category)
         {
             Database db;
             DbCommand GetSchemeTransactionDeatailsCmd;
@@ -1299,6 +1303,10 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@amcCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@amcCode", DbType.Int32, DBNull.Value);
+                if (!string.IsNullOrEmpty(Category))
+                    db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@Category", DbType.String, Category);
+                else
+                    db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@Category", DbType.String, DBNull.Value);
                 GetSchemeTransactionDeatailsCmd.CommandTimeout = 60 * 60;
                 dsSchemeTransactionDeatails = db.ExecuteDataSet(GetSchemeTransactionDeatailsCmd);
             }
@@ -1476,6 +1484,66 @@ namespace DaoAdvisorProfiling
                 throw exBase;
             }
             return dsCategoryTransactionDeatails;
+        }
+        /// <summary>
+        ///  Show RM Wise Transaction details 
+        /// </summary>
+        /// <param name="userType"></param>
+        /// <param name="AdviserId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="branchHeadId"></param>
+        /// <param name="all"></param>
+        /// <param name="FromDate"></param>
+        /// <param name="Todate"></param>
+        /// <returns></returns>
+        public DataSet GetRMTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
+        {
+            Database db;
+            DbCommand getRMTransactionDeatailsCmd;
+            DataSet dsRMTransactionDeatails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getRMTransactionDeatailsCmd = db.GetStoredProcCommand("SPROC_GetRMWiseTransactionDetails");
+                db.AddInParameter(getRMTransactionDeatailsCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(getRMTransactionDeatailsCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(getRMTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(getRMTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(getRMTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(getRMTransactionDeatailsCmd, "@all", DbType.Int32, all);
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(getRMTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    FromDate = DateTime.MinValue;
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(getRMTransactionDeatailsCmd, "@ToDate", DbType.DateTime, Todate);
+                else
+                    Todate = DateTime.MinValue;
+                getRMTransactionDeatailsCmd.CommandTimeout = 60 * 60;
+                dsRMTransactionDeatails = db.ExecuteDataSet(getRMTransactionDeatailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetRMTransactionDeatails()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsRMTransactionDeatails;
         }
     }
 }
