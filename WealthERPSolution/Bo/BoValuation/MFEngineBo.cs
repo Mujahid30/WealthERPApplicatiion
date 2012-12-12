@@ -1250,8 +1250,13 @@ namespace BoValuation
                     double.TryParse(Convert.ToString(sumObject), out returnPurchaseUnits);
 
                     drMFNetPosition["CMFNP_RET_Hold_PurchaseUnit"] = returnPurchaseUnits;   // confusion  // Resolved
-                    drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = openUnits - returnPurchaseUnits;
 
+                    if (openUnits > returnPurchaseUnits)
+                    {
+                        drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = openUnits - returnPurchaseUnits;
+                    }
+                    else
+                        drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = 0;
                     sumObject = dtMFTransactionBalance.Compute("Sum(EligibleLTG)", "CMFTB_UnitBalanceTAX > 0");
                     double.TryParse(Convert.ToString(sumObject), out eligibleLTCG);
 
