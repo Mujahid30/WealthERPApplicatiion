@@ -401,6 +401,15 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.LinkButton lnkOBranch;
         
         /// <summary>
+        /// lnkRMWise control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkRMWise;
+        
+        /// <summary>
         /// lnkOCustomer control.
         /// </summary>
         /// <remarks>
@@ -525,6 +534,33 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvFolioWise;
+        
+        /// <summary>
+        /// pnlRM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlRM;
+        
+        /// <summary>
+        /// divRM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRM;
+        
+        /// <summary>
+        /// gvRM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvRM;
         
         /// <summary>
         /// pnlCategory control.
