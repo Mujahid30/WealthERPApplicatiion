@@ -1466,7 +1466,7 @@ namespace WealthERP.Advisor
                             Item.Text = dr[2].ToString();
                             if ( dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS"
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
-                                || dr[2].ToString() == "MF TurnOver MIS" || dr[2].ToString() == "MF DashBoard"
+                                || dr[2].ToString() == "MF Turnover MIS" || dr[2].ToString() == "MF Dashboard"
                                 || dr[2].ToString() == "Customer Accounts Compare")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
@@ -1548,7 +1548,7 @@ namespace WealthERP.Advisor
                             Item.Text = dr[2].ToString();
                             if (dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS" 
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
-                                || dr[2].ToString() == "MF TurnOver MIS")
+                                || dr[2].ToString() == "MF Turnover MIS")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
@@ -1626,7 +1626,7 @@ namespace WealthERP.Advisor
                             Item.Text = dr[2].ToString();
                             if (dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS"
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
-                                || dr[2].ToString() == "MF TurnOver MIS" || dr[2].ToString() == "Generate ISA"
+                                || dr[2].ToString() == "MF Turnover MIS" || dr[2].ToString() == "Generate ISA"
                                 || dr[2].ToString() == "ISA Status")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
@@ -1778,8 +1778,8 @@ namespace WealthERP.Advisor
                             Item.Text = dr[2].ToString();
                             if (dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS"
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
-                                || dr[2].ToString() == "MF TurnOver MIS" 
-                                || dr[2].ToString() == "ISA Status" || dr[2].ToString() == "MF DashBoard"
+                                || dr[2].ToString() == "MF Turnover MIS" 
+                                || dr[2].ToString() == "ISA Status" || dr[2].ToString() == "MF Dashboard"
                                 || dr[2].ToString() == "ISA Folio Mapping" || dr[2].ToString() == "Customer Accounts Compare")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
