@@ -33,6 +33,9 @@
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
                 OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
             onclick="btnCategoryExport_Click"></asp:ImageButton>
+            <asp:ImageButton ID="btnRMExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" onclick="btnRMExport_Click"></asp:ImageButton>
     </td>
         </tr>
     </table>
@@ -690,7 +693,8 @@
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction" HeaderText="Purchase Trnx"  DataField="BUYCount"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}" Aggregate="Sum"
+                    FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn  HeaderStyle-Width="80px" HeaderTooltip="Purchase Amount" HeaderText="Purchase Amt" DataField="BUYAmount"
@@ -1108,9 +1112,9 @@
     <telerik:RadGrid ID="gvRM" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
+        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvRM_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                    FileName="Branch Details" Excel-Format="ExcelML">
+                    FileName="RM Details" Excel-Format="ExcelML">
         </ExportSettings>
         <MasterTableView Width="100%"  AllowMultiColumnSorting="True"
             AutoGenerateColumns="false" CommandItemDisplay="None">
@@ -1123,7 +1127,8 @@
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction" HeaderText="Purchase Trnx"  DataField="BUYCount"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}" Aggregate="Sum"
+                    FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn  HeaderStyle-Width="80px" HeaderTooltip="Purchase Amount" HeaderText="Purchase Amt" DataField="BUYAmount"

@@ -1341,6 +1341,7 @@ namespace WealthERP.BusinessMIS
                 btnFolioExport.Visible = false;
                 btnBranchExport.Visible = false;
                 btnCategoryExport.Visible = false;
+                btnRMExport.Visible = false;
                 divRM.Visible = false;
                 pnlRM.Visible = false;
             }
@@ -1361,6 +1362,7 @@ namespace WealthERP.BusinessMIS
                 btnFolioExport.Visible = false;
                 btnBranchExport.Visible = false;
                 btnCategoryExport.Visible = false;
+                btnRMExport.Visible = false;
                 divRM.Visible = false;
                 pnlRM.Visible = false;
             }
@@ -1381,6 +1383,7 @@ namespace WealthERP.BusinessMIS
                 btnFolioExport.Visible = true;
                 btnBranchExport.Visible = false;
                 btnCategoryExport.Visible = false;
+                btnRMExport.Visible = false;
                 divRM.Visible = false;
                 pnlRM.Visible = false;
             }
@@ -1401,6 +1404,7 @@ namespace WealthERP.BusinessMIS
                 btnFolioExport.Visible = false;
                 btnBranchExport.Visible = false;
                 btnCategoryExport.Visible = true;
+                btnRMExport.Visible = false;
                 divRM.Visible = false;
                 pnlRM.Visible = false;
             }
@@ -1421,6 +1425,7 @@ namespace WealthERP.BusinessMIS
                 btnFolioExport.Visible = false;
                 btnBranchExport.Visible = true;
                 btnCategoryExport.Visible = false;
+                btnRMExport.Visible = false;
                 divRM.Visible = false;
                 pnlRM.Visible = false;
             }
@@ -1441,6 +1446,7 @@ namespace WealthERP.BusinessMIS
                 btnFolioExport.Visible = false;
                 btnBranchExport.Visible = false;
                 btnCategoryExport.Visible = false;
+                btnRMExport.Visible = true;
                 divRM.Visible = true;
                 pnlRM.Visible = true;
             }
@@ -1788,6 +1794,24 @@ namespace WealthERP.BusinessMIS
                 }
                 
             }
+        }
+
+        protected void btnRMExport_Click(object sender, ImageClickEventArgs e)
+        {
+            gvRM.ExportSettings.OpenInNewWindow = true;
+            gvRM.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvRM.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvRM.MasterTableView.ExportToExcel();
+        }
+        protected void gvRM_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtGetRMTransactionDeatails = new DataTable();
+            dtGetRMTransactionDeatails = (DataTable)Cache["RMTransactionDeatails" + userVo.UserId];
+            gvRM.DataSource = dtGetRMTransactionDeatails;
+            gvRM.Visible = true;
         }
     }
 }
