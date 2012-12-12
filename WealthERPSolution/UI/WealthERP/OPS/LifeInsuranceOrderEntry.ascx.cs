@@ -85,7 +85,7 @@ namespace WealthERP.OPS
                 lnkbtnDelete.Visible = false;
                 SetControls(true);
 
-                if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
