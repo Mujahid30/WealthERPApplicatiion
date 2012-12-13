@@ -1464,7 +1464,7 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if ( dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS"
+                            if ( dr[2].ToString() == "Goal MIS" 
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
                                 || dr[2].ToString() == "MF Turnover MIS" || dr[2].ToString() == "MF Dashboard"
                                 || dr[2].ToString() == "Customer Accounts Compare")
@@ -1546,7 +1546,7 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if (dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS" 
+                            if (dr[2].ToString() == "Goal MIS" 
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
                                 || dr[2].ToString() == "MF Turnover MIS")
                             {
@@ -1624,7 +1624,7 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if (dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS"
+                            if (dr[2].ToString() == "Goal MIS" 
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
                                 || dr[2].ToString() == "MF Turnover MIS" || dr[2].ToString() == "Generate ISA"
                                 || dr[2].ToString() == "ISA Status")
@@ -1776,7 +1776,7 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if (dr[2].ToString() == "Goal MIS" || dr[2].ToString() == "Customer Networth MIS"
+                            if (dr[2].ToString() == "Goal MIS" 
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
                                 || dr[2].ToString() == "MF Turnover MIS" 
                                 || dr[2].ToString() == "ISA Status" || dr[2].ToString() == "MF Dashboard"
