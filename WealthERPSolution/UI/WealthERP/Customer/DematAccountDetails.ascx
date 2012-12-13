@@ -1,9 +1,23 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DematAccountDetails.ascx.cs"
     Inherits="WealthERP.Customer.DematAccountDetails" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-<br />
 <table width="100%">
-    <tr>
+ <tr>
+          <td width="100%">
+                    <div class="divPageHeading">
+                        <table cellspacing="0" cellpadding="0" width="100%">
+                            <tr id="lblLifeInsurance" runat="server">
+                                <td align="left">
+                                    <asp:Label ID="lblDematDetails" runat="server" Text="Demat Details" CssClass="HeaderTextBig"></asp:Label>
+                                </td>
+                                <td align="right" style="padding-bottom:2px;">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+<%--    <tr>
         <td>
             <asp:Label ID="lblDematDetails" runat="server" Text="Demat Details" CssClass="HeaderTextBig"></asp:Label>
         </td>
@@ -12,7 +26,7 @@
         <td>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr><td>
         <asp:Label ID="lblError" runat="server" Visible="False" CssClass="Error"></asp:Label>
         </td></tr>
