@@ -1354,7 +1354,7 @@ namespace WealthERP.Advisor
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
-                            if (Item.Text == "Product Order" || Item.Value == "CusQuickLinks" || Item.Text == "CusHome")
+                            if ( Item.Value == "CusQuickLinks" || Item.Text == "CusHome")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }

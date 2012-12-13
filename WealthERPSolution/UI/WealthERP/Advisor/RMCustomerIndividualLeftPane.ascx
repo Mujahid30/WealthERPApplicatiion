@@ -127,7 +127,7 @@
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Finance Profile" Value="Finance Profile">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" ImagePosition="Right"
+                                    <telerik:RadPanelItem runat="server"  ImagePosition="Right"
                                         Text="Assumptions and Preferences" Value="Preferences">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Recommendation" Value="CustomerFPRecommendation">
