@@ -265,7 +265,7 @@ namespace WealthERP.BusinessMIS
                     txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                     txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                 }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
                     {
@@ -325,7 +325,7 @@ namespace WealthERP.BusinessMIS
                     txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
 
                 }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
                     {
