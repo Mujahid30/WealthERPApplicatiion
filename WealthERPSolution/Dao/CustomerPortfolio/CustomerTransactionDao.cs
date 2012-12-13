@@ -252,7 +252,9 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.BrokerCode = dr["XB_BrokerCode"].ToString();
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
-                        eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
+                            eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());                      
+
                         eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
                         eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
                         eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
@@ -384,7 +386,8 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.BrokerCode = dr["XB_BrokerCode"].ToString();
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
-                        eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
+                         eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
                         eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
                         eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
                         eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
@@ -475,7 +478,8 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.BrokerCode = dr["XB_BrokerCode"].ToString();
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
-                        eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
+                         eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
                         eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
                         eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
                         eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
@@ -573,7 +577,9 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.BrokerCode = dr["XB_BrokerCode"].ToString();
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
-                        eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
+                          eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+                        
                         eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
                         eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
                         eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
@@ -661,7 +667,8 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.BrokerCode = dr["XB_BrokerCode"].ToString();
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
-                        eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
+                          eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
                         eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
                         eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
                         //eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
@@ -766,7 +773,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateEQTransactionCmd, "@CET_IsSplit", DbType.Int16, eqTransactionVo.IsSplit);
                 db.AddInParameter(updateEQTransactionCmd, "@CET_SplitCustEqTransId", DbType.Int32, eqTransactionVo.SplitTransactionId);
                 db.AddInParameter(updateEQTransactionCmd, "@XES_SourceCode", DbType.String, eqTransactionVo.SourceCode);
-                db.AddInParameter(updateEQTransactionCmd, "@WETT_TransactionCode", DbType.Int16, eqTransactionVo.TransactionCode);
+                db.AddInParameter(updateEQTransactionCmd, "@WETT_TransactionCode", DbType.Int16, eqTransactionVo.TransactionCode);               
                 db.AddInParameter(updateEQTransactionCmd, "@CET_IsSourceManual", DbType.Int16, eqTransactionVo.IsSourceManual);
                 db.AddInParameter(updateEQTransactionCmd, "@CET_ModifiedBy", DbType.String, userId);
                 if (db.ExecuteNonQuery(updateEQTransactionCmd) != 0)
@@ -1138,6 +1145,7 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
                         mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
                         mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CMFT_IsSourceManual"].ToString()))
                         mfTransactionVo.IsSourceManual = int.Parse(dr["CMFT_IsSourceManual"].ToString());
                         mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
                         mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
@@ -1294,6 +1302,7 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
                         mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
                         mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CMFT_IsSourceManual"].ToString()))
                         mfTransactionVo.IsSourceManual = int.Parse(dr["CMFT_IsSourceManual"].ToString());
                         mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
                         mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
