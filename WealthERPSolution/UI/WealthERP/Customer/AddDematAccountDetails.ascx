@@ -1,7 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddDematAccountDetails.ascx.cs"
     Inherits="WealthERP.Customer.AddDematAccountDetails" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
-
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+    <Services>
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+    </Services>
+</asp:ScriptManager>
 <script language="javascript" type="text/javascript">
     function addbranches() {
 
@@ -100,28 +104,30 @@
    
 </script>
 
-<asp:ScriptManager ID="ScriptManager1" runat="server">
-    <Services>
-        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
-    </Services>
-</asp:ScriptManager>
 <table class="TableBackground" style="width: 100%;">
-    <tr>
-        <td colspan="6">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="6">
-            <hr />
-        </td>
-    </tr>
-    <tr>
+     <tr>
+                <td colspan="6" width="100%">
+                    <div class="divPageHeading">
+                        <table cellspacing="0" cellpadding="3" width="100%">
+                            <tr id="lblLifeInsurance" runat="server">
+                                <td align="left">
+                                    <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig"></asp:Label>
+                                </td>
+                                <td align="right" style="padding-bottom:2px;">
+                                    <asp:LinkButton ID="lbtnBackButton" runat="server" OnClick="lbtnBackButton_Click"
+                                      Visible="False" CssClass="LinkButtons">Edit</asp:LinkButton>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+<%--    <tr>
         <td>
             <asp:LinkButton ID="lbtnBackButton" runat="server" OnClick="lbtnBackButton_Click"
                 Visible="False" CssClass="LinkButtons">Edit</asp:LinkButton>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td align="right">
             <asp:Label ID="lblDpName" runat="server" Text="DP Name" CssClass="FieldName"></asp:Label>
@@ -215,8 +221,7 @@
         <td>
             <asp:TextBox ID="txtBeneficiaryAcctNbr" runat="server" CssClass="txtField" MaxLength="25"></asp:TextBox>
             <%--<span id="Span4" class="spnRequiredField">*  </td>--%>
-        <td>
-            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Beneficiary Account Number Required"
+             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Beneficiary Account Number Required"
                 ControlToValidate="txtBeneficiaryAcctNbr" CssClass="cvPCG"></asp:RequiredFieldValidator>--%>
         </td>
     </tr>
@@ -252,7 +257,7 @@
         </td>
     </tr>
     <tr>
-        <td i colspan="2">
+        <td colspan="2">
             <asp:GridView ID="gvPickJointHolder" runat="server" DataKeyNames="CA_AssociationId"
                 AutoGenerateColumns="False" CssClass="GridViewStyle">
                 <RowStyle CssClass="RowStyle" />
