@@ -92,7 +92,7 @@ namespace WealthERP.CustomerPortfolio
                         txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                         txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                     }
-                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                     {
                         txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                         txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
