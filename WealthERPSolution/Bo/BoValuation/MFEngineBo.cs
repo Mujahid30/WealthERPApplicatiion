@@ -210,7 +210,7 @@ namespace BoValuation
 
                                     //}
 
-                                    //if (commonId == 420175 && schemePlanCode == 8062)
+                                    //if (commonId == 231118 && schemePlanCode == 31914)
                                     //{
 
                                     //}
@@ -956,7 +956,7 @@ namespace BoValuation
                             dsMFTransactionBalanceAndSellPair.Tables.Add(dtCustomerMFTransactionBalanceForNP.DefaultView.ToTable());
                             dsMFTransactionBalanceAndSellPair.Tables.Add(dtCustomerMFTransactionSellPairedForNP.DefaultView.ToTable());
 
-                            //if (commonId == 117614 & schemePlanCode == 24261)
+                            //if (commonId == 231118 & schemePlanCode == 31914)
                             //{
 
                             //}
@@ -1251,9 +1251,14 @@ namespace BoValuation
 
                     drMFNetPosition["CMFNP_RET_Hold_PurchaseUnit"] = returnPurchaseUnits;   // confusion  // Resolved
 
-                    if (openUnits > returnPurchaseUnits)
+                    if (returnPurchaseUnits > 0)
                     {
-                        drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = openUnits - returnPurchaseUnits;
+                        if (openUnits > returnPurchaseUnits)
+                        {
+                            drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = openUnits - returnPurchaseUnits;
+                        }
+                        else
+                            drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = 0;
                     }
                     else
                         drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = 0;
