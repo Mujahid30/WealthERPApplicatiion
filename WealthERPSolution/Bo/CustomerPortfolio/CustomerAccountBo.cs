@@ -1031,13 +1031,28 @@ namespace BoCustomerPortfolio
 
         }
 
+        public bool UpdateBankDetails(int customerid, string bankCode, int amcCode, string folioNo)
+        {
+            CustomerAccountDao customerAccountsDao = new CustomerAccountDao();
+            bool isUpdated = false;
+            try
+            {
+                isUpdated = customerAccountsDao.UpdateBankDetails(customerid, bankCode,amcCode,folioNo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }               
+            return isUpdated;
+        }
+
         public DataSet GetCustomerAssociatedRel(int customerId)
         {
             CustomerAccountDao customerAccountsDao=new CustomerAccountDao();
             DataSet dsCustomerAssociates;
             try
             {
-                dsCustomerAssociates=customerAccountsDao.GetCustomerAssociatesRel(customerId);
+                dsCustomerAssociates = customerAccountsDao.GetCustomerAssociatesRel(customerId);
             }
             catch (BaseApplicationException Ex)
             {
