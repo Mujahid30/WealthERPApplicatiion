@@ -325,6 +325,33 @@ namespace DaoCustomerPortfolio
             return accountId;
         }
 
+        public bool UpdateBankDetails(int customerid,string  bankCode,int amcCode,string folioNo)
+        {
+            bool isUpdate = false;
+            Database db;
+            DbCommand UpdateBankDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateBankDetailsCmd = db.GetStoredProcCommand("SPROC_UpdateFolioLevelBankName");
+                db.AddInParameter(UpdateBankDetailsCmd, "@C_CustomerId", DbType.Int32, customerid);
+                db.AddInParameter(UpdateBankDetailsCmd, "@CB_CustBankCode", DbType.String, bankCode);
+                db.AddInParameter(UpdateBankDetailsCmd, "@PA_AMCCode", DbType.String, amcCode);
+                db.AddInParameter(UpdateBankDetailsCmd, "@CMFA_FolioNum", DbType.String, folioNo);                 
+	
+                if (db.ExecuteNonQuery(UpdateBankDetailsCmd) == -1)
+                {
+                    isUpdate = true;
+                }                               
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return isUpdate;
+        }
+
         public int CreateCustomerMFAccount(CustomerAccountsVo customerAccountVo, int userId)
         {
             int accountId = 0;
