@@ -246,23 +246,28 @@ namespace DaoCustomerProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateCustomerBankCmd = db.GetStoredProcCommand("SP_UpdateCustomerBankAccount");
-
-
                 db.AddInParameter(updateCustomerBankCmd, "@CB_CustBankAccId", DbType.Int32, customerBankAccountVo.CustBankAccId);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BankName", DbType.String, customerBankAccountVo.BankName);
                 db.AddInParameter(updateCustomerBankCmd, "@XBAT_BankAccountTypeCode", DbType.String, customerBankAccountVo.AccountType);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
                 db.AddInParameter(updateCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine2", DbType.String, customerBankAccountVo.BranchAdrLine2);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine3", DbType.String, customerBankAccountVo.BranchAdrLine3);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrPinCode", DbType.String, customerBankAccountVo.BranchAdrPinCode);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCity", DbType.String, customerBankAccountVo.BranchAdrCity);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrState", DbType.String, customerBankAccountVo.BranchAdrState);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCountry", DbType.String, customerBankAccountVo.BranchAdrCountry);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_Balance", DbType.Decimal, customerBankAccountVo.Balance);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_MICR", DbType.Int64, customerBankAccountVo.MICR);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
                 db.AddInParameter(updateCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
                 db.ExecuteNonQuery(updateCustomerBankCmd);
@@ -334,5 +339,71 @@ namespace DaoCustomerProfiling
 
             return bResult;
         }
+
+        public DataTable GetALLBankName()
+        {
+            //string logoPath = "";
+            Database db;
+            DbCommand getBankNameCmd;
+            DataSet getBankNameDs;
+            // DataRow dr;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBankNameCmd = db.GetStoredProcCommand("SPRCO_GetAllBankName ");
+                getBankNameDs = db.ExecuteDataSet(getBankNameCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return getBankNameDs.Tables[0];
+        }
+
+
+        public DataTable XMLBankaccountType()
+        {
+            //string logoPath = "";
+            Database db;
+            DbCommand getBankAccountCmd;
+            DataSet getBankAccountDs;
+            // DataRow dr;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBankAccountCmd = db.GetStoredProcCommand("SP_XMLBankAccountType ");
+                getBankAccountDs = db.ExecuteDataSet(getBankAccountCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return getBankAccountDs.Tables[0];
+        }
+        public DataTable XMLModeOfholding()
+        {
+            //string logoPath = "";
+            Database db;
+            DbCommand getModeHoldingCmd;
+            DataSet getModeHoldingDs;
+            // DataRow dr;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getModeHoldingCmd = db.GetStoredProcCommand("SP_XMLModeOfHolding ");
+                getModeHoldingDs = db.ExecuteDataSet(getModeHoldingCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return getModeHoldingDs.Tables[0];
+        }
+
+
+
     }
 }
