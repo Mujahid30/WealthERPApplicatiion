@@ -214,5 +214,67 @@ namespace BoCustomerProfiling
 
             return bResult;
         }
+
+        public DataTable GetALLBankName()
+        {
+            DataTable dt = new DataTable();
+            //UserVo userVo = null;
+            CustomerBankAccountDao customerBankAccountDao = new CustomerBankAccountDao();
+
+            try
+            {
+                //  userVo = userDao.Getselectlist();
+                dt = customerBankAccountDao.GetBankName();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dt;
+        }
+
+
+        public DataTable XMLBankAccountType()
+        {
+            DataTable dt = new DataTable();
+            //UserVo userVo = null;
+            CustomerBankAccountDao customerBankAccountDao = new CustomerBankAccountDao();
+
+            try
+            {
+                //  userVo = userDao.Getselectlist();
+                dt = customerBankAccountDao.XMLBankaccountType();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dt;
+        }
+        public DataTable XMLModeOfHolding()
+        {
+            DataTable dt = new DataTable();
+            //UserVo userVo = null;
+            CustomerBankAccountDao customerBankAccountDao = new CustomerBankAccountDao();
+
+            try
+            {
+                //  userVo = userDao.Getselectlist();
+                dt = customerBankAccountDao.XMLModeOfholding();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dt;
+        }
+
+
     }
 }
