@@ -224,7 +224,7 @@ namespace BoCustomerProfiling
             try
             {
                 //  userVo = userDao.Getselectlist();
-                dt = customerBankAccountDao.GetBankName();
+                dt = customerBankAccountDao.GetALLBankName();
 
             }
             catch (BaseApplicationException Ex)
