@@ -3036,6 +3036,9 @@ namespace DaoCustomerPortfolio
                         AccountVo.XCT_CustomerTypeCode = dr["XCT_CustomerTypeCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["XCST_CustomerSubTypeCode"].ToString()))
                         AccountVo.XCST_CustomerSubTypeCode = dr["XCST_CustomerSubTypeCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["CMFA_BankNameInExtFile"].ToString()))
+                        AccountVo.BankNameInExtFile = dr["CMFA_BankNameInExtFile"].ToString();
+
 
                     if (!string.IsNullOrEmpty(dr["CMGCXP_DOB"].ToString()))
                     AccountVo.CDOB = DateTime.Parse(dr["CMGCXP_DOB"].ToString());                    
