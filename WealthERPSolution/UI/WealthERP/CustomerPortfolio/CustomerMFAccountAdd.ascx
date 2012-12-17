@@ -284,7 +284,7 @@
             </asp:DropDownList>
         </td>
     </tr>
-<%--</table>
+    <%--</table>
 <table width="100%" class="TableBackground">--%>
     <tr>
         <td colspan="5">
@@ -339,7 +339,7 @@
         </td>
         <td class="rightField" colspan="4">
             <asp:DropDownList ID="ddlModeOfHolding" runat="server" CssClass="cmbField" ValidationGroup="btnSubmit">
-            </asp:DropDownList >
+            </asp:DropDownList>
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlModeOfHolding"
                 ErrorMessage="Please select a Mode of Holding" Operator="NotEqual" ValueToCompare="0"
@@ -387,6 +387,22 @@
         <td class="rightField" colspan="4">
             <asp:TextBox Visible="false" ID="txtTaxStatus" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
+    </tr>
+    <tr>    
+      <td class="leftField">
+            <asp:Label ID="lblddlBankList" runat="server" CssClass="FieldName" Text="Bank :"></asp:Label>
+        </td>
+        <td class="rightField" colspan="4">
+            <asp:DropDownList ID="ddlBankList" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlBankList_SelectedIndexChanged">
+            </asp:DropDownList>
+            <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
+                Width="15px"></asp:ImageButton>
+            <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
+                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
+                Height="15px" Width="25px"></asp:ImageButton>
+        </td>    
     </tr>
     <tr>
         <td colspan="5">
@@ -524,19 +540,14 @@
         </td>
     </tr>
     <tr id="trbankList" runat="server">
+      
         <td class="leftField">
-            <asp:Label ID="lblddlBankList" runat="server" CssClass="FieldName" Text="Bank :"></asp:Label>
+            <asp:Label ID="Label29" runat="server" CssClass="FieldName" Text="Bank Name On Ext. File :"></asp:Label>
         </td>
-        <td class="rightField" colspan="4">
-            <asp:DropDownList ID="ddlBankList" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlBankList_SelectedIndexChanged">
-            </asp:DropDownList>
-            <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
-                ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
-                Width="15px"></asp:ImageButton>
-            <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
-                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
-                Height="15px" Width="25px"></asp:ImageButton>
+        <td class="rightField">
+            <asp:TextBox Enabled="false" ID="txtExternalFileBankName" CssClass="txtField" runat="server"></asp:TextBox>
+        </td>
+        <td colspan="3">
         </td>
     </tr>
     <asp:UpdatePanel runat="server" ID="upBankDetails">
@@ -544,13 +555,22 @@
             <div id="divBankDetails" runat="server">
                 <tr>
                     <td class="leftField">
+                        <asp:Label ID="Label28" runat="server" CssClass="FieldName" Text="All Banks :"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:DropDownList ID="ddlALLBankList" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                        <asp:ImageButton ID="imgAddBankForTBC" ImageUrl="~/Images/user_add.png" runat="server"
+                            ToolTip="Click here to Update Bank" Height="15px" Width="15px" OnClick="imgAddBankForTBC_Click"></asp:ImageButton>
+                    </td>
+                    <td class="leftField">
                         <asp:Label ID="Label22" CssClass="FieldName" Text="Account Type :" runat="server"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:DropDownList ID="ddlAccType" CssClass="cmbField" runat="server">
                         </asp:DropDownList>
                     </td>
-                    <td colspan="3">
+                    <td>
                     </td>
                 </tr>
                 <tr>
@@ -624,10 +644,9 @@
                     </td>
                     <td class="rightField" style="width: 25%">
                         <asp:TextBox ID="txtPinCode" MaxLength="6" CssClass="txtField" runat="server"></asp:TextBox>
-                     <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="<br />Enter a numeric value"
-                                                    CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPinCode" ValidationGroup="btnSubmit"
-                                                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
-
+                        <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="<br />Enter a numeric value"
+                            CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPinCode" ValidationGroup="btnSubmit"
+                            Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
                     </td>
                     <td class="leftField" style="width: 20%">
                         <asp:Label ID="Label18" CssClass="FieldName" Text="MICR :" runat="server"></asp:Label>
@@ -741,10 +760,9 @@
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" MaxLength="6" ID="txtPPinCode" runat="server"></asp:TextBox>
-             <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Enter a numeric value"
-                                                    CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPPinCode" ValidationGroup="btnSubmit"
-                                                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
-
+            <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Enter a numeric value"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPPinCode" ValidationGroup="btnSubmit"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td>
         </td>
@@ -771,20 +789,18 @@
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtCustPhNoOff" runat="server"></asp:TextBox>
-         <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Enter a numeric value"
-                                                    CssClass="rfvPCG" Type="Integer" ControlToValidate="txtCustPhNoOff" ValidationGroup="btnSubmit"
-                                                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
-
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Enter a numeric value"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtCustPhNoOff" ValidationGroup="btnSubmit"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="Label8" CssClass="FieldName" Text="Ph. No.(res) :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtCustPhNoRes" runat="server"></asp:TextBox>
-         <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Enter a numeric value"
-                                                    CssClass="rfvPCG" Type="Integer" ControlToValidate="txtCustPhNoRes" ValidationGroup="btnSubmit"
-                                                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
-
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Enter a numeric value"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtCustPhNoRes" ValidationGroup="btnSubmit"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td>
         </td>
@@ -795,10 +811,9 @@
         </td>
         <td class="rightField" style="width: 25%">
             <asp:TextBox CssClass="txtField" ID="txtCustEmail" runat="server"></asp:TextBox>
-         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtCustEmail"
-                            ErrorMessage="<br />Please enter a valid Email ID" Display="Dynamic" runat="server"
-                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
-
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtCustEmail"
+                ErrorMessage="<br />Please enter a valid Email ID" Display="Dynamic" runat="server"
+                ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label CssClass="FieldName" Text="DOB :" runat="server"></asp:Label>
@@ -858,10 +873,10 @@
 <div>
     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnSubmit', 'S');"
         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnSubmit', 'S');"
-        Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" ValidationGroup="btnSubmit"/>
+        Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" ValidationGroup="btnSubmit" />
     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
-        Text="Update" OnClick="btnUpdate_Click"  ValidationGroup="btnSubmit"/>
+        Text="Update" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit" />
 </div>
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
 <asp:HiddenField ID="hdnCustomerName" runat="server" />

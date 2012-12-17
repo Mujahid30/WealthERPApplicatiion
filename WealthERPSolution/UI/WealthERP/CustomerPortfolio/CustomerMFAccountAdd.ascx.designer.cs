@@ -57,8 +57,9 @@ namespace WealthERP.CustomerPortfolio
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgAddBankForTBC;
         protected global::System.Web.UI.WebControls.DropDownList ddlPortfolio;
-
+        protected global::System.Web.UI.WebControls.DropDownList ddlALLBankList;
         /// <summary>
         /// lblFolioNum0 control.
         /// </summary>
@@ -114,7 +115,7 @@ namespace WealthERP.CustomerPortfolio
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFolioNumber;
-
+        protected global::System.Web.UI.WebControls.TextBox txtExternalFileBankName;
         protected global::System.Web.UI.WebControls.TextBox txtTaxStatus;
         protected global::System.Web.UI.WebControls.TextBox txtBrokerCode;
         protected global::System.Web.UI.WebControls.TextBox txtPanNo;

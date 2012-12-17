@@ -18,11 +18,13 @@ using System.Collections.Specialized;
 using System.Web.Services;
 using BoOps;
 using Telerik.Web.UI;
+using BoCustomerProfiling;
 
 namespace WealthERP.CustomerPortfolio
 {
     public partial class CustomerMFAccountAdd : System.Web.UI.UserControl
     {
+        CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
         CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
         CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo();
@@ -137,6 +139,7 @@ namespace WealthERP.CustomerPortfolio
                         BindPortfolioDropDown();
                         ddlPortfolio.SelectedValue = portfolioId.ToString();
                         BindCustomerSubType();
+                        BindALLBankListForCustomer();
                     }
 
                     //BindPortfolioDropDown();
@@ -235,6 +238,7 @@ namespace WealthERP.CustomerPortfolio
             ddlBState.Text = customerAccountsVo.BranchAdrState;
             ddlBCountry.Text = ddlBCountry.SelectedValue;
             txtIfsc.Text = customerAccountsVo.IFSC;
+            txtExternalFileBankName.Text = customerAccountsVo.BankNameInExtFile;
 
             BindCustomerSubType();
 
@@ -412,6 +416,8 @@ namespace WealthERP.CustomerPortfolio
             ddlBState.Text = customerAccountsVo.BranchAdrState;
             ddlBCountry.Text = ddlBCountry.SelectedValue;
             txtIfsc.Text = customerAccountsVo.IFSC;
+            txtExternalFileBankName.Text = customerAccountsVo.BankNameInExtFile;
+
 
             BindCustomerSubType();
             if (customerAccountsVo.XCT_CustomerTypeCode != "0")
@@ -582,6 +588,15 @@ namespace WealthERP.CustomerPortfolio
             //ddlPortfolio.SelectedValue = portfolioId.ToString();
         }
 
+        private void BindALLBankListForCustomer()
+        {
+
+            DataTable ds = customerBankAccountBo.GetALLBankName();
+            ddlALLBankList.DataSource = ds;
+            ddlALLBankList.DataValueField = ds.Columns["WERPBM_BankCode"].ToString();
+            ddlALLBankList.DataTextField = ds.Columns["WERPBM_BankName"].ToString();
+            ddlALLBankList.DataBind();
+        }
 
         private void BindCustomerBankList()
         {
@@ -1572,6 +1587,13 @@ namespace WealthERP.CustomerPortfolio
             radwindowForGuardian.VisibleOnPageLoad = true;
             LoadGuardians();
         }
+
+        protected void imgAddBankForTBC_Click(object sender, EventArgs e)
+        {
+            bool isUpdated = false;
+            isUpdated = customerAccountBo.UpdateBankDetails(customerVo.CustomerId,ddlALLBankList.SelectedValue.ToString(),int.Parse(ddlProductAmc.SelectedValue),txtFolioNumber.Text);
+        }
+
         protected void imgAddJointHolder_Click(object sender, EventArgs e)
         {
 
