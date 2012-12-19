@@ -3051,7 +3051,7 @@ namespace DaoCustomerPortfolio
                     AccountVo.AccountType = dr1["XBAT_BankAccountTypeCode"].ToString();
                     AccountVo.BankAccountNum = dr1["CB_AccountNum"].ToString();
                     AccountVo.ModeOfOperation = dr1["XMOH_ModeOfHoldingCode"].ToString();
-                    AccountVo.BankName = dr1["CB_BankName"].ToString();
+                    AccountVo.BankName = dr1["WERPBDTM_BankName"].ToString();
                     AccountVo.BranchName = dr1["CB_BranchName"].ToString();
                     AccountVo.BranchAdrLine1 = dr1["CB_BranchAdrLine1"].ToString();
                     AccountVo.BranchAdrLine2 = dr1["CB_BranchAdrLine2"].ToString();
