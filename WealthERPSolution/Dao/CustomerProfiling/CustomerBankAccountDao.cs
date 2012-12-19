@@ -102,7 +102,7 @@ namespace DaoCustomerProfiling
                     {
                         customerBankAccountVo = new CustomerBankAccountVo();
                         customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
-                        customerBankAccountVo.BankName = dr["CB_BankName"].ToString();
+                        customerBankAccountVo.BankName = dr["WERPBDTM_BankName"].ToString();
                         customerBankAccountVo.AccountType = dr["XBAT_BankAccountTye"].ToString();
                         customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
                         customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString();
@@ -161,7 +161,7 @@ namespace DaoCustomerProfiling
             DataSet getCustomerBankDs;
             DbCommand getCustomerBankAccCmd;
             DataRow dr;
-            string query = "select * from CustomerBank where C_CustomerId=" + customerId + "and CB_CustBankAccId=" + customerBankAccId;
+            string query = "select * from CustomerBank a INNER JOIN WERPBankDataTransalationMapping b ON a.WERPBM_BankCode = b.WERPBM_BankCode where C_CustomerId=" + customerId + "and CB_CustBankAccId=" + customerBankAccId;
             try
             {
 
@@ -179,7 +179,7 @@ namespace DaoCustomerProfiling
 
                     if (dr["CB_CustBankAccId"].ToString() != "")
                         customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
-                    customerBankAccountVo.BankName = dr["CB_BankName"].ToString();
+                    customerBankAccountVo.BankName = dr["WERPBDTM_BankName"].ToString();
                     if (dr["XBAT_BankAccountTypeCode"].ToString() == "SB")
                     {
 
