@@ -44,6 +44,8 @@ namespace VoCustomerPortfolio
         private string m_PanNumber;
         private string m_XCT_CustomerTypeCode;
         private string m_XCST_CustomerSubTypeCode;
+        private string m_BankNameInExtFile;
+
 
         #endregion Fields
 
@@ -68,6 +70,11 @@ namespace VoCustomerPortfolio
 
         #region Properties
 
+        public string BankNameInExtFile
+        {
+            get { return m_BankNameInExtFile; }
+            set { m_BankNameInExtFile = value; }
+        }
         public string PanNumber
         {
             get { return m_PanNumber; }
