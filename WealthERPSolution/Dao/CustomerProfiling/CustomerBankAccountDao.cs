@@ -253,19 +253,24 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(updateCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
                 db.AddInParameter(updateCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
-                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
-                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine2", DbType.String, customerBankAccountVo.BranchAdrLine2);
-                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine3", DbType.String, customerBankAccountVo.BranchAdrLine3);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
+                    db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
+                    db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine2", DbType.String, customerBankAccountVo.BranchAdrLine2);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
+                    db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine3", DbType.String, customerBankAccountVo.BranchAdrLine3);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrPinCode", DbType.String, customerBankAccountVo.BranchAdrPinCode);
-                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCity", DbType.String, customerBankAccountVo.BranchAdrCity);
-                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrState", DbType.String, customerBankAccountVo.BranchAdrState);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
+                    db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCity", DbType.String, customerBankAccountVo.BranchAdrCity);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
+                    db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrState", DbType.String, customerBankAccountVo.BranchAdrState);
                 //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCountry", DbType.String, customerBankAccountVo.BranchAdrCountry);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_Balance", DbType.Decimal, customerBankAccountVo.Balance);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_MICR", DbType.Int64, customerBankAccountVo.MICR);
-                db.AddInParameter(updateCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
-                db.AddInParameter(updateCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
-                db.ExecuteNonQuery(updateCustomerBankCmd);
+                if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
+                    db.AddInParameter(updateCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
+               
 
                 bResult = true;
             }
