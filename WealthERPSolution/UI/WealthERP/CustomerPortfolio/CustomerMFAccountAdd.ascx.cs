@@ -264,7 +264,11 @@ namespace WealthERP.CustomerPortfolio
             ddlAccType.Enabled = false;
             ddlBCountry.Enabled = false;
             ddlBState.Enabled = false;
-
+            ddlCustomerType.Enabled = false;
+            ddlCustomerSubType.Enabled = false;
+            ddlModeOfOpn.Enabled = false;
+            ddlALLBankList.Enabled = false;
+            rdpDOB.Enabled = false;
         }
 
         private void BindAssociates(CustomerAccountsVo AccountVo)
@@ -440,6 +444,11 @@ namespace WealthERP.CustomerPortfolio
             chkUseProfileName.Visible = true;
             imgBtnAddBank.Visible = true;
             imgBtnRefereshBank.Visible = true;
+            ddlCustomerType.Enabled = true;
+            ddlCustomerSubType.Enabled = true;
+            ddlModeOfOpn.Enabled = true;
+            ddlALLBankList.Enabled = true;
+            rdpDOB.Enabled = true;
         }
 
         private void SetVisiblity(int p)
@@ -596,6 +605,7 @@ namespace WealthERP.CustomerPortfolio
             ddlALLBankList.DataValueField = ds.Columns["WERPBM_BankCode"].ToString();
             ddlALLBankList.DataTextField = ds.Columns["WERPBM_BankName"].ToString();
             ddlALLBankList.DataBind();
+            ddlALLBankList.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         private void BindCustomerBankList()
@@ -603,7 +613,7 @@ namespace WealthERP.CustomerPortfolio
             DataSet ds = mforderBo.GetCustomerBank(customerVo.CustomerId);
             ddlBankList.DataSource = ds;
             ddlBankList.DataValueField = ds.Tables[0].Columns["CB_CustBankAccId"].ToString();
-            ddlBankList.DataTextField = ds.Tables[0].Columns["CB_BankName"].ToString();
+            ddlBankList.DataTextField = ds.Tables[0].Columns["WERPBDTM_BankName"].ToString();
             ddlBankList.DataBind();
             ddlBankList.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -1510,19 +1520,19 @@ namespace WealthERP.CustomerPortfolio
 
         public void FillBankDetails()
         {
-            BindDropDowns(path);
+            //BindDropDowns(path);
 
             txtAccNo.Text = dsbankDetails.Tables[0].Rows[0]["CB_AccountNum"].ToString();
-            txtBankName.Text = dsbankDetails.Tables[0].Rows[0]["CB_BankName"].ToString();
+            txtBankName.Text = dsbankDetails.Tables[0].Rows[0]["WERPBM_BankCode"].ToString();
             txtBranchName.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchName"].ToString();
             txtBLine1.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine1"].ToString();
             txtBLine2.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine2"].ToString();
             txtBLine3.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine3"].ToString();
             if (dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString() != "Select" && dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString().Equals("") != true)
-            
+
                 ddlBState.SelectedValue = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString();
-            
-                if (dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString() != "")
+
+            if (dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString() != "")
                 ddlModeOfOpn.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString();
             ddlAccType.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XBAT_BankAccountTypeCode"].ToString();
             txtPinCode.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrPinCode"].ToString();
@@ -1591,7 +1601,7 @@ namespace WealthERP.CustomerPortfolio
         protected void imgAddBankForTBC_Click(object sender, EventArgs e)
         {
             bool isUpdated = false;
-            isUpdated = customerAccountBo.UpdateBankDetails(customerVo.CustomerId,ddlALLBankList.SelectedValue.ToString(),int.Parse(ddlProductAmc.SelectedValue),txtFolioNumber.Text);
+            isUpdated = customerAccountBo.UpdateBankDetails(customerVo.CustomerId, ddlALLBankList.SelectedValue.ToString(), int.Parse(ddlProductAmc.SelectedValue), txtFolioNumber.Text);
         }
 
         protected void imgAddJointHolder_Click(object sender, EventArgs e)
