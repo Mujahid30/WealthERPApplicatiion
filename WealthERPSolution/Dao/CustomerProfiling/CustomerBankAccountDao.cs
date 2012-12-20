@@ -252,7 +252,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(updateCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
                 db.AddInParameter(updateCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
-                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
+                //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
                     db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
                 if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
                     db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine2", DbType.String, customerBankAccountVo.BranchAdrLine2);
@@ -267,10 +267,11 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCountry", DbType.String, customerBankAccountVo.BranchAdrCountry);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_Balance", DbType.Decimal, customerBankAccountVo.Balance);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_MICR", DbType.Int64, customerBankAccountVo.MICR);
-                if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
-                    db.AddInParameter(updateCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
-               
-
+               // if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
+               db.AddInParameter(updateCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
+               db.AddInParameter(updateCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
+               db.ExecuteNonQuery(updateCustomerBankCmd);                 
+                  
                 bResult = true;
             }
             catch (BaseApplicationException Ex)
