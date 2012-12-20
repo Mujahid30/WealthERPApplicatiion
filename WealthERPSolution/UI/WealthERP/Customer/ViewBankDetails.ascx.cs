@@ -57,7 +57,7 @@ namespace WealthERP.Customer
                     gvBankDetails.MasterTableView.IsItemInserted = true;
                     gvBankDetails.Rebind();
                 }
-
+                else
                 BindBankDetails(customerVo.CustomerId);
             
             }
@@ -98,6 +98,7 @@ namespace WealthERP.Customer
                   customerBankAccountVo = new CustomerBankAccountVo();
                   customerBankAccountVo = customerBankAccountList[i];
                   drCustomerBankAccount[0] = customerBankAccountVo.CustBankAccId.ToString();
+                  if (!string.IsNullOrEmpty(customerBankAccountVo.BankName))
                   drCustomerBankAccount[1] = customerBankAccountVo.BankName.ToString();
                   drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
                   drCustomerBankAccount[3] = customerBankAccountVo.AccountTypeCode.ToString().Trim();
@@ -124,7 +125,7 @@ namespace WealthERP.Customer
                       drCustomerBankAccount[14] = customerBankAccountVo.IFSC.ToString();
                       drCustomerBankAccount[15] = customerBankAccountVo.AccountType.ToString();
                       drCustomerBankAccount[16] = customerBankAccountVo.ModeOfOperation.ToString();
-                  //if(!string.IsNullOrEmpty(customerBankAccountVo.WERPBMBankName))
+                  if(!string.IsNullOrEmpty(customerBankAccountVo.WERPBMBankName))
                       drCustomerBankAccount[17] = customerBankAccountVo.WERPBMBankName.ToString();
                       dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
               }
