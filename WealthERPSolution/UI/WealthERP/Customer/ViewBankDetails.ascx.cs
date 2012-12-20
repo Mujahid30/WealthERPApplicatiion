@@ -170,7 +170,6 @@ namespace WealthERP.Customer
 
           }
       }
-
       protected void gvBankDetails_ItemDataBound(object sender, GridItemEventArgs e)
       {
           if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
@@ -306,7 +305,6 @@ namespace WealthERP.Customer
               bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
               customerVo = (CustomerVo)Session["customerVo"];
               customerId = customerVo.CustomerId;
-
               customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
               customerBankAccountVo.AccountType = ddlAccountType.SelectedItem.Value.ToString();
               customerBankAccountVo.ModeOfOperation = ddlModeofOperation.SelectedItem.Value.ToString();
