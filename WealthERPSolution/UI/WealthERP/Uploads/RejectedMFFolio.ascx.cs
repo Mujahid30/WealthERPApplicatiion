@@ -67,6 +67,9 @@ namespace WealthERP.Uploads
         string xmlFileName = string.Empty;
         string extracttype;
 
+        DataTable dtgvWERPMF = new DataTable();
+       // DataSet dsRejectedRecords = new DataSet();
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -215,10 +218,7 @@ namespace WealthERP.Uploads
                     divGvCAMSProfileReject.Visible = true;
                     imgBtnrgHoldings.Visible = true;
                     divBtnActionSection.Visible = true;
-
-                    gvCAMSProfileReject.DataSource = dsRejectedRecords.Tables[0];
-                    gvCAMSProfileReject.DataBind();
-
+                
                     if (Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()] == null)
                     {
                         Cache.Insert("RejectedMFFolioDetails" + adviserVo.advisorId.ToString(), dsRejectedRecords.Tables[0]);
@@ -228,6 +228,10 @@ namespace WealthERP.Uploads
                         Cache.Remove("RejectedMFFolioDetails" + adviserVo.advisorId.ToString());
                         Cache.Insert("RejectedMFFolioDetails" + adviserVo.advisorId.ToString(), dsRejectedRecords.Tables[0]);
                     }
+
+                    gvCAMSProfileReject.DataSource = dsRejectedRecords.Tables[0];
+                    gvCAMSProfileReject.DataBind();
+
                 }
                 else
                 {
@@ -236,6 +240,8 @@ namespace WealthERP.Uploads
                     divGvCAMSProfileReject.Visible = false;
                     imgBtnrgHoldings.Visible = false;
                 }
+
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -482,12 +488,36 @@ namespace WealthERP.Uploads
 
         protected void gvCAMSProfileReject_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataTable dtRejectedMFFolioDetails = new DataTable();
 
-            dtRejectedMFFolioDetails = (DataTable)Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()];
-            gvCAMSProfileReject.DataSource = dtRejectedMFFolioDetails;
 
+            string rcbType = string.Empty;
+           // trMessage.Visible = false;
+           // DataSet dtRejectedMFFolioDetails = new DataSet();
+            DataTable dtrr = new DataTable();
+            dtrr = (DataTable)Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()];
+           // dtrr = dtRejectedMFFolioDetails.Tables[0];
+            if (ViewState["RejectReason"] != null)
+                rcbType = ViewState["RejectReason"].ToString();
+            if (!string.IsNullOrEmpty(rcbType))
+            {
+                DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "ADUL_ProcessId,CMFFS_INV_NAME,CMFSFS_PANNum,CMFSFS_FolioNum,PA_AMCName,CMFSS_BrokerCode,CMFFS_BANK_NAME,CMGCXP_ADDRESS1,CMGCXP_CITY,CMGCXP_PINCODE,CMGCXP_PHONE_OFF,CMGCXP_PHONE_RES,CMGCXP_DOB", DataViewRowState.CurrentRows);
+                // DataView dvStaffList = dtMIS.DefaultView;
+                gvCAMSProfileReject.DataSource = dvStaffList.ToTable();
+
+            }
+            else
+            {
+                gvCAMSProfileReject.DataSource = dtrr;
+
+            }
+           
         }
+            //DataTable dtRejectedMFFolioDetails = new DataTable();
+
+            //dtRejectedMFFolioDetails = (DataTable)Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()];
+            //gvCAMSProfileReject.DataSource = dtRejectedMFFolioDetails;
+
+     
 
         protected void btnViewTran_Click(object sender, EventArgs e)
         {
@@ -4274,6 +4304,105 @@ namespace WealthERP.Uploads
                 BindGrid(ProcessId);
             }
         }
+
+
+        protected void gvCAMSProfileReject_PreRender(object sender, EventArgs e)
+        {
+            if (gvCAMSProfileReject.MasterTableView.FilterExpression != string.Empty)
+            {
+                RefreshCombos();
+            }
+        }
+
+        protected void RefreshCombos()
+        {
+            dtgvWERPMF = (DataTable)Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()];
+           // dtgvWERPMF = dsRejectedRecords.Tables[0];
+            DataView view = new DataView(dtgvWERPMF);
+            DataTable distinctValues = view.ToTable();
+            DataRow[] rows = distinctValues.Select(gvCAMSProfileReject.MasterTableView.FilterExpression.ToString());
+            gvCAMSProfileReject.MasterTableView.Rebind();
+        }
+
+
+        protected void gvCAMSProfileReject_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
+            {
+                GridFilteringItem filterItem = (GridFilteringItem)e.Item;
+                RadComboBox RadComboBoxIN = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
+                dtgvWERPMF = (DataTable)Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()];
+               
+                Session["dt"] = dtgvWERPMF;
+                DataTable dtcustMIS = new DataTable();
+                dtcustMIS.Columns.Add("RejectReason");
+                //dtcustMIS.Columns.Add("RejectReason");
+                // dtcustMIS.Columns.Add("SystematicTransactionType");
+                DataRow drcustMIS;
+                foreach (DataRow dr in dtgvWERPMF.Rows)
+                {
+                    drcustMIS = dtcustMIS.NewRow();
+                    drcustMIS["RejectReason"] = dr["RejectReason"].ToString();
+                  
+                    dtcustMIS.Rows.Add(drcustMIS);
+                }
+                //combo.Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("ALL", "0"));
+                DataView view = new DataView(dtgvWERPMF);
+                DataTable distinctValues = view.ToTable(true, "RejectReason");
+                RadComboBoxIN.DataSource = distinctValues;
+                RadComboBoxIN.DataValueField = dtcustMIS.Columns["RejectReason"].ToString();
+                RadComboBoxIN.DataTextField = dtcustMIS.Columns["RejectReason"].ToString();
+                //RadComboBoxIN.ClearSelection();
+               RadComboBoxIN.DataBind();
+
+           }
+
+        }
+        protected void RadComboBoxRR_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+
+            RadComboBox dropdown = o as RadComboBox;
+            ViewState["RejectReason"] = dropdown.SelectedValue.ToString();
+            if (ViewState["RejectReason"] != "")
+            {
+                //    gvWERPTrans.MasterTableView.FilterExpression = "([RejectReason]= '" + dropdown.SelectedValue + "')";
+                GridColumn column = gvCAMSProfileReject.MasterTableView.GetColumnSafe("RejectReason");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvCAMSProfileReject.MasterTableView.Rebind();
+                //   // column.CurrentFilterValue = dropdown.SelectedValue.ToString();
+
+
+
+                //    //+ Combo.SelectedValue +
+            }
+            else
+            {
+                gvCAMSProfileReject.MasterTableView.FilterExpression = "";
+                GridColumn column = gvCAMSProfileReject.MasterTableView.GetColumnSafe("RejectReason");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvCAMSProfileReject.MasterTableView.Rebind();
+                //  //  column.CurrentFilterValue = dropdown.SelectedValue.ToString();
+                //    // dropdown.SelectedValue = ViewState["RejectReason"].ToString();
+
+            }
+
+        }
+
+
+        protected void rcbContinents1_PreRender(object sender, EventArgs e)
+        {
+            RadComboBox Combo = sender as RadComboBox;
+            ////persist the combo selected value  
+            if (ViewState["RejectReason"] != null)
+            {
+
+                Combo.SelectedValue = ViewState["RejectReason"].ToString();
+            }
+
+        } 
+
+
+
 
         protected void btnAddLob_Click(object sender, EventArgs e)
         {

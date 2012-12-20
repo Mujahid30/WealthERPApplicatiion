@@ -247,9 +247,9 @@
 <br />
 <div style="overflow: scroll" id="divGvCAMSProfileReject" runat="server">
     <telerik:RadGrid ID="gvCAMSProfileReject" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-FileName="MF Folio Reject Details"
+        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true" EnableViewState="true"
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true" OnPreRender="gvCAMSProfileReject_PreRender"
+        AllowAutomaticInserts="false" ExportSettings-FileName="MF Folio Reject Details" OnItemDataBound="gvCAMSProfileReject_ItemDataBound"
         OnNeedDataSource="gvCAMSProfileReject_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
@@ -272,10 +272,30 @@
                             Text="Save" />
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="322px" HeaderText="RejectReason" DataField="RejectReason"
+                <telerik:GridBoundColumn HeaderStyle-Width="322px" HeaderText="Reject Reason" DataField="RejectReason"
                     UniqueName="RejectReason" SortExpression="RejectReason" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                      <FilterTemplate>
+                                    <telerik:RadComboBox ID="RadComboBoxRR" Width="305px" CssClass="cmbField" AllowFiltering="true" AutoPostBack="true"  OnSelectedIndexChanged="RadComboBoxRR_SelectedIndexChanged"                                                           
+                                            IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false" OnPreRender="rcbContinents1_PreRender" EnableViewState="true"
+                                          SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectReason").CurrentFilterValue %>' runat="server" >
+                                           <%--OnPreRender="rcbContinents_PreRender"--%>
+                                    <Items>
+                                    <telerik:RadComboBoxItem Text="All" Value="" Selected="true">
+                                    </telerik:RadComboBoxItem>
+                                    </Items>                                                          
+                                       </telerik:RadComboBox>
+                                        <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
+                                            <script type="text/javascript">
+                                                function InvesterNameIndexChanged(sender, args) {
+                                                    var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                                    //////                                                    sender.value = args.get_item().get_value();
+                                                    tableView.filter("RejectReason", args.get_item().get_value(), "EqualTo");
+                                                } 
+                                     </script>
+                                    </telerik:RadScriptBlock>                                                                  
+                                 </FilterTemplate>           
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="322px" HeaderText="WUXFT_XMLFileTypeId"
                     DataField="WUXFT_XMLFileTypeId" UniqueName="WUXFT_XMLFileTypeId" SortExpression="WUXFT_XMLFileTypeId"
