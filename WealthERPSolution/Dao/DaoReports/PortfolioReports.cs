@@ -36,7 +36,7 @@ namespace DaoReports
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SP_RPT_GetComprehensiveNetworthSummary");
                 db.AddInParameter(cmd, "@PortfolioIds", DbType.String, report.PortfolioIds);
-                db.AddInParameter(cmd, "@AsonDate", DbType.DateTime, DateBo.GetPreviousMonthLastDate(report.ToDate));
+                db.AddInParameter(cmd, "@AsonDate", DbType.DateTime, report.ToDate);
                 db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
                 cmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(cmd);
