@@ -162,7 +162,8 @@ namespace DaoCustomerRiskProfiling
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_IsDirectRiskClass", DbType.Int32, IsDirectRiskClass);
                 if (!string.IsNullOrEmpty(CustDOB.ToString()))
                     db.AddInParameter(dbAddCustomerRiskProfileDetails, "@DOB", DbType.DateTime, CustDOB);
-                db.AddOutParameter(dbAddCustomerRiskProfileDetails, "@RiskProfileId", DbType.Int32, 1000);
+                db.AddOutParameter(dbAddCustomerRiskProfileDetails, "@RiskProfileIdDirect", DbType.Int32, 1000);
+                db.AddOutParameter(dbAddCustomerRiskProfileDetails, "@RiskProfileIdInDirect", DbType.Int32, 1000);
 
                 db.ExecuteNonQuery(dbAddCustomerRiskProfileDetails);
 
