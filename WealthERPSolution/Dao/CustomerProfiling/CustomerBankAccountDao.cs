@@ -24,7 +24,6 @@ namespace DaoCustomerProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCustomerBankCmd = db.GetStoredProcCommand("SP_CreateCustomerBankAccount");
-
                 db.AddInParameter(createCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(createCustomerBankCmd, "@WERPBM_BankCode", DbType.String, customerBankAccountVo.BankName);
                 db.AddInParameter(createCustomerBankCmd, "@XBAT_BankAccountTypeCode", DbType.String, customerBankAccountVo.AccountType);
@@ -101,23 +100,23 @@ namespace DaoCustomerProfiling
                     foreach (DataRow dr in getCustomerBankDs.Tables[0].Rows)
                     {
                         customerBankAccountVo = new CustomerBankAccountVo();
-                        customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
-                        customerBankAccountVo.BankName = dr["WERPBM_BankCode"].ToString();
+                        customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());                                       
+                        customerBankAccountVo.WERPBMBankName = dr["WERPBDTM_BankName"].ToString();
                         customerBankAccountVo.AccountType = dr["XBAT_BankAccountTye"].ToString();
                         customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
-                        customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString();
+                        customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString().Trim();
                         customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
                         customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
                         customerBankAccountVo.BranchAdrLine2 = dr["CB_BranchAdrLine2"].ToString();
                         customerBankAccountVo.BranchAdrLine3 = dr["CB_BranchAdrLine3"].ToString();
-                        if (!string.IsNullOrEmpty(dr["CB_BranchAdrPinCode"].ToString()))
                         customerBankAccountVo.BranchAdrPinCode = int.Parse(dr["CB_BranchAdrPinCode"].ToString());
                         customerBankAccountVo.BranchAdrCity = dr["CB_BranchAdrCity"].ToString();
                         customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
                         customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
-                        customerBankAccountVo.ModeOfOperationCode = dr["XMOH_ModeOfHoldingCode"].ToString();
+                        customerBankAccountVo.ModeOfOperationCode = dr["XMOH_ModeOfHoldingCode"].ToString().Trim();
                         customerBankAccountVo.AccountTypeCode = dr["XBAT_BankAccountTypeCode"].ToString();
-                        customerBankAccountVo.WERPBMBankName = dr["WERPBDTM_BankName"].ToString();
+                        customerBankAccountVo.BankName = dr["WERPBM_BankCode"].ToString();
+                       
                         if (dr["CB_Balance"].ToString() != "")
                             if (!string.IsNullOrEmpty(dr["CB_Balance"].ToString()))
                                 customerBankAccountVo.Balance = float.Parse(dr["CB_Balance"].ToString());
@@ -191,7 +190,7 @@ namespace DaoCustomerProfiling
                         customerBankAccountVo.AccountType = dr["XBAT_BankAccountTye"].ToString();
                     }
                     customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
-                    customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHoldingCode"].ToString();
+                    customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString();
                     customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
                     customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
                     customerBankAccountVo.BranchAdrLine2 = dr["CB_BranchAdrLine2"].ToString();
