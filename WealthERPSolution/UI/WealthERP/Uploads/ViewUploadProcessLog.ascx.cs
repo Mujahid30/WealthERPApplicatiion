@@ -140,19 +140,11 @@ namespace WealthERP.Uploads
                 ddlAdviser.DataBind();
             }
             ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-
         }
 
 
         private void BindProcessHistoryGrid()
-        {
-            //if (hdnCurrentPage.Value.ToString() != "")
-            //{
-            //    //mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-            //    hdnCurrentPage.Value = "";
-            //}
-
-            //int Count;
+        {            
             DataTable dtForInsertedOrNotInserted = new DataTable();
             UploadCommonBo uploadProcessLogBo = new UploadCommonBo();
             GridColumn gcStatus;
@@ -4350,7 +4342,11 @@ namespace WealthERP.Uploads
                 }
                 BindProcessHistoryGrid();
             }
-           
+            else
+            {
+                trGridView.Visible = true;
+            }
+
         }
     }
 }

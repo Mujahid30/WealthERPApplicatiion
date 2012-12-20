@@ -272,10 +272,19 @@
         </td>
     </tr>--%>
 </table>
+
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-    <table cellspacing="0" cellpadding="0">
-        <tr>
-            <td>
+    <table cellspacing="0" cellpadding="4" Width="100%">
+      <tr id="trAdviserSelection" runat="server">
+     <td align="right" runat="server" style="width: 20%">
+            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+     </td>
+       <td id="tdDdlAdviser" runat="server" align="left">
+     <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged" ></asp:DropDownList>
+     </td>
+    </tr>
+        <tr id="trGridView" runat="server">
+            <td colspan="2">
                 <telerik:RadGrid ID="gvWERPTrans" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik" 
                     EnableEmbeddedSkins="false"  Width="1050px" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
@@ -395,142 +404,7 @@
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
-                <%--<asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                    ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="CMFTSId,ProcessId,FolioNumber,InvestorName" AllowSorting="true"
-                    OnSorting="gvWERPTrans_Sort">
-                    <FooterStyle CssClass="FooterStyle" />
-                    <RowStyle CssClass="RowStyle" />
-                    <EditRowStyle HorizontalAlign="Left" CssClass="EditRowStyle" />
-                    <SelectedRowStyle CssClass="SelectedRowStyle" />
-                    <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                    <HeaderStyle CssClass="HeaderStyle" />
-                    <AlternatingRowStyle CssClass="AltRowStyle" />
-                    <Columns>
-                    <asp:TemplateField HeaderText="Select">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
-                            <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:CheckBox ID="chkId" runat="server" />
-                            <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFTSId").ToString()%>' />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                        <asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                                <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true"
-                                    runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblRejectReasonHeader"  runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        
-                        <asp:TemplateField HeaderStyle-Wrap="false">
-                            <HeaderTemplate>
-                                <asp:Label ID="lblInvName" runat="server" Text="Investor Name"></asp:Label><br />
-                                <asp:DropDownList ID="ddlInvName" AutoPostBack="true" CssClass="cmbLongField" runat="server"
-                                    OnSelectedIndexChanged="ddlInvName_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblInvNameData" runat="server" Text='<%# Bind("InvestorName") %>'></asp:Label>
-                            </ItemTemplate>
-                            <HeaderStyle Wrap="False" />
-                        </asp:TemplateField>
-                        
-                        <asp:BoundField HeaderText="PAN Number" DataField="CMFTS_PANNum" />
-                        
-                        <asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
-                                <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="cmbField" runat="server"
-                                    OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("ProcessId").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                  
-                        
-                        <asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lblHdrFolioNumber" runat="server" Text="Folio Number"></asp:Label>
-                                <asp:DropDownList ID="ddlFolioNumber" AutoPostBack="true" CssClass="cmbField" runat="server"
-                                    OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblFolioNumber" runat="server" Text='<%# Bind("FolioNumber") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Scheme" HeaderText="Scheme" DataFormatString="{0:f4}"
-                            ItemStyle-Wrap="false">
-                            <ItemStyle Wrap="False" />
-                        </asp:BoundField>
-                        <asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lblHdrSchemeName" runat="server" Text="Scheme Name"></asp:Label>
-                                <asp:DropDownList ID="ddlSchemeName" AutoPostBack="true" CssClass="cmbLongField"
-                                    runat="server" OnSelectedIndexChanged="ddlSchemeName_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblSchemeName" runat="server" Text='<%# Bind("SchemeName") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lblHdrTransactionType" runat="server" Text="Transaction Type"></asp:Label>
-                                <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbField"
-                                    runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblTransactionType" runat="server" Text='<%# Bind("TransactionType") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        
-                        
-                        <asp:BoundField DataField="TransactionDate" HeaderText="Transaction Date" />
-                        <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:f4}" />
-                        <asp:BoundField DataField="Units" HeaderText="Units" DataFormatString="{0:f4}" />
-                        <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:f4}" />
-                        
-                        <asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lblHdrFileName" runat="server" Text="File Name"></asp:Label>
-                                <asp:DropDownList ID="ddlFileName" AutoPostBack="true" CssClass="cmbLongField" runat="server"
-                                    OnSelectedIndexChanged="ddlFileName_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblFileName" runat="server" Text='<%# Eval("ExternalFileName").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        
-                        <asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lblHdrSourceType" runat="server" Text="Source Type"></asp:Label>
-                                <asp:DropDownList ID="ddlSourceType" AutoPostBack="true" CssClass="cmbField" runat="server"
-                                    OnSelectedIndexChanged="ddlSourceType_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblSourceType" runat="server" Text='<%# Eval("SourceType").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        
-                    </Columns>
-                </asp:GridView>--%>
-                 </td>
-          <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
-         <img alt="Loading..." src='<%= RadAjaxLoadingPanel.GetWebResourceUrl(Page,
-          "Telerik.Web.UI.Skins.Default.Ajax.loading.gif") %>' />
-      </telerik:RadAjaxLoadingPanel>
+            </td>
         </tr>
     </table>
 </asp:Panel>
@@ -584,6 +458,7 @@
 <asp:HiddenField ID="hdnSourceTypeFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnSchemeNameFilter" runat="server" Visible="false" />--%>
 <asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
+<asp:HiddenField ID="hfRmId" runat="server" />
 <%--<asp:Button ID="btnGridSearch" runat="server" Text="" OnClick="btnGridSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 --%>

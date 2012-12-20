@@ -102,7 +102,12 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trReprocess;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGridView;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAdviserSelection;
+
         
+                
         /// <summary>
         /// btnReprocess control.
         /// </summary>
@@ -165,7 +170,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trErrorMessage;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
         /// <summary>
         /// lblError control.
         /// </summary>

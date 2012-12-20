@@ -140,9 +140,17 @@
     <tr>
         <td>
         <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-         <table width="100%" cellspacing="0" cellpadding="0">
+         <table width="100%" cellspacing="0" cellpadding="4">
+         <tr id="trAdviserSelection" runat="server">
+     <td id="Td1" align="right" runat="server" style="width: 20%">
+            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+     </td>
+       <td id="tdDdlAdviser" runat="server" align="left">
+     <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged" ></asp:DropDownList>
+     </td>
+    </tr>
         <tr>
-           <td>
+           <td id="trGridView" colspan="2" runat="server">
             <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
             <div id="dvHoldings" runat="server" style="width: 650px; padding:4px">
             <asp:GridView ID="gvWERPProfileReject" runat="server" AutoGenerateColumns="False" Width="100%"
@@ -299,6 +307,7 @@
     </table>
 </div>
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
+<asp:HiddenField ID="hfRmId" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="WERPCustomerName ASC" />
 <asp:HiddenField ID="hdnPANFilter" runat="server" Visible="false" />

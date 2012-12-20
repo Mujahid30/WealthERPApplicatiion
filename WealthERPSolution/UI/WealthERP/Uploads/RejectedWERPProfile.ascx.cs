@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 using VoUploads;
 using System.Configuration;
 using BoCommon;
+using BoSuperAdmin;
 
 namespace WealthERP.Uploads
 {
@@ -24,6 +25,7 @@ namespace WealthERP.Uploads
 
         RejectedRecordsBo rejectedRecordsBo;
         UploadCommonBo uploadsCommonBo;
+        SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
         WerpMFUploadsBo werpMFUploadsBo;
 
         DataSet dsRejectedRecords;
@@ -34,6 +36,7 @@ namespace WealthERP.Uploads
         string source;
         string xmlPath;
         int filetypeId;
+        int rmId;
 
         protected override void OnInit(EventArgs e)
         {
@@ -87,7 +90,10 @@ namespace WealthERP.Uploads
             //ProcessId = 0;
             uploadsCommonBo = new UploadCommonBo();
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
-            
+
+            adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+            rmVo = (RMVo)Session[SessionContents.RmVo];
+
             if (Request.QueryString["processId"] != null)
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
 
@@ -113,20 +119,58 @@ namespace WealthERP.Uploads
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('SessionExpired','');", true);
             }
 
+            if (adviserVo.advisorId == 1000)
+            {
+                if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
+                {
+                    adviserId = Convert.ToInt32(ddlAdviser.SelectedValue.ToString());
+                    if (hfRmId.Value != "")
+                    {
+                        rmId = Convert.ToInt32(hfRmId.Value);
+                    }
+                    trGridView.Visible = true;
+
+                    Panel2.ScrollBars = ScrollBars.Horizontal;
+                }
+                else
+                {
+                    trReprocess.Visible = false;
+                    trGridView.Visible = false;
+                    Panel2.ScrollBars = ScrollBars.None;
+                    // Panel2.Visible = false;
+                    adviserId = 1000;
+                    //rmId = rmVo.RMId;
+                }
+            }
+            else
+            {
+                trReprocess.Visible = true;
+                trGridView.Visible = true;
+                Panel2.ScrollBars = ScrollBars.Horizontal;
+                //Panel2.Visible = true;
+                trAdviserSelection.Visible = false;
+                adviserId = adviserVo.advisorId;
+            }
+
             // Get Advisor Vo from Session
-            adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-            adviserId = adviserVo.advisorId;
-            rmVo = (RMVo)Session[SessionContents.RmVo];
+           
             //.GetProcessLogInfo(ProcessId);
 
             ManageFolioLink(ProcessId);
             if (!IsPostBack)
             {
-                mypager.CurrentPage = 1;
-                hdnProcessIdFilter.Value = ProcessId.ToString();
-                ProcessId = int.Parse(hdnProcessIdFilter.Value);
-                // Bind Grid
-                BindWerpProfileGrid(ProcessId);
+                if (adviserId != 1000)
+                {
+                    mypager.CurrentPage = 1;
+                    hdnProcessIdFilter.Value = ProcessId.ToString();
+                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                    // Bind Grid
+                    BindWerpProfileGrid(ProcessId);
+                }
+                else
+                {
+                    BindAdviserDropDownList();
+                }
             }
         }
 
@@ -160,12 +204,12 @@ namespace WealthERP.Uploads
 
             if (ProcessId == 0)
             {   // Bind All Processes
-                dsRejectedRecords = rejectedRecordsBo.getWERPRejectedProfile(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value);
+                dsRejectedRecords = rejectedRecordsBo.getWERPRejectedProfile(adviserId, ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value);
                 //   PANFilter, RejectReasonFilter, BrokerFilter, CustomerNameFilter);
             }
             else
             {   // Bind Grid for the specific Process Id
-                dsRejectedRecords = rejectedRecordsBo.getWERPRejectedProfile(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value);
+                dsRejectedRecords = rejectedRecordsBo.getWERPRejectedProfile(adviserId, ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value);
             }
 
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
@@ -205,14 +249,25 @@ namespace WealthERP.Uploads
 
                 BindPanNumber(dsRejectedRecords.Tables[3]);
                 BindProcessId(dsRejectedRecords.Tables[4]);
+                Panel2.ScrollBars = ScrollBars.Horizontal;
+                trGridView.Visible = true;
+                DivPager.Visible = true;
+                lblCurrentPage.Visible = true;
+                lblTotalRows.Visible = true;
             }
             else
             {
+
+                lblCurrentPage.Visible = false;
+                Panel2.ScrollBars = ScrollBars.None;
+                DivPager.Visible = false;
+                trGridView.Visible = false;
                 hdnRecordCount.Value = "0";
                 gvWERPProfileReject.DataSource = null;
                 gvWERPProfileReject.DataBind();
                 trMessage.Visible = true;
                 trReprocess.Visible = false;
+                lblTotalRows.Visible = false;
             }
             this.GetPageCount();
         }
@@ -545,17 +600,17 @@ namespace WealthERP.Uploads
                     StandardProfileUploadBo standardProfileUploadBo = new StandardProfileUploadBo();
                     //Checks in Profile Staging
                     string packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                    bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(ProcessId, adviserVo.advisorId, packagePath, configPath);
+                    bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(ProcessId, adviserId, packagePath, configPath);
                     if (karvyProCommonChecksResult)
                     {
                         // Insert Customer Details into WERP Tables
 
-                        bool stdProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, ProcessId, rmVo.RMId, processlogVo.BranchId, xmlPath, out  countCustCreated);
+                        bool stdProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, ProcessId, rmId, processlogVo.BranchId, xmlPath, out  countCustCreated);
                         if (stdProCreateCustomerResult)
                         {
                             //Create new Bank Accounts
                             packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                            bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(ProcessId, packagePath, configPath, adviserVo.advisorId);
+                            bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(ProcessId, packagePath, configPath, adviserId);
                             if (stdProCreateBankAccountResult)
                             {
                                 processlogVo.IsInsertionToWERPComplete = 1;
@@ -578,7 +633,7 @@ namespace WealthERP.Uploads
             else
             {
 
-                DataSet ds = uploadsCommonBo.GetWERPUploadProcessIdForAdviser(adviserVo.advisorId);
+                DataSet ds = uploadsCommonBo.GetWERPUploadProcessIdForAdviser(adviserId);
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
@@ -601,17 +656,17 @@ namespace WealthERP.Uploads
                         StandardProfileUploadBo standardProfileUploadBo = new StandardProfileUploadBo();
                         //Checks in Profile Staging
                         string packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                        bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processIdReprocessAll, adviserVo.advisorId, packagePath, configPath);
+                        bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processIdReprocessAll, adviserId, packagePath, configPath);
                         if (karvyProCommonChecksResult)
                         {
                             // Insert Customer Details into WERP Tables
 
-                            bool stdProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, processIdReprocessAll, rmVo.RMId, processlogVo.BranchId, xmlPath, out  countCustCreated);
+                            bool stdProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processIdReprocessAll, rmId, processlogVo.BranchId, xmlPath, out  countCustCreated);
                             if (stdProCreateCustomerResult)
                             {
                                 //Create new Bank Accounts
                                 packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(processIdReprocessAll, packagePath, configPath, adviserVo.advisorId);
+                                bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(processIdReprocessAll, packagePath, configPath, adviserId);
                                 if (stdProCreateBankAccountResult)
                                 {
                                     processlogVo.IsInsertionToWERPComplete = 1;
@@ -669,10 +724,10 @@ namespace WealthERP.Uploads
 
             // Doing a check on data in Staging and marking IsRejected flag
             string packagePath = Server.MapPath("\\UploadPackages\\WerpMFProfileUploadPackageNew\\WerpMFProfileUploadPackageNew\\UploadChecksWerpMFProfileStaging.dtsx");
-            bool werpMFProStagingCheckResult = werpMFUploadsBo.WerpMFProcessDataInStagingProfile(ProcessId, adviserVo.advisorId, packagePath, configPath);
+            bool werpMFProStagingCheckResult = werpMFUploadsBo.WerpMFProcessDataInStagingProfile(ProcessId, adviserId, packagePath, configPath);
 
             // Insert Customer Details into Customer Tables
-            bool werpMFProCreateCustomerResult = werpMFUploadsBo.WerpMFInsertCustomerDetails(adviserVo.advisorId, ProcessId, rmVo.RMId, out countCustCreated, out countFolioCreated);
+            bool werpMFProCreateCustomerResult = werpMFUploadsBo.WerpMFInsertCustomerDetails(adviserId, ProcessId, rmId, out countCustCreated, out countFolioCreated);
             bool werpMFProCreateBankAccountResult = false;
             if (werpMFProCreateCustomerResult)
             {
@@ -830,5 +885,43 @@ namespace WealthERP.Uploads
            
         }
 
+        protected void ddlAdviser_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
+            {
+                adviserId = int.Parse(ddlAdviser.SelectedValue);
+                DataSet dsAdviserRmDetails = superAdminOpsBo.GetAdviserRmDetails(adviserId);
+
+                if (hfRmId.Value != "")
+                {
+                    rmId = Convert.ToInt32(hfRmId.Value);
+                }
+
+                hdnProcessIdFilter.Value = ProcessId.ToString();
+                ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                // Bind Grid
+                BindWerpProfileGrid(ProcessId);
+            }
+            else
+            {
+                trGridView.Visible = true;
+            }
+
+        }
+        protected void BindAdviserDropDownList()
+        {
+            DataTable dtAdviserList = new DataTable();
+            dtAdviserList = superAdminOpsBo.BindAdviserForUpload();
+
+            if (dtAdviserList.Rows.Count > 0)
+            {
+                ddlAdviser.DataSource = dtAdviserList;
+                ddlAdviser.DataTextField = "A_OrgName";
+                ddlAdviser.DataValueField = "A_AdviserId";
+                ddlAdviser.DataBind();
+            }
+            ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+        }
+      
     }
 }

@@ -15,6 +15,8 @@ using System.Configuration;
 using BoCommon;
 using Telerik.Web.UI;
 using System.Data.SqlClient;
+using BoSuperAdmin;
+
 
 namespace WealthERP.Uploads
 {
@@ -26,6 +28,7 @@ namespace WealthERP.Uploads
         RejectedRecordsBo rejectedRecordsBo;
         UploadCommonBo uploadsCommonBo;
         WerpUploadsBo werpUploadBo;
+        SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
         StandardProfileUploadBo standardProfileUploadBo;
        
         DataSet dsRejectedRecords = new DataSet();
@@ -35,7 +38,8 @@ namespace WealthERP.Uploads
 
         int ProcessId;
         int filetypeId;
-
+        int adviserId;
+        int rmId;
         string configPath;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -51,6 +55,39 @@ namespace WealthERP.Uploads
             if (Request.QueryString["filetypeId"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
 
+            adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+
+            if (adviserVo.advisorId == 1000)
+            {
+                if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
+                {
+                    adviserId = Convert.ToInt32(ddlAdviser.SelectedValue.ToString());
+                    //if (hfRmId.Value != "")
+                    //{
+                    //    rmId = Convert.ToInt32(hfRmId.Value);
+                    //}
+                    trGridView.Visible = true;
+                   
+                    Panel2.ScrollBars = ScrollBars.Horizontal;
+                }
+                else
+                {
+                    trReprocess.Visible = false;
+                    trGridView.Visible = false;
+                    Panel2.ScrollBars = ScrollBars.None;
+                    // Panel2.Visible = false;
+                    adviserId = 1000;
+                }
+            }
+            else
+            {
+                trReprocess.Visible = true;
+                trGridView.Visible = true;
+                Panel2.ScrollBars = ScrollBars.Horizontal;
+                //Panel2.Visible = true;
+                trAdviserSelection.Visible = false;
+                adviserId = adviserVo.advisorId;              
+            }
             if (Session["userVo"] != null)
             {
 
@@ -64,14 +101,21 @@ namespace WealthERP.Uploads
             }
 
             // Get Advisor Vo from Session
-            adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+       
 
             if (!IsPostBack)
             {
                 //mypager.CurrentPage = 1;
-                hdnProcessIdFilter.Value = ProcessId.ToString();
-                 //Bind Grid
-                BindEquityTransactionGrid(ProcessId);
+                if (adviserId != 1000)
+                {
+                    hdnProcessIdFilter.Value = ProcessId.ToString();
+                    // Bind Grid
+                    BindEquityTransactionGrid(ProcessId);
+                }
+                else
+                {
+                    BindAdviserDropDownList();
+                }
             }
 
              
@@ -130,32 +174,33 @@ namespace WealthERP.Uploads
             Dictionary<string, string> genDictRejectReason = new Dictionary<string, string>();
             rejectedRecordsBo = new RejectedRecordsBo();
 
-            dsRejectedRecords = rejectedRecordsBo.GetRejectedMFTransactionStaging(adviserVo.advisorId, int.Parse(hdnProcessIdFilter.Value));
+            dsRejectedRecords = rejectedRecordsBo.GetRejectedMFTransactionStaging(adviserId, int.Parse(hdnProcessIdFilter.Value));
 
             if (dsRejectedRecords.Tables[0].Rows.Count > 0)
             {   // If Records found, then bind them to grid
                 trMessage.Visible = false;
                 trReprocess.Visible = true;
+                trGridView.Visible = true;
                 //gvWERPTrans_Sort.DataSource = dsRejectedRecords.Tables[0];
 
-                if (Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()] == null)
+
+                if (Cache["MFTransactionDetails" + adviserId.ToString()] == null)
                 {
-                    Cache.Insert("MFTransactionDetails" + adviserVo.advisorId.ToString(), dsRejectedRecords);
+                    Cache.Insert("MFTransactionDetails" + adviserId.ToString(), dsRejectedRecords);
                 }
                 else
                 {
-                    Cache.Remove("MFTransactionDetails" + adviserVo.advisorId.ToString());
-                    Cache.Insert("MFTransactionDetails" + adviserVo.advisorId.ToString(), dsRejectedRecords);
-                } 
-
-                gvWERPTrans.DataSource = dsRejectedRecords;
-                gvWERPTrans.DataBind();     
-
-               
+                    Cache.Remove("MFTransactionDetails" + adviserId.ToString());
+                    Cache.Insert("MFTransactionDetails" + adviserId.ToString(), dsRejectedRecords);
+                }
+                Panel2.ScrollBars = ScrollBars.Horizontal;
+                trGridView.Visible = true;
             }
             else
             {
                 //hdnRecordCount.Value = "0";
+                Panel2.ScrollBars = ScrollBars.None;
+                trGridView.Visible = false;
                 gvWERPTrans.DataSource = null;
                 gvWERPTrans.DataBind();
                 trMessage.Visible = true;
@@ -245,7 +290,7 @@ namespace WealthERP.Uploads
             else
             {
 
-                DataSet ds = uploadsCommonBo.GetUploadDistinctProcessIdForAdviser(adviserVo.advisorId);
+                DataSet ds = uploadsCommonBo.GetUploadDistinctProcessIdForAdviser(adviserId);
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
@@ -306,7 +351,7 @@ namespace WealthERP.Uploads
                 bool camsDatatranslationCheckResult = uploadsCommonBo.UploadsCAMSDataTranslationForReprocess(ProcessId);
                 if (camsDatatranslationCheckResult)
                 {
-                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "CA", "CAMS");
+                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, ProcessId, packagePath, configPath, "CA", "CAMS");
                 }
             }
             else if (fileTypeId == 25)
@@ -315,7 +360,7 @@ namespace WealthERP.Uploads
                 bool camsDatatranslationCheckResult = uploadsCommonBo.UploadsCAMSDataTranslationForReprocess(ProcessId);
                 if (camsDatatranslationCheckResult)
                 {
-                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "SU", "Sundaram");
+                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, ProcessId, packagePath, configPath, "SU", "Sundaram");
                 }
             }
             //***reprocess for folioandTrnx
@@ -323,7 +368,7 @@ namespace WealthERP.Uploads
             {
                 standardProfileUploadBo = new StandardProfileUploadBo();
                 string stdPackagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
-                CommonStdTransChecks = standardProfileUploadBo.StdCommonProfileChecks(ProcessId, adviserVo.advisorId, stdPackagePath, configPath);
+                CommonStdTransChecks = standardProfileUploadBo.StdCommonProfileChecks(ProcessId, adviserId, stdPackagePath, configPath);
 
 
             }
@@ -334,7 +379,7 @@ namespace WealthERP.Uploads
                 bool karvyDataTranslationCheck = uploadsCommonBo.UploadsKarvyDataTranslationForReprocess(ProcessId);
                 if (karvyDataTranslationCheck)
                 {
-                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "KA", "Karvy");
+                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, ProcessId, packagePath, configPath, "KA", "Karvy");
                 }
             }
             else if (fileTypeId == 15)
@@ -342,7 +387,7 @@ namespace WealthERP.Uploads
                 bool TempletonDataTranslationCheck = uploadsCommonBo.UploadsTempletonDataTranslationForReprocess(ProcessId);
                 if (TempletonDataTranslationCheck)
                 {
-                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "TN", "Templeton");
+                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, ProcessId, packagePath, configPath, "TN", "Templeton");
                 }
             }
             else if (fileTypeId == 17)
@@ -350,7 +395,7 @@ namespace WealthERP.Uploads
                 bool DeutscheDataTranslationCheck = uploadsCommonBo.UploadsDeutscheDataTranslationForReprocess(ProcessId);
                 if (DeutscheDataTranslationCheck)
                 {
-                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "DT", "Deutsche");
+                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, ProcessId, packagePath, configPath, "DT", "Deutsche");
                 }
             }
 
@@ -660,7 +705,39 @@ namespace WealthERP.Uploads
             gvWERPTrans.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvWERPTrans.MasterTableView.ExportToExcel();
         }
+        protected void ddlAdviser_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
+            {
+                adviserId = int.Parse(ddlAdviser.SelectedValue);
+                DataSet dsAdviserRmDetails = superAdminOpsBo.GetAdviserRmDetails(adviserId);
+              
+                hdnProcessIdFilter.Value = ProcessId.ToString();
+                // Bind Grid
+                trReprocess.Visible = false;
+                BindEquityTransactionGrid(ProcessId);
+            }
+            else
+            {
+                trReprocess.Visible = true;
+                trGridView.Visible = true;
+            }
 
+        }
+        protected void BindAdviserDropDownList()
+        {
+            DataTable dtAdviserList = new DataTable();
+            dtAdviserList = superAdminOpsBo.BindAdviserForUpload();
+
+            if (dtAdviserList.Rows.Count > 0)
+            {
+                ddlAdviser.DataSource = dtAdviserList;
+                ddlAdviser.DataTextField = "A_OrgName";
+                ddlAdviser.DataValueField = "A_AdviserId";
+                ddlAdviser.DataBind();
+            }
+            ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+        }
     }
 
 }

@@ -127,11 +127,11 @@ namespace WealthERP.SuperAdmin
                 }
                 else if (e.Item.Value == "View_Profile_Exceptions")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfileSA', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile', 'none')", true);
                 }
                 else if (e.Item.Value == "View_Transactions_Exceptions")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStagingSA', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStaging', 'none')", true);
                 }
                 else if (e.Item.Value == "View_MFFolio_Exceptions")
                 {
