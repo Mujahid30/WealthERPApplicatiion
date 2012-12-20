@@ -83,6 +83,11 @@
                         <td align="left">
                             MF Folio View
                         </td>
+                         <td align="right" style="width: 10px">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -108,16 +113,90 @@
         </td>
     </tr>
 </table>
+<br />
+
+<div style="width:1100px;overflow:scroll">
+ <telerik:RadGrid ID="gvMFFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                    AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS"
+                    OnItemDataBound="gvMFFolio_ItemDataBound" OnNeedDataSource="gvMFFolio_NeedDataSource">
+        
+            
+                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
+                </ExportSettings>
+                <MasterTableView DataKeyNames="FolioId" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chkBox" runat="server" />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridTemplateColumn AllowFiltering="false"  HeaderStyle-Width="176px">
+                            <ItemTemplate>
+                                <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
+                                    CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                                    AllowCustomText="true" AutoPostBack="true">
+                                    <Items>
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
+                                            Selected="true"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
+                                            runat="server"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
+                                            runat="server"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Delete" Value="Delete"
+                                            runat="server"></telerik:RadComboBoxItem>
+                                    </Items>
+                                </telerik:RadComboBox>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn UniqueName="Folio No" HeaderStyle-Width="150px"
+                            HeaderText="Folio No" DataField="Folio No" SortExpression="Folio No"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn UniqueName="AMC Name" HeaderStyle-Width="230px"
+                            HeaderText="AMC Name" DataField="AMC Name" SortExpression="AMC Name"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn UniqueName="Name" HeaderStyle-Width="230px"
+                            HeaderText="Name" DataField="Name" SortExpression="Name"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="Mode Of Holding" HeaderStyle-Width="101px"
+                            HeaderText="Mode Of Holding" DataField="Mode Of Holding" SortExpression="Mode Of Holding"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="A/C Opening Date" HeaderStyle-Width="120px"
+                            HeaderText="A/C Opening Date" DataField="A/C Opening Date" SortExpression="A/C Opening Date"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn> 
+                    </Columns>
+                    <HeaderStyle Width="110px" />
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="true" />
+                    <Resizing AllowColumnResize="true" />
+                </ClientSettings>
+            </telerik:RadGrid>
+</div>
+
 <table class="TableBackground" style="width: 100%">
-    <tr>
+  <%--  <tr>
         <td align="right">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
-            <asp:GridView ID="gvMFFolio" runat="server" AutoGenerateColumns="False" CellPadding="4"
+        
+                       
+            <%-- <asp:GridView ID="gvMFFolio" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 CssClass="GridViewStyle" DataKeyNames="FolioId" HorizontalAlign="Center" ShowFooter="True" OnRowDataBound="gvMFFolio_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
@@ -149,10 +228,10 @@
                     <asp:BoundField DataField="Mode Of Holding" HeaderText="Mode Of Holding" />
                     <asp:BoundField DataField="A/C Opening Date" HeaderText="A/C Opening Date" />
                 </Columns>
-            </asp:GridView>
+            </asp:GridView>--%>
         </td>
     </tr>
-    <tr>
+ <%--   <tr>
         <td>
             <div id="DivPager" runat="server" style="display: none">
                 <table style="width: 100%">
@@ -164,7 +243,7 @@
                 </table>
             </div>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             <%--<asp:Button ID="btnTransferFolio" runat="server" Text="Transfer Folio" CssClass="PCGMediumButton"

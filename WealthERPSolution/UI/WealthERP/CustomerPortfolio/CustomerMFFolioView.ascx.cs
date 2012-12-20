@@ -14,6 +14,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCustomerProfiling;
 using BoAdvisorProfiling;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -29,43 +30,43 @@ namespace WealthERP.CustomerPortfolio
         CustomerAccountsVo FolioVo = new CustomerAccountsVo();
         int FolioId = 0;
        
-        protected override void OnInit(EventArgs e)
-        {
-            ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-            mypager.EnableViewState = true;
-            base.OnInit(e);
-        }
+        //protected override void OnInit(EventArgs e)
+        //{
+        //    //((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //    //mypager.EnableViewState = true;
+        //    //base.OnInit(e);
+        //}
 
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            GetPageCount();
+        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        //{
+        //    //GetPageCount();
           
-            this.BindFolioGridView();
-        }
+        //    this.BindFolioGridView();
+        //}
 
-        private void GetPageCount()
-        {
-            string upperlimit;
-            string lowerlimit;
-            int rowCount = 0;
-            if (hdnRecordCount.Value != "")
-                rowCount = Convert.ToInt32(hdnRecordCount.Value);
-            if (rowCount > 0)
-            {
+        //private void GetPageCount()
+        //{
+        //    //string upperlimit;
+        //    //string lowerlimit;
+        //    //int rowCount = 0;
+        //    //if (hdnRecordCount.Value != "")
+        //    //    rowCount = Convert.ToInt32(hdnRecordCount.Value);
+        //    //if (rowCount > 0)
+        //    //{
 
-                int ratio = rowCount / 30;
-                mypager.PageCount = rowCount % 30 == 0 ? ratio : ratio + 1;
-                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 30) + 1).ToString();
-                upperlimit = (mypager.CurrentPage * 30).ToString();
-                if (mypager.CurrentPage == mypager.PageCount)
-                    upperlimit = hdnRecordCount.Value;
-                string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                lblCurrentPage.Text = PageRecords;
+        //    //    int ratio = rowCount / 30;
+        //    //    mypager.PageCount = rowCount % 30 == 0 ? ratio : ratio + 1;
+        //    //    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+        //    //    lowerlimit = (((mypager.CurrentPage - 1) * 30) + 1).ToString();
+        //    //    upperlimit = (mypager.CurrentPage * 30).ToString();
+        //    //    if (mypager.CurrentPage == mypager.PageCount)
+        //    //        upperlimit = hdnRecordCount.Value;
+        //    //    string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //    //    lblCurrentPage.Text = PageRecords;
 
-                hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-            }
-        }
+        //    //    hdnCurrentPage.Value = mypager.CurrentPage.ToString();
+        //    //}
+        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -89,16 +90,16 @@ namespace WealthERP.CustomerPortfolio
             {
                 customerVo = (CustomerVo)Session["CustomerVo"];
 
-                FolioList = CustomerTransactionBo.GetCustomerMFFolios(portfolioId, customerVo.CustomerId, mypager.CurrentPage, out Count);
+                FolioList = CustomerTransactionBo.GetCustomerMFFolios(portfolioId, customerVo.CustomerId);
 
                 // lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
                 if (FolioList == null)
                 {
                     trSelectAction.Visible = false;
                     trErrorMsg.Visible = true;
-                    lblCurrentPage.Visible = false;
-                    lblTotalRows.Visible = false;
-                    DivPager.Visible = false;
+                    //lblCurrentPage.Visible = false;
+                    //lblTotalRows.Visible = false;
+                    //DivPager.Visible = false;
                     gvMFFolio.DataSource = null;
                     gvMFFolio.DataBind();                    
                     //btnTransferFolio.Visible = false;
@@ -115,9 +116,9 @@ namespace WealthERP.CustomerPortfolio
                         trSelectAction.Visible = true;
                     }
                     trErrorMsg.Visible = false;
-                    lblTotalRows.Visible = true;
-                    lblCurrentPage.Visible = true;
-                    DivPager.Visible = true;
+                    //lblTotalRows.Visible = true;
+                    //lblCurrentPage.Visible = true;
+                    //DivPager.Visible = true;
                     DataTable dtMFFolio = new DataTable();
 
                     dtMFFolio.Columns.Add("FolioId");
@@ -160,17 +161,17 @@ namespace WealthERP.CustomerPortfolio
 
 
 
-                lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
-                if (Count > 0)
-                    DivPager.Style.Add("display", "visible");
-                else
-                {
-                    DivPager.Style.Add("display", "none");
-                    lblCurrentPage.Text = "";
-                    lblCurrentPage.Text = "";
-                }
+                //lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
+                //if (Count > 0)
+                ////    DivPager.Style.Add("display", "visible");
+                //else
+                //{
+                //    DivPager.Style.Add("display", "none");
+                //    lblCurrentPage.Text = "";
+                //    lblCurrentPage.Text = "";
+                //}
 
-                this.GetPageCount();
+                //this.GetPageCount();
             }
             catch (BaseApplicationException Ex)
             {
@@ -191,6 +192,18 @@ namespace WealthERP.CustomerPortfolio
             }
 
         }
+
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvMFFolio.ExportSettings.OpenInNewWindow = true;
+            gvMFFolio.ExportSettings.IgnorePaging = true;
+            gvMFFolio.ExportSettings.HideStructureColumns = true;
+            gvMFFolio.ExportSettings.ExportOnlyData = true;
+            gvMFFolio.ExportSettings.FileName = "Folio Details";
+            gvMFFolio.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvMFFolio.MasterTableView.ExportToExcel();
+        }
+
 
         private void BindPortfolioDropDown()
         {
@@ -216,10 +229,10 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                DropDownList ddlAction = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                FolioId = int.Parse(gvMFFolio.DataKeys[selectedRow].Value.ToString());
+                RadComboBox ddlAction = (RadComboBox)sender;
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;;
+                FolioId = Convert.ToInt32(gvMFFolio.MasterTableView.DataKeyValues[selectedRow - 1]["FolioId"].ToString());
                 Session["FolioId"] = FolioId;
                 Session["FolioVo"] = CustomerTransactionBo.GetCustomerMFFolioDetails(FolioId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
@@ -341,14 +354,14 @@ namespace WealthERP.CustomerPortfolio
             }
 
 
-            foreach (GridViewRow dr in gvMFFolio.Rows)
+            foreach (GridDataItem dr in gvMFFolio.Items)
             {
 
                 CheckBox checkBox = (CheckBox)dr.FindControl("chkBox");
                 if (checkBox.Checked)
                 {
 
-                    int MFAccountId = Convert.ToInt32(gvMFFolio.DataKeys[dr.RowIndex].Values[0]);
+                    int MFAccountId = Convert.ToInt32(gvMFFolio.MasterTableView.DataKeyNames[dr.RowIndex]);
                     bool isUpdated = PortfolioBo.TransferFolio(MFAccountId, portfolioVo.PortfolioId);
                     if (isUpdated)
                         totalFoliosMoved++;
@@ -439,16 +452,16 @@ namespace WealthERP.CustomerPortfolio
                 int TofolioId = Convert.ToInt32(ddlPickPortfolio.SelectedValue);
                 DataSet dsPortFolioUpdate = new DataSet();
                 
-                foreach (GridViewRow dr in gvMFFolio.Rows)
+                foreach (GridDataItem dr in gvMFFolio.Items)
                 {
-                    int rowIndex = dr.RowIndex;
-                    DataKey dKey = gvMFFolio.DataKeys[rowIndex];
+                    int selectedRow=0;
+                    //int rowIndex = dr.RowIndex;
+                    //DataKey dKey = gvMFFolio.DataKeys[rowIndex];
 
                     if (((CheckBox)dr.FindControl("chkBox")).Checked == true)
                     {
                         AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
-
-                        accountID = Convert.ToInt32(dKey.Values["FolioId"].ToString());
+                        accountID = Convert.ToInt32(gvMFFolio.MasterTableView.DataKeyValues[selectedRow]["FolioId"].ToString());
                         string folioNo = dr.Cells[2].Text;
                         dsPortFolioUpdate = adviserBranchBo.FolioMoveToPortfolio(customerId, folioNo, TofolioId, accountID);
                     }                   
@@ -506,23 +519,47 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        protected void gvMFFolio_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void gvMFFolio_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            if (e.Item is GridDataItem)
             {
-                DropDownList ddl = e.Row.FindControl("ddlAction") as DropDownList;
+                GridDataItem item = (GridDataItem)e.Item;
+                RadComboBox ddl = item.FindControl("ddlAction") as RadComboBox;
                 if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
                 {
                     if (ddl != null)
                     {
                         //ddl.Items.FindByValue("Edit").
                         //ddl.Items.RemoveAt(2);
-                        ddl.Items.Remove(ddl.Items.FindByValue("Edit"));
-                        ddl.Items.Remove(ddl.Items.FindByValue("Delete"));
-                       
+                        ddl.Items.Remove(ddl.Items.FindItemByValue("Edit"));
+                        ddl.Items.Remove(ddl.Items.FindItemByValue("Delete"));
+
                     }
                 }
-             }
+            }
         }
+
+        protected void gvMFFolio_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            
+        }
+        //protected void gvMFFolio_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        DropDownList ddl = e.Row.FindControl("ddlAction") as DropDownList;
+        //        if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
+        //        {
+        //            if (ddl != null)
+        //            {
+        //                //ddl.Items.FindByValue("Edit").
+        //                //ddl.Items.RemoveAt(2);
+        //                ddl.Items.Remove(ddl.Items.FindByValue("Edit"));
+        //                ddl.Items.Remove(ddl.Items.FindByValue("Delete"));
+                       
+        //            }
+        //        }
+        //     }
+        //}
     }
 }
