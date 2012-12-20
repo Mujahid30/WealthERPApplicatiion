@@ -22,19 +22,21 @@ namespace WealthERP.Uploads
     {
         AdvisorVo adviserVo = new AdvisorVo();
         UploadProcessLogVo processlogVo;
-
+      //  DataTable dtRejectReason;
         RejectedRecordsBo rejectedRecordsBo;
         UploadCommonBo uploadsCommonBo;
         WerpUploadsBo werpUploadBo;
         StandardProfileUploadBo standardProfileUploadBo;
+       
+        DataSet dsRejectedRecords = new DataSet();
+        DataTable dtgvWERPTrans1 = new DataTable();
+        DataTable dtgvWERPTrans2 = new DataTable();
 
-        DataSet dsRejectedRecords;
 
         int ProcessId;
         int filetypeId;
 
         string configPath;
-
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -68,9 +70,58 @@ namespace WealthERP.Uploads
             {
                 //mypager.CurrentPage = 1;
                 hdnProcessIdFilter.Value = ProcessId.ToString();
-                // Bind Grid
+                 //Bind Grid
                 BindEquityTransactionGrid(ProcessId);
             }
+
+             
+        }
+              
+        protected void gvWERPTrans_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridFilteringItem && e.Item.ItemIndex ==-1)
+            {   
+                GridFilteringItem filterItem = (GridFilteringItem)e.Item;
+                RadComboBox RadComboBoxIN = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
+              //  RadComboBox RadComboBoxIN = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
+
+               // DataSet dtProcessLogDetails = new DataSet();
+                dsRejectedRecords = (DataSet)Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()];
+                dtgvWERPTrans1 = dsRejectedRecords.Tables[0];
+                Session["dt"] = dtgvWERPTrans1;
+                DataTable dtcustMIS = new DataTable();
+                dtcustMIS.Columns.Add("RejectReason");
+                //dtcustMIS.Columns.Add("RejectReason");
+                // dtcustMIS.Columns.Add("SystematicTransactionType");
+                DataRow drcustMIS;
+                foreach (DataRow dr in dtgvWERPTrans1.Rows)
+                {
+                    drcustMIS = dtcustMIS.NewRow();
+                    drcustMIS["RejectReason"] = dr["RejectReason"].ToString();
+                    //drcustMIS["RejectReason"] = dr["RejectReason"].ToString();
+                    //drcustMIS["SystematicTransactionType"] = dr["TypeCode"].ToString();
+                    dtcustMIS.Rows.Add(drcustMIS);
+                }
+                //combo.Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("ALL", "0"));
+                DataView view = new DataView(dtgvWERPTrans1);
+                DataTable distinctValues = view.ToTable(true, "RejectReason");
+                RadComboBoxIN.DataSource = distinctValues;
+                RadComboBoxIN.DataValueField = dtcustMIS.Columns["RejectReason"].ToString();
+                RadComboBoxIN.DataTextField = dtcustMIS.Columns["RejectReason"].ToString();
+                //RadComboBoxIN.ClearSelection();
+                RadComboBoxIN.DataBind();
+
+                //RadComboBoxRR.DataSource = dtcustMIS;
+                //RadComboBoxRR.DataValueField = dtcustMIS.Columns["RejectReason"].ToString();
+                //RadComboBoxRR.DataTextField = dtcustMIS.Columns["RejectReason"].ToString();
+                //RadComboBoxRR.ClearSelection();
+                //RadComboBoxRR.DataBind();
+
+
+            }
+
+           // }
+            
         }
 
         private void BindEquityTransactionGrid(int ProcessId)
@@ -86,9 +137,6 @@ namespace WealthERP.Uploads
                 trMessage.Visible = false;
                 trReprocess.Visible = true;
                 //gvWERPTrans_Sort.DataSource = dsRejectedRecords.Tables[0];
-                gvWERPTrans.DataSource = dsRejectedRecords;
-                gvWERPTrans.DataBind();
-
 
                 if (Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()] == null)
                 {
@@ -98,7 +146,12 @@ namespace WealthERP.Uploads
                 {
                     Cache.Remove("MFTransactionDetails" + adviserVo.advisorId.ToString());
                     Cache.Insert("MFTransactionDetails" + adviserVo.advisorId.ToString(), dsRejectedRecords);
-                }
+                } 
+
+                gvWERPTrans.DataSource = dsRejectedRecords;
+                gvWERPTrans.DataBind();     
+
+               
             }
             else
             {
@@ -110,6 +163,62 @@ namespace WealthERP.Uploads
             }
             //this.GetPageCount();
         }
+           
+        protected void RadComboBoxRR_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+
+            RadComboBox dropdown = o as RadComboBox;
+            ViewState["RejectReason"] = dropdown.SelectedValue.ToString();
+            if (ViewState["RejectReason"] != "")
+            {
+                //    gvWERPTrans.MasterTableView.FilterExpression = "([RejectReason]= '" + dropdown.SelectedValue + "')";
+                GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("RejectReason");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvWERPTrans.MasterTableView.Rebind();
+                //   // column.CurrentFilterValue = dropdown.SelectedValue.ToString();
+
+
+
+                //    //+ Combo.SelectedValue +
+            }
+            else
+            {
+                gvWERPTrans.MasterTableView.FilterExpression = "";
+                GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("RejectReason");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvWERPTrans.MasterTableView.Rebind();
+                //  //  column.CurrentFilterValue = dropdown.SelectedValue.ToString();
+                //    // dropdown.SelectedValue = ViewState["RejectReason"].ToString();
+
+            }
+
+        }
+
+
+
+       
+        //protected void rcbContinents_PreRender(object sender, EventArgs e)
+        //{
+        //    //persist the combo selected value  
+        //    if (ViewState["RejectReason"] != null)
+        //    {
+        //        RadComboBox Combo = sender as RadComboBox;
+        //        Combo.SelectedValue = ViewState["RejectReason"].ToString();
+        //    }
+        //}
+
+
+
+        protected void rcbContinents1_PreRender(object sender, EventArgs e)
+        {  RadComboBox Combo = sender as RadComboBox;
+            ////persist the combo selected value  
+        if (ViewState["RejectReason"] != null)
+        {
+
+            Combo.SelectedValue = ViewState["RejectReason"].ToString();
+        }
+       
+        } 
 
         protected void reprocess()
         {
@@ -325,15 +434,11 @@ namespace WealthERP.Uploads
                 {
                     ProcessId = int.Parse(hdnProcessIdFilter.Value);
                 }
-                BindEquityTransactionGrid(ProcessId);
+                    BindEquityTransactionGrid(ProcessId);
             }
         }
 
-
-
-
-
-        protected void btnProbableInsert_Click(object sender, EventArgs e)
+       protected void btnProbableInsert_Click(object sender, EventArgs e)
         {
             bool result = true;
             bool blResult = true;
@@ -412,7 +517,6 @@ namespace WealthERP.Uploads
             {
                 // Failure Message
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Probable Duplicate Records');", true);
-
             }
 
             BindEquityTransactionGrid(ProcessId);
@@ -420,23 +524,69 @@ namespace WealthERP.Uploads
 
         protected void gvWERPTrans_PreRender(object sender, EventArgs e)
         {
-            TableCell tc = new TableCell();
-
-            foreach (GridFilteringItem filterItem in gvWERPTrans.MasterTableView.GetItems(GridItemType.FilteringItem))
+            if (gvWERPTrans.MasterTableView.FilterExpression != string.Empty)
             {
-
-                RadComboBox dropdown = (RadComboBox)filterItem.FindControl("rcbRejectReasonFilter");
-                //if (Session["slectedValue"] != null)
-                //    dropdown.SelectedIndex = Convert.ToInt32(Session["slectedValue"]);
+                RefreshCombos();
             }
-            //DataSet ds=(DataSet)gvWERPTrans.MasterTableView.DataSource;
         }
+
+           
+
+ //}
+            //gvWERPTrans.MasterTableView.FilterExpression = string.Empty;
+
+//            gvWERPTrans.MasterTableView.Rebind();   
+        //    TableCell tc = new TableCell();
+
+        //    foreach (GridFilteringItem filterItem in gvWERPTrans.MasterTableView.GetItems(GridItemType.FilteringItem))
+        //    {
+
+        //        RadComboBox dropdown = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
+
+        //        ViewState["RejectReason"] = dropdown.SelectedValue.ToString();
+                
+                
+        //        if (ViewState["RejectReason"] != "")
+        //        {
+        //            if (ViewState["RejectReason"] != null)
+        //                dropdown.SelectedValue = ViewState["RejectReason"].ToString();
+
+        //            gvWERPTrans.MasterTableView.FilterExpression = "([RejectReason]= '" + dropdown.SelectedValue + "')";
+        //            GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("RejectReason");
+        //            column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+        //            gvWERPTrans.MasterTableView.Rebind();
+                    
+        //            //+ Combo.SelectedValue +
+
+        //        }
+        //        else
+        //        {
+        //            gvWERPTrans.MasterTableView.FilterExpression = "";
+        //            GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("RejectReason");
+        //            column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+        //            gvWERPTrans.MasterTableView.Rebind();
+
+        //        }
+              
+        //    }
+             
+
+        protected void RefreshCombos()
+        {
+            dsRejectedRecords = (DataSet)Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()];
+            dtgvWERPTrans1 = dsRejectedRecords.Tables[0];
+            DataView view = new DataView(dtgvWERPTrans1);
+            DataTable distinctValues = view.ToTable();
+            DataRow[] rows = distinctValues.Select(gvWERPTrans.MasterTableView.FilterExpression.ToString());
+                        gvWERPTrans.MasterTableView.Rebind();
+        }
+
         protected void rcbRejectReasonFilter_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             // Filtering logic  
             //RadComboBox dropdown = (RadComboBox)sender;
             //Session["slectedValue"] = dropdown.SelectedIndex; // Saving the selected index in session variable  
-            ((GridFilteringItem)(((RadComboBox)sender).Parent.Parent)).FireCommandEvent("Filter", new Pair());
+          // ((GridFilteringItem)(((RadComboBox)sender).Parent.Parent)).FireCommandEvent("Filter", new Pair());
             //DataSet ds = (DataSet)gvWERPTrans.MasterTableView.DataSource;
 
         }
@@ -469,19 +619,38 @@ namespace WealthERP.Uploads
                 rcb.Items.Insert(0, rcbi);
             }
         }
-
         protected void gvWERPTrans_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
+            string rcbType = string.Empty;
+            trMessage.Visible = false;
             DataSet dtProcessLogDetails = new DataSet();
+            DataTable dtrr = new DataTable();
             dtProcessLogDetails = (DataSet)Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()];
-            gvWERPTrans.DataSource = dtProcessLogDetails;
-            if (gvWERPTrans.DataSource != null)
-                gvWERPTrans.Visible = true;
+            dtrr = dtProcessLogDetails.Tables[0];
+            if (ViewState["RejectReason"] != null)
+                rcbType = ViewState["RejectReason"].ToString();
+            if (!string.IsNullOrEmpty(rcbType))
+            {
+                DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "InvestorName,CMFTS_PANNum,ProcessId,FolioNumber,Scheme,SchemeName,TransactionType,ExternalFileName,SourceType", DataViewRowState.CurrentRows);
+                // DataView dvStaffList = dtMIS.DefaultView;
+                gvWERPTrans.DataSource = dvStaffList.ToTable();
+
+            }
             else
-                gvWERPTrans.Visible = false;
+            {
+                gvWERPTrans.DataSource = dtProcessLogDetails;
+
+            }
+            //DataSet dtProcessLogDetails = new DataSet();
+            //dtProcessLogDetails = (DataSet)Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()];
+            //gvWERPTrans.DataSource = dtProcessLogDetails;
+            //if (gvWERPTrans.DataSource != null)
+            //    gvWERPTrans.Visible = true;
+            //else
+            //    gvWERPTrans.Visible = false;
         }
 
-        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+      public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvWERPTrans.ExportSettings.OpenInNewWindow = true;
             gvWERPTrans.ExportSettings.IgnorePaging = true;

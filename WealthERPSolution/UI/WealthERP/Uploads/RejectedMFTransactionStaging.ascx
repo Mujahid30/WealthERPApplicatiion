@@ -277,13 +277,14 @@
         <tr>
             <td>
                 <telerik:RadGrid ID="gvWERPTrans" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
-                    EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
-                    ExportSettings-FileName="MF Transaction Reject Details" ShowFooter="true" OnPreRender="gvWERPTrans_PreRender"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik" 
+                    EnableEmbeddedSkins="false"  Width="1050px" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
+                    ExportSettings-FileName="MF Transaction Reject Details" ShowFooter="true" OnItemDataBound="gvWERPTrans_ItemDataBound"  OnPreRender="gvWERPTrans_PreRender"
                     OnNeedDataSource="gvWERPTrans_NeedDataSource">
+                  <%--  OnPreRender="gvWERPTrans_PreRender"--%>
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
-                    <MasterTableView TableLayout="Auto" DataKeyNames="CMFTSId,ProcessId,FolioNumber,InvestorName"
+                    <MasterTableView TableLayout="Auto" DataKeyNames="CMFTSId,ProcessId,FolioNumber,InvestorName" AllowFilteringByColumn="true"
                         Width="120%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
@@ -295,15 +296,35 @@
                                     <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFTSId").ToString()%>' />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn DataField="RejectReason" AllowFiltering="true" HeaderText="RejectReason"
-                                UniqueName="RejectReason" SortExpression="RejectReason" AutoPostBackOnFilter="true"
+                            <telerik:GridBoundColumn DataField="RejectReason" AllowFiltering="true" HeaderText="RejectReason" HeaderStyle-Width="194px"
+                                UniqueName="RejectReason" SortExpression="RejectReason" AutoPostBackOnFilter="false"
+                                ShowFilterIcon="false" >
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />  
+                                  <FilterTemplate>
+                                    <telerik:RadComboBox ID="RadComboBoxRR" Width="180px" CssClass="cmbField" AllowFiltering="true" AutoPostBack="true"  OnSelectedIndexChanged="RadComboBoxRR_SelectedIndexChanged"                                                           
+                                            IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false" OnPreRender="rcbContinents1_PreRender" EnableViewState="true"
+                                          SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectReason").CurrentFilterValue %>' runat="server" >
+                                           <%--OnPreRender="rcbContinents_PreRender"--%>
+                                    <Items>
+                                    <telerik:RadComboBoxItem Text="All" Value="" Selected="true">
+                                    </telerik:RadComboBoxItem>
+                                    </Items>                                                          
+                                       </telerik:RadComboBox>
+                                        <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
+                                            <script type="text/javascript">
+                                                function InvesterNameIndexChanged(sender, args) {
+                                                    var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+//////                                                    sender.value = args.get_item().get_value();
+                                                    tableView.filter("RejectReason",args.get_item().get_value(),"EqualTo");
+                                      } 
+                                     </script>
+                                    </telerik:RadScriptBlock>                                                                  
+                                 </FilterTemplate>           
+                                </telerik:GridBoundColumn>
+                               <telerik:GridBoundColumn DataField="InvestorName" HeaderText="InvestorName" HeaderStyle-Width="194px"
+                                UniqueName="InvestorName" SortExpression="InvestorName" AutoPostBackOnFilter="true"  
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="InvestorName" AllowFiltering="true" HeaderText="InvestorName"
-                                UniqueName="InvestorName" SortExpression="InvestorName" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />                              
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFTS_PANNum" AllowFiltering="true" HeaderText="PAN Number"
                                 UniqueName="CMFTS_PANNum" SortExpression="CMFTS_PANNum" AutoPostBackOnFilter="true"
@@ -505,7 +526,11 @@
                         
                     </Columns>
                 </asp:GridView>--%>
-            </td>
+                 </td>
+          <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server">
+         <img alt="Loading..." src='<%= RadAjaxLoadingPanel.GetWebResourceUrl(Page,
+          "Telerik.Web.UI.Skins.Default.Ajax.loading.gif") %>' />
+      </telerik:RadAjaxLoadingPanel>
         </tr>
     </table>
 </asp:Panel>
