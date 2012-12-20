@@ -52,6 +52,12 @@ namespace WealthERP.Customer
            // rmVo = (RMVo)Session[SessionContents.RmVo];
            if (!IsPostBack)
             {
+                if (Session["AddMFFolioLinkIdLinkAction"] != null)
+                {
+                    gvBankDetails.MasterTableView.IsItemInserted = true;
+                    gvBankDetails.Rebind();
+                }
+
                 BindBankDetails(customerVo.CustomerId);
             
             }
