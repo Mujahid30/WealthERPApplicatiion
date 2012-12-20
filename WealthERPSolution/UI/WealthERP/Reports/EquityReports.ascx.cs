@@ -236,7 +236,9 @@ namespace WealthERP.Reports
             {
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                 DataRow dr = dt.Rows[0];
-                customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+                //customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+                hdnCustomerId1.Value = txtCustomerId.Value.ToString();
+                customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId1.Value));
                 Session["customerVo"] = customerVo;
                 txtPanParent.Text = dr["C_PANNum"].ToString();
                 trCustomerDetails.Visible = true;
@@ -249,8 +251,9 @@ namespace WealthERP.Reports
         }
         protected void txtParentCustomerId_ValueChanged(object sender, EventArgs e)
         {
-
-            customerVo = customerBo.GetCustomer(int.Parse(txtParentCustomerId.Value));
+            hdnCustomerId1.Value = txtParentCustomerId.Value.ToString();
+            customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId1.Value));
+            //customerVo = customerBo.GetCustomer(int.Parse(txtParentCustomerId.Value));
             Session["customerVo"] = customerVo;
             ShowGroupCustomers();
 
@@ -258,15 +261,11 @@ namespace WealthERP.Reports
         private void ShowGroupCustomers()
         {
             CustomerBo customerBo = new CustomerBo();
-            if (txtParentCustomerId.Value != string.Empty || Session["UserType"].ToString() == "Customer")
+            if (hdnCustomerId1.Value != string.Empty)
             {
                 CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
-                // DataTable dt = customerFamilyBo.GetAllCustomerAssociates(int.Parse(txtParentCustomerId.Value));
-                if (CustomerLogin == true)
-                {
-                    lblCustomerGrHead.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
-                }
-                DataTable dt = customerFamilyBo.GetAllCustomerAssociates(customerVo.CustomerId);
+                DataTable dt = customerFamilyBo.GetAllCustomerAssociates(int.Parse(hdnCustomerId1.Value));
+                //DataTable dt = customerFamilyBo.GetAllCustomerAssociates(customerVo.CustomerId);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     StringBuilder strCustomers = new StringBuilder();
@@ -338,13 +337,16 @@ namespace WealthERP.Reports
 
             PortfolioBo portfolioBo = new PortfolioBo();
             divPortfolios.InnerHtml = string.Empty;
-            if (!String.IsNullOrEmpty(txtCustomerId.Value) || Session["UserType"].ToString() == "Customer") //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            //if (!String.IsNullOrEmpty(txtCustomerId.Value) || Session["UserType"].ToString() == "Customer") //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            //{
+            //    int customerId = 0;
+            //    if (CustomerLogin == true)
+            //        customerId = customerVo.CustomerId;
+            //    else
+            //        customerId = Convert.ToInt32(txtCustomerId.Value);
+            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) 
             {
-                int customerId = 0;
-                if (CustomerLogin == true)
-                    customerId = customerVo.CustomerId;
-                else
-                    customerId = Convert.ToInt32(txtCustomerId.Value);
+                int customerId = Convert.ToInt32(hdnCustomerId1.Value);
                 List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId);
 
                 //Get all the portfolios of the selected customer.
