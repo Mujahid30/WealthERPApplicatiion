@@ -75,7 +75,7 @@ namespace DaoValuation
             return customerList;
         }
 
-     
+
 
         public DataSet GetCustomerDeatilsForValuation(int customerId, int portfolioid, int mfAccountId, int schemePlanCode)
         {
@@ -93,7 +93,7 @@ namespace DaoValuation
                 db.AddInParameter(getCustomerDetailsCmd, "@AccountId", DbType.Int32, mfAccountId);
                 db.AddInParameter(getCustomerDetailsCmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
                 dsGetCustomerDetails = db.ExecuteDataSet(getCustomerDetailsCmd);
-                
+
             }
 
             catch (BaseApplicationException Ex)
@@ -225,7 +225,7 @@ namespace DaoValuation
             return dsGetCustomerTransactionDetails;
 
         }
-        public DataSet GetCustomerTransactionsForBalanceCreation(int customerId,DateTime dtValuationDate)
+        public DataSet GetCustomerTransactionsForBalanceCreation(int customerId, DateTime dtValuationDate)
         {
             Database db;
             DbCommand getCustomerTransactionDetailsCmd;
@@ -276,14 +276,14 @@ namespace DaoValuation
             DataTable dtCustomerMFTransactionBalance = new DataTable();
             DataTable dtCustomerMFTransactionSellPair = new DataTable();
 
-            
+
             try
             {
                 if (dsCustomerMFTransBalanceSellPair.Tables.Count > 0)
                 {
                     dtCustomerMFTransactionBalance = dsCustomerMFTransBalanceSellPair.Tables["TransactionBalance"];
                     dtCustomerMFTransactionSellPair = dsCustomerMFTransBalanceSellPair.Tables["TransactionSellPair"];
- 
+
                 }
                 SqlCommand cmd = new SqlCommand("SPROC_CreateCustomerMFTransactionBalance", sqlCon);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -316,7 +316,7 @@ namespace DaoValuation
 
                 sqlCon.Open();
                 cmd.ExecuteNonQuery();
-               
+
                 //SqlParameter parameter = new SqlParameter();
                 ////The parameter for the SP must be of SqlDbType.Structured 
                 //parameter.ParameterName = "@Sample";
@@ -358,7 +358,7 @@ namespace DaoValuation
                 sqlCon.Close();
             }
 
-            
+
         }
 
         public DataSet GetCustomerAllMFPortfolioAccountForValution(int customerId)
@@ -447,13 +447,13 @@ namespace DaoValuation
 
         }
 
-        public void CreateCustomerMFNetPosition(int customerId,DateTime valuationDate,DataTable dtCustomerMFNetPosition)
+        public void CreateCustomerMFNetPosition(int customerId, DateTime valuationDate, DataTable dtCustomerMFNetPosition)
         {
 
             string conString;
             conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(conString);
-          
+
             try
             {
                 SqlCommand cmd = new SqlCommand("SPROC_CreateCustomerMutualFundNetPositionData", sqlCon);
@@ -494,7 +494,7 @@ namespace DaoValuation
                 cmd.Parameters.Add(sqlParameterMFNetPositionTable);
 
 
-            
+
                 sqlCon.Open();
                 cmd.ExecuteNonQuery();
 
@@ -553,7 +553,7 @@ namespace DaoValuation
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerMFTransactionBalanceAndSellPairCmd = db.GetStoredProcCommand("SP_GetCustomerTransactionBalanceForValuation");
-                db.AddInParameter(getCustomerMFTransactionBalanceAndSellPairCmd, "@C_CustomerId", DbType.Int32, customerId);                
+                db.AddInParameter(getCustomerMFTransactionBalanceAndSellPairCmd, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(getCustomerMFTransactionBalanceAndSellPairCmd, "@ValuationDate", DbType.DateTime, valuationDate);
                 dsCustomerMFTransactionBalanceAndSellPair = db.ExecuteDataSet(getCustomerMFTransactionBalanceAndSellPairCmd);
 
@@ -572,7 +572,7 @@ namespace DaoValuation
 
 
                 object[] objects = new object[3];
-                objects[0] = customerId;                
+                objects[0] = customerId;
                 objects[1] = valuationDate;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -600,13 +600,13 @@ namespace DaoValuation
                 SqlCommand cmd;
                 if (iSForPreviousDate == 1)
                 {
-                     cmd = new SqlCommand("SPROC_BulkInsertAdviserMutualFundNetPosition", sqlCon);
+                    cmd = new SqlCommand("SPROC_BulkInsertAdviserMutualFundNetPosition", sqlCon);
                 }
                 else
                 {
                     cmd = new SqlCommand("SPROC_BulkHistoricalInsertAdviserMutualFundNetPosition", sqlCon);
                 }
-                    cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
                 //SqlParameter param = new SqlParameter("@BalanceTable", SqlDbType.Structured);
                 //cmd.Parameters.Add(param);
                 //SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -692,7 +692,7 @@ namespace DaoValuation
         }
 
 
-        public DataSet GetMFTransactionsForBalanceCreation(int accountId,int schemePlaneCode)
+        public DataSet GetMFTransactionsForBalanceCreation(int accountId, int schemePlaneCode)
         {
             Database db;
             DbCommand getMFTransactionDetailsCmd;
@@ -774,6 +774,42 @@ namespace DaoValuation
             }
             return dsSchemeNavDetail;
         }
+
+        public void MarkForDeleteMFBalanceData(int accountId, int schemePlanCode)
+        {
+            Database db;
+            DbCommand deleteMfBalancedDataCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteMfBalancedDataCmd = db.GetStoredProcCommand("SPROC_MarkForDeleteMFBalanceData");
+                db.AddInParameter(deleteMfBalancedDataCmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(deleteMfBalancedDataCmd, "@CMFA_AccountId", DbType.Int32, accountId);
+                db.ExecuteNonQuery(deleteMfBalancedDataCmd);
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFEngineDao.cs:MarkForDeleteMFBalanceData()");
+                object[] objects = new object[2];
+
+                objects[0] = accountId;
+                objects[1] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
 
     }
 }

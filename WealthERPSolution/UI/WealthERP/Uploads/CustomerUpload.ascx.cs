@@ -26,7 +26,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Text;
 using System.Security.Cryptography;
-
+using BoSuperAdmin;
 
 namespace WealthERP.Uploads
 {
@@ -50,6 +50,7 @@ namespace WealthERP.Uploads
         AdvisorVo adviserVo = new AdvisorVo();
         UploadProcessLogVo processlogVo = new UploadProcessLogVo();
         RMVo rmVo = new RMVo();
+        SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
 
         string ValidationProgress = "";
         CamsUploadsBo camsUploadsBo = new CamsUploadsBo();
@@ -71,14 +72,15 @@ namespace WealthERP.Uploads
         DataTable dtInputRejects;
         string message = "";
 
+        int adviserId;
+        int rmId;
         int customerId;
         int customerId2;
         int userId;
         int UploadProcessId = 0;
         int portfolioId;
         int countCustCreated = 0;
-        int countFolioCreated = 0;
-        int adviserId;
+        int countFolioCreated = 0;       
 
         string folioNum;
         string packagePath;
@@ -111,8 +113,29 @@ namespace WealthERP.Uploads
             userVo = (UserVo)Session["UserVo"];
             DateTime uploadDate;
 
+            if (adviserVo.advisorId == 1000)
+            {
+                if (ddlAdviser.SelectedIndex != -1 && ddlAdviser.SelectedIndex != 0)
+                {
+                    adviserId = Convert.ToInt32(ddlAdviser.SelectedValue.ToString());
+                    if (hfRmId.Value != "")
+                    {
+                        rmId = Convert.ToInt32(hfRmId.Value);
+                    }
+                }
+                else
+                {
+                    adviserId = 1000;
+                }
+            }
+            else
+            {
+                trAdviserSelection.Visible = false;
+                adviserId = adviserVo.advisorId;
+                rmId = rmVo.RMId;
+            }
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
-            lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
+            lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserId);
             if (adviserVo.IsISASubscribed == true)
             {
                 ddlUploadType.Items.Remove(ddlUploadType.Items.FindByValue("PMFF"));
@@ -164,13 +187,32 @@ namespace WealthERP.Uploads
                 trError.Visible = false;
                 trMessage.Visible = false;
                 //rbSkipRowsNo.Checked = true;
-
-                BindListBranch(adviserVo.advisorId, "adviser");
+                if (adviserId == 1000)
+                {
+                    BindAdviserDropDownList();
+                }
+                     BindListBranch(adviserId, "adviser");
 
             }
             divInputErrorList.Visible = false;
 
         }
+        protected void BindAdviserDropDownList()
+        {
+            DataTable dtAdviserList = new DataTable();
+            dtAdviserList = superAdminOpsBo.BindAdviserForUpload();
+
+            if (dtAdviserList.Rows.Count > 0)
+            {
+                ddlAdviser.DataSource = dtAdviserList;
+                ddlAdviser.DataTextField = "A_OrgName";
+                ddlAdviser.DataValueField = "A_AdviserId";
+                ddlAdviser.DataBind();
+            }
+            ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+
+        }
+
 
         private static Dictionary<string, string> GetProfileGenericDictionary()
         {
@@ -419,7 +461,7 @@ namespace WealthERP.Uploads
                                 {
                                     packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
                                     //stdProFirstStagingResult = StandardProfileUploadBo.StdInsertToFirstStaging(UploadProcessId, packagePath, configPath);
-                                    bool stdProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                    bool stdProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserId, packagePath, configPath);
                                     processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadFolioUploadCount(UploadProcessId, "RE");
 
                                     if (stdProCommonChecksResult)
@@ -429,7 +471,7 @@ namespace WealthERP.Uploads
                                         bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                         packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
                                         //stdProFirstStagingResult = StandardProfileUploadBo.StdInsertToFirstStaging(UploadProcessId, packagePath, configPath);
-                                        stdFolToWERPTable = StandardProfileUploadBo.StdFolioStaggingToWERP(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                        stdFolToWERPTable = StandardProfileUploadBo.StdFolioStaggingToWERP(UploadProcessId, adviserId, packagePath, configPath);
                                         if (stdFolToWERPTable)
                                         {
                                             processlogVo.IsInsertionToWERPComplete = 1;
@@ -533,16 +575,16 @@ namespace WealthERP.Uploads
                                                     {
                                                         //common profile checks
                                                         packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                        bool stdProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                        bool stdProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserId, packagePath, configPath);
                                                         if (stdProCommonChecksResult)
                                                         {
                                                             // Insert Customer Details into WERP Tables
-                                                            stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                            stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, UploadProcessId, rmId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
                                                             if (stdProCreateCustomerResult)
                                                             {
                                                                 //Create new Bank Accounts
                                                                 packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                                                stdProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                                stdProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserId);
                                                                 if (stdProCreateBankAccountResult)
                                                                 {
 
@@ -646,7 +688,7 @@ namespace WealthERP.Uploads
                                         {
                                             // Doing a check on data translation
                                             packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadDataTranslationChecksFirstStaging.dtsx");
-                                            camsProStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                            camsProStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingProfile(UploadProcessId, adviserId, packagePath, configPath);
                                             if (camsProStagingCheckResult)
                                             {
                                                 if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
@@ -663,15 +705,15 @@ namespace WealthERP.Uploads
                                                         {
                                                             //common profile checks
                                                             packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                            camsProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                            camsProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserId, packagePath, configPath);
                                                             // Insert Customer Details into WERP Tables
                                                             if (camsProCommonChecksResult)
-                                                                camsProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                                camsProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, UploadProcessId, rmId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
                                                             if (camsProCreateCustomerResult)
                                                             {
                                                                 //Create new Bank Accounts
                                                                 packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                                                bool camsProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                                bool camsProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserId);
                                                                 if (camsProCreateBankAccountResult)
                                                                 {
                                                                     processlogVo.IsInsertionToWERPComplete = 1;
@@ -702,12 +744,12 @@ namespace WealthERP.Uploads
                                             {
                                                 //Folio Chks in Std Folio Staging 
                                                 packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
-                                                bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserId, UploadProcessId, configPath);
                                                 if (camsFolioStagingChkResult)
                                                 {
                                                     //Move Folio data to WERP table
                                                     packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
-                                                    camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                    camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserId, UploadProcessId, configPath);
                                                     if (camsFolioWerpInsertionResult)
                                                     {
                                                         processlogVo.IsInsertionToWERPComplete = 1;
@@ -835,11 +877,11 @@ namespace WealthERP.Uploads
                                         if (updateProcessLog)
                                         {
                                             packagePath = Server.MapPath("\\UploadPackages\\DeutscheTransactionUploadPackage\\DeutscheTransactionUploadPackage\\UploadsDeutscheTransactionChecksFirstStaging.dtsx");
-                                            deutscheTranStagingCheckResult = deutscheUploadsBo.DeutscheProcessDataInStagingTrans(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                            deutscheTranStagingCheckResult = deutscheUploadsBo.DeutscheProcessDataInStagingTrans(UploadProcessId, adviserId, packagePath, configPath);
                                             if (deutscheTranStagingCheckResult)
                                             {
                                                 packagePath = Server.MapPath("\\UploadPackages\\DeutscheTransactionUploadPackage\\DeutscheTransactionUploadPackage\\UploadDeutscheTransactionFirstStagingtoSecondStaging.dtsx");
-                                                deutscheTansSecondStaginresult = deutscheUploadsBo.DeutscheTransInsertToCommonTransStaging(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                deutscheTansSecondStaginresult = deutscheUploadsBo.DeutscheTransInsertToCommonTransStaging(UploadProcessId, adviserId, packagePath, configPath);
                                                 if (deutscheTansSecondStaginresult)
                                                 {
                                                     processlogVo.IsInsertionToSecondStagingComplete = 1;
@@ -848,7 +890,7 @@ namespace WealthERP.Uploads
                                                     if (updateProcessLog)
                                                     {
                                                         packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
-                                                        CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "DT", "Deutsche");
+                                                        CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "DT", "Deutsche");
                                                         if (CommonTransChecks)
                                                         {
                                                             packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
@@ -960,7 +1002,7 @@ namespace WealthERP.Uploads
                                         {
                                             // Doing a check on data translation
                                             packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadTempDataTranslationChecksFirstStaging.dtsx");
-                                            templetonProStagingCheckResult = templetonUploadsBo.TempProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                            templetonProStagingCheckResult = templetonUploadsBo.TempProcessDataInStagingProfile(UploadProcessId, adviserId, packagePath, configPath);
                                             if (templetonProStagingCheckResult)
                                             {
                                                 if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
@@ -977,16 +1019,16 @@ namespace WealthERP.Uploads
                                                         {
                                                             //common profile checks
                                                             packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                            templetonProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                            templetonProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserId, packagePath, configPath);
                                                             if (templetonProCommonChecksResult)
                                                             {
                                                                 // Insert Customer Details into WERP Tables
-                                                                templetonProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                                templetonProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, UploadProcessId, rmId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
                                                                 if (templetonProCreateCustomerResult)
                                                                 {
                                                                     //Create new Bank Accounts
                                                                     packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                                                    bool templetonProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                                    bool templetonProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserId);
                                                                     if (templetonProCreateBankAccountResult)
                                                                     {
                                                                         processlogVo.IsInsertionToWERPComplete = 1;
@@ -1016,12 +1058,12 @@ namespace WealthERP.Uploads
                                             {
                                                 //Folio Chks in Std Folio Staging 
                                                 packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
-                                                bool templetonFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                bool templetonFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserId, UploadProcessId, configPath);
                                                 if (templetonFolioStagingChkResult)
                                                 {
                                                     //Folio Chks in Std Folio Staging 
                                                     packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
-                                                    templetonFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                    templetonFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserId, UploadProcessId, configPath);
                                                     if (templetonFolioWerpInsertionResult)
                                                     {
                                                         processlogVo.IsInsertionToWERPComplete = 1;
@@ -1123,7 +1165,7 @@ namespace WealthERP.Uploads
                                         {
                                             // Doing a check on data translation
                                             packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadDeutscheDataTranslationChecksFirstStaging.dtsx");
-                                            deutscheProStagingCheckResult = deutscheUploadsBo.DeutscheProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                            deutscheProStagingCheckResult = deutscheUploadsBo.DeutscheProcessDataInStagingProfile(UploadProcessId, adviserId, packagePath, configPath);
                                             if (deutscheProStagingCheckResult)
                                             {
                                                 if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
@@ -1140,16 +1182,16 @@ namespace WealthERP.Uploads
                                                         {
                                                             //common profile checks
                                                             packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                            deutscheProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                            deutscheProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserId, packagePath, configPath);
                                                             if (deutscheProCommonChecksResult)
                                                             {
                                                                 // Insert Customer Details into WERP Tables
-                                                                deutscheProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                                deutscheProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, UploadProcessId, rmId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
                                                                 if (deutscheProCreateCustomerResult)
                                                                 {
                                                                     //Create new Bank Accounts
                                                                     packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                                                    bool deutscheProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                                    bool deutscheProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserId);
                                                                     if (deutscheProCreateBankAccountResult)
                                                                     {
                                                                         processlogVo.IsInsertionToWERPComplete = 1;
@@ -1180,12 +1222,12 @@ namespace WealthERP.Uploads
                                             {
                                                 //Folio Chks in Std Folio Staging 
                                                 packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
-                                                bool deutscheFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                bool deutscheFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserId, UploadProcessId, configPath);
                                                 if (deutscheFolioStagingChkResult)
                                                 {
                                                     //Folio Chks in Std Folio Staging 
                                                     packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
-                                                    deutscheFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                    deutscheFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserId, UploadProcessId, configPath);
                                                     if (deutscheFolioWerpInsertionResult)
                                                     {
                                                         processlogVo.IsInsertionToWERPComplete = 1;
@@ -1293,7 +1335,7 @@ namespace WealthERP.Uploads
                                         updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                         packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadChecksCAMSTransactionStaging.dtsx");
-                                        camsTranStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingTrans(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                        camsTranStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingTrans(UploadProcessId, adviserId, packagePath, configPath);
                                         if (camsTranStagingCheckResult)
                                         {
 
@@ -1302,7 +1344,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
-                                            CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "CA", "CAMS");
+                                            CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "CA", "CAMS");
 
 
                                             packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
@@ -1417,7 +1459,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadChecksStandardTransactionStaging.dtsx");
-                                            standardTranStagingCheckResult = camsUploadsBo.StandardProcessDataInStagingTrans(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                            standardTranStagingCheckResult = camsUploadsBo.StandardProcessDataInStagingTrans(UploadProcessId, adviserId, packagePath, configPath);
                                             if (standardTranStagingCheckResult)
                                             {
 
@@ -1426,7 +1468,7 @@ namespace WealthERP.Uploads
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                                 packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
-                                                CommonTransChecks = uploadsCommonBo.InsertMFStandardTransToWERP(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                CommonTransChecks = uploadsCommonBo.InsertMFStandardTransToWERP(UploadProcessId, adviserId, packagePath, configPath);
 
                                                 if (CommonTransChecks)
                                                 {
@@ -1544,7 +1586,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingtoCommonStaging.dtsx");
-                                            karvySIPStagingCheckResult = camsUploadsBo.KarvySIPProcessDataInStagingTrans(adviserVo.advisorId, UploadProcessId, packagePath, configPath);
+                                            karvySIPStagingCheckResult = camsUploadsBo.KarvySIPProcessDataInStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
                                             if (karvySIPStagingCheckResult)
                                             {
 
@@ -1674,7 +1716,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToCommonStaging.dtsx");
-                                            TempletonTrailStagingCheckResult = camsUploadsBo.TempletonTrailCommissionProcessDataInStagingTrans(adviserVo.advisorId, UploadProcessId, packagePath, configPath);
+                                            TempletonTrailStagingCheckResult = camsUploadsBo.TempletonTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
                                             if (TempletonTrailStagingCheckResult)
                                             {
                                                 //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
@@ -1808,7 +1850,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToCamsCommonStaging.dtsx");
-                                            CAMSTrailStagingCheckResult = camsUploadsBo.CAMSTrailCommissionProcessDataInStagingTrans(adviserVo.advisorId, UploadProcessId, packagePath, configPath);
+                                            CAMSTrailStagingCheckResult = camsUploadsBo.CAMSTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
                                             if (CAMSTrailStagingCheckResult)
                                             {
                                                 //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
@@ -1942,7 +1984,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToKarvyCommonStaging.dtsx");
-                                            KARVYTrailStagingCheckResult = camsUploadsBo.KARVYTrailCommissionProcessDataInStagingTrans(adviserVo.advisorId, UploadProcessId, packagePath, configPath);
+                                            KARVYTrailStagingCheckResult = camsUploadsBo.KARVYTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
                                             if (KARVYTrailStagingCheckResult)
                                             {
                                                 //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
@@ -2077,7 +2119,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToDeutscheCommonStaging.dtsx");
-                                            DeutscheTrailStagingCheckResult = camsUploadsBo.DeutscheTrailCommissionProcessDataInStagingTrans(adviserVo.advisorId, UploadProcessId, packagePath, configPath);
+                                            DeutscheTrailStagingCheckResult = camsUploadsBo.DeutscheTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
                                             if (DeutscheTrailStagingCheckResult)
                                             {
                                                 //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
@@ -2471,7 +2513,7 @@ namespace WealthERP.Uploads
                                                 {
                                                     // Doing a check on data translation
                                                     packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadDataTranslationChecksFirstStaging.dtsx");
-                                                    camsProStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                    camsProStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingProfile(UploadProcessId, adviserId, packagePath, configPath);
                                                     if (camsProStagingCheckResult)
                                                     {
                                                         if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
@@ -2488,15 +2530,15 @@ namespace WealthERP.Uploads
                                                                 {
                                                                     //common profile checks
                                                                     packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                                    camsProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                                    camsProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserId, packagePath, configPath);
                                                                     // Insert Customer Details into WERP Tables
                                                                     if (camsProCommonChecksResult)
-                                                                        camsProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                                        camsProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, UploadProcessId, rmId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
                                                                     if (camsProCreateCustomerResult)
                                                                     {
                                                                         //Create new Bank Accounts
                                                                         packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                                                        bool camsProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                                        bool camsProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserId);
                                                                         if (camsProCreateBankAccountResult)
                                                                         {
                                                                             processlogVo.IsInsertionToWERPComplete = 1;
@@ -2528,12 +2570,12 @@ namespace WealthERP.Uploads
                                                     {
                                                         //Folio Chks in Std Folio Staging 
                                                         packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
-                                                        bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                        bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserId, UploadProcessId, configPath);
                                                         if (camsFolioStagingChkResult)
                                                         {
                                                             //Move Folio data to WERP table
                                                             packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
-                                                            camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                            camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserId, UploadProcessId, configPath);
                                                             if (camsFolioWerpInsertionResult)
                                                             {
                                                                 processlogVo.IsInsertionToWERPComplete = 1;
@@ -2665,16 +2707,16 @@ namespace WealthERP.Uploads
                                                                 {
                                                                     //Making Chks in Profile Staging
                                                                     packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                                    karvyProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                                    karvyProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserId, packagePath, configPath);
                                                                     if (karvyProCommonChecksResult)
                                                                     {
                                                                         // Insert Customer Details into WERP Tables
-                                                                        karvyProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                                        karvyProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, UploadProcessId, rmId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
                                                                         if (karvyProCreateCustomerResult)
                                                                         {
                                                                             //Create new Bank Accounts
                                                                             packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                                                            bool karvyProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                                            bool karvyProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath, adviserId);
                                                                             if (karvyProCreateBankAccountResult)
                                                                             {
                                                                                 processlogVo.IsInsertionToWERPComplete = 1;
@@ -2703,12 +2745,12 @@ namespace WealthERP.Uploads
 
                                                                     //Folio Chks in Std Folio Staging 
                                                                     packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
-                                                                    bool karvyFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                                    bool karvyFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserId, UploadProcessId, configPath);
                                                                     if (karvyFolioStagingChkResult)
                                                                     {
                                                                         //Folio Chks in Std Folio Staging 
                                                                         packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
-                                                                        karvyFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                                        karvyFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserId, UploadProcessId, configPath);
                                                                         if (karvyFolioWerpInsertionResult)
                                                                         {
                                                                             processlogVo.IsInsertionToWERPComplete = 1;
@@ -2830,7 +2872,7 @@ namespace WealthERP.Uploads
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                                 packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
-                                                CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "KA", "Karvy");
+                                                CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "KA", "Karvy");
 
                                                 packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
                                                 karvyTranWerpResult = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
@@ -2944,10 +2986,10 @@ namespace WealthERP.Uploads
 
                                 //    // Doing a check on data in Staging and marking IsRejected flag
                                 //    packagePath = Server.MapPath("\\UploadPackages\\WerpMFProfileUploadPackageNew\\WerpMFProfileUploadPackageNew\\UploadChecksWerpMFProfileStaging.dtsx");
-                                //    bool werpMFProStagingCheckResult = werpMFUploadsBo.WerpMFProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                //    bool werpMFProStagingCheckResult = werpMFUploadsBo.WerpMFProcessDataInStagingProfile(UploadProcessId, adviserId, packagePath, configPath);
 
                                 //    // Insert Customer Details into Customer Tables
-                                //    bool werpMFProCreateCustomerResult = werpMFUploadsBo.WerpMFInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, out countCustCreated, out countFolioCreated);
+                                //    bool werpMFProCreateCustomerResult = werpMFUploadsBo.WerpMFInsertCustomerDetails(adviserId, UploadProcessId, rmVo.RMId, out countCustCreated, out countFolioCreated);
                                 //    bool werpMFProCreateBankAccountResult = false;
                                 //    if (werpMFProCreateCustomerResult)
                                 //    {
@@ -3148,16 +3190,16 @@ namespace WealthERP.Uploads
                                                     packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQStdTranStaging.dtsx");
 
                                                     if (ddlListCompany.SelectedValue != Contants.UploadExternalTypeODIN)
-                                                        werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserVo.advisorId, "WP");
+                                                        werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserId, "WP");
                                                     else if (ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
                                                     {
                                                         if (ddlAction.SelectedValue == "NSE")
-                                                            werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserVo.advisorId, ddlAction.SelectedValue);
+                                                            werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserId, ddlAction.SelectedValue);
                                                         else if (ddlAction.SelectedValue == "BSE")
-                                                            werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserVo.advisorId, ddlAction.SelectedValue);
+                                                            werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserId, ddlAction.SelectedValue);
                                                     }
 
-                                                    //werpEQFirstStagingCheckResult = werpEQUploadsBo.WerpEQProcessDataInFirstStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                    //werpEQFirstStagingCheckResult = werpEQUploadsBo.WerpEQProcessDataInFirstStagingTrans(UploadProcessId, packagePath, configPath, adviserId);
 
                                                     if (werpEQFirstStagingCheckResult)
                                                     {
@@ -3192,7 +3234,7 @@ namespace WealthERP.Uploads
                                                                 // WERP Insertion
                                                                 packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQTranStaging.dtsx");
 
-                                                                WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                                WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTrans(UploadProcessId, packagePath, configPath, adviserId);
 
                                                                 if (WERPEQSecondStagingCheckResult)
                                                                 {
@@ -3339,7 +3381,7 @@ namespace WealthERP.Uploads
                                                 {
                                                     // Doing a check on data in First Staging and marking IsRejected flag
                                                     packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadChecksOnEQStdTradeAccStaging.dtsx");
-                                                    werpEQFirstStagingCheckResult = werpEQUploadsBo.WerpEQProcessDataInFirstStagingTradeAccount(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                    werpEQFirstStagingCheckResult = werpEQUploadsBo.WerpEQProcessDataInFirstStagingTradeAccount(UploadProcessId, packagePath, configPath, adviserId);
 
                                                     if (werpEQFirstStagingCheckResult)
                                                     {
@@ -3357,7 +3399,7 @@ namespace WealthERP.Uploads
                                                             {
                                                                 // WERP Insertion
                                                                 packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadChecksOnEQTradeStaging.dtsx");
-                                                                WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTradeAccount(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                                WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTradeAccount(UploadProcessId, packagePath, configPath, adviserId);
 
                                                                 if (WERPEQSecondStagingCheckResult)
                                                                 {
@@ -3476,7 +3518,7 @@ namespace WealthERP.Uploads
                                                             if (updateProcessLog)
                                                             {
                                                                 packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
-                                                                CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "TN", "Templeton");
+                                                                CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "TN", "Templeton");
 
                                                                 if (CommonTransChecks)
                                                                 {
@@ -3590,7 +3632,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\UploadChkSundaramTransactionStaging.dtsx");
-                                            camsTranStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingTrans(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                            camsTranStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingTrans(UploadProcessId, adviserId, packagePath, configPath);
                                             if (camsTranStagingCheckResult)
                                             {
 
@@ -3599,7 +3641,7 @@ namespace WealthERP.Uploads
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                                 packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
-                                                CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "SU", "Sundaram");
+                                                CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserId, UploadProcessId, packagePath, configPath, "SU", "Sundaram");
 
 
                                                 packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
@@ -6583,7 +6625,7 @@ namespace WealthERP.Uploads
                     //Fill details for Upload process log
                     if (rejectUpload_Flag == false)
                     {
-                        processlogVo.AdviserId = adviserVo.advisorId;
+                        processlogVo.AdviserId = adviserId;
                         if (ddlListBranch.SelectedValue.ToString() != "Select a Branch")
                             processlogVo.BranchId = int.Parse(ddlListBranch.SelectedValue.ToString());
                         processlogVo.CreatedBy = userVo.UserId;
@@ -6642,7 +6684,7 @@ namespace WealthERP.Uploads
                         foreach (DataRow dr in dsXML.Tables[0].Rows)
                         {
                             dr["ProcessId"] = processlogVo.ProcessId;
-                            dr["AdviserId"] = adviserVo.advisorId;
+                            dr["AdviserId"] = adviserId;
                             dr["CreatedBy"] = userVo.UserId;
                             dr["CreatedOn"] = DateTime.Now;
                             dr["ModifiedBy"] = userVo.UserId;
@@ -7418,6 +7460,18 @@ namespace WealthERP.Uploads
                 hdnUploadType.Value = "ODIN";
                 hdnListCompany.Value = "BSE";
             }
+        }
+        protected void ddlAdviser_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            adviserId = int.Parse(ddlAdviser.SelectedValue);
+            DataSet dsAdviserRmDetails = superAdminOpsBo.GetAdviserRmDetails(adviserId);
+
+            if (dsAdviserRmDetails.Tables[0].Rows.Count > 0)
+            {
+                rmId = int.Parse(dsAdviserRmDetails.Tables[0].Rows[0]["ar_rmid"].ToString());
+                hfRmId.Value = rmId.ToString();
+            }
+            BindListBranch(adviserId, "adviser");
         }
 
         #region GUID CREATION

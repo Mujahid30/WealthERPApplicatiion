@@ -229,6 +229,17 @@
             Source Selection
         </div>
     </tr>
+     <tr id="trAdviserSelection" runat="server">
+     <td class="leftField">
+            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+        </td>
+       <td id="tdDdlAdviser" runat="server" align="left">
+     <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged" ></asp:DropDownList>
+     </td>
+     <%-- <asp:CompareValidator ID="cvDDLAdviser" runat="server" ErrorMessage="<br />Please Select Adviser"
+            ValidationGroup="btn_Upload" ControlToValidate="ddlAdviser" Operator="NotEqual"
+            CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>--%>
+    </tr>
     <tr>
         <td class="leftField">
             <asp:Label ID="Label4" CssClass="FieldName" runat="server" Text="Extract Type:"></asp:Label>
@@ -702,6 +713,6 @@
         }
     }
 </script>
-
+<asp:HiddenField ID="hfRmId" runat="server" />
 <%--    </ContentTemplate>
 </asp:UpdatePanel>--%>

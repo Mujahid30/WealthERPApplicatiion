@@ -119,11 +119,11 @@ namespace WealthERP.SuperAdmin
                 }
                 else if (e.Item.Value == "Uploads")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserUploadsSA', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerUpload', 'none')", true);
                 }
                 else if (e.Item.Value == "Uploads_History")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewUploadHistorySA', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewUploadProcessLog', 'none')", true);
                 }
                 else if (e.Item.Value == "View_Profile_Exceptions")
                 {

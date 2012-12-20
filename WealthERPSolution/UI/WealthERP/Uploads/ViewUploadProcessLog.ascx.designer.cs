@@ -219,6 +219,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRejectedRecords;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAdviserSelection;
         
         /// <summary>
         /// lblRejectedRecords control.
@@ -237,6 +238,10 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRejectedRecords;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
+
+        protected global::System.Web.UI.WebControls.HiddenField hfRmId;
         
         /// <summary>
         /// hdnRecordCount control.
