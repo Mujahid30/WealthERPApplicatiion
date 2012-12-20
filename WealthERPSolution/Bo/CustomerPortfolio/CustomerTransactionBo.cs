@@ -1464,14 +1464,14 @@ namespace BoCustomerPortfolio
 
         #region MFFolio
 
-        public List<CustomerAccountsVo> GetCustomerMFFolios(int PortfolioId, int CustomerId, int CurrentPage,out int Count)
+        public List<CustomerAccountsVo> GetCustomerMFFolios(int PortfolioId, int CustomerId)
         {
             List<CustomerAccountsVo> AccountList = new List<CustomerAccountsVo>();
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             try
             {
 
-                AccountList = customerTransactionDao.GetCustomerMFFolios(PortfolioId, CustomerId, CurrentPage,out Count);
+                AccountList = customerTransactionDao.GetCustomerMFFolios(PortfolioId, CustomerId);
 
             }
             catch (BaseApplicationException Ex)
