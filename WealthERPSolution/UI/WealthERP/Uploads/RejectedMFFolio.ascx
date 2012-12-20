@@ -300,11 +300,16 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="PAN Number" DataField="CMFSFS_PANNum"
-                    UniqueName="PANNumber" SortExpression="CMFSFS_PANNum" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="PAN Number" DataField="CMFSFS_PANNum"
+                    SortExpression="PANNumber" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemTemplate>
+                        <asp:TextBox ID="txtPan" CssClass="txtField" runat="server" Text='<%# Bind("CMFSFS_PANNum") %>'></asp:TextBox>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:TextBox ID="txtPanMultiple" CssClass="txtField" runat="server" />
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+                
                 <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="Folio" DataField="CMFSFS_FolioNum"
                     SortExpression="CMFSFS_FolioNum" AutoPostBackOnFilter="true" ShowFilterIcon="false">
                     <ItemTemplate>
