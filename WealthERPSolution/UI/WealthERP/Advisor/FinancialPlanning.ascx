@@ -1,6 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FinancialPlanning.ascx.cs"
     Inherits="WealthERP.Advisor.FinancialPlanning" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<telerik:RadScriptManager ID="scptMgr" runat="server">
+<Services>
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+    </Services>
+</telerik:RadScriptManager>
 <style type="text/css">
     .style1
     {
@@ -87,16 +93,10 @@
      
 
     }
-      }
+     }
     }
 
 </script>
-
-<asp:ScriptManager ID="ScriptManager1" runat="server">
-    <Services>
-        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
-    </Services>
-</asp:ScriptManager>
 <table width="100%">
     <tr>
         <td colspan="3">
@@ -141,14 +141,29 @@
                     <ContentTemplate>
                         <table runat="server" id="tblPickOptions" style="text-align: left;" width="100%">
                             <tr>
-                                <td>
+                                <td style="width:50%;">
                                     &nbsp;
                                 </td>
-                                <td>
+                                <td >
                                     <asp:Button ID="btnDeleteRiskProfile" runat="server" OnClientClick="return DeleteConfirmation()" Text="Remove Risk profile" CssClass="PCGMediumButton" CausesValidation="false" />
                                 </td>
                             </tr>
-                            <tr align="left" runat="server">
+                            </table>
+                            <table width="40%">
+                            <tr>
+                            <td style="width:20%">
+                            <asp:Label ID="lblPickRiscProfile" runat="server" CssClass="HeaderTextSmall" Text="Pick Risk Profile Type:"></asp:Label>
+                            </td>
+                            <td style="width:20%">
+                            <asp:DropDownList ID="ddlRiskProfileType" runat="server" Style="vertical-align: middle" AutoPostBack="true"
+                                CssClass="cmbField" OnSelectedIndexChanged="ddlRiskProfileType_SelectedIndexChanged">
+                                <asp:ListItem Text="Select" Value="Select" Selected="True"></asp:ListItem>
+                                <asp:ListItem Text="Agreed" Value="Agreed" ></asp:ListItem>
+                                <asp:ListItem Text="Recommended" Value="Recommended" ></asp:ListItem>
+                            </asp:DropDownList>
+                            </td>
+                            </tr>
+                           <%-- <tr align="left" runat="server">
                                 <td runat="server" style="float: left">
                                     <br />
                                     <asp:Label ID="lblPickWhat" runat="server" CssClass="HeaderTextSmall" Style="float: right"
@@ -162,21 +177,21 @@
                                         runat="server" CssClass="txtField" Text="Answers the Questions" OnCheckedChanged="rbtnAnsQuestions_CheckedChanged" />
                                     <br />
                                 </td>
-                            </tr>
+                            </tr>--%>
                         </table>
-                        <table runat="server" id="tblPickRiskClass">
+                        <table runat="server" id="tblPickRiskClass" width="40%">
                             <tr runat="server">
-                                <td runat="server">
+                                <td runat="server" style="width:20%">
                                     <br />
-                                    <asp:Label ID="lblPickRiskPlass" runat="server" Text="Pick Risk Class" CssClass="HeaderTextSmall"></asp:Label>
+                                    <asp:Label ID="lblPickRiskPlass" runat="server" Text="Pick Risk Class:" CssClass="HeaderTextSmall"></asp:Label>
                                 </td>
-                                <td runat="server">
+                                <td runat="server" style="width:20%">
                                     <br />
                                     <asp:DropDownList ID="ddlPickRiskClass" runat="server" CssClass="cmbField" Style="vertical-align: middle">
                                     </asp:DropDownList>
                                     <span id="Span12" runat="server" class="spnRequiredField">*</span>
                                     <asp:CompareValidator ID="ddlPickRiskClass_CompareValidator" runat="server" ControlToValidate="ddlPickRiskClass"
-                                        ErrorMessage="Please select a Risk Class" Operator="NotEqual" ValueToCompare="Select Risk Class"
+                                        ErrorMessage="<br />Please select a Risk Class" Operator="NotEqual" ValueToCompare="Select Risk Class"
                                         Display="Dynamic" CssClass="cvPCG">
                                     </asp:CompareValidator>
                                 </td>
@@ -184,7 +199,7 @@
                         </table>
                         <table width="100%">
                             <tr runat="server" id="trRiskProfiler">
-                                <td runat="server">
+                                <td runat="server" >
                                     <br />
                                     <asp:Label ID="lblRiskProfiler" Text="Risk Profiler Questionnaire" runat="server"
                                         CssClass="HeaderTextSmall"></asp:Label>
@@ -192,9 +207,9 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <table id="tblRiskScore" runat="server" style="background-color: #D3D3D3; border: thin solid #FF0000"
-                                        visible="False" width="100%">
-                                        <tr id="Tr1" runat="server">
+                                    <%--<table id="tblRiskScore" runat="server" style="background-color: #D3D3D3; border: thin solid #FF0000"--%>
+                                    <table id="tblRiskScore" runat="server" visible="False" width="100%">
+                                       <%-- <tr id="Tr1" runat="server">
                                             <td id="Td1" runat="server">
                                                 <strong>Risk Score:</strong><asp:Label ID="lblRScore" runat="server" CssClass="FieldName"
                                                     Visible="False"></asp:Label>
@@ -207,6 +222,43 @@
                                                 <strong>Risk Profile Date:</strong><asp:Label ID="lblRiskProfileDate" runat="server"
                                                     CssClass="FieldName" Visible="False"></asp:Label>
                                             </td>
+                                        </tr>--%>
+                                        <tr>
+                                        <td style="width:50%;">
+                                        <table id="tblAgreed" runat="server" width="100%" style="background-color: #D3D3D3; border: thin solid #FF0000">
+                                        <tr>
+                                        <td id="tdAgreedRClass" runat="server">
+                                                <strong>Risk Class:</strong><asp:Label ID="lblAgreedRClass" runat="server" CssClass="FieldName"
+                                                    Visible="False"></asp:Label>
+                                            </td>
+                                            <td id="tdARDate" runat="server">
+                                                <strong>Risk Profile Date:</strong><asp:Label ID="lblARDate" runat="server"
+                                                    CssClass="FieldName" Visible="False"></asp:Label>
+                                         </td>
+                                         </tr>
+                                        </table>
+                                        </td>
+                                        <td style="width:50%;">
+                                        <table  id="tblRecommended" runat="server" width="100%" style="background-color: #D3D3D3; border: thin solid #FF0000">
+                                        <tr>
+                                        <td id="tdRRclass" runat="server">
+                                                <strong>Risk Class:</strong><asp:Label ID="lblRRclass" runat="server" CssClass="FieldName"
+                                                    Visible="False"></asp:Label>
+                                            </td>
+                                            <td id="tdRRDate" runat="server">
+                                                <strong>Risk Profile Date:</strong><asp:Label ID="lblRRDate" runat="server"
+                                                    CssClass="FieldName" Visible="False"></asp:Label>
+                                         </td>
+                                         </tr>
+                                         <tr>
+                                         <td id="tdRRScore" runat="server">
+                                                <strong>Risk Score:</strong><asp:Label ID="lblRRScore" runat="server" CssClass="FieldName"
+                                                    Visible="False"></asp:Label>
+                                         </td>
+                                         <td></td>
+                                         </tr>
+                                        </table>
+                                        </td>
                                         </tr>
                                     </table>
                                 </td>

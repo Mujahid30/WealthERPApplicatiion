@@ -21,6 +21,7 @@ using BoFPSuperlite;
 using BoResearch;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using Telerik.Web.UI;
 
 
 namespace WealthERP.Advisor
@@ -254,7 +255,7 @@ namespace WealthERP.Advisor
                             divQuestionAnswers.Visible = true;
                             tblRiskScore.Visible = true;
                             //rbtnAnsQuestions.Checked = true;
-                            lblRScore.Visible = true;
+                            lblRRScore.Visible = true;
                             btnSubmitRisk.Visible = true;
                             trRiskProfiler.Visible = true;
 
@@ -262,7 +263,7 @@ namespace WealthERP.Advisor
                             ddlPickRiskClass.Visible = false;
                             lblPickRiskPlass.Visible = false;
                             //rbtnPickRiskclass.Checked = false;
-                            Td1.Visible = true;
+                            //Td1.Visible = true;
                             btnSubmitForPickRiskclass.Visible = false;
                             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
                         }
@@ -273,7 +274,19 @@ namespace WealthERP.Advisor
                             lblPickRiskPlass.Visible = true;
                             //rbtnPickRiskclass.Checked = true;
                             btnSubmitForPickRiskclass.Visible = true;
+                            ddlRiskProfileType.SelectedValue = "Agreed";
 
+                            tblRiskScore.Visible = true;
+                            tblAgreed.Visible = true;
+                            tblRecommended.Visible = false;
+                            lblAgreedRClass.Visible = true;
+                            lblARDate.Visible = true;
+                            lblARDate.Text = DateTime.Now.ToShortDateString();
+                            trRiskProfilingParagraph.Visible = true;
+                            lblAgreedRClass.Text = ddlPickRiskClass.SelectedItem.ToString();
+                            lblRRclass.Visible = false;
+                            lblRRDate.Visible = false;
+                            lblRRScore.Visible = false;
 
                             BindRiskClasses();
                             if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
@@ -285,8 +298,8 @@ namespace WealthERP.Advisor
                             tblRiskScore.Visible = false;
                             //rbtnAnsQuestions.Checked = false;
                             trRiskProfiler.Visible = false;
-                            lblRScore.Visible = false;
-                            Td1.Visible = false;
+                            lblRRScore.Visible = false;
+                            //Td1.Visible = false;
                             btnSubmitRisk.Visible = false;
 
                             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
@@ -306,12 +319,12 @@ namespace WealthERP.Advisor
                                 tblPickRiskClass.Visible = true;
                                 divQuestionAnswers.Visible = false;
                                 Span12.Visible = true;
-                                Td1.Visible = false;
+                                //Td1.Visible = false;
                                 tblRiskScore.Visible = true;
                                 lblRiskProfilingParagraph.Visible = false;
 
-                                rbtnPickRiskclass.Checked = true;
-                                rbtnAnsQuestions.Checked = false;
+                                //rbtnPickRiskclass.Checked = true;
+                                //rbtnAnsQuestions.Checked = false;
                                 ddlPickRiskClass.SelectedValue = dsGetCustomerRiskProfile.Tables[0].Rows[0][3].ToString();
                             }
                             else
@@ -323,13 +336,13 @@ namespace WealthERP.Advisor
                                 tblPickRiskClass.Visible = false;
                                 divQuestionAnswers.Visible = true;
                                 lblRiskProfilingParagraph.Visible = true;
-                                Td1.Visible = true;
-                                lblRScore.Visible = true;
-                                if (lblRScore.Text == "")
-                                    lblRScore.Text = "0";
+                               // Td1.Visible = true;
+                                lblRRScore.Visible = true;
+                                if (lblRRScore.Text == "")
+                                    lblRRScore.Text = "0";
 
-                                rbtnAnsQuestions.Checked = true;
-                                rbtnPickRiskclass.Checked = false;
+                                //rbtnAnsQuestions.Checked = true;
+                                //rbtnPickRiskclass.Checked = false;
                               
                             }
                         }
@@ -640,18 +653,39 @@ namespace WealthERP.Advisor
                 lblAgeResult.Text = age.ToString();
 
                 lblChartErrorDisplay.Visible = false;
-                if (lblRClass.Text != "" || lblRClass.Text != null)
+                if (ddlRiskProfileType.SelectedValue == "Agreed")
                 {
-                    lblRiskClass.Visible = true;
-                    lblRiskScore.Visible = true;
-                    lblRClassRs.Text = lblRClass.Text;
-                    lblRscoreAA.Text = lblRScore.Text;
-                    Session["Score"] = lblRscoreAA.Text;
+                    if (lblAgreedRClass.Text != "" || lblAgreedRClass.Text != null)
+                    {
+                        tblAgreed.Visible = true;
+                        lblAgreedRClass.Visible = true;
+                        lblRiskScore.Visible = true;
+                        lblRClassRs.Text = lblAgreedRClass.Text;
+                        lblRscoreAA.Text = lblRRScore.Text;
+                        Session["Score"] = lblRscoreAA.Text;
+                    }
+                    else
+                    {
+                        lblRClassRs.Text = "Fill Risk Profile to know Risk class and Risk Score";
+                    }
                 }
-                else
+                else if (ddlRiskProfileType.SelectedValue == "Recommended")
                 {
-                    lblRClassRs.Text = "Fill Risk Profile to know Risk class and Risk Score";
+                    if (lblRRclass.Text != "" || lblRRclass.Text != null)
+                    {
+                        tblRecommended.Visible = true;
+                        lblRRclass.Visible = true;
+                        lblRRScore.Visible = true;
+                        lblRClassRs.Text = lblRRclass.Text;
+                        lblRscoreAA.Text = lblRRScore.Text;
+                        Session["Score"] = lblRscoreAA.Text;
+                    }
+                    else
+                    {
+                        lblRClassRs.Text = "Fill Risk Profile to know Risk class and Risk Score";
+                    }
                 }
+               
 
                 DataSet dsGetRecomondedAssetAllocationData = riskprofilebo.GetAssetAllocationData(customerVo.CustomerId);
                 if (dsGetRecomondedAssetAllocationData.Tables.Count > 0)
@@ -797,7 +831,7 @@ namespace WealthERP.Advisor
                     if (rScore >= minLimit && (rScore <= maxLimit || maxLimit == 0))
                     {
                         riskCode = dsGetRiskProfileRules.Tables[0].Rows[i]["XRC_RiskClassCode"].ToString();
-                        lblRClass.Text = dsGetRiskProfileRules.Tables[0].Rows[i]["XRC_RiskClass"].ToString();
+                        lblRRclass.Text = dsGetRiskProfileRules.Tables[0].Rows[i]["XRC_RiskClass"].ToString();
                         lblRiskProfilingParagraph.Text = dsGetRiskProfileRules.Tables[0].Rows[i]["ARC_RiskText"].ToString();
                         break;
 
@@ -827,12 +861,16 @@ namespace WealthERP.Advisor
                 {
                     if (dsGetRiskProfileQuestion.Tables[0].Rows.Count == count)
                     {
-                        lblRiskProfileDate.Visible = true;
-                        lblRiskProfileDate.Text = DateTime.Now.ToShortDateString();
+                        lblAgreedRClass.Visible = false;
+                        lblARDate.Visible = false;
+                        tblAgreed.Visible = false;
+                        tblRecommended.Visible = false;
+                        lblRRDate.Visible = true;
+                        lblRRDate.Text = DateTime.Now.ToShortDateString();
                         tblRiskScore.Visible = true;
-                        lblRScore.Visible = true;
-                        lblRClass.Visible = true;
-                        lblRScore.Text = rScore.ToString();
+                        lblRRclass.Visible = true;
+                        lblRRScore.Visible = true;
+                        lblRRScore.Text = rScore.ToString();
 
                         riskprofilebo.AddCustomerRiskProfileDetails(advisorVo.advisorId, customerId, rScore, DateTime.Now, riskCode, rmvo, 0, customerVo.Dob);
                         dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
@@ -841,10 +879,14 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    lblRiskProfileDate.Visible = false;
+                    lblAgreedRClass.Visible = false;
+                    lblARDate.Visible = false;
+                    tblAgreed.Visible = false;
+                    tblRecommended.Visible = false;
+                    lblRRDate.Visible = false;
                     tblRiskScore.Visible = false;
-                    lblRScore.Visible = false;
-                    lblRClass.Visible = false;
+                    lblRRScore.Visible = false;
+                    lblRRclass.Visible = false;
 
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill DOB to create Risk profile.');", true);
                     return;
@@ -900,6 +942,7 @@ namespace WealthERP.Advisor
                     }
                 
                 HideModelPortFolioTab();
+                ddlRiskProfileType.SelectedValue ="Recommended";
             }
 
             catch (Exception ex)
@@ -1059,15 +1102,15 @@ namespace WealthERP.Advisor
                     {
                         dsGetAssetAllocationDetails = riskprofilebo.GetAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()));
                         tblRiskScore.Visible = true;
-                        lblRScore.Visible = true;
-                        lblRScore.Text = dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_Score"].ToString();
-                        lblRClass.Visible = true;
+                        lblRRScore.Visible = true;
+                        lblRRScore.Text = dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_Score"].ToString();
+                        lblRRclass.Visible = true;
                         riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
                         dsGetRiskClassForRisk = riskprofilebo.GetRiskClassForRisk(dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString());
-                        lblRClass.Text = dsGetRiskClassForRisk.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
-                        lblRiskProfileDate.Visible = true;
+                        lblRRclass.Text = dsGetRiskClassForRisk.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
+                        lblRRDate.Visible = true;
                         DateTime riskdate = (DateTime)dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_Date"];
-                        lblRiskProfileDate.Text = riskdate.ToShortDateString();
+                        lblRRDate.Text = riskdate.ToShortDateString();
 
 
                         string tempRID = "";
@@ -1229,12 +1272,18 @@ namespace WealthERP.Advisor
         protected void RiskFormClear()
         {
             tblRiskScore.Visible = false;
-            lblRScore.Visible = false;
-            lblRScore.Text = "";
-            lblRClass.Visible = false;
-            lblRClass.Text = "";
-            lblRiskProfileDate.Visible = false;
-            lblRiskProfileDate.Text = "";
+            lblAgreedRClass.Visible = false;
+            lblAgreedRClass.Text = "";
+            lblARDate.Visible = false;
+            lblAgreedRClass.Text = "";
+            tblAgreed.Visible = false;
+            tblRecommended.Visible = false;
+            lblRRclass.Visible = false;
+            lblRRclass.Text = "";
+            lblRRDate.Visible = false;
+            lblRRDate.Text = "";
+            lblRRScore.Visible = false;
+            lblRRScore.Text = "";
             string tempRID = "";
 
             for (int i = 1; i <= dsGetRiskProfileQuestion.Tables[0].Rows.Count; i++)
@@ -1468,9 +1517,11 @@ namespace WealthERP.Advisor
             divQuestionAnswers.Visible = true;
             lblRiskProfilingParagraph.Visible = true;
             Td1.Visible = true;
-            lblRScore.Visible = true;
-            if (lblRScore.Text == "")
-                lblRScore.Text = "0";
+            tblRecommended.Visible = true;
+            tblAgreed.Visible = false;
+            lblRRScore.Visible = true;
+            if (lblRRScore.Text == "")
+                lblRRScore.Text = "0";
             dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
             if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                 riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
@@ -1549,11 +1600,16 @@ namespace WealthERP.Advisor
             if (customerVo.Dob != DateTime.MinValue)
             {
                 tblRiskScore.Visible = true;
-                lblRClass.Visible = true;
-                lblRiskProfileDate.Visible = true;
+                tblAgreed.Visible = true;
+                tblRecommended.Visible = false;
+                lblAgreedRClass.Visible = true;
+                lblARDate.Visible = true;
+                lblARDate.Text = DateTime.Now.ToShortDateString();
                 trRiskProfilingParagraph.Visible = true;
-                lblRClass.Visible = true;
-                lblRClass.Text = ddlPickRiskClass.SelectedItem.ToString();
+                lblAgreedRClass.Text = ddlPickRiskClass.SelectedItem.ToString();
+                lblRRclass.Visible = false;
+                lblRRDate.Visible = false;
+                lblRRScore.Visible = false;
 
                 riskprofilebo.AddCustomerRiskProfileDetails(advisorVo.advisorId, customerId, 0, DateTime.Now, riskCode, rmvo, 1, customerVo.Dob);
                 btnDeleteRiskProfile.Visible = true;
@@ -1561,20 +1617,24 @@ namespace WealthERP.Advisor
             else
             {
                 tblRiskScore.Visible = false;
-                lblRClass.Visible = false;
-                lblRiskProfileDate.Visible = false;
+                lblAgreedRClass.Visible = false;
+                lblARDate.Visible = false;
+                tblAgreed.Visible = false;
+                tblRecommended.Visible = false;
+                lblRRclass.Visible = false;
+                lblRRDate.Visible = false;
+                lblRRScore.Visible = false;
                 trRiskProfilingParagraph.Visible = false;
-                lblRClass.Visible = false;
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill DOB to create Risk profile.');", true);
                 return;
             }
             
-            lblRScore.Visible = false;
+            lblRRScore.Visible = false;
 
             LoadAssetAllocation(riskCode);
             //AddToAssetAllocation();
-            lblRiskProfilingParagraph.Visible = true;
+            //lblRiskProfilingParagraph.Visible = true;
             if (dsGetRiskProfileRules.Tables[0].Rows.Count > 0)
             {
                 foreach(DataRow dr in dsGetRiskProfileRules.Tables[0].Rows)
@@ -1594,6 +1654,7 @@ namespace WealthERP.Advisor
                 lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
             }
             HideModelPortFolioTab();
+            ddlRiskProfileType.SelectedValue = "Agreed";
         }
 
         public void BindGridViewAssetAllocation(DataSet dsAssetAllocationDetails)
@@ -1776,6 +1837,88 @@ namespace WealthERP.Advisor
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+            }
+        }
+
+        protected void ddlRiskProfileType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlRiskProfileType.SelectedIndex != 0)
+            {
+                if (ddlRiskProfileType.SelectedValue == "Agreed")
+                {
+                    btnSubmitForPickRiskclass.Visible = true;
+                    btnSubmitRisk.Visible = false;
+                    ddlPickRiskClass.Visible = true;
+                    lblPickRiskPlass.Visible = true;
+                    BindRiskClasses();
+                    trRiskProfiler.Visible = false;
+                    lblAgreedRClass.Visible = true;
+                    lblARDate.Visible = true;
+                    tblAgreed.Visible = true;
+                    tblRecommended.Visible = false;
+                    lblRRclass.Visible = false;
+                    lblRRDate.Visible = false;
+                    lblRRScore.Visible = false;
+                    tblPickRiskClass.Visible = true;
+                    divQuestionAnswers.Visible = false;
+                    Span12.Visible = true;
+                    tblRiskScore.Visible = true;
+                    lblRiskProfilingParagraph.Visible = false;
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+                    if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
+                        riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+
+                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                    if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
+                    {
+                        LoadAssetAllocation(riskCode);
+                        tblRiskScore.Visible = true;
+                    }
+                    else
+                    {
+                        tblRiskScore.Visible = false;
+                        ShowCurrentAssetAllocationPieChart();
+                    }
+                    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+
+                    if (!string.IsNullOrEmpty(riskCode))
+                        ddlPickRiskClass.SelectedValue = riskCode.Trim();
+                }
+                else if (ddlRiskProfileType.SelectedValue == "Recommended")
+                {
+                    btnSubmitForPickRiskclass.Visible = false;
+                    btnSubmitRisk.Visible = true;
+                    ddlPickRiskClass.Visible = false;
+                    trRiskProfiler.Visible = true;
+                    tblPickRiskClass.Visible = false;
+                    divQuestionAnswers.Visible = true;
+                    lblRiskProfilingParagraph.Visible = true;
+                    lblAgreedRClass.Visible = false;
+                    lblARDate.Visible = false;
+                    tblAgreed.Visible = false;
+                    tblRecommended.Visible = true;
+                    lblRRclass.Visible = true;
+                    lblRRDate.Visible = true;
+                    lblRRScore.Visible = true;
+                    if (lblRRScore.Text == "")
+                        lblRRScore.Text = "0";
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+                    if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
+                        riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+
+                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                    if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
+                    {
+                        LoadAssetAllocation(riskCode);
+                        tblRiskScore.Visible = true;
+                    }
+                    else
+                    {
+                        tblRiskScore.Visible = false;
+                        ShowCurrentAssetAllocationPieChart();
+                    }
+                    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+                }
             }
         }
     }
