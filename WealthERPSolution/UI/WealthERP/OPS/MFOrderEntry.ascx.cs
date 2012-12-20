@@ -58,9 +58,12 @@ namespace WealthERP.OPS
         string updatedReason = "";
         bool result = false;
         string userType = string.Empty;
+        int var1 = 5;
+        int var2 = 10;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -1128,7 +1131,7 @@ namespace WealthERP.OPS
             {
                 ddlBankName.DataSource = dsBankName;
                 ddlBankName.DataValueField = dsBankName.Tables[0].Columns["CB_CustBankAccId"].ToString();
-                ddlBankName.DataTextField = dsBankName.Tables[0].Columns["CB_BankName"].ToString();
+                ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WERPBDTM_BankName"].ToString();
                 ddlBankName.DataBind();
                 ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
             }
@@ -2314,7 +2317,7 @@ namespace WealthERP.OPS
                 if (dtgetBankBranch.Rows.Count > 0)
                 {
                     DataRow dr = dtgetBankBranch.Rows[0];
-                    txtBranchName.Text = dr["CB_BranchName"].ToString();
+                    txtBranchName.Text = dr["WERPBDTM_BankName"].ToString();
                 }
                 hdnBankName.Value = ddlBankName.SelectedItem.Text;
             }
@@ -2355,6 +2358,12 @@ namespace WealthERP.OPS
             }
 
         }
+
+        //protected void btnreport_Click(object sender, EventArgs e)
+        //{
+        //    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Display", "loadcontrol('Display','action=Order');", true);
+        //    Response.Write("<script type='text/javascript'>detailedresults= window.open('Display.aspx?PageId=Display&result1=" + var1+ "&result2=" + var2 +"', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
+        //}
 
     }
 }

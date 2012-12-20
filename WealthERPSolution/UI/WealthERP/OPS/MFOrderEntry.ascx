@@ -106,6 +106,8 @@
                             </div>
                             <asp:Button ID="btnViewInPDF" runat="server" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('pdf')"
                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+                                <%--<asp:Button id="btnreport" runat="server" CssClass="PCGButton"
+                                OnClick="btnreport_Click" Visible="true"/>--%>
                             <div id="div2" style="display: none;">
                                 <p class="tip">
                                     Click here to view order details in pdf format.
