@@ -77,14 +77,22 @@ namespace WealthERP.Uploads
                     {
                         rmId = Convert.ToInt32(hfRmId.Value);
                     }
+                    trGridView.Visible = true;
+                    Panel2.ScrollBars = ScrollBars.Horizontal; 
                 }
                 else
                 {
+                    trGridView.Visible = false;
+                    Panel2.ScrollBars = ScrollBars.None; 
+                   // Panel2.Visible = false;
                     adviserId = 1000;
                 }
             }
             else
             {
+                trGridView.Visible = true;
+                Panel2.ScrollBars = ScrollBars.Horizontal; 
+                //Panel2.Visible = true;
                 trAdviserSelection.Visible = false;
                 adviserId = adviserVo.advisorId;
                 rmId = rmVo.RMId;
@@ -210,10 +218,14 @@ namespace WealthERP.Uploads
                     Cache.Remove("ProcessLogDetails" + adviserId.ToString());
                     Cache.Insert("ProcessLogDetails" + adviserId.ToString(), getProcessLogDs);
                 }
+                Panel2.ScrollBars = ScrollBars.Horizontal;
+                trGridView.Visible = true;
 
             }
             else
             {
+                Panel2.ScrollBars = ScrollBars.None;
+                trGridView.Visible = false;
                 trTransactionMessage.Visible = true;
                 gvProcessLog.DataSource = null;
                 gvProcessLog.DataBind();

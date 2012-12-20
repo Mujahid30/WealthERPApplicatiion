@@ -1173,9 +1173,9 @@ namespace WealthERP.FP
 
         protected void btnFundAdd_Click(object sender, EventArgs e)
         {
-            RadTabStripFPGoalDetails.TabIndex = 4;
+            RadTabStripFPGoalDetails.TabIndex = 3;
             //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
-            CustomerFPGoalDetail.SelectedIndex = 4;
+            CustomerFPGoalDetail.SelectedIndex = 3;
             RadTabStripFPGoalDetails.Tabs[2].Selected = true;
             RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
         
