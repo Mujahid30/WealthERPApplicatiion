@@ -71,6 +71,7 @@ namespace WealthERP.CustomerPortfolio
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            customerVo = (CustomerVo)Session["CustomerVo"];
             
             if (!IsPostBack)
             {
@@ -88,7 +89,7 @@ namespace WealthERP.CustomerPortfolio
             int Count;
             try
             {
-                customerVo = (CustomerVo)Session["CustomerVo"];
+               
 
                 FolioList = CustomerTransactionBo.GetCustomerMFFolios(portfolioId, customerVo.CustomerId);
 
@@ -157,6 +158,15 @@ namespace WealthERP.CustomerPortfolio
                     
                     gvMFFolio.DataBind();
 
+                    if (Cache["FolioDetails" + customerVo.CustomerId.ToString()] == null)
+                    {
+                        Cache.Insert("FolioDetails" + customerVo.CustomerId.ToString(), dtMFFolio);
+                    }
+                    else
+                    {
+                        Cache.Remove("FolioDetails" + customerVo.CustomerId.ToString());
+                        Cache.Insert("FolioDetails" + customerVo.CustomerId.ToString(), dtMFFolio);
+                    }
                 }
 
 
@@ -195,6 +205,9 @@ namespace WealthERP.CustomerPortfolio
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
+            DataTable dtFolioDetails = new DataTable();
+            dtFolioDetails = (DataTable)Cache["FolioDetails" + customerVo.CustomerId.ToString()];
+            gvMFFolio.DataSource = dtFolioDetails;
             gvMFFolio.ExportSettings.OpenInNewWindow = true;
             gvMFFolio.ExportSettings.IgnorePaging = true;
             gvMFFolio.ExportSettings.HideStructureColumns = true;
