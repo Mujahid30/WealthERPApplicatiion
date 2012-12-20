@@ -109,6 +109,7 @@ namespace DaoCustomerProfiling
                         customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
                         customerBankAccountVo.BranchAdrLine2 = dr["CB_BranchAdrLine2"].ToString();
                         customerBankAccountVo.BranchAdrLine3 = dr["CB_BranchAdrLine3"].ToString();
+                        if (!string.IsNullOrEmpty(dr["CB_BranchAdrPinCode"].ToString()))
                         customerBankAccountVo.BranchAdrPinCode = int.Parse(dr["CB_BranchAdrPinCode"].ToString());
                         customerBankAccountVo.BranchAdrCity = dr["CB_BranchAdrCity"].ToString();
                         customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
