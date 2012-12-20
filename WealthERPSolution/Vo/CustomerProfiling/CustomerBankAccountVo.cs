@@ -17,7 +17,7 @@ namespace VoCustomerProfiling
         private string m_AccountType;
         private string m_BankAccountNum;
 
-
+        private string m_WERPBMBankName;
         private string m_ModeOfOperationCode;
         private string m_AccountTypeCode;
 
@@ -65,6 +65,13 @@ namespace VoCustomerProfiling
         {
             get { return m_CustBankAccId; }
             set { m_CustBankAccId = value; }
+        }
+       public string WERPBMBankName
+        {
+            get { return m_WERPBMBankName; }
+            set { m_WERPBMBankName = value; }
+
+
         }
         public string BankName
         {
