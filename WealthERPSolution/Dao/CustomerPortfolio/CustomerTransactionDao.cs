@@ -2879,7 +2879,7 @@ namespace DaoCustomerPortfolio
 
         #region MFFolio
 
-        public List<CustomerAccountsVo> GetCustomerMFFolios(int PortfolioId, int CustomerId, int CurrentPage, out int Count)
+        public List<CustomerAccountsVo> GetCustomerMFFolios(int PortfolioId, int CustomerId)
         {
             DataSet ds = null;
             Database db;
@@ -2893,7 +2893,7 @@ namespace DaoCustomerPortfolio
                 getCustomerMFFOlioCmd = db.GetStoredProcCommand("SP_GetCustomerMFFolios");
                 db.AddInParameter(getCustomerMFFOlioCmd, "@PortfolioId", DbType.Int32, PortfolioId);
                 db.AddInParameter(getCustomerMFFOlioCmd, "@CustomerId", DbType.Int32, CustomerId);
-                db.AddInParameter(getCustomerMFFOlioCmd, "@currentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(getCustomerMFFOlioCmd, "@currentPage", DbType.Int32, CurrentPage);
                 ds = db.ExecuteDataSet(getCustomerMFFOlioCmd);
 
                 DataRow[] drJointHolder;
@@ -2968,7 +2968,7 @@ namespace DaoCustomerPortfolio
 
             }
 
-            Count = Int32.Parse(ds.Tables[1].Rows[0]["cnt"].ToString());
+            //Count = Int32.Parse(ds.Tables[1].Rows[0]["cnt"].ToString());
             return AccountList;
         }
 
@@ -3051,6 +3051,7 @@ namespace DaoCustomerPortfolio
                     AccountVo.AccountType = dr1["XBAT_BankAccountTypeCode"].ToString();
                     AccountVo.BankAccountNum = dr1["CB_AccountNum"].ToString();
                     AccountVo.ModeOfOperation = dr1["XMOH_ModeOfHoldingCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr1["WERPBDTM_BankName"].ToString()))
                     AccountVo.BankName = dr1["WERPBDTM_BankName"].ToString();
                     AccountVo.BranchName = dr1["CB_BranchName"].ToString();
                     AccountVo.BranchAdrLine1 = dr1["CB_BranchAdrLine1"].ToString();
