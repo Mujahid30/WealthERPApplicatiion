@@ -22,7 +22,7 @@
                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                         </td>
                         <td style="width: 10px" align="right">
-                            <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
+                            <img src="../Images/helpImage.png" height="20px" width="25px" style="float: right;"
                                 class="flip" />
                         </td>
                     </tr>
@@ -48,7 +48,7 @@
         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHolding,XMOH_ModeOfHoldingCode,XBAT_BankAccountTypeCode,CB_BranchAdrState,WERPBM_BankCode"
+        <MasterTableView DataKeyNames="CB_CustBankAccId,XMOH_ModeOfHoldingCode,XBAT_BankAccountTypeCode,CB_BranchAdrState,WERPBM_BankCode"
             EditMode="PopUp" CommandItemDisplay="Top">
             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false" AddNewRecordText="Add New Bank Details"
                 ShowRefreshButton="false" ShowExportToCsvButton="false" ShowAddNewRecordButton="true" ShowExportToPdfButton="false" />
@@ -73,8 +73,8 @@
                     HeaderText="Account Type" DataField="BankAccountType" SortExpression="BankAccountType"
                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="ModeOfHolding" HeaderStyle-Width="80px"
-                    HeaderText="Mode Of Operation" DataField="ModeOfHolding" SortExpression="ModeOfHolding"
+                <telerik:GridBoundColumn UniqueName="XMOH_ModeOfHolding" HeaderStyle-Width="80px"
+                    HeaderText="Mode Of Operation" DataField="XMOH_ModeOfHolding" SortExpression="XMOH_ModeOfHolding"
                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="CB_AccountNum" HeaderStyle-Width="80px" HeaderText="Account No."
@@ -177,7 +177,7 @@
                                 <asp:Label ID="lblModeOfOperation" runat="server" Text="Mode of Operation:" CssClass="FieldName"></asp:Label>
                             </td>
                              <td class="rightField">
-                                <asp:DropDownList ID="ddlModeofOperation" runat="server" CssClass="cmbField">
+                                <asp:DropDownList ID="ddlModeofOperation" runat="server"  CssClass="cmbField">
                                 </asp:DropDownList>
                                 <span id="Span2" class="spnRequiredField">*</span>
                                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlModeofOperation"

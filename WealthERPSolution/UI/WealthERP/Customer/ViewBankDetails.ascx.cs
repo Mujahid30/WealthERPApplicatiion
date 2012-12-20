@@ -54,77 +54,8 @@ namespace WealthERP.Customer
             {
                 BindBankDetails(customerVo.CustomerId);
             
-            
             }
-            //try
-            //{
-            //    SessionBo.CheckSession();
-            //    customerVo = (CustomerVo)Session["CustomerVo"];
-            //    int customerId = customerVo.CustomerId;
-
-            //    customerBankAccountList = customerBankAccountBo.GetCustomerBankAccounts(customerId);
-            //    if (customerBankAccountList.Count != 0)
-            //    {
-            //      //  lblMsg.Visible = false;
-            //        DataTable dtCustomerBankAccounts = new DataTable();
-            //        // dtAdvisorBranches.Columns.Add(Select");
-            //        dtCustomerBankAccounts.Columns.Add("CustBankAccId");
-            //        dtCustomerBankAccounts.Columns.Add("Bank Name");
-            //        dtCustomerBankAccounts.Columns.Add("Branch Name");
-            //        dtCustomerBankAccounts.Columns.Add("Account Type");
-            //        dtCustomerBankAccounts.Columns.Add("Mode Of Operation");
-            //        dtCustomerBankAccounts.Columns.Add("Account Number");
-
-
-            //        DataRow drCustomerBankAccount;
-            //        for (int i = 0; i < customerBankAccountList.Count; i++)
-            //        {
-            //            drCustomerBankAccount = dtCustomerBankAccounts.NewRow();
-            //            customerBankAccountVo = new CustomerBankAccountVo();
-            //            customerBankAccountVo = customerBankAccountList[i];
-            //            drCustomerBankAccount[0] = customerBankAccountVo.CustBankAccId.ToString();
-            //            drCustomerBankAccount[1] = customerBankAccountVo.BankName.ToString();
-            //            drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
-            //            drCustomerBankAccount[3] = customerBankAccountVo.AccountType.ToString();
-            //            drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
-            //            drCustomerBankAccount[5] = customerBankAccountVo.BankAccountNum.ToString();
-
-            //            dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
-            //        }
-
-            //        gvBankDetails.DataSource = dtCustomerBankAccounts;
-            //        gvBankDetails.DataBind();
-            //        gvBankDetails.Visible = true;
-            //    }
-            //    else
-            //    {
-            //        gvBankDetails.DataSource = null;
-            //        gvBankDetails.DataBind();
-            //      //  lblMsg.Visible = true;
-            //    }
-            //}
-            //catch (BaseApplicationException Ex)
-            //{
-            //    throw Ex;
-            //}
-
-            //catch (Exception Ex)
-            //{
-            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-            //    NameValueCollection FunctionInfo = new NameValueCollection();
-            //    FunctionInfo.Add("Method", "ViewBankDetails.ascx:Page_Load()");
-            //    object[] objects = new object[5];
-            //    objects[0] = customerVo;
-            //    objects[1] = customerBankAccountVo;
-            //    objects[2] = customerBankAccountList;
-            //    objects[3] = custBankAccId;
-            //    objects[4] = customerId;
-
-            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-            //    exBase.AdditionalInformation = FunctionInfo;
-            //    ExceptionManager.Publish(exBase);
-            //    throw exBase;
-                      //}
+           
         }
       public void BindBankDetails(int customerIdForGettingBankDetails)
       {
@@ -151,7 +82,7 @@ namespace WealthERP.Customer
               dtCustomerBankAccounts.Columns.Add("CB_MICR");
               dtCustomerBankAccounts.Columns.Add("CB_IFSC");
               dtCustomerBankAccounts.Columns.Add("BankAccountType");
-              dtCustomerBankAccounts.Columns.Add("ModeOfHolding");
+              dtCustomerBankAccounts.Columns.Add("XMOH_ModeOfHolding");
               dtCustomerBankAccounts.Columns.Add("WERPBMBankName");
               
               DataRow drCustomerBankAccount;
@@ -176,7 +107,6 @@ namespace WealthERP.Customer
                       drCustomerBankAccount["CB_BranchAdrPinCode"] = customerBankAccountVo.BranchAdrPinCode.ToString();
                   if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
                       drCustomerBankAccount[10] = customerBankAccountVo.BranchAdrCity.ToString();
-
                   if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
                       drCustomerBankAccount[11] = customerBankAccountVo.BranchAdrState.ToString();
                   if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
@@ -188,6 +118,7 @@ namespace WealthERP.Customer
                       drCustomerBankAccount[14] = customerBankAccountVo.IFSC.ToString();
                       drCustomerBankAccount[15] = customerBankAccountVo.AccountType.ToString();
                       drCustomerBankAccount[16] = customerBankAccountVo.ModeOfOperation.ToString();
+                  //if(!string.IsNullOrEmpty(customerBankAccountVo.WERPBMBankName))
                       drCustomerBankAccount[17] = customerBankAccountVo.WERPBMBankName.ToString();
                       dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
               }
@@ -243,7 +174,6 @@ namespace WealthERP.Customer
               DataTable dtBankState = new DataTable();
               DataTable dtBankName = new DataTable();
                     
-
               GridEditFormItem gefi = (GridEditFormItem)e.Item;
               DropDownList ddlAccountType = (DropDownList)gefi.FindControl("ddlAccountType");
               dtAccType = customerBankAccountBo.XMLBankAccountType();
@@ -269,7 +199,6 @@ namespace WealthERP.Customer
               ddlBankName.DataBind();
               ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
 
-
               DropDownList ddlBankAdrState = (DropDownList)gefi.FindControl("ddlBankAdrState");
               dtBankState = XMLBo.GetStates(path);
               ddlBankAdrState.DataSource = dtBankState;
@@ -278,14 +207,7 @@ namespace WealthERP.Customer
               ddlBankAdrState.DataBind();
               ddlBankAdrState.Items.Insert(0, new ListItem("Select", "Select"));
 
-              //DropDownList ddlBankAdrState = (DropDownList)gefi.FindControl("ddlBankAdrState");
-              //dtBankState = (DataTable)Cache["gvDetailsForBank" + userVo.UserId + customerVo.CustomerId];
-              //ddlBankAdrState.DataSource = dtBankState;
-              //ddlBankAdrState.DataTextField = dtModeOfOpn.Columns["CB_BranchAdrState"].ToString();
-              //ddlBankAdrState.DataValueField = dtModeOfOpn.Columns["CB_BranchAdrState"].ToString();
-              //ddlBankAdrState.DataBind();
-              //ddlBankAdrState.Items.Insert(0, new ListItem("Select", "Select"));
-
+           
           }
           if (e.Item is GridDataItem)
           {
@@ -328,8 +250,7 @@ namespace WealthERP.Customer
               ddlModeofOperation.DataValueField = dtModeOfOpn.Columns["XMOH_ModeOfHoldingCode"].ToString();
               ddlModeofOperation.DataTextField = dtModeOfOpn.Columns["XMOH_ModeOfHolding"].ToString();
               ddlModeofOperation.DataBind();
-              ddlModeofOperation.SelectedValue = strModeOfOperation;
-           
+              ddlModeofOperation.SelectedValue = strModeOfOperation;           
 
               DropDownList ddlBankName = (DropDownList)editedItem.FindControl("ddlBankName");
               dtBankName = customerBankAccountBo.GetALLBankName();
@@ -378,6 +299,7 @@ namespace WealthERP.Customer
               bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
               customerVo = (CustomerVo)Session["customerVo"];
               customerId = customerVo.CustomerId;
+
               customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
               customerBankAccountVo.AccountType = ddlAccountType.SelectedItem.Value.ToString();
               customerBankAccountVo.ModeOfOperation = ddlModeofOperation.SelectedItem.Value.ToString();
@@ -400,7 +322,7 @@ namespace WealthERP.Customer
               if (txtMicr.Text.ToString() != "")
                   customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
               else
-                  customerBankAccountVo.MICR = 0;
+              customerBankAccountVo.MICR = 0;
               customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId);
 
           }
@@ -444,7 +366,7 @@ namespace WealthERP.Customer
               customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
 
               if (ddlModeofOperation.SelectedValue.ToString() != "Select a Mode of Holding")
-                  customerBankAccountVo.ModeOfOperation = ddlModeofOperation.SelectedValue.ToString();
+              customerBankAccountVo.ModeOfOperation = ddlModeofOperation.SelectedValue.ToString();
               customerBankAccountVo.BankName = ddlBankName.SelectedValue.ToString();
               customerBankAccountVo.BranchName = txtBranchName.Text.ToString();
               customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
