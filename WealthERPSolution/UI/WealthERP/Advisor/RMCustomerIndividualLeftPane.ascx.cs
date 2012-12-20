@@ -1145,6 +1145,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add MF Folio")
                 {
+                    if (Session["AddMFFolioLinkIdLinkAction"] != null)
+                        Session["AddMFFolioLinkIdLinkAction"] = null;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAccountAdd", "loadcontrol('CustomerMFAccountAdd','?action=');", true);
                 }
                 else if (e.Item.Value == "View MF Folio")
