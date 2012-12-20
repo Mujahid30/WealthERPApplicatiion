@@ -449,6 +449,9 @@ namespace WealthERP.CustomerPortfolio
             ddlModeOfOpn.Enabled = true;
             ddlALLBankList.Enabled = true;
             rdpDOB.Enabled = true;
+            ddlAccType.Enabled = true;
+            ddlBState.Enabled = true;
+            ddlBCountry.Enabled = true;
         }
 
         private void SetVisiblity(int p)
@@ -1520,7 +1523,7 @@ namespace WealthERP.CustomerPortfolio
 
         public void FillBankDetails()
         {
-            //BindDropDowns(path);
+            BindDropDowns(path);
 
             txtAccNo.Text = dsbankDetails.Tables[0].Rows[0]["CB_AccountNum"].ToString();
             txtBankName.Text = dsbankDetails.Tables[0].Rows[0]["WERPBM_BankCode"].ToString();
@@ -1532,8 +1535,8 @@ namespace WealthERP.CustomerPortfolio
 
                 ddlBState.SelectedValue = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString();
 
-            if (dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString() != "")
-                ddlModeOfOpn.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString();
+            if (dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString().Trim() != "")
+                ddlModeOfOpn.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString().Trim();
             ddlAccType.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XBAT_BankAccountTypeCode"].ToString();
             txtPinCode.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrPinCode"].ToString();
             txtMicr.Text = dsbankDetails.Tables[0].Rows[0]["CB_MICR"].ToString();
