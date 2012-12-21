@@ -26,6 +26,7 @@ namespace WealthERP
         {
             string linkId = "";
             string AddMFFolioLinkId = "";
+            string AddMFOrderEntryLinkId = "";
 
             if (Request.QueryString["PageId"] != null)
                 pageID = Request.QueryString["PageId"].ToString();
@@ -40,6 +41,12 @@ namespace WealthERP
             {
                 AddMFFolioLinkId = Request.QueryString["AddMFFolioLinkId"].ToString();
                 Session["AddMFFolioLinkIdLinkAction"] = AddMFFolioLinkId;
+            }
+
+            if (Request.QueryString["AddMFOrderEntryLinkId"] != null)
+            {
+                AddMFFolioLinkId = Request.QueryString["AddMFOrderEntryLinkId"].ToString();
+                Session["AddMFOrderEntryLinkIdLinkAction"] = AddMFOrderEntryLinkId;
             }
 
             if (pageID.Trim() == "CustomerProofView")
