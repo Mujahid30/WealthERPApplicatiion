@@ -673,6 +673,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderEntry")
                 {
+                    if (Session["AddMFOrderEntryLinkIdLinkAction"] != null)
+                        Session["AddMFOrderEntryLinkIdLinkAction"] = null;
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
                 }
