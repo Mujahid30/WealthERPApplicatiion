@@ -4377,7 +4377,7 @@ namespace WealthERP.Uploads
             }
             else
             {
-                gvCAMSProfileReject.MasterTableView.FilterExpression = "";
+                //gvCAMSProfileReject.MasterTableView.FilterExpression = "";
                 GridColumn column = gvCAMSProfileReject.MasterTableView.GetColumnSafe("RejectReason");
                 column.CurrentFilterFunction = GridKnownFunction.EqualTo;
                 gvCAMSProfileReject.MasterTableView.Rebind();

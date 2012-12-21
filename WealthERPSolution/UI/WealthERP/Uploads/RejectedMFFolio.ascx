@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RejectedMFFolio.ascx.cs"
     Inherits="WealthERP.Uploads.RejectedMFFolio" %>
-
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
 <asp:ScriptManager runat="server">
