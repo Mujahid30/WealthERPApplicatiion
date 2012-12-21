@@ -70,14 +70,14 @@
                         <td align="left">
                             Upload History
                         </td>
-                        <td align="right" style="width: 10px">
-                            <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
-                                class="flip" />
-                        </td>
-                        <td align="right" style="width: 10px">
+                       <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                        </td>
+                         <td align="right" style="width: 10px">
+                            <img src="../Images/helpImage.png" height="20px" width="20px" style="float: right;"
+                                class="flip" />
                         </td>
                     </tr>
                 </table>
