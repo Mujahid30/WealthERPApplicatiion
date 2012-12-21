@@ -315,7 +315,7 @@
                                           SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectReason").CurrentFilterValue %>' runat="server" >
                                            <%--OnPreRender="rcbContinents_PreRender"--%>
                                     <Items>
-                                    <telerik:RadComboBoxItem Text="All" Value="" Selected="true">
+                                    <telerik:RadComboBoxItem Text="All" Value="" Selected="false">
                                     </telerik:RadComboBoxItem>
                                     </Items>                                                          
                                        </telerik:RadComboBox>

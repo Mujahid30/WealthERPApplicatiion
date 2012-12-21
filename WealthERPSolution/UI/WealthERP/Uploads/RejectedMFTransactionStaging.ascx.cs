@@ -220,20 +220,15 @@ namespace WealthERP.Uploads
                 GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("RejectReason");
                 column.CurrentFilterFunction = GridKnownFunction.EqualTo;
                 gvWERPTrans.MasterTableView.Rebind();
-                //   // column.CurrentFilterValue = dropdown.SelectedValue.ToString();
-
-
-
-                //    //+ Combo.SelectedValue +
+                           
             }
             else
             {
-                gvWERPTrans.MasterTableView.FilterExpression = "";
+               // gvWERPTrans.MasterTableView.FilterExpression = "0";
                 GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("RejectReason");
                 column.CurrentFilterFunction = GridKnownFunction.EqualTo;
                 gvWERPTrans.MasterTableView.Rebind();
-                //  //  column.CurrentFilterValue = dropdown.SelectedValue.ToString();
-                //    // dropdown.SelectedValue = ViewState["RejectReason"].ToString();
+               
 
             }
 
@@ -677,7 +672,6 @@ namespace WealthERP.Uploads
             if (!string.IsNullOrEmpty(rcbType))
             {
                 DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "InvestorName,CMFTS_PANNum,ProcessId,FolioNumber,Scheme,SchemeName,TransactionType,ExternalFileName,SourceType", DataViewRowState.CurrentRows);
-                // DataView dvStaffList = dtMIS.DefaultView;
                 gvWERPTrans.DataSource = dvStaffList.ToTable();
 
             }
