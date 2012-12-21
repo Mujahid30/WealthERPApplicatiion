@@ -4427,7 +4427,7 @@ namespace WealthERP.Uploads
             }
             else
             {
-                gvProcessLog.MasterTableView.FilterExpression = "";
+                //gvProcessLog.MasterTableView.FilterExpression = "";
                 GridColumn column = gvProcessLog.MasterTableView.GetColumnSafe("XUET_ExtractType");
                 column.CurrentFilterFunction = GridKnownFunction.EqualTo;
                 gvProcessLog.MasterTableView.Rebind();
