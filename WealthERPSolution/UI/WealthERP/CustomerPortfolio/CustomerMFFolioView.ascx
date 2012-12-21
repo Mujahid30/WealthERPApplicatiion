@@ -168,7 +168,7 @@
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="A/C Opening Date" HeaderStyle-Width="120px"
                     HeaderText="A/C Opening Date" DataField="A/C Opening Date" SortExpression="A/C Opening Date"
-                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
             </Columns>
