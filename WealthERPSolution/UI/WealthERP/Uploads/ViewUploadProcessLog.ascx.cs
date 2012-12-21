@@ -39,6 +39,7 @@ namespace WealthERP.Uploads
         SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
 
         DataSet getProcessLogDs;
+        DataTable dtgvProcessLog = new DataTable();
 
         int adviserId;
         int processID;
@@ -197,8 +198,7 @@ namespace WealthERP.Uploads
                     }
 
                 }
-                gvProcessLog.DataSource = getProcessLogDs.Tables[0];
-                gvProcessLog.DataBind();
+               
 
 
                 if (Cache["ProcessLogDetails" + adviserId.ToString()] == null)
@@ -231,7 +231,8 @@ namespace WealthERP.Uploads
                     Cache.Remove("RMList" + adviserId.ToString());
                     Cache.Insert("RMList" + adviserId.ToString(), getProcessLogDs);
                 }
-
+                gvProcessLog.DataSource = getProcessLogDs.Tables[0];
+                gvProcessLog.DataBind();
             }
 
 
@@ -4289,9 +4290,34 @@ namespace WealthERP.Uploads
 
         protected void gvProcessLog_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            string rcbType = string.Empty;
             DataSet dtProcessLogDetails = new DataSet();
+            DataTable dtrr = new DataTable();
             dtProcessLogDetails = (DataSet)Cache["ProcessLogDetails" + adviserId.ToString()];
-            gvProcessLog.DataSource = dtProcessLogDetails;
+            dtrr = dtProcessLogDetails.Tables[0];
+            if (ViewState["XUET_ExtractType"] != null)
+                rcbType = ViewState["XUET_ExtractType"].ToString();
+            if (!string.IsNullOrEmpty(rcbType))
+            {
+                DataView dvStaffList = new DataView(dtrr, "XUET_ExtractType = '" + rcbType + "'", "ADUL_FileName,WUXFT_XMLFileName,ADUL_XMLFileName", DataViewRowState.CurrentRows);
+                // DataView dvStaffList = dtMIS.DefaultView;
+                gvProcessLog.DataSource = dvStaffList.ToTable();
+
+            }
+            else
+            {
+                gvProcessLog.DataSource = dtProcessLogDetails;
+
+            }
+                             
+
+
+
+
+
+            //DataSet dtProcessLogDetails = new DataSet();
+            //dtProcessLogDetails = (DataSet)Cache["ProcessLogDetails" + adviserId.ToString()];
+            //gvProcessLog.DataSource = dtProcessLogDetails;
         }
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
@@ -4307,6 +4333,42 @@ namespace WealthERP.Uploads
 
         public void gvProcessLog_ItemDataBound(object sender, GridItemEventArgs e)
         {
+
+
+            if (e.Item is GridFilteringItem && e.Item.ItemIndex ==-1)
+            {   
+                GridFilteringItem filterItem = (GridFilteringItem)e.Item;
+                RadComboBox RadComboBoxET = (RadComboBox)filterItem.FindControl("RadComboBoxET");
+              //  RadComboBox RadComboBoxIN = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
+
+               // DataSet dtProcessLogDetails = new DataSet();
+                getProcessLogDs = (DataSet)Cache["ProcessLogDetails" + adviserId.ToString()];
+                dtgvProcessLog = getProcessLogDs.Tables[0];
+                Session["dt"] = dtgvProcessLog;
+                DataTable dtcustMIS = new DataTable();
+                dtcustMIS.Columns.Add("XUET_ExtractType");
+                //dtcustMIS.Columns.Add("RejectReason");
+                // dtcustMIS.Columns.Add("SystematicTransactionType");
+                DataRow drcustMIS;
+                foreach (DataRow dr in dtgvProcessLog.Rows)
+                {
+                    drcustMIS = dtcustMIS.NewRow();
+                    drcustMIS["XUET_ExtractType"] = dr["XUET_ExtractType"].ToString();
+                    //drcustMIS["RejectReason"] = dr["RejectReason"].ToString();
+                    //drcustMIS["SystematicTransactionType"] = dr["TypeCode"].ToString();
+                    dtcustMIS.Rows.Add(drcustMIS);
+                }
+               
+                DataView view = new DataView(dtgvProcessLog);
+                DataTable distinctValues = view.ToTable(true, "XUET_ExtractType");
+                RadComboBoxET.DataSource = distinctValues;
+                RadComboBoxET.DataValueField = dtcustMIS.Columns["XUET_ExtractType"].ToString();
+                RadComboBoxET.DataTextField = dtcustMIS.Columns["XUET_ExtractType"].ToString();
+                //RadComboBoxIN.ClearSelection();
+                RadComboBoxET.DataBind();
+               
+            }
+              
             if (e.Item is GridDataItem)
             {
                 GridDataItem item = (e.Item as GridDataItem);
@@ -4328,6 +4390,65 @@ namespace WealthERP.Uploads
             }
 
         }
+        protected void gvProcessLog_PreRender(object sender, EventArgs e)
+        {
+            if (gvProcessLog.MasterTableView.FilterExpression != string.Empty)
+            {
+                RefreshCombos();
+            }
+        }
+
+        protected void RefreshCombos()
+        {
+            getProcessLogDs = (DataSet)Cache["ProcessLogDetails" + adviserId.ToString()];
+            dtgvProcessLog = getProcessLogDs.Tables[0];
+            DataView view = new DataView(dtgvProcessLog);
+            DataTable distinctValues = view.ToTable();
+            DataRow[] rows = distinctValues.Select(gvProcessLog.MasterTableView.FilterExpression.ToString());
+            gvProcessLog.MasterTableView.Rebind();
+        }
+
+        protected void RadComboBoxET_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+
+            RadComboBox dropdown = o as RadComboBox;
+            ViewState["XUET_ExtractType"] = dropdown.SelectedValue.ToString();
+            if (ViewState["XUET_ExtractType"] != "")
+            {
+                //    gvWERPTrans.MasterTableView.FilterExpression = "([RejectReason]= '" + dropdown.SelectedValue + "')";
+                GridColumn column = gvProcessLog.MasterTableView.GetColumnSafe("XUET_ExtractType");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvProcessLog.MasterTableView.Rebind();
+                //   // column.CurrentFilterValue = dropdown.SelectedValue.ToString();
+
+
+
+                //    //+ Combo.SelectedValue +
+            }
+            else
+            {
+                gvProcessLog.MasterTableView.FilterExpression = "";
+                GridColumn column = gvProcessLog.MasterTableView.GetColumnSafe("XUET_ExtractType");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvProcessLog.MasterTableView.Rebind();
+                //  //  column.CurrentFilterValue = dropdown.SelectedValue.ToString();
+                //    // dropdown.SelectedValue = ViewState["RejectReason"].ToString();
+
+            }
+
+        }
+        protected void rcbContinents1_PreRender(object sender, EventArgs e)
+        {
+            RadComboBox Combo = sender as RadComboBox;
+            ////persist the combo selected value  
+            if (ViewState["XUET_ExtractType"] != null)
+            {
+
+                Combo.SelectedValue = ViewState["XUET_ExtractType"].ToString();
+            }
+
+        } 
+
         protected void ddlAdviser_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")

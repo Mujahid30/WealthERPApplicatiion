@@ -174,7 +174,7 @@
                 <telerik:RadGrid ID="gvProcessLog" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                    AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS"
+                    AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS" OnPreRender="gvProcessLog_PreRender"
                     OnItemDataBound="gvProcessLog_ItemDataBound" OnNeedDataSource="gvProcessLog_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
@@ -223,6 +223,26 @@
                             <telerik:GridBoundColumn DataField="XUET_ExtractType" HeaderText="Extract Type" UniqueName="XUET_ExtractType"
                                 SortExpression="XUET_ExtractType" AutoPostBackOnFilter="true" ShowFilterIcon="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                 <FilterTemplate>
+                                    <telerik:RadComboBox ID="RadComboBoxET" Width="180px" CssClass="cmbField" AllowFiltering="true" AutoPostBack="true"  OnSelectedIndexChanged="RadComboBoxET_SelectedIndexChanged"                                                           
+                                            IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false" OnPreRender="rcbContinents1_PreRender" EnableViewState="true"
+                                          SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("XUET_ExtractType").CurrentFilterValue %>' runat="server" >
+                                           <%--OnPreRender="rcbContinents_PreRender"--%>
+                                    <Items>
+                                    <telerik:RadComboBoxItem Text="All" Value="" Selected="true">
+                                    </telerik:RadComboBoxItem>
+                                    </Items>                                                          
+                                       </telerik:RadComboBox>
+                                        <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+                                            <script type="text/javascript">
+                                                function ExtractTypeNameIndexChanged(sender, args) {
+                                                    var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+//////                                                    sender.value = args.get_item().get_value();
+                                                    tableView.filter("XUET_ExtractType", args.get_item().get_value(), "EqualTo");
+                                      } 
+                                     </script>
+                                    </telerik:RadScriptBlock>                                                                  
+                                 </FilterTemplate>           
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_XMLFileName" HeaderText="XML FileName" UniqueName="ADUL_XMLFileName"
                                 SortExpression="ADUL_XMLFileName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
