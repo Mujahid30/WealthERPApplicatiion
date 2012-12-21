@@ -3117,7 +3117,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateMFFolioDetailsCmd, "@PAG_AssetGroupCode", DbType.String, AccountVo.AssetClass);
 
 
-                db.AddInParameter(updateMFFolioDetailsCmd, "@ModifiedBy", DbType.String, userId);
+                db.AddInParameter(updateMFFolioDetailsCmd, "@ModifiedBy", DbType.Int32, userId);
                 if (AccountVo.BankId != 0)
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CB_CustBankAccId", DbType.Int32, AccountVo.BankId);
@@ -3151,7 +3151,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_BROKERCODE", DbType.String, DBNull.Value);
                 }
 
-                if (!string.IsNullOrEmpty(AccountVo.XCT_CustomerTypeCode))
+                if (AccountVo.XCT_CustomerTypeCode!=null && AccountVo.XCT_CustomerTypeCode!="0")
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@XCT_CustomerTypeCode", DbType.String, AccountVo.XCT_CustomerTypeCode);
                 }
@@ -3160,7 +3160,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(updateMFFolioDetailsCmd, "@XCT_CustomerTypeCode", DbType.String, DBNull.Value);
                 }
 
-                if (!string.IsNullOrEmpty(AccountVo.XCST_CustomerSubTypeCode))
+                if (AccountVo.XCST_CustomerSubTypeCode!="0")
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@XCST_CustomerSubTypeCode", DbType.String, AccountVo.XCST_CustomerSubTypeCode);
                 }
@@ -3203,7 +3203,7 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_CITY", DbType.String, DBNull.Value);
                 }
-                if (AccountVo.CPinCode == 0)
+                if (AccountVo.CPinCode != 0)
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PINCODE", DbType.Int32, AccountVo.CPinCode);
                 }
@@ -3227,7 +3227,7 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_JOINT_NAME2", DbType.String, DBNull.Value);
                 }
-                if (!string.IsNullOrEmpty(AccountVo.Name))
+                if (AccountVo.CPhoneOffice!=0)
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Int32, AccountVo.CPhoneOffice);
                 }
@@ -3272,14 +3272,14 @@ namespace DaoCustomerPortfolio
 
                 if (!string.IsNullOrEmpty(AccountVo.BankName))
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BankName", DbType.String, AccountVo.BankName);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@WERPBM_BankCode", DbType.String, AccountVo.BankName);
                 }
                 else
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_BankName", DbType.String, DBNull.Value);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@WERPBM_BankCode", DbType.String, DBNull.Value);
                 }
 
-                if (AccountVo.CustomerId == 0)
+                if (AccountVo.CustomerId != 0)
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@C_CustomerId", DbType.Int32, AccountVo.CustomerId);
                 }
