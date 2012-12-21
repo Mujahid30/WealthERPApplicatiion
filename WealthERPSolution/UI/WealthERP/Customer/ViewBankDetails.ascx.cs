@@ -57,7 +57,7 @@ namespace WealthERP.Customer
                     gvBankDetails.MasterTableView.IsItemInserted = true;
                     gvBankDetails.Rebind();
                 }
-                else
+                
                 BindBankDetails(customerVo.CustomerId);
             
             }
