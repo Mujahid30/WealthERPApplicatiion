@@ -823,7 +823,7 @@ namespace WealthERP.CustomerPortfolio
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
             gvMFTransactions.Columns[0].Visible = false;
-            gvMFTransactions.Columns[1].Visible = false;
+            //gvMFTransactions.Columns[1].Visible = false;
             if (rbAll.Checked)
             {
                 gvMFTransactions.AllowPaging = false;
