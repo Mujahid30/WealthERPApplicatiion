@@ -321,9 +321,9 @@ namespace DaoWerpAdmin
             {
                 dbFactsheetschemeDetails = DatabaseFactory.CreateDatabase("wealtherp");
                 CmdFactsheetschemeDetails = dbFactsheetschemeDetails.GetStoredProcCommand("SP_GetFactSheetSchemeDetails");
-                dbFactsheetschemeDetails.AddInParameter(CmdFactsheetschemeDetails, "@month", DbType.Int16, month);
-                dbFactsheetschemeDetails.AddInParameter(CmdFactsheetschemeDetails, "@year", DbType.Int16, year);
-                dbFactsheetschemeDetails.AddInParameter(CmdFactsheetschemeDetails, "@SchemePlanCode", DbType.Int16, schemePlanId);
+                dbFactsheetschemeDetails.AddInParameter(CmdFactsheetschemeDetails, "@month", DbType.Int32, month);
+                dbFactsheetschemeDetails.AddInParameter(CmdFactsheetschemeDetails, "@year", DbType.Int32, year);
+                dbFactsheetschemeDetails.AddInParameter(CmdFactsheetschemeDetails, "@SchemePlanCode", DbType.Int32, schemePlanId);
                 CmdFactsheetschemeDetails.CommandTimeout = 60 * 60;
                 dsFactsheetschemeDetails = dbFactsheetschemeDetails.ExecuteDataSet(CmdFactsheetschemeDetails);
 
