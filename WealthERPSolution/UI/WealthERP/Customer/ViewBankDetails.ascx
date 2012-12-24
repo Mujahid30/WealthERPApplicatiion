@@ -37,13 +37,19 @@
     </tr>
 </table>
 <br />
+
+ <%--<telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" IsSticky="true" runat="server" 
+            EnableSkinTransparency="true" Transparency="25" BackColor="#AAAAAA"   > 
+            <asp:Image ID="Image2" runat="server" ImageUrl="~/App_Themes/Loading.gif" style="border: 0px;">  
+            </asp:Image> 
+        </telerik:RadAjaxLoadingPanel> --%>
 <div style="width: 100%; padding-left:4px; padding-right: 10px;">
     <telerik:RadGrid ID="gvBankDetails" runat="server" GridLines="None" 
         Width="99%" AllowPaging="true" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
         ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
         AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvBankDetails_ItemDataBound"
-        EnableEmbeddedSkins="true" OnItemCommand="gvBankDetails_ItemCommand" EnableHeaderContextMenu="true"
-        EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true" OnNeedDataSource="gvBankDetails_NeedDataSource" EditItemStyle-Width="600px">
+        EnableEmbeddedSkins="true" OnItemCommand="gvBankDetails_ItemCommand" EnableHeaderContextMenu="false" OnPreRender="gvBankDetails_PreRender"
+        EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="false" OnNeedDataSource="gvBankDetails_NeedDataSource" EditItemStyle-Width="600px">
         <%-- ,ModeOfHoldingCode,BankAccountTypeCode,CB_BranchAdrState" --%>
         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
         <ExportSettings HideStructureColumns="true">
@@ -53,6 +59,7 @@
             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false" AddNewRecordText="Add New Bank Details"
                 ShowRefreshButton="false" ShowExportToCsvButton="false" ShowAddNewRecordButton="true" ShowExportToPdfButton="false" />
             <%--,ModeOfHoldingCode,BankAccountTypeCode,CB_BranchAdrState--%>
+          <%--  AddNewRecordText="Add New Bank Details"--%>
             <Columns>
                 <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
                     UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
@@ -61,7 +68,7 @@
                     DataField="CB_CustBankAccId" SortExpression="CB_CustBankAccId" AllowFiltering="false"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="WERPBMBankName" HeaderStyle-Width="80px" HeaderText="Bank" 
+                <telerik:GridBoundColumn UniqueName="WERPBMBankName" HeaderStyle-Width="90px" HeaderText="Bank" 
                  DataField="WERPBMBankName" SortExpression="WERPBMBankName" AllowFiltering="false" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
@@ -129,9 +136,9 @@
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
             </Columns>
-            <EditFormSettings FormTableStyle-Height="20px" EditFormType="Template" PopUpSettings-Height="260px" PopUpSettings-Width="600px" FormMainTableStyle-Width=1000px >
+            <EditFormSettings FormTableStyle-Height="100px" EditFormType="Template" PopUpSettings-Height="380px" PopUpSettings-Width="600px" FormMainTableStyle-Width=3000px >
                      <FormTemplate>
-                                    <table width="100%" style="background-color: White" border="0" >
+                                    <table width="100%" style="background-color: White;" border="0"  >
                                         <tr>
                                             <td colspan="4">
                                                 <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -330,7 +337,7 @@
                                     runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                     ValidationGroup="btnSubmit"></asp:Button>
                             </td>
-                            <td visible="false">
+                    <td visible="false">
                                 <asp:Button Visible="false" ID="btnYes" runat="server" Text="Submit and Addmore"
                                     CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddBankDetails_btnYes','L');"
                                     onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddBankDetails_btnYes','L');"

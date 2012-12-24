@@ -36,33 +36,46 @@ namespace WealthERP.Customer
         int custBankAccId;
         string path;
         DataSet dsBankDetails;
+        string currentUserRole = string.Empty;
         string viewForm = string.Empty;
         //string customerId = session["customerId"].ToString();
 
-
+        
       protected void Page_Load(object sender, EventArgs e)
-        {
-                
+        {              
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             userVo = (UserVo)Session["userVo"];
             customerVo = (CustomerVo)Session["CustomerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             RMVo customerRMVo = new RMVo();
-           // rmVo = (RMVo)Session[SessionContents.RmVo];
-           if (!IsPostBack)
+            if (!String.IsNullOrEmpty(Session[SessionContents.CurrentUserRole].ToString()))
             {
-                if (Session["AddMFFolioLinkIdLinkAction"] != null)
+                currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+            }
+       
+          if (!IsPostBack)    
+           {   
+                       
+             if (currentUserRole == "admin" )
+                {
+                    BindBankDetails(customerVo.CustomerId);    
+                }
+             else 
+             {
+                 BindBankDetails(customerVo.CustomerId);
+
+             }                                                          
+          
+             if (Session["AddMFFolioLinkIdLinkAction"] != null)
                 {
                     gvBankDetails.MasterTableView.IsItemInserted = true;
                     gvBankDetails.Rebind();
                 }
                 
-                BindBankDetails(customerVo.CustomerId);
-            
-            }
-           
-        }
+                BindBankDetails(customerVo.CustomerId);                     
+                }
+          }
       public void BindBankDetails(int customerIdForGettingBankDetails)
       {
           try
@@ -170,7 +183,8 @@ namespace WealthERP.Customer
 
           }
       }
-      protected void gvBankDetails_ItemDataBound(object sender, GridItemEventArgs e)
+
+    protected void gvBankDetails_ItemDataBound(object sender, GridItemEventArgs e)
       {
           if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
           {
@@ -212,18 +226,33 @@ namespace WealthERP.Customer
               ddlBankAdrState.DataValueField = "StateCode";
               ddlBankAdrState.DataBind();
               ddlBankAdrState.Items.Insert(0, new ListItem("Select", "Select"));
-
-           
-          }
-          if (e.Item is GridDataItem)
+           }
+          if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
           {
-              GridDataItem dataItem = e.Item as GridDataItem;
-              LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
-              if (viewForm == "View")
-                  buttonEdit.Visible = false;
-              else if (viewForm == "Edit")
-                  buttonEdit.Visible = true;
+              GridEditFormItem editForm = (GridEditFormItem)e.Item;
+              Button updatebutton = (Button)editForm.FindControl("Button1");
+              if (currentUserRole == "customer")
+              {
+                  updatebutton.Enabled = false;
+                  imgBtnrgHoldings.Visible = false;
+                 // updatebutton.Attributes["onclick"] = "return alert('You cannot Update this Bank Detail')";
+              }
           }
+         if (e.Item is GridCommandItem)
+         { 
+            Button Addnew = e.Item.FindControl("AddNewRecordButton") as Button;
+            LinkButton AddBank = e.Item.FindControl("InitInsertButton") as LinkButton;
+            if (currentUserRole == "customer")
+            {
+                Addnew.Visible = false;
+                AddBank.Visible = false;
+               
+                //AddBank.Attributes["onclick"] = "return alert('You cannot Add New Bank Detail')";
+            }
+           
+           
+         }
+       
           string strBankAdrState;
           string strModeOfOperation;
           string strAccountType;
@@ -273,7 +302,22 @@ namespace WealthERP.Customer
               ddlBankAdrState.DataValueField = "StateCode";
               ddlBankAdrState.DataBind();
               ddlBankAdrState.SelectedValue = strBankAdrState;
-           
+        }
+          
+         
+        if (e.Item is GridDataItem)
+          {
+              GridDataItem dataItem = e.Item as GridDataItem;
+              LinkButton buttonDelete = dataItem["deleteColumn"].Controls[0] as LinkButton;
+              if (currentUserRole == "customer")
+              {
+                  buttonDelete.Enabled = false;
+                  buttonDelete.Attributes["onclick"] = "return alert('You cannot delete this Bank Detail')";
+              }
+              else
+              {
+                  buttonDelete.Enabled = true;
+              }
           }
       }
       protected void gvBankDetails_ItemCommand(object source, GridCommandEventArgs e)
@@ -316,7 +360,7 @@ namespace WealthERP.Customer
               if (txtBankAdrPinCode.Text.ToString() != "")
                   customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
               else
-                  customerBankAccountVo.BranchAdrPinCode = 0;
+              customerBankAccountVo.BranchAdrPinCode = 0;
               customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
               if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
                   customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
@@ -336,7 +380,6 @@ namespace WealthERP.Customer
               CustomerBo customerBo = new CustomerBo();
               bool isInserted = false;
               GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-
               DropDownList ddlAccountType = (DropDownList)e.Item.FindControl("ddlAccountType");
               TextBox txtAccountNumber = (TextBox)e.Item.FindControl("txtAccountNumber");
               DropDownList ddlModeofOperation = (DropDownList)e.Item.FindControl("ddlModeOfOperation");
@@ -351,7 +394,6 @@ namespace WealthERP.Customer
               DropDownList ddlBankAdrState = (DropDownList)e.Item.FindControl("ddlBankAdrState");
               TextBox txtIfsc = (TextBox)e.Item.FindControl("txtIfsc");
 
-
               RMVo rmVo = new RMVo();
               int userId;
               rmVo = (RMVo)Session["RmVo"];
@@ -362,7 +404,6 @@ namespace WealthERP.Customer
               {
                   chk = Session["Check"].ToString();
               }
-
               customerVo = (CustomerVo)Session["customerVo"];
               customerId = customerVo.CustomerId;
               customerBankAccountVo = new CustomerBankAccountVo();
@@ -387,7 +428,6 @@ namespace WealthERP.Customer
                   customerBankAccountVo.MICR = long.Parse(txtMicr.Text.ToString());
               customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
               customerBankAccountVo.Balance = 0;
-              //customerBankAccountVo.Balance = long.Parse(txtBalance.Text.ToString());
               customerBankAccountBo.CreateCustomerBankAccount(customerBankAccountVo, customerId, userId);
               txtAccountNumber.Text = "";
               txtBankAdrLine1.Text = "";
@@ -404,7 +444,6 @@ namespace WealthERP.Customer
 
              //isInserted = customerBo.InsertProductAMCSchemeMappingDetalis(customerId, strExternalCode, strExternalType, createdDate, editedDate, deletedDate);
           }
-
           if (e.CommandName == "Delete")
           {
               bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
@@ -412,8 +451,6 @@ namespace WealthERP.Customer
           }
           BindBankDetails(customerId);
       }
-
-
    protected void gvBankDetails_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
     {
         DataTable dtGvBankDetails = new DataTable();
@@ -431,13 +468,24 @@ namespace WealthERP.Customer
 
 
  // }
+
+
+   protected void gvBankDetails_PreRender(object sender, EventArgs e) 
+        { 
+        if (!Page.IsPostBack) 
+        {
+            gvBankDetails.MasterTableView.IsItemInserted = false;
+            gvBankDetails.Rebind();
+            imgBtnrgHoldings.Visible = true;
+        } 
+    } 
       public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvBankDetails.ExportSettings.OpenInNewWindow = true;
             gvBankDetails.ExportSettings.IgnorePaging = true;
             gvBankDetails.ExportSettings.HideStructureColumns = true;
             gvBankDetails.ExportSettings.ExportOnlyData = true;
-            gvBankDetails.ExportSettings.FileName = "ExistMFInvestlist";
+            gvBankDetails.ExportSettings.FileName = "BankDetails";
             gvBankDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvBankDetails.MasterTableView.ExportToExcel();
         }
