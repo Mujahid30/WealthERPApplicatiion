@@ -1224,7 +1224,7 @@ namespace DaoAdvisorProfiling
             }
             return dsGetCategoryList;
         }
-        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, string Category)
+        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
         {
             Database db;
             DbCommand AMCTransactionDeatailsCmd;
@@ -1247,10 +1247,10 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(AMCTransactionDeatailsCmd, "@ToDate", DbType.DateTime, Todate);
                 else
                     Todate = DateTime.MinValue;
-                if (!string.IsNullOrEmpty(Category))
-                    db.AddInParameter(AMCTransactionDeatailsCmd, "@Category", DbType.String, Category);
-                else
-                    db.AddInParameter(AMCTransactionDeatailsCmd, "@Category", DbType.String, DBNull.Value);
+                //if (!string.IsNullOrEmpty(Category))
+                //    db.AddInParameter(AMCTransactionDeatailsCmd, "@Category", DbType.String, Category);
+                //else
+                //    db.AddInParameter(AMCTransactionDeatailsCmd, "@Category", DbType.String, DBNull.Value);
                 AMCTransactionDeatailsCmd.CommandTimeout = 60 * 60;
                 dsAMCTransactionDeatails = db.ExecuteDataSet(AMCTransactionDeatailsCmd);
             }
