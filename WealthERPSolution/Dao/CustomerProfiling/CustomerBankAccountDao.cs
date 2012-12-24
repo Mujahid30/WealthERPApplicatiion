@@ -42,10 +42,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
                 db.AddInParameter(createCustomerBankCmd, "@CB_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerBankCmd, "@CB_ModifiedBy", DbType.Int32, userId);
-
-
                 db.ExecuteNonQuery(createCustomerBankCmd);
-
                 bResult = true;
             }
 
@@ -255,14 +252,14 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
                 //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
                     db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
-                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
+               // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
                     db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine2", DbType.String, customerBankAccountVo.BranchAdrLine2);
-                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
+               // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
                     db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine3", DbType.String, customerBankAccountVo.BranchAdrLine3);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrPinCode", DbType.String, customerBankAccountVo.BranchAdrPinCode);
-                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
+                //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
                     db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCity", DbType.String, customerBankAccountVo.BranchAdrCity);
-                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
+               // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
                     db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrState", DbType.String, customerBankAccountVo.BranchAdrState);
                 //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCountry", DbType.String, customerBankAccountVo.BranchAdrCountry);
