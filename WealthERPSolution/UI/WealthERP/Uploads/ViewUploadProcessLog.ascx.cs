@@ -4294,26 +4294,24 @@ namespace WealthERP.Uploads
             DataSet dtProcessLogDetails = new DataSet();
             DataTable dtrr = new DataTable();
             dtProcessLogDetails = (DataSet)Cache["ProcessLogDetails" + adviserId.ToString()];
-            dtrr = dtProcessLogDetails.Tables[0];
-            if (ViewState["XUET_ExtractType"] != null)
-                rcbType = ViewState["XUET_ExtractType"].ToString();
-            if (!string.IsNullOrEmpty(rcbType))
+            if (dtProcessLogDetails == null)
             {
-                DataView dvStaffList = new DataView(dtrr, "XUET_ExtractType = '" + rcbType + "'", "ADUL_FileName,WUXFT_XMLFileName,ADUL_XMLFileName", DataViewRowState.CurrentRows);
-                // DataView dvStaffList = dtMIS.DefaultView;
-                gvProcessLog.DataSource = dvStaffList.ToTable();
+                dtrr = dtProcessLogDetails.Tables[0];
+                if (ViewState["XUET_ExtractType"] != null)
+                    rcbType = ViewState["XUET_ExtractType"].ToString();
+                if (!string.IsNullOrEmpty(rcbType))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "XUET_ExtractType = '" + rcbType + "'", "ADUL_FileName,WUXFT_XMLFileName,ADUL_XMLFileName", DataViewRowState.CurrentRows);
+                    // DataView dvStaffList = dtMIS.DefaultView;
+                    gvProcessLog.DataSource = dvStaffList.ToTable();
 
+                }
+                else
+                {
+                    gvProcessLog.DataSource = dtProcessLogDetails;
+
+                }
             }
-            else
-            {
-                gvProcessLog.DataSource = dtProcessLogDetails;
-
-            }
-                             
-
-
-
-
 
             //DataSet dtProcessLogDetails = new DataSet();
             //dtProcessLogDetails = (DataSet)Cache["ProcessLogDetails" + adviserId.ToString()];

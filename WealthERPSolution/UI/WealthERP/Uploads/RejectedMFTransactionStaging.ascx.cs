@@ -69,6 +69,7 @@ namespace WealthERP.Uploads
                     trGridView.Visible = true;
                    
                     Panel2.ScrollBars = ScrollBars.Horizontal;
+
                 }
                 else
                 {
@@ -81,6 +82,7 @@ namespace WealthERP.Uploads
             }
             else
             {
+                imgBtnrgHoldings.Visible = true;
                 trReprocess.Visible = true;
                 trGridView.Visible = true;
                 Panel2.ScrollBars = ScrollBars.Horizontal;
@@ -114,6 +116,7 @@ namespace WealthERP.Uploads
                 }
                 else
                 {
+                    imgBtnrgHoldings.Visible = false;
                     BindAdviserDropDownList();
                 }
             }
@@ -130,7 +133,7 @@ namespace WealthERP.Uploads
               //  RadComboBox RadComboBoxIN = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
 
                // DataSet dtProcessLogDetails = new DataSet();
-                dsRejectedRecords = (DataSet)Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()];
+                dsRejectedRecords = (DataSet)Cache["MFTransactionDetails" + adviserId.ToString()];
                 dtgvWERPTrans1 = dsRejectedRecords.Tables[0];
                 Session["dt"] = dtgvWERPTrans1;
                 DataTable dtcustMIS = new DataTable();
@@ -193,8 +196,12 @@ namespace WealthERP.Uploads
                     Cache.Remove("MFTransactionDetails" + adviserId.ToString());
                     Cache.Insert("MFTransactionDetails" + adviserId.ToString(), dsRejectedRecords);
                 }
+
+                gvWERPTrans.DataSource = dsRejectedRecords;
+                gvWERPTrans.DataBind();  
                 Panel2.ScrollBars = ScrollBars.Horizontal;
                 trGridView.Visible = true;
+                imgBtnrgHoldings.Visible = true;
             }
             else
             {
@@ -205,6 +212,7 @@ namespace WealthERP.Uploads
                 gvWERPTrans.DataBind();
                 trMessage.Visible = true;
                 trReprocess.Visible = false;
+                imgBtnrgHoldings.Visible = false;
             }
             //this.GetPageCount();
         }
@@ -613,7 +621,7 @@ namespace WealthERP.Uploads
 
         protected void RefreshCombos()
         {
-            dsRejectedRecords = (DataSet)Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()];
+            dsRejectedRecords = (DataSet)Cache["MFTransactionDetails" + adviserId.ToString()];
             dtgvWERPTrans1 = dsRejectedRecords.Tables[0];
             DataView view = new DataView(dtgvWERPTrans1);
             DataTable distinctValues = view.ToTable();
@@ -665,20 +673,23 @@ namespace WealthERP.Uploads
             trMessage.Visible = false;
             DataSet dtProcessLogDetails = new DataSet();
             DataTable dtrr = new DataTable();
-            dtProcessLogDetails = (DataSet)Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()];
-            dtrr = dtProcessLogDetails.Tables[0];
-            if (ViewState["RejectReason"] != null)
-                rcbType = ViewState["RejectReason"].ToString();
-            if (!string.IsNullOrEmpty(rcbType))
+            dtProcessLogDetails = (DataSet)Cache["MFTransactionDetails" + adviserId.ToString()];
+            if (dtProcessLogDetails != null)
             {
-                DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "InvestorName,CMFTS_PANNum,ProcessId,FolioNumber,Scheme,SchemeName,TransactionType,ExternalFileName,SourceType", DataViewRowState.CurrentRows);
-                gvWERPTrans.DataSource = dvStaffList.ToTable();
+                dtrr = dtProcessLogDetails.Tables[0];
+                if (ViewState["RejectReason"] != null)
+                    rcbType = ViewState["RejectReason"].ToString();
+                if (!string.IsNullOrEmpty(rcbType))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "InvestorName,CMFTS_PANNum,ProcessId,FolioNumber,Scheme,SchemeName,TransactionType,ExternalFileName,SourceType", DataViewRowState.CurrentRows);
+                    gvWERPTrans.DataSource = dvStaffList.ToTable();
 
-            }
-            else
-            {
-                gvWERPTrans.DataSource = dtProcessLogDetails;
+                }
+                else
+                {
+                    gvWERPTrans.DataSource = dtProcessLogDetails;
 
+                }
             }
             //DataSet dtProcessLogDetails = new DataSet();
             //dtProcessLogDetails = (DataSet)Cache["MFTransactionDetails" + adviserVo.advisorId.ToString()];
@@ -710,11 +721,14 @@ namespace WealthERP.Uploads
                 // Bind Grid
                 trReprocess.Visible = false;
                 BindEquityTransactionGrid(ProcessId);
+                //imgBtnrgHoldings.Visible = true;
+
             }
             else
             {
                 trReprocess.Visible = true;
                 trGridView.Visible = true;
+                imgBtnrgHoldings.Visible = false;
             }
 
         }
