@@ -135,7 +135,7 @@ namespace WealthERP.SuperAdmin
                 }
                 else if (e.Item.Value == "View_MFFolio_Exceptions")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedMFFolioStagingSA', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio', 'none')", true);
                 }
                 else if (e.Item.Value == "View_EQ_TRADE_Account")
                 {

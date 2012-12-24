@@ -219,20 +219,20 @@ namespace WealthERP.Uploads
                 Panel2.ScrollBars = ScrollBars.None;
                 trGridView.Visible = false;
                 trTransactionMessage.Visible = true;
-                gvProcessLog.DataSource = null;
-                gvProcessLog.DataBind();
+                //gvProcessLog.DataSource = null;
+                //gvProcessLog.DataBind();
 
-                if (Cache["RMList" + adviserId.ToString()] == null)
-                {
-                    Cache.Insert("RMList" + adviserId.ToString(), getProcessLogDs);
-                }
-                else
-                {
-                    Cache.Remove("RMList" + adviserId.ToString());
-                    Cache.Insert("RMList" + adviserId.ToString(), getProcessLogDs);
-                }
-                gvProcessLog.DataSource = getProcessLogDs.Tables[0];
-                gvProcessLog.DataBind();
+                //if (Cache["ProcessLogDetails" + adviserId.ToString()] == null)
+                //{
+                //    Cache.Insert("ProcessLogDetails" + adviserId.ToString(), getProcessLogDs);
+                //}
+                //else
+                //{
+                //    Cache.Remove("ProcessLogDetails" + adviserId.ToString());
+                //    Cache.Insert("ProcessLogDetails" + adviserId.ToString(), getProcessLogDs);
+                //}
+                //gvProcessLog.DataSource = getProcessLogDs.Tables[0];
+                //gvProcessLog.DataBind();
             }
 
 

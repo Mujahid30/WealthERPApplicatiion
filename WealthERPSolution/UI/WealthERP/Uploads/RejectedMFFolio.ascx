@@ -146,19 +146,26 @@
     </tr>
 </table>
 <div id="divConditional" runat="server">
-    <table class="TableBackground">
+    <table class="TableBackground" cellpadding="2">
         <tr>
-            <td>
+         <td id="tdLblAdviser" runat="server" align="right">
+            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+        </td>
+       <td id="tdDdlAdviser" runat="server" align="left">
+     <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged" ></asp:DropDownList>
+    
+     </td>
+            <td id="tdlblRejectReason" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="Select reject reason :" ID="lblRejectReason"></asp:Label>
             </td>
-            <td>
+            <td id="tdDDLRejectReason" runat="server">
                 <asp:DropDownList CssClass="cmbField" ID="ddlRejectReason" runat="server">
                 </asp:DropDownList>
             </td>
-            <td align="right">
+            <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
-            <td>
+            <td id="tdTxtFromDate" runat="server">
                 <telerik:RadDatePicker ID="txtFromTran" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -180,10 +187,10 @@
                         Display="Dynamic"></asp:CompareValidator>
                 </div>
             </td>
-            <td>
+            <td id="tdlblToDate" runat="server">
                 <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
             </td>
-            <td>
+            <td id="tdTxtToDate" runat="server">
                 <telerik:RadDatePicker ID="txtToTran" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -209,7 +216,7 @@
                     ControlToCompare="txtFromTran" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic">
                 </asp:CompareValidator>
             </td>
-            <td>
+            <td id="tdBtnViewRejetcs" runat="server">
                 <asp:Button ID="btnViewTran" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewTran_Click" />
             </td>
         </tr>
@@ -408,6 +415,8 @@
     <asp:Label ID="lblEmptyMsg" class="FieldName" runat="server" Text="There are no records to be displayed!">
     </asp:Label>
 </div>
+
+<asp:HiddenField ID="hfRmId" runat="server" />
 
 
  

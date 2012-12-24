@@ -23,6 +23,9 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnBack;
         protected global::System.Web.UI.WebControls.Button btnViewTran;
         protected global::System.Web.UI.WebControls.DropDownList ddlRejectReason;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
+
+        
         /// <summary>
         /// msgReprocessComplete control.
         /// </summary>
@@ -58,6 +61,8 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkInputRejects;
+
+        protected global::System.Web.UI.WebControls.HiddenField hfRmId;
         
         /// <summary>
         /// lblCurrentPage control.
@@ -103,6 +108,16 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell trSelectAllFPGrid;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBtnViewRejetcs;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRejectReason;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDLRejectReason;
+
+        
         
         /// <summary>
         /// lblAllpages control.
@@ -180,6 +195,8 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trProfileMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLblAdviser;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDdlAdviser;
         
         /// <summary>
         /// lblEmptyMsg control.
