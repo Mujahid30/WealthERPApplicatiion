@@ -858,13 +858,13 @@ namespace BoAdvisorProfiling
             return dsCategoryList;
         }
 
-        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, string Category)
+        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsAMCTransactionDeatails;
             try
             {
-                dsAMCTransactionDeatails = MISDao.GetAMCTransactionDeatails(userType,AdviserId,rmId,branchId,branchHeadId,all,FromDate,Todate,Category);
+                dsAMCTransactionDeatails = MISDao.GetAMCTransactionDeatails(userType,AdviserId,rmId,branchId,branchHeadId,all,FromDate,Todate);
             }
             catch (BaseApplicationException Ex)
             {
