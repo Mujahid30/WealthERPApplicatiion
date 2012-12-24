@@ -238,7 +238,7 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle  HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Category" HeaderTooltip="Category"  DataField="Category" 
+            <%--    <telerik:GridBoundColumn HeaderText="Category" HeaderTooltip="Category"  DataField="Category" 
                     UniqueName="Category" SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -247,7 +247,7 @@
                     UniqueName="SubCategory" SortExpression="SubCategory" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                </telerik:GridBoundColumn>--%>
                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Purchase Trnx" HeaderTooltip="Purchase Transaction" DataField="BUYCount"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}" Aggregate="Sum"
@@ -459,6 +459,11 @@
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text="Details" ItemStyle-Width="12px" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
+                <telerik:GridBoundColumn HeaderText="AMC"  DataField="AMC" 
+                    UniqueName="AMC" SortExpression="AMC" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle  HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderTooltip="Scheme HeaderText="Scheme"  DataField="Scheme"
                     UniqueName="Scheme" SortExpression="Scheme" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">

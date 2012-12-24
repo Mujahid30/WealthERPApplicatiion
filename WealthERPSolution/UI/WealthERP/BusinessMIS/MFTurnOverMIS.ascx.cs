@@ -316,14 +316,14 @@ namespace WealthERP.BusinessMIS
             int amcCode = 0;
             int amcCodeOld = 0;
             DataSet dsGetAMCTransactionDeatails = new DataSet();
-            dsGetAMCTransactionDeatails = adviserMFMIS.GetAMCTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value);
+            dsGetAMCTransactionDeatails = adviserMFMIS.GetAMCTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value));
 
             DataTable dtGetAMCTransactionDeatails = new DataTable();
 
             dtGetAMCTransactionDeatails.Columns.Add("AMCCode");
             dtGetAMCTransactionDeatails.Columns.Add("AMC");
-            dtGetAMCTransactionDeatails.Columns.Add("Category");
-            dtGetAMCTransactionDeatails.Columns.Add("SubCategory");
+            //dtGetAMCTransactionDeatails.Columns.Add("Category");
+            //dtGetAMCTransactionDeatails.Columns.Add("SubCategory");
             dtGetAMCTransactionDeatails.Columns.Add("BUYCount", typeof(double));
             dtGetAMCTransactionDeatails.Columns.Add("BUYAmount", typeof(double));
             dtGetAMCTransactionDeatails.Columns.Add("SELCount", typeof(double));
@@ -361,7 +361,6 @@ namespace WealthERP.BusinessMIS
                 {
 
                     Int32.TryParse(drAMCTransaction["PA_AMCCode"].ToString(), out amcCode);
-
                     if (amcCode != amcCodeOld)
                     { //go for another row to find new customer
                         amcCodeOld = amcCode;
@@ -371,8 +370,8 @@ namespace WealthERP.BusinessMIS
                             drTransactionAMCWise = dtGetAMCTransaction.Select("PA_AMCCode=" + amcCode.ToString());
                             drGetAMCTransactionDeatails["AMCCode"] = drAMCTransaction["PA_AMCCode"].ToString();
                             drGetAMCTransactionDeatails["AMC"] = drAMCTransaction["PA_AMCName"].ToString();
-                            drGetAMCTransactionDeatails["Category"] = drAMCTransaction["PAIC_AssetInstrumentCategoryName"].ToString();
-                            drGetAMCTransactionDeatails["SubCategory"] = drAMCTransaction["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                            //drGetAMCTransactionDeatails["Category"] = drAMCTransaction["PAIC_AssetInstrumentCategoryName"].ToString();
+                            //drGetAMCTransactionDeatails["SubCategory"] = drAMCTransaction["PAISC_AssetInstrumentSubCategoryName"].ToString();
                             if (drTransactionAMCWise.Count() > 0)
                             {
                                 foreach (DataRow dr in drTransactionAMCWise)
@@ -501,6 +500,7 @@ namespace WealthERP.BusinessMIS
 
             DataTable dtGetSchemeTransactionDeatails = new DataTable();
 
+            dtGetSchemeTransactionDeatails.Columns.Add("AMC");
             dtGetSchemeTransactionDeatails.Columns.Add("SchemeCode");
             dtGetSchemeTransactionDeatails.Columns.Add("Scheme");
             dtGetSchemeTransactionDeatails.Columns.Add("ExternalCode");
@@ -551,7 +551,7 @@ namespace WealthERP.BusinessMIS
                         if (SchemeCode != 0)
                         { // add row in manual datatable within this brace end
                             drTransactionSchemeWise = dtGetSchemeTransaction.Select("PASP_SchemePlanCode=" + SchemeCode.ToString());
-                            //drGetSchemeTransactionDeatails["PA_AMCName"] = drAMCTransaction["PA_AMCName"].ToString();
+                            drGetSchemeTransactionDeatails["AMC"] = drAMCTransaction["PA_AMCName"].ToString();
                             drGetSchemeTransactionDeatails["SchemeCode"] = drAMCTransaction["PASP_SchemePlanCode"].ToString();
                             drGetSchemeTransactionDeatails["Scheme"] = drAMCTransaction["PASP_SchemePlanName"].ToString();
                             drGetSchemeTransactionDeatails["ExternalCode"] = drAMCTransaction["PASC_AMC_ExternalCode"].ToString();
