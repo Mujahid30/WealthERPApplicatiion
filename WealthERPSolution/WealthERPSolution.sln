@@ -228,9 +228,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_EMAIL_SMS_JOB", "WERP_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_DAILY_EQUITY_VALUATION", "WERP_DAILY_EQUITY_VALUATION\WERP_DAILY_EQUITY_VALUATION.csproj", "{7AE92505-049B-4291-BBE2-501B84B3D185}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_MF_Historical_ValuationQueue", "WERP_MF_Historical_ValuationQueue\WERP_MF_Historical_ValuationQueue.csproj", "{42F990C8-068C-4D00-9477-18435A1A1C74}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 93
+		SccNumberOfProjects = 94
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -583,6 +585,9 @@ Global
 		SccProjectUniqueName92 = WERP_DAILY_EQUITY_VALUATION\\WERP_DAILY_EQUITY_VALUATION.csproj
 		SccProjectName92 = WERP_DAILY_EQUITY_VALUATION
 		SccLocalPath92 = WERP_DAILY_EQUITY_VALUATION
+		SccProjectUniqueName93 = WERP_MF_Historical_ValuationQueue\\WERP_MF_Historical_ValuationQueue.csproj
+		SccProjectName93 = WERP_MF_Historical_ValuationQueue
+		SccLocalPath93 = WERP_MF_Historical_ValuationQueue
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -961,6 +966,10 @@ Global
 		{7AE92505-049B-4291-BBE2-501B84B3D185}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AE92505-049B-4291-BBE2-501B84B3D185}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AE92505-049B-4291-BBE2-501B84B3D185}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42F990C8-068C-4D00-9477-18435A1A1C74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F990C8-068C-4D00-9477-18435A1A1C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42F990C8-068C-4D00-9477-18435A1A1C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42F990C8-068C-4D00-9477-18435A1A1C74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

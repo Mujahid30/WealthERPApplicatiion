@@ -2751,6 +2751,12 @@
     <Compile Include="Reports\PortfolioReports.ascx.designer.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\SchemePerformance.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchemePerformance.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Research\AssetMapping.ascx.cs">
       <DependentUpon>AssetMapping.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3380,6 +3386,10 @@
     <EmbeddedResource Include="Reports\OrderTransactionSlip.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>OrderTransactionSlip.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\SchemePerformance.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SchemePerformance.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -6820,6 +6830,15 @@
     </None>
     <None Include="Reports\OrderTransactionSlipDS.xss">
       <DependentUpon>OrderTransactionSlipDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\SchemePerformance.xsc">
+      <DependentUpon>SchemePerformance.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\SchemePerformance.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\SchemePerformance.xss">
+      <DependentUpon>SchemePerformance.xsd</DependentUpon>
     </None>
     <None Include="Reports\TempReports\MFReports_634040161522846026.pdf" />
     <None Include="Reports\TempReports\MFReports_634042746966961210.pdf" />
