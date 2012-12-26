@@ -56,6 +56,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bo\BoValuation\BoValuation.csproj">
+      <Project>{189258F3-16C1-4384-83D4-B8038C04A391}</Project>
+      <Name>BoValuation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dao\DaoValuation\DaoValuation.csproj">
+      <Project>{F117CAF2-598C-4D96-831B-BD108DE402C5}</Project>
+      <Name>DaoValuation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vo\User\VoUser.csproj">
+      <Project>{5A775261-8919-4080-81AA-545763D709DB}</Project>
+      <Name>VoUser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vo\VoValuation\VoValuation.csproj">
+      <Project>{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}</Project>
+      <Name>VoValuation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
