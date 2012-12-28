@@ -114,6 +114,10 @@
       <Project>{CA477068-2337-4E11-B066-AC5B1ED36CCF}</Project>
       <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vo\CustomerPortfolio\VoCustomerPortfolio.csproj">
+      <Project>{8250E435-88E6-4C95-824E-1BF111361708}</Project>
+      <Name>VoCustomerPortfolio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vo\User\VoUser.csproj">
       <Project>{5A775261-8919-4080-81AA-545763D709DB}</Project>
       <Name>VoUser</Name>
