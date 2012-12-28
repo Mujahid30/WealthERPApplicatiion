@@ -1685,5 +1685,39 @@ namespace BoAdvisorProfiling
             }
             return isUpdate;
         }
+
+        public void CheckIfValuationDateAlreadyInQueue(DateTime valuationDate, int adviserId, out int Count, out int totalCountGivenToday, out int CountforPendingRecords)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            //DataSet dsValuationDetails = new DataSet();
+            try
+            {
+                //dsValuationDetails = 
+                adviserDao.CheckIfValuationDateAlreadyInQueue(valuationDate, adviserId, out Count,out totalCountGivenToday, out CountforPendingRecords);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            //return dsValuationDetails;
+        }
+
+        public void InsertHistoricalValuationInQueue(DateTime valuationDate, int adviserId ,int userId)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            //DataSet dsValuationDetails = new DataSet();
+            try
+            {
+                //dsValuationDetails = 
+                adviserDao.InsertHistoricalValuationInQueue(valuationDate, adviserId , userId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            //return dsValuationDetails;
+        }
     }
 }

@@ -228,6 +228,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button hiddenUpdateNetPosition;
+        protected global::System.Web.UI.WebControls.Button hiddenassociation;
         
         /// <summary>
         /// trNote control.
@@ -255,6 +256,11 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnMsgValue;
+
+        protected global::System.Web.UI.WebControls.HiddenField hdnValuationDate;
+        protected global::System.Web.UI.WebControls.HiddenField hdnCountMsgValue;
+
+        
         
         /// <summary>
         /// hdnCheckBoxChecked control.

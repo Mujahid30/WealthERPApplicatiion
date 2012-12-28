@@ -4,6 +4,26 @@
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
 
 
+
+<script language="javascript" type="text/javascript">
+
+    function showAlertmessage() {
+
+        var bool = window.confirm('Request already in queue for the given date, Still want to give another request');
+
+        if (bool) {
+            document.getElementById("ctrl_DailyValuation_hdnCountMsgValue").value = 1;
+            document.getElementById("ctrl_DailyValuation_hiddenassociation").click();
+          
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_DailyValuation_hdnCountMsgValue").value = 0;
+            document.getElementById("ctrl_DailyValuation_hiddenassociation").click();
+            return true;
+        }
+    }
+</script>
 <script language="javascript" type="text/javascript">
     function checkAllFPBoxes(type) {
 
@@ -259,12 +279,22 @@
             </asp:DropDownList>--%>
         </td>
     </tr>
+    
     <tr id="trHeader" runat="server">
+        <td  colspan="3">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Valuation Date
+            </div>
+        </td>
+    </tr>
+
+    
+    <%--<tr id="trHeader" runat="server">
         <td colspan="3">
             <asp:Label ID="lblDate" runat="server" CssClass="HeaderTextBig" Text="Valuation Date " />
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <%--   <tr id="trMFDate" runat="server">
         <td>
             <asp:Label ID="lblMFTradeDate" runat="server" CssClass="FieldName" Text="Last MF Valuation Date :"></asp:Label>
@@ -284,7 +314,7 @@
     <tr id="trValuation" runat="server">
         <td colspan="2" style="margin-left: 40px">
             <asp:GridView ID="gvValuationDate" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                CssClass="GridViewStyle" AllowSorting="True" HorizontalAlign="Center" ShowFooter="true"
+                CssClass="GridViewStyle" AllowSorting="True" HorizontalAlign="Center" ShowFooter="true"  DataKeyNames="Valuation_Date"
                 OnRowDataBound="gvValuationDate_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerSettings Visible="False" />
@@ -303,8 +333,13 @@
                             <input id="chkBoxAll" name="vehicle" value="Bike" type="checkbox" onclick="checkAllBoxes()" />
                         </HeaderTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="Valuation Date" HeaderText="Valuation Date (dd/mm/yyyy)" />
+                    <asp:BoundField DataField="Valuation_Date" HeaderText="Valuation Date (dd/mm/yyyy)" />
                     <asp:BoundField DataField="Valuation Status" HeaderText="Valuation Status" />
+                     <asp:TemplateField HeaderText="Action" ItemStyle-HorizontalAlign="Center" >
+                        <ItemTemplate>
+                           <asp:Button ID="btnMFValuationMarked" runat="server" OnClick="btnMFValuationMarked_OnClick" Text="Mark for Valuation" CssClass="PCGLongButton" />
+                        </ItemTemplate>
+                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
         </td>
@@ -403,5 +438,14 @@
 </div>
 <asp:HiddenField ID="hdnCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />--%>
+
+<asp:Button ID="hiddenassociation" runat="server" 
+    onclick="hdnassociationcount_Click" BorderStyle="None" BackColor="Transparent" />
+    
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnCheckBoxChecked" runat="server" />
+
+<asp:HiddenField ID="hdnCountMsgValue" runat="server" />
+<asp:HiddenField ID="hdnassociationcount" runat="server" />
+
+<asp:HiddenField ID="hdnValuationDate" runat="server" />

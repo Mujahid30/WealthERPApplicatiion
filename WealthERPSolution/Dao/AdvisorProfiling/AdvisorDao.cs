@@ -2690,6 +2690,64 @@ namespace DaoAdvisorProfiling
             }
             return isupdate;
         }
+
+
+        public void CheckIfValuationDateAlreadyInQueue(DateTime valuationDate, int adviserId, out int Count, out int totalCountGivenToday, out int CountforPendingRecords)
+        {
+            Database db;
+            DbCommand getValuationDetailsCmd;
+            //DataSet dsValuationDetails = new DataSet();
+            Count = 0;
+            totalCountGivenToday = 0;
+            CountforPendingRecords = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getValuationDetailsCmd = db.GetStoredProcCommand("SP_CheckIfValuationDateAlreadyInQueue");
+                db.AddInParameter(getValuationDetailsCmd, "@valuationDate", DbType.DateTime, valuationDate);
+                db.AddInParameter(getValuationDetailsCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddOutParameter(getValuationDetailsCmd, "@Count", DbType.Int32, 5000);
+                db.AddOutParameter(getValuationDetailsCmd, "@totalCountGivenToday", DbType.Int32, 5000);
+                db.AddOutParameter(getValuationDetailsCmd, "@CountforPendingRecords", DbType.Int32, 5000);
+
+                if (db.ExecuteNonQuery(getValuationDetailsCmd) != 0)
+                {
+                    Count = int.Parse(db.GetParameterValue(getValuationDetailsCmd, "Count").ToString());
+                    totalCountGivenToday = int.Parse(db.GetParameterValue(getValuationDetailsCmd, "totalCountGivenToday").ToString());
+                    CountforPendingRecords = int.Parse(db.GetParameterValue(getValuationDetailsCmd, "CountforPendingRecords").ToString());
+                    //dsValuationDetails = db.ExecuteDataSet(getValuationDetailsCmd);
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            //return dsValuationDetails;
+        }
+
+        public void InsertHistoricalValuationInQueue(DateTime valuationDate, int adviserId, int userId)
+        {
+            Database db;
+            DbCommand getValuationDetailsCmd;
+            //DataSet dsValuationDetails = new DataSet();
+           
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getValuationDetailsCmd = db.GetStoredProcCommand("SPROC_InsertHistoricalValuationInQueue");
+                db.AddInParameter(getValuationDetailsCmd, "@valuationDate", DbType.DateTime, valuationDate);
+                db.AddInParameter(getValuationDetailsCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getValuationDetailsCmd, "@userId", DbType.Int32, userId);
+
+                db.ExecuteNonQuery(getValuationDetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            //return dsValuationDetails;
+        }
     }
 }
 

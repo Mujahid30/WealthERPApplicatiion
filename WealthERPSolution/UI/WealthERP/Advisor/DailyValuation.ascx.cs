@@ -310,11 +310,17 @@ namespace WealthERP.Advisor
                 if (ddlValuationTypes.SelectedValue == "EQ")
                 {
                     assetGroup = "EQ";
+                    trHeader.Visible = true;
                     hdnMsgValue.Value = "1";
+                    gvValuationDate.Columns[3].Visible = false;
+                    gvValuationDate.Columns[0].Visible = true;
                     dsAdviserValuationDate = customerPortfolioBo.GetAdviserValuationDate(advisorVo.advisorId, assetGroup, int.Parse(ddTradeMonth.SelectedValue.ToString()), int.Parse(ddTradeYear.SelectedItem.Value.ToString()));
                 }
                 if (ddlValuationTypes.SelectedValue == "MF")
                 {
+                    gvValuationDate.Columns[3].Visible = true;
+                    gvValuationDate.Columns[0].Visible = false;
+                    trHeader.Visible = true;
                     assetGroup = "MF";
                     hdnMsgValue.Value = "1";
                     dsAdviserValuationDate = customerPortfolioBo.GetAdviserValuationDate(advisorVo.advisorId, assetGroup, int.Parse(ddTradeMFMonth.SelectedValue.ToString()), int.Parse(ddTradeMFYear.SelectedItem.Value.ToString()));
@@ -323,16 +329,15 @@ namespace WealthERP.Advisor
 
                 //lblTotalRows.Text = hdnCount.Value = Count.ToString();
 
-                dtValuation.Columns.Add("Valuation Date");
+                dtValuation.Columns.Add("Valuation_Date");
                 dtValuation.Columns.Add("Valuation Status");
                 for (int i = 0; i < dsAdviserValuationDate.Tables[0].Rows.Count; i++)
                 {
                     dr = dtValuation.NewRow();
                     dr[0] = DateTime.Parse(dsAdviserValuationDate.Tables[0].Rows[i][0].ToString()).ToShortDateString();
-                    dr[1] = dsAdviserValuationDate.Tables[0].Rows[i]["STAT"];
+                    dr[1] = dsAdviserValuationDate.Tables[0].Rows[i]["STAT"];                  
 
                     dtValuation.Rows.Add(dr);
-
 
                 }
                 gvValuationDate.DataSource = dtValuation;
@@ -820,27 +825,27 @@ namespace WealthERP.Advisor
             }
             else if (ddlValuationTypes.SelectedValue == "MF")
             {
-                //trMf.Visible = true;
+                trMf.Visible = true;
                 trSubmitButton.Visible = false;
                 hiddenUpdateNetPosition.Visible = true;
-                trValuation.Visible = false;
+                //trValuation.Visible = false;
                 Button1.Visible = false;
                 trFPSync.Visible = false;
                 trSelectAllFPGrid.Visible = false;
                 btnFPSync.Visible = false;
-                //trValuation.Visible = true;
+                trValuation.Visible = true;
                 //trSubmitButton.Visible = true;
-                trValuation.Visible = false;
-                DivMfNote.Visible = true;
-                trNote.Visible = false;
+                //trValuation.Visible = false;
+                //DivMfNote.Visible = true;
+                trNote.Visible = true;
                 trHeader.Visible = false;
                 trEquity.Visible = false;
-                //PopulateMFTradeDate();
-                //PopulateMFTradeMonth();
-                //assetGroup = "MF";
-                //GetTradeDate();
-                //ddTradeMFYear.SelectedValue=DateTime.Now.Year.ToString();
-                //ddTradeMFMonth.SelectedValue = DateTime.Now.Month.ToString();
+                PopulateMFTradeDate();
+                PopulateMFTradeMonth();
+                assetGroup = "MF";
+                GetTradeDate();
+                ddTradeMFYear.SelectedValue = DateTime.Now.Year.ToString();
+                ddTradeMFMonth.SelectedValue = DateTime.Now.Month.ToString();
                 //ddlTradeDay.Items.Add(DateTime.Now.Day.ToString());
                 //ddlTradeDay.SelectedIndex = 0;
 
@@ -1027,6 +1032,94 @@ namespace WealthERP.Advisor
 
         }
 
-       
+        protected void btnMFValuationMarked_OnClick(object sender, EventArgs e)
+        {
+            //bool bresult = true;
+            Button btnMFValuationMarked = (Button)sender;
+            GridViewRow gvr = (GridViewRow)btnMFValuationMarked.NamingContainer;
+            int selectedRow = 0;
+            DateTime valuationDate = new DateTime();
+            selectedRow = gvr.RowIndex;
+            valuationDate = DateTime.Parse(gvValuationDate.DataKeys[selectedRow].Values["Valuation_Date"].ToString());
+            //DateTime.TryParse(hdnValuationDate.Value,out valuationDate);
+            hdnValuationDate.Value = DateTime.Parse(valuationDate.ToShortDateString()).ToShortDateString();
+           // bresult = 
+                CheckIfValuationDateAlreadyInQueue(valuationDate);
+
+            //if (bresult == true)
+            //{
+
+            //}
+            //else
+            //{
+
+            //}
+
+        }
+
+        protected void CheckIfValuationDateAlreadyInQueue(DateTime valuationDate)
+        {
+            //bool bresult = true;            
+            int Count = 0;
+            int totalCountGivenToday=0;
+            int CountforPendingRecords = 0;
+            advisorBo.CheckIfValuationDateAlreadyInQueue(valuationDate, advisorVo.advisorId, out Count, out totalCountGivenToday, out CountforPendingRecords);
+
+            // As per MJ comment , this 3 should not be hardcoded..this should come from DB as paramatrized
+
+            if (totalCountGivenToday < 3) // Max 3 request in a day                   
+            {
+                //if (Count > 0 && Count < 3)  // Max 3 Request for a particular valuationDate in a day
+                //{
+                if (Count > 0)  // Max 3 Request for a particular valuationDate in a day
+                {
+                    if (CountforPendingRecords == 0) // Request is either processed or in process. 
+                    {
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Case1", "showAlertmessage();", true);
+                        //call JS and Alert and insert in queue if OK            // case 1  
+                    }
+                    else  // Request with status 0..
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request already in queue.. please wait..');", true);
+
+                        //alert user that already in queue please wait..and dont insert in queue.   // case 2
+
+                    }
+                }
+                //else if (Count >= 3)
+                //{
+                //    //Dont insert in queue table
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Limit of 3 Requests for the gievn date reached...Please try next day');", true);
+
+            //}
+                else if (Count == 0)
+                {
+                    //insert in queue Table
+                    InsertHistoricalValuationInQueue(valuationDate);
+                }            
+
+            }
+            else
+            {                
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Limit of 5 Requests reached...Please try next day');", true);
+            }
+            //return bresult;
+        }
+
+        protected void InsertHistoricalValuationInQueue(DateTime valuationDate)
+        {
+            advisorBo.InsertHistoricalValuationInQueue(valuationDate, advisorVo.advisorId,userVo.UserId);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request successfully sent !!...Please wait another 30 mints');", true);
+
+        }
+
+        protected void hdnassociationcount_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnCountMsgValue.Value);
+            if (val == "1")
+            {
+                InsertHistoricalValuationInQueue(DateTime.Parse(hdnValuationDate.Value));
+            }
+        }
     }
 }
