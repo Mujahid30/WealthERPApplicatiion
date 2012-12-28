@@ -1469,4 +1469,16 @@
     <value>Advisor//CustomerExceptionHandling.ascx</value>
     <comment>Advisor//CustomerExceptionHandling.ascx</comment>
   </data>
+  <data name="AdviserLoginTrack" xml:space="preserve">
+    <value>Advisor//AdviserLoginTrack.ascx</value>
+    <comment>Advisor//AdviserLoginTrack.ascx</comment>
+  </data>
+  <data name="CustomerReportsDashBoard" xml:space="preserve">
+    <value>Reports//CustomerReportsDashBoard.ascx</value>
+    <comment>Reports//CustomerReportsDashBoard.ascx</comment>
+  </data>
+  <data name="UploadDashBoard" xml:space="preserve">
+    <value>Uploads//UploadDashBoard.ascx</value>
+    <comment>Uploads//UploadDashBoard.ascx</comment>
+  </data>
 </root>

@@ -549,6 +549,13 @@
     <Compile Include="Advisor\AdviserLoanMIS.ascx.designer.cs">
       <DependentUpon>AdviserLoanMIS.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\AdviserLoginTrack.ascx.cs">
+      <DependentUpon>AdviserLoginTrack.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserLoginTrack.ascx.designer.cs">
+      <DependentUpon>AdviserLoginTrack.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\AdviserMFMIS.ascx.cs">
       <DependentUpon>AdviserMFMIS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2532,6 +2539,13 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CustomerInvestmentDetailsDS.Designer.cs" />
+    <Compile Include="Reports\CustomerReportsDashBoard.ascx.cs">
+      <DependentUpon>CustomerReportsDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CustomerReportsDashBoard.ascx.designer.cs">
+      <DependentUpon>CustomerReportsDashBoard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Display.aspx.cs">
       <DependentUpon>Display.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3142,6 +3156,13 @@
     <Compile Include="Uploads\TrailCommisionTransactionRejects.ascx.designer.cs">
       <DependentUpon>TrailCommisionTransactionRejects.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Uploads\UploadDashBoard.ascx.cs">
+      <DependentUpon>UploadDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\UploadDashBoard.ascx.designer.cs">
+      <DependentUpon>UploadDashBoard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Uploads\ViewEQTransactionInputrejects.ascx.cs">
       <DependentUpon>ViewEQTransactionInputrejects.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3687,6 +3708,7 @@
     <Content Include="Advisor\AdviserLandingPage.ascx" />
     <Content Include="Advisor\AdviserLoanCommsnStrucWithLoanPartner.ascx" />
     <Content Include="Advisor\AdviserLoanMIS.ascx" />
+    <Content Include="Advisor\AdviserLoginTrack.ascx" />
     <Content Include="Advisor\AdviserMFMIS.ascx" />
     <Content Include="Advisor\AdviserRMMFSystematicMIS.ascx" />
     <Content Include="Advisor\AdviserStaffSMTP.ascx" />
@@ -6026,6 +6048,7 @@
     <Content Include="Releases.html" />
     <Content Include="Reports\Colorbox\colorbox.css" />
     <Content Include="Reports\Colorbox\jquery.colorbox-min.js" />
+    <Content Include="Reports\CustomerReportsDashBoard.ascx" />
     <Content Include="Reports\Display.aspx" />
     <Content Include="Reports\EmailReport.aspx" />
     <Content Include="Reports\EquityReports.ascx" />
@@ -6118,6 +6141,7 @@
     <Content Include="Uploads\TempletonProfileFolioInputRejects.ascx" />
     <Content Include="Uploads\TempletonTransInputRejects.ascx" />
     <Content Include="Uploads\TrailCommisionTransactionRejects.ascx" />
+    <Content Include="Uploads\UploadDashBoard.ascx" />
     <Content Include="Uploads\ViewEQTransactionInputrejects.ascx" />
     <Content Include="Uploads\WERPFolioDetails.ascx" />
     <Content Include="Uploads\WerpFolioDetailsMapping.aspx" />
