@@ -244,7 +244,10 @@ namespace WealthERP.Advisor
                     Span12.Visible = false;
                     dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
                     if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
+                    {
                         riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+                        ddlPickRiskClass.SelectedValue = riskCode;
+                    }
 
                     dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
@@ -269,6 +272,7 @@ namespace WealthERP.Advisor
                         }
                         else
                         {
+                            BindRiskClasses();
                             tblPickRiskClass.Visible = true;
                             ddlPickRiskClass.Visible = true;
                             lblPickRiskPlass.Visible = true;
@@ -283,12 +287,15 @@ namespace WealthERP.Advisor
                             lblARDate.Visible = true;
                             lblARDate.Text = DateTime.Now.ToShortDateString();
                             trRiskProfilingParagraph.Visible = true;
-                            lblAgreedRClass.Text = ddlPickRiskClass.SelectedItem.ToString();
+                            if (ddlPickRiskClass.SelectedIndex != 0)
+                                lblAgreedRClass.Text = ddlPickRiskClass.SelectedItem.Text;
+                            else
+                                lblAgreedRClass.Text = "";
                             lblRRclass.Visible = false;
                             lblRRDate.Visible = false;
                             lblRRScore.Visible = false;
 
-                            BindRiskClasses();
+                           
                             if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                             {
                                 if (dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString() != "")
@@ -659,10 +666,9 @@ namespace WealthERP.Advisor
                     {
                         tblAgreed.Visible = true;
                         lblAgreedRClass.Visible = true;
-                        lblRiskScore.Visible = true;
+                        lblRiskScore.Visible = false;
                         lblRClassRs.Text = lblAgreedRClass.Text;
-                        lblRscoreAA.Text = lblRRScore.Text;
-                        Session["Score"] = lblRscoreAA.Text;
+
                     }
                     else
                     {
@@ -676,9 +682,11 @@ namespace WealthERP.Advisor
                         tblRecommended.Visible = true;
                         lblRRclass.Visible = true;
                         lblRRScore.Visible = true;
-                        lblRClassRs.Text = lblRRclass.Text;
-                        lblRscoreAA.Text = lblRRScore.Text;
-                        Session["Score"] = lblRscoreAA.Text;
+                        if (!string.IsNullOrEmpty(lblAgreedRClass.Text))
+                            lblRClassRs.Text = lblAgreedRClass.Text;
+                        else
+                            lblRClassRs.Text = lblRRclass.Text;
+
                     }
                     else
                     {
@@ -1905,7 +1913,6 @@ namespace WealthERP.Advisor
                     dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
                     if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                         riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
-
                     dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
                     {
