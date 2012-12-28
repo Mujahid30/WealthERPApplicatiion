@@ -79,7 +79,7 @@ namespace WealthERP.Uploads
                         rmId = Convert.ToInt32(hfRmId.Value);
                     }
                     trGridView.Visible = true;
-                    Panel2.ScrollBars = ScrollBars.Horizontal; 
+                    //Panel2.ScrollBars = ScrollBars.Horizontal; 
                 }
                 else
                 {
@@ -96,7 +96,7 @@ namespace WealthERP.Uploads
                 //Panel2.Visible = true;
                 trAdviserSelection.Visible = false;
                 adviserId = adviserVo.advisorId;
-                rmId = rmVo.RMId;
+                rmId =rmVo.RMId;
             }
            
             if (Session["userVo"] != null)
@@ -212,6 +212,8 @@ namespace WealthERP.Uploads
                 }
                 Panel2.ScrollBars = ScrollBars.Horizontal;
                 trGridView.Visible = true;
+                gvProcessLog.DataSource = getProcessLogDs;
+                gvProcessLog.DataBind();
 
             }
             else
@@ -439,7 +441,7 @@ namespace WealthERP.Uploads
                                 if (stdProCommonChecksResult)
                                 {
                                     // Insert Customer Details into WERP Tables
-                                    bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                    bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                     if (camsProCreateCustomerResult)
                                     {
                                         processlogVo.IsInsertionToWERPComplete = 1;
@@ -497,7 +499,7 @@ namespace WealthERP.Uploads
                                 if (stdProCommonChecksResult)
                                 {
                                     // Insert Customer Details into WERP Tables
-                                    bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                    bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                     if (camsProCreateCustomerResult)
                                     {
                                         processlogVo.IsInsertionToWERPComplete = 1;
@@ -705,7 +707,7 @@ namespace WealthERP.Uploads
                                 if (karvyProCommonChecksResult)
                                 {
                                     // Insert Customer Details into WERP Tables
-                                    bool karvyProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                    bool karvyProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                     if (karvyProCreateCustomerResult)
                                     {
                                         //Create new Bank Accounts
@@ -762,7 +764,7 @@ namespace WealthERP.Uploads
                             //Standard Profile WERP INsertion
                             StandardProfileUploadBo StandardProfileUploadBo = new StandardProfileUploadBo();
 
-                            bool stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out  countCustCreated);
+                            bool stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out  countCustCreated);
                             if (stdProCreateCustomerResult)
                             {
                                 //Create new Bank Accounts
@@ -832,7 +834,7 @@ namespace WealthERP.Uploads
                                 if (templetonProCommonChecksResult)
                                 {
                                     // Insert Customer Details into WERP Tables
-                                    bool templetonProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                    bool templetonProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                     if (templetonProCreateCustomerResult)
                                     {
                                         //Create new Bank Accounts
@@ -949,7 +951,7 @@ namespace WealthERP.Uploads
                                 if (deutscheProCommonChecksResult)
                                 {
                                     // Insert Customer Details into WERP Tables
-                                    bool deutscheProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                    bool deutscheProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                     if (deutscheProCreateCustomerResult)
                                     {
                                         //Create new Bank Accounts
@@ -1221,7 +1223,7 @@ namespace WealthERP.Uploads
                                         if (stdProCommonChecksResult)
                                         {
                                             // Insert Customer Details into WERP Tables
-                                            bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                            bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                             if (camsProCreateCustomerResult)
                                             {
                                                 processlogVo.IsInsertionToWERPComplete = 1;
@@ -1328,7 +1330,7 @@ namespace WealthERP.Uploads
                                         if (stdProCommonChecksResult)
                                         {
                                             // Insert Customer Details into WERP Tables
-                                            bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                            bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                             if (camsProCreateCustomerResult)
                                             {
                                                 processlogVo.IsInsertionToWERPComplete = 1;
@@ -1597,7 +1599,7 @@ namespace WealthERP.Uploads
                                             if (karvyProCommonChecksResult)
                                             {
                                                 // Insert Customer Details into WERP Tables
-                                                bool karvyProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                bool karvyProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                 if (karvyProCreateCustomerResult)
                                                 {
                                                     //Create new Bank Accounts
@@ -1677,7 +1679,7 @@ namespace WealthERP.Uploads
                                     if (stdProCommonChecksResult)
                                     {
                                         // Insert Customer Details into WERP Tables
-                                        bool stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out  countCustCreated);
+                                        bool stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out  countCustCreated);
                                         if (stdProCreateCustomerResult)
                                         {
                                             //Create new Bank Accounts
@@ -1765,7 +1767,7 @@ namespace WealthERP.Uploads
                                         if (templetonProCommonChecksResult)
                                         {
                                             // Insert Customer Details into WERP Tables
-                                            bool templetonProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                            bool templetonProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                             if (templetonProCreateCustomerResult)
                                             {
                                                 //Create new Bank Accounts
@@ -1884,7 +1886,7 @@ namespace WealthERP.Uploads
                                             if (deutscheProCommonChecksResult)
                                             {
                                                 // Insert Customer Details into WERP Tables
-                                                bool deutscheProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                bool deutscheProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                 if (deutscheProCreateCustomerResult)
                                                 {
                                                     //Create new Bank Accounts
@@ -1987,7 +1989,7 @@ namespace WealthERP.Uploads
                                                 {
 
                                                     // Insert Customer Details into WERP Tables
-                                                    bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                    bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                     if (camsProCreateCustomerResult)
                                                     {
                                                         processlogVo.IsInsertionToWERPComplete = 1;
@@ -2087,7 +2089,7 @@ namespace WealthERP.Uploads
                                                 {
 
                                                     // Insert Customer Details into WERP Tables
-                                                    bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                    bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                     if (camsProCreateCustomerResult)
                                                     {
                                                         processlogVo.IsInsertionToWERPComplete = 1;
@@ -2448,7 +2450,7 @@ namespace WealthERP.Uploads
                                                 if (karvyProCommonChecksResult)
                                                 {
                                                     // Insert Customer Details into WERP Tables
-                                                    bool karvyProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                    bool karvyProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                     if (karvyProCreateCustomerResult)
                                                     {
                                                         //Create new Bank Accounts
@@ -2547,7 +2549,7 @@ namespace WealthERP.Uploads
                                             if (stdProCommonChecksResult)
                                             {
                                                 // Insert Customer Details into WERP Tables
-                                                bool stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out  countCustCreated);
+                                                bool stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out  countCustCreated);
                                                 if (stdProCreateCustomerResult)
                                                 {
                                                     //Create new Bank Accounts
@@ -2666,7 +2668,7 @@ namespace WealthERP.Uploads
                                                 if (templetonProCommonChecksResult)
                                                 {
                                                     // Insert Customer Details into WERP Tables
-                                                    bool templetonProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                    bool templetonProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                     if (templetonProCreateCustomerResult)
                                                     {
                                                         //Create new Bank Accounts
@@ -2810,7 +2812,7 @@ namespace WealthERP.Uploads
                                                 if (deutscheProCommonChecksResult)
                                                 {
                                                     // Insert Customer Details into WERP Tables
-                                                    bool deutscheProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                    bool deutscheProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                     if (deutscheProCreateCustomerResult)
                                                     {
                                                         //Create new Bank Accounts
@@ -2938,7 +2940,7 @@ namespace WealthERP.Uploads
                                                     {
 
                                                         // Insert Customer Details into WERP Tables
-                                                        bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                        bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                         if (camsProCreateCustomerResult)
                                                         {
                                                             processlogVo.IsInsertionToWERPComplete = 1;
@@ -3054,7 +3056,7 @@ namespace WealthERP.Uploads
                                                     {
 
                                                         // Insert Customer Details into WERP Tables
-                                                        bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                        bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                         if (camsProCreateCustomerResult)
                                                         {
                                                             processlogVo.IsInsertionToWERPComplete = 1;
@@ -3503,7 +3505,7 @@ namespace WealthERP.Uploads
                                                     if (karvyProCommonChecksResult)
                                                     {
                                                         // Insert Customer Details into WERP Tables
-                                                        bool karvyProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                        bool karvyProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                         if (karvyProCreateCustomerResult)
                                                         {
                                                             //Create new Bank Accounts
@@ -3616,7 +3618,7 @@ namespace WealthERP.Uploads
                                                 if (stdProCommonChecksResult)
                                                 {
                                                     // Insert Customer Details into WERP Tables
-                                                    bool stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out  countCustCreated);
+                                                    bool stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out  countCustCreated);
                                                     if (stdProCreateCustomerResult)
                                                     {
                                                         //Create new Bank Accounts
@@ -3763,7 +3765,7 @@ namespace WealthERP.Uploads
                                                     if (templetonProCommonChecksResult)
                                                     {
                                                         // Insert Customer Details into WERP Tables
-                                                        bool templetonProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                        bool templetonProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                         if (templetonProCreateCustomerResult)
                                                         {
                                                             //Create new Bank Accounts
@@ -3936,7 +3938,7 @@ namespace WealthERP.Uploads
                                                     if (deutscheProCommonChecksResult)
                                                     {
                                                         // Insert Customer Details into WERP Tables
-                                                        bool deutscheProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                        bool deutscheProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID,rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                                         if (deutscheProCreateCustomerResult)
                                                         {
                                                             //Create new Bank Accounts
