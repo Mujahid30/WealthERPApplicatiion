@@ -90,6 +90,22 @@
       <Project>{189258F3-16C1-4384-83D4-B8038C04A391}</Project>
       <Name>BoValuation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bo\BoWerpAdmin\BoWerpAdmin.csproj">
+      <Project>{185F42DE-55D9-42DA-994E-F8E4DF385D0D}</Project>
+      <Name>BoWerpAdmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bo\Common\BoCommon\BoCommon.csproj">
+      <Project>{F034F6F7-2938-4126-921E-9847633F0624}</Project>
+      <Name>BoCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bo\CustomerPortfolio\BoCustomerPortfolio.csproj">
+      <Project>{F166259A-BF9E-457B-97E4-7B0157427D86}</Project>
+      <Name>BoCustomerPortfolio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bo\User\BoUser.csproj">
+      <Project>{D34F58BD-27F2-4C13-82E0-1A694CEAA430}</Project>
+      <Name>BoUser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dao\DaoValuation\DaoValuation.csproj">
       <Project>{F117CAF2-598C-4D96-831B-BD108DE402C5}</Project>
       <Name>DaoValuation</Name>
