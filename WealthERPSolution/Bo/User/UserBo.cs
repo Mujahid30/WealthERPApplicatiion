@@ -833,5 +833,35 @@ namespace BoUser
 
             return bResult;
         }
+        public DataSet GetLoginDetail(string userType, int AdviserId, DateTime dtFrom, DateTime dtTo)
+        {
+           // UserVo userVo = null;
+            //DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            UserDao userDao = new UserDao();
+
+            try
+            {
+                ds = userDao.GetLoginTrack(userType,AdviserId,dtFrom,dtTo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UserBo.cs:GetUser()");
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
     }
 }
