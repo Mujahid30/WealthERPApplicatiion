@@ -148,6 +148,18 @@ namespace WealthERP.Advisor
                 ErrorMessage.Visible = false;
             }          
         }
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvLoginTrack.ExportSettings.OpenInNewWindow = true;
+            gvLoginTrack.ExportSettings.IgnorePaging = true;
+            gvLoginTrack.ExportSettings.HideStructureColumns = true;
+            gvLoginTrack.ExportSettings.ExportOnlyData = true;
+            gvLoginTrack.ExportSettings.FileName = "AdviserLoginTrack";
+            gvLoginTrack.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvLoginTrack.MasterTableView.ExportToExcel();
+        }
+
+
       }
 }
     

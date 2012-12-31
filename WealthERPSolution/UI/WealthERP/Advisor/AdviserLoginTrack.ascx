@@ -11,7 +11,12 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                           AdviserLogin Track
+                           Adviser Login Track
+                        </td>
+                         <td align="right" style="width: 10px">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -29,7 +34,7 @@
         <tr>
         <td>
         <asp:Label ID="lblSelectCategory" runat="server" Text="Select User :" CssClass="FieldName"></asp:Label>
-        <asp:DropDownList runat="server" ID="ddlCategory" AutoPostBack="true" CssClass="cmbField"
+        <asp:DropDownList runat="server" ID="ddlCategory" AutoPostBack="false" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
                 <asp:ListItem Value="All">All </asp:ListItem>
                 <asp:ListItem Value="customer">Customer</asp:ListItem>
@@ -62,23 +67,21 @@
                             <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                             <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                             </DateInput>
-                        </telerik:RadDatePicker>
+                    </telerik:RadDatePicker>
                     </td>
-                   
                     </tr>
                     </table>
                     <table width="100%">
                     <tr>
                     <td colspan="8">
                         <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
-                            OnClick="btnGo_Click" />
+                         OnClick="btnGo_Click" />
                     </td>
                    </tr>
                    </table>                
                 
-             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-             <ContentTemplate>
-             
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>           
             <div>
             <table cellspacing="0" cellpadding="3" width="100%">
             <tr>
@@ -89,26 +92,26 @@
                         ShowStatusBar="True" Skin="Telerik" >
                         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                            FileName="LoginTrack" Excel-Format="ExcelML">
+                            FileName="AdviserLoginTrack" Excel-Format="ExcelML">
                        </ExportSettings>
-                        <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false" AllowFilteringByColumn="true">
+                       <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false" AllowFilteringByColumn="true">
                             <Columns>
                                 <telerik:GridBoundColumn  DataField="LT_LoginId" HeaderText="LoginId" HeaderStyle-Width="100px"
                                      ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="LoginId" AllowFiltering="true">                                 
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />                                 
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />                                 
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="U_FirstName" HeaderStyle-Width="100px"
                                     ShowFilterIcon="false" AutoPostBackOnFilter="true"  HeaderText="Name" UniqueName="Name" AllowFiltering="true">
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="LT_CreatedOn" HeaderStyle-Width="100px" AllowFiltering="false" DataFormatString="{0:dd/MM/yyyy}"
+                                <telerik:GridBoundColumn DataField="LT_CreatedOn" HeaderStyle-Width="100px" AllowFiltering="false" DataFormatString="{0:dd/MM/yyyy HH:mm:ss.FFFF}"
                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="LoginDateTime" UniqueName="LoginDateTime">
-                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="true" />
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="true" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="U_UserType" HeaderStyle-Width="100px" AllowFiltering="true"
                                   ShowFilterIcon="false" AutoPostBackOnFilter="true"  HeaderText="UserType" UniqueName="UserType">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="true" />
-                                </telerik:GridBoundColumn>
+                               </telerik:GridBoundColumn>
                                </Columns>
                                </MasterTableView>
                          <ClientSettings>
@@ -126,10 +129,10 @@
     <tr>
         <td align="center">
             <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
-            </div>        </td>
+            </div>        
+       </td>
     </tr>
 </table>
-
 <asp:HiddenField ID="hdnTodate" runat="server" />
 <asp:HiddenField ID="hdnFromDate" runat="server" />
 
