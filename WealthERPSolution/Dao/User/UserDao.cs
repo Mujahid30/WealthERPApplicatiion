@@ -1389,5 +1389,68 @@ namespace DaoUser
             return bResult;
 
         }
+
+        public DataSet GetLoginTrack(string userType, int AdviserId, DateTime dtFrom, DateTime dtTo)
+        {
+
+            UserVo userVo = null;
+            Database db;
+            DbCommand getLoginCmd;
+            DataSet getLoginDs;
+           try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getLoginCmd = db.GetStoredProcCommand("SP_GetLoginTrack");
+                db.AddInParameter(getLoginCmd, "@U_UserType", DbType.String, userType);
+                db.AddInParameter(getLoginCmd, "@A_AdviserId", DbType.Int32, AdviserId);
+                if (dtFrom != DateTime.MinValue)
+                    db.AddInParameter(getLoginCmd, "@dtFrom", DbType.DateTime, dtFrom);
+                else
+                    dtFrom = DateTime.MinValue;
+                if (dtTo != DateTime.MinValue)
+                    db.AddInParameter(getLoginCmd, "@dtTo", DbType.DateTime, dtTo);
+                else
+                    dtTo = DateTime.MinValue;
+
+                getLoginDs = db.ExecuteDataSet(getLoginCmd);
+               // if (getLoginDs.Tables[0].Rows.Count > 0)
+               // {
+               //     foreach (DataRow dr in getLoginDs.Tables[0].Rows)
+               //     {
+               //         userVo = new UserVo();
+               //         userVo.LoginId = dr["LoginId"].ToString();
+               //         userVo.FirstName = dr["U_FirstName"].ToString();
+               //         userVo.LTDateTime = DateTime.Parse(dr["LT_CreatedOn"].ToString());
+
+               //     }
+               //}
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UserDao.cs:GetUser()");
+
+
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return getLoginDs;
+
+        }
+
+
     }
 }
