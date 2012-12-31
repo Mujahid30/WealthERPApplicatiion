@@ -575,7 +575,8 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Business_MIS_Dashboard")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
+                   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoginTrack','login');", true);
                 }
                 else if (e.Item.Value == "Prospect List")
                 {
@@ -703,6 +704,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer User Management")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomerUserDetails','login');", true);
+                }
+
+                else if (e.Item.Value == "Adviser_Login_Track")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoginTrack','login');", true);
                 }
                 else if (e.Item.Value == "Valuation")
                 {
@@ -1297,6 +1303,10 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer User Management")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomerUserDetails','login');", true);
+                }
+                else if (e.Item.Value == "Adviser_Login_Track")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoginTrack','login');", true);
                 }
                 else if (e.Item.Value == "Valuation")
                 {
