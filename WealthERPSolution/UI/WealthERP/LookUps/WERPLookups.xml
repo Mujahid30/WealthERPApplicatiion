@@ -2824,7 +2824,28 @@
                             Deleted="False"	/>
   </HostConfiguration>
 
+  <!--<UploadTree>
+    <UploadTreeNode TreeNode="Uoload" TreeNodeText="Upload" Path="~/Images/baby.jpg" Deleted="False" />
+    <UploadTreeNode TreeNode="Upload_History" TreeNodeText="Upload History" Path="~/Images/baby.jpg" Deleted="False" />
+    <UploadTreeNode TreeNode="Folio_Exception" TreeNodeText="MF Folio Exception" Path="~/Images/baby.jpg" Deleted="False" />
+    <UploadTreeNode TreeNode="MFTransaction_Exception" TreeNodeText="MF Transaction Exception" Path="~/Images/baby.jpg" Deleted="False" />
+    <UploadTreeNode TreeNode="SIP_Exception" TreeNodeText="MF SIP Exception" Path="~/Images/baby.jpg" Deleted="False" />
+    <UploadTreeNode TreeNode="Trail_Exception" TreeNodeText="MF Trail Commission Exception" Path="~/Images/baby.jpg" Deleted="False" />
+    <UploadTreeNode TreeNode="EQTrade_Account_Exception" TreeNodeText="EQ Trade Account Exception" Path="~/Images/baby.jpg" Deleted="False" />
+    <UploadTreeNode TreeNode="EQTransaction_Exception" TreeNodeText="EQ Transaction Exception" Path="~/Images/baby.jpg" Deleted="False" />
+    <UploadTreeNode TreeNode="MFReversal_Tranx_Exception" TreeNodeText="MF Reversal Trnx Exception" Path="~/Images/baby.jpg" Deleted="False" />
+    <UploadTreeNode TreeNode="Profile_Exception" TreeNodeText="Profile Exception" Path="~/Images/baby.jpg" Deleted="False" />
+  </UploadTree>-->
 
+  <NewAdminTreeNode>
+    <NewAdminTreeNode NodeType="Upload" TreeNode1="Upload" TreeNodeText1="Upload" Path1="~/Images/Upload-icon.png" TreeNode2="Upload_History" TreeNodeText2="Upload History" Path2="~/Images/Creek.jpg" TreeNode3="Folio_Exception" TreeNodeText3="MF Folio Exception" Path3="~/Images/1044_Mangala.jpg" Deleted="False" />
+    <NewAdminTreeNode NodeType="Upload" TreeNode1="MFTransaction_Exception" TreeNodeText1="MF Transaction Ex." Path1="~/Images/Dashboard-MutualFund.png" TreeNode2="SIP_Exception" TreeNodeText2="MF SIP Ex." Path2="~/Images/1044_prin.jpg" TreeNode3="Trail_Exception" TreeNodeText3="MF Trail Commission Ex." Path3="~/Images/logo3.jpg" Deleted="False" />
+    <NewAdminTreeNode NodeType="Upload" TreeNode1="EQTrade_Account_Exception" TreeNodeText1="EQ Trade Account Ex." Path1="~/Images/baby.jpg" TreeNode2="EQTransaction_Exception" TreeNodeText2="EQ Transaction Ex." Path2="~/Images/Dashboard-Equity.png" TreeNode3="MFReversal_Tranx_Exception" TreeNodeText3="MF Reversal Trnx Ex." Path3="~/Images/images6.jpg"  Deleted="False" />
+    <NewAdminTreeNode NodeType="Upload" TreeNode1="Profile_Exception" TreeNodeText1="Profile Ex." Path1="~/Images/gf.jpg" Deleted="False" />
+    <NewAdminTreeNode NodeType="Reports" TreeNode1="MF_Report" TreeNodeText1="MF Report" Path1="~/Images/Dashboard-MutualFund.png" TreeNode2="MultiAsset_Report" TreeNodeText2="Multi Asset Report" Path2="~/Images/Dashboard-BusinessMIS.png" TreeNode3="Equity_Report" TreeNodeText3="Equity Report" Path3="~/Images/Dashboard-Equity.png" Deleted="False" />
+    <NewAdminTreeNode NodeType="Reports" TreeNode1="FP_Report" TreeNodeText1="FP Report" Path1="~/Images/Dashboard-FP.png"  Deleted="False" />
+  </NewAdminTreeNode>
+  
 </WERPLookUpTables>
 
 
