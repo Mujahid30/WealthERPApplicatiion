@@ -3117,5 +3117,36 @@ namespace DaoCommon
             return dt;
         }
 
+        public static DataTable GetUploadTreeNode(string path)
+        {
+            DataSet dsUploadTreeNodes;
+            DataTable dtUploadTreeNodes;
+            try
+            {
+                dsUploadTreeNodes = new DataSet();
+                dsUploadTreeNodes.ReadXml(path);
+                dtUploadTreeNodes = dsUploadTreeNodes.Tables["NewAdminTreeNode"];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "XMLBo.cs:GetUploadTreeNode()");
+                object[] objects = new object[1];
+                objects[0] = path;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return dtUploadTreeNodes;
+        }
+
     }
 }
