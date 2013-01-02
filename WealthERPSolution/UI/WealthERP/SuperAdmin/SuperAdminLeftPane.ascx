@@ -55,7 +55,7 @@
             </Items>
         </telerik:RadPanelItem>
          
-         <telerik:RadPanelItem Text="Issue Tracker">
+       <%--  <telerik:RadPanelItem Text="Issue Tracker">
             <Items>
                 <telerik:RadPanelItem Text="View Issue Tracker" Value="IssueTracker">
                 </telerik:RadPanelItem>
@@ -64,7 +64,7 @@
                 <telerik:RadPanelItem Text="Add New Issue" Value="AddNewIssue">
                 </telerik:RadPanelItem>
             </Items>
-        </telerik:RadPanelItem>
+        </telerik:RadPanelItem>--%>
          
          <telerik:RadPanelItem Text="Messages">
             <Items>
