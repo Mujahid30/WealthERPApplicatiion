@@ -35,7 +35,7 @@ namespace WealthERP.Uploads
                 BindReptUploadGrid();
             }
         }
-    }
+   
             private void BindReptUploadGrid()
         {
             dtUploadTreeNode = XMLBo.GetUploadTreeNode(path);
@@ -137,4 +137,5 @@ namespace WealthERP.Uploads
                   
             }
         }
+    }
 }
