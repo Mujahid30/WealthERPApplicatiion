@@ -674,8 +674,6 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderEntry")
                 {
-                    if (Session["AddMFOrderEntryLinkIdLinkAction"] != null)
-                        Session["AddMFOrderEntryLinkIdLinkAction"] = null;
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
                 }
@@ -735,6 +733,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanCommsnStrucWithLoanPartner','login');", true);
 
+                }
+                else if (e.Item.Value == "Customer Report")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Multi Asset Report")
                 {

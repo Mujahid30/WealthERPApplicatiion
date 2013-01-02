@@ -55,7 +55,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Settings" Value="Settings">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Setup Associate Category" Value="Setup Associate Category">
+                                            <telerik:RadPanelItem runat="server" Text="Set Theme" Value="Set Theme">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Setup Advisor Staff SMTP" Value="Setup Advisor Staff SMTP">
                                             </telerik:RadPanelItem>
@@ -63,11 +63,19 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Setup IP pool" Value="Setup IP pool">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Repository Category" Value="RepositoryCategory">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Set Theme" Value="Set Theme">
-                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Setup customer category" Value="Setup_customer_category">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Repository Category" Value="RepositoryCategory">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Setup Associate Category" Value="Setup Associate Category">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
+                                            </telerik:RadPanelItem>
+                                       </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Content" Value="Content" PostBack="false">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Repository" Value="Repository">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -79,12 +87,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="LOB" Value="LOB">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Add LOB" Value="Add LOB">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
+                                            
                                             <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
@@ -96,6 +99,12 @@
                                                     <telerik:RadPanelItem runat="server" Text="Add Branch" Value="Add Branch">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Branch Association" Value="View Branch Association">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="LOB" Value="LOB">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add LOB" Value="Add LOB">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -113,10 +122,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Reassign RM/Branch" Value="Customer Association">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
-                                            </telerik:RadPanelItem>
+                                            
                                             <telerik:RadPanelItem runat="server" Text="MF Folios" Value="MF Folios">
                                             </telerik:RadPanelItem>
                                         </Items>
@@ -270,14 +276,11 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Outbox" Value="Outbox">
                                             </telerik:RadPanelItem>
-                                        </Items>
-                                    </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Content" Value="Content" PostBack="false">
-                                        <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Repository" Value="Repository">
+                                            <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                    
                                 </Items>
                             </telerik:RadPanelItem>
                         </Items>
