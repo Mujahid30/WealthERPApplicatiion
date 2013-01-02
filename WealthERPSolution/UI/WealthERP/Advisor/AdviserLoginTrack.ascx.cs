@@ -38,17 +38,16 @@ namespace WealthERP.Advisor
             userVo = (UserVo)Session[SessionContents.UserVo];
             RMVo customerRMVo = new RMVo();
             gvLoginTrack.ShowHeader = true;
-            gvLoginTrack.GridLines = GridLines.None;
-            //if (!IsPostBack)
-            //{
-                DateTime fromDate = DateTime.Now.AddYears(-2);
-                txtFrom.SelectedDate = fromDate;
-                txtTo.SelectedDate = DateTime.Now;
-                Session["ButtonGo"] = null;
-           // }
+            //gvLoginTrack.GridLines = GridLines.None;
+                  
+            DateTime fromDate = DateTime.Now.AddDays(-15);
+            txtFrom.SelectedDate = fromDate;
+            txtTo.SelectedDate = DateTime.Now;
+            
+            //Session["ButtonGo"] = null;
 
             //if (Session["ButtonGo"] != null)
-                CallAllGridBinding();   
+            //    CallAllGridBinding();   
         }
      protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {         
@@ -101,12 +100,12 @@ namespace WealthERP.Advisor
             }      
         }
         private void BindgvLoginTrack()
-        { 
+        {
             try
             {
-               dtLoginTrack = dsBindLoginTrack.Tables[0];
-               gvLoginTrack.DataSource = dtLoginTrack;
-               gvLoginTrack.DataBind();
+                dtLoginTrack = dsBindLoginTrack.Tables[0];
+                gvLoginTrack.DataSource = dtLoginTrack;
+                gvLoginTrack.DataBind();
             }
             catch (BaseApplicationException Ex)
             {
@@ -117,7 +116,7 @@ namespace WealthERP.Advisor
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindgvLoginTrack()");
+                FunctionInfo.Add("Method", "AdviserLoginTrack.ascx:BindgvLoginTrack()");
 
                 object[] objects = new object[0];
 
@@ -126,7 +125,6 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            
         }  
         protected void btnGo_Click(object sender, EventArgs e)
         {
@@ -140,6 +138,7 @@ namespace WealthERP.Advisor
                 gvLoginTrack.Visible = true;
                 tblMessage.Visible = false;
                 ErrorMessage.Visible = false;
+                        
             }
             if (userType == "advisor")
             {
@@ -148,6 +147,8 @@ namespace WealthERP.Advisor
                 ErrorMessage.Visible = false;
             }          
         }
+
+      
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvLoginTrack.ExportSettings.OpenInNewWindow = true;
@@ -158,8 +159,6 @@ namespace WealthERP.Advisor
             gvLoginTrack.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvLoginTrack.MasterTableView.ExportToExcel();
         }
-
-
       }
 }
     
