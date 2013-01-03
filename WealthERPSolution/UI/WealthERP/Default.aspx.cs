@@ -399,15 +399,28 @@ namespace WealthERP
 
         protected void lblSignOut_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(hidUserLogOutPageUrl.Value))
+            string currentURL=string.Empty;
+            if (Request.ServerVariables["HTTPS"].ToString() == "")
+            {
+                currentURL = Request.ServerVariables["SERVER_PROTOCOL"].ToString().ToLower().Substring(0, 4).ToString() + "://" + Request.ServerVariables["SERVER_NAME"].ToString() + ":" + Request.ServerVariables["SERVER_PORT"].ToString() + Request.ServerVariables["SCRIPT_NAME"].ToString();
+            }
+            if (currentURL.Contains("localhost"))
             {
                 Session.Abandon();
-                Response.Redirect(hidUserLogOutPageUrl.Value);
+                Response.Redirect(currentURL);
             }
             else
             {
-                Session.Abandon();
-                Response.Redirect("https://app.wealtherp.com/");
+                if (!string.IsNullOrEmpty(hidUserLogOutPageUrl.Value))
+                {
+                    Session.Abandon();
+                    Response.Redirect(hidUserLogOutPageUrl.Value);
+                }
+                else
+                {
+                    Session.Abandon();
+                    Response.Redirect("https://app.wealtherp.com/");
+                }
             }
         }
 
