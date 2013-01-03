@@ -312,7 +312,7 @@ namespace WealthERP.Uploads
                         && (extracttype == "PO" || extracttype == "PAF"))
                     {
                        // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processID + "&filetypeid=" + filetypeId + "&adviserId=" + adviserId + "');", true);
 
                         
                         
