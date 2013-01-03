@@ -45,62 +45,69 @@ namespace DaoCommon
 
         }
 
-        public static DataTable GetSuperAdminTreeSubNodes(string path)
+        //public static DataTable GetSuperAdminTreeSubNodes(string path)
+        //{
+        //    DataSet ds;
+        //    DataTable dt;
+        //    try
+        //    {
+        //        ds = new DataSet();
+        //        ds.ReadXml(path);
+        //        dt = ds.Tables["TreeSubNode"];
+
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+
+        //    return dt;
+        //}
+
+        public static DataSet GetSuperAdminTreeNodes(string path)
         {
             DataSet ds;
-            DataTable dt;
+            DataTable dtNode;
+            DataTable dtSubNode;
+            DataTable dtSubSubNode;
+            DataSet dsTreeNodes = new DataSet();
             try
             {
                 ds = new DataSet();
                 ds.ReadXml(path);
-                dt = ds.Tables["TreeSubNode"];
-
+                dtNode = ds.Tables["TreeNode"];
+                dtSubNode = ds.Tables["TreeSubNode"];
+                dtSubSubNode = ds.Tables["TreeSubSubNode"];
+                dsTreeNodes.Tables.Add(dtNode.Copy());
+                dsTreeNodes.Tables.Add(dtSubNode.Copy());
+                dsTreeNodes.Tables.Add(dtSubSubNode.Copy());
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
 
-            return dt;
+            return dsTreeNodes;
         }
 
-        public static DataTable GetSuperAdminTreeNodes(string path)
-        {
-            DataSet ds;
-            DataTable dt;
-            try
-            {
-                ds = new DataSet();
-                ds.ReadXml(path);
-                dt = ds.Tables["TreeNode"];
+        //public static DataTable GetSuperAdminTreeSubSubNodes(string path)
+        //{
+        //    DataSet ds;
+        //    DataTable dt;
+        //    try
+        //    {
+        //        ds = new DataSet();
+        //        ds.ReadXml(path);
+        //        dt = ds.Tables["TreeSubSubNode"];
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
       
-            return dt;
-        }
-
-        public static DataTable GetSuperAdminTreeSubSubNodes(string path)
-        {
-            DataSet ds;
-            DataTable dt;
-            try
-            {
-                ds = new DataSet();
-                ds.ReadXml(path);
-                dt = ds.Tables["TreeSubSubNode"];
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-      
-            return dt;
-        }
+        //    return dt;
+        //}
 
         public static DataTable GetBusinessType(string path)
         {
@@ -3116,37 +3123,53 @@ namespace DaoCommon
             }
             return dt;
         }
-
-        public static DataTable GetUploadTreeNode(string path)
+        public static DataTable GetVariableValue(string path)
         {
-            DataSet dsUploadTreeNodes;
-            DataTable dtUploadTreeNodes;
+            DataSet dsGetVariableValue;
+            DataTable dtGetVariableValue;
             try
             {
-                dsUploadTreeNodes = new DataSet();
-                dsUploadTreeNodes.ReadXml(path);
-                dtUploadTreeNodes = dsUploadTreeNodes.Tables["NewAdminTreeNode"];
+                dsGetVariableValue = new DataSet();
+                dsGetVariableValue.ReadXml(path);
+                dtGetVariableValue = dsGetVariableValue.Tables["variable"];
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "XMLBo.cs:GetUploadTreeNode()");
-                object[] objects = new object[1];
-                objects[0] = path;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-
-            return dtUploadTreeNodes;
+            return dtGetVariableValue;
         }
+
+        //public static DataTable GetUploadTreeNode(string path)
+        //{
+        //    DataSet dsUploadTreeNodes;
+        //    DataTable dtUploadTreeNodes;
+        //    try
+        //    {
+        //        dsUploadTreeNodes = new DataSet();
+        //        dsUploadTreeNodes.ReadXml(path);
+        //        dtUploadTreeNodes = dsUploadTreeNodes.Tables["NewAdminTreeNode"];
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "XMLBo.cs:GetUploadTreeNode()");
+        //        object[] objects = new object[1];
+        //        objects[0] = path;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+
+        //    return dtUploadTreeNodes;
+        //}
 
     }
 }

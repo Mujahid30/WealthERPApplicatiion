@@ -63,10 +63,22 @@
                                             </asp:LinkButton>
                                         </div>
                                     </td>
+                                    
+                                     <td id="td4" runat="server" align="center">
+                                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
+                                            onmouseout="this.className='divDashBoardMouseInLinks'">
+                                            <asp:ImageButton ID="imgbtnUpload4" ImageUrl='<%# Eval("Path4").ToString() %>' runat="server"
+                                                Width="70px" CommandName="Tree_Navi_Row4" CommandArgument='<%# Eval("TreeNode4").ToString() %>' />
+                                            <br />
+                                            <asp:LinkButton ID="lnkTreeNode4" CssClass="FieldName" Font-Underline="false" Text='<%# Eval("TreeNodeText4").ToString() %>'
+                                                runat="server" CommandName="Tree_Navi_Row4" CommandArgument='<%# Eval("TreeNode4").ToString() %>'>  
+                                            </asp:LinkButton>
+                                        </div>
+                                    </td>
                                 </tr>
                             </ItemTemplate>
                             <FooterTemplate>
-                                </table>
+                           
                             </FooterTemplate>
                         </asp:Repeater>
                     </td>

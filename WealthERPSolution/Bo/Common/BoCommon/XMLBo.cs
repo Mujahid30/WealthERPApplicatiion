@@ -41,40 +41,40 @@ namespace BoCommon
 
         }
 
-        public static DataTable GetSuperAdminTreeSubNodes(string path)
-        {
-            DataTable dt;
-            try
-            {
-                dt = XMLDao.GetSuperAdminTreeSubNodes(path);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }           
-            return dt;
-        }
+        //public static DataTable GetSuperAdminTreeSubNodes(string path)
+        //{
+        //    DataTable dt;
+        //    try
+        //    {
+        //        dt = XMLDao.GetSuperAdminTreeSubNodes(path);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }           
+        //    return dt;
+        //}
 
-        public static DataTable GetSuperAdminTreeSubSubNodes(string path)
-        {
-            DataTable dt;
-            try
-            {
-                dt = XMLDao.GetSuperAdminTreeSubSubNodes(path);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }           
-            return dt;
-        }
+        //public static DataTable GetSuperAdminTreeSubSubNodes(string path)
+        //{
+        //    DataTable dt;
+        //    try
+        //    {
+        //        dt = XMLDao.GetSuperAdminTreeSubSubNodes(path);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }           
+        //    return dt;
+        //}
 
-        public static DataTable GetSuperAdminTreeNodes(string path)
+        public static DataSet GetSuperAdminTreeNodes(string path)
         {
-            DataTable dt;
+            DataSet dsTreeNodes = new DataSet();
             try
             {
-                dt = XMLDao.GetSuperAdminTreeNodes(path);
+                dsTreeNodes = XMLDao.GetSuperAdminTreeNodes(path);
             }
             catch (BaseApplicationException Ex)
             {
@@ -84,7 +84,7 @@ namespace BoCommon
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "XMLBo.cs:GetBusinessType()");
+                FunctionInfo.Add("Method", "XMLBo.cs:GetSuperAdminTreeNodes()");
                 object[] objects = new object[1];
                 objects[0] = path;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -93,7 +93,7 @@ namespace BoCommon
                 throw exBase;
 
             }
-            return dt;
+            return dsTreeNodes;
         }
 
         public static DataTable GetBusinessType(string path)
@@ -2344,32 +2344,46 @@ namespace BoCommon
             }
             return dt;
         }
-
-        public static DataTable GetUploadTreeNode(string path)
+        public static DataTable GetVariableValue(string path)
         {
-            DataTable dtUploadTreeNodes;
+            DataTable dtGetVariableValue;
             try
             {
-                dtUploadTreeNodes = XMLDao.GetUploadTreeNode(path);
+                dtGetVariableValue = XMLDao.GetVariableValue(path);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "XMLBo.cs:GetUploadTreeNode()");
-                object[] objects = new object[1];
-                objects[0] = path;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
 
-            }
-            return dtUploadTreeNodes;
+            return dtGetVariableValue;
         }
+
+        //public static DataSet GetUploadTreeNode(string path)
+        //{
+        //    DataSet dsUploadTreeNodes;
+        //    try
+        //    {
+        //        dsUploadTreeNodes = XMLDao.GetUploadTreeNode(path);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "XMLBo.cs:GetUploadTreeNode()");
+        //        object[] objects = new object[1];
+        //        objects[0] = path;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+        //    return dsUploadTreeNodes;
+        //}
     }
 }

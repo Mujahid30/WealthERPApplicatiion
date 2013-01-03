@@ -258,7 +258,7 @@ namespace WealthERP.SuperAdmin
             DataSet dsColumnNames = new DataSet();
             DataSet dsWerpColumnNames = new DataSet();
             string xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-            DataTable dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
+            //DataTable dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
             DataTable dtSuperAdminTreeNode = new DataTable();
             DataRow[] drXmlTreeNode;
 
@@ -980,7 +980,7 @@ namespace WealthERP.SuperAdmin
             DataSet dsColumnNames = new DataSet();
             DataSet dsWerpColumnNames = new DataSet();
             xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-            dtXML = XMLBo.GetSuperAdminTreeSubSubNodes(xmlPath);
+            //dtXML = XMLBo.GetSuperAdminTreeSubSubNodes(xmlPath);
             DataTable dtSuperAdminTreeNode = new DataTable();
             DataTable dtSubNodeDetails = new DataTable();
             dtSubNodeDetails.Columns.Add("TreeSubSubNodeId");
@@ -1076,7 +1076,7 @@ namespace WealthERP.SuperAdmin
             DataSet dsColumnNames = new DataSet();
             DataSet dsWerpColumnNames = new DataSet();
             xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-            dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
+            //dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
             DataTable dtSuperAdminTreeNode = new DataTable();
             try
             {
@@ -1184,7 +1184,7 @@ namespace WealthERP.SuperAdmin
             DataSet dsColumnNames = new DataSet();
             DataSet dsWerpColumnNames = new DataSet();
             xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-            dtXML = XMLBo.GetSuperAdminTreeSubNodes(xmlPath);
+            //dtXML = XMLBo.GetSuperAdminTreeSubNodes(xmlPath);
             DataTable dtSuperAdminTreeNode = new DataTable();
             DataTable dtSubNodeDetails = new DataTable();
             dtSubNodeDetails.Columns.Add("TreeSubNodeId");

@@ -61,9 +61,10 @@ namespace WealthERP.SuperAdmin
             DataSet ds = superAdminOpsBo.getCSIssueDetails();
             gvCSIssueTracker.DataSource = ds;
             DataSet dsColumnNames = new DataSet();
+            DataTable dtXML = new DataTable();
             DataSet dsWerpColumnNames = new DataSet();
             string xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-            DataTable dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
+            //DataTable dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
             DataTable dtSuperAdminTreeNode = new DataTable();
             DataRow[] drXmlTreeNode;
             
@@ -114,8 +115,9 @@ namespace WealthERP.SuperAdmin
 
             DataSet dsColumnNames = new DataSet();
             DataSet dsWerpColumnNames = new DataSet();
+            DataTable dtXML = new DataTable();
             string xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-            DataTable dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
+            //DataTable dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
             DataTable dtSuperAdminTreeNode = new DataTable();
             DataRow[] drXmlTreeNode;
 

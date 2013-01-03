@@ -36,11 +36,85 @@ namespace WealthERP.Reports
         }
         private void BindReptReportDashBoard()
         {
-            dtReportTreeNode = XMLBo.GetUploadTreeNode(path);
+           // dtReportTreeNode = XMLBo.GetUploadTreeNode(path);
+            DataSet dsTreeNodes = new DataSet();
+            //string expression = "NodeType = 'Reports'";
+            //dtReportTreeNode.DefaultView.RowFilter = expression;
+            dsTreeNodes = XMLBo.GetSuperAdminTreeNodes(path);
+            DataRow[] drXmlTreeSubSubNode;
+            DataRow drReportTreeNode;
+            DataTable dtReportTreeNode = new DataTable();
 
-            string expression = "NodeType = 'Reports'";
-            dtReportTreeNode.DefaultView.RowFilter = expression;
-            rptReportTree.DataSource = dtReportTreeNode.DefaultView.ToTable();
+            dtReportTreeNode.Columns.Add("TreeNode1", typeof(Int32));
+
+            dtReportTreeNode.Columns.Add("TreeNodeText1", typeof(String));
+
+            dtReportTreeNode.Columns.Add("Path1", typeof(String));
+
+            dtReportTreeNode.Columns.Add("TreeNode2", typeof(Int32));
+
+            dtReportTreeNode.Columns.Add("TreeNodeText2", typeof(String));
+
+            dtReportTreeNode.Columns.Add("Path2", typeof(String));
+
+            dtReportTreeNode.Columns.Add("TreeNode3", typeof(Int32));
+
+            dtReportTreeNode.Columns.Add("TreeNodeText3", typeof(String));
+
+            dtReportTreeNode.Columns.Add("Path3", typeof(String));
+
+            dtReportTreeNode.Columns.Add("TreeNode4", typeof(Int32));
+
+            dtReportTreeNode.Columns.Add("TreeNodeText4", typeof(String));
+
+            dtReportTreeNode.Columns.Add("Path4", typeof(String));
+
+            //For upload 2009 is Tree Node Id in Sub Table in XML...
+            int treeSubNodeId = 2010;
+            drXmlTreeSubSubNode = dsTreeNodes.Tables[2].Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
+
+            int count = 0;
+            drReportTreeNode = dtReportTreeNode.NewRow();
+            foreach (DataRow drSubSubNode in drXmlTreeSubSubNode)
+            {
+                if (count == 0)
+                {
+
+                    count++;
+                    drReportTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                    drReportTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                    drReportTreeNode["Path1"] = drSubSubNode["Path"].ToString();
+                    dtReportTreeNode.Rows.Add(drReportTreeNode);
+
+                }
+                else if (count == 1)
+                {
+                    count++;
+                    drReportTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                    drReportTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                    drReportTreeNode["Path2"] = drSubSubNode["Path"].ToString();
+
+                }
+                else if (count == 2)
+                {
+                    count++;
+                    drReportTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                    drReportTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                    drReportTreeNode["Path3"] = drSubSubNode["Path"].ToString();                    
+                }
+                else if (count == 3)
+                {
+                    count++;
+                    drReportTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                    drReportTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                    drReportTreeNode["Path4"] = drSubSubNode["Path"].ToString();
+                    count = 0;
+                    drReportTreeNode = dtReportTreeNode.NewRow();
+                }
+
+
+            }
+            rptReportTree.DataSource = dtReportTreeNode;
             rptReportTree.DataBind();
         }
         protected void rptReportTree_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -53,33 +127,46 @@ namespace WealthERP.Reports
 
             ImageButton imgBtn3 = e.Item.FindControl("imgbtnReport3") as ImageButton;
             LinkButton lnkbtn3 = e.Item.FindControl("lnkReportTreeNode3") as LinkButton;
+
+            ImageButton imgBtn4 = e.Item.FindControl("imgbtnReport4") as ImageButton;
+            LinkButton lnkbtn4 = e.Item.FindControl("lnkReportTreeNode4") as LinkButton;
+
             if (e.CommandName == "Tree_Navi_Row1")
             {
 
-                if (imgBtn1.CommandArgument == "MF_Report" || lnkbtn1.CommandArgument == "MF_Report")
+                if (imgBtn1.CommandArgument == "3012" || lnkbtn1.CommandArgument == "3012")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MFReports','login');", true);
                 }
-                else if (imgBtn1.CommandArgument == "FP_Report" || lnkbtn1.CommandArgument == "FP_Report")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('FPSectional','login');", true);
-                }
+                //else if (imgBtn1.CommandArgument == "3015" || lnkbtn1.CommandArgument == "3015")
+                //{
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('FPSectional','login');", true);
+                //}
             }
             if (e.CommandName == "Tree_Navi_Row2")
             {
 
-                if (imgBtn2.CommandArgument == "MultiAsset_Report" || lnkbtn2.CommandArgument == "MultiAsset_Report")
+                if (imgBtn2.CommandArgument == "3013" || lnkbtn2.CommandArgument == "3013")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('PortfolioReports','login');", true);
                 }
 
             }
 
+          
             if (e.CommandName == "Tree_Navi_Row3")
             {
-                if (imgBtn3.CommandArgument == "Equity_Report" || lnkbtn3.CommandArgument == "Equity_Report")
+                if (imgBtn3.CommandArgument == "3014" || lnkbtn3.CommandArgument == "3014")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('EquityReports','login');", true);
+                }
+
+            }
+            if (e.CommandName == "Tree_Navi_Row4")
+            {
+                if (imgBtn4.CommandArgument == "3015" || lnkbtn4.CommandArgument == "3015")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('FPSectional','login');", true);
                 }
 
             }

@@ -15,6 +15,9 @@ using System.Collections.Specialized;
 using BoCommon;
 using Telerik.Web.UI;
 using BoValuation;
+using System.Configuration;
+using BoCustomerPortfolio;
+using WealthERP.Base;
 
 namespace WealthERP.Advisor
 {
@@ -33,17 +36,19 @@ namespace WealthERP.Advisor
         //List<MFPortfolioVo> mfPortfolioList = null;
         //AdviserDailyLOGVo adviserDaliyLOGVo = null;
         DateTime dt = new DateTime();
+        string path;
         static DataSet dsAdviserValuationDate = new DataSet();
         static DateTime EQValuationDate = new DateTime();
         static DateTime MFValuationDate = new DateTime();
         BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Advisor;
+       
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["userVo"];
-
+            path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             if (!IsPostBack)
             {
                 trMf.Visible = false;
@@ -1060,14 +1065,34 @@ namespace WealthERP.Advisor
         protected void CheckIfValuationDateAlreadyInQueue(DateTime valuationDate)
         {
             //bool bresult = true;            
-            int Count = 0;
+            int Count = 0 , varibleValue=0;
             int totalCountGivenToday=0;
             int CountforPendingRecords = 0;
+            DataTable dtVariableValue = new DataTable();
+            //DataTable dtVariableValueClone = new DataTable();
+            
+            dtVariableValue = XMLBo.GetVariableValue(path);
+            //dtVariableValueClone = dtVariableValue.Clone();
+            //dtVariableValueClone.Columns["value"].DataType = typeof(System.Int32);
+            //dtVariableValueClone = dtVariableValue.Copy();
+
+            foreach (DataRow dr in dtVariableValue.Rows)
+            {
+                if (dr["id"].ToString() == "ValuationLimitDayCount")
+                {
+                    varibleValue = Convert.ToInt32(dr["value"].ToString());
+                   break;
+                }
+            }
+            //object sumObject;
+            //sumObject = dtVariableValueClone.Compute("Sum([value])", "id = 'ValuationLimitDayCount'");
+            //int.TryParse(Convert.ToString(sumObject), out varibleValue);
+
             advisorBo.CheckIfValuationDateAlreadyInQueue(valuationDate, advisorVo.advisorId, out Count, out totalCountGivenToday, out CountforPendingRecords);
 
             // As per MJ comment , this 3 should not be hardcoded..this should come from DB as paramatrized
 
-            if (totalCountGivenToday < 3) // Max 3 request in a day                   
+            if (totalCountGivenToday < varibleValue) // Max 3 request in a day                   
             {
                 //if (Count > 0 && Count < 3)  // Max 3 Request for a particular valuationDate in a day
                 //{
