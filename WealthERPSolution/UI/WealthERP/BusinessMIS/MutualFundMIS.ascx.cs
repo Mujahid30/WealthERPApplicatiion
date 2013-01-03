@@ -755,7 +755,7 @@ namespace WealthERP.BusinessMIS
                             {
                                 GridDataItem gvr = (GridDataItem)e.Item;
                                 int selectedRow = gvr.ItemIndex + 1;
-                                string folio = gvr.GetDataKeyValue("FolioNum").ToString();
+                                int folio = int.Parse(gvr.GetDataKeyValue("CMFA_AccountId").ToString());
                                 if (e.CommandName == "Select")
                                 {
                                     Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "", false);
