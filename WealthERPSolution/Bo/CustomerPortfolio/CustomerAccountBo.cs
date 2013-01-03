@@ -1882,5 +1882,20 @@ namespace BoCustomerPortfolio
             }
             return IsDelete;
         }
-    }
+        public DataSet GetAccountType()
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataSet dsGetAccountType;
+            try
+            {
+                dsGetAccountType = customerAccountDao.GetAccountType();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetAccountType;
+        }
+    } 
+   
 }

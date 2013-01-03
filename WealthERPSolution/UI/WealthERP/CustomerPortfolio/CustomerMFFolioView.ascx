@@ -86,7 +86,7 @@
                         <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                                OnClientClick="setFormat('excel')" Height="20px" Width="20px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -117,18 +117,18 @@
 <div style="width: 1100px; overflow: scroll">
     <telerik:RadGrid ID="gvMFFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" 
         AllowAutomaticInserts="false" OnItemDataBound="gvMFFolio_ItemDataBound" OnNeedDataSource="gvMFFolio_NeedDataSource">
         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
         </ExportSettings>
-        <MasterTableView DataKeyNames="FolioId" CommandItemDisplay="None">
+        <MasterTableView DataKeyNames="FolioId,Folio No" CommandItemDisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkBox" runat="server" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
-                <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="176px">
+                <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="120px">
                     <ItemTemplate>
                         <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
                             CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
@@ -146,22 +146,22 @@
                         </telerik:RadComboBox>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn UniqueName="Folio No" HeaderStyle-Width="150px" HeaderText="Folio No"
+                <telerik:GridBoundColumn UniqueName="Folio No" HeaderStyle-Width="80px" HeaderText="Folio No."
                     DataField="Folio No" SortExpression="Folio No" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="AMC Name" HeaderStyle-Width="230px" HeaderText="AMC Name"
+                <telerik:GridBoundColumn UniqueName="AMC Name" HeaderStyle-Width="180px" HeaderText="AMC"
                     DataField="AMC Name" SortExpression="AMC Name" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="Name" HeaderStyle-Width="230px" HeaderText="Name"
+                <telerik:GridBoundColumn UniqueName="Name" HeaderStyle-Width="100px" HeaderText="Name"
                     DataField="Name" SortExpression="Name" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="Mode Of Holding" HeaderStyle-Width="101px" HeaderText="Mode Of Holding"
+                <telerik:GridBoundColumn UniqueName="Mode Of Holding" HeaderStyle-Width="80px" HeaderText="Mode Of Holding"
                     DataField="Mode Of Holding" SortExpression="Mode Of Holding" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>

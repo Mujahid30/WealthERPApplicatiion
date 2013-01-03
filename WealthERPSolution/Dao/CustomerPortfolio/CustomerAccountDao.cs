@@ -325,7 +325,7 @@ namespace DaoCustomerPortfolio
             return accountId;
         }
 
-        public bool UpdateBankDetails(int customerid,string  bankCode,int amcCode,string folioNo)
+        public bool UpdateBankDetails(int customerid, string bankCode, int amcCode, string folioNo)
         {
             bool isUpdate = false;
             Database db;
@@ -337,12 +337,12 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(UpdateBankDetailsCmd, "@C_CustomerId", DbType.Int32, customerid);
                 db.AddInParameter(UpdateBankDetailsCmd, "@CB_CustBankCode", DbType.String, bankCode);
                 db.AddInParameter(UpdateBankDetailsCmd, "@PA_AMCCode", DbType.String, amcCode);
-                db.AddInParameter(UpdateBankDetailsCmd, "@CMFA_FolioNum", DbType.String, folioNo);                 
-	
+                db.AddInParameter(UpdateBankDetailsCmd, "@CMFA_FolioNum", DbType.String, folioNo);
+
                 if (db.ExecuteNonQuery(UpdateBankDetailsCmd) == -1)
                 {
                     isUpdate = true;
-                }                               
+                }
 
             }
             catch (Exception ex)
@@ -368,12 +368,12 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_IsJointlyHeld", DbType.Int16, customerAccountVo.IsJointHolding);
                 db.AddInParameter(createCustomerMFAccountCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerAccountVo.ModeOfHolding);
                 if (customerAccountVo.AccountOpeningDate != DateTime.MinValue)
-                      db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, customerAccountVo.AccountOpeningDate);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, customerAccountVo.AccountOpeningDate);
                 else
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
-                  
-                db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_CreatedBy", DbType.String, userId);
-                db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_ModifiedBy", DbType.String, userId);
+
+                db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_ModifiedBy", DbType.Int32, userId);
                 db.AddOutParameter(createCustomerMFAccountCmd, "@CMFA_AccountId", DbType.Int32, 5000);
                 db.AddOutParameter(createCustomerMFAccountCmd, "@IsFolioExist", DbType.Int32, 5000);
                 if (customerAccountVo.BankId != 0)
@@ -424,8 +424,8 @@ namespace DaoCustomerPortfolio
                 else
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@XCT_CustomerTypeCode", DbType.String, DBNull.Value);
-                } 
-                
+                }
+
                 if (!string.IsNullOrEmpty(customerAccountVo.XCST_CustomerSubTypeCode))
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@XCST_CustomerSubTypeCode", DbType.String, customerAccountVo.XCST_CustomerSubTypeCode);
@@ -538,14 +538,14 @@ namespace DaoCustomerPortfolio
 
                 if (!string.IsNullOrEmpty(customerAccountVo.BankName))
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BankName", DbType.String, customerAccountVo.BankName);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@WERPBM_BankCode", DbType.String, customerAccountVo.BankName);
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BankName", DbType.String, DBNull.Value);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@WERPBM_BankCode", DbType.String, DBNull.Value);
                 }
 
-                if (customerAccountVo.CustomerId == 0)
+                if (customerAccountVo.CustomerId != 0)
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@C_CustomerId", DbType.Int32, customerAccountVo.CustomerId);
                 }
@@ -2626,11 +2626,11 @@ namespace DaoCustomerPortfolio
             {
                 throw Ex;
             }
-           
+
             return bResult;
         }
 
-        public bool UpdateISAAccountAssociation(CustomerISAAccountsVo customerISAAccountAssociationVo,string associationIds)
+        public bool UpdateISAAccountAssociation(CustomerISAAccountsVo customerISAAccountAssociationVo, string associationIds)
         {
             bool bResult = false;
             Database db;
@@ -2727,8 +2727,8 @@ namespace DaoCustomerPortfolio
                 if (db.ExecuteNonQuery(createISAAccountAssociationCmd) != 0)
                     bResult = 1;
 
-               
-                   
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -2753,12 +2753,12 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
-        public int CreateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo, int customerId, int userId,int requestId)
+        public int CreateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo, int customerId, int userId, int requestId)
         {
-          
+
             Database db;
             DbCommand createISAAccountAssociationCmd;
-            int customerISAAccountId=0;
+            int customerISAAccountId = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2968,7 +2968,7 @@ namespace DaoCustomerPortfolio
             bool IsDelete = false; ;
             try
             {
-                
+
 
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deleteISAaccountCmd = db.GetStoredProcCommand("SPROC_DeleteCustomerISAAccount");
@@ -2982,6 +2982,27 @@ namespace DaoCustomerPortfolio
                 throw (Ex);
             }
             return IsDelete;
+        }
+        public DataSet GetAccountType()
+        {
+            Database db;
+            DbCommand GetAccountTypeCmd;
+            DataSet dsGetAccountType;
+
+            try
+            {
+
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAccountTypeCmd = db.GetStoredProcCommand("SP_GetCustomerAccountTypeForBankDetails");
+                dsGetAccountType = db.ExecuteDataSet(GetAccountTypeCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetAccountType;
         }
 
     }

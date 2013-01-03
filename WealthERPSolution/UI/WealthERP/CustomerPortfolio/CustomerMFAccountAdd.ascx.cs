@@ -50,7 +50,7 @@ namespace WealthERP.CustomerPortfolio
         string path;
         string action;
         int fundGoalId = 0;
-        DataTable dtAccountType = new DataTable();
+        DataSet dsAccountType = new DataSet();
         DataTable dtModeofOperation = new DataTable();
         DataTable dtStates = new DataTable();
 
@@ -1537,7 +1537,7 @@ namespace WealthERP.CustomerPortfolio
 
             if (dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString().Trim() != "")
                 ddlModeOfOpn.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString().Trim();
-            ddlAccType.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XBAT_BankAccountTypeCode"].ToString();
+            ddlAccType.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XBAT_BankAccountTypeCode"].ToString().Trim();
             txtPinCode.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrPinCode"].ToString();
             txtMicr.Text = dsbankDetails.Tables[0].Rows[0]["CB_MICR"].ToString();
             txtIfsc.Text = dsbankDetails.Tables[0].Rows[0]["CB_IFSC"].ToString();
@@ -1548,10 +1548,11 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                dtAccountType = XMLBo.GetBankAccountTypes(path);
-                ddlAccType.DataSource = dtAccountType;
-                ddlAccType.DataTextField = "BankAccountType";
-                ddlAccType.DataValueField = "BankAccountTypeCode";
+                dsAccountType = customerAccountBo.GetAccountType();
+                    //XMLBo.GetBankAccountTypes(path);
+                ddlAccType.DataSource = dsAccountType;
+                ddlAccType.DataTextField = "XBAT_BankAccountTye";
+                ddlAccType.DataValueField = "XBAT_BankAccountTypeCode";
                 ddlAccType.DataBind();
                 ddlAccType.Items.Insert(0, new ListItem("Select", "0"));
 
@@ -1581,7 +1582,7 @@ namespace WealthERP.CustomerPortfolio
                 FunctionInfo.Add("Method", "AddBankDetails.ascx:BindDropDowns()");
                 object[] objects = new object[4];
                 objects[0] = path;
-                objects[1] = dtAccountType;
+                objects[1] = dsAccountType;
                 objects[2] = dtModeofOperation;
                 objects[3] = dtStates;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);

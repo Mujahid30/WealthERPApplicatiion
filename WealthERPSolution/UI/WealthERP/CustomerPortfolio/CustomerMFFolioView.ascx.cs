@@ -89,8 +89,6 @@ namespace WealthERP.CustomerPortfolio
             int Count;
             try
             {
-               
-
                 FolioList = CustomerTransactionBo.GetCustomerMFFolios(portfolioId, customerVo.CustomerId);
 
                 // lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
@@ -374,7 +372,7 @@ namespace WealthERP.CustomerPortfolio
                 if (checkBox.Checked)
                 {
 
-                    int MFAccountId = Convert.ToInt32(gvMFFolio.MasterTableView.DataKeyNames[dr.RowIndex]);
+                    int MFAccountId = Convert.ToInt32(gvMFFolio.MasterTableView.Items[dr.ItemIndex].GetDataKeyValue("FolioId").ToString());
                     bool isUpdated = PortfolioBo.TransferFolio(MFAccountId, portfolioVo.PortfolioId);
                     if (isUpdated)
                         totalFoliosMoved++;
@@ -475,7 +473,9 @@ namespace WealthERP.CustomerPortfolio
                     {
                         AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
                         accountID = Convert.ToInt32(gvMFFolio.MasterTableView.DataKeyValues[selectedRow]["FolioId"].ToString());
-                        string folioNo = dr.Cells[2].Text;
+                        //string folioNo = gvMFFolio.MasterTableView.DataKeyValues[selectedRow]["FolioId"].ToString();
+                        string folioNo = gvMFFolio.MasterTableView.Items[dr.ItemIndex].GetDataKeyValue("Folio No").ToString();
+
                         dsPortFolioUpdate = adviserBranchBo.FolioMoveToPortfolio(customerId, folioNo, TofolioId, accountID);
                     }                   
                 }
