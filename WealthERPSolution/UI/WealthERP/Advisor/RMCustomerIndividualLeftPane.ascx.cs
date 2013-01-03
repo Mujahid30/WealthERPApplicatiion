@@ -1137,7 +1137,9 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "View MF Transactions")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionsView", "loadcontrol('TransactionsView', 'none')", true);
+                    //RMMultipleTransactionView
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionsView", "loadcontrol('TransactionsView', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionsView", "loadcontrol('RMMultipleTransactionView', 'none')", true);
                 }
                 else if (e.Item.Value == "Add MF Transactions")
                 {
