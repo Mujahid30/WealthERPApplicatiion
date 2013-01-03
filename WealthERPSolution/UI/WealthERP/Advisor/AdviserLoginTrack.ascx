@@ -32,7 +32,7 @@
     <tr>
         <td>
             <asp:Label ID="lblSelectCategory" runat="server" Text="Select User :" CssClass="FieldName"></asp:Label>
-            <asp:DropDownList runat="server" ID="ddlCategory" AutoPostBack="false" CssClass="cmbField"
+            <asp:DropDownList runat="server" ID="ddlCategory" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
                 <asp:ListItem Value="All">All </asp:ListItem>
                 <asp:ListItem Value="customer">Customer</asp:ListItem>
@@ -83,16 +83,17 @@
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server" >
     <ContentTemplate>
-        <div >
+        <div>
         <table cellspacing="0" cellpadding="3" width="100%">
+                
                 <tr>
                     <td>
                         <telerik:RadGrid ID="gvLoginTrack" AllowSorting="true" runat="server" AllowAutomaticInserts="false"
-                            EnableLoadOnDemand="false" AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
-                            EnableViewState="true" EnableEmbeddedSkins="false" GridLines="Both" PageSize="10"
-                            ShowFooter="true" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik">
+                            EnableLoadOnDemand="true" AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
+                            EnableViewState="true" EnableEmbeddedSkins="false" GridLines="None" PageSize="10"
+                            ShowFooter="true" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik" OnNeedDataSource="gvLoginTrack_NeedDataSource">
                             <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                            <ExportSettings HideStructureColumns="false" ExportOnlyData="true" IgnorePaging="true"
+                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                 FileName="AdviserLoginTrack" Excel-Format="ExcelML">
                             </ExportSettings>
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"

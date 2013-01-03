@@ -39,13 +39,14 @@ namespace WealthERP.Advisor
             RMVo customerRMVo = new RMVo();
             gvLoginTrack.ShowHeader = true;
             //gvLoginTrack.GridLines = GridLines.None;
-                  
-            DateTime fromDate = DateTime.Now.AddDays(-15);
-            txtFrom.SelectedDate = fromDate;
-            txtTo.SelectedDate = DateTime.Now;
-            
+            if (!IsPostBack)
+            {
+                gvLoginTrack.Visible = false;
+                DateTime fromDate = DateTime.Now.AddDays(-15);
+                txtFrom.SelectedDate = fromDate;
+                txtTo.SelectedDate = DateTime.Now;
+            }
             //Session["ButtonGo"] = null;
-
             //if (Session["ButtonGo"] != null)
             //    CallAllGridBinding();   
         }
@@ -80,32 +81,46 @@ namespace WealthERP.Advisor
         }
         private void GetData()
         {
-            userType = ddlCategory.SelectedValue;
-            dsBindLoginTrack = userBo.GetLoginDetail(userType, advisorVo.advisorId, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value));
+            //userType = ddlCategory.SelectedValue;
+            //dsBindLoginTrack = userBo.GetLoginDetail(userType, advisorVo.advisorId, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value));
         }
         protected void CallAllGridBinding()
         {
             SetParameter();
-            GetData();
-            if (dsBindLoginTrack.Tables.Count != 0)
-            {   tblMessage.Visible = false;
-                ErrorMessage.Visible = false;
-                BindgvLoginTrack();
-            }
-            else
-            {
-                tblMessage.Visible = true;
-                ErrorMessage.Visible = true;
-                ErrorMessage.InnerText = "No Records Found...!";
-            }      
+            BindgvLoginTrack();
+            //if (dsBindLoginTrack.Tables.Count != 0)
+            //{   tblMessage.Visible = false;
+            //    ErrorMessage.Visible = false;
+               
+            //}
+            //else
+            //{
+            //    tblMessage.Visible = true;
+            //    ErrorMessage.Visible = true;
+            //    ErrorMessage.InnerText = "No Records Found...!";
+            //}      
         }
         private void BindgvLoginTrack()
         {
             try
             {
-                dtLoginTrack = dsBindLoginTrack.Tables[0];
-                gvLoginTrack.DataSource = dtLoginTrack;
-                gvLoginTrack.DataBind();
+                userType = ddlCategory.SelectedValue;
+                dsBindLoginTrack = userBo.GetLoginDetail(userType, advisorVo.advisorId, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value));
+                if (dsBindLoginTrack.Tables.Count != 0)
+                {                  
+                    if (Cache["gvLoginTrack + '" + advisorVo.advisorId + "'"] == null)
+                    {
+                        Cache.Insert("gvLoginTrack + '" + advisorVo.advisorId + "'", dsBindLoginTrack);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvLoginTrack + '" + advisorVo.advisorId + "'");
+                        Cache.Insert("gvLoginTrack + '" + advisorVo.advisorId + "'", dsBindLoginTrack);
+                    }
+                    gvLoginTrack.DataSource = dsBindLoginTrack;
+                    gvLoginTrack.DataBind();
+                    gvLoginTrack.Visible = true;
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -147,9 +162,19 @@ namespace WealthERP.Advisor
                 ErrorMessage.Visible = false;
             }          
         }
-
-      
-        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        protected void gvLoginTrack_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            gvLoginTrack.Visible = true;
+            DataSet dsLoginT = new DataSet();
+            dsLoginT = (DataSet)Cache["gvLoginTrack + '" + advisorVo.advisorId + "'"]; 
+            gvLoginTrack.DataSource =dsLoginT ;
+            //if (gvLoginTrack.DataSource != null)
+            //    gvLoginTrack.Visible = true;
+            //else
+            //    gvLoginTrack.Visible = false;
+        
+        }
+     public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvLoginTrack.ExportSettings.OpenInNewWindow = true;
             gvLoginTrack.ExportSettings.IgnorePaging = true;
