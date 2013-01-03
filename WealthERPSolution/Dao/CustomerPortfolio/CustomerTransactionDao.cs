@@ -1053,7 +1053,7 @@ namespace DaoCustomerPortfolio
             return transactionId;
         }
 
-        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId, int export, int CurrentPage, out int Count, string SchemeFilter, string TypeFilter, string TriggerFilter, string TransactionCode, string DateFilter, out Dictionary<string, string> genDictTranType, out Dictionary<string, string> genDictTranTrigger, out Dictionary<string, string> genDictTranDate, string SortExpression, DateTime FromDate, DateTime ToDate, string folioFilter, int ProcessId)
+        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId,DateTime FromDate, DateTime ToDate)
         {
             List<MFTransactionVo> mfTransactionsList = null;
             MFTransactionVo mfTransactionVo = new MFTransactionVo();
@@ -1061,11 +1061,11 @@ namespace DaoCustomerPortfolio
             DbCommand getMFTransactionsCmd;
             DataSet dsGetMFTransactions;
             DataTable dtGetMFTransactions;
-            genDictTranType = new Dictionary<string, string>();
-            genDictTranTrigger = new Dictionary<string, string>();
-            genDictTranDate = new Dictionary<string, string>();
+            //genDictTranType = new Dictionary<string, string>();
+            //genDictTranTrigger = new Dictionary<string, string>();
+            //genDictTranDate = new Dictionary<string, string>();
 
-            Count = 0;
+            //Count = 0;
 
             try
             {
@@ -1073,39 +1073,39 @@ namespace DaoCustomerPortfolio
                 getMFTransactionsCmd = db.GetStoredProcCommand("SP_GetCustomerMutualFundTransactions");
                 db.AddInParameter(getMFTransactionsCmd, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(getMFTransactionsCmd, "@CP_PortfolioId", DbType.Int32, portfolioId);
-                db.AddInParameter(getMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
-                db.AddInParameter(getMFTransactionsCmd, "@export", DbType.Int32, export);
-                if (SchemeFilter != "")
-                    db.AddInParameter(getMFTransactionsCmd, "@schemeFilter", DbType.String, SchemeFilter);
-                else
-                    db.AddInParameter(getMFTransactionsCmd, "@schemeFilter", DbType.String, DBNull.Value);
-                if (folioFilter != "")
-                    db.AddInParameter(getMFTransactionsCmd, "@folioFilter", DbType.String, folioFilter);
-                else
-                    db.AddInParameter(getMFTransactionsCmd, "@folioFilter", DbType.String, DBNull.Value);
-                if (TypeFilter != "")
-                    db.AddInParameter(getMFTransactionsCmd, "@typeFilter", DbType.String, TypeFilter);
-                else
-                    db.AddInParameter(getMFTransactionsCmd, "@typeFilter", DbType.String, DBNull.Value);
-                if (TriggerFilter != "")
-                    db.AddInParameter(getMFTransactionsCmd, "@triggerFilter", DbType.String, TriggerFilter);
-                else
-                    db.AddInParameter(getMFTransactionsCmd, "@triggerFilter", DbType.String, DBNull.Value);
-                if (DateFilter != "")
-                    db.AddInParameter(getMFTransactionsCmd, "@dateFilter", DbType.String, DateFilter);
-                else
-                    db.AddInParameter(getMFTransactionsCmd, "@dateFilter", DbType.String, DBNull.Value);
-                if (TransactionCode != "")
-                    db.AddInParameter(getMFTransactionsCmd, "@TransactionStatusCode", DbType.Int16, Int16.Parse(TransactionCode));
-                else
-                    db.AddInParameter(getMFTransactionsCmd, "@TransactionStatusCode", DbType.Int16, 1);
+                //db.AddInParameter(getMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(getMFTransactionsCmd, "@export", DbType.Int32, export);
+                //if (SchemeFilter != "")
+                //    db.AddInParameter(getMFTransactionsCmd, "@schemeFilter", DbType.String, SchemeFilter);
+                //else
+                //    db.AddInParameter(getMFTransactionsCmd, "@schemeFilter", DbType.String, DBNull.Value);
+                //if (folioFilter != "")
+                //    db.AddInParameter(getMFTransactionsCmd, "@folioFilter", DbType.String, folioFilter);
+                //else
+                //    db.AddInParameter(getMFTransactionsCmd, "@folioFilter", DbType.String, DBNull.Value);
+                //if (TypeFilter != "")
+                //    db.AddInParameter(getMFTransactionsCmd, "@typeFilter", DbType.String, TypeFilter);
+                //else
+                //    db.AddInParameter(getMFTransactionsCmd, "@typeFilter", DbType.String, DBNull.Value);
+                //if (TriggerFilter != "")
+                //    db.AddInParameter(getMFTransactionsCmd, "@triggerFilter", DbType.String, TriggerFilter);
+                //else
+                //    db.AddInParameter(getMFTransactionsCmd, "@triggerFilter", DbType.String, DBNull.Value);
+                //if (DateFilter != "")
+                //    db.AddInParameter(getMFTransactionsCmd, "@dateFilter", DbType.String, DateFilter);
+                //else
+                //    db.AddInParameter(getMFTransactionsCmd, "@dateFilter", DbType.String, DBNull.Value);
+                //if (TransactionCode != "")
+                //    db.AddInParameter(getMFTransactionsCmd, "@TransactionStatusCode", DbType.Int16, Int16.Parse(TransactionCode));
+                //else
+                //    db.AddInParameter(getMFTransactionsCmd, "@TransactionStatusCode", DbType.Int16, 1);
 
-                if (ProcessId != 0)
-                    db.AddInParameter(getMFTransactionsCmd, "@ProcessId", DbType.String, ProcessId);
-                else
-                    db.AddInParameter(getMFTransactionsCmd, "@ProcessId", DbType.String, DBNull.Value);
+                //if (ProcessId != 0)
+                //    db.AddInParameter(getMFTransactionsCmd, "@ProcessId", DbType.String, ProcessId);
+                //else
+                //    db.AddInParameter(getMFTransactionsCmd, "@ProcessId", DbType.String, DBNull.Value);
 
-                db.AddInParameter(getMFTransactionsCmd, "@sortExpression", DbType.String, SortExpression);
+                //db.AddInParameter(getMFTransactionsCmd, "@sortExpression", DbType.String, SortExpression);
                 db.AddInParameter(getMFTransactionsCmd, "@FromTransactionDate", DbType.DateTime, FromDate);
                 db.AddInParameter(getMFTransactionsCmd, "@ToTransactionDate", DbType.DateTime, ToDate);
                 getMFTransactionsCmd.CommandTimeout = 60 * 60;
@@ -1173,29 +1173,21 @@ namespace DaoCustomerPortfolio
                     }
                 }
 
-                if (dsGetMFTransactions.Tables[2].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dsGetMFTransactions.Tables[2].Rows)
-                    {
-                        genDictTranType.Add(dr["WMTT_TransactionClassificationName"].ToString(), dr["WMTT_TransactionClassificationName"].ToString());
-                    }
-                }
+                //if (dsGetMFTransactions.Tables[2].Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in dsGetMFTransactions.Tables[2].Rows)
+                //    {
+                //        genDictTranType.Add(dr["WMTT_TransactionClassificationName"].ToString(), dr["WMTT_TransactionClassificationName"].ToString());
+                //    }
+                //}
 
                 //if (dsGetMFTransactions.Tables[3].Rows.Count > 0)
                 //{
                 //    foreach (DataRow dr in dsGetMFTransactions.Tables[3].Rows)
                 //    {
-                //        genDictTranTrigger.Add(dr["WMTT_Trigger"].ToString(), dr["WMTT_Trigger"].ToString());
+                //        genDictTranDate.Add(DateTime.Parse(dr["CMFT_TransactionDate"].ToString()).ToShortDateString(), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()).ToShortDateString());
                 //    }
                 //}
-
-                if (dsGetMFTransactions.Tables[3].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dsGetMFTransactions.Tables[3].Rows)
-                    {
-                        genDictTranDate.Add(DateTime.Parse(dr["CMFT_TransactionDate"].ToString()).ToShortDateString(), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()).ToShortDateString());
-                    }
-                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1217,8 +1209,8 @@ namespace DaoCustomerPortfolio
                 throw exBase;
 
             }
-            if (dsGetMFTransactions.Tables[1].Rows.Count > 0)
-                Count = Int32.Parse(dsGetMFTransactions.Tables[1].Rows[0]["CNT"].ToString());
+            //if (dsGetMFTransactions.Tables[1].Rows.Count > 0)
+            //    Count = Int32.Parse(dsGetMFTransactions.Tables[1].Rows[0]["CNT"].ToString());
 
             return mfTransactionsList;
         }
@@ -2293,7 +2285,7 @@ namespace DaoCustomerPortfolio
         /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
         /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
         /// <returns></returns>
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(out int Count, int CurrentPage, int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC, int ProcessId)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId)
         {
             DataSet ds = null;
             Database db;
@@ -2301,23 +2293,22 @@ namespace DaoCustomerPortfolio
             List<MFTransactionVo> mfTransactionsList = new List<MFTransactionVo>();
             MFTransactionVo mfTransactionVo = new MFTransactionVo();
             DataTable dtGetMFTransactions;
-            Count = 0;
-            genDictTranType = new Dictionary<string, string>();
-            genDictCategory = new Dictionary<string, string>();
-            genDictAMC = new Dictionary<string, int>();
+            //genDictTranType = new Dictionary<string, string>();
+            //genDictCategory = new Dictionary<string, string>();
+            //genDictAMC = new Dictionary<string, int>();
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //pramod
-                if (CurrentPage == 5000)
-                {
-                    getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetALLRMCustomerMFTransactions");
+                //if (CurrentPage == 5000)
+                //{
+                //    getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetALLRMCustomerMFTransactions");
 
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetRMCustomerMFTransactions");
-                }
+                //}
 
                 if (RMId != 0)
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RMId", DbType.Int32, RMId);
@@ -2338,50 +2329,54 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, DBNull.Value);
                 }
-                if (ProcessId != 0)
-                {
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@processId", DbType.Int32, ProcessId);
-                }
-                else
-                {
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
-                }
+                //if (ProcessId != 0)
+                //{
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@processId", DbType.Int32, ProcessId);
+                //}
+                //else
+                //{
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
+                //}
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
-                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
-                if (CustomerName != string.Empty)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, CustomerName);
+                if (AccountId != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, AccountId);
                 else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, DBNull.Value);
-                if (Scheme != string.Empty)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Scheme", DbType.String, Scheme);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Scheme", DbType.String, DBNull.Value);
-                if (TranType != string.Empty)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TranType", DbType.String, TranType);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TranType", DbType.String, DBNull.Value);
-                if (FolioNumber != string.Empty)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FolioNumber", DbType.String, FolioNumber);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FolioNumber", DbType.String, DBNull.Value);
-                if (PasssedFolioValue != null)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@PasssedFolioValue", DbType.String, PasssedFolioValue);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@PasssedFolioValue", DbType.String, DBNull.Value);
-                if (transactionStatus == "")
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TransactionStatus", DbType.String, "1");
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TransactionStatus", DbType.String, transactionStatus);
-                if (categoryCode == "")
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CategoryCode", DbType.String, DBNull.Value);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CategoryCode", DbType.String, categoryCode);
-                if (AMCCode == 0)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMCCode", DbType.Int32, DBNull.Value);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMCCode", DbType.String, AMCCode);
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, DBNull.Value);
+                //db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
+                //if (CustomerName != string.Empty)
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, CustomerName);
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, DBNull.Value);
+                //if (Scheme != string.Empty)
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Scheme", DbType.String, Scheme);
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Scheme", DbType.String, DBNull.Value);
+                //if (TranType != string.Empty)
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TranType", DbType.String, TranType);
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TranType", DbType.String, DBNull.Value);
+                //if (FolioNumber != string.Empty)
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FolioNumber", DbType.String, FolioNumber);
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FolioNumber", DbType.String, DBNull.Value);
+                //if (PasssedFolioValue != null)
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@PasssedFolioValue", DbType.String, PasssedFolioValue);
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@PasssedFolioValue", DbType.String, DBNull.Value);
+                //if (transactionStatus == "")
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TransactionStatus", DbType.String, "1");
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TransactionStatus", DbType.String, transactionStatus);
+                //if (categoryCode == "")
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CategoryCode", DbType.String, DBNull.Value);
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CategoryCode", DbType.String, categoryCode);
+                //if (AMCCode == 0)
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMCCode", DbType.Int32, DBNull.Value);
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMCCode", DbType.String, AMCCode);
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
                 if (ds.Tables[0].Rows.Count > 0)
@@ -2449,30 +2444,30 @@ namespace DaoCustomerPortfolio
                     }
                 }
                 //pramod
-                if (ds.Tables.Count > 1)
-                {
-                    if (ds.Tables[2].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in ds.Tables[2].Rows)
-                        {
-                            genDictTranType.Add(dr["WMTT_TransactionClassificationName"].ToString(), dr["WMTT_TransactionClassificationName"].ToString());
-                        }
-                    }
-                    if (ds.Tables[3].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in ds.Tables[3].Rows)
-                        {
-                            genDictCategory.Add(dr["PAIC_AssetInstrumentCategoryName"].ToString(), dr["PAIC_AssetInstrumentCategoryCode"].ToString());
-                        }
-                    }
-                    if (ds.Tables[4].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in ds.Tables[4].Rows)
-                        {
-                            genDictAMC.Add(dr["PA_AMCName"].ToString(), int.Parse(dr["PA_AMCCode"].ToString()));
-                        }
-                    }
-                }
+                //if (ds.Tables.Count > 1)
+                //{
+                //    if (ds.Tables[2].Rows.Count > 0)
+                //    {
+                //        foreach (DataRow dr in ds.Tables[2].Rows)
+                //        {
+                //            genDictTranType.Add(dr["WMTT_TransactionClassificationName"].ToString(), dr["WMTT_TransactionClassificationName"].ToString());
+                //        }
+                //    }
+                //    if (ds.Tables[3].Rows.Count > 0)
+                //    {
+                //        foreach (DataRow dr in ds.Tables[3].Rows)
+                //        {
+                //            genDictCategory.Add(dr["PAIC_AssetInstrumentCategoryName"].ToString(), dr["PAIC_AssetInstrumentCategoryCode"].ToString());
+                //        }
+                //    }
+                //    if (ds.Tables[4].Rows.Count > 0)
+                //    {
+                //        foreach (DataRow dr in ds.Tables[4].Rows)
+                //        {
+                //            genDictAMC.Add(dr["PA_AMCName"].ToString(), int.Parse(dr["PA_AMCCode"].ToString()));
+                //        }
+                //    }
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -2483,18 +2478,18 @@ namespace DaoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetRMCustomerMFTransactions()");
-                object[] objects = new object[11];
+                object[] objects = new object[3];
                 objects[0] = RMId;
                 objects[1] = GroupHeadId;
                 objects[2] = From;
                 objects[3] = To;
                 objects[4] = Manage;
-                objects[5] = Scheme;
-                objects[6] = genDictTranType;
-                objects[7] = FolioNumber;
-                objects[8] = CustomerName;
-                objects[9] = CurrentPage;
-                objects[10] = PasssedFolioValue;
+                //objects[5] = Scheme;
+                //objects[6] = genDictTranType;
+                //objects[7] = FolioNumber;
+                //objects[8] = CustomerName;
+                //objects[9] = CurrentPage;
+                //objects[10] = PasssedFolioValue;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -2504,11 +2499,11 @@ namespace DaoCustomerPortfolio
             }
 
             //
-            if (ds.Tables.Count > 1)
-            {
-                if (ds.Tables[1].Rows.Count > 0)
-                    Count = Int32.Parse(ds.Tables[1].Rows[0]["CNT"].ToString());
-            }
+            //if (ds.Tables.Count > 1)
+            //{
+            //    if (ds.Tables[1].Rows.Count > 0)
+            //        Count = Int32.Parse(ds.Tables[1].Rows[0]["CNT"].ToString());
+            //}
             return mfTransactionsList;
         }
         public List<MFTransactionVo> GetAdviserCustomerMFTransactions(out int Count, int CurrentPage, int adviserId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC)
