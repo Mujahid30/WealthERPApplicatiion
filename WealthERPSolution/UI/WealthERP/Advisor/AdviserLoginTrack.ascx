@@ -74,24 +74,21 @@
                 ControlToCompare="txtFrom" Operator="GreaterThan" Type="Date" Font-Size="Small" ErrorMessage="Error">
             </asp:CompareValidator>
         </td>
-        <td colspan="4">
+        <td colspan="6" >
             <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
                 OnClick="btnGo_Click" />
         </td>         
     </tr>
 </table>
-<%--<table width="100%">
-    <tr>
-    </tr>
-</table>--%>
-<asp:UpdatePanel ID="UpdatePanel1" runat="server"  >
+
+<asp:UpdatePanel ID="UpdatePanel1" runat="server" >
     <ContentTemplate>
-        <div style="overflow:hidden">
-            <table cellspacing="0" cellpadding="3" width="100%" >
+        <div >
+        <table cellspacing="0" cellpadding="3" width="100%">
                 <tr>
                     <td>
                         <telerik:RadGrid ID="gvLoginTrack" AllowSorting="true" runat="server" AllowAutomaticInserts="false"
-                            EnableLoadOnDemand="true" AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
+                            EnableLoadOnDemand="false" AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
                             EnableViewState="true" EnableEmbeddedSkins="false" GridLines="Both" PageSize="10"
                             ShowFooter="true" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik">
                             <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
