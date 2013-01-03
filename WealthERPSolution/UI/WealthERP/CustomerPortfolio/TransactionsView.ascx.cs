@@ -18,6 +18,7 @@ using iTextSharp.text.pdf;
 using System.Globalization;
 using System.Collections;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -45,107 +46,6 @@ namespace WealthERP.CustomerPortfolio
         static double totalAmount = 0;
         static double totalUnits = 0;
         static float totalsst = 0;
-        protected override void OnInit(EventArgs e)
-        {
-            try
-            {
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "TransactionsView.ascx.cs:OnInit()");
-                object[] objects = new object[0];
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-
-        }
-
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                GetPageCount();
-                this.BindGridView(customerVo.CustomerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "TransactionsView.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[1];
-                objects[0] = customerVo;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-        }
-
-        private void GetPageCount()
-        {
-            string upperlimit = "";
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = "";
-            string PageRecords = "";
-            try
-            {
-                if (hdnRecordCount.Value != "")
-                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                if (rowCount > 0)
-                {
-                    ratio = rowCount / 10;
-                    mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
-                    upperlimit = (mypager.CurrentPage * 10).ToString();
-                    if (mypager.CurrentPage == mypager.PageCount)
-                        upperlimit = hdnRecordCount.Value;
-                    PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                    lblCurrentPage.Text = PageRecords;
-                    hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "TransactionsView.ascx.cs:GetPageCount()");
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {     
@@ -156,10 +56,8 @@ namespace WealthERP.CustomerPortfolio
             customerId = customerVo.CustomerId;
             userVo = (UserVo)Session["userVo"];
             rmVo = (RMVo)Session["rmVo"];
-            tblExport.Visible = false;
             if (!IsPostBack)
             {
-                mypager.CurrentPage = 1;
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 // Bind Grid
                 BindPortfolioDropDown();
@@ -169,7 +67,7 @@ namespace WealthERP.CustomerPortfolio
                     ht = (Hashtable)Session["tranDates"];
                     txtFromTran.SelectedDate =DateTime.Parse( ht["From"].ToString());
                     txtToTran.SelectedDate =DateTime.Parse( ht["To"].ToString());
-                    BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+                    BindGridView(customerId, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
                     Session.Remove("tranDates");
                 }
                 else
@@ -178,7 +76,7 @@ namespace WealthERP.CustomerPortfolio
                     //txtToTran.Text = DateTime.Now.ToShortDateString().ToString();
                     txtFromTran.SelectedDate = DateTime.Now;
                     txtToTran.SelectedDate = DateTime.Now;
-                    BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+                    BindGridView(customerId, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
                     //ErrorMessage.Visible = true;
                     //ErrorMessage.Text = "Please select the transaction period..";
                 }
@@ -205,14 +103,14 @@ namespace WealthERP.CustomerPortfolio
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
-            BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+            BindGridView(customerId, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
         }
 
-        private void BindGridView(int CustomerId, int CurrentPage, int export, DateTime from, DateTime to)
+        private void BindGridView(int CustomerId, DateTime from, DateTime to)
         {
-            Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
-            Dictionary<string, string> genDictTranTrigger = new Dictionary<string, string>();
-            Dictionary<string, string> genDictTranDate = new Dictionary<string, string>();
+            //Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
+            //Dictionary<string, string> genDictTranTrigger = new Dictionary<string, string>();
+            //Dictionary<string, string> genDictTranDate = new Dictionary<string, string>();
             totalsst = 0;
             totalAmount = 0;
             totalUnits = 0;
@@ -233,44 +131,25 @@ namespace WealthERP.CustomerPortfolio
             DataTable dtMFTransactions = new DataTable();
             try
             {
-                if (hdnCurrentPage.Value.ToString() != "")
-                {
-                    mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-                    hdnCurrentPage.Value = "";
-                }
-
-                int Count;
-                int processid=0;
-                int.TryParse(hdnProcessIdSearch.Value, out processid);
-                if (export == 1)
-                {
-                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 1, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value.Trim(), from, to, hdnFolioFilter.Value.Trim(), processid);                   
-                }
-                else
-                {
-                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 0, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to, hdnFolioFilter.Value.Trim(), processid);
-                    hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
-                }
+                //page itself is not in use so commented by SS 
+                //mfTransactionList = customerTransactionBo.GetMFTransactions(customerId, portfolioId, from, to);                   
+               
                 // customerTransactionBo.GetMFTransactions(customerVo.CustomerId,"C").ToString();
 
 
 
                 if (mfTransactionList != null)
                 {
-                    //tblGV.Visible = true;
-                    trPager.Visible = true;
                     ErrorMessage.Visible = false;
-                    lblTotalRows.Visible = true;
-                    lblCurrentPage.Visible = true;
                     dtMFTransactions.Columns.Add("TransactionId");
                     dtMFTransactions.Columns.Add("Folio Number");
                     dtMFTransactions.Columns.Add("Scheme Name");
                     dtMFTransactions.Columns.Add("Transaction Type");
                     dtMFTransactions.Columns.Add("Transaction Date");
-                    dtMFTransactions.Columns.Add("Price");
-                    dtMFTransactions.Columns.Add("Units");
-                    dtMFTransactions.Columns.Add("Amount");
-                    dtMFTransactions.Columns.Add("STT");
+                    dtMFTransactions.Columns.Add("Price",typeof(double));
+                    dtMFTransactions.Columns.Add("Units", typeof(double));
+                    dtMFTransactions.Columns.Add("Amount", typeof(double));
+                    dtMFTransactions.Columns.Add("STT", typeof(double));
                     dtMFTransactions.Columns.Add("Transaction Status");
                     dtMFTransactions.Columns.Add("ADUL_ProcessId");
                     dtMFTransactions.Columns.Add("CMFT_SubBrokerCode");
@@ -317,26 +196,38 @@ namespace WealthERP.CustomerPortfolio
 
                     gvMFTransactions.DataSource = dtMFTransactions;
                     gvMFTransactions.DataBind();
+                    Panel1.Visible = true;
                     gvMFTransactions.Visible = true;
-                    tblExport.Visible = true;
-
-                    if (genDictTranType.Count > 0)
+                    btnViewTransaction.Visible = true;
+                    if (Cache["ViewTransaction" + userVo.UserId] == null)
                     {
-                        DropDownList ddlTranType = GetTranTypeDDL();
-                        if (ddlTranType != null)
-                        {
-                            ddlTranType.DataSource = genDictTranType;
-                            ddlTranType.DataTextField = "Key";
-                            ddlTranType.DataValueField = "Value";
-                            ddlTranType.DataBind();
-                            ddlTranType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-                        }
-
-                        if (hdnTranType.Value != "")
-                        {
-                            ddlTranType.SelectedValue = hdnTranType.Value.ToString().Trim();
-                        }
+                        Cache.Insert("ViewTransaction" + userVo.UserId, dtMFTransactions);
                     }
+                    else
+                    {
+                        Cache.Remove("ViewTransaction" + userVo.UserId);
+                        Cache.Insert("ViewTransaction" + userVo.UserId, dtMFTransactions);
+                    }
+
+
+                    //---------*******Converted to Telerik Grid******--------------------------
+                    //if (genDictTranType.Count > 0)
+                    //{
+                    //    DropDownList ddlTranType = GetTranTypeDDL();
+                    //    if (ddlTranType != null)
+                    //    {
+                    //        ddlTranType.DataSource = genDictTranType;
+                    //        ddlTranType.DataTextField = "Key";
+                    //        ddlTranType.DataValueField = "Value";
+                    //        ddlTranType.DataBind();
+                    //        ddlTranType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                    //    }
+
+                    //    if (hdnTranType.Value != "")
+                    //    {
+                    //        ddlTranType.SelectedValue = hdnTranType.Value.ToString().Trim();
+                    //    }
+                    //}
 
                     //if (genDictTranTrigger.Count > 0)
                     //{
@@ -356,61 +247,60 @@ namespace WealthERP.CustomerPortfolio
                     //    }
                     //}
 
-                    if (genDictTranDate.Count > 0)
-                    {
-                        DropDownList ddlTranDate = GetTranDateDDL();
-                        if (ddlTranDate != null)
-                        {
-                            ddlTranDate.DataSource = genDictTranDate;
-                            ddlTranDate.DataTextField = "Key";
-                            ddlTranDate.DataValueField = "Value";
-                            ddlTranDate.DataBind();
-                            ddlTranDate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-                        }
 
-                        if (hdnTranDate.Value != "")
-                        {
-                            ddlTranDate.SelectedValue = hdnTranDate.Value.ToString().Trim();
-                        }
-                    }
+                    //---------*******Converted to Telerik Grid******--------------------------
+                    //if (genDictTranDate.Count > 0)
+                    //{
+                    //    DropDownList ddlTranDate = GetTranDateDDL();
+                    //    if (ddlTranDate != null)
+                    //    {
+                    //        ddlTranDate.DataSource = genDictTranDate;
+                    //        ddlTranDate.DataTextField = "Key";
+                    //        ddlTranDate.DataValueField = "Value";
+                    //        ddlTranDate.DataBind();
+                    //        ddlTranDate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                    //    }
 
-                    TextBox txtScheme = GetSchemeTextBox();
-                    TextBox txtFolio = GetFolioTextBox();
-                    TextBox txtProcessId = GetProcessIdTextBox();
-                    if (txtScheme != null)
-                    {
-                        if (hdnSchemeFilter.Value != "")
-                        {
-                            txtScheme.Text = hdnSchemeFilter.Value.ToString().Trim();
-                        }
-                    }
-                    if (txtFolio != null)
-                    {
-                        if (hdnFolioFilter.Value != "")
-                        {
-                            txtFolio.Text = hdnFolioFilter.Value.ToString().Trim();
-                        }
-                    }
-                    if (txtProcessId != null)
-                    {
-                        if (hdnProcessIdSearch.Value != "")
-                        {
-                            hdnProcessIdSearch.Value = txtProcessId.Text.Trim();
-                        }
-                    }
-                    GetPageCount();
+                    //    if (hdnTranDate.Value != "")
+                    //    {
+                    //        ddlTranDate.SelectedValue = hdnTranDate.Value.ToString().Trim();
+                    //    }
+                    //}
+
+
+                    //---------*******Converted to Telerik Grid******--------------------------
+                    //TextBox txtScheme = GetSchemeTextBox();
+                    //TextBox txtFolio = GetFolioTextBox();
+                    //TextBox txtProcessId = GetProcessIdTextBox();
+                    //if (txtScheme != null)
+                    //{
+                    //    if (hdnSchemeFilter.Value != "")
+                    //    {
+                    //        txtScheme.Text = hdnSchemeFilter.Value.ToString().Trim();
+                    //    }
+                    //}
+                    //if (txtFolio != null)
+                    //{
+                    //    if (hdnFolioFilter.Value != "")
+                    //    {
+                    //        txtFolio.Text = hdnFolioFilter.Value.ToString().Trim();
+                    //    }
+                    //}
+                    //if (txtProcessId != null)
+                    //{
+                    //    if (hdnProcessIdSearch.Value != "")
+                    //    {
+                    //        hdnProcessIdSearch.Value = txtProcessId.Text.Trim();
+                    //    }
+                    //}
+                    //GetPageCount();
                 }
                 else
                 {
-                    hdnRecordCount.Value = "0";
-                    lblCurrentPage.Visible = false;
-                    lblTotalRows.Visible = false;
-                    trPager.Visible = false;
-                    ErrorMessage.Visible = true;                    
-                    gvMFTransactions.DataSource = null;
-                    gvMFTransactions.DataBind();
-                    //tblGV.Visible = false;
-                    tblExport.Visible = false;
+                    ErrorMessage.Visible = true;
+                    Panel1.Visible = false;
+                    gvMFTransactions.Visible = false;
+                    btnViewTransaction.Visible = false;
                 }
 
             }
@@ -433,193 +323,200 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        private TextBox GetSchemeTextBox()
-        {
-            TextBox txt = new TextBox();
-            if (gvMFTransactions.HeaderRow != null)
-            {
-                if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtSchemeSearch") != null)
-                {
-                    txt = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtSchemeSearch");
-                }
-            }
-            else
-                txt = null;
+        //---------*******Converted to Telerik Grid******--------------------------
+        //private TextBox GetSchemeTextBox()
+        //{
+        //    TextBox txt = new TextBox();
+        //    if (gvMFTransactions.HeaderRow != null)
+        //    {
+        //        if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtSchemeSearch") != null)
+        //        {
+        //            txt = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtSchemeSearch");
+        //        }
+        //    }
+        //    else
+        //        txt = null;
 
-            return txt;
-        }
+        //    return txt;
+        //}
 
-        private TextBox GetFolioTextBox()
-        {
-            TextBox txt = new TextBox();
-            if (gvMFTransactions.HeaderRow != null)
-            {
-                if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtFolioSearch") != null)
-                {
-                    txt = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtFolioSearch");
-                }
-            }
-            else
-                txt = null;
+        //---------*******Converted to Telerik Grid******--------------------------
+        //private TextBox GetFolioTextBox()
+        //{
+        //    TextBox txt = new TextBox();
+        //    if (gvMFTransactions.HeaderRow != null)
+        //    {
+        //        if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtFolioSearch") != null)
+        //        {
+        //            txt = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtFolioSearch");
+        //        }
+        //    }
+        //    else
+        //        txt = null;
 
-            return txt;
-        }
-        private TextBox GetProcessIdTextBox()
-        {
-            TextBox txt = new TextBox();
-            if (gvMFTransactions.HeaderRow != null)
-            {
-                if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtProcessId") != null)
-                {
-                    txt = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtProcessId");
-                }
-            }
-            else
-                txt = null;
+        //    return txt;
+        //}
+        //---------*******Converted to Telerik Grid******--------------------------
+        //private TextBox GetProcessIdTextBox()
+        //{
+        //    TextBox txt = new TextBox();
+        //    if (gvMFTransactions.HeaderRow != null)
+        //    {
+        //        if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtProcessId") != null)
+        //        {
+        //            txt = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtProcessId");
+        //        }
+        //    }
+        //    else
+        //        txt = null;
 
-            return txt;
+        //    return txt;
 
-        }
-        private DropDownList GetTranDateDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if (gvMFTransactions.HeaderRow != null)
-            {
-                if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranDate") != null)
-                {
-                    ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranDate");
-                }
-            }
-            else
-                ddl = null;
+        //}
+        //---------*******Converted to Telerik Grid******--------------------------
+        ////private DropDownList GetTranDateDDL()
+        ////{
+        ////    DropDownList ddl = new DropDownList();
+        ////    if (gvMFTransactions.HeaderRow != null)
+        ////    {
+        ////        if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranDate") != null)
+        ////        {
+        ////            ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranDate");
+        ////        }
+        ////    }
+        ////    else
+        ////        ddl = null;
 
-            return ddl;
-        }
+        ////    return ddl;
+        ////}
 
-        private DropDownList GetTranTriggerDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if (gvMFTransactions.HeaderRow != null)
-            {
-                if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranTrigger") != null)
-                {
-                    ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranTrigger");
-                }
-            }
-            else
-                ddl = null;
+        //---------*******Converted to Telerik Grid******--------------------------
+        //private DropDownList GetTranTriggerDDL()
+        //{
+        //    DropDownList ddl = new DropDownList();
+        //    if (gvMFTransactions.HeaderRow != null)
+        //    {
+        //        if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranTrigger") != null)
+        //        {
+        //            ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranTrigger");
+        //        }
+        //    }
+        //    else
+        //        ddl = null;
 
-            return ddl;
-        }
+        //    return ddl;
+        //}
 
-        private DropDownList GetTranTypeDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if (gvMFTransactions.HeaderRow != null)
-            {
-                if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranType") != null)
-                {
-                    ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranType");
-                }
-            }
-            else
-                ddl = null;
+        //---------*******Converted to Telerik Grid******--------------------------
+        //private DropDownList GetTranTypeDDL()
+        //{
+        //    DropDownList ddl = new DropDownList();
+        //    if (gvMFTransactions.HeaderRow != null)
+        //    {
+        //        if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranType") != null)
+        //        {
+        //            ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranType");
+        //        }
+        //    }
+        //    else
+        //        ddl = null;
 
-            return ddl;
-        }
+        //    return ddl;
+        //}
+        //---------Converted to Telerik Grid--------------------------
+        //protected void gvMFTransactions_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    gvMFTransactions.PageIndex = e.NewPageIndex;
+        //    gvMFTransactions.DataBind();
+        //}
 
-        protected void gvMFTransactions_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvMFTransactions.PageIndex = e.NewPageIndex;
-            gvMFTransactions.DataBind();
-        }
+        //---------*******Converted to Telerik Grid******--------------------------
+        //protected void gvMFTransactions_RowCommand(object sender, GridViewCommandEventArgs e)
+        //{
+        //    Hashtable hshTranDates;
+        //    try
+        //    {
+        //        if (ViewState["dtFrom"] != null)
+        //        {
+        //            dtFrom = DateTime.Parse(ViewState["dtFrom"].ToString());
+        //        }
+        //        else if (txtFromTran.SelectedDate.ToString() != "")
+        //        {
+        //            dtFrom = DateTime.Parse((txtFromTran.SelectedDate).ToString());
+        //        }
 
-        protected void gvMFTransactions_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            Hashtable hshTranDates;
-            try
-            {
-                if (ViewState["dtFrom"] != null)
-                {
-                    dtFrom = DateTime.Parse(ViewState["dtFrom"].ToString());
-                }
-                else if (txtFromTran.SelectedDate.ToString() != "")
-                {
-                    dtFrom = DateTime.Parse((txtFromTran.SelectedDate).ToString());
-                }
+        //        if (ViewState["dtTo"] != null)
+        //        {
+        //            dtTo = DateTime.Parse(ViewState["dtTo"].ToString());
+        //        }
+        //        else if (txtToTran.SelectedDate.ToString() != null)
+        //        {
+        //            dtTo = DateTime.Parse((txtToTran.SelectedDate).ToString());
+        //        }
 
-                if (ViewState["dtTo"] != null)
-                {
-                    dtTo = DateTime.Parse(ViewState["dtTo"].ToString());
-                }
-                else if (txtToTran.SelectedDate.ToString() != null)
-                {
-                    dtTo = DateTime.Parse((txtToTran.SelectedDate).ToString());
-                }
+        //        //BindGridView(customerId, mypager.CurrentPage, 0, dtFrom, dtTo);
 
-                //BindGridView(customerId, mypager.CurrentPage, 0, dtFrom, dtTo);
+        //        if (e.CommandName.ToString() != "Sort")
+        //        {
+        //            index = Convert.ToInt32(e.CommandArgument);
+        //            int transactionId = int.Parse(gvMFTransactions.DataKeys[index].Value.ToString());
+        //             mfTransactionVo = customerTransactionBo.GetMFTransaction(transactionId);
+        //             Session["MFTransactionVo"] = mfTransactionVo;
+        //            int month = 0;
+        //            int amcCode = mfTransactionVo.AMCCode;
+        //            int schemeCode = mfTransactionVo.MFCode;
+        //            //int amcCode = mfTransactionList[index].AMCCode;
+        //            //int schemeCode = mfTransactionList[index].MFCode;
+        //            int year = 0;
 
-                if (e.CommandName.ToString() != "Sort")
-                {
-                    index = Convert.ToInt32(e.CommandArgument);
-                    int transactionId = int.Parse(gvMFTransactions.DataKeys[index].Value.ToString());
-                     mfTransactionVo = customerTransactionBo.GetMFTransaction(transactionId);
-                     Session["MFTransactionVo"] = mfTransactionVo;
-                    int month = 0;
-                    int amcCode = mfTransactionVo.AMCCode;
-                    int schemeCode = mfTransactionVo.MFCode;
-                    //int amcCode = mfTransactionList[index].AMCCode;
-                    //int schemeCode = mfTransactionList[index].MFCode;
-                    int year = 0;
+        //            if (DateTime.Now.Month != 1)
+        //            {
+        //                month = DateTime.Now.Month - 1;
+        //                year = DateTime.Now.Year;
+        //            }
+        //            else
+        //            {
+        //                month = 12;
+        //                year = DateTime.Now.Year - 1;
+        //            }
+        //            //string schemeName = mfTransactionList[index].SchemePlan;
+        //            string schemeName = mfTransactionVo.SchemePlan;
 
-                    if (DateTime.Now.Month != 1)
-                    {
-                        month = DateTime.Now.Month - 1;
-                        year = DateTime.Now.Year;
-                    }
-                    else
-                    {
-                        month = 12;
-                        year = DateTime.Now.Year - 1;
-                    }
-                    //string schemeName = mfTransactionList[index].SchemePlan;
-                    string schemeName = mfTransactionVo.SchemePlan;
-
-                    if (e.CommandName == "Select")
-                    {
-                        hshTranDates = new Hashtable();
-                        hshTranDates.Add("From", txtFromTran.SelectedDate);
-                        hshTranDates.Add("To", txtToTran.SelectedDate);
-                        Session["tranDates"] = hshTranDates;
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMFTransaction','none');", true);
-                        Session["MFEditValue"] = "Value";
-                    }
-                    if (e.CommandName == "NavigateToMarketData")
-                    {
+        //            if (e.CommandName == "Select")
+        //            {
+        //                hshTranDates = new Hashtable();
+        //                hshTranDates.Add("From", txtFromTran.SelectedDate);
+        //                hshTranDates.Add("To", txtToTran.SelectedDate);
+        //                Session["tranDates"] = hshTranDates;
+        //                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMFTransaction','none');", true);
+        //                Session["MFEditValue"] = "Value";
+        //            }
+        //            if (e.CommandName == "NavigateToMarketData")
+        //            {
                         
 
-                        Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + schemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + schemeName + "&AMCCode=" + amcCode + "", false);
-                    }
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "TransactionsView.ascx:gvMFTransactions_RowCommand()");
-                object[] objects = new object[1];
-                objects[0] = index;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+        //                Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + schemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + schemeName + "&AMCCode=" + amcCode + "", false);
+        //            }
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "TransactionsView.ascx:gvMFTransactions_RowCommand()");
+        //        object[] objects = new object[1];
+        //        objects[0] = index;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
 
-            }
-        }
+        //    }
+        //}
 
         private SortDirection GridViewSortDirection
         {
@@ -673,174 +570,184 @@ namespace WealthERP.CustomerPortfolio
         //    }
         //}
 
-        protected void gvMFTransactions_DataBound(object sender, EventArgs e)
-        {
+        //---------*******Converted to Telerik Grid******--------------------------
+        //protected void gvMFTransactions_DataBound(object sender, EventArgs e)
+        //{
 
-            //mfTransactionList = customerTransactionBo.GetMFTransactions(customerId);
-            //gvMFTransactions.FooterRow.Cells[2].Text = "Total Records : " + mfTransactionList.Count.ToString();
-            //gvMFTransactions.FooterRow.Cells[2].ColumnSpan = gvMFTransactions.FooterRow.Cells.Count - 2;
-            //for (int i = 3; i < gvMFTransactions.FooterRow.Cells.Count; i++)
-            //{
-            //    gvMFTransactions.FooterRow.Cells[i].Visible = false;
-            //}
-        }
+        //}
 
-        protected void gvMFTransactions_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.Footer)
-            {
-                e.Row.Cells[7].Text = "Total ";
-                e.Row.Cells[11].Text = double.Parse(totalAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                e.Row.Cells[11].Attributes.Add("align", "Right");
-                e.Row.Cells[10].Text = double.Parse(totalUnits.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                e.Row.Cells[10].Attributes.Add("align", "Right");
-                e.Row.Cells[12].Text = double.Parse(totalsst.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                e.Row.Cells[12].Attributes.Add("align", "Right");
+        //---------*******Converted to Telerik Grid******--------------------------
+
+        //protected void gvMFTransactions_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.Footer)
+        //    {
+        //        e.Row.Cells[7].Text = "Total ";
+        //        e.Row.Cells[11].Text = double.Parse(totalAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+        //        e.Row.Cells[11].Attributes.Add("align", "Right");
+        //        e.Row.Cells[10].Text = double.Parse(totalUnits.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+        //        e.Row.Cells[10].Attributes.Add("align", "Right");
+        //        e.Row.Cells[12].Text = double.Parse(totalsst.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+        //        e.Row.Cells[12].Attributes.Add("align", "Right");
 
 
-            }
-            if (e.Row.RowType == DataControlRowType.Header)
-            {
-                DropDownList ddlStatus = (DropDownList)e.Row.FindControl("ddlStatus");
-                ddlStatus.SelectedValue = hdnStatus.Value;
-            }
-        }
+        //    }
+        //    if (e.Row.RowType == DataControlRowType.Header)
+        //    {
+        //        DropDownList ddlStatus = (DropDownList)e.Row.FindControl("ddlStatus");
+        //        ddlStatus.SelectedValue = hdnStatus.Value;
+        //    }
+        //}
 
-        protected void btnTranSchemeSearch_Click(object sender, EventArgs e)
-        {
-            TextBox txtName = GetSchemeTextBox();
-            TextBox txtFolio = GetFolioTextBox();
-            TextBox txtProcessId = GetProcessIdTextBox();
-            if (txtName != null)
-            {
-                hdnSchemeFilter.Value = txtName.Text.Trim();
-            }
 
-            if (txtFolio != null)
-            {
-                hdnFolioFilter.Value = txtFolio.Text.Trim();
-            }
-            if (txtProcessId != null)
-            {
-                hdnProcessIdSearch.Value = txtProcessId.Text.Trim();
-            }
-            BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //---------*******Converted to Telerik Grid******--------------------------
+        //protected void btnTranSchemeSearch_Click(object sender, EventArgs e)
+        //{
+        //    TextBox txtName = GetSchemeTextBox();
+        //    TextBox txtFolio = GetFolioTextBox();
+        //    TextBox txtProcessId = GetProcessIdTextBox();
+        //    if (txtName != null)
+        //    {
+        //        hdnSchemeFilter.Value = txtName.Text.Trim();
+        //    }
 
-        }
+        //    if (txtFolio != null)
+        //    {
+        //        hdnFolioFilter.Value = txtFolio.Text.Trim();
+        //    }
+        //    if (txtProcessId != null)
+        //    {
+        //        hdnProcessIdSearch.Value = txtProcessId.Text.Trim();
+        //    }
+        //    BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
 
-        protected void ddlTranType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlTranType = GetTranTypeDDL();
+        //}
 
-            if (ddlTranType != null)
-            {
-                if (ddlTranType.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnTranType.Value = ddlTranType.SelectedValue;
-                    BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnTranType.Value = "";
-                    BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-                }
-            }
-        }
-        protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlStatus = GetStatusDDL();
 
-            if (ddlStatus != null)
-            {
-                if (ddlStatus.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnStatus.Value = ddlStatus.SelectedValue;
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnStatus.Value = "";
-                }
-                mypager.CurrentPage = 1;
-                hdnCurrentPage.Value = "1";
-                BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-            }
-        }
-        private DropDownList GetStatusDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if (gvMFTransactions.HeaderRow != null)
-            {
-                if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlStatus") != null)
-                {
-                    ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlStatus");
-                }
-            }
-            else
-                ddl = null;
+        //---------*******Converted to Telerik Grid******--------------------------
+        //protected void ddlTranType_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlTranType = GetTranTypeDDL();
 
-            return ddl;
-        }
+        //    if (ddlTranType != null)
+        //    {
+        //        if (ddlTranType.SelectedIndex != 0)
+        //        {   // Bind the Grid with Only Selected Values
+        //            hdnTranType.Value = ddlTranType.SelectedValue;
+        //            BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //        }
+        //        else
+        //        {   // Bind the Grid with Only All Values
+        //            hdnTranType.Value = "";
+        //            BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //        }
+        //    }
+        //}
+        //---------*******Converted to Telerik Grid******--------------------------
+        //protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlStatus = GetStatusDDL();
 
-        protected void ddlTranTrigger_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlTranTrig = GetTranTriggerDDL();
+        //    if (ddlStatus != null)
+        //    {
+        //        if (ddlStatus.SelectedIndex != 0)
+        //        {   // Bind the Grid with Only Selected Values
+        //            hdnStatus.Value = ddlStatus.SelectedValue;
+        //        }
+        //        else
+        //        {   // Bind the Grid with Only All Values
+        //            hdnStatus.Value = "";
+        //        }
+        //        mypager.CurrentPage = 1;
+        //        hdnCurrentPage.Value = "1";
+        //        BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //    }
+        //}
 
-            if (ddlTranTrig != null)
-            {
-                if (ddlTranTrig.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnTranTrigger.Value = ddlTranTrig.SelectedValue;
-                    BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnTranTrigger.Value = "";
-                    BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-                }
-            }
-        }
+        //---------*******Converted to Telerik Grid******--------------------------
+        //private DropDownList GetStatusDDL()
+        //{
+        //    DropDownList ddl = new DropDownList();
+        //    if (gvMFTransactions.HeaderRow != null)
+        //    {
+        //        if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlStatus") != null)
+        //        {
+        //            ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlStatus");
+        //        }
+        //    }
+        //    else
+        //        ddl = null;
 
-        protected void ddlTranDate_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlTranDate = GetTranDateDDL();
-            //CultureInfo ci = new CultureInfo("en-GB");
-            if (ddlTranDate != null)
-            {
-                if (ddlTranDate.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
+        //    return ddl;
+        //}
 
-                    hdnTranDate.Value = Convert.ToDateTime(ddlTranDate.SelectedValue.ToString()).ToString("MM/dd/yyyy");
-                    BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnTranDate.Value = "";
-                    BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-                }
-            }
-        }
 
-        protected void btnExportExcel_Click(object sender, EventArgs e)
-        {
-            gvMFTransactions.Columns[0].Visible = false;
-            //gvMFTransactions.Columns[1].Visible = false;
-            if (rbAll.Checked)
-            {
-                gvMFTransactions.AllowPaging = false;
-                BindGridView(customerId, mypager.CurrentPage, 1, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-            }
-            else if(rbCurrent.Checked)
-            {
-                BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-            }
+        //---------*******Converted to Telerik Grid******--------------------------
+        //protected void ddlTranTrigger_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlTranTrig = GetTranTriggerDDL();
 
-            PrepareGridViewForExport(gvMFTransactions);           
-            ExportGridView("Excel");
+        //    if (ddlTranTrig != null)
+        //    {
+        //        if (ddlTranTrig.SelectedIndex != 0)
+        //        {   // Bind the Grid with Only Selected Values
+        //            hdnTranTrigger.Value = ddlTranTrig.SelectedValue;
+        //            BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //        }
+        //        else
+        //        {   // Bind the Grid with Only All Values
+        //            hdnTranTrigger.Value = "";
+        //            BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //        }
+        //    }
+        //}
 
-            BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-            gvMFTransactions.Columns[0].Visible = true;
-            gvMFTransactions.Columns[1].Visible = true;
-        }
+        //---------*******Converted to Telerik Grid******--------------------------
+        //protected void ddlTranDate_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlTranDate = GetTranDateDDL();
+        //    //CultureInfo ci = new CultureInfo("en-GB");
+        //    if (ddlTranDate != null)
+        //    {
+        //        if (ddlTranDate.SelectedIndex != 0)
+        //        {   // Bind the Grid with Only Selected Values
+
+        //            hdnTranDate.Value = Convert.ToDateTime(ddlTranDate.SelectedValue.ToString()).ToString("MM/dd/yyyy");
+        //            BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //        }
+        //        else
+        //        {   // Bind the Grid with Only All Values
+        //            hdnTranDate.Value = "";
+        //            BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //        }
+        //    }
+        //}
+
+
+        //---------*******Converted to Telerik Grid******--------------------------
+        //protected void btnExportExcel_Click(object sender, EventArgs e)
+        //{
+        //    gvMFTransactions.Columns[0].Visible = false;
+        //    //gvMFTransactions.Columns[1].Visible = false;
+        //    if (rbAll.Checked)
+        //    {
+        //        gvMFTransactions.AllowPaging = false;
+        //        BindGridView(customerId, mypager.CurrentPage, 1, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //    }
+        //    else if(rbCurrent.Checked)
+        //    {
+        //        BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //    }
+
+        //    PrepareGridViewForExport(gvMFTransactions);           
+        //    ExportGridView("Excel");
+
+        //    BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //    gvMFTransactions.Columns[0].Visible = true;
+        //    gvMFTransactions.Columns[1].Visible = true;
+        //}
+
+        //---------*******Converted to Telerik Grid******--------------------------
         //protected void btnExport_Click(object sender, EventArgs e)
         //{
         //    gvMFTransactions.Columns[0].Visible = false;
@@ -879,385 +786,391 @@ namespace WealthERP.CustomerPortfolio
         //    gvMFTransactions.Columns[1].Visible = true;
         //}
 
-        protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
-        {
-            ModalPopupExtender1.Show();
-            ModalPopupExtender1.TargetControlID = "imgBtnExport";
 
-        }
+        //---------*******Converted to Telerik Grid******--------------------------
+        //protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    ModalPopupExtender1.Show();
+        //    ModalPopupExtender1.TargetControlID = "imgBtnExport";
 
-        private void ExportGridView(string Filetype)
-        {
-            // float ReportTextSize = 7;
-            {
-                HtmlForm frm = new HtmlForm();
-                System.Web.UI.WebControls.Table tbl = new System.Web.UI.WebControls.Table();
-                frm.Controls.Clear();
-                frm.Attributes["runat"] = "server";
-                if (Filetype == "Excel")
-                {
-                    // gvCustomer.Columns.Remove(this.gvCustomer.Columns[0]);
-                    //string temp = customerVo.FirstName + customerVo.LastName + "'s_MFTransactionList.xls";
-                    string temp =  "MFTransactionList.xls";
-                    string attachment = "attachment; filename=" + temp;
-                    Response.ClearContent();
-                    Response.AddHeader("content-disposition", attachment);
-                    Response.ContentType = "application/ms-excel";
-                    StringWriter sw = new StringWriter();
-                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+        //}
 
 
-                    Response.Output.Write("<table border=\"0\"><tbody ><caption align=\"left\"><FONT FACE=\"ARIAL\"  SIZE=\"4\">Mutual Fund Transaction</FONT></caption><tr><td>");
-                    Response.Output.Write("Advisor Name : ");
-                    Response.Output.Write("</td>");
-                    Response.Output.Write("<td>");
-                    Response.Output.Write(userVo.FirstName + userVo.LastName);
-                    Response.Output.Write("</td></tr>");
-                    Response.Output.Write("<tr><td>");
-                    Response.Output.Write("Customer Name  : ");
-                    Response.Output.Write("</td>");
-                    Response.Output.Write("<td>");
-                    Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
-                    Response.Output.Write("</td></tr>");
-                    Response.Output.Write("<tr><td>");
-                    Response.Output.Write("Contact Person  : ");
-                    Response.Output.Write("</td>");
-                    Response.Output.Write("<td>");
-                    Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
-                    Response.Output.Write("</td></tr><tr><td>");
-                    Response.Output.Write("Date : ");
-                    Response.Output.Write("</td><td align=\"left\">");
-                    System.DateTime tDate1 = System.DateTime.Now;
-                    Response.Output.Write(tDate1.ToLongDateString());
-                    Response.Output.Write("</td></tr>");
-                    Response.Output.Write("</tbody></table>");
+        //---------*******Converted to Telerik Grid******--------------------------
+        //private void ExportGridView(string Filetype)
+        //{
+        //    // float ReportTextSize = 7;
+        //    {
+        //        HtmlForm frm = new HtmlForm();
+        //        System.Web.UI.WebControls.Table tbl = new System.Web.UI.WebControls.Table();
+        //        frm.Controls.Clear();
+        //        frm.Attributes["runat"] = "server";
+        //        if (Filetype == "Excel")
+        //        {
+        //            // gvCustomer.Columns.Remove(this.gvCustomer.Columns[0]);
+        //            //string temp = customerVo.FirstName + customerVo.LastName + "'s_MFTransactionList.xls";
+        //            string temp =  "MFTransactionList.xls";
+        //            string attachment = "attachment; filename=" + temp;
+        //            Response.ClearContent();
+        //            Response.AddHeader("content-disposition", attachment);
+        //            Response.ContentType = "application/ms-excel";
+        //            StringWriter sw = new StringWriter();
+        //            HtmlTextWriter htw = new HtmlTextWriter(sw);
 
-                
 
-                    if (gvMFTransactions.HeaderRow != null)
-                    {
-                        PrepareControlForExport(gvMFTransactions.HeaderRow);
-                        //tbl.Rows.Add(gvMFTransactions.HeaderRow);
-                    }
-                    foreach (GridViewRow row in gvMFTransactions.Rows)
-                    {
+        //            Response.Output.Write("<table border=\"0\"><tbody ><caption align=\"left\"><FONT FACE=\"ARIAL\"  SIZE=\"4\">Mutual Fund Transaction</FONT></caption><tr><td>");
+        //            Response.Output.Write("Advisor Name : ");
+        //            Response.Output.Write("</td>");
+        //            Response.Output.Write("<td>");
+        //            Response.Output.Write(userVo.FirstName + userVo.LastName);
+        //            Response.Output.Write("</td></tr>");
+        //            Response.Output.Write("<tr><td>");
+        //            Response.Output.Write("Customer Name  : ");
+        //            Response.Output.Write("</td>");
+        //            Response.Output.Write("<td>");
+        //            Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
+        //            Response.Output.Write("</td></tr>");
+        //            Response.Output.Write("<tr><td>");
+        //            Response.Output.Write("Contact Person  : ");
+        //            Response.Output.Write("</td>");
+        //            Response.Output.Write("<td>");
+        //            Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
+        //            Response.Output.Write("</td></tr><tr><td>");
+        //            Response.Output.Write("Date : ");
+        //            Response.Output.Write("</td><td align=\"left\">");
+        //            System.DateTime tDate1 = System.DateTime.Now;
+        //            Response.Output.Write(tDate1.ToLongDateString());
+        //            Response.Output.Write("</td></tr>");
+        //            Response.Output.Write("</tbody></table>");
+
+
+
+
+        //            //---------*******Converted to Telerik Grid******--------------------------
+        //            //if (gvMFTransactions.HeaderRow != null)
+        //            //{
+        //            //    PrepareControlForExport(gvMFTransactions.HeaderRow);
+        //            //    //tbl.Rows.Add(gvMFTransactions.HeaderRow);
+        //            //}
+
+        //            //---------*******Converted to Telerik Grid******--------------------------
+        //            //foreach (GridViewRow row in gvMFTransactions.Rows)
+        //            //{
                         
-                        PrepareControlForExport(row);
+        //            //    PrepareControlForExport(row);
                         
-                        //tbl.Rows.Add(row);
-                    }
-                    if (gvMFTransactions.FooterRow != null)
-                    {
-                        PrepareControlForExport(gvMFTransactions.FooterRow);
-                        // tbl.Rows.Add(gvMFTransactions.FooterRow);
-                    }
+        //            //    //tbl.Rows.Add(row);
+        //            //}
+
+        //            //---------*******Converted to Telerik Grid******--------------------------
+        //            //if (gvMFTransactions.FooterRow != null)
+        //            //{
+        //            //    PrepareControlForExport(gvMFTransactions.FooterRow);
+        //            //    // tbl.Rows.Add(gvMFTransactions.FooterRow);
+        //            //}
                     
-                   // tbl.GridLines = GridLines.Both;
 
-                    ////tbl.Controls.Add(frm);
-                    ////frm.Controls.Add(tbl);
-                    //tbl.RenderControl(htw);
-                    gvMFTransactions.Parent.Controls.Add(frm);
-                    frm.Controls.Add(gvMFTransactions);
-                    frm.RenderControl(htw);
+        //            gvMFTransactions.Parent.Controls.Add(frm);
+        //            frm.Controls.Add(gvMFTransactions);
+        //            frm.RenderControl(htw);
 
-                    Response.Write(sw.ToString());
-                    Response.End();
+        //            Response.Write(sw.ToString());
+        //            Response.End();
 
 
-                }
-                //else if (Filetype == "PDF")
-                //{
-                //    string temp = customerVo.FirstName + customerVo.LastName + "'s_MFTransactionList";
+        //        }
+        //        //else if (Filetype == "PDF")
+        //        //{
+        //        //    string temp = customerVo.FirstName + customerVo.LastName + "'s_MFTransactionList";
 
-                //    gvMFTransactions.AllowPaging = false;
-                //    gvMFTransactions.DataBind();
-                //    iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(gvMFTransactions.Columns.Count - 3);
+        //        //    gvMFTransactions.AllowPaging = false;
+        //        //    gvMFTransactions.DataBind();
+        //        //    iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(gvMFTransactions.Columns.Count - 3);
 
-                //    table.HeaderRows = 4;
-                //    iTextSharp.text.pdf.PdfPTable headerTable = new iTextSharp.text.pdf.PdfPTable(2);
+        //        //    table.HeaderRows = 4;
+        //        //    iTextSharp.text.pdf.PdfPTable headerTable = new iTextSharp.text.pdf.PdfPTable(2);
 
-                //    Phrase phApplicationName = new Phrase("WWW.PrincipalConsulting.net", FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
-                //    PdfPCell clApplicationName = new PdfPCell(phApplicationName);
-                //    clApplicationName.Border = PdfPCell.NO_BORDER;
-                //    clApplicationName.HorizontalAlignment = Element.ALIGN_LEFT;
+        //        //    Phrase phApplicationName = new Phrase("WWW.PrincipalConsulting.net", FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
+        //        //    PdfPCell clApplicationName = new PdfPCell(phApplicationName);
+        //        //    clApplicationName.Border = PdfPCell.NO_BORDER;
+        //        //    clApplicationName.HorizontalAlignment = Element.ALIGN_LEFT;
 
 
 
-                //    Phrase phDate = new Phrase(DateTime.Now.Date.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
-                //    PdfPCell clDate = new PdfPCell(phDate);
-                //    clDate.HorizontalAlignment = Element.ALIGN_RIGHT;
-                //    clDate.Border = PdfPCell.NO_BORDER;
+        //        //    Phrase phDate = new Phrase(DateTime.Now.Date.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
+        //        //    PdfPCell clDate = new PdfPCell(phDate);
+        //        //    clDate.HorizontalAlignment = Element.ALIGN_RIGHT;
+        //        //    clDate.Border = PdfPCell.NO_BORDER;
 
 
-                //    headerTable.AddCell(clApplicationName);
-                //    headerTable.AddCell(clDate);
-                //    headerTable.DefaultCell.Border = PdfPCell.NO_BORDER;
+        //        //    headerTable.AddCell(clApplicationName);
+        //        //    headerTable.AddCell(clDate);
+        //        //    headerTable.DefaultCell.Border = PdfPCell.NO_BORDER;
 
 
-                //    PdfPCell cellHeader = new PdfPCell(headerTable);
-                //    cellHeader.Border = PdfPCell.NO_BORDER;
-                //    cellHeader.Colspan = gvMFTransactions.Columns.Count - 3;
-                //    table.AddCell(cellHeader);
+        //        //    PdfPCell cellHeader = new PdfPCell(headerTable);
+        //        //    cellHeader.Border = PdfPCell.NO_BORDER;
+        //        //    cellHeader.Colspan = gvMFTransactions.Columns.Count - 3;
+        //        //    table.AddCell(cellHeader);
 
-                //    Phrase phHeader = new Phrase(temp, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD));
-                //    PdfPCell clHeader = new PdfPCell(phHeader);
-                //    clHeader.Colspan = gvMFTransactions.Columns.Count - 3;
-                //    clHeader.Border = PdfPCell.NO_BORDER;
-                //    clHeader.HorizontalAlignment = Element.ALIGN_CENTER;
-                //    table.AddCell(clHeader);
-
-
-                //    Phrase phSpace = new Phrase("\n");
-                //    PdfPCell clSpace = new PdfPCell(phSpace);
-                //    clSpace.Border = PdfPCell.NO_BORDER;
-                //    clSpace.Colspan = gvMFTransactions.Columns.Count - 3;
-                //    table.AddCell(clSpace);
-
-                //    GridViewRow HeaderRow = gvMFTransactions.HeaderRow;
-                //    if (HeaderRow != null)
-                //    {
-                //        string cellText = "";
-                //        for (int j = 3; j < gvMFTransactions.Columns.Count; j++)
-                //        {
-                //            if (j == 3)
-                //            {
-                //                cellText = "Folio Number";
-                //            }
-                //            else if (j == 4)
-                //            {
-                //                cellText = "Scheme Name";
-                //            }
-                //            else if (j == 5)
-                //            {
-                //                cellText = "Transaction Type";
-                //            }
-
-                //            else if (j == 6)
-                //            {
-                //                cellText = "Transaction Date";
-                //            }
-                //            else if (j == 7)
-                //            {
-                //                cellText = "Price (Rs)";
-                //            }
-                //            else if (j == 8)
-                //            {
-                //                cellText = "Units";
-                //            }
-                //            else if (j == 9)
-                //            {
-                //                cellText = "Amount (Rs)";
-                //            }
+        //        //    Phrase phHeader = new Phrase(temp, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD));
+        //        //    PdfPCell clHeader = new PdfPCell(phHeader);
+        //        //    clHeader.Colspan = gvMFTransactions.Columns.Count - 3;
+        //        //    clHeader.Border = PdfPCell.NO_BORDER;
+        //        //    clHeader.HorizontalAlignment = Element.ALIGN_CENTER;
+        //        //    table.AddCell(clHeader);
 
 
-                //            else if (j == 10)
-                //            {
-                //                cellText = "STT (Rs)";
-                //            }
+        //        //    Phrase phSpace = new Phrase("\n");
+        //        //    PdfPCell clSpace = new PdfPCell(phSpace);
+        //        //    clSpace.Border = PdfPCell.NO_BORDER;
+        //        //    clSpace.Colspan = gvMFTransactions.Columns.Count - 3;
+        //        //    table.AddCell(clSpace);
 
-                //            else
-                //            {
-                //                cellText = Server.HtmlDecode(gvMFTransactions.HeaderRow.Cells[j].Text);
-                //            }
-                //            Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.BOLD));
-                //            table.AddCell(ph);
-                //        }
+        //        //    GridViewRow HeaderRow = gvMFTransactions.HeaderRow;
+        //        //    if (HeaderRow != null)
+        //        //    {
+        //        //        string cellText = "";
+        //        //        for (int j = 3; j < gvMFTransactions.Columns.Count; j++)
+        //        //        {
+        //        //            if (j == 3)
+        //        //            {
+        //        //                cellText = "Folio Number";
+        //        //            }
+        //        //            else if (j == 4)
+        //        //            {
+        //        //                cellText = "Scheme Name";
+        //        //            }
+        //        //            else if (j == 5)
+        //        //            {
+        //        //                cellText = "Transaction Type";
+        //        //            }
 
-                //    }
-
-
-                //    for (int i = 0; i < gvMFTransactions.Rows.Count; i++)
-                //    {
-                //        string cellText = "";
-                //        if (gvMFTransactions.Rows[i].RowType == DataControlRowType.DataRow)
-                //        {
-
-                //            for (int j = 3; j < gvMFTransactions.Columns.Count; j++)
-                //            {
-                //                //if ((Label)gvMFTransactions.Rows[i].Cells[j].FindControl("lblSchemeHeader")!=null)
-                //                if (j == 4)
-                //                {
-
-                //                    cellText = ((Label)gvMFTransactions.Rows[i].FindControl("lblSchemeHeader")).Text;
-                //                }
-                //                else if (j == 5)
-                //                {
-
-                //                    cellText = ((Label)gvMFTransactions.Rows[i].FindControl("lblTranTypeHeader")).Text;
-                //                }
-
-                //                else if (j == 6)
-                //                {
-                //                    cellText = ((Label)gvMFTransactions.Rows[i].FindControl("lblTranDateHeader")).Text;
-                //                }
-                //                else
-                //                {
-                //                    cellText = gvMFTransactions.Rows[i].Cells[j].Text;
-                //                }
+        //        //            else if (j == 6)
+        //        //            {
+        //        //                cellText = "Transaction Date";
+        //        //            }
+        //        //            else if (j == 7)
+        //        //            {
+        //        //                cellText = "Price (Rs)";
+        //        //            }
+        //        //            else if (j == 8)
+        //        //            {
+        //        //                cellText = "Units";
+        //        //            }
+        //        //            else if (j == 9)
+        //        //            {
+        //        //                cellText = "Amount (Rs)";
+        //        //            }
 
 
-                //                Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.NORMAL));
-                //                iTextSharp.text.Cell cell = new iTextSharp.text.Cell(cellText);
-                //                table.AddCell(ph);
+        //        //            else if (j == 10)
+        //        //            {
+        //        //                cellText = "STT (Rs)";
+        //        //            }
 
-                //            }
+        //        //            else
+        //        //            {
+        //        //                cellText = Server.HtmlDecode(gvMFTransactions.HeaderRow.Cells[j].Text);
+        //        //            }
+        //        //            Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.BOLD));
+        //        //            table.AddCell(ph);
+        //        //        }
 
-                //        }
-
-                //    }
+        //        //    }
 
 
+        //        //    for (int i = 0; i < gvMFTransactions.Rows.Count; i++)
+        //        //    {
+        //        //        string cellText = "";
+        //        //        if (gvMFTransactions.Rows[i].RowType == DataControlRowType.DataRow)
+        //        //        {
 
-                //    //Create the PDF Document
+        //        //            for (int j = 3; j < gvMFTransactions.Columns.Count; j++)
+        //        //            {
+        //        //                //if ((Label)gvMFTransactions.Rows[i].Cells[j].FindControl("lblSchemeHeader")!=null)
+        //        //                if (j == 4)
+        //        //                {
 
-                //    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-                //    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-                //    pdfDoc.Open();
-                //    pdfDoc.Add(table);
-                //    pdfDoc.Close();
-                //    Response.ContentType = "application/pdf";
-                //    temp = "filename=" + temp + ".pdf";
-                //    //    Response.AddHeader("content-disposition", "attachment;" + "filename=GridViewExport.pdf");
-                //    Response.AddHeader("content-disposition", "attachment;" + temp);
-                //    Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                //    Response.Write(pdfDoc);
-                //    Response.End();
+        //        //                    cellText = ((Label)gvMFTransactions.Rows[i].FindControl("lblSchemeHeader")).Text;
+        //        //                }
+        //        //                else if (j == 5)
+        //        //                {
+
+        //        //                    cellText = ((Label)gvMFTransactions.Rows[i].FindControl("lblTranTypeHeader")).Text;
+        //        //                }
+
+        //        //                else if (j == 6)
+        //        //                {
+        //        //                    cellText = ((Label)gvMFTransactions.Rows[i].FindControl("lblTranDateHeader")).Text;
+        //        //                }
+        //        //                else
+        //        //                {
+        //        //                    cellText = gvMFTransactions.Rows[i].Cells[j].Text;
+        //        //                }
+
+
+        //        //                Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.NORMAL));
+        //        //                iTextSharp.text.Cell cell = new iTextSharp.text.Cell(cellText);
+        //        //                table.AddCell(ph);
+
+        //        //            }
+
+        //        //        }
+
+        //        //    }
 
 
 
-                //}
-                //else if (Filetype == "Word")
-                //{
-                //    gvMFTransactions.Columns.Remove(this.gvMFTransactions.Columns[0]);
-                //    string temp = customerVo.FirstName + customerVo.LastName + "'s_MFTransactionList.doc";
-                //    string attachment = "attachment; filename=" + temp;
-                //    Response.ClearContent();
-                //    Response.AddHeader("content-disposition", attachment);
-                //    Response.ContentType = "application/msword";
-                //    StringWriter sw = new StringWriter();
-                //    HtmlTextWriter htw = new HtmlTextWriter(sw);
+        //        //    //Create the PDF Document
 
-                //    Response.Output.Write("<table border=\"0\"><tbody><caption><FONT FACE=\"ARIAL\" SIZE=\"4\">Mutual Fund Transaction</FONT></caption><tr><td>");
-                //    Response.Output.Write("Advisor Name : ");
-                //    Response.Output.Write("</td>");
-                //    Response.Output.Write("<td>");
-                //    Response.Output.Write(userVo.FirstName + userVo.LastName);
-                //    Response.Output.Write("</td></tr>");
-                //    Response.Output.Write("<tr><td>");
-                //    Response.Output.Write("Customer Name  : ");
-                //    Response.Output.Write("</td>");
-                //    Response.Output.Write("<td>");
-                //    Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
-                //    Response.Output.Write("</td></tr>");
-                //    Response.Output.Write("<tr><td>");
-                //    Response.Output.Write("Contact Person  : ");
-                //    Response.Output.Write("</td>");
-                //    Response.Output.Write("<td>");
-                //    Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
-                //    Response.Output.Write("</td></tr><tr><td>");
-                //    Response.Output.Write("Date : ");
-                //    Response.Output.Write("</td><td>");
-                //    System.DateTime tDate1 = System.DateTime.Now;
-                //    Response.Output.Write(tDate1);
-                //    Response.Output.Write("</td></tr>");
-                //    Response.Output.Write("</tbody></table>");
-                //    if (gvMFTransactions.HeaderRow != null)
-                //    {
-                //        PrepareControlForExport(gvMFTransactions.HeaderRow);
-                //    }
-                //    foreach (GridViewRow row in gvMFTransactions.Rows)
-                //    {
-                //        PrepareControlForExport(row);
-                //    }
-                //    if (gvMFTransactions.FooterRow != null)
-                //    {
-                //        PrepareControlForExport(gvMFTransactions.FooterRow);
-                //    }
-                //    gvMFTransactions.Parent.Controls.Add(frm);
-                //    frm.Controls.Add(gvMFTransactions);
-                //    frm.RenderControl(htw);
-                //    Response.Write(sw.ToString());
-                //    Response.End();
+        //        //    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+        //        //    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+        //        //    pdfDoc.Open();
+        //        //    pdfDoc.Add(table);
+        //        //    pdfDoc.Close();
+        //        //    Response.ContentType = "application/pdf";
+        //        //    temp = "filename=" + temp + ".pdf";
+        //        //    //    Response.AddHeader("content-disposition", "attachment;" + "filename=GridViewExport.pdf");
+        //        //    Response.AddHeader("content-disposition", "attachment;" + temp);
+        //        //    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+        //        //    Response.Write(pdfDoc);
+        //        //    Response.End();
 
-                //}
 
-            }
 
-        }
-        private static void PrepareControlForExport(Control control)
-        {
-            for (int i = 0; i < control.Controls.Count; i++)
-            {
-                Control current = control.Controls[i];
-                if (current is LinkButton)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
-                }
-                else if (current is ImageButton)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as ImageButton).AlternateText));
-                }
-                else if (current is HyperLink)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as HyperLink).Text));
-                }
-                else if (current is DropDownList)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as DropDownList).SelectedValue.ToString()));
-                }
-                else if (current is CheckBox)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as CheckBox).Checked ? "True" : "False"));
-                }
+        //        //}
+        //        //else if (Filetype == "Word")
+        //        //{
+        //        //    gvMFTransactions.Columns.Remove(this.gvMFTransactions.Columns[0]);
+        //        //    string temp = customerVo.FirstName + customerVo.LastName + "'s_MFTransactionList.doc";
+        //        //    string attachment = "attachment; filename=" + temp;
+        //        //    Response.ClearContent();
+        //        //    Response.AddHeader("content-disposition", attachment);
+        //        //    Response.ContentType = "application/msword";
+        //        //    StringWriter sw = new StringWriter();
+        //        //    HtmlTextWriter htw = new HtmlTextWriter(sw);
 
-                if (current.HasControls())
-                {
-                    PrepareControlForExport(current);
-                }
-            }
-        }
-        private void PrepareGridViewForExport(Control gv)
-        {
-            LinkButton lb = new LinkButton();
-            Literal l = new Literal();
-            string name = String.Empty;
-            for (int i = 0; i < gv.Controls.Count; i++)
-            {
-                if (gv.Controls[i].GetType() == typeof(LinkButton))
-                {
-                    l.Text = (gv.Controls[i] as LinkButton).Text;
-                    gv.Controls.Remove(gv.Controls[i]);
-                    gv.Controls.AddAt(i,l);
-                }
-                else if (gv.Controls[i].GetType() == typeof(DropDownList))
-                {
-                    l.Text = (gv.Controls[i] as DropDownList).SelectedItem.Text;
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-                else if (gv.Controls[i].GetType() == typeof(CheckBox))
-                {
-                    l.Text = (gv.Controls[i] as CheckBox).Checked ? "True" : "False";
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-                else if (gv.Controls[i].GetType() == typeof(TextBox))
-                {
-                    l.Text = (gv.Controls[i] as TextBox).Text;
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-                if (gv.Controls[i].HasControls())
-                {
-                    PrepareGridViewForExport(gv.Controls[i]);
-                }
+        //        //    Response.Output.Write("<table border=\"0\"><tbody><caption><FONT FACE=\"ARIAL\" SIZE=\"4\">Mutual Fund Transaction</FONT></caption><tr><td>");
+        //        //    Response.Output.Write("Advisor Name : ");
+        //        //    Response.Output.Write("</td>");
+        //        //    Response.Output.Write("<td>");
+        //        //    Response.Output.Write(userVo.FirstName + userVo.LastName);
+        //        //    Response.Output.Write("</td></tr>");
+        //        //    Response.Output.Write("<tr><td>");
+        //        //    Response.Output.Write("Customer Name  : ");
+        //        //    Response.Output.Write("</td>");
+        //        //    Response.Output.Write("<td>");
+        //        //    Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
+        //        //    Response.Output.Write("</td></tr>");
+        //        //    Response.Output.Write("<tr><td>");
+        //        //    Response.Output.Write("Contact Person  : ");
+        //        //    Response.Output.Write("</td>");
+        //        //    Response.Output.Write("<td>");
+        //        //    Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
+        //        //    Response.Output.Write("</td></tr><tr><td>");
+        //        //    Response.Output.Write("Date : ");
+        //        //    Response.Output.Write("</td><td>");
+        //        //    System.DateTime tDate1 = System.DateTime.Now;
+        //        //    Response.Output.Write(tDate1);
+        //        //    Response.Output.Write("</td></tr>");
+        //        //    Response.Output.Write("</tbody></table>");
+        //        //    if (gvMFTransactions.HeaderRow != null)
+        //        //    {
+        //        //        PrepareControlForExport(gvMFTransactions.HeaderRow);
+        //        //    }
+        //        //    foreach (GridViewRow row in gvMFTransactions.Rows)
+        //        //    {
+        //        //        PrepareControlForExport(row);
+        //        //    }
+        //        //    if (gvMFTransactions.FooterRow != null)
+        //        //    {
+        //        //        PrepareControlForExport(gvMFTransactions.FooterRow);
+        //        //    }
+        //        //    gvMFTransactions.Parent.Controls.Add(frm);
+        //        //    frm.Controls.Add(gvMFTransactions);
+        //        //    frm.RenderControl(htw);
+        //        //    Response.Write(sw.ToString());
+        //        //    Response.End();
 
-            }
+        //        //}
 
-        }
+        //    }
+
+        //}
+        //private static void PrepareControlForExport(Control control)
+        //{
+        //    for (int i = 0; i < control.Controls.Count; i++)
+        //    {
+        //        Control current = control.Controls[i];
+        //        if (current is LinkButton)
+        //        {
+        //            control.Controls.Remove(current);
+        //            control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
+        //        }
+        //        else if (current is ImageButton)
+        //        {
+        //            control.Controls.Remove(current);
+        //            control.Controls.AddAt(i, new LiteralControl((current as ImageButton).AlternateText));
+        //        }
+        //        else if (current is HyperLink)
+        //        {
+        //            control.Controls.Remove(current);
+        //            control.Controls.AddAt(i, new LiteralControl((current as HyperLink).Text));
+        //        }
+        //        else if (current is DropDownList)
+        //        {
+        //            control.Controls.Remove(current);
+        //            control.Controls.AddAt(i, new LiteralControl((current as DropDownList).SelectedValue.ToString()));
+        //        }
+        //        else if (current is CheckBox)
+        //        {
+        //            control.Controls.Remove(current);
+        //            control.Controls.AddAt(i, new LiteralControl((current as CheckBox).Checked ? "True" : "False"));
+        //        }
+
+        //        if (current.HasControls())
+        //        {
+        //            PrepareControlForExport(current);
+        //        }
+        //    }
+        //}
+        //private void PrepareGridViewForExport(Control gv)
+        //{
+        //    LinkButton lb = new LinkButton();
+        //    Literal l = new Literal();
+        //    string name = String.Empty;
+        //    for (int i = 0; i < gv.Controls.Count; i++)
+        //    {
+        //        if (gv.Controls[i].GetType() == typeof(LinkButton))
+        //        {
+        //            l.Text = (gv.Controls[i] as LinkButton).Text;
+        //            gv.Controls.Remove(gv.Controls[i]);
+        //            gv.Controls.AddAt(i,l);
+        //        }
+        //        else if (gv.Controls[i].GetType() == typeof(DropDownList))
+        //        {
+        //            l.Text = (gv.Controls[i] as DropDownList).SelectedItem.Text;
+        //            gv.Controls.Remove(gv.Controls[i]);
+        //        }
+        //        else if (gv.Controls[i].GetType() == typeof(CheckBox))
+        //        {
+        //            l.Text = (gv.Controls[i] as CheckBox).Checked ? "True" : "False";
+        //            gv.Controls.Remove(gv.Controls[i]);
+        //        }
+        //        else if (gv.Controls[i].GetType() == typeof(TextBox))
+        //        {
+        //            l.Text = (gv.Controls[i] as TextBox).Text;
+        //            gv.Controls.Remove(gv.Controls[i]);
+        //        }
+        //        if (gv.Controls[i].HasControls())
+        //        {
+        //            PrepareGridViewForExport(gv.Controls[i]);
+        //        }
+
+        //    }
+
+        //}
 
         //private void ShowPdf(string strS)
         //{
@@ -1309,50 +1222,52 @@ namespace WealthERP.CustomerPortfolio
         //    gvMFTransactions.Columns[1].Visible = true;
         //}
 
-        protected void gvMFTransactions_Sort(object sender, GridViewSortEventArgs e)
-        {
-            customerVo = (CustomerVo)Session["CustomerVo"];
-            customerId = customerVo.CustomerId;
 
-            string sortExpression = null;
-            try
-            {
-                sortExpression = e.SortExpression;
-                ViewState["sortExpression"] = sortExpression;
-                if (GridViewSortDirection == SortDirection.Ascending)
-                {
-                    GridViewSortDirection = SortDirection.Descending;
-                    hdnSort.Value = sortExpression + " DESC";
-                    this.BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
-                }
-                else
-                {
-                    GridViewSortDirection = SortDirection.Ascending;
-                    hdnSort.Value = sortExpression + " ASC";
-                    this.BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //---------*******Converted to Telerik Grid******--------------------------
+        //protected void gvMFTransactions_Sort(object sender, GridViewSortEventArgs e)
+        //{
+        //    customerVo = (CustomerVo)Session["CustomerVo"];
+        //    customerId = customerVo.CustomerId;
 
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+        //    string sortExpression = null;
+        //    try
+        //    {
+        //        sortExpression = e.SortExpression;
+        //        ViewState["sortExpression"] = sortExpression;
+        //        if (GridViewSortDirection == SortDirection.Ascending)
+        //        {
+        //            GridViewSortDirection = SortDirection.Descending;
+        //            hdnSort.Value = sortExpression + " DESC";
+        //            this.BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
+        //        }
+        //        else
+        //        {
+        //            GridViewSortDirection = SortDirection.Ascending;
+        //            hdnSort.Value = sortExpression + " ASC";
+        //            this.BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse((txtFromTran.SelectedDate).ToString()), DateTime.Parse((txtToTran.SelectedDate).ToString()));
 
-                FunctionInfo.Add("Method", "TransactionsView.ascx.cs:gvMFTransactions_Sort()");
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
 
-                object[] objects = new object[1];
-                objects[0] = sortExpression;
+        //        FunctionInfo.Add("Method", "TransactionsView.ascx.cs:gvMFTransactions_Sort()");
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        object[] objects = new object[1];
+        //        objects[0] = sortExpression;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         protected void txtToTran_TextChanged(object sender, EventArgs e)
         {
@@ -1369,7 +1284,7 @@ namespace WealthERP.CustomerPortfolio
             hdnStatus.Value = "1";
             hdnProcessIdSearch.Value = "0";
             hdnFolioFilter.Value=string.Empty;
-            BindGridView(customerId, mypager.CurrentPage, 0, dtFrom, dtTo);
+            BindGridView(customerId, dtFrom, dtTo);
         }
 
         protected void lbBack_Click(object sender, EventArgs e)
@@ -1382,5 +1297,63 @@ namespace WealthERP.CustomerPortfolio
         {
 
         }
+        protected void lnkView_Click(object sender, EventArgs e)
+        {
+            LinkButton lnkView = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkView.NamingContainer;
+            int selectedRow = gdi.ItemIndex + 1;
+            int transactionId = int.Parse((gvMFTransactions.MasterTableView.DataKeyValues[selectedRow - 1]["TransactionId"].ToString()));
+            mfTransactionVo = customerTransactionBo.GetMFTransaction(transactionId);
+            Session["MFTransactionVo"] = mfTransactionVo;
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMFTransaction','none');", true);
+        }
+        protected void gvMFTransactions_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Scheme")
+            {
+                LinkButton lnkScheme = (LinkButton)e.Item.FindControl("lnkprAmc");
+                GridDataItem gdi;
+                gdi = (GridDataItem)lnkScheme.NamingContainer;
+                int selectedRow = gdi.ItemIndex + 1;
+                int transactionId = int.Parse((gvMFTransactions.MasterTableView.DataKeyValues[selectedRow - 1]["TransactionId"].ToString()));
+                mfTransactionVo = customerTransactionBo.GetMFTransaction(transactionId);
+                int month = 0;
+                int amcCode = mfTransactionVo.AMCCode;
+                int schemeCode = mfTransactionVo.MFCode;
+                int year = 0;
+
+                if (DateTime.Now.Month != 1)
+                {
+                    month = DateTime.Now.Month - 1;
+                    year = DateTime.Now.Year;
+                }
+                else
+                {
+                    month = 12;
+                    year = DateTime.Now.Year - 1;
+                }
+                string schemeName = mfTransactionVo.SchemePlan;
+                Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + schemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + schemeName + "&AMCCode=" + amcCode + "", false);
+            }
+        }
+        protected void gvMFTransactions_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtMFTransactions = new DataTable();
+            dtMFTransactions = (DataTable)Cache["ViewTransaction" + userVo.UserId];
+            gvMFTransactions.DataSource = dtMFTransactions;
+            gvMFTransactions.Visible = true;
+        }
+        protected void btnViewTransaction_Click(object sender, ImageClickEventArgs e)
+        {
+            gvMFTransactions.ExportSettings.OpenInNewWindow = true;
+            gvMFTransactions.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvMFTransactions.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvMFTransactions.MasterTableView.ExportToExcel();
+        }
+      
     }
 }

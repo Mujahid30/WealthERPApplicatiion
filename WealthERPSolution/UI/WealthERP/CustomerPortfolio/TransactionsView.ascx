@@ -1,39 +1,14 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TransactionsView.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.AllTransactions" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
 <%@ Register Src="~/General/Pager.ascx" TagName="Pager" TagPrefix="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
 <script language="javascript" type="text/javascript">
-    function Print_Click(div, btnID) {
-        var ContentToPrint = document.getElementById(div);
-        var myWindowToPrint = window.open('', '', 'width=200,height=100,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,directories=0');
-        myWindowToPrint.document.write(document.getElementById(div).innerHTML);
-        myWindowToPrint.document.close();
-        myWindowToPrint.focus();
-        myWindowToPrint.print();
-        myWindowToPrint.close();
 
-        var btn = document.getElementById(btnID);
-        btn.click();
-    }    
-    function DownloadScript() {
-        if (document.getElementById('<%= gvMFTransactions.ClientID %>') == null) {
-            alert("No records to export");
-            return false;
-        }
-        btn = document.getElementById('<%= btnExportExcel.ClientID %>');
-        btn.click();
-    }
-
-    function setPageType(pageType) {
-        document.getElementById('<%= hdnDownloadPageType.ClientID %>').value = pageType;
-    }
-    function AferExportAll(btnID) {
-        var btn = document.getElementById(btnID);
-        btn.click();
-    }
     function checkDate(sender, args) {
 
         var selectedDate = new Date();
@@ -57,11 +32,15 @@
 <tr>
 <td colspan="3" style="width: 100%;">
 <div class="divPageHeading">
-    <table cellspacing="0" cellpadding="3" width="100%">
+    <table cellspacing="0"  width="100%">
         <tr>
         <td align="left">View MF Transaction</td>
-        <td align="right">
+        <td align="right"  style="padding-bottom:2px;">
         <asp:LinkButton ID="lbBack" runat="server" Text="Back" onclick="lbBack_Click" Visible="false" CssClass="FieldName"></asp:LinkButton>
+        <asp:ImageButton ID="btnViewTransaction" ImageUrl="~/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Visible="false"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
+            onclick="btnViewTransaction_Click"></asp:ImageButton>
         </td>
         </tr>
        
@@ -94,9 +73,57 @@
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
+        
+    </tr>
+    <tr>
+    <td align="right">
+                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type :"></asp:Label>
+                            </td>
+                            <td align="left">
+                                <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                                    runat="server" GroupName="Date" />
+                                <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field"></asp:Label>
+                                &nbsp;
+                                <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                                    runat="server" GroupName="Date" />
+                                <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field"></asp:Label>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;
+                            </td>
+                            <td align="right">
+                                <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Customer :"></asp:Label>
+                            </td>
+                            <td align="left">
+                                <asp:RadioButton ID="rbtnAll" AutoPostBack="true" Checked="true" runat="server" GroupName="GroupAll"
+                                    Text="All" CssClass="cmbField" OnCheckedChanged="rbtnAll_CheckedChanged" />
+                                &nbsp;
+                                <asp:RadioButton ID="rbtnGroup" AutoPostBack="true" runat="server" GroupName="GroupAll"
+                                    Text="Group" CssClass="cmbField" OnCheckedChanged="rbtnAll_CheckedChanged" />
+                            </td>
     </tr>
 </table>
 <table class="TableBackground">
+<tr id="trPeriod" visible="false" runat="server">
+                            <td align="right" valign="top">
+                                <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
+                            </td>
+                            <td valign="top">
+                                <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField">
+                                </asp:DropDownList>
+                                <span id="Span4" class="spnRequiredField"></span>
+                                <br />
+                                <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPeriod"
+                                    CssClass="rfvPCG" ErrorMessage="Please select a Period" Operator="NotEqual" ValueToCompare="Select a Period"
+                                    ValidationGroup="btnGo"> </asp:CompareValidator>
+                            </td>
+                            <td>
+                            &nbsp;&nbsp;
+                            </td>
+                            <td colspan="2">
+                                &nbsp;
+                            </td>
+                        </tr>
     <tr>
         <td>
             <asp:Label ID="lblFromTran" Text="From" CssClass="Field" runat="server" />
@@ -183,95 +210,6 @@
     </tr>    
 </table>--%>
 
-<table id="tblExport" runat="server" style="width: 100%; margin: 0px; padding: 0px;" cellpadding="0" cellspacing="0">
-    <tr id="trModalPopup" runat="server">
-        <td>
-            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel2"
-                TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
-                Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
-                PopupDragHandleControlID="Panel2" X="280" Y="35">
-            </cc1:ModalPopupExtender>
-        </td>
-    </tr>
-    <tr id="trExportPopup" runat="server">
-        <td>
-            <asp:Panel ID="Panel2" runat="server" CssClass="ExortPanelpopup">
-                <br />
-                <table width="100%">
-                    <tr>
-                        <td>
-                            &nbsp;&nbsp;&nbsp;
-                        </td>
-                        <td align="right">
-                            <input id="rbCurrent" runat="server" name="Radio" onclick="setPageType('single')"
-                                type="radio" />
-                        </td>
-                        <td align="left">
-                            <label for="rbCurrent" style="color: Black; font-family: Verdana; font-size: 8pt;
-                                text-decoration: none">
-                                Current Page</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            &nbsp;&nbsp;&nbsp;
-                        </td>
-                        <td align="right">
-                            <input id="rbAll" runat="server" name="Radio" onclick="setPageType('multiple')" type="radio" />
-                        </td>
-                        <td align="left">
-                            <label for="rbAll" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
-                                All Pages</label>
-                        </td>
-                    </tr>
-                </table>
-                <table width="100%">
-                    <tr>
-                        <td align="right">
-                            <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
-                        </td>
-                        <td align="left">
-                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
-                        </td>
-                    </tr>
-                </table>
-            </asp:Panel>
-            <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
-                OnClick="btnExportExcel_Click" Height="31px" Width="30px" />
-        </td>
-    </tr>
-    <%--<tr id="trMessage" runat="server" visible="false">
-        <td colspan="3">
-            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found."></asp:Label>
-        </td>
-    </tr>--%>
-    <tr>
-        <td colspan="3">
-            <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
-                cellspacing="0">
-                <tr>
-                    <td>
-                        <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td class="leftField" align="right">
-                        <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-                        <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    </table>
 <table id="ErrorMessage" align="center" runat="server">
     <tr>
         <td>
@@ -281,12 +219,12 @@
         </td>
     </tr>
 </table>
-<div id="tbl" runat="server">
-   <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+<div id="tbl" runat="server" style="margin: 2px;width: 100%;">
+   <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="98%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td>
-                <asp:GridView ID="gvMFTransactions" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                <%--<asp:GridView ID="gvMFTransactions" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                     CellPadding="4" EnableViewState="true" AllowPaging="false" CssClass="GridViewStyle"
                     OnRowCommand="gvMFTransactions_RowCommand" ShowFooter="True" DataKeyNames="TransactionId"
                     OnPageIndexChanging="gvMFTransactions_PageIndexChanging" OnDataBound="gvMFTransactions_DataBound"
@@ -299,24 +237,12 @@
                     <HeaderStyle CssClass="HeaderStyle" />
                     <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
-                        <%--<asp:TemplateField HeaderText="Select">
-                            <ItemTemplate>
-                                <asp:CheckBox ID="chkBx" runat="server" />
-                            </ItemTemplate>
-                          <FooterTemplate>
-                                <asp:Button ID="btnDeleteSelected" CssClass="FieldName" OnClick="btnDeleteSelected_Click"
-                                    runat="server" Text="Delete" />
-                            </FooterTemplate>
-                        </asp:TemplateField>--%>
                        
                                                               
                         <asp:ButtonField CommandName="Select" HeaderText="View Details" ShowHeader="True" Text="View Details"
                             ItemStyle-Wrap="false">
                             <ItemStyle Wrap="False"></ItemStyle>
                         </asp:ButtonField>
-                        <%--<asp:BoundField DataField="ADUL_ProcessId" HeaderText="ProcessId">
-                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                        </asp:BoundField> --%>
                         <asp:TemplateField ItemStyle-Wrap="false" HeaderText="ProcessId">
                                         <HeaderTemplate>
                                             <asp:Label ID="lblProcessId" runat="server" Text="ProcessId"></asp:Label>
@@ -354,8 +280,6 @@
                             </HeaderTemplate>
                              
                             <ItemTemplate>
-                                <%--<asp:Label ID="lblSchemeHeader" runat="server" Text='<%# Eval("Scheme Name").ToString() %>'
-                                    ItemStyle-Wrap="false"></asp:Label>--%> 
                                 <asp:LinkButton ID="lblSchemeHeader" CommandName="NavigateToMarketData" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" runat="server" Text='<%# Eval("Scheme Name").ToString() %>'>
                                 </asp:LinkButton>   
                             </ItemTemplate>
@@ -403,9 +327,6 @@
                         <asp:BoundField DataField="STT" HeaderText="STT (Rs)" ItemStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundField>
-                        <%--<asp:BoundField DataField="TransactionStatus" HeaderText="Transaction Status" ItemStyle-HorizontalAlign="Center">
-                            <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                        </asp:BoundField>--%>
                         <asp:TemplateField ItemStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblStatus" runat="server" Text="Transaction Status"></asp:Label>
@@ -421,22 +342,125 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
-                </asp:GridView>
+                </asp:GridView>--%>
+                <div id="dvTransactionsView" runat="server" style="margin: 2px;width: 640px;">
+                <telerik:RadGrid ID="gvMFTransactions" runat="server" GridLines="None" AutoGenerateColumns="False" AllowFiltering="true" AllowFilteringByColumn="true"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnItemCommand="gvMFTransactions_OnItemCommand"
+                    OnNeedDataSource="gvMFTransactions_OnNeedDataSource" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%"
+                    AllowAutomaticInserts="false" ExportSettings-FileName="MF Transaction" > 
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="MF Transaction" Excel-Format="ExcelML">
+                    </ExportSettings>
+                    <MasterTableView DataKeyNames="TransactionId" 
+                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                        <Columns>
+                          <telerik:GridTemplateColumn HeaderText="View Details" AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false">
+                            <ItemStyle Wrap="false" />
+                            <ItemTemplate >
+                                <asp:LinkButton ID="lnkView" runat="server" CssClass="cmbField" Text="View Details"
+                                    OnClick="lnkView_Click">
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        
+                       <%-- <telerik:GridDateTimeColumn DataField="ADUL_ProcessId" HeaderText="ProcessId" AllowFiltering="true"
+                                SortExpression="ADUL_ProcessId" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="ADUL_ProcessId" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridDateTimeColumn>--%>
+                        
+                        <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="ProcessId" AllowFiltering="true" HeaderStyle-Wrap="false"
+                                SortExpression="ADUL_ProcessId" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="ADUL_ProcessId" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                      
+                        <telerik:GridBoundColumn DataField="TransactionId" HeaderText="TransactionId" AllowFiltering="false" Visible="false"
+                                SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="CMFT_SubBrokerCode" HeaderText="SubBrokerCode" AllowFiltering="false" Visible="false"
+                                SortExpression="CMFT_SubBrokerCode" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="CMFT_SubBrokerCode" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="Folio Number" HeaderText="Folio No" AllowFiltering="true"
+                                SortExpression="Folio Number" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="Folio Number" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridTemplateColumn   AllowFiltering="true" HeaderText="Scheme" ShowFilterIcon="false">
+                        <ItemStyle Wrap="false" />
+                           <ItemTemplate>
+                           <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />
+                           </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        
+                        <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="Sub Category Name" AllowFiltering="false" HeaderStyle-Wrap="false"
+                                SortExpression="PAISC_AssetInstrumentSubCategoryName" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="PAISC_AssetInstrumentSubCategoryName" FooterStyle-HorizontalAlign="Left">
+                         <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="Transaction Type" HeaderText="Type" AllowFiltering="true" HeaderStyle-Wrap="false"
+                                SortExpression="Transaction Type" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="Transaction Type" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Date" AllowFiltering="true" HeaderStyle-Wrap="false"
+                                SortExpression="Transaction Date" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="Transaction Date" FooterStyle-HorizontalAlign="Center">
+                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="Price" HeaderText="Price (Rs)" AllowFiltering="false"
+                                SortExpression="Price" ShowFilterIcon="false" CurrentFilterFunction="Contains" HeaderStyle-Wrap="false"
+                                AutoPostBackOnFilter="true" UniqueName="Price" FooterStyle-HorizontalAlign="Right"
+                                DataFormatString="{0:n}" Aggregate="Sum">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="Units" HeaderText="Units" AllowFiltering="false" HeaderStyle-Wrap="false"
+                                SortExpression="Units" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="Units" FooterStyle-HorizontalAlign="Right"
+                                DataFormatString="{0:n}" Aggregate="Sum">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="Amount" HeaderText="Amount (Rs)" AllowFiltering="false" HeaderStyle-Wrap="false"
+                                SortExpression="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="Amount" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n}" Aggregate="Sum">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="STT" HeaderText="STT (Rs)" AllowFiltering="false" HeaderStyle-Wrap="false"
+                                SortExpression="STT" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="STT" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n}" Aggregate="Sum">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Transaction Status" HeaderText="Transaction Status" AllowFiltering="true" HeaderStyle-Wrap="false"
+                                SortExpression="Transaction Status" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="Transaction Status" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid></div>
             </td>
         </tr>
         </table>
     </asp:Panel>
-   <table id="tblpager" class="TableBackground" width="100%" runat="server">
-        <tr id="trPager" runat="server">
-            <td>
-                <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-            </td>
-        </tr>
-        </table>
     
 </div>
-<asp:Button ID="btnTranSchemeSearch" runat="server" Text="" OnClick="btnTranSchemeSearch_Click"
-    BorderStyle="None" BackColor="Transparent" />
+<%--<asp:Button ID="btnTranSchemeSearch" runat="server" Text="" OnClick="btnTranSchemeSearch_Click"
+    BorderStyle="None" BackColor="Transparent" />--%>
 <asp:HiddenField ID="hdnRecordCount" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnSchemeFilter" runat="server" Visible="false" />
