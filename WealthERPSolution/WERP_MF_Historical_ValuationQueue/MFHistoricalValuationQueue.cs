@@ -86,16 +86,11 @@ namespace WERP_MF_Historical_ValuationQueue
         {
             int logId = 0;
             logId = CreateAdviserEODLog("MF", dtHistoricalValuationDate, adviserId);
-            try
-            {
+           
                 mfHistoricalValuationBo.MFNetPositionCreation(adviserId, 0, valuationFor, dtHistoricalValuationDate, iSForPreviousDate);
                 UpdateAdviserEODLog("MF", 1, logId);
-            }
-            catch
-            {
-
-
-            }
+          
+          
         }
 
         private int CreateAdviserEODLog(string assetType, DateTime dt, int adviserId)
