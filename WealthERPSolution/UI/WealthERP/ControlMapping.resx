@@ -1481,4 +1481,24 @@
     <value>Uploads//UploadDashBoard.ascx</value>
     <comment>Uploads//UploadDashBoard.ascx</comment>
   </data>
+  <data name="CustomerAUM" xml:space="preserve">
+    <value>BusinessMIS//CustomerAUM.ascx</value>
+    <comment>BusinessMIS//CustomerAUM.ascx</comment>
+  </data>
+  <data name="HoldingDashBoard" xml:space="preserve">
+    <value>BusinessMIS//HoldingDashBoard.ascx</value>
+    <comment>BusinessMIS//HoldingDashBoard.ascx</comment>
+  </data>
+  <data name="OrderDashBoard" xml:space="preserve">
+    <value>OPS//OrderDashBoard.ascx</value>
+    <comment>OPS//OrderDashBoard.ascx</comment>
+  </data>
+  <data name="TransactionDashBoard" xml:space="preserve">
+    <value>BusinessMIS//TransactionDashBoard.ascx</value>
+    <comment>BusinessMIS//TransactionDashBoard.ascx</comment>
+  </data>
+  <data name="TurnOverDashBoard" xml:space="preserve">
+    <value>BusinessMIS//TurnOverDashBoard.ascx</value>
+    <comment>BusinessMIS//TurnOverDashBoard.ascx</comment>
+  </data>
 </root>

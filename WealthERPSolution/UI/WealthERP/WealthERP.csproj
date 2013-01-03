@@ -1121,12 +1121,26 @@
     <Compile Include="BusinessMIS\BusinessDashBoard.ascx.designer.cs">
       <DependentUpon>BusinessDashBoard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="BusinessMIS\CustomerAUM.ascx.cs">
+      <DependentUpon>CustomerAUM.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\CustomerAUM.ascx.designer.cs">
+      <DependentUpon>CustomerAUM.ascx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\GoalMIS.ascx.cs">
       <DependentUpon>GoalMIS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BusinessMIS\GoalMIS.ascx.designer.cs">
       <DependentUpon>GoalMIS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessMIS\HoldingDashBoard.ascx.cs">
+      <DependentUpon>HoldingDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\HoldingDashBoard.ascx.designer.cs">
+      <DependentUpon>HoldingDashBoard.ascx</DependentUpon>
     </Compile>
     <Compile Include="BusinessMIS\MFDashBoard.ascx.cs">
       <DependentUpon>MFDashBoard.ascx</DependentUpon>
@@ -1155,6 +1169,20 @@
     </Compile>
     <Compile Include="BusinessMIS\MutualFundMIS.ascx.designer.cs">
       <DependentUpon>MutualFundMIS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessMIS\TransactionDashBoard.ascx.cs">
+      <DependentUpon>TransactionDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\TransactionDashBoard.ascx.designer.cs">
+      <DependentUpon>TransactionDashBoard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessMIS\TurnOverDashBoard.ascx.cs">
+      <DependentUpon>TurnOverDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\TurnOverDashBoard.ascx.designer.cs">
+      <DependentUpon>TurnOverDashBoard.ascx</DependentUpon>
     </Compile>
     <Compile Include="ControlHost.aspx.cs">
       <DependentUpon>ControlHost.aspx</DependentUpon>
@@ -2351,6 +2379,13 @@
     </Compile>
     <Compile Include="OPS\MFOrderEntry.ascx.designer.cs">
       <DependentUpon>MFOrderEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OPS\OrderDashBoard.ascx.cs">
+      <DependentUpon>OrderDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OPS\OrderDashBoard.ascx.designer.cs">
+      <DependentUpon>OrderDashBoard.ascx</DependentUpon>
     </Compile>
     <Compile Include="OPS\OrderEntry.ascx.cs">
       <DependentUpon>OrderEntry.ascx</DependentUpon>
@@ -5686,11 +5721,15 @@
     <Content Include="bin\WatiN.Core.XML" />
     <Content Include="BusinessMIS\AssetAllocationMIS.ascx" />
     <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
+    <Content Include="BusinessMIS\CustomerAUM.ascx" />
     <Content Include="BusinessMIS\GoalMIS.ascx" />
+    <Content Include="BusinessMIS\HoldingDashBoard.ascx" />
     <Content Include="BusinessMIS\MFDashBoard.ascx" />
     <Content Include="BusinessMIS\MFTurnOverMIS.ascx" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
     <Content Include="BusinessMIS\MutualFundMIS.ascx" />
+    <Content Include="BusinessMIS\TransactionDashBoard.ascx" />
+    <Content Include="BusinessMIS\TurnOverDashBoard.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />
     <Content Include="CustomerPortfolio\CustomerEQAccountView.ascx" />
@@ -6023,6 +6062,7 @@
     <Content Include="OPS\LifeInsuranceOrderEntry.ascx" />
     <Content Include="OPS\ManualOrderMapping.aspx" />
     <Content Include="OPS\MFOrderEntry.ascx" />
+    <Content Include="OPS\OrderDashBoard.ascx" />
     <Content Include="OPS\OrderEntry.ascx" />
     <Content Include="OPS\OrderList.ascx" />
     <Content Include="OPS\OrderMIS.ascx" />

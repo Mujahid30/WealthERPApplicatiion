@@ -754,6 +754,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//CustomerAUM.ascx.
+        /// </summary>
+        internal static string CustomerAUM {
+            get {
+                return ResourceManager.GetString("CustomerAUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AdvsierPreferenceSettings//CustomerCategorySetup.ascx.
         /// </summary>
         internal static string CustomerCategorySetup {
@@ -1537,6 +1546,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//HoldingDashBoard.ascx.
+        /// </summary>
+        internal static string HoldingDashBoard {
+            get {
+                return ResourceManager.GetString("HoldingDashBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//AdviserLandingPage.ascx.
         /// </summary>
         internal static string IFAAdminMainDashboard {
@@ -1911,6 +1929,15 @@ namespace WealthERP {
         internal static string OfflineForm {
             get {
                 return ResourceManager.GetString("OfflineForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OPS//OrderDashBoard.ascx.
+        /// </summary>
+        internal static string OrderDashBoard {
+            get {
+                return ResourceManager.GetString("OrderDashBoard", resourceCulture);
             }
         }
         
@@ -2716,11 +2743,29 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//TransactionDashBoard.ascx.
+        /// </summary>
+        internal static string TransactionDashBoard {
+            get {
+                return ResourceManager.GetString("TransactionDashBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//TransactionsView.ascx.
         /// </summary>
         internal static string TransactionsView {
             get {
                 return ResourceManager.GetString("TransactionsView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//TurnOverDashBoard.ascx.
+        /// </summary>
+        internal static string TurnOverDashBoard {
+            get {
+                return ResourceManager.GetString("TurnOverDashBoard", resourceCulture);
             }
         }
         
