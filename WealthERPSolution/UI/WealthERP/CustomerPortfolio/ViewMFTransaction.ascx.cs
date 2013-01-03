@@ -32,8 +32,11 @@ namespace WealthERP.CustomerPortfolio
                 mfTransactionVo = (MFTransactionVo)Session["MFTransactionVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 userVo = (UserVo)Session["userVo"];
-                if(!Page.IsPostBack)
-                LoadViewFields();
+                if (!Page.IsPostBack)
+                {
+                    Session["MFEditValue"] = "View";
+                    LoadViewFields();
+                }
                
             }
             catch (BaseApplicationException Ex)
@@ -369,7 +372,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('TransactionsView','none');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
