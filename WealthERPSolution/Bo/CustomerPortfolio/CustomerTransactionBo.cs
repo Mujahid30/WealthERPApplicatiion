@@ -489,18 +489,18 @@ namespace BoCustomerPortfolio
             return transactionId;
         }
 
-        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId, int export, int CurrentPage, out int Count, string SchemeFilter, string TypeFilter, string TriggerFilter, string TransactionCode, string DateFilter, out Dictionary<string, string> genDictTranType, out Dictionary<string, string> genDictTranTrigger, out Dictionary<string, string> genDictTranDate, string SortExpression, DateTime FromDate, DateTime ToDate,string folioFilter,int ProcessId)
+        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId,DateTime FromDate, DateTime ToDate)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
 
             List<MFTransactionVo> mfTransactionsList = new List<MFTransactionVo>();
-            genDictTranType = new Dictionary<string, string>();
-            genDictTranTrigger = new Dictionary<string, string>();
-            genDictTranDate = new Dictionary<string, string>();
+            //genDictTranType = new Dictionary<string, string>();
+            //genDictTranTrigger = new Dictionary<string, string>();
+            //genDictTranDate = new Dictionary<string, string>();
 
             try
             {
-                mfTransactionsList = customerTransactionDao.GetMFTransactions(customerId, portfolioId, export, CurrentPage, out Count, SchemeFilter, TypeFilter, TriggerFilter, TransactionCode, DateFilter, out genDictTranType, out genDictTranTrigger, out genDictTranDate, SortExpression, FromDate, ToDate, folioFilter,ProcessId);
+                mfTransactionsList = customerTransactionDao.GetMFTransactions(customerId, portfolioId,FromDate, ToDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1384,14 +1384,14 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(out int Count, int CurrentPage, int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC,int ProcessId)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions( int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage,int AccountId)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             List<MFTransactionVo> mfTransactionsList = new List<MFTransactionVo>();
             try
             {
 
-                mfTransactionsList = customerTransactionDao.GetRMCustomerMFTransactions(out Count, CurrentPage, RMId, AdviserID, GroupHeadId, From, To, Manage, CustomerName, Scheme, TranType, transactionStatus, out genDictTranType, FolioNumber, PasssedFolioValue, categoryCode, AMCCode, out genDictCategory, out genDictAMC, ProcessId);
+                mfTransactionsList = customerTransactionDao.GetRMCustomerMFTransactions(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId);
 
             }
             catch (BaseApplicationException Ex)
@@ -1403,16 +1403,16 @@ namespace BoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetRMCustomerMFTransactions()");
-                object[] objects = new object[9];
+                object[] objects = new object[3];
                 objects[0] = RMId;
                 objects[1] = GroupHeadId;
                 objects[2] = From;
                 objects[3] = To;
                 objects[4] = Manage;
-                objects[5] = CurrentPage;
-                objects[6] = CustomerName;
-                objects[7] = Scheme;
-                objects[8] = PasssedFolioValue; 
+                //objects[5] = CurrentPage;
+                //objects[6] = CustomerName;
+                //objects[7] = Scheme;
+                //objects[8] = PasssedFolioValue; 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
