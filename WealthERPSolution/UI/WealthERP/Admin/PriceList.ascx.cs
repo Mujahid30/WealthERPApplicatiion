@@ -53,7 +53,8 @@ namespace WealthERP.Admin
             cvChkFutureDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
             trMFFundPerformance.Visible = false;
             trExportFilteredMFRecord.Visible = false;
-            if (Request.QueryString["AssetId"] != null)
+            trgvEquityView.Visible = false;
+           if (Request.QueryString["AssetId"] != null)
             {
                 hdnassetType.Value = Request.QueryString["AssetId"].ToString();
             }
@@ -102,7 +103,7 @@ namespace WealthERP.Admin
                 rbtnCurrent.Visible = true;
                 rbtnHistorical.Visible = true;
                 trgvEquityView.Visible = false;
-                gvEquityRecord.Visible = false;
+                gvEquityRecord.Visible = true;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
                 trNavCategory.Visible = false;
