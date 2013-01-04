@@ -499,7 +499,8 @@ namespace WealthERP.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvEquityRecord;
+        //protected global::System.Web.UI.WebControls.GridView gvEquityRecord;
+        protected global::Telerik.Web.UI.RadGrid gvEquityRecord;
         
         /// <summary>
         /// DivPager control.
@@ -1868,5 +1869,9 @@ namespace WealthERP.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnassetType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdToDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtFrom;
+        protected global::Telerik.Web.UI.RadDatePicker txtTo;
     }
 }
