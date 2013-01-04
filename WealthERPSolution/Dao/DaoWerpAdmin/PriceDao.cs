@@ -37,7 +37,7 @@ namespace DaoWerpAdmin
             }
         }
 
-        public int GetEquityCount(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage)
+        public int GetEquityCount(string Flag, DateTime StartDate, DateTime EndDate, String Search)
         {
             DataSet ds;
             Database db;
@@ -52,7 +52,7 @@ namespace DaoWerpAdmin
                 db.AddInParameter(Cmd, "@StartDate", DbType.DateTime, StartDate);
                 db.AddInParameter(Cmd, "@Search", DbType.String, Search);
                 db.AddInParameter(Cmd, "@EndDate", DbType.DateTime, EndDate);
-                db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
                 ds = db.ExecuteDataSet(Cmd);
                 return Convert.ToInt32(ds.Tables[0].Rows[0][0].ToString());
             }
@@ -76,7 +76,7 @@ namespace DaoWerpAdmin
             }
         }
 
-        public int GetEquityCountSnapshot(string Flag, String Search, int CurrentPage)
+        public int GetEquityCountSnapshot(string Flag, String Search)
         {
             DataSet ds;
             Database db;
@@ -87,7 +87,7 @@ namespace DaoWerpAdmin
                 Cmd = db.GetStoredProcCommand("SP_GetProductEquityPriceHistorySnapshot");
                 db.AddInParameter(Cmd, "@Flag", DbType.String, Flag);
                 db.AddInParameter(Cmd, "@Search", DbType.String, Search);
-                db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
                 ds = db.ExecuteDataSet(Cmd);
                 return Convert.ToInt32(ds.Tables[0].Rows[0][0].ToString());
             }
