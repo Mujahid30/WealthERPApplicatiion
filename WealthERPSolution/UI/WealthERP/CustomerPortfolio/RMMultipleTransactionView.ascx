@@ -246,12 +246,12 @@
                     OnNeedDataSource="gvMFTransactions_OnNeedDataSource" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%"
                     AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" > 
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                    FileName="View Transactions" Excel-Format="ExcelML">
+                    FileName="View MF Transaction" Excel-Format="ExcelML">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="TransactionId" 
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                          <telerik:GridTemplateColumn HeaderText="View Details" AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false">
+                          <telerik:GridTemplateColumn  AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false">
                             <ItemStyle Wrap="false" />
                             <ItemTemplate >
                                 <asp:LinkButton ID="lnkView" runat="server" CssClass="cmbField" Text="View Details"
@@ -259,13 +259,13 @@
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn DataField="Customer Name" HeaderText="Customer Name" AllowFiltering="true" HeaderStyle-Wrap="false"
+                        <telerik:GridBoundColumn DataField="Customer Name" HeaderText="Customer" AllowFiltering="true" HeaderStyle-Wrap="false"
                                 SortExpression="Customer Name" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                 AutoPostBackOnFilter="true" UniqueName="Customer Name" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                                          
-                        <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="ProcessId" AllowFiltering="true" HeaderStyle-Wrap="false"
+                        <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="Process ID" AllowFiltering="true" HeaderStyle-Wrap="false"
                                 SortExpression="ADUL_ProcessId" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                 AutoPostBackOnFilter="true" UniqueName="ADUL_ProcessId" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -277,13 +277,13 @@
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="CMFT_SubBrokerCode" HeaderText="SubBrokerCode" AllowFiltering="false" Visible="false"
+                        <telerik:GridBoundColumn DataField="CMFT_SubBrokerCode" HeaderText="Sub-Broker Code" AllowFiltering="false"
                                 SortExpression="CMFT_SubBrokerCode" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                 AutoPostBackOnFilter="true" UniqueName="CMFT_SubBrokerCode" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="Folio Number" HeaderText="Folio No" AllowFiltering="true"
+                        <telerik:GridBoundColumn DataField="Folio Number" HeaderText="Folio No." AllowFiltering="true"
                                 SortExpression="Folio Number" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                 AutoPostBackOnFilter="true" UniqueName="Folio Number" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -350,6 +350,11 @@
                                 SortExpression="STT" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
                                 AutoPostBackOnFilter="true" UniqueName="STT" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n}" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Portfolio Name" HeaderText="Portfolio Name" AllowFiltering="false" HeaderStyle-Wrap="false"
+                                SortExpression="Portfolio Name" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="Portfolio Name" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Transaction Status" HeaderText="Transaction Status" AllowFiltering="true" HeaderStyle-Wrap="false"
                                 SortExpression="Transaction Status" ShowFilterIcon="false" CurrentFilterFunction="Contains" 

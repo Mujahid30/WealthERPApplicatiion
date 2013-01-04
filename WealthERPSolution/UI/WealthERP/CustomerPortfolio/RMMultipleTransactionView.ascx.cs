@@ -264,7 +264,7 @@ namespace WealthERP.CustomerPortfolio
 
             if (userType == "advisor" || userType == "ops")
                 AdviserId = advisorVo.advisorId;
-            else
+            else if(userType=="rm")
                 rmID = rmVo.RMId;
 
             if(!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
@@ -274,6 +274,11 @@ namespace WealthERP.CustomerPortfolio
                    if (rbtnGroup.Checked)
                     {
                         mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()),PasssedFolioValue);
+                    }
+                    else if (Session["CustomerVo"] != null)
+                    {
+                       customerId = customerVo.CustomerId;
+                       mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue);
                     }
                     else
                     {
@@ -356,9 +361,11 @@ namespace WealthERP.CustomerPortfolio
                     }
 
                     GridBoundColumn gbcCustomer = gvMFTransactions.MasterTableView.Columns.FindByUniqueName("Customer Name") as GridBoundColumn;
+                    GridBoundColumn gbcPortfolio = gvMFTransactions.MasterTableView.Columns.FindByUniqueName("Portfolio Name") as GridBoundColumn;
                     if (Session["CustomerVo"] != null)
                     {
                         gbcCustomer.Visible = false;
+                        gbcPortfolio.Visible = false;
                     }
                     else
                         gbcCustomer.Visible = true;
