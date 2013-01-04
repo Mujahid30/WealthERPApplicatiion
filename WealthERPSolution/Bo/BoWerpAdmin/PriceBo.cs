@@ -23,10 +23,10 @@ namespace BoWerpAdmin
 
         }
 
-        public int GetEquityCount(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage)
+        public int GetEquityCount(string Flag, DateTime StartDate, DateTime EndDate, String Search)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetEquityCount(Flag, StartDate, EndDate, Search, CurrentPage);
+            return PriceObj.GetEquityCount(Flag, StartDate, EndDate, Search);
 
         }
 
@@ -38,10 +38,10 @@ namespace BoWerpAdmin
 
         }
 
-        public int GetEquityCountSnapshot(string Flag, String Search, int CurrentPage)
+        public int GetEquityCountSnapshot(string Flag, String Search)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetEquityCountSnapshot(Flag, Search, CurrentPage);
+            return PriceObj.GetEquityCountSnapshot(Flag, Search);
 
         }
 
