@@ -317,12 +317,14 @@ namespace WealthERP.Advisor
                     assetGroup = "EQ";
                     trHeader.Visible = true;
                     hdnMsgValue.Value = "1";
+                    gvValuationDate.Rows[0].Visible = true;
                     gvValuationDate.Columns[3].Visible = false;
                     gvValuationDate.Columns[0].Visible = true;
                     dsAdviserValuationDate = customerPortfolioBo.GetAdviserValuationDate(advisorVo.advisorId, assetGroup, int.Parse(ddTradeMonth.SelectedValue.ToString()), int.Parse(ddTradeYear.SelectedItem.Value.ToString()));
                 }
                 if (ddlValuationTypes.SelectedValue == "MF")
                 {
+                    gvValuationDate.Rows[0].Visible = false;
                     gvValuationDate.Columns[3].Visible = true;
                     gvValuationDate.Columns[0].Visible = false;
                     trHeader.Visible = true;
@@ -1105,7 +1107,7 @@ namespace WealthERP.Advisor
                     }
                     else  // Request with status 0..
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request already in queue.. please wait..');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request already in queue.. please wait for a while..');", true);
 
                         //alert user that already in queue please wait..and dont insert in queue.   // case 2
 
@@ -1126,7 +1128,7 @@ namespace WealthERP.Advisor
             }
             else
             {                
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Limit of 5 Requests reached...Please try next day');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Limit of 3 Requests reached...Please try next day');", true);
             }
             //return bresult;
         }
@@ -1134,7 +1136,7 @@ namespace WealthERP.Advisor
         protected void InsertHistoricalValuationInQueue(DateTime valuationDate)
         {
             advisorBo.InsertHistoricalValuationInQueue(valuationDate, advisorVo.advisorId,userVo.UserId);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request successfully sent !!...Please wait another 30 mints');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request successfully sent !!...Please wait for another 30 mints');", true);
 
         }
 
