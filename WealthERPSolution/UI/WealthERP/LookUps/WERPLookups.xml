@@ -2850,7 +2850,7 @@
   </SuperAdminTreeSubNode>
 
   <SuperAdminTreeSubSubNode>
-    <TreeSubSubNode	TreeSubNodeCode="2004" TreeSubSubNodeCode="3001" TreeSubSubNodeText="Manual Valuation" Path="" Deleted="False"	/>
+    <TreeSubSubNode	TreeSubNodeCode="2004" TreeSubSubNodeCode="3001" TreeSubSubNodeText="Manual Valuation" Path="" Deleted="False" 	/>
     <TreeSubSubNode	TreeSubNodeCode="2009" TreeSubSubNodeCode="3002" TreeSubSubNodeText="Upload" Path="~/Images/Upload-icon.png" Deleted="False"	/>
     <TreeSubSubNode	TreeSubNodeCode="2009" TreeSubSubNodeCode="3003" TreeSubSubNodeText="Upload History" Path="~/Images/Creek.jpg" Deleted="False"	/>
     <TreeSubSubNode	TreeSubNodeCode="2009" TreeSubSubNodeCode="3004" TreeSubSubNodeText="MF Folio Exception" Path="~/Images/1044_Mangala.jpg" Deleted="False"	/>
@@ -2878,8 +2878,51 @@
     <TreeSubSubNode	TreeSubNodeCode="2014" TreeSubSubNodeCode="3025" TreeSubSubNodeText="EQ Transaction" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
   </SuperAdminTreeSubSubNode>
   
+  <UserRole>
+    <UserRole	UserRoleId="1000" UserRoleName="Admin" Deleted="False" 	/>
+    <UserRole	UserRoleId="1001" UserRoleName="RM" Deleted="False" 	/>
+    <UserRole	UserRoleId="1002" UserRoleName="BM" Deleted="False" 	/>
+    <UserRole	UserRoleId="1003" UserRoleName="Customer" Deleted="False" 	/>
+    <UserRole	UserRoleId="1004" UserRoleName="OPS" Deleted="False" 	/>
+    <UserRole	UserRoleId="1005" UserRoleName="Research" Deleted="False" 	/>
+  </UserRole>
 
-  <!--<NewAdminTreeNode>
+  <UserRoleToTreeAssociation>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3001" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3001" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3002" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3002" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3003" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3003" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3004" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3004" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3005" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3005" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3006" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3006" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3007" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3007" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3008" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3008" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3009" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3009" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3010" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3010" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3011" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3011" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3012" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1001" TreeSubSubNodeCode="3012" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1002" TreeSubSubNodeCode="3012" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3013" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1001" TreeSubSubNodeCode="3013" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3014" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1001" TreeSubSubNodeCode="3014" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3015" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1001" TreeSubSubNodeCode="3015" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1002" TreeSubSubNodeCode="3015" Deleted="False" 	/>
+  </UserRoleToTreeAssociation>
+
+    <!--<NewAdminTreeNode>
     <NewAdminTreeNode NodeType="Upload" TreeNode1="Upload" TreeNodeText1="Upload" Path1="~/Images/Upload-icon.png" TreeNode2="Upload_History" TreeNodeText2="Upload History" Path2="~/Images/Creek.jpg" TreeNode3="Folio_Exception" TreeNodeText3="MF Folio Exception" Path3="~/Images/1044_Mangala.jpg" Deleted="False" />
     <NewAdminTreeNode NodeType="Upload" TreeNode1="MFTransaction_Exception" TreeNodeText1="MF Transaction Ex." Path1="~/Images/Dashboard-MutualFund.png" TreeNode2="SIP_Exception" TreeNodeText2="MF SIP Ex." Path2="~/Images/1044_prin.jpg" TreeNode3="Trail_Exception" TreeNodeText3="MF Trail Commission Ex." Path3="~/Images/logo3.jpg" Deleted="False" />
     <NewAdminTreeNode NodeType="Upload" TreeNode1="EQTrade_Account_Exception" TreeNodeText1="EQ Trade Account Ex." Path1="~/Images/baby.jpg" TreeNode2="EQTransaction_Exception" TreeNodeText2="EQ Transaction Ex." Path2="~/Images/Dashboard-Equity.png" TreeNode3="MFReversal_Tranx_Exception" TreeNodeText3="MF Reversal Trnx Ex." Path3="~/Images/images6.jpg"  Deleted="False" />

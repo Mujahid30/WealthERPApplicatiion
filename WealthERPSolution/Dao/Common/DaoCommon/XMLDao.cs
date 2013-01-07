@@ -3171,5 +3171,21 @@ namespace DaoCommon
         //    return dtUploadTreeNodes;
         //}
 
+        public static DataTable GetRoleAssociationTreeNode(string path)
+        {
+            DataSet dsGetRoleAssociationTreeNode;
+            DataTable dtGetRoleAssociationTreeNode;
+            try
+            {
+                dsGetRoleAssociationTreeNode = new DataSet();
+                dsGetRoleAssociationTreeNode.ReadXml(path);
+                dtGetRoleAssociationTreeNode = dsGetRoleAssociationTreeNode.Tables["UserRoleToTreeAssociation"];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetRoleAssociationTreeNode;
+        }        
     }
 }

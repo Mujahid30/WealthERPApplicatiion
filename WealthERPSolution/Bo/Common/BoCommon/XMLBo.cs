@@ -2385,5 +2385,21 @@ namespace BoCommon
         //    }
         //    return dsUploadTreeNodes;
         //}
+
+        public static DataTable GetRoleAssociationTreeNode(string path)
+        {
+            DataTable dtGetRoleAssociationTreeNode;
+            try
+            {
+                dtGetRoleAssociationTreeNode = XMLDao.GetRoleAssociationTreeNode(path);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dtGetRoleAssociationTreeNode;
+        }
+
     }
 }
