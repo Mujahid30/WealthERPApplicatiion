@@ -253,7 +253,7 @@ namespace WealthERP.SuperAdmin
                 {
                     int StagingId = Convert.ToInt32(gvCAMSProfileReject.DataKeys[dr.RowIndex].Values["MFFolioStagingId"].ToString());
                     int MainStagingId = Convert.ToInt32(gvCAMSProfileReject.DataKeys[dr.RowIndex].Values["MainStagingId"].ToString());
-                    blResult = rejectedRecordsBo.UpdateMFFolioStaging(StagingId, MainStagingId, newPan, newFolio);
+                    //blResult = rejectedRecordsBo.UpdateMFFolioStaging(StagingId, MainStagingId, newPan, newFolio);
                 }
             }
 
