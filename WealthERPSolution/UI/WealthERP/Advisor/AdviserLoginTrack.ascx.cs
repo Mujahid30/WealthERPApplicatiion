@@ -42,7 +42,7 @@ namespace WealthERP.Advisor
             if (!IsPostBack)
             {
                 gvLoginTrack.Visible = false;
-                DateTime fromDate = DateTime.Now.AddDays(-15);
+                DateTime fromDate = DateTime.Now.AddDays(-1);
                 txtFrom.SelectedDate = fromDate;
                 txtTo.SelectedDate = DateTime.Now;
             }
