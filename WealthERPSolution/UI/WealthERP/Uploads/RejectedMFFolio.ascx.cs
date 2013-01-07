@@ -245,22 +245,25 @@ namespace WealthERP.Uploads
         {
             string newPan = string.Empty;
             string newFolio = string.Empty;
-            bool blResult = false;
+            string newbroker = string.Empty; 
             int StagingId = 0;
             int MainStagingId = 0;
+            bool blResult = false;
             rejectedRecordsBo = new RejectedRecordsBo();
             GridFooterItem footerRow = (GridFooterItem)gvCAMSProfileReject.MasterTableView.GetItems(GridItemType.Footer)[0];
             foreach (GridDataItem dr in gvCAMSProfileReject.Items)
             {
-                if (((TextBox)footerRow.FindControl("txtPanMultiple")).Text.Trim() == "" && ((TextBox)footerRow.FindControl("txtFolioMultiple")).Text.Trim() == "")
+                if (((TextBox)footerRow.FindControl("txtPanMultiple")).Text.Trim() == "" && ((TextBox)footerRow.FindControl("txtFolioMultiple")).Text.Trim() == "" && ((TextBox)footerRow.FindControl("txtBrokerMultiple")).Text.Trim() == "")
                 {
                     newPan = ((TextBox)dr.FindControl("txtPan")).Text;
                     newFolio = ((TextBox)dr.FindControl("txtFolio")).Text;
+                    newbroker = ((TextBox)dr.FindControl("txtBroker")).Text;
                 }
                 else
                 {
                     newPan = ((TextBox)footerRow.FindControl("txtPanMultiple")).Text;
                     newFolio = ((TextBox)footerRow.FindControl("txtFolioMultiple")).Text;
+                    newbroker = ((TextBox)footerRow.FindControl("txtBroker")).Text;
                 }
 
                 CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
@@ -273,7 +276,7 @@ namespace WealthERP.Uploads
                     StagingId = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CMFFS_Id"].ToString()));
                     MainStagingId = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CMFFS_MainStagingId"].ToString()));
 
-                    blResult = rejectedRecordsBo.UpdateMFFolioStaging(StagingId, MainStagingId, newPan, newFolio);
+                    blResult = rejectedRecordsBo.UpdateMFFolioStaging(StagingId, MainStagingId, newPan, newFolio, newbroker);
                 }
             }
             if (blResult)

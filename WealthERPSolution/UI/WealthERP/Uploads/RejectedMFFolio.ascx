@@ -322,7 +322,7 @@
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="220px" HeaderText="InvName" DataField="CMFFS_INV_NAME"
+                <telerik:GridBoundColumn HeaderStyle-Width="220px" HeaderText="Inv Name" DataField="CMFFS_INV_NAME"
                     UniqueName="InvName" SortExpression="CMFFS_INV_NAME" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -346,17 +346,26 @@
                         <asp:TextBox ID="txtFolioMultiple" CssClass="txtField" runat="server" />
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="AMCName" DataField="PA_AMCName"
+                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="AMC Name" DataField="PA_AMCName"
                     UniqueName="PA_AMCName" SortExpression="PA_AMCName" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="BrokerCode" DataField="CMFSS_BrokerCode"
+                <telerik:GridTemplateColumn HeaderStyle-Width="116px" HeaderText="Broker Code" DataField="CMFSS_BrokerCode"
+                    SortExpression="CMFSS_BrokerCode" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemTemplate>
+                        <asp:TextBox ID="txtBroker" CssClass="txtField" runat="server" Text='<%# Bind("CMFSS_BrokerCode") %>'></asp:TextBox>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:TextBox ID="txtBrokerMultiple" CssClass="txtField" runat="server" />
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+               <%-- <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Broker Code" DataField="CMFSS_BrokerCode"
                     UniqueName="CMFSS_BrokerCode" SortExpression="CMFSS_BrokerCode" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="BankName" DataField="CMFFS_BANK_NAME"
+                </telerik:GridBoundColumn>--%>
+                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Bank Name" DataField="CMFFS_BANK_NAME"
                     UniqueName="CMFFS_BANK_NAME" SortExpression="CMFFS_BANK_NAME" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
