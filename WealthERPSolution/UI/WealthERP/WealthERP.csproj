@@ -1149,6 +1149,13 @@
     <Compile Include="BusinessMIS\MFDashBoard.ascx.designer.cs">
       <DependentUpon>MFDashBoard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="BusinessMIS\MFSIPProjection.ascx.cs">
+      <DependentUpon>MFSIPProjection.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\MFSIPProjection.ascx.designer.cs">
+      <DependentUpon>MFSIPProjection.ascx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\MFTurnOverMIS.ascx.cs">
       <DependentUpon>MFTurnOverMIS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5725,6 +5732,7 @@
     <Content Include="BusinessMIS\GoalMIS.ascx" />
     <Content Include="BusinessMIS\HoldingDashBoard.ascx" />
     <Content Include="BusinessMIS\MFDashBoard.ascx" />
+    <Content Include="BusinessMIS\MFSIPProjection.ascx" />
     <Content Include="BusinessMIS\MFTurnOverMIS.ascx" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
     <Content Include="BusinessMIS\MutualFundMIS.ascx" />

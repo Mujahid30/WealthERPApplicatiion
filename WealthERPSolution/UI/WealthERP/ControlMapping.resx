@@ -1501,4 +1501,8 @@
     <value>BusinessMIS//TurnOverDashBoard.ascx</value>
     <comment>BusinessMIS//TurnOverDashBoard.ascx</comment>
   </data>
+  <data name="MFSIPProjection" xml:space="preserve">
+    <value>BusinessMIS//MFSIPProjection.ascx</value>
+    <comment>BusinessMIS//MFSIPProjection.ascx</comment>
+  </data>
 </root>

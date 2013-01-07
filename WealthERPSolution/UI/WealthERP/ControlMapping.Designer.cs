@@ -1870,6 +1870,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//MFSIPProjection.ascx.
+        /// </summary>
+        internal static string MFSIPProjection {
+            get {
+                return ResourceManager.GetString("MFSIPProjection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BusinessMIS//MFTurnOverMIS.ascx.
         /// </summary>
         internal static string MFTurnOverMIS {
