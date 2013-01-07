@@ -41,7 +41,9 @@
 <div class="divPageHeading">
     <table cellspacing="0" cellpadding="3" width="100%">
         <tr>
-        <td align="left">Multi Product MIS</td>
+        <td align="left">
+          <asp:Label ID="lblpageHeader" class="HeaderTextBig" runat="server"></asp:Label>
+        </td>
         <td  align="right">
         <asp:ImageButton ID="btnMultiProductMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
@@ -157,7 +159,7 @@
         <td class="leftField" style="width: 35%">
         </td>
     </tr>    
-    <tr>
+    <%--<tr>
         <td align="right" style="padding-top:2px">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
         </td>
@@ -176,11 +178,14 @@
                     runat="server" onclick="lnkBtnInvestmentMIS_Click" ValidationGroup="CustomerValidation"></asp:LinkButton>
             </div>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
-    <td></td>
-        <td colspan="4">
-            <%--<asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Click on the MIS you would like to see"></asp:Label>   --%>
+       <td colspan="5">
+          <asp:Button ID="btnGo" runat="server"  Text="Go" CssClass="PCGButton"
+          ValidationGroup="CustomerValidation" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMMultipleTransactionView_btnGo', 'S');"
+         
+               onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMMultipleTransactionView_btnGo', 'S');" 
+               onclick="btnGo_Click" />
         </td>
     </tr>
     <%--</ContentTemplate>
@@ -544,7 +549,7 @@
 </table>
 </asp:Panel>
 <table  class="TableBackground" width="100%">
-<tr></tr>
+<tr>
 <br />
 <br />
  <tr align="center">

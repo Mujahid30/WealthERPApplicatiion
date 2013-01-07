@@ -52,6 +52,7 @@ namespace WealthERP.BusinessMIS
         DataSet dsInsuranceDetails = new DataSet();
         DataRow drGeneralInsurance;
         DataRow drLifeInsurance;
+        string pageType;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -80,6 +81,24 @@ namespace WealthERP.BusinessMIS
 
             if (!IsPostBack)
             {
+                if (Request.QueryString["action"] != null)
+                {
+                    if (Request.QueryString["action"] == "LI")
+                    {
+                        pageType = "LI";
+                        lblpageHeader.Text = "Life Insurance MIS";
+                    }
+                    else if (Request.QueryString["action"] == "GI")
+                    {
+                        pageType = "GI";
+                        lblpageHeader.Text = "General Insurance MIS";
+                    }
+                    else if (Request.QueryString["action"] == "FI")
+                    {
+                        pageType = "FI";
+                        lblpageHeader.Text = "Fixed Income MIS";
+                    }
+                }
                 lblErrorMsg.Visible = false;
                 ddlCustomerType.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
@@ -1106,7 +1125,7 @@ namespace WealthERP.BusinessMIS
             //    isGroup = 0;
             //else
             //    isGroup = int.Parse(ddlCustomerType.SelectedValue);
-            asset = lnkBtnLifeInsuranceMIS.Text;
+            asset = "LifeInsurance";
             DataTable dtLifeInsDetails = new DataTable();
             try
             {
@@ -1234,7 +1253,7 @@ namespace WealthERP.BusinessMIS
         //function to populate the General Insurance Grid
         public void BindGeneralInsuranceDetails()
         {
-            string asset = lnkBtnGeneralInsuranceMIS.Text;
+            string asset = "General Insurance";
             DataTable dtGenInsDetails = new DataTable();
             try
             {
@@ -1519,6 +1538,49 @@ namespace WealthERP.BusinessMIS
                 GridFooterItem footerItem = (GridFooterItem)rgvMultiProductMIS.MasterTableView.GetItems(GridItemType.Footer)[0];
                 footerItem["Mutual_Fund"].Text = grandTotal.ToString();
             }
+        }
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            if (Request.QueryString["action"] != null)
+            {
+                if (Request.QueryString["action"] == "LI")
+                {
+                    lblpageHeader.Text = "Life Insurance MIS";
+                    trFixedIncome.Visible = false;
+                    trGeneralInsurance.Visible = false;
+                    trLifeInsurance.Visible = true;
+                    trMultiProduct.Visible = false;
+                    trLabelMessage.Visible = false;
+                    BindLifeInsuranceDetails();
+                }
+                else if (Request.QueryString["action"] == "GI")
+                {
+                    lblpageHeader.Text = "General Insurance MIS";
+                    trFixedIncome.Visible = false;
+                    trGeneralInsurance.Visible = true;
+                    trLifeInsurance.Visible = false;
+                    trMultiProduct.Visible = false;
+                    trLabelMessage.Visible = false;
+                    BindGeneralInsuranceDetails();
+                }
+                else if (Request.QueryString["action"] == "FI")
+                {
+                    lblpageHeader.Text = "Fixed Income MIS";
+                    trFixedIncome.Visible = true;
+                    trGeneralInsurance.Visible = false;
+                    trLifeInsurance.Visible = false;
+                    trMultiProduct.Visible = false;
+                    trLabelMessage.Visible = false;
+                    BindFixedincomeMIS();
+                }
+            }
+            else
+            {
+                lblErrorMsg.Text = "No records found";
+                lblErrorMsg.Visible = true;
+            }
+
         }
     }
 }
