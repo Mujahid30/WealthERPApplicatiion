@@ -548,6 +548,11 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','login');", true);
                 }
+                else if (e.Item.Value == "Customer_Report")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
+                }
                 else if (e.Item.Value == "View MF Transactions")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
@@ -834,6 +839,11 @@ namespace WealthERP.Advisor
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomer','login');", true);
                 }
+                else if (e.Item.Value == "Customer_Report")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
+                }
                 //else if (e.Item.Value == "Add Customer")
                 //{
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
@@ -944,6 +954,12 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
                 }
+                else if (e.Item.Value == "Customer Report")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
+                }
+                    
                 //else if (e.Item.Value == "Customized SMS")
                 //{
                 //    Session["UserType"] = "rm";
@@ -1022,6 +1038,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BMCustomer", "loadcontrol('BMCustomer','login');", true);
+                }
+                else if (e.Item.Value == "Customer_Report")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Status_ISA")
                 {
@@ -1102,6 +1123,12 @@ namespace WealthERP.Advisor
                 //    Session["UserType"] = "bm";
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioReports','login');", true);
                 //}
+                else if (e.Item.Value == "Customer Report")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
+                }
+                    
                 else if (e.Item.Value == "MF Report")
                 {
                     Session["UserType"] = "bm";
@@ -1176,6 +1203,11 @@ namespace WealthERP.Advisor
                 {
                     Session.Remove("LinkAction");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
+                }
+                else if (e.Item.Value == "Customer_Report")
+                {
+                    Session["UserType"] = "ops";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Manage Group Account")
                 {
