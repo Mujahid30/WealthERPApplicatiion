@@ -77,6 +77,7 @@
         </script>--%>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
+
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
@@ -127,15 +128,14 @@
                         <tr>
                             <td>
                                 <asp:Label ID="Select" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
-                            </td>
-                             <td>
+                                &nbsp &nbsp
                                 <asp:RadioButton ID="rbtnCurrent" runat="server" AutoPostBack="true" CssClass="cmbField"
                                     GroupName="Snapshot" OnCheckedChanged="rbtnCurrent_CheckedChanged" Text="Latest" />
-                                    &nbsp
-                                    <asp:RadioButton ID="rbtnHistorical" runat="server" AutoPostBack="true" CssClass="cmbField"
-                                    GroupName="Snapshot" OnCheckedChanged="rbtnHistorical_CheckedChanged" Text="Historical" />                             
-                            </td>                          
-                            <td id="tdFromDate" runat="server">
+                                &nbsp
+                                <asp:RadioButton ID="rbtnHistorical" runat="server" AutoPostBack="true" CssClass="cmbField"
+                                    GroupName="Snapshot" OnCheckedChanged="rbtnHistorical_CheckedChanged" Text="Historical" />
+                           </td>
+                            <td id="tdFromDate" runat="server" >
                                 <td align="Left">
                                     <asp:Label ID="Label10" Text="FromDate:" runat="server" CssClass="FieldName"></asp:Label>
                                 </td>
@@ -147,7 +147,6 @@
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput ID="DateInput1" runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy">
-                                            <%-- <ClientEvents OnLoad="onLoadRadTimePicker1"> </ClientEvents>--%>
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                     <asp:CompareValidator ID="cvChkFutureDate" runat="server" ControlToValidate="txtFrom"
@@ -156,15 +155,13 @@
                                     </asp:CompareValidator>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtFrom"
                                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="please enter from date" ValidationGroup="vgbtnSubmit"></asp:RequiredFieldValidator>
-                                    <%-- <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtFrom"
-                                       CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Enter valid Date" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>--%>
                                 </td>
                             </td>
                             <td id="tdToDate" runat="server">
                                 <td align="left">
                                     <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="ToDate:"></asp:Label>
                                 </td>
-                                <td align="left" valign="middle" colspan="2">
+                                <td align="left" >
                                     <telerik:RadDatePicker ID="txtTo" CssClass="txtTo" runat="server" Culture="English (United States)"
                                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                                         <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -172,7 +169,6 @@
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="dd/MM/yyyy">
-                                            <%--  <ClientEvents OnLoad="onLoadRadTimePicker2"> </ClientEvents>--%>
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                     <asp:CompareValidator ID="compDateValidator" runat="server" ControlToValidate="txtTo"
@@ -181,16 +177,14 @@
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtTo"
                                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="please enter to date" ValidationGroup="vgbtnSubmit"></asp:RequiredFieldValidator>
                                     <br />
-                                    <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txtTo"
-                                        CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Enter valid Date" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>--%>
-                                    <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToCompare="txtFrom"
+                                   <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToCompare="txtFrom"
                                         ControlToValidate="txtTo" CssClass="cvPCG" Display="Dynamic" ErrorMessage="ToDate should be greater than FromDate"
                                         Operator="GreaterThanEqual" Type="Date" ValidationGroup="vgbtnSubmit">
                                     </asp:CompareValidator>
                                 </td>
-                            </td>
-                          <td colspan="2">
-                                <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="OnClick_Submit"
+                                </td>
+                          <td align="left">
+                                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="OnClick_Submit"
                                     Text="Submit" ValidationGroup="vgbtnSubmit" />
                             </td>
                             <tr>
@@ -415,7 +409,7 @@
                                 </td>
                             </tr>
                         </table>
-                   </asp:Panel>
+                    </asp:Panel>
                     <%--<table style="width: 100%">
             <tr id="trgrMfView" runat="server">
                 <td>
@@ -509,16 +503,16 @@
                         </table>--%>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
-                        <div style="overflow: auto">
+                        <div id ="DivEquity" style="overflow: auto" visible="false">
                             <table style="width: 100%" cellspacing="0" cellpadding="2">
-                                <tr id="trgvEquityView" runat="server">
+                                <tr id="trgvEquityView" runat="server" >
                                     <td>
                                         <telerik:RadGrid ID="gvEquityRecord" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                            PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
-                                            EnableEmbeddedSkins="false" Width="100px" AllowFilteringByColumn="False" AllowAutomaticInserts="false"
+                                            EnableLoadOnDemand="true" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
+                                            EnableEmbeddedSkins="false" Width="0px" AllowFilteringByColumn="False" AllowAutomaticInserts="false"
                                             EnableViewState="true" ShowFooter="true">
                                             <%--  OnPreRender="gvWERPTrans_PreRender"--%>
-                                            <MasterTableView TableLayout="Auto" Width="120%" AllowFilteringByColumn="true" AllowMultiColumnSorting="True"
+                                            <MasterTableView TableLayout="Auto" Width="100%" AllowFilteringByColumn="true" AllowMultiColumnSorting="True"
                                                 AutoGenerateColumns="false" CommandItemDisplay="None">
                                                 <Columns>
                                                     <telerik:GridBoundColumn DataField="CompanyName" HeaderText="Company Name" AllowFiltering="True"

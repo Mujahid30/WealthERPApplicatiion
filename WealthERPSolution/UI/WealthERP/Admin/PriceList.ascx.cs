@@ -77,6 +77,7 @@ namespace WealthERP.Admin
                 {
                     lblIllegal.Visible = false;
                     trgvEquityView.Visible = false;
+                    gvEquityRecord.Visible = false;
                     tdFromDate.Visible = false;
                     tdToDate.Visible = false;
                     btnSubmit.Visible = false;
@@ -103,7 +104,7 @@ namespace WealthERP.Admin
                 rbtnCurrent.Visible = true;
                 rbtnHistorical.Visible = true;
                 trgvEquityView.Visible = false;
-                gvEquityRecord.Visible = true;
+                //gvEquityRecord.Visible = true;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
                 trNavCategory.Visible = false;
@@ -204,9 +205,9 @@ namespace WealthERP.Admin
             //trToDate.Style.Add("display", "none");
            // trFromDate.Visible = false;
             trExportFilteredMFRecord.Visible = false;
+            btnSubmit.Visible = true;
             tdFromDate.Visible = false;
             tdToDate.Visible = false;
-            btnSubmit.Visible = true;
             //trgrMfView.Visible = false;
             trgvEquityView.Visible = false;
            // trPageCount.Visible = false;
