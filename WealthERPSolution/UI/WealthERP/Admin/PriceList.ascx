@@ -85,10 +85,15 @@
     <tr>
         <td>
             <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
+                <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
                             <asp:Label ID="lblheader" runat="server" Class="HeaderTextBig"></asp:Label>
+                        </td>
+                         <td align="right" style="width: 10px">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="22px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -124,7 +129,7 @@
                 <%--<table width="70%">        
                         <tr>--%>
                 <div>
-                    <table width="70%" class="TableBackground" cellspacing="0" cellpadding="2">
+                    <table width="80%" class="TableBackground" cellspacing="0" cellpadding="2">
                         <tr>
                             <td>
                                 <asp:Label ID="Select" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
@@ -137,7 +142,7 @@
                            </td>
                             <td id="tdFromDate" runat="server">
                                 <td align="Left">
-                                    <asp:Label ID="Label10" Text="FromDate:" runat="server" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="Label10" Text="From Date:" runat="server" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
@@ -159,7 +164,7 @@
                             </td>
                             <td id="tdToDate" runat="server">
                                 <td align="left">
-                                    <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="ToDate:"></asp:Label>
+                                    <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="To Date:"></asp:Label>
                                 </td>
                                 <td align="left" >
                                     <telerik:RadDatePicker ID="txtTo" CssClass="txtTo" runat="server" Culture="English (United States)"
@@ -168,7 +173,7 @@
                                             ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="dd/MM/yyyy">
+                                        <DateInput ID="DateInput2" runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                     <asp:CompareValidator ID="compDateValidator" runat="server" ControlToValidate="txtTo"
@@ -185,7 +190,7 @@
                                 </td>
                           <td align="left" style="padding-right:50px">
                                     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="OnClick_Submit"
-                                    Text="Submit" ValidationGroup="vgbtnSubmit" />
+                                    Text="GO" ValidationGroup="vgbtnSubmit" />
                             </td>
                             <tr>
                                 <td align="right">
@@ -195,90 +200,7 @@
                         </tr>
                     </table>
                 </div>
-                <%--<td class="leftField">
-                    <label id="Label1" class="FieldName" title=" Asset Group">
-                        Asset Group:</label>
-                </td>--%>
-                <%--<td class="rightField">
-                    <asp:DropDownList CssClass="cmbField" ID="ddlAssetGroup" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAssetGroup_OnSelectedIndexChanged">
-                        <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                        <asp:ListItem Text="Equity" Value="Equity"></asp:ListItem>
-                        <asp:ListItem Text="MF" Value="MF"></asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:CompareValidator ID="cvddlAssetGroup" runat="server" ControlToValidate="ddlAssetGroup"
-                ErrorMessage="Please Select  Asset" Operator="NotEqual" ValueToCompare="0"
-                CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgbtnSubmit"></asp:CompareValidator>
-                </td>--%>
-                <%--  <td align="right">
-                                    <asp:Label ID="lblIllegal" runat="server" CssClass="Error" Text="" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <asp:RadioButton ID="rbtnCurrent" runat="server" AutoPostBack="true" CssClass="cmbField"
-                                        GroupName="Snapshot" OnCheckedChanged="rbtnCurrent_CheckedChanged" Text="Latest" />
-                                    <%-- <asp:RadioButton ID="rbtnHistorical" Text="Historical" runat="server" AutoPostBack="true"
-                        GroupName="Snapshot" CssClass="cmbField" OnCheckedChanged="rbtnHistorical_CheckedChanged" />--%>
-                <%--  </td>
-                                <td align="left">
-                                    <asp:RadioButton ID="rbtnHistorical" runat="server" AutoPostBack="true" CssClass="cmbField"
-                                        GroupName="Snapshot" OnCheckedChanged="rbtnHistorical_CheckedChanged" Text="Historical" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                </td>
-                                <td align="left">--%>
-                <%-- <asp:RadioButton ID="rbtnCurrent" Text="Latest" runat="server" AutoPostBack="true"
-                        GroupName="Snapshot" OnCheckedChanged="rbtnCurrent_CheckedChanged" CssClass="cmbField" />--%>
-                <%--       </td>
-                            </tr>
-                            <tr id="trFromDate" runat="server">
-                                <td align="right">
-                                    <label id="lblFromDate" runat="server" class="FieldName" title="FromDate">
-                                        FromDate:</label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField"></asp:TextBox><ajaxToolkit:CalendarExtender
-                                        ID="FrmDate" runat="server" Format="dd/MM/yyyy" TargetControlID="txtFromDate">
-                                    </ajaxToolkit:CalendarExtender>
-                                    <asp:CompareValidator ID="cvChkFutureDate" runat="server" ControlToValidate="txtFromDate"
-                                        CssClass="cvPCG" Display="Dynamic" ErrorMessage="Date Can't be in future" Operator="LessThanEqual"
-                                        Type="Date" ValidationGroup="vgbtnSubmit">
-                                    </asp:CompareValidator>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtFromDate"
-                                        CssClass="cvPCG" Display="Dynamic" ErrorMessage="please enter from date" ValidationGroup="vgbtnSubmit"></asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtFromDate"
-                                        CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Enter valid Date" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>--%>
-                <%--<asp:RequiredFieldValidator ID="frmdatevalid" runat="server" ControlToValidate="txtFromDate"
-                        ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>--%>
-                <%--   </td>
-                            </tr>
-                            <tr id="trToDate" runat="server">
-                                <td align="right">
-                                    <label id="lblToDate" runat="server" class="FieldName" title="ToDate">
-                                        ToDate:</label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtToDate" runat="server" CssClass="txtField"></asp:TextBox><ajaxToolkit:CalendarExtender
-                                        ID="TDate" runat="server" Format="dd/MM/yyyy" TargetControlID="txtToDate">
-                                    </ajaxToolkit:CalendarExtender>
-                                    <asp:CompareValidator ID="compDateValidator" runat="server" ControlToValidate="txtToDate"
-                                        CssClass="cvPCG" Display="Dynamic" ErrorMessage="Date Can't be in future" Operator="LessThanEqual"
-                                        Type="Date" ValidationGroup="vgbtnSubmit"></asp:CompareValidator>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtToDate"
-                                        CssClass="cvPCG" Display="Dynamic" ErrorMessage="please enter to date" ValidationGroup="vgbtnSubmit"></asp:RequiredFieldValidator>
-                                    <br />
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ControlToValidate="txtToDate"
-                                        CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Enter valid Date" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
-                                    <asp:CompareValidator ID="cvCompareDate" runat="server" ControlToCompare="txtFromDate"
-                                        ControlToValidate="txtToDate" CssClass="cvPCG" Display="Dynamic" ErrorMessage="ToDate should be greater than FromDate"
-                                        Operator="GreaterThanEqual" Type="Date" ValidationGroup="vgbtnSubmit">
-                                    </asp:CompareValidator>--%>
-                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtToDate"
-                        ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>--%>
-                <%--     </td>
-                            </tr>--%>
+            
                 <div>
                     <table width="60%" >
                         <tr id="trSelectMutualFund" runat="server">
@@ -509,14 +431,17 @@
                                     <td>
                                         <telerik:RadGrid ID="gvEquityRecord" runat="server" GridLines="None" AutoGenerateColumns="False"
                                             EnableLoadOnDemand="true" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
-                                            EnableEmbeddedSkins="false" Width="0px" AllowFilteringByColumn="False" AllowAutomaticInserts="false"
+                                            EnableEmbeddedSkins="false" Width="0px" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
                                             EnableViewState="true" ShowFooter="true">
                                             <%--  OnPreRender="gvWERPTrans_PreRender"--%>
+                                             <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                                             FileName="QueryEquityData" Excel-Format="ExcelML">
+                                             </ExportSettings>
                                             <MasterTableView TableLayout="Auto" AllowFilteringByColumn="true" AllowMultiColumnSorting="True"
                                                 AutoGenerateColumns="false" CommandItemDisplay="None">
                                                 <Columns>
                                                     <telerik:GridBoundColumn DataField="CompanyName" HeaderText="Company Name" AllowFiltering="True"
-                                                        HeaderStyle-Width="145px" FilterControlWidth="145px" UniqueName="CompanyName"
+                                                        HeaderStyle-Width="160px" FilterControlWidth="145px" UniqueName="CompanyName"
                                                         SortExpression="CompanyName" AutoPostBackOnFilter="true" ShowFilterIcon="false"
                                                         CurrentFilterFunction="Contains">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -524,7 +449,7 @@
                                                     <telerik:GridBoundColumn DataField="Exchange" AllowFiltering="false" HeaderText="Exchange"
                                                         HeaderStyle-Width="80px" UniqueName="Exchange" SortExpression="Exchange" AutoPostBackOnFilter="true"
                                                         ShowFilterIcon="false">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="Series" AllowFiltering="false" HeaderText="Series"
                                                         HeaderStyle-Width="60px" UniqueName="Series" SortExpression="Series" AutoPostBackOnFilter="true"
@@ -544,42 +469,42 @@
                                                     <telerik:GridBoundColumn DataField="LowPrice" AllowFiltering="false" HeaderText="Low Price"
                                                         HeaderStyle-Width="80px" UniqueName="LowPrice" SortExpression="LowPrice" AutoPostBackOnFilter="true"
                                                         ShowFilterIcon="false">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="ClosePrice" AllowFiltering="false" HeaderText="Close Price"
                                                         HeaderStyle-Width="80px" UniqueName="ClosePrice" SortExpression="ClosePrice"
                                                         AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="LastPrice" AllowFiltering="false" HeaderText="Last Price"
                                                         HeaderStyle-Width="80px" UniqueName="LastPrice" SortExpression="LastPrice" AutoPostBackOnFilter="true"
                                                         ShowFilterIcon="false">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="PreviousClose" AllowFiltering="false" HeaderText="Previous Close"
                                                         HeaderStyle-Width="80px" UniqueName="PreviousClose" SortExpression="PreviousClose"
                                                         AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="TotalTradeQuantity" AllowFiltering="false" HeaderText="TotalTradeQuantity"
-                                                        HeaderStyle-Width="85px" UniqueName="TotalTradeQuantity" SortExpression="TotalTradeQuantity"
+                                                    <telerik:GridBoundColumn DataField="TotalTradeQuantity" AllowFiltering="false" HeaderText="Total Trade Quantity"
+                                                        HeaderStyle-Width="120px" UniqueName="TotalTradeQuantity" SortExpression="TotalTradeQuantity"
                                                         AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="TotalTradeValue" AllowFiltering="false" HeaderText="TotalTradeValue"
-                                                        HeaderStyle-Width="80px" UniqueName="TotalTradeValue" SortExpression="TotalTradeValue"
+                                                    <telerik:GridBoundColumn DataField="TotalTradeValue" AllowFiltering="false" HeaderText="Total Trade Value"
+                                                        HeaderStyle-Width="120px" UniqueName="TotalTradeValue" SortExpression="TotalTradeValue"
                                                         AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="NoOfTrades" AllowFiltering="false" HeaderText="NoOfTrades"
-                                                        HeaderStyle-Width="80px" UniqueName="NoOfTrades" SortExpression="NoOfTrades"
+                                                    <telerik:GridBoundColumn DataField="NoOfTrades" AllowFiltering="false" HeaderText="No.of Trades"
+                                                        HeaderStyle-Width="100px" UniqueName="NoOfTrades" SortExpression="NoOfTrades"
                                                         AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="Date" HeaderText="Date" AllowFiltering="false"
                                                         DataFormatString="{0:d}" HeaderStyle-Width="80px" UniqueName="Date" SortExpression="Date"
                                                         AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                 </Columns>
                                             </MasterTableView>

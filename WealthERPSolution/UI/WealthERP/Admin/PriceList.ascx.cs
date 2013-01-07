@@ -54,6 +54,9 @@ namespace WealthERP.Admin
             trMFFundPerformance.Visible = false;
             trExportFilteredMFRecord.Visible = false;
             trgvEquityView.Visible = false;
+            //DateTime StartDate = DateTime.Now;
+            //txtFrom.SelectedDate = StartDate;
+            //txtTo.SelectedDate = DateTime.Now;
          if (Request.QueryString["AssetId"] != null)
             {
                 hdnassetType.Value = Request.QueryString["AssetId"].ToString();
@@ -517,11 +520,10 @@ namespace WealthERP.Admin
                         {
                             trgvEquityView.Visible = false;
                             //trgrMfView.Visible = false;
-                            // trPageCount.Visible = false;
                             trPager.Visible = false;
                             trMfPagecount.Visible = false;
-                            trFromDate.Visible = true;
-                            trToDate.Visible = true;
+                            tdToDate.Visible = true;
+                            tdFromDate.Visible = true;
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
 
                         }
@@ -1731,5 +1733,18 @@ namespace WealthERP.Admin
             }
             gvMFFundPerformance.MasterTableView.ExportToExcel();
         }
+
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvEquityRecord.ExportSettings.OpenInNewWindow = true;
+            gvEquityRecord.ExportSettings.IgnorePaging = true;
+            gvEquityRecord.ExportSettings.HideStructureColumns = true;
+            gvEquityRecord.ExportSettings.ExportOnlyData = true;
+            gvEquityRecord.ExportSettings.FileName = "QueryEquityData";
+            gvEquityRecord.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvEquityRecord.MasterTableView.ExportToExcel();
+        }
+
+
     }
 }
