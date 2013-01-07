@@ -21,6 +21,8 @@ namespace WealthERP.Reports
         AdvisorVo advisorVo;
         string path;
         DataTable dtReportTreeNode;
+        int roleId = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -29,6 +31,16 @@ namespace WealthERP.Reports
             userVo = (UserVo)Session[SessionContents.UserVo];
             AssetBo assetBo = new AssetBo();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+                roleId = 1000;
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                roleId = 1004;
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                roleId = 1001;
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                roleId = 1002;
+
             if (!IsPostBack)
             {
                 BindReptReportDashBoard();
@@ -38,10 +50,15 @@ namespace WealthERP.Reports
         {
            // dtReportTreeNode = XMLBo.GetUploadTreeNode(path);
             DataSet dsTreeNodes = new DataSet();
+            DataTable dtRoleAssociationTreeNode = new DataTable();
             //string expression = "NodeType = 'Reports'";
             //dtReportTreeNode.DefaultView.RowFilter = expression;
             dsTreeNodes = XMLBo.GetSuperAdminTreeNodes(path);
+            dtRoleAssociationTreeNode = XMLBo.GetRoleAssociationTreeNode(path);
+
             DataRow[] drXmlTreeSubSubNode;
+            DataRow[] drXmlRoleToTreeSubSubNode;
+
             DataRow drReportTreeNode;
             DataTable dtReportTreeNode = new DataTable();
 
@@ -74,43 +91,65 @@ namespace WealthERP.Reports
             drXmlTreeSubSubNode = dsTreeNodes.Tables[2].Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
 
             int count = 0;
+           
             drReportTreeNode = dtReportTreeNode.NewRow();
             foreach (DataRow drSubSubNode in drXmlTreeSubSubNode)
             {
-                if (count == 0)
-                {
+                int roleCount = 0;
+                drXmlRoleToTreeSubSubNode = dtRoleAssociationTreeNode.Select("TreeSubSubNodeCode=" + drSubSubNode["TreeSubSubNodeCode"].ToString());
 
-                    count++;
-                    drReportTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                    drReportTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                    drReportTreeNode["Path1"] = drSubSubNode["Path"].ToString();
-                    dtReportTreeNode.Rows.Add(drReportTreeNode);
+                    if (drXmlRoleToTreeSubSubNode.Count() > 0)
+                    {
+                        foreach (DataRow drUserRole in drXmlRoleToTreeSubSubNode)
+                        {
+                            if ( int.Parse(drUserRole["UserRoleId"].ToString()) == roleId)
+                            {
+                                roleCount++;
+                                 break;
+                            }
+                        }
+                    }
+                    if (roleCount > 0)
+                    {
+                        if (count == 0)
+                        {
 
-                }
-                else if (count == 1)
-                {
-                    count++;
-                    drReportTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                    drReportTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                    drReportTreeNode["Path2"] = drSubSubNode["Path"].ToString();
+                            count++;
+                            drReportTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drReportTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drReportTreeNode["Path1"] = drSubSubNode["Path"].ToString();
+                            dtReportTreeNode.Rows.Add(drReportTreeNode);
 
-                }
-                else if (count == 2)
-                {
-                    count++;
-                    drReportTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                    drReportTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                    drReportTreeNode["Path3"] = drSubSubNode["Path"].ToString();                    
-                }
-                else if (count == 3)
-                {
-                    count++;
-                    drReportTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                    drReportTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                    drReportTreeNode["Path4"] = drSubSubNode["Path"].ToString();
-                    count = 0;
-                    drReportTreeNode = dtReportTreeNode.NewRow();
-                }
+                        }
+                        else if (count == 1)
+                        {
+                            count++;
+                            drReportTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drReportTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drReportTreeNode["Path2"] = drSubSubNode["Path"].ToString();
+
+                        }
+                        else if (count == 2)
+                        {
+                            count++;
+                            drReportTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drReportTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drReportTreeNode["Path3"] = drSubSubNode["Path"].ToString();
+                        }
+                        else if (count == 3)
+                        {
+                            count++;
+                            drReportTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drReportTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drReportTreeNode["Path4"] = drSubSubNode["Path"].ToString();
+                            count = 0;
+                            drReportTreeNode = dtReportTreeNode.NewRow();
+                        }
+                    }
+                    else
+                    {
+                       // break;
+                    }
 
 
             }
@@ -151,6 +190,12 @@ namespace WealthERP.Reports
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('PortfolioReports','login');", true);
                 }
 
+                if (imgBtn2.CommandArgument == "3015" || lnkbtn2.CommandArgument == "3015")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('FPSectional','login');", true);
+                }
+
+
             }
 
           
@@ -181,6 +226,7 @@ namespace WealthERP.Reports
                 ImageButton col1 = e.Item.FindControl("imgbtnReport2") as ImageButton;
                 ImageButton col0 = e.Item.FindControl("imgbtnReport1") as ImageButton;
                 ImageButton col2 = e.Item.FindControl("imgbtnReport3") as ImageButton;
+                ImageButton col3 = e.Item.FindControl("imgbtnReport4") as ImageButton;
                 if (col1.ImageUrl == "")
                 {
                     var a = e.Item.FindControl("td2");
@@ -194,6 +240,11 @@ namespace WealthERP.Reports
                 if (col2.ImageUrl == "")
                 {
                     var a = e.Item.FindControl("td3");
+                    a.Visible = false;
+                }
+                if (col3.ImageUrl == "")
+                {
+                    var a = e.Item.FindControl("td4");
                     a.Visible = false;
                 }
 

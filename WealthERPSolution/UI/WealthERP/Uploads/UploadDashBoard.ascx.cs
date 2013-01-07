@@ -22,6 +22,8 @@ namespace WealthERP.Uploads
         AdvisorVo advisorVo;
         string path;
         DataTable dtUploadTreeNode;
+        int roleId=0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -30,6 +32,16 @@ namespace WealthERP.Uploads
             userVo = (UserVo)Session[SessionContents.UserVo];
             AssetBo assetBo = new AssetBo();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+                roleId = 1000;
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                roleId = 1004;
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                roleId = 1001;
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                roleId = 1002;
+
             if (!IsPostBack)
             {
                 BindReptUploadGrid();
@@ -40,10 +52,14 @@ namespace WealthERP.Uploads
         {
             DataTable dtUploadTreeSubSubNode = new DataTable();
             DataTable dtUploadTreeSubNode = new DataTable();
+            DataTable dtRoleAssociationTreeNode = new DataTable();
             DataSet dsTreeNodes = new DataSet();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
             dsTreeNodes = XMLBo.GetSuperAdminTreeNodes(path);
+            dtRoleAssociationTreeNode = XMLBo.GetRoleAssociationTreeNode(path);
+
             DataRow[] drXmlTreeSubSubNode;
+            DataRow[] drXmlRoleToTreeSubSubNode;
             DataRow drUploadTreeNode;
             DataTable dtUploadTreeNode = new DataTable();
 
@@ -76,44 +92,65 @@ namespace WealthERP.Uploads
             drXmlTreeSubSubNode = dsTreeNodes.Tables[2].Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
 
             int count = 0;
+            int roleCount =0;
              drUploadTreeNode = dtUploadTreeNode.NewRow();
                 foreach (DataRow drSubSubNode in drXmlTreeSubSubNode)
                 {
-                    if(count == 0)
-                    {
-                       
-                        count++;
-                     drUploadTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                     drUploadTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                     drUploadTreeNode["Path1"] = drSubSubNode["Path"].ToString();
-                     dtUploadTreeNode.Rows.Add(drUploadTreeNode);
-                    
-                    }
-                    else if (count ==1)
-                    {
-                         count++;
-                     drUploadTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                     drUploadTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                     drUploadTreeNode["Path2"] = drSubSubNode["Path"].ToString();
+                    drXmlRoleToTreeSubSubNode = dtRoleAssociationTreeNode.Select("TreeSubSubNodeCode=" + drSubSubNode["TreeSubSubNodeCode"].ToString());
 
-                    }
-                    else if (count ==2)
+                    if (drXmlRoleToTreeSubSubNode.Count() > 0)
                     {
-                         count++;
-                     drUploadTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                     drUploadTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                     drUploadTreeNode["Path3"] = drSubSubNode["Path"].ToString();
-                 
+                        foreach (DataRow drUserRole in drXmlRoleToTreeSubSubNode)
+                        {
+                            if ( int.Parse(drUserRole["UserRoleId"].ToString()) == roleId)
+                            {
+                                roleCount++;
+                                 break;
+                            }
+                        }
                     }
-                    else if (count == 3)
+                    if (roleCount > 0)
                     {
-                        count++;
-                        drUploadTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                        drUploadTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                        drUploadTreeNode["Path4"] = drSubSubNode["Path"].ToString();
-                        count = 0;
-                        drUploadTreeNode = dtUploadTreeNode.NewRow();
-                    } 
+                        if (count == 0)
+                        {
+
+                            count++;
+                            drUploadTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drUploadTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drUploadTreeNode["Path1"] = drSubSubNode["Path"].ToString();
+                            dtUploadTreeNode.Rows.Add(drUploadTreeNode);
+
+                        }
+                        else if (count == 1)
+                        {
+                            count++;
+                            drUploadTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drUploadTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drUploadTreeNode["Path2"] = drSubSubNode["Path"].ToString();
+
+                        }
+                        else if (count == 2)
+                        {
+                            count++;
+                            drUploadTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drUploadTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drUploadTreeNode["Path3"] = drSubSubNode["Path"].ToString();
+
+                        }
+                        else if (count == 3)
+                        {
+                            count++;
+                            drUploadTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drUploadTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drUploadTreeNode["Path4"] = drSubSubNode["Path"].ToString();
+                            count = 0;
+                            drUploadTreeNode = dtUploadTreeNode.NewRow();
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
                   
                     
                 }
