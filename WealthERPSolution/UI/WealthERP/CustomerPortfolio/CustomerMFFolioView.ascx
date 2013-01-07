@@ -81,7 +81,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            MF Folio View
+                           View MF Folio
                         </td>
                         <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
