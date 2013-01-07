@@ -442,7 +442,7 @@ namespace DaoUploads
             return result;
         }
 
-        public bool UpdateMFFolioStaging(int StagingID, int MainStagingId, string PanNumber, string Folio)
+        public bool UpdateMFFolioStaging(int StagingID, int MainStagingId, string PanNumber, string Folio, string broker)
         {
             bool result = false;
             Database db;
@@ -461,6 +461,10 @@ namespace DaoUploads
                     db.AddInParameter(UpdateProfilesCmd, "@Folio", DbType.String, Folio);
                 else
                     db.AddInParameter(UpdateProfilesCmd, "@Folio", DbType.String, DBNull.Value);
+                if (broker != "")
+                    db.AddInParameter(UpdateProfilesCmd, "@broker", DbType.String, broker);
+                else
+                    db.AddInParameter(UpdateProfilesCmd, "@broker", DbType.String, DBNull.Value);
                 db.ExecuteNonQuery(UpdateProfilesCmd);
                 result = true;
             }
