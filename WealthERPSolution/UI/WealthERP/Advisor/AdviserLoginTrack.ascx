@@ -9,12 +9,12 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            Adviser Login Track
+                           Login History
                         </td>
                         <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -99,7 +99,7 @@
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                 AllowFilteringByColumn="true">
                                 <Columns>
-                                    <telerik:GridBoundColumn DataField="LT_LoginId" HeaderText="LoginId" HeaderStyle-Width="100px"
+                                    <telerik:GridBoundColumn DataField="LT_LoginId" HeaderText="ID" HeaderStyle-Width="100px"
                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="LoginId" AllowFiltering="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
@@ -107,9 +107,9 @@
                                         AutoPostBackOnFilter="true" HeaderText="Name" UniqueName="Name" AllowFiltering="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="LT_CreatedOn" HeaderStyle-Width="100px" AllowFiltering="false"
+                                    <telerik:GridBoundColumn DataField="LT_CreatedOn" HeaderStyle-Width="100px" AllowFiltering="false" SortExpression="true"
                                         DataFormatString="{0:dd/MM/yyyy HH:mm:ss.FFFF}" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                        HeaderText="LoginDateTime" UniqueName="LoginDateTime">
+                                        HeaderText="Date and Time" UniqueName="LoginDateTime">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="true" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="U_UserType" HeaderStyle-Width="100px" AllowFiltering="false"
