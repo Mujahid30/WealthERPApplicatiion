@@ -54,7 +54,7 @@ namespace WealthERP.Admin
             trMFFundPerformance.Visible = false;
             trExportFilteredMFRecord.Visible = false;
             trgvEquityView.Visible = false;
-           if (Request.QueryString["AssetId"] != null)
+         if (Request.QueryString["AssetId"] != null)
             {
                 hdnassetType.Value = Request.QueryString["AssetId"].ToString();
             }
@@ -104,7 +104,7 @@ namespace WealthERP.Admin
                 rbtnCurrent.Visible = true;
                 rbtnHistorical.Visible = true;
                 trgvEquityView.Visible = false;
-                //gvEquityRecord.Visible = true;
+                gvEquityRecord.Visible = true;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
                 trNavCategory.Visible = false;

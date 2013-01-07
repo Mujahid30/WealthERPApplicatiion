@@ -128,14 +128,14 @@
                         <tr>
                             <td>
                                 <asp:Label ID="Select" runat="server" Text="Select:" CssClass="FieldName"></asp:Label>
-                                &nbsp &nbsp
+                                &nbsp 
                                 <asp:RadioButton ID="rbtnCurrent" runat="server" AutoPostBack="true" CssClass="cmbField"
                                     GroupName="Snapshot" OnCheckedChanged="rbtnCurrent_CheckedChanged" Text="Latest" />
                                 &nbsp
                                 <asp:RadioButton ID="rbtnHistorical" runat="server" AutoPostBack="true" CssClass="cmbField"
                                     GroupName="Snapshot" OnCheckedChanged="rbtnHistorical_CheckedChanged" Text="Historical" />
                            </td>
-                            <td id="tdFromDate" runat="server" >
+                            <td id="tdFromDate" runat="server">
                                 <td align="Left">
                                     <asp:Label ID="Label10" Text="FromDate:" runat="server" CssClass="FieldName"></asp:Label>
                                 </td>
@@ -183,7 +183,7 @@
                                     </asp:CompareValidator>
                                 </td>
                                 </td>
-                          <td align="left">
+                          <td align="left" style="padding-right:50px">
                                     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="OnClick_Submit"
                                     Text="Submit" ValidationGroup="vgbtnSubmit" />
                             </td>
@@ -504,7 +504,7 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <div id ="DivEquity" style="overflow: auto" visible="false">
-                            <table style="width: 100%" cellspacing="0" cellpadding="2">
+                        <table width="100%" cellspacing="0" cellpadding="2">
                                 <tr id="trgvEquityView" runat="server" >
                                     <td>
                                         <telerik:RadGrid ID="gvEquityRecord" runat="server" GridLines="None" AutoGenerateColumns="False"
@@ -512,7 +512,7 @@
                                             EnableEmbeddedSkins="false" Width="0px" AllowFilteringByColumn="False" AllowAutomaticInserts="false"
                                             EnableViewState="true" ShowFooter="true">
                                             <%--  OnPreRender="gvWERPTrans_PreRender"--%>
-                                            <MasterTableView TableLayout="Auto" Width="100%" AllowFilteringByColumn="true" AllowMultiColumnSorting="True"
+                                            <MasterTableView TableLayout="Auto" AllowFilteringByColumn="true" AllowMultiColumnSorting="True"
                                                 AutoGenerateColumns="false" CommandItemDisplay="None">
                                                 <Columns>
                                                     <telerik:GridBoundColumn DataField="CompanyName" HeaderText="Company Name" AllowFiltering="True"
