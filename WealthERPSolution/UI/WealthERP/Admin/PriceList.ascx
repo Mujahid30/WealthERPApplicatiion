@@ -280,7 +280,7 @@
                 <%--     </td>
                             </tr>--%>
                 <div>
-                    <table width="80%">
+                    <table width="60%" >
                         <tr id="trSelectMutualFund" runat="server">
                             <td align="right">
                                 <asp:Label ID="lblSelectMutualFund" runat="server" CssClass="FieldName" Text="Select AMC Code:"></asp:Label>
