@@ -265,6 +265,9 @@
 
                   </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:BoundField DataField="GroupHead" HeaderText="Group Head">
+                                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                     </asp:BoundField>
                     
                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                         <HeaderTemplate>
@@ -301,7 +304,9 @@
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>
                     </asp:TemplateField> 
-                    
+                    <asp:BoundField DataField="FolioName" HeaderText="Folio Name">
+                                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                     </asp:BoundField>
                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                         <HeaderTemplate>
                             <asp:Label ID="lblmergeStatus" runat="server" Text="Merged To"></asp:Label>                            

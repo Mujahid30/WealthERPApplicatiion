@@ -176,10 +176,12 @@ namespace WealthERP.Advisor
                 lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
 
                 dtCustomerFolio.Columns.Add("CustomerId");
+                dtCustomerFolio.Columns.Add("GroupHead");
                 dtCustomerFolio.Columns.Add("CustomerName");
                 dtCustomerFolio.Columns.Add("AMCName");
                 dtCustomerFolio.Columns.Add("AMCCode");
                 dtCustomerFolio.Columns.Add("Count");
+                dtCustomerFolio.Columns.Add("FolioName");
                 dtCustomerFolio.Columns.Add("portfilionumber");
                 dtCustomerFolio.Columns.Add("mergerstatus");
 
@@ -208,10 +210,15 @@ namespace WealthERP.Advisor
                         drCustomerFolio = dtCustomerFolio.NewRow();
 
                         drCustomerFolio["CustomerId"] = dtCustomer.Rows[i]["customerid"];
+                        drCustomerFolio["GroupHead"] = dtCustomer.Rows[i]["Parent"];
                         drCustomerFolio["CustomerName"] = dtCustomer.Rows[i]["name"];
                         drCustomerFolio["AMCName"] = dtCustomer.Rows[i]["amcname"];
                         drCustomerFolio["AMCCode"] = dtCustomer.Rows[i]["amccode"];
                         drCustomerFolio["Count"] = dtCustomer.Rows[i]["number"];
+                        if (!string.IsNullOrEmpty(dtCustomer.Rows[i]["FolioName"].ToString().Trim()))
+                            drCustomerFolio["FolioName"] = dtCustomer.Rows[i]["FolioName"];
+                        else
+                            drCustomerFolio["FolioName"] = "";
                         drCustomerFolio["portfilionumber"] = dtCustomer.Rows[i]["portfilionumber"];
                         drCustomerFolio["mergerstatus"] = dtCustomer.Rows[i]["mergerstatus"];
                         dtCustomerFolio.Rows.Add(drCustomerFolio);
