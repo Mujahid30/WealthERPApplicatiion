@@ -624,12 +624,28 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MFTurnOverMIS")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFTurnOverMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TurnOverDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Loan MIS")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
                 }
+                else if (e.Item.Value == "Customer_AUM")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
+                }
+                else if (e.Item.Value == "Customer_Holdings")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "Transactions")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                }
+
                 
                 else if (e.Item.Value == "Upload")
                 {
@@ -675,7 +691,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "OrderEntry")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
@@ -922,7 +938,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MFTurnOverMIS")
                 {
                     Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFTurnOverMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TurnOverDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Loan MIS")
                 {
@@ -1022,7 +1038,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "OrderEntry")
                 {
                     Session["UserType"] = "bm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
@@ -1079,7 +1095,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MFTurnOverMIS")
                 {
                     Session["UserType"] = "bm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFTurnOverMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TurnOverDashBoard','login');", true);
                 }
                 //else if (e.Item.Value == "Multi Asset Report")
                 //{
@@ -1256,7 +1272,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MFTurnOverMIS")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFTurnOverMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TurnOverDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Loan MIS")
                 {
@@ -1376,7 +1392,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderEntry")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
