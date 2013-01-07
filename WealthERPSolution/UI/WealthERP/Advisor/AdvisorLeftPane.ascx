@@ -230,7 +230,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Customer User Management" Value="Customer User Management">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Adviser Login Track" Value="Adviser_Login_Track">
+                                                    <telerik:RadPanelItem runat="server" Text="Login History" Value="Adviser_Login_Track">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
