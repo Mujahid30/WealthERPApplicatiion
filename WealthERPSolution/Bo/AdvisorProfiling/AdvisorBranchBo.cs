@@ -1507,14 +1507,14 @@ namespace BoAdvisorProfiling
         /// <param name="accountId"></param>
         /// <returns></returns>
 
-        public DataSet FolioMoveToPortfolio(int customerID, string folioNum, int toPortfolioID, int accountId)
+        public bool FolioMoveToPortfolio(int customerID, string folioNum, int toPortfolioID, int accountId)
         {
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
-            DataSet dsFolioMoveToPortfolio = new DataSet();
+            bool FolioMoveToPortfolio;
 
             try
             {
-                dsFolioMoveToPortfolio = advisorBranchDao.FolioMoveToPortfolio(customerID, folioNum, toPortfolioID, accountId);
+                FolioMoveToPortfolio = advisorBranchDao.FolioMoveToPortfolio(customerID, folioNum, toPortfolioID, accountId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1537,7 +1537,7 @@ namespace BoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dsFolioMoveToPortfolio;
+            return FolioMoveToPortfolio;
         }     
 
 

@@ -81,7 +81,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                           View MF Folio
+                            View MF Folio
                         </td>
                         <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -114,10 +114,27 @@
     </tr>
 </table>
 <br />
+<table width="100%" cellpadding="0" cellspacing="0">
+    <tr id="trFailure" runat="server" visible="false">
+        <td align="center">
+            <div id="statusMsgFailure" runat="server" class="success-msg" align="center">
+                Error occurred while moving folio with mutual fund accountId
+            </div>
+        </td>
+    </tr>
+    <tr id="trSuccess" runat="server" visible="false">
+        <td align="center">
+            <div id="statusMsgSuccess" runat="server" class="success-msg" align="center">
+                Folios moved
+            </div>
+            <%--  <asp:Label ID="lblstatusMsgSuccess" runat="server"  class="success-msg" align="center"></asp:Label>--%>
+        </td>
+    </tr>
+</table>
 <div style="width: 1100px; overflow: scroll">
     <telerik:RadGrid ID="gvMFFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" 
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
         AllowAutomaticInserts="false" OnItemDataBound="gvMFFolio_ItemDataBound" OnNeedDataSource="gvMFFolio_NeedDataSource">
         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
         </ExportSettings>
@@ -140,7 +157,7 @@
                                     runat="server"></telerik:RadComboBoxItem>
                                 <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
                                     runat="server"></telerik:RadComboBoxItem>
-                                <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Delete" Value="Delete"
+                                <telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
                                     runat="server"></telerik:RadComboBoxItem>
                             </Items>
                         </telerik:RadComboBox>
@@ -167,8 +184,9 @@
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="A/C Opening Date" HeaderStyle-Width="120px"
-                    HeaderText="A/C Opening Date" DataField="A/C Opening Date" SortExpression="A/C Opening Date"
-                    AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    DataFormatString="{0:d}" HeaderText="A/C Opening Date" DataField="A/C Opening Date"
+                    SortExpression="A/C Opening Date" AllowFiltering="false" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
             </Columns>
@@ -181,12 +199,6 @@
     </telerik:RadGrid>
 </div>
 <table class="TableBackground" style="width: 100%">
-    <%--  <tr>
-        <td align="right">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-        </td>
-    </tr>--%>
     <tr>
         <td>
             <%-- <asp:GridView ID="gvMFFolio" runat="server" AutoGenerateColumns="False" CellPadding="4"

@@ -125,10 +125,10 @@ namespace WealthERP.CustomerPortfolio
                     dtMFFolio.Columns.Add("AMC Name");
                     dtMFFolio.Columns.Add("Name");// original costumer name from folio uploads
                     dtMFFolio.Columns.Add("Mode Of Holding");
-                    dtMFFolio.Columns.Add("A/C Opening Date");
+                    dtMFFolio.Columns.Add("A/C Opening Date", typeof(DateTime));
 
 
-                    DataRow drMFFolio;
+                DataRow drMFFolio;
 
                     for (int i = 0; i < FolioList.Count; i++)
                     {
@@ -148,8 +148,8 @@ namespace WealthERP.CustomerPortfolio
                         drMFFolio[4] = FolioVo.ModeOfHolding.ToString();
                         if (FolioVo.AccountOpeningDate != DateTime.MinValue)
                             drMFFolio[5] = FolioVo.AccountOpeningDate.ToShortDateString();
-                        else
-                            drMFFolio[5] = string.Empty;
+                        //else
+                        //    drMFFolio[5] = String.Empty;
                         dtMFFolio.Rows.Add(drMFFolio);
                     }
                     gvMFFolio.DataSource = dtMFFolio;
@@ -377,11 +377,17 @@ namespace WealthERP.CustomerPortfolio
                     if (isUpdated)
                         totalFoliosMoved++;
                     else
-                        statusMsg += "<br/>Error occurred while moving folio with mutual fund accountId " + MFAccountId + ".<br/>";
+                        trFailure.Visible = true;
+                    //    //statusMsg
+                    //    lblstatusMsgFailure.Text += "<br/>Error occurred while moving folio with mutual fund accountId " + MFAccountId + ".<br/>";
+                    //lblstatusMsgFailure.Visible = true;
                 }
             }
             if (totalFoliosMoved > 0)
-                statusMsg += "<b style='color:Green'>Total Folios moved = " + totalFoliosMoved +"</b>";
+                trSuccess.Visible = true;
+
+            //    lblstatusMsgSuccess.Text += "<br/>Total Folios moved = " + totalFoliosMoved + ".<br/>";
+            //lblstatusMsgSuccess.Visible = true;
             //lblMessage.Text = statusMsg;
             //lblMessage.Visible = true;
             lblTransferMsg.Text = statusMsg;
@@ -461,14 +467,14 @@ namespace WealthERP.CustomerPortfolio
                 int accountID;              
                 int customerId = customerVo.CustomerId;
                 int TofolioId = Convert.ToInt32(ddlPickPortfolio.SelectedValue);
-                DataSet dsPortFolioUpdate = new DataSet();
+                bool PortFolioUpdate;
                 
                 foreach (GridDataItem dr in gvMFFolio.Items)
                 {
                     int selectedRow=0;
                     //int rowIndex = dr.RowIndex;
                     //DataKey dKey = gvMFFolio.DataKeys[rowIndex];
-
+                  
                     if (((CheckBox)dr.FindControl("chkBox")).Checked == true)
                     {
                         AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
@@ -476,7 +482,16 @@ namespace WealthERP.CustomerPortfolio
                         //string folioNo = gvMFFolio.MasterTableView.DataKeyValues[selectedRow]["FolioId"].ToString();
                         string folioNo = gvMFFolio.MasterTableView.Items[dr.ItemIndex].GetDataKeyValue("Folio No").ToString();
 
-                        dsPortFolioUpdate = adviserBranchBo.FolioMoveToPortfolio(customerId, folioNo, TofolioId, accountID);
+                        PortFolioUpdate = adviserBranchBo.FolioMoveToPortfolio(customerId, folioNo, TofolioId, accountID);
+                        if (PortFolioUpdate == true)
+                        {
+                            trSuccess.Visible = true;
+                        }
+                        else
+                        {
+                            trFailure.Visible = true;
+                        }
+
                     }                   
                 }
                 this.BindFolioGridView();                

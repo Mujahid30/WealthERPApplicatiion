@@ -2215,10 +2215,11 @@ namespace DaoAdvisorProfiling
      /// <param name="accountId"></param>
      /// <returns></returns>
 
-     public DataSet FolioMoveToPortfolio(int customerID, string folioNum, int toPortfolioID, int accountId)
+     public bool FolioMoveToPortfolio(int customerID, string folioNum, int toPortfolioID, int accountId)
      {
          Database FolioMoveToPortfolioDb;
          DbCommand FolioMoveToPortfolioCmd;
+         int affectedRows = 0;
          DataSet FolioMoveToPortfolioDs = new DataSet();
 
          try
@@ -2229,7 +2230,9 @@ namespace DaoAdvisorProfiling
              FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@folioNum", DbType.String, folioNum);
              FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@toPortfolioID", DbType.Int32, toPortfolioID);
              FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@accountId", DbType.Int32, accountId);
-             FolioMoveToPortfolioDs = FolioMoveToPortfolioDb.ExecuteDataSet(FolioMoveToPortfolioCmd);
+             //FolioMoveToPortfolioDs = FolioMoveToPortfolioDb.ExecuteDataSet(FolioMoveToPortfolioCmd);
+
+             affectedRows = FolioMoveToPortfolioDb.ExecuteNonQuery(FolioMoveToPortfolioCmd);
          }
          catch (BaseApplicationException Ex)
          {
@@ -2252,7 +2255,10 @@ namespace DaoAdvisorProfiling
              ExceptionManager.Publish(exBase);
              throw exBase;
          }
-         return FolioMoveToPortfolioDs;
+         if (affectedRows<0)
+         return true;
+         else
+             return false;
      } 
     
      /// <summary>
