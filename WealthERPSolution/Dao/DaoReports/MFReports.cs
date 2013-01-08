@@ -914,7 +914,32 @@ namespace DaoReports
             }
             return dsTransactionSlipBlankForm;
         }
-        
+        public DataSet GetPortfolioCompositionReport(MFReportVo reports, int adviserId)
+        {
+
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdCustomerPortfolioComposition;
+            DataSet dsCustomerPortfolioComposition;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCustomerPortfolioComposition = db.GetStoredProcCommand("SP_RPT_ GetPortfolioCompositionReport");
+                db.AddInParameter(cmdCustomerPortfolioComposition, "@PortfolioIds", DbType.String, reports.PortfolioIds); //35437
+                db.AddInParameter(cmdCustomerPortfolioComposition, "@FromDate", DbType.DateTime, reports.FromDate);
+                //db.AddInParameter(cmdCustomerMFReturns, "@AdviserId", DbType.Int32, adviserId);
+
+                cmdCustomerPortfolioComposition.CommandTimeout = 60 * 60;
+                dsCustomerPortfolioComposition = db.ExecuteDataSet(cmdCustomerPortfolioComposition);
+                //ds = dsCustomerMFReturns;
+                return dsCustomerPortfolioComposition;
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }        
 
     }
 }

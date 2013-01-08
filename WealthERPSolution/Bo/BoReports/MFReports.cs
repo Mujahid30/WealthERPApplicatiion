@@ -520,5 +520,22 @@ namespace BoReports
             }
             return dsTransactionSlipBlankForm;
         }
+        public DataSet GetPortfolioCompositionReport(MFReportVo reports, int adviserId)
+        {
+
+            MFReportsDao mfReports = new MFReportsDao();
+            DataSet dsCustomerPortfolioComposition;
+          
+            try
+            {
+                dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(reports, adviserId);
+              
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return dsCustomerPortfolioComposition;
+        }
     }
 }

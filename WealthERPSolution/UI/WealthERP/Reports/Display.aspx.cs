@@ -3505,6 +3505,36 @@ namespace WealthERP.Reports
                             lblClosingBalanceNote.Visible = false;
                         }
                         break;
+                    case "COMPOSITION_REPORT":
+                       crmain.Load(Server.MapPath("SchemePerformance.rpt"));
+                        DataSet dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(report, advisorVo.advisorId);
+
+                        if (dsCustomerPortfolioComposition.Tables[0].Rows.Count > 0)
+                        {
+                            //crmain.SetDataSource(dsCustomerPortfolioComposition.Tables[0]);
+                            crmain.Database.Tables["PortfolioComposition"].SetDataSource(dsCustomerPortfolioComposition.Tables[0]);
+                            setLogo();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "As on: " + report.FromDate.ToShortDateString());
+                            //crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            AssignReportViewerProperties();
+                            //For PDF View In Browser
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
+                            lblClosingBalanceNote.Visible = false;
+                        }
+                        else
+                        {
+                            SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
+                        break;
 
                     //Added Three more cases for Display three new report : Author-Pramod
                     case "RETURNS_PORTFOLIO_REALIZED":
@@ -3746,16 +3776,33 @@ namespace WealthERP.Reports
             {
                 dtPortfolioXIRR.Columns.Add("AbsoluteReturn", typeof(Int64));
                 int portfolioId = 0;
+                String NA="NA";
+                Double XIRR;
                 DataRow[] drAbsolutereturn;
+                DataRow[] drXirr;
                 foreach (DataRow dr in dtPortfolioXIRR.Rows)
                 {
                     portfolioId = Convert.ToInt32(dr["PortfolioId"].ToString());
+                    //XIRR = Convert.ToDouble(dr["XIRR"].ToString());
                     drAbsolutereturn = dtReturnsPortfolio.Select("CP_PortfolioId=" + portfolioId.ToString());
-
+                    //drXirr = dtReturnsPortfolio.Select("XIRR=" + XIRR.ToString());
                     foreach (DataRow drAbs in drAbsolutereturn)
                     {
                         dr["AbsoluteReturn"] = drAbs["absoluteReturn"];
                     }
+                    //foreach (DataRow drXIrr in drXirr)
+                    //{
+                    //    if (drXIrr["XIRR"] == null)
+                    //    {
+                    //        dr["XIRR"] = "NA"; 
+                    //    }
+                    //    else
+                    //    {
+                    //        dr["XIRR"] = drXIrr["XIRR"];
+                    //    }
+                    //}
+                   
+                   
                 }
                 return dtPortfolioXIRR;
             }
