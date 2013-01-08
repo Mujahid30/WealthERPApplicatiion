@@ -3018,9 +3018,9 @@ namespace DaoCustomerPortfolio
                     AccountVo.JointName1 = dr["CMGCXP_JOINT_NAME1"].ToString();
                     AccountVo.JointName2 = dr["CMGCXP_JOINT_NAME2"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMGCXP_PHONE_OFF"].ToString()))
-                        AccountVo.CPhoneOffice = int.Parse(dr["CMGCXP_PHONE_OFF"].ToString());
+                        AccountVo.CPhoneOffice = Convert.ToInt64(dr["CMGCXP_PHONE_OFF"].ToString());
                     if (!string.IsNullOrEmpty(dr["CMGCXP_PHONE_RES"].ToString()))
-                        AccountVo.CPhoneRes = int.Parse(dr["CMGCXP_PHONE_RES"].ToString());
+                        AccountVo.CPhoneRes = Convert.ToInt64(dr["CMGCXP_PHONE_RES"].ToString());
                     if (!string.IsNullOrEmpty(dr["CMGCXP_PHONE_OFF"].ToString()))
                         AccountVo.CEmail = dr["CMGCXP_EMAIL"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMFA_PANNO"].ToString()))
@@ -3224,19 +3224,19 @@ namespace DaoCustomerPortfolio
                 }
                 if (AccountVo.CPhoneOffice!=0)
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Int32, AccountVo.CPhoneOffice);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, AccountVo.CPhoneOffice);
                 }
                 else
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(AccountVo.Name))
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_RES", DbType.Int32, AccountVo.CPhoneRes);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_RES", DbType.Int64, AccountVo.CPhoneRes);
                 }
                 else
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_RES", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_RES", DbType.Int64, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(AccountVo.CEmail))
                 {

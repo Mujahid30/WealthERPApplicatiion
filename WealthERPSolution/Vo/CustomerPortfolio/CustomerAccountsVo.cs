@@ -57,8 +57,8 @@ namespace VoCustomerPortfolio
         private int m_CPinCode;
         private string m_JointName1;
         private string m_JointName2;
-        private int m_CPhoneOffice;
-        private int m_CPhoneRes;
+        private Int64 m_CPhoneOffice;
+        private Int64 m_CPhoneRes;
         private string m_CEmail;
         private DateTime m_CDOB;
         private string m_CMGCXP_BankAddress1;
@@ -128,12 +128,12 @@ namespace VoCustomerPortfolio
             get { return m_JointName2; }
             set { m_JointName2 = value; }
         }
-        public int CPhoneOffice
+        public Int64 CPhoneOffice
         {
             get { return m_CPhoneOffice; }
             set { m_CPhoneOffice = value; }
         }
-        public int CPhoneRes
+        public Int64 CPhoneRes
         {
             get { return m_CPhoneRes; }
             set { m_CPhoneRes = value; }

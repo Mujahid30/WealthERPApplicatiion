@@ -114,20 +114,17 @@
     </tr>
 </table>
 <br />
-<table width="100%" cellpadding="0" cellspacing="0">
+<table width="100%" cellpadding="0" cellspacing="0" id="tblMessage" runat="server">
     <tr id="trFailure" runat="server" visible="false">
         <td align="center">
-            <div id="statusMsgFailure" runat="server" class="success-msg" align="center">
-                Error occurred while moving folio with mutual fund accountId
+            <div id="statusMsgFailure" runat="server" visible="false" class="failure-msg" align="center">
+              
             </div>
-        </td>
-    </tr>
-    <tr id="trSuccess" runat="server" visible="false">
-        <td align="center">
-            <div id="statusMsgSuccess" runat="server" class="success-msg" align="center">
-                Folios moved
+    
+            <div id="statusMsgSuccess" runat="server" visible="false" class="success-msg" align="center">
+                
             </div>
-            <%--  <asp:Label ID="lblstatusMsgSuccess" runat="server"  class="success-msg" align="center"></asp:Label>--%>
+           
         </td>
     </tr>
 </table>

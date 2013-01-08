@@ -377,24 +377,34 @@ namespace WealthERP.CustomerPortfolio
                     if (isUpdated)
                         totalFoliosMoved++;
                     else
+                    {
+                        statusMsgFailure.InnerText = statusMsg;
+                        statusMsg += "Error occurred while moving folio with mutual fund accountId " + MFAccountId;
                         trFailure.Visible = true;
-                    //    //statusMsg
-                    //    lblstatusMsgFailure.Text += "<br/>Error occurred while moving folio with mutual fund accountId " + MFAccountId + ".<br/>";
+                        statusMsgSuccess.Visible = false;
+                        statusMsgFailure.Visible = true;
+                    }
                     //lblstatusMsgFailure.Visible = true;
                 }
             }
             if (totalFoliosMoved > 0)
-                trSuccess.Visible = true;
+            {
+                
+                statusMsg += "Total Folios moved = " + totalFoliosMoved;
+                statusMsgSuccess.InnerText = statusMsg;
+                trFailure.Visible = true;
+                statusMsgSuccess.Visible = true;
+                statusMsgFailure.Visible = false;
 
-            //    lblstatusMsgSuccess.Text += "<br/>Total Folios moved = " + totalFoliosMoved + ".<br/>";
-            //lblstatusMsgSuccess.Visible = true;
-            //lblMessage.Text = statusMsg;
-            //lblMessage.Visible = true;
-            lblTransferMsg.Text = statusMsg;
-            divMessage.Attributes.Add("class", "yellow-box");
-            if (trTransferMsg.Visible == false)
-                trTransferMsg.Visible = true;
-
+                //    lblstatusMsgSuccess.Text += "<br/>Total Folios moved = " + totalFoliosMoved + ".<br/>";
+                //lblstatusMsgSuccess.Visible = true;
+                //lblMessage.Text = statusMsg;
+                //lblMessage.Visible = true;
+                //lblTransferMsg.Text = statusMsg;
+                //divMessage.Attributes.Add("class", "yellow-box");
+                //if (trTransferMsg.Visible == false)
+                //    trTransferMsg.Visible = true;
+            }
             BindFolioGridView();
         }
 
@@ -468,6 +478,7 @@ namespace WealthERP.CustomerPortfolio
                 int customerId = customerVo.CustomerId;
                 int TofolioId = Convert.ToInt32(ddlPickPortfolio.SelectedValue);
                 bool PortFolioUpdate;
+                string statusMsg=string.Empty;
                 
                 foreach (GridDataItem dr in gvMFFolio.Items)
                 {
@@ -485,11 +496,21 @@ namespace WealthERP.CustomerPortfolio
                         PortFolioUpdate = adviserBranchBo.FolioMoveToPortfolio(customerId, folioNo, TofolioId, accountID);
                         if (PortFolioUpdate == true)
                         {
-                            trSuccess.Visible = true;
+                            
+                            statusMsg = "Portfolio Moved to Another Portfolio";
+                            statusMsgSuccess.InnerText = statusMsg;
+                            trFailure.Visible = true;
+                            statusMsgSuccess.Visible = true;
+                            statusMsgFailure.Visible = false;
+
                         }
                         else
                         {
+                            statusMsgFailure.InnerText = statusMsg;
+                            statusMsg = "Portfolio Has not been moved";
                             trFailure.Visible = true;
+                            statusMsgSuccess.Visible = false;
+                            statusMsgFailure.Visible = true;
                         }
 
                     }                   

@@ -495,19 +495,19 @@ namespace DaoCustomerPortfolio
                 }
                 if (!string.IsNullOrEmpty(customerAccountVo.Name))
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Int32, customerAccountVo.CPhoneOffice);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, customerAccountVo.CPhoneOffice);
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(customerAccountVo.Name))
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Int32, customerAccountVo.CPhoneRes);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Int64, customerAccountVo.CPhoneRes);
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Int64, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(customerAccountVo.CEmail))
                 {

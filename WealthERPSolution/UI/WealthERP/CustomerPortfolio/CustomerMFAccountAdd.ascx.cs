@@ -886,9 +886,9 @@ namespace WealthERP.CustomerPortfolio
                     if (!string.IsNullOrEmpty(txtCustJName2.Text))
                         customerAccountsVo.JointName2 = txtCustJName2.Text;
                     if (txtCustPhNoOff.Text != "")
-                        customerAccountsVo.CPhoneOffice = int.Parse(txtCustPhNoOff.Text);
+                        customerAccountsVo.CPhoneOffice = Convert.ToInt64(txtCustPhNoOff.Text);
                     if (txtCustPhNoRes.Text != "")
-                        customerAccountsVo.CPhoneRes = int.Parse(txtCustPhNoRes.Text);
+                        customerAccountsVo.CPhoneRes = Convert.ToInt64(txtCustPhNoRes.Text);
                     if (!string.IsNullOrEmpty(txtCustEmail.Text))
                         customerAccountsVo.CEmail = txtCustEmail.Text;
                     if (rdpDOB.SelectedDate != null)
@@ -1097,9 +1097,9 @@ namespace WealthERP.CustomerPortfolio
                     if (!string.IsNullOrEmpty(txtCustJName2.Text))
                         newAccountVo.JointName2 = txtCustJName2.Text;
                     if (txtCustPhNoOff.Text != "")
-                        newAccountVo.CPhoneOffice = int.Parse(txtCustPhNoOff.Text);
+                        newAccountVo.CPhoneOffice = Convert.ToInt64(txtCustPhNoOff.Text);
                     if (txtCustPhNoRes.Text != "")
-                        newAccountVo.CPhoneRes = int.Parse(txtCustPhNoRes.Text);
+                        newAccountVo.CPhoneRes = Convert.ToInt64(txtCustPhNoRes.Text);
                     if (!string.IsNullOrEmpty(txtCustEmail.Text))
                         newAccountVo.CEmail = txtCustEmail.Text;
                     if (rdpDOB.SelectedDate != null)
