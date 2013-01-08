@@ -1121,12 +1121,26 @@
     <Compile Include="BusinessMIS\BusinessDashBoard.ascx.designer.cs">
       <DependentUpon>BusinessDashBoard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="BusinessMIS\Commissiondashboard.ascx.cs">
+      <DependentUpon>Commissiondashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\Commissiondashboard.ascx.designer.cs">
+      <DependentUpon>Commissiondashboard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\CustomerAUM.ascx.cs">
       <DependentUpon>CustomerAUM.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BusinessMIS\CustomerAUM.ascx.designer.cs">
       <DependentUpon>CustomerAUM.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessMIS\EquityTurnover.ascx.cs">
+      <DependentUpon>EquityTurnover.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\EquityTurnover.ascx.designer.cs">
+      <DependentUpon>EquityTurnover.ascx</DependentUpon>
     </Compile>
     <Compile Include="BusinessMIS\GoalMIS.ascx.cs">
       <DependentUpon>GoalMIS.ascx</DependentUpon>
@@ -5728,7 +5742,9 @@
     <Content Include="bin\WatiN.Core.XML" />
     <Content Include="BusinessMIS\AssetAllocationMIS.ascx" />
     <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
+    <Content Include="BusinessMIS\Commissiondashboard.ascx" />
     <Content Include="BusinessMIS\CustomerAUM.ascx" />
+    <Content Include="BusinessMIS\EquityTurnover.ascx" />
     <Content Include="BusinessMIS\GoalMIS.ascx" />
     <Content Include="BusinessMIS\HoldingDashBoard.ascx" />
     <Content Include="BusinessMIS\MFDashBoard.ascx" />

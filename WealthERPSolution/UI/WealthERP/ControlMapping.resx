@@ -1505,4 +1505,12 @@
     <value>BusinessMIS//MFSIPProjection.ascx</value>
     <comment>BusinessMIS//MFSIPProjection.ascx</comment>
   </data>
+  <data name="Commissiondashboard" xml:space="preserve">
+    <value>BusinessMIS//Commissiondashboard.ascx</value>
+    <comment>BusinessMIS//Commissiondashboard.ascx</comment>
+  </data>
+  <data name="EquityTurnover" xml:space="preserve">
+    <value>BusinessMIS//EquityTurnover.ascx</value>
+    <comment>BusinessMIS//EquityTurnover.ascx</comment>
+  </data>
 </root>

@@ -691,6 +691,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//Commissiondashboard.ascx.
+        /// </summary>
+        internal static string Commissiondashboard {
+            get {
+                return ResourceManager.GetString("Commissiondashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//CompleteCustomerProfile.ascx.
         /// </summary>
         internal static string CompleteCustomerProfile {
@@ -1380,6 +1389,15 @@ namespace WealthERP {
         internal static string EquityTransactionsView {
             get {
                 return ResourceManager.GetString("EquityTransactionsView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//EquityTurnover.ascx.
+        /// </summary>
+        internal static string EquityTurnover {
+            get {
+                return ResourceManager.GetString("EquityTurnover", resourceCulture);
             }
         }
         
