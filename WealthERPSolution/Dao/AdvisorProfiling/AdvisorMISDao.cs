@@ -1181,6 +1181,7 @@ namespace DaoAdvisorProfiling
                 getMFDashBoardCmd = db.GetStoredProcCommand("SP_GetMFDashBoard");
                 db.AddInParameter(getMFDashBoardCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddOutParameter(getMFDashBoardCmd, "@month", DbType.Int32, 0);
+                getMFDashBoardCmd.CommandTimeout = 60 * 60;
                 dsGetMFDashBoard = db.ExecuteDataSet(getMFDashBoardCmd);
                 if (!string.IsNullOrEmpty(db.GetParameterValue(getMFDashBoardCmd, "@month").ToString()))
                     i = int.Parse(db.GetParameterValue(getMFDashBoardCmd, "@month").ToString());
