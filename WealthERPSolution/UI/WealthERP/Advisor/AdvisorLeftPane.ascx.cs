@@ -513,7 +513,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranchAssociation','login');", true);
                 }
-                else if (e.Item.Value == "Customer")
+                else if (e.Item.Value == "CustomerList")
                 {
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
@@ -834,7 +834,7 @@ namespace WealthERP.Advisor
                     Session["CurrentrmVo"] = null;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRMDetails','login');", true);
                 }
-                else if (e.Item.Value == "Customer")
+                else if (e.Item.Value == "CustomerList")
                 {
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomer','login');", true);
@@ -954,6 +954,16 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
                 }
+                else if (e.Item.Value == "Customer_Holdings")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "Transactions")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                }
                 else if (e.Item.Value == "Customer Report")
                 {
                     Session["UserType"] = "rm";
@@ -1035,7 +1045,7 @@ namespace WealthERP.Advisor
                     Session[SessionContents.CurrentUserRole] = "BM";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewRM", "loadcontrol('ViewRM','login');", true);
                 }
-                else if (e.Item.Value == "Customer")
+                else if (e.Item.Value == "CustomerList")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BMCustomer", "loadcontrol('BMCustomer','login');", true);
                 }
@@ -1118,6 +1128,17 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "bm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TurnOverDashBoard','login');", true);
                 }
+
+                else if (e.Item.Value == "Customer_Holdings")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "Transactions")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                }
                 //else if (e.Item.Value == "Multi Asset Report")
                 //{
                 //    Session["UserType"] = "bm";
@@ -1186,7 +1207,7 @@ namespace WealthERP.Advisor
             hdfSession.Value = "Ops";
             try
             {
-                if (e.Item.Value == "Customer")
+                if (e.Item.Value == "CustomerList")
                 {
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
@@ -1309,6 +1330,21 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Loan MIS")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
+                }
+                else if (e.Item.Value == "Customer_AUM")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
+                }
+                else if (e.Item.Value == "Customer_Holdings")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "Transactions")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Upload")
                 {
