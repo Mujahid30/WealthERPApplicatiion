@@ -308,6 +308,7 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDisplayType;
         protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
@@ -344,6 +345,7 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel1;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvTransactionsView;
         
         /// <summary>
@@ -489,5 +491,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnProcessIdSearch;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvBalanceView;
+        protected global::Telerik.Web.UI.RadGrid gvBalanceView;
     }
 }
