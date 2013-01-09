@@ -554,6 +554,37 @@
         <td>
         </td>
     </tr>
+        <tr id="trCeaseDate" runat="server">
+        <td class="leftField" width="25%">
+            <asp:Label ID="lblCeaseDate" runat="server" Text="Cease Date: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtCeaseDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <cc1:CalendarExtender ID="CeaseDate_CalendarExtender" runat="server" TargetControlID="txtCeaseDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="CeaseDate_TextBoxWatermarkExtender" runat="server"
+                TargetControlID="txtCeaseDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtCeaseDate" Operator="DataTypeCheck" SipChequeDate_CalendarExtender="cvPCG"
+                Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+        </td>
+        <td>
+        </td>
+    </tr>
+    
+        <tr id="trRemarks" runat="server">
+        <td class="leftField" width="25%">
+            <asp:Label ID="Label2" runat="server" Text="Remarks: "  CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtRemarks" runat="server" CssClass="txtField" TextMode="MultiLine"></asp:TextBox>
+        </td>
+        <td>
+        </td>
+    </tr>
+    
     <tr id="trSipAutoTranx" runat="server">
         <td width="25%" class="leftField">
             <asp:Label ID="Label1" runat="server" Text="Enable Auto Transaction Creation:" CssClass="FieldName"></asp:Label>
