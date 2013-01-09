@@ -133,9 +133,6 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text=" MFOrder Entry" Value="OrderEntry">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="LI Order" 
-                                                        Value="LI_Order">
-                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Order List" 
                                                         Value="Order_List">
                                                     </telerik:RadPanelItem>
@@ -153,32 +150,8 @@
                                             <telerik:RadPanelItem runat="server" Text="MF Commission MIS" Value="MF Commission MIS">
                                             </telerik:RadPanelItem>
                                                    <%------------------New Tree View--------------%> 
-                                            <telerik:RadPanelItem runat="server" Text="Business MIS Dashboard" Value="Business_MIS_Dashboard" Visible="false">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Multi Product MIS" Value="Multi_Product_MIS" Visible="false">
-                                            </telerik:RadPanelItem>
-                                            
-                                            <telerik:RadPanelItem runat="server" Text="MF MIS" Value="MF MIS" Visible="false">
-                                            </telerik:RadPanelItem>
-                                               <telerik:RadPanelItem runat="server" Text="MF" Value="MF" Visible="false">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="View Transactions" Value="View MF Transactions">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add MF Transactions"
-                                                        Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
-                                            
-                                            <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity" Visible="false">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="View Transactions" Value="View EQ Transactions">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
-                                           <%-- <telerik:RadPanelItem runat="server" Text="Loan MIS" Value="Loan MIS" Vissble="false">
+                                                              
+                                          <%-- <telerik:RadPanelItem runat="server" Text="Loan MIS" Value="Loan MIS" Vissble="false">
                                             </telerik:RadPanelItem>--%>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -233,27 +206,10 @@
                                                     
                                                     <telerik:RadPanelItem runat="server" Text="View Exceptions" Value="Uploads_Exception">
                                                     </telerik:RadPanelItem>
-                                                 <%--   <telerik:RadPanelItem runat="server" Text="View Profile Exceptions" Value="View_Profile_Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View MF Transaction Exceptions" Value="View Transaction Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View MF Folio Exceptions" Value="View MF Folio Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Equity Trade Account Exceptions"
-                                                        Value="View_Equity_Trade_Account_Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Equity Transaction Exceptions" Value="View_Equity_Transaction_Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Systematic Transaction Exceptions"
-                                                        Value="View_Systematic_Transaction_Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Trail Commission Exception"
-                                                        Value="Trail_Commission_Exception"  Visible="false">
-                                                    </telerik:RadPanelItem>--%>
-                                                    </Items>
+                                                </Items>
                                             </telerik:RadPanelItem>
                                             
-                                            <telerik:RadPanelItem runat="server" Text="Add Transaction" Value="MF Systematic Daily Recon" Visible="false">
+                                            <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
                                             </telerik:RadPanelItem>
                                             
                                             <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">
@@ -277,13 +233,10 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Daily Process" Value="Daily Process">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
                                             
+                                            <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
+                                            </telerik:RadPanelItem>
+                                                               
                                             <%--<telerik:RadPanelItem runat="server" Text="MF Reversal Txn Exception" Value="MF Reversal Txn Exception Handling">
                                             </telerik:RadPanelItem>--%>
                                             <telerik:RadPanelItem runat="server" Text="Loan Schemes" Value="Loan Schemes">
@@ -486,9 +439,6 @@
                                                     </telerik:RadPanelItem>--%>
                                                     <telerik:RadPanelItem runat="server" Text="MFOrder" Value="OrderEntry">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="LI Order" 
-                                                        Value="LI_Order" Visible="false">
-                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Order List" 
                                                         Value="Order_List">
                                                     </telerik:RadPanelItem>
@@ -602,16 +552,8 @@
                                                         Value="OrderMIS">
                                                     </telerik:RadPanelItem>--%>
                                                     <telerik:RadPanelItem runat="server" Text="Order Entry" Value="OrderEntry">
-                                                          <Items>
-                                                           <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS" Visible="false">
-                                                           </telerik:RadPanelItem>
-                                                        </Items>
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="LI Order" 
-                                                        Value="LI_Order" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Order List" 
-                                                        Value="Order_List">
+                                                    <telerik:RadPanelItem runat="server" Text="Order List" Value="Order_List">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Order Recon"
                                                         Value="OrderRecon" Visible="false">
@@ -628,40 +570,7 @@
                                             <telerik:RadPanelItem runat="server" Text="MF Commission MIS" Value="MF Commission MIS">
                                             </telerik:RadPanelItem>
                                                    <%------------------New Tree View--------------%> 
-                                             <%--<telerik:RadPanelItem runat="server" Text="Customer Networth MIS" Value="Prospect List">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF MIS" Value="MF MIS">
-                                            </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Multi Product MIS" Value="Multi_Product_MIS">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF Systematic MIS" Value="MF systematic MIS">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF" Value="MF">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="View Transactions" Value="View MF Transactions">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add MF Transactions"
-                                                        Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="View Transactions" Value="View EQ Transactions">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Goal MIS" Value="Goal_MIS" Vissble="true">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Asset Allocation MIS"  Value="Asset_Allocation_MIS" Vissble="true">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF DashBoard"  Value="MFDashBoard" Vissble="true">
-                                            </telerik:RadPanelItem>--%>
-                                         </Items>
+                                        </Items>
                                     </telerik:RadPanelItem>
                                      <%------------------New Tree View--------------%> 
                                     <telerik:RadPanelItem runat="server" Text="AUM & Holdings" Value="AUM_Holdings">
@@ -713,27 +622,10 @@
                                                     
                                                     <telerik:RadPanelItem runat="server" Text="View Exceptions" Value="Uploads_Exception">
                                                     </telerik:RadPanelItem>
-                                                 <%--   <telerik:RadPanelItem runat="server" Text="View Profile Exceptions" Value="View_Profile_Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View MF Transaction Exceptions" Value="View Transaction Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View MF Folio Exceptions" Value="View MF Folio Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Equity Trade Account Exceptions"
-                                                        Value="View_Equity_Trade_Account_Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Equity Transaction Exceptions" Value="View_Equity_Transaction_Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Systematic Transaction Exceptions"
-                                                        Value="View_Systematic_Transaction_Exceptions" Visible="false">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Trail Commission Exception"
-                                                        Value="Trail_Commission_Exception"  Visible="false">
-                                                    </telerik:RadPanelItem>--%>
-                                                    </Items>
+                                              </Items>
                                             </telerik:RadPanelItem>
                                             
-                                            <telerik:RadPanelItem runat="server" Text="Add Transaction" Value="MF Systematic Daily Recon" Visible="false">
+                                            <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
                                             </telerik:RadPanelItem>
                                             
                                             <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">
@@ -757,12 +649,8 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Daily Process" Value="Daily Process">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
+                                              </telerik:RadPanelItem>
                                             
                                             <%--<telerik:RadPanelItem runat="server" Text="MF Reversal Txn Exception" Value="MF Reversal Txn Exception Handling">
                                             </telerik:RadPanelItem>--%>
