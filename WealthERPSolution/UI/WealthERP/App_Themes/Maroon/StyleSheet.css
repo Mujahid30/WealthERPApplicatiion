@@ -1321,3 +1321,79 @@ border-radius: 35px;
     font-size: xx-small;
     color: #FFFFFF;
 }
+
+
+.divRectangleLinks 
+{
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 10px;
+    border: solid 1px;
+    border-color:#9F4A4F #9F4A4F #9F4A4F #9F4A4F;    
+    color:#9F4A4F;    
+    background-color:inherit;
+    font-weight:normal;
+    font-size:small;
+    height:50px;
+    width : 300px;
+    vertical-align:middle!Important;  
+    text-align : center;
+    z-index: 2; 
+    display: table-cell;
+    
+-moz-box-shadow:    10px 10px 5px #888888;
+   -webkit-box-shadow: 10px 10px 5px #888888;
+    box-shadow:         10px 10px 5px #888888; 
+
+}
+
+.divRectangleMouseOverLinks 
+{
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 10px;
+    border: solid 2px;
+    border-color:#9F4A4F #9F4A4F #9F4A4F #9F4A4F;    
+    color:#9F4A4F;    
+    background-color:inherit;
+    font-weight:normal;
+    font-size:small;
+    height:50px;
+    width : 300px;
+    vertical-align:middle!Important;  
+    text-align : center;
+    z-index: 2; 
+    display: table-cell;
+    
+-moz-box-shadow:    10px 10px 5px #888888;
+   -webkit-box-shadow: 10px 10px 5px #888888;
+    box-shadow:         10px 10px 5px #888888; 
+
+}
+
+
+.LinkTextBig
+{
+    font-family: Verdana,Tahoma;
+    font-weight: lighter;
+    font-size: small; /*color: #993434;*/
+    color: #942627;
+}
+
+.LinkTextBig:hover
+{
+ font-family: Verdana,Tahoma;
+line-height: 1em;
+color: #942627;
+font-weight:bold;
+font-size:medium;
+ text-shadow:0px 0px 0 rgb(231,231,231),1px 1px 0 rgb(216,216,216),2px 2px 0 rgb(202,202,202),3px 3px 0 rgb(187,187,187),4px 4px 0 rgb(173,173,173),5px 5px 0 rgb(158,158,158), 6px 6px 0 rgb(144,144,144),7px 7px 6px rgba(0,0,0,0.6),7px 7px 1px rgba(0,0,0,0.5),0px 0px 6px rgba(0,0,0,.2);
+   
+
+
+}
+
+.LinkTextBig:active{
+background-color:#000;
+color:#FFF;
+}
