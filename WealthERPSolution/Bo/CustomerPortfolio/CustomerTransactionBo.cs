@@ -1897,5 +1897,46 @@ namespace BoCustomerPortfolio
             }
             return ds;
         }
+
+        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId)
+        {
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            List<MFTransactionVo> mfBalanceList = new List<MFTransactionVo>();
+            try
+            {
+
+                mfBalanceList = customerTransactionDao.GetRMCustomerMFBalance(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetRMCustomerMFBalance()");
+                object[] objects = new object[3];
+                objects[0] = RMId;
+                objects[1] = GroupHeadId;
+                objects[2] = From;
+                objects[3] = To;
+                objects[4] = Manage;
+                //objects[5] = CurrentPage;
+                //objects[6] = CustomerName;
+                //objects[7] = Scheme;
+                //objects[8] = PasssedFolioValue; 
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return mfBalanceList;
+
+        }
+
+
     }
 }
