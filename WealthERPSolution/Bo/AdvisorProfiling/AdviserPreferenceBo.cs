@@ -42,5 +42,34 @@ namespace BoAdvisorProfiling
 
         }
 
+        public bool AdviserPreferenceSetUp(AdvisorPreferenceVo advisorPreferenceVo, int adviserId, int UserId)
+        {
+            bool isSuccess = false;
+            try
+            {
+                AdvisorPreferenceDao advisorPreferenceDao = new AdvisorPreferenceDao();
+                isSuccess = advisorPreferenceDao.AdviserPreferenceSetUp(advisorPreferenceVo, adviserId, UserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdviserPreferenceBo.cs:AdviserPreferenceSetUp()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return isSuccess;
+
+        }
+
     }
 }
