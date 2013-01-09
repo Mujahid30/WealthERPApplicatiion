@@ -46,12 +46,19 @@
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 
-<table style="width: 100%;">
+<table width="100%">
 <tr>
-        <td class="HeaderTextBig" colspan="2">
-            <asp:Label ID="lblMfMIS" runat="server" CssClass="HeaderTextBig" Text="EQ MIS"></asp:Label>
-            <hr />
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0" cellpadding="3" width="100%">
+        <tr>
+        <td align="left">EQ MIS</td>
+        <td  align="right">                        
         </td>
+        </tr>
+    </table>
+</div>
+</td>
 </tr>
 </table>
 <table>
@@ -153,7 +160,7 @@
     </tr>
   
     </table>
-    <table runat="server" id="tableComSecWiseOptions">
+<table runat="server" id="tableComSecWiseOptions">
     <tr runat="server" id="trComSecWiseOptions">
         <td valign="top">
             <asp:Label ID="lblEQDate" runat="server" Width="90" CssClass="FieldName">As on Date:</asp:Label>
@@ -183,7 +190,7 @@
         
     </tr>
     </table>
-    <table>
+<table>
     
     <tr runat="server" id="trBranchRmDpRow">
     <td align="left">
