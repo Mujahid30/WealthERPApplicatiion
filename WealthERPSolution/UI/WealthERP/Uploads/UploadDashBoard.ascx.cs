@@ -335,14 +335,14 @@ namespace WealthERP.Uploads
 
             LinkButton lnkbtn2 = e.Item.FindControl("lnkMFTreeNode2") as LinkButton;
 
-            LinkButton lnkbtn3 = e.Item.FindControl("lnkMFTreeNode3") as LinkButton;
+            //LinkButton lnkbtn3 = e.Item.FindControl("lnkMFTreeNode3") as LinkButton;
 
             if (e.CommandName == "Tree_MF_Row1")
             {
 
-                if ( lnkbtn1.CommandArgument == "3002")
+                if ( lnkbtn1.CommandArgument == "3004")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFFolio','login');", true);
                 }
                 else if ( lnkbtn1.CommandArgument == "3006")
                 {
@@ -360,9 +360,9 @@ namespace WealthERP.Uploads
             if (e.CommandName == "Tree_MF_Row2")
             {
 
-                if ( lnkbtn2.CommandArgument == "3003")
+                if ( lnkbtn2.CommandArgument == "3005")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ViewUploadProcessLog','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFTransactionStaging','login');", true);
                 }
                 else if (lnkbtn2.CommandArgument == "3007")
                 {
@@ -372,38 +372,6 @@ namespace WealthERP.Uploads
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedWERPProfile','login');", true);
                 }
-            }
-
-            if (e.CommandName == "Tree_MF_Row3")
-            {
-                if ( lnkbtn3.CommandArgument == "3004")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFFolio','login');", true);
-                }
-                else if (lnkbtn3.CommandArgument == "3008")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedTradeAccountStaging','login');", true);
-                }
-                //else if (imgBtn3.CommandArgument == "3010" || lnkbtn3.CommandArgument == "3010")
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
-                //}
-            }
-
-            if (e.CommandName == "Tree_MF_Row4")
-            {
-                if (lnkbtn3.CommandArgument == "3005")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFTransactionStaging','login');", true);
-                }
-                else if ( lnkbtn3.CommandArgument == "3009")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
-                }
-                //else if (imgBtn3.CommandArgument == "3010" || lnkbtn3.CommandArgument == "3010")
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
-                //}
             }
 
 
@@ -447,75 +415,23 @@ namespace WealthERP.Uploads
 
             LinkButton lnkbtn2 = e.Item.FindControl("lnkEQTreeNode2") as LinkButton;
 
-            LinkButton lnkbtn3 = e.Item.FindControl("lnkEQTreeNode3") as LinkButton;
+            //LinkButton lnkbtn3 = e.Item.FindControl("lnkEQTreeNode3") as LinkButton;
 
             if (e.CommandName == "Tree_EQ_Row1")
             {
 
-                if (lnkbtn1.CommandArgument == "3002")
+                if (lnkbtn1.CommandArgument == "3008")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedTradeAccountStaging','login');", true);
                 }
-                else if (lnkbtn1.CommandArgument == "3006")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
-                }
-                else if ( lnkbtn1.CommandArgument == "3010")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
-                }
-                //else if (imgBtn1.CommandArgument == "3011" || lnkbtn1.CommandArgument == "3011")
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedWERPProfile','login');", true);
-                //}
             }
             if (e.CommandName == "Tree_EQ_Row2")
             {
 
-                if (lnkbtn2.CommandArgument == "3003")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ViewUploadProcessLog','login');", true);
-                }
-                else if ( lnkbtn2.CommandArgument == "3007")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('TrailCommisionTransactionRejects','login');", true);
-                }
-                else if ( lnkbtn2.CommandArgument == "3011")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedWERPProfile','login');", true);
-                }
-            }
-
-            if (e.CommandName == "Tree_EQ_Row3")
-            {
-                if ( lnkbtn3.CommandArgument == "3004")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFFolio','login');", true);
-                }
-                else if ( lnkbtn3.CommandArgument == "3008")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedTradeAccountStaging','login');", true);
-                }
-                //else if (imgBtn3.CommandArgument == "3010" || lnkbtn3.CommandArgument == "3010")
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
-                //}
-            }
-
-            if (e.CommandName == "Tree_EQ_Row4")
-            {
-                if (lnkbtn3.CommandArgument == "3005")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFTransactionStaging','login');", true);
-                }
-                else if ( lnkbtn3.CommandArgument == "3009")
+                if (lnkbtn2.CommandArgument == "3009")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
                 }
-                //else if (imgBtn3.CommandArgument == "3010" || lnkbtn3.CommandArgument == "3010")
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
-                //}
             }
 
 
