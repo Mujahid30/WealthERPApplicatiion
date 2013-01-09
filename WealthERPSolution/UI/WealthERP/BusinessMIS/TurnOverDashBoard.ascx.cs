@@ -140,7 +140,7 @@ namespace WealthERP.BusinessMIS
 
                 if (imgBtn2.CommandArgument == "3019" || lnkbtn2.CommandArgument == "3019")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Comming Soon shortly......');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('EquityTurnover','login');", true);
                 }
 
             }
