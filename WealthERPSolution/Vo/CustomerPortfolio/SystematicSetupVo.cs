@@ -37,6 +37,8 @@ namespace VoCustomerPortfolio
         private string m_Portfolio;
         private int m_portfolioId;
         private int m_IsAutoTransaction;
+        private DateTime m_CeaseDate;
+        private string m_Remarks;
 
         #endregion
 
@@ -204,6 +206,18 @@ namespace VoCustomerPortfolio
         {
             get { return m_portfolioId; }
             set { m_portfolioId = value; }
+        }
+
+        public DateTime CeaseDate
+        {
+            get { return m_CeaseDate; }
+            set { m_CeaseDate = value; }
+        }
+
+        public string  Remarks
+        {
+            get { return m_Remarks; }
+            set { m_Remarks = value; }
         }
 
         #endregion
