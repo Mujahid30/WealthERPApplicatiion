@@ -22,23 +22,24 @@ namespace WealthERP.Advisor
     {
 
 
-        UserVo uservo = new UserVo();
-        AdvisorVo advisevo = new AdvisorVo();
+        UserVo userVo = new UserVo();
+        AdvisorVo adviserVo = new AdvisorVo();
         AdvisorBo adviserbo = new AdvisorBo();
         RMVo advrm = new RMVo();
 
         AdviserStaffSMTPVo adviserstaffsmtpvo = new AdviserStaffSMTPVo();
         AdviserStaffSMTPBo advstaffsmtpbo = new AdviserStaffSMTPBo();
-
+        AdviserPreferenceBo adviserPreferenceBo = new AdviserPreferenceBo();
+        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            uservo = (UserVo)Session["userVo"];
-            advisevo = (AdvisorVo)Session["advisorVo"];
+            userVo = (UserVo)Session["userVo"];
+            adviserVo = (AdvisorVo)Session["advisorVo"];
 
             AdvisorStaffBo adviserstaffbo = new AdvisorStaffBo();
-            advrm = adviserstaffbo.GetAdvisorStaff(uservo.UserId);
+            advrm = adviserstaffbo.GetAdvisorStaff(userVo.UserId);
             adviserstaffsmtpvo.RMId = advrm.RMId;
             BindSMSProvider();
             if (!IsPostBack)
@@ -59,6 +60,8 @@ namespace WealthERP.Advisor
                 if (!String.IsNullOrEmpty(adviserstaffsmtpvo.Smspassword))
                     txtPwd.Attributes.Add("value", adviserstaffsmtpvo.Smspassword);
                 txtsmsCredit.Text = adviserstaffsmtpvo.SmsInitialcredit.ToString();
+
+                SetAdviserPreference();
 
             }
 
@@ -101,8 +104,8 @@ namespace WealthERP.Advisor
             {
                 adviserstaffsmtpvo.IsAuthenticationRequired = 0;
             }
-            adviserstaffsmtpvo.CreatedBy = uservo.UserId;
-            adviserstaffsmtpvo.ModifiedBy = uservo.UserId;
+            adviserstaffsmtpvo.CreatedBy = userVo.UserId;
+            adviserstaffsmtpvo.ModifiedBy = userVo.UserId;
             //if (!String.IsNullOrEmpty(txtPassword.Text))
             adviserstaffsmtpvo.Password = Encryption.Encrypt(txtPassword.Text.Trim());
             adviserstaffsmtpvo.Port = txtSMTPPort.Text.Trim();
@@ -187,13 +190,13 @@ namespace WealthERP.Advisor
         {
             bool result = false;
             adviserstaffsmtpvo.SmsProviderId = int.Parse(ddlSMSProvider.SelectedValue);
-            adviserstaffsmtpvo.AdvisorId = advisevo.advisorId;
+            adviserstaffsmtpvo.AdvisorId = adviserVo.advisorId;
             adviserstaffsmtpvo.SmsUserName = txtUserName.Text;
             adviserstaffsmtpvo.Smspassword = txtPwd.Text;
             adviserstaffsmtpvo.SmsInitialcredit = int.Parse(txtsmsCredit.Text);
             adviserstaffsmtpvo.SmsCreditLeft = int.Parse(txtsmsCredit.Text);
-            adviserstaffsmtpvo.SmsCreatedBy = uservo.UserId;
-            adviserstaffsmtpvo.SmsModifiedBy = uservo.UserId;
+            adviserstaffsmtpvo.SmsCreatedBy = userVo.UserId;
+            adviserstaffsmtpvo.SmsModifiedBy = userVo.UserId;
             txtPwd.Attributes.Add("value", txtPwd.Text.Trim());
 
             result = advstaffsmtpbo.CreateSMSProviderDetails(adviserstaffsmtpvo);
@@ -219,7 +222,7 @@ namespace WealthERP.Advisor
             string logoPath = string.Empty;
             bool isMailSent=false;
 
-            email.GetAdviserLoginWidgetMail(Encryption.Encrypt(advisevo.advisorId.ToString()), advisevo.OrganizationName.Trim());
+            email.GetAdviserLoginWidgetMail(Encryption.Encrypt(adviserVo.advisorId.ToString()), adviserVo.OrganizationName.Trim());
             email.To.Add(txtLoginWidGetEmail.Text.Trim());
 
             adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(1000);
@@ -294,21 +297,82 @@ namespace WealthERP.Advisor
 
                  if (isMailSent)
                  {
-                     tblMessage.Visible = true;
-                     tblErrorMassage.Visible = false;                     
-                     SuccessMsg.InnerText = "Login Widget send to this email Id";
+                     trSuccessMsg.Visible = true;
+                     //tblErrorMassage.Visible = false;                     
+                     divSuccessMsg.InnerText = "Login Widget send to this email Id";
                     
                  }
                  else
                  {
-                     tblMessage.Visible = false;
-                     tblErrorMassage.Visible = true;                    
-                     ErrorMessage.InnerText = "An error occurred while sending Login Widget";
+                     trSuccessMsg.Visible = false;
+                     //tblErrorMassage.Visible = true;                    
+                     divSuccessMsg.InnerText = "An error occurred while sending Login Widget";
                     
 
                  }
 
             }
+        }
+
+        protected void rbLoginWidGetYes_CheckedChanged(object sender, EventArgs e)
+        {
+            txtWebSiteDomainName.ReadOnly = false;
+            txtLogOutPageUrl.ReadOnly = false;
+        }
+
+        protected void rbLoginWidGetNo_CheckedChanged(object sender, EventArgs e)
+        {
+            advisorPreferenceVo = adviserPreferenceBo.GetAdviserPreference(1000);
+            txtLogOutPageUrl.Text = advisorPreferenceVo.LoginWidgetLogOutPageURL;
+            txtWebSiteDomainName.Text = advisorPreferenceVo.WebSiteDomainName;
+            txtWebSiteDomainName.ReadOnly = true;
+            txtLogOutPageUrl.ReadOnly = true;
+        }
+
+        protected void SetAdviserPreference()
+        {
+            advisorPreferenceVo = adviserPreferenceBo.GetAdviserPreference(adviserVo.advisorId);
+            if (advisorPreferenceVo != null)
+            {
+                txtWebSiteDomainName.Text = advisorPreferenceVo.WebSiteDomainName;
+                txtLogOutPageUrl.Text = advisorPreferenceVo.LoginWidgetLogOutPageURL;
+                txtBrowserTitleBarName.Text = advisorPreferenceVo.BrowserTitleBarName;                
+                if (advisorPreferenceVo.IsLoginWidgetEnable)
+                {
+                    rbLoginWidGetYes.Checked = true;
+                    txtLoginWidGetEmail.Text = adviserVo.Email.Trim();
+                    txtLoginWidGetEmail.ReadOnly = false;
+                }
+                else
+                {
+                    rbLoginWidGetNo.Checked = true;
+                    txtWebSiteDomainName.ReadOnly = true;
+                    txtLogOutPageUrl.ReadOnly = true;
+                    txtLoginWidGetEmail.ReadOnly = true;
+                }
+            }
+        }
+
+        protected void btnSubmitPreference_Click(object sender, EventArgs e)
+        {
+            bool isSuccess = false;
+            if (rbLoginWidGetYes.Checked)
+                advisorPreferenceVo.IsLoginWidgetEnable = true;
+            else
+                advisorPreferenceVo.IsLoginWidgetEnable = false;
+            advisorPreferenceVo.WebSiteDomainName= txtWebSiteDomainName.Text;
+            advisorPreferenceVo.LoginWidgetLogOutPageURL=txtLogOutPageUrl.Text;
+            advisorPreferenceVo.BrowserTitleBarName = txtBrowserTitleBarName.Text;
+            isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId);
+            if (isSuccess)
+            {
+                trSuccessMsg.Visible = true;
+                divSuccessMsg.InnerText = "Preference Updated Successfully";
+            }
+            SetAdviserPreference();
+            
+
+
         }
 
 

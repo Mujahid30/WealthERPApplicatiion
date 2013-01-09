@@ -21,10 +21,35 @@
 
     }
 </script>
+ <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        function HideMessage() {
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $('.success-msg').hide();
+                }, 8000);
+            });
+        }
+  </script>
 
+<style type="text/css">
+    .tdLabel
+    {
+        text-align: right !important;
+        width: 30%;
+    }
+    .tdData
+    {
+        width: 40%;
+    }
+    .tdEmpty
+    {
+        width: 30%;
+    }
+</style>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
-<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="False">
+<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true">
         <TargetControls>
             <%--<telerik:TargetInput ControlID="txtEmail" />
@@ -65,8 +90,23 @@
         </TargetControls>
         <Validation IsRequired="True" ValidationGroup="btnSend"></Validation>
     </telerik:RegExpTextBoxSetting>
+    <telerik:RegExpTextBoxSetting BehaviorID="rgeBrowserTitle" Validation-IsRequired="true" 
+        ValidationExpression="[a-zA-Z0-9\\.]+" ErrorMessage="Invalid Browser Titile">
+        <TargetControls>
+            <telerik:TargetInput ControlID="txtBrowserTitleBarName" />
+        </TargetControls>
+        <Validation IsRequired="True" ValidationGroup="PreferenceSubmit"></Validation>
+    </telerik:RegExpTextBoxSetting>
+    <telerik:RegExpTextBoxSetting BehaviorID="retBrowserURL" Validation-IsRequired="true"
+        ValidationExpression="(http|https)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?" ErrorMessage="Invalid URL">
+        <TargetControls>
+            <telerik:TargetInput ControlID="txtWebSiteDomainName"/>
+            <telerik:TargetInput ControlID="txtLogOutPageUrl" />
+        </TargetControls>
+        <Validation IsRequired="True" ValidationGroup="PreferenceSubmit"></Validation>
+    </telerik:RegExpTextBoxSetting>
 </telerik:RadInputManager>
-<table width="100%" class="TableBackground">
+<table width="100%" class="TableBackground" style="padding-bottom:6px;">
     <tr>
         <td>
             <div class="divPageHeading">
@@ -78,13 +118,10 @@
                     </tr>
                 </table>
             </div>
+            <br />
         </td>
     </tr>
-    <tr>
-        <td>
-            &nbsp;&nbsp;<br />
-        </td>
-    </tr>
+   
     <tr>
         <td>
             <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
@@ -94,7 +131,7 @@
                     </telerik:RadTab>
                     <telerik:RadTab runat="server" Text="SMS" Value="sms" TabIndex="1">
                     </telerik:RadTab>
-                    <telerik:RadTab runat="server" Text="Login WidGet" Value="Login" TabIndex="2">
+                    <telerik:RadTab runat="server" Text="Preference Setting" Value="Preferance" TabIndex="3">
                     </telerik:RadTab>
                 </Tabs>
             </telerik:RadTabStrip>
@@ -223,51 +260,55 @@
                         <asp:Label ID="lblInsertMessage" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
-                
                 <tr>
-                <td colspan="2">
-                
-                </td>
+                    <td colspan="2">
+                    </td>
                 </tr>
-                
-                 <tr>
-        <td colspan="2">
-           <div id="passwordNote" class="Note">
-           <p>
-             <span style="font-weight: bold">Note:</span><br />                         
-              1. Please note that these settings used in all email Communication, includes :<br />                            
-                 - Creating new Staff/customer ,  User Management ,  Reports (Send via Email) , Message (via Email) , etc<br /> 
-              2. If these Settings are not filled, or not Validate then by default , it will use email id< admin@wealtherp.com >.<br />    
-              3. Use of Alias : it will appear in the mail  as Sender's Name.<br />   
-              4. Please Validate your settings by clicking on  “Test Credentials “ . <br />
-              5. SMTP relates to your Email host Setting, Please ask your provider for SMTP Settings .<br /><br />
-            
-             <span style="font-weight: bold">SMTP Examples:</span><br />
-             <b>Example # 1: For Gmail users</b><br />                  
-                  SMTP Host : smtp.gmail.com    ;SMTP Port : 25  ;<br />  
-                  Email : abc12@gmail.com Password : < valid Password of Email id you entered> ; <br />  
-                  Sender Email Alias : ABC Company  ;SMTP Authentication Required : Select The Check Box <br />  
-                  Click on test credentials :<br /> 
-                  1) SMTP Credentials Are Valid , Save it.<br />  
-                  2) Not able to send mail using the SMTP credentials check your Email id & Password.<br />  
-                  Email Rcvd as: Sender's Name:  ABC Company <abcd12@gmail.com><br />  <br />
-                  
-              <b>Example # 2: For Yahoo users</b><br />
-                      SMTP Host : smtp.mail.yahoo.com ;  SMTP Port : 25  ;<br />
-                      Email : abc12@yahoo.com  Password : < valid Password of Email id you entered> ;<br /> 
-                      Sender Email Alias : ABC Company  ;SMTP Authentication Required : Select The Check Box<br /> 
-                      Click on test credentials :<br />  
-                      1) SMTP Credentials Are Valid , Save it.<br />
-                      2) Not able to send mail using the SMTP credentials check your Email id & Password.<br />
-                      Email Rcvd as: Sender's Name:  ABC Company <abcd12@yahoo.com><br /><br />
-
-                  
-          </p>
-           </div>
-        </td>
-    </tr>
-                
-                
+                <tr>
+                    <td colspan="2">
+                        <div id="passwordNote" class="Note">
+                            <p>
+                                <span style="font-weight: bold">Note:</span><br />
+                                1. Please note that these settings used in all email Communication, includes :<br />
+                                - Creating new Staff/customer , User Management , Reports (Send via Email) , Message
+                                (via Email) , etc<br />
+                                2. If these Settings are not filled, or not Validate then by default , it will use
+                                email id< admin@wealtherp.com >.<br />
+                                3. Use of Alias : it will appear in the mail as Sender's Name.<br />
+                                4. Please Validate your settings by clicking on “Test Credentials “ .
+                                <br />
+                                5. SMTP relates to your Email host Setting, Please ask your provider for SMTP Settings
+                                .<br />
+                                <br />
+                                <span style="font-weight: bold">SMTP Examples:</span><br />
+                                <b>Example # 1: For Gmail users</b><br />
+                                SMTP Host : smtp.gmail.com ;SMTP Port : 25 ;<br />
+                                Email : abc12@gmail.com Password : < valid Password of Email id you entered> ;
+                                <br />
+                                Sender Email Alias : ABC Company ;SMTP Authentication Required : Select The Check
+                                Box
+                                <br />
+                                Click on test credentials :<br />
+                                1) SMTP Credentials Are Valid , Save it.<br />
+                                2) Not able to send mail using the SMTP credentials check your Email id & Password.<br />
+                                Email Rcvd as: Sender's Name: ABC Company abcd12@gmail.com
+                                <br />
+                                <br />
+                                <b>Example # 2: For Yahoo users</b><br />
+                                SMTP Host : smtp.mail.yahoo.com ; SMTP Port : 25 ;<br />
+                                Email : abc12@yahoo.com Password : < valid Password of Email id you entered> ;<br />
+                                Sender Email Alias : ABC Company ;SMTP Authentication Required : Select The Check
+                                Box<br />
+                                Click on test credentials :<br />
+                                1) SMTP Credentials Are Valid , Save it.<br />
+                                2) Not able to send mail using the SMTP credentials check your Email id & Password.<br />
+                                Email Rcvd as: Sender's Name: ABC Company abcd12@yahoo.com
+                                <br />
+                                <br />
+                            </p>
+                        </div>
+                    </td>
+                </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -343,90 +384,165 @@
                     </td>
                 </tr>
                 <tr id="trBtnSaveMsg" runat="server">
-                <td class="leftField">
+                    <td class="leftField">
                     </td>
                     <td>
                         <asp:Label ID="lblbtnSaveMsg" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
-                
-            <tr>
-             <td colspan="2">
-              <div id="Div1" class="Note">
-             <p>
-                 <span style="font-weight: bold">Note:</span><br /> 
-                  1. You can pick up your 3rd Party SMS Provider .<br />
-                  2. If your Provider is not in the list, please contact customer Care.
-             </p>
-           </div>
-           </td>
-        </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="Div1" class="Note">
+                            <p>
+                                <span style="font-weight: bold">Note:</span><br />
+                                1. You can pick up your 3rd Party SMS Provider .<br />
+                                2. If your Provider is not in the list, please contact customer Care.
+                            </p>
+                        </div>
+                    </td>
+                </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
-    <telerik:RadPageView ID="RadPageView3" runat="server">
-        <asp:Panel ID="pnlLoginWidGet" runat="server" Width="100%">
-            <table id="tblMessage" width="100%" visible="false" cellspacing="0" cellpadding="0"
-                runat="server">
-                <tr>
-                    <td align="center">
-                        <div class="success-msg" id="SuccessMsg" runat="server" align="center">
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <table id="tblErrorMassage" width="100%" visible="false" cellpadding="0" cellspacing="0"
-                runat="server">
-                <tr>
-                    <td align="center">
-                        <div class="failure-msg" id="ErrorMessage" runat="server" align="center">
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <table width="47%" class="TableBackground">
-                <tr>
-                    <td colspan="2">
-                        &nbsp;&nbsp;
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField">
-                        <asp:Label ID="lblLoginWidGet" runat="server" Text="Email Id to send" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="RightField">
-                        <asp:TextBox ID="txtLoginWidGetEmail" runat="server" CssClass="txtField"></asp:TextBox>
-                        <span id="Span8" class="spnRequiredField" />*<br />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                    &nbsp;&nbsp;
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField">
-                        &nbsp;&nbsp;
-                    </td>
-                    <td class="RightField">
-                        <asp:Button ID="btnSendLoginWidGet" runat="server" ValidationGroup="btnSend" Text="Send Login WidGet"
-                            CssClass="PCGMediumButton" OnClick="btnSendLoginWidGet_Click" />
-                    </td>
-                </tr>
-                
-                     
-            <tr>
-             <td colspan="2">
-              <div id="Div2" class="Note">
-             <p>
-                 <span style="font-weight: bold">Note:</span><br /> 
-                 1.	Use this to direct access from your website.<br />
-                 2.	Share the Instructions, with your website Provider.<br />
-             </p>
-           </div>
-           </td>
-        </tr>
-            </table>
+    <telerik:RadPageView ID="RadPageView4" runat="server">
+        <asp:Panel ID="pnlPreferenceSetup" runat="server" Width="100%">
+           <asp:UpdatePanel ID="upAdviserPreferenceSetup" runat="server">
+                <ContentTemplate>
+                <script type="text/javascript">
+                    Sys.Application.add_load(HideMessage);
+                  </script>
+                    <table width="100%">
+                        <tr runat="server" id="trSuccessMsg" visible="false">
+                            <td align="center">
+                                <div class="success-msg" id="divSuccessMsg" runat="server" align="center">
+                                </div>
+                                  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="divSectionHeading" id="divTest">
+                                    Preference Setup
+                                </div>
+                               
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%">
+                                    <tr>
+                                        <td class="leftField">
+                                            <asp:Label ID="lblIsLoginWidGetEnable" runat="server" Text="Enable login widget:"
+                                                CssClass="FieldName"></asp:Label>
+                                        </td>
+                                        <td class="RightField,tdData">
+                                            <asp:RadioButton ID="rbLoginWidGetYes" GroupName="LoginEnable" runat="server" Style="vertical-align: middle"
+                                                CssClass="FieldName" Text="Yes" OnCheckedChanged="rbLoginWidGetYes_CheckedChanged"
+                                                AutoPostBack="true" />
+                                            <asp:RadioButton ID="rbLoginWidGetNo" GroupName="LoginEnable" runat="server" Style="vertical-align: middle"
+                                                CssClass="FieldName" Text="No" OnCheckedChanged="rbLoginWidGetNo_CheckedChanged"
+                                                AutoPostBack="true" />
+                                        </td>
+                                        <td class="tdEmpty">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="leftField">
+                                            <asp:Label ID="lblWebSiteDomainName" runat="server" Text="Appliaction login page URL:"
+                                                CssClass="FieldName"></asp:Label>
+                                        </td>
+                                        <td class="RightField,tdData">
+                                            <asp:TextBox ID="txtWebSiteDomainName" runat="server" CssClass="txtField" Width="260px"></asp:TextBox>
+                                            <span id="Span9" class="spnRequiredField" />*<br />
+                                        </td>
+                                        <td class="tdEmpty">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="leftField">
+                                            <asp:Label ID="lblLogOutPageURL" runat="server" Text="Appliaction logout page URL:"
+                                                CssClass="FieldName"></asp:Label>
+                                        </td>
+                                        <td class="RightField,tdData">
+                                            <asp:TextBox ID="txtLogOutPageUrl" runat="server" CssClass="txtField" Width="260px"></asp:TextBox>
+                                            <span id="Span10" class="spnRequiredField" />*<br />
+                                        </td>
+                                        <td class="tdEmpty">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="leftField">
+                                            <asp:Label ID="lblBrowserTitleBarName" runat="server" Text="Application title:" CssClass="FieldName"></asp:Label>
+                                        </td>
+                                        <td class="RightField,tdData">
+                                            <asp:TextBox ID="txtBrowserTitleBarName" runat="server" CssClass="txtField" Width="260px"></asp:TextBox>
+                                            <span id="Span11" class="spnRequiredField" />*<br />
+                                        </td>
+                                        <td class="tdEmpty">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td>
+                                            <asp:Button ID="btnSubmitPreference" runat="server" ValidationGroup="PreferenceSubmit"
+                                                Text="Submit" CssClass="PCGButton" OnClick="btnSubmitPreference_Click" />
+                                        </td>
+                                        <td class="tdEmpty">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="divSectionHeading">
+                                                Login Widget Code Genaration
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="leftField">
+                                            <asp:Label ID="lblLoginWidGet" runat="server" Text="Email Id to send:" CssClass="FieldName"></asp:Label>
+                                        </td>
+                                        <td class="RightField,tdData">
+                                            <asp:TextBox ID="txtLoginWidGetEmail" runat="server" CssClass="txtField" Width="260px"></asp:TextBox>
+                                            <span id="Span8" class="spnRequiredField" />*<br />
+                                        </td>
+                                        <td class="tdEmpty">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="leftField">
+                                            &nbsp;&nbsp;
+                                        </td>
+                                        <td class="RightField">
+                                            <asp:Button ID="btnSendLoginWidGet" runat="server" ValidationGroup="btnSend" Text="Send Login WidGet"
+                                                CssClass="PCGMediumButton" OnClick="btnSendLoginWidGet_Click" />
+                                        </td>
+                                        <td class="tdEmpty">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div id="Div2" class="Note">
+                                                <p>
+                                                    <span style="font-weight: bold">Note:</span><br />
+                                                    1. Use this to direct access from your website.<br />
+                                                    2. Share the Instructions, with your website Provider.<br />
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="tdEmpty">
+                                        </td>
+                                    </tr>
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </asp:Panel>
     </telerik:RadPageView>
 </telerik:RadMultiPage>
