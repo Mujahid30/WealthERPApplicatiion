@@ -51,6 +51,8 @@ namespace VoCustomerPortfolio
         private int m_ProcessId;
         private string m_SubCategoryName;
         private string m_SubBrokerCode;
+        private int m_Age;
+        private double m_Balance;
 
         #endregion Fields
 
@@ -254,6 +256,18 @@ namespace VoCustomerPortfolio
         {
             get { return m_SubBrokerCode; }
             set { m_SubBrokerCode = value; }
+        }
+        public int Age
+        {
+            get { return m_Age; }
+            set { m_Age = value; }
+        }
+
+
+        public double Balance
+        {
+            get { return m_Balance; }
+            set { m_Balance = value; }
         }
         #endregion Properties
 
