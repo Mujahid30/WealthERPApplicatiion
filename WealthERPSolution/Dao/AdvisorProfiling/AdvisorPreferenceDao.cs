@@ -32,11 +32,12 @@ namespace DaoAdvisorProfiling
                 if (dtAdviserPreference.Rows.Count > 0)
                 {
                     advisorPreferenceVo.ValtPath = dtAdviserPreference.Rows[0]["AP_ValtPath"].ToString();
-                    advisorPreferenceVo.IsLoginWidgetActive =Convert.ToBoolean(dtAdviserPreference.Rows[0]["AP_IsLoginWidgetActive"]);
+                    advisorPreferenceVo.IsLoginWidgetEnable =Convert.ToBoolean(dtAdviserPreference.Rows[0]["AP_IsLoginWidgetActive"]);
                     if (!string.IsNullOrEmpty(dtAdviserPreference.Rows[0]["AP_LoginWidgetLogOutPageURL"].ToString()))
                     advisorPreferenceVo.LoginWidgetLogOutPageURL = dtAdviserPreference.Rows[0]["AP_LoginWidgetLogOutPageURL"].ToString();
                     advisorPreferenceVo.BrowserTitleBarName = dtAdviserPreference.Rows[0]["AP_BrowserTitleBarName"].ToString();                 
                     advisorPreferenceVo.BrowserTitleBarIconImageName = dtAdviserPreference.Rows[0]["AP_BrowserTitleBarIconImageName"].ToString();
+                    advisorPreferenceVo.WebSiteDomainName = dtAdviserPreference.Rows[0]["AP_WebSiteDomainName"].ToString();
 
                 }
             }
@@ -58,6 +59,46 @@ namespace DaoAdvisorProfiling
             }
 
             return advisorPreferenceVo;
+        }
+
+        public bool AdviserPreferenceSetUp(AdvisorPreferenceVo advisorPreferenceVo,int adviserId, int UserId)
+        {
+            Database db;
+            DbCommand cmdAdviserPreferenceSetUp;           
+            DataTable dtAdviserPreference = new DataTable();
+            bool isSuccess = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdAdviserPreferenceSetUp = db.GetStoredProcCommand("SPROC_UpdateAdviserPreference");
+                db.AddInParameter(cmdAdviserPreferenceSetUp, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdAdviserPreferenceSetUp, "@IsLoginWidgetEnable", DbType.Int16, advisorPreferenceVo.IsLoginWidgetEnable);
+                db.AddInParameter(cmdAdviserPreferenceSetUp, "@LoginWidgetLogOutPageURL", DbType.String, advisorPreferenceVo.LoginWidgetLogOutPageURL);
+                db.AddInParameter(cmdAdviserPreferenceSetUp, "@BrowserTitleBarName", DbType.String, advisorPreferenceVo.BrowserTitleBarName);
+                db.AddInParameter(cmdAdviserPreferenceSetUp, "@WebSiteDomainName", DbType.String, advisorPreferenceVo.WebSiteDomainName);
+                db.AddInParameter(cmdAdviserPreferenceSetUp, "@UserId", DbType.String, UserId);
+                if (db.ExecuteNonQuery(cmdAdviserPreferenceSetUp) != 0)
+                    isSuccess = true;
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorPreferenceDao.cs:AdviserPreferenceSetUp()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return isSuccess;
         }
 
     }
