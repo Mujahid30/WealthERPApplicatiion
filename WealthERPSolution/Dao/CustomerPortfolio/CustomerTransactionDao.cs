@@ -3822,5 +3822,135 @@ namespace DaoCustomerPortfolio
             return ds;
         }
 
+        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId)
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getRMCustomerMFBalanceCmd;
+            List<MFTransactionVo> mfBalanceList = new List<MFTransactionVo>();
+            MFTransactionVo mfBalanceVo = new MFTransactionVo();
+            DataTable dtGetMFBalance;
+           
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                getRMCustomerMFBalanceCmd = db.GetStoredProcCommand("SP_GetRMCustomerMFBalance");
+                //}
+
+                if (RMId != 0)
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@RMId", DbType.Int32, RMId);
+                else
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@RMId", DbType.Int32, DBNull.Value);
+
+                if (AdviserID != 0)
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AdviserID", DbType.Int32, AdviserID);
+                else
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AdviserID", DbType.Int32, DBNull.Value);
+
+
+                if (GroupHeadId != 0)
+                {
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@GroupHeadId", DbType.Int32, GroupHeadId);
+                }
+                else
+                {
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@GroupHeadId", DbType.Int32, DBNull.Value);
+                }
+
+                db.AddInParameter(getRMCustomerMFBalanceCmd, "@FromDate", DbType.DateTime, From);
+                db.AddInParameter(getRMCustomerMFBalanceCmd, "@ToDate", DbType.DateTime, To);
+                db.AddInParameter(getRMCustomerMFBalanceCmd, "@Manage", DbType.Int32, Manage);
+                if (AccountId != 0)
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AccountId", DbType.String, AccountId);
+                else
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AccountId", DbType.String, DBNull.Value);
+
+                getRMCustomerMFBalanceCmd.CommandTimeout = 60 * 60;
+                ds = db.ExecuteDataSet(getRMCustomerMFBalanceCmd);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    dtGetMFBalance = ds.Tables[0];
+                    mfBalanceList = new List<MFTransactionVo>();
+                    foreach (DataRow dr in dtGetMFBalance.Rows)
+                    {
+                        mfBalanceVo = new MFTransactionVo();                       
+                        if (dr["PAISC_AssetInstrumentSubCategoryName"].ToString() != null && dr["PAISC_AssetInstrumentSubCategoryName"].ToString() != string.Empty)
+                            mfBalanceVo.SubCategoryName = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                        else
+                            mfBalanceVo.SubCategoryName = "N/A";
+
+                        mfBalanceVo.TransactionId = int.Parse(dr["CMFT_MFTransId"].ToString());
+                        mfBalanceVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        mfBalanceVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
+                        mfBalanceVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
+                        mfBalanceVo.MFCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                        mfBalanceVo.SchemePlan = dr["PASP_SchemePlanName"].ToString();
+                        mfBalanceVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        mfBalanceVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfBalanceVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
+                        mfBalanceVo.Price = float.Parse(dr["CMFT_Price"].ToString());
+                        mfBalanceVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
+                        mfBalanceVo.Units = float.Parse(dr["CMFT_Units"].ToString());
+                        mfBalanceVo.TransactionClassificationCode = dr["WMTT_TransactionClassificationCode"].ToString();
+                        mfBalanceVo.TransactionType = dr["WMTT_TransactionClassificationName"].ToString();
+                        mfBalanceVo.Folio = dr["CMFA_FolioNum"].ToString();
+                        mfBalanceVo.Age =  int.Parse(dr["CMFTB_Age"].ToString());
+                       
+                        if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
+                        {
+                            mfBalanceVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
+                            mfBalanceVo.TransactionStatusCode = int.Parse(dr["WTS_TransactionStatusCode"].ToString());
+                        }
+                        else
+                        {
+                            mfBalanceVo.TransactionStatus = "OK";
+                            mfBalanceVo.TransactionStatusCode = 1;
+
+                        }
+                        mfBalanceList.Add(mfBalanceVo);
+                    }
+                }
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetRMCustomerMFBalance()");
+                object[] objects = new object[3];
+                objects[0] = RMId;
+                objects[1] = GroupHeadId;
+                objects[2] = From;
+                objects[3] = To;
+                objects[4] = Manage;
+                //objects[5] = Scheme;
+                //objects[6] = genDictTranType;
+                //objects[7] = FolioNumber;
+                //objects[8] = CustomerName;
+                //objects[9] = CurrentPage;
+                //objects[10] = PasssedFolioValue;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            //
+            //if (ds.Tables.Count > 1)
+            //{
+            //    if (ds.Tables[1].Rows.Count > 0)
+            //        Count = Int32.Parse(ds.Tables[1].Rows[0]["CNT"].ToString());
+            //}
+            return mfBalanceList;
+        }
+       
+
     }
 }
