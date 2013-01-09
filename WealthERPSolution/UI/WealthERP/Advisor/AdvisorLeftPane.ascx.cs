@@ -651,8 +651,12 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
                 }
 
-                
-                else if (e.Item.Value == "Upload")
+
+                else if (e.Item.Value == "Start_Upload")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUpload','login');", true);
+                }
+                else if (e.Item.Value == "Uploads_Exception")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UploadDashBoard','login');", true);
                 }
@@ -1331,6 +1335,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
                 }
+                else if (e.Item.Value == "Start_Upload")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUpload','login');", true);                    
+                }
                 else if (e.Item.Value == "Customer_AUM")
                 {
                     Session["UserType"] = "adviser";
@@ -1349,6 +1357,10 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Upload")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUpload','login');", true);
+                }
+                else if (e.Item.Value == "Uploads_Exception")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UploadDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Uploads History")
                 {
@@ -1382,7 +1394,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TrailCommisionTransactionRejects','login');", true);
                 }
-                
+
                 else if (e.Item.Value == "Staff User Management")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMUserDetails','login');", true);

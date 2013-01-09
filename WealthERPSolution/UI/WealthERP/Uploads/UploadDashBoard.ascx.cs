@@ -58,8 +58,12 @@ namespace WealthERP.Uploads
             dsTreeNodes = XMLBo.GetSuperAdminTreeNodes(path);
             dtRoleAssociationTreeNode = XMLBo.GetRoleAssociationTreeNode(path);
 
-            DataRow[] drXmlTreeSubSubNode;
-            DataRow[] drXmlRoleToTreeSubSubNode;
+            DataRow[] drMFXmlTreeSubSubNode;
+            DataRow[] drEQXmlTreeSubSubNode;
+
+            DataRow[] drMFXmlRoleToTreeSubSubNode;
+            DataRow[] drEQXmlRoleToTreeSubSubNode;
+            
             DataRow drUploadTreeNode;
             DataTable dtUploadTreeNode = new DataTable();
 
@@ -75,32 +79,45 @@ namespace WealthERP.Uploads
 
             dtUploadTreeNode.Columns.Add("Path2", typeof(String));
 
-            dtUploadTreeNode.Columns.Add("TreeNode3", typeof(Int32));
+            //dtUploadTreeNode.Columns.Add("TreeNode3", typeof(Int32));
 
-            dtUploadTreeNode.Columns.Add("TreeNodeText3", typeof(String));
+            //dtUploadTreeNode.Columns.Add("TreeNodeText3", typeof(String));
 
-            dtUploadTreeNode.Columns.Add("Path3", typeof(String));
+            //dtUploadTreeNode.Columns.Add("Path3", typeof(String));
 
-            dtUploadTreeNode.Columns.Add("TreeNode4", typeof(Int32));
+            //dtUploadTreeNode.Columns.Add("TreeNode4", typeof(Int32));
 
-            dtUploadTreeNode.Columns.Add("TreeNodeText4", typeof(String));
+            //dtUploadTreeNode.Columns.Add("TreeNodeText4", typeof(String));
 
-            dtUploadTreeNode.Columns.Add("Path4", typeof(String));
+            //dtUploadTreeNode.Columns.Add("Path4", typeof(String));
+            
+            DataTable dtEQTreeNodes = new DataTable();
+            dtEQTreeNodes = dtUploadTreeNode.Clone();
 
             //For upload 2009 is Tree Node Id in Sub Table in XML...
             int treeSubNodeId = 2009;
-            drXmlTreeSubSubNode = dsTreeNodes.Tables[2].Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
+            DataTable dtSubtreeNodes = new DataTable();
+            DataTable dtMFSubtreeNodes = new DataTable();
+            DataTable dtEQSubtreeNodes = new DataTable();
+            dtSubtreeNodes = dsTreeNodes.Tables[2].Clone();
+            dsTreeNodes.Tables[2].Select("Deleted=" + "false").CopyToDataTable(dtSubtreeNodes, LoadOption.Upsert);
+            dtMFSubtreeNodes = dtSubtreeNodes.Clone();
+            dtEQSubtreeNodes = dtSubtreeNodes.Clone();
+            dtSubtreeNodes.Select("Category='" + "MF" +"'").CopyToDataTable(dtMFSubtreeNodes, LoadOption.OverwriteChanges);
+            dtSubtreeNodes.Select("Category='" + "EQ" + "'").CopyToDataTable(dtEQSubtreeNodes, LoadOption.Upsert);
+
+            drMFXmlTreeSubSubNode = dtMFSubtreeNodes.Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
 
             int count = 0;
-            int roleCount =0;
+            int roleCount;
              drUploadTreeNode = dtUploadTreeNode.NewRow();
-                foreach (DataRow drSubSubNode in drXmlTreeSubSubNode)
+             foreach (DataRow drSubSubNode in drMFXmlTreeSubSubNode)
                 {
-                    drXmlRoleToTreeSubSubNode = dtRoleAssociationTreeNode.Select("TreeSubSubNodeCode=" + drSubSubNode["TreeSubSubNodeCode"].ToString());
-
-                    if (drXmlRoleToTreeSubSubNode.Count() > 0)
+                    drMFXmlRoleToTreeSubSubNode = dtRoleAssociationTreeNode.Select("TreeSubSubNodeCode=" + drSubSubNode["TreeSubSubNodeCode"].ToString());
+                    roleCount = 0;
+                    if (drMFXmlRoleToTreeSubSubNode.Count() > 0)
                     {
-                        foreach (DataRow drUserRole in drXmlRoleToTreeSubSubNode)
+                        foreach (DataRow drUserRole in drMFXmlRoleToTreeSubSubNode)
                         {
                             if ( int.Parse(drUserRole["UserRoleId"].ToString()) == roleId)
                             {
@@ -127,38 +144,114 @@ namespace WealthERP.Uploads
                             drUploadTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
                             drUploadTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
                             drUploadTreeNode["Path2"] = drSubSubNode["Path"].ToString();
-
-                        }
-                        else if (count == 2)
-                        {
-                            count++;
-                            drUploadTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                            drUploadTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                            drUploadTreeNode["Path3"] = drSubSubNode["Path"].ToString();
-
-                        }
-                        else if (count == 3)
-                        {
-                            count++;
-                            drUploadTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                            drUploadTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                            drUploadTreeNode["Path4"] = drSubSubNode["Path"].ToString();
                             count = 0;
                             drUploadTreeNode = dtUploadTreeNode.NewRow();
+
                         }
+                        //else if (count == 2)
+                        //{
+                        //    count++;
+                        //    drUploadTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                        //    drUploadTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                        //    drUploadTreeNode["Path3"] = drSubSubNode["Path"].ToString();
+
+                        //}
+                        //else if (count == 3)
+                        //{
+                        //    count++;
+                        //    drUploadTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                        //    drUploadTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                        //    drUploadTreeNode["Path4"] = drSubSubNode["Path"].ToString();
+                        //    count = 0;
+                        //    drUploadTreeNode = dtUploadTreeNode.NewRow();
+                        //}
                     }
                     else
                     {
-                        break;
+                        //break;
                     }
                   
                     
                 }
 
-                rptTree.DataSource = dtUploadTreeNode;
+             rptMFTree.DataSource = dtUploadTreeNode;
 
-                rptTree.DataBind();
+             rptMFTree.DataBind();
 
+
+
+            //----------------EQ __----------------------------
+
+                drEQXmlTreeSubSubNode = dtEQSubtreeNodes.Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
+
+                count = 0;
+            
+                DataRow drEqUploadTreeNode = dtEQTreeNodes.NewRow();
+                foreach (DataRow drSubSubNode in drEQXmlTreeSubSubNode)
+                {
+                    drEQXmlRoleToTreeSubSubNode = dtRoleAssociationTreeNode.Select("TreeSubSubNodeCode=" + drSubSubNode["TreeSubSubNodeCode"].ToString());
+                    roleCount = 0;
+                    if (drEQXmlRoleToTreeSubSubNode.Count() > 0)
+                    {
+                        foreach (DataRow drUserRole in drEQXmlRoleToTreeSubSubNode)
+                        {
+                            if (int.Parse(drUserRole["UserRoleId"].ToString()) == roleId)
+                            {
+                                roleCount++;
+                                break;
+                            }
+                        }
+                    }
+                    if (roleCount > 0)
+                    {
+                        if (count == 0)
+                        {
+
+                            count++;
+                            drEqUploadTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drEqUploadTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drEqUploadTreeNode["Path1"] = drSubSubNode["Path"].ToString();
+                            dtEQTreeNodes.Rows.Add(drEqUploadTreeNode);
+
+                        }
+                        else if (count == 1)
+                        {
+                            count++;
+                            drEqUploadTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drEqUploadTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drEqUploadTreeNode["Path2"] = drSubSubNode["Path"].ToString();
+                            count = 0;
+                            drEqUploadTreeNode = dtEQTreeNodes.NewRow();
+                        }
+                        //else if (count == 2)
+                        //{
+                        //    count++;
+                        //    drEqUploadTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                        //    drEqUploadTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                        //    drEqUploadTreeNode["Path3"] = drSubSubNode["Path"].ToString();
+
+                        //}
+                        //else if (count == 3)
+                        //{
+                        //    count++;
+                        //    drEqUploadTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                        //    drEqUploadTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                        //    drEqUploadTreeNode["Path4"] = drSubSubNode["Path"].ToString();
+                        //    count = 0;
+                        //    drEqUploadTreeNode = dtEQTreeNodes.NewRow();
+                        //}
+                    }
+                    else
+                    {
+                        //break;
+                    }
+
+
+                }
+
+                rptTreenodeEQ.DataSource = dtEQTreeNodes;
+
+                rptTreenodeEQ.DataBind();
             }
 
 
@@ -236,28 +329,26 @@ namespace WealthERP.Uploads
 
             //rptTree.DataBind();
 
-        protected void rptTree_ItemCommand(object source, RepeaterCommandEventArgs e)
+        protected void rptMFTree_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            ImageButton imgBtn1 = e.Item.FindControl("imgbtnUpload1") as ImageButton;
-            LinkButton lnkbtn1 = e.Item.FindControl("lnkTreeNode1") as LinkButton;
+            LinkButton lnkbtn1 = e.Item.FindControl("lnkMFTreeNode1") as LinkButton;
 
-            ImageButton imgBtn2 = e.Item.FindControl("imgbtnUpload2") as ImageButton;
-            LinkButton lnkbtn2 = e.Item.FindControl("lnkTreeNode2") as LinkButton;
+            LinkButton lnkbtn2 = e.Item.FindControl("lnkMFTreeNode2") as LinkButton;
 
-            ImageButton imgBtn3 = e.Item.FindControl("imgbtnUpload3") as ImageButton;
-            LinkButton lnkbtn3 = e.Item.FindControl("lnkTreeNode3") as LinkButton;
-            if (e.CommandName == "Tree_Navi_Row1")
+            LinkButton lnkbtn3 = e.Item.FindControl("lnkMFTreeNode3") as LinkButton;
+
+            if (e.CommandName == "Tree_MF_Row1")
             {
 
-                if (imgBtn1.CommandArgument == "3002" || lnkbtn1.CommandArgument == "3002")
+                if ( lnkbtn1.CommandArgument == "3002")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
                 }
-                else if (imgBtn1.CommandArgument == "3006" || lnkbtn1.CommandArgument == "3006")
+                else if ( lnkbtn1.CommandArgument == "3006")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
                 }
-                else if (imgBtn1.CommandArgument == "3010" || lnkbtn1.CommandArgument == "3010")
+                else if (lnkbtn1.CommandArgument == "3010")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
                 }
@@ -266,30 +357,30 @@ namespace WealthERP.Uploads
                 //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedWERPProfile','login');", true);
                 //}
             }
-            if (e.CommandName == "Tree_Navi_Row2")
+            if (e.CommandName == "Tree_MF_Row2")
             {
 
-                if (imgBtn2.CommandArgument == "3003" || lnkbtn2.CommandArgument == "3003")
+                if ( lnkbtn2.CommandArgument == "3003")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ViewUploadProcessLog','login');", true);
                 }
-                else if (imgBtn2.CommandArgument == "3007" || lnkbtn2.CommandArgument == "3007")
+                else if (lnkbtn2.CommandArgument == "3007")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('TrailCommisionTransactionRejects','login');", true);
                 }
-                else if (imgBtn2.CommandArgument == "3011" || lnkbtn2.CommandArgument == "3011")
+                else if ( lnkbtn2.CommandArgument == "3011")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedWERPProfile','login');", true);
                 }
             }
 
-            if (e.CommandName == "Tree_Navi_Row3")
+            if (e.CommandName == "Tree_MF_Row3")
             {
-                if (imgBtn3.CommandArgument == "3004" || lnkbtn3.CommandArgument == "3004")
+                if ( lnkbtn3.CommandArgument == "3004")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFFolio','login');", true);
                 }
-                else if (imgBtn3.CommandArgument == "3008" || lnkbtn3.CommandArgument == "3008")
+                else if (lnkbtn3.CommandArgument == "3008")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedTradeAccountStaging','login');", true);
                 }
@@ -299,13 +390,13 @@ namespace WealthERP.Uploads
                 //}
             }
 
-            if (e.CommandName == "Tree_Navi_Row4")
+            if (e.CommandName == "Tree_MF_Row4")
             {
-                if (imgBtn3.CommandArgument == "3005" || lnkbtn3.CommandArgument == "3005")
+                if (lnkbtn3.CommandArgument == "3005")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFTransactionStaging','login');", true);
                 }
-                else if (imgBtn3.CommandArgument == "3009" || lnkbtn3.CommandArgument == "3009")
+                else if ( lnkbtn3.CommandArgument == "3009")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
                 }
@@ -317,35 +408,147 @@ namespace WealthERP.Uploads
 
 
         }
-        protected void rptTree_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        protected void rptMFTree_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
 
-                ImageButton col1 = e.Item.FindControl("imgbtnUpload2") as ImageButton;
-                ImageButton col0 = e.Item.FindControl("imgbtnUpload1") as ImageButton;
-                ImageButton col2 = e.Item.FindControl("imgbtnUpload3") as ImageButton;
-                ImageButton col3 = e.Item.FindControl("imgbtnUpload4") as ImageButton;
-                if (col1.ImageUrl == "")
+                //ImageButton col1 = e.Item.FindControl("imgbtnUpload2") as ImageButton;
+                //ImageButton col0 = e.Item.FindControl("imgbtnUpload1") as ImageButton;
+                //ImageButton col2 = e.Item.FindControl("imgbtnUpload3") as ImageButton;
+                //ImageButton col3 = e.Item.FindControl("imgbtnUpload4") as ImageButton;
+                //if (col1.ImageUrl == "")
+                //{
+                //    var a = e.Item.FindControl("td2");
+                //    a.Visible = false;
+                //}
+                //if (col0.ImageUrl == "")
+                //{
+                //    var a = e.Item.FindControl("td1");
+                //    a.Visible = false;
+                //}
+                //if (col2.ImageUrl == "")
+                //{
+                //    var a = e.Item.FindControl("td3");
+                //    a.Visible = false;
+                //}
+                //if (col3.ImageUrl == "")
+                //{
+                //    var a = e.Item.FindControl("td4");
+                //    a.Visible = false;
+                //}
+
+            }
+        }
+
+        protected void rptTreenodeEQ_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            LinkButton lnkbtn1 = e.Item.FindControl("lnkEQTreeNode1") as LinkButton;
+
+            LinkButton lnkbtn2 = e.Item.FindControl("lnkEQTreeNode2") as LinkButton;
+
+            LinkButton lnkbtn3 = e.Item.FindControl("lnkEQTreeNode3") as LinkButton;
+
+            if (e.CommandName == "Tree_EQ_Row1")
+            {
+
+                if (lnkbtn1.CommandArgument == "3002")
                 {
-                    var a = e.Item.FindControl("td2");
-                    a.Visible = false;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
                 }
-                if (col0.ImageUrl == "")
+                else if (lnkbtn1.CommandArgument == "3006")
                 {
-                    var a = e.Item.FindControl("td1");
-                    a.Visible = false;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
                 }
-                if (col2.ImageUrl == "")
+                else if ( lnkbtn1.CommandArgument == "3010")
                 {
-                    var a = e.Item.FindControl("td3");
-                    a.Visible = false;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
                 }
-                if (col3.ImageUrl == "")
+                //else if (imgBtn1.CommandArgument == "3011" || lnkbtn1.CommandArgument == "3011")
+                //{
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedWERPProfile','login');", true);
+                //}
+            }
+            if (e.CommandName == "Tree_EQ_Row2")
+            {
+
+                if (lnkbtn2.CommandArgument == "3003")
                 {
-                    var a = e.Item.FindControl("td4");
-                    a.Visible = false;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ViewUploadProcessLog','login');", true);
                 }
+                else if ( lnkbtn2.CommandArgument == "3007")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('TrailCommisionTransactionRejects','login');", true);
+                }
+                else if ( lnkbtn2.CommandArgument == "3011")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedWERPProfile','login');", true);
+                }
+            }
+
+            if (e.CommandName == "Tree_EQ_Row3")
+            {
+                if ( lnkbtn3.CommandArgument == "3004")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFFolio','login');", true);
+                }
+                else if ( lnkbtn3.CommandArgument == "3008")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedTradeAccountStaging','login');", true);
+                }
+                //else if (imgBtn3.CommandArgument == "3010" || lnkbtn3.CommandArgument == "3010")
+                //{
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
+                //}
+            }
+
+            if (e.CommandName == "Tree_EQ_Row4")
+            {
+                if (lnkbtn3.CommandArgument == "3005")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFTransactionStaging','login');", true);
+                }
+                else if ( lnkbtn3.CommandArgument == "3009")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
+                }
+                //else if (imgBtn3.CommandArgument == "3010" || lnkbtn3.CommandArgument == "3010")
+                //{
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
+                //}
+            }
+
+
+        }
+        protected void rptTreenodeEQ_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+
+                //ImageButton col1 = e.Item.FindControl("imgbtnUpload2") as ImageButton;
+                //ImageButton col0 = e.Item.FindControl("imgbtnUpload1") as ImageButton;
+                //ImageButton col2 = e.Item.FindControl("imgbtnUpload3") as ImageButton;
+                //ImageButton col3 = e.Item.FindControl("imgbtnUpload4") as ImageButton;
+                //if (col1.ImageUrl == "")
+                //{
+                //    var a = e.Item.FindControl("td2");
+                //    a.Visible = false;
+                //}
+                //if (col0.ImageUrl == "")
+                //{
+                //    var a = e.Item.FindControl("td1");
+                //    a.Visible = false;
+                //}
+                //if (col2.ImageUrl == "")
+                //{
+                //    var a = e.Item.FindControl("td3");
+                //    a.Visible = false;
+                //}
+                //if (col3.ImageUrl == "")
+                //{
+                //    var a = e.Item.FindControl("td4");
+                //    a.Visible = false;
+                //}
 
             }
         }
