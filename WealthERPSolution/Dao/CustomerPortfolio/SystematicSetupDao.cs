@@ -64,6 +64,15 @@ namespace DaoCustomerPortfolio
                 else
                     db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_RegistrationDate", DbType.DateTime, DBNull.Value);
 
+                if (!string.IsNullOrEmpty(systematicSetupVo.Remarks))
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@Remarks", DbType.String, systematicSetupVo.Remarks);
+                else
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@Remarks", DbType.String, DBNull.Value);
+                if (systematicSetupVo.CeaseDate != DateTime.MinValue)
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
+                else
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
+
                 db.ExecuteNonQuery(createSystematicSchemeSetupCmd);
                 bResult = true;
 
@@ -137,6 +146,15 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_RegistrationDate", DbType.DateTime, systematicSetupVo.RegistrationDate);
                 else
                     db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_RegistrationDate", DbType.DateTime, DBNull.Value);
+
+                if (!string.IsNullOrEmpty(systematicSetupVo.Remarks))
+                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@Remarks", DbType.String, systematicSetupVo.Remarks);
+                else
+                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@Remarks", DbType.String, DBNull.Value);
+                if (systematicSetupVo.CeaseDate != DateTime.MinValue)
+                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
+                else
+                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
                 db.ExecuteNonQuery(updateSystematicSchemeSetupCmd);
                 bResult = true;
 
@@ -238,13 +256,19 @@ namespace DaoCustomerPortfolio
                         else
                             systematicSetupVo.RegistrationDate = DateTime.MinValue;
                         systematicSetupVo.PaymentModeCode = dr["XPM_PaymentModeCode"].ToString();
-                        //if (!string.IsNullOrEmpty(dr["XPM_PaymentModeCode"].ToString()))
-                        //    systematicSetupVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
-                        //else
-                        //    systematicSetupVo.PaymentMode = null;
                         if(dr["CMFSS_Tenure"].ToString() != "")
                             systematicSetupVo.Period = int.Parse(dr["CMFSS_Tenure"].ToString());
                         systematicSetupVo.PeriodSelection = dr["CMFSS_TenureCycle"].ToString();
+
+                        if (!string.IsNullOrEmpty(dr["CMFSS_REMARKS"].ToString()))
+                            systematicSetupVo.Remarks = dr["CMFSS_REMARKS"].ToString();
+                        else
+                            systematicSetupVo.Remarks = "";
+                        if (!string.IsNullOrEmpty(dr["CMFSS_CEASEDATE"].ToString()))
+
+                            systematicSetupVo.CeaseDate = DateTime.Parse(dr["CMFSS_CEASEDATE"].ToString());
+                        else
+                            systematicSetupVo.CeaseDate = DateTime.MinValue;
 
                         systematicSetupList.Add(systematicSetupVo);
                     }
@@ -298,8 +322,6 @@ namespace DaoCustomerPortfolio
                     systematicSetupVo.PortfolioId = int.Parse(db.GetParameterValue(getSystematicSetupDetailsCmd, "@PortfolioId").ToString());
                 else
                     systematicSetupVo.PortfolioId = 0;
-
-
                 
                 if (dsSystematicSetups.Tables[0].Rows.Count > 0)
                 {
@@ -343,15 +365,17 @@ namespace DaoCustomerPortfolio
                     systematicSetupVo.PeriodSelection = dr["CMFSS_TenureCycle"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMFSS_IsAutoTransaction"].ToString()))
                         systematicSetupVo.IsAutoTransaction = int.Parse(dr["CMFSS_IsAutoTransaction"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["CMFSS_REMARKS"].ToString()))
+                        systematicSetupVo.Remarks = dr["CMFSS_REMARKS"].ToString();
+                    else
+                        systematicSetupVo.Remarks = "";
+                    if (!string.IsNullOrEmpty(dr["CMFSS_CEASEDATE"].ToString()))
+                        systematicSetupVo.CeaseDate = DateTime.Parse(dr["CMFSS_CEASEDATE"].ToString());
+                    else
+                        systematicSetupVo.CeaseDate = DateTime.MinValue;
                     
 
-
-                    
-                    
-                    //systematicSetupVo.IsManual = int.Parse(dr["CMFSS_IsManual"].ToString());
-                    //systematicSetupVo.SourceName = dr["XES_SourceName"].ToString();
-                    //systematicSetupVo.SourceCode = dr["XES_SourceCode"].ToString();
-                    //systematicSetupVo.PaymentMode = dr["XPM_PaymentMode"].ToString();
                 }
             }
             catch (BaseApplicationException Ex)
