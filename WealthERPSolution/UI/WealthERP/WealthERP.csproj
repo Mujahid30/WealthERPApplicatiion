@@ -5942,6 +5942,7 @@
     <Content Include="Images\1044_Southnd.jpg" />
     <Content Include="Images\AddPlus.png" />
     <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Images\alert.png" />
     <Content Include="Images\arrow_double_up_7.gif" />
     <Content Include="Images\bg-menu-main.png" />
     <Content Include="Images\birlasunlife.jpg" />
@@ -6038,6 +6039,7 @@
     <Content Include="Images\Standard Chartered_d33013900a7ff179ab7cba2826f5_grande - Copy.jpg" />
     <Content Include="Images\StandardCharted_sbc.jpg" />
     <Content Include="Images\submit.png" />
+    <Content Include="Images\success.png" />
     <Content Include="Images\Telerik\AddButton.gif" />
     <Content Include="Images\Telerik\BackButton.gif" />
     <Content Include="Images\Telerik\Cancel.gif" />
@@ -6067,6 +6069,7 @@
     <Content Include="Images\undermain.jpg" />
     <Content Include="Images\Upload-icon.png" />
     <Content Include="Images\Wait.gif" />
+    <Content Include="Images\warning.png" />
     <Content Include="Images\WealthERP_logo.png" />
     <Content Include="Images\werplogo.jpg" />
     <Content Include="Images\word.png" />
