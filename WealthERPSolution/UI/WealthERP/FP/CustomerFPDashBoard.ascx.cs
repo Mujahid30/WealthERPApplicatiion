@@ -558,7 +558,7 @@ namespace WealthERP.Customer
         }
         public void GetAssetAllocation()
         {
-            DataSet dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(CustomerId, advisorVo.advisorId);
+            DataSet dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(CustomerId, advisorVo.advisorId,1);
             if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
             {
                 riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();

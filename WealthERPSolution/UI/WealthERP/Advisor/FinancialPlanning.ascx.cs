@@ -242,14 +242,14 @@ namespace WealthERP.Advisor
                 if (!IsPostBack)
                 {
                     Span12.Visible = false;
-                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
                     if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                     {
                         riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
                         ddlPickRiskClass.SelectedValue = riskCode;
                     }
 
-                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,1);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
                     {
                         btnDeleteRiskProfile.Visible = true;
@@ -780,7 +780,7 @@ namespace WealthERP.Advisor
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                 }
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-                dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+                dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
 
             }
             catch (Exception ex)
@@ -881,7 +881,7 @@ namespace WealthERP.Advisor
                         lblRRScore.Text = rScore.ToString();
 
                         riskprofilebo.AddCustomerRiskProfileDetails(advisorVo.advisorId, customerId, rScore, DateTime.Now, riskCode, rmvo, 0, customerVo.Dob);
-                        dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                        dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,0);
                         btnDeleteRiskProfile.Visible = true;
                     }
                 }
@@ -1104,7 +1104,7 @@ namespace WealthERP.Advisor
                 {
                     SetCustomerId();
                     //dsGetCustomerIdByName = riskprofilebo.GetCustomerIdByName(txtPickCustomer.Text);                   
-                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
 
                     if (dsGetCustomerRiskProfile.Tables[0].Rows.Count != 0 && dsGetCustomerRiskProfile != null)
                     {
@@ -1486,11 +1486,11 @@ namespace WealthERP.Advisor
             Td1.Visible = false;
             tblRiskScore.Visible = true;
             lblRiskProfilingParagraph.Visible = false;
-            dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+            dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
             if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                 riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
-            dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+            dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,1);
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
@@ -1530,11 +1530,11 @@ namespace WealthERP.Advisor
             lblRRScore.Visible = true;
             if (lblRRScore.Text == "")
                 lblRRScore.Text = "0";
-            dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+            dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
             if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                 riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
-            dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+            dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,1);
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
@@ -1872,11 +1872,11 @@ namespace WealthERP.Advisor
                     Span12.Visible = true;
                     tblRiskScore.Visible = true;
                     lblRiskProfilingParagraph.Visible = false;
-                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
                     if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                         riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
-                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,1);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
                     {
                         LoadAssetAllocation(riskCode);
@@ -1910,19 +1910,51 @@ namespace WealthERP.Advisor
                     lblRRScore.Visible = true;
                     if (lblRRScore.Text == "")
                         lblRRScore.Text = "0";
-                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
-                    if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
-                        riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
-                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                    //dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId,1);
+                    //if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
+                    //    riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId,1);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
                     {
-                        LoadAssetAllocation(riskCode);
+                       // LoadAssetAllocation(riskCode);
                         tblRiskScore.Visible = true;
                     }
                     else
                     {
                         tblRiskScore.Visible = false;
                         ShowCurrentAssetAllocationPieChart();
+                    }
+
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId, 0);
+                    if (dsGetCustomerRiskProfile.Tables[0].Rows.Count != 0 && dsGetCustomerRiskProfile != null)
+                    {
+                        lblRRScore.Text = dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_Score"].ToString();
+                        lblRRclass.Text = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
+                        string tempRID = "";
+                        for (int i = 1; i <= totalquestion; i++)
+                        {
+                            dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i - 1]["QM_QuestionId"].ToString()), advisorVo.advisorId);
+                            for (int j = 1; j <= dsGetRiskProfileQuestionOption.Tables[0].Rows.Count; j++)
+                            {
+                                tempRID = "rbtnQ" + i + "A" + j;
+
+                                RadioButton rbtnQAns = (RadioButton)tabRiskProfiling.FindControl(tempRID);
+                                if (rbtnQAns.Checked == true)
+                                {
+                                    rbtnQAns.Checked = false;
+                                }
+                                if (dsGetCustomerRiskProfile.Tables[1].Rows.Count > 0)
+                                {
+                                    string questionoption = dsGetCustomerRiskProfile.Tables[1].Rows[i - 1]["QOM_Option"].ToString();
+
+                                    if (rbtnQAns.Text == questionoption)
+                                    {
+                                        rbtnQAns.Checked = true;
+                                    }
+                                }
+
+                            }
+                        }
                     }
                     tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
                 }

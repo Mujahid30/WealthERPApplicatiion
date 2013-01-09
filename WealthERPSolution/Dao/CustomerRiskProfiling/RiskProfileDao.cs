@@ -258,7 +258,7 @@ namespace DaoCustomerRiskProfiling
         }
 
         //Get Risk profile Id from CustomerRiskProfile Databse 
-        public DataSet GetRpId(int customerId)
+        public DataSet GetRpId(int customerId,int isDirect)
         {
             Database db;
             DataSet dsGetRpId;
@@ -268,6 +268,7 @@ namespace DaoCustomerRiskProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetRpId = db.GetStoredProcCommand("SP_GetRpIdByCustomerId");
                 db.AddInParameter(dbGetRpId, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(dbGetRpId, "@isDirect", DbType.Int16, isDirect);
                 dsGetRpId = db.ExecuteDataSet(dbGetRpId);
 
             }
@@ -403,7 +404,7 @@ namespace DaoCustomerRiskProfiling
             }
         }
 
-        public DataSet GetCustomerRiskProfile(int customerid,int advisorId)
+        public DataSet GetCustomerRiskProfile(int customerid,int advisorId, int isDirectType)
         {
             Database db;
             DataSet dsGetCustomerRiskProfile = null;
@@ -414,8 +415,8 @@ namespace DaoCustomerRiskProfiling
                 dbGetCustomerRiskProfile = db.GetStoredProcCommand("SP_GetCustomerRiskProfile");
                 db.AddInParameter(dbGetCustomerRiskProfile, "@C_CustomerId", DbType.Int32, customerid);
                 db.AddInParameter(dbGetCustomerRiskProfile, "@A_AdvisorId", DbType.Int32, advisorId);
+                db.AddInParameter(dbGetCustomerRiskProfile, "@isDirectType", DbType.Int16, isDirectType);
                 dsGetCustomerRiskProfile = db.ExecuteDataSet(dbGetCustomerRiskProfile);
-
             }
             catch (BaseApplicationException ex)
             {

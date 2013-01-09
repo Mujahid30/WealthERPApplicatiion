@@ -45,9 +45,9 @@ namespace BoCustomerRiskProfiling
         {
             return riskprofiledao.GetRiskClass(RiskClassCode);
         }
-        public DataSet GetRpId(int customerId)
+        public DataSet GetRpId(int customerId,int isDirect)
         {
-            return riskprofiledao.GetRpId(customerId);
+            return riskprofiledao.GetRpId(customerId,isDirect);
         }
         public DataSet GetAssetAllocationRules(string riskclasscode,int adviserId)
         {
@@ -75,9 +75,9 @@ namespace BoCustomerRiskProfiling
         {
             return riskprofiledao.GetRiskClassForRisk(riskclasscode);
         }
-        public DataSet GetCustomerRiskProfile(int customerid, int advisorId)
+        public DataSet GetCustomerRiskProfile(int customerid, int advisorId, int isDirectType)
         {
-            return riskprofiledao.GetCustomerRiskProfile(customerid,advisorId);
+            return riskprofiledao.GetCustomerRiskProfile(customerid,advisorId,isDirectType);
         }
         public DataSet GetAssetAllocationDetails(int riskprofileid)
         {
