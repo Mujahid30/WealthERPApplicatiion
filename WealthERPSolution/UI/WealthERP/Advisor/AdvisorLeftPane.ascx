@@ -802,8 +802,7 @@
                         EnableEmbeddedSkins="false" ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem" OnItemClick="RadPanelBar5_ItemClick">
                         <Items>
-                            <telerik:RadPanelItem runat="server" Text="Research"
-                                Value="Research">
+                            <telerik:RadPanelItem runat="server" Text=" Advisory Setup" Value="Research">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Research Dashboard" Value="Research_Dashboard">
                                     </telerik:RadPanelItem>
