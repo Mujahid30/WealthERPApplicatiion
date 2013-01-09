@@ -148,18 +148,20 @@
     </tr>
 
 </table>
-<table width="100%>
+<table width="100%">
     <tr>
         <td>
         <asp:Panel ID="pnlMultiProductMIS" runat="server"  ScrollBars="Horizontal" Width="98%" Visible="true">
         <table>
           <tr><td>
-            <div runat="server" id="divGvMultiProductMIS" style="margin: 2px;width: 640px;">
-            <telerik:RadGrid ID="rgvMultiProductMIS" runat="server" Skin="Telerik" CssClass="RadGrid" Visible="true"
+            <div runat="server" id="divGvMultiProductMIS" visible="false" style="margin: 2px;width: 640px;">
+            <telerik:RadGrid ID="rgvMultiProductMIS" runat="server" Skin="Telerik" CssClass="RadGrid" Visible="true" 
                 GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
-                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="C_CustomerId,Customer_Name" onItemCommand="rgvMultiProductMIS_ItemCommand"
-                EnableEmbeddedSkins="false" Width="98%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource" onDataBound="rgvMultiProductMIS_DataBound">
+                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" 
+                DataKeyNames="C_CustomerId,Customer_Name" onItemCommand="rgvMultiProductMIS_ItemCommand"
+                EnableEmbeddedSkins="false" Width="120%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource" 
+                onDataBound="rgvMultiProductMIS_DataBound">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="MultiProductMIS Details" Excel-Format="ExcelML">
                 </ExportSettings>                
                 <MasterTableView DataKeyNames="C_CustomerId,Customer_Name" Width="100%" AllowMultiColumnSorting="True"

@@ -71,8 +71,8 @@ namespace WealthERP.BusinessMIS
                 ddlCustomerType.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
                 trCustomerSearch.Visible = false;
-                //lblselectCustomer.Visible = false;
-                //txtIndividualCustomer.Visible = false;              
+                //divGvMultiProductMIS.Visible = false;
+                pnlMultiProductMIS.Visible = false;
                 rquiredFieldValidatorIndivudialCustomer.Visible = false;
                 btnMultiProductMIS.Visible = false;
 
@@ -837,6 +837,8 @@ namespace WealthERP.BusinessMIS
                         rgvMultiProductMIS.Visible = true;
                         //hdnCustomerId.Value = null;
                         btnMultiProductMIS.Visible = true;
+                        pnlMultiProductMIS.Visible = true;
+                        divGvMultiProductMIS.Visible = true;
 
                     }
                 }
