@@ -3896,18 +3896,8 @@ namespace DaoCustomerPortfolio
                         mfBalanceVo.TransactionType = dr["WMTT_TransactionClassificationName"].ToString();
                         mfBalanceVo.Folio = dr["CMFA_FolioNum"].ToString();
                         mfBalanceVo.Age =  int.Parse(dr["CMFTB_Age"].ToString());
-                       
-                        if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
-                        {
-                            mfBalanceVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
-                            mfBalanceVo.TransactionStatusCode = int.Parse(dr["WTS_TransactionStatusCode"].ToString());
-                        }
-                        else
-                        {
-                            mfBalanceVo.TransactionStatus = "OK";
-                            mfBalanceVo.TransactionStatusCode = 1;
-
-                        }
+                        mfBalanceVo.Balance = float.Parse(dr["ABS_Return"].ToString());
+                     
                         mfBalanceList.Add(mfBalanceVo);
                     }
                 }
