@@ -2847,6 +2847,7 @@
     <TreeSubNode	TreeNodeCode="1010" TreeSubNodeCode="2012" TreeSubNodeText="Turnover" Deleted="False"	/>
     <TreeSubNode	TreeNodeCode="1011" TreeSubNodeCode="2013" TreeSubNodeText="Customer Holdings" Deleted="False"	/>
     <TreeSubNode	TreeNodeCode="1012" TreeSubNodeCode="2014" TreeSubNodeText="Transactions" Deleted="False"	/>
+    <TreeSubNode	TreeNodeCode="1010" TreeSubNodeCode="2015" TreeSubNodeText="Commission" Deleted="False"	/>
   </SuperAdminTreeSubNode>
 
   <SuperAdminTreeSubSubNode>
@@ -2874,8 +2875,10 @@
     <TreeSubSubNode	TreeSubNodeCode="2013" TreeSubSubNodeCode="3022" TreeSubSubNodeText="GI" Path="~/Images/Dashboard-BusinessMIS.png" Category="GI" Deleted="False"	/>
     <TreeSubSubNode	TreeSubNodeCode="2013" TreeSubSubNodeCode="3023" TreeSubSubNodeText="FI" Path="~/Images/Dashboard-BusinessMIS.png" Category="FI" Deleted="False"	/>
 
-    <TreeSubSubNode	TreeSubNodeCode="2014" TreeSubSubNodeCode="3024" TreeSubSubNodeText="MF Transaction" Path="~/Images/Dashboard-MutualFund.png" Category="MF" Deleted="False"	/>
-    <TreeSubSubNode	TreeSubNodeCode="2014" TreeSubSubNodeCode="3025" TreeSubSubNodeText="EQ Transaction" Path="~/Images/Dashboard-Equity.png.png" Category="EQ" Deleted="False"	/>
+    <TreeSubSubNode	TreeSubNodeCode="2014" TreeSubSubNodeCode="3024" TreeSubSubNodeText="MF Transaction" Path="~/Images/Dashboard-MutualFund.png" Deleted="False"	/>
+    <TreeSubSubNode	TreeSubNodeCode="2014" TreeSubSubNodeCode="3025" TreeSubSubNodeText="EQ Transaction" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
+
+    <TreeSubSubNode	TreeSubNodeCode="2015" TreeSubSubNodeCode="3026" TreeSubSubNodeText="MF Commission MIS" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
   </SuperAdminTreeSubSubNode>
   
   <UserRole>
