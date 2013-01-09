@@ -127,6 +127,7 @@ namespace WealthERP.Uploads
             }
             else
             {
+               // divConditional.Visible = false;
                 tdLblAdviser.Visible = false;
                 tdDdlAdviser.Visible = false;
                 if (adviserVo.advisorId != 1000)
@@ -135,14 +136,14 @@ namespace WealthERP.Uploads
                 }
                 if(rmVo != null)
                 rmId = rmVo.RMId;
-                tdBtnViewRejetcs.Visible = true;
-                tdTxtToDate.Visible = true;
-                tdlblToDate.Visible = true;
-                tdTxtFromDate.Visible = true;
+                //tdBtnViewRejetcs.Visible = true;
+                //tdTxtToDate.Visible = true;
+                //tdlblToDate.Visible = true;
+                //tdTxtFromDate.Visible = true;
 
-                tdlblFromDate.Visible = true;
-                tdlblRejectReason.Visible = true;
-                tdDDLRejectReason.Visible = true;
+                //tdlblFromDate.Visible = true;
+                //tdlblRejectReason.Visible = true;
+                //tdDDLRejectReason.Visible = true;
             }
             if (Session["userVo"] != null)
             {
@@ -163,6 +164,14 @@ namespace WealthERP.Uploads
 
                 if (adviserId != 1000)
                 {
+                    if (ProcessId != 0)
+                    {
+                        divConditional.Visible = false;
+                    }
+                    else
+                    {
+                        divConditional.Visible = true;
+                    }
                     BindddlRejectReason();
                     BindGrid(ProcessId);
                 }
