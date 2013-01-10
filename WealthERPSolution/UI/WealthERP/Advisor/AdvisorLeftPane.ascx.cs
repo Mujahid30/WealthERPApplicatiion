@@ -1952,10 +1952,22 @@ namespace WealthERP.Advisor
                                 case "Customer":
                                     Item.Visible = false;
                                     break;
+                                case "Operations":
+                                    Item.Visible = false;
+                                    break;
+                                case "Returns_Analytics":
+                                    Item.Visible = false;
+                                    break;
+                                case "Queries":
+                                    Item.Visible = false;
+                                    break;
+                                case "AUM_Holdings":
+                                    Item.Visible = false;
+                                    break;
                                 case "Business MIS":
                                     Item.Visible = false;
                                     break;
-                                case "Customer Report":
+                                case "Order_Management":
                                     Item.Visible = false;
                                     break;
                             }

@@ -25,7 +25,7 @@ namespace WERP_MF_Historical_ValuationQueue
         public void ProcessMFAccountInstantValuation()
         {
             DataTable dtHistoricalValuationQueue = new DataTable();
-            int flag=0,adviserId=0;
+            int flag = 0, adviserId = 0, isCurrent = 0;
             dtHistoricalValuationQueue = mfHistoricalValuationQueueDao.GetMFHistoricalValuationQueueDetails();
             DateTime valuationDate = new DateTime();
             foreach (DataRow dr in dtHistoricalValuationQueue.Rows)
@@ -40,14 +40,18 @@ namespace WERP_MF_Historical_ValuationQueue
                     {
                         valuationDate = Convert.ToDateTime(dr["MFVQ_ValuationDate"]);
                     }
+                    if (!string.IsNullOrEmpty(dr["MFVQ_IsCurrentValuation"].ToString()))
+                    {
+                        isCurrent = Convert.ToInt16(dr["MFVQ_IsCurrentValuation"]);
+                    }
 
                     if (adviserId == 0) //for all adviser for given Date
                     {
-                        CreateMFHistoricalNetposition(valuationDate, 0); 
+                        CreateMFHistoricalNetposition(valuationDate, isCurrent); 
                     }
                     else
                     {
-                        CreateMFHistoricalNetposition(valuationDate, adviserId, 0); //for one adviser for given Date
+                        CreateMFHistoricalNetposition(valuationDate, adviserId, isCurrent); //for one adviser for given Date
                     }
                   flag = 2;
                   mfHistoricalValuationQueueDao.UpdateHistoricalValuationQueueFlag(adviserId, valuationDate, flag);
