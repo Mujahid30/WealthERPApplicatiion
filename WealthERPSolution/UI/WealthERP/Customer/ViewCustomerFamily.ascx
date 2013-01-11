@@ -45,12 +45,19 @@
 </script>
 
 <table class="TableBackground" style="width: 100%;">
-    <tr>
-        <td colspan="3">
-            <asp:Label ID="lblHeader" runat="server" Text="Customer Associations" CssClass="HeaderTextBig"></asp:Label>
-            <hr />
+ <tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">Customer Grouping</td>
+        <td  align="right" style="padding-bottom:2px;">
         </td>
-    </tr>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
     <tr>
     <td class="rightField" style="width: 8%">
             <asp:Label ID="lblSelectRM" runat="server" Text="Select RM: " CssClass="FieldName"></asp:Label>
