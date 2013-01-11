@@ -507,12 +507,12 @@
                                                             DataFormatString="{0:n}" Aggregate="Sum">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="CMFTB_Age" HeaderText="Age" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn DataField="Age" HeaderText="Age" AllowFiltering="false"
                                                             HeaderStyle-Wrap="false" SortExpression="CMFTB_Age" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                             AutoPostBackOnFilter="true" UniqueName="CMFTB_Age" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Balance" HeaderText="Absolute Return" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn DataField="Balance" HeaderText="Absolute Return" AllowFiltering="false"  DataFormatString="{0:f4}" 
                                                             HeaderStyle-Wrap="false" SortExpression="Return" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                             AutoPostBackOnFilter="true" UniqueName="Return" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />

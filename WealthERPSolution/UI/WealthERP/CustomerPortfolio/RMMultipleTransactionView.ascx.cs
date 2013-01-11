@@ -505,8 +505,8 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("Price", typeof(double));
                     dtMFBalance.Columns.Add("Units", typeof(double));
                     dtMFBalance.Columns.Add("Amount", typeof(double));
-                    dtMFBalance.Columns.Add("Age");                
-                    dtMFBalance.Columns.Add("Balance");                   
+                    dtMFBalance.Columns.Add("Age");
+                    dtMFBalance.Columns.Add("Balance", typeof(double));                   
                   
                     DataRow drMFBalance;
 
@@ -541,7 +541,7 @@ namespace WealthERP.CustomerPortfolio
                         }
                          totalAmount = totalAmount + mfBalanceVo.Amount;
                          drMFBalance["Age"] = mfBalanceVo.Age;
-                         drMFBalance["Balance"] = mfBalanceVo.Balance;
+                         drMFBalance["Balance"] = mfBalanceVo.Balance.ToString();
                          dtMFBalance.Rows.Add(drMFBalance);
                     }
 
