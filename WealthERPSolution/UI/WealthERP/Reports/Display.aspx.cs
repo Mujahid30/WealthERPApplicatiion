@@ -2795,12 +2795,12 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Comprehensive NetWorth Report";
+                                Headername = "NetWorth Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
                             {
-                                Headername = "Comprehensive NetWorth Report";
+                                Headername = "NetWorth Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             CrystalReportViewer1.ReportSource = crmain;
@@ -3651,7 +3651,7 @@ namespace WealthERP.Reports
 
                             //crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dtMFSchemePerformance);
                             crmain.Subreports["Portfolio_XIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRRComp);
-                            crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dsReturnsPortfolio.Tables[1]);
+                            //crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dsReturnsPortfolio.Tables[1]);
                             crmain.Subreports["MFTopTenHoldings"].Database.Tables["ToptenHoldings"].SetDataSource(dsReturnsPortfolio.Tables[2]);
                             crmain.Subreports["MFTopTenSectors"].Database.Tables["TopTenSectors"].SetDataSource(dsReturnsPortfolio.Tables[5]);
 
@@ -3688,7 +3688,7 @@ namespace WealthERP.Reports
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("DateRange", "As on: " + report.FromDate.ToShortDateString());
-                            //crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            crmain.SetParameterValue("AsOnDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             //For PDF View In Browser
                             if (Request.QueryString["mail"] == "2")

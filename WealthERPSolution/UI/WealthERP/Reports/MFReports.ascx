@@ -842,6 +842,7 @@
                                                                 <asp:ListItem Text="Eligible Capital Gain Summary" Value="ELIGIBLE_CAPITAL_GAIN_SUMMARY"></asp:ListItem>
                                                                 <asp:ListItem Text="Closing Balance Report" Value="TRANSACTION_REPORT_OPEN_CLOSE_BALANCE"></asp:ListItem>
                                                                 <asp:ListItem Text="Realized Report" Value="REALIZED_REPORT"></asp:ListItem>
+                                                                <asp:ListItem Text="Portfolio Composition Report" Value="COMPOSITION_REPORT"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </td>
                                                     </tr>
