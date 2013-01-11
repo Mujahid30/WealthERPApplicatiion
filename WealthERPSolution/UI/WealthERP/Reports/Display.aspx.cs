@@ -76,19 +76,30 @@ namespace WealthERP.Reports
         Dictionary<string, string> chkBoxsList = new Dictionary<string, string>();
         DataSet dsCustomerFPReportDetails;
 
-
-
-        //DataTable dtFPReportText;
-        //DataTable dtMonthlyGoalAmount;
-        //DataTable dtRTGoalDetails;
-        //DataTable dtCashFlows;
-        //DataTable dtAssetAllocation;
-        //DataTable dtHLVAnalysis;
-        //DataTable dtAdvisorRiskClass;
-        //DataTable dtPortfolioAllocation;
         string riskClass = string.Empty;
         double recEquity, recDebt, recCash, recAlternate, currEquity, currDebt, currCash, currAlternate = 0;
+
         int orderId = 0;
+        int OCustomerId=0;
+        string OAmc ;
+        string  OScheme;
+        int OportfolioId = 0;
+        string  OFolioNo;
+        string OType;
+        string BankName = string.Empty;
+        string BranchName = string.Empty;
+        string Amount=string.Empty;
+        string StartDateSIP = string.Empty;
+        string StartDateSTP = string.Empty;
+        string NewAmount = string.Empty;
+        string EndDateSIP = string.Empty;
+        string EndDateSTP = string.Empty;
+        bool RbtnUnits =false;
+        bool RbtnAmounts =false;
+        string ChequeNo = string.Empty;
+        string ChequeDate = string.Empty;
+        string SchemeSwitch = string.Empty;
+
         private ReportType CurrentReportType
         {
             get
@@ -144,6 +155,7 @@ namespace WealthERP.Reports
             {
                 if (Request.QueryString["mail"] == "1")
                     isMail = "1";
+                
             }
             if (Request.Form["ctrl_EquityReports$btnView"] != null || Request.Form["ctrl_EquityReports$btnMail"] != null || Request.Form["ctrl_EquityReports$btnViewInPDF"] != null || Request.Form["ctrl_EquityReports$btnViewInDOC"] != null
                 || Request.Form["ctrl_EquityReports$btnCustomerViewReport"] != null
@@ -222,9 +234,95 @@ namespace WealthERP.Reports
                 HideShowFPSection();
 
             }
+          
+            if (Request.QueryString["Page"] != null)
+            {
+                GetOrderDetails();
+            }
             DisplayReport();
 
 
+        }
+
+        private void GetOrderDetails()
+        {
+            if (Request.QueryString["CustomerId"] != null)
+            {
+                OCustomerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
+            }
+            if (Request.QueryString["AmcCode"] != null)
+            {
+                OAmc = Request.QueryString["AmcCode"];
+            }
+            if (Request.QueryString["AccoutId"] != null)
+            {
+                OFolioNo = Request.QueryString["AccoutId"];
+            }
+            if (Request.QueryString["SchemeCode"] != null)
+            {
+                OScheme = Request.QueryString["SchemeCode"];
+            }
+            if (Request.QueryString["Type"] != null)
+            {
+                OType = Request.QueryString["Type"];
+            }
+            if (Request.QueryString["Portfolio"] != null)
+            {
+                OportfolioId = Convert.ToInt32(Request.QueryString["Portfolio"]);
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["BankName"].ToString().Trim()))
+            {
+                BankName = Request.QueryString["BankName"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["BranchName"].ToString().Trim()))
+            {
+                BranchName = Request.QueryString["BranchName"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["Amount"].ToString().Trim()))
+            {
+                Amount = Request.QueryString["Amount"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["StartDateSIP"].ToString().Trim()))
+            {
+                StartDateSIP = Request.QueryString["StartDateSIP"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["StartDateSTP"].ToString().Trim()))
+            {
+                 StartDateSTP = Request.QueryString["StartDateSTP"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["NewAmount"].ToString().Trim()))
+            {
+                 NewAmount = Request.QueryString["NewAmount"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["EndDateSIP"].ToString().Trim()))
+            {
+                 EndDateSIP = Request.QueryString["EndDateSIP"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["EndDateSTP"].ToString().Trim()))
+            {
+                 EndDateSTP = Request.QueryString["EndDateSTP"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["RbtnUnits"].ToString().Trim()))
+            {
+                 RbtnUnits = bool.Parse(Request.QueryString["RbtnUnits"]);
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["RbtnAmounts"].ToString().Trim()))
+            {
+                 RbtnAmounts = bool.Parse(Request.QueryString["RbtnAmounts"]);
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
+            {
+                ChequeDate = Request.QueryString["ChequeDate"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["ChequeNo"].ToString().Trim()))
+            {
+                ChequeNo = Request.QueryString["ChequeNo"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["SchemeSwitch"].ToString().Trim()))
+            {
+                SchemeSwitch = Request.QueryString["SchemeSwitch"];
+            }
+            CurrentReportType = ReportType.OrderTransactionSlip;
         }
 
         //protected void Page_UnLoad(object sender, EventArgs e)
@@ -415,14 +513,97 @@ namespace WealthERP.Reports
         {
 
             MFReportsBo mfReportBo = new MFReportsBo();
-            report = (OrderTransactionSlipVo)Session["reportParams"];
+            if (Request.QueryString["Page"] == null)
+            {
+                report = (OrderTransactionSlipVo)Session["reportParams"];
+            }
             DataSet dstransactionSlip = new DataSet();
             DataSet dsOrderTransactionForm=new DataSet();
             DataTable dtTransactionSlip;DataTable dtOrderTransactionForm;
 
             crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
             //crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
-            if (orderVo != null)
+            if (Request.QueryString["Page"] != null)
+            {
+                setLogo();
+                customerVo = customerBo.GetCustomer(OCustomerId);
+                if(customerVo != null)
+                {
+                    crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(OAmc)? OAmc : string.Empty);
+                    crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(customerVo.PANNum) ? customerVo.PANNum : string.Empty);
+                    crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName) ? customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName : string.Empty);
+                    crmain.SetParameterValue("Address", !string.IsNullOrEmpty(customerVo.Adr1Line1 + " " + customerVo.Adr1Line2 + " " + customerVo.Adr1Line3) ? customerVo.Adr1Line1 + " " + customerVo.Adr1Line2 + " " + customerVo.Adr1Line3 : string.Empty);
+                    crmain.SetParameterValue("City", !string.IsNullOrEmpty(customerVo.Adr1City) ? customerVo.Adr1City : string.Empty);
+                    crmain.SetParameterValue("State", !string.IsNullOrEmpty(customerVo.Adr1State) ? customerVo.Adr1State : string.Empty);
+                    crmain.SetParameterValue("Country", !string.IsNullOrEmpty(customerVo.Adr1Country) ? customerVo.Adr1Country : string.Empty);
+                    crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(customerVo.Adr1PinCode.ToString()) ? customerVo.Adr1PinCode.ToString() : string.Empty);
+
+                    crmain.SetParameterValue("FolioNo", !string.IsNullOrEmpty(OFolioNo) ? OFolioNo : string.Empty);
+                    crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(OScheme) ? OScheme : string.Empty);
+
+                    crmain.SetParameterValue("ChequeNo",  !string.IsNullOrEmpty(ChequeNo) ?ChequeNo:string.Empty);
+                    crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(ChequeDate)? ChequeDate : string.Empty);
+                    crmain.SetParameterValue("Amount",!string.IsNullOrEmpty(Amount)? Amount: string.Empty);
+                 
+                    if (RbtnAmounts == true)
+                    {
+
+                        if (!String.IsNullOrEmpty(NewAmount))
+                            crmain.SetParameterValue("Amount", NewAmount);
+                        else
+                            crmain.SetParameterValue("Amount", string.Empty);
+                    }
+                    crmain.SetParameterValue("Units", string.Empty);
+                    if (RbtnUnits == true)
+                    {
+
+                        if (!String.IsNullOrEmpty(NewAmount))
+                            crmain.SetParameterValue("Units", NewAmount);
+                        else
+                            crmain.SetParameterValue("Units", string.Empty);
+                    }
+                    if (!string.IsNullOrEmpty(StartDateSIP))
+                        crmain.SetParameterValue("StartDate", StartDateSIP);
+                    else if (!string.IsNullOrEmpty(StartDateSTP))
+                        crmain.SetParameterValue("StartDate", StartDateSTP);
+                    else
+                        crmain.SetParameterValue("StartDate", string.Empty);
+
+                    if (!string.IsNullOrEmpty(EndDateSIP))
+                        crmain.SetParameterValue("EndDate", EndDateSIP);
+                    else if (!string.IsNullOrEmpty(EndDateSIP))
+                        crmain.SetParameterValue("EndDate", EndDateSIP);
+                    else
+                        crmain.SetParameterValue("EndDate", string.Empty);
+
+                    crmain.SetParameterValue("BankName", !string.IsNullOrEmpty(BankName) ? BankName : string.Empty);
+                    crmain.SetParameterValue("BranchName", !string.IsNullOrEmpty(BranchName) ? BranchName : string.Empty);
+                    crmain.SetParameterValue("SchemeSwitch", !string.IsNullOrEmpty(SchemeSwitch) ? SchemeSwitch : string.Empty);
+
+                    ShowTransactionShowHide(OType);
+                    CrystalReportViewer1.ReportSource = crmain;
+                    CrystalReportViewer1.EnableDrillDown = true;
+                    CrystalReportViewer1.HasCrystalLogo = false;
+
+                    if (Request.QueryString["mail"] == "2")
+                    {
+                        ExportInPDF();
+                    }
+                    if (Request.QueryString["mail"] == "4")
+                    {
+                        ExportInDOC();
+                    }
+
+                    lblClosingBalanceNote.Visible = false;
+
+                }
+                else
+                {
+                    SetNoRecords();
+                    lblClosingBalanceNote.Visible = false;
+                }
+            }
+            else if (orderVo.OrderId != 0)
             {
                 dstransactionSlip = mfReportBo.GetOrderTransactionForm(report);
                 DataRow[] drOrderTransactionForm = new DataRow[dstransactionSlip.Tables[0].Columns.Count];
@@ -477,16 +658,11 @@ namespace WealthERP.Reports
                     lblClosingBalanceNote.Visible = false;
                 }
             }
+            
             else
             {
-                //dsOrderTransactionForm = mfReportBo.GetOrderTransactionBlankForm(report);
-                //DataRow[] drOrderTransactionBlnkaForm = new DataRow[dsOrderTransactionForm.Tables[0].Columns.Count];
                 setLogo();
                 customerVo = customerBo.GetCustomer(report.CustomerId);
-                //if (dsOrderTransactionForm.Tables.Count > 0 && dsOrderTransactionForm.Tables[0].Rows.Count > 0)
-                //{
-                //    crmain.SetDataSource(dsOrderTransactionForm.Tables[0]);
-                //    drOrderTransactionBlnkaForm = dsOrderTransactionForm.Tables[0].Select();
                 if(customerVo != null)
                 {
                     if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnAmcCode"]))
@@ -556,13 +732,9 @@ namespace WealthERP.Reports
                     else
                         crmain.SetParameterValue("EndDate", string.Empty);
 
-                    //crmain.SetParameterValue("StartDate", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtstartDateSIP"]) ? Request.Form["ctrl_MFOrderEntry$txtstartDateSIP"] : string.Empty);
-                    //crmain.SetParameterValue("EndDate", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtPaymentNumber"]) ? Request.Form["ctrl_MFOrderEntry$txtPaymentNumber"] : string.Empty);
-                    crmain.SetParameterValue("BankName", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnBankName"]) ? Request.Form["ctrl_MFOrderEntry$hdnBankName"] : string.Empty);
+                   crmain.SetParameterValue("BankName", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnBankName"]) ? Request.Form["ctrl_MFOrderEntry$hdnBankName"] : string.Empty);
                     crmain.SetParameterValue("BranchName", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtBranchName"]) ? Request.Form["ctrl_MFOrderEntry$txtBranchName"] : string.Empty);
                     crmain.SetParameterValue("SchemeSwitch", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$ddlSchemeSwitch"]) ? Request.Form["ctrl_MFOrderEntry$ddlSchemeSwitch"] : string.Empty);
-                    //crmain.SetParameterValue("Units",  string.Empty);
-
                     ShowTransactionShowHide(report.Type);
 
                     CrystalReportViewer1.ReportSource = crmain;

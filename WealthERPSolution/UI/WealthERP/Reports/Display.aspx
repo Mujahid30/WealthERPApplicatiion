@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Display.aspx.cs" Trace="false"
-    Inherits="WealthERP.Reports.Display" EnableViewState="false" %>
+    Inherits="WealthERP.Reports.Display"  %>
 
 <%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
