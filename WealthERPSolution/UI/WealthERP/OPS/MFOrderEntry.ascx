@@ -106,11 +106,11 @@
                             </div>
                             <asp:Button ID="btnViewInPDF" runat="server" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('pdf')"
                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
-                                <%--<asp:Button id="btnreport" runat="server" CssClass="PCGButton"
-                                OnClick="btnreport_Click" Visible="true"/>--%>
+                             <asp:Button id="btnreport" runat="server" CssClass="CrystalButton"  Visible="false"
+                                OnClick="btnreport_Click" />
                             <div id="div2" style="display: none;">
                                 <p class="tip">
-                                    Click here to view order details in pdf format.
+                                    Click here to view order details.
                                 </p>
                             </div>
                             <asp:Button ID="btnViewInDOC" runat="server" ValidationGroup="MFSubmit" CssClass="DOCButton"
@@ -119,9 +119,9 @@
                                 <p class="tip">
                                     Click here to view order details in word doc.</p>
                             </div>
-                            <asp:Button ID="btnViewInPDFNew" runat="server" ValidationGroup="MFSubmit" CssClass="PDFButton"
+                            <asp:Button ID="btnViewInPDFNew" runat="server" ValidationGroup="MFSubmit" CssClass="PDFButton" Visible="false"
                                 OnClientClick="return CustomerValidate('pdf')" PostBackUrl="~/Reports/Display.aspx?mail=2" />
-                            <asp:Button ID="btnViewInDOCNew" runat="server" ValidationGroup="MFSubmit" CssClass="DOCButton"
+                            <asp:Button ID="btnViewInDOCNew" runat="server" ValidationGroup="MFSubmit" CssClass="DOCButton" Visible="false"
                                 OnClientClick="return CustomerValidate('doc')" PostBackUrl="~/Reports/Display.aspx?mail=4" />
                         </td>
                     </tr>

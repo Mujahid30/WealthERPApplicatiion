@@ -491,9 +491,9 @@ namespace WealthERP.OPS
                     else
                         orderId = (int)Session["CO_OrderId"];
                     BindOrderStepsGrid();
-                    btnViewReport.Visible = true;
-                    btnViewInPDF.Visible = true;
-                    btnViewInDOC.Visible = true;
+                    //btnViewReport.Visible = true;
+                    //btnViewInPDF.Visible = true;
+                    //btnViewInDOC.Visible = true;
                     lnlBack.Visible = true;
                     lnkDelete.Visible = true;
                 }
@@ -753,9 +753,9 @@ namespace WealthERP.OPS
                     rgvOrderSteps.Enabled = true;
                     BindOrderStepsGrid();
                     lnkDelete.Visible = false;
-                    btnViewReport.Visible = true;
-                    btnViewInPDF.Visible = true;
-                    btnViewInDOC.Visible = true;
+                    //btnViewReport.Visible = true;
+                    //btnViewInPDF.Visible = true;
+                    //btnViewInDOC.Visible = true;
 
                 }
             }
@@ -1093,6 +1093,7 @@ namespace WealthERP.OPS
                 BindPortfolioDropdown(customerId);
                 ddltransType.SelectedIndex = 0;
                 BindISAList();
+                btnreport.Visible = true;
             //    if (ISAList.Rows.Count!=0)
             //    {
             //        string formatstring = "";
@@ -1119,7 +1120,7 @@ namespace WealthERP.OPS
             //        trRegretMsg.Visible = true;
             //        BtnIsa.Visible = true;
             //    }
-            //    //ClearAllFields();
+            ClearAllFields();
 
             }
         }
@@ -1460,8 +1461,8 @@ namespace WealthERP.OPS
 
                 btnSubmit.Visible = true;
             }
-            btnViewInPDFNew.Visible = true;
-            btnViewInDOCNew.Visible = true;
+            //btnViewInPDFNew.Visible = true;
+            //btnViewInDOCNew.Visible = true;
         }
 
 
@@ -1774,11 +1775,11 @@ namespace WealthERP.OPS
             lnkBtnEdit.Visible = true;
             lnlBack.Visible = false;
             imgBtnRefereshBank.Enabled = false;
-            btnViewReport.Visible = true;
-            btnViewInPDF.Visible = true;
-            btnViewInDOC.Visible = true;
-            btnViewInPDFNew.Visible = false;
-            btnViewInDOCNew.Visible = false;
+            //btnViewReport.Visible = true;
+            //btnViewInPDF.Visible = true;
+            //btnViewInDOC.Visible = true;
+            //btnViewInPDFNew.Visible = false;
+            //btnViewInDOCNew.Visible = false;
         }
 
         private void SaveOrderDetails()
@@ -2359,11 +2360,27 @@ namespace WealthERP.OPS
 
         }
 
-        //protected void btnreport_Click(object sender, EventArgs e)
-        //{
-        //    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Display", "loadcontrol('Display','action=Order');", true);
-        //    Response.Write("<script type='text/javascript'>detailedresults= window.open('Display.aspx?PageId=Display&result1=" + var1+ "&result2=" + var2 +"', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
-        //}
+        protected void btnreport_Click(object sender, EventArgs e)
+        {
+            string schemeSwitch=""; string bankName="";
+            if(!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
+                customerId = int.Parse(hdnCustomerId.Value);
+            if (!string.IsNullOrEmpty(hdnPortfolioId.Value.ToString().Trim()))
+                portfolioId = int.Parse(hdnPortfolioId.Value);
+            if (ddlSchemeSwitch.SelectedIndex != -1 && ddlSchemeSwitch.SelectedIndex != 0)
+                schemeSwitch = ddlSchemeSwitch.SelectedItem.Text;
+            if (ddlBankName.SelectedIndex != -1 && ddlBankName.SelectedIndex != 0)
+                bankName = ddlBankName.SelectedItem.Text;
+
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Display", "loadcontrol('Display','action=Order');", true);
+            //Response.Write("<script type='text/javascript'>detailedresults= window.open('Display.aspx?PageId=Display&result1=" + var1 + "&result2=" + var2 + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
+            Response.Write("<script type='text/javascript'>detailedresults=window.open('Reports/Display.aspx?Page=MFOrder&CustomerId=" + customerId + "&AmcCode=" + hdnAmcCode.Value +
+                "&AccoutId=" + hdnAccountId.Value + "&SchemeCode=" + hdnSchemeName.Value + "&Type=" + hdnType.Value + "&Portfolio=" + portfolioId +
+                "&BankName=" + bankName + "&BranchName=" + txtBranchName.Text + "&Amount=" + txtAmount.Text + "&ChequeNo=" + txtPaymentNumber.Text + "&ChequeDate=" + txtPaymentInstDate.SelectedDate +
+                "&StartDateSIP=" + txtstartDateSIP.SelectedDate + "&StartDateSTP=" + txtstartDateSTP.SelectedDate + "&NewAmount=" + txtNewAmount.Text +
+                "&EndDateSIP=" + txtendDateSIP.SelectedDate + "&EndDateSTP=" + txtendDateSTP.SelectedDate + "&SchemeSwitch=" + schemeSwitch +
+                "&RbtnUnits=" + rbtUnit.Checked + "&RbtnAmounts=" + rbtAmount.Checked + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
+        }
 
     }
 }
