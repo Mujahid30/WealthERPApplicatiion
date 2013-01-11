@@ -155,8 +155,7 @@
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             
-                                            <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
-                                            </telerik:RadPanelItem>
+                                          
                                             
                                             <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">
                                                 <Items>
@@ -183,6 +182,8 @@
                                             <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
                                             </telerik:RadPanelItem>
                                                                
+                                             <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
+                                            </telerik:RadPanelItem>
                                             <%--<telerik:RadPanelItem runat="server" Text="MF Reversal Txn Exception" Value="MF Reversal Txn Exception Handling">
                                             </telerik:RadPanelItem>--%>
                                             <telerik:RadPanelItem runat="server" Text="Loan Schemes" Value="Loan Schemes">
@@ -216,11 +217,11 @@
                                     <%------------------New Tree View--------------%> 
                                     <telerik:RadPanelItem runat="server" Text="AUM & Holdings" Value="AUM_Holdings">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Branch AUM" Value="Business_MIS_Dashboard">
-                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer AUM" Value="Customer_AUM">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Holdings" Value="Customer_Holdings">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Branch AUM" Value="Business_MIS_Dashboard">
                                             </telerik:RadPanelItem>
                                          </Items>
                                     </telerik:RadPanelItem>
@@ -579,9 +580,6 @@
                                               </Items>
                                             </telerik:RadPanelItem>
                                             
-                                            <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
-                                            </telerik:RadPanelItem>
-                                            
                                             <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">
                                                 <Items>
                                                         <telerik:RadPanelItem runat="server" Text="MF Systematic  Recon" Value="MF Systematic Daily Recon">
@@ -606,6 +604,8 @@
                                              <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
                                               </telerik:RadPanelItem>
                                             
+                                            <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
+                                            </telerik:RadPanelItem>
                                             <%--<telerik:RadPanelItem runat="server" Text="MF Reversal Txn Exception" Value="MF Reversal Txn Exception Handling">
                                             </telerik:RadPanelItem>--%>
                                             <telerik:RadPanelItem runat="server" Text="Loan Schemes" Value="Loan Schemes">
@@ -635,11 +635,12 @@
                                      <%------------------New Tree View--------------%> 
                                     <telerik:RadPanelItem runat="server" Text="AUM & Holdings" Value="AUM_Holdings">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Branch AUM" Value="Business_MIS_Dashboard">
-                                            </telerik:RadPanelItem>
+                                           
                                             <telerik:RadPanelItem runat="server" Text="Customer AUM" Value="Customer_AUM">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Holdings" Value="Customer_Holdings">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Branch AUM" Value="Business_MIS_Dashboard">
                                             </telerik:RadPanelItem>
                                          </Items>
                                     </telerik:RadPanelItem>
