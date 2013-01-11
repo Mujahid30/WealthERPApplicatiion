@@ -370,7 +370,7 @@ namespace WealthERP.Advisor
                 divSuccessMsg.InnerText = "Preference Updated Successfully";
             }
             SetAdviserPreference();
-            
+            Session["AdvisorPreferenceVo"] = advisorPreferenceVo;
 
 
         }
