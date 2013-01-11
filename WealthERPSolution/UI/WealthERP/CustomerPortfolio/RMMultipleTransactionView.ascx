@@ -21,6 +21,7 @@
         }
     }
 </script>
+
 <style type="text/css" media="print">
     ..noDisplay
     {
@@ -71,158 +72,158 @@
                 </td>
             </tr>
             <div>
-            <tr>
-                <td>
-                    <table>
-                        <tr id="trRangeNcustomer" runat="server">
-                            <td align="right">
-                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type :"></asp:Label>
-                            </td>
-                            <td align="left">
-                                <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                                    runat="server" GroupName="Date" />
-                                <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field"></asp:Label>
-                                &nbsp;
-                                <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                                    runat="server" GroupName="Date" />
-                                <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field"></asp:Label>
-                            </td>
-                            <td>
-                                &nbsp;&nbsp;
-                            </td>
-                            <td align="right">
-                                <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Customer :"></asp:Label>
-                            </td>
-                            <td align="left">
-                                <asp:RadioButton ID="rbtnAll" AutoPostBack="true" Checked="true" runat="server" GroupName="GroupAll"
-                                    Text="All" CssClass="cmbField" OnCheckedChanged="rbtnAll_CheckedChanged" />
-                                &nbsp;
-                                <asp:RadioButton ID="rbtnGroup" AutoPostBack="true" runat="server" GroupName="GroupAll"
-                                    Text="Group" CssClass="cmbField" OnCheckedChanged="rbtnAll_CheckedChanged" />
-                            </td>
-                        </tr>
-                        <tr id="trRange" visible="false" runat="server" onkeypress="return keyPress(this, event)">
-                            <td align="right" valign="top">
-                                <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
-                            </td>
-                            <td valign="top">
-                                <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                                    </Calendar>
-                                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                                    </DateInput>
-                                </telerik:RadDatePicker>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFromDate"
-                                    CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
-                                    runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
-                            </td>
-                            <td>
-                                &nbsp;&nbsp;
-                            </td>
-                            <td align="right" valign="top">
-                                <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
-                            </td>
-                            <td valign="top">
-                                <telerik:RadDatePicker ID="txtToDate" CssClass="txtTo" runat="server" Culture="English (United States)"
-                                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                                    </Calendar>
-                                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                                    </DateInput>
-                                </telerik:RadDatePicker>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToDate"
-                                    CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
-                                    runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
-                                <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="To Date should not be less than From Date"
-                                    Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
-                                    CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
-                            </td>
-                        </tr>
-                        <tr id="trPeriod" visible="false" runat="server">
-                            <td align="right" valign="top">
-                                <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
-                            </td>
-                            <td valign="top">
-                                <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField">
-                                </asp:DropDownList>
-                                <span id="Span4" class="spnRequiredField"></span>
-                                <br />
-                                <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPeriod"
-                                    CssClass="rfvPCG" ErrorMessage="Please select a Period" Operator="NotEqual" ValueToCompare="Select a Period"
-                                    ValidationGroup="btnGo"> </asp:CompareValidator>
-                            </td>
-                            <td>
-                                &nbsp;&nbsp;
-                            </td>
-                            <td colspan="2">
-                                &nbsp;
-                            </td>
-                        </tr>
-                        <tr id="trGroupHead" runat="server">
-                            <td align="right" valign="top">
-                                <asp:Label ID="lblGroupHead" runat="server" CssClass="FieldName" Text="Group Head :"></asp:Label>
-                            </td>
-                            <td valign="top">
-                                <asp:TextBox ID="txtParentCustomer" runat="server" CssClass="txtField" AutoPostBack="true"
-                                    AutoComplete="Off"></asp:TextBox>
-                                <cc1:TextBoxWatermarkExtender ID="txtParentCustomer_TextBoxWatermarkExtender" runat="server"
-                                    TargetControlID="txtParentCustomer" WatermarkText="Type the Customer Name">
-                                </cc1:TextBoxWatermarkExtender>
-                                <cc1:AutoCompleteExtender ID="txtParentCustomer_autoCompleteExtender" runat="server"
-                                    TargetControlID="txtParentCustomer" ServiceMethod="GetParentCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                                    MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
-                                    CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                                    CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                                    UseContextKey="true" OnClientItemSelected="GetParentCustomerId" />
-                            </td>
-                            <td>
-                                &nbsp;&nbsp;
-                            </td>
-                            <td colspan="2">
-                                &nbsp;
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right">
-                                <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio :"></asp:Label>
-                            </td>
-                            <td align="left">
-                                <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField">
-                                    <asp:ListItem Text="Managed" Value="1">Managed</asp:ListItem>
-                                    <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                            <td>
-                                &nbsp;&nbsp;
-                            </td>
-                            <td align="right">
-                                <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Display Type :"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:DropDownList ID="ddlDisplayType" runat="server" AutoPostBack="false" CssClass="cmbField">
-                                    <asp:ListItem Text="TransactionView " Value="0">Transaction View</asp:ListItem>
-                                    <asp:ListItem Text="BalanceView" Value="1">Balance View</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                            <td>
-                                &nbsp;
-                            </td>
-                            <tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr id="trRangeNcustomer" runat="server">
+                                <td align="right">
+                                    <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type :"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                                        runat="server" GroupName="Date" />
+                                    <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field"></asp:Label>
+                                    &nbsp;
+                                    <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
+                                        runat="server" GroupName="Date" />
+                                    <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field"></asp:Label>
+                                </td>
                                 <td>
-                                    <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
-                                        ValidationGroup="btnGo" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMMultipleTransactionView_btnGo', 'S');"
-                                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMMultipleTransactionView_btnGo', 'S');" />
+                                    &nbsp;&nbsp;
+                                </td>
+                                <td align="right">
+                                    <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Customer :"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:RadioButton ID="rbtnAll" AutoPostBack="true" Checked="true" runat="server" GroupName="GroupAll"
+                                        Text="All" CssClass="cmbField" OnCheckedChanged="rbtnAll_CheckedChanged" />
+                                    &nbsp;
+                                    <asp:RadioButton ID="rbtnGroup" AutoPostBack="true" runat="server" GroupName="GroupAll"
+                                        Text="Group" CssClass="cmbField" OnCheckedChanged="rbtnAll_CheckedChanged" />
                                 </td>
                             </tr>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+                            <tr id="trRange" visible="false" runat="server" onkeypress="return keyPress(this, event)">
+                                <td align="right" valign="top">
+                                    <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
+                                </td>
+                                <td valign="top">
+                                    <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                        </Calendar>
+                                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                        </DateInput>
+                                    </telerik:RadDatePicker>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFromDate"
+                                        CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
+                                        runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;
+                                </td>
+                                <td align="right" valign="top">
+                                    <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
+                                </td>
+                                <td valign="top">
+                                    <telerik:RadDatePicker ID="txtToDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                        <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                        </Calendar>
+                                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                        <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                        </DateInput>
+                                    </telerik:RadDatePicker>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToDate"
+                                        CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
+                                        runat="server" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>
+                                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="To Date should not be less than From Date"
+                                        Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
+                                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
+                                </td>
+                            </tr>
+                            <tr id="trPeriod" visible="false" runat="server">
+                                <td align="right" valign="top">
+                                    <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
+                                </td>
+                                <td valign="top">
+                                    <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField">
+                                    </asp:DropDownList>
+                                    <span id="Span4" class="spnRequiredField"></span>
+                                    <br />
+                                    <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPeriod"
+                                        CssClass="rfvPCG" ErrorMessage="Please select a Period" Operator="NotEqual" ValueToCompare="Select a Period"
+                                        ValidationGroup="btnGo"> </asp:CompareValidator>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;
+                                </td>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr id="trGroupHead" runat="server">
+                                <td align="right" valign="top">
+                                    <asp:Label ID="lblGroupHead" runat="server" CssClass="FieldName" Text="Group Head :"></asp:Label>
+                                </td>
+                                <td valign="top">
+                                    <asp:TextBox ID="txtParentCustomer" runat="server" CssClass="txtField" AutoPostBack="true"
+                                        AutoComplete="Off"></asp:TextBox>
+                                    <cc1:TextBoxWatermarkExtender ID="txtParentCustomer_TextBoxWatermarkExtender" runat="server"
+                                        TargetControlID="txtParentCustomer" WatermarkText="Type the Customer Name">
+                                    </cc1:TextBoxWatermarkExtender>
+                                    <cc1:AutoCompleteExtender ID="txtParentCustomer_autoCompleteExtender" runat="server"
+                                        TargetControlID="txtParentCustomer" ServiceMethod="GetParentCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                                        MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
+                                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                                        UseContextKey="true" OnClientItemSelected="GetParentCustomerId" />
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;
+                                </td>
+                                <td colspan="2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio :"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField">
+                                        <asp:ListItem Text="Managed" Value="1">Managed</asp:ListItem>
+                                        <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;
+                                </td>
+                                <td align="right">
+                                    <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Display Type :"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:DropDownList ID="ddlDisplayType" runat="server" AutoPostBack="false" CssClass="cmbField">
+                                        <asp:ListItem Text="TransactionView " Value="0">Transaction View</asp:ListItem>
+                                        <asp:ListItem Text="BalanceView" Value="1">Return View</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <tr>
+                                    <td>
+                                        <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
+                                            ValidationGroup="btnGo" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMMultipleTransactionView_btnGo', 'S');"
+                                            onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMMultipleTransactionView_btnGo', 'S');" />
+                                    </td>
+                                </tr>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             </div>
             <tr>
                 <td>
@@ -264,8 +265,8 @@
                                     <td>
                                         <div id="dvTransactionsView" runat="server" style="margin: 2px; width: 640px;">
                                             <telerik:RadGrid ID="gvMFTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                                AllowFiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
-                                                AllowPaging="True" ShowStatusBar="True" OnItemCommand="gvMFTransactions_OnItemCommand"
+                                                AllowFiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true" OnPreRender="gvMFTransactions_PreRender"
+                                                AllowPaging="True" ShowStatusBar="True" OnItemCommand="gvMFTransactions_OnItemCommand" OnItemDataBound="gvMFTransactions_ItemDataBound" 
                                                 OnNeedDataSource="gvMFTransactions_OnNeedDataSource" ShowFooter="true" Skin="Telerik"
                                                 EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
                                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -309,7 +310,7 @@
                                                             AutoPostBackOnFilter="true" UniqueName="Category" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="Sub Category Name"
+                                                        <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="Sub Category"
                                                             AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="PAISC_AssetInstrumentSubCategoryName"
                                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                                             UniqueName="PAISC_AssetInstrumentSubCategoryName" FooterStyle-HorizontalAlign="Left">
@@ -374,16 +375,38 @@
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Transaction Status" HeaderText="Transaction Status"
-                                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="Transaction Status"
-                                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                            UniqueName="Transaction Status" FooterStyle-HorizontalAlign="Left">
+                                                        <telerik:GridBoundColumn DataField="TransactionStatus" HeaderText="Transaction Status" AllowFiltering="true"
+                                                            HeaderStyle-Wrap="false" SortExpression="TransactionStatus"
+                                                            ShowFilterIcon="false"  AutoPostBackOnFilter="true" UniqueName="TransactionStatus" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                            <FilterTemplate>
+                                                                <telerik:RadComboBox ID="RadComboBoxTS" AutoPostBack="true" AllowFiltering="true" CssClass="cmbField" Width="100px"  IsFilteringEnabled="true"
+                                                                    AppendDataBoundItems="true" OnPreRender="Transaction_PreRender" EnableViewState="true"
+                                                                    OnSelectedIndexChanged="RadComboBoxTS_SelectedIndexChanged" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("TransactionStatus").CurrentFilterValue %>'
+                                                                    runat="server">
+                                                                    <Items>
+                                                                        <telerik:RadComboBoxItem Text="ALL" Value="" Selected="false"></telerik:RadComboBoxItem>
+                                                                        <telerik:RadComboBoxItem Text="OK" Value="OK"  Selected="false" ></telerik:RadComboBoxItem>
+                                                                        <telerik:RadComboBoxItem Text="Cancel" Value="Cancel"  Selected="false" ></telerik:RadComboBoxItem>
+                                                                        <telerik:RadComboBoxItem Text="Original" Value="Original"  Selected="false" ></telerik:RadComboBoxItem>
+                                                                        <telerik:RadComboBoxItem Text="Rebuilt" Value="Rebuilt"  Selected="false"></telerik:RadComboBoxItem>
+                                                                   </Items>
+                                                                   </telerik:RadComboBox>
+                                                                   <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
+                                                                    <script type="text/javascript">
+                                                                        function TransactionIndexChanged(sender, args) {
+                                                                            var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                                                            //////                                                    sender.value = args.get_item().get_value();
+                                                                            tableView.filter("RadComboBoxTS", args.get_item().get_value(), "EqualTo");
+                                                                        }
+                                                                    </script>
+                                                                </telerik:RadScriptBlock>
+                                                            </FilterTemplate>
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
                                                 </MasterTableView>
                                                 <ClientSettings>
-                                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                                 </ClientSettings>
                                             </telerik:RadGrid>
                                         </div>
@@ -438,9 +461,9 @@
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Transaction Date"
-                                                            AllowFiltering="false" Visible="false" SortExpression="Transaction Date"
-                                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                            UniqueName="Transaction Date" FooterStyle-HorizontalAlign="Left">
+                                                            AllowFiltering="false" Visible="false" SortExpression="Transaction Date" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Date"
+                                                            FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridTemplateColumn AllowFiltering="true" HeaderText="Scheme" ShowFilterIcon="false">
@@ -454,7 +477,7 @@
                                                             AutoPostBackOnFilter="true" UniqueName="Category" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="Sub Category Name"
+                                                        <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="Sub Category"
                                                             AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="PAISC_AssetInstrumentSubCategoryName"
                                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                                             UniqueName="PAISC_AssetInstrumentSubCategoryName" FooterStyle-HorizontalAlign="Left">
@@ -463,12 +486,6 @@
                                                         <telerik:GridBoundColumn DataField="Transaction Type" HeaderText="Type" AllowFiltering="true"
                                                             HeaderStyle-Wrap="false" SortExpression="Transaction Type" ShowFilterIcon="false"
                                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Type"
-                                                            FooterStyle-HorizontalAlign="Left">
-                                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                          <telerik:GridBoundColumn DataField="Transaction Status" HeaderText="Type" AllowFiltering="true"
-                                                            HeaderStyle-Wrap="false" SortExpression="Transaction Status" ShowFilterIcon="false"
-                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Status"
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
@@ -495,7 +512,7 @@
                                                             AutoPostBackOnFilter="true" UniqueName="CMFTB_Age" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Return" HeaderText="Return Balance" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn DataField="Balance" HeaderText="Absolute Return" AllowFiltering="false"
                                                             HeaderStyle-Wrap="false" SortExpression="Return" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                             AutoPostBackOnFilter="true" UniqueName="Return" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />

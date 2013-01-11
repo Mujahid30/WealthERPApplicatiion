@@ -259,9 +259,11 @@ namespace WealthERP.CustomerPortfolio
 
             if (DisplayType =="0")
             {
+                ViewState.Remove("TransactionStatus");
                 BindGrid(convertedFromDate, convertedToDate);
                 gvBalanceView.Visible = false;
                 Panel1.Visible = false;
+
                
             }
             if(DisplayType=="1")
@@ -276,31 +278,30 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void TabClick(object sender, RadTabStripEventArgs e)
         {
-            //hdnSchemeSearch.Value = string.Empty;
-            //hdnTranType.Value = string.Empty;
-            //hdnCustomerNameSearch.Value = string.Empty;
-            //hdnFolioNumber.Value = string.Empty;
-            //hdnProcessIdSearch.Value = "0";
-            //if (rbtnPickDate.Checked)
-            //{
-            //    convertedFromDate = Convert.ToDateTime(txtFromDate.SelectedDate);
-            //    convertedToDate = Convert.ToDateTime(txtToDate.SelectedDate);
-            //}
-            //else
-            //{
-            //    if (ddlPeriod.SelectedIndex != 0)
-            //    {
-            //        dtBo.CalculateFromToDatesUsingPeriod(ddlPeriod.SelectedValue, out dtFrom, out dtTo);
-            //        convertedFromDate = dtFrom;
-            //        convertedToDate = dtTo;
-            //    }
-            //}
-            //if (Session["CustomerVo"] != null)
-            //{
-            //    trRange.Visible = true;
-            //}
-           
-            //BindGridBalance(convertedFromDate, convertedToDate);    
+          
+        }
+
+        protected void gvMFTransactions_PreRender(object sender, EventArgs e)
+        {
+            if (gvMFTransactions.MasterTableView.FilterExpression != string.Empty)
+            {
+                RefreshCombos();
+            }
+        }
+
+        protected void RefreshCombos()
+        {
+            DataTable dtMFTransaction = new DataTable();
+            dtMFTransaction = (DataTable)Cache["ViewTransaction" + userVo.UserId + userType];
+            DataView view = new DataView(dtMFTransaction);
+            DataTable distinctValues = view.ToTable();
+            DataRow[] rows = distinctValues.Select(gvMFTransactions.MasterTableView.FilterExpression.ToString());
+            gvMFTransactions.MasterTableView.Rebind();
+        
+        }
+        protected void gvMFTransactions_ItemDataBound(object sender, GridItemEventArgs e)
+        {          
+
         }
         private void BindGrid(DateTime convertedFromDate, DateTime convertedToDate)
             {
@@ -354,7 +355,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("Amount", typeof(double));
                     dtMFTransactions.Columns.Add("STT", typeof(double));
                     dtMFTransactions.Columns.Add("Portfolio Name");
-                    dtMFTransactions.Columns.Add("Transaction Status");
+                    dtMFTransactions.Columns.Add("TransactionStatus");
                     dtMFTransactions.Columns.Add("Category");
                     dtMFTransactions.Columns.Add("AMC");
                     dtMFTransactions.Columns.Add("ADUL_ProcessId");
@@ -405,7 +406,7 @@ namespace WealthERP.CustomerPortfolio
                         if (mfTransactionVo.ProcessId == 0)
                             drMFTransaction[14] = "N/A";
                         else
-                            drMFTransaction[14] = int.Parse(mfTransactionVo.ProcessId.ToString());
+                        drMFTransaction[14] = int.Parse(mfTransactionVo.ProcessId.ToString());
                         drMFTransaction[15] = mfTransactionVo.SubBrokerCode;
                         drMFTransaction[16] = mfTransactionVo.SubCategoryName;
                         dtMFTransactions.Rows.Add(drMFTransaction);
@@ -420,12 +421,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else
                     gbcCustomer.Visible = true;
-                    gvMFTransactions.DataSource = dtMFTransactions;
-                    gvMFTransactions.DataBind();
-                    Panel2.Visible = true;
-                    ErrorMessage.Visible = false;
-                    gvMFTransactions.Visible = true;
-                   
+                                                     
                     if (Cache["ViewTransaction" + userVo.UserId + userType] == null)
                     {
                         Cache.Insert("ViewTransaction" + userVo.UserId + userType, dtMFTransactions);
@@ -435,6 +431,12 @@ namespace WealthERP.CustomerPortfolio
                         Cache.Remove("ViewTransaction" + userVo.UserId + userType);
                         Cache.Insert("ViewTransaction" + userVo.UserId + userType, dtMFTransactions);
                     }
+                    gvMFTransactions.CurrentPageIndex = 0;
+                    gvMFTransactions.DataSource = dtMFTransactions;
+                    gvMFTransactions.DataBind();
+                    Panel2.Visible = true;
+                    ErrorMessage.Visible = false;
+                    gvMFTransactions.Visible = true;
                     btnTrnxExport.Visible = true;
                 }
                 else
@@ -498,7 +500,6 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("Scheme Name");
                     dtMFBalance.Columns.Add("Transaction Type");
                     dtMFBalance.Columns.Add("Transaction Date");
-                    dtMFBalance.Columns.Add("Transaction Status");
                     dtMFBalance.Columns.Add("Category");
                     dtMFBalance.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
                     dtMFBalance.Columns.Add("Price", typeof(double));
@@ -520,7 +521,6 @@ namespace WealthERP.CustomerPortfolio
                         drMFBalance["Scheme Name"] = mfBalanceVo.SchemePlan.ToString();
                         drMFBalance["Transaction Type"] = mfBalanceVo.TransactionType.ToString(); ;
                         drMFBalance["Transaction Date"] = mfBalanceVo.TransactionDate.ToShortDateString().ToString();
-                        drMFBalance["Transaction Status"] = mfBalanceVo.TransactionStatus.ToString();
                         drMFBalance["Category"] = mfBalanceVo.Category.ToString();
                         drMFBalance["PAISC_AssetInstrumentSubCategoryName"] = mfBalanceVo.SubCategoryName.ToString();
                         if (GridViewCultureFlag == true)
@@ -642,14 +642,35 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void gvMFTransactions_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtMFTransactions = new DataTable();
-            dtMFTransactions = (DataTable)Cache["ViewTransaction" + userVo.UserId + userType];
-            gvMFTransactions.DataSource = dtMFTransactions;
-            gvMFTransactions.Visible = true;
+            string rcbType = string.Empty;
+            DataTable dtMFTransaction = new DataTable();
+            dtMFTransaction = (DataTable)Cache["ViewTransaction" + userVo.UserId + userType];
+            if (dtMFTransaction != null)
+            {
+                if (ViewState["TransactionStatus"] != null)
+                    rcbType = ViewState["TransactionStatus"].ToString();
+                if (!string.IsNullOrEmpty(rcbType))
+                {
+                    DataView dvStaffList = new DataView(dtMFTransaction, "TransactionStatus = '" + rcbType + "'", "Customer Name,Folio Number,Category,AMC,Scheme Name,Transaction Type,Transaction Date,ADUL_ProcessId", DataViewRowState.CurrentRows);
+                    gvMFTransactions.DataSource = dvStaffList.ToTable();
+
+                }
+                else
+                {
+                    gvMFTransactions.DataSource = dtMFTransaction;
+
+                }
+            }
+            //gvMFTransactions.Visible = true;
+            //DataTable dtMFTransactions = new DataTable();
+            //dtMFTransactions = (DataTable)Cache["ViewTransaction" + userVo.UserId ];
+            //gvMFTransactions.DataSource = dtMFTransactions;
+            
         }
         
         protected void gvMFBalance_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+
             gvBalanceView.Visible = true;
             DataTable dtMFBalance = new DataTable();
             dtMFBalance = (DataTable)Cache["ViewBalance" + userVo.UserId + userType];
@@ -670,6 +691,41 @@ namespace WealthERP.CustomerPortfolio
                 filter.Visible = false;
             }
             gvMFTransactions.MasterTableView.ExportToExcel();
-        }      
+        }
+        protected void Transaction_PreRender(object sender, EventArgs e)
+        {
+            RadComboBox Combo = sender as RadComboBox;
+            ////persist the combo selected value  
+            if (ViewState["TransactionStatus"] != null)
+            {
+                Combo.SelectedValue = ViewState["TransactionStatus"].ToString();
+            }
+               
+        }
+        protected void RadComboBoxTS_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            RadComboBox dropdown = o as RadComboBox;
+            ViewState["TransactionStatus"] = dropdown.SelectedValue.ToString();
+            if (ViewState["TransactionStatus"] !="")
+            {
+                GridColumn column = gvMFTransactions.MasterTableView.GetColumnSafe("TransactionStatus");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvMFTransactions.CurrentPageIndex = 0;
+                gvMFTransactions.MasterTableView.Rebind();
+
+            }
+            else 
+            {
+                GridColumn column = gvMFTransactions.MasterTableView.GetColumnSafe("TransactionStatus");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvMFTransactions.CurrentPageIndex = 0;
+                gvMFTransactions.MasterTableView.Rebind();
+
+
+            }
+        
+           }
+         }
       }
-}
+
+
