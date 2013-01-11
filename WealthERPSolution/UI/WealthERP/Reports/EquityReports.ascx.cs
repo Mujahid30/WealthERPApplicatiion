@@ -265,7 +265,6 @@ namespace WealthERP.Reports
             {
                 CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
                 DataTable dt = customerFamilyBo.GetAllCustomerAssociates(int.Parse(hdnCustomerId1.Value));
-                //DataTable dt = customerFamilyBo.GetAllCustomerAssociates(customerVo.CustomerId);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     StringBuilder strCustomers = new StringBuilder();
@@ -278,26 +277,22 @@ namespace WealthERP.Reports
                     {
                         strCustomers.Append("<tr>");
                         strCustomers.Append("<td>" + dr["CustomerName"].ToString() + "</td>");
-                        strCustomers.Append("<td>&nbsp;</td>");
+                        //strCustomers.Append("<td>" + dr["C_AssociateCustomerId"].ToString() + "</td>");
                         strCustomers.Append("<td>" + ShowGroupFolios(Convert.ToInt32(dr["C_AssociateCustomerId"])) + "</td>");
                         strCustomers.Append("</tr>");
                     }
                     strCustomers.Append("</table>");
                     divGroupCustomers.InnerHtml = strCustomers.ToString();
+
                 }
                 else
                 {
                     divGroupCustomers.InnerHtml = "No Customers found";
                 }
-                //DataRow dr = dt.Rows[0];
-
-                //txtPanParent.Text = dr["C_PANNum"].ToString();
-                //trCustomerDetails.Visible = true;
-                //trPortfolioDetails.Visible = true;
-                //ShowFolios();
             }
             TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
             TabContainer1.ActiveTabIndex = activeTabIndex;
+            divPortfolios.InnerHtml = string.Empty;
         }
         private void BindPeriodDropDown()
         {
@@ -337,19 +332,10 @@ namespace WealthERP.Reports
 
             PortfolioBo portfolioBo = new PortfolioBo();
             divPortfolios.InnerHtml = string.Empty;
-            //if (!String.IsNullOrEmpty(txtCustomerId.Value) || Session["UserType"].ToString() == "Customer") //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
-            //{
-            //    int customerId = 0;
-            //    if (CustomerLogin == true)
-            //        customerId = customerVo.CustomerId;
-            //    else
-            //        customerId = Convert.ToInt32(txtCustomerId.Value);
-            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) 
+            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) //Note : customer Id assigned to hdnCustomerId(hidden field) when the user selects customer from customer name suggestion text box
             {
                 int customerId = Convert.ToInt32(hdnCustomerId1.Value);
-                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId);
-
-                //Get all the portfolios of the selected customer.
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
                 if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
                 {
                     StringBuilder checkbox = new StringBuilder();
@@ -388,22 +374,19 @@ namespace WealthERP.Reports
             {
                 divPortfolios.InnerHtml = "<span class='Error'>Invalid Customer selected.</span>";
             }
+            divGroupCustomers.InnerHtml = string.Empty;
         }
 
         private string ShowGroupFolios(int customerId)
         {
             StringBuilder checkbox = new StringBuilder();
             PortfolioBo portfolioBo = new PortfolioBo();
-            if (!String.IsNullOrEmpty(txtParentCustomerId.Value) || Session["UserType"].ToString() == "Customer") //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
             {
                 //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
                 List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
                 if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
                 {
-                    // CheckBoxList checkboxList = new CheckBoxList();
-                    // checkboxList.RepeatDirection = RepeatDirection.Horizontal;
-                    //checkboxList.CssClass = "Field";
-
 
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
