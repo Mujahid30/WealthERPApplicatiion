@@ -54,7 +54,7 @@
                                     <table cellspacing="0" cellpadding="3" width="100%">
                                         <tr>
                                             <td align="left">
-                                                MF Transaction Grid View
+                                               View MF Transaction
                                             </td>
                                             <td align="right" style="padding-bottom: 2px;">
                                                 <asp:LinkButton ID="lbBack" runat="server" Text="Back" OnClick="lbBack_Click" Visible="false"

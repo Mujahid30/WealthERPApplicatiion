@@ -667,6 +667,10 @@ namespace WealthERP.CustomerPortfolio
 
                 }
             }
+            if (Session["IsCustomerDrillDown"] != null)
+            {
+                trRange.Visible = true;
+            }
             //gvMFTransactions.Visible = true;
             //DataTable dtMFTransactions = new DataTable();
             //dtMFTransactions = (DataTable)Cache["ViewTransaction" + userVo.UserId ];
