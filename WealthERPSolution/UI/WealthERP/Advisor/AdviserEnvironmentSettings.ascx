@@ -47,17 +47,23 @@
     }
 
 </script>
-
-<table width="100%" class="TableBackground">
+<table width="100%">
     <tr>
-        <td class="HeaderTextBig" colspan="2">
-            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Advisor Environment Settings"></asp:Label>
-            <hr />
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Environment
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
-    
     </table>
-    
+
+   
     <table>
     <tr>
         <td colspan="2">
