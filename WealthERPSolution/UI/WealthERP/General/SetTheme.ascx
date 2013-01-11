@@ -1,11 +1,18 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SetTheme.ascx.cs" Inherits="WealthERP.General.SetTheme" %>
 <table width="100%" class="TableBackground">
-    <tr>
-        <td class="HeaderTextBig" colspan="2">
-            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Advisor Theme"></asp:Label>
-            <hr />
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">Theme</td>
+        <td  align="right"style="padding-bottom:2px;">
         </td>
-    </tr>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
     <tr>
         <td>
             <asp:Label ID="lblSelect" runat="server" Text="Select Theme :" CssClass="FieldName"></asp:Label>
