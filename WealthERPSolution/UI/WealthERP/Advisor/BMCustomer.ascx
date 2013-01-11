@@ -53,16 +53,14 @@
 
 </script>
 <table id="Table1" class="TableBackground" width="100%" runat="server">
-    <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer/Prospect List"></asp:Label>
-        </td>
-        <td width="50%" align="left">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-        </td>
-        <td align="right">
-            <asp:ImageButton ID="imageExcel" 
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">Customer List</td>
+        <td  align="right" style="padding-bottom:2px;">
+         <asp:ImageButton ID="imageExcel" 
                 ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png" runat="server"
             AlternateText="Excel" ToolTip="Export to Excel" 
                 OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
@@ -74,18 +72,18 @@
             <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
                 BorderStyle="None" BackColor="Transparent" ToolTip="Print" />
         </td>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
+    <tr>
+        <td width="50%" align="Right">
+            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+        </td>
     </tr>
-     <tr>
-    <td>
-    <hr />           
-    </td>
-    <td>
-    <hr />           
-    </td>
-    <td>
-    <hr />           
-    </td>
-    </tr>
+
 </table>
 
 <table class="TableBackground" width="100%" id="tblGv" runat="server">
