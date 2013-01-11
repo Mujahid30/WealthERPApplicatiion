@@ -4296,7 +4296,7 @@ namespace WealthERP.Uploads
             DataSet dtProcessLogDetails = new DataSet();
             DataTable dtrr = new DataTable();
             dtProcessLogDetails = (DataSet)Cache["ProcessLogDetails" + adviserId.ToString()];
-            if (dtProcessLogDetails == null)
+            if (dtProcessLogDetails != null)
             {
                 dtrr = dtProcessLogDetails.Tables[0];
                 if (ViewState["XUET_ExtractType"] != null)
