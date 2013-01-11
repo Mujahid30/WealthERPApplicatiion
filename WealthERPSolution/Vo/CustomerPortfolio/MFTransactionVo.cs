@@ -45,6 +45,7 @@ namespace VoCustomerPortfolio
         private string m_CustomerName;
         private string m_PortfolioName;
         private string m_TransactionStatus;
+        private double m_CurrentValue;
 
         private int m_TransactionStatusCode;
 
@@ -268,6 +269,11 @@ namespace VoCustomerPortfolio
         {
             get { return m_Balance; }
             set { m_Balance = value; }
+        }
+        public double CurrentValue
+        {
+            get { return m_CurrentValue; }
+            set { m_CurrentValue = value; }
         }
         #endregion Properties
 
