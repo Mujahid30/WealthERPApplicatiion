@@ -33,12 +33,19 @@
 </script>
 
 <table width="100%" class="TableBackground">
-    <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Group Account Setup"></asp:Label>
-            <hr />
+   <tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">Add Grouping</td>
+        <td  align="right" style="padding-bottom:2px;">
         </td>
-    </tr>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
 </table>
 <asp:UpdatePanel ID="upGroupAccRM" runat="server">
 <ContentTemplate>
