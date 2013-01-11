@@ -334,13 +334,6 @@ namespace WealthERP.Reports
 
             PortfolioBo portfolioBo = new PortfolioBo();
             divPortfolios.InnerHtml = string.Empty;
-            //if (!String.IsNullOrEmpty(txtCustomerId.Value) || Session["UserType"].ToString() == "Customer") //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
-            //{
-            //    int customerId = 0;
-            //    if (CustomerLogin == true)
-            //        customerId = customerVo.CustomerId;
-            //    else
-            //        customerId = Convert.ToInt32(txtCustomerId.Value);
             if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) //Note : customer Id assigned to hdnCustomerId(hidden field) when the user selects customer from customer name suggestion text box
             {
                 int customerId = Convert.ToInt32(hdnCustomerId1.Value);
@@ -349,6 +342,9 @@ namespace WealthERP.Reports
                 {
                     StringBuilder checkbox = new StringBuilder();
 
+                    //CheckBoxList checkboxList = new CheckBoxList();
+                    //checkboxList.RepeatDirection = RepeatDirection.Horizontal;
+                    //checkboxList.CssClass = "Field";
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
                         if (ddlPortfolioGroup.SelectedValue == "MANAGED" && (custPortfolio.IsMainPortfolio != 1))
@@ -365,9 +361,11 @@ namespace WealthERP.Reports
                         }
                         if (String.IsNullOrEmpty(custPortfolio.PortfolioName))
                             custPortfolio.PortfolioName = "No Name";
+                        //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
                         checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
                     }
                     divPortfolios.InnerHtml = checkbox.ToString();
+                    //divPortfolios.Controls.Add(checkboxList);
                 }
                 else //No portfolios found for this customer.
                 {
@@ -378,6 +376,7 @@ namespace WealthERP.Reports
             {
                 divPortfolios.InnerHtml = "<span class='Error'>Invalid Customer selected.</span>";
             }
+            divGroupCustomers.InnerHtml = string.Empty;
         }
 
         private string ShowGroupFolios(int customerId)
