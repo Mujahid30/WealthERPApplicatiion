@@ -62,6 +62,9 @@
                                                 <asp:ImageButton ID="btnTrnxExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
                                                     Height="23px" Width="25px" OnClick="btnTrnxExport_Click"></asp:ImageButton>
+                                                    <asp:ImageButton ID="btnbalncExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                                    Height="23px" Width="25px" OnClick="btnbalncExport_Click"></asp:ImageButton>
                                             </td>
                                         </tr>
                                     </table>
@@ -205,7 +208,7 @@
                                     <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Display Type :"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="ddlDisplayType" runat="server" AutoPostBack="true" CssClass="cmbField">
+                                    <asp:DropDownList ID="ddlDisplayType" runat="server" CssClass="cmbField">
                                         <asp:ListItem Text="TransactionView " Value="0">Transaction View</asp:ListItem>
                                         <asp:ListItem Text="BalanceView" Value="1">Return Holding View</asp:ListItem>
                                     </asp:DropDownList>
@@ -320,7 +323,7 @@
                                                             AutoPostBackOnFilter="true" UniqueName="AMC" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridTemplateColumn AllowFiltering="true" HeaderText="Scheme" ShowFilterIcon="false">
+                                                        <telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" HeaderText="Scheme" ShowFilterIcon="false">
                                                             <ItemStyle Wrap="false" />
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />
@@ -402,6 +405,12 @@
                                                                 </telerik:RadScriptBlock>
                                                             </FilterTemplate>
                                                         </telerik:GridBoundColumn>
+                                                         <telerik:GridBoundColumn DataField="CreatedOn" HeaderText="Add Date (System)" AllowFiltering="false"
+                                                            HeaderStyle-Wrap="false" SortExpression="CreatedOn" ShowFilterIcon="false" AllowSorting="true"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CreatedOn"
+                                                            FooterStyle-HorizontalAlign="Left">
+                                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
                                                     </Columns>
                                                 </MasterTableView>
                                                 <ClientSettings>
@@ -435,8 +444,8 @@
                                                 AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvMFBalance_OnNeedDataSource"
                                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false"
                                                 ExportSettings-ExportOnlyData="true">
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                                                    FileName="View Balance" Excel-Format="ExcelML">
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                                   
                                                 </ExportSettings>
                                                 <MasterTableView DataKeyNames="TransactionId" Width="100%" AllowMultiColumnSorting="True"
                                                     AutoGenerateColumns="false" CommandItemDisplay="None">
@@ -471,7 +480,7 @@
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridTemplateColumn AllowFiltering="true" HeaderText="Scheme" ShowFilterIcon="false">
+                                                        <telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" HeaderText="Scheme" ShowFilterIcon="false">
                                                             <ItemStyle Wrap="false" />
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />

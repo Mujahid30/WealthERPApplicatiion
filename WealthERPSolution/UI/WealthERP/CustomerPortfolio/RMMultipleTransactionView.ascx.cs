@@ -379,6 +379,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("ADUL_ProcessId");
                     dtMFTransactions.Columns.Add("CMFT_SubBrokerCode");
                     dtMFTransactions.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
+                    dtMFTransactions.Columns.Add("CreatedOn");
                     DataRow drMFTransaction;
 
                     for (int i = 0; i < mfTransactionList.Count; i++)
@@ -427,6 +428,7 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction[14] = int.Parse(mfTransactionVo.ProcessId.ToString());
                         drMFTransaction[15] = mfTransactionVo.SubBrokerCode;
                         drMFTransaction[16] = mfTransactionVo.SubCategoryName;
+                        drMFTransaction[17] = mfTransactionVo.CreatedOn;
                         dtMFTransactions.Rows.Add(drMFTransaction);
                     }
 
@@ -456,6 +458,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = false;
                     gvMFTransactions.Visible = true;
                     btnTrnxExport.Visible = true;
+                    btnbalncExport.Visible = false;
                 }
                 else
                 {
@@ -464,6 +467,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = true;
                     Panel2.Visible = false;
                     btnTrnxExport.Visible = false;
+                    btnbalncExport.Visible = false;
                 }
                
             }
@@ -569,15 +573,15 @@ namespace WealthERP.CustomerPortfolio
                          dtMFBalance.Rows.Add(drMFBalance);
                     }
 
-                    //GridBoundColumn gbcCustomer = gvBalanceView.MasterTableView.Columns.FindByUniqueName("Customer Name") as GridBoundColumn;
+                    GridBoundColumn gbcCustomer = gvBalanceView.MasterTableView.Columns.FindByUniqueName("Customer Name") as GridBoundColumn;
                     //GridBoundColumn gbcPortfolio = gvBalanceView.MasterTableView.Columns.FindByUniqueName("Portfolio Name") as GridBoundColumn;
-                    //if (Session["CustomerVo"] != null)
-                    //{
-                    //    gbcCustomer.Visible = false;
+                    if (Session["CustomerVo"] != null)
+                    {
+                        gbcCustomer.Visible = false;
                     //    gbcPortfolio.Visible = false;
-                    //}
-                    //else
-                    //    gbcCustomer.Visible = true;
+                    }
+                    else
+                        gbcCustomer.Visible = true;
 
                     gvBalanceView.DataSource = dtMFBalance;
                     gvBalanceView.DataBind();
@@ -594,8 +598,9 @@ namespace WealthERP.CustomerPortfolio
                         Cache.Remove("ViewBalance" + userVo.UserId + userType);
                         Cache.Insert("ViewBalance" + userVo.UserId + userType, dtMFBalance);
                     }
-                    
-                    btnTrnxExport.Visible = true;
+
+                    btnbalncExport.Visible = true;
+                    btnTrnxExport.Visible = false;
                     }
                               
                 else
@@ -604,6 +609,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = true;
                     Panel1.Visible = false;
                     hdnRecordCount.Value = "0";
+                    btnbalncExport.Visible = false;
                     btnTrnxExport.Visible = false;
                 }
 
@@ -727,6 +733,16 @@ namespace WealthERP.CustomerPortfolio
             //    filter.Visible = false;
             //}
             //gvMFTransactions.MasterTableView.ExportToExcel();
+        }
+        protected void btnbalncExport_Click(object sender, ImageClickEventArgs e)
+        {
+            gvBalanceView.ExportSettings.OpenInNewWindow = true;
+            gvBalanceView.ExportSettings.IgnorePaging = true;
+            gvBalanceView.ExportSettings.HideStructureColumns = true;
+            gvBalanceView.ExportSettings.ExportOnlyData = true;
+            gvBalanceView.ExportSettings.FileName = "View ReturnHolding Details";
+            gvBalanceView.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvBalanceView.MasterTableView.ExportToExcel();
         }
         protected void Transaction_PreRender(object sender, EventArgs e)
         {
