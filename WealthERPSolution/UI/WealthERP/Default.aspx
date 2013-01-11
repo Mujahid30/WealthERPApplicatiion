@@ -167,8 +167,8 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <table style="clear: both; z-index: 2500; text-align: right; float: right" cellpadding="0"
-                                        cellspacing="0">
+                                    <table style="clear: both; z-index: 2500; text-align: right; float: right" cellpadding="1"
+                                        cellspacing="1">
                                         <tr>
                                             <td id="tdSettings" style="vertical-align: baseline" runat="server">
                                                 <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
