@@ -3882,6 +3882,7 @@ namespace DaoCustomerPortfolio
 
                         mfBalanceVo.TransactionId = int.Parse(dr["CMFT_MFTransId"].ToString());
                         mfBalanceVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        mfBalanceVo.CustomerName = dr["Name"].ToString();
                         mfBalanceVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
                         mfBalanceVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
                         mfBalanceVo.MFCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
@@ -3890,14 +3891,15 @@ namespace DaoCustomerPortfolio
                         mfBalanceVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         mfBalanceVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                         mfBalanceVo.Price = float.Parse(dr["CMFT_Price"].ToString());
-                        mfBalanceVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
-                        mfBalanceVo.Units = float.Parse(dr["CMFT_Units"].ToString());
+                        mfBalanceVo.Amount = double.Parse(dr["CMFT_Amount"].ToString());
+                        mfBalanceVo.Units = double.Parse(dr["CMFT_Units"].ToString());
                         mfBalanceVo.TransactionClassificationCode = dr["WMTT_TransactionClassificationCode"].ToString();
                         mfBalanceVo.TransactionType = dr["WMTT_TransactionClassificationName"].ToString();
                         mfBalanceVo.Folio = dr["CMFA_FolioNum"].ToString();
                         mfBalanceVo.Age =  int.Parse(dr["CMFTB_Age"].ToString());
-                        mfBalanceVo.Balance = float.Parse(dr["ABS_Return"].ToString());
-                     
+                        mfBalanceVo.Balance = double.Parse(dr["ABS_Return"].ToString());
+                        mfBalanceVo.CurrentValue = double.Parse(dr["CMFTB_CurrentValue"].ToString());
+                        mfBalanceVo.NAV = float.Parse(dr["NAV"].ToString());
                         mfBalanceList.Add(mfBalanceVo);
                     }
                 }
