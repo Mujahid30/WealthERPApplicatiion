@@ -2814,6 +2814,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OrderTransactionSlipDS.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reports\PerformanceCompositionDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PerformanceCompositionDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\PortfolioReports.ascx.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6922,14 +6927,16 @@
     <None Include="Reports\OrderTransactionSlipDS.xss">
       <DependentUpon>OrderTransactionSlipDS.xsd</DependentUpon>
     </None>
-    <None Include="Reports\SchemePerformance.xsc">
-      <DependentUpon>SchemePerformance.xsd</DependentUpon>
+    <None Include="Reports\PerformanceCompositionDS.xsc">
+      <DependentUpon>PerformanceCompositionDS.xsd</DependentUpon>
     </None>
-    <None Include="Reports\SchemePerformance.xsd">
+    <None Include="Reports\PerformanceCompositionDS.xsd">
       <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PerformanceCompositionDS.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\SchemePerformance.xss">
-      <DependentUpon>SchemePerformance.xsd</DependentUpon>
+    <None Include="Reports\PerformanceCompositionDS.xss">
+      <DependentUpon>PerformanceCompositionDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\TempReports\MFReports_634040161522846026.pdf" />
     <None Include="Reports\TempReports\MFReports_634042746966961210.pdf" />
