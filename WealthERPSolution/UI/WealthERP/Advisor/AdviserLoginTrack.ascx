@@ -32,7 +32,7 @@
     <tr>
         <td>
             <asp:Label ID="lblSelectCategory" runat="server" Text="Select User :" CssClass="FieldName"></asp:Label>
-            <asp:DropDownList runat="server" ID="ddlCategory" AutoPostBack="true" CssClass="cmbField"
+            <asp:DropDownList runat="server" ID="ddlCategory" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
                 <asp:ListItem Value="All">All </asp:ListItem>
                 <asp:ListItem Value="customer">Customer</asp:ListItem>
