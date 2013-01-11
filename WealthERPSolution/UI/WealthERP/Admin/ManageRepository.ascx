@@ -17,14 +17,29 @@
 <telerik:RadMultiPage ID="rmpManageRepository" EnableViewState="true" runat="server"
     SelectedIndex="0">
     <telerik:RadPageView ID="RadPageView2" runat="server">
-        <table width="100%" class="TableBackground">
+    <table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">Manage Repository</td>
+        <td  align="right" style="padding-bottom:2px;">
+        </td>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
+</table>
+        <%--<table width="100%" class="TableBackground">
             <tr>
                 <td class="HeaderCell">
                     <asp:Label ID="lblMRTitle" runat="server" CssClass="HeaderTextBig" Text="Manage Repository"></asp:Label>
                     <hr />
                 </td>
             </tr>
-        </table>
+        </table>--%>
         <table class="TableBackground" width="100%">
             <tr id="trContentMR">
                 <td>
@@ -136,14 +151,29 @@
         </table>
     </telerik:RadPageView>
     <telerik:RadPageView ID="RadPageView1" runat="server">
-        <table width="100%" class="TableBackground">
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">View Repository</td>
+        <td  align="right" style="padding-bottom:2px;">
+        </td>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
+</table>
+        <%--<table width="100%" class="TableBackground">
             <tr>
                 <td class="HeaderCell">
                     <asp:Label ID="lblVRTitle" runat="server" CssClass="HeaderTextBig" Text="View Repository"></asp:Label>
                     <hr />
                 </td>
             </tr>
-        </table>
+        </table>--%>
         <table class="TableBackground" width="100%">
             <tr id="trContentVR" runat="server">
                 <td>
