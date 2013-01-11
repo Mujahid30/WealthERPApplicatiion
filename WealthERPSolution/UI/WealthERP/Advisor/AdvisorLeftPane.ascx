@@ -525,7 +525,7 @@
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Customer List" Value="Customer_List">
+                                            <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
                                             </telerik:RadPanelItem>
