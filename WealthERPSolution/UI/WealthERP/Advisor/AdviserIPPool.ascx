@@ -86,8 +86,21 @@
 </telerik:RadScriptManager>
 <telerik:RadFormDecorator ID="RadFormDecorator1" runat="server" DecoratedControls="All"
     Skin="Telerik" EnableEmbeddedSkins="false" />
-<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Setup IP pool"></asp:Label>
-<hr />
+<table width="100%">
+    <tr>
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            IP Pool
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    </table>
 <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td align="center">
