@@ -1,13 +1,28 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ManageRepositoryCategory.ascx.cs"
     Inherits="WealthERP.Admin.ManageRepositoryCategory" %>
-<table width="100%" class="TableBackground">
+    <table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">Repository Category</td>
+        <td  align="right" style="padding-bottom:2px;">
+        </td>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
+</table>
+<%--<table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Repository Category"></asp:Label>
             <hr />
         </td>
     </tr>
-</table>
+</table>--%>
 <div id="dv" style="padding: 20px 0 0 10px;">
     <table class="TableBackground" width="800px">
         <tr id="trContent" runat="server" class="trHeader">
