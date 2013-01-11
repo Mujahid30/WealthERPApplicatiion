@@ -32,11 +32,21 @@ namespace WealthERP
         {
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
             GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
-            AdvisorVo advisorVo = new AdvisorVo();  
-          
+            AdvisorVo advisorVo = new AdvisorVo();
+            HttpCookie UserPreference;
+            string userTheme = string.Empty;
 
-            if (!IsPostBack)
-            {
+           
+
+                if (Request.Cookies["UserPreference"] != null)
+                {
+                    // get the cookie
+                    HttpCookie cookie = Request.Cookies["UserPreference"];
+                    // get the cookie value
+                    userTheme = Request.Cookies["UserPreference"].Values["UserTheme"];
+                    Page.Theme = userTheme;
+                }
+
                 if (Session["advisorVo"] != null)
                     advisorVo = (AdvisorVo)Session["advisorVo"];
                 xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
@@ -54,18 +64,25 @@ namespace WealthERP
                     {
                         if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
                         {
-                            Session["Theme"] = generalconfigurationvo.DefaultTheme;
+                            if (string.IsNullOrEmpty(userTheme))
+                                userTheme = generalconfigurationvo.DefaultTheme;
                         }
-                        Page.Theme = Session["Theme"].ToString();
-
+                        else if(Session["Theme"]!=null)
+                        {
+                            userTheme = Session["Theme"].ToString();
+                        }
+                        
                     }
                     if (!string.IsNullOrEmpty(generalconfigurationvo.ApplicationName))
                     {
                         Page.Title = generalconfigurationvo.ApplicationName;
                     }
                 }
+                //SET THE THEME FROM USER COOKIES OR DEFAULT
+                Page.Theme = userTheme;
+                Session["Theme"] = userTheme;
                
-            }
+            
             //if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
             //{
             //    Session["Theme"] = "Maroon";
@@ -78,6 +95,13 @@ namespace WealthERP
                 Page.Title = advisorPreferenceVo.BrowserTitleBarName;
                 lnkBrowserIcon.Href = advisorPreferenceVo.ValtPath + "\\advisor_" + advisorVo.advisorId + "\\" + advisorPreferenceVo.BrowserTitleBarIconImageName;
                 hidUserLogOutPageUrl.Value = advisorPreferenceVo.LoginWidgetLogOutPageURL;
+
+                UserPreference = new HttpCookie("UserPreference");
+                UserPreference.Values["UserLoginPageURL"] = advisorPreferenceVo.WebSiteDomainName;
+                if (!string.IsNullOrEmpty(Page.Theme))
+                 UserPreference.Values["UserTheme"] = Page.Theme.ToString();
+                UserPreference.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(UserPreference);
             }
 
 
