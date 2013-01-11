@@ -2916,13 +2916,27 @@
     <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3012" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1001" TreeSubSubNodeCode="3012" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1002" TreeSubSubNodeCode="3012" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3012" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3013" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1001" TreeSubSubNodeCode="3013" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3013" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3014" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1001" TreeSubSubNodeCode="3014" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3014" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3015" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1001" TreeSubSubNodeCode="3015" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1002" TreeSubSubNodeCode="3015" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3015" Deleted="False" 	/>
+
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3021" Deleted="False" 	/>
+
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3020" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1001" TreeSubSubNodeCode="3020" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1002" TreeSubSubNodeCode="3020" Deleted="False" 	/>
+
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3022" Deleted="False" 	/>
+
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3023" Deleted="False" 	/>
   </UserRoleToTreeAssociation>
 
     <!--<NewAdminTreeNode>

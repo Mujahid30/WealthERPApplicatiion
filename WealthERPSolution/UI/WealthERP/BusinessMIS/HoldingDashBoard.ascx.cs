@@ -20,6 +20,7 @@ namespace WealthERP.BusinessMIS
         UserVo userVo;
         AdvisorVo advisorVo;
         string path;
+        int roleId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -28,6 +29,14 @@ namespace WealthERP.BusinessMIS
             userVo = (UserVo)Session[SessionContents.UserVo];
             AssetBo assetBo = new AssetBo();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+                roleId = 1000;
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                roleId = 1004;
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                roleId = 1001;
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                roleId = 1002;
             if (!IsPostBack)
             {
                 BindReptHoldingsDashBoard();
@@ -41,7 +50,7 @@ namespace WealthERP.BusinessMIS
             DataRow[] drXmlTreeSubSubNode;
             DataRow drHoldingsTreeNode;
             DataTable dtHoldingsTreeNode = new DataTable();
-
+         
             dtHoldingsTreeNode.Columns.Add("TreeNode1", typeof(Int32));
 
             dtHoldingsTreeNode.Columns.Add("TreeNodeText1", typeof(String));
@@ -64,31 +73,46 @@ namespace WealthERP.BusinessMIS
             drHoldingsTreeNode = dtHoldingsTreeNode.NewRow();
             foreach (DataRow drSubSubNode in drXmlTreeSubSubNode)
             {
-                if (count == 0)
-                {
+                int roleCount = 0;
 
-                    count++;
-                    drHoldingsTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                    drHoldingsTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                   
-                    dtHoldingsTreeNode.Rows.Add(drHoldingsTreeNode);
-
-                }
-                else if (count == 1)
+                if ((roleId == 1001 || roleId == 1002) && (drSubSubNode["TreeSubSubNodeCode"].ToString() == "3021" || drSubSubNode["TreeSubSubNodeCode"].ToString() == "3022" || drSubSubNode["TreeSubSubNodeCode"].ToString() == "3023"))
                 {
-                    count++;
-                    drHoldingsTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                    drHoldingsTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                 
-                    count = 0;
-                    drHoldingsTreeNode = dtHoldingsTreeNode.NewRow();
+                    roleCount = 0;
                 }
+                else
+                {
+                    roleCount++;
+                }
+               
+
+                    if (roleCount > 0)
+                    {
+                        if (count == 0)
+                        {
+                            count++;
+                            drHoldingsTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drHoldingsTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+
+                            dtHoldingsTreeNode.Rows.Add(drHoldingsTreeNode);
+
+                        }
+                        else if (count == 1)
+                        {
+                            count++;
+                            drHoldingsTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drHoldingsTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+
+                            count = 0;
+                            drHoldingsTreeNode = dtHoldingsTreeNode.NewRow();
+                        }
+                    }
                
 
 
             }
             rptHoldingTree.DataSource = dtHoldingsTreeNode;
             rptHoldingTree.DataBind();
+
         }
         protected void rptHoldingTree_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -101,11 +125,12 @@ namespace WealthERP.BusinessMIS
 
                 if (lnkbtn1.CommandArgument == "3020")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MultiProductMIS','action=GI');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MutualFundMIS','login');", true);
+                    
                 }
                 if (lnkbtn1.CommandArgument == "3022")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MutualFundMIS','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MultiProductMIS','action=GI');", true);
                 }
             }
             if (e.CommandName == "Tree_Navi_Row2")
@@ -130,6 +155,19 @@ namespace WealthERP.BusinessMIS
         }
         protected void rptHoldingTree_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            
+
+           if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+
+                LinkButton col0 = e.Item.FindControl("lnkHoldingTreeNode2") as LinkButton;
+
+                if (col0.Text == "")
+                {
+                    var a = e.Item.FindControl("td2");
+                     a.Visible = false;
+                }
+            }
             //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             //{
 
