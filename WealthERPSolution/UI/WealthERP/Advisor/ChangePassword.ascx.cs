@@ -10,6 +10,7 @@ using BoUser;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
+using VoAdvisorProfiling;
 
 
 namespace WealthERP.Advisor
@@ -21,6 +22,7 @@ namespace WealthERP.Advisor
         AdvisorVo advisorVo = new AdvisorVo();
         int tempPass;
         OneWayEncryption encryption = new OneWayEncryption();
+        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
         //int changeTemp;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -101,8 +103,34 @@ namespace WealthERP.Advisor
 
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Your Password Changed Successfully..!');", true);
                             if (Session["ChangeTempPass"] != null && Session["ChangeTempPass"].ToString() == "Y")
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('Userlogin','none');", true);
+                            {
+                                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('Userlogin','none');", true);
+                               
+                                string currentURL = string.Empty;
+                                if (Request.ServerVariables["HTTPS"].ToString() == "")
+                                {
+                                    currentURL = Request.ServerVariables["SERVER_PROTOCOL"].ToString().ToLower().Substring(0, 4).ToString() + "://" + Request.ServerVariables["SERVER_NAME"].ToString() + ":" + Request.ServerVariables["SERVER_PORT"].ToString() + Request.ServerVariables["SCRIPT_NAME"].ToString();
+                                }
+                                if (currentURL.Contains("localhost"))
+                                {
+                                    Session.Abandon();
+                                    Response.Redirect(currentURL);
+                                }
+                                else
+                                {
+                                    if (!string.IsNullOrEmpty(advisorPreferenceVo.LoginWidgetLogOutPageURL))
+                                    {
+                                        Session.Abandon();
+                                        Response.Redirect(advisorPreferenceVo.LoginWidgetLogOutPageURL);
+                                    }
+                                    else
+                                    {
+                                        Session.Abandon();
+                                        Response.Redirect("https://app.wealtherp.com/");
+                                    }
+                                }
 
+                            }
                             // else
                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('EditUserDetails','none');", true);
 
