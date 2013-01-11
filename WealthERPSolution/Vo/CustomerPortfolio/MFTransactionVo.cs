@@ -54,6 +54,7 @@ namespace VoCustomerPortfolio
         private string m_SubBrokerCode;
         private int m_Age;
         private double m_Balance;
+        private DateTime m_CreatedOn;
 
         #endregion Fields
 
@@ -274,6 +275,14 @@ namespace VoCustomerPortfolio
         {
             get { return m_CurrentValue; }
             set { m_CurrentValue = value; }
+        }
+
+
+        public DateTime CreatedOn
+        {
+            get { return m_CreatedOn; }
+            set { m_CreatedOn = value; }
+        
         }
         #endregion Properties
 
