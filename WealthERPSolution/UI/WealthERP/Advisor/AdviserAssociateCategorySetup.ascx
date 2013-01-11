@@ -3,15 +3,21 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
-
-<table width="100%" class="TableBackground">
+<table width="100%">
     <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Associate Category"></asp:Label>
-            <hr />
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Associate Category
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
-</table>
+    </table>
 <table style="width: 100%;" class="TableBackground">
     <tr id="trAssignNumber" visible="false" runat="server">
         <td class="rightField" width="20%">
