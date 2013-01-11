@@ -94,7 +94,7 @@ namespace WealthERP
             {
                 advisorPreferenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
                 Page.Title = advisorPreferenceVo.BrowserTitleBarName;
-                lnkBrowserIcon.Href = advisorPreferenceVo.ValtPath + advisorPreferenceVo.BrowserTitleBarIconImageName;
+                lnkBrowserIcon.Href = "~//Images//favicon//" + advisorPreferenceVo.BrowserTitleBarIconImageName;
                 hidUserLogOutPageUrl.Value = advisorPreferenceVo.LoginWidgetLogOutPageURL;
 
                 UserPreference = new HttpCookie("UserPreference");
