@@ -74,14 +74,20 @@
 }
 </style>
 
-<table width="100%" class="TableBackground">
-    <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Customer Folio"></asp:Label>
-            <hr />
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">Accounts</td>
+        <td  align="right" style="padding-bottom:2px;">
         </td>
-    </tr>
-   
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
 </table>
 
 
