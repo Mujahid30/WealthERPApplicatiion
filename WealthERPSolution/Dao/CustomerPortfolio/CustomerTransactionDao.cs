@@ -2429,6 +2429,7 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.FinancialFlag = int.Parse(dr["WMTT_FinancialFlag"].ToString());
                         mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
+                        mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
                         if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
                         {
                             mfTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
