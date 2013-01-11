@@ -272,7 +272,7 @@ namespace WealthERP.Uploads
                 {
                     newPan = ((TextBox)footerRow.FindControl("txtPanMultiple")).Text;
                     newFolio = ((TextBox)footerRow.FindControl("txtFolioMultiple")).Text;
-                    newbroker = ((TextBox)footerRow.FindControl("txtBroker")).Text;
+                    newbroker = ((TextBox)footerRow.FindControl("txtBrokerMultiple")).Text;
                 }
 
                 CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
