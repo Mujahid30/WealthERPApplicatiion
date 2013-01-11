@@ -47,14 +47,29 @@ function checkAllBoxes()
     </script>
     
 <div>
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">Alert Configuration</td>
+        <td  align="right" style="padding-bottom:2px;">
+        </td>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
+</table>
 
     <table style="width: 100%;" cssclass="TableBackground">
-        <tr>
+<%--        <tr>
             <td colspan="2" class="rightField">
                 <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Alert Setup Screen"> </asp:Label>
                 <hr />
             </td>
-        </tr>
+        </tr>--%>
            <td>
         <asp:label ID="lblNote" style="font-size: 12px;" Text="Note:Defaults can be changed from Edit Default button below which will be applied for all customers." CssClass="cmbField" runat="server"></asp:label>
          </td>
