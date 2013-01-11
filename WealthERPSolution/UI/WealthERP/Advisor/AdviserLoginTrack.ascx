@@ -99,6 +99,11 @@
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                 AllowFilteringByColumn="true">
                                 <Columns>
+                                 <telerik:GridBoundColumn DataField="LT_CreatedOn" HeaderStyle-Width="100px" AllowFiltering="false" SortExpression="true"
+                                        DataFormatString="{0:dd/MM/yyyy HH:mm:ss.FFFF}" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                        HeaderText="Date and Time" UniqueName="LoginDateTime">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="true" />
+                                    </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="LT_LoginId" HeaderText="ID" HeaderStyle-Width="100px"
                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="LoginId" AllowFiltering="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -106,12 +111,7 @@
                                     <telerik:GridBoundColumn DataField="U_FirstName" HeaderStyle-Width="100px" ShowFilterIcon="false"
                                         AutoPostBackOnFilter="true" HeaderText="Name" UniqueName="Name" AllowFiltering="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="LT_CreatedOn" HeaderStyle-Width="100px" AllowFiltering="false" SortExpression="true"
-                                        DataFormatString="{0:dd/MM/yyyy HH:mm:ss.FFFF}" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                        HeaderText="Date and Time" UniqueName="LoginDateTime">
-                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="true" />
-                                    </telerik:GridBoundColumn>
+                                    </telerik:GridBoundColumn>                                   
                                     <telerik:GridBoundColumn DataField="U_UserType" HeaderStyle-Width="100px" AllowFiltering="false"
                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="UserType" UniqueName="U_UserType">
                                       <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="true" />
