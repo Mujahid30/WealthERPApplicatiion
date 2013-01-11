@@ -11,7 +11,7 @@
     <title> </title>
     <%-- <link href="CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="CSS/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
-    <link id="lnkBrowserIcon" rel="Shortcut Icon" href="/Images/favicon.ico" type="image/x-icon"  runat="server"/>
+    <link id="lnkBrowserIcon" rel="Shortcut Icon" type="image/x-icon"  runat="server"/>
 
     <script src="/Scripts/jquery.js" type="text/javascript"></script>
 

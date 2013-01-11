@@ -45,6 +45,7 @@ namespace WealthERP
                     // get the cookie value
                     userTheme = Request.Cookies["UserPreference"].Values["UserTheme"];
                     Page.Theme = userTheme;
+                    lnkBrowserIcon.Href = Request.Cookies["UserPreference"].Values["UserICOFilePath"];
                 }
 
                 if (Session["advisorVo"] != null)
@@ -93,13 +94,14 @@ namespace WealthERP
             {
                 advisorPreferenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
                 Page.Title = advisorPreferenceVo.BrowserTitleBarName;
-                lnkBrowserIcon.Href = advisorPreferenceVo.ValtPath + "\\advisor_" + advisorVo.advisorId + "\\" + advisorPreferenceVo.BrowserTitleBarIconImageName;
+                lnkBrowserIcon.Href = advisorPreferenceVo.ValtPath + advisorPreferenceVo.BrowserTitleBarIconImageName;
                 hidUserLogOutPageUrl.Value = advisorPreferenceVo.LoginWidgetLogOutPageURL;
 
                 UserPreference = new HttpCookie("UserPreference");
                 UserPreference.Values["UserLoginPageURL"] = advisorPreferenceVo.WebSiteDomainName;
                 if (!string.IsNullOrEmpty(Page.Theme))
-                 UserPreference.Values["UserTheme"] = Page.Theme.ToString();
+                UserPreference.Values["UserTheme"] = Page.Theme.ToString();
+                UserPreference.Values["UserICOFilePath"] = lnkBrowserIcon.Href.ToString();
                 UserPreference.Expires = DateTime.Now.AddDays(1);
                 Response.Cookies.Add(UserPreference);
             }
