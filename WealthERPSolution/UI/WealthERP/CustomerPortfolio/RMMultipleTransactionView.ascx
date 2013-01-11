@@ -205,9 +205,9 @@
                                     <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Display Type :"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="ddlDisplayType" runat="server" AutoPostBack="false" CssClass="cmbField">
+                                    <asp:DropDownList ID="ddlDisplayType" runat="server" AutoPostBack="true" CssClass="cmbField">
                                         <asp:ListItem Text="TransactionView " Value="0">Transaction View</asp:ListItem>
-                                        <asp:ListItem Text="BalanceView" Value="1">Return View</asp:ListItem>
+                                        <asp:ListItem Text="BalanceView" Value="1">Return Holding View</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
                                 <td>
@@ -268,9 +268,8 @@
                                                 AllowFiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true" OnPreRender="gvMFTransactions_PreRender"
                                                 AllowPaging="True" ShowStatusBar="True" OnItemCommand="gvMFTransactions_OnItemCommand" OnItemDataBound="gvMFTransactions_ItemDataBound" 
                                                 OnNeedDataSource="gvMFTransactions_OnNeedDataSource" ShowFooter="true" Skin="Telerik"
-                                                EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                                                    FileName="View MF Transaction" Excel-Format="ExcelML">
+                                                EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false">
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                                                 </ExportSettings>
                                                 <MasterTableView DataKeyNames="TransactionId" Width="100%" AllowMultiColumnSorting="True"
                                                     AutoGenerateColumns="false" CommandItemDisplay="None">
@@ -389,7 +388,7 @@
                                                                         <telerik:RadComboBoxItem Text="OK" Value="OK"  Selected="false" ></telerik:RadComboBoxItem>
                                                                         <telerik:RadComboBoxItem Text="Cancel" Value="Cancel"  Selected="false" ></telerik:RadComboBoxItem>
                                                                         <telerik:RadComboBoxItem Text="Original" Value="Original"  Selected="false" ></telerik:RadComboBoxItem>
-                                                                        <telerik:RadComboBoxItem Text="Rebuilt" Value="Rebuilt"  Selected="false"></telerik:RadComboBoxItem>
+                                                                        
                                                                    </Items>
                                                                    </telerik:RadComboBox>
                                                                    <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
@@ -444,12 +443,18 @@
                                                     <Columns>
                                                         <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false">
                                                             <ItemStyle Wrap="false" />
-                                                            <ItemTemplate>
+                                                    <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkView" runat="server" CssClass="cmbField" Text="View Details"
                                                                     OnClick="lnkView_Click">
                                                                 </asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
+                                                         <telerik:GridBoundColumn DataField="Customer Name" HeaderText="Customer" AllowFiltering="true"
+                                                            HeaderStyle-Wrap="false" SortExpression="Customer Name" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Customer Name"
+                                                            FooterStyle-HorizontalAlign="Left">
+                                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Folio Number" HeaderText="Folio No." AllowFiltering="true"
                                                             SortExpression="Folio Number" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                             AutoPostBackOnFilter="true" UniqueName="Folio Number" FooterStyle-HorizontalAlign="Left">
@@ -489,22 +494,34 @@
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
+                                                           <telerik:GridBoundColumn DataField="Amount" HeaderText="Amount (Rs)" AllowFiltering="false"
+                                                            HeaderStyle-Wrap="false" SortExpression="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                            AutoPostBackOnFilter="true" UniqueName="Amount" FooterStyle-HorizontalAlign="Right"
+                                                            DataFormatString="{0:n0}" Aggregate="Sum">
+                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Price" HeaderText="Price (Rs)" AllowFiltering="false"
                                                             SortExpression="Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                             HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="Price" FooterStyle-HorizontalAlign="Right"
-                                                            DataFormatString="{0:n}" Aggregate="Sum">
+                                                            DataFormatString="{0:n4}" Aggregate="Sum">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
+                                                        </telerik:GridBoundColumn>                                                       
+                                                         <telerik:GridBoundColumn DataField="NAV" HeaderText="NAV (Rs)" AllowFiltering="false"
+                                                            SortExpression="NAV" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                            HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="NAV" FooterStyle-HorizontalAlign="Right"
+                                                            DataFormatString="{0:n4}" Aggregate="Sum">
+                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>                                                    
                                                         <telerik:GridBoundColumn DataField="Units" HeaderText="Units" AllowFiltering="false"
                                                             HeaderStyle-Wrap="false" SortExpression="Units" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                             AutoPostBackOnFilter="true" UniqueName="Units" FooterStyle-HorizontalAlign="Right"
-                                                            DataFormatString="{0:n}" Aggregate="Sum">
+                                                            DataFormatString="{0:n3}" Aggregate="Sum">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Amount" HeaderText="Amount (Rs)" AllowFiltering="false"
-                                                            HeaderStyle-Wrap="false" SortExpression="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                            AutoPostBackOnFilter="true" UniqueName="Amount" FooterStyle-HorizontalAlign="Right"
-                                                            DataFormatString="{0:n}" Aggregate="Sum">
+                                                        </telerik:GridBoundColumn>                                                     
+                                                         <telerik:GridBoundColumn DataField="CurrentValue" HeaderText="Current Value" AllowFiltering="false"
+                                                            SortExpression="CurrentValue" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                            HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="CurrentValue" FooterStyle-HorizontalAlign="Right"
+                                                            DataFormatString="{0:n0}">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Age" HeaderText="Age" AllowFiltering="false"
@@ -512,7 +529,7 @@
                                                             AutoPostBackOnFilter="true" UniqueName="CMFTB_Age" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Balance" HeaderText="Absolute Return" AllowFiltering="false"  DataFormatString="{0:f4}" 
+                                                        <telerik:GridBoundColumn DataField="Balance" HeaderText="Abs Rtn(%)" AllowFiltering="false"  DataFormatString="{0:n2}" 
                                                             HeaderStyle-Wrap="false" SortExpression="Return" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                             AutoPostBackOnFilter="true" UniqueName="Return" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />

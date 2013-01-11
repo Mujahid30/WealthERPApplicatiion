@@ -496,8 +496,10 @@ namespace WealthERP.CustomerPortfolio
                     DataTable dtMFBalance = new DataTable();
 
                     dtMFBalance.Columns.Add("TransactionId");
+                    dtMFBalance.Columns.Add("Customer Name");
                     dtMFBalance.Columns.Add("Folio Number");
                     dtMFBalance.Columns.Add("Scheme Name");
+                    dtMFBalance.Columns.Add("CurrentValue");
                     dtMFBalance.Columns.Add("Transaction Type");
                     dtMFBalance.Columns.Add("Transaction Date");
                     dtMFBalance.Columns.Add("Category");
@@ -505,6 +507,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("Price", typeof(double));
                     dtMFBalance.Columns.Add("Units", typeof(double));
                     dtMFBalance.Columns.Add("Amount", typeof(double));
+                    dtMFBalance.Columns.Add("NAV",typeof(double));
                     dtMFBalance.Columns.Add("Age");
                     dtMFBalance.Columns.Add("Balance", typeof(double));                   
                   
@@ -517,8 +520,10 @@ namespace WealthERP.CustomerPortfolio
                         mfBalanceVo = mfBalanceList[i];
 
                         drMFBalance["TransactionId"] = mfBalanceVo.TransactionId.ToString();
+                        drMFBalance["Customer Name"] = mfBalanceVo.CustomerName.ToString();
                         drMFBalance["Folio Number"] = mfBalanceVo.Folio.ToString();
                         drMFBalance["Scheme Name"] = mfBalanceVo.SchemePlan.ToString();
+                        drMFBalance["CurrentValue"] = mfBalanceVo.CurrentValue.ToString();
                         drMFBalance["Transaction Type"] = mfBalanceVo.TransactionType.ToString(); ;
                         drMFBalance["Transaction Date"] = mfBalanceVo.TransactionDate.ToShortDateString().ToString();
                         drMFBalance["Category"] = mfBalanceVo.Category.ToString();
@@ -540,6 +545,7 @@ namespace WealthERP.CustomerPortfolio
                             drMFBalance["Amount"] = decimal.Parse(mfBalanceVo.Amount.ToString());
                         }
                          totalAmount = totalAmount + mfBalanceVo.Amount;
+                         drMFBalance["NAV"] = mfBalanceVo.NAV.ToString();
                          drMFBalance["Age"] = mfBalanceVo.Age;
                          drMFBalance["Balance"] = mfBalanceVo.Balance.ToString();
                          dtMFBalance.Rows.Add(drMFBalance);
@@ -686,11 +692,19 @@ namespace WealthERP.CustomerPortfolio
         {
             gvMFTransactions.ExportSettings.OpenInNewWindow = true;
             gvMFTransactions.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvMFTransactions.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
+            gvMFTransactions.ExportSettings.HideStructureColumns = true;
+            gvMFTransactions.ExportSettings.ExportOnlyData = true;
+            gvMFTransactions.ExportSettings.FileName = "View Transactions Details";
+            gvMFTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvMFTransactions.MasterTableView.ExportToExcel();
+
+            //gvMFTransactions.ExportSettings.OpenInNewWindow = true;
+            //gvMFTransactions.ExportSettings.IgnorePaging = true;
+            //foreach (GridFilteringItem filter in gvMFTransactions.MasterTableView.GetItems(GridItemType.FilteringItem))
+            //{
+            //    filter.Visible = false;
+            //}
+            //gvMFTransactions.MasterTableView.ExportToExcel();
         }
         protected void Transaction_PreRender(object sender, EventArgs e)
         {
