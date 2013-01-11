@@ -63,6 +63,13 @@ namespace WealthERP.CustomerPortfolio
                 {
                     if(Session[SessionContents.PortfolioId]!=null)
                         portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                    else
+                    {
+                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        portfolioId = customerPortfolioVo.PortfolioId;
+                    }
+
                     BindPortfolioDropDown();
                     CalculatePortfolioXIRR(portfolioId);
                     GetMFPortfolioList(lblPickDate.Text);

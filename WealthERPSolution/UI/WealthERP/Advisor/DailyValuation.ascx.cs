@@ -324,7 +324,7 @@ namespace WealthERP.Advisor
                 }
                 if (ddlValuationTypes.SelectedValue == "MF")
                 {
-                    gvValuationDate.Rows[0].Visible = false;
+                    //gvValuationDate.Rows[0].Visible = false;
                     gvValuationDate.Columns[3].Visible = true;
                     gvValuationDate.Columns[0].Visible = false;
                     trHeader.Visible = true;
@@ -347,9 +347,18 @@ namespace WealthERP.Advisor
                     dtValuation.Rows.Add(dr);
 
                 }
+
                 gvValuationDate.DataSource = dtValuation;
                 gvValuationDate.DataBind();
                 gvValuationDate.Visible = true;
+                if (ddlValuationTypes.SelectedValue == "MF")
+                {
+                    gvValuationDate.Rows[0].Visible = false;
+                }
+                if (ddlValuationTypes.SelectedValue == "EQ")
+                {
+                    gvValuationDate.Rows[0].Visible = true;
+                }
 
             }
 
