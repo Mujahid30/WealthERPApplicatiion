@@ -447,7 +447,11 @@ namespace WealthERP.Advisor
         {
             Emailer emailer = new Emailer();
             EmailMessage email = new EmailMessage();
+            AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
+
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            if (Session["AdvisorPreferenceVo"] != null)
+                advisorPreferenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
             string logoPath = string.Empty;
             bool isMailSent = false;
             bool isEmailIdBlank = false;
@@ -481,11 +485,11 @@ namespace WealthERP.Advisor
                     email.Body = email.Body.Replace("[CUSTOMER_NAME]", userVo.FirstName);
                     if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
                     {
-                        email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName) ? advisorVo.Website : "https://app.wealtherp.com/");
+                        email.Body = email.Body.Replace("[WEBSITE]", advisorPreferenceVo.WebSiteDomainName);
                     }
                     else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Citrus")
                     {
-                        email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName) ? advisorVo.Website : "https://www.citrusindiaonline.com/");
+                        email.Body = email.Body.Replace("[WEBSITE]", advisorPreferenceVo.WebSiteDomainName);
                     }
                     email.Body = email.Body.Replace("[CONTACTPERSON]", advisorVo.ContactPersonFirstName + " " + advisorVo.ContactPersonMiddleName + " " + advisorVo.ContactPersonLastName);
                     if (!string.IsNullOrEmpty(advisorVo.Designation))
