@@ -114,7 +114,7 @@ namespace WealthERP.Reports
                     {
                         return ReportType.MFReports;
                     }
-                    else if (Request.Form["ctrl_PortfolioReports$btnView"] != null || Request.Form["ctrl_PortfolioReports$btnViewInPDF"] != null || Request.Form["ctrl_PortfolioReports$btnViewInDOC"] != null)
+                    else if (Request.Form["ctrl_PortfolioReports$btnView"] != null )
                     {
                         return ReportType.PortfolioReports;
                     }
@@ -543,16 +543,16 @@ namespace WealthERP.Reports
 
                     crmain.SetParameterValue("ChequeNo",  !string.IsNullOrEmpty(ChequeNo) ?ChequeNo:string.Empty);
                     crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(ChequeDate)? ChequeDate : string.Empty);
-                    crmain.SetParameterValue("Amount",!string.IsNullOrEmpty(Amount)? Amount: string.Empty);
-                 
                     if (RbtnAmounts == true)
                     {
-
-                        if (!String.IsNullOrEmpty(NewAmount))
-                            crmain.SetParameterValue("Amount", NewAmount);
+                        if (OType == "BUY" || OType == "ABY" || OType == "SIP")
+                            crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(Amount) ? Amount : string.Empty);
+                        else if (OType == "Sel" || OType == "SWP" || OType == "STB" || OType == "SWB")
+                            crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(NewAmount) ? NewAmount : string.Empty);
                         else
                             crmain.SetParameterValue("Amount", string.Empty);
                     }
+                    
                     crmain.SetParameterValue("Units", string.Empty);
                     if (RbtnUnits == true)
                     {
@@ -595,7 +595,6 @@ namespace WealthERP.Reports
                     }
 
                     lblClosingBalanceNote.Visible = false;
-
                 }
                 else
                 {
