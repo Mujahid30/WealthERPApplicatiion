@@ -113,7 +113,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Setup Email/SMS Account
+                            Email/SMS Account
                         </td>
                     </tr>
                 </table>
