@@ -20,6 +20,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Web.UI.HtmlControls;
 using Telerik.Web.UI;
+using System.Collections;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -50,6 +51,8 @@ namespace WealthERP.CustomerPortfolio
         int PasssedFolioValue = 0;
         bool GridViewCultureFlag = true;
         String DisplayType;
+        Hashtable ht = new Hashtable();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -87,6 +90,13 @@ namespace WealthERP.CustomerPortfolio
 
                 if (!IsPostBack)
                 {
+                    trGroupHead.Visible = false;
+                    hdnProcessIdSearch.Value = "0";
+                    Panel2.Visible = false;
+                    Panel1.Visible = false;
+                    gvMFTransactions.Visible = false;
+                    gvBalanceView.Visible = false;
+                   
                     hdnSchemeSearch.Value = string.Empty;
                     hdnTranType.Value = string.Empty;
                     hdnCustomerNameSearch.Value = string.Empty;
@@ -100,12 +110,7 @@ namespace WealthERP.CustomerPortfolio
                     //tdGroupHead.Visible = false;
                     //lblGroupHead.Visible = false;
                     //txtParentCustomer.Visible = false;
-                    trGroupHead.Visible = false;
-                    hdnProcessIdSearch.Value = "0";
-                    Panel2.Visible = false;
-                    Panel1.Visible = false;
-                    gvMFTransactions.Visible = false;
-                    gvBalanceView.Visible = false;
+                    
 
 
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
@@ -140,7 +145,20 @@ namespace WealthERP.CustomerPortfolio
                     {
                         BindLastTradeDate();
                     }
-
+                    if (Session["tranDates"] != null)
+                    {
+                        ht = (Hashtable)Session["tranDates"];
+                        txtFromDate.SelectedDate = DateTime.Parse(ht["From"].ToString());
+                        txtToDate.SelectedDate = DateTime.Parse(ht["To"].ToString());
+                        BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
+                        Session.Remove("tranDates");
+                    }
+                    else
+                    {
+                        txtFromDate.SelectedDate = DateTime.Now;
+                        txtToDate.SelectedDate = DateTime.Now;
+                        BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
+                    }
                    
                     ErrorMessage.Visible = false;
                 }
