@@ -53,7 +53,8 @@ namespace WealthERP.Admin
             cvChkFutureDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
             trMFFundPerformance.Visible = false;
             trExportFilteredMFRecord.Visible = false;
-            trgvEquityView.Visible = false;
+            gvEquityRecord.Visible =false;
+            imgBtnrgHoldings.Visible = false;
             //DateTime StartDate = DateTime.Now;
             //txtFrom.SelectedDate = StartDate;
             //txtTo.SelectedDate = DateTime.Now;
@@ -106,8 +107,8 @@ namespace WealthERP.Admin
                 pnlSchemeComparison.Visible = false;
                 rbtnCurrent.Visible = true;
                 rbtnHistorical.Visible = true;
-                trgvEquityView.Visible = false;
-                gvEquityRecord.Visible = true;
+               // trgvEquityView.Visible = false;
+               // gvEquityRecord.Visible = true;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
                 trNavCategory.Visible = false;
@@ -405,6 +406,8 @@ namespace WealthERP.Admin
                     {
                         gvEquityRecord.DataSource = ds;
                         gvEquityRecord.DataBind();
+                        gvEquityRecord.Visible = true;
+                        imgBtnrgHoldings.Visible = true;
                         // DivEquity.Style.Add("display", "visible");
                         DivPager.Style.Add("display", "visible");
                         DivMF.Style.Add("display", "none");
@@ -416,7 +419,9 @@ namespace WealthERP.Admin
                     }
                     else
                     {
+                        imgBtnrgHoldings.Visible = false;
                         trgvEquityView.Visible = false;
+                        gvEquityRecord.Visible = false;
                         //trgrMfView.Visible = false;
                         // trPageCount.Visible = false;
                         trPager.Visible = false;
@@ -508,6 +513,8 @@ namespace WealthERP.Admin
                         {
                             gvEquityRecord.DataSource = ds;
                             gvEquityRecord.DataBind();
+                            gvEquityRecord.Visible = true;
+                            imgBtnrgHoldings.Visible = true;
                             //  DivEquity.Style.Add("display", "visible");
                             DivMF.Style.Add("display", "none");
                             DivPager.Style.Add("display", "visible");
@@ -518,7 +525,9 @@ namespace WealthERP.Admin
 
                         else
                         {
+                            imgBtnrgHoldings.Visible = false;
                             trgvEquityView.Visible = false;
+                            gvEquityRecord.Visible = false;
                             //trgrMfView.Visible = false;
                             trPager.Visible = false;
                             trMfPagecount.Visible = false;
@@ -1424,6 +1433,7 @@ namespace WealthERP.Admin
                         {
                             gvEquityRecord.DataSource = ds;
                             gvEquityRecord.DataBind();
+                            gvEquityRecord.Visible = true;
                            // DivEquity.Style.Add("display", "visible");
                             DivPager.Style.Add("display", "visible");
                             DivMF.Style.Add("display", "none");
@@ -1435,6 +1445,7 @@ namespace WealthERP.Admin
                         else
                         {
                             trgvEquityView.Visible = false;
+                            gvEquityRecord.Visible = false;
                           //  trPageCount.Visible = false;
                             trPager.Visible = false;
                             trMfPagecount.Visible = false;
@@ -1513,6 +1524,7 @@ namespace WealthERP.Admin
                             {
                                 gvEquityRecord.DataSource = ds;
                                 gvEquityRecord.DataBind();
+                                gvEquityRecord.Visible = true;
                                // DivEquity.Style.Add("display", "visible");
                                 DivMF.Style.Add("display", "none");
                                 DivPager.Style.Add("display", "visible");
@@ -1524,6 +1536,7 @@ namespace WealthERP.Admin
                             else
                             {
                                 trgvEquityView.Visible = false;
+                                gvEquityRecord.Visible = false;
                                // trPageCount.Visible = false;
                                 trPager.Visible = false;
                                 trMfPagecount.Visible = false;
@@ -1552,6 +1565,7 @@ namespace WealthERP.Admin
                                // DivEquity.Style.Add("display", "none");
                                 DivPager.Style.Add("display", "visible");
                                 trExportFilteredMFRecord.Visible = true;
+                                
                             }
                             else
                             {
@@ -1735,12 +1749,12 @@ namespace WealthERP.Admin
         }
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-        {
+        {   
             gvEquityRecord.ExportSettings.OpenInNewWindow = true;
             gvEquityRecord.ExportSettings.IgnorePaging = true;
             gvEquityRecord.ExportSettings.HideStructureColumns = true;
             gvEquityRecord.ExportSettings.ExportOnlyData = true;
-            gvEquityRecord.ExportSettings.FileName = "QueryEquityData";
+            gvEquityRecord.ExportSettings.FileName = "Query Equity Data";
             gvEquityRecord.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvEquityRecord.MasterTableView.ExportToExcel();
         }
