@@ -28,7 +28,7 @@ namespace BoValuation
                 //dsMFBalancedSellPairedForNetPosition.Tables[1].TableName="TransactionSellPair";
                 //dsMFBalancedSellPairedForNetPosition.Tables[2].TableName = "MutualFundNetPosition";
                 mfEngineDao.CreateCustomerMFNetPosition(0, valuationDate, dtMFInstantNetPosition);
-                mfEngineDao.MarkForDeleteMFBalanceData(accountId, schemePlanCode);
+                //mfEngineDao.MarkForDeleteMFBalanceData(accountId, schemePlanCode);
 
             }
             catch (BaseApplicationException Ex)
