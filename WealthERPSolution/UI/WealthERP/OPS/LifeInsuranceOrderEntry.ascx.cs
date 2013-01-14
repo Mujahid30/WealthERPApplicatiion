@@ -238,7 +238,7 @@ namespace WealthERP.OPS
         {
             DataTable dt = orderbo.GetBankAccountDetails(customerVo.CustomerId);
             ddlBankName.DataSource = dt;
-            ddlBankName.DataTextField = dt.Columns["CB_BankName"].ToString();
+            ddlBankName.DataTextField = dt.Columns["WERPBDTM_BankName"].ToString();
             ddlBankName.DataValueField = dt.Columns["CB_CustBankAccId"].ToString();
             ddlBankName.DataBind();
             ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
