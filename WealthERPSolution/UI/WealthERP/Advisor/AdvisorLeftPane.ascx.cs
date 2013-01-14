@@ -599,7 +599,13 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF systematic MIS")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
+                }
+                else if (e.Item.Value == "MF_SIP_Projection")
+                {
+                    Session["UserType"] = "adviser";
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFSIPProjection','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_Projection');", true);
                 }
                 else if (e.Item.Value == "MF Commission MIS")
                 {
@@ -932,7 +938,13 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF systematic MIS")
                 {
                     Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
+                }
+                else if (e.Item.Value == "MF_SIP_Projection")
+                {
+                    Session["UserType"] = "rm";
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFSIPProjection','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_Projection');", true);
                 }
                 else if (e.Item.Value == "Equity MIS")
                 {
@@ -1110,7 +1122,13 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF systematic MIS")
                 {
                     Session["UserType"] = "bm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
+                }
+                else if (e.Item.Value == "MF_SIP_Projection")
+                {
+                    Session["UserType"] = "bm";
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFSIPProjection','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_Projection');", true);
                 }
                 else if (e.Item.Value == "Equity MIS")
                 {
@@ -1294,7 +1312,13 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF systematic MIS")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
+                }
+                else if (e.Item.Value == "MF_SIP_Projection")
+                {
+                    Session["UserType"] = "adviser";
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFSIPProjection','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_Projection');", true);
                 }
                 else if (e.Item.Value == "Multi_Product_MIS")
                 {
