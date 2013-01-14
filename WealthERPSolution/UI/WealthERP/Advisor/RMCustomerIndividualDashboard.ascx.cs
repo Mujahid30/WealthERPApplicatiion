@@ -172,7 +172,7 @@ namespace WealthERP.Advisor
                         customerBankAccountVo = new CustomerBankAccountVo();
                         customerBankAccountVo = customerBankAccountList[i];
                         //drCustomerBankAccount[0] = customerBankAccountVo.CustBankAccId.ToString();
-                        drCustomerBankAccount[0] = customerBankAccountVo.BankName;
+                        drCustomerBankAccount[0] = customerBankAccountVo.WERPBMBankName;
                         //drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
                         drCustomerBankAccount[1] = customerBankAccountVo.AccountType;
                         //drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
