@@ -62,9 +62,9 @@
                                                 <asp:ImageButton ID="btnTrnxExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
                                                     Height="23px" Width="25px" OnClick="btnTrnxExport_Click"></asp:ImageButton>
-                                                    <asp:ImageButton ID="btnbalncExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                                               <%-- <asp:ImageButton ID="btnbalncExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                                    Height="23px" Width="25px" OnClick="btnbalncExport_Click"></asp:ImageButton>
+                                                    Height="23px" Width="25px" OnClick="btnbalncExport_Click"></asp:ImageButton>--%>
                                             </td>
                                         </tr>
                                     </table>
@@ -80,7 +80,7 @@
                         <table>
                             <tr id="trRangeNcustomer" runat="server">
                                 <td align="right">
-                                    <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type :"></asp:Label>
+                                    <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
@@ -95,7 +95,7 @@
                                     &nbsp;&nbsp;
                                 </td>
                                 <td align="right">
-                                    <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Customer :"></asp:Label>
+                                    <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Customer:"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:RadioButton ID="rbtnAll" AutoPostBack="true" Checked="true" runat="server" GroupName="GroupAll"
@@ -193,7 +193,7 @@
                             </tr>
                             <tr>
                                 <td align="right">
-                                    <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio :"></asp:Label>
+                                    <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio:"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField">
@@ -205,12 +205,12 @@
                                     &nbsp;&nbsp;
                                 </td>
                                 <td align="right">
-                                    <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Display Type :"></asp:Label>
+                                    <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Display Type:"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="ddlDisplayType" runat="server" CssClass="cmbField">
-                                        <asp:ListItem Text="TransactionView " Value="0">Transaction View</asp:ListItem>
-                                        <asp:ListItem Text="BalanceView" Value="1">Return Holding View</asp:ListItem>
+                                        <asp:ListItem Text="TransactionView " Value="TV">Transaction View</asp:ListItem>
+                                        <asp:ListItem Text="BalanceView" Value="RHV">Return Holding View</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
                                 <td>
@@ -272,7 +272,7 @@
                                                 AllowPaging="True" ShowStatusBar="True" OnItemCommand="gvMFTransactions_OnItemCommand" OnItemDataBound="gvMFTransactions_ItemDataBound" 
                                                 OnNeedDataSource="gvMFTransactions_OnNeedDataSource" ShowFooter="true" Skin="Telerik"
                                                 EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false">
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="View Transactions Details">
                                                 </ExportSettings>
                                                 <MasterTableView DataKeyNames="TransactionId" Width="100%" AllowMultiColumnSorting="True"
                                                     AutoGenerateColumns="false" CommandItemDisplay="None">
@@ -441,11 +441,11 @@
                                         <div id="dvBalanceView" runat="server" style="margin: 2px; width: 640px;">
                                             <telerik:RadGrid ID="gvBalanceView" runat="server" GridLines="None" AutoGenerateColumns="False"
                                                 AllowFiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
-                                                AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvMFBalance_OnNeedDataSource"
+                                                AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvBalanceView_OnNeedDataSource" OnItemDataBound="gvBalanceView_ItemDataBound"
                                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false"
                                                 ExportSettings-ExportOnlyData="true">
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
-                                                   
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" Excel-Format="ExcelML"
+                                                FileName="View ReturnHolding Details">                                                   
                                                 </ExportSettings>
                                                 <MasterTableView DataKeyNames="TransactionId" Width="100%" AllowMultiColumnSorting="True"
                                                     AutoGenerateColumns="false" CommandItemDisplay="None">
@@ -582,12 +582,14 @@
                     <asp:HiddenField ID="txtParentCustomerType" runat="server" />
                     <asp:HiddenField ID="hdnStatus" runat="server" />
                     <asp:HiddenField ID="hdnProcessIdSearch" runat="server" />
+                    <asp:HiddenField ID="hdnExportType" runat="server"/>
                 </td>
             </tr>
         </table>
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="btnTrnxExport" />
+        <%-- <asp:PostBackTrigger ControlID="btnbalncExport" />--%>
     </Triggers>
 </asp:UpdatePanel>
 <html>

@@ -275,21 +275,22 @@ namespace WealthERP.CustomerPortfolio
                 trRange.Visible = true;
             }
 
-            if (DisplayType =="0")
+            if (DisplayType =="TV")
             {
                 ViewState.Remove("TransactionStatus");
                 BindGrid(convertedFromDate, convertedToDate);
+                hdnExportType.Value = "TV";
                 gvBalanceView.Visible = false;
-                Panel1.Visible = false;
-
-               
+                Panel1.Visible = false;     
+                           
             }
-            if(DisplayType=="1")
+            if(DisplayType=="RHV")
             {
                 BindGridBalance(convertedFromDate, convertedToDate);
+                hdnExportType.Value = "RHV";
                 gvMFTransactions.Visible = false;
                 Panel2.Visible = false;
-              
+               
             }
            
             
@@ -321,6 +322,11 @@ namespace WealthERP.CustomerPortfolio
         {          
 
         }
+        protected void gvBalanceView_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+
+        }
+       
         private void BindGrid(DateTime convertedFromDate, DateTime convertedToDate)
             {
             //Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
@@ -458,7 +464,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = false;
                     gvMFTransactions.Visible = true;
                     btnTrnxExport.Visible = true;
-                    btnbalncExport.Visible = false;
+                   
                 }
                 else
                 {
@@ -467,7 +473,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = true;
                     Panel2.Visible = false;
                     btnTrnxExport.Visible = false;
-                    btnbalncExport.Visible = false;
+                  
                 }
                
             }
@@ -582,13 +588,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else
                         gbcCustomer.Visible = true;
-
-                    gvBalanceView.DataSource = dtMFBalance;
-                    gvBalanceView.DataBind();
-                    Panel1.Visible = true;
-                    ErrorMessage.Visible = false;
-                    gvBalanceView.Visible = true;
-                                                
+                                                                  
                     if (Cache["ViewBalance" + userVo.UserId + userType] == null)
                     {
                         Cache.Insert("ViewBalance" + userVo.UserId + userType, dtMFBalance);
@@ -598,10 +598,13 @@ namespace WealthERP.CustomerPortfolio
                         Cache.Remove("ViewBalance" + userVo.UserId + userType);
                         Cache.Insert("ViewBalance" + userVo.UserId + userType, dtMFBalance);
                     }
-
-                    btnbalncExport.Visible = true;
-                    btnTrnxExport.Visible = false;
-                    }
+                    gvBalanceView.DataSource = dtMFBalance;
+                    gvBalanceView.DataBind();
+                    Panel1.Visible = true;
+                    ErrorMessage.Visible = false;
+                    gvBalanceView.Visible = true;
+                    btnTrnxExport.Visible = true;
+                  }
                               
                 else
                 {
@@ -609,7 +612,6 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = true;
                     Panel1.Visible = false;
                     hdnRecordCount.Value = "0";
-                    btnbalncExport.Visible = false;
                     btnTrnxExport.Visible = false;
                 }
 
@@ -622,7 +624,31 @@ namespace WealthERP.CustomerPortfolio
         protected void CallAllGridBindingFunctions()
         {
         }
-
+     protected void ExportGrid(string hdnExportType)
+        {
+            if (hdnExportType == "TV")
+            {
+                gvMFTransactions.ExportSettings.OpenInNewWindow = true;
+                gvMFTransactions.ExportSettings.IgnorePaging = true;
+                gvMFTransactions.ExportSettings.HideStructureColumns = true;
+                gvMFTransactions.ExportSettings.ExportOnlyData = true;
+                gvMFTransactions.ExportSettings.FileName = "View Transactions Details";
+                gvMFTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvMFTransactions.MasterTableView.ExportToExcel();
+            }
+            if (hdnExportType == "RHV")
+            {
+                gvBalanceView.ExportSettings.OpenInNewWindow = true;
+                gvBalanceView.ExportSettings.IgnorePaging = true;
+                gvBalanceView.ExportSettings.HideStructureColumns = true;
+                gvBalanceView.ExportSettings.ExportOnlyData = true;
+                gvBalanceView.ExportSettings.FileName = "View ReturnHolding Details";
+                gvBalanceView.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvBalanceView.MasterTableView.ExportToExcel();
+            
+            }
+        
+        }
 
         protected void gvMFTransactions_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -701,8 +727,8 @@ namespace WealthERP.CustomerPortfolio
             //gvMFTransactions.DataSource = dtMFTransactions;
             
         }
-        
-        protected void gvMFBalance_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+
+        protected void gvBalanceView_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
 
             gvBalanceView.Visible = true;
@@ -717,32 +743,11 @@ namespace WealthERP.CustomerPortfolio
 
         }
         protected void btnTrnxExport_Click(object sender, ImageClickEventArgs e)
-        {
-            gvMFTransactions.ExportSettings.OpenInNewWindow = true;
-            gvMFTransactions.ExportSettings.IgnorePaging = true;
-            gvMFTransactions.ExportSettings.HideStructureColumns = true;
-            gvMFTransactions.ExportSettings.ExportOnlyData = true;
-            gvMFTransactions.ExportSettings.FileName = "View Transactions Details";
-            gvMFTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvMFTransactions.MasterTableView.ExportToExcel();
-
-            //gvMFTransactions.ExportSettings.OpenInNewWindow = true;
-            //gvMFTransactions.ExportSettings.IgnorePaging = true;
-            //foreach (GridFilteringItem filter in gvMFTransactions.MasterTableView.GetItems(GridItemType.FilteringItem))
-            //{
-            //    filter.Visible = false;
-            //}
-            //gvMFTransactions.MasterTableView.ExportToExcel();
+        {   
+            ExportGrid(hdnExportType.Value);        
         }
         protected void btnbalncExport_Click(object sender, ImageClickEventArgs e)
-        {
-            gvBalanceView.ExportSettings.OpenInNewWindow = true;
-            gvBalanceView.ExportSettings.IgnorePaging = true;
-            gvBalanceView.ExportSettings.HideStructureColumns = true;
-            gvBalanceView.ExportSettings.ExportOnlyData = true;
-            gvBalanceView.ExportSettings.FileName = "View ReturnHolding Details";
-            gvBalanceView.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvBalanceView.MasterTableView.ExportToExcel();
+        {            
         }
         protected void Transaction_PreRender(object sender, EventArgs e)
         {
