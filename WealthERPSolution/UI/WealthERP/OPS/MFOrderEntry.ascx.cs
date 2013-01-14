@@ -1132,7 +1132,7 @@ namespace WealthERP.OPS
             {
                 ddlBankName.DataSource = dsBankName;
                 ddlBankName.DataValueField = dsBankName.Tables[0].Columns["CB_CustBankAccId"].ToString();
-                ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WERPBDTM_BankName"].ToString();
+                ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WERPBM_BankName"].ToString();
                 ddlBankName.DataBind();
                 ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
             }
@@ -2318,7 +2318,7 @@ namespace WealthERP.OPS
                 if (dtgetBankBranch.Rows.Count > 0)
                 {
                     DataRow dr = dtgetBankBranch.Rows[0];
-                    txtBranchName.Text = dr["WERPBDTM_BankName"].ToString();
+                    txtBranchName.Text = dr["CB_BranchName"].ToString();
                 }
                 hdnBankName.Value = ddlBankName.SelectedItem.Text;
             }
