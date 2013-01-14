@@ -23,6 +23,33 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.ScriptManager scptMgr;
         
         /// <summary>
+        /// lblpageHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblpageHeader;
+        
+        /// <summary>
+        /// btnExportSystematicMIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExportSystematicMIS;
+        
+        /// <summary>
+        /// btnExportSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExportSummary;
+        
+        /// <summary>
         /// trBranchRM control.
         /// </summary>
         /// <remarks>
@@ -293,69 +320,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
-        /// RadTabStrip1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
-        
-        /// <summary>
-        /// SystameticMISMultiPage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage SystameticMISMultiPage;
-        
-        /// <summary>
-        /// RadPageView1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView RadPageView1;
-        
-        /// <summary>
-        /// Table1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable Table1;
-        
-        /// <summary>
-        /// lblNote1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNote1;
-        
-        /// <summary>
-        /// btnExportSystematicMIS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnExportSystematicMIS;
-        
-        /// <summary>
-        /// RadAjaxPanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel1;
-        
-        /// <summary>
         /// gvSystematicMIS control.
         /// </summary>
         /// <remarks>
@@ -363,51 +327,6 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvSystematicMIS;
-        
-        /// <summary>
-        /// RadPageView2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadPageView RadPageView2;
-        
-        /// <summary>
-        /// pnlCalenderSummaryView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlCalenderSummaryView;
-        
-        /// <summary>
-        /// tblNote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblNote;
-        
-        /// <summary>
-        /// lblNote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNote;
-        
-        /// <summary>
-        /// btnExportSummary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnExportSummary;
         
         /// <summary>
         /// reptCalenderSummaryView control.

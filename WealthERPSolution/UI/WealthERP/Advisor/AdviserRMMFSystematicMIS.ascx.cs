@@ -104,6 +104,18 @@ namespace WealthERP.Advisor
 
             if (!IsPostBack)
             {
+                if (Request.QueryString["action"] != null)
+                {
+                    if (Request.QueryString["action"] == "SIP_MIS")
+                    {
+                        lblpageHeader.Text = "MF SIP MIS";
+                    }
+                    else if (Request.QueryString["action"] == "SIP_Projection")
+                    {
+                        lblpageHeader.Text = "MF SIP Projections";
+                    }
+
+                 }
                 ddlSelectCutomer.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
                 lblselectCustomer.Visible = false;
@@ -471,7 +483,21 @@ namespace WealthERP.Advisor
             ViewState["IndividualCustomers"] = null;
             ViewState["CustomerId"] = null;
 
-            CallAllGridBindingFunctions();
+            //CallAllGridBindingFunctions();
+            if (Request.QueryString["action"] != null)
+            {
+                if (Request.QueryString["action"] == "SIP_MIS")
+                {
+                    BindgvSystematicMIS();
+                }
+                else if (Request.QueryString["action"] == "SIP_Projection")
+                {
+                    CreateCalenderViewSummaryDataTable();
+                }
+
+            }
+            
+            
         }
         protected void CallAllGridBindingFunctions()
         {
@@ -490,7 +516,7 @@ namespace WealthERP.Advisor
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
-                tblNote.Visible = false;
+                //tblNote.Visible = false;
 
 
 
@@ -499,7 +525,7 @@ namespace WealthERP.Advisor
 
         private void GetDataFromDB()
         {
-            dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup);
+           
             CreateCalenderViewSummaryDataTable();
         }
         private void SetParameter()
@@ -980,6 +1006,8 @@ namespace WealthERP.Advisor
        
         private void BindgvSystematicMIS()
         {
+            SetParameter();
+            dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup);
             try
             {
                 dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
@@ -1329,6 +1357,7 @@ namespace WealthERP.Advisor
 
         protected void CreateCalenderViewSummaryDataTable()
         {
+            SetParameter();
             DataSet dsCalenderSummaryView;
             DataTable dtSIPDetails;
             dsCalenderSummaryView = systematicSetupBo.GetCalenderSummaryView(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup, hdnstartdate.Value, hdnendDate.Value);
