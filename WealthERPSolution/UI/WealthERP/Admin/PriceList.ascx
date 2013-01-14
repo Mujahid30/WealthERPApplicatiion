@@ -457,62 +457,62 @@
                                                         CurrentFilterFunction="Contains">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="Exchange" AllowFiltering="false" HeaderText="Exchange"
+                                                    <telerik:GridBoundColumn DataField="Exchange" AllowFiltering="false" HeaderText="Exchange" AllowSorting="true"
                                                         HeaderStyle-Width="80px" UniqueName="Exchange" SortExpression="Exchange" AutoPostBackOnFilter="true"
                                                         ShowFilterIcon="false">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="Series" AllowFiltering="false" HeaderText="Series"
+                                                    <telerik:GridBoundColumn DataField="Series" AllowFiltering="false" HeaderText="Series" AllowSorting="true"
                                                         HeaderStyle-Width="60px" UniqueName="Series" SortExpression="Series" AutoPostBackOnFilter="true"
                                                         ShowFilterIcon="false">
                                                         <ItemStyle Width="8px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="OpenPrice" AllowFiltering="false" HeaderText="Open Price"
+                                                    <telerik:GridBoundColumn DataField="OpenPrice" AllowFiltering="false" HeaderText="Open Price" AllowSorting="true"
                                                         HeaderStyle-Width="80px" UniqueName="OpenPrice" SortExpression="OpenPrice" AutoPostBackOnFilter="true"
                                                         ShowFilterIcon="false" DataFormatString="{0:n3}">
                                                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="HighPrice" AllowFiltering="false" HeaderText="High Price"
+                                                    <telerik:GridBoundColumn DataField="HighPrice" AllowFiltering="false" HeaderText="High Price" AllowSorting="true"
                                                         HeaderStyle-Width="80px" UniqueName="HighPrice" SortExpression="HighPrice" AutoPostBackOnFilter="true"
                                                         ShowFilterIcon="false" DataFormatString="{0:n3}">
                                                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="LowPrice" AllowFiltering="false" HeaderText="Low Price"
+                                                    <telerik:GridBoundColumn DataField="LowPrice" AllowFiltering="false" HeaderText="Low Price" AllowSorting="true"
                                                         HeaderStyle-Width="80px" UniqueName="LowPrice" SortExpression="LowPrice" AutoPostBackOnFilter="true"
                                                         ShowFilterIcon="false" DataFormatString="{0:n3}">
                                                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="ClosePrice" AllowFiltering="false" HeaderText="Close Price"
-                                                        HeaderStyle-Width="80px" UniqueName="ClosePrice" SortExpression="ClosePrice"
+                                                        HeaderStyle-Width="80px" UniqueName="ClosePrice" SortExpression="ClosePrice" AllowSorting="true"
                                                         AutoPostBackOnFilter="true" ShowFilterIcon="false" DataFormatString="{0:n3}">
                                                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="LastPrice" AllowFiltering="false" HeaderText="Last Price"
+                                                    <telerik:GridBoundColumn DataField="LastPrice" AllowFiltering="false" HeaderText="Last Price" AllowSorting="true"
                                                         HeaderStyle-Width="80px" UniqueName="LastPrice" SortExpression="LastPrice" AutoPostBackOnFilter="true"
                                                         ShowFilterIcon="false" DataFormatString="{0:n3}">
                                                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="PreviousClose" AllowFiltering="false" HeaderText="Previous Close"
-                                                        HeaderStyle-Width="80px" UniqueName="PreviousClose" SortExpression="PreviousClose"
-                                                        AutoPostBackOnFilter="true" ShowFilterIcon="false"  DataFormatString="{0:n3}>
+                                                        HeaderStyle-Width="80px" UniqueName="PreviousClose" SortExpression="PreviousClose" AllowSorting="true"
+                                                        AutoPostBackOnFilter="true" ShowFilterIcon="false"  DataFormatString="{0:n3}">
                                                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="TotalTradeQuantity" AllowFiltering="false" HeaderText="Total Trade Quantity"
-                                                        HeaderStyle-Width="100px" UniqueName="TotalTradeQuantity" SortExpression="TotalTradeQuantity"
+                                                        HeaderStyle-Width="100px" UniqueName="TotalTradeQuantity" SortExpression="TotalTradeQuantity" AllowSorting="true"
                                                         AutoPostBackOnFilter="true" ShowFilterIcon="false" DataFormatString="{0:n0}">
                                                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="TotalTradeValue" AllowFiltering="false" HeaderText="Total Trade Value"
-                                                        HeaderStyle-Width="100px" UniqueName="TotalTradeValue" SortExpression="TotalTradeValue"
-                                                        AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                                        HeaderStyle-Width="100px" UniqueName="TotalTradeValue" SortExpression="TotalTradeValue" AllowSorting="true"
+                                                        AutoPostBackOnFilter="true" ShowFilterIcon="false" DataFormatString="{0:n3}" >
                                                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="NoOfTrades" AllowFiltering="false" HeaderText="No.of Trades"
-                                                        HeaderStyle-Width="90px" UniqueName="NoOfTrades" SortExpression="NoOfTrades"
+                                                        HeaderStyle-Width="90px" UniqueName="NoOfTrades" SortExpression="NoOfTrades" AllowSorting="true"
                                                         AutoPostBackOnFilter="true" ShowFilterIcon="false" DataFormatString="{0:n0}">
                                                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="Date" HeaderText="Date" AllowFiltering="false"
+                                                    <telerik:GridBoundColumn DataField="Date" HeaderText="Date" AllowFiltering="false" AllowSorting="true"
                                                         DataFormatString="{0:d}" HeaderStyle-Width="80px" UniqueName="Date" SortExpression="Date"
                                                         AutoPostBackOnFilter="true" ShowFilterIcon="false">
                                                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
