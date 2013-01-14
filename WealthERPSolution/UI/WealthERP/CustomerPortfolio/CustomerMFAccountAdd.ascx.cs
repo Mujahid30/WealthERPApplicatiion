@@ -616,7 +616,7 @@ namespace WealthERP.CustomerPortfolio
             DataSet ds = mforderBo.GetCustomerBank(customerVo.CustomerId);
             ddlBankList.DataSource = ds;
             ddlBankList.DataValueField = ds.Tables[0].Columns["CB_CustBankAccId"].ToString();
-            ddlBankList.DataTextField = ds.Tables[0].Columns["WERPBDTM_BankName"].ToString();
+            ddlBankList.DataTextField = ds.Tables[0].Columns["WERPBM_BankName"].ToString();
             ddlBankList.DataBind();
             ddlBankList.Items.Insert(0, new ListItem("Select", "0"));
         }
