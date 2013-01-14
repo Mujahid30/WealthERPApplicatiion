@@ -908,8 +908,12 @@
                                                 <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
                                             </td>
                                             <td class="rightField">
-                                                <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" Style="width: 250px;"
-                                                    Text='<%# Bind("CB_BankName") %>'></asp:TextBox>
+                                               <%-- <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" Style="width: 250px;"
+                                                    Text='<%# Bind("CB_BankName") %>'></asp:TextBox>--%>
+                                                    
+                                                    
+                                                <asp:DropDownList ID="ddlBankName" CssClass="cmbField" runat="server">
+                                                </asp:DropDownList> 
                                                 <span id="spBankName" class="spnRequiredField">*</span>
                                                 <asp:RequiredFieldValidator ID="rfvBankName" ControlToValidate="txtBankName" ErrorMessage="<br />Please enter a Bank Name"
                                                     Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
