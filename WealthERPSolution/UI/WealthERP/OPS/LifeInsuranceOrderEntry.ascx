@@ -39,7 +39,7 @@
 <script  language="javascript" type="text/javascript">
 
        function openpopupAddBank() {  
-               window.open('PopUp.aspx?PageId=AddBankDetails', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+               window.open('PopUp.aspx?PageId=ViewBankDetails', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
                return false;  
    }
     function openpopupAddCustomer() {
