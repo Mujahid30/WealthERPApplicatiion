@@ -556,7 +556,7 @@
     </tr>
         <tr id="trCeaseDate" runat="server">
         <td class="leftField" width="25%">
-            <asp:Label ID="lblCeaseDate" runat="server" Text="Cease Date: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblCeaseDate" runat="server" Text="Stopped Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtCeaseDate" runat="server" CssClass="txtField"></asp:TextBox>
