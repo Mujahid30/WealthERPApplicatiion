@@ -193,24 +193,8 @@ namespace BoCustomerProfiling
             }
             catch (BaseApplicationException Ex)
             {
-                bResult = false;
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:DeleteCustomerBankAccount()");
-
-                object[] objects = new object[1];
-                objects[0] = customerAccountId;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+                bResult = false;                
+            }          
 
             return bResult;
         }
