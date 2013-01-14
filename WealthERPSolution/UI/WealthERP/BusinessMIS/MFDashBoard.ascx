@@ -63,11 +63,11 @@
                                                             HeaderStyle-HorizontalAlign="Right" UniqueName="CostCurrent" DataFormatString="{0:N0}">
                                                             <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="CostYear" HeaderText="YTD" DataFormatString="{0:N0}"
+                                                        <telerik:GridBoundColumn DataField="CostYear" HeaderText="YTD" 
                                                            HeaderStyle-HorizontalAlign="Right"  AllowFiltering="false" UniqueName="CostYear" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="CostTotal" HeaderText="Total" DataFormatString="{0:N0}"
+                                                        <telerik:GridBoundColumn DataField="CostTotal" HeaderText="Total" 
                                                             HeaderStyle-HorizontalAlign="Right" AllowFiltering="false" UniqueName="CostTotal" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
