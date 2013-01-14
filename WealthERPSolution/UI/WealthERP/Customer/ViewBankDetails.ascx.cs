@@ -378,7 +378,7 @@ namespace WealthERP.Customer
           if (e.CommandName == RadGrid.PerformInsertCommandName)
           {
               CustomerBo customerBo = new CustomerBo();
-              bool isInserted = false;
+             
               GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
               DropDownList ddlAccountType = (DropDownList)e.Item.FindControl("ddlAccountType");
               TextBox txtAccountNumber = (TextBox)e.Item.FindControl("txtAccountNumber");
@@ -446,8 +446,11 @@ namespace WealthERP.Customer
           }
           if (e.CommandName == "Delete")
           {
+              bool isdeleted = false;
               bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
-              customerBankAccountBo.DeleteCustomerBankAccount(bankId);
+              isdeleted=customerBankAccountBo.DeleteCustomerBankAccount(bankId);
+              if(isdeleted==false)
+                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot delete the bank is associate with a folio');", true);
           }
           BindBankDetails(customerId);
       }
