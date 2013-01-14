@@ -114,7 +114,10 @@ namespace WealthERP.Advisor
                                 if (currentURL.Contains("localhost"))
                                 {
                                     Session.Abandon();
-                                    Response.Redirect(currentURL);
+                                    //Response.Redirect(currentURL);
+                                    currentURL = currentURL.Replace("ControlHost", "Default");
+                                    Page.ClientScript.RegisterStartupScript(this.GetType(),
+                                              "pageloadscript", "window.parent.location.href = '" + currentURL + "'", true);
                                 }
                                 else
                                 {
@@ -126,7 +129,9 @@ namespace WealthERP.Advisor
                                     else
                                     {
                                         Session.Abandon();
-                                        Response.Redirect("https://app.wealtherp.com/");
+                                        //Response.Redirect("https://app.wealtherp.com/");
+                                        Page.ClientScript.RegisterStartupScript(this.GetType(),
+                                            "pageloadscript", "window.parent.location.href = 'https://app.wealtherp.com/'", true);
                                     }
                                 }
 
