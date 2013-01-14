@@ -1813,6 +1813,8 @@ namespace WealthERP.Customer
                 TextBox txtBankAdrPinCode = (TextBox)e.Item.FindControl("txtBankAdrPinCode");
                 TextBox txtMicr = (TextBox)e.Item.FindControl("txtMicr");
                 DropDownList ddlBankAdrState = (DropDownList)e.Item.FindControl("ddlBankAdrState");
+                DropDownList ddlBankName = (DropDownList)e.Item.FindControl("ddlBankName");
+
                 TextBox txtIfsc = (TextBox)e.Item.FindControl("txtIfsc");
 
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
@@ -1822,7 +1824,7 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
                 customerBankAccountVo.AccountType = ddlAccountType.SelectedItem.Value.ToString();
                 customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedItem.Value.ToString();
-                customerBankAccountVo.BankName = txtBankName.Text.ToString();
+                customerBankAccountVo.BankName = ddlBankName.SelectedValue;
                 customerBankAccountVo.BranchName = txtBranchName.Text.ToString();
                 customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
                 customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
@@ -1865,6 +1867,8 @@ namespace WealthERP.Customer
                 TextBox txtBankAdrPinCode = (TextBox)e.Item.FindControl("txtBankAdrPinCode");
                 TextBox txtMicr = (TextBox)e.Item.FindControl("txtMicr");
                 DropDownList ddlBankAdrState = (DropDownList)e.Item.FindControl("ddlBankAdrState");
+                DropDownList ddlBankName = (DropDownList)e.Item.FindControl("ddlBankName");
+
                 TextBox txtIfsc = (TextBox)e.Item.FindControl("txtIfsc");
 
 
@@ -1888,7 +1892,7 @@ namespace WealthERP.Customer
 
                 if (ddlModeOfOperation.SelectedValue.ToString() != "Select a Mode of Holding")
                     customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedValue.ToString();
-                customerBankAccountVo.BankName = txtBankName.Text.ToString();
+                customerBankAccountVo.BankName = ddlBankName.SelectedValue;
                 customerBankAccountVo.BranchName = txtBranchName.Text.ToString();
                 customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
                 customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
@@ -1914,7 +1918,7 @@ namespace WealthERP.Customer
                 txtBankAdrLine3.Text = "";
                 txtBankAdrPinCode.Text = "";
                 txtBankAdrCity.Text = "";
-                txtBankName.Text = "";
+                //ddlBankName.SelectedIndex = "0";
                 txtBranchName.Text = "";
                 txtIfsc.Text = "";
                 txtMicr.Text = "";
@@ -2227,14 +2231,14 @@ namespace WealthERP.Customer
 
         protected void gvBankDetails_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            
+            string strSelectedbank;
             if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 DataTable dtAccType = new DataTable();
                 DataTable dtModeOfOpn = new DataTable();
                 DataTable dtBankState = new DataTable();
-
+                DataTable dtBankName = new DataTable();
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList ddlAccountType = (DropDownList)gefi.FindControl("ddlAccountType");
                 dtAccType = XMLBo.GetBankAccountTypes(path);
@@ -2245,22 +2249,14 @@ namespace WealthERP.Customer
                 ddlAccountType.Items.Insert(0, new ListItem("Select", "Select"));
                 //newly added for bank drop downlist start
                 DropDownList ddlBankName = (DropDownList)gefi.FindControl("ddlBankName");
-                DataSet dsBankName = mfOrderBo.GetCustomerBank(customerId);
-                if (dsBankName.Tables[0].Rows.Count > 0)
-                {
-                    ddlBankName.DataSource = dsBankName;
-                    ddlBankName.DataValueField = dsBankName.Tables[0].Columns["CB_CustBankAccId"].ToString();
-                    ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WERPBM_BankName"].ToString();
-                    ddlBankName.DataBind();
-                    ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
-                }
-                else
-                {
-                    ddlBankName.Items.Clear();
-                    ddlBankName.DataSource = null;
-                    ddlBankName.DataBind();
-                    ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
-                }
+                //strSelectedbank = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_BankName"].ToString();
+
+                dtBankName = customerBankAccountBo.GetALLBankName();
+                ddlBankName.DataSource = dtBankName;
+                ddlBankName.DataValueField = dtBankName.Columns["WERPBM_BankCode"].ToString();
+                ddlBankName.DataTextField = dtBankName.Columns["WERPBM_BankName"].ToString();
+                ddlBankName.DataBind();
+                //ddlBankName.SelectedItem.Text =strSelectedbank;
                 //newly added for bank drop downlist end
 
                 DropDownList ddlModeOfOperation = (DropDownList)gefi.FindControl("ddlModeOfOperation");
@@ -2292,37 +2288,30 @@ namespace WealthERP.Customer
             string strBankAdrState;
             string strModeOfOperation;
             string strAccountType;
+           
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             {
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
                 strBankAdrState = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_BranchAdrState"].ToString();
                 strModeOfOperation = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ModeOfHoldingCode"].ToString();
                 strAccountType = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BankAccountTypeCode"].ToString();
+                strSelectedbank = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_BankName"].ToString();
+                
 
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
 
                 DataTable dtAccType = new DataTable();
                 DataTable dtModeOfOpn = new DataTable();
                 DataTable dtBankState = new DataTable();
-
+                DataTable dtBankName = new DataTable();
                 //newly added for bank drop downlist start
                 DropDownList ddlBankName = (DropDownList)editedItem.FindControl("ddlBankName");
-                DataSet dsBankName = mfOrderBo.GetCustomerBank(customerId);
-                if (dsBankName.Tables[0].Rows.Count > 0)
-                {
-                    ddlBankName.DataSource = dsBankName;
-                    ddlBankName.DataValueField = dsBankName.Tables[0].Columns["CB_CustBankAccId"].ToString();
-                    ddlBankName.DataTextField = dsBankName.Tables[0].Columns["WERPBM_BankName"].ToString();
-                    ddlBankName.DataBind();
-                    ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
-                }
-                else
-                {
-                    ddlBankName.Items.Clear();
-                    ddlBankName.DataSource = null;
-                    ddlBankName.DataBind();
-                    ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
-                }
+                dtBankName = customerBankAccountBo.GetALLBankName();
+                ddlBankName.DataSource = dtBankName;
+                ddlBankName.DataValueField = dtBankName.Columns["WERPBM_BankCode"].ToString();
+                ddlBankName.DataTextField = dtBankName.Columns["WERPBM_BankName"].ToString();
+                ddlBankName.DataBind();
+                ddlBankName.SelectedItem.Text = strSelectedbank;
                 //newly added for bank drop downlist end
 
 

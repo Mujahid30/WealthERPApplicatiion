@@ -762,7 +762,7 @@
                         OnNeedDataSource="gvBankDetails_NeedDataSource" OnItemCommand="gvBankDetails_ItemCommand">
                         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                         </ExportSettings>
-                         <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,BankAccountTypeCode,CB_BranchAdrState" 
+                         <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,CB_BankName,BankAccountTypeCode,CB_BranchAdrState" 
                          EditMode="EditForms" CommandItemDisplay="Top"
                             CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add New Bank Details">
                              <Columns>
@@ -915,9 +915,9 @@
                                                 <asp:DropDownList ID="ddlBankName" CssClass="cmbField" runat="server">
                                                 </asp:DropDownList> 
                                                 <span id="spBankName" class="spnRequiredField">*</span>
-                                                <asp:RequiredFieldValidator ID="rfvBankName" ControlToValidate="txtBankName" ErrorMessage="<br />Please enter a Bank Name"
+                                                <%--<asp:RequiredFieldValidator ID="rfvBankName" ControlToValidate="txtBankName" ErrorMessage="<br />Please enter a Bank Name"
                                                     Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
-                                                </asp:RequiredFieldValidator>
+                                                </asp:RequiredFieldValidator>--%>
                                             </td>
                                             <td colspan="2">
                                                 &nbsp;
