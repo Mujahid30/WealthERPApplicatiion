@@ -103,6 +103,8 @@ namespace WealthERP.FP
             //}
             if (!Page.IsPostBack)
             {
+                ddlGoalYear.Items.Remove(DateTime.Today.Year.ToString());
+
                 if (Request.QueryString["GoalId"] != null)
                     goalId = int.Parse(Request.QueryString["GoalId"].ToString());
                 if (Request.QueryString["goalAction"] != null)
