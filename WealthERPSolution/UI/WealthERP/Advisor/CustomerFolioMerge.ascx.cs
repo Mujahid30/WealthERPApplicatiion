@@ -534,7 +534,7 @@ namespace WealthERP.Advisor
 
             GetLatestValuationDate();
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView','none');", true);
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
