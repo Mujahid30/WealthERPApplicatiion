@@ -95,8 +95,8 @@ namespace WealthERP.Advisor
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
             // RadComboBox Combo=sender as RadComboBox;
-
-            gvSystematicMIS.Visible = true;
+            reptCalenderSummaryView.Visible = false;
+            gvSystematicMIS.Visible = false;
             ErrorMessage.Visible = false;
             hdnRecordCount.Value = "1";
             //GetPageCount();
@@ -1066,6 +1066,16 @@ namespace WealthERP.Advisor
                 gvSystematicMIS.DataSource = dtSystematicDetails;
                 gvSystematicMIS.DataBind();
 
+                if (Cache["gvSystematicMIS" + userVo.UserId + userType] == null)
+                {
+                    Cache.Insert("gvSystematicMIS" + userVo.UserId + userType, dtSystematicDetails);
+                }
+                else
+                {
+                    Cache.Remove("gvSystematicMIS" + userVo.UserId + userType);
+                    Cache.Insert("gvSystematicMIS" + userVo.UserId + userType, dtSystematicDetails);
+                }
+
                 if (dtSystematicDetails.Rows.Count > 0)
                 {
 
@@ -1658,16 +1668,16 @@ namespace WealthERP.Advisor
         protected void reptCalenderSummaryView_PreRender(object sender, EventArgs e)
         {
             //HideExpandColumnRecursive(reptCalenderSummaryView.MasterTableView);
-            foreach (GridColumn column in reptCalenderSummaryView.MasterTableView.RenderColumns)
-            {
-                if (column is GridGroupSplitterColumn)
-                {
-                    column.HeaderStyle.Width = Unit.Pixel(1);
-                    column.ItemStyle.Width = Unit.Pixel(1);
-                    column.Resizable = false;
-                }
-            }
-            reptCalenderSummaryView.Rebind();
+            //foreach (GridColumn column in reptCalenderSummaryView.MasterTableView.RenderColumns)
+            //{
+            //    if (column is GridGroupSplitterColumn)
+            //    {
+            //        column.HeaderStyle.Width = Unit.Pixel(1);
+            //        column.ItemStyle.Width = Unit.Pixel(1);
+            //        column.Resizable = false;
+            //    }
+            //}
+            //reptCalenderSummaryView.Rebind();
         }
 
         protected void btnExportSummary_OnClick(object sender, ImageClickEventArgs e)
@@ -1697,6 +1707,21 @@ namespace WealthERP.Advisor
 
 
         }
+
+       protected void btnExportSystematicMIS_Click(object sender, ImageClickEventArgs e)
+       {
+           DataTable dtSystematicDetails = new DataTable();
+           dtSystematicDetails = (DataTable)Cache["gvSystematicMIS" + userVo.UserId + userType];
+           gvSystematicMIS.DataSource = dtSystematicDetails;
+
+           gvSystematicMIS.ExportSettings.OpenInNewWindow = true;
+           gvSystematicMIS.ExportSettings.IgnorePaging = true;
+           gvSystematicMIS.ExportSettings.HideStructureColumns = true;
+           gvSystematicMIS.ExportSettings.ExportOnlyData = true;
+           gvSystematicMIS.ExportSettings.FileName = "MF SIP MIS";
+           gvSystematicMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+           gvSystematicMIS.MasterTableView.ExportToExcel();
+       }
         //protected void RadComboBoxSip_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         //{
         //    string filterExpression;
@@ -1744,15 +1769,15 @@ namespace WealthERP.Advisor
         // }
         //} 
 
-        protected void btnExportSystematicMIS_OnClick(object sender, ImageClickEventArgs e)
-        {
-            gvSystematicMIS.ExportSettings.OpenInNewWindow = true;
-            gvSystematicMIS.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvSystematicMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
-            gvSystematicMIS.MasterTableView.ExportToExcel();
-        }
+        //protected void btnExportSystematicMIS_OnClick(object sender, ImageClickEventArgs e)
+        //{
+        //    gvSystematicMIS.ExportSettings.OpenInNewWindow = true;
+        //    gvSystematicMIS.ExportSettings.IgnorePaging = true;
+        //    foreach (GridFilteringItem filter in gvSystematicMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+        //    {
+        //        filter.Visible = false;
+        //    }
+        //    gvSystematicMIS.MasterTableView.ExportToExcel();
+        //}
     }
 }

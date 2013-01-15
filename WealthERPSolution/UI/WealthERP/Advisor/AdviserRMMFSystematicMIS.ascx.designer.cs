@@ -32,15 +32,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label lblpageHeader;
         
         /// <summary>
-        /// btnExportSystematicMIS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnExportSystematicMIS;
-        
-        /// <summary>
         /// btnExportSummary control.
         /// </summary>
         /// <remarks>
@@ -48,6 +39,15 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnExportSummary;
+        
+        /// <summary>
+        /// btnExportSystematicMIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExportSystematicMIS;
         
         /// <summary>
         /// trBranchRM control.

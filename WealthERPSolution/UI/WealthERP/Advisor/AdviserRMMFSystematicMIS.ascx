@@ -43,12 +43,15 @@
                             <asp:Label ID="lblpageHeader" class="HeaderTextBig" runat="server"></asp:Label>
                         </td>
                         <td  align="right">
-                        <asp:ImageButton ID="btnExportSystematicMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        <%--<asp:ImageButton ID="btnExportSystematicMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                          runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportSystematicMIS_OnClick"
-                         Height="25px" Width="25px"></asp:ImageButton>
+                         Height="25px" Width="25px"></asp:ImageButton>--%>
                          <asp:ImageButton ID="btnExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                          runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportSummary_OnClick"
                          Height="25px" Width="25px"></asp:ImageButton>
+                         <asp:ImageButton ID="btnExportSystematicMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                        Height="20px" Width="25px" Visible="false" onclick="btnExportSystematicMIS_Click"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -259,10 +262,9 @@
             EnableLoadOnDemand="True" AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
             EnableEmbeddedSkins="false" GridLines="none" PageSize="10" ShowFooter="true"
             PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true" Skin="Telerik"
-            OnPreRender="gvSystematicMIS_PreRender">
+             ExportSettings-FileName="MF SIP MIS">
             <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                FileName="SystematicMIS Details" Excel-Format="ExcelML">
+            <ExportSettings HideStructureColumns="true">
             </ExportSettings>
             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false">
                 <Columns>
@@ -381,11 +383,10 @@
     <telerik:RadGrid ID="reptCalenderSummaryView" runat="server" GridLines="Both" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false"
-        AllowAutomaticDeletes="True" AllowAutomaticInserts="false" OnItemDataBound="reptCalenderSummaryView_ItemDataBound"
-        OnPreRender="reptCalenderSummaryView_PreRender">
+        AllowAutomaticDeletes="True" AllowAutomaticInserts="false" OnItemDataBound="reptCalenderSummaryView_ItemDataBound">
         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-            FileName="CalenderSummary Details" Excel-Format="ExcelML">
+            FileName="MF SIP Projections" Excel-Format="ExcelML">
         </ExportSettings>
         <MasterTableView Width="100%" ExpandCollapseColumn-ButtonType="ImageButton">
             <Columns>
