@@ -323,7 +323,7 @@
                                                             AutoPostBackOnFilter="true" UniqueName="AMC" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" HeaderText="Scheme" ShowFilterIcon="false">
+                                                        <telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"  HeaderText="Scheme" ShowFilterIcon="false">
                                                             <ItemStyle Wrap="false" />
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />
@@ -480,7 +480,7 @@
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" HeaderText="Scheme" ShowFilterIcon="false">
+                                                        <telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true" HeaderText="Scheme" ShowFilterIcon="false">
                                                             <ItemStyle Wrap="false" />
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />
