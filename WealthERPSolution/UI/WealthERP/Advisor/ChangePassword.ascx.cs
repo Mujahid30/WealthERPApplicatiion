@@ -29,6 +29,7 @@ namespace WealthERP.Advisor
             try
             {
                 SessionBo.CheckSession();
+                advisorPreferenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
                 if (Session["CustomerUser"] != null)
                 {
                     userVo = (UserVo)Session["CustomerUser"];
@@ -124,7 +125,9 @@ namespace WealthERP.Advisor
                                     if (!string.IsNullOrEmpty(advisorPreferenceVo.LoginWidgetLogOutPageURL))
                                     {
                                         Session.Abandon();
-                                        Response.Redirect(advisorPreferenceVo.LoginWidgetLogOutPageURL);
+                                        //Response.Redirect(advisorPreferenceVo.LoginWidgetLogOutPageURL);
+                                        Page.ClientScript.RegisterStartupScript(this.GetType(),
+                                           "pageloadscript", "window.parent.location.href = '" + advisorPreferenceVo.LoginWidgetLogOutPageURL + "'", true);
                                     }
                                     else
                                     {
