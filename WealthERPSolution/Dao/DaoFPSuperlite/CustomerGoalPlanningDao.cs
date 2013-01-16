@@ -152,7 +152,7 @@ namespace DaoFPSuperlite
                 }
 
                 db.AddOutParameter(createCustomerGoalProfileCmd, "@GoalId", DbType.Int32, 10000);
-
+                createCustomerGoalProfileCmd.CommandTimeout = 60 * 60;
                 db.ExecuteNonQuery(createCustomerGoalProfileCmd);
 
                 Object objGoalId = db.GetParameterValue(createCustomerGoalProfileCmd, "@GoalId");
@@ -803,6 +803,7 @@ namespace DaoFPSuperlite
                 getSIPInvestmentDetailsCmd = db.GetStoredProcCommand("SP_GetSIPInvestmentDetails");
                 db.AddInParameter(getSIPInvestmentDetailsCmd, "@CustomerId", DbType.Int32, CustomerID);
                 db.AddInParameter(getSIPInvestmentDetailsCmd, "@goalId", DbType.Int32, goalId);
+                getSIPInvestmentDetailsCmd.CommandTimeout = 60 * 60;
                 dsGetSIPInvestmentDetails = db.ExecuteDataSet(getSIPInvestmentDetailsCmd);
             }
             catch (BaseApplicationException Ex)
