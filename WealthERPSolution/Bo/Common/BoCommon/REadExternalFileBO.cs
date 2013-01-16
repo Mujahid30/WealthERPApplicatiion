@@ -59,7 +59,7 @@ namespace BoCommon
                 int CountCol = 0; //Counting each column of a row in  Table
                 DataRow dr;      //Data row to check which row contains dummy record. 
 
-                for (int a = 0; a < ds.Tables[0].Rows.Count; a++)
+                for (int a = 0; a < ds.Tables[0].Rows.Count;)
                 {
                     for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
                     {
@@ -72,6 +72,10 @@ namespace BoCommon
                     {
                         dr = ds.Tables[0].Rows[a];
                         ds.Tables[0].Rows.Remove(dr);
+                    }
+                    else
+                    {
+                        a++;
                     }
                     CountCol = 0;
                 }
