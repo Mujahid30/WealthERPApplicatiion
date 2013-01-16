@@ -195,7 +195,33 @@ namespace BoCommon
                     count++;
                 }
                 domains.Tables.Add(dtOdin);
-               
+
+                int CountCol = 0; //Counting each column of a row in  Table
+                DataRow dr;      //Data row to check which row contains dummy record. 
+
+                for (int a = 0; a < domains.Tables[0].Rows.Count; )
+                {
+                    for (int i = 0; i < domains.Tables[0].Columns.Count; i++)
+                    {
+                        //if (i != 0)
+                        //{
+                            if (domains.Tables[0].Rows[a][i] == DBNull.Value)
+                            {
+                                CountCol++;
+                            }
+                        //}
+                    }
+                    if (CountCol == domains.Tables[0].Columns.Count - 1 || CountCol == domains.Tables[0].Columns.Count)
+                    {
+                        dr = domains.Tables[0].Rows[a];
+                        domains.Tables[0].Rows.Remove(dr);
+                    }
+                    else
+                    {
+                        a++;
+                    }
+                    CountCol = 0;
+                }
                 //foreach (DataRow dr in domains.Tables[0].Rows)
                 //{
 
