@@ -527,8 +527,24 @@ namespace WealthERP.Reports
             {
                 setLogo();
                 customerVo = customerBo.GetCustomer(OCustomerId);
+                DataSet ds = mfReportBo.GetARNNoAndJointHoldings(OCustomerId,OportfolioId);
+                DataRow[] drARNNo= new DataRow[ds.Tables[0].Columns.Count];
+                setLogo();
+
+              
                 if(customerVo != null)
                 {
+                    if(ds.Tables[1].Rows.Count>0)
+                        crmain.Subreports["JointHolder"].Database.Tables["JointHolder"].SetDataSource(ds.Tables[1]);
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        crmain.SetDataSource(ds.Tables[0]);
+                        drARNNo = ds.Tables[0].Select();
+
+                        crmain.SetParameterValue("ARNNo", !string.IsNullOrEmpty(drARNNo[0]["AL_Identifier"].ToString().Trim()) ? drARNNo[0]["AL_Identifier"].ToString() : string.Empty);
+                        crmain.SetParameterValue("OrgName", !string.IsNullOrEmpty(drARNNo[0]["A_OrgName"].ToString().Trim()) ? drARNNo[0]["A_OrgName"].ToString() : string.Empty);
+                    }
+
                     crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(OAmc)? OAmc : string.Empty);
                     crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(customerVo.PANNum) ? customerVo.PANNum : string.Empty);
                     crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName) ? customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName : string.Empty);
@@ -2832,7 +2848,7 @@ namespace WealthERP.Reports
                         DataTable dt = ds.Tables[0];
                         if (dt.Rows.Count > 0)
                         {
-                            crmain.Subreports["CustomerNetworth"].Database.Tables[0].SetDataSource(ds.Tables[0]);
+                           crmain.Subreports["CustomerNetworth"].Database.Tables[0].SetDataSource(ds.Tables[0]);
                            crmain.Subreports["Networth"].Database.Tables[0].SetDataSource(ds.Tables[1]);
                             crmain.Subreports["Liabilities"].Database.Tables[0].SetDataSource(ds.Tables[2]);
 
