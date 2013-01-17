@@ -332,9 +332,9 @@ namespace BoCustomerPortfolio
 
         }
 
-        public static bool TransferFolio(int MFAccountId, int newPortfolioId)
+        public static bool TransferFolio(int MFAccountId, int newPortfolioId,int isBankAssociatedWithOtherTransactions)
         {
-            return PortfolioDao.TransferFolio(MFAccountId, newPortfolioId);
+            return PortfolioDao.TransferFolio(MFAccountId, newPortfolioId,isBankAssociatedWithOtherTransactions);
         }
 
         public int CustomerPortfolioCheck(string association, string Flag)
