@@ -118,6 +118,36 @@ namespace DaoUploads
             return dsGetRejectReasonList;
         }
 
+        public DataSet GetRejectReasonEquityList(int uploadFileType)
+        {
+            DataSet dsGetRejectReasonEquityList;
+            Database db;
+            DbCommand getGetRejectReasonEquityListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetRejectReasonEquityListCmd = db.GetStoredProcCommand("SP_GetRejectReasonListEquity");
+                db.AddInParameter(getGetRejectReasonEquityListCmd, "@uploadFileType", DbType.Int32, uploadFileType);
+                dsGetRejectReasonEquityList = db.ExecuteDataSet(getGetRejectReasonEquityListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:GetRejectReasonList()");
+                object[] objects = new object[9];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetRejectReasonEquityList;
+        }
+
         public DataSet getMFRejectedFolios(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
         {
             DataSet dsGetCAMSRejectedProfiles;
@@ -750,8 +780,7 @@ namespace DaoUploads
             return dsGetWERPRejectedTransactions;
         }
 
-        public DataSet GetRejectedEquityTransactionsStaging(int adviserId, int processId, int CurrentPage, out int Count,
-           string SortExpression, string RejectReasonFilter, string PanNumberFilter, string ScripFilter, string ExchangeFilter, string TransactionTypeFilter)
+        public DataSet GetRejectedEquityTransactionsStaging(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
         {
             DataSet dsGetWERPRejectedTransactions;
             Database db;
@@ -762,28 +791,20 @@ namespace DaoUploads
                 getWERPRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetUploadRejectsEquityTransactionStaging");
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
-                db.AddInParameter(getWERPRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
-                db.AddInParameter(getWERPRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
+                if (fromDate != DateTime.MinValue)
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@fromDate", DbType.DateTime, fromDate);
+                else
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@fromDate", DbType.DateTime, DBNull.Value);
 
-
-
-                if (RejectReasonFilter != "")
-                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
-
-                if (PanNumberFilter != "")
-                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@panNumberFilter", DbType.String, PanNumberFilter);
-
-                if (ScripFilter != "")
-                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@scripFilter", DbType.String, ScripFilter);
-
-                if (ExchangeFilter != "")
-                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@exchangeFilter", DbType.String, ExchangeFilter);
-
-                if (TransactionTypeFilter != "")
-                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
-
-
-                dsGetWERPRejectedTransactions = db.ExecuteDataSet(getWERPRejectedTransactionsCmd);
+                if (toDate != DateTime.MinValue)
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@toDate", DbType.DateTime, toDate);
+                else
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@toDate", DbType.DateTime, DBNull.Value);
+                if (rejectReasonCode != 0)
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
+                else
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@rejectReasonCode", DbType.Int32, DBNull.Value);
+                    dsGetWERPRejectedTransactions = db.ExecuteDataSet(getWERPRejectedTransactionsCmd);
             }
             catch (BaseApplicationException Ex)
             {
@@ -798,21 +819,12 @@ namespace DaoUploads
 
                 object[] objects = new object[6];
                 objects[0] = processId;
-                objects[1] = CurrentPage;
-                objects[2] = SortExpression;
-                objects[3] = RejectReasonFilter;
-                objects[4] = PanNumberFilter;
-                objects[5] = ScripFilter;
-                objects[6] = ExchangeFilter;
-                objects[7] = TransactionTypeFilter;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-            }
-
-            Count = Int32.Parse(dsGetWERPRejectedTransactions.Tables[1].Rows[0]["CNT"].ToString());
+            }          
 
             return dsGetWERPRejectedTransactions;
         }
@@ -1537,6 +1549,40 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deletetransactions = db.GetStoredProcCommand("SP_DeleteRejectsEquityTransactionStaging");
                 db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+                db.ExecuteDataSet(deletetransactions);
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteRejectsEquityTransactionStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        
+        public void DeleteRejectsEquityTransactionsStaging(string StagingID)
+        {
+            Database db;
+            DbCommand deletetransactions;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deletetransactions = db.GetStoredProcCommand("SP_DeleteRejectsEquityTransactionsStaging");
+                db.AddInParameter(deletetransactions, "@StagingID", DbType.String, StagingID);
                 db.ExecuteDataSet(deletetransactions);
             }
 
