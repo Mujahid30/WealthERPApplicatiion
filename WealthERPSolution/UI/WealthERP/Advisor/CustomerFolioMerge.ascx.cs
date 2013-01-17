@@ -39,7 +39,7 @@ namespace WealthERP.Advisor
         UserVo userVo = new UserVo();
         DataSet dsCustomerPortfolioList = new DataSet();
         int customerPortfolioID = 0;
-        
+        int isBankAssociatedWithOtherTransactions=0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -609,7 +609,7 @@ namespace WealthERP.Advisor
         protected void btnSubmitPortfolio_Click(object sender, EventArgs e)
         {
             try
-            {
+            {                
                 if (hdnCustomerId.Value == "0" && ddlMovePortfolio.SelectedIndex==2)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Select a customer first!');", true);
@@ -635,11 +635,20 @@ namespace WealthERP.Advisor
                             amcCode = int.Parse(dKey.Values["AMCCode"].ToString());
                             folioNumber = dKey.Values["Count"].ToString();
                             fromPortfolioId = Convert.ToInt32(dKey.Values["portfilionumber"].ToString());
-                            dsPortFolioUpdate = adviserBranchBo.CustomerFolioMoveToCustomer(amcCode, folioNumber, fromPortfolioId, customerPortfolioID);
+                            isBankAssociatedWithOtherTransactions = adviserBranchBo.CustomerFolioMoveToCustomer(amcCode, folioNumber, fromPortfolioId, customerPortfolioID, isBankAssociatedWithOtherTransactions);
+                            if(isBankAssociatedWithOtherTransactions>0)
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot transfer this folio the bank is associate with some other transactions');", true);
+
+                            //dsPortFolioUpdate = adviserBranchBo.CustomerFolioMoveToCustomer(amcCode, folioNumber, fromPortfolioId, customerPortfolioID, isBankAssociatedWithOtherTransactions);
+                           
                             break;
                         }
                     }
-                    trFolioStatus.Visible = true;
+                    if(isBankAssociatedWithOtherTransactions>0)
+                        trFolioStatus.Visible = false;
+                    else
+                        trFolioStatus.Visible = true;
+                    
                     this.BindCustomer(mypager.CurrentPage);
                     showHideControls(0);
                     ddlMovePortfolio.SelectedIndex = 0;
