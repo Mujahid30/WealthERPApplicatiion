@@ -262,7 +262,7 @@
             EnableLoadOnDemand="True" AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
             EnableEmbeddedSkins="false" GridLines="none" PageSize="10" ShowFooter="true"
             PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true" Skin="Telerik"
-             ExportSettings-FileName="MF SIP MIS">
+             ExportSettings-FileName="MF SIP MIS" OnNeedDataSource="gvSystematicMIS_OnNeedDataSource">
             <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
             <ExportSettings HideStructureColumns="true">
             </ExportSettings>
@@ -383,7 +383,8 @@
     <telerik:RadGrid ID="reptCalenderSummaryView" runat="server" GridLines="Both" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false"
-        AllowAutomaticDeletes="True" AllowAutomaticInserts="false" OnItemDataBound="reptCalenderSummaryView_ItemDataBound">
+        AllowAutomaticDeletes="True" AllowAutomaticInserts="false" OnItemDataBound="reptCalenderSummaryView_ItemDataBound"
+        OnNeedDataSource="reptCalenderSummaryView_OnNeedDataSource">
         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
             FileName="MF SIP Projections" Excel-Format="ExcelML">

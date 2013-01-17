@@ -149,8 +149,7 @@ namespace WealthERP.Advisor
                 btnExportSystematicMIS.Visible = false;
                 btnExportSummary.Visible = false;
             }
-            if (Session["ButtonGo"] != null)
-                CallAllGridBindingFunctions();
+           
 
         }
         /// <summary>
@@ -1606,6 +1605,16 @@ namespace WealthERP.Advisor
 
                 reptCalenderSummaryView.DataSource = calenderView;
                 reptCalenderSummaryView.DataBind();
+
+                if (Cache["reptCalenderSummaryView" + userVo.UserId + userType] == null)
+                {
+                    Cache.Insert("reptCalenderSummaryView" + userVo.UserId + userType, calenderView);
+                }
+                else
+                {
+                    Cache.Remove("reptCalenderSummaryView" + userVo.UserId + userType);
+                    Cache.Insert("reptCalenderSummaryView" + userVo.UserId + userType, calenderView);
+                }
                 //reptCalenderSummaryView.Columns[0].Visible = false;
                 if (dtCalenderSymmary.Rows.Count > 0)
                 {
@@ -1721,6 +1730,20 @@ namespace WealthERP.Advisor
            gvSystematicMIS.ExportSettings.FileName = "MF SIP MIS";
            gvSystematicMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
            gvSystematicMIS.MasterTableView.ExportToExcel();
+       }
+       protected void gvSystematicMIS_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+       {
+           DataTable dtSystematicDetails = new DataTable();
+           dtSystematicDetails = (DataTable)Cache["gvSystematicMIS" + userVo.UserId + userType];
+           gvSystematicMIS.DataSource = dtSystematicDetails;
+           gvSystematicMIS.Visible = true;
+       }
+       protected void reptCalenderSummaryView_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+       {
+           DataView calenderView = new DataView();
+           calenderView = (DataView)Cache["reptCalenderSummaryView" + userVo.UserId + userType];
+           reptCalenderSummaryView.DataSource = calenderView;
+           reptCalenderSummaryView.Visible = true;
        }
         //protected void RadComboBoxSip_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
         //{
