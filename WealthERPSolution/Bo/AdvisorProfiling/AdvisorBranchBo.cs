@@ -1549,15 +1549,18 @@ namespace BoAdvisorProfiling
         /// <param name="fromPortfolioId"></param>
         /// <param name="toPortFolioId"></param>
         /// <returns></returns>
-        
-        public DataSet CustomerFolioMoveToCustomer(int amcCode, string folioNumber, int fromPortfolioId, int toPortFolioId)
+
+        public int CustomerFolioMoveToCustomer(int amcCode, string folioNumber, int fromPortfolioId, int toPortFolioId, int isBankAssociatedWithOtherTransactions)
+        //public DataSet CustomerFolioMoveToCustomer(int amcCode, string folioNumber, int fromPortfolioId, int toPortFolioId, int isBankAssociatedWithOtherTransactions)
         {
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
-            DataSet dsCustomerFolioMoveToCustomer = new DataSet();
+            //DataSet dsCustomerFolioMoveToCustomer = new DataSet();
 
             try
             {
-                dsCustomerFolioMoveToCustomer = advisorBranchDao.CustomerFolioMoveToCustomer(amcCode, folioNumber, fromPortfolioId, toPortFolioId);
+                isBankAssociatedWithOtherTransactions = advisorBranchDao.CustomerFolioMoveToCustomer(amcCode, folioNumber, fromPortfolioId, toPortFolioId, isBankAssociatedWithOtherTransactions);
+            
+                //dsCustomerFolioMoveToCustomer = advisorBranchDao.CustomerFolioMoveToCustomer(amcCode, folioNumber, fromPortfolioId, toPortFolioId, isBankAssociatedWithOtherTransactions);
             }
             catch (Exception Ex)
             {
@@ -1578,7 +1581,7 @@ namespace BoAdvisorProfiling
             }
 
 
-            return dsCustomerFolioMoveToCustomer;
+            return isBankAssociatedWithOtherTransactions;
         }
 
         public bool CustomerFolioMerged(string ffromfolio, string fnumber ,int customerId)
