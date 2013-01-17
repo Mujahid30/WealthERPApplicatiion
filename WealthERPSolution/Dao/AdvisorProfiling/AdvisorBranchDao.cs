@@ -2269,7 +2269,7 @@ namespace DaoAdvisorProfiling
      /// <param name="fromPortfolioId"></param>
      /// <param name="toPortFolioId"></param>
      /// <returns></returns>
-     public DataSet CustomerFolioMoveToCustomer(int amcCode,string folioNumber, int fromPortfolioId, int toPortFolioId)
+     public int CustomerFolioMoveToCustomer(int amcCode, string folioNumber, int fromPortfolioId, int toPortFolioId, int isBankAssociatedWithOtherTransactions)
      {
          Database CustomerFolioMoveDb;
          DbCommand CustomerFolioMoveCmd;
@@ -2283,7 +2283,10 @@ namespace DaoAdvisorProfiling
              CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@folioNumber", DbType.String, folioNumber);
              CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@fromPortfolioId", DbType.Int32, fromPortfolioId);
              CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@toPortFolioId", DbType.Int32, toPortFolioId);
+             CustomerFolioMoveDb.AddOutParameter(CustomerFolioMoveCmd, "@isAssociated", DbType.Int32, 0);
              CustomerFolioMoveDs = CustomerFolioMoveDb.ExecuteDataSet(CustomerFolioMoveCmd);
+
+             isBankAssociatedWithOtherTransactions = (int)CustomerFolioMoveDb.GetParameterValue(CustomerFolioMoveCmd, "@isAssociated");
          }
          catch (Exception Ex)
          {
@@ -2301,7 +2304,7 @@ namespace DaoAdvisorProfiling
              ExceptionManager.Publish(exBase);
              throw exBase;
          }
-         return CustomerFolioMoveDs;
+         return isBankAssociatedWithOtherTransactions;
      }
 
      public bool CustomerFolioMerged(string ffromfolio, string fnumber, int customerId)
