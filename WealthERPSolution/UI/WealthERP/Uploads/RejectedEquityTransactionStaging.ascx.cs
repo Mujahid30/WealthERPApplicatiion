@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 using VoUploads;
 using System.Configuration;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.Uploads
 {
@@ -24,15 +25,20 @@ namespace WealthERP.Uploads
 
         AdvisorVo adviserVo = new AdvisorVo();
         UploadProcessLogVo processlogVo;
-
         RejectedRecordsBo rejectedRecordsBo;
         UploadCommonBo uploadsCommonBo;
         WerpUploadsBo werpUploadBo;
-
+        RMVo rmVo;
+        UserVo userVo;
         DataSet dsRejectedRecords;
-
+        DateTime fromDate;
+        DateTime toDate;
         int ProcessId;
+       // int adviserId;
+        int rmId;
+        int rejectReasonCode;
         string configPath;
+        string xmlFileName = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -48,7 +54,7 @@ namespace WealthERP.Uploads
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
 
             GetPageCount();
-            this.BindEquityTransactionGrid(ProcessId);
+           // this.BindEquityTransactionGrid(ProcessId);
         }
 
         private void GetPageCount()
@@ -75,20 +81,17 @@ namespace WealthERP.Uploads
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            SessionBo.CheckSession();
-            ProcessId = 0;
-            configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
+        {   ProcessId = 0;
+            configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());               
             if (Request.QueryString["processId"] != null)
             {
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-                lnkViewInputRejects.Visible = true ;
+                lnkViewInputRejects.Visible = true;
             }
             else
             {
                 lnkViewInputRejects.Visible = false;
             }
-
             if (Session["userVo"] != null)
             {
 
@@ -97,82 +100,127 @@ namespace WealthERP.Uploads
             {
                 Session.Clear();
                 Session.Abandon();
-
-                // If User Sessions are empty, load the login control 
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('SessionExpired','');", true);
             }
 
-            // Get Advisor Vo from Session
-            adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+            adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo]; 
 
             if (!IsPostBack)
             {
-                mypager.CurrentPage = 1;
-                // Bind Grid
-                BindEquityTransactionGrid(ProcessId);
+            //    if (ProcessId != 0)
+            //    {
+                   
+            //    }
+              //DateTime  txtFromTran = DateTime.Now.AddDays(-30);
+              //DateTime txtToTran = DateTime.Now;
+                if (adviserVo.advisorId != 1000)
+                {
+                    if (ProcessId != 0)
+                    {
+                        divConditional.Visible = false;
+                    }
+                    else
+                    {
+                        divConditional.Visible = true;
+                    }
+                    BindddlRejectReason();
+                    BindEquityTransactionGrid(ProcessId);
+                }
+                else
+                {
+                    if (ProcessId != 0)
+                    {
+                        divConditional.Visible = false;
+                        BindEquityTransactionGrid(ProcessId);
+                    }
+                    else
+                    {
+                        gvWERPTrans.Visible = false;
+                        BindAdviserDropDownList();
+                        tdTxtFromDate.Visible = false;
+                  }
+                }
             }
-        }
+        //    SessionBo.CheckSession();
+        //    ProcessId = 0;
+        //    configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
+        //    if (Request.QueryString["processId"] != null)
+        //    {
+        //        ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+        //        lnkViewInputRejects.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        lnkViewInputRejects.Visible = false;
+        //    }
 
-        private void BindEquityTransactionGrid(int ProcessId)
+        //    if (Session["userVo"] != null)
+        //    {
+
+        //    }
+        //    else
+        //    {
+        //        Session.Clear();
+        //        Session.Abandon();
+
+        //        // If User Sessions are empty, load the login control 
+        //        Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('SessionExpired','');", true);
+        //    }
+
+        //    // Get Advisor Vo from Session
+        //    adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];       
+           
+        //if (!IsPostBack)
+        //        {
+                 
+        //        }
+        //            BindddlRejectReason();
+        //            gvWERPTrans.Visible = false;
+        //            Panel2.Visible = false;    
+       }
+        
+     private void BindEquityTransactionGrid(int ProcessId)
         {
+            if (ProcessId == null || ProcessId == 0)
+            {
+                //if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
+                if (txtFromTran.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
+                if (txtToTran.SelectedDate != null)
+                 toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
+                rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
+             }
             Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
             Dictionary<string, string> genDictRejectReason = new Dictionary<string, string>();
 
-            if (hdnCurrentPage.Value.ToString() != "")
-            {
-                mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-                hdnCurrentPage.Value = "";
-            }
-
-            int Count;
-
+            //if (hdnCurrentPage.Value.ToString() != "")
+            //{
+            //    mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
+            //    hdnCurrentPage.Value = "";
+            //}
             rejectedRecordsBo = new RejectedRecordsBo();
-
-            dsRejectedRecords = rejectedRecordsBo.GetRejectedEquityTransactionsStaging(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnRejectReasonFilter.Value, hdnPanNumberFilter.Value, hdnScripFilter.Value, hdnExchangeFilter.Value, hdnTransactionTypeFilter.Value);
-            lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
-
-            //lblTotalRows.Text = (Count.ToString());
-            if (Count > 0)
-                DivPager.Style.Add("display", "visible");
-
+            dsRejectedRecords = rejectedRecordsBo.GetRejectedEquityTransactionsStaging(adviserVo.advisorId, ProcessId, fromDate, toDate, rejectReasonCode);         
             if (dsRejectedRecords.Tables[0].Rows.Count > 0)
-            {   // If Records found, then bind them to grid
-                dtTransactionTypes = dsRejectedRecords.Tables[4]; //All transaction types
-                dtFilterTransactionTypes = dsRejectedRecords.Tables[5]; //Transaction types for filter
+            { 
                 trMessage.Visible = false;
                 trReprocess.Visible = true;
-                gvWERPTrans.DataSource = dsRejectedRecords.Tables[0];
-                gvWERPTrans.DataBind();
+                DivAction.Visible = true;
 
-
-                if (dsRejectedRecords.Tables[2].Rows.Count > 0)
+                if (Cache["RejectedEquityDetails" + adviserVo.advisorId.ToString()] == null)
                 {
-                    // Get the Reject Reason Codes Available into Generic Dictionary
-                    foreach (DataRow dr in dsRejectedRecords.Tables[2].Rows)
-                    {
-                        genDictRejectReason.Add(dr["RejectReason"].ToString(), dr["RejectReasonCode"].ToString());
-                    }
-
-                    DropDownList ddlRejectReason = GetRejectReasonDDL();
-                    if (ddlRejectReason != null)
-                    {
-                        ddlRejectReason.DataSource = genDictRejectReason;
-                        ddlRejectReason.DataTextField = "Key";
-                        ddlRejectReason.DataValueField = "Value";
-                        ddlRejectReason.DataBind();
-                        ddlRejectReason.Items.Insert(0, new ListItem("Select Reject Reason", "Select Reject Reason"));
-                    }
-
-                    if (hdnRejectReasonFilter.Value != "")
-                    {
-                        ddlRejectReason.SelectedValue = hdnRejectReasonFilter.Value.ToString().Trim();
-                    }
+                    Cache.Insert("RejectedEquityDetails" + adviserVo.advisorId.ToString(), dsRejectedRecords);
+                }
+                else
+                {
+                    Cache.Remove("RejectedEquityDetails" + adviserVo.advisorId.ToString());
+                    Cache.Insert("RejectedEquityDetails" + adviserVo.advisorId.ToString(), dsRejectedRecords);
                 }
 
-                BindPanNumber(dsRejectedRecords.Tables[3]);
-                BindProcessId(dsRejectedRecords.Tables[6]);
-                BindTranscationType(dsRejectedRecords.Tables[4]);
-
+                gvWERPTrans.CurrentPageIndex = 0;
+                gvWERPTrans.DataSource = dsRejectedRecords.Tables[0];
+                gvWERPTrans.DataBind();
+                gvWERPTrans.Visible = true;
+                Panel2.Visible = true;
             }
             else
             {
@@ -180,12 +228,35 @@ namespace WealthERP.Uploads
                 gvWERPTrans.DataSource = null;
                 gvWERPTrans.DataBind();
                 trMessage.Visible = true;
+                DivAction.Visible = false;
+                gvWERPTrans.Visible = false;
+                Panel2.Visible = false;
                 trReprocess.Visible = false;
             }
-            this.GetPageCount();
         }
 
+        protected void BindAdviserDropDownList()
+        {
+            //DataTable dtAdviserList = new DataTable();
+            //dtAdviserList = superAdminOpsBo.BindAdviserForUpload();
 
+            //if (dtAdviserList.Rows.Count > 0)
+            //{
+            //    ddlAdviser.DataSource = dtAdviserList;
+            //    ddlAdviser.DataTextField = "A_OrgName";
+            //    ddlAdviser.DataValueField = "A_AdviserId";
+            //    ddlAdviser.DataBind();
+            //}
+            //ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+        }
+        protected void btnViewTran_Click(object sender, EventArgs e)
+        {
+            BindEquityTransactionGrid(ProcessId);
+            ViewState.Remove("RejectReasonCode");
+            ViewState.Remove("ProcessId");
+            ViewState.Remove("TransactionTypeCode");
+            //divLobAdded.Visible = false;
+        }
         //********** Code implented by bhoopendra for adding a dropdown filter of process id.*************//
         //********** Code Starts *************//
         private void BindProcessId(DataTable dtProcessId)
@@ -196,7 +267,7 @@ namespace WealthERP.Uploads
                 // Get the Reject Reason Codes Available into Generic Dictionary
                 foreach (DataRow dr in dtProcessId.Rows)
                 {
-                    genDictPanNum.Add(dr["ProcessId"].ToString(), dr["ProcessId"].ToString());
+                  //  genDictPanNum.Add(dr["ProcessId"].ToString(), dr["ProcessId"].ToString());
                 }
 
                 DropDownList ddlProcessId = GetProcessIdDDL();
@@ -206,7 +277,7 @@ namespace WealthERP.Uploads
                     ddlProcessId.DataTextField = "Key";
                     ddlProcessId.DataValueField = "Value";
                     ddlProcessId.DataBind();
-                    ddlProcessId.Items.Insert(0, new ListItem("Select", "Select"));
+                  //  ddlProcessId.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnProcessIdFilter.Value != "")
@@ -216,32 +287,58 @@ namespace WealthERP.Uploads
             }
         }
 
-        protected void ddlProcessId_SelectedIndexChanged(object sender, EventArgs e)
+         public void BindddlRejectReason()
         {
-            DropDownList ddlProcessId = GetProcessIdDDL();
-
-            if (ddlProcessId != null)
+            Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
+            processlogVo = new UploadProcessLogVo();
+            rejectedRecordsBo = new RejectedRecordsBo();
+            DataSet ds = rejectedRecordsBo.GetRejectReasonEquityList(1);
+            if (ds.Tables[0].Rows.Count > 0)
             {
-                if (ddlProcessId.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
-                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
-                    BindEquityTransactionGrid(ProcessId);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    genDictIsRejected.Add(dr["WRR_RejectReasonDescription"].ToString(), dr["WRR_RejectReasonCode"].ToString());
                 }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnProcessIdFilter.Value = "0";
-                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
-                    BindEquityTransactionGrid(ProcessId);
+
+                if (ddlRejectReason != null)
+                {
+                    ddlRejectReason.DataSource = genDictIsRejected;
+                    ddlRejectReason.DataTextField = "Key";
+                    ddlRejectReason.DataValueField = "Value";
+                    ddlRejectReason.DataBind();
                 }
             }
+
+            ddlRejectReason.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+        }
+         protected void ddlProcessId_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+         {  
+              RadComboBox dropdown = o as RadComboBox;                          
+              ViewState["ProcessId"] = dropdown.SelectedValue.ToString();
+            if (ViewState["ProcessId"] != "")
+            {
+                GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("ProcessId");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvWERPTrans.CurrentPageIndex = 0;
+                gvWERPTrans.MasterTableView.Rebind();
+                               
+            }
+            else
+            {
+                GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("ProcessId");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvWERPTrans.CurrentPageIndex = 0;
+                gvWERPTrans.MasterTableView.Rebind();
+              
+            }
+
         }
         private DropDownList GetProcessIdDDL()
         {
             DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlProcessId") != null)
+            if ((DropDownList)gvWERPTrans.FindControl("ddlProcessId") != null)
             {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlProcessId");
+                ddl = (DropDownList)gvWERPTrans.FindControl("ddlProcessId");
             }
             return ddl;
         }
@@ -249,33 +346,60 @@ namespace WealthERP.Uploads
         /*************To delete the selected records ****************/
 
         protected void btnDelete_Click(object sender, EventArgs e)
-        {
-            int i = 0;
-            foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
+        {   int i = 0;
+            string StagingID = string.Empty;
+            foreach (GridDataItem item in this.gvWERPTrans.Items)
             {
-                if (((CheckBox)gvr.FindControl("chkBxWPTrans")).Checked == true)
-                    i = i + 1;
-            }
-
-            if (i == 0)
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
-            else
-                CustomerTransactionDelete();
-        }
-
-        private void CustomerTransactionDelete()
-        {
-            foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
-            {
-                if (((CheckBox)gvr.FindControl("chkBxWPTrans")).Checked == true)
+                if (((CheckBox)item.FindControl("chkBxWPTrans")).Checked == true)
                 {
-                    rejectedRecordsBo = new RejectedRecordsBo();
-                    int StagingID = int.Parse(gvWERPTrans.DataKeys[gvr.RowIndex].Values["WERPTransactionId"].ToString());
-                    rejectedRecordsBo.DeleteRejectsEquityTransactionStaging(StagingID);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
+                    StagingID += Convert.ToString(gvWERPTrans.MasterTableView.DataKeyValues[i]["WERPTransactionId"]) + "~";
+                    i = i + 1;
                 }
+
             }
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+            }
+            else
+            {
+                 rejectedRecordsBo = new RejectedRecordsBo();
+                 rejectedRecordsBo.DeleteRejectsEquityTransactionsStaging(StagingID);
+                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Selected item deleted !!');", true);
+               // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
+                
+            }
+           BindEquityTransactionGrid(ProcessId);
         }
+            //    int i = 0;
+            //    if (i == 0)
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+            //    else
+            //    {
+            //        CustomerTransactionDelete();
+            //    }
+
+            //    BindEquityTransactionGrid(ProcessId);
+            //}
+      //  }
+        //private void CustomerTransactionDelete()
+        //{
+        //  int i = 0;
+        //  string StagingID = string.Empty;
+        //  foreach (GridDataItem gvr in this.gvWERPTrans.Items)
+        //    {
+        //        if (((CheckBox)gvr.FindControl("chkBxWPTrans")).Checked == true)
+        //        {
+        //             rejectedRecordsBo = new RejectedRecordsBo();
+        //             StagingID += Convert.ToString(gvWERPTrans.MasterTableView.DataKeyValues[i]["WERPTransactionId"]) + "~"; 
+        //             i=i+1;
+                     
+        //          //int StagingID = int.Parse(gvWERPTrans.MasterTableView.DataKeyValues[i]["WERPTransactionId"].ToString());
+        //              rejectedRecordsBo.DeleteRejectsEquityTransactionStaging(StagingID);
+        //           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
+        //        }
+        //    }
+        //}
 
         //************** Code End  ***********************//
 
@@ -303,28 +427,32 @@ namespace WealthERP.Uploads
             }
         }
 
-        protected void ddlTransactionType_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlTransactionType_SelectedIndexChanged (object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            DropDownList ddlTransactionType = GetTransactionTypeDdl();
+            RadComboBox dropdown = o as RadComboBox;
 
             if (Request.QueryString["processId"] != null)
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
 
-            if (ddlTransactionType != null)
+                ViewState["TransactionTypeCode"] = dropdown.SelectedValue;
+                if (ViewState["TransactionTypeCode"] != "")
             {
-                if (ddlTransactionType.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnTransactionTypeFilter.Value = ddlTransactionType.SelectedValue;
-                    BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnTransactionTypeFilter.Value = "";
-                    BindEquityTransactionGrid(ProcessId);
-                }
+                GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("TransactionTypeCode");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvWERPTrans.CurrentPageIndex = 0;
+                gvWERPTrans.MasterTableView.Rebind();
+                               
             }
-        }
+            else
+            {
+                GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("TransactionTypeCode");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvWERPTrans.CurrentPageIndex = 0;
+                gvWERPTrans.MasterTableView.Rebind();
+              
+            }
 
+        }
         private void BindPanNumber(DataTable dtPanNumber)
         {
             Dictionary<string, string> genDictPanNum = new Dictionary<string, string>();
@@ -382,9 +510,9 @@ namespace WealthERP.Uploads
         private DropDownList GetPanNumDDL()
         {
             DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlPanNumber") != null)
+         //   if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlPanNumber") != null)
             {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlPanNumber");
+          //      ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlPanNumber");
             }
             return ddl;
         }
@@ -392,9 +520,9 @@ namespace WealthERP.Uploads
         private DropDownList GetTransactionTypeDdl()
         {
             DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlTransactionType") != null)
+        //    if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlTransactionType") != null)
             {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlTransactionType");
+          //      ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlTransactionType");
             }
             return ddl;
         }
@@ -416,25 +544,26 @@ namespace WealthERP.Uploads
             rejectedRecordsBo = new RejectedRecordsBo();
 
             // Gets the footer row directly Cool right! 
-            GridViewRow footerRow = gvWERPTrans.FooterRow;
+          //  GridViewRow footerRow = gvWERPTrans.FooterRow;
+            GridFooterItem footerItem = sender as GridFooterItem;
 
-            string newPanNumber = ((TextBox)footerRow.FindControl("txtPanNumberMultiple")).Text;
+            string newPanNumber = ((TextBox)footerItem.FindControl("txtPanNumberMultiple")).Text;
 
-            if (((TextBox)footerRow.FindControl("txtScripCodeMultiple")).Text != string.Empty)
-                newScripCode = ((TextBox)footerRow.FindControl("txtScripCodeMultiple")).Text;
+            if (((TextBox)footerItem.FindControl("txtScripCodeMultiple")).Text != string.Empty)
+                newScripCode = ((TextBox)footerItem.FindControl("txtScripCodeMultiple")).Text;
 
-            string newExchange = ((TextBox)footerRow.FindControl("txtExchangeMultiple")).Text;
+            string newExchange = ((TextBox)footerItem.FindControl("txtExchangeMultiple")).Text;
 
-            if (((DropDownList)footerRow.FindControl("ddlTransactionType")).SelectedValue != "-1")
-                newTransactionType = ((DropDownList)footerRow.FindControl("ddlTransactionType")).SelectedValue;
+            if (((DropDownList)footerItem.FindControl("ddlTransactionType")).SelectedValue != "-1")
+                newTransactionType = ((DropDownList)footerItem.FindControl("ddlTransactionType")).SelectedValue;
 
-            if (((TextBox)footerRow.FindControl("txtPriceMultiple")).Text != string.Empty)
-                newPrice = ((TextBox)footerRow.FindControl("txtPriceMultiple")).Text;
-
-
+            if (((TextBox)footerItem.FindControl("txtPriceMultiple")).Text != string.Empty)
+                newPrice = ((TextBox)footerItem.FindControl("txtPriceMultiple")).Text;
 
 
-            foreach (GridViewRow dr in gvWERPTrans.Rows)
+
+
+            foreach (GridDataItem dr in gvWERPTrans.Items)
             {
                 CheckBox checkBox = (CheckBox)dr.FindControl("chkBxWPTrans");
                 if (checkBox.Checked)
@@ -457,7 +586,7 @@ namespace WealthERP.Uploads
                         // price = Convert.ToDouble(((TextBox)dr.FindControl("txtPrice")).Text);
                         price = ((TextBox)dr.FindControl("txtPrice")).Text;
                     }
-                    int id = Convert.ToInt32(gvWERPTrans.DataKeys[dr.RowIndex].Value);
+                    int id = Convert.ToInt32(gvWERPTrans.MasterTableView.DataKeyNames[dr.RowIndex].ToString());
 
 
                     blResult = rejectedRecordsBo.UpdateRejectedEquityTransactionStaging(id, panNumber, scripCode, exchange, price.ToString(), transactionType);
@@ -466,7 +595,7 @@ namespace WealthERP.Uploads
 
             }
 
-            if (blResult)
+          if (blResult)
             {
                 // Success Message
             }
@@ -624,34 +753,54 @@ namespace WealthERP.Uploads
         }
 
 
-        protected void ddlRejectReason_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlReject = GetRejectReasonDDL();
-
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if (ddlReject != null)
+        protected void ddlRejectReason_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {      
+            RadComboBox dropdown = o as RadComboBox;
+            ViewState["RejectReasonCode"] = dropdown.SelectedValue;
+            if (ViewState["RejectReasonCode"] != "")
             {
-                if (ddlReject.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnRejectReasonFilter.Value = ddlReject.SelectedValue;
-                    BindEquityTransactionGrid(ProcessId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnRejectReasonFilter.Value = "";
-                    BindEquityTransactionGrid(ProcessId);
-                }
+                GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("RejectReasonCode");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvWERPTrans.CurrentPageIndex = 0;
+                gvWERPTrans.MasterTableView.Rebind();
+             
             }
+            else
+            {
+
+                GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("RejectReasonCode");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvWERPTrans.CurrentPageIndex = 0;
+                gvWERPTrans.MasterTableView.Rebind();
+              
+            }
+
+            //DropDownList ddlReject = GetRejectReasonDDL();
+
+            //if (Request.QueryString["processId"] != null)
+            //    ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+
+            //if (ddlReject != null)
+            //{
+            //    if (ddlReject.SelectedIndex != 0)
+            //    {   // Bind the Grid with Only Selected Values
+            //        hdnRejectReasonFilter.Value = ddlReject.SelectedValue;
+            //        BindEquityTransactionGrid(ProcessId);
+            //    }
+            //    else
+            //    {   // Bind the Grid with Only All Values
+            //        hdnRejectReasonFilter.Value = "";
+            //        BindEquityTransactionGrid(ProcessId);
+            //    }
+            //}
         }
 
         private TextBox GetFolioTextBox()
         {
             TextBox txt = new TextBox();
-            if ((TextBox)gvWERPTrans.HeaderRow.FindControl("txtFolioSearch") != null)
+            if ((TextBox)gvWERPTrans.FindControl("txtFolioSearch") != null)
             {
-                txt = (TextBox)gvWERPTrans.HeaderRow.FindControl("txtFolioSearch");
+                txt = (TextBox)gvWERPTrans.FindControl("txtFolioSearch");
             }
             return txt;
         }
@@ -659,9 +808,9 @@ namespace WealthERP.Uploads
         private DropDownList GetIsRejectedDDL()
         {
             DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlIsRejected") != null)
+            if ((DropDownList)gvWERPTrans.FindControl("ddlIsRejected") != null)
             {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlIsRejected");
+                ddl = (DropDownList)gvWERPTrans.FindControl("ddlIsRejected");
             }
             return ddl;
         }
@@ -669,9 +818,9 @@ namespace WealthERP.Uploads
         private DropDownList GetRejectReasonDDL()
         {
             DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlRejectReason") != null)
+            if ((DropDownList)gvWERPTrans.FindControl("ddlRejectReason") != null)
             {
-                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlRejectReason");
+                ddl = (DropDownList)gvWERPTrans.FindControl("ddlRejectReason");
             }
             return ddl;
         }
@@ -705,9 +854,9 @@ namespace WealthERP.Uploads
         private TextBox GetTransactionTypeTextBox()
         {
             TextBox txt = new TextBox();
-            if ((TextBox)gvWERPTrans.HeaderRow.FindControl("txtTransactionTypeSearch") != null)
+            if ((TextBox)gvWERPTrans.FindControl("txtTransactionTypeSearch") != null)
             {
-                txt = (TextBox)gvWERPTrans.HeaderRow.FindControl("txtTransactionTypeSearch");
+                txt = (TextBox)gvWERPTrans.FindControl("txtTransactionTypeSearch");
             }
             return txt;
         }
@@ -715,9 +864,9 @@ namespace WealthERP.Uploads
         private TextBox GetExchangeTextBox()
         {
             TextBox txt = new TextBox();
-            if ((TextBox)gvWERPTrans.HeaderRow.FindControl("txtExchangeSearch") != null)
+            if ((TextBox)gvWERPTrans.FindControl("txtExchangeSearch") != null)
             {
-                txt = (TextBox)gvWERPTrans.HeaderRow.FindControl("txtExchangeSearch");
+                txt = (TextBox)gvWERPTrans.FindControl("txtExchangeSearch");
             }
             return txt;
         }
@@ -725,9 +874,9 @@ namespace WealthERP.Uploads
         private TextBox GetScripTextBox()
         {
             TextBox txt = new TextBox();
-            if ((TextBox)gvWERPTrans.HeaderRow.FindControl("txtScripCodeSearch") != null)
+            if ((TextBox)gvWERPTrans.FindControl("txtScripCodeSearch") != null)
             {
-                txt = (TextBox)gvWERPTrans.HeaderRow.FindControl("txtScripCodeSearch");
+                txt = (TextBox)gvWERPTrans.FindControl("txtScripCodeSearch");
             }
             return txt;
         }
@@ -735,9 +884,9 @@ namespace WealthERP.Uploads
         private TextBox GetTradeAccountNumberTextBox()
         {
             TextBox txt = new TextBox();
-            if ((TextBox)gvWERPTrans.HeaderRow.FindControl("txtTradeAccountNumberSearch") != null)
+            if ((TextBox)gvWERPTrans.FindControl("txtTradeAccountNumberSearch") != null)
             {
-                txt = (TextBox)gvWERPTrans.HeaderRow.FindControl("txtTradeAccountNumberSearch");
+                txt = (TextBox)gvWERPTrans.FindControl("txtTradeAccountNumberSearch");
             }
             return txt;
         }
@@ -745,9 +894,9 @@ namespace WealthERP.Uploads
         private TextBox GetPanNumberTextBox()
         {
             TextBox txt = new TextBox();
-            if ((TextBox)gvWERPTrans.HeaderRow.FindControl("txtPanNumberSearch") != null)
+            if ((TextBox)gvWERPTrans.FindControl("txtPanNumberSearch") != null)
             {
-                txt = (TextBox)gvWERPTrans.HeaderRow.FindControl("txtPanNumberSearch");
+                txt = (TextBox)gvWERPTrans.FindControl("txtPanNumberSearch");
             }
             return txt;
         }
@@ -804,5 +953,174 @@ namespace WealthERP.Uploads
         }
 
 
+
+        protected void gvWERPTrans_PreRender(object sender, EventArgs e)
+        {
+            if (gvWERPTrans.MasterTableView.FilterExpression != string.Empty)
+            {
+                RefreshCombos();
+            }
+        }
+
+        protected void RefreshCombos()
+        {
+
+
+            dsRejectedRecords = (DataSet)Cache["RejectedEquityDetails" + adviserVo.advisorId.ToString()];
+            dtTransactionTypes = dsRejectedRecords.Tables[0];
+            DataView view = new DataView(dtTransactionTypes);
+            DataTable distinctValues = view.ToTable();
+            DataRow[] rows = distinctValues.Select(gvWERPTrans.MasterTableView.FilterExpression.ToString());
+            gvWERPTrans.MasterTableView.Rebind();
+           
+           
+        }
+
+
+        protected void gvWERPTrans_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
+            {
+                DataTable dtgvWERPEQ = new DataTable();
+                GridFilteringItem filterItem = (GridFilteringItem)e.Item;
+                RadComboBox RadComboBoxRR = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
+                RadComboBox RadComboBoxPI = (RadComboBox)filterItem.FindControl("RadComboBoxPI");
+                RadComboBox RadComboBoxTT = (RadComboBox)filterItem.FindControl("RadComboBoxTT");
+                dsRejectedRecords = (DataSet)Cache["RejectedEquityDetails" + adviserVo.advisorId.ToString()];
+
+                //Session["dt"] = dtgvWERPEQ;
+                DataTable dtcustMIS = new DataTable();
+                dtgvWERPEQ = dsRejectedRecords.Tables[0];
+                dtcustMIS.Columns.Add("RejectReason");
+                dtcustMIS.Columns.Add("ProcessId");
+                dtcustMIS.Columns.Add("TransactionType");
+                dtcustMIS.Columns.Add("RejectReasonCode");
+                dtcustMIS.Columns.Add("TransactionTypeCode");
+                DataRow drcustMIS;
+                foreach (DataRow dr in dtgvWERPEQ.Rows)
+                {
+                    drcustMIS = dtcustMIS.NewRow();
+                    drcustMIS["RejectReason"] = dr["RejectReason"].ToString();
+                    drcustMIS["ProcessId"] = dr["ProcessId"].ToString();
+                    drcustMIS["TransactionType"] = dr["TransactionType"].ToString();
+                    drcustMIS["RejectReasonCode"] =int.Parse(dr["RejectReasonCode"].ToString());
+                    drcustMIS["TransactionTypeCode"] = int.Parse(dr["TransactionTypeCode"].ToString());
+                    dtcustMIS.Rows.Add(drcustMIS);
+                }
+                DataView view = new DataView(dtgvWERPEQ);
+                DataTable distinctValues = view.ToTable(true, "RejectReason", "RejectReasonCode");
+                    //"RejectReasonCode");
+                RadComboBoxRR.DataSource = distinctValues;
+                RadComboBoxRR.DataValueField = dtcustMIS.Columns["RejectReasonCode"].ToString();
+                RadComboBoxRR.DataTextField = dtcustMIS.Columns["RejectReason"].ToString();
+                RadComboBoxRR.DataBind();
+                DataTable distinctID = view.ToTable(true, "ProcessId");
+                RadComboBoxPI.DataSource = distinctID;
+                RadComboBoxPI.DataValueField = dtcustMIS.Columns["ProcessId"].ToString();
+                RadComboBoxPI.DataTextField = dtcustMIS.Columns["ProcessId"].ToString();
+                RadComboBoxPI.DataBind();
+                DataTable distinctTT = view.ToTable(true, "TransactionType", "TransactionTypeCode");
+                RadComboBoxTT.DataSource = distinctTT;
+                RadComboBoxTT.DataValueField = dtcustMIS.Columns["TransactionTypeCode"].ToString();
+                RadComboBoxTT.DataTextField = dtcustMIS.Columns["TransactionType"].ToString();
+                RadComboBoxTT.DataBind();
+
+            }
+
+        }
+        protected void gvWERPTrans_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+
+           // int rcbtype;
+            string rcbType = string.Empty;
+            string pitype = string.Empty;
+            string tttype = string.Empty;
+            DataSet dsEquity = new DataSet();
+            DataTable dtrr = new DataTable();
+            dsEquity = (DataSet)Cache["RejectedEquityDetails" + adviserVo.advisorId.ToString()];
+            if (dsEquity != null)
+            {
+                dtrr = dsEquity.Tables[0];
+                if (ViewState["RejectReasonCode"] != null)
+                    rcbType = ViewState["RejectReasonCode"].ToString();
+                if (ViewState["ProcessId"] != null)
+                    pitype = ViewState["ProcessId"].ToString();
+                if (ViewState["TransactionTypeCode"] != null)
+                   tttype = ViewState["TransactionTypeCode"].ToString();
+                if ((!string.IsNullOrEmpty(rcbType))&&(string.IsNullOrEmpty(pitype))&&(string.IsNullOrEmpty(tttype)))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "RejectReasonCode = '" + rcbType + "'","ProcessId,TransactionTypeCode,Exchange",DataViewRowState.CurrentRows);
+                    gvWERPTrans.DataSource = dvStaffList.ToTable();
+                }
+                else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (string.IsNullOrEmpty(tttype)))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "ProcessId= '" + pitype + "'", "RejectReasonCode,TransactionTypeCode,Exchange", DataViewRowState.CurrentRows);
+                    gvWERPTrans.DataSource = dvStaffList.ToTable();
+                }
+                else if ((string.IsNullOrEmpty(rcbType)) && (string.IsNullOrEmpty(pitype)) && (!string.IsNullOrEmpty(tttype)))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "TransactionTypeCode= '" + tttype + "'", "RejectReasonCode,ProcessId,Exchange", DataViewRowState.CurrentRows);
+                    gvWERPTrans.DataSource = dvStaffList.ToTable();
+                }
+
+                else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (string.IsNullOrEmpty(tttype)))
+                {   
+                    DataView dvStaffList = new DataView(dtrr, "RejectReasonCode = '" + rcbType + "'and ProcessId= '" + pitype + "'", "TransactionTypeCode,Exchange", DataViewRowState.CurrentRows);
+                    gvWERPTrans.DataSource = dvStaffList.ToTable();
+                }
+                else if ((!string.IsNullOrEmpty(rcbType)) && (string.IsNullOrEmpty(pitype)) && (!string.IsNullOrEmpty(tttype)))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "RejectReasonCode = '" + rcbType + "'and TransactionTypeCode= '" + tttype + "'", "ProcessId,Exchange", DataViewRowState.CurrentRows);
+                    gvWERPTrans.DataSource = dvStaffList.ToTable();
+                
+                }
+                else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (!string.IsNullOrEmpty(tttype)))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "ProcessId= '" + pitype + "'and TransactionTypeCode= '" + tttype + "'", "RejectReasonCode,Exchange", DataViewRowState.CurrentRows);
+                    gvWERPTrans.DataSource = dvStaffList.ToTable();
+
+                }
+                else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (!string.IsNullOrEmpty(tttype)))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "RejectReasonCode = '" + rcbType + "'and ProcessId= '" + pitype + "'and TransactionTypeCode= '" + tttype + "'", "Exchange", DataViewRowState.CurrentRows);
+                    gvWERPTrans.DataSource = dvStaffList.ToTable();
+                }
+
+                else
+                {
+                    gvWERPTrans.DataSource = dtrr;
+                }
+            }
+        }
+         protected void rcbContinents1_PreRender(object sender, EventArgs e)
+        {
+            RadComboBox Combo = sender as RadComboBox;
+            if (ViewState["RejectReasonCode"] != null)
+            {
+                Combo.SelectedValue = ViewState["RejectReasonCode"].ToString();
+            }
+
+        }
+        protected void rcbContinents2_PreRender(object sender, EventArgs e)
+        {
+            RadComboBox Combo = sender as RadComboBox;
+            if (ViewState["ProcessId"] != null)
+            {
+                Combo.SelectedValue = ViewState["ProcessId"].ToString();
+            }
+
+        }
+        protected void rcbContinents3_PreRender(object sender, EventArgs e)
+        {
+            RadComboBox Combo = sender as RadComboBox;
+           if (ViewState["TransactionTypeCode"] != null)
+            {
+
+                Combo.SelectedValue = ViewState["TransactionTypeCode"].ToString();
+            }
+
+        }
+        protected void btnAddLob_Click(object sender, EventArgs e)
+        { }
     }
 }

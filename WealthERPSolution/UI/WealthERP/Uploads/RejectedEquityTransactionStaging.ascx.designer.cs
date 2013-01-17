@@ -21,7 +21,13 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnBack;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAction;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtFromDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtFromTran;
+        protected global::Telerik.Web.UI.RadDatePicker txtToTran;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
+        protected global::System.Web.UI.WebControls.HiddenField hfRmId; 
         /// <summary>
         /// msgReprocessComplete control.
         /// </summary>
@@ -83,7 +89,7 @@ namespace WealthERP.Uploads {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvWERPTrans;
+        //protected global::System.Web.UI.WebControls.GridView gvWERPTrans;
         
         /// <summary>
         /// trReprocess control.
@@ -246,5 +252,10 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGridSearch;
+        protected global::Telerik.Web.UI.RadGrid gvWERPTrans;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRejectReason;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLblAdviser;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDdlAdviser;
     }
 }
