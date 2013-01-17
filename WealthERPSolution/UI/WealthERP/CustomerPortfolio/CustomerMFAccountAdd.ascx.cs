@@ -1526,7 +1526,7 @@ namespace WealthERP.CustomerPortfolio
             BindDropDowns(path);
 
             txtAccNo.Text = dsbankDetails.Tables[0].Rows[0]["CB_AccountNum"].ToString();
-            txtBankName.Text = dsbankDetails.Tables[0].Rows[0]["WERPBM_BankCode"].ToString();
+            txtBankName.Text = dsbankDetails.Tables[0].Rows[0]["WERPBM_BankName"].ToString();
             txtBranchName.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchName"].ToString();
             txtBLine1.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine1"].ToString();
             txtBLine2.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine2"].ToString();
