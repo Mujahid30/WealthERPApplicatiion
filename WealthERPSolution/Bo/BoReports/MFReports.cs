@@ -537,5 +537,22 @@ namespace BoReports
             }
             return dsCustomerPortfolioComposition;
         }
+
+        public DataSet GetARNNoAndJointHoldings(int OCustomerId, int OportfolioId)
+        {
+            MFReportsDao mfReports = new MFReportsDao();
+            DataSet dsGetARNNoAndJointHoldings;
+
+            try
+            {
+                dsGetARNNoAndJointHoldings = mfReports.GetARNNoAndJointHoldings(OCustomerId, OportfolioId);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return dsGetARNNoAndJointHoldings;
+        }
     }
 }
