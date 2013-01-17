@@ -735,6 +735,10 @@ namespace WealthERP.CustomerPortfolio
             DataTable dtMFBalance = new DataTable();
             dtMFBalance = (DataTable)Cache["ViewBalance" + userVo.UserId + userType];
             gvBalanceView.DataSource = dtMFBalance;
+            if (Session["IsCustomerDrillDown"] != null)
+            {
+                trRange.Visible = true;
+            }
            
         }
         protected void lbBack_Click(object sender, EventArgs e)
