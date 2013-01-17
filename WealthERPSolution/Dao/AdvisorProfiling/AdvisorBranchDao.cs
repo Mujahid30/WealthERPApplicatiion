@@ -2283,10 +2283,12 @@ namespace DaoAdvisorProfiling
              CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@folioNumber", DbType.String, folioNumber);
              CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@fromPortfolioId", DbType.Int32, fromPortfolioId);
              CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@toPortFolioId", DbType.Int32, toPortFolioId);
-             CustomerFolioMoveDb.AddOutParameter(CustomerFolioMoveCmd, "@isAssociated", DbType.Int32, 0);
+             CustomerFolioMoveDb.AddOutParameter(CustomerFolioMoveCmd, "@isAssociated", DbType.Int32, 100);
              CustomerFolioMoveDs = CustomerFolioMoveDb.ExecuteDataSet(CustomerFolioMoveCmd);
 
-             isBankAssociatedWithOtherTransactions = (int)CustomerFolioMoveDb.GetParameterValue(CustomerFolioMoveCmd, "@isAssociated");
+             isBankAssociatedWithOtherTransactions = int.Parse(CustomerFolioMoveDb.GetParameterValue(CustomerFolioMoveCmd, "isAssociated").ToString());
+
+             //isBankAssociatedWithOtherTransactions = (int)CustomerFolioMoveDb.GetParameterValue(CustomerFolioMoveCmd, "isAssociated");
          }
          catch (Exception Ex)
          {
