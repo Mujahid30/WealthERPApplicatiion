@@ -503,16 +503,20 @@ namespace WealthERP.SuperAdmin
 
 
                                 MFEngineBo mfEngineBo = new MFEngineBo();
-                                mfEngineBo.MFBalanceCreation(adviserId, 0, valuationFor);
+                                //mfEngineBo.MFBalanceCreation(adviserId, 0, valuationFor);
 
-                                LogId = CreateAdviserEODLog("MF", valuationDate, adviserId);
-                                mfEngineBo.MFNetPositionCreation(adviserId, 0, valuationFor, valuationDate);
-                                UpdateAdviserEODLog("MF", 1, LogId);
-                                if (Cache[adviserId.ToString()] != null && dt == DateTime.Today)
-                                {
-                                    Cache.Remove(adviserId.ToString());
-                                }
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
+                                advisorBo.InsertHistoricalValuationInQueue(valuationDate, adviserId, userVo.UserId);
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request successfully sent !!...Please wait for another 30 mints');", true);
+
+
+                                //LogId = CreateAdviserEODLog("MF", valuationDate, adviserId);
+                                //mfEngineBo.MFNetPositionCreation(adviserId, 0, valuationFor, valuationDate);
+                                //UpdateAdviserEODLog("MF", 1, LogId);
+                                //if (Cache[adviserId.ToString()] != null && dt == DateTime.Today)
+                                //{
+                                //    Cache.Remove(adviserId.ToString());
+                                //}
+                                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
 
                                 BindAdviserGrid("MF", valuationDate);
 
