@@ -475,7 +475,7 @@
                                             <asp:Label ID="lblBrowserTitleBarName" runat="server" Text="Application title:" CssClass="FieldName"></asp:Label>
                                         </td>
                                         <td class="RightField,tdData">
-                                            <asp:TextBox ID="txtBrowserTitleBarName" runat="server" MaxLength="20" CssClass="txtField" Width="260px"></asp:TextBox>
+                                            <asp:TextBox ID="txtBrowserTitleBarName" runat="server" MaxLength="60" CssClass="txtField" Width="260px"></asp:TextBox>
                                             <span id="Span11" class="spnRequiredField" />*<br />
                                         </td>
                                         <td class="tdEmpty">
