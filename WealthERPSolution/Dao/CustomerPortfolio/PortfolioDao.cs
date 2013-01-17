@@ -476,7 +476,7 @@ namespace DaoCustomerPortfolio
             return dtGetCustomerPortfolios;
         }
 
-        public static bool TransferFolio(int MFAccountId, int newPortfolioId)
+        public static bool TransferFolio(int MFAccountId, int newPortfolioId,int isBankAssociatedWithOtherTransactions)
         {
             Database db;
             DbCommand updateCmd;
@@ -487,8 +487,11 @@ namespace DaoCustomerPortfolio
                 updateCmd = db.GetStoredProcCommand("SP_Folios_Move");
                 db.AddInParameter(updateCmd, "@AccountId", DbType.Int32, MFAccountId);
                 db.AddInParameter(updateCmd, "@NewPortfolioId", DbType.Int32, newPortfolioId);
+                db.AddOutParameter(updateCmd, "@isAssociated", DbType.Int32, 0);
 
                 affectedRows = db.ExecuteNonQuery(updateCmd);
+
+                isBankAssociatedWithOtherTransactions = (int)db.GetParameterValue(updateCmd, "@isAssociated");
             }
             catch (BaseApplicationException Ex)
             {
@@ -504,7 +507,7 @@ namespace DaoCustomerPortfolio
                 object[] objects = new object[1];
                 objects[0] = MFAccountId;
                 objects[1] = newPortfolioId;
-
+                objects[2] = isBankAssociatedWithOtherTransactions;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -517,7 +520,7 @@ namespace DaoCustomerPortfolio
             else
                 return false;
 
-
+            
 
 
         }
