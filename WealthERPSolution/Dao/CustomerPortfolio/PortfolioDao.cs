@@ -490,30 +490,13 @@ namespace DaoCustomerPortfolio
                 db.AddOutParameter(updateCmd, "@isAssociated", DbType.Int32, 0);
 
                 affectedRows = db.ExecuteNonQuery(updateCmd);
+                isBankAssociatedWithOtherTransactions = int.Parse(db.GetParameterValue(updateCmd, "isAssociated").ToString());
 
-                isBankAssociatedWithOtherTransactions = (int)db.GetParameterValue(updateCmd, "@isAssociated");
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "PortfolioDao.cs:TransferFolio()");
-
-                object[] objects = new object[1];
-                objects[0] = MFAccountId;
-                objects[1] = newPortfolioId;
-                objects[2] = isBankAssociatedWithOtherTransactions;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
 
             if (affectedRows > 0)
                 return true;
