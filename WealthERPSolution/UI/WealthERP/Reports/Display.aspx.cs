@@ -3174,7 +3174,7 @@ namespace WealthERP.Reports
                             setLogo();
                             AssignReportViewerProperties();
 
-                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange","As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
@@ -3911,6 +3911,16 @@ namespace WealthERP.Reports
                     else
                     {
                         formatstring = formatstring + "," + customerVo.Adr1City.Trim();
+                        //array[1] = customerVo.Adr1Line2.Trim();
+                    }
+                if (!string.IsNullOrEmpty(customerVo.Adr1PinCode.ToString()))
+                    if (formatstring == "")
+                    {
+                        formatstring = customerVo.Adr1PinCode.ToString();
+                    }
+                    else
+                    {
+                        formatstring = formatstring + "," + customerVo.Adr1PinCode;
                         //array[1] = customerVo.Adr1Line2.Trim();
                     }
 
