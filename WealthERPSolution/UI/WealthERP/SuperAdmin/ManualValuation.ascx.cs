@@ -730,6 +730,7 @@ namespace WealthERP.SuperAdmin
             DataSet dsTradeDate = customerPortfolioBo.PopulateEQTradeDay(year, month, 0, assetType);
             if (assetType == "MF")
             {
+                Session["TradeDateTable"] = dsTradeDate.Tables[0];
                 ddlTradeMFDate.DataSource = dsTradeDate.Tables[0];
                 ddlTradeMFDate.DataTextField = dsTradeDate.Tables[0].Columns["TradeDay"].ToString();
                 ddlTradeMFDate.DataValueField = dsTradeDate.Tables[0].Columns["TradeDay"].ToString();
@@ -776,23 +777,63 @@ namespace WealthERP.SuperAdmin
             DateTime validValuationDate = DateTime.MinValue;
             //valuationDate.AddYears(Convert.ToInt32(ddTradeMFYear.SelectedValue.ToString()));
             //valuationDate.AddMonths(Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
-            selectedValuationDate = DateTime.Parse(ddlTradeMFDate.SelectedValue.ToString());
-            validValuationDate = DateTime.Parse(DateTime.Now.ToShortDateString()).AddDays(-1);
-            //valuationDate.AddDays(Convert.ToInt32(ddlTradeMFDate.SelectedValue.ToString()));
-            if (selectedValuationDate == validValuationDate)
+            if (ddlTradeMFDate.SelectedIndex != 0)
             {
-                gvAdviserList.Visible = true;
-                BindAdviserGrid("MF", selectedValuationDate);
-                btnRunValuation.Visible = true;
+                selectedValuationDate = DateTime.Parse(ddlTradeMFDate.SelectedValue.ToString());
+               
+                DataTable dtTradeDate = new DataTable();
+               
+                dtTradeDate = (DataTable)Session["TradeDateTable"];
+
+                DataRow[] foundRows;
+                string filter = string.Format("{0: dd MMM yyyy}", DateTime.Now).Trim();
+                foundRows = dtTradeDate.Select("TradeDay='" + filter + "'");
+                int index = 0;
+                foreach (DataRow dr in foundRows)
+                {
+                    index = dr.Table.Rows.IndexOf(dr);
+
+                }
+                //int index = dt.Rows.IndexOf(dt.Select("1 = 'A'"));
+
+                //        dtTradeDate.Rows.IndexOf("17-Jan-2012");
+                //validValuationDate = DateTime.Parse(ddlTradeMFDate.Items[preTradeId - 1].Text);
+                if (index != 0)
+                {
+                    validValuationDate = DateTime.Parse(dtTradeDate.Rows[index - 1][0].ToString());
+
+                    //validValuationDate = DateTime.Parse(DateTime.Now.ToShortDateString()).AddDays(-1);
+                    //valuationDate.AddDays(Convert.ToInt32(ddlTradeMFDate.SelectedValue.ToString()));
+                    if (selectedValuationDate == validValuationDate)
+                    {
+                        gvAdviserList.Visible = true;
+                        BindAdviserGrid("MF", selectedValuationDate);
+                        btnRunValuation.Visible = true;
+                    }
+                    else
+                    {
+
+                        gvAdviserList.Visible = false;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Valuation date should be previous date only');", true);
+
+                    }
+                }
+                else
+                {
+
+                    gvAdviserList.Visible = false;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Valuation date should be previous date only');", true);
+
+                }
+                
+
             }
             else
             {
-
                 gvAdviserList.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Valuation date should be previous date only');", true);
-                
-            }
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Select Valuation Date');", true);
 
+            }
         }
 
         protected void btnRunValuation_Click(object sender, EventArgs e)
