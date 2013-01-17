@@ -48,7 +48,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnTrnxExport;
-        protected global::System.Web.UI.WebControls.ImageButton btnbalncExport;
         
         /// <summary>
         /// trRangeNcustomer control.
@@ -553,6 +552,14 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnProcessIdSearch;
+        
+        /// <summary>
+        /// hdnExportType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnExportType;
     }
 }
