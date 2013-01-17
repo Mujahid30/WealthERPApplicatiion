@@ -90,13 +90,13 @@
         </TargetControls>
         <Validation IsRequired="True" ValidationGroup="btnSend"></Validation>
     </telerik:RegExpTextBoxSetting>
-    <telerik:RegExpTextBoxSetting BehaviorID="rgeBrowserTitle" Validation-IsRequired="true" 
+<%--    <telerik:RegExpTextBoxSetting BehaviorID="rgeBrowserTitle" Validation-IsRequired="true" 
         ValidationExpression="[a-zA-Z0-9\\.]+" ErrorMessage="Invalid Browser Titile">
         <TargetControls>
             <telerik:TargetInput ControlID="txtBrowserTitleBarName" />
         </TargetControls>
         <Validation IsRequired="True" ValidationGroup="PreferenceSubmit"></Validation>
-    </telerik:RegExpTextBoxSetting>
+    </telerik:RegExpTextBoxSetting>--%>
     <telerik:RegExpTextBoxSetting BehaviorID="retBrowserURL" Validation-IsRequired="true"
         ValidationExpression="(http|https)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?" ErrorMessage="Invalid URL">
         <TargetControls>
@@ -475,7 +475,7 @@
                                             <asp:Label ID="lblBrowserTitleBarName" runat="server" Text="Application title:" CssClass="FieldName"></asp:Label>
                                         </td>
                                         <td class="RightField,tdData">
-                                            <asp:TextBox ID="txtBrowserTitleBarName" runat="server" CssClass="txtField" Width="260px"></asp:TextBox>
+                                            <asp:TextBox ID="txtBrowserTitleBarName" runat="server" MaxLength="20" CssClass="txtField" Width="260px"></asp:TextBox>
                                             <span id="Span11" class="spnRequiredField" />*<br />
                                         </td>
                                         <td class="tdEmpty">
