@@ -338,7 +338,7 @@ namespace WealthERP.CustomerPortfolio
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             PortfolioBo portfolioBo = new PortfolioBo();
-
+            int isBankAssociatedWithOtherTransactions=0;
             String statusMsg = string.Empty;
             int totalFoliosMoved = 0;
             CustomerPortfolioVo portfolioVo = new CustomerPortfolioVo();
@@ -373,16 +373,21 @@ namespace WealthERP.CustomerPortfolio
                 {
 
                     int MFAccountId = Convert.ToInt32(gvMFFolio.MasterTableView.Items[dr.ItemIndex].GetDataKeyValue("FolioId").ToString());
-                    bool isUpdated = PortfolioBo.TransferFolio(MFAccountId, portfolioVo.PortfolioId);
+                    bool isUpdated = PortfolioBo.TransferFolio(MFAccountId, portfolioVo.PortfolioId, isBankAssociatedWithOtherTransactions);
                     if (isUpdated)
                         totalFoliosMoved++;
                     else
                     {
-                        statusMsgFailure.InnerText = statusMsg;
-                        statusMsg += "Error occurred while moving folio with mutual fund accountId " + MFAccountId;
-                        trFailure.Visible = true;
-                        statusMsgSuccess.Visible = false;
-                        statusMsgFailure.Visible = true;
+                        //statusMsgFailure.InnerText = statusMsg;
+                        //statusMsg += "Error occurred while moving folio with mutual fund accountId " + MFAccountId;
+                        //trFailure.Visible = true;
+                        //statusMsgSuccess.Visible = false;
+                        //statusMsgFailure.Visible = true;
+
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot transfer this folio the bank is associate with some other transactions');", true);
+
+
+
                     }
                     //lblstatusMsgFailure.Visible = true;
                 }
