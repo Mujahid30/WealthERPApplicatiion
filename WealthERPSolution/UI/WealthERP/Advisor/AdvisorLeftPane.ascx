@@ -498,7 +498,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF Systematic MIS" Value="MF systematic MIS">
+                                            <telerik:RadPanelItem runat="server" Text="MF SIP Projection" Value="MF_SIP_Projection">
                                             </telerik:RadPanelItem>
 
                                          </Items>
@@ -652,6 +652,8 @@
                                             <telerik:RadPanelItem runat="server" Text="Accounts" Value="MF Folios">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Transactions" Value="Transactions">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF systematic MIS" Value="MF systematic MIS">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Networth MIS" Value="Prospect List">
                                             </telerik:RadPanelItem>
