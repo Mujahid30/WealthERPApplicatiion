@@ -1716,7 +1716,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToCommonStaging.dtsx");
-                                            TempletonTrailStagingCheckResult = camsUploadsBo.TempletonTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
+                                            TempletonTrailStagingCheckResult = camsUploadsBo.TempletonTrailCommissionProcessDataInStagingTrans(adviserId,UploadProcessId,"TN",packagePath, configPath);
                                             if (TempletonTrailStagingCheckResult)
                                             {
                                                 //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
@@ -1850,7 +1850,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToCamsCommonStaging.dtsx");
-                                            CAMSTrailStagingCheckResult = camsUploadsBo.CAMSTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
+                                            CAMSTrailStagingCheckResult = camsUploadsBo.CAMSTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId,"CA" ,packagePath, configPath);
                                             if (CAMSTrailStagingCheckResult)
                                             {
                                                 //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
@@ -1984,7 +1984,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToKarvyCommonStaging.dtsx");
-                                            KARVYTrailStagingCheckResult = camsUploadsBo.KARVYTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
+                                            KARVYTrailStagingCheckResult = camsUploadsBo.KARVYTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId,"KA",packagePath, configPath);
                                             if (KARVYTrailStagingCheckResult)
                                             {
                                                 //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
