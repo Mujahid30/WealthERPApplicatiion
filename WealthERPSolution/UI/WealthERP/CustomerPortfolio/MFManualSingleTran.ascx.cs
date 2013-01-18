@@ -100,6 +100,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     RestorePreviousState();
                 }
+                //cvPortfolio.ValueToCompare = "MyPortfolio";
 
             }
             catch (BaseApplicationException Ex)

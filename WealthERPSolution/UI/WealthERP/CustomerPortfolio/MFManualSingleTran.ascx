@@ -79,7 +79,26 @@
             return false;
         }
     }
+  
     </script>
+    
+ <script type="text/javascript">
+     function PortfolioManageMessage(source, args) {
+//     function PortfolioManageMessage() {
+         var e = document.getElementById("<%= ddlPortfolio.ClientID %>");
+         var strUser = e.options[e.selectedIndex].text;
+        
+         if (strUser == "MyPortfolio") {
+             args.IsValid = false;
+            
+
+         }
+         else {
+             args.IsValid = true;
+         }
+
+     }
+</script>
 
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -121,19 +140,6 @@
 </td>
 </tr>
 </table>
-        <table>
-            <tr>
-                <td class="tdRequiredText">
-                    <label id="lbl" class="lblRequiredText">
-                        Note: Fields marked with a ' * ' are compulsory</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-            </tr>
-        </table>
         <table width="100%">
         <tr>
         <td align="center">
@@ -148,18 +154,23 @@
                 <td class="leftField" style="width : 20%;">
                     <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Select the Portfolio :"></asp:Label>
                 </td>
-                <td class="rightField" style="width : 20%;">
+                <td class="rightField" style="width : 80%;" colspan="4">
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
-                    
+                   <%-- <asp:CompareValidator ID="cvPortfolio" runat="server" ErrorMessage="You can't add transaction for Manage Portfolio.Please select unmanage Portfolio"
+                        ValidationGroup="MFSubmit" ControlToValidate="ddlPortfolio" Operator="Equal" Type="String"
+                        CssClass="rfvPCG" Display="Dynamic" ></asp:CompareValidator>--%>
+                    <asp:CustomValidator ID="cv" runat="server" ValidationGroup="MFSubmit"
+                                    Display="Dynamic" ClientValidationFunction="PortfolioManageMessage" CssClass="revPCG"
+                                    ErrorMessage="CustomValidator">You can't add transaction for Manage Portfolio.Please select unmanage Portfolio</asp:CustomValidator>
                 </td>
-                <td style="width : 15%;">
+                <%--<td style="width : 15%;">
                 </td>
                 <td style="width : 20%;">
                 </td>
                 <td style="width : 25%;">
-                </td>
+                </td>--%>
             </tr>
             
             <tr>
