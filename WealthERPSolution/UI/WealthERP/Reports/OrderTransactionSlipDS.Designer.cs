@@ -25,7 +25,7 @@ namespace WealthERP.Reports {
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     public partial class OrderTransactionSlipDS : global::System.Data.DataSet {
         
-        private JointHolderDataTable tableJointHolder;
+        private JointHoldersDataTable tableJointHolders;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -53,8 +53,8 @@ namespace WealthERP.Reports {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["JointHolder"] != null)) {
-                    base.Tables.Add(new JointHolderDataTable(ds.Tables["JointHolder"]));
+                if ((ds.Tables["JointHolders"] != null)) {
+                    base.Tables.Add(new JointHoldersDataTable(ds.Tables["JointHolders"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -77,9 +77,9 @@ namespace WealthERP.Reports {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public JointHolderDataTable JointHolder {
+        public JointHoldersDataTable JointHolders {
             get {
-                return this.tableJointHolder;
+                return this.tableJointHolders;
             }
         }
         
@@ -142,8 +142,8 @@ namespace WealthERP.Reports {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["JointHolder"] != null)) {
-                    base.Tables.Add(new JointHolderDataTable(ds.Tables["JointHolder"]));
+                if ((ds.Tables["JointHolders"] != null)) {
+                    base.Tables.Add(new JointHoldersDataTable(ds.Tables["JointHolders"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -175,10 +175,10 @@ namespace WealthERP.Reports {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         internal void InitVars(bool initTable) {
-            this.tableJointHolder = ((JointHolderDataTable)(base.Tables["JointHolder"]));
+            this.tableJointHolders = ((JointHoldersDataTable)(base.Tables["JointHolders"]));
             if ((initTable == true)) {
-                if ((this.tableJointHolder != null)) {
-                    this.tableJointHolder.InitVars();
+                if ((this.tableJointHolders != null)) {
+                    this.tableJointHolders.InitVars();
                 }
             }
         }
@@ -190,12 +190,12 @@ namespace WealthERP.Reports {
             this.Namespace = "http://tempuri.org/OrderTransactionSlipDS.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableJointHolder = new JointHolderDataTable();
-            base.Tables.Add(this.tableJointHolder);
+            this.tableJointHolders = new JointHoldersDataTable();
+            base.Tables.Add(this.tableJointHolders);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeJointHolder() {
+        private bool ShouldSerializeJointHolders() {
             return false;
         }
         
@@ -252,7 +252,7 @@ namespace WealthERP.Reports {
             return type;
         }
         
-        public delegate void JointHolderRowChangeEventHandler(object sender, JointHolderRowChangeEvent e);
+        public delegate void JointHoldersRowChangeEventHandler(object sender, JointHoldersRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -260,22 +260,22 @@ namespace WealthERP.Reports {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class JointHolderDataTable : global::System.Data.TypedTableBase<JointHolderRow> {
+        public partial class JointHoldersDataTable : global::System.Data.TypedTableBase<JointHoldersRow> {
             
             private global::System.Data.DataColumn columnJointHolderName;
             
-            private global::System.Data.DataColumn columnPanNo;
+            private global::System.Data.DataColumn columnPAN;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public JointHolderDataTable() {
-                this.TableName = "JointHolder";
+            public JointHoldersDataTable() {
+                this.TableName = "JointHolders";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal JointHolderDataTable(global::System.Data.DataTable table) {
+            internal JointHoldersDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -291,7 +291,7 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected JointHolderDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected JointHoldersDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -304,9 +304,9 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn PanNoColumn {
+            public global::System.Data.DataColumn PANColumn {
                 get {
-                    return this.columnPanNo;
+                    return this.columnPAN;
                 }
             }
             
@@ -319,111 +319,111 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public JointHolderRow this[int index] {
+            public JointHoldersRow this[int index] {
                 get {
-                    return ((JointHolderRow)(this.Rows[index]));
+                    return ((JointHoldersRow)(this.Rows[index]));
                 }
             }
             
-            public event JointHolderRowChangeEventHandler JointHolderRowChanging;
+            public event JointHoldersRowChangeEventHandler JointHoldersRowChanging;
             
-            public event JointHolderRowChangeEventHandler JointHolderRowChanged;
+            public event JointHoldersRowChangeEventHandler JointHoldersRowChanged;
             
-            public event JointHolderRowChangeEventHandler JointHolderRowDeleting;
+            public event JointHoldersRowChangeEventHandler JointHoldersRowDeleting;
             
-            public event JointHolderRowChangeEventHandler JointHolderRowDeleted;
+            public event JointHoldersRowChangeEventHandler JointHoldersRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddJointHolderRow(JointHolderRow row) {
+            public void AddJointHoldersRow(JointHoldersRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public JointHolderRow AddJointHolderRow(string JointHolderName, string PanNo) {
-                JointHolderRow rowJointHolderRow = ((JointHolderRow)(this.NewRow()));
+            public JointHoldersRow AddJointHoldersRow(string JointHolderName, string PAN) {
+                JointHoldersRow rowJointHoldersRow = ((JointHoldersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         JointHolderName,
-                        PanNo};
-                rowJointHolderRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowJointHolderRow);
-                return rowJointHolderRow;
+                        PAN};
+                rowJointHoldersRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowJointHoldersRow);
+                return rowJointHoldersRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public override global::System.Data.DataTable Clone() {
-                JointHolderDataTable cln = ((JointHolderDataTable)(base.Clone()));
+                JointHoldersDataTable cln = ((JointHoldersDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new JointHolderDataTable();
+                return new JointHoldersDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
                 this.columnJointHolderName = base.Columns["JointHolderName"];
-                this.columnPanNo = base.Columns["PanNo"];
+                this.columnPAN = base.Columns["PAN"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitClass() {
                 this.columnJointHolderName = new global::System.Data.DataColumn("JointHolderName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnJointHolderName);
-                this.columnPanNo = new global::System.Data.DataColumn("PanNo", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPanNo);
+                this.columnPAN = new global::System.Data.DataColumn("PAN", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPAN);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public JointHolderRow NewJointHolderRow() {
-                return ((JointHolderRow)(this.NewRow()));
+            public JointHoldersRow NewJointHoldersRow() {
+                return ((JointHoldersRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new JointHolderRow(builder);
+                return new JointHoldersRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Type GetRowType() {
-                return typeof(JointHolderRow);
+                return typeof(JointHoldersRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.JointHolderRowChanged != null)) {
-                    this.JointHolderRowChanged(this, new JointHolderRowChangeEvent(((JointHolderRow)(e.Row)), e.Action));
+                if ((this.JointHoldersRowChanged != null)) {
+                    this.JointHoldersRowChanged(this, new JointHoldersRowChangeEvent(((JointHoldersRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.JointHolderRowChanging != null)) {
-                    this.JointHolderRowChanging(this, new JointHolderRowChangeEvent(((JointHolderRow)(e.Row)), e.Action));
+                if ((this.JointHoldersRowChanging != null)) {
+                    this.JointHoldersRowChanging(this, new JointHoldersRowChangeEvent(((JointHoldersRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.JointHolderRowDeleted != null)) {
-                    this.JointHolderRowDeleted(this, new JointHolderRowChangeEvent(((JointHolderRow)(e.Row)), e.Action));
+                if ((this.JointHoldersRowDeleted != null)) {
+                    this.JointHoldersRowDeleted(this, new JointHoldersRowChangeEvent(((JointHoldersRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.JointHolderRowDeleting != null)) {
-                    this.JointHolderRowDeleting(this, new JointHolderRowChangeEvent(((JointHolderRow)(e.Row)), e.Action));
+                if ((this.JointHoldersRowDeleting != null)) {
+                    this.JointHoldersRowDeleting(this, new JointHoldersRowChangeEvent(((JointHoldersRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveJointHolderRow(JointHolderRow row) {
+            public void RemoveJointHoldersRow(JointHoldersRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -449,7 +449,7 @@ namespace WealthERP.Reports {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "JointHolderDataTable";
+                attribute2.FixedValue = "JointHoldersDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -494,64 +494,64 @@ namespace WealthERP.Reports {
         ///Represents strongly named DataRow class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class JointHolderRow : global::System.Data.DataRow {
+        public partial class JointHoldersRow : global::System.Data.DataRow {
             
-            private JointHolderDataTable tableJointHolder;
+            private JointHoldersDataTable tableJointHolders;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal JointHolderRow(global::System.Data.DataRowBuilder rb) : 
+            internal JointHoldersRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableJointHolder = ((JointHolderDataTable)(this.Table));
+                this.tableJointHolders = ((JointHoldersDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string JointHolderName {
                 get {
                     try {
-                        return ((string)(this[this.tableJointHolder.JointHolderNameColumn]));
+                        return ((string)(this[this.tableJointHolders.JointHolderNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'JointHolderName\' in table \'JointHolder\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'JointHolderName\' in table \'JointHolders\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableJointHolder.JointHolderNameColumn] = value;
+                    this[this.tableJointHolders.JointHolderNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string PanNo {
+            public string PAN {
                 get {
                     try {
-                        return ((string)(this[this.tableJointHolder.PanNoColumn]));
+                        return ((string)(this[this.tableJointHolders.PANColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PanNo\' in table \'JointHolder\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PAN\' in table \'JointHolders\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableJointHolder.PanNoColumn] = value;
+                    this[this.tableJointHolders.PANColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsJointHolderNameNull() {
-                return this.IsNull(this.tableJointHolder.JointHolderNameColumn);
+                return this.IsNull(this.tableJointHolders.JointHolderNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetJointHolderNameNull() {
-                this[this.tableJointHolder.JointHolderNameColumn] = global::System.Convert.DBNull;
+                this[this.tableJointHolders.JointHolderNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsPanNoNull() {
-                return this.IsNull(this.tableJointHolder.PanNoColumn);
+            public bool IsPANNull() {
+                return this.IsNull(this.tableJointHolders.PANColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetPanNoNull() {
-                this[this.tableJointHolder.PanNoColumn] = global::System.Convert.DBNull;
+            public void SetPANNull() {
+                this[this.tableJointHolders.PANColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -559,20 +559,20 @@ namespace WealthERP.Reports {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class JointHolderRowChangeEvent : global::System.EventArgs {
+        public class JointHoldersRowChangeEvent : global::System.EventArgs {
             
-            private JointHolderRow eventRow;
+            private JointHoldersRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public JointHolderRowChangeEvent(JointHolderRow row, global::System.Data.DataRowAction action) {
+            public JointHoldersRowChangeEvent(JointHoldersRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public JointHolderRow Row {
+            public JointHoldersRow Row {
                 get {
                     return this.eventRow;
                 }

@@ -9,14 +9,14 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="OrderTransactionSlipDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="OrderTransactionSlipDS" msprop:Generator_UserDSName="OrderTransactionSlipDS" msprop:EnableTableAdapterManager="true">
+  <xs:element name="OrderTransactionSlipDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="OrderTransactionSlipDS" msprop:Generator_DataSetName="OrderTransactionSlipDS" msprop:EnableTableAdapterManager="true">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="JointHolder" msprop:Generator_UserTableName="JointHolder" msprop:Generator_RowDeletedName="JointHolderRowDeleted" msprop:Generator_TableClassName="JointHolderDataTable" msprop:Generator_RowChangedName="JointHolderRowChanged" msprop:Generator_RowClassName="JointHolderRow" msprop:Generator_RowChangingName="JointHolderRowChanging" msprop:Generator_RowEvArgName="JointHolderRowChangeEvent" msprop:Generator_RowEvHandlerName="JointHolderRowChangeEventHandler" msprop:Generator_TablePropName="JointHolder" msprop:Generator_TableVarName="tableJointHolder" msprop:Generator_RowDeletingName="JointHolderRowDeleting">
+        <xs:element name="JointHolders" msprop:Generator_UserTableName="JointHolders" msprop:Generator_RowDeletedName="JointHoldersRowDeleted" msprop:Generator_TableClassName="JointHoldersDataTable" msprop:Generator_RowChangedName="JointHoldersRowChanged" msprop:Generator_RowClassName="JointHoldersRow" msprop:Generator_RowChangingName="JointHoldersRowChanging" msprop:Generator_RowEvArgName="JointHoldersRowChangeEvent" msprop:Generator_RowEvHandlerName="JointHoldersRowChangeEventHandler" msprop:Generator_TablePropName="JointHolders" msprop:Generator_TableVarName="tableJointHolders" msprop:Generator_RowDeletingName="JointHoldersRowDeleting">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="JointHolderName" msprop:Generator_UserColumnName="JointHolderName" msprop:Generator_ColumnPropNameInRow="JointHolderName" msprop:Generator_ColumnVarNameInTable="columnJointHolderName" msprop:Generator_ColumnPropNameInTable="JointHolderNameColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="PanNo" msprop:Generator_UserColumnName="PanNo" msprop:Generator_ColumnPropNameInRow="PanNo" msprop:Generator_ColumnVarNameInTable="columnPanNo" msprop:Generator_ColumnPropNameInTable="PanNoColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PAN" msprop:Generator_UserColumnName="PAN" msprop:Generator_ColumnPropNameInRow="PAN" msprop:Generator_ColumnVarNameInTable="columnPAN" msprop:Generator_ColumnPropNameInTable="PANColumn" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
