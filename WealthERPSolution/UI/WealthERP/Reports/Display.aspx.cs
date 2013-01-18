@@ -534,8 +534,9 @@ namespace WealthERP.Reports
               
                 if(customerVo != null)
                 {
-                    if(ds.Tables[1].Rows.Count>0)
-                        crmain.Subreports["JointHolder"].Database.Tables["JointHolder"].SetDataSource(ds.Tables[1]);
+                    
+                     crmain.Subreports["JointHolder"].Database.Tables["JointHolders"].SetDataSource(ds.Tables[1]);
+                   
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         crmain.SetDataSource(ds.Tables[0]);
@@ -559,6 +560,14 @@ namespace WealthERP.Reports
 
                     crmain.SetParameterValue("ChequeNo",  !string.IsNullOrEmpty(ChequeNo) ?ChequeNo:string.Empty);
                     crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(ChequeDate)? ChequeDate : string.Empty);
+                    crmain.SetParameterValue("Amount", string.Empty);
+                    if (ds.Tables[1].Rows.Count > 0)
+                        crmain.SetParameterValue("JointHolder", "1");
+                    else
+                        crmain.SetParameterValue("JointHolder", "0");
+
+                    
+                    
                     if (RbtnAmounts == true)
                     {
                         if (OType == "BUY" || OType == "ABY" || OType == "SIP")
