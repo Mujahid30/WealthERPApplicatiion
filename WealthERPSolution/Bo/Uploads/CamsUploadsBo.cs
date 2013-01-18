@@ -1834,7 +1834,7 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
-        public bool TempletonTrailCommissionProcessDataInStagingTrans(int adviserId, int processId, string Packagepath, string configPath)
+        public bool TempletonTrailCommissionProcessDataInStagingTrans(int adviserId, int processId,String uploadType ,string Packagepath, string configPath)
         {
             bool IsProcessComplete = false;
             try
@@ -1842,6 +1842,7 @@ namespace BoUploads
                 Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
                 standardTranPkg3.Variables["varProcessId"].Value = processId;
                 standardTranPkg3.Variables["varAdviserId"].Value = adviserId;
+                standardTranPkg3.Variables["varUploadtypeFullName"].Value = uploadType;
                 //standardTranPkg3.Variables["varUploadtypeFullName"].Value = varUploadtypeFullName;
                 standardTranPkg3.ImportConfigurationFile(configPath);
                 DTSExecResult karvyTranResult3 = standardTranPkg3.Execute();
@@ -2066,7 +2067,7 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
-        public bool CAMSTrailCommissionProcessDataInStagingTrans(int adviserId, int processId, string Packagepath, string configPath)
+        public bool CAMSTrailCommissionProcessDataInStagingTrans(int adviserId, int processId,string uploadType ,string Packagepath, string configPath)
         {
             bool IsProcessComplete = false;
             try
@@ -2074,6 +2075,7 @@ namespace BoUploads
                 Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
                 standardTranPkg3.Variables["varProcessId"].Value = processId;
                 standardTranPkg3.Variables["varAdvisorId"].Value = adviserId;
+                standardTranPkg3.Variables["varUploadTypeFullName"].Value = uploadType;
                 //standardTranPkg3.Variables["varUploadtypeFullName"].Value = varUploadtypeFullName;
                 standardTranPkg3.ImportConfigurationFile(configPath);
                 DTSExecResult karvyTranResult3 = standardTranPkg3.Execute();
@@ -2297,7 +2299,7 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
-        public bool KARVYTrailCommissionProcessDataInStagingTrans(int adviserId, int processId, string Packagepath, string configPath)
+        public bool KARVYTrailCommissionProcessDataInStagingTrans(int adviserId, int processId,string uploadType ,string Packagepath, string configPath)
         {
             bool IsProcessComplete = false;
             try
@@ -2305,6 +2307,7 @@ namespace BoUploads
                 Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
                 standardTranPkg3.Variables["varProcessId"].Value = processId;
                 standardTranPkg3.Variables["varAdvisorId"].Value = adviserId;
+                standardTranPkg3.Variables["varUploadtypeFullName"].Value = uploadType;
                 //standardTranPkg3.Variables["varUploadtypeFullName"].Value = varUploadtypeFullName;
                 standardTranPkg3.ImportConfigurationFile(configPath);
                 DTSExecResult karvyTranResult3 = standardTranPkg3.Execute();
