@@ -440,7 +440,7 @@ namespace WealthERP.CustomerPortfolio
 
                     GridBoundColumn gbcCustomer = gvMFTransactions.MasterTableView.Columns.FindByUniqueName("Customer Name") as GridBoundColumn;
                     GridBoundColumn gbcPortfolio = gvMFTransactions.MasterTableView.Columns.FindByUniqueName("Portfolio Name") as GridBoundColumn;
-                    if (Session["CustomerVo"] != null)
+                    if (Session["IsCustomerDrillDown"] == "Yes")
                     {
                         gbcCustomer.Visible = false;
                         gbcPortfolio.Visible = false;
