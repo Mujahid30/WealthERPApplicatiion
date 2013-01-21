@@ -961,6 +961,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CustomerAssetDetails//CustomerGovtSaving.ascx.
+        /// </summary>
+        internal static string CustomerGovtSaving {
+            get {
+                return ResourceManager.GetString("CustomerGovtSaving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//CustomerIncome.ascx.
         /// </summary>
         internal static string CustomerIncome {

@@ -1224,6 +1224,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ControlMapping.resx</DependentUpon>
     </Compile>
+    <Compile Include="CustomerAssetDetails\CustomerGovtSaving.ascx.cs">
+      <DependentUpon>CustomerGovtSaving.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerAssetDetails\CustomerGovtSaving.ascx.designer.cs">
+      <DependentUpon>CustomerGovtSaving.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CustomerPortfolio\AdviserLoanScheme.ascx.cs">
       <DependentUpon>AdviserLoanScheme.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5759,6 +5766,7 @@
     <Content Include="BusinessMIS\MutualFundMIS.ascx" />
     <Content Include="BusinessMIS\TransactionDashBoard.ascx" />
     <Content Include="BusinessMIS\TurnOverDashBoard.ascx" />
+    <Content Include="CustomerAssetDetails\CustomerGovtSaving.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />
     <Content Include="CustomerPortfolio\CustomerEQAccountView.ascx" />

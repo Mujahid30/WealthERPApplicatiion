@@ -1513,4 +1513,8 @@
     <value>BusinessMIS//EquityTurnover.ascx</value>
     <comment>BusinessMIS//EquityTurnover.ascx</comment>
   </data>
+  <data name="CustomerGovtSaving" xml:space="preserve">
+    <value>CustomerAssetDetails//CustomerGovtSaving.ascx</value>
+    <comment>CustomerAssetDetails//CustomerGovtSaving.ascx</comment>
+  </data>
 </root>
