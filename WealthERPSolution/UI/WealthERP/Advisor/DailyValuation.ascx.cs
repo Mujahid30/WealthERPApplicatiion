@@ -317,7 +317,7 @@ namespace WealthERP.Advisor
                     assetGroup = "EQ";
                     trHeader.Visible = true;
                     hdnMsgValue.Value = "1";
-                    gvValuationDate.Rows[0].Visible = true;
+                    //gvValuationDate.Rows[0].Visible = true;
                     gvValuationDate.Columns[3].Visible = false;
                     gvValuationDate.Columns[0].Visible = true;
                     dsAdviserValuationDate = customerPortfolioBo.GetAdviserValuationDate(advisorVo.advisorId, assetGroup, int.Parse(ddTradeMonth.SelectedValue.ToString()), int.Parse(ddTradeYear.SelectedItem.Value.ToString()));
