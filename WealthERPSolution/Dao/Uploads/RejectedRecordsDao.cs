@@ -788,7 +788,7 @@ namespace DaoUploads
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getWERPRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetUploadRejectsEquityTransactionStaging");
+                getWERPRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetUploadRejectsEquityTransactionsStaging");
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
                 if (fromDate != DateTime.MinValue)
