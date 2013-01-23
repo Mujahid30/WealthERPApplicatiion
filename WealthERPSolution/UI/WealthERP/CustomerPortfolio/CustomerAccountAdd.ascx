@@ -2,15 +2,7 @@
     Inherits="WealthERP.CustomerPortfolio.CustomerAccountAdd" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
-<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
 
-<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
 <script language="javascript" type="text/javascript">
     function checkDate(sender, args) {
@@ -28,12 +20,6 @@
     }
 </script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".flip").click(function() { $(".panel").slideToggle(); });
-    });
-</script>
-
 <asp:ScriptManager ID="scrptMgr" runat="server" EnableScriptLocalization="true">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="up1" runat="server">
@@ -48,34 +34,12 @@
                                     <asp:Label ID="lblCustAccountHeader" class="HeaderTextBig" runat="server"></asp:Label>
                                 </td>
                                 <td align="right" style="padding-bottom:2px;">
-                                    <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
-                                        class="flip" />
                                 </td>
                             </tr>
                         </table>
                     </div>
                 </td>
             </tr>
-            <%--<tr>
-                <td>
-                    <asp:Label ID="lblCustAccountHeader" class="HeaderTextBig" runat="server" Text="Fixed Income Account Entry"></asp:Label>
-                </td>
-            </tr>--%>
-            <tr>
-                <td colspan="3">
-                    <div class="panel">
-                        <p>
-                            Note: Fields marked with a ' * ' are compulsory
-                        </p>
-                    </div>
-                </td>
-            </tr>
-            <%--   <tr>
-                <td class="tdRequiredText">
-                    <label id="lbl" class="lblRequiredText">
-                        Note: Fields marked with ' * ' are compulsory</label>
-                </td>
-            </tr>--%>
         </table>
         <table style="width: 100%;">
             <tr>
@@ -232,7 +196,7 @@
             </tr>
             <tr id="trJointHolderGrid" runat="server">
                 <td colspan="2">
-                    <asp:GridView ID="gvJointHoldersList" runat="server" AutoGenerateColumns="False"
+                    <asp:GridView ID="gvJointHoldersList" runat="server" AutoGenerateColumns="False" Width="60%"
                         CellPadding="4" DataKeyNames="MemberCustomerId, AssociationId" AllowSorting="True"
                         ShowFooter="true" CssClass="GridViewStyle">
                         <FooterStyle CssClass="FooterStyle" />
@@ -280,7 +244,7 @@
             </tr>--%>
             <tr id="trNominees" runat="server">
                 <td colspan="2">
-                    <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" CellPadding="4"
+                    <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" CellPadding="4" Width="60%"
                         ShowFooter="true" DataKeyNames="MemberCustomerId, AssociationId" AllowSorting="True"
                         CssClass="GridViewStyle">
                         <FooterStyle CssClass="FooterStyle" />
