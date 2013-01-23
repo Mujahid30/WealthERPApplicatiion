@@ -322,6 +322,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//AdviserMFTurnOverMIS.ascx.
+        /// </summary>
+        internal static string AdviserMFTurnOverMIS {
+            get {
+                return ResourceManager.GetString("AdviserMFTurnOverMIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//AdviserRMCustNonIndiDashboard.ascx.
         /// </summary>
         internal static string AdviserRMCustNonIndiDashboard {

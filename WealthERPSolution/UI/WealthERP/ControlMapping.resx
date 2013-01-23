@@ -1517,4 +1517,8 @@
     <value>CustomerAssetDetails//CustomerGovtSaving.ascx</value>
     <comment>CustomerAssetDetails//CustomerGovtSaving.ascx</comment>
   </data>
+  <data name="AdviserMFTurnOverMIS" xml:space="preserve">
+    <value>BusinessMIS//AdviserMFTurnOverMIS.ascx</value>
+    <comment>BusinessMIS//AdviserMFTurnOverMIS.ascx</comment>
+  </data>
 </root>

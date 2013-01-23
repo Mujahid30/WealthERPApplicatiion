@@ -1107,6 +1107,13 @@
     <Compile Include="bin\FusionCharts.cs" />
     <Compile Include="BreadcrumbLinks.Designer.cs" />
     <Compile Include="BreadCrumbScripts.Designer.cs" />
+    <Compile Include="BusinessMIS\AdviserMFTurnOverMIS.aspx.cs">
+      <DependentUpon>AdviserMFTurnOverMIS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\AdviserMFTurnOverMIS.aspx.designer.cs">
+      <DependentUpon>AdviserMFTurnOverMIS.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\AssetAllocationMIS.ascx.cs">
       <DependentUpon>AssetAllocationMIS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5752,6 +5759,7 @@
     <Content Include="bin\VoValuation.pdb" />
     <Content Include="bin\WatiN.Core.dll" />
     <Content Include="bin\WatiN.Core.XML" />
+    <Content Include="BusinessMIS\AdviserMFTurnOverMIS.aspx" />
     <Content Include="BusinessMIS\AssetAllocationMIS.ascx" />
     <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
     <Content Include="BusinessMIS\Commissiondashboard.ascx" />
