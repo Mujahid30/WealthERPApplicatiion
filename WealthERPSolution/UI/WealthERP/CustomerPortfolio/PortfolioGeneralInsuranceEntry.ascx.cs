@@ -854,6 +854,7 @@ namespace WealthERP.CustomerPortfolio
             ddlPolicyIssuer.Enabled = trueOrFalse;
             ddlPremiumCycle.Enabled = trueOrFalse;
             ddlTypeOfPolicy.Enabled = trueOrFalse;
+            btnAddScheme.Enabled = trueOrFalse;
 
 
         }
