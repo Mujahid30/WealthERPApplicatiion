@@ -153,12 +153,12 @@ namespace WealthERP.CustomerPortfolio
                         BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
                         Session.Remove("tranDates");
                     }
-                    else
-                    {
-                        txtFromDate.SelectedDate = DateTime.Now;
-                        txtToDate.SelectedDate = DateTime.Now;
-                        BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
-                    }
+                    //else
+                    //{
+                    //    txtFromDate.SelectedDate = DateTime.Now;
+                    //    txtToDate.SelectedDate = DateTime.Now;
+                    //    BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
+                    //}
                    
                     ErrorMessage.Visible = false;
                 }
