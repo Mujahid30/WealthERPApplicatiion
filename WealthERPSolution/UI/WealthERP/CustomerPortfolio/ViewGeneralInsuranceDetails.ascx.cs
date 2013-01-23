@@ -22,7 +22,6 @@ namespace WealthERP.CustomerPortfolio
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            trExportFilteredData.Visible = false;
             customerVo = (CustomerVo)Session["customerVo"];
             BindGeneralInsuranceGridview(123);
             
@@ -106,7 +105,7 @@ namespace WealthERP.CustomerPortfolio
                 dt = insuranceBo.GetCustomerGIDetails(customerVo.CustomerId);
                 if (dt.Rows.Count > 0)
                 {
-                    trExportFilteredData.Visible = true;
+                    btnExportFilteredData.Visible = true;
                     ErrorMessage.Visible = false;
                     gvGeneralInsurance.DataSource = dt;
                     gvGeneralInsurance.DataBind();

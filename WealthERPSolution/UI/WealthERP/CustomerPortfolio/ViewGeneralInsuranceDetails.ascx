@@ -38,27 +38,23 @@
         }
     }
 </script>
-
-<table class="TableBackground" width="100%">
-    <tr>
-        <td colspan="5">
-            <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr>
-                        <td align="left">
-                            General Insurance Portfolio
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-    <%--<tr>
-        <td>
-            <asp:Label ID="lblInsuranceHeader" class="HeaderTextBig" runat="server" Text="General Insurance Portfolio"></asp:Label>
-            <hr />
-        </td>
-    </tr>--%>
+<table width="100%">
+<tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">General Insurance</td>
+        <td  align="right" id="tdExport" runat="server" style="padding-bottom:2px;">
+        <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png" Visible="false"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+    </td>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
 </table>
 <table id="ErrorMessage" align="center" runat="server">
     <tr>
@@ -79,9 +75,7 @@
     </tr>--%>
         <tr id="trExportFilteredData" runat="server">
             <td>
-                <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                
             </td>
         </tr>
         <tr>
