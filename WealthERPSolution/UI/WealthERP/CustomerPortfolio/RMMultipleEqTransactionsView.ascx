@@ -52,7 +52,7 @@
                             View Equity Transactions
                         </td>
                         <td align="right">
-                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png" Visible="false"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
                                 Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
                         </td>
