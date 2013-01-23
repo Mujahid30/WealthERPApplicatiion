@@ -40,23 +40,27 @@
 </script>
 
 <table width="100%">
-    <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="Label1" class="HeaderTextBig" runat="server" Text="Life Insurance Portfolio"></asp:Label>
-            <hr />
-        </td>
-    </tr>
+<td colspan="3" style="width: 100%;">
+<div class="divPageHeading">
+    <table cellspacing="0"  width="100%">
+        <tr>
+        <td align="left">Life Insurance</td>
+        <td  align="right" id="tdExport" runat="server" style="padding-bottom:2px;">
+        <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png" Visible="false"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+    </td>
+        </tr>
+    </table>
+</div>
+</td>
+</tr>
     <tr>
         <td>
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <br />
         </td>
     </tr>
 </table>
@@ -71,13 +75,6 @@
 </table>
 <asp:Panel  ID="Panel1" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
     <table>
-        <tr id="trExportFilteredData" runat="server">
-            <td>
-                <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
-            </td>
-        </tr>
         <tr>
             <td>
                 <telerik:RadGrid ID="gvrLifeInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
