@@ -27,7 +27,8 @@ namespace WealthERP.Uploads {
         protected global::Telerik.Web.UI.RadDatePicker txtFromTran;
         protected global::Telerik.Web.UI.RadDatePicker txtToTran;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
-        protected global::System.Web.UI.WebControls.HiddenField hfRmId; 
+        protected global::System.Web.UI.WebControls.HiddenField hfRmId;
+        protected global::System.Web.UI.WebControls.ImageButton btnExport;
         /// <summary>
         /// msgReprocessComplete control.
         /// </summary>

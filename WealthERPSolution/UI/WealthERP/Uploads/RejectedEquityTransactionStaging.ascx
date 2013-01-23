@@ -131,7 +131,12 @@
                         <td align="right">
                             &nbsp; &nbsp;
                             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
-                                OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                                OnClick="lnkBtnBack_Click"></asp:LinkButton> 
+                        </td>
+                         <td align="right" style="width: 10px">
+                            <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -266,7 +271,7 @@
                 <telerik:RadGrid ID="gvWERPTrans" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowFiltering="true" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                     Skin="Telerik" OnItemDataBound="gvWERPTrans_ItemDataBound" EnableEmbeddedSkins="false"
-                    Width="1050px" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
+                    Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
                     ExportSettings-FileName="MF Transaction Reject Details" ShowFooter="true" OnNeedDataSource="gvWERPTrans_OnNeedDataSource"
                     OnPreRender="gvWERPTrans_PreRender">
                     <%-- OnPreRender="gvWERPTrans_PreRender"
@@ -317,11 +322,11 @@
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ProcessId" AllowFiltering="true" HeaderText="ProcessId"
-                                HeaderStyle-Width="75px" UniqueName="ProcessId" SortExpression="ProcessId" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="60px" UniqueName="ProcessId" SortExpression="ProcessId" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
-                                    <telerik:RadComboBox ID="RadComboBoxPI" Width="80px" CssClass="cmbField" AllowFiltering="true"
+                                    <telerik:RadComboBox ID="RadComboBoxPI" Width="90px" CssClass="cmbField" AllowFiltering="true"
                                         AutoPostBack="true" OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged"
                                         IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
                                         EnableViewState="true" OnPreRender="rcbContinents2_PreRender" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("ProcessId").CurrentFilterValue %>'
@@ -345,23 +350,23 @@
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="TradeAccountNumber" HeaderText="Trade Account Number"
-                                HeaderStyle-Width="120px" UniqueName="TradeAccountNumber" SortExpression="TradeAccountNumber"
+                                HeaderStyle-Width="60px" UniqueName="TradeAccountNumber" SortExpression="TradeAccountNumber"
                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="ScripCode" AllowFiltering="false" HeaderText="Scrip"
-                                HeaderStyle-Width="65px" UniqueName="ScripCode" SortExpression="ScripCode" AutoPostBackOnFilter="true"
+                            <telerik:GridBoundColumn DataField="ScripCode" AllowFiltering="false" HeaderText="Scrip Code"
+                                HeaderStyle-Width="75px" UniqueName="ScripCode" SortExpression="ScripCode" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Exchange" AllowFiltering="true" HeaderText="Exchange"
-                                HeaderStyle-Width="95px" UniqueName="Exchange" SortExpression="Exchange" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="85px" UniqueName="Exchange" SortExpression="Exchange" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Share" AllowFiltering="false" HeaderText="Share"
-                                HeaderStyle-Width="100px" UniqueName="Share" SortExpression="Share" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                HeaderStyle-Width="80px" UniqueName="Share" SortExpression="Share" AutoPostBackOnFilter="true"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:n3}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="Price" AllowFiltering="false"

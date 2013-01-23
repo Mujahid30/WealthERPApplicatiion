@@ -176,7 +176,8 @@ namespace WealthERP.Uploads
         //        }
         //            BindddlRejectReason();
         //            gvWERPTrans.Visible = false;
-        //            Panel2.Visible = false;    
+        //            Panel2.Visible = false; 
+            btnExport.Visible = false;
        }
         
      private void BindEquityTransactionGrid(int ProcessId)
@@ -221,6 +222,7 @@ namespace WealthERP.Uploads
                 gvWERPTrans.DataBind();
                 gvWERPTrans.Visible = true;
                 Panel2.Visible = true;
+                btnExport.Visible = true;
             }
             else
             {
@@ -232,6 +234,7 @@ namespace WealthERP.Uploads
                 gvWERPTrans.Visible = false;
                 Panel2.Visible = false;
                 trReprocess.Visible = false;
+                btnExport.Visible = false;
             }
         }
 
@@ -1035,6 +1038,7 @@ namespace WealthERP.Uploads
             string rcbType = string.Empty;
             string pitype = string.Empty;
             string tttype = string.Empty;
+            btnExport.Visible = true;
             DataSet dsEquity = new DataSet();
             DataTable dtrr = new DataTable();
             dsEquity = (DataSet)Cache["RejectedEquityDetails" + adviserVo.advisorId.ToString()];
@@ -1089,6 +1093,7 @@ namespace WealthERP.Uploads
                 else
                 {
                     gvWERPTrans.DataSource = dtrr;
+                    btnExport.Visible = true;
                 }
             }
         }
@@ -1122,5 +1127,22 @@ namespace WealthERP.Uploads
         }
         protected void btnAddLob_Click(object sender, EventArgs e)
         { }
+
+
+
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvWERPTrans.ExportSettings.OpenInNewWindow = true;
+            gvWERPTrans.ExportSettings.IgnorePaging = true;
+            gvWERPTrans.ExportSettings.HideStructureColumns = true;
+            gvWERPTrans.ExportSettings.ExportOnlyData = true;
+            gvWERPTrans.ExportSettings.FileName = "Rejected Equity Transaction Details";
+            gvWERPTrans.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvWERPTrans.MasterTableView.ExportToExcel();
+        }
+
     }
+
+
+
 }
