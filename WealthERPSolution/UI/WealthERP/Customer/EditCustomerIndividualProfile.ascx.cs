@@ -961,10 +961,27 @@ namespace WealthERP.Customer
                 if (ddlCustomerSubType.SelectedItem.Value.ToString() == "MNR")
                 {
                     trGuardianName.Visible = true;
+                    trRBIRefNo.Visible = false;
+                }
+                else if (ddlCustomerSubType.SelectedValue == "NRI")
+                {
+                    trRBIRefNo.Visible = true;
+                    trGuardianName.Visible = false;
+                }
+                else if (ddlCustomerSubType.SelectedValue == "NRE")
+                {
+                    trRBIRefNo.Visible = true;
+                    trGuardianName.Visible = false;
+                }
+                else if (ddlCustomerSubType.SelectedValue == "NRO")
+                {
+                    trRBIRefNo.Visible = true;
+                    trGuardianName.Visible = false;
                 }
                 else
                 {
                     trGuardianName.Visible = false;
+                    trRBIRefNo.Visible = false;
                 }
             }
             if (ddlCustomerSubType.SelectedValue == "RES")
