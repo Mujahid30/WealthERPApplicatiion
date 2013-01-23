@@ -44,17 +44,6 @@
 
 <table style="width: 100%;">
     <tr>
-        <td colspan="4" class="tdRequiredText">
-            <label id="lbl" class="lblRequiredText">
-                Note: Fields marked with ' * ' are compulsory</label>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="4">
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
         <td align="right" style="width:15%">
             <asp:Label ID="lblAssetCategory" runat="server" Text="Asset Category:" CssClass="FieldName"></asp:Label>
         </td>
@@ -116,15 +105,17 @@
             &nbsp;&nbsp;&nbsp;
         </td>
     </tr>
-    <tr id="trNominees" visible="false" runat="server">
-        <td colspan="4">
-            <asp:Label ID="lblNominees" Text="Nominees" runat="server" CssClass="FieldName"></asp:Label>
-        </td>
-    </tr>
+<tr id="trNominees" runat="server">
+               <td colspan="4">
+               <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Nominees
+               </div>
+              </td>
+            </tr>
     <tr>
         <td colspan="4">
             <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" DataKeyNames="MemberCustomerId, AssociationId"
-                AllowSorting="False" CssClass="GridViewStyle">
+                AllowSorting="False" CssClass="GridViewStyle" Width="60%">
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
