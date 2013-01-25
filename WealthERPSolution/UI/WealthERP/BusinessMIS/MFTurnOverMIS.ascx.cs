@@ -64,21 +64,30 @@ namespace WealthERP.BusinessMIS
             int RMId = rmVo.RMId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
-            
+
             if (!IsPostBack)
             {
+                if (!Convert.ToBoolean(advisorVo.MultiBranch))
+                {
+                    ddlAction.Items.RemoveAt(0);                    
+
+                }
+
                 rbtnPickDate.Checked = true;
                 rbtnPickPeriod.Checked = false;
-                trRange.Visible = true;
-                trPeriod.Visible = false;
-                dvProduct.Visible = true;
-                dvOrganization.Visible = false;
-                pnlAMC.Visible = false;
-                pnlScheme.Visible = false;
-                pnlBranch.Visible = false;
-                pnlFolio.Visible = false;
-                pnlCategory.Visible = false;
-                pnlRM.Visible = false;
+                divDateRange.Visible = true;               
+                divDatePeriod.Visible = false;
+              
+                //trDivProduct.Visible = true;
+                //trDivOrganization.Visible = false;
+                //ShowHideMISMenu("Organization");
+                ShowHideMISMenu(ddlAction.SelectedValue.ToString());
+                trPnlAMC.Visible = false;
+                trPnlScheme.Visible = false;
+                trPnlBranch.Visible = false;
+                trPnlFolio.Visible = false;
+                trPnlCategory.Visible = false;
+                trPnlRM.Visible = false;
                 BindCategory();
                 if (userType == "advisor")
                 {
@@ -97,7 +106,7 @@ namespace WealthERP.BusinessMIS
                     BindRMforBranchDropdown(0, bmID);
                 }
                 LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                txtFromDate.SelectedDate = DateTime.Parse( LatestValuationdate.ToShortDateString());
+                txtFromDate.SelectedDate = DateTime.Parse(LatestValuationdate.ToShortDateString());
                 txtToDate.SelectedDate = DateTime.Parse(LatestValuationdate.ToShortDateString());
             }
 
@@ -260,13 +269,13 @@ namespace WealthERP.BusinessMIS
         {
             if (rbtnPickDate.Checked == true)
             {
-                trRange.Visible = true;
-                trPeriod.Visible = false;
+                divDateRange.Visible = true;
+                divDatePeriod.Visible = false;
             }
             else if (rbtnPickPeriod.Checked == true)
             {
-                trRange.Visible = false;
-                trPeriod.Visible = true;
+                divDateRange.Visible = false;
+                divDatePeriod.Visible = true;
                 BindPeriodDropDown();
             }
         }
@@ -353,7 +362,7 @@ namespace WealthERP.BusinessMIS
 
             DataRow drGetAMCTransactionDeatails;
             DataRow[] drTransactionAMCWise;
-            if (dsGetAMCTransactionDeatails.Tables[0]!=null)
+            if (dsGetAMCTransactionDeatails.Tables[0] != null)
             {
                 DataTable dtGetAMCTransaction = dsGetAMCTransactionDeatails.Tables[0];
 
@@ -459,7 +468,7 @@ namespace WealthERP.BusinessMIS
                                                 break;
                                             }
                                     }
-                                   
+
                                 }
                             }
                             dtGetAMCTransactionDeatails.Rows.Add(drGetAMCTransactionDeatails);
@@ -874,7 +883,7 @@ namespace WealthERP.BusinessMIS
             dtGetCategoryTransactionDeatails.Columns.Add("Category");
             dtGetCategoryTransactionDeatails.Columns.Add("SubCategory");
             dtGetCategoryTransactionDeatails.Columns.Add("BUYCount", typeof(double));
-            dtGetCategoryTransactionDeatails.Columns.Add("BUYAmount",typeof(double));
+            dtGetCategoryTransactionDeatails.Columns.Add("BUYAmount", typeof(double));
             dtGetCategoryTransactionDeatails.Columns.Add("SELCount", typeof(double));
             dtGetCategoryTransactionDeatails.Columns.Add("SELAmount", typeof(double));
             dtGetCategoryTransactionDeatails.Columns.Add("DVRCount", typeof(double));
@@ -913,103 +922,103 @@ namespace WealthERP.BusinessMIS
                     { //go for another row to find new customer
                         subCategoryCodeOld = subcategoryCode;
                         drGetCategoryTransactionDeatails = dtGetCategoryTransactionDeatails.NewRow();
-                    
-                    // add row in manual datatable within this brace end
-                    drTransactionCategoryWise = dtGetCategoryTransaction.Select("PAISC_AssetInstrumentSubCategoryCode=" +"'"+subcategoryCode+"'");
 
-                    if (drTransactionCategoryWise.Count() > 0)
-                    {
-                        foreach (DataRow dr in drTransactionCategoryWise)
-                    {
-                    drGetCategoryTransactionDeatails["Category"] = drCategoryTransaction["PAIC_AssetInstrumentCategoryName"].ToString();
-                    drGetCategoryTransactionDeatails["SubCategory"] = drCategoryTransaction["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                    string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
-                    switch (transactiontype)
-                    {
-                        case "BUY":
-                            {
-                                drGetCategoryTransactionDeatails["BUYCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["BUYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                        // add row in manual datatable within this brace end
+                        drTransactionCategoryWise = dtGetCategoryTransaction.Select("PAISC_AssetInstrumentSubCategoryCode=" + "'" + subcategoryCode + "'");
 
-                                break;
-                            }
-                        case "SEL":
+                        if (drTransactionCategoryWise.Count() > 0)
+                        {
+                            foreach (DataRow dr in drTransactionCategoryWise)
                             {
-                                drGetCategoryTransactionDeatails["SELCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["SELAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "DVR":
-                            {
-                                drGetCategoryTransactionDeatails["DVRCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["DVRAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "DVP":
-                            {
-                                drGetCategoryTransactionDeatails["DVPCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["DVPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "SIP":
-                            {
-                                drGetCategoryTransactionDeatails["SIPCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["SIPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "BCI":
-                            {
-                                drGetCategoryTransactionDeatails["BCICount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["BCIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "BCO":
-                            {
-                                drGetCategoryTransactionDeatails["BCOCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["BCOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "STB":
-                            {
-                                drGetCategoryTransactionDeatails["STBCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["STBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "STS":
-                            {
-                                drGetCategoryTransactionDeatails["STSCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "SWB":
-                            {
-                                drGetCategoryTransactionDeatails["SWBCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "SWP":
-                            {
-                                drGetCategoryTransactionDeatails["SWPCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "SWS":
-                            {
-                                drGetCategoryTransactionDeatails["SWSCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
-                        case "PRJ":
-                            {
-                                drGetCategoryTransactionDeatails["PRJCount"] = dr["TrnsCount"].ToString();
-                                drGetCategoryTransactionDeatails["PRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                break;
-                            }
+                                drGetCategoryTransactionDeatails["Category"] = drCategoryTransaction["PAIC_AssetInstrumentCategoryName"].ToString();
+                                drGetCategoryTransactionDeatails["SubCategory"] = drCategoryTransaction["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                                string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
+                                switch (transactiontype)
+                                {
+                                    case "BUY":
+                                        {
+                                            drGetCategoryTransactionDeatails["BUYCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["BUYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                    }
-                    }
-                    dtGetCategoryTransactionDeatails.Rows.Add(drGetCategoryTransactionDeatails);
-                    }//*
+                                            break;
+                                        }
+                                    case "SEL":
+                                        {
+                                            drGetCategoryTransactionDeatails["SELCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["SELAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "DVR":
+                                        {
+                                            drGetCategoryTransactionDeatails["DVRCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["DVRAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "DVP":
+                                        {
+                                            drGetCategoryTransactionDeatails["DVPCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["DVPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "SIP":
+                                        {
+                                            drGetCategoryTransactionDeatails["SIPCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["SIPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "BCI":
+                                        {
+                                            drGetCategoryTransactionDeatails["BCICount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["BCIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "BCO":
+                                        {
+                                            drGetCategoryTransactionDeatails["BCOCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["BCOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "STB":
+                                        {
+                                            drGetCategoryTransactionDeatails["STBCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["STBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "STS":
+                                        {
+                                            drGetCategoryTransactionDeatails["STSCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "SWB":
+                                        {
+                                            drGetCategoryTransactionDeatails["SWBCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "SWP":
+                                        {
+                                            drGetCategoryTransactionDeatails["SWPCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "SWS":
+                                        {
+                                            drGetCategoryTransactionDeatails["SWSCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+                                    case "PRJ":
+                                        {
+                                            drGetCategoryTransactionDeatails["PRJCount"] = dr["TrnsCount"].ToString();
+                                            drGetCategoryTransactionDeatails["PRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                            break;
+                                        }
+
+                                }
+                            }
+                            dtGetCategoryTransactionDeatails.Rows.Add(drGetCategoryTransactionDeatails);
+                        }//*
 
                     }  //**
 
@@ -1037,6 +1046,14 @@ namespace WealthERP.BusinessMIS
             showHideGrid("BranchWise");
             BindBranchWiseTransactionDetails();
             lblMFMISType.Text = "Branch Wise";
+        }
+
+        protected void lnkZoneCluster_Click(object sender, EventArgs e)
+        {
+            //SetParameters();
+            //showHideGrid("BranchWise");
+            //BindBranchWiseTransactionDetails();
+            //lblMFMISType.Text = "Branch Wise";
         }
 
         private void BindBranchWiseTransactionDetails()
@@ -1331,11 +1348,11 @@ namespace WealthERP.BusinessMIS
                 divBranch.Visible = false;
                 divFolioWise.Visible = false;
                 divCategory.Visible = false;
-                pnlAMC.Visible = true;
-                pnlScheme.Visible = false;
-                pnlBranch.Visible = false;
-                pnlFolio.Visible = false;
-                pnlCategory.Visible = false;
+                trPnlAMC.Visible = true;
+                trPnlScheme.Visible = false;
+                trPnlBranch.Visible = false;
+                trPnlFolio.Visible = false;
+                trPnlCategory.Visible = false;
                 btnAMCExport.Visible = true;
                 btnSchemeExport.Visible = false;
                 btnFolioExport.Visible = false;
@@ -1343,7 +1360,7 @@ namespace WealthERP.BusinessMIS
                 btnCategoryExport.Visible = false;
                 btnRMExport.Visible = false;
                 divRM.Visible = false;
-                pnlRM.Visible = false;
+                trPnlRM.Visible = false;
             }
             else if (gridName == "SchemeWise")
             {
@@ -1352,11 +1369,11 @@ namespace WealthERP.BusinessMIS
                 divBranch.Visible = false;
                 divFolioWise.Visible = false;
                 divCategory.Visible = false;
-                pnlAMC.Visible = false;
-                pnlScheme.Visible = true;
-                pnlBranch.Visible = false;
-                pnlFolio.Visible = false;
-                pnlCategory.Visible = false;
+                trPnlAMC.Visible = false;
+                trPnlScheme.Visible = true;
+                trPnlBranch.Visible = false;
+                trPnlFolio.Visible = false;
+                trPnlCategory.Visible = false;
                 btnAMCExport.Visible = false;
                 btnSchemeExport.Visible = true;
                 btnFolioExport.Visible = false;
@@ -1364,7 +1381,7 @@ namespace WealthERP.BusinessMIS
                 btnCategoryExport.Visible = false;
                 btnRMExport.Visible = false;
                 divRM.Visible = false;
-                pnlRM.Visible = false;
+                trPnlRM.Visible = false;
             }
             else if (gridName == "FolioWise")
             {
@@ -1373,11 +1390,11 @@ namespace WealthERP.BusinessMIS
                 divBranch.Visible = false;
                 divFolioWise.Visible = true;
                 divCategory.Visible = false;
-                pnlAMC.Visible = false;
-                pnlScheme.Visible = false;
-                pnlBranch.Visible = false;
-                pnlFolio.Visible = true;
-                pnlCategory.Visible = false;
+                trPnlAMC.Visible = false;
+                trPnlScheme.Visible = false;
+                trPnlBranch.Visible = false;
+                trPnlFolio.Visible = true;
+                trPnlCategory.Visible = false;
                 btnAMCExport.Visible = false;
                 btnSchemeExport.Visible = false;
                 btnFolioExport.Visible = true;
@@ -1385,7 +1402,7 @@ namespace WealthERP.BusinessMIS
                 btnCategoryExport.Visible = false;
                 btnRMExport.Visible = false;
                 divRM.Visible = false;
-                pnlRM.Visible = false;
+                trPnlRM.Visible = false;
             }
             else if (gridName == "CategoryWise")
             {
@@ -1394,11 +1411,11 @@ namespace WealthERP.BusinessMIS
                 divBranch.Visible = false;
                 divFolioWise.Visible = false;
                 divCategory.Visible = true;
-                pnlAMC.Visible = false;
-                pnlScheme.Visible = false;
-                pnlBranch.Visible = false;
-                pnlFolio.Visible = false;
-                pnlCategory.Visible = true;
+                trPnlAMC.Visible = false;
+                trPnlScheme.Visible = false;
+                trPnlBranch.Visible = false;
+                trPnlFolio.Visible = false;
+                trPnlCategory.Visible = true;
                 btnAMCExport.Visible = false;
                 btnSchemeExport.Visible = false;
                 btnFolioExport.Visible = false;
@@ -1406,7 +1423,7 @@ namespace WealthERP.BusinessMIS
                 btnCategoryExport.Visible = true;
                 btnRMExport.Visible = false;
                 divRM.Visible = false;
-                pnlRM.Visible = false;
+                trPnlRM.Visible = false;
             }
             else if (gridName == "BranchWise")
             {
@@ -1415,11 +1432,11 @@ namespace WealthERP.BusinessMIS
                 divBranch.Visible = true;
                 divFolioWise.Visible = false;
                 divCategory.Visible = false;
-                pnlAMC.Visible = false;
-                pnlScheme.Visible = false;
-                pnlBranch.Visible = true;
-                pnlFolio.Visible = false;
-                pnlCategory.Visible = false;
+                trPnlAMC.Visible = false;
+                trPnlScheme.Visible = false;
+                trPnlBranch.Visible = true;
+                trPnlFolio.Visible = false;
+                trPnlCategory.Visible = false;
                 btnAMCExport.Visible = false;
                 btnSchemeExport.Visible = false;
                 btnFolioExport.Visible = false;
@@ -1427,7 +1444,7 @@ namespace WealthERP.BusinessMIS
                 btnCategoryExport.Visible = false;
                 btnRMExport.Visible = false;
                 divRM.Visible = false;
-                pnlRM.Visible = false;
+                trPnlRM.Visible = false;
             }
             else if (gridName == "RMWise")
             {
@@ -1436,11 +1453,11 @@ namespace WealthERP.BusinessMIS
                 divBranch.Visible = false;
                 divFolioWise.Visible = false;
                 divCategory.Visible = false;
-                pnlAMC.Visible = false;
-                pnlScheme.Visible = false;
-                pnlBranch.Visible = false;
-                pnlFolio.Visible = false;
-                pnlCategory.Visible = false;
+                trPnlAMC.Visible = false;
+                trPnlScheme.Visible = false;
+                trPnlBranch.Visible = false;
+                trPnlFolio.Visible = false;
+                trPnlCategory.Visible = false;
                 btnAMCExport.Visible = false;
                 btnSchemeExport.Visible = false;
                 btnFolioExport.Visible = false;
@@ -1448,7 +1465,7 @@ namespace WealthERP.BusinessMIS
                 btnCategoryExport.Visible = false;
                 btnRMExport.Visible = true;
                 divRM.Visible = true;
-                pnlRM.Visible = true;
+                trPnlRM.Visible = true;
             }
         }
 
@@ -1456,13 +1473,37 @@ namespace WealthERP.BusinessMIS
         {
             if (ddlAction.SelectedValue == "Product")
             {
-                dvProduct.Visible = true;
-                dvOrganization.Visible = false;
+                ShowHideMISMenu("Product");
             }
-            else
+            else if (ddlAction.SelectedValue == "Organization")
             {
-                dvProduct.Visible = false;
-                dvOrganization.Visible = true;
+                ShowHideMISMenu("Organization");
+            }
+            else if (ddlAction.SelectedValue == "Staff")
+            {
+                ShowHideMISMenu("Staff");
+            }
+        }
+
+        protected void ShowHideMISMenu(string misType)
+        {
+            if (misType == "Product")
+            {
+                trDivProduct.Visible = true;
+                trDivOrganization.Visible = false;
+                trDivStaff.Visible = false;
+            }
+            else if (misType == "Organization")
+            {
+                trDivProduct.Visible = false;
+                trDivOrganization.Visible = true;
+                trDivStaff.Visible = false;
+            }
+            else if (misType == "Staff")
+            {
+                trDivProduct.Visible = false;
+                trDivOrganization.Visible = false;
+                trDivStaff.Visible = true;
             }
         }
 
@@ -1489,7 +1530,7 @@ namespace WealthERP.BusinessMIS
                                 if (e.CommandName == "Select")
                                 {
                                     GridDataItem gvr = (GridDataItem)e.Item;
-                                    int selectedRow = gvr.ItemIndex+1 ;
+                                    int selectedRow = gvr.ItemIndex + 1;
                                     gvAmcCode = int.Parse(gvr.GetDataKeyValue("AMCCode").ToString());
 
                                     showHideGrid("SchemeWise");
@@ -1683,7 +1724,7 @@ namespace WealthERP.BusinessMIS
                         if (RMId != 0)
                         { // add row in manual datatable within this brace end
                             drTransactionRMWise = dtGetRMTransaction.Select("AR_RMId=" + RMId.ToString());
-                            
+
                             if (drTransactionRMWise.Count() > 0)
                             {
                                 foreach (DataRow dr in drTransactionRMWise)
@@ -1792,7 +1833,7 @@ namespace WealthERP.BusinessMIS
                     Cache.Remove("RMTransactionDeatails" + userVo.UserId);
                     Cache.Insert("RMTransactionDeatails" + userVo.UserId, dtGetRMTransactionDeatails);
                 }
-                
+
             }
         }
 
