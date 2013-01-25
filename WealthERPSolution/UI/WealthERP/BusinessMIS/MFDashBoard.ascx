@@ -169,7 +169,7 @@
                                                 <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                                     CommandItemDisplay="None">
                                                     <Columns>
-                                                        <telerik:GridBoundColumn DataField="Type" HeaderText="Customers Added" UniqueName="Type"
+                                                        <telerik:GridBoundColumn DataField="Type" HeaderText="Customers Signup" UniqueName="Type"
                                                             SortExpression="Type">
                                                             <ItemStyle Width="280px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
