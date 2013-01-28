@@ -207,6 +207,9 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF Commission MIS" Value="MF Commission MIS">
                                             </telerik:RadPanelItem>
+                                            
+                                             <telerik:RadPanelItem runat="server" Text="Customer SignUp" Value="CustomerSignUp">
+                                            </telerik:RadPanelItem>
                                                    <%------------------New Tree View--------------%> 
                                                               
                                           <%-- <telerik:RadPanelItem runat="server" Text="Loan MIS" Value="Loan MIS" Vissble="false">
@@ -630,6 +633,8 @@
                                             <telerik:RadPanelItem runat="server" Text="MF TurnOver MIS"  Value="MFTurnOverMIS" Vissble="true">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF Commission MIS" Value="MF Commission MIS">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Customer SignUp" Value="CustomerSignUp">
                                             </telerik:RadPanelItem>
                                                    <%------------------New Tree View--------------%> 
                                         </Items>
