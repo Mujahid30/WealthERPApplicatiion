@@ -1556,7 +1556,7 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAllClusterTransactionDeatailsCmd = db.GetStoredProcCommand("SPROC_GetAllClusterTransactionDeatails");
-                db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@adviserId", DbType.Int32, 3832);
+                db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
                 db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@all", DbType.Int32, @all);
