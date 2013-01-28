@@ -107,14 +107,7 @@ namespace WealthERP.Uploads
 
             if (!IsPostBack)
             {
-               //this.gvWERPTrans.MasterTableView.Columns.Clear();
-            //    if (ProcessId != 0)
-            //    {
-                   
-            //    }
-              //DateTime  txtFromTran = DateTime.Now.AddDays(-30);
-              //DateTime txtToTran = DateTime.Now;
-                if (adviserVo.advisorId != 1000)
+               if (adviserVo.advisorId != 1000)
                 {
                     if (ProcessId != 0)
                     {
@@ -136,6 +129,14 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
+                        tdBtnViewRejetcs.Visible = false;
+                        tdTxtToDate.Visible = false;
+                        tdlblToDate.Visible = false;
+                        tdTxtFromDate.Visible = false;
+                        tdlblFromDate.Visible = false;
+                        tdlblRejectReason.Visible = false;
+                        tdDDLRejectReason.Visible = false;
+                       // lblEmptyMsg.Visible = false;
                         gvWERPTrans.Visible = false;
                         BindAdviserDropDownList();
                         tdTxtFromDate.Visible = false;

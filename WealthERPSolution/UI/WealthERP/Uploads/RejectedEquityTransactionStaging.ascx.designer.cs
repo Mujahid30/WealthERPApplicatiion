@@ -258,5 +258,12 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLblAdviser;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDdlAdviser;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBtnViewRejetcs;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblToDate;      
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRejectReason;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDLRejectReason;
+
+
     }
 }
