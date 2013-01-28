@@ -3574,7 +3574,7 @@ namespace DaoUploads
         }
 
 
-        public DataSet GetRejectedSIPRecords(int adviserId, int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter)
+        public DataSet GetRejectedSIPRecords(int adviserId, int processId,DateTime fromDate,DateTime toDate,int rejectReasonCode)
         {
             DataSet dsSIPRejectedDetails = new DataSet();
 
@@ -3584,7 +3584,6 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCount = db.GetStoredProcCommand("SP_GetSystematicRejectDetail");
-                db.AddInParameter(getCount, "@currentPage", DbType.Int32, CurrentPage);
 
                 db.AddInParameter(getCount, "@adviserId", DbType.Int32, adviserId);
 
@@ -3592,53 +3591,28 @@ namespace DaoUploads
                     db.AddInParameter(getCount, "@processId", DbType.Int32, processId);
                 else
                     db.AddInParameter(getCount, "@processId", DbType.Int32, 0);
+                if (fromDate != DateTime.MinValue)
+                    db.AddInParameter(getCount, "@fromDate", DbType.DateTime, fromDate);
+                else
+                    db.AddInParameter(getCount, "@fromDate", DbType.DateTime, DBNull.Value);
 
-                if (RejectReasonFilter != "")
-                    db.AddInParameter(getCount, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+                if (toDate != DateTime.MinValue)
+                    db.AddInParameter(getCount, "@toDate", DbType.DateTime, toDate);
+                else
+                    db.AddInParameter(getCount, "@toDate", DbType.DateTime, DBNull.Value);
+                if (rejectReasonCode != 0)
+                    db.AddInParameter(getCount, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
+                else
+                    db.AddInParameter(getCount, "@rejectReasonCode", DbType.Int32, DBNull.Value);
 
-                if (fileNameFilter != "")
-                    db.AddInParameter(getCount, "@fileNameFilter", DbType.String, fileNameFilter);
-
-                if (FolioFilter != "")
-                    db.AddInParameter(getCount, "@folioFilter", DbType.String, FolioFilter);
-
-                if (TransactionTypeFilter != "")
-                    db.AddInParameter(getCount, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
-
-                if (investorNameFileter != "")
-                    db.AddInParameter(getCount, "@investorNameFileter", DbType.String, investorNameFileter);
-
-
-                if (schemeNameFilter != "")
-                    db.AddInParameter(getCount, "@schemeNameFilter", DbType.String, schemeNameFilter);
-
+               
                 dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
-
-                Count = Int32.Parse(dsSIPRejectedDetails.Tables[8].Rows[0]["CNT"].ToString());
 
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            //catch (Exception Ex)
-            //{
-            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-            //    NameValueCollection FunctionInfo = new NameValueCollection();
-
-            //    FunctionInfo.Add("Method", "UploadsCommonDao.cs:GetRejectedSIPRecords()");
-
-            //    object[] objects = new object[2];
-            //    objects[0] = processID;
-
-
-            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-            //    exBase.AdditionalInformation = FunctionInfo;
-            //    ExceptionManager.Publish(exBase);
-            //    throw exBase;
-            //}
-           
-
             return dsSIPRejectedDetails;
         }
 
@@ -4204,5 +4178,37 @@ namespace DaoUploads
 
             return result;
         }
+        public DataSet GetRejectReasonSIPList(int uploadFileType)
+        {
+            DataSet dsGetRejectReasonSIPList;
+            Database db;
+            DbCommand getGetRejectReasonSIPListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetRejectReasonSIPListCmd = db.GetStoredProcCommand("SP_GetRejectReasonSIPList");
+                db.AddInParameter(getGetRejectReasonSIPListCmd, "@uploadFileType", DbType.Int32, uploadFileType);
+                dsGetRejectReasonSIPList = db.ExecuteDataSet(getGetRejectReasonSIPListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:GetRejectReasonList()");
+                object[] objects = new object[9];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetRejectReasonSIPList;
+        }
+
+
+
     }
 }
