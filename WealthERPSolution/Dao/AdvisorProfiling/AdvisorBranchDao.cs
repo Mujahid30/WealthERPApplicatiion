@@ -2121,7 +2121,7 @@ namespace DaoAdvisorProfiling
 
             db = DatabaseFactory.CreateDatabase("wealtherp");
             getGetNEWSignupMISDetailsCmd = db.GetStoredProcCommand("SP_GetNEWSignupMISDetails");
-            db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@AdviserID", DbType.Int32, 3832);
+            db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@AdviserID", DbType.Int32, adviserId);
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@FromDate", DbType.DateTime, fromDate);
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@ToDate", DbType.DateTime, toDate);
 
