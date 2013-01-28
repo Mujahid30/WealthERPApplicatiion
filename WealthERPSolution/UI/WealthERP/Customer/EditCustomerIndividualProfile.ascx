@@ -125,9 +125,18 @@
         <td class="leftField" style="width: 20%">
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date of Profiling:"></asp:Label>
         </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtProfilingDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
-        </td>
+         <td id="tdprofileDate" runat="server">
+                <telerik:RadDatePicker ID="txtProfilingDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                    <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput ID="DateInput3" EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
+                        DateFormat="d/M/yyyy">
+                    </DateInput>
+                </telerik:RadDatePicker>
+                </td>
     </tr>
     <tr>
         <td class="leftField">

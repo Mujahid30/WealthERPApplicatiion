@@ -205,9 +205,9 @@ namespace WealthERP.Customer
                         ddlQualification.SelectedValue = customerVo.Qualification.ToString();
 
                     if (customerVo.ProfilingDate == DateTime.MinValue)
-                        txtProfilingDate.Text = "";
+                        txtProfilingDate.SelectedDate = null;
                     else
-                        txtProfilingDate.Text = customerVo.ProfilingDate.ToShortDateString();
+                        txtProfilingDate.SelectedDate = DateTime.Parse(customerVo.ProfilingDate.ToString());
 
                     if (customerVo.Dob == DateTime.MinValue)
                         txtDate.SelectedDate = null;
@@ -591,10 +591,10 @@ namespace WealthERP.Customer
                         customerVo.Dob = DateTime.MinValue;
                     else
                         customerVo.Dob = DateTime.Parse(txtDate.SelectedDate.ToString());
-                    if (txtProfilingDate.Text == "")
+                    if (txtProfilingDate.SelectedDate == null)
                         customerVo.ProfilingDate = DateTime.MinValue;
                     else
-                        customerVo.ProfilingDate = DateTime.Parse(txtProfilingDate.Text);
+                        customerVo.ProfilingDate = DateTime.Parse(txtProfilingDate.SelectedDate.ToString());
                     customerVo.PANNum = txtPanNumber.Text;
 
                     customerVo.CustCode = txtCustomerCode.Text;

@@ -137,7 +137,7 @@ namespace WealthERP.Customer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProfilingDate;
+       // protected global::System.Web.UI.WebControls.TextBox txtProfilingDate;
         
         /// <summary>
         /// Label5 control.
@@ -1776,5 +1776,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnRequestId;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdprofileDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtProfilingDate;
     }
 }
