@@ -1546,5 +1546,46 @@ namespace DaoAdvisorProfiling
             }
             return dsRMTransactionDeatails;
         }
+
+        public DataSet GetAllClusterTransactionDeatails(int adviserId,int rmId,int branchId,int branchHeadId,int all, DateTime fromDate, DateTime toDate,string categoryCode)
+        {
+            Database db;
+            DbCommand getAllClusterTransactionDeatailsCmd;
+            DataSet dsAllClusterTransactionDeatails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAllClusterTransactionDeatailsCmd = db.GetStoredProcCommand("SPROC_GetAllClusterTransactionDeatails");
+                db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@adviserId", DbType.Int32, 3832);
+                db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@all", DbType.Int32, @all);
+                db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
+                if (toDate != DateTime.MinValue)
+                    db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@FromDate", DbType.DateTime, fromDate);
+                else
+                    toDate = DateTime.MinValue;
+
+                if (fromDate != DateTime.MinValue)
+                    db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@ToDate", DbType.DateTime, toDate);
+                else
+                    fromDate = DateTime.MinValue;
+
+                if (!string.IsNullOrEmpty(categoryCode))
+                    db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@Category", DbType.String, categoryCode);
+                else
+                    db.AddInParameter(getAllClusterTransactionDeatailsCmd, "@Category", DbType.String, DBNull.Value);
+
+                getAllClusterTransactionDeatailsCmd.CommandTimeout = 60 * 60;
+                dsAllClusterTransactionDeatails = db.ExecuteDataSet(getAllClusterTransactionDeatailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+            return dsAllClusterTransactionDeatails;
+        }
+        
     }
 }

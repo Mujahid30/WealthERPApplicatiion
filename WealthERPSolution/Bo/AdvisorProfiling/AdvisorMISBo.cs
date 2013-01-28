@@ -1043,5 +1043,20 @@ namespace BoAdvisorProfiling
             }
             return dsRMTransactionDeatails;
         }
+
+        public DataSet GetAllClusterTransactionDeatails(int adviserId,int rmId,int branchId,int branchHeadId,int all, DateTime fromDate, DateTime toDate,string categoryCode)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsAllClusterTransactionDeatails;
+            try
+            {
+                dsAllClusterTransactionDeatails = MISDao.GetAllClusterTransactionDeatails(adviserId,rmId,branchId,branchHeadId,all, fromDate, toDate,categoryCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsAllClusterTransactionDeatails;
+        }                
     }
 }
