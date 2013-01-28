@@ -1521,4 +1521,8 @@
     <value>BusinessMIS//AdviserMFTurnOverMIS.ascx</value>
     <comment>BusinessMIS//AdviserMFTurnOverMIS.ascx</comment>
   </data>
+  <data name="AdviserNewSignupMIS" xml:space="preserve">
+    <value>BusinessMIS//AdviserNewSignupMIS.ascx</value>
+    <comment>BusinessMIS//AdviserNewSignupMIS.ascx</comment>
+  </data>
 </root>
