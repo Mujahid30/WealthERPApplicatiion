@@ -365,6 +365,34 @@ namespace BoAdvisorProfiling
             }
             return branchList;
         }
+
+
+        public DataSet getGvZoneClusterDetails(int adviserId)
+        {
+            DataSet ds = new DataSet();
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                ds = advisorBranchDao.getGvZoneClusterDetails(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetBranchTerminals()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+
+        }
         /// <summary>
         /// 
         /// </summary>
