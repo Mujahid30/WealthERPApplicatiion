@@ -89,6 +89,7 @@ namespace WealthERP.Advisor
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
+            //ddlDateFilter.Attributes.Add("onselectedIndexChanged", "return DisplayDateField();");
             advisorId = advisorVo.advisorId;
             int RMId = rmVo.RMId;
             customerId = customerVo.CustomerId;
@@ -131,6 +132,11 @@ namespace WealthERP.Advisor
                 DateTime fromDate = DateTime.Now.AddYears(-2);
                 txtFrom.SelectedDate = fromDate;
                 txtTo.SelectedDate = DateTime.Now;
+                lblFromDate.Visible = false;
+                txtFrom.Visible = false;
+                lblToDate.Visible = false;
+                txtTo.Visible = false;
+
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
@@ -152,6 +158,27 @@ namespace WealthERP.Advisor
            
 
         }
+
+
+        protected void ddlDateFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlDateFilter.SelectedValue == "ActiveSIP")
+            {
+                lblFromDate.Visible = false;
+                txtFrom.Visible = false;
+                lblToDate.Visible = false;
+                txtTo.Visible = false;
+            }
+            else
+            {
+                lblFromDate.Visible = true;
+                txtFrom.Visible = true;
+                lblToDate.Visible = true;
+                txtTo.Visible = true;
+ 
+            }
+        }
+
         /// <summary>
         /// Bind All the Dropdowns 
         /// </summary>
@@ -481,6 +508,8 @@ namespace WealthERP.Advisor
             ViewState["GroupHeadCustomers"] = null;
             ViewState["IndividualCustomers"] = null;
             ViewState["CustomerId"] = null;
+            ViewState["ActiveSIP"] = null;
+            
 
             //CallAllGridBindingFunctions();
             if (Request.QueryString["action"] != null)
@@ -673,7 +702,7 @@ namespace WealthERP.Advisor
                 }
             }
 
-            // Check Start Date and EndDate Selection.. 
+             ////Check Start Date and EndDate Selection.. 
             if (ddlDateFilter.SelectedIndex == 0)
             {
                 hdnendDate.Value = "";
@@ -696,6 +725,18 @@ namespace WealthERP.Advisor
             {
                 hdnstartdate.Value = "";
                 hdnendDate.Value = "EndDate";
+            }
+
+            if (ddlDateFilter.SelectedIndex == 2)
+            {
+                hdnstartdate.Value = "ActiveSIP";
+                hdnendDate.Value = "ActiveSIP";
+                ViewState["ActiveSIP"] = "ActiveSIP";
+            }
+            else if (ViewState["ActiveSIP"] != null)
+            {
+                hdnstartdate.Value = "ActiveSIP";
+                hdnendDate.Value = "ActiveSIP";
             }
 
             if (hdnCustomerId.Value != "")

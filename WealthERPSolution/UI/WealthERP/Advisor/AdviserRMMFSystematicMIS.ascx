@@ -22,7 +22,7 @@
 
 <script src="jquery.js"></script>
 
-<script>
+<script type="text/javascript" language="javascript">
     $(document).ready(function() {
         $("div").ajaxStart(function() {
             $(this).html("<img src='upload_progress.gif' />");
@@ -31,6 +31,18 @@
             $("div").load("demo_ajax_load.asp");
         });
     });
+
+    function DisplayDateField() {
+        var type = document.getElementById("ddlDateFilter").value;
+        alert(type);
+        if (type == 'ActiveSIP') {            
+           
+        }
+        else if (type == 'StartDate') { 
+        
+        }
+    }
+            
 </script>
 
 <table width="100%">
@@ -42,16 +54,16 @@
                         <td align="left">
                             <asp:Label ID="lblpageHeader" class="HeaderTextBig" runat="server"></asp:Label>
                         </td>
-                        <td  align="right">
-                        <%--<asp:ImageButton ID="btnExportSystematicMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        <td align="right">
+                            <%--<asp:ImageButton ID="btnExportSystematicMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                          runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportSystematicMIS_OnClick"
                          Height="25px" Width="25px"></asp:ImageButton>--%>
-                         <asp:ImageButton ID="btnExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportSummary_OnClick"
-                         Height="25px" Width="25px"></asp:ImageButton>
-                         <asp:ImageButton ID="btnExportSystematicMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                        runat="server" AlternateText="Excel" ToolTip="Export To Excel"
-                        Height="20px" Width="25px" Visible="false" onclick="btnExportSystematicMIS_Click"></asp:ImageButton>
+                            <asp:ImageButton ID="btnExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportSummary_OnClick"
+                                Height="25px" Width="25px"></asp:ImageButton>
+                            <asp:ImageButton ID="btnExportSystematicMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="20px"
+                                Width="25px" Visible="false" OnClick="btnExportSystematicMIS_Click"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -179,10 +191,11 @@
                         <asp:Label ID="lblDate" runat="server" Text="Date filter on: " CssClass="FieldName"></asp:Label>
                     </td>
                     <td align="left" width="10%">
-                        <asp:DropDownList ID="ddlDateFilter" Style="vertical-align: middle" runat="server"
-                            CssClass="cmbField">
-                            <asp:ListItem Text="SIP Start Date" Value="StartDate" Selected="True"></asp:ListItem>
+                        <asp:DropDownList ID="ddlDateFilter" Style="vertical-align: middle" runat="server" AutoPostBack="true"
+                            CssClass="cmbField" OnSelectedIndexChanged="ddlDateFilter_SelectedIndexChanged">
+                            <asp:ListItem Text="SIP Start Date" Value="StartDate"></asp:ListItem>
                             <asp:ListItem Text="SIP End Date" Value="EndDate"></asp:ListItem>
+                            <asp:ListItem Text="Active SIP" Value="ActiveSIP" Selected="True"></asp:ListItem>
                         </asp:DropDownList>
                     </td>
                     <td align="right" width="10%">
@@ -248,7 +261,7 @@
     </tr>
 </table>
 <div style="width: 100%">
-<%--    <table id="Table1" runat="server">
+    <%--    <table id="Table1" runat="server">
         <tr>
             <td>
                 <asp:Label ID="lblNote1" runat="server" Text="NOTE: To view SIP details Please select filters and click go. To sort on a field click on its label."
@@ -257,12 +270,11 @@
         </tr>
     </table>--%>
     <div style="overflow: auto">
-        
         <telerik:RadGrid ID="gvSystematicMIS" AllowSorting="true" runat="server" AllowAutomaticInserts="false"
             EnableLoadOnDemand="True" AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
             EnableEmbeddedSkins="false" GridLines="none" PageSize="10" ShowFooter="true"
             PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true" Skin="Telerik"
-             ExportSettings-FileName="MF SIP MIS" OnNeedDataSource="gvSystematicMIS_OnNeedDataSource">
+            ExportSettings-FileName="MF SIP MIS" OnNeedDataSource="gvSystematicMIS_OnNeedDataSource">
             <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
             <ExportSettings HideStructureColumns="true">
             </ExportSettings>
@@ -371,7 +383,7 @@
             </ClientSettings>
         </telerik:RadGrid>
     </div>
-<%--    <table id="tblNote" runat="server">
+    <%--    <table id="tblNote" runat="server">
         <tr>
             <td>
                 <asp:Label ID="lblNote" runat="server" Text="Note: The view displays the expected monthly order flow for the individual schemes displayed on the systematic set up tab."
@@ -379,7 +391,6 @@
             </td>
         </tr>
     </table>--%>
-    
     <telerik:RadGrid ID="reptCalenderSummaryView" runat="server" GridLines="Both" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false"
