@@ -14,5 +14,17 @@ namespace WealthERP.BusinessMIS
 
     public partial class AdviserNewSignupMIS
     {
+
+
+        protected global::Telerik.Web.UI.RadGrid gvNewCustomerSignUpMIS;
+
+        protected global::Telerik.Web.UI.RadDatePicker rdpFromDate;
+
+        protected global::Telerik.Web.UI.RadDatePicker rdpToDate;
+
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
     }
 }
