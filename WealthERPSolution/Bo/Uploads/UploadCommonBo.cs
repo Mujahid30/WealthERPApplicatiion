@@ -4235,14 +4235,14 @@ namespace BoUploads
         }
 
 
-        public DataSet GetRejectedSIPRecords(int adviserId, int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter)
+        public DataSet GetRejectedSIPRecords(int adviserId, int processId,DateTime fromDate,DateTime toDate,int rejectreasonCode)
         {
             DataSet dsSIPRejectedDetails = new DataSet();
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
 
             try
             {
-                dsSIPRejectedDetails = uploadDAO.GetRejectedSIPRecords(adviserId, CurrentPage, out Count, processId, RejectReasonFilter, fileNameFilter, FolioFilter, TransactionTypeFilter, investorNameFileter, schemeNameFilter);
+                dsSIPRejectedDetails = uploadDAO.GetRejectedSIPRecords(adviserId, processId, fromDate, toDate, rejectreasonCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -4796,5 +4796,35 @@ namespace BoUploads
             }
             return InputRejectedRecordsForEquity;
         }
+
+
+        public DataSet GetRejectReasonSIPList(int uploadFileType)
+        {
+            DataSet dsRejectReasonSIPList;
+            UploadsCommonDao UploadsCommonDao = new UploadsCommonDao();
+            try
+            {
+                dsRejectReasonSIPList = UploadsCommonDao.GetRejectReasonSIPList(uploadFileType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:GetRejectReasonList()");
+                object[] objects = new object[9];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsRejectReasonSIPList;
+
+        }
+
     }
 }
