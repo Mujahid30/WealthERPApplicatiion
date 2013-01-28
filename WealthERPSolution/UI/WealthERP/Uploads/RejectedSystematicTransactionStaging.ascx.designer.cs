@@ -104,7 +104,7 @@ namespace WealthERP.Uploads {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
+        protected global::System.Web.UI.WebControls.Panel Panel3;
         
         /// <summary>
         /// Panel1 control.
@@ -122,7 +122,7 @@ namespace WealthERP.Uploads {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSIPReject;
+       // protected global::System.Web.UI.WebControls.GridView gvSIPReject;
         
         /// <summary>
         /// trReprocess control.
@@ -276,5 +276,22 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnRejectReasonFilter;
+        protected global::Telerik.Web.UI.RadGrid gvSIPReject;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRejectReason;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAction;
+        protected global::Telerik.Web.UI.RadDatePicker txtFromSIP;
+        protected global::Telerik.Web.UI.RadDatePicker txtToSIP;
+        protected global::System.Web.UI.WebControls.ImageButton btnExport;
+        protected global::System.Web.UI.WebControls.Label lblEmptyMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBtnViewRejetcs;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRejectReason;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDLRejectReason;
+
+
     }
 }
