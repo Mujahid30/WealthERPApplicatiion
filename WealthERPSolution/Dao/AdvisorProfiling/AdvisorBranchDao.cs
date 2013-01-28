@@ -42,7 +42,7 @@ namespace DaoAdvisorProfiling
                 //}
                 //else
                 //{
-                    db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchHeadId", DbType.Int32, advisorBranchVo.BranchHeadId);
+                db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchHeadId", DbType.Int32, advisorBranchVo.BranchHeadId);
                 //}
                 //db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchHeadMobile", DbType.Double, advisorBranchVo.MobileNumber);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchName", DbType.String, advisorBranchVo.BranchName);
@@ -179,7 +179,7 @@ namespace DaoAdvisorProfiling
             }
             return ds;
         }
-        
+
         public DataSet GetBranchAssociation(int advisorId, int currentPage, out int Count, string BranchFilter, string RMFilter, string SortExpression, out Dictionary<string, string> genDictBranch, out Dictionary<string, string> genDictRM)
         {
             DataSet ds = null;
@@ -388,7 +388,7 @@ namespace DaoAdvisorProfiling
             }
             return bResult;
         }
-        
+
         public bool CheckBranchMgrRole(int rmId)
         {
             bool bResult = false;
@@ -570,7 +570,7 @@ namespace DaoAdvisorProfiling
 
         }
 
-        public bool UpdateRMBranchAssociation(int rmId, int branchId,int userid,Int16 IsMainBranch)
+        public bool UpdateRMBranchAssociation(int rmId, int branchId, int userid, Int16 IsMainBranch)
         {
             bool bResult = false;
             Database db;
@@ -631,7 +631,7 @@ namespace DaoAdvisorProfiling
                 FunctionInfo.Add("Method", "AdvisorBranchDao.cs:DeleteRMBranchAssociation()");
                 object[] objects = new object[2];
                 objects[0] = rmId;
-               
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -806,25 +806,25 @@ namespace DaoAdvisorProfiling
                         advisorBranchVo.Country = dr["AB_Country"].ToString();
                         advisorBranchVo.Email = dr["AB_Email"].ToString();
                         if (!string.IsNullOrEmpty(dr["AB_Fax"].ToString().Trim()))
-                        advisorBranchVo.Fax = int.Parse(dr["AB_Fax"].ToString());
+                            advisorBranchVo.Fax = int.Parse(dr["AB_Fax"].ToString());
                         if (!string.IsNullOrEmpty(dr["AB_FaxSTD"].ToString().Trim()))
-                        advisorBranchVo.FaxStd = int.Parse(dr["AB_FaxSTD"].ToString());
+                            advisorBranchVo.FaxStd = int.Parse(dr["AB_FaxSTD"].ToString());
                         if (!string.IsNullOrEmpty(dr["AB_FaxISD"].ToString().Trim()))
-                        advisorBranchVo.FaxIsd = int.Parse(dr["AB_FaxISD"].ToString());
+                            advisorBranchVo.FaxIsd = int.Parse(dr["AB_FaxISD"].ToString());
                         if (!string.IsNullOrEmpty(dr["AB_Phone1ISD"].ToString().Trim()))
-                        advisorBranchVo.Phone1Isd = int.Parse(dr["AB_Phone1ISD"].ToString());
+                            advisorBranchVo.Phone1Isd = int.Parse(dr["AB_Phone1ISD"].ToString());
                         if (!string.IsNullOrEmpty(dr["AB_Phone2ISD"].ToString().Trim()))
-                        advisorBranchVo.Phone2Isd = int.Parse(dr["AB_Phone2ISD"].ToString());
+                            advisorBranchVo.Phone2Isd = int.Parse(dr["AB_Phone2ISD"].ToString());
                         if (!string.IsNullOrEmpty(dr["AB_Phone1STD"].ToString().Trim()))
-                        advisorBranchVo.Phone1Std = int.Parse(dr["AB_Phone1STD"].ToString());
+                            advisorBranchVo.Phone1Std = int.Parse(dr["AB_Phone1STD"].ToString());
                         if (!string.IsNullOrEmpty(dr["AB_Phone2STD"].ToString().Trim()))
-                        advisorBranchVo.Phone2Std = int.Parse(dr["AB_Phone2STD"].ToString());
+                            advisorBranchVo.Phone2Std = int.Parse(dr["AB_Phone2STD"].ToString());
                         if (!string.IsNullOrEmpty(dr["AB_Phone1"].ToString().Trim()))
-                        advisorBranchVo.Phone1Number = int.Parse(dr["AB_Phone1"].ToString());
+                            advisorBranchVo.Phone1Number = int.Parse(dr["AB_Phone1"].ToString());
                         if (!string.IsNullOrEmpty(dr["AB_Phone2"].ToString().Trim()))
-                        advisorBranchVo.Phone2Number = int.Parse(dr["AB_Phone2"].ToString());
+                            advisorBranchVo.Phone2Number = int.Parse(dr["AB_Phone2"].ToString());
                         if (!string.IsNullOrEmpty(dr["AB_PinCode"].ToString().Trim()))
-                        advisorBranchVo.PinCode = int.Parse(dr["AB_PinCode"].ToString());
+                            advisorBranchVo.PinCode = int.Parse(dr["AB_PinCode"].ToString());
                         advisorBranchVo.State = dr["AB_State"].ToString();
                         branchList.Add(advisorBranchVo);
                     }
@@ -1033,7 +1033,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(updateAdvisorBranchCmd, "@AAC_AssociateCategoryId", DbType.Int32, advisorBranchVo.AssociateCategoryId);
                 else
                     db.AddInParameter(updateAdvisorBranchCmd, "@AAC_AssociateCategoryId", DbType.Int32, DBNull.Value);
-                
+
 
 
                 if (db.ExecuteNonQuery(updateAdvisorBranchCmd) != 0)
@@ -1449,10 +1449,10 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 chkBranchHead = db.GetStoredProcCommand("SP_ChkBranchHead");
                 db.AddInParameter(chkBranchHead, "@AR_RMId", DbType.Int32, rmId);
-                if (branchId!=0)
-                db.AddInParameter(chkBranchHead, "@AB_BranchId", DbType.Int32, branchId);
+                if (branchId != 0)
+                    db.AddInParameter(chkBranchHead, "@AB_BranchId", DbType.Int32, branchId);
                 else
-                db.AddInParameter(chkBranchHead, "@AB_BranchId", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(chkBranchHead, "@AB_BranchId", DbType.Int32, DBNull.Value);
 
                 count = int.Parse(db.ExecuteScalar(chkBranchHead).ToString());
 
@@ -1479,11 +1479,11 @@ namespace DaoAdvisorProfiling
 
         /// <summary>
         /// Function to delete the RM-Branch association
-       /// </summary>
-       /// <param name="rmId"></param>
-       /// <param name="branchID"></param>
-       /// <returns></returns>
-        public bool DeleteBranchAssociation(int rmId,int branchID)
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchID"></param>
+        /// <returns></returns>
+        public bool DeleteBranchAssociation(int rmId, int branchID)
         {
             bool bResult = false;
             Database db;
@@ -2023,7 +2023,7 @@ namespace DaoAdvisorProfiling
             return bResult;
         }
 
-         /* For Branch Assets */
+        /* For Branch Assets */
 
         public DataSet GetBranchAssets(int advisorBranchId, int branchHeadId, int all)
         {
@@ -2065,7 +2065,7 @@ namespace DaoAdvisorProfiling
                 throw exBase;
             }
             return ds;
-     }
+        }
 
         /* End For Branch Assets */
 
@@ -2073,7 +2073,7 @@ namespace DaoAdvisorProfiling
         /* For Branch RM dropdowns */
 
 
-     public DataSet GetBranchsRMForBMDp(int branchId, int branchHeadId, int all)
+        public DataSet GetBranchsRMForBMDp(int branchId, int branchHeadId, int all)
         {
             Database db;
             DbCommand getBranchsRMCmd;
@@ -2083,11 +2083,11 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getBranchsRMCmd = db.GetStoredProcCommand("Get_BindBranchRMdropDowns");
-                    db.AddInParameter(getBranchsRMCmd, "@branchId", DbType.Int16, branchId);
-                    db.AddInParameter(getBranchsRMCmd, "@branchHeadId", DbType.Int16, branchHeadId);
-                    db.AddInParameter(getBranchsRMCmd, "@all", DbType.Int16, all);
+                db.AddInParameter(getBranchsRMCmd, "@branchId", DbType.Int16, branchId);
+                db.AddInParameter(getBranchsRMCmd, "@branchHeadId", DbType.Int16, branchHeadId);
+                db.AddInParameter(getBranchsRMCmd, "@all", DbType.Int16, all);
 
-                   ds = db.ExecuteDataSet(getBranchsRMCmd);
+                ds = db.ExecuteDataSet(getBranchsRMCmd);
 
 
             }
@@ -2112,59 +2112,77 @@ namespace DaoAdvisorProfiling
             return ds;
         }
 
+        public DataSet GetNEWSignupMISDetails(int adviserId,DateTime fromDate,DateTime toDate)
+        {
 
-     public DataSet GetAdviserCustomerFolioMerge(int adviserId, int currentPage, string custNameFilter,out int count)
-     {
-         
-         Database db;
-         DbCommand getCustomerListCmd;
-         DataSet getCustomerDs;
-                 
-             db = DatabaseFactory.CreateDatabase("wealtherp");
-             getCustomerListCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerFolioMerge");
-             db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
-             db.AddInParameter(getCustomerListCmd, "@currentPage", DbType.Int32, currentPage);
-             
-             if (custNameFilter != "")
-                 db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, custNameFilter);
-             else
-                 db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, DBNull.Value);
+            Database db;
+            DbCommand getGetNEWSignupMISDetailsCmd;
+            DataSet getNEWSignupMISDetailsDs;
 
-             db.AddOutParameter(getCustomerListCmd, "@count", DbType.Int64, 1);
-             getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
-             count =int.Parse(db.GetParameterValue(getCustomerListCmd, "@count").ToString());            
-             return getCustomerDs;             
-     }
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getGetNEWSignupMISDetailsCmd = db.GetStoredProcCommand("SP_GetNEWSignupMISDetails");
+            db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@AdviserID", DbType.Int32, 3832);
+            db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@FromDate", DbType.DateTime, fromDate);
+            db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@ToDate", DbType.DateTime, toDate);
 
 
-     public DataSet getGvZoneClusterDetails(int adviserId)
-     {
-         Database db;
-         DbCommand getCustomerListCmd;
-         DataSet getCustomerDs;
-         try
-         {
-             db = DatabaseFactory.CreateDatabase("wealtherp");
-             getCustomerListCmd = db.GetStoredProcCommand("SP_GetGvZoneClusterDetails");
-             db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, 3832);
-             getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
-
-         }
-         catch (Exception Ex)
-         {
-             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-             NameValueCollection FunctionInfo = new NameValueCollection();
-             FunctionInfo.Add("Method", "AdvisorBranchDao.cs:FilterFolioNumber()");
-             object[] objects = new object[4];
+            getNEWSignupMISDetailsDs = db.ExecuteDataSet(getGetNEWSignupMISDetailsCmd);
+            return getNEWSignupMISDetailsDs;
+        }
 
 
-             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-             exBase.AdditionalInformation = FunctionInfo;
-             ExceptionManager.Publish(exBase);
-             throw exBase;
-         }
-         return getCustomerDs;
-     }
+        public DataSet GetAdviserCustomerFolioMerge(int adviserId, int currentPage, string custNameFilter, out int count)
+        {
+
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet getCustomerDs;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerFolioMerge");
+            db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
+            db.AddInParameter(getCustomerListCmd, "@currentPage", DbType.Int32, currentPage);
+
+            if (custNameFilter != "")
+                db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, custNameFilter);
+            else
+                db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, DBNull.Value);
+
+            db.AddOutParameter(getCustomerListCmd, "@count", DbType.Int64, 1);
+            getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+            count = int.Parse(db.GetParameterValue(getCustomerListCmd, "@count").ToString());
+            return getCustomerDs;
+        }
+
+
+        public DataSet getGvZoneClusterDetails(int adviserId)
+        {
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet getCustomerDs;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerListCmd = db.GetStoredProcCommand("SP_GetGvZoneClusterDetails");
+                db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, 3832);
+                getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:FilterFolioNumber()");
+                object[] objects = new object[4];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getCustomerDs;
+        }
 
         /// <summary>
         /// Filtering the folio no. from a textbox provided in the gridview.
@@ -2175,232 +2193,232 @@ namespace DaoAdvisorProfiling
         /// <param name="count"></param>
         /// <returns></returns>
 
-     public DataSet FilterFolioNumber(int adviserId, int currentPage, string folioNumberFilter, out int count)
-     {
-         Database db;
-         DbCommand getCustomerListCmd;
-         DataSet getCustomerDs;
-         count = 0;
-         try
-         {
-             db = DatabaseFactory.CreateDatabase("wealtherp");
-             getCustomerListCmd = db.GetStoredProcCommand("SP_FilterFolioNumber");
-             db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
-             db.AddInParameter(getCustomerListCmd, "@currentPage", DbType.Int32, currentPage);
+        public DataSet FilterFolioNumber(int adviserId, int currentPage, string folioNumberFilter, out int count)
+        {
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet getCustomerDs;
+            count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerListCmd = db.GetStoredProcCommand("SP_FilterFolioNumber");
+                db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
+                db.AddInParameter(getCustomerListCmd, "@currentPage", DbType.Int32, currentPage);
 
-             if (folioNumberFilter != "")
-                 db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, folioNumberFilter);
-             else
-                 db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, DBNull.Value);
+                if (folioNumberFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, folioNumberFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, DBNull.Value);
 
-             db.AddOutParameter(getCustomerListCmd, "@count", DbType.Int64, 10);
-             getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
-             count = int.Parse(db.GetParameterValue(getCustomerListCmd, "@count").ToString());
-            
-         }
-         catch (Exception Ex)
-         {
-             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-             NameValueCollection FunctionInfo = new NameValueCollection();
-             FunctionInfo.Add("Method", "AdvisorBranchDao.cs:FilterFolioNumber()");
-             object[] objects = new object[4];
-             objects[0] = adviserId;
-             objects[1] = currentPage;
-             objects[2] = folioNumberFilter;
-             objects[3] = count;
-            
-             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-             exBase.AdditionalInformation = FunctionInfo;
-             ExceptionManager.Publish(exBase);
-             throw exBase;
-         }
-         return getCustomerDs;
+                db.AddOutParameter(getCustomerListCmd, "@count", DbType.Int64, 10);
+                getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+                count = int.Parse(db.GetParameterValue(getCustomerListCmd, "@count").ToString());
 
-     }
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:FilterFolioNumber()");
+                object[] objects = new object[4];
+                objects[0] = adviserId;
+                objects[1] = currentPage;
+                objects[2] = folioNumberFilter;
+                objects[3] = count;
 
-     public DataSet GetCustomerFolioMergeList(int customerId, int amcCode,string fnumber)
-     {
-         Database db;
-         DbCommand getCustomerListCmd;
-         DataSet getCustomerDs;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getCustomerDs;
 
-         db = DatabaseFactory.CreateDatabase("wealtherp");
-         getCustomerListCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerFolioMergeList");
-         db.AddInParameter(getCustomerListCmd, "@CustomerID", DbType.Int32, customerId);
-         db.AddInParameter(getCustomerListCmd, "@AMCCode", DbType.Int32, amcCode);
-         db.AddInParameter(getCustomerListCmd, "@Folio", DbType.String, fnumber);
-         getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
-         return getCustomerDs;
+        }
+
+        public DataSet GetCustomerFolioMergeList(int customerId, int amcCode, string fnumber)
+        {
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet getCustomerDs;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerFolioMergeList");
+            db.AddInParameter(getCustomerListCmd, "@CustomerID", DbType.Int32, customerId);
+            db.AddInParameter(getCustomerListCmd, "@AMCCode", DbType.Int32, amcCode);
+            db.AddInParameter(getCustomerListCmd, "@Folio", DbType.String, fnumber);
+            getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+            return getCustomerDs;
 
 
-     }
+        }
 
-     /// <summary>
-     /// Moving a folio to another Portfolio.
-     /// </summary>
-     /// <param name="customerID"></param>
-     /// <param name="folioNum"></param>
-     /// <param name="toPortfolioID"></param>
-     /// <param name="accountId"></param>
-     /// <returns></returns>
+        /// <summary>
+        /// Moving a folio to another Portfolio.
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <param name="folioNum"></param>
+        /// <param name="toPortfolioID"></param>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
 
-     public bool FolioMoveToPortfolio(int customerID, string folioNum, int toPortfolioID, int accountId)
-     {
-         Database FolioMoveToPortfolioDb;
-         DbCommand FolioMoveToPortfolioCmd;
-         int affectedRows = 0;
-         DataSet FolioMoveToPortfolioDs = new DataSet();
+        public bool FolioMoveToPortfolio(int customerID, string folioNum, int toPortfolioID, int accountId)
+        {
+            Database FolioMoveToPortfolioDb;
+            DbCommand FolioMoveToPortfolioCmd;
+            int affectedRows = 0;
+            DataSet FolioMoveToPortfolioDs = new DataSet();
 
-         try
-         {
-             FolioMoveToPortfolioDb = DatabaseFactory.CreateDatabase("wealtherp");
-             FolioMoveToPortfolioCmd = FolioMoveToPortfolioDb.GetStoredProcCommand("SP_FolioMoveToPortfolio");
-             FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@customerID", DbType.Int32, customerID);
-             FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@folioNum", DbType.String, folioNum);
-             FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@toPortfolioID", DbType.Int32, toPortfolioID);
-             FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@accountId", DbType.Int32, accountId);
-             //FolioMoveToPortfolioDs = FolioMoveToPortfolioDb.ExecuteDataSet(FolioMoveToPortfolioCmd);
+            try
+            {
+                FolioMoveToPortfolioDb = DatabaseFactory.CreateDatabase("wealtherp");
+                FolioMoveToPortfolioCmd = FolioMoveToPortfolioDb.GetStoredProcCommand("SP_FolioMoveToPortfolio");
+                FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@customerID", DbType.Int32, customerID);
+                FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@folioNum", DbType.String, folioNum);
+                FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@toPortfolioID", DbType.Int32, toPortfolioID);
+                FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@accountId", DbType.Int32, accountId);
+                //FolioMoveToPortfolioDs = FolioMoveToPortfolioDb.ExecuteDataSet(FolioMoveToPortfolioCmd);
 
-             affectedRows = FolioMoveToPortfolioDb.ExecuteNonQuery(FolioMoveToPortfolioCmd);
-         }
-         catch (BaseApplicationException Ex)
-         {
-             throw Ex;
-         }
-         catch (Exception Ex)
-         {
-             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-             NameValueCollection FunctionInfo = new NameValueCollection();
-             FunctionInfo.Add("Method", "AdvisorBranchBo.cs:FolioMoveToPortfolio()");
+                affectedRows = FolioMoveToPortfolioDb.ExecuteNonQuery(FolioMoveToPortfolioCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:FolioMoveToPortfolio()");
 
-             object[] objects = new object[4];
-             objects[0] = customerID;
-             objects[1] = folioNum;
-             objects[2] = toPortfolioID;
-             objects[3] = accountId;
+                object[] objects = new object[4];
+                objects[0] = customerID;
+                objects[1] = folioNum;
+                objects[2] = toPortfolioID;
+                objects[3] = accountId;
 
-             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-             exBase.AdditionalInformation = FunctionInfo;
-             ExceptionManager.Publish(exBase);
-             throw exBase;
-         }
-         if (affectedRows<0)
-         return true;
-         else
-             return false;
-     } 
-    
-     /// <summary>
-     /// Moving a folio from one customer to another customer's Portfolio 
-     /// </summary>
-     /// <param name="amcCode"></param>
-     /// <param name="folioNumber"></param>
-     /// <param name="fromPortfolioId"></param>
-     /// <param name="toPortFolioId"></param>
-     /// <returns></returns>
-     public int CustomerFolioMoveToCustomer(int amcCode, string folioNumber, int fromPortfolioId, int toPortFolioId, int isBankAssociatedWithOtherTransactions)
-     {
-         Database CustomerFolioMoveDb;
-         DbCommand CustomerFolioMoveCmd;
-         DataSet CustomerFolioMoveDs = new DataSet();
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            if (affectedRows < 0)
+                return true;
+            else
+                return false;
+        }
 
-         try
-         {
-             CustomerFolioMoveDb = DatabaseFactory.CreateDatabase("wealtherp");
-             CustomerFolioMoveCmd = CustomerFolioMoveDb.GetStoredProcCommand("SP_CustomerFolioMoveToCustomer");
-             CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@amcCode", DbType.Int32, amcCode);
-             CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@folioNumber", DbType.String, folioNumber);
-             CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@fromPortfolioId", DbType.Int32, fromPortfolioId);
-             CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@toPortFolioId", DbType.Int32, toPortFolioId);
-             CustomerFolioMoveDb.AddOutParameter(CustomerFolioMoveCmd, "@isAssociated", DbType.Int32, 100);
-             CustomerFolioMoveDs = CustomerFolioMoveDb.ExecuteDataSet(CustomerFolioMoveCmd);
+        /// <summary>
+        /// Moving a folio from one customer to another customer's Portfolio 
+        /// </summary>
+        /// <param name="amcCode"></param>
+        /// <param name="folioNumber"></param>
+        /// <param name="fromPortfolioId"></param>
+        /// <param name="toPortFolioId"></param>
+        /// <returns></returns>
+        public int CustomerFolioMoveToCustomer(int amcCode, string folioNumber, int fromPortfolioId, int toPortFolioId, int isBankAssociatedWithOtherTransactions)
+        {
+            Database CustomerFolioMoveDb;
+            DbCommand CustomerFolioMoveCmd;
+            DataSet CustomerFolioMoveDs = new DataSet();
 
-             isBankAssociatedWithOtherTransactions = int.Parse(CustomerFolioMoveDb.GetParameterValue(CustomerFolioMoveCmd, "isAssociated").ToString());
+            try
+            {
+                CustomerFolioMoveDb = DatabaseFactory.CreateDatabase("wealtherp");
+                CustomerFolioMoveCmd = CustomerFolioMoveDb.GetStoredProcCommand("SP_CustomerFolioMoveToCustomer");
+                CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@amcCode", DbType.Int32, amcCode);
+                CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@folioNumber", DbType.String, folioNumber);
+                CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@fromPortfolioId", DbType.Int32, fromPortfolioId);
+                CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@toPortFolioId", DbType.Int32, toPortFolioId);
+                CustomerFolioMoveDb.AddOutParameter(CustomerFolioMoveCmd, "@isAssociated", DbType.Int32, 100);
+                CustomerFolioMoveDs = CustomerFolioMoveDb.ExecuteDataSet(CustomerFolioMoveCmd);
 
-             //isBankAssociatedWithOtherTransactions = (int)CustomerFolioMoveDb.GetParameterValue(CustomerFolioMoveCmd, "isAssociated");
-         }
-         catch (Exception Ex)
-         {
-             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-             NameValueCollection FunctionInfo = new NameValueCollection();
-             FunctionInfo.Add("Method", "AdvisorBranchDao.cs:CustomerFolioMoveToCustomer()");
-             object[] objects = new object[4];
-             objects[0] = amcCode;
-             objects[1] = folioNumber;
-             objects[2] = fromPortfolioId;
-             objects[3] = toPortFolioId;
+                isBankAssociatedWithOtherTransactions = int.Parse(CustomerFolioMoveDb.GetParameterValue(CustomerFolioMoveCmd, "isAssociated").ToString());
 
-             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-             exBase.AdditionalInformation = FunctionInfo;
-             ExceptionManager.Publish(exBase);
-             throw exBase;
-         }
-         return isBankAssociatedWithOtherTransactions;
-     }
+                //isBankAssociatedWithOtherTransactions = (int)CustomerFolioMoveDb.GetParameterValue(CustomerFolioMoveCmd, "isAssociated");
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:CustomerFolioMoveToCustomer()");
+                object[] objects = new object[4];
+                objects[0] = amcCode;
+                objects[1] = folioNumber;
+                objects[2] = fromPortfolioId;
+                objects[3] = toPortFolioId;
 
-     public bool CustomerFolioMerged(string ffromfolio, string fnumber, int customerId)
-     {
-         Database db;
-         DbCommand getCustomerListCmd;
-         DataSet getCustomerDs;
-         bool result = true;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isBankAssociatedWithOtherTransactions;
+        }
 
-         db = DatabaseFactory.CreateDatabase("wealtherp");
-         getCustomerListCmd = db.GetStoredProcCommand("SP_MergerCustomerFolio");
-         db.AddInParameter(getCustomerListCmd, "@ToFolio", DbType.String, ffromfolio);
-         db.AddInParameter(getCustomerListCmd, "@FromFolio", DbType.String, fnumber);
-         db.AddInParameter(getCustomerListCmd, "@CustomerID", DbType.Int32, customerId);
-         getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
-         return result ;
-     }
+        public bool CustomerFolioMerged(string ffromfolio, string fnumber, int customerId)
+        {
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet getCustomerDs;
+            bool result = true;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_MergerCustomerFolio");
+            db.AddInParameter(getCustomerListCmd, "@ToFolio", DbType.String, ffromfolio);
+            db.AddInParameter(getCustomerListCmd, "@FromFolio", DbType.String, fnumber);
+            db.AddInParameter(getCustomerListCmd, "@CustomerID", DbType.Int32, customerId);
+            getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+            return result;
+        }
 
         /* End For Branch RM dropdowns */
 
 
-    /// <summary>
-     /// Getting RM's who are all not having BM role. Added by <<Kirteeshree>>
-    /// </summary>
-    /// <param name="branchId"></param>
-    /// <param name="branchHeadId"></param>
-    /// <returns></returns>
+        /// <summary>
+        /// Getting RM's who are all not having BM role. Added by <<Kirteeshree>>
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <param name="branchHeadId"></param>
+        /// <returns></returns>
 
-     public DataSet GetAllRMsWithOutBMRole(int branchId, int branchHeadId)
-     {
-         Database db;
-         DbCommand getBranchsRMCmd;
-         DataSet ds = null;
+        public DataSet GetAllRMsWithOutBMRole(int branchId, int branchHeadId)
+        {
+            Database db;
+            DbCommand getBranchsRMCmd;
+            DataSet ds = null;
 
-         try
-         {
-             db = DatabaseFactory.CreateDatabase("wealtherp");
-             getBranchsRMCmd = db.GetStoredProcCommand("SP_GetAllRMsWithOutBMRole");
-             db.AddInParameter(getBranchsRMCmd, "@branchId", DbType.Int16, branchId);
-             db.AddInParameter(getBranchsRMCmd, "@branchHeadId", DbType.Int16, branchHeadId);
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBranchsRMCmd = db.GetStoredProcCommand("SP_GetAllRMsWithOutBMRole");
+                db.AddInParameter(getBranchsRMCmd, "@branchId", DbType.Int16, branchId);
+                db.AddInParameter(getBranchsRMCmd, "@branchHeadId", DbType.Int16, branchHeadId);
 
-             ds = db.ExecuteDataSet(getBranchsRMCmd);
+                ds = db.ExecuteDataSet(getBranchsRMCmd);
 
 
-         }
-         catch (BaseApplicationException Ex)
-         {
-             throw Ex;
-         }
-         catch (Exception Ex)
-         {
-             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-             NameValueCollection FunctionInfo = new NameValueCollection();
-             FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetAllRMsWithOutBMRole()");
-             object[] objects = new object[3];
-             objects[0] = branchId;
-             objects[1] = branchHeadId;
-             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-             exBase.AdditionalInformation = FunctionInfo;
-             ExceptionManager.Publish(exBase);
-             throw exBase;
-         }
-         return ds;
-     }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetAllRMsWithOutBMRole()");
+                object[] objects = new object[3];
+                objects[0] = branchId;
+                objects[1] = branchHeadId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
     }
 
-    
+
 }
