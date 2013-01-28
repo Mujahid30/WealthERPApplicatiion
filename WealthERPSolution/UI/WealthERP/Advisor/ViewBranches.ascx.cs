@@ -11,12 +11,14 @@ using VoUser;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.Advisor
 {
     public partial class ViewBranches : System.Web.UI.UserControl
     {
         AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
+        AdvisorVo adviserVo = new AdvisorVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         List<AdvisorBranchVo> advisorBranchList = null;
         AdvisorVo advisorVo = new AdvisorVo();
@@ -139,6 +141,7 @@ namespace WealthERP.Advisor
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            adviserVo = (AdvisorVo)Session["advisorVo"];
             string branch = "";
             try
             {
@@ -156,6 +159,9 @@ namespace WealthERP.Advisor
                     mypager.CurrentPage = 1;
                    
                     this.BindGrid();
+
+
+                    BindGvZoneClusterDetails();
                 }
                
             }
@@ -248,6 +254,29 @@ namespace WealthERP.Advisor
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+            }
+        }
+
+        protected void BindGvZoneClusterDetails()
+        {
+            DataSet ds = advisorBranchBo.getGvZoneClusterDetails(adviserVo.advisorId);
+            gvZoneClusterdetails.DataSource = ds;
+            gvZoneClusterdetails.DataBind();
+
+
+            if (ds.Tables[0].Rows.Count>0)
+                btnExportFilteredDataForZoneClusterdetails.Visible = true;
+            else
+                btnExportFilteredDataForZoneClusterdetails.Visible = false;
+
+            if (Cache["gvZoneClusterdetails"+adviserVo.advisorId] == null)
+            {
+                Cache.Insert("gvZoneClusterdetails"+adviserVo.advisorId, ds);
+            }
+            else
+            {
+                Cache.Remove("gvZoneClusterdetails"+adviserVo.advisorId);
+                Cache.Insert("gvZoneClusterdetails"+adviserVo.advisorId, ds);
             }
         }
 
@@ -423,7 +452,49 @@ namespace WealthERP.Advisor
 
             }
         }
+
+        protected void lnkBranchName_OnClick(object sender, EventArgs e)
+        {
+            int selectedRow = 0;
+            int branchId = 0;
+            try
+            {              
+                LinkButton lnkBranchName = (LinkButton)sender;
+                GridDataItem gvrForZoneClusterDetails = (GridDataItem)lnkBranchName.NamingContainer;
+                selectedRow = gvrForZoneClusterDetails.ItemIndex + 1;
+                branchId = int.Parse(gvZoneClusterdetails.MasterTableView.DataKeyValues[selectedRow - 1]["AB_BranchId"].ToString());
+                advisorBranchVo = advisorBranchBo.GetBranch(branchId);
+                Session["advisorBranchVo"] = advisorBranchVo;
+
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBranchDetails','none');", true);
                 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ViewRM.ascx:ddlMenu_SelectedIndexChanged()");
+
+
+                object[] objects = new object[3];
+                objects[0] = advisorBranchBo;
+                objects[1] = advisorBranchVo;
+                objects[2] = branchId;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+    
+
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             string menu;
@@ -471,6 +542,28 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+
+        protected void gvZoneClusterdetails_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataSet dtGvZoneClusterdetails = new DataSet();
+            dtGvZoneClusterdetails = (DataSet)Cache["gvZoneClusterdetails" + adviserVo.advisorId];
+            gvZoneClusterdetails.DataSource = dtGvZoneClusterdetails;
+        }
+
+        public void btnExportFilteredDataForZoneClusterdetails_OnClick(object sender, EventArgs e)
+        {
+            //DataSet dtGvSchemeDetails = new DataSet();
+            //dtGvSchemeDetails = (DataSet)Cache["gvSchemeDetailsForMappinginSuperAdmin"];
+            //gvZoneClusterdetails.DataSource = dtGvSchemeDetails;
+            
+            gvZoneClusterdetails.ExportSettings.OpenInNewWindow = true;
+            gvZoneClusterdetails.ExportSettings.IgnorePaging = true;
+            gvZoneClusterdetails.ExportSettings.HideStructureColumns = true;
+            gvZoneClusterdetails.ExportSettings.ExportOnlyData = true;
+            gvZoneClusterdetails.ExportSettings.FileName = "Scheme Mapping Details";
+            gvZoneClusterdetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvZoneClusterdetails.MasterTableView.ExportToExcel();
         }
     }
 }

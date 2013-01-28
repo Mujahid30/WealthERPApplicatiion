@@ -1,20 +1,31 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewBranches.ascx.cs"
     Inherits="WealthERP.Advisor.ViewBranches" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-
+<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+<div id="divBranchDetails" runat="server"  style="width: 1100px; overflow: scroll">
 <table width="100%" class="TableBackground">
-<tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Branch/Association"></asp:Label>
-            <hr />
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                           Branch/Association
+                        </td>
+                        
+                    </tr>
+                </table>
+            </div>
         </td>
+    </tr>
+    <tr>
     </tr>
 </table>
 
 <table width="100%">
      <tr>
         <td align="center">
-            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center"  >
                 Record Deleted Successfully...!
             </div>
         </td>
@@ -82,3 +93,183 @@
 <asp:HiddenField ID="hdnCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="AB_BranchName ASC" />
+</div>
+
+<br />
+<table width="100%" class="TableBackground">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                           Zone Cluster Branch Details
+                        </td>
+                       <td align="right">
+                        <asp:ImageButton Visible="false" ID="btnExportFilteredDataForZoneClusterdetails" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredDataForZoneClusterdetails_OnClick"
+                        OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+ 
+                       </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr>
+    </tr>
+</table>
+<%--<div id="divZoneClusterdetails" runat="server" style="width: 100%; overflow: scroll">
+--%>
+<br />
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
+     <table>
+     <tr>
+     <td>
+     
+     
+          <telerik:RadGrid ID="gvZoneClusterdetails" runat="server" CssClass="RadGrid" GridLines="None"
+            Width="120%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+            ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+            AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvZoneClusterdetails_NeedDataSource"
+            EnableEmbeddedSkins="false" EnableHeaderContextMenu="true"
+            EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true"  ShowFooter="false">
+ 
+ 
+                        <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ZoneClusterdetailslist">
+                        </ExportSettings>
+                        <MasterTableView ShowGroupFooter="true" EditMode="EditForms" GroupLoadMode="Client" CommandItemSettings-ShowRefreshButton="false" DataKeyNames="AB_BranchId">
+                      <GroupByExpressions>
+                                            <telerik:GridGroupByExpression>
+                                                <GroupByFields>
+                                                    <telerik:GridGroupByField FieldName="ZoneName" />
+                                                </GroupByFields>
+                                                <SelectFields>
+                                                    <telerik:GridGroupByField FieldName="ZoneName" FieldAlias="Zone"/>
+                                                </SelectFields>
+                                            </telerik:GridGroupByExpression>
+                                        </GroupByExpressions>      
+            <Columns>
+               
+                
+                <telerik:GridBoundColumn UniqueName="AB_BranchId" HeaderStyle-Width="120px" HeaderText="Zone"
+                    DataField="AB_BranchId" SortExpression="AB_BranchId" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true" Visible="false"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                    
+                
+                 <telerik:GridBoundColumn UniqueName="ZoneName" HeaderStyle-Width="120px" HeaderText="Zone"
+                    DataField="ZoneName" SortExpression="ZoneName" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true" Aggregate="Count" FooterText="Row Count : " >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                    
+               <telerik:GridBoundColumn UniqueName="ClusterName" HeaderStyle-Width="120px" HeaderText="Cluster"
+                    DataField="ClusterName" SortExpression="ClusterName" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridTemplateColumn AllowFiltering="true" AutoPostBackOnFilter="true"  ShowFilterIcon="false" HeaderText="Branch" UniqueName="AB_BranchName" DataField="AB_BranchName">
+                                <ItemTemplate>
+                                  <asp:LinkButton ID="lnkBranchName" OnClick="lnkBranchName_OnClick" runat="server" Text='<%#Eval("AB_BranchName")%>'></asp:LinkButton> 
+                                </ItemTemplate>
+                </telerik:GridTemplateColumn>
+                
+                <telerik:GridBoundColumn UniqueName="AB_BranchCode" HeaderStyle-Width="120px" HeaderText="Code"
+                    DataField="AB_BranchCode" SortExpression="AB_BranchCode" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                
+                 <telerik:GridBoundColumn UniqueName="AR_FirstName" HeaderStyle-Width="120px" HeaderText="Head"
+                    DataField="AR_FirstName" SortExpression="AR_FirstName" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                
+                   <telerik:GridBoundColumn UniqueName="AB_Email" HeaderStyle-Width="180px" HeaderText="Email"
+                    DataField="AB_Email" SortExpression="AB_Email" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                
+                   <telerik:GridBoundColumn UniqueName="AB_Phone1" HeaderStyle-Width="100px" HeaderText="Phone"
+                    DataField="AB_Phone1" SortExpression="AB_Phone1" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                
+                  <telerik:GridBoundColumn UniqueName="XABRT_BranchType" HeaderStyle-Width="100px" HeaderText="Type"
+                    DataField="XABRT_BranchType" SortExpression="XABRT_BranchType" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                
+                
+                
+                
+                 <telerik:GridBoundColumn UniqueName="AB_AddressLine1" HeaderStyle-Width="180px" HeaderText="AddressLine1"
+                    DataField="AB_AddressLine1" SortExpression="AB_AddressLine1" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                    
+               <telerik:GridBoundColumn UniqueName="AB_AddressLine2" HeaderStyle-Width="180px" HeaderText="AddressLine2"
+                    DataField="AB_AddressLine2" SortExpression="AB_AddressLine2" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                
+                   <telerik:GridBoundColumn UniqueName="AB_AddressLine3" HeaderStyle-Width="180px" HeaderText="AddressLine3"
+                    DataField="AB_AddressLine3" SortExpression="AB_AddressLine3" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                
+                 <telerik:GridBoundColumn UniqueName="AB_City" HeaderStyle-Width="100px" HeaderText="City"
+                    DataField="AB_City" SortExpression="AB_City" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                    
+               <telerik:GridBoundColumn UniqueName="AB_PinCode" HeaderStyle-Width="100px" HeaderText="PinCode"
+                    DataField="AB_PinCode" SortExpression="AB_PinCode" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                
+           <%--        <telerik:GridBoundColumn UniqueName="AB_State" HeaderStyle-Width="100px" HeaderText="State"
+                    DataField="AB_State" SortExpression="AB_State" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>--%>
+               
+               
+                <telerik:GridBoundColumn UniqueName="AB_Country" HeaderStyle-Width="100px" HeaderText="Country"
+                    DataField="AB_Country" SortExpression="AB_Country" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true"  >
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                    
+            
+                
+            </Columns>
+            <HeaderStyle Width="110px" />
+        </MasterTableView>
+        <ClientSettings>
+            <Selecting AllowRowSelect="true" />
+            <Resizing AllowColumnResize="true" />
+        </ClientSettings>
+    </telerik:RadGrid>
+    </td>
+    </tr>
+</table>
+ </ContentTemplate>
+    <Triggers>
+    </Triggers>
+</asp:UpdatePanel>
+<%--
+</div>--%>
