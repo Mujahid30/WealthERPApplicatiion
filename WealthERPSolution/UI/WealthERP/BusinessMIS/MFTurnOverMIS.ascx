@@ -6,9 +6,7 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <telerik:RadScriptManager ID="scptMgr" runat="server">
 </telerik:RadScriptManager>
-
 <style type="text/css">
- 
     .leftLabel
     {
         width: 10%;
@@ -19,7 +17,6 @@
         width: 15%;
         text-align: left;
     }
-    
     .rightDataTwoColumn
     {
         width: 25%;
@@ -128,6 +125,9 @@
                                     <asp:ImageButton ID="btnRMExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
                                         Height="25px" Width="25px" OnClick="btnRMExport_Click"></asp:ImageButton>
+                                    <asp:ImageButton ID="btnClusterZoneExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                        Height="25px" Width="25px" OnClick="btnClusterZoneExport_Click"></asp:ImageButton>
                                 </td>
                             </tr>
                         </table>
@@ -137,7 +137,6 @@
         </table>
         <table class="TableBackground" width="100%">
             <tr id="trBranchRM" runat="server">
-                
                 <td align="right" valign="top" class="leftLabel">
                     <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
                 </td>
@@ -152,16 +151,14 @@
                     <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
                 </td>
                 <td valign="top" class="rightData">
-                    <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField"
                         Style="vertical-align: middle">
                     </asp:DropDownList>
                 </td>
                 <td style="width: 1%">
                 </td>
-                
-                <td align="left" class="rightData" style="width:40%;" colspan="2">
+                <td align="left" class="rightData" style="width: 40%;" colspan="2">
                     <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:"></asp:Label>
-                    
                     <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
                         runat="server" GroupName="Date" />
                     <asp:Label ID="lblPickDate" runat="server" Text="Date Range" CssClass="Field"></asp:Label>
@@ -170,22 +167,9 @@
                         runat="server" GroupName="Date" />
                     <asp:Label ID="lblPickPeriod" runat="server" Text="Period" CssClass="Field"></asp:Label>
                 </td>
-                
             </tr>
             <tr id="trCategoryAction" runat="server">
-               
-                <td align="right" valign="top" class="leftLabel">
-                    <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
-                </td>
-                <td valign="top" class="rightData">
-                    <asp:DropDownList ID="ddlCategory" runat="server" Style="vertical-align: middle"
-                        AutoPostBack="true" CssClass="cmbField">
-                    </asp:DropDownList>
-                </td>
-                <td style="width: 1%">
-                    &nbsp;
-                </td>
-                <td align="right" valign="top" class="leftLabel">
+            <td align="right" valign="top" class="leftLabel">
                     <asp:Label ID="Action" runat="server" CssClass="FieldName" Text="Action:"></asp:Label>
                 </td>
                 <td valign="top" class="rightData">
@@ -196,13 +180,24 @@
                         <asp:ListItem Text="Product Level" Value="Product"></asp:ListItem>
                     </asp:DropDownList>
                 </td>
+                 <td style="width: 1%">
+                    &nbsp;
+                </td>
+                <td runat="server" align="right" valign="top" class="leftLabel" id="tdlblCategory">
+                    <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
+                </td>
+                <td valign="top" class="rightData" id="tdddlCategory" runat="server">
+                    <asp:DropDownList ID="ddlCategory" runat="server" Style="vertical-align: middle"
+                        AutoPostBack="true" CssClass="cmbField">
+                    </asp:DropDownList>
+                </td>                
                 <td style="width: 1%">
                     &nbsp;
                 </td>
-                <td valign="top" style="width:40%" colspan="2" align="left">
-                    <div id="divDateRange" runat="server" visible="false" style="float:left;">
+                <td valign="top" style="width: 40%" colspan="2" align="left">
+                    <div id="divDateRange" runat="server" visible="false" style="float: left;">
                         <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
-                         &nbsp; &nbsp; 
+                        &nbsp; &nbsp;
                         <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                             <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -232,55 +227,28 @@
                             Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
                             CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgBtnGo"></asp:CompareValidator>
                     </div>
-                    <div id="divDatePeriod" visible="false" runat="server" style="float:left;">
-                      <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
-                     &nbsp; &nbsp;
-                    <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                    <span id="Span4" class="spnRequiredField">*</span>
-                    <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPeriod"
-                        CssClass="rfvPCG" ErrorMessage="Please select a Period" Operator="NotEqual" ValueToCompare="Select a Period"
-                        ValidationGroup="vgBtnGo"> </asp:CompareValidator>
+                    <div id="divDatePeriod" visible="false" runat="server" style="float: left;">
+                        <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
+                        &nbsp; &nbsp;
+                        <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                        <span id="Span4" class="spnRequiredField">*</span>
+                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPeriod"
+                            CssClass="rfvPCG" ErrorMessage="Please select a Period" Operator="NotEqual" ValueToCompare="Select a Period"
+                            ValidationGroup="vgBtnGo"> </asp:CompareValidator>
                     </div>
                 </td>
-                
             </tr>
-            <%--<tr onkeypress="return keyPress(this, event)">
-                <td style="width: 2%">
-                </td>
-                <td>
-                    &nbsp;&nbsp;
-                </td>
-                <td align="right" valign="top">
-                </td>
-                <td valign="top">
-                </td>
-            </tr>
-            <tr >
-                <td style="width: 5%">
-                </td>
-                <td align="right" valign="top">
-                </td>
-                <td valign="top">
-                </td>
-                <td>
-                    &nbsp;&nbsp;
-                </td>
-                <td colspan="2">
-                    &nbsp;
-                </td>
-            </tr>--%>
             <tr id="trDivOrganization" runat="server">
-                
-                <td align="right" style="width:10%">
+                <td align="right" style="width: 10%">
                     <asp:Label ID="lblOrganizationMISHeading" runat="server" CssClass="FieldName" Text="Select MIS: "></asp:Label>
                 </td>
-                <td colspan="7" style="width:90%">
+                <td colspan="7" style="width: 90%">
                     <div>
-                        <asp:LinkButton ID="lnkZoneCluster" Text="Zone/Cluster Wise" CssClass="LinkButtonsWithoutUnderLine"
+                        <asp:LinkButton ID="lnkZoneCluster" Text="Zone/Cluster/Branch Wise" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkZoneCluster_Click"></asp:LinkButton>
-                        <span>-></span>
-                        <asp:LinkButton ID="lnkOBranch" Text="Branch Wise" CssClass="LinkButtonsWithoutUnderLine"
+                        <%--<span>-></span>--%>
+                        <asp:LinkButton ID="lnkOBranch" Text="Branch Wise" CssClass="LinkButtonsWithoutUnderLine" Visible="false"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkOBranch_Click"></asp:LinkButton>
                         <span>-></span>
                         <asp:LinkButton ID="lnkOCustomer" Text="Customer/Folio Wise" CssClass="LinkButtonsWithoutUnderLine"
@@ -289,11 +257,10 @@
                 </td>
             </tr>
             <tr id="trDivStaff" runat="server">
-                
-                <td align="right" style="width:10%">
+                <td align="right" style="width: 10%">
                     <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Select MIS: "></asp:Label>
                 </td>
-                <td colspan="7" style="width:90%">
+                <td colspan="7" style="width: 90%">
                     <div>
                         <asp:LinkButton ID="lnkOSummary" Text="Category Wise" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkOSummary_Click"></asp:LinkButton>
@@ -307,11 +274,10 @@
                 </td>
             </tr>
             <tr id="trDivProduct" runat="server">
-               
-                <td align="right" style="width:10%">
+                <td align="right" style="width: 10%">
                     <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select MIS: "></asp:Label>
                 </td>
-                <td colspan="7" style="width:90%">
+                <td colspan="7" style="width: 90%">
                     <div>
                         <asp:LinkButton ID="lnkPSummary" Text="Summary" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkPSummary_Click"></asp:LinkButton>
@@ -1719,6 +1685,458 @@
                     </asp:Panel>
                 </td>
             </tr>
+            <tr id="trPnlZoneCluster" runat="server">
+                <td>
+                    <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" Width="100%" runat="server">
+                        <div runat="server" id="divZoneWise" style="margin: 2px; width: 640px;">
+                            <telerik:RadGrid ID="gvZoneClusterWise" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                PageSize="20" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
+                                ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                                EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false"
+                                ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvZoneClusterWise_OnNeedDataSource">
+                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                                    FileName="Zone-Cluster Details" Excel-Format="ExcelML">
+                                </ExportSettings>
+                                <MasterTableView GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
+                                    GroupLoadMode="Client" EditMode="EditForms" ShowGroupFooter="true" DataKeyNames="ZoneClusterId,CategoryCode"
+                                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                                    <GroupByExpressions>
+                                        <telerik:GridGroupByExpression>
+                                            <GroupByFields>
+                                                <telerik:GridGroupByField FieldName="ZoneName" />
+                                            </GroupByFields>
+                                            <SelectFields>
+                                                <telerik:GridGroupByField FieldName="ZoneName" FieldAlias="Zone" />
+                                            </SelectFields>
+                                        </telerik:GridGroupByExpression>
+                                    </GroupByExpressions>
+                                    <GroupByExpressions>
+                                        <telerik:GridGroupByExpression>
+                                            <GroupByFields>
+                                                <telerik:GridGroupByField FieldName="ClusterName" />
+                                            </GroupByFields>
+                                            <SelectFields>
+                                                <telerik:GridGroupByField FieldName="ClusterName" FieldAlias="Cluster" />
+                                            </SelectFields>
+                                        </telerik:GridGroupByExpression>
+                                    </GroupByExpressions>
+                                    
+                                   <GroupByExpressions>
+                                        <telerik:GridGroupByExpression>
+                                            <GroupByFields>
+                                                <telerik:GridGroupByField FieldName="BranchName" />
+                                            </GroupByFields>
+                                            <SelectFields>
+                                                <telerik:GridGroupByField FieldName="BranchName" FieldAlias="Branch" />
+                                            </SelectFields>
+                                        </telerik:GridGroupByExpression>
+                                    </GroupByExpressions>
+                                    
+                                    <Columns>
+                                        <%--<telerik:GridTemplateColumn  AllowFiltering="false" UniqueName="action"
+                    DataField="action">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text="Details" ItemStyle-Width="12px" />
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>--%>
+                                        <telerik:GridBoundColumn HeaderText="Zone" HeaderTooltip="Zone Name" DataField="ZoneName"
+                                            UniqueName="ZoneName" SortExpression="ZoneName" AllowFiltering="true" AutoPostBackOnFilter="true"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn HeaderText="Cluster" HeaderTooltip="Cluster Name" DataField="ClusterName"
+                                            UniqueName="ClusterName" SortExpression="ClusterName" AutoPostBackOnFilter="true"
+                                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                         <telerik:GridBoundColumn HeaderText="Branch" HeaderTooltip="Branch Name" DataField="BranchName"
+                                            UniqueName="BranchName" SortExpression="BranchName"
+                                            AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridBoundColumn HeaderText="Category" HeaderTooltip="Category Name" DataField="CategoryName"
+                                            Aggregate="Count" FooterText="Row Count : " UniqueName="CategoryName" SortExpression="CategoryName"
+                                            AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
+                                        <%--     <telerik:GridBoundColumn HeaderText="CategoryCode" Visible="false" HeaderTooltip="CategoryCode"  DataField="CategoryCode"
+                    UniqueName="CategoryCode" SortExpression="CategoryCode" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>--%>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Net Investment"
+                                            HeaderText="Net Invest" DataField="Net" HeaderStyle-HorizontalAlign="Right" UniqueName="Net"
+                                            SortExpression="Net" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Gross Investment"
+                                            HeaderText="Gross Invest" DataField="GrossInvestment" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="GrossInvestment" SortExpression="GrossInvestment" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Gross Redemption"
+                                            HeaderText="Gross Redemp" DataField="GrossRedemption" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="GrossRedemption" SortExpression="GrossRedemption" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Count"
+                                            HeaderText="DVP Cnt" DataField="DVPCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="DVPCount" SortExpression="DVPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Payout Amount"
+                                            HeaderText="DVP Amt" DataField="DVPAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="DVPAmount" SortExpression="DVPAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
+                                            HeaderText="Purchase Trnx" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Amount"
+                                            HeaderText="Purchase Amt" DataField="BUYAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="BUYAmount" SortExpression="BUYAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction"
+                                            HeaderText="Sell Trnx" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Amount" HeaderText="Sell Amt"
+                                            DataField="SELAmount" HeaderStyle-HorizontalAlign="Right" UniqueName="SELAmount"
+                                            SortExpression="SELAmount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Count"
+                                            HeaderText="DVR Cnt" DataField="DVRCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="DVRCount" SortExpression="DVRCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Amount"
+                                            HeaderText="DVR Amt" DataField="DVRAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="DVRAmount" SortExpression="DVRAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Syatematic Investment Plan Count"
+                                            HeaderText="SIP Cnt" DataField="SIPCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SIPCount" SortExpression="SIPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Syatematic Investment Plan Amount"
+                                            HeaderText="SIP Amt" DataField="SIPAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SIPAmount" SortExpression="SIPAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Count"
+                                            HeaderText="BCI Cnt" DataField="BCICount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="BCICount" SortExpression="BCICount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Amount"
+                                            HeaderText="BCI Amt" DataField="BCIAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="BCIAmount" SortExpression="BCIAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Count"
+                                            HeaderText="BCO Cnt" DataField="BCOCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="BCOCount" SortExpression="BCOCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change Out Amount"
+                                            HeaderText="BCO Amt" DataField="BCOAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="BCOAmount" SortExpression="BCOAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Vt Count" HeaderText="STB Cnt"
+                                            DataField="STBCount" HeaderStyle-HorizontalAlign="Right" UniqueName="STBCount"
+                                            SortExpression="STBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Amount"
+                                            HeaderText="STB Amt" DataField="STBAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="STBAmount" SortExpression="STBAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Count"
+                                            HeaderText="STS Cnt" DataField="STSCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="STSCount" SortExpression="STSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Sell Amount"
+                                            HeaderText="STS Amt" DataField="STSAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="STSAmount" SortExpression="STSAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Count"
+                                            HeaderText="SWB Cnt" DataField="SWBCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SWBCount" SortExpression="SWBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Buy Amount"
+                                            HeaderText="SWB Amt" DataField="SWBAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SWBAmount" SortExpression="SWBAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Count"
+                                            HeaderText="SWP Cnt" DataField="SWPCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SWPCount" SortExpression="SWPCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Systematic Withdrawal Plan Amount"
+                                            HeaderText="SWP Amt" DataField="SWPAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SWPAmount" SortExpression="SWPAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Count"
+                                            HeaderText="SWS Cnt" DataField="SWSCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SWSCount" SortExpression="SWSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Switch Sell Amount"
+                                            HeaderText="SWS Amt" DataField="SWSAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SWSAmount" SortExpression="SWSAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Count"
+                                            HeaderText="PRJ Cnt" DataField="PRJCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="PRJCount" SortExpression="PRJCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Rejection Amount"
+                                            HeaderText="PRJ Amt" DataField="PRJAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="PRJAmount" SortExpression="PRJAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <%-- dd--%>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Additional Purchase Count"
+                                            HeaderText="Additional Cnt" DataField="AddCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="AddCount" SortExpression="AddCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Additional Purchase"
+                                            HeaderText="Additional Amt" DataField="AddAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="AddAmount" SortExpression="AddAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker In Rejection Count"
+                                            HeaderText="BIR Cnt" DataField="BIRCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="BIRCount" SortExpression="BIRCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker In Rejection"
+                                            HeaderText="BIR Amt" DataField="BIRAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="BIRAmount" SortExpression="BIRAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Bonus Units Count"
+                                            HeaderText="BNS Cnt" DataField="BNSCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="BNSCount" SortExpression="BNSCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Bonus Units" HeaderText="BNS Amt"
+                                            DataField="BNSAmount" HeaderStyle-HorizontalAlign="Right" UniqueName="BNSAmount"
+                                            SortExpression="BNSAmount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Consolidation In Count"
+                                            HeaderText="CNI Cnt" DataField="CNICount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="CNICount" SortExpression="CNICount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Consolidation In"
+                                            HeaderText="CNI Amt" DataField="CNIAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="CNIAmount" SortExpression="CNIAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Sweep In Count"
+                                            HeaderText="DSI Cnt" DataField="DSICount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="DSICount" SortExpression="DSICount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Sweep In"
+                                            HeaderText="DSI Amt" DataField="DSIAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="DSIAmount" SortExpression="DSIAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Holdings Count"
+                                            HeaderText="HLD Cnt" DataField="HLDCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="HLDCount" SortExpression="HLDCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Holdings" HeaderText="HLD Amt"
+                                            DataField="HLDAmount" HeaderStyle-HorizontalAlign="Right" UniqueName="HLDAmount"
+                                            SortExpression="HLDAmount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Initial Allotment Count"
+                                            HeaderText="NFO Cnt" DataField="NFOCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="NFOCount" SortExpression="NFOCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Initial Allotment"
+                                            HeaderText="NFO Amt" DataField="NFOAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="NFOAmount" SortExpression="NFOAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Rejection Count"
+                                            HeaderText="RRJ Cnt" DataField="RRJCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="RRJCount" SortExpression="RRJCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Reinvested Rejection"
+                                            HeaderText="RRJ Amt" DataField="RRJAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="RRJAmount" SortExpression="RRJAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Consolidation Out Count"
+                                            HeaderText="CNO Cnt" DataField="CNOCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="CNOCount" SortExpression="CNOCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Consolidation Out"
+                                            HeaderText="CNO Amt" DataField="CNOAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="CNOAmount" SortExpression="CNOAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Sweep Out Count"
+                                            HeaderText="CNO Cnt" DataField="DSOCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="DSOCount" SortExpression="DSOCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Sweep Out"
+                                            HeaderText="DSO Amt" DataField="DSOAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="DSOAmount" SortExpression="DSOAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Redemption Rejection Count"
+                                            HeaderText="SRJ Cnt" DataField="SRJCount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SRJCount" SortExpression="SRJCount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
+                                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Redemption Rejection"
+                                            HeaderText="SRJ Amt" DataField="SRJAmount" HeaderStyle-HorizontalAlign="Right"
+                                            UniqueName="SRJAmount" SortExpression="SRJAmount" AutoPostBackOnFilter="true"
+                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                    </Columns>
+                                </MasterTableView>
+                                <HeaderStyle Width="150px" />
+                                <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+                                    <Resizing AllowColumnResize="true" />
+                                    <Selecting AllowRowSelect="true" />
+                                </ClientSettings>
+                            </telerik:RadGrid>
+                        </div>
+                    </asp:Panel>
+                </td>
+            </tr>
         </table>
         <table width="100%">
             <tr>
@@ -1745,7 +2163,7 @@
         <asp:PostBackTrigger ControlID="btnFolioExport" />
         <asp:PostBackTrigger ControlID="btnBranchExport" />
         <asp:PostBackTrigger ControlID="btnCategoryExport" />
-        <asp:PostBackTrigger ControlID="btnRMExport" />
-        <%-- <asp:PostBackTrigger ControlID="btnbalncExport" />--%>
+        <asp:PostBackTrigger ControlID="btnRMExport" />        
+        <asp:PostBackTrigger ControlID="btnClusterZoneExport" />
     </Triggers>
 </asp:UpdatePanel>

@@ -84,6 +84,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnRMExport;
+        protected global::System.Web.UI.WebControls.ImageButton btnClusterZoneExport;
         
         /// <summary>
         /// trBranchRM control.
@@ -93,6 +94,10 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBranchRM;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPnlZoneCluster;
+        
         
         /// <summary>
         /// lblBranch control.
@@ -623,8 +628,8 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divZoneWise;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFolioWise;
-        
         /// <summary>
         /// gvFolioWise control.
         /// </summary>
@@ -632,7 +637,10 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvZoneClusterWise;
         protected global::Telerik.Web.UI.RadGrid gvFolioWise;
+
+        
         
         /// <summary>
         /// trPnlRM control.

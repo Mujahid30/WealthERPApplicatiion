@@ -88,6 +88,7 @@ namespace WealthERP.BusinessMIS
                 trPnlFolio.Visible = false;
                 trPnlCategory.Visible = false;
                 trPnlRM.Visible = false;
+                trPnlZoneCluster.Visible = false;
                 BindCategory();
                 if (userType == "advisor")
                 {
@@ -1050,10 +1051,11 @@ namespace WealthERP.BusinessMIS
 
         protected void lnkZoneCluster_Click(object sender, EventArgs e)
         {
-            //SetParameters();
-            //showHideGrid("BranchWise");
-            //BindBranchWiseTransactionDetails();
-            //lblMFMISType.Text = "Branch Wise";
+            SetParameters();
+            showHideGrid("ZoneClusterWise");
+            BindZoneClusterTransactionDetails();
+            lblMFMISType.Text = "Zone/Cluster/Branch Wise";
+
         }
 
         private void BindBranchWiseTransactionDetails()
@@ -1361,6 +1363,9 @@ namespace WealthERP.BusinessMIS
                 btnRMExport.Visible = false;
                 divRM.Visible = false;
                 trPnlRM.Visible = false;
+                btnClusterZoneExport.Visible = false;
+                trPnlZoneCluster.Visible = false;
+                divZoneWise.Visible = false;
             }
             else if (gridName == "SchemeWise")
             {
@@ -1382,6 +1387,9 @@ namespace WealthERP.BusinessMIS
                 btnRMExport.Visible = false;
                 divRM.Visible = false;
                 trPnlRM.Visible = false;
+                btnClusterZoneExport.Visible = false;
+                trPnlZoneCluster.Visible = false;
+                divZoneWise.Visible = false;
             }
             else if (gridName == "FolioWise")
             {
@@ -1403,6 +1411,9 @@ namespace WealthERP.BusinessMIS
                 btnRMExport.Visible = false;
                 divRM.Visible = false;
                 trPnlRM.Visible = false;
+                btnClusterZoneExport.Visible = false;
+                trPnlZoneCluster.Visible = false;
+                divZoneWise.Visible = false;
             }
             else if (gridName == "CategoryWise")
             {
@@ -1424,6 +1435,9 @@ namespace WealthERP.BusinessMIS
                 btnRMExport.Visible = false;
                 divRM.Visible = false;
                 trPnlRM.Visible = false;
+                btnClusterZoneExport.Visible = false;
+                trPnlZoneCluster.Visible = false;
+                divZoneWise.Visible = false;
             }
             else if (gridName == "BranchWise")
             {
@@ -1445,6 +1459,9 @@ namespace WealthERP.BusinessMIS
                 btnRMExport.Visible = false;
                 divRM.Visible = false;
                 trPnlRM.Visible = false;
+                btnClusterZoneExport.Visible = false;
+                trPnlZoneCluster.Visible = false;
+                divZoneWise.Visible = false;
             }
             else if (gridName == "RMWise")
             {
@@ -1466,7 +1483,38 @@ namespace WealthERP.BusinessMIS
                 btnRMExport.Visible = true;
                 divRM.Visible = true;
                 trPnlRM.Visible = true;
+                btnClusterZoneExport.Visible = false;
+                trPnlZoneCluster.Visible = false;
+                divZoneWise.Visible = false;
             }
+            else if (gridName == "ZoneClusterWise")
+            {
+                dvScheme.Visible = false;
+                divGvAmcWise.Visible = false;
+                divBranch.Visible = false;
+                divZoneWise.Visible = true;
+                divFolioWise.Visible = false;
+                divRM.Visible = false;
+                divCategory.Visible = false;
+
+                trPnlAMC.Visible = false;
+                trPnlScheme.Visible = false;
+                trPnlZoneCluster.Visible = true;
+                trPnlFolio.Visible = false;
+                trPnlCategory.Visible = false;
+                trPnlRM.Visible = false;
+
+                btnAMCExport.Visible = false;
+                btnSchemeExport.Visible = false;
+                btnFolioExport.Visible = false;
+                btnBranchExport.Visible = false;
+                btnCategoryExport.Visible = false;
+                btnRMExport.Visible = false;
+                btnClusterZoneExport.Visible = true;
+                
+               
+            }
+            
         }
 
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
@@ -1492,18 +1540,29 @@ namespace WealthERP.BusinessMIS
                 trDivProduct.Visible = true;
                 trDivOrganization.Visible = false;
                 trDivStaff.Visible = false;
+
+                lblCategory.Visible = true;
+                ddlCategory.Visible = true;
             }
             else if (misType == "Organization")
             {
                 trDivProduct.Visible = false;
                 trDivOrganization.Visible = true;
                 trDivStaff.Visible = false;
+
+                lblCategory.Visible = false;
+                ddlCategory.Visible = false;
+
+                hdnCategory.Value = "";
             }
             else if (misType == "Staff")
             {
                 trDivProduct.Visible = false;
                 trDivOrganization.Visible = false;
                 trDivStaff.Visible = true;
+
+                lblCategory.Visible = true;
+                ddlCategory.Visible = true;
             }
         }
 
@@ -1847,12 +1906,606 @@ namespace WealthERP.BusinessMIS
             }
             gvRM.MasterTableView.ExportToExcel();
         }
+
+        protected void btnClusterZoneExport_Click(object sender, ImageClickEventArgs e)
+        {
+            gvZoneClusterWise.ExportSettings.OpenInNewWindow = true;
+            gvZoneClusterWise.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvZoneClusterWise.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvZoneClusterWise.MasterTableView.ExportToExcel();
+        }
+
         protected void gvRM_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtGetRMTransactionDeatails = new DataTable();
             dtGetRMTransactionDeatails = (DataTable)Cache["RMTransactionDeatails" + userVo.UserId];
             gvRM.DataSource = dtGetRMTransactionDeatails;
             gvRM.Visible = true;
+        }
+
+        private void BindZoneClusterTransactionDetails()
+        {
+            int branchId = 0;
+            int branchIdOld = 0;
+            DataSet dsGetClusterTransactionDeatails = new DataSet();
+           
+
+            dsGetClusterTransactionDeatails = adviserMFMIS.GetAllClusterTransactionDeatails(int.Parse(hdnadviserId.Value),int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value),int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value),hdnCategory.Value);
+            DataTable dtGetClusterTransactionDeatails = new DataTable();
+
+
+            #region Data Table Column Defination
+
+            dtGetClusterTransactionDeatails.Columns.Add("ZoneName");
+            dtGetClusterTransactionDeatails.Columns.Add("ClusterName");
+            dtGetClusterTransactionDeatails.Columns.Add("ZoneClusterId");
+            dtGetClusterTransactionDeatails.Columns.Add("BranchName");
+            dtGetClusterTransactionDeatails.Columns.Add("BranchId");
+            dtGetClusterTransactionDeatails.Columns.Add("CategoryName");
+            dtGetClusterTransactionDeatails.Columns.Add("CategoryCode");
+
+            dtGetClusterTransactionDeatails.Columns.Add("Net", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("GrossInvestment", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("GrossRedemption", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("DVPCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("DVPAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("BUYCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("BUYAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("SELCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("SELAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("DVRCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("DVRAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("SIPCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("SIPAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("BCICount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("BCIAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("BCOCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("BCOAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("STBCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("STBAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("STSCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("STSAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("SWBCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("SWBAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("SWPCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("SWPAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("SWSCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("SWSAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("PRJCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("PRJAmount", typeof(double));
+
+
+
+            //------------------New Trxn Type Added ---------------------\\
+
+            dtGetClusterTransactionDeatails.Columns.Add("AddCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("AddAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("BIRCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("BIRAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("BNSCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("BNSAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("CNICount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("CNIAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("DSICount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("DSIAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("HLDCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("HLDAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("NFOCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("NFOAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("RRJCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("RRJAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("CNOCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("CNOAmount", typeof(double));
+
+
+            dtGetClusterTransactionDeatails.Columns.Add("DSOCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("DSOAmount", typeof(double));
+
+            dtGetClusterTransactionDeatails.Columns.Add("SRJCount", typeof(double));
+            dtGetClusterTransactionDeatails.Columns.Add("SRJAmount", typeof(double));
+
+            #endregion Data Table Column Defination
+
+            //--------------------Default Value ------------------
+
+            #region Data Table Default value
+
+            dtGetClusterTransactionDeatails.Columns["DVPCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["DVPAmount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["SRJCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["SRJAmount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["DSOCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["DSOAmount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["CNOAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["CNOCount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["RRJAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["RRJCount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["NFOAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["NFOCount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["HLDCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["HLDAmount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["DSICount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["DSIAmount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["CNICount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["CNIAmount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["BNSCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["BNSAmount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["BIRCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["BIRAmount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["AddCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["AddAmount"].DefaultValue = 0;
+
+
+            //------------------------------------------------------------------\\
+
+            dtGetClusterTransactionDeatails.Columns["BUYCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["BUYAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["SELCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["SELAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["DVRCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["DVRAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["DVPCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["DVPAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["SIPCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["SIPAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["BCICount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["BCIAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["BCOCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["BCOAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["STBCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["STBAmount"].DefaultValue = 0;
+
+
+            dtGetClusterTransactionDeatails.Columns["STSCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["STSAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["SWBCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["SWBAmount"].DefaultValue = 0;
+
+
+            dtGetClusterTransactionDeatails.Columns["SWPCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["SWPAmount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["SWSCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["SWSAmount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["PRJCount"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["PRJAmount"].DefaultValue = 0;
+
+            dtGetClusterTransactionDeatails.Columns["Net"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["GrossInvestment"].DefaultValue = 0;
+            dtGetClusterTransactionDeatails.Columns["GrossRedemption"].DefaultValue = 0;
+
+            #endregion Data Table Default value
+
+            DataRow drGetClusterTransactionDeatails = null;
+            DataRow[] drTransactionClusterWise;
+            DataRow[] drCheckIfCategoryExistForCluster;
+            if (dsGetClusterTransactionDeatails.Tables[0] != null)
+            {
+                DataTable dtgetClusterTransactions = dsGetClusterTransactionDeatails.Tables[0];
+
+                foreach (DataRow drClusterTransaction in dtgetClusterTransactions.Rows)
+                {
+
+                    Int32.TryParse(drClusterTransaction["AB_BranchId"].ToString(), out branchId);
+
+                    if (branchId != branchIdOld)
+                    { //go for another row to find new customer
+                        branchIdOld = branchId;
+                        if (branchId != 0)
+                        { // add row in manual datatable within this brace end
+                            //drTransactionClusterWise = dtgetClusterTransactions.Select("AZOC_ZoneClusterId= '" + ClusterId + "'" + "AND " + "AZOC_Type='" + "Cluster" + "'");
+                            drTransactionClusterWise = dtgetClusterTransactions.Select("AB_BranchId= '" + branchId + "'");
+                            //drGetSchemeTransactionDeatails["PA_AMCName"] = drAMCTransaction["PA_AMCName"].ToString();
+
+                            if (drTransactionClusterWise.Count() > 0)
+                            {
+                                foreach (DataRow dr in drTransactionClusterWise)
+                                {
+                                    DataRow drCluster = dr;
+                                    string categoryCode = dr["CategoryCode"].ToString();
+
+                                    drCheckIfCategoryExistForCluster = dtGetClusterTransactionDeatails.Select("CategoryCode= '" + categoryCode + "'" + "AND " + "ZoneClusterId='" + branchId + "'");
+
+                                    if (drCheckIfCategoryExistForCluster.Count() > 0)
+                                    {
+                                        string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
+                                        SwitchCaseOnTransactionClassificationCode(transactiontype, ref drGetClusterTransactionDeatails, ref drCluster);
+                                        drGetClusterTransactionDeatails["Net"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) - double.Parse(drGetClusterTransactionDeatails["GrossRedemption"].ToString());
+                                    }
+                                    else
+                                    {
+                                        drGetClusterTransactionDeatails = dtGetClusterTransactionDeatails.NewRow();
+
+                                        drGetClusterTransactionDeatails["ZoneName"] = drClusterTransaction["ZoneName"].ToString();
+                                        drGetClusterTransactionDeatails["ClusterName"] = drClusterTransaction["ClusterName"].ToString();
+                                        drGetClusterTransactionDeatails["ZoneClusterId"] = drClusterTransaction["AZOC_ZoneClusterId"].ToString();
+                                        drGetClusterTransactionDeatails["BranchName"] = drClusterTransaction["AB_BranchName"].ToString();
+                                        drGetClusterTransactionDeatails["BranchId"] = drClusterTransaction["AB_BranchId"].ToString();
+                                        drGetClusterTransactionDeatails["CategoryCode"] = dr["CategoryCode"].ToString();
+                                        drGetClusterTransactionDeatails["CategoryName"] = dr["CategoryName"].ToString();
+                                        string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
+                                        SwitchCaseOnTransactionClassificationCode(transactiontype, ref drGetClusterTransactionDeatails, ref drCluster);
+                                        drGetClusterTransactionDeatails["Net"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) - double.Parse(drGetClusterTransactionDeatails["GrossRedemption"].ToString());
+                                        dtGetClusterTransactionDeatails.Rows.Add(drGetClusterTransactionDeatails);
+                                    }
+                                }
+                            }
+
+                        }//*
+
+                    }//**
+
+                }//***
+
+                if (Cache["ZoneClusterTransactionDeatails" + userVo.UserId] == null)
+                {
+                    Cache.Insert("ZoneClusterTransactionDeatails" + userVo.UserId, dtGetClusterTransactionDeatails);
+                }
+                else
+                {
+                    Cache.Remove("ZoneClusterTransactionDeatails" + userVo.UserId);
+                    Cache.Insert("ZoneClusterTransactionDeatails" + userVo.UserId, dtGetClusterTransactionDeatails);
+                }
+                gvZoneClusterWise.DataSource = dtGetClusterTransactionDeatails;
+                gvZoneClusterWise.DataBind();
+                gvZoneClusterWise.Visible = true;
+                this.gvZoneClusterWise.GroupingSettings.RetainGroupFootersVisibility = true;
+                //GridGroupByExpression expression = new GridGroupByExpression();
+                //GridGroupByField gridGroupByField = new GridGroupByField();
+                //gridGroupByField.FieldName = "ClusterName";
+                //expression.GroupByFields.Add( gridGroupByField );
+                //gvFolioWise.GroupingEnabled = true;
+
+
+
+                //  gvFolioWise.MasterTableView.GroupByExpressions.Add(new GridGroupByExpression("ClusterName Group By ClusterName"));
+
+
+                //ErrorMessage.Visible = false;
+                //btnImagExport.Visible = true;
+            }
+        }
+     
+        protected void SwitchCaseOnTransactionClassificationCode(string transactiontype, ref DataRow drGetClusterTransactionDeatails, ref DataRow dr)
+        {
+            switch (transactiontype)
+            {
+                case "BUY":
+                    {
+                        drGetClusterTransactionDeatails["BUYCount"] = double.Parse(drGetClusterTransactionDeatails["BUYCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["BUYAmount"] = double.Parse(drGetClusterTransactionDeatails["BUYAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["BUYAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "SEL":
+                    {
+                        drGetClusterTransactionDeatails["SELCount"] = double.Parse(drGetClusterTransactionDeatails["SELCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["SELAmount"] = double.Parse(drGetClusterTransactionDeatails["SELAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossRedemption"] = double.Parse(drGetClusterTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetClusterTransactionDeatails["SELAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "DVR":
+                    {
+                        drGetClusterTransactionDeatails["DVRCount"] = double.Parse(drGetClusterTransactionDeatails["DVRCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["DVRAmount"] = double.Parse(drGetClusterTransactionDeatails["DVRAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["DVRAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "DVP":
+                    {
+                        drGetClusterTransactionDeatails["DVPCount"] = double.Parse(drGetClusterTransactionDeatails["DVPCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["DVPAmount"] = double.Parse(drGetClusterTransactionDeatails["DVPAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+                        break;
+                    }
+                case "SIP":
+                    {
+                        drGetClusterTransactionDeatails["SIPCount"] = double.Parse(drGetClusterTransactionDeatails["SIPCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["SIPAmount"] = double.Parse(drGetClusterTransactionDeatails["SIPAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["SIPAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "BCI":
+                    {
+                        drGetClusterTransactionDeatails["BCICount"] = double.Parse(drGetClusterTransactionDeatails["BCICount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["BCIAmount"] = double.Parse(drGetClusterTransactionDeatails["BCIAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["BCIAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "BCO":
+                    {
+                        drGetClusterTransactionDeatails["BCOCount"] = double.Parse(drGetClusterTransactionDeatails["BCOCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["BCOAmount"] = double.Parse(drGetClusterTransactionDeatails["BCOAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossRedemption"] = double.Parse(drGetClusterTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetClusterTransactionDeatails["BCOAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "STB":
+                    {
+                        drGetClusterTransactionDeatails["STBCount"] = double.Parse(drGetClusterTransactionDeatails["STBCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["STBAmount"] = double.Parse(drGetClusterTransactionDeatails["STBAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["STBAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "STS":
+                    {
+                        drGetClusterTransactionDeatails["STSCount"] = double.Parse(drGetClusterTransactionDeatails["STSCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["STSAmount"] = double.Parse(drGetClusterTransactionDeatails["STSAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossRedemption"] = double.Parse(drGetClusterTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetClusterTransactionDeatails["STSAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "SWB":
+                    {
+                        drGetClusterTransactionDeatails["SWBCount"] = double.Parse(drGetClusterTransactionDeatails["SWBCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["SWBAmount"] = double.Parse(drGetClusterTransactionDeatails["SWBAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["SWBAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "SWP":
+                    {
+                        drGetClusterTransactionDeatails["SWPCount"] = double.Parse(drGetClusterTransactionDeatails["SWPCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["SWPAmount"] = double.Parse(drGetClusterTransactionDeatails["SWPAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossRedemption"] = double.Parse(drGetClusterTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetClusterTransactionDeatails["SWPAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "SWS":
+                    {
+                        drGetClusterTransactionDeatails["SWSCount"] = double.Parse(drGetClusterTransactionDeatails["SWSCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["SWSAmount"] = double.Parse(drGetClusterTransactionDeatails["SWSAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossRedemption"] = double.Parse(drGetClusterTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetClusterTransactionDeatails["SWSAmount"].ToString());
+                        }
+
+
+                        break;
+                    }
+                case "PRJ":
+                    {
+                        drGetClusterTransactionDeatails["PRJCount"] = double.Parse(drGetClusterTransactionDeatails["PRJCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["PRJAmount"] = double.Parse(drGetClusterTransactionDeatails["PRJAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["PRJAmount"].ToString());
+                        }
+
+                        break;
+                    }
+
+
+                //----------------------->>>
+
+                case "ABY":
+                    {
+                        drGetClusterTransactionDeatails["AddCount"] = double.Parse(drGetClusterTransactionDeatails["AddCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["AddAmount"] = double.Parse(drGetClusterTransactionDeatails["AddAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["AddAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "BIR":
+                    {
+                        drGetClusterTransactionDeatails["BIRCount"] = double.Parse(drGetClusterTransactionDeatails["BIRCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["BIRAmount"] = double.Parse(drGetClusterTransactionDeatails["BIRAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["BIRAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "BNS":
+                    {
+                        drGetClusterTransactionDeatails["BNSCount"] = double.Parse(drGetClusterTransactionDeatails["BNSCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["BNSAmount"] = double.Parse(drGetClusterTransactionDeatails["BNSAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["BNSAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "CNI":
+                    {
+                        drGetClusterTransactionDeatails["CNICount"] = double.Parse(drGetClusterTransactionDeatails["CNICount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["CNIAmount"] = double.Parse(drGetClusterTransactionDeatails["CNIAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["CNIAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "CNO":
+                    {
+                        drGetClusterTransactionDeatails["CNOCount"] = double.Parse(drGetClusterTransactionDeatails["CNOCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["CNOAmount"] = double.Parse(drGetClusterTransactionDeatails["CNOAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossRedemption"] = double.Parse(drGetClusterTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetClusterTransactionDeatails["CNOAmount"].ToString());
+                        }
+
+
+                        break;
+                    }
+                case "DSI":
+                    {
+                        drGetClusterTransactionDeatails["DSICount"] = double.Parse(drGetClusterTransactionDeatails["DSICount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["DSIAmount"] = double.Parse(drGetClusterTransactionDeatails["DSIAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["DSIAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "DSO":
+                    {
+                        drGetClusterTransactionDeatails["DSOCount"] = double.Parse(drGetClusterTransactionDeatails["DSOCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["DSOAmount"] = double.Parse(drGetClusterTransactionDeatails["DSOAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossRedemption"] = double.Parse(drGetClusterTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetClusterTransactionDeatails["DSOAmount"].ToString());
+                        }
+
+
+                        break;
+                    }
+                case "HLD":
+                    {
+                        drGetClusterTransactionDeatails["HLDCount"] = double.Parse(drGetClusterTransactionDeatails["HLDCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["HLDAmount"] = double.Parse(drGetClusterTransactionDeatails["HLDAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["HLDAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "NFO":
+                    {
+                        drGetClusterTransactionDeatails["NFOCount"] = double.Parse(drGetClusterTransactionDeatails["NFOCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["NFOAmount"] = double.Parse(drGetClusterTransactionDeatails["NFOAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["NFOAmount"].ToString());
+                        }
+
+                        break;
+                    }
+
+
+                case "RRJ":
+                    {
+                        drGetClusterTransactionDeatails["RRJCount"] = double.Parse(drGetClusterTransactionDeatails["RRJCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["RRJAmount"] = double.Parse(drGetClusterTransactionDeatails["RRJAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossInvestment"] = double.Parse(drGetClusterTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetClusterTransactionDeatails["RRJAmount"].ToString());
+                        }
+
+                        break;
+                    }
+                case "SRJ":
+                    {
+                        drGetClusterTransactionDeatails["SRJCount"] = double.Parse(drGetClusterTransactionDeatails["SRJCount"].ToString()) + double.Parse(dr["TrxnCount"].ToString());
+                        drGetClusterTransactionDeatails["SRJAmount"] = double.Parse(drGetClusterTransactionDeatails["SRJAmount"].ToString()) + double.Parse(dr["TrxnAmt"].ToString());
+
+                        if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                        {
+                            drGetClusterTransactionDeatails["GrossRedemption"] = double.Parse(drGetClusterTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetClusterTransactionDeatails["SRJAmount"].ToString());
+                        }
+
+                        break;
+                    }
+
+                //--------------------------->>>>>>
+            }
+        }
+
+
+        protected void gvZoneClusterWise_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtGetFolioTransactionDeatails = new DataTable();
+            dtGetFolioTransactionDeatails = (DataTable)Cache["ZoneClusterTransactionDeatails" + userVo.UserId];
+            gvZoneClusterWise.DataSource = dtGetFolioTransactionDeatails;
+            gvZoneClusterWise.Visible = true;
+            //this.gvFolioWise.GroupingSettings.RetainGroupFootersVisibility = true;
         }
     }
 }
