@@ -107,6 +107,7 @@ namespace WealthERP.Uploads
 
             if (!IsPostBack)
             {
+               //this.gvWERPTrans.MasterTableView.Columns.Clear();
             //    if (ProcessId != 0)
             //    {
                    
@@ -178,6 +179,7 @@ namespace WealthERP.Uploads
         //            gvWERPTrans.Visible = false;
         //            Panel2.Visible = false; 
             btnExport.Visible = false;
+            trMessage.Visible = false;
        }
         
      private void BindEquityTransactionGrid(int ProcessId)
@@ -256,8 +258,10 @@ namespace WealthERP.Uploads
         {
             BindEquityTransactionGrid(ProcessId);
             ViewState.Remove("RejectReasonCode");
-            ViewState.Remove("ProcessId");
+           // ViewState.Remove("ProcessId");
             ViewState.Remove("TransactionTypeCode");
+            
+          
             //divLobAdded.Visible = false;
         }
         //********** Code implented by bhoopendra for adding a dropdown filter of process id.*************//
@@ -316,24 +320,24 @@ namespace WealthERP.Uploads
         }
          protected void ddlProcessId_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
          {  
-              RadComboBox dropdown = o as RadComboBox;                          
-              ViewState["ProcessId"] = dropdown.SelectedValue.ToString();
-            if (ViewState["ProcessId"] != "")
-            {
-                GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("ProcessId");
-                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
-                gvWERPTrans.CurrentPageIndex = 0;
-                gvWERPTrans.MasterTableView.Rebind();
+            //  RadComboBox dropdown = o as RadComboBox;                          
+            //  ViewState["ProcessId"] = dropdown.SelectedValue.ToString();
+            //if (ViewState["ProcessId"] != "")
+            //{
+            //    GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("ProcessId");
+            //    column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+            //    gvWERPTrans.CurrentPageIndex = 0;
+            //    gvWERPTrans.MasterTableView.Rebind();
                                
-            }
-            else
-            {
-                GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("ProcessId");
-                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
-                gvWERPTrans.CurrentPageIndex = 0;
-                gvWERPTrans.MasterTableView.Rebind();
+            //}
+            //else
+            //{
+            //    GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("ProcessId");
+            //    column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+            //    gvWERPTrans.CurrentPageIndex = 0;
+            //    gvWERPTrans.MasterTableView.Rebind();
               
-            }
+            //}
 
         }
         private DropDownList GetProcessIdDDL()
@@ -987,7 +991,6 @@ namespace WealthERP.Uploads
                 DataTable dtgvWERPEQ = new DataTable();
                 GridFilteringItem filterItem = (GridFilteringItem)e.Item;
                 RadComboBox RadComboBoxRR = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
-                RadComboBox RadComboBoxPI = (RadComboBox)filterItem.FindControl("RadComboBoxPI");
                 RadComboBox RadComboBoxTT = (RadComboBox)filterItem.FindControl("RadComboBoxTT");
                 dsRejectedRecords = (DataSet)Cache["RejectedEquityDetails" + adviserVo.advisorId.ToString()];
 
@@ -995,7 +998,7 @@ namespace WealthERP.Uploads
                 DataTable dtcustMIS = new DataTable();
                 dtgvWERPEQ = dsRejectedRecords.Tables[0];
                 dtcustMIS.Columns.Add("RejectReason");
-                dtcustMIS.Columns.Add("ProcessId");
+                //dtcustMIS.Columns.Add("ProcessId");
                 dtcustMIS.Columns.Add("TransactionType");
                 dtcustMIS.Columns.Add("RejectReasonCode");
                 dtcustMIS.Columns.Add("TransactionTypeCode");
@@ -1004,7 +1007,7 @@ namespace WealthERP.Uploads
                 {
                     drcustMIS = dtcustMIS.NewRow();
                     drcustMIS["RejectReason"] = dr["RejectReason"].ToString();
-                    drcustMIS["ProcessId"] = dr["ProcessId"].ToString();
+                    //drcustMIS["ProcessId"] = dr["ProcessId"].ToString();
                     drcustMIS["TransactionType"] = dr["TransactionType"].ToString();
                     drcustMIS["RejectReasonCode"] =int.Parse(dr["RejectReasonCode"].ToString());
                     drcustMIS["TransactionTypeCode"] = int.Parse(dr["TransactionTypeCode"].ToString());
@@ -1017,11 +1020,6 @@ namespace WealthERP.Uploads
                 RadComboBoxRR.DataValueField = dtcustMIS.Columns["RejectReasonCode"].ToString();
                 RadComboBoxRR.DataTextField = dtcustMIS.Columns["RejectReason"].ToString();
                 RadComboBoxRR.DataBind();
-                DataTable distinctID = view.ToTable(true, "ProcessId");
-                RadComboBoxPI.DataSource = distinctID;
-                RadComboBoxPI.DataValueField = dtcustMIS.Columns["ProcessId"].ToString();
-                RadComboBoxPI.DataTextField = dtcustMIS.Columns["ProcessId"].ToString();
-                RadComboBoxPI.DataBind();
                 DataTable distinctTT = view.ToTable(true, "TransactionType", "TransactionTypeCode");
                 RadComboBoxTT.DataSource = distinctTT;
                 RadComboBoxTT.DataValueField = dtcustMIS.Columns["TransactionTypeCode"].ToString();
@@ -1047,48 +1045,48 @@ namespace WealthERP.Uploads
                 dtrr = dsEquity.Tables[0];
                 if (ViewState["RejectReasonCode"] != null)
                     rcbType = ViewState["RejectReasonCode"].ToString();
-                if (ViewState["ProcessId"] != null)
-                    pitype = ViewState["ProcessId"].ToString();
+                //if (ViewState["ProcessId"] != null)
+                //    pitype = ViewState["ProcessId"].ToString();
                 if (ViewState["TransactionTypeCode"] != null)
                    tttype = ViewState["TransactionTypeCode"].ToString();
-                if ((!string.IsNullOrEmpty(rcbType))&&(string.IsNullOrEmpty(pitype))&&(string.IsNullOrEmpty(tttype)))
+                if ((!string.IsNullOrEmpty(rcbType))&&(string.IsNullOrEmpty(tttype)))
                 {
                     DataView dvStaffList = new DataView(dtrr, "RejectReasonCode = '" + rcbType + "'","ProcessId,TransactionTypeCode,Exchange",DataViewRowState.CurrentRows);
                     gvWERPTrans.DataSource = dvStaffList.ToTable();
                 }
-                else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (string.IsNullOrEmpty(tttype)))
-                {
-                    DataView dvStaffList = new DataView(dtrr, "ProcessId= '" + pitype + "'", "RejectReasonCode,TransactionTypeCode,Exchange", DataViewRowState.CurrentRows);
-                    gvWERPTrans.DataSource = dvStaffList.ToTable();
-                }
-                else if ((string.IsNullOrEmpty(rcbType)) && (string.IsNullOrEmpty(pitype)) && (!string.IsNullOrEmpty(tttype)))
+                //else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (string.IsNullOrEmpty(tttype)))
+                //{
+                //    DataView dvStaffList = new DataView(dtrr, "ProcessId= '" + pitype + "'", "RejectReasonCode,TransactionTypeCode,Exchange", DataViewRowState.CurrentRows);
+                //    gvWERPTrans.DataSource = dvStaffList.ToTable();
+                //}
+                else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
                 {
                     DataView dvStaffList = new DataView(dtrr, "TransactionTypeCode= '" + tttype + "'", "RejectReasonCode,ProcessId,Exchange", DataViewRowState.CurrentRows);
                     gvWERPTrans.DataSource = dvStaffList.ToTable();
                 }
 
-                else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (string.IsNullOrEmpty(tttype)))
-                {   
-                    DataView dvStaffList = new DataView(dtrr, "RejectReasonCode = '" + rcbType + "'and ProcessId= '" + pitype + "'", "TransactionTypeCode,Exchange", DataViewRowState.CurrentRows);
-                    gvWERPTrans.DataSource = dvStaffList.ToTable();
-                }
-                else if ((!string.IsNullOrEmpty(rcbType)) && (string.IsNullOrEmpty(pitype)) && (!string.IsNullOrEmpty(tttype)))
+                //else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (string.IsNullOrEmpty(tttype)))
+                //{   
+                //    DataView dvStaffList = new DataView(dtrr, "RejectReasonCode = '" + rcbType + "'and ProcessId= '" + pitype + "'", "TransactionTypeCode,Exchange", DataViewRowState.CurrentRows);
+                //    gvWERPTrans.DataSource = dvStaffList.ToTable();
+                //}
+                else if ((!string.IsNullOrEmpty(rcbType))&& (!string.IsNullOrEmpty(tttype)))
                 {
                     DataView dvStaffList = new DataView(dtrr, "RejectReasonCode = '" + rcbType + "'and TransactionTypeCode= '" + tttype + "'", "ProcessId,Exchange", DataViewRowState.CurrentRows);
                     gvWERPTrans.DataSource = dvStaffList.ToTable();
                 
                 }
-                else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (!string.IsNullOrEmpty(tttype)))
-                {
-                    DataView dvStaffList = new DataView(dtrr, "ProcessId= '" + pitype + "'and TransactionTypeCode= '" + tttype + "'", "RejectReasonCode,Exchange", DataViewRowState.CurrentRows);
-                    gvWERPTrans.DataSource = dvStaffList.ToTable();
+                //else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (!string.IsNullOrEmpty(tttype)))
+                //{
+                //    DataView dvStaffList = new DataView(dtrr, "ProcessId= '" + pitype + "'and TransactionTypeCode= '" + tttype + "'", "RejectReasonCode,Exchange", DataViewRowState.CurrentRows);
+                //    gvWERPTrans.DataSource = dvStaffList.ToTable();
 
-                }
-                else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (!string.IsNullOrEmpty(tttype)))
-                {
-                    DataView dvStaffList = new DataView(dtrr, "RejectReasonCode = '" + rcbType + "'and ProcessId= '" + pitype + "'and TransactionTypeCode= '" + tttype + "'", "Exchange", DataViewRowState.CurrentRows);
-                    gvWERPTrans.DataSource = dvStaffList.ToTable();
-                }
+                //}
+                //else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(pitype)) && (!string.IsNullOrEmpty(tttype)))
+                //{
+                //    DataView dvStaffList = new DataView(dtrr, "RejectReasonCode = '" + rcbType + "'and ProcessId= '" + pitype + "'and TransactionTypeCode= '" + tttype + "'", "Exchange", DataViewRowState.CurrentRows);
+                //    gvWERPTrans.DataSource = dvStaffList.ToTable();
+                //}
 
                 else
                 {
@@ -1106,15 +1104,7 @@ namespace WealthERP.Uploads
             }
 
         }
-        protected void rcbContinents2_PreRender(object sender, EventArgs e)
-        {
-            RadComboBox Combo = sender as RadComboBox;
-            if (ViewState["ProcessId"] != null)
-            {
-                Combo.SelectedValue = ViewState["ProcessId"].ToString();
-            }
-
-        }
+       
         protected void rcbContinents3_PreRender(object sender, EventArgs e)
         {
             RadComboBox Combo = sender as RadComboBox;

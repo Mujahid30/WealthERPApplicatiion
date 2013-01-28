@@ -321,66 +321,43 @@
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="ProcessId" AllowFiltering="true" HeaderText="ProcessId"
+                            <telerik:GridBoundColumn DataField="ProcessId" AllowFiltering="true" HeaderText="ProcessId" AllowSorting="true"
                                 HeaderStyle-Width="60px" UniqueName="ProcessId" SortExpression="ProcessId" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                                <FilterTemplate>
-                                    <telerik:RadComboBox ID="RadComboBoxPI" Width="90px" CssClass="cmbField" AllowFiltering="true"
-                                        AutoPostBack="true" OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged"
-                                        IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
-                                        EnableViewState="true" OnPreRender="rcbContinents2_PreRender" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("ProcessId").CurrentFilterValue %>'
-                                        runat="server">
-                                        <%--OnPreRender="rcbContinents_PreRender"--%>
-                                        <Items>
-                                            <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
-                                        </Items>
-                                    </telerik:RadComboBox>
-                                    <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
-
-                                        <script type="text/javascript">
-                                            function ProcessIDIndexChanged(sender, args) {
-                                                var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
-                                                //////                                                    sender.value = args.get_item().get_value();
-                                                tableView.filter("ProcessId", args.get_item().get_value(), "EqualTo");
-                                            } 
-                                        </script>
-
-                                    </telerik:RadScriptBlock>
-                                </FilterTemplate>
+                                <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />                               
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="TradeAccountNumber" HeaderText="Trade Account Number"
+                            <telerik:GridBoundColumn DataField="TradeAccountNumber" HeaderText="Trade Account Number" AllowSorting="true"
                                 HeaderStyle-Width="60px" UniqueName="TradeAccountNumber" SortExpression="TradeAccountNumber"
                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="ScripCode" AllowFiltering="false" HeaderText="Scrip Code"
+                            <telerik:GridBoundColumn DataField="ScripCode" AllowFiltering="false" HeaderText="Scrip Code" AllowSorting="true"
                                 HeaderStyle-Width="75px" UniqueName="ScripCode" SortExpression="ScripCode" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Exchange" AllowFiltering="true" HeaderText="Exchange"
+                            <telerik:GridBoundColumn DataField="Exchange" AllowFiltering="true" HeaderText="Exchange" AllowSorting="true"
                                 HeaderStyle-Width="85px" UniqueName="Exchange" SortExpression="Exchange" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Share" AllowFiltering="false" HeaderText="Share"
+                            <telerik:GridBoundColumn DataField="Share" AllowFiltering="false" HeaderText="Share" AllowSorting="true"
                                 HeaderStyle-Width="80px" UniqueName="Share" SortExpression="Share" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:n3}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="Price" AllowFiltering="false"
-                                HeaderStyle-Width="65px" HeaderText="Price" UniqueName="Price" Aggregate="Sum"
+                                HeaderStyle-Width="65px" HeaderText="Price" UniqueName="Price" Aggregate="Sum" AllowSorting="true"
                                 DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="Amount" AllowFiltering="false"
-                                HeaderStyle-Width="75px" HeaderText="Amount" UniqueName="Amount" Aggregate="Sum"
+                                HeaderStyle-Width="75px" HeaderText="Amount" UniqueName="Amount" Aggregate="Sum" AllowSorting="true"
                                 DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="true" HeaderText="TransactionType"
-                                HeaderStyle-Width="100px" UniqueName="TransactionTypeCode" SortExpression="TransactionType"
+                                HeaderStyle-Width="100px" UniqueName="TransactionTypeCode" SortExpression="TransactionType" 
                                 AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
@@ -408,12 +385,12 @@
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" AllowFiltering="true"
-                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CustomerName"
+                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CustomerName" AllowSorting="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="CustomerName" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="BrokerCode" HeaderText="Broker Code" HeaderStyle-Width="85px"
+                            <telerik:GridBoundColumn DataField="BrokerCode" HeaderText="Broker Code" HeaderStyle-Width="85px" AllowSorting="true"
                                 AllowFiltering="false" SortExpression="BrokerCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" UniqueName="BrokerCode" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
