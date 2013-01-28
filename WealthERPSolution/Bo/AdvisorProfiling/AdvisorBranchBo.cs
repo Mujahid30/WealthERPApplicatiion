@@ -393,6 +393,35 @@ namespace BoAdvisorProfiling
             return ds;
 
         }
+
+
+
+        public DataSet GetNEWSignupMISDetails(int adviserId,DateTime fromDate,DateTime toDate)
+        {
+            DataSet ds = new DataSet();
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                ds = advisorBranchDao.GetNEWSignupMISDetails(adviserId,fromDate,toDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetNEWSignupMISDetails()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+
+        }
         /// <summary>
         /// 
         /// </summary>
