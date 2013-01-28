@@ -147,6 +147,18 @@ namespace WealthERP.Advisor
             {
                 if (!IsPostBack)
                 {
+                    if (!Convert.ToBoolean(advisorVo.MultiBranch))
+                    {
+                        divBranchDetails.Visible = true;
+                        tblClusterZone.Visible = false;
+
+                    }
+                    else
+                    {
+                        divBranchDetails.Visible = false;
+                        tblClusterZone.Visible = true;
+                    }
+
                     if (Request.QueryString["DeleteBranchFlag"] != null)
                     {
                         msgRecordStatus.Visible = true;
