@@ -454,9 +454,9 @@
 .RadGrid_Telerik .rgGroupHeader
 {
     background:0 -6489px repeat-x url('Grid/sprite.gif');
-    font-size:1.1em;
+     font-weight: BOLD;
     line-height:21px;
-	color:#039;
+	color:Black;
 }
 
 .RadGrid_Telerik .rgGroupHeader td

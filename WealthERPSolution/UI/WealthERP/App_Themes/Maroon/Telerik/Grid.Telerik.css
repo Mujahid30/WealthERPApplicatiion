@@ -200,6 +200,7 @@
 {
 	border-top-width:1px;
 	border-color:#aec5d1 #e0e5f5 #fff #e0e5f5;
+	color : Black;
 }
 
 /*status*/
@@ -454,9 +455,10 @@
 .RadGrid_Telerik .rgGroupHeader
 {
     background:0 -6489px repeat-x url('Grid/sprite.gif');
-    font-size:1.1em;
+   
     line-height:21px;
-	color:#039;
+	color:Black;
+	font-weight: BOLD;
 }
 
 .RadGrid_Telerik .rgGroupHeader td

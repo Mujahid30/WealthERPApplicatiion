@@ -188,11 +188,17 @@
 
 /*footer*/
 
-.RadGrid_Telerik .rgFooterDiv,
-.RadGrid_Telerik .rgFooter
+.RadGrid_Telerik .rgFooterDiv
 {
 	background-image:url('Grid/rgCommandRow.gif');
-	color : White;
+	color : Red;
+	font-weight: bold;
+}
+
+.RadGrid_Telerik .rgFooter
+{	
+    background-image:url('Grid/rgCommandRow.gif');
+	color : Black;
 	font-weight: bold;
 }
 
@@ -200,6 +206,11 @@
 {
 	border-top-width:1px;
 	border-color:#aec5d1 #e0e5f5 #fff #e0e5f5;
+	color: Black !important;
+	font-weight:bold !important;
+	
+	
+	
 }
 
 /*status*/
@@ -454,9 +465,10 @@
 .RadGrid_Telerik .rgGroupHeader
 {
     background:0 -6489px repeat-x url('Grid/sprite.gif');
-    font-size:1.1em;
+   
     line-height:21px;
-	color:#039;
+	color:Black;
+	font-weight:bold;
 }
 
 .RadGrid_Telerik .rgGroupHeader td
