@@ -2137,6 +2137,35 @@ namespace DaoAdvisorProfiling
      }
 
 
+     public DataSet getGvZoneClusterDetails(int adviserId)
+     {
+         Database db;
+         DbCommand getCustomerListCmd;
+         DataSet getCustomerDs;
+         try
+         {
+             db = DatabaseFactory.CreateDatabase("wealtherp");
+             getCustomerListCmd = db.GetStoredProcCommand("SP_GetGvZoneClusterDetails");
+             db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, 3832);
+             getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+
+         }
+         catch (Exception Ex)
+         {
+             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+             NameValueCollection FunctionInfo = new NameValueCollection();
+             FunctionInfo.Add("Method", "AdvisorBranchDao.cs:FilterFolioNumber()");
+             object[] objects = new object[4];
+
+
+             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+             exBase.AdditionalInformation = FunctionInfo;
+             ExceptionManager.Publish(exBase);
+             throw exBase;
+         }
+         return getCustomerDs;
+     }
+
         /// <summary>
         /// Filtering the folio no. from a textbox provided in the gridview.
         /// </summary>
