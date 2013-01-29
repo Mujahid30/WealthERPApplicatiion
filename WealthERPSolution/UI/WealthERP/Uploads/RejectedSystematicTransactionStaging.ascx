@@ -459,7 +459,7 @@
                                 AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CMFSCS_FolioNum" HeaderText="Folio No ." AllowFiltering="true"
+                            <telerik:GridBoundColumn DataField="CMFSCS_FolioNum" HeaderText="Folio No." AllowFiltering="true"
                                 HeaderStyle-Width="80px" UniqueName="CMFSCS_FolioNum" SortExpression="CMFSCS_FolioNum"
                                 AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
@@ -488,7 +488,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSCS_SchemeName" ShowFilterIcon="false" FilterControlWidth="250px"
                                 AllowFiltering="true" HeaderStyle-Width="250px" HeaderText="Scheme" UniqueName="CMFSCS_SchemeName"
-                                CurrentFilterFunction="Contains" SortExpression="CMFSCS_SchemeName">
+                                CurrentFilterFunction="Contains" SortExpression="CMFSCS_SchemeName" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <%-- <FilterTemplate>
                                     <telerik:RadComboBox ID="RadComboBoxSN" Width="290px" CssClass="cmbField" AllowFiltering="true"
@@ -514,7 +514,7 @@
                                 </FilterTemplate>--%>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSCS_SystematicCode" AllowFiltering="true"
-                                HeaderText="TransactionType" HeaderStyle-Width="100px" UniqueName="CMFSCS_SystematicCode"
+                                HeaderText="Transaction Type" HeaderStyle-Width="100px" UniqueName="CMFSCS_SystematicCode"
                                 SortExpression="TransactionType" AutoPostBackOnFilter="true" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -553,7 +553,7 @@
                                 UniqueName="CMFSCS_ToDate" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField=" CMFSCS_SystematicDate" HeaderText="SystematicDate"
+                            <telerik:GridBoundColumn DataField=" CMFSCS_SystematicDate" HeaderText="Systematic Date"
                                 AllowFiltering="false" HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression=" CMFSCS_SystematicDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="CMFSCS_SystematicDate" FooterStyle-HorizontalAlign="Left">
