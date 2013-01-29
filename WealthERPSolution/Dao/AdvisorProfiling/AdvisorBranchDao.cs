@@ -2164,7 +2164,7 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerListCmd = db.GetStoredProcCommand("SP_GetGvZoneClusterDetails");
-                db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, 3832);
+                db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
 
             }
