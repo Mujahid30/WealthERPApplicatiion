@@ -18,7 +18,7 @@ namespace WealthERP.Advisor
     public partial class ViewBranches : System.Web.UI.UserControl
     {
         AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
-        AdvisorVo adviserVo = new AdvisorVo();
+        //AdvisorVo adviserVo = new AdvisorVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         List<AdvisorBranchVo> advisorBranchList = null;
         AdvisorVo advisorVo = new AdvisorVo();
@@ -141,7 +141,7 @@ namespace WealthERP.Advisor
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            adviserVo = (AdvisorVo)Session["advisorVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];           
             string branch = "";
             try
             {
@@ -271,7 +271,7 @@ namespace WealthERP.Advisor
 
         protected void BindGvZoneClusterDetails()
         {
-            DataSet ds = advisorBranchBo.getGvZoneClusterDetails(adviserVo.advisorId);
+            DataSet ds = advisorBranchBo.getGvZoneClusterDetails(advisorVo.advisorId);
             gvZoneClusterdetails.DataSource = ds;
             gvZoneClusterdetails.DataBind();
 
@@ -281,14 +281,14 @@ namespace WealthERP.Advisor
             else
                 btnExportFilteredDataForZoneClusterdetails.Visible = false;
 
-            if (Cache["gvZoneClusterdetails"+adviserVo.advisorId] == null)
+            if (Cache["gvZoneClusterdetails"+advisorVo.advisorId] == null)
             {
-                Cache.Insert("gvZoneClusterdetails"+adviserVo.advisorId, ds);
+                Cache.Insert("gvZoneClusterdetails" + advisorVo.advisorId, ds);
             }
             else
             {
-                Cache.Remove("gvZoneClusterdetails"+adviserVo.advisorId);
-                Cache.Insert("gvZoneClusterdetails"+adviserVo.advisorId, ds);
+                Cache.Remove("gvZoneClusterdetails" + advisorVo.advisorId);
+                Cache.Insert("gvZoneClusterdetails" + advisorVo.advisorId, ds);
             }
         }
 
@@ -302,7 +302,7 @@ namespace WealthERP.Advisor
                     hdnCurrentPage.Value = "";
                 }
 
-                advisorVo = (AdvisorVo)Session["advisorVo"];
+                //advisorVo = (AdvisorVo)Session["advisorVo"];
                 int Count;              
               
 
@@ -559,7 +559,7 @@ namespace WealthERP.Advisor
         protected void gvZoneClusterdetails_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dtGvZoneClusterdetails = new DataSet();
-            dtGvZoneClusterdetails = (DataSet)Cache["gvZoneClusterdetails" + adviserVo.advisorId];
+            dtGvZoneClusterdetails = (DataSet)Cache["gvZoneClusterdetails" + advisorVo.advisorId];
             gvZoneClusterdetails.DataSource = dtGvZoneClusterdetails;
         }
 

@@ -93,7 +93,7 @@
     <asp:HiddenField ID="hdnCurrentPage" runat="server" />
     <asp:HiddenField ID="hdnSort" runat="server" Value="AB_BranchName ASC" />
 </div>
-<br />
+
 <table id="tblClusterZone" runat="server" width="100%" class="TableBackground">
     <tr>
         <td>
@@ -114,8 +114,9 @@
             </div>
         </td>
     </tr>
+    
     <tr>
-        <td>
+        <td style="padding-top:8px;">
             <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" Width="100%" runat="server">
                 <div runat="server" id="divZoneCluster" style="margin: 2px; width: 640px;">
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
