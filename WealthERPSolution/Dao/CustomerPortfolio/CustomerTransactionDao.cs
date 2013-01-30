@@ -2285,7 +2285,7 @@ namespace DaoCustomerPortfolio
         /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
         /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
         /// <returns></returns>
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly,int SchemePlanCode)
         {
             DataSet ds = null;
             Database db;
@@ -2329,6 +2329,8 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, DBNull.Value);
                 }
+
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@isCustomerTransactionOnly", DbType.Int16, isCustomerTransactionOnly);
                 //if (ProcessId != 0)
                 //{
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@processId", DbType.Int32, ProcessId);
@@ -2344,6 +2346,11 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, AccountId);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, DBNull.Value);
+                if (SchemePlanCode != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, SchemePlanCode);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, DBNull.Value);
+
                 //db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
                 //if (CustomerName != string.Empty)
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, CustomerName);

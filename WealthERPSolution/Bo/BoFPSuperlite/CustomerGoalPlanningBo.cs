@@ -179,6 +179,7 @@ namespace BoFPSuperlite
                 goalPlanningVo.MonthlySavingsReq = Math.Round(requiredSavings, 2);
                 goalPlanningVo.FutureValueOfCostToday = Math.Round((Double)futureCost, 2);
                 goalPlanningVo.LumpsumInvestRequired = Math.Round(lumpsumInvestment, 2);
+                goalPlanningVo.FutureValueOnCurrentInvest = Math.Round(futureInvValue, 0);
                 return goalPlanningVo;
             }
             catch (BaseApplicationException Ex)
@@ -256,6 +257,7 @@ namespace BoFPSuperlite
                 //goalPlanningVo.CorpusLeftBehind = customerAssumptionVo.CorpusToBeLeftBehind;
                 goalPlanningVo.GoalYear = goalPlanningVo.GoalYear;
                 goalPlanningVo.InflationPercent = customerAssumptionVo.InflationPercent;
+                goalPlanningVo.FutureValueOnCurrentInvest = Math.Round(futureValueOfCurrentInvestment, 0);
 
             }
             catch (BaseApplicationException Ex)

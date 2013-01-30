@@ -52,6 +52,7 @@ namespace WealthERP.CustomerPortfolio
         bool GridViewCultureFlag = true;
         String DisplayType;
         Hashtable ht = new Hashtable();
+        int schemePlanCode=0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -90,6 +91,8 @@ namespace WealthERP.CustomerPortfolio
 
                 if (!IsPostBack)
                 {
+                   
+
                     trGroupHead.Visible = false;
                     hdnProcessIdSearch.Value = "0";
                     Panel2.Visible = false;
@@ -150,9 +153,20 @@ namespace WealthERP.CustomerPortfolio
                         ht = (Hashtable)Session["tranDates"];
                         txtFromDate.SelectedDate = DateTime.Parse(ht["From"].ToString());
                         txtToDate.SelectedDate = DateTime.Parse(ht["To"].ToString());
+                        schemePlanCode = Convert.ToInt32(ht["SchemePlanCode"].ToString());
+                        PasssedFolioValue = Convert.ToInt32(ht["Account"].ToString());
                         BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
                         Session.Remove("tranDates");
                     }
+
+                    //if (Session["tranDates"] != null)
+                    //{
+                    //    ht = (Hashtable)Session["tranDates"];
+                    //    txtFromDate.SelectedDate = DateTime.Parse(ht["From"].ToString());
+                    //    txtToDate.SelectedDate = DateTime.Parse(ht["To"].ToString());
+                    //    BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
+                    //    Session.Remove("tranDates");
+                    //}
                     //else
                     //{
                     //    txtFromDate.SelectedDate = DateTime.Now;
@@ -350,16 +364,16 @@ namespace WealthERP.CustomerPortfolio
             {//pramod
                    if (rbtnGroup.Checked)
                     {
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()),PasssedFolioValue);
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()),PasssedFolioValue,false,schemePlanCode);
                     }
-                   else if (Session["IsCustomerDrillDown"] == "Yes")
+                   else if (Session["IsCustomerDrillDown"].ToString() == "Yes")
                     {
                        customerId = customerVo.CustomerId;
-                       mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue);
+                       mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, true, schemePlanCode);
                     }
                     else
                     {
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue);
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, false, schemePlanCode);
                     }
                 
                 if (mfTransactionList.Count != 0)

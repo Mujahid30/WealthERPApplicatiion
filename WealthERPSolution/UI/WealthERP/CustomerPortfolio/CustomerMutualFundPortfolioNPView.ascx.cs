@@ -1234,11 +1234,14 @@ namespace WealthERP.CustomerPortfolio
 
                     #region Reusing Old Code
 
-                    Session["Folio"] = dataItem["FolioNum"].Text;
-                    Session["Scheme"] = dataItem["Scheme"].Text;
+                    //Session["Folio"] = dataItem["FolioNum"].Text;
+                    //Session["Scheme"] = dataItem["Scheme"].Text;
                     Hashtable ht = new Hashtable();
                     ht["From"] = strFromDate;
                     ht["To"] = strToDate;
+                    ht["Folio"] = strFolio;
+                    ht["SchemePlanCode"] = intSchemeCode;
+                    ht["Account"] = intAccId;
                     Session["tranDates"] = ht;
 
                     #endregion
