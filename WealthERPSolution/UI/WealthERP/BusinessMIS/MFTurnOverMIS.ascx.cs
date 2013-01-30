@@ -2440,7 +2440,7 @@ namespace WealthERP.BusinessMIS
                                     DataRow drCluster = dr;
                                     string categoryCode = dr["CategoryCode"].ToString();
 
-                                    drCheckIfCategoryExistForCluster = dtGetClusterTransactionDeatails.Select("CategoryCode= '" + categoryCode + "'" + "AND " + "ZoneClusterId='" + branchId + "'");
+                                    drCheckIfCategoryExistForCluster = dtGetClusterTransactionDeatails.Select("CategoryCode= '" + categoryCode + "'" + "AND " + "branchId='" + branchId + "'");
 
                                     if (drCheckIfCategoryExistForCluster.Count() > 0)
                                     {

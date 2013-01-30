@@ -1883,7 +1883,7 @@
                                     <GroupByExpressions>
                                         <telerik:GridGroupByExpression>
                                             <GroupByFields>
-                                                <telerik:GridGroupByField FieldName="ZoneName" />
+                                                <telerik:GridGroupByField FieldName="ZoneName"   />
                                             </GroupByFields>
                                             <SelectFields>
                                                 <telerik:GridGroupByField FieldName="ZoneName" FieldAlias="Zone" />
@@ -1929,11 +1929,12 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderText="Branch" HeaderTooltip="Branch Name" DataField="BranchName"
                                             UniqueName="BranchName" SortExpression="BranchName" AutoPostBackOnFilter="true"
+                                             Aggregate="Count" FooterText="Row Count : "
                                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderText="Category" HeaderTooltip="Category Name" DataField="CategoryName"
-                                            Aggregate="Count" FooterText="Row Count : " UniqueName="CategoryName" SortExpression="CategoryName"
+                                             UniqueName="CategoryName" SortExpression="CategoryName"
                                             AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
