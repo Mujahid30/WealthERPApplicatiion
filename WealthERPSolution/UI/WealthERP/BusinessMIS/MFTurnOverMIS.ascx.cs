@@ -69,15 +69,15 @@ namespace WealthERP.BusinessMIS
             {
                 if (!Convert.ToBoolean(advisorVo.MultiBranch))
                 {
-                    ddlAction.Items.RemoveAt(0);                    
+                    ddlAction.Items.RemoveAt(0);
 
                 }
 
                 rbtnPickDate.Checked = true;
                 rbtnPickPeriod.Checked = false;
-                divDateRange.Visible = true;               
+                divDateRange.Visible = true;
                 divDatePeriod.Visible = false;
-              
+
                 //trDivProduct.Visible = true;
                 //trDivOrganization.Visible = false;
                 //ShowHideMISMenu("Organization");
@@ -697,6 +697,12 @@ namespace WealthERP.BusinessMIS
 
             DataTable dtGetFolioTransactionDeatails = new DataTable();
 
+            #region newly added
+            dtGetFolioTransactionDeatails.Columns.Add("Net", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("GrossInvestment", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("GrossRedemption", typeof(double));
+            #endregion
+
             dtGetFolioTransactionDeatails.Columns.Add("Customer");
             dtGetFolioTransactionDeatails.Columns.Add("BranchName");
             dtGetFolioTransactionDeatails.Columns.Add("RMName");
@@ -728,16 +734,116 @@ namespace WealthERP.BusinessMIS
             dtGetFolioTransactionDeatails.Columns.Add("PRJCount", typeof(double));
             dtGetFolioTransactionDeatails.Columns.Add("PRJAmount", typeof(double));
 
+            #region newly added
+            dtGetFolioTransactionDeatails.Columns.Add("ABYCount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("ABYAmount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("BIRCount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("BIRAmount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("BNSCount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("BNSAmount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("CNICount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("CNIAmount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("CNOCount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("CNOAmount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("DSICount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("DSIAmount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("DSOCount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("DSOAmount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("HLDCount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("HLDAmount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("NFOCount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("NFOAmount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("RRJCount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("RRJAmount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("SRJCount", typeof(double));
+            dtGetFolioTransactionDeatails.Columns.Add("SRJAmount", typeof(double));
+            #endregion
+
+
+
+            //--------------------Default Value ------------------
+
+            #region Data Table Default value
+
+            dtGetFolioTransactionDeatails.Columns["GrossRedemption"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["GrossInvestment"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["Net"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["ABYCount"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["ABYAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["BIRCount"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["BIRAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["BNSCount"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["BNSAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["CNICount"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["CNIAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["CNOCount"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["CNOAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["DSICount"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["DSIAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["DSOCount"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["DSOAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["HLDCount"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["HLDAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["NFOCount"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["NFOAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["RRJCount"].DefaultValue = 0;
+
+            dtGetFolioTransactionDeatails.Columns["RRJAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["SRJCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["SRJAmount"].DefaultValue = 0;
+
+
+            dtGetFolioTransactionDeatails.Columns["DVRCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["DVRAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["DVPCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["DVPAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["SIPCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["SIPAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["BCICount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["BCIAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["BCOCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["BCOAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["STBCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["STBAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["STSCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["STSAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["SWBCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["SWBAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["SWPCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["SWPAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["SWSCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["SWSAmount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["PRJCount"].DefaultValue = 0;
+            dtGetFolioTransactionDeatails.Columns["PRJAmount"].DefaultValue = 0;
+
+            #endregion
+
+
             DataRow drGetFolioTransactionDeatails;
             DataRow[] drTransactionFolioWise;
             if (dsGetFolioTransactionDeatails.Tables[0] != null)
             {
                 DataTable dtGetFolioTransaction = dsGetFolioTransactionDeatails.Tables[0];
 
+
+
                 foreach (DataRow drFolioTransaction in dtGetFolioTransaction.Rows)
                 {
 
                     Int32.TryParse(drFolioTransaction["CMFA_AccountId"].ToString(), out AcountId);
+
+
 
                     if (AcountId != AcountIdOld)
                     { //go for another row to find new customer
@@ -745,6 +851,20 @@ namespace WealthERP.BusinessMIS
                         drGetFolioTransactionDeatails = dtGetFolioTransactionDeatails.NewRow();
                         if (AcountId != 0)
                         { // add row in manual datatable within this brace end
+
+
+                            //DataRow drCluster = dr;
+                            //string categoryCode = dr["CategoryCode"].ToString();
+
+                            //drCheckIfCategoryExistForCluster = dtGetClusterTransactionDeatails.Select("CategoryCode= '" + categoryCode + "'" + "AND " + "ZoneClusterId='" + branchId + "'");
+
+                            //if (drCheckIfCategoryExistForCluster.Count() > 0)
+                            //{
+                            string transactiontype = drFolioTransaction["WMTT_TransactionClassificationCode"].ToString();
+                            //SwitchCaseOnTransactionClassificationCode(transactiontype, ref drFolioTransaction, ref drCluster);
+                            //}
+
+
                             drTransactionFolioWise = dtGetFolioTransaction.Select("CMFA_AccountId=" + AcountId.ToString());
                             //drGetSchemeTransactionDeatails["PA_AMCName"] = drAMCTransaction["PA_AMCName"].ToString();
                             drGetFolioTransactionDeatails["Customer"] = drFolioTransaction["CustomerName"].ToString();
@@ -756,25 +876,37 @@ namespace WealthERP.BusinessMIS
                                 foreach (DataRow dr in drTransactionFolioWise)
                                 {
 
-                                    string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
+                                    //string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
                                     switch (transactiontype)
                                     {
                                         case "BUY":
                                             {
                                                 drGetFolioTransactionDeatails["BUYCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["BUYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["BUYAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "SEL":
                                             {
                                                 drGetFolioTransactionDeatails["SELCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["SELAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drFolioTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossRedemption"] = double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetFolioTransactionDeatails["SELAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "DVR":
                                             {
                                                 drGetFolioTransactionDeatails["DVRCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["DVRAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetFolioTransactionDeatails["DVRAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "DVP":
@@ -787,48 +919,80 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetFolioTransactionDeatails["SIPCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["SIPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["SIPAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "BCI":
                                             {
                                                 drGetFolioTransactionDeatails["BCICount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["BCIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["BCIAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "BCO":
                                             {
                                                 drGetFolioTransactionDeatails["BCOCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["BCOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossRedemption"] = double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetFolioTransactionDeatails["BCOAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "STB":
                                             {
                                                 drGetFolioTransactionDeatails["STBCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["STBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["STBAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "STS":
                                             {
                                                 drGetFolioTransactionDeatails["STSCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossRedemption"] = double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetFolioTransactionDeatails["STSAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "SWB":
                                             {
                                                 drGetFolioTransactionDeatails["SWBCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["SWBAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "SWP":
                                             {
                                                 drGetFolioTransactionDeatails["SWPCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossRedemption"] = double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetFolioTransactionDeatails["SWPAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "SWS":
                                             {
                                                 drGetFolioTransactionDeatails["SWSCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossRedemption"] = double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetFolioTransactionDeatails["SWSAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "PRJ":
@@ -837,11 +1001,149 @@ namespace WealthERP.BusinessMIS
                                                 drGetFolioTransactionDeatails["PRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                                 break;
                                             }
+
+                                        #region newly added
+                                        case "ABY":
+                                            {
+                                                drGetFolioTransactionDeatails["ABYCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["ABYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["ABYAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "BIR":
+                                            {
+                                                drGetFolioTransactionDeatails["BIRCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["BIRAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["BIRAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "BNS":
+                                            {
+                                                drGetFolioTransactionDeatails["BNSCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["BNSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["BNSAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "CNI":
+                                            {
+                                                drGetFolioTransactionDeatails["CNICount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["CNIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["CNIAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "CNO":
+                                            {
+                                                drGetFolioTransactionDeatails["CNOCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["CNOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossRedemption"] = double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetFolioTransactionDeatails["CNOAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "DSI":
+                                            {
+                                                drGetFolioTransactionDeatails["DSICount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["DSIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["DSIAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "DSO":
+                                            {
+                                                drGetFolioTransactionDeatails["DSOCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["DSOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossRedemption"] = double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetFolioTransactionDeatails["DSOAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "HLD":
+                                            {
+                                                drGetFolioTransactionDeatails["HLDCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["HLDAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["HLDAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "NFO":
+                                            {
+                                                drGetFolioTransactionDeatails["NFOCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["NFOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["NFOAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+
+
+                                        case "RRJ":
+                                            {
+                                                drGetFolioTransactionDeatails["RRJCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["RRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossInvestment"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetFolioTransactionDeatails["RRJAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "SRJ":
+                                            {
+                                                drGetFolioTransactionDeatails["SRJCount"] = dr["TrnsCount"].ToString();
+                                                drGetFolioTransactionDeatails["SRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetFolioTransactionDeatails["GrossRedemption"] = double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetFolioTransactionDeatails["SRJAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        #endregion
                                     }
 
                                 }
                             }
+                            drGetFolioTransactionDeatails["Net"] = double.Parse(drGetFolioTransactionDeatails["GrossInvestment"].ToString()) - double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString());
+
                             dtGetFolioTransactionDeatails.Rows.Add(drGetFolioTransactionDeatails);
+
+
                         }//*
 
                     }//**
@@ -1511,10 +1813,10 @@ namespace WealthERP.BusinessMIS
                 btnCategoryExport.Visible = false;
                 btnRMExport.Visible = false;
                 btnClusterZoneExport.Visible = true;
-                
-               
+
+
             }
-            
+
         }
 
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
@@ -1931,9 +2233,9 @@ namespace WealthERP.BusinessMIS
             int branchId = 0;
             int branchIdOld = 0;
             DataSet dsGetClusterTransactionDeatails = new DataSet();
-           
 
-            dsGetClusterTransactionDeatails = adviserMFMIS.GetAllClusterTransactionDeatails(int.Parse(hdnadviserId.Value),int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value),int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value),hdnCategory.Value);
+
+            dsGetClusterTransactionDeatails = adviserMFMIS.GetAllClusterTransactionDeatails(int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value);
             DataTable dtGetClusterTransactionDeatails = new DataTable();
 
 
@@ -2199,7 +2501,7 @@ namespace WealthERP.BusinessMIS
                 //btnImagExport.Visible = true;
             }
         }
-     
+
         protected void SwitchCaseOnTransactionClassificationCode(string transactiontype, ref DataRow drGetClusterTransactionDeatails, ref DataRow dr)
         {
             switch (transactiontype)
