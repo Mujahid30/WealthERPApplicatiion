@@ -1586,6 +1586,89 @@ namespace DaoAdvisorProfiling
 
             return dsAllClusterTransactionDeatails;
         }
-        
+
+
+        public DataSet GetCommissionMIS(int adviserId, string misType, DateTime dtFrom, DateTime dtTo)
+        {
+            Database db;
+            DbCommand getMISCommissionCmd;
+            DataSet dsGetMISCommission = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMISCommissionCmd = db.GetStoredProcCommand("SPROC_GetCommissionMIS");
+                db.AddInParameter(getMISCommissionCmd, "@MISType", DbType.String, misType);
+                db.AddInParameter(getMISCommissionCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getMISCommissionCmd, "@FromDate", DbType.Date, dtFrom);
+                db.AddInParameter(getMISCommissionCmd, "@ToDate", DbType.Date, dtTo);
+                getMISCommissionCmd.CommandTimeout = 60 * 60;
+                dsGetMISCommission = db.ExecuteDataSet(getMISCommissionCmd);
+             
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetCommissionMIS()");
+
+                object[] objects = new object[4];
+                objects[0] = adviserId;
+                objects[1] = misType;
+                objects[2] = dtFrom;
+                objects[3] = dtTo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMISCommission;
+        }
+
+        public DataSet GetCommissionMISZoneClusterWise(int adviserId, DateTime dtFrom, DateTime dtTo)
+        {
+            Database db;
+            DbCommand getMISCommissionCmd;
+            DataSet dsGetMISCommission = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMISCommissionCmd = db.GetStoredProcCommand("SPROC_GetCommissionMISZoneClusterWise");
+                db.AddInParameter(getMISCommissionCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getMISCommissionCmd, "@FromDate", DbType.Date, dtFrom);
+                db.AddInParameter(getMISCommissionCmd, "@ToDate", DbType.Date, dtTo);
+                getMISCommissionCmd.CommandTimeout = 60 * 60;
+                dsGetMISCommission = db.ExecuteDataSet(getMISCommissionCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetCommissionMISZoneClusterWise()");
+
+                object[] objects = new object[5];
+                objects[0] = adviserId;
+                objects[1] = dtFrom;
+                objects[2] = dtTo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMISCommission;
+        }
+
     }
 }

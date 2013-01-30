@@ -1057,6 +1057,73 @@ namespace BoAdvisorProfiling
                 throw (Ex);
             }
             return dsAllClusterTransactionDeatails;
-        }                
+        }
+
+        public DataSet GetCommissionMIS(int adviserId, string misType, DateTime dtFrom, DateTime dtTo)
+        {
+
+            DataSet dsGetMISCommission = null;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsGetMISCommission = MISDao.GetCommissionMIS(adviserId, misType, dtFrom, dtTo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFBo.cs:GetCommissionMIS()");
+
+                object[] objects = new object[4];
+                objects[0] = adviserId;
+                objects[1] = misType;
+                objects[2] = dtFrom;
+                objects[3] = dtTo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMISCommission;
+        }
+
+        public DataSet GetCommissionMISZoneClusterWise(int adviserId, DateTime dtFrom, DateTime dtTo)
+        {
+
+            DataSet dsGetMISCommission = null;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsGetMISCommission = MISDao.GetCommissionMISZoneClusterWise(adviserId, dtFrom, dtTo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFBo.cs:GetCommissionMISZoneClusterWise()");
+
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = dtFrom;
+                objects[2] = dtTo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMISCommission;
+        }
     }
 }
