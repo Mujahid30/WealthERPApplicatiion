@@ -244,41 +244,12 @@ namespace BoReports
                                double LcustomerId = Int32.Parse(DrLiabilities["CustomerId"].ToString());
                                if (CustomerId == LcustomerId)
                                {
-                                   PreviousNetWorth = Double.Parse(DrAsset["PreviousValue"].ToString()) - Double.Parse(dtLiabilitie.Rows[0]["LoanAmount"].ToString());
-                                   CurrentNetWorth = Double.Parse(DrAsset["CurrentValue"].ToString()) - Double.Parse(dtLiabilitie.Rows[0]["LoanAmount"].ToString());
-                                   drNetWorth = dtNetWorth.NewRow();
-                                   drNetWorth["CustomerId"] = CustomerId;
-                                   drNetWorth["CustomerName"] = DrAsset["CustomerName"].ToString().Trim();
-                                   drNetWorth["Type"] = "Asset";
-                                   drNetWorth["PreviousValue"] = DrAsset["PreviousValue"];
-                                   drNetWorth["CurrentValue"] = DrAsset["CurrentValue"];
-                                   dtNetWorth.Rows.Add(drNetWorth);
-
-                                   drNetWorth = dtNetWorth.NewRow();
-                                   drNetWorth["CustomerId"] = CustomerId;
-                                   drNetWorth["CustomerName"] = DrLiabilities["CustomerName"].ToString().Trim();
-                                   drNetWorth["Type"] = "Liabilities";
-                                   drNetWorth["PreviousValue"] = DrLiabilities["LoanAmount"];
-                                   drNetWorth["CurrentValue"] = DrLiabilities["LoanAmount"];
-                                   dtNetWorth.Rows.Add(drNetWorth);
-
-                                   drNetWorth = dtNetWorth.NewRow();
-                                   drNetWorth["CustomerId"] = CustomerId;
-                                   drNetWorth["CustomerName"] = DrAsset["CustomerName"].ToString().Trim();
-                                   drNetWorth["Type"] = "NetWorth";
-                                   drNetWorth["PreviousValue"] = PreviousNetWorth;
-                                   drNetWorth["CurrentValue"] = CurrentNetWorth;
-                                   dtNetWorth.Rows.Add(drNetWorth);
-
-                               }
-                               else
-                               {
-
-                                   DataRow[] drIfCustomerExists;
-                                   drIfCustomerExists = dtNetWorth.Select("CustomerId=" + CustomerId.ToString());
-
-                                   if (drIfCustomerExists.Count() == 0)
+                                   DataRow[] drIfCustomerNetworthExists;
+                                   drIfCustomerNetworthExists = dtNetWorth.Select("CustomerId=" + CustomerId.ToString());
+                                   if (drIfCustomerNetworthExists.Count() == 0)
                                    {
+                                       PreviousNetWorth = Double.Parse(DrAsset["PreviousValue"].ToString()) - Double.Parse(DrLiabilities["LoanAmount"].ToString());
+                                       CurrentNetWorth = Double.Parse(DrAsset["CurrentValue"].ToString()) - Double.Parse(DrLiabilities["LoanAmount"].ToString());
                                        drNetWorth = dtNetWorth.NewRow();
                                        drNetWorth["CustomerId"] = CustomerId;
                                        drNetWorth["CustomerName"] = DrAsset["CustomerName"].ToString().Trim();
@@ -289,19 +260,62 @@ namespace BoReports
 
                                        drNetWorth = dtNetWorth.NewRow();
                                        drNetWorth["CustomerId"] = CustomerId;
-                                       drNetWorth["CustomerName"] = DrAsset["CustomerName"].ToString().Trim();
+                                       drNetWorth["CustomerName"] = DrLiabilities["CustomerName"].ToString().Trim();
                                        drNetWorth["Type"] = "Liabilities";
-                                       drNetWorth["PreviousValue"] = 0;
-                                       drNetWorth["CurrentValue"] = 0;
+                                       drNetWorth["PreviousValue"] = DrLiabilities["LoanAmount"];
+                                       drNetWorth["CurrentValue"] = DrLiabilities["LoanAmount"];
                                        dtNetWorth.Rows.Add(drNetWorth);
 
                                        drNetWorth = dtNetWorth.NewRow();
                                        drNetWorth["CustomerId"] = CustomerId;
                                        drNetWorth["CustomerName"] = DrAsset["CustomerName"].ToString().Trim();
                                        drNetWorth["Type"] = "NetWorth";
-                                       drNetWorth["PreviousValue"] = DrAsset["PreviousValue"];
-                                       drNetWorth["CurrentValue"] = DrAsset["CurrentValue"];
+                                       drNetWorth["PreviousValue"] = PreviousNetWorth;
+                                       drNetWorth["CurrentValue"] = CurrentNetWorth;
                                        dtNetWorth.Rows.Add(drNetWorth);
+                                   }
+
+                               }
+                               else
+                               {
+
+                                   DataRow[] drIfCustomerExists;
+                                   drIfCustomerExists = dtNetWorth.Select("CustomerId=" + CustomerId.ToString());
+
+                                   if (drIfCustomerExists.Count() == 0)
+                                   {
+                                       DataRow[] drIfCustomerLiabilityExists;
+                                       drIfCustomerLiabilityExists = dtLiabilitie.Select("CustomerId=" + CustomerId.ToString());
+                                       if (drIfCustomerLiabilityExists.Count() == 0)
+                                       {
+                                           drNetWorth = dtNetWorth.NewRow();
+                                           drNetWorth["CustomerId"] = CustomerId;
+                                           drNetWorth["CustomerName"] = DrAsset["CustomerName"].ToString().Trim();
+                                           drNetWorth["Type"] = "Asset";
+                                           drNetWorth["PreviousValue"] = DrAsset["PreviousValue"];
+                                           drNetWorth["CurrentValue"] = DrAsset["CurrentValue"];
+                                           dtNetWorth.Rows.Add(drNetWorth);
+
+                                           drNetWorth = dtNetWorth.NewRow();
+                                           drNetWorth["CustomerId"] = CustomerId;
+                                           drNetWorth["CustomerName"] = DrAsset["CustomerName"].ToString().Trim();
+                                           drNetWorth["Type"] = "Liabilities";
+                                           drNetWorth["PreviousValue"] = 0;
+                                           drNetWorth["CurrentValue"] = 0;
+                                           dtNetWorth.Rows.Add(drNetWorth);
+
+                                           drNetWorth = dtNetWorth.NewRow();
+                                           drNetWorth["CustomerId"] = CustomerId;
+                                           drNetWorth["CustomerName"] = DrAsset["CustomerName"].ToString().Trim();
+                                           drNetWorth["Type"] = "NetWorth";
+                                           drNetWorth["PreviousValue"] = DrAsset["PreviousValue"];
+                                           drNetWorth["CurrentValue"] = DrAsset["CurrentValue"];
+                                           dtNetWorth.Rows.Add(drNetWorth);
+                                       }
+                                       else
+                                       {
+                                          
+                                       }
 
                                    }
                                }
