@@ -210,6 +210,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvCommissionMIS;
+        protected global::Telerik.Web.UI.RadGrid gvMISCommission;
         
         /// <summary>
         /// tblMessage control.
@@ -282,5 +283,14 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnToDate;
+        protected global::System.Web.UI.WebControls.Panel pnlCommissionMIS;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCommissionMIS;
+        protected global::System.Web.UI.WebControls.Panel pnlZoneClusterWiseMIS;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divZoneClusterWiseMIS;
+
+        protected global::Telerik.Web.UI.RadGrid gvZoneClusterWiseCommissionMIS;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionMIS;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblZoneClusterWiseMIS;
+            
     }
 }

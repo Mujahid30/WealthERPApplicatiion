@@ -44,13 +44,18 @@ namespace WealthERP.Advisor
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            userVo = (UserVo)Session["userVo"];
             trCommissionMIS.Visible = false;
             gvCommissionMIS.Visible = false;
+            divCommissionMIS.Visible = false;
+            pnlCommissionMIS.Visible = false;
+            pnlZoneClusterWiseMIS.Visible = false;
+            divZoneClusterWiseMIS.Visible = false;
             if (!Page.IsPostBack)
             {
                 BindPeriodDropDown();
                 RadioButtonClick(sender, e);
-                ddlMISType.SelectedIndex = 0;
+                ddlMISType.SelectedIndex = 0;                
             }
         }
         /// <summary>
@@ -68,7 +73,7 @@ namespace WealthERP.Advisor
             ddlPeriod.Items.Insert(0, new RadComboBoxItem("Select a Period","0"));
             ddlPeriod.Items.Remove(15);
         }
-        public void BindCommissionMISGrid()
+        public void BindCommissionMISGridCategoryWise()
         {
             DataTable dtMIS;
             //string misType = null;
@@ -157,26 +162,132 @@ namespace WealthERP.Advisor
                 ErrorMessage.InnerText = "No Records Found...!";
             }           
         }
+        public void BindMISCommissionGrid()
+        {
+           DataSet dsALLMISCommission = advisorMISBo.GetCommissionMIS(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()));
+           if (dsALLMISCommission.Tables[0].Rows.Count > 0)
+            {
+                trCommissionMIS.Visible = true;
+              
+                string misType = hdnMISType.Value.ToString();
+                tblMessage.Visible = false;
+                ErrorMessage.Visible = false;
+                gvMISCommission.DataSource = dsALLMISCommission.Tables[0];
+                gvMISCommission.CurrentPageIndex = 0;
+                gvMISCommission.DataBind();
+                gvMISCommission.Visible = true;
+                this.gvMISCommission.GroupingSettings.RetainGroupFootersVisibility = true;
+                divCommissionMIS.Visible = true;
+                pnlCommissionMIS.Visible = true;
+                if (Cache["AllMIS" + advisorVo.advisorId + userVo.UserId] == null)
+                {
+                    Cache.Insert("AllMIS" + advisorVo.advisorId + userVo.UserId, dsALLMISCommission.Tables[0]);
+                }
+                else
+                {
+                    Cache.Remove("AllMIS" + advisorVo.advisorId + userVo.UserId);
+                    Cache.Insert("AllMIS" + advisorVo.advisorId + userVo.UserId, dsALLMISCommission.Tables[0]);
+                }
+
+
+            }
+            else
+            {
+                gvMISCommission.Visible = false;
+                tblMessage.Visible = true;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
+            }
+        }
+        public void BindMISCommissionGridZoneCluster()
+        {
+            DataSet dsZoneClusterMISCommission = advisorMISBo.GetCommissionMISZoneClusterWise(advisorVo.advisorId, DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()));
+            if (dsZoneClusterMISCommission.Tables[0].Rows.Count > 0)
+            {              
+                string misType = hdnMISType.Value.ToString();
+                tblMessage.Visible = false;
+                ErrorMessage.Visible = false;
+                gvZoneClusterWiseCommissionMIS.DataSource = dsZoneClusterMISCommission.Tables[0];
+                gvZoneClusterWiseCommissionMIS.CurrentPageIndex = 0;
+                gvZoneClusterWiseCommissionMIS.DataBind();
+                gvZoneClusterWiseCommissionMIS.Visible = true;
+                this.gvZoneClusterWiseCommissionMIS.GroupingSettings.RetainGroupFootersVisibility = true;
+                divZoneClusterWiseMIS.Visible = true;
+                pnlZoneClusterWiseMIS.Visible = true;
+                if (Cache["ClusterZoneMIS" + advisorVo.advisorId + userVo.UserId] == null)
+                {
+                    Cache.Insert("ClusterZoneMIS" + advisorVo.advisorId + userVo.UserId, dsZoneClusterMISCommission.Tables[0]);
+                }
+                else
+                {
+                    Cache.Remove("ClusterZoneMIS" + advisorVo.advisorId + userVo.UserId);
+                    Cache.Insert("ClusterZoneMIS" + advisorVo.advisorId + userVo.UserId, dsZoneClusterMISCommission.Tables[0]);
+                }
+
+
+            }
+            else
+            {
+                pnlZoneClusterWiseMIS.Visible = false;
+                tblMessage.Visible = true;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
+            }
+        }
         protected void btnView_Click(object sender, EventArgs e)
         {
             hdnMISType.Value = ddlMISType.SelectedValue.ToString();
             CalculateDateRange(out dtFrom, out dtTo);
             hdnFromDate.Value = dtFrom.ToString();
             hdnToDate.Value = dtTo.ToString();
-            hdnRecordCount.Value = "1";
+           
+            
+            if (hdnMISType.Value == "AMC_Folio_Type_AllMIS")
+            {
+                pnlCommissionMIS.Visible = true;
+                tblCommissionMIS.Visible = true;
+                tblZoneClusterWiseMIS.Visible = false;
+                BindMISCommissionGrid();
+                gvCommissionMIS.Visible = false;
+            }
+            else if (hdnMISType.Value == "Category Wise")
+            {
+                hdnRecordCount.Value = "1";
 
-            GridColumn column = gvCommissionMIS.MasterTableView.GetColumnSafe("MISType");
-            column.CurrentFilterFunction = GridKnownFunction.Contains;
-            column.CurrentFilterValue = null;
-            gvCommissionMIS.MasterTableView.Rebind();
+                GridColumn column = gvCommissionMIS.MasterTableView.GetColumnSafe("MISType");
+                column.CurrentFilterFunction = GridKnownFunction.Contains;
+                column.CurrentFilterValue = null;
+                gvCommissionMIS.MasterTableView.Rebind();
 
-            gvCommissionMIS.MasterTableView.FilterExpression = null;
-            gvCommissionMIS.MasterTableView.SortExpressions.Clear();
-            gvCommissionMIS.MasterTableView.Rebind();
-            gvCommissionMIS.MasterTableView.ClearEditItems();
-            gvCommissionMIS.MasterTableView.IsItemInserted = false;
-            gvCommissionMIS.Rebind();
-            BindCommissionMISGrid();
+                gvCommissionMIS.MasterTableView.FilterExpression = null;
+                gvCommissionMIS.MasterTableView.SortExpressions.Clear();
+                gvCommissionMIS.MasterTableView.Rebind();
+                gvCommissionMIS.MasterTableView.ClearEditItems();
+                gvCommissionMIS.MasterTableView.IsItemInserted = false;
+                gvCommissionMIS.Rebind();
+
+                gvCommissionMIS.Visible = true;
+                pnlCommissionMIS.Visible = false;
+                tblZoneClusterWiseMIS.Visible = false;
+                BindCommissionMISGridCategoryWise();
+
+            }
+            else if (hdnMISType.Value == "Zone_Cluster_Wise")
+            {
+                gvCommissionMIS.Visible = false;
+                pnlCommissionMIS.Visible = false;
+                tblCommissionMIS.Visible = false;
+                tblZoneClusterWiseMIS.Visible = true;
+                BindMISCommissionGridZoneCluster();
+            }
+            else
+            {
+                tblCommissionMIS.Visible = false;
+                tblZoneClusterWiseMIS.Visible = false;
+                gvCommissionMIS.Visible = false;
+                pnlCommissionMIS.Visible = false;
+            }
+
         }
         /// <summary>
         /// Get the From and To Date of reports
@@ -243,6 +354,22 @@ namespace WealthERP.Advisor
             DataTable dtMIS = new DataTable();
             dtMIS = (DataTable)Cache["MIS" + advisorVo.advisorId];
             gvCommissionMIS.DataSource = dtMIS;
+        }
+        public void gvMISCommission_OnNeedDataSource(object sender, EventArgs e)
+        {
+            gvMISCommission.Visible = true;
+            DataTable dtMIS = new DataTable();
+            dtMIS = (DataTable)Cache["AllMIS" + advisorVo.advisorId + userVo.UserId];
+            gvMISCommission.DataSource = dtMIS;
+        }
+        public void gvZoneClusterWiseCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
+        {
+            gvZoneClusterWiseCommissionMIS.Visible = true;
+            pnlZoneClusterWiseMIS.Visible = true;
+            divZoneClusterWiseMIS.Visible = true;
+            DataTable dtMIS = new DataTable();
+            dtMIS = (DataTable)Cache["ClusterZoneMIS" + advisorVo.advisorId + userVo.UserId];
+            gvZoneClusterWiseCommissionMIS.DataSource = dtMIS;
         }
     }
 }
