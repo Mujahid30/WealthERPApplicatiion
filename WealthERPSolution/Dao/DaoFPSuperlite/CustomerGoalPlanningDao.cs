@@ -214,6 +214,7 @@ namespace DaoFPSuperlite
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@ROIEarned", DbType.Double, GoalPlanningVo.ROIEarned);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@CurrentInvestment", DbType.Double, GoalPlanningVo.CurrInvestementForGoal);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@ExpectedROI", DbType.Double, GoalPlanningVo.ExpectedROI);
+                db.AddInParameter(updateCustomerGoalProfileCmd, "@FutureValueOnCurrentInvestment", DbType.Double, GoalPlanningVo.FutureValueOnCurrentInvest);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@IsActive", DbType.Int16, GoalPlanningVo.IsActice);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@InflationPer", DbType.Double, GoalPlanningVo.InflationPercent);
                 if (GoalPlanningVo.CustomerApprovedOn != DateTime.MinValue)
