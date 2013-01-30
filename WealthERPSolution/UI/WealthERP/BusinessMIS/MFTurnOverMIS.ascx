@@ -175,7 +175,7 @@
                     <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField" AutoPostBack="true"
                         Style="vertical-align: middle" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged">
                         <asp:ListItem Text="Organization Level" Value="Organization" Selected="True"></asp:ListItem>
-                        <asp:ListItem Text="Staff Level" Value="Staff"></asp:ListItem>
+                        <asp:ListItem Text="Customer/Staff Level" Value="Staff"></asp:ListItem>
                         <asp:ListItem Text="Product Level" Value="Product"></asp:ListItem>
                     </asp:DropDownList>
                 </td>
@@ -196,10 +196,10 @@
                 <td valign="top" style="width: 40%" colspan="2" align="left">
                     <div id="divDateRange" runat="server" visible="false" style="float: left;">
                         <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
-                        &nbsp; &nbsp;
-                        <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                       
+                        <telerik:RadDatePicker id="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                            <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                            <Calendar id="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                                 ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
                             <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
@@ -247,11 +247,11 @@
                         <asp:LinkButton ID="lnkZoneCluster" Text="Zone/Cluster/Branch Wise" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkZoneCluster_Click"></asp:LinkButton>
                         <%--<span>-></span>--%>
-                        <asp:LinkButton ID="lnkOBranch" Text="Branch Wise" CssClass="LinkButtonsWithoutUnderLine"
+                        <%--<asp:LinkButton ID="lnkOBranch" Text="Branch Wise" CssClass="LinkButtonsWithoutUnderLine"
                             Visible="false" runat="server" ValidationGroup="vgBtnGo" OnClick="lnkOBranch_Click"></asp:LinkButton>
                         <span>-></span>
                         <asp:LinkButton ID="lnkOCustomer" Text="Customer/Folio Wise" CssClass="LinkButtonsWithoutUnderLine"
-                            runat="server" ValidationGroup="vgBtnGo" OnClick="lnkOCustomer_Click"></asp:LinkButton>
+                            runat="server" ValidationGroup="vgBtnGo" OnClick="lnkOCustomer_Click"></asp:LinkButton>--%>
                     </div>
                 </td>
             </tr>
@@ -261,13 +261,13 @@
                 </td>
                 <td colspan="7" style="width: 90%">
                     <div>
-                        <asp:LinkButton ID="lnkOSummary" Text="Category Wise" CssClass="LinkButtonsWithoutUnderLine"
+                       <%-- <asp:LinkButton ID="lnkOSummary" Text="Category Wise" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkOSummary_Click"></asp:LinkButton>
                         <span>-></span>
                         <asp:LinkButton ID="lnkRMWise" Text="RM Wise" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkRMWise_Click"></asp:LinkButton>
-                        <span>-></span>
-                        <asp:LinkButton ID="lnkStaffCustomerFolioWise" Text="Customer/Folio Wise" CssClass="LinkButtonsWithoutUnderLine"
+                        <span>-></span>--%>
+                        <asp:LinkButton ID="lnkStaffCustomerFolioWise" Text="RM/Customer/Folio Wise" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkOCustomer_Click"></asp:LinkButton>
                     </div>
                 </td>
@@ -278,17 +278,17 @@
                 </td>
                 <td colspan="7" style="width: 90%">
                     <div>
-                        <asp:LinkButton ID="lnkPSummary" Text="Summary" CssClass="LinkButtonsWithoutUnderLine"
+                     <%--   <asp:LinkButton ID="lnkPSummary" Text="Summary" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkPSummary_Click"></asp:LinkButton>
                         <span>-></span>
                         <asp:LinkButton ID="lnkBtnAMCWISEAUM" Text="AMC Wise" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnAMCWISEAUM_Click"></asp:LinkButton>
-                        <span>-></span>
-                        <asp:LinkButton ID="lnkBtnSCHEMEWISEAUM" Text="Scheme Wise" CssClass="LinkButtonsWithoutUnderLine"
+                        <span>-></span>--%>
+                        <asp:LinkButton ID="lnkBtnSCHEMEWISEAUM" Text="AMC/Scheme/Category Wise" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnSCHEMEWISEAUM_Click"></asp:LinkButton>
-                        <span>-></span>
+                      <%--  <span>-></span>
                         <asp:LinkButton ID="lnkBtnFOLIOWISEAUM" Text="Customer/Folio Wise" CssClass="LinkButtonsWithoutUnderLine"
-                            runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnFOLIOWISEAUM_Click"></asp:LinkButton>
+                            runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnFOLIOWISEAUM_Click"></asp:LinkButton>--%>
                     </div>
                 </td>
             </tr>
@@ -554,8 +554,8 @@
                 <td>
                     <asp:Panel ID="pnlScheme" ScrollBars="Horizontal" Width="100%" runat="server">
                         <div runat="server" id="dvScheme" style="margin: 2px; width: 640px;">
-                            <telerik:RadGrid ID="gvSchemeWise" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                            <telerik:RadGrid id="gvSchemeWise" runat="server" GridLines="None" AutoGenerateColumns="false"
+                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="true" ShowFooter="true"
                                 Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                                 AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvSchemeWise_OnNeedDataSource"
                                 OnItemCommand="gvSchemeWise_OnItemCommand" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
@@ -581,11 +581,11 @@
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="External Code" HeaderText="ExternalCode"
+                                     <%--   <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="External Code" HeaderText="ExternalCode"
                                             AllowFiltering="false" DataField="ExternalCode" UniqueName="ExternalCode" SortExpression="ExternalCode"
                                             CurrentFilterFunction="Contains">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
+                                        </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn HeaderText="Category" HeaderTooltip="Category" DataField="Category"
                                             UniqueName="Category" SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -794,8 +794,8 @@
                 <td>
                     <asp:Panel ID="pnlBranch" ScrollBars="Horizontal" Width="100%" runat="server">
                         <div runat="server" id="divBranch" style="margin: 2px; width: 640px;">
-                            <telerik:RadGrid ID="gvBranchWise" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                            <telerik:RadGrid id="gvBranchWise" runat="server" GridLines="None" AutoGenerateColumns="false"
+                                PageSize="10" AllowSorting="true" AllowPaging="true" ShowStatusBar="true" ShowFooter="true"
                                 Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                                 AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvBranchWise_OnNeedDataSource"
                                 EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">

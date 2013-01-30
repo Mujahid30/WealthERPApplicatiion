@@ -513,7 +513,7 @@ namespace WealthERP.BusinessMIS
             dtGetSchemeTransactionDeatails.Columns.Add("AMC");
             dtGetSchemeTransactionDeatails.Columns.Add("SchemeCode");
             dtGetSchemeTransactionDeatails.Columns.Add("Scheme");
-            dtGetSchemeTransactionDeatails.Columns.Add("ExternalCode");
+            //dtGetSchemeTransactionDeatails.Columns.Add("ExternalCode");
             dtGetSchemeTransactionDeatails.Columns.Add("Category");
             dtGetSchemeTransactionDeatails.Columns.Add("SubCategory");
             dtGetSchemeTransactionDeatails.Columns.Add("BUYCount", typeof(double));
@@ -564,7 +564,7 @@ namespace WealthERP.BusinessMIS
                             drGetSchemeTransactionDeatails["AMC"] = drAMCTransaction["PA_AMCName"].ToString();
                             drGetSchemeTransactionDeatails["SchemeCode"] = drAMCTransaction["PASP_SchemePlanCode"].ToString();
                             drGetSchemeTransactionDeatails["Scheme"] = drAMCTransaction["PASP_SchemePlanName"].ToString();
-                            drGetSchemeTransactionDeatails["ExternalCode"] = drAMCTransaction["PASC_AMC_ExternalCode"].ToString();
+                            
                             drGetSchemeTransactionDeatails["Category"] = drAMCTransaction["PAIC_AssetInstrumentCategoryName"].ToString();
                             drGetSchemeTransactionDeatails["SubCategory"] = drAMCTransaction["PAISC_AssetInstrumentSubCategoryName"].ToString();
                             if (drTransactionSchemeWise.Count() > 0)
