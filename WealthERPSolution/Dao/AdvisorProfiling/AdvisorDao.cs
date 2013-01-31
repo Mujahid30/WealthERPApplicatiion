@@ -1078,7 +1078,7 @@ namespace DaoAdvisorProfiling
                         customerVo = new CustomerVo();
 
                         customerVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
-                        if (dr["ADUL_ProcessId"].ToString() == null && dr["ADUL_ProcessId"].ToString() == "")
+                        if (dr["ADUL_ProcessId"].ToString() == null || dr["ADUL_ProcessId"].ToString() == "")
                         {
                             customerVo.ProcessId = 0;
 
