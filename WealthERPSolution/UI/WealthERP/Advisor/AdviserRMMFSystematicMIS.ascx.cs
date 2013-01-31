@@ -162,7 +162,7 @@ namespace WealthERP.Advisor
 
         protected void ddlDateFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlDateFilter.SelectedValue == "ActiveSIP")
+            if (ddlDateFilter.SelectedValue == "ActiveSIP" || ddlDateFilter.SelectedValue == "CeasedSIP" || ddlDateFilter.SelectedValue == "ExpiredSIP")
             {
                 lblFromDate.Visible = false;
                 txtFrom.Visible = false;
@@ -509,6 +509,8 @@ namespace WealthERP.Advisor
             ViewState["IndividualCustomers"] = null;
             ViewState["CustomerId"] = null;
             ViewState["ActiveSIP"] = null;
+            ViewState["ExpiredSIP"] = null;
+            ViewState["CeasedSIP"] = null;
             
 
             //CallAllGridBindingFunctions();
@@ -703,7 +705,7 @@ namespace WealthERP.Advisor
             }
 
              ////Check Start Date and EndDate Selection.. 
-            if (ddlDateFilter.SelectedIndex == 0)
+            if (ddlDateFilter.SelectedValue == "StartDate")
             {
                 hdnendDate.Value = "";
                 hdnstartdate.Value = "StartDate";
@@ -715,7 +717,7 @@ namespace WealthERP.Advisor
                 hdnstartdate.Value = "StartDate";
             }
 
-            if (ddlDateFilter.SelectedIndex != 0)
+            if (ddlDateFilter.SelectedValue == "EndDate")
             {
                 hdnstartdate.Value = "";
                 hdnendDate.Value = "EndDate";
@@ -727,7 +729,7 @@ namespace WealthERP.Advisor
                 hdnendDate.Value = "EndDate";
             }
 
-            if (ddlDateFilter.SelectedIndex == 2)
+            if (ddlDateFilter.SelectedValue == "ActiveSIP")
             {
                 hdnstartdate.Value = "ActiveSIP";
                 hdnendDate.Value = "ActiveSIP";
@@ -737,6 +739,30 @@ namespace WealthERP.Advisor
             {
                 hdnstartdate.Value = "ActiveSIP";
                 hdnendDate.Value = "ActiveSIP";
+            }
+
+            if (ddlDateFilter.SelectedValue == "ExpiredSIP")
+            {
+                hdnstartdate.Value = "ExpiredSIP";
+                hdnendDate.Value = "ExpiredSIP";
+                ViewState["ExpiredSIP"] = "ExpiredSIP";
+            }
+            else if (ViewState["ExpiredSIP"] != null)
+            {
+                hdnstartdate.Value = "ExpiredSIP";
+                hdnendDate.Value = "ExpiredSIP";
+            }
+
+            if (ddlDateFilter.SelectedValue == "CeasedSIP")
+            {
+                hdnstartdate.Value = "CeasedSIP";
+                hdnendDate.Value = "CeasedSIP";
+                ViewState["CeasedSIP"] = "CeasedSIP";
+            }
+            else if (ViewState["CeasedSIP"] != null)
+            {
+                hdnstartdate.Value = "CeasedSIP";
+                hdnendDate.Value = "CeasedSIP";
             }
 
             if (hdnCustomerId.Value != "")

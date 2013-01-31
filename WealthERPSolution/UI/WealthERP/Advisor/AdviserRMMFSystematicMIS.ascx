@@ -188,14 +188,16 @@
                 </tr>
                 <tr>
                     <td align="right" width="10%">
-                        <asp:Label ID="lblDate" runat="server" Text="Date filter on: " CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblDate" runat="server" Text="SIP filter on: " CssClass="FieldName"></asp:Label>
                     </td>
                     <td align="left" width="10%">
                         <asp:DropDownList ID="ddlDateFilter" Style="vertical-align: middle" runat="server" AutoPostBack="true"
-                            CssClass="cmbField" OnSelectedIndexChanged="ddlDateFilter_SelectedIndexChanged">
+                            CssClass="cmbField" OnSelectedIndexChanged="ddlDateFilter_SelectedIndexChanged">                           
+                            <asp:ListItem Text="Active SIP" Value="ActiveSIP" Selected="True"></asp:ListItem>
+                            <asp:ListItem Text="Expired SIP" Value="ExpiredSIP" ></asp:ListItem>
+                            <asp:ListItem Text="Ceased SIP" Value="CeasedSIP" ></asp:ListItem>
                             <asp:ListItem Text="SIP Start Date" Value="StartDate"></asp:ListItem>
                             <asp:ListItem Text="SIP End Date" Value="EndDate"></asp:ListItem>
-                            <asp:ListItem Text="Active SIP" Value="ActiveSIP" Selected="True"></asp:ListItem>
                         </asp:DropDownList>
                     </td>
                     <td align="right" width="10%">
