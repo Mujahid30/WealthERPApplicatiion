@@ -2437,7 +2437,7 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
                         mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
-                        if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
+                      if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
                         {
                             mfTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
                             mfTransactionVo.TransactionStatusCode = int.Parse(dr["WTS_TransactionStatusCode"].ToString());
@@ -2448,6 +2448,7 @@ namespace DaoCustomerPortfolio
                             mfTransactionVo.TransactionStatusCode = 1;
 
                         }
+                        mfTransactionVo.BrokerageAmount = float.Parse(dr["CMFT_ExternalBrokerageAmount"].ToString());
                         mfTransactionsList.Add(mfTransactionVo);
                     }
                 }
@@ -2611,7 +2612,7 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.NAV = float.Parse(dr["CMFT_NAV"].ToString());
                         mfTransactionVo.Price = float.Parse(dr["CMFT_Price"].ToString());
                         mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
-                        mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
+                        mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());                     
                         mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
                         mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
                         mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
@@ -2909,8 +2910,16 @@ namespace DaoCustomerPortfolio
                     {
                         string jointHolderName = "";
                         AccountVo = new CustomerAccountsVo();
-                        AccountVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
+                        AccountVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());                      
                         AccountVo.AccountNum = dr["CMFA_FolioNum"].ToString();
+                        if (dr["ADUL_ProcessId"].ToString() == null || dr["ADUL_ProcessId"].ToString() == "")
+                        {
+                            AccountVo.ProcessId = 0;
+                        }
+                        else
+                        {
+                            AccountVo.ProcessId = int.Parse(dr["ADUL_ProcessId"].ToString());
+                        }
                         if (dr["CMFA_AccountOpeningDate"].ToString() != string.Empty)
                             AccountVo.AccountOpeningDate = DateTime.Parse(dr["CMFA_AccountOpeningDate"].ToString());
                         else
