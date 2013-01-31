@@ -322,7 +322,17 @@
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField>                 
+                    </asp:TemplateField> 
+                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
+                        <HeaderTemplate>
+                            <asp:Label ID="lblprocessId" runat="server" Text="ProcessId"></asp:Label>                            
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblprocessId" runat="server" Text='<%# Eval("processId").ToString() %>'></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle Wrap="False"></HeaderStyle>
+                        <ItemStyle Wrap="False"></ItemStyle>
+                    </asp:TemplateField>                
                     
                 </Columns>
             </asp:GridView>

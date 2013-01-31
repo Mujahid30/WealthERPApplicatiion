@@ -177,6 +177,7 @@ namespace WealthERP.Advisor
 
                 dtCustomerFolio.Columns.Add("CustomerId");
                 dtCustomerFolio.Columns.Add("GroupHead");
+                dtCustomerFolio.Columns.Add("processId");
                 dtCustomerFolio.Columns.Add("CustomerName");
                 dtCustomerFolio.Columns.Add("AMCName");
                 dtCustomerFolio.Columns.Add("AMCCode");
@@ -210,6 +211,7 @@ namespace WealthERP.Advisor
                         drCustomerFolio = dtCustomerFolio.NewRow();
 
                         drCustomerFolio["CustomerId"] = dtCustomer.Rows[i]["customerid"];
+                        drCustomerFolio["processId"]=dtCustomer.Rows[i]["processid"];
                         drCustomerFolio["GroupHead"] = dtCustomer.Rows[i]["Parent"];
                         drCustomerFolio["CustomerName"] = dtCustomer.Rows[i]["name"];
                         drCustomerFolio["AMCName"] = dtCustomer.Rows[i]["amcname"];
