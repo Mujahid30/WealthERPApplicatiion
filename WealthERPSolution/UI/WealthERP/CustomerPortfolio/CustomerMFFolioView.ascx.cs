@@ -121,6 +121,7 @@ namespace WealthERP.CustomerPortfolio
                     DataTable dtMFFolio = new DataTable();
 
                     dtMFFolio.Columns.Add("FolioId");
+                    dtMFFolio.Columns.Add("ADUL_ProcessId");
                     dtMFFolio.Columns.Add("Folio No");
                     dtMFFolio.Columns.Add("AMC Name");
                     dtMFFolio.Columns.Add("Name");// original costumer name from folio uploads
@@ -136,18 +137,25 @@ namespace WealthERP.CustomerPortfolio
                         FolioVo = new CustomerAccountsVo();
                         FolioVo = FolioList[i];
                         drMFFolio[0] = FolioVo.AccountId.ToString();
-                        drMFFolio[1] = FolioVo.AccountNum.ToString();
+                        if (FolioVo.ProcessId == 0)
+                        {
+                            drMFFolio[1] = "N/A";
+                        }
+                        else
+                            drMFFolio[1] = FolioVo.ProcessId.ToString();
+
+                        drMFFolio[2] = FolioVo.AccountNum.ToString();
                         if(FolioVo.AMCName!=null)
-                        drMFFolio[2] = FolioVo.AMCName.ToString();
+                        drMFFolio[3] = FolioVo.AMCName.ToString();
                         if(FolioVo.ModeOfHolding =="Jointly")
                         {
 
                         }
-                        drMFFolio[3] = FolioVo.Name.ToString();
+                        drMFFolio[4] = FolioVo.Name.ToString();
                         if(FolioVo.ModeOfHolding!=null)
-                        drMFFolio[4] = FolioVo.ModeOfHolding.ToString();
+                        drMFFolio[5] = FolioVo.ModeOfHolding.ToString();
                         if (FolioVo.AccountOpeningDate != DateTime.MinValue)
-                            drMFFolio[5] = FolioVo.AccountOpeningDate.ToShortDateString();
+                            drMFFolio[6] = FolioVo.AccountOpeningDate.ToShortDateString();
                         //else
                         //    drMFFolio[5] = String.Empty;
                         dtMFFolio.Rows.Add(drMFFolio);

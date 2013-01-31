@@ -165,6 +165,11 @@
                     AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn UniqueName="ADUL_ProcessId" HeaderStyle-Width="80px" HeaderText="ProcessId"
+                    DataField="ADUL_ProcessId" SortExpression="ADUL_ProcessId" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="AMC Name" HeaderStyle-Width="180px" HeaderText="AMC"
                     DataField="AMC Name" SortExpression="AMC Name" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
