@@ -323,6 +323,19 @@
                                 </asp:DropDownList>
                             </HeaderTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblProcessId" runat="server" Text="ProcessId"></asp:Label>
+                                <br />
+                                <%--<asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="GridViewTxtField" 
+                                    
+                                    onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnNameSearch');" />--%>
+                            </HeaderTemplate>
+                              <ItemTemplate>
+                                <asp:Label ID="lblProcessId" runat="server" 
+                                    Text='<%# Eval("ADUL_ProcessId").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             <%--<hr />

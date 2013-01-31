@@ -262,6 +262,7 @@ namespace WealthERP.Advisor
                     lblCurrentPage.Visible = true;
                     DataTable dtRMCustomer = new DataTable();
                     dtRMCustomer.Columns.Add("CustomerId");
+                    dtRMCustomer.Columns.Add("ADUL_ProcessId");
                     dtRMCustomer.Columns.Add("UserId");
                     dtRMCustomer.Columns.Add("RMId");
                     dtRMCustomer.Columns.Add("Parent");
@@ -288,6 +289,12 @@ namespace WealthERP.Advisor
                         customerVo = new CustomerVo();
                         customerVo = customerList[i];
                         drRMCustomer["CustomerId"] = customerVo.CustomerId.ToString();
+                        if (customerVo.ProcessId == 0)
+                        {
+                            drRMCustomer["ADUL_ProcessId"] = "N/A";
+                        }
+                        else
+                        drRMCustomer["ADUL_ProcessId"] = customerVo.ProcessId.ToString();
                         drRMCustomer["UserId"] = customerVo.UserId.ToString();
                         drRMCustomer["RMId"] = customerVo.RmId.ToString();
                         drRMCustomer["BranchName"] = customerVo.BranchName;
