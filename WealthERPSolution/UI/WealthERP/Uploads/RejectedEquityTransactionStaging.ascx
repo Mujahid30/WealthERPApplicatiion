@@ -126,7 +126,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Equity Transaction Staging Rejects
+                            Equity Transaction Exceptions
                         </td>
                         <td align="right">
                             &nbsp; &nbsp;
@@ -170,7 +170,7 @@
                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                     </Calendar>
                     <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput1" EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
+                    <DateInput ID="DateInput1"  runat="server" DisplayDateFormat="d/M/yyyy"
                         DateFormat="d/M/yyyy">
                     </DateInput>
                 </telerik:RadDatePicker>
@@ -195,7 +195,7 @@
                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                     </Calendar>
                     <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput2" runat="server" EmptyMessage="dd/mm/yyyy" DisplayDateFormat="d/M/yyyy"
+                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy"
                         DateFormat="d/M/yyyy">
                     </DateInput>
                 </telerik:RadDatePicker>
@@ -250,6 +250,24 @@
         </td>
     </tr>
 </table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgDelete" runat="server" class="success-msg" align="center" visible="false">
+                Records has been deleted successfully
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id=Msgerror" runat="server" class="success-msg" align="center" visible="false">
+                No Records Found...!
+            </div>
+        </td>
+    </tr>
+</table>
 <table style="width: 100%" class="TableBackground">
     <tr>
         <td align="right">
@@ -293,7 +311,7 @@
                                     <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("WERPTransactionId").ToString()%>' />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn DataField="RejectReason" AllowFiltering="true" HeaderText="RejectReason"
+                            <telerik:GridBoundColumn DataField="RejectReason" AllowFiltering="true" HeaderText="Reject Reason"
                                 HeaderStyle-Width="300px" UniqueName="RejectReasonCode" SortExpression="RejectReason"
                                 AutoPostBackOnFilter="false" ShowFilterIcon="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -326,7 +344,7 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />                               
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="TradeAccountNumber" HeaderText="Trade Account Number" AllowSorting="true"
+                            <telerik:GridBoundColumn DataField="TradeAccountNumber" HeaderText="Trade Acct.No." AllowSorting="true"
                                 HeaderStyle-Width="60px" UniqueName="TradeAccountNumber" SortExpression="TradeAccountNumber"
                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -343,7 +361,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Share" AllowFiltering="false" HeaderText="Share" AllowSorting="true"
                                 HeaderStyle-Width="80px" UniqueName="Share" SortExpression="Share" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:n3}">
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:n0}" >
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="Price" AllowFiltering="false"
@@ -356,7 +374,7 @@
                                 DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="true" HeaderText="TransactionType"
+                            <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="true" HeaderText="Transaction Type"
                                 HeaderStyle-Width="100px" UniqueName="TransactionTypeCode" SortExpression="TransactionType" 
                                 AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -550,18 +568,18 @@
         </td>
     </tr>
 </div>
-<tr id="trMessage" runat="server" visible="false">
+<%--<tr id="trMessage" runat="server" visible="false">
     <td class="Message">
         <label id="lblEmptyMsg" class="FieldName">
             There are no records to be displayed!</label>
     </td>
-</tr>
-<%--  <tr id="trErrorMessage" runat="server" visible="false">
+</tr>--%>
+  <tr id="trErrorMessage" runat="server" visible="false">
         <td class="Message">
             <asp:Label ID="lblError" CssClass="Message" runat="server">
             </asp:Label>
         </td>
-    </tr>--%>
+    </tr>
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
         <tr align="center">

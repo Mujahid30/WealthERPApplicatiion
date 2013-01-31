@@ -107,6 +107,9 @@ namespace WealthERP.Uploads
 
             if (!IsPostBack)
             {
+                DateTime fromDate = DateTime.Now.AddDays(-30);
+                txtFromTran.SelectedDate = fromDate.Date;
+                txtToTran.SelectedDate = DateTime.Now;
                if (adviserVo.advisorId != 1000)
                 {
                     if (ProcessId != 0)
@@ -141,44 +144,11 @@ namespace WealthERP.Uploads
                         BindAdviserDropDownList();
                         tdTxtFromDate.Visible = false;
                   }
-                }
+                                      
+                }              
+
             }
-        //    SessionBo.CheckSession();
-        //    ProcessId = 0;
-        //    configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
-        //    if (Request.QueryString["processId"] != null)
-        //    {
-        //        ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-        //        lnkViewInputRejects.Visible = true;
-        //    }
-        //    else
-        //    {
-        //        lnkViewInputRejects.Visible = false;
-        //    }
-
-        //    if (Session["userVo"] != null)
-        //    {
-
-        //    }
-        //    else
-        //    {
-        //        Session.Clear();
-        //        Session.Abandon();
-
-        //        // If User Sessions are empty, load the login control 
-        //        Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('SessionExpired','');", true);
-        //    }
-
-        //    // Get Advisor Vo from Session
-        //    adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];       
-           
-        //if (!IsPostBack)
-        //        {
-                 
-        //        }
-        //            BindddlRejectReason();
-        //            gvWERPTrans.Visible = false;
-        //            Panel2.Visible = false; 
+       
             btnExport.Visible = false;
             trMessage.Visible = false;
        }
@@ -187,11 +157,7 @@ namespace WealthERP.Uploads
         {
             if (ProcessId == null || ProcessId == 0)
             {
-                //if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
-                if (txtFromTran.SelectedDate != null)
-                    fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
-                if (txtToTran.SelectedDate != null)
-                 toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
+             
                 rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
              }
             Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
@@ -209,6 +175,7 @@ namespace WealthERP.Uploads
                 trMessage.Visible = false;
                 trReprocess.Visible = true;
                 DivAction.Visible = true;
+               // msgDelete.Visible = false;
 
                 if (Cache["RejectedEquityDetails" + adviserVo.advisorId.ToString()] == null)
                 {
@@ -225,6 +192,7 @@ namespace WealthERP.Uploads
                 gvWERPTrans.DataBind();
                 gvWERPTrans.Visible = true;
                 Panel2.Visible = true;
+                msgDelete.Visible = false;
                 btnExport.Visible = true;
             }
             else
@@ -257,8 +225,14 @@ namespace WealthERP.Uploads
         }
         protected void btnViewTran_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
+                if (txtFromTran.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
+            if (txtToTran.SelectedDate != null)
+                toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
             BindEquityTransactionGrid(ProcessId);
             ViewState.Remove("RejectReasonCode");
+            msgDelete.Visible = false;
            // ViewState.Remove("ProcessId");
             ViewState.Remove("TransactionTypeCode");
             
@@ -354,64 +328,46 @@ namespace WealthERP.Uploads
         /*************To delete the selected records ****************/
 
         protected void btnDelete_Click(object sender, EventArgs e)
-        {   int i = 0;
-            string StagingID = string.Empty;
-            foreach (GridDataItem item in this.gvWERPTrans.Items)
-            {
-                if (((CheckBox)item.FindControl("chkBxWPTrans")).Checked == true)
-                {
-                    StagingID += Convert.ToString(gvWERPTrans.MasterTableView.DataKeyValues[i]["WERPTransactionId"]) + "~";
-                    i = i + 1;
-                }
+        {
+          int i=0;
+          foreach (GridDataItem gvr in gvWERPTrans.Items)
+           {
+               if (((CheckBox)gvr.FindControl("chkBxWPTrans")).Checked == true)          
+               {     i=i+1;
+                    
+               }              
+           }
+             if (i == 0)
+             {
+                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
 
-            }
-            if (i == 0)
+             }
+             else
+             {
+               CustomerTransactionDelete();
+               msgReprocessComplete.Visible = false;
+               msgDelete.Visible = true;
+             }
+           }            
+     
+        private void CustomerTransactionDelete()
+        
+        {
+        string StagingID = string.Empty;
+        foreach (GridDataItem gvr in gvWERPTrans.Items)
+        {
+            if (((CheckBox)gvr.FindControl("chkBxWPTrans")).Checked == true)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+                rejectedRecordsBo = new RejectedRecordsBo();
+                StagingID += Convert.ToString(gvWERPTrans.MasterTableView.DataKeyValues[gvr.ItemIndex]["WERPTransactionId"]) + "~";
+                rejectedRecordsBo.DeleteRejectsEquityTransactionsStaging(StagingID);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
             }
-            else
-            {
-                 rejectedRecordsBo = new RejectedRecordsBo();
-                 rejectedRecordsBo.DeleteRejectsEquityTransactionsStaging(StagingID);
-                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Selected item deleted !!');", true);
-               // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
-                
-            }
-           BindEquityTransactionGrid(ProcessId);
+            BindEquityTransactionGrid(ProcessId);
         }
-            //    int i = 0;
-            //    if (i == 0)
-            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
-            //    else
-            //    {
-            //        CustomerTransactionDelete();
-            //    }
-
-            //    BindEquityTransactionGrid(ProcessId);
-            //}
-      //  }
-        //private void CustomerTransactionDelete()
-        //{
-        //  int i = 0;
-        //  string StagingID = string.Empty;
-        //  foreach (GridDataItem gvr in this.gvWERPTrans.Items)
-        //    {
-        //        if (((CheckBox)gvr.FindControl("chkBxWPTrans")).Checked == true)
-        //        {
-        //             rejectedRecordsBo = new RejectedRecordsBo();
-        //             StagingID += Convert.ToString(gvWERPTrans.MasterTableView.DataKeyValues[i]["WERPTransactionId"]) + "~"; 
-        //             i=i+1;
-                     
-        //          //int StagingID = int.Parse(gvWERPTrans.MasterTableView.DataKeyValues[i]["WERPTransactionId"].ToString());
-        //              rejectedRecordsBo.DeleteRejectsEquityTransactionStaging(StagingID);
-        //           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
-        //        }
-        //    }
-        //}
-
+    }
+      
         //************** Code End  ***********************//
-
-
 
         protected void ddlPanNumber_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -775,7 +731,6 @@ namespace WealthERP.Uploads
             }
             else
             {
-
                 GridColumn column = gvWERPTrans.MasterTableView.GetColumnSafe("RejectReasonCode");
                 column.CurrentFilterFunction = GridKnownFunction.EqualTo;
                 gvWERPTrans.CurrentPageIndex = 0;

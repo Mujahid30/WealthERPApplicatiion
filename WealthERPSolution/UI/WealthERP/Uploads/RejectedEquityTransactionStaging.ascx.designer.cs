@@ -29,6 +29,7 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
         protected global::System.Web.UI.WebControls.HiddenField hfRmId;
         protected global::System.Web.UI.WebControls.ImageButton btnExport;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl trMessage;
         /// <summary>
         /// msgReprocessComplete control.
         /// </summary>
@@ -135,8 +136,9 @@ namespace WealthERP.Uploads {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMessage;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow divMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgDelete;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Msgerror;
         /// <summary>
         /// DivPager control.
         /// </summary>
