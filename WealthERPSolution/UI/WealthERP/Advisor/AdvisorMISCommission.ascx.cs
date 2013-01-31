@@ -53,6 +53,11 @@ namespace WealthERP.Advisor
             divZoneClusterWiseMIS.Visible = false;
             if (!Page.IsPostBack)
             {
+                if (!Convert.ToBoolean(advisorVo.MultiBranch))
+                {
+                    ddlMISType.Items.Remove(0);                    
+                }
+
                 BindPeriodDropDown();
                 RadioButtonClick(sender, e);
                 ddlMISType.SelectedIndex = 0;                

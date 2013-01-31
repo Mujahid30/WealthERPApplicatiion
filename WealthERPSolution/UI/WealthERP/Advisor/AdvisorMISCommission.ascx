@@ -263,6 +263,11 @@
                                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
+                                   <telerik:GridBoundColumn HeaderText="Group" HeaderTooltip="Group Name" DataField="Parent"
+                                    UniqueName="Parent" SortExpression="Parent" AutoPostBackOnFilter="true"
+                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderText="Customer" HeaderTooltip="Customer Name" DataField="CustomerName"
                                     UniqueName="CustomerName" SortExpression="CustomerName" AutoPostBackOnFilter="true"
                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
