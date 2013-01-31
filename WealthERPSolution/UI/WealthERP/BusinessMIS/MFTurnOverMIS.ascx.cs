@@ -543,6 +543,107 @@ namespace WealthERP.BusinessMIS
             dtGetSchemeTransactionDeatails.Columns.Add("PRJCount", typeof(double));
             dtGetSchemeTransactionDeatails.Columns.Add("PRJAmount", typeof(double));
 
+
+            #region newly added
+            dtGetSchemeTransactionDeatails.Columns.Add("ABYCount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("ABYAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("BIRCount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("BIRAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("BNSCount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("BNSAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("CNICount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("CNIAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("CNOCount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("CNOAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("DSICount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("DSIAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("DSOCount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("DSOAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("HLDCount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("HLDAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("NFOCount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("NFOAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("RRJCount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("RRJAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("SRJCount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("SRJAmount", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("GrossRedemption", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("GrossInvestment", typeof(double));
+            dtGetSchemeTransactionDeatails.Columns.Add("Net", typeof(double));
+            #endregion
+
+
+
+            //--------------------Default Value ------------------
+
+            #region Data Table Default value
+
+            dtGetSchemeTransactionDeatails.Columns["GrossRedemption"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["GrossInvestment"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["Net"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["ABYCount"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["ABYAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["BIRCount"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["BIRAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["BNSCount"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["BNSAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["CNICount"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["CNIAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["CNOCount"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["CNOAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["DSICount"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["DSIAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["DSOCount"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["DSOAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["HLDCount"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["HLDAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["NFOCount"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["NFOAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["RRJCount"].DefaultValue = 0;
+
+            dtGetSchemeTransactionDeatails.Columns["RRJAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["SRJCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["SRJAmount"].DefaultValue = 0;
+
+
+            dtGetSchemeTransactionDeatails.Columns["DVRCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["DVRAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["DVPCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["DVPAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["SIPCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["SIPAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["BCICount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["BCIAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["BCOCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["BCOAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["STBCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["STBAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["STSCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["STSAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["SWBCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["SWBAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["SWPCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["SWPAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["SWSCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["SWSAmount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["PRJCount"].DefaultValue = 0;
+            dtGetSchemeTransactionDeatails.Columns["PRJAmount"].DefaultValue = 0;
+
+            #endregion
+
+
+
             DataRow drGetSchemeTransactionDeatails;
             DataRow[] drTransactionSchemeWise;
             if (dsGetSchemeTransactionDeatails.Tables[0] != null)
@@ -579,18 +680,30 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["BUYCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["BUYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["BUYAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "SEL":
                                             {
                                                 drGetSchemeTransactionDeatails["SELCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SELAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SELAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "DVR":
                                             {
                                                 drGetSchemeTransactionDeatails["DVRCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["DVRAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["DVRAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "DVP":
@@ -603,48 +716,80 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["SIPCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SIPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SIPAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "BCI":
                                             {
                                                 drGetSchemeTransactionDeatails["BCICount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["BCIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["BCIAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "BCO":
                                             {
                                                 drGetSchemeTransactionDeatails["BCOCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["BCOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["BCOAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "STB":
                                             {
                                                 drGetSchemeTransactionDeatails["STBCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["STBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["STBAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "STS":
                                             {
                                                 drGetSchemeTransactionDeatails["STSCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["STSAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "SWB":
                                             {
                                                 drGetSchemeTransactionDeatails["SWBCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SWBAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "SWP":
                                             {
                                                 drGetSchemeTransactionDeatails["SWPCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SWPAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "SWS":
                                             {
                                                 drGetSchemeTransactionDeatails["SWSCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SWSAmount"].ToString());
+                                                }
                                                 break;
                                             }
                                         case "PRJ":
@@ -653,10 +798,147 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["PRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
                                                 break;
                                             }
+                                        #region newly added
+                                        case "ABY":
+                                            {
+                                                drGetSchemeTransactionDeatails["ABYCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["ABYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["ABYAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "BIR":
+                                            {
+                                                drGetSchemeTransactionDeatails["BIRCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["BIRAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["BIRAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "BNS":
+                                            {
+                                                drGetSchemeTransactionDeatails["BNSCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["BNSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["BNSAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "CNI":
+                                            {
+                                                drGetSchemeTransactionDeatails["CNICount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["CNIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["CNIAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "CNO":
+                                            {
+                                                drGetSchemeTransactionDeatails["CNOCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["CNOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["CNOAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "DSI":
+                                            {
+                                                drGetSchemeTransactionDeatails["DSICount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["DSIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["DSIAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "DSO":
+                                            {
+                                                drGetSchemeTransactionDeatails["DSOCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["DSOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["DSOAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "HLD":
+                                            {
+                                                drGetSchemeTransactionDeatails["HLDCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["HLDAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["HLDAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "NFO":
+                                            {
+                                                drGetSchemeTransactionDeatails["NFOCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["NFOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["NFOAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+
+
+                                        case "RRJ":
+                                            {
+                                                drGetSchemeTransactionDeatails["RRJCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["RRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["RRJAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "SRJ":
+                                            {
+                                                drGetSchemeTransactionDeatails["SRJCount"] = dr["TrnsCount"].ToString();
+                                                drGetSchemeTransactionDeatails["SRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SRJAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        #endregion
                                     }
 
                                 }
                             }
+
+                            drGetSchemeTransactionDeatails["Net"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) - double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString());
+
+
                             dtGetSchemeTransactionDeatails.Rows.Add(drGetSchemeTransactionDeatails);
                         }//*
 
