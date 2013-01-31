@@ -298,6 +298,17 @@
                                 </asp:DropDownList>
                             </HeaderTemplate>
                         </asp:TemplateField>
+                          <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblProcessId" runat="server" Text="ProcessId"></asp:Label>
+                                <br />
+                              </HeaderTemplate>
+                              <ItemTemplate>
+                                <asp:Label ID="lblProcessId" runat="server" 
+                                    Text='<%# Eval("ADUL_ProcessId").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            </asp:TemplateField>
+                        
                     </Columns>
                 </asp:GridView>
             </td>
