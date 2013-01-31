@@ -32,6 +32,7 @@ namespace VoCustomerPortfolio
         private float m_NAV;
         private float m_Price;
         private double m_Amount;
+        private double m_BrokerageAmount;
         private double  m_Units;
         private float m_STT;
         private string m_Source;
@@ -174,6 +175,11 @@ namespace VoCustomerPortfolio
         {
             get { return m_Amount; }
             set { m_Amount = value; }
+        }
+        public double BrokerageAmount
+        {
+            get { return m_BrokerageAmount; }
+            set { m_BrokerageAmount = value; }
         }
 
         public double Units
