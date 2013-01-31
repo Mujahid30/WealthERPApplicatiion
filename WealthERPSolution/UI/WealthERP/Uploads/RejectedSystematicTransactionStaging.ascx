@@ -24,17 +24,17 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            Systematic Transaction Staging
+                            Systematic Transaction Exceptions 
                         </td>
                         <td align="right">
                             <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Back To Upload Log"
                                 OnClick="lnkBtnBackToUploadLog_Click"></asp:LinkButton>
                         </td>
                         <td>
-                         <asp:LinkButton ID="LinkInputRejects" runat="server" Text="View Input Rejects" Visible="false"
-                             CssClass="LinkButtons" OnClick="LinkInputRejects_Click"></asp:LinkButton>
-                             </td>
-                         <td align="right" style="width: 10px">
+                            <asp:LinkButton ID="LinkInputRejects" runat="server" Text="View Input Rejects" Visible="false"
+                                CssClass="LinkButtons" OnClick="LinkInputRejects_Click"></asp:LinkButton>
+                        </td>
+                        <td align="right" style="width: 10px">
                             <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
@@ -183,10 +183,10 @@
     <tr>
         <td>
             <%--var totalChkBoxes = parseInt('<%= gvSIPReject.Rows.Count %>');--%>
-            <%-- <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back To Upload Log"
+<%-- <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back To Upload Log"
                 OnClick="lnkBtnBackToUploadLog_Click"></asp:LinkButton>
        &nbsp;&nbsp;&nbsp;--%>
-           <%-- <asp:LinkButton runat="server" ID="lnkBtnBackToUploadGrid" Visible="false" CssClass="LinkButtons"
+<%-- <asp:LinkButton runat="server" ID="lnkBtnBackToUploadGrid" Visible="false" CssClass="LinkButtons"
                 Text="Back" OnClick="lnkBtnBack_Click"></asp:LinkButton>
         </td>
     </tr>
@@ -380,7 +380,7 @@
           
    --%>
 <asp:Panel ID="Panel3" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
- <table width="100%" cellspacing="0" cellpadding="2">
+    <table width="100%" cellspacing="0" cellpadding="2">
         <%--<tr>
             <%--<td>
                 <asp:LinkButton runat="server" ID="lnkViewInputRejects" Text="View Input Rejects"
@@ -393,8 +393,7 @@
                     AllowFiltering="true" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                     Skin="Telerik" OnItemDataBound="gvSIPReject_ItemDataBound" EnableEmbeddedSkins="false"
                     Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
-                    ShowFooter="true" OnNeedDataSource="gvSIPReject_NeedDataSource"
-                    OnPreRender="gvSIPReject_PreRender">
+                    ShowFooter="true" OnNeedDataSource="gvSIPReject_NeedDataSource" OnPreRender="gvSIPReject_PreRender">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
                     <MasterTableView TableLayout="Auto" DataKeyNames="CMFSCS_ID,WUPL_ProcessId,CMFSCS_FolioNum"
@@ -412,7 +411,7 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="true"
-                                HeaderText="RejectReason" HeaderStyle-Width="300px" UniqueName="WRR_RejectReasonCode"
+                                HeaderText="Reject Reason" HeaderStyle-Width="300px" UniqueName="WRR_RejectReasonCode"
                                 SortExpression="RejectReason" AutoPostBackOnFilter="false" ShowFilterIcon="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
@@ -438,13 +437,13 @@
 
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
+                            </telerik:GridBoundColumn>                            
+                             <telerik:GridBoundColumn HeaderText="ProcessId" HeaderStyle-Width="60px" DataField="WUPL_ProcessId"
+                                UniqueName="ProcessId" SortExpression="WUPL_ProcessId" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="WUPL_ProcessId" AllowFiltering="true" HeaderText="ProcessId"
-                                HeaderStyle-Width="60px" UniqueName="WUPL_ProcessId" SortExpression="WUPL_ProcessId"
-                                AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="File Name" HeaderStyle-Width="60px"
+                           <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="File Name" HeaderStyle-Width="60px"
                                 UniqueName="ADUL_FileName" SortExpression="ADUL_FileName" AutoPostBackOnFilter="true"
                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -784,13 +783,13 @@
             </td>
         </tr>
     </div>
-  <tr id="trMessage" runat="server" visible="false">
+    <tr id="trMessage" runat="server" visible="false">
         <td class="Message">
             <label id="lblEmptyMsg" class="FieldName" visible="false">
                 There are no records to be displayed!</label>
         </td>
     </tr>
-   <%-- <tr id="trErrorMessage" runat="server" visible="false">
+    <%-- <tr id="trErrorMessage" runat="server" visible="false">
         <td class="Message">
             <asp:Label ID="lblError" CssClass="Message" runat="server">
             </asp:Label>

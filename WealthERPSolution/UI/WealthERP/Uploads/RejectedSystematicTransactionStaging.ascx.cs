@@ -117,6 +117,11 @@ namespace WealthERP.Uploads
 
             if (!Page.IsPostBack)
             {
+                DateTime fromDate = DateTime.Now.AddDays(-30);
+                txtFromSIP.SelectedDate = fromDate.Date;
+                txtToSIP.SelectedDate = DateTime.Now;
+
+
                  if (adviserVo.advisorId != 1000)
                 {
                 if(processId!=0)
@@ -186,12 +191,7 @@ namespace WealthERP.Uploads
         {
             if (processId == null || processId == 0)
             {
-                //if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
-                if (txtFromSIP.SelectedDate != null)
-                    fromDate = DateTime.Parse(txtFromSIP.SelectedDate.ToString());
-                if (txtToSIP.SelectedDate != null)
-                    toDate = DateTime.Parse(txtToSIP.SelectedDate.ToString());
-                rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
+               rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
             }
             DataSet dsRejectedSIP = new DataSet();
             Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
@@ -327,46 +327,46 @@ namespace WealthERP.Uploads
 
         protected void ddlProcessId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ddlProcessId = GetProcessIdDDL();
+            //DropDownList ddlProcessId = GetProcessIdDDL();
 
-            if (ddlProcessId != null)
-            {
-                if (ddlProcessId.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
-                    processId = int.Parse(hdnProcessIdFilter.Value);
-                    BindRejectedSIPGrid(processId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnProcessIdFilter.Value = "0";
-                    BindRejectedSIPGrid(processId);
-                }
-            }
+            //if (ddlProcessId != null)
+            //{
+            //    if (ddlProcessId.SelectedIndex != 0)
+            //    {   // Bind the Grid with Only Selected Values
+            //        hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
+            //        processId = int.Parse(hdnProcessIdFilter.Value);
+            //        BindRejectedSIPGrid(processId);
+            //    }
+            //    else
+            //    {   // Bind the Grid with Only All Values
+            //        hdnProcessIdFilter.Value = "0";
+            //        BindRejectedSIPGrid(processId);
+            //    }
+            //}
         }
 
         protected void ddlInvName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ddlInvName = GetInvNameDDL();
+            //DropDownList ddlInvName = GetInvNameDDL();
 
-            if (Request.QueryString["processId"] != null)
-                processId = Int32.Parse(Request.QueryString["processId"].ToString());
+            //if (Request.QueryString["processId"] != null)
+            //    processId = Int32.Parse(Request.QueryString["processId"].ToString());
 
 
 
-            if (ddlInvName != null)
-            {
-                if (ddlInvName.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnInvNameFilter.Value = ddlInvName.SelectedValue;
-                    BindRejectedSIPGrid(processId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnInvNameFilter.Value = "";
-                    BindRejectedSIPGrid(processId);
-                }
-            }
+            //if (ddlInvName != null)
+            //{
+            //    if (ddlInvName.SelectedIndex != 0)
+            //    {   // Bind the Grid with Only Selected Values
+            //        hdnInvNameFilter.Value = ddlInvName.SelectedValue;
+            //        BindRejectedSIPGrid(processId);
+            //    }
+            //    else
+            //    {   // Bind the Grid with Only All Values
+            //        hdnInvNameFilter.Value = "";
+            //        BindRejectedSIPGrid(processId);
+            //    }
+            //}
         }
 
         protected void ddlRejectReason_SelectedIndexChanged(object sender, EventArgs e)
@@ -414,73 +414,73 @@ namespace WealthERP.Uploads
 
         protected void ddlFileName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ddlFileName = GetFileNameDDL();
+            //DropDownList ddlFileName = GetFileNameDDL();
 
-            if (Request.QueryString["processId"] != null)
-                processId = Int32.Parse(Request.QueryString["processId"].ToString());
+            //if (Request.QueryString["processId"] != null)
+            //    processId = Int32.Parse(Request.QueryString["processId"].ToString());
 
 
 
-            if (ddlFileName != null)
-            {
-                if (ddlFileName.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnFileNameFilter.Value = ddlFileName.SelectedValue;
-                    BindRejectedSIPGrid(processId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnFileNameFilter.Value = "";
-                    BindRejectedSIPGrid(processId);
-                }
-            }
+            //if (ddlFileName != null)
+            //{
+            //    if (ddlFileName.SelectedIndex != 0)
+            //    {   // Bind the Grid with Only Selected Values
+            //        hdnFileNameFilter.Value = ddlFileName.SelectedValue;
+            //        BindRejectedSIPGrid(processId);
+            //    }
+            //    else
+            //    {   // Bind the Grid with Only All Values
+            //        hdnFileNameFilter.Value = "";
+            //        BindRejectedSIPGrid(processId);
+            //    }
+            //}
         }
 
         protected void ddlFolioNumber_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ddlFolioNumber = GetFolioNumberDDL();
+            //DropDownList ddlFolioNumber = GetFolioNumberDDL();
 
-            if (Request.QueryString["processId"] != null)
-                processId = Int32.Parse(Request.QueryString["processId"].ToString());
+            //if (Request.QueryString["processId"] != null)
+            //    processId = Int32.Parse(Request.QueryString["processId"].ToString());
 
 
 
-            if (ddlFolioNumber != null)
-            {
-                if (ddlFolioNumber.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnFolioFilter.Value = ddlFolioNumber.SelectedValue;
-                    BindRejectedSIPGrid(processId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnFolioFilter.Value = "";
-                    BindRejectedSIPGrid(processId);
-                }
-            }
+            //if (ddlFolioNumber != null)
+            //{
+            //    if (ddlFolioNumber.SelectedIndex != 0)
+            //    {   // Bind the Grid with Only Selected Values
+            //        hdnFolioFilter.Value = ddlFolioNumber.SelectedValue;
+            //        BindRejectedSIPGrid(processId);
+            //    }
+            //    else
+            //    {   // Bind the Grid with Only All Values
+            //        hdnFolioFilter.Value = "";
+            //        BindRejectedSIPGrid(processId);
+            //    }
+            //}
         }
 
         protected void ddlSchemeName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ddlSchemeName = GetSchemeNameDDL();
+            //DropDownList ddlSchemeName = GetSchemeNameDDL();
 
-            if (Request.QueryString["processId"] != null)
-                processId = Int32.Parse(Request.QueryString["processId"].ToString());
+            //if (Request.QueryString["processId"] != null)
+            //    processId = Int32.Parse(Request.QueryString["processId"].ToString());
 
 
-            if (ddlSchemeName != null)
-            {
-                if (ddlSchemeName.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnSchemeNameFilter.Value = ddlSchemeName.SelectedValue;
-                    BindRejectedSIPGrid(processId);
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnSchemeNameFilter.Value = "";
-                    BindRejectedSIPGrid(processId);
-                }
-            }
+            //if (ddlSchemeName != null)
+            //{
+            //    if (ddlSchemeName.SelectedIndex != 0)
+            //    {   // Bind the Grid with Only Selected Values
+            //        hdnSchemeNameFilter.Value = ddlSchemeName.SelectedValue;
+            //        BindRejectedSIPGrid(processId);
+            //    }
+            //    else
+            //    {   // Bind the Grid with Only All Values
+            //        hdnSchemeNameFilter.Value = "";
+            //        BindRejectedSIPGrid(processId);
+            //    }
+            //}
         }
         private DropDownList GetRejectReasonDDL()
         {
@@ -870,16 +870,14 @@ namespace WealthERP.Uploads
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             int i = 0;
-
-
             foreach (GridDataItem gvr in this.gvSIPReject.Items)
             {
                 if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                 {
+                    int StagingID = int.Parse(gvSIPReject.MasterTableView.DataKeyValues[i]["CMFSCS_ID"].ToString());
                     i = i + 1;
                 }
             }
-
             if (i == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
@@ -887,22 +885,23 @@ namespace WealthERP.Uploads
             }
             else
             {
+                CustomerSIPTransactionDelete();
                 msgReprocessComplete.Visible = false;
                 msgDelete.Visible = true;
-                CustomerSIPTransactionDelete();
                 msgDelete.Visible = true;
             }
-
         }
 
 
         private void CustomerSIPTransactionDelete()
-        {   int i=0;
+        {
+            int i = 0;
             foreach (GridDataItem gvr in this.gvSIPReject.Items)
             {
                 if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                 {
-                    int StagingID = int.Parse(gvSIPReject.MasterTableView.DataKeyValues[i]["CMFSCS_ID"].ToString());
+                    int StagingID = int.Parse(gvSIPReject.MasterTableView.DataKeyValues[gvr.ItemIndex]["CMFSCS_ID"].ToString());
+                    //i = i + 1;
                     uploadsCommonBo.DeleteMFSIPTransactionStaging(StagingID);
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
                     BindRejectedSIPGrid(processId);
@@ -935,12 +934,18 @@ namespace WealthERP.Uploads
             DataTable distinctValues = view.ToTable();
             DataRow[] rows = distinctValues.Select(gvSIPReject.MasterTableView.FilterExpression.ToString());
             gvSIPReject.MasterTableView.Rebind();
-
-
         }
         protected void btnViewSIP_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(txtFromSIP.SelectedDate.ToString()))
+            if (txtFromSIP.SelectedDate != null)
+                fromDate = DateTime.Parse(txtFromSIP.SelectedDate.ToString());
+            if (txtToSIP.SelectedDate != null)
+                toDate = DateTime.Parse(txtToSIP.SelectedDate.ToString());
+
             BindRejectedSIPGrid(processId);
+            msgDelete.Visible = false;
+            msgReprocessComplete.Visible = false;
             ViewState.Remove("WRR_RejectReasonCode");
             ViewState.Remove("CMFSCS_SystematicCode");
         }
