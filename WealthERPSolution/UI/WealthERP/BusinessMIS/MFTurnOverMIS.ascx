@@ -175,7 +175,7 @@
                     <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField" AutoPostBack="true"
                         Style="vertical-align: middle" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged">
                         <asp:ListItem Text="Organization Level" Value="Organization" Selected="True"></asp:ListItem>
-                        <asp:ListItem Text="Customer/Staff Level" Value="Staff"></asp:ListItem>
+                        <asp:ListItem Text="Staff/Customer Level" Value="Staff"></asp:ListItem>
                         <asp:ListItem Text="Product Level" Value="Product"></asp:ListItem>
                     </asp:DropDownList>
                 </td>
@@ -267,7 +267,7 @@
                         <asp:LinkButton ID="lnkRMWise" Text="RM Wise" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkRMWise_Click"></asp:LinkButton>
                         <span>-></span>--%>
-                        <asp:LinkButton ID="lnkStaffCustomerFolioWise" Text="RM/Customer/Folio Wise" CssClass="LinkButtonsWithoutUnderLine"
+                        <asp:LinkButton ID="lnkStaffCustomerFolioWise" Text="Staff/Customer/Folio Wise" CssClass="LinkButtonsWithoutUnderLine"
                             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkOCustomer_Click"></asp:LinkButton>
                     </div>
                 </td>
@@ -619,6 +619,7 @@
                                         </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn HeaderText="Category" HeaderTooltip="Category" DataField="Category"
                                             UniqueName="Category" SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                             Aggregate="Count" FooterText="Row Count : "
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
@@ -1232,9 +1233,43 @@
                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                     FileName="Folio Details" Excel-Format="ExcelML">
                                 </ExportSettings>
-                                <MasterTableView GroupsDefaultExpanded="true" ExpandCollapseColumn-Groupable="true" 
-                                    GroupLoadMode="Client" ShowGroupFooter="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                                    CommandItemDisplay="None">
+                                <MasterTableView GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
+                                    GroupLoadMode="Client" EditMode="EditForms" ShowGroupFooter="true"
+                                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                                    
+                                        <GroupByExpressions>
+                                        <telerik:GridGroupByExpression>
+                                            <GroupByFields>
+                                                <telerik:GridGroupByField FieldName="RMName" />
+                                            </GroupByFields>
+                                            <SelectFields>
+                                                <telerik:GridGroupByField FieldName="RMName" FieldAlias="RM" />
+                                            </SelectFields>
+                                        </telerik:GridGroupByExpression>
+                                    </GroupByExpressions>
+                                    
+                                      <GroupByExpressions>
+                                        <telerik:GridGroupByExpression>
+                                            <GroupByFields>
+                                                <telerik:GridGroupByField FieldName="Customer"   />
+                                            </GroupByFields>
+                                            <SelectFields>
+                                                <telerik:GridGroupByField FieldName="Customer" FieldAlias="Customer" />
+                                            </SelectFields>
+                                        </telerik:GridGroupByExpression>
+                                    </GroupByExpressions>
+                                
+                                    <GroupByExpressions>
+                                        <telerik:GridGroupByExpression>
+                                            <GroupByFields>
+                                                <telerik:GridGroupByField FieldName="Folio" />
+                                            </GroupByFields>
+                                            <SelectFields>
+                                                <telerik:GridGroupByField FieldName="Folio" FieldAlias="Folio" />
+                                            </SelectFields>
+                                        </telerik:GridGroupByExpression>
+                                    </GroupByExpressions>
+                                    
                                     <Columns>
                                         <%--<telerik:GridTemplateColumn  AllowFiltering="false" UniqueName="action"
                     DataField="action">
@@ -1243,23 +1278,26 @@
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>--%>
                                        
+                                         <telerik:GridBoundColumn HeaderText="RM" HeaderTooltip="RM" DataField="RMName" UniqueName="RMName"
+                                            SortExpression="RMName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
                                         <telerik:GridBoundColumn HeaderText="Customer" HeaderTooltip="Customer" DataField="Customer"
                                             FooterText="Grand Total:" UniqueName="Customer" SortExpression="Customer" AutoPostBackOnFilter="true"
                                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn HeaderText="Branch" HeaderTooltip="Branch" DataField="BranchName"
+                                      <%--  <telerik:GridBoundColumn HeaderText="Branch" HeaderTooltip="Branch" DataField="BranchName"
                                             UniqueName="BranchName" SortExpression="BranchName" AutoPostBackOnFilter="true"
                                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn HeaderText="RM" HeaderTooltip="RM" DataField="RMName" UniqueName="RMName"
-                                            SortExpression="RMName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
+                                        </telerik:GridBoundColumn>--%>
+                                      
                                         <telerik:GridBoundColumn HeaderText="Folio" HeaderTooltip="Folio" DataField="Folio"
                                             UniqueName="Folio" SortExpression="Folio" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                              Aggregate="Count" FooterText="Row Count : "
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>

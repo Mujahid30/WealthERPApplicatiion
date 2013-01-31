@@ -498,7 +498,7 @@ namespace WealthERP.BusinessMIS
             SetParameters();
             showHideGrid("SchemeWise");
             BindSchemeWiseTransactionDetails();
-            lblMFMISType.Text = "SCHEME WISE";
+            lblMFMISType.Text = "AMC/Scheme/Category Wise";
         }
 
         private void BindSchemeWiseTransactionDetails()
@@ -967,7 +967,7 @@ namespace WealthERP.BusinessMIS
             SetParameters();
             showHideGrid("FolioWise");
             BindFolioWiseTransactionDetails();
-            lblMFMISType.Text = "Customer/Folio WISE";
+            lblMFMISType.Text = "Staff/Customer/Folio Wise";
         }
 
         private void BindFolioWiseTransactionDetails()
@@ -986,7 +986,6 @@ namespace WealthERP.BusinessMIS
             #endregion
 
             dtGetFolioTransactionDeatails.Columns.Add("Customer");
-            dtGetFolioTransactionDeatails.Columns.Add("BranchName");
             dtGetFolioTransactionDeatails.Columns.Add("RMName");
             dtGetFolioTransactionDeatails.Columns.Add("Folio");
             dtGetFolioTransactionDeatails.Columns.Add("BUYCount", typeof(double));
@@ -1150,7 +1149,6 @@ namespace WealthERP.BusinessMIS
                             drTransactionFolioWise = dtGetFolioTransaction.Select("CMFA_AccountId=" + AcountId.ToString());
                             //drGetSchemeTransactionDeatails["PA_AMCName"] = drAMCTransaction["PA_AMCName"].ToString();
                             drGetFolioTransactionDeatails["Customer"] = drFolioTransaction["CustomerName"].ToString();
-                            drGetFolioTransactionDeatails["BranchName"] = drFolioTransaction["AB_BranchName"].ToString();
                             drGetFolioTransactionDeatails["RMName"] = drFolioTransaction["RmName"].ToString();
                             drGetFolioTransactionDeatails["Folio"] = drFolioTransaction["CMFA_FolioNum"].ToString();
                             if (drTransactionFolioWise.Count() > 0)
@@ -1434,6 +1432,7 @@ namespace WealthERP.BusinessMIS
                 gvFolioWise.DataSource = dtGetFolioTransactionDeatails;
                 gvFolioWise.DataBind();
                 gvFolioWise.Visible = true;
+                this.gvFolioWise.GroupingSettings.RetainGroupFootersVisibility = true;
                 if (Cache["FolioTransactionDeatails" + userVo.UserId] == null)
                 {
                     Cache.Insert("FolioTransactionDeatails" + userVo.UserId, dtGetFolioTransactionDeatails);
@@ -1817,7 +1816,7 @@ namespace WealthERP.BusinessMIS
             SetParameters();
             showHideGrid("FolioWise");
             BindFolioWiseTransactionDetails();
-            lblMFMISType.Text = "Customer/Folio WISE";
+            lblMFMISType.Text = "Staff/Customer/Folio Wise";
         }
 
         private void SetParameters()
