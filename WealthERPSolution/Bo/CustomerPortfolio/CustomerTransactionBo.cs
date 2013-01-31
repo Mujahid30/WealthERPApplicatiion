@@ -1384,6 +1384,37 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
+        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId)
+        {
+            DataSet ds = new DataSet();
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                ds = customerTransactionDao.GetRMCustomerTrailCommission(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionBo.cs:GetMFFolioAccountAssociates()");
+                object[] objects = new object[2];                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return ds;
+
+        }
+
         public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
