@@ -400,6 +400,8 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("CMFT_SubBrokerCode");
                     dtMFTransactions.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
                     dtMFTransactions.Columns.Add("CreatedOn");
+                    dtMFTransactions.Columns.Add("CMFT_ExternalBrokerageAmount", typeof(double));
+                  
                     DataRow drMFTransaction;
 
                     for (int i = 0; i < mfTransactionList.Count; i++)
@@ -449,6 +451,9 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction[15] = mfTransactionVo.SubBrokerCode;
                         drMFTransaction[16] = mfTransactionVo.SubCategoryName;
                         drMFTransaction[17] = mfTransactionVo.CreatedOn;
+                        drMFTransaction[18] = decimal.Parse(mfTransactionVo.BrokerageAmount.ToString());
+                       
+
                         dtMFTransactions.Rows.Add(drMFTransaction);
                     }
 

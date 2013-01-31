@@ -359,6 +359,12 @@
                                                             DataFormatString="{0:n0}" Aggregate="Sum">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
+                                                         <telerik:GridBoundColumn DataField="CMFT_ExternalBrokerageAmount" HeaderText="Brokerage(Rs)" AllowFiltering="false"
+                                                            HeaderStyle-Wrap="false" SortExpression="CMFT_ExternalBrokerageAmount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                            AutoPostBackOnFilter="true" UniqueName="CMFT_ExternalBrokerageAmount" FooterStyle-HorizontalAlign="Right"
+                                                            DataFormatString="{0:n2}" Aggregate="Sum">
+                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="STT" HeaderText="STT (Rs)" AllowFiltering="false"
                                                             HeaderStyle-Wrap="false" SortExpression="STT" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                             AutoPostBackOnFilter="true" UniqueName="STT" FooterStyle-HorizontalAlign="Right"
