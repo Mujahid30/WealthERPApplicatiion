@@ -128,7 +128,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Mutual Fund Folio Rejects
+                            Mutual Fund Folio Exceptions
                         </td>
                         <td align="right">
                             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="View Upload Log"

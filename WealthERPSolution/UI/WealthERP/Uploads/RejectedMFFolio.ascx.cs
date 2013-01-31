@@ -161,6 +161,9 @@ namespace WealthERP.Uploads
             //    {
                    
             //    }
+                DateTime fromDate = DateTime.Now.AddDays(-30);
+                txtFromTran.SelectedDate = fromDate.Date;
+                txtToTran.SelectedDate = DateTime.Now;
 
                 if (adviserId != 1000)
                 {
@@ -191,7 +194,6 @@ namespace WealthERP.Uploads
                         tdTxtToDate.Visible = false;
                         tdlblToDate.Visible = false;
                         tdTxtFromDate.Visible = false;
-
                         tdlblFromDate.Visible = false;
                         tdlblRejectReason.Visible = false;
                         tdDDLRejectReason.Visible = false;
@@ -312,11 +314,7 @@ namespace WealthERP.Uploads
             {
                 if (ProcessId == null || ProcessId == 0)
                 {
-                    //if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
-                   if(txtFromTran.SelectedDate != null )
-                    fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
-                    if (txtToTran.SelectedDate != null)                    
-                    toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
+                   
                     rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
                 }
 
@@ -388,7 +386,7 @@ namespace WealthERP.Uploads
             {
                 if (((CheckBox)item.FindControl("chkBx")).Checked == true)
                 {
-                    StagingID += Convert.ToString(gvCAMSProfileReject.MasterTableView.DataKeyValues[i]["CMFFS_Id"]) + "~";
+                    StagingID += Convert.ToString(gvCAMSProfileReject.MasterTableView.DataKeyValues[item.ItemIndex]["CMFFS_Id"]) + "~";
                     i = i + 1;
                 }
 
@@ -628,20 +626,18 @@ namespace WealthERP.Uploads
             }
            
         }
-            //DataTable dtRejectedMFFolioDetails = new DataTable();
-
-            //dtRejectedMFFolioDetails = (DataTable)Cache["RejectedMFFolioDetails" + adviserId.ToString()];
-            //gvCAMSProfileReject.DataSource = dtRejectedMFFolioDetails;
-
-     
-
+           
         protected void btnViewTran_Click(object sender, EventArgs e)
         {
-            BindGrid(ProcessId);
-            ViewState.Remove("RejectReason");
-            divLobAdded.Visible = false;
+            if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
+            if (txtFromTran.SelectedDate != null)
+                fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
+            if (txtToTran.SelectedDate != null)
+                toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
+                BindGrid(ProcessId);
+                ViewState.Remove("RejectReason");
+                divLobAdded.Visible = false;
         }
-
 
         public void Reprocess(int processID, int filetypeId, string InputInsertionStatus, string FirstStagingStatus, string SecondStagingStatus, string WERPInsertionStatus)
         {
