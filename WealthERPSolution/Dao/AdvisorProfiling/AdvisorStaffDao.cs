@@ -1193,6 +1193,15 @@ namespace DaoAdvisorProfiling
                     {
                         customerVo = new CustomerVo();
                         customerVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        if (dr["ADUL_ProcessId"].ToString() == null || dr["ADUL_ProcessId"].ToString() == "")
+                        {
+                            customerVo.ProcessId = 0;
+
+                        }
+                        else
+                        {
+                            customerVo.ProcessId = int.Parse(dr["ADUL_ProcessId"].ToString());
+                        }
                         customerVo.FirstName = dr["C_FirstName"].ToString();
                         customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
                         customerVo.MiddleName = dr["C_MiddleName"].ToString();
@@ -1325,6 +1334,15 @@ namespace DaoAdvisorProfiling
                     {
                         customerVo = new CustomerVo();
                         customerVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        if (dr["ADUL_ProcessId"].ToString() == null || dr["ADUL_ProcessId"].ToString() == "" )
+                        {
+                          customerVo.ProcessId = 0;
+                            
+                        }
+                        else
+                        {
+                            customerVo.ProcessId = int.Parse(dr["ADUL_ProcessId"].ToString());
+                        }
                         customerVo.FirstName = dr["C_FirstName"].ToString();
                         customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
                         customerVo.MiddleName = dr["C_MiddleName"].ToString();
