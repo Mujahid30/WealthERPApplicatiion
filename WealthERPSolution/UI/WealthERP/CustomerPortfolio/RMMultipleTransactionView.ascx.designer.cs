@@ -48,7 +48,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnTrnxExport;
-        
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnTrail;
         /// <summary>
         /// trRangeNcustomer control.
         /// </summary>
@@ -372,7 +372,9 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvMFTransactions;
-        
+
+        protected global::Telerik.Web.UI.RadGrid gvTrail;
+
         /// <summary>
         /// tbspace control.
         /// </summary>

@@ -306,6 +306,15 @@ namespace WealthERP.CustomerPortfolio
                 Panel2.Visible = false;
                
             }
+
+            if (DisplayType == "TCV")
+            {
+                BindGridTrailCommission(convertedFromDate, convertedToDate);
+                hdnExportType.Value = "TCV";
+                //gvMFTransactions.Visible = false;
+                //Panel2.Visible = false;
+
+            }
            
             
         }
@@ -494,7 +503,7 @@ namespace WealthERP.CustomerPortfolio
                     btnTrnxExport.Visible = false;
                   
                 }
-               
+                gvTrail.Visible = false;
             }
             catch (Exception e)
             {
@@ -633,7 +642,7 @@ namespace WealthERP.CustomerPortfolio
                     hdnRecordCount.Value = "0";
                     btnTrnxExport.Visible = false;
                 }
-
+               gvTrail.Visible = false;
             }
             catch (Exception e)
             {
@@ -666,6 +675,18 @@ namespace WealthERP.CustomerPortfolio
                 gvBalanceView.MasterTableView.ExportToExcel();
             
             }
+
+            //if (hdnExportType == "TCV")
+            //{
+            //    gvBalanceView.ExportSettings.OpenInNewWindow = true;
+            //    gvBalanceView.ExportSettings.IgnorePaging = true;
+            //    gvBalanceView.ExportSettings.HideStructureColumns = true;
+            //    gvBalanceView.ExportSettings.ExportOnlyData = true;
+            //    gvBalanceView.ExportSettings.FileName = "View TrailCommission Details";
+            //    gvBalanceView.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            //    gvBalanceView.MasterTableView.ExportToExcel();
+
+            //}
         
         }
 
@@ -715,6 +736,105 @@ namespace WealthERP.CustomerPortfolio
                 Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + schemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + schemeName + "&AMCCode=" + amcCode + "", false);
             }
         }
+
+
+        #region added for Trail transaction
+
+        private void BindGridTrailCommission(DateTime convertedFromDate, DateTime convertedToDate)
+        {
+            DataSet dsTrailCommissionDetails = new DataSet();
+            DataSet ds = new DataSet();
+            int rmID = 0;
+            int AdviserId = 0;
+
+            if (userType == "advisor" || userType == "ops")
+                AdviserId = advisorVo.advisorId;
+            else if (userType == "rm")
+                rmID = rmVo.RMId;
+
+            if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
+                customerId = int.Parse(txtParentCustomerId.Value);
+            try
+            {
+                if (rbtnGroup.Checked)
+                {
+                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue);
+                }
+                else if (Session["IsCustomerDrillDown"] == "Yes")
+                {
+                    customerId = customerVo.CustomerId;
+                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue);
+                }
+                else
+                {
+                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue);
+                }
+                if (dsTrailCommissionDetails.Tables[0].Rows.Count != 0)
+                {
+                    ErrorMessage.Visible = false;
+                    Panel1.Visible = true;
+                
+                    GridBoundColumn gbcCustomer = gvBalanceView.MasterTableView.Columns.FindByUniqueName("Customer Name") as GridBoundColumn;
+                  
+                    gvTrail.DataSource = dsTrailCommissionDetails;
+                    gvTrail.DataBind();
+                    imgBtnTrail.Visible = true;
+                    ErrorMessage.Visible = false;
+                    gvTrail.Visible = true;
+                    btnTrnxExport.Visible = true;
+                }
+
+                else
+                {
+                    gvTrail.Visible = false;
+                    ErrorMessage.Visible = true;
+                    hdnRecordCount.Value = "0";
+                    btnTrnxExport.Visible = false;
+                    imgBtnTrail.Visible = false;
+                }
+
+                btnTrnxExport.Visible = false;
+                if (Cache["ViewTrailCommissionDetails" + userVo.UserId + userType] == null)
+                {
+                    Cache.Insert("ViewTrailCommissionDetails" + advisorVo.advisorId, dsTrailCommissionDetails);
+                }
+                else
+                {
+                    Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
+                    Cache.Insert("ViewTrailCommissionDetails" + advisorVo.advisorId, dsTrailCommissionDetails);
+                }
+                Panel2.Visible = false;
+                Panel1.Visible = false;
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
+        protected void gvTrail_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataSet dtTrailstransactionDetails = new DataSet();
+            dtTrailstransactionDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
+            gvTrail.DataSource = dtTrailstransactionDetails;
+            gvTrail.Visible = true;            
+        }
+
+        protected void btnTrailExport_Click(object sender, ImageClickEventArgs e)
+        {
+            DataTable dtFolioDetails = new DataTable();
+            gvTrail.DataSource = dtFolioDetails;
+            gvTrail.ExportSettings.OpenInNewWindow = true;
+            gvTrail.ExportSettings.IgnorePaging = true;
+            gvTrail.ExportSettings.HideStructureColumns = true;
+            gvTrail.ExportSettings.ExportOnlyData = true;
+            gvTrail.ExportSettings.FileName = "Trail Details";
+            gvTrail.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvTrail.MasterTableView.ExportToExcel();
+        }
+
+        #endregion
+
         protected void gvMFTransactions_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             string rcbType = string.Empty;
