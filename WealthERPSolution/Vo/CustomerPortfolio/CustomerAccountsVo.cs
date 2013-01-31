@@ -25,6 +25,7 @@ namespace VoCustomerPortfolio
         private int m_IsJointHolding;
         private string m_AccountSource;
         private int m_CustomerId;
+        private int m_ProcessId;
         private string m_CustomerName;
         private string m_ModeOfHolding;
         private string m_ModeOfHoldingCode;
@@ -117,6 +118,11 @@ namespace VoCustomerPortfolio
         {
             get { return m_CPinCode; }
             set { m_CPinCode = value; }
+        }
+        public int ProcessId
+        {
+            get { return m_ProcessId; }
+            set { m_ProcessId = value; }
         }
         public string JointName1
         {
