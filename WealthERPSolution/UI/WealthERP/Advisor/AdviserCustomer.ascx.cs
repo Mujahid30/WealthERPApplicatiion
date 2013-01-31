@@ -903,6 +903,7 @@ namespace WealthERP.Advisor
                     lblTotalRows.Visible = true;
 
                     dtRMCustomer.Columns.Add("CustomerId");
+                    dtRMCustomer.Columns.Add("ADUL_ProcessId");
                     dtRMCustomer.Columns.Add("UserId");
                     dtRMCustomer.Columns.Add("RMId");
                     dtRMCustomer.Columns.Add("Parent");
@@ -928,15 +929,21 @@ namespace WealthERP.Advisor
                         customerVo = new CustomerVo();
                         customerVo = customerList[i];
                         drRMCustomer[0] = customerVo.CustomerId.ToString();
-                        drRMCustomer[1] = customerVo.UserId.ToString();
-                        drRMCustomer[2] = customerVo.RmId.ToString();
+                        if (customerVo.ProcessId == 0)
+                        {
+                            drRMCustomer[1] = "N/A";
+                        }
+                        else
+                            drRMCustomer[1] = customerVo.ProcessId.ToString();
+                        drRMCustomer[2] = customerVo.UserId.ToString();
+                        drRMCustomer[3] = customerVo.RmId.ToString();
                         drRMCustomer["BranchName"] = customerVo.BranchName;
                         if (customerVo.ParentCustomer != null)
                         {
-                            drRMCustomer[3] = customerVo.ParentCustomer.ToString();
+                            drRMCustomer[4] = customerVo.ParentCustomer.ToString();
                         }
 
-                        drRMCustomer[4] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+                        drRMCustomer[5] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
 
                         //if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == "")
                         //{
@@ -963,12 +970,12 @@ namespace WealthERP.Advisor
                         //    drRMCustomer[4] = customerVo.CompanyName.ToString();
                         //}
                         if (customerVo.PANNum != null)
-                            drRMCustomer[5] = customerVo.PANNum.ToString();
+                            drRMCustomer[6] = customerVo.PANNum.ToString();
                         else
-                            drRMCustomer[5] = "";
-                        drRMCustomer[6] = customerVo.Mobile1.ToString();
-                        drRMCustomer[7] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
-                        drRMCustomer[8] = customerVo.Email.ToString();
+                            drRMCustomer[6] = "";
+                        drRMCustomer[7] = customerVo.Mobile1.ToString();
+                        drRMCustomer[8] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
+                        drRMCustomer[9] = customerVo.Email.ToString();
                         if (customerVo.Adr1Line1 == null)
                             customerVo.Adr1Line1 = "";
                         if (customerVo.Adr1Line2 == null)
@@ -978,45 +985,45 @@ namespace WealthERP.Advisor
                         if (customerVo.Adr1City == null)
                             customerVo.Adr1City = "";
                         if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() == "")
-                            drRMCustomer[9] = "-";
+                            drRMCustomer[10] = "-";
                         else if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() != "")
-                            drRMCustomer[9] = customerVo.Adr1Line2.ToString();
+                            drRMCustomer[10] = customerVo.Adr1Line2.ToString();
                         else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString() == "")
-                            drRMCustomer[9] = customerVo.Adr1Line1.ToString();
+                            drRMCustomer[10] = customerVo.Adr1Line1.ToString();
                         else
-                            drRMCustomer[9] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString();
+                            drRMCustomer[10] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString();
 
-                        drRMCustomer[10] = customerVo.Adr1Line3.ToString();
-                        drRMCustomer[11] = customerVo.Adr1City.ToString();
-                        drRMCustomer[12] = customerVo.Adr1PinCode.ToString();
+                        drRMCustomer[11] = customerVo.Adr1Line3.ToString();
+                        drRMCustomer[12] = customerVo.Adr1City.ToString();
+                        drRMCustomer[13] = customerVo.Adr1PinCode.ToString();
                         if (customerVo.AssignedRM != null)
-                            drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                            drRMCustomer[14] = customerVo.AssignedRM.ToString();
                         else
-                            drRMCustomer[13] = "";
+                            drRMCustomer[14] = "";
                         if (customerVo.IsActive == 1)
                         {
-                            drRMCustomer[14] = "Active";
+                            drRMCustomer[15] = "Active";
                         }
                         else
                         {
-                            drRMCustomer[14] = "In Active";
+                            drRMCustomer[15] = "In Active";
 
                         }
                         if (customerVo.IsProspect == 1)
-                        {
-                            drRMCustomer[15] = "Yes";
-                        }
-                        else
-                        {
-                            drRMCustomer[15] = "No";
-                        }
-                        if (customerVo.IsFPClient == 1)
                         {
                             drRMCustomer[16] = "Yes";
                         }
                         else
                         {
                             drRMCustomer[16] = "No";
+                        }
+                        if (customerVo.IsFPClient == 1)
+                        {
+                            drRMCustomer[17] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[17] = "No";
                         }
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
