@@ -2515,6 +2515,80 @@ namespace DaoCustomerPortfolio
             //}
             return mfTransactionsList;
         }
+
+
+        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId)
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getRMCustomerMFTransactionsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetRMCustomerTrailCommission");
+                
+                if (RMId != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RMId", DbType.Int32, RMId);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RMId", DbType.Int32, DBNull.Value);
+
+                if (AdviserID != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserID", DbType.Int32, AdviserID);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserID", DbType.Int32, DBNull.Value);
+
+
+                if (GroupHeadId != 0)
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, GroupHeadId);
+                }
+                else
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, DBNull.Value);
+                }
+
+                
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
+                if (AccountId != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, AccountId);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, DBNull.Value);
+              
+
+               
+                getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
+                ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetRMCustomerMFTransactions()");
+                object[] objects = new object[5];
+                objects[0] = RMId;
+                objects[1] = GroupHeadId;
+                objects[2] = From;
+                objects[3] = To;
+                objects[4] = Manage;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+
+        }
+
+
         public List<MFTransactionVo> GetAdviserCustomerMFTransactions(out int Count, int CurrentPage, int adviserId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC)
         {
             DataSet ds = null;
