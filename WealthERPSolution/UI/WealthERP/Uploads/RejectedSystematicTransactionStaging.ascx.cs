@@ -163,7 +163,7 @@ namespace WealthERP.Uploads
                   }
                 }
               }
-            Panel3.Visible = false;
+            btnExport.Visible = false;
             Msgerror.Visible = false;
            }
      

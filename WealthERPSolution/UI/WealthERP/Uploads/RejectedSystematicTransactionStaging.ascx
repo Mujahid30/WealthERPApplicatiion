@@ -388,7 +388,7 @@
      </telerik:RadAjaxPanel>
           
    --%>
-<asp:Panel ID="Panel3" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+<asp:Panel ID="Panel3" visible ="false" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="2">
         <%--<tr>
             <%--<td>
