@@ -948,6 +948,7 @@ namespace WealthERP.BusinessMIS
                 gvSchemeWise.DataSource = dtGetSchemeTransactionDeatails;
                 gvSchemeWise.DataBind();
                 gvSchemeWise.Visible = true;
+                this.gvSchemeWise.GroupingSettings.RetainGroupFootersVisibility = true;
                 if (Cache["SchemeTransactionDeatails" + userVo.UserId] == null)
                 {
                     Cache.Insert("SchemeTransactionDeatails" + userVo.UserId, dtGetSchemeTransactionDeatails);
@@ -986,6 +987,7 @@ namespace WealthERP.BusinessMIS
             #endregion
 
             dtGetFolioTransactionDeatails.Columns.Add("Customer");
+            dtGetFolioTransactionDeatails.Columns.Add("Parent");
             dtGetFolioTransactionDeatails.Columns.Add("RMName");
             dtGetFolioTransactionDeatails.Columns.Add("Folio");
             dtGetFolioTransactionDeatails.Columns.Add("BUYCount", typeof(double));
@@ -1149,6 +1151,7 @@ namespace WealthERP.BusinessMIS
                             drTransactionFolioWise = dtGetFolioTransaction.Select("CMFA_AccountId=" + AcountId.ToString());
                             //drGetSchemeTransactionDeatails["PA_AMCName"] = drAMCTransaction["PA_AMCName"].ToString();
                             drGetFolioTransactionDeatails["Customer"] = drFolioTransaction["CustomerName"].ToString();
+                            drGetFolioTransactionDeatails["Parent"] = drFolioTransaction["Parent"].ToString();
                             drGetFolioTransactionDeatails["RMName"] = drFolioTransaction["RmName"].ToString();
                             drGetFolioTransactionDeatails["Folio"] = drFolioTransaction["CMFA_FolioNum"].ToString();
                             if (drTransactionFolioWise.Count() > 0)
