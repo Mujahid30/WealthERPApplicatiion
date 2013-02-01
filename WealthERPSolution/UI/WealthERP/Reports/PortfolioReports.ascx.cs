@@ -188,14 +188,44 @@ namespace WealthERP.Reports
         {
             CustomerBo customerBo = new CustomerBo();
             bool isCorrect = false;
-            isCorrect = customerBo.ChckBussinessDate(chckdate);
-            if (isCorrect == true)
-            { ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
+            DateTime maxValuationDate = new DateTime();
+            maxValuationDate = DateTime.Parse(hdnValuationDate.Value);
+            if (chckdate <= maxValuationDate)
+            {
+                isCorrect = customerBo.ChckBussinessDate(chckdate);
+                if (isCorrect == true)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
+
+                    btnView.Enabled = true;
+                    btnViewInPDF.Enabled = true;
+                    btnViewInDOC.Enabled = true;
+                    btnCustomerViewReport.Enabled = true;
+                    btnCustomerExportToPDF.Enabled = true;
+                    btnCustomerViewInDOC.Enabled = true;
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid!!!Choose a Valid Bussiness Date ');", true);
+                    btnView.Enabled = false;
+                    btnViewInPDF.Enabled = false;
+                    btnViewInDOC.Enabled = false;
+                    btnCustomerViewReport.Enabled = false;
+                    btnCustomerExportToPDF.Enabled = false;
+                    btnCustomerViewInDOC.Enabled = false;
+
+                }
             }
             else
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid!!!Choose a Valid Bussiness Date ');", true);
-
+                btnView.Enabled = false;
+                btnViewInPDF.Enabled = false;
+                btnViewInDOC.Enabled = false;
+                btnCustomerViewReport.Enabled = false;
+                btnCustomerExportToPDF.Enabled = false;
+                btnCustomerViewInDOC.Enabled = false;
+            
             }
         }
         private void IndivisulCustomerLogin()
