@@ -128,7 +128,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" Width="98%" ScrollBars="Horizontal">
+                                <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" Width="99%" ScrollBars="Horizontal">
                                     <table id="tblHoldings" runat="server" width="50%">
                                         <tr>
                                             <td>
@@ -301,7 +301,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="98%" ScrollBars="Horizontal">
+                                <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
                                     <table width="99%">
                                         <tr>
                                             <td>
@@ -506,7 +506,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="98%"
+                                <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="99%"
                                     ScrollBars="Horizontal">
                                     <table id="tblRealized" runat="server" width="99%">
                                         <tr>
@@ -663,7 +663,7 @@
                                 </asp:Panel>
                             </telerik:RadPageView>
                             <telerik:RadPageView ID="MFPandATabPage" runat="server">
-                                <asp:Panel ID="pnlMFPandATabPage" runat="server" class="Landscape" Width="98%">
+                                <asp:Panel ID="pnlMFPandATabPage" runat="server" class="Landscape" Width="99%">
                                     <table id="tblPandA" runat="server" width="99%">
                                         <tr id="trMFCode" runat="server">
                                             <td>
@@ -720,12 +720,12 @@
                                 <table width="100%">
                                     <tr id="trSchemePerformance" runat="server" visible="false">
                                         <td>
-                                            <asp:Panel ID="tbl" runat="server" class="Landscape" ScrollBars="Horizontal" Width="98%">
+                                            <asp:Panel ID="tbl" runat="server" class="Landscape" ScrollBars="Horizontal" Width="99%">
                                                 <table width="99%">
                                                     <tr>
                                                         <td>
                                                             <div id="Div1" runat="server" style="width: 640px;">
-                                                                <telerik:RadAjaxPanel ID="PanelScheme" runat="server" Width="98%" EnableHistory="True"
+                                                                <telerik:RadAjaxPanel ID="PanelScheme" runat="server" Width="99%" EnableHistory="True"
                                                                     HorizontalAlign="NotSet" LoadingPanelID="SchemePerformanceLoading">
                                                                     <telerik:RadGrid ID="gvSchemePerformance" runat="server" Width="1500px" PageSize="10"
                                                                         AllowPaging="True" AllowSorting="true" GridLines="None" AutoGenerateColumns="true"
@@ -837,7 +837,7 @@
                                     </tr>
                                     <tr id="trHoldingGrid" runat="server">
                                         <td>
-                                            <asp:Panel ID="pnlHoldingGrid" runat="server" class="Landscape" Width="98%">
+                                            <asp:Panel ID="pnlHoldingGrid" runat="server" class="Landscape" Width="99%">
                                                 <table width="100%">
                                                     <tr>
                                                         <td>
