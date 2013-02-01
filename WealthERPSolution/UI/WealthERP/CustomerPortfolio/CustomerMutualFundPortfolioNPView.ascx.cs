@@ -61,18 +61,18 @@ namespace WealthERP.CustomerPortfolio
                 ErrorMessage.Visible = false;
                 if (!IsPostBack)
                 {
-                    if(Session[SessionContents.PortfolioId]!=null)
-                        portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
-                    else
-                    {
-                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
-                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                        portfolioId = customerPortfolioVo.PortfolioId;
-                    }
+                    //if (Session[SessionContents.PortfolioId] != null)
+                    //    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                    //else
+                    //{
+                    //    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
+                    //    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                    //    portfolioId = customerPortfolioVo.PortfolioId;
+                    //}
 
                     BindPortfolioDropDown();
-                    CalculatePortfolioXIRR(portfolioId);
-                    GetMFPortfolioList(lblPickDate.Text);
+                    //CalculatePortfolioXIRR(portfolioId);
+                    //GetMFPortfolioList(lblPickDate.Text);
                     SetPanelVisibility(false, false);
                     trNoRecords.Visible = false;
                 }
@@ -219,8 +219,8 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
         {
-            portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
-            Session[SessionContents.PortfolioId] = portfolioId;
+            //portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+            //Session[SessionContents.PortfolioId] = portfolioId;
         }
 
         private void BindPortfolioDropDown()
@@ -263,11 +263,10 @@ namespace WealthERP.CustomerPortfolio
             double totalRealizedInvestedCost = 0;
             double totalHoldingInvestedCost = 0;
 
-            SetTaxGridsNull();
-            if (intPortfolioListCount == 0)
+           
+            if (ddlPortfolio.Items.Count == 0 || Session["mfPortfolioList"]==null)
             {
-                ReturnsLabelVisibility(true);
-                SetReturnsGridsNull();
+                ReturnsLabelVisibility(true);               
             }
             else
             {
@@ -432,11 +431,10 @@ namespace WealthERP.CustomerPortfolio
             string expressonTaxHoldings = "";
             string expressonTaxRealized = "";
 
-            SetReturnsGridsNull();
-            if (intPortfolioListCount == 0)
+           
+            if (ddlPortfolio.Items.Count == 0 || Session["mfPortfolioList"]==null)
             {
-                TaxLabelVisibility(true);
-                SetTaxGridsNull();
+                TaxLabelVisibility(true);                
             }
             else
             {
@@ -1247,7 +1245,8 @@ namespace WealthERP.CustomerPortfolio
                     #endregion
 
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','none');", true);
                 }
                 else if (e.CommandName == "NavigateToMarketData")
                 {
@@ -1298,17 +1297,19 @@ namespace WealthERP.CustomerPortfolio
 
                     #region Reusing Old Code
 
-                    Session["Folio"] = dataItem["FolioNum"].Text;
-                    Session["Scheme"] = dataItem["Schemes"].Text;
                     Hashtable ht = new Hashtable();
                     ht["From"] = strFromDate;
                     ht["To"] = strToDate;
+                    ht["Folio"] = strFolio;
+                    ht["SchemePlanCode"] = intSchemeCode;
+                    ht["Account"] = intAccId;
                     Session["tranDates"] = ht;
 
                     #endregion
 
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','none');", true);
                 }
                 else if (e.CommandName == "NavigateToMarketData")
                 {
@@ -1358,11 +1359,12 @@ namespace WealthERP.CustomerPortfolio
 
                     #region Reusing Old Code
 
-                    Session["Folio"] = dataItem["FolioNum"].Text;
-                    Session["Scheme"] = dataItem["Schemes"].Text;
                     Hashtable ht = new Hashtable();
                     ht["From"] = strFromDate;
                     ht["To"] = strToDate;
+                    ht["Folio"] = strFolio;
+                    ht["SchemePlanCode"] = intSchemeCode;
+                    ht["Account"] = intAccId;
                     Session["tranDates"] = ht;
 
                     #endregion
@@ -1422,17 +1424,19 @@ namespace WealthERP.CustomerPortfolio
 
                     #region Reusing Old Code
 
-                    Session["Folio"] = dataItem["FolioNum"].Text;
-                    Session["Scheme"] = dataItem["Schemes"].Text;
                     Hashtable ht = new Hashtable();
                     ht["From"] = strFromDate;
                     ht["To"] = strToDate;
+                    ht["Folio"] = strFolio;
+                    ht["SchemePlanCode"] = intSchemeCode;
+                    ht["Account"] = intAccId;
                     Session["tranDates"] = ht;
 
                     #endregion
 
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','none');", true);
                 }
                 else if (e.CommandName == "NavigateToMarketData")
                 {
@@ -1482,17 +1486,19 @@ namespace WealthERP.CustomerPortfolio
 
                     #region Reusing Old Code
 
-                    Session["Folio"] = dataItem["FolioNum"].Text;
-                    Session["Scheme"] = dataItem["Schemes"].Text;
                     Hashtable ht = new Hashtable();
                     ht["From"] = strFromDate;
                     ht["To"] = strToDate;
+                    ht["Folio"] = strFolio;
+                    ht["SchemePlanCode"] = intSchemeCode;
+                    ht["Account"] = intAccId;
                     Session["tranDates"] = ht;
 
                     #endregion
 
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','none');", true);
                 }
                 else if (e.CommandName == "NavigateToMarketData")
                 {
@@ -2147,11 +2153,17 @@ namespace WealthERP.CustomerPortfolio
         }
 
         protected void btnGo_Click(object sender, EventArgs e)
-        {             
+        {
+            portfolioId = Convert.ToInt32(ddlPortfolio.SelectedValue);
+            CalculatePortfolioXIRR(portfolioId);
+            GetMFPortfolioList(lblPickDate.Text);
+            SetTaxGridsNull();
+            SetReturnsGridsNull();
             if (ddlDisplayType.SelectedIndex == 0)
             {
-                SetPanelVisibility(true, false);
+               
                 BindReturnsGrid();
+                SetPanelVisibility(true, false);
                 trChart.Visible = true;
                 //trSchemePerformance.Visible = false;
                 trHoldingGrid.Visible = false;
