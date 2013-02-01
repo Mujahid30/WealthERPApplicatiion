@@ -161,8 +161,11 @@ namespace WealthERP.Uploads
             //    {
                    
             //    }
-                DateTime fromDate = DateTime.Now.AddDays(-30);
-                txtFromTran.SelectedDate = fromDate.Date;
+                DataSet dsMFFolio = new DataSet();
+                if (Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()] != null)
+                    Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()] = dsMFFolio;
+                
+                txtFromTran.SelectedDate = DateTime.Now.AddMonths(-1).Date;
                 txtToTran.SelectedDate = DateTime.Now;
 
                 if (adviserId != 1000)
@@ -176,7 +179,7 @@ namespace WealthERP.Uploads
                         divConditional.Visible = true;
                     }
                     BindddlRejectReason();
-                    BindGrid(ProcessId);
+                    //BindGrid(ProcessId);
                 }
                 else
                 {
@@ -314,7 +317,10 @@ namespace WealthERP.Uploads
             {
                 if (ProcessId == null || ProcessId == 0)
                 {
-                   
+                    //if (txtFromTran.SelectedDate != null)
+                    //    fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
+                    //if (txtToTran.SelectedDate != null)
+                    //    toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
                     rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
                 }
 
@@ -324,7 +330,7 @@ namespace WealthERP.Uploads
                 Dictionary<string, string> genDictIsCustomerExisting = new Dictionary<string, string>();
 
                 rejectedRecordsBo = new RejectedRecordsBo();
-                dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserId, ProcessId, fromDate, toDate, rejectReasonCode);
+                dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserId, ProcessId, DateTime.Parse(txtFromTran.SelectedDate.ToString()), DateTime.Parse(txtToTran.SelectedDate.ToString()), rejectReasonCode);
 
                 if (dsRejectedRecords.Tables[0].Rows.Count > 0)
                 {   // If Records found, then bind them to grid
@@ -610,26 +616,28 @@ namespace WealthERP.Uploads
             DataTable dtrr = new DataTable();
             dtrr = (DataTable)Cache["RejectedMFFolioDetails" + adviserId.ToString()];
            // dtrr = dtRejectedMFFolioDetails.Tables[0];
-            if (ViewState["RejectReason"] != null)
-                rcbType = ViewState["RejectReason"].ToString();
-            if (!string.IsNullOrEmpty(rcbType))
+            if (dtrr != null)
             {
-                DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "ADUL_ProcessId,CMFFS_INV_NAME,CMFSFS_PANNum,CMFSFS_FolioNum,PA_AMCName,CMFSS_BrokerCode,CMFFS_BANK_NAME,CMGCXP_ADDRESS1,CMGCXP_CITY,CMGCXP_PINCODE,CMGCXP_PHONE_OFF,CMGCXP_PHONE_RES,CMGCXP_DOB", DataViewRowState.CurrentRows);
-                // DataView dvStaffList = dtMIS.DefaultView;
-                gvCAMSProfileReject.DataSource = dvStaffList.ToTable();
+                if (ViewState["RejectReason"] != null)
+                    rcbType = ViewState["RejectReason"].ToString();
+                if (!string.IsNullOrEmpty(rcbType))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "ADUL_ProcessId,CMFFS_INV_NAME,CMFSFS_PANNum,CMFSFS_FolioNum,PA_AMCName,CMFSS_BrokerCode,CMFFS_BANK_NAME,CMGCXP_ADDRESS1,CMGCXP_CITY,CMGCXP_PINCODE,CMGCXP_PHONE_OFF,CMGCXP_PHONE_RES,CMGCXP_DOB", DataViewRowState.CurrentRows);
+                    // DataView dvStaffList = dtMIS.DefaultView;
+                    gvCAMSProfileReject.DataSource = dvStaffList.ToTable();
 
-            }
-            else
-            {
-                gvCAMSProfileReject.DataSource = dtrr;
+                }
+                else
+                {
+                    gvCAMSProfileReject.DataSource = dtrr;
 
+                }
             }
-           
         }
            
         protected void btnViewTran_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
+           // if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
             if (txtFromTran.SelectedDate != null)
                 fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
             if (txtToTran.SelectedDate != null)
