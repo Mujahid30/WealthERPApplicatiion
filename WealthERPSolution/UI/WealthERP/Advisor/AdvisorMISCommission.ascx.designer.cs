@@ -21,6 +21,10 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell trCommissionMIS;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdZoneClusterCommissionMIS;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCategoryWise;
+        
         
         /// <summary>
         /// btnCommissionMIS control.

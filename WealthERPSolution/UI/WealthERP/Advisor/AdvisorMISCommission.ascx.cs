@@ -51,6 +51,8 @@ namespace WealthERP.Advisor
             pnlCommissionMIS.Visible = false;
             pnlZoneClusterWiseMIS.Visible = false;
             divZoneClusterWiseMIS.Visible = false;
+            tdZoneClusterCommissionMIS.Visible = false;
+            tdCategoryWise.Visible = false;
             if (!Page.IsPostBack)
             {
                 if (!Convert.ToBoolean(advisorVo.MultiBranch))
@@ -91,7 +93,7 @@ namespace WealthERP.Advisor
             dsMISCommission = advisorMISBo.GetMFMISCommission(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), out sumTotal);            
             if (dsMISCommission.Tables[0].Rows.Count > 0)
             {
-                trCommissionMIS.Visible = true;
+                //trCommissionMIS.Visible = true;
                 dtMIS = dsMISCommission.Tables[0];
                 string misType = hdnMISType.Value.ToString();                
                 tblMessage.Visible = false;
@@ -274,6 +276,8 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.Visible = true;
                 pnlCommissionMIS.Visible = false;
                 tblZoneClusterWiseMIS.Visible = false;
+                tdCategoryWise.Visible = true;
+                trCommissionMIS.Visible = false;
                 BindCommissionMISGridCategoryWise();
 
             }
@@ -283,6 +287,7 @@ namespace WealthERP.Advisor
                 pnlCommissionMIS.Visible = false;
                 tblCommissionMIS.Visible = false;
                 tblZoneClusterWiseMIS.Visible = true;
+                tdZoneClusterCommissionMIS.Visible = true;
                 BindMISCommissionGridZoneCluster();
             }
             else
@@ -342,7 +347,7 @@ namespace WealthERP.Advisor
                 PickADateValidation.Visible = true;
             }
         }
-        protected void btnCommissionMIS_OnClick(object sender, ImageClickEventArgs e)
+        protected void btnCategoryWise_OnClick(object sender, ImageClickEventArgs e)
         {
             gvCommissionMIS.ExportSettings.OpenInNewWindow = true;
             gvCommissionMIS.ExportSettings.IgnorePaging = true;
@@ -352,6 +357,31 @@ namespace WealthERP.Advisor
             }
             gvCommissionMIS.MasterTableView.ExportToExcel();
         }
+
+          protected void btnCommissionMIS_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvMISCommission.ExportSettings.OpenInNewWindow = true;
+            gvMISCommission.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvMISCommission.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvMISCommission.MasterTableView.ExportToExcel();
+        }
+
+        
+        protected void btnZoneCLusterMISCommission_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvZoneClusterWiseCommissionMIS.ExportSettings.OpenInNewWindow = true;
+            gvZoneClusterWiseCommissionMIS.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvZoneClusterWiseCommissionMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvZoneClusterWiseCommissionMIS.MasterTableView.ExportToExcel();
+        }
+
+
         public void gvCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
         {
             gvCommissionMIS.Visible = true;
@@ -363,6 +393,7 @@ namespace WealthERP.Advisor
         public void gvMISCommission_OnNeedDataSource(object sender, EventArgs e)
         {
             gvMISCommission.Visible = true;
+            tdCategoryWise.Visible = true;
             DataTable dtMIS = new DataTable();
             dtMIS = (DataTable)Cache["AllMIS" + advisorVo.advisorId + userVo.UserId];
             gvMISCommission.DataSource = dtMIS;
@@ -372,6 +403,7 @@ namespace WealthERP.Advisor
             gvZoneClusterWiseCommissionMIS.Visible = true;
             pnlZoneClusterWiseMIS.Visible = true;
             divZoneClusterWiseMIS.Visible = true;
+            tdZoneClusterCommissionMIS.Visible = true;
             DataTable dtMIS = new DataTable();
             dtMIS = (DataTable)Cache["ClusterZoneMIS" + advisorVo.advisorId + userVo.UserId];
             gvZoneClusterWiseCommissionMIS.DataSource = dtMIS;
