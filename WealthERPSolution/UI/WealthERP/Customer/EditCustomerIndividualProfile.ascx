@@ -15,9 +15,9 @@
 <script type="text/javascript">
     function DisplayPanId(val) {
         document.getElementById('ctrl_EditCustomerIndividualProfile_gvFamilyAssociate_ctl00_ctl02_ctl03_lblGetPan').innerHTML = val;
-      }
-      </script>      
-            
+    }
+</script>
+
 <script type="text/javascript" language="javascript">
     function checkDate(sender, args) {
 
@@ -125,18 +125,18 @@
         <td class="leftField" style="width: 20%">
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date of Profiling:"></asp:Label>
         </td>
-         <td id="tdprofileDate" runat="server">
-                <telerik:RadDatePicker ID="txtProfilingDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput3" EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
-                        DateFormat="d/M/yyyy">
-                    </DateInput>
-                </telerik:RadDatePicker>
-                </td>
+        <td id="tdprofileDate" runat="server">
+            <telerik:RadDatePicker ID="txtProfilingDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput3" EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
+                    DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+        </td>
     </tr>
     <tr>
         <td class="leftField">
@@ -144,7 +144,9 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="txtField" MaxLength="16"></asp:TextBox>
-            <asp:RegularExpressionValidator ID="revCustCode" runat="server" Display="Dynamic" CssClass="cvPCG"  ControlToValidate="txtCustomerCode" ValidationExpression="^[0-9a-zA-Z ]+$" ErrorMessage="Please enter alphanumeric of max 16 digit" ></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="revCustCode" runat="server" Display="Dynamic"
+                CssClass="cvPCG" ControlToValidate="txtCustomerCode" ValidationExpression="^[0-9a-zA-Z ]+$"
+                ErrorMessage="Please enter alphanumeric of max 16 digit"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -155,9 +157,8 @@
             <asp:RadioButton ID="rbtnMale" runat="server" CssClass="txtField" Text="Male" GroupName="rbtnGender" />
             <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female"
                 GroupName="rbtnGender" />
-                &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-            <asp:CheckBox ID="chkKYC" runat="server" CssClass="txtField" Text="MF KYC"
-                AutoPostBack="true" />    
+            &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+            <asp:CheckBox ID="chkKYC" runat="server" CssClass="txtField" Text="MF KYC" AutoPostBack="true" />
         </td>
     </tr>
     <tr>
@@ -224,7 +225,6 @@
             <%--<asp:Label ID="lblMfKYC" runat="server" CssClass="FieldName" Text="MF KYC:"></asp:Label>--%>
         </td>
         <td class="rightField">
-        
             <%--<asp:RadioButton ID="rbtnkycYes" runat="server" CssClass="txtField" Text="Yes" GroupName="rbtnKYC" />
             <asp:RadioButton ID="rbtnKycNo" runat="server" CssClass="txtField" Text="No" Checked="true" GroupName="rbtnKYC" />--%>
         </td>
@@ -247,9 +247,10 @@
     </tr>
 </table>
 <telerik:RadTabStrip ID="RadTabStripCustomerProfile" runat="server" EnableTheming="True"
-    Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="CustomerProfileDetails" SelectedIndex="0">
+    Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="CustomerProfileDetails"
+    SelectedIndex="0">
     <Tabs>
-        <telerik:RadTab runat="server" Text="Family Associates" Value="FamilyAssociates" 
+        <telerik:RadTab runat="server" Text="Family Associates" Value="FamilyAssociates"
             TabIndex="0">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="ISA Account" Value="ISAAccount" TabIndex="1">
@@ -414,7 +415,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <asp:Button ID="Button3" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                                                            runat="server"  CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                                             ValidationGroup="Submit"></asp:Button>
                                                                     </td>
                                                                     <td>
@@ -457,7 +458,6 @@
                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
                                                                             ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
-                                                                    
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -566,20 +566,20 @@
                                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                     <HeaderStyle></HeaderStyle>
                                 </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn UniqueName="AISAQ_RequestQueueid" HeaderStyle-Width="100px"
+                                <telerik:GridBoundColumn UniqueName="AISAQ_RequestQueueid" HeaderStyle-Width="100px"
                                     HeaderText="Request Id" DataField="AISAQ_RequestQueueid" SortExpression="AISAQ_RequestQueueid"
                                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                     <HeaderStyle></HeaderStyle>
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" UniqueName="CISAA_accountid" HeaderStyle-Width="100px" HeaderText="AccountId"
-                        DataField="CISAA_accountid" SortExpression="CISAA_accountid" AllowFiltering="true"
-                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                        <HeaderStyle></HeaderStyle>
-                    </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn Visible="false" UniqueName="CISAA_accountid" HeaderStyle-Width="100px"
+                                    HeaderText="AccountId" DataField="CISAA_accountid" SortExpression="CISAA_accountid"
+                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                    <HeaderStyle></HeaderStyle>
+                                </telerik:GridBoundColumn>
                                 <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this ISA Account?"
-                                  ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                  Text="Delete">
-                                 <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                    ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                    Text="Delete">
+                                    <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                                 </telerik:GridButtonColumn>
                             </Columns>
                             <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
@@ -771,10 +771,10 @@
                         OnNeedDataSource="gvBankDetails_NeedDataSource" OnItemCommand="gvBankDetails_ItemCommand">
                         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                         </ExportSettings>
-                         <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,CB_BankName,BankAccountTypeCode,CB_BranchAdrState" 
-                         EditMode="EditForms" CommandItemDisplay="Top"
-                            CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add New Bank Details">
-                             <Columns>
+                        <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,CB_BankName,BankAccountTypeCode,CB_BranchAdrState"
+                            EditMode="EditForms" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                            CommandItemSettings-AddNewRecordText="Add New Bank Details">
+                            <Columns>
                                 <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
                                     UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
                                 </telerik:GridEditCommandColumn>
@@ -917,12 +917,10 @@
                                                 <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
                                             </td>
                                             <td class="rightField">
-                                               <%-- <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" Style="width: 250px;"
+                                                <%-- <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" Style="width: 250px;"
                                                     Text='<%# Bind("CB_BankName") %>'></asp:TextBox>--%>
-                                                    
-                                                    
                                                 <asp:DropDownList ID="ddlBankName" CssClass="cmbField" runat="server">
-                                                </asp:DropDownList> 
+                                                </asp:DropDownList>
                                                 <span id="spBankName" class="spnRequiredField">*</span>
                                                 <%--<asp:RequiredFieldValidator ID="rfvBankName" ControlToValidate="txtBankName" ErrorMessage="<br />Please enter a Bank Name"
                                                     Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
@@ -1421,18 +1419,22 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                        <asp:CompareValidator ID="txtMobile1_CompareValidator" ControlToValidate="txtMobile1"
+                    <%--    <asp:CompareValidator ID="txtMobile1_CompareValidator" ControlToValidate="txtMobile1"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Mobile Number."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidatormb1" runat="server" ControlToValidate="txtMobile1"
+                         CssClass="cvPCG" ErrorMessage="<br /> Please enter a numeric value for Mobile Number." ValidationExpression="^([7-9]{1})([0-9]{9})$"></asp:RegularExpressionValidator>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="Label43" CssClass="FieldName" runat="server" Text="Mobile2:"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtMobile2" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                        <asp:CompareValidator ID="txtMobile2_CompareValidator" ControlToValidate="txtMobile2"
+                         <asp:RegularExpressionValidator ID="RegularExpressionValidatormb2" runat="server" ControlToValidate="txtMobile2"
+                          CssClass="cvPCG"  ErrorMessage="<br /> Please enter a numeric value for Mobile Number." ValidationExpression="^([7-9]{1})([0-9]{9})$"></asp:RegularExpressionValidator>
+                   <%--     <asp:CompareValidator ID="txtMobile2_CompareValidator" ControlToValidate="txtMobile2"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Mobile Number."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
                     </td>
                 </tr>
                 <tr>
