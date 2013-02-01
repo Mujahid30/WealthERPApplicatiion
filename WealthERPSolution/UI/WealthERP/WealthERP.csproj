@@ -1184,6 +1184,13 @@
     <Compile Include="BusinessMIS\MFDashBoard.ascx.designer.cs">
       <DependentUpon>MFDashBoard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="BusinessMIS\MFReturns.ascx.cs">
+      <DependentUpon>MFReturns.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\MFReturns.ascx.designer.cs">
+      <DependentUpon>MFReturns.ascx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\MFSIPProjection.ascx.cs">
       <DependentUpon>MFSIPProjection.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1211,6 +1218,13 @@
     </Compile>
     <Compile Include="BusinessMIS\MutualFundMIS.ascx.designer.cs">
       <DependentUpon>MutualFundMIS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessMIS\PerformanceAndAllocation.ascx.cs">
+      <DependentUpon>PerformanceAndAllocation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\PerformanceAndAllocation.ascx.designer.cs">
+      <DependentUpon>PerformanceAndAllocation.ascx</DependentUpon>
     </Compile>
     <Compile Include="BusinessMIS\TransactionDashBoard.ascx.cs">
       <DependentUpon>TransactionDashBoard.ascx</DependentUpon>
@@ -5784,10 +5798,12 @@
     <Content Include="BusinessMIS\GoalMIS.ascx" />
     <Content Include="BusinessMIS\HoldingDashBoard.ascx" />
     <Content Include="BusinessMIS\MFDashBoard.ascx" />
+    <Content Include="BusinessMIS\MFReturns.ascx" />
     <Content Include="BusinessMIS\MFSIPProjection.ascx" />
     <Content Include="BusinessMIS\MFTurnOverMIS.ascx" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
     <Content Include="BusinessMIS\MutualFundMIS.ascx" />
+    <Content Include="BusinessMIS\PerformanceAndAllocation.ascx" />
     <Content Include="BusinessMIS\TransactionDashBoard.ascx" />
     <Content Include="BusinessMIS\TurnOverDashBoard.ascx" />
     <Content Include="CustomerAssetDetails\CustomerGovtSaving.ascx" />
