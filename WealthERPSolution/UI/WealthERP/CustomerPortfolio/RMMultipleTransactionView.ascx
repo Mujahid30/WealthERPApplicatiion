@@ -584,7 +584,6 @@
                                 <tr>
                                     <td>
                                         <div id="Div3" runat="server" style="margin: 2px; width: 100%;">
-                                          
                                             <telerik:RadGrid ID="gvTrail" runat="server" GridLines="None" AutoGenerateColumns="False"
                                                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                                 Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
@@ -594,9 +593,10 @@
                                                 <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                                     CommandItemDisplay="None">
                                                     <Columns>
-                                                        <telerik:GridBoundColumn HeaderText="StartDate" DataField="CMFSS_StartDate" UniqueName="CMFSS_StartDate"  DataFormatString="{0:d0}"
-                                                            SortExpression="CMFSS_StartDate" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" Visible="false">
+                                                        <telerik:GridBoundColumn HeaderText="StartDate" DataField="CMFSS_StartDate" UniqueName="CMFSS_StartDate"
+                                                            DataFormatString="{0:d0}" SortExpression="CMFSS_StartDate" AutoPostBackOnFilter="true"
+                                                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                            Visible="false">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="EndDate" HeaderText="EndDate" UniqueName="EndDate"
@@ -613,36 +613,55 @@
                                                             AutoPostBackOnFilter="true" ShowFilterIcon="false" Visible="false">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  ShowFilterIcon="false" DataField="ADUL_ProcessId" HeaderText="ProcessId" UniqueName="ADUL_ProcessId"
-                                                            SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true" FooterText="Grand Total :">
+                                                        <telerik:GridBoundColumn ShowFilterIcon="false" DataField="ADUL_ProcessId" HeaderText="ProcessId"
+                                                            UniqueName="ADUL_ProcessId" SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true"
+                                                            FooterText="Grand Total :">
                                                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="SchemePlanName"
-                                                            SortExpression="PASP_SchemePlanName" ItemStyle-Wrap="false" UniqueName="PASP_SchemePlanName"  AutoPostBackOnFilter="true">
+                                                        <telerik:GridBoundColumn ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="SchemePlanName"
+                                                            SortExpression="PASP_SchemePlanName" ItemStyle-Wrap="false" UniqueName="PASP_SchemePlanName"
+                                                            AutoPostBackOnFilter="true">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  AutoPostBackOnFilter="true"  ShowFilterIcon="false" DataField="CMFTCSU_Units" HeaderText='Units' ItemStyle-Wrap="false" Aggregate="Sum" DataFormatString="{0:N0}"
-                                                            UniqueName="CMFTCSU_Units" >
-                                                              <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  AutoPostBackOnFilter="true"  ShowFilterIcon="false" DataField="CMFTCSU_Amount" HeaderText="Amount" UniqueName="CMFTCSU_Amount" Aggregate="Sum"  DataFormatString="{0:N0}">
+                                                        <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Units"
+                                                            HeaderText='Units' ItemStyle-Wrap="false" Aggregate="Sum" DataFormatString="{0:N0}"
+                                                            UniqueName="CMFTCSU_Units">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TransactionDate" HeaderText="TransactionDate"  DataFormatString="{0:d}"
-                                                            UniqueName="CMFTCSU_TransactionDate">
-                                                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                                        <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Amount"
+                                                            HeaderText="Amount" UniqueName="CMFTCSU_Amount" Aggregate="Sum" DataFormatString="{0:N0}">
+                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  AutoPostBackOnFilter="true" DataField="CMFTCSU_PRDate" HeaderText="PRDate" ShowFilterIcon="false"  DataFormatString="{0:d}"
-                                                            UniqueName="CMFTCSU_PRDate">
-                                                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_FROMDate" HeaderText="FROMDate" UniqueName="CMFTCSU_FROMDate"  DataFormatString="{0:d}">
-                                                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TODate" HeaderText="TODate" UniqueName="CMFTCSU_TODate"  DataFormatString="{0:d}">
-                                                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn  AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TrailFee" HeaderText="TrailFee" UniqueName="CMFTCSU_TrailFee" Aggregate="Sum"  DataFormatString="{0:N0}">
+                                                        <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TransactionDate"
+                                                            HeaderText="TransactionDate" DataFormatString="{0:d}" UniqueName="CMFTCSU_TransactionDate"  ItemStyle-HorizontalAlign="Center">
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="CMFTCSU_TransactionDate" AutoPostBack="true" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>
+                                                        <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" DataField="CMFTCSU_PRDate"
+                                                            HeaderText="PRDate" ShowFilterIcon="false" DataFormatString="{0:d}" UniqueName="CMFTCSU_PRDate"  ItemStyle-HorizontalAlign="Center">
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="CMFTCSU_PRDate" AutoPostBack="true" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>
+                                                        <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_FROMDate"
+                                                            HeaderText="FROMDate" UniqueName="CMFTCSU_FROMDate" DataFormatString="{0:d}"  ItemStyle-HorizontalAlign="Center">
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="CMFTCSU_FROMDate" AutoPostBack="true" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>
+                                                        <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TODate"
+                                                            HeaderText="TODate" UniqueName="CMFTCSU_TODate" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center">
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="CMFTCSU_TODate" AutoPostBack="true" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>
+                                                        <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TrailFee"
+                                                            HeaderText="TrailFee" UniqueName="CMFTCSU_TrailFee" Aggregate="Sum" DataFormatString="{0:N0}">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
