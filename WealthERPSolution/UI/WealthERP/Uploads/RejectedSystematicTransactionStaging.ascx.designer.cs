@@ -291,6 +291,7 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblFromDate;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRejectReason;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDLRejectReason;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Msgerror;
 
 
     }

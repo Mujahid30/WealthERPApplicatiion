@@ -232,6 +232,15 @@
         </td>
     </tr>
 </table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="Msgerror" runat="server" class="success-msg" align="center" visible="false">
+                No Records Found...!
+            </div>
+        </td>
+    </tr>
+</table>
 <%--      
     <telerik:RadAjaxPanel ID="RadAjaxPanel3" runat="server" Width="98%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="RejectedSIPLoading">
@@ -783,12 +792,12 @@
             </td>
         </tr>
     </div>
-    <tr id="trMessage" runat="server" visible="false">
+   <%-- <tr id="trMessage" runat="server" visible="false">
         <td class="Message">
             <label id="lblEmptyMsg" class="FieldName" visible="false">
                 There are no records to be displayed!</label>
         </td>
-    </tr>
+    </tr>--%>
     <%-- <tr id="trErrorMessage" runat="server" visible="false">
         <td class="Message">
             <asp:Label ID="lblError" CssClass="Message" runat="server">

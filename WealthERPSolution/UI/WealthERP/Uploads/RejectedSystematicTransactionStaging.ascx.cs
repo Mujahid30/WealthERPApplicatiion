@@ -117,6 +117,10 @@ namespace WealthERP.Uploads
 
             if (!Page.IsPostBack)
             {
+                DataSet dsSIP = new DataSet();
+                if (Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()] != null)
+                    Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()] = dsSIP;
+
                 DateTime fromDate = DateTime.Now.AddDays(-30);
                 txtFromSIP.SelectedDate = fromDate.Date;
                 txtToSIP.SelectedDate = DateTime.Now;
@@ -133,7 +137,7 @@ namespace WealthERP.Uploads
                    divConditional.Visible = true;
                 }
                     BindddlRejectReason();
-                    BindRejectedSIPGrid(processId);
+                   // BindRejectedSIPGrid(processId);
                 }
                 else
                 {
@@ -152,15 +156,15 @@ namespace WealthERP.Uploads
                         tdlblRejectReason.Visible = false;
                         tdDDLRejectReason.Visible = false;
                         lblEmptyMsg.Visible = false;
-                       // gvSIPReject.Visible = false;
+                        gvSIPReject.Visible = false;
                         Panel3.Visible = false;
                         btnExport.Visible = false;
-                        trMessage.Visible = false;
-                        
+                                            
                   }
                 }
               }
-            trMessage.Visible = false;
+            Panel3.Visible = false;
+            Msgerror.Visible = false;
            }
      
         public void BindddlRejectReason()
@@ -191,6 +195,10 @@ namespace WealthERP.Uploads
         {
             if (processId == null || processId == 0)
             {
+                if (txtFromSIP.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtFromSIP.SelectedDate.ToString());
+                if (txtToSIP.SelectedDate != null)
+                    toDate = DateTime.Parse(txtToSIP.SelectedDate.ToString());
                rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
             }
             DataSet dsRejectedSIP = new DataSet();
@@ -200,7 +208,7 @@ namespace WealthERP.Uploads
 
             if (dsRejectedSIP.Tables[0].Rows.Count > 0)
             {   // If Records found, then bind them to grid
-                trMessage.Visible = false;
+                //trMessage.Visible = false;
                 trReprocess.Visible = true;
                 DivAction.Visible = true;
                 if (Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()] == null)
@@ -216,6 +224,7 @@ namespace WealthERP.Uploads
                 gvSIPReject.DataSource = dsRejectedSIP.Tables[0];
                 gvSIPReject.DataBind();
                 gvSIPReject.Visible = true;
+                Msgerror.Visible = false;
                 Panel3.Visible = true;
                 btnExport.Visible = true;
             }
@@ -227,9 +236,9 @@ namespace WealthERP.Uploads
                 gvSIPReject.DataBind();
                 gvSIPReject.Visible = false;
                 Panel3.Visible = false;
+                Msgerror.Visible = true;
                 btnExport.Visible = false;
                 DivAction.Visible = false;
-                trMessage.Visible = true;
                 trReprocess.Visible = false;
             }
           }
@@ -282,7 +291,7 @@ namespace WealthERP.Uploads
             DataSet dsSIP = new DataSet();
             DataTable dtrr = new DataTable();
             dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
-            if (dsSIP!= null)
+            if (dsSIP.Tables.Count>0)
             {
                 dtrr = dsSIP.Tables[0];
                 if (ViewState["WRR_RejectReasonCode"] != null)
@@ -870,11 +879,10 @@ namespace WealthERP.Uploads
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             int i = 0;
-            foreach (GridDataItem gvr in this.gvSIPReject.Items)
+            foreach (GridDataItem gvr in gvSIPReject.Items)
             {
                 if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                 {
-                    int StagingID = int.Parse(gvSIPReject.MasterTableView.DataKeyValues[i]["CMFSCS_ID"].ToString());
                     i = i + 1;
                 }
             }
@@ -890,12 +898,13 @@ namespace WealthERP.Uploads
                 msgDelete.Visible = true;
                 msgDelete.Visible = true;
             }
+           
         }
 
 
         private void CustomerSIPTransactionDelete()
         {
-            int i = 0;
+           // int i = 0;
             foreach (GridDataItem gvr in this.gvSIPReject.Items)
             {
                 if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
@@ -903,10 +912,13 @@ namespace WealthERP.Uploads
                     int StagingID = int.Parse(gvSIPReject.MasterTableView.DataKeyValues[gvr.ItemIndex]["CMFSCS_ID"].ToString());
                     //i = i + 1;
                     uploadsCommonBo.DeleteMFSIPTransactionStaging(StagingID);
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
-                    BindRejectedSIPGrid(processId);
+                    BindRejectedSIPGrid(processId); 
+                //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
+                    
                 }
+               
             }
+           
         }
 
         protected void LinkInputRejects_Click(object sender, EventArgs e)
@@ -937,7 +949,7 @@ namespace WealthERP.Uploads
         }
         protected void btnViewSIP_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtFromSIP.SelectedDate.ToString()))
+           // if (!string.IsNullOrEmpty(txtFromSIP.SelectedDate.ToString()))
             if (txtFromSIP.SelectedDate != null)
                 fromDate = DateTime.Parse(txtFromSIP.SelectedDate.ToString());
             if (txtToSIP.SelectedDate != null)
