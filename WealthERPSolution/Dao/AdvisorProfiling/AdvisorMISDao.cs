@@ -1670,5 +1670,49 @@ namespace DaoAdvisorProfiling
             return dsGetMISCommission;
         }
 
+        public DataTable GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate)
+        {
+            Database db;
+            DbCommand getMFReturnsCmd;
+            DataSet dsGetMFReturns = new DataSet();
+            DataTable dtGetReturns;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFReturnsCmd = db.GetStoredProcCommand("SPROC_GetMFReturnsDetails");
+                db.AddInParameter(getMFReturnsCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(getMFReturnsCmd, "@adviserId", DbType.Int32, adviserid);
+                db.AddInParameter(getMFReturnsCmd, "@RMId", DbType.Int32, RmId);
+                db.AddInParameter(getMFReturnsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(getMFReturnsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(getMFReturnsCmd, "@all", DbType.Int32, All);
+                db.AddInParameter(getMFReturnsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
+                getMFReturnsCmd.CommandTimeout = 60 * 60;
+                dsGetMFReturns = db.ExecuteDataSet(getMFReturnsCmd);
+                dtGetReturns = dsGetMFReturns.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetRMTransactionDeatails()");
+
+                object[] objects = new object[3];
+                objects[0] = adviserid;
+                objects[1] = RmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetReturns;
+        }
+
     }
 }
