@@ -1525,4 +1525,12 @@
     <value>BusinessMIS//AdviserNewSignupMIS.ascx</value>
     <comment>BusinessMIS//AdviserNewSignupMIS.ascx</comment>
   </data>
+  <data name="MFReturns" xml:space="preserve">
+    <value>BusinessMIS//MFReturns.ascx</value>
+    <comment>BusinessMIS//MFReturns.ascx</comment>
+  </data>
+  <data name="PerformanceAndAllocation" xml:space="preserve">
+    <value>BusinessMIS//PerformanceAndAllocation.ascx</value>
+    <comment>BusinessMIS//PerformanceAndAllocation.ascx</comment>
+  </data>
 </root>

@@ -1915,6 +1915,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//MFReturns.ascx.
+        /// </summary>
+        internal static string MFReturns {
+            get {
+                return ResourceManager.GetString("MFReturns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BusinessMIS//MFSIPProjection.ascx.
         /// </summary>
         internal static string MFSIPProjection {
@@ -2046,6 +2055,15 @@ namespace WealthERP {
         internal static string PensionPortfolio {
             get {
                 return ResourceManager.GetString("PensionPortfolio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//PerformanceAndAllocation.ascx.
+        /// </summary>
+        internal static string PerformanceAndAllocation {
+            get {
+                return ResourceManager.GetString("PerformanceAndAllocation", resourceCulture);
             }
         }
         
