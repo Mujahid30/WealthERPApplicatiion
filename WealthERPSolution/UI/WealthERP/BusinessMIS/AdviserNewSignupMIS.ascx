@@ -144,17 +144,18 @@
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="TotalCustomers" HeaderText="Customer" DataField="TotalCustomers"
                         SortExpression="TotalCustomers" AllowFiltering="true" ShowFilterIcon="false"
-                        AutoPostBackOnFilter="true" HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}">
+                        AutoPostBackOnFilter="true" HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}"  ItemStyle-HorizontalAlign="Right">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="TotalFolio" HeaderText="Folio" DataField="TotalFolio"
                         SortExpression="TotalFolio" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                        HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}">
+                        HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}"  ItemStyle-HorizontalAlign="Right">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="TotalSIP" HeaderText="SIP" DataField="TotalSIP"
                         SortExpression="TotalSIP" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                        HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}">
+                        HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}" ItemStyle-HorizontalAlign="Right">
+                        
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                 </Columns>
