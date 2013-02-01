@@ -375,7 +375,7 @@ namespace WealthERP.CustomerPortfolio
                     {
                         mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()),PasssedFolioValue,false,schemePlanCode);
                     }
-                   else if (Session["IsCustomerDrillDown"].ToString() == "Yes")
+                   else if (Convert.ToString(Session["IsCustomerDrillDown"]) == "Yes")
                     {
                        customerId = customerVo.CustomerId;
                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, true, schemePlanCode);

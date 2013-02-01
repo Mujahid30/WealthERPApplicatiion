@@ -2448,7 +2448,9 @@ namespace DaoCustomerPortfolio
                             mfTransactionVo.TransactionStatusCode = 1;
 
                         }
-                        mfTransactionVo.BrokerageAmount = float.Parse(dr["CMFT_ExternalBrokerageAmount"].ToString());
+                      if (!string.IsNullOrEmpty(dr["CMFT_ExternalBrokerageAmount"].ToString()))
+                          mfTransactionVo.BrokerageAmount = float.Parse(dr["CMFT_ExternalBrokerageAmount"].ToString());
+
                         mfTransactionsList.Add(mfTransactionVo);
                     }
                 }
