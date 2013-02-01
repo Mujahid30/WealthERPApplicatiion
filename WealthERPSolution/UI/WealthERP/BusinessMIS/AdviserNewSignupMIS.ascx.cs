@@ -27,7 +27,13 @@ namespace WealthERP.BusinessMIS
             SessionBo.CheckSession();
             adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             if (!IsPostBack)
-            { 
+            {
+                DataSet ds = new DataSet();
+                Cache["gvSchemeDetailsForMappinginSuperAdmin"] =ds;
+            
+
+                rdpFromDate.SelectedDate = DateTime.Now.AddMonths(-2);
+                rdpToDate.SelectedDate = DateTime.Now.Date;
             
             }
 
@@ -35,7 +41,11 @@ namespace WealthERP.BusinessMIS
 
         protected void gvNewCustomerSignUpMIS_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-           
+            DataSet dsNEWSignupMISDetails = new DataSet();
+            dsNEWSignupMISDetails = (DataSet)Cache["gvSchemeDetailsForMappinginSuperAdmin"];
+            if(dsNEWSignupMISDetails.Tables.Count>0)
+            gvNewCustomerSignUpMIS.DataSource = dsNEWSignupMISDetails;
+            
         }
 
 

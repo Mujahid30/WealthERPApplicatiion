@@ -108,11 +108,11 @@
             AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
-            <MasterTableView DataKeyNames="ZoneName">
+            <MasterTableView DataKeyNames="ZoneName" ShowFooter="true">
                 <Columns>
                     <telerik:GridBoundColumn UniqueName="ZoneName" HeaderStyle-Width="213px" HeaderText="Zone"
                         DataField="ZoneName" SortExpression="ZoneName" AllowFiltering="true" ShowFilterIcon="false"
-                        AutoPostBackOnFilter="true">
+                        AutoPostBackOnFilter="true" FooterText="Grand Total :">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="ClusterName" HeaderStyle-Width="213px" HeaderText="Cluster"
@@ -132,17 +132,17 @@
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="TotalCustomers" HeaderText="Customer" DataField="TotalCustomers"
                         SortExpression="TotalCustomers" AllowFiltering="true" ShowFilterIcon="false"
-                        AutoPostBackOnFilter="true" HeaderStyle-Width="100px">
+                        AutoPostBackOnFilter="true" HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="TotalFolio" HeaderText="Folio" DataField="TotalFolio"
                         SortExpression="TotalFolio" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                        HeaderStyle-Width="100px">
+                        HeaderStyle-Width="100px"  Aggregate="Sum" DataFormatString="{0:N0}">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="TotalSIP" HeaderText="SIP" DataField="TotalSIP"
                         SortExpression="TotalSIP" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                        HeaderStyle-Width="100px">
+                        HeaderStyle-Width="100px"  Aggregate="Sum" DataFormatString="{0:N0}">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                 </Columns>
