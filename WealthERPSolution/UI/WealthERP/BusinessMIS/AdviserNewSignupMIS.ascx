@@ -4,6 +4,18 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
+<script type="text/javascript">
+
+    function stopRKey(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type == "text")) { return false; }
+    }
+
+    document.onkeypress = stopRKey;
+
+</script> 
+
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
 <body class="BODY">
     <table width="100%">
@@ -154,10 +166,11 @@
             </ClientSettings>
         </telerik:RadGrid>
     </div>
+    <br />
     <div>
-        <asp:Label ID="LabelMainNote" runat="server" Text="Note:1. FOR folio the folio created date is considered  <br />
-         &nbsp &nbsp &nbsp &nbsp 2. For Customer Count the customer profiling date is considered<br />
-         &nbsp &nbsp &nbsp &nbsp 3. For SIP count the SIP start date is considered<br />"
+        <asp:Label ID="LabelMainNote" runat="server" Text="Note:&nbsp1. FOR folio count the folio created date is considered  <br />
+         &nbsp &nbsp &nbsp &nbsp  2. For Customer Count the customer profiling date is considered<br />
+         &nbsp &nbsp &nbsp &nbsp  3. For SIP count the SIP start date is considered<br />"
         
            
             Font-Size="Small" CssClass="cmbField"></asp:Label>
