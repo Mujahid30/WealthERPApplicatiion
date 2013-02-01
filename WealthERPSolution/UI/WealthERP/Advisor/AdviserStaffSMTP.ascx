@@ -448,7 +448,7 @@
                                     </tr>
                                     <tr>
                                         <td class="leftField">
-                                            <asp:Label ID="lblWebSiteDomainName" runat="server" Text="Appliaction login page URL:"
+                                            <asp:Label ID="lblWebSiteDomainName" runat="server" Text="Application login page URL:"
                                                 CssClass="FieldName"></asp:Label>
                                         </td>
                                         <td class="RightField,tdData">
@@ -460,7 +460,7 @@
                                     </tr>
                                     <tr>
                                         <td class="leftField">
-                                            <asp:Label ID="lblLogOutPageURL" runat="server" Text="Appliaction logout page URL:"
+                                            <asp:Label ID="lblLogOutPageURL" runat="server" Text="Application logout page URL:"
                                                 CssClass="FieldName"></asp:Label>
                                         </td>
                                         <td class="RightField,tdData">
