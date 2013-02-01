@@ -262,7 +262,7 @@
 <table width="100%">
     <tr>
         <td align="center">
-            <div id=Msgerror" runat="server" class="success-msg" align="center" visible="false">
+            <div id="Msgerror" runat="server" class="success-msg" align="center" visible="false">
                 No Records Found...!
             </div>
         </td>
@@ -276,7 +276,7 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+<asp:Panel ID="Panel2" visible ="false" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td>
