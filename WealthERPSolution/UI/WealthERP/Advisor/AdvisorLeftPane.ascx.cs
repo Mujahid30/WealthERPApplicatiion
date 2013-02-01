@@ -607,6 +607,11 @@ namespace WealthERP.Advisor
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFSIPProjection','login');", true);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_Projection');", true);
                 }
+                else if (e.Item.Value == "Performance_Allocation")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PerformanceAndAllocation','login');", true);
+                }
                 else if (e.Item.Value == "MF Commission MIS")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
@@ -952,6 +957,11 @@ namespace WealthERP.Advisor
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFSIPProjection','login');", true);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_Projection');", true);
                 }
+                else if (e.Item.Value == "Performance_Allocation")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PerformanceAndAllocation','login');", true);
+                }
                 else if (e.Item.Value == "Equity MIS")
                 {
                     Session["UserType"] = "rm";
@@ -1135,6 +1145,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "bm";
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFSIPProjection','login');", true);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_Projection');", true);
+                }
+                else if (e.Item.Value == "Performance_Allocation")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PerformanceAndAllocation','login');", true);
                 }
                 else if (e.Item.Value == "Equity MIS")
                 {
@@ -1325,6 +1340,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFSIPProjection','login');", true);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_Projection');", true);
+                }
+                else if (e.Item.Value == "Performance_Allocation")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PerformanceAndAllocation','login');", true);
                 }
                 else if (e.Item.Value == "Multi_Product_MIS")
                 {

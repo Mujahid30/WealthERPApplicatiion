@@ -248,7 +248,9 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Asset Allocation MIS"  Value="Asset_Allocation_MIS" Vissble="true">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
+                                            <%--<telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
+                                            </telerik:RadPanelItem>--%>
+                                            <telerik:RadPanelItem runat="server" Text="Performance & Allocation" Value="Performance_Allocation">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF SIP Projection" Value="MF_SIP_Projection">
                                             </telerik:RadPanelItem>
@@ -389,7 +391,9 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Asset Allocation MIS"  Value="Asset_Allocation_MIS" Vissble="true">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
+                                            <%--<telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
+                                            </telerik:RadPanelItem>--%>
+                                            <telerik:RadPanelItem runat="server" Text="Performance & Allocation" Value="Performance_Allocation">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF Systematic MIS" Value="MF systematic MIS">
                                             </telerik:RadPanelItem>
@@ -499,7 +503,9 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Asset Allocation MIS"  Value="Asset_Allocation_MIS" Vissble="true">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
+                                            <%--<telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
+                                            </telerik:RadPanelItem>--%>
+                                            <telerik:RadPanelItem runat="server" Text="Performance & Allocation" Value="Performance_Allocation">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF SIP Projection" Value="MF_SIP_Projection">
                                             </telerik:RadPanelItem>
@@ -671,7 +677,9 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Asset Allocation MIS"  Value="Asset_Allocation_MIS" Vissble="true">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
+                                            <%--<telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
+                                            </telerik:RadPanelItem>--%>
+                                            <telerik:RadPanelItem runat="server" Text="Performance & Allocation" Value="Performance_Allocation">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF SIP Projection" Value="MF_SIP_Projection">
                                             </telerik:RadPanelItem>
