@@ -32,7 +32,7 @@ namespace WealthERP.BusinessMIS
                 Cache["gvSchemeDetailsForMappinginSuperAdmin"] =ds;
             
 
-                rdpFromDate.SelectedDate = DateTime.Now.AddMonths(-2);
+                rdpFromDate.SelectedDate = DateTime.Now.AddMonths(-1);
                 rdpToDate.SelectedDate = DateTime.Now.Date;
             
             }

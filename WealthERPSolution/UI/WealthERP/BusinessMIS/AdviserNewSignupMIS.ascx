@@ -137,12 +137,12 @@
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="TotalFolio" HeaderText="Folio" DataField="TotalFolio"
                         SortExpression="TotalFolio" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                        HeaderStyle-Width="100px"  Aggregate="Sum" DataFormatString="{0:N0}">
+                        HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="TotalSIP" HeaderText="SIP" DataField="TotalSIP"
                         SortExpression="TotalSIP" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                        HeaderStyle-Width="100px"  Aggregate="Sum" DataFormatString="{0:N0}">
+                        HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
                 </Columns>
@@ -153,6 +153,14 @@
                 <Selecting AllowRowSelect="true" />
             </ClientSettings>
         </telerik:RadGrid>
+    </div>
+    <div>
+        <asp:Label ID="LabelMainNote" runat="server" Text="Note:1. FOR folio the folio created date is considered  <br />
+         &nbsp &nbsp &nbsp &nbsp 2. For Customer Count the customer profiling date is considered<br />
+         &nbsp &nbsp &nbsp &nbsp 3. For SIP count the SIP start date is considered<br />"
+        
+           
+            Font-Size="Small" CssClass="cmbField"></asp:Label>
     </div>
     <%--<br />
     <div>
