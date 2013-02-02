@@ -556,8 +556,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF Folios" Value="MF Folios">
-                                            </telerik:RadPanelItem>
+                                           <%-- <telerik:RadPanelItem runat="server" Text="MF Folios" Value="MF Folios">
+                                            </telerik:RadPanelItem>--%>
                                               <telerik:RadPanelItem runat="server" Text="ISA Status" Value="Status_ISA">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="ISA Folio Mapping" Value="ISA_Folio_Mapp">
