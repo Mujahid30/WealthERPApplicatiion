@@ -142,17 +142,17 @@
                         HeaderStyle-Width="105px">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="TotalCustomers" HeaderText="Customer" DataField="TotalCustomers"
+                    <telerik:GridBoundColumn UniqueName="TotalCustomers" HeaderText="Customer" DataField="TotalCustomers" FooterStyle-HorizontalAlign="Right"
                         SortExpression="TotalCustomers" AllowFiltering="true" ShowFilterIcon="false"
                         AutoPostBackOnFilter="true" HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}"  ItemStyle-HorizontalAlign="Right">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="TotalFolio" HeaderText="Folio" DataField="TotalFolio"
+                    <telerik:GridBoundColumn UniqueName="TotalFolio" HeaderText="Folio" DataField="TotalFolio" FooterStyle-HorizontalAlign="Right"
                         SortExpression="TotalFolio" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                         HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}"  ItemStyle-HorizontalAlign="Right">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="TotalSIP" HeaderText="SIP" DataField="TotalSIP"
+                    <telerik:GridBoundColumn UniqueName="TotalSIP" HeaderText="SIP" DataField="TotalSIP" FooterStyle-HorizontalAlign="Right"
                         SortExpression="TotalSIP" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                         HeaderStyle-Width="100px" Aggregate="Sum" DataFormatString="{0:N0}" ItemStyle-HorizontalAlign="Right">
                         
@@ -170,8 +170,8 @@
     <br />
     <div>
         <asp:Label ID="LabelMainNote" runat="server" Text="Note:&nbsp1. FOR folio count the folio created date is considered  <br />
-         &nbsp &nbsp &nbsp &nbsp  2. For Customer Count the customer profiling date is considered<br />
-         &nbsp &nbsp &nbsp &nbsp  3. For SIP count the SIP start date is considered<br />"
+         &nbsp&nbsp &nbsp &nbsp &nbsp  2. For Customer Count the customer profiling date is considered<br />
+         &nbsp&nbsp &nbsp &nbsp &nbsp  3. For SIP count the SIP start date is considered<br />"
         
            
             Font-Size="Small" CssClass="cmbField"></asp:Label>
