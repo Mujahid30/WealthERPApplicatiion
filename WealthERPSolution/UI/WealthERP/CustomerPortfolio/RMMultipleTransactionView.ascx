@@ -62,9 +62,9 @@
                                                 <asp:ImageButton ID="btnTrnxExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
                                                     Height="23px" Width="25px" OnClick="btnTrnxExport_Click"></asp:ImageButton>
-                                                <asp:ImageButton ID="imgBtnTrail" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                                               <%-- <asp:ImageButton ID="imgBtnTrail" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="23px"
-                                                    Width="25px" OnClick="btnTrailExport_Click"></asp:ImageButton>
+                                                    Width="25px" OnClick="btnTrailExport_Click"></asp:ImageButton>--%>
                                                 <%-- <asp:ImageButton ID="btnbalncExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
                                                     Height="23px" Width="25px" OnClick="btnbalncExport_Click"></asp:ImageButton>--%>
@@ -578,15 +578,15 @@
             </tr>
             <tr>
                 <td style="padding-top: 20px">
-                    <div id="divTrail" runat="server">
-                        <asp:Panel ID="pnlTrail" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+                    <div id="divTrail" runat="server" style="margin: 2px; width: 100%; overflow:scroll">
+                    <%--    <asp:Panel ID="pnlTrail" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
                             <table width="100%" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td>
-                                        <div id="Div3" runat="server" style="margin: 2px; width: 100%;">
+                                        <div id="Div3" visible="false" runat="server" style="margin: 2px; width: 100%;">
                                             <telerik:RadGrid ID="gvTrail" runat="server" GridLines="None" AutoGenerateColumns="False"
                                                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                                Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                                                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
                                                 AllowAutomaticInserts="false" ExportSettings-FileName="Trail DETAILS" OnNeedDataSource="gvTrail_OnNeedDataSource">
                                                 <ExportSettings HideStructureColumns="true">
                                                 </ExportSettings>
@@ -613,22 +613,27 @@
                                                             AutoPostBackOnFilter="true" ShowFilterIcon="false" Visible="false">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn ShowFilterIcon="false" DataField="ADUL_ProcessId" HeaderText="ProcessId"
+                                                         <telerik:GridBoundColumn ShowFilterIcon="false" DataField="ADUL_ProcessId" HeaderText="ProcessId" HeaderStyle-Width="100px"  FooterStyle-HorizontalAlign="Right"
                                                             UniqueName="ADUL_ProcessId" SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true"
                                                             FooterText="Grand Total :">
                                                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="SchemePlanName"
+                                                        <telerik:GridBoundColumn ShowFilterIcon="false" DataField="customerName" HeaderText="CustomerName" HeaderStyle-Width="150px" 
+                                                            UniqueName="customerName" SortExpression="customerName" AutoPostBackOnFilter="true"
+                                                            >
+                                                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="SchemePlanName" HeaderStyle-Width="450px" 
                                                             SortExpression="PASP_SchemePlanName" ItemStyle-Wrap="false" UniqueName="PASP_SchemePlanName"
                                                             AutoPostBackOnFilter="true">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Units"
+                                                        <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Units" HeaderStyle-Width="100px"  FooterStyle-HorizontalAlign="Right"
                                                             HeaderText='Units' ItemStyle-Wrap="false" Aggregate="Sum" DataFormatString="{0:N0}"
                                                             UniqueName="CMFTCSU_Units">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Amount"
+                                                        <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Amount" HeaderStyle-Width="100px"  FooterStyle-HorizontalAlign="Right"
                                                             HeaderText="Amount" UniqueName="CMFTCSU_Amount" Aggregate="Sum" DataFormatString="{0:N0}">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
@@ -660,21 +665,23 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
-                                                        <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TrailFee"
+                                                        <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TrailFee" HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right"
                                                             HeaderText="TrailFee" UniqueName="CMFTCSU_TrailFee" Aggregate="Sum" DataFormatString="{0:N0}">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
+                                                    <HeaderStyle Width="180px" />
                                                 </MasterTableView>
                                                 <ClientSettings>
                                                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                                    <Resizing AllowColumnResize="true" />
                                                 </ClientSettings>
                                             </telerik:RadGrid>
                                         </div>
                                     </td>
                                 </tr>
                             </table>
-                        </asp:Panel>
+                       <%-- </asp:Panel>--%>
                     </div>
                 </td>
             </tr>

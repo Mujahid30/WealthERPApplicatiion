@@ -75,6 +75,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (Session["IsCustomerDrillDown"] != null)
                 {
                     userType = "Customer";
+                    ddlDisplayType.Items.Remove("TCV");
                 }
                 //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "Customer")
                 //    userType = "Customer";
@@ -91,8 +92,8 @@ namespace WealthERP.CustomerPortfolio
 
                 if (!IsPostBack)
                 {
-                   
 
+                    Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
                     trGroupHead.Visible = false;
                     hdnProcessIdSearch.Value = "0";
                     Panel2.Visible = false;
@@ -676,17 +677,17 @@ namespace WealthERP.CustomerPortfolio
             
             }
 
-            //if (hdnExportType == "TCV")
-            //{
-            //    gvBalanceView.ExportSettings.OpenInNewWindow = true;
-            //    gvBalanceView.ExportSettings.IgnorePaging = true;
-            //    gvBalanceView.ExportSettings.HideStructureColumns = true;
-            //    gvBalanceView.ExportSettings.ExportOnlyData = true;
-            //    gvBalanceView.ExportSettings.FileName = "View TrailCommission Details";
-            //    gvBalanceView.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            //    gvBalanceView.MasterTableView.ExportToExcel();
+            if (hdnExportType == "TCV")
+            {
+                gvTrail.ExportSettings.OpenInNewWindow = true;
+                gvTrail.ExportSettings.IgnorePaging = true;
+                gvTrail.ExportSettings.HideStructureColumns = true;
+                gvTrail.ExportSettings.ExportOnlyData = true;
+                gvTrail.ExportSettings.FileName = "View TrailCommission Details";
+                gvTrail.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvTrail.MasterTableView.ExportToExcel();
 
-            //}
+            }
         
         }
 
@@ -771,6 +772,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (dsTrailCommissionDetails.Tables[0].Rows.Count != 0)
                 {
+                    btnTrnxExport.Visible = true;
                     ErrorMessage.Visible = false;
                     Panel1.Visible = true;
                 
@@ -778,22 +780,24 @@ namespace WealthERP.CustomerPortfolio
                   
                     gvTrail.DataSource = dsTrailCommissionDetails;
                     gvTrail.DataBind();
-                    imgBtnTrail.Visible = true;
+                    //imgBtnTrail.Visible = true;
                     ErrorMessage.Visible = false;
                     gvTrail.Visible = true;
-                    btnTrnxExport.Visible = true;
+                    Div3.Visible = true;
+                  
                 }
 
                 else
                 {
                     gvTrail.Visible = false;
+                    Div3.Visible = false;
                     ErrorMessage.Visible = true;
                     hdnRecordCount.Value = "0";
                     btnTrnxExport.Visible = false;
                     imgBtnTrail.Visible = false;
                 }
 
-                btnTrnxExport.Visible = false;
+                
                 if (Cache["ViewTrailCommissionDetails" + userVo.UserId + userType] == null)
                 {
                     Cache.Insert("ViewTrailCommissionDetails" + advisorVo.advisorId, dsTrailCommissionDetails);
@@ -822,7 +826,12 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnTrailExport_Click(object sender, ImageClickEventArgs e)
         {
-            DataTable dtFolioDetails = new DataTable();
+            DataSet dtFolioDetails = new DataSet();
+
+            dtFolioDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
+            gvTrail.DataSource = dtFolioDetails;
+            gvTrail.Visible = true;
+
             gvTrail.DataSource = dtFolioDetails;
             gvTrail.ExportSettings.OpenInNewWindow = true;
             gvTrail.ExportSettings.IgnorePaging = true;
