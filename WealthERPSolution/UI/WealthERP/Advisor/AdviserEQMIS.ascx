@@ -222,7 +222,7 @@
 <table style="width: 100%">
     
     
-                <tr id="ErrorMessage" align="center" style="width: 100%" runat="server">
+                <tr id="ErrorMessage" align="center" style="width: 100%" runat="server" visible=false>
                     <td align="center" style="width: 100%">
                         <div class="failure-msg" style="text-align:center" align="center">
                             No Equity Records found, please do valuation...
@@ -276,6 +276,9 @@
                                         </asp:Label>
                         </FooterTemplate>
                     </asp:TemplateField>
+                    
+                    <asp:BoundField DataField="NoOfShare" HeaderText="No Of Shares" DataFormatString="{0:n2}" HeaderStyle-HorizontalAlign="Right" 
+                    ItemStyle-HorizontalAlign="Right"  />
                     
                     <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-HorizontalAlign="Right">
                         <HeaderTemplate>
