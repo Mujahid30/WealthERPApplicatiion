@@ -75,7 +75,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (Session["IsCustomerDrillDown"] != null)
                 {
                     userType = "Customer";
-                    ddlDisplayType.Items.Remove("TCV");
+                    
                 }
                 //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "Customer")
                 //    userType = "Customer";
@@ -88,6 +88,7 @@ namespace WealthERP.CustomerPortfolio
                     customerId = customerVo.CustomerId;
                     trRangeNcustomer.Visible = false;
                     trRange.Visible = false;
+                    ddlDisplayType.Items.RemoveAt(2);
                 }
 
                 if (!IsPostBack)
