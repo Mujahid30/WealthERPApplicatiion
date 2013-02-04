@@ -2883,7 +2883,7 @@
     <TreeSubSubNode	TreeSubNodeCode="2015" TreeSubSubNodeCode="3026" TreeSubSubNodeText="MF Commission MIS" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
 
     <TreeSubSubNode	TreeSubNodeCode="2016" TreeSubSubNodeCode="3027" TreeSubSubNodeText="MF Returns" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
-    <TreeSubSubNode	TreeSubNodeCode="2016" TreeSubSubNodeCode="3028" TreeSubSubNodeText="EQ Returns" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
+    <!--<TreeSubSubNode	TreeSubNodeCode="2016" TreeSubSubNodeCode="3028" TreeSubSubNodeText="EQ Returns" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>-->
   </SuperAdminTreeSubSubNode>
   
   <UserRole>
