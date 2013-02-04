@@ -621,7 +621,7 @@
                                                         <telerik:GridBoundColumn ShowFilterIcon="false" DataField="customerName" HeaderText="CustomerName" HeaderStyle-Width="150px" 
                                                             UniqueName="customerName" SortExpression="customerName" AutoPostBackOnFilter="true"
                                                             >
-                                                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="SchemePlanName" HeaderStyle-Width="450px" 
                                                             SortExpression="PASP_SchemePlanName" ItemStyle-Wrap="false" UniqueName="PASP_SchemePlanName"
