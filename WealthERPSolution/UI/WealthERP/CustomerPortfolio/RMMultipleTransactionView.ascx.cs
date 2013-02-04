@@ -679,11 +679,17 @@ namespace WealthERP.CustomerPortfolio
 
             if (hdnExportType == "TCV")
             {
+                DataSet dtFolioDetails = new DataSet();
+
+                dtFolioDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
+                gvTrail.DataSource = dtFolioDetails;
+
+                gvTrail.DataSource = dtFolioDetails;
                 gvTrail.ExportSettings.OpenInNewWindow = true;
                 gvTrail.ExportSettings.IgnorePaging = true;
                 gvTrail.ExportSettings.HideStructureColumns = true;
                 gvTrail.ExportSettings.ExportOnlyData = true;
-                gvTrail.ExportSettings.FileName = "View TrailCommission Details";
+                gvTrail.ExportSettings.FileName = "Trail Details";
                 gvTrail.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvTrail.MasterTableView.ExportToExcel();
 
