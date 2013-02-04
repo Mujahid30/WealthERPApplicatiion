@@ -1714,5 +1714,48 @@ namespace DaoAdvisorProfiling
             return dtGetReturns;
         }
 
+        public DataTable GetEQReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate)
+        {
+            Database db;
+            DbCommand getEQReturnsCmd;
+            DataSet dsGetEQReturns = new DataSet();
+            DataTable dtGetEQReturns;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getEQReturnsCmd = db.GetStoredProcCommand("SPROC_GetEquityReturnsDetails");
+                db.AddInParameter(getEQReturnsCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(getEQReturnsCmd, "@adviserId", DbType.Int32, adviserid);
+                db.AddInParameter(getEQReturnsCmd, "@RMId", DbType.Int32, RmId);
+                db.AddInParameter(getEQReturnsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(getEQReturnsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(getEQReturnsCmd, "@all", DbType.Int32, All);
+                db.AddInParameter(getEQReturnsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
+                getEQReturnsCmd.CommandTimeout = 60 * 60;
+                dsGetEQReturns = db.ExecuteDataSet(getEQReturnsCmd);
+                dtGetEQReturns = dsGetEQReturns.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetRMTransactionDeatails()");
+
+                object[] objects = new object[3];
+                objects[0] = adviserid;
+                objects[1] = RmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetEQReturns;
+        }
     }
 }
