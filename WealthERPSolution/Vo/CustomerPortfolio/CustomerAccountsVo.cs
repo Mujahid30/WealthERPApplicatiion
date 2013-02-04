@@ -69,7 +69,47 @@ namespace VoCustomerPortfolio
 
 
 
+        private string m_GroupHead;
+        private string m_FolioName;
+        private int m_portfilionumber;
+        private string m_mergerstatus;
+        private int m_processId;
+        private DateTime m_createdOn;
+
+
+
         #region Properties
+
+        public string GroupHead
+        {
+            get { return m_GroupHead; }
+            set { m_GroupHead = value; }
+        }
+        public string FolioName
+        {
+            get { return m_FolioName; }
+            set { m_FolioName = value; }
+        }
+        public int portfilionumber
+        {
+            get { return m_portfilionumber; }
+            set { m_portfilionumber = value; }
+        }
+        public string mergerstatus
+        {
+            get { return m_mergerstatus; }
+            set { m_mergerstatus = value; }
+        }
+        public int processId
+        {
+            get { return m_processId; }
+            set { m_processId = value; }
+        }
+        public DateTime createdOn
+        {
+            get { return m_createdOn; }
+            set { m_createdOn = value; }
+        }
 
         public string BankNameInExtFile
         {
