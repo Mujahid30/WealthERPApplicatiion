@@ -400,13 +400,17 @@ namespace WealthERP.Advisor
         }
         public void gvZoneClusterWiseCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
         {
-            gvZoneClusterWiseCommissionMIS.Visible = true;
+            //gvZoneClusterWiseCommissionMIS.Visible = true;
             pnlZoneClusterWiseMIS.Visible = true;
             divZoneClusterWiseMIS.Visible = true;
             tdZoneClusterCommissionMIS.Visible = true;
             DataTable dtMIS = new DataTable();
             dtMIS = (DataTable)Cache["ClusterZoneMIS" + advisorVo.advisorId + userVo.UserId];
             gvZoneClusterWiseCommissionMIS.DataSource = dtMIS;
+            if (dtMIS != null)
+            {
+                gvZoneClusterWiseCommissionMIS.Visible = true;
+            }
         }
     }
 }

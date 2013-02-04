@@ -330,7 +330,7 @@
                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
                         OnNeedDataSource="gvZoneClusterWiseCommissionMIS_OnNeedDataSource"
-                        EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false"
+                        EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false" enab
                         ExportSettings-ExportOnlyData="true">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="Zone/Cluster Commission MIS Details" Excel-Format="ExcelML">
@@ -385,8 +385,7 @@
                                     UniqueName="BranchName" SortExpression="BranchName" AutoPostBackOnFilter="true" AllowFiltering="true"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
-                        
+                                </telerik:GridBoundColumn>                        
                                 <telerik:GridBoundColumn HeaderTooltip="Brokerage Amount"
                                     HeaderText="Brokerage Amount" DataField="Brokerage" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="Brokerage" SortExpression="Brokerage" AutoPostBackOnFilter="true"
