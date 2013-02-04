@@ -14,7 +14,6 @@ using BoUploads;
 using BoCustomerGoalProfiling;
 using Telerik.Web.UI;
 using BoCommon;
-using BoAdvisorProfiling;
 using System.Configuration;
 using BoCustomerPortfolio;
 
