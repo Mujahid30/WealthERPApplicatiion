@@ -169,7 +169,7 @@
     </div>
     <br />
     <div>
-        <asp:Label ID="LabelMainNote" runat="server" Text="Note:&nbsp1. FOR folio count the folio created date is considered  <br />
+        <asp:Label ID="LabelMainNote" runat="server" Text="Note:&nbsp1. For folio count the folio created date is considered  <br />
          &nbsp&nbsp &nbsp &nbsp &nbsp  2. For Customer Count the customer profiling date is considered<br />
          &nbsp&nbsp &nbsp &nbsp &nbsp  3. For SIP count the SIP start date is considered<br />"
         
