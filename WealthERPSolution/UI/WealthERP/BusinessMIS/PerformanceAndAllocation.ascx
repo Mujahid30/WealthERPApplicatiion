@@ -39,7 +39,7 @@
                                             </asp:LinkButton>
                                         </div>
                                     </td>
-                                   <%-- <td id="td2" runat="server" align="center" >
+                                  <td id="td2" runat="server" align="center" >
                                     <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
 
                                            
@@ -47,7 +47,7 @@
                                                 runat="server" CommandName="Tree_Navi_Row2" CommandArgument='<%# Eval("TreeNode2").ToString() %>'>  
                                             </asp:LinkButton>
                                         </div>
-                                    </td>--%>
+                                    </td>
                                     
                                 </tr>
                             </ItemTemplate>

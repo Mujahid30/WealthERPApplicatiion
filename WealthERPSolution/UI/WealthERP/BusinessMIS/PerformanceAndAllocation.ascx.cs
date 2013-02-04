@@ -89,7 +89,7 @@ namespace WealthERP.BusinessMIS
         {
             LinkButton lnkbtn1 = e.Item.FindControl("lnkPerformanceTreeNode1") as LinkButton;
 
-            //LinkButton lnkbtn2 = e.Item.FindControl("lnkPerformanceTreeNode2") as LinkButton;
+            LinkButton lnkbtn2 = e.Item.FindControl("lnkPerformanceTreeNode2") as LinkButton;
 
             if (e.CommandName == "Tree_Navi_Row1")
             {
@@ -103,18 +103,18 @@ namespace WealthERP.BusinessMIS
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFReturns','login');", true);
                 }
             }
-            //if (e.CommandName == "Tree_Navi_Row2")
-            //{
+            if (e.CommandName == "Tree_Navi_Row2")
+            {
 
-            //    if (lnkbtn2.CommandArgument == "3028")
-            //    {
-            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('AdviserEQMIS','login');", true);
-            //    }
-            //    if (lnkbtn2.CommandArgument == "3028")
-            //    {
-            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('AdviserEQMIS','login');", true);
-            //    }
-            //}
+                if (lnkbtn2.CommandArgument == "3028")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('EquityReturns','login');", true);
+                }
+                if (lnkbtn2.CommandArgument == "3028")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('EquityReturns','login');", true);
+                }
+            }
 
         }
     }
