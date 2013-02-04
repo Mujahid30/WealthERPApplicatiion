@@ -1533,4 +1533,8 @@
     <value>BusinessMIS//PerformanceAndAllocation.ascx</value>
     <comment>BusinessMIS//PerformanceAndAllocation.ascx</comment>
   </data>
+  <data name="EquityReturns" xml:space="preserve">
+    <value>BusinessMIS//EquityReturns.ascx</value>
+    <comment>BusinessMIS//EquityReturns.ascx</comment>
+  </data>
 </root>

@@ -1411,6 +1411,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//EquityReturns.ascx.
+        /// </summary>
+        internal static string EquityReturns {
+            get {
+                return ResourceManager.GetString("EquityReturns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//EquityTransactionsView.ascx.
         /// </summary>
         internal static string EquityTransactionsView {
