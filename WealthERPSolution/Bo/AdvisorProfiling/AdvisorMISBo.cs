@@ -1156,5 +1156,36 @@ namespace BoAdvisorProfiling
             }
             return dtGetReturns;
         }
+
+        public DataTable GetEQReturnsDetails(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int all, string strValuationDate)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataTable dtGetEQReturns;
+            try
+            {
+                dtGetEQReturns = MISDao.GetEQReturnsDetails(userType, adviserId, rmId, branchId, branchHeadId, all, strValuationDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetRMTransactionDeatails()");
+
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetEQReturns;
+        }
     }
 }
