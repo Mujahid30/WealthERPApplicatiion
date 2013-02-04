@@ -1156,6 +1156,12 @@
     <Compile Include="BusinessMIS\CustomerAUM.ascx.designer.cs">
       <DependentUpon>CustomerAUM.ascx</DependentUpon>
     </Compile>
+    <Compile Include="BusinessMIS\EquityReturns.ascx.cs">
+      <DependentUpon>EquityReturns.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessMIS\EquityReturns.ascx.designer.cs">
+      <DependentUpon>EquityReturns.ascx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\EquityTurnover.ascx.cs">
       <DependentUpon>EquityTurnover.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5794,6 +5800,7 @@
     <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
     <Content Include="BusinessMIS\Commissiondashboard.ascx" />
     <Content Include="BusinessMIS\CustomerAUM.ascx" />
+    <Content Include="BusinessMIS\EquityReturns.ascx" />
     <Content Include="BusinessMIS\EquityTurnover.ascx" />
     <Content Include="BusinessMIS\GoalMIS.ascx" />
     <Content Include="BusinessMIS\HoldingDashBoard.ascx" />
