@@ -111,28 +111,30 @@ namespace WealthERP.Uploads
                 if (Cache["RejectedEquityDetails" + adviserVo.advisorId.ToString()] != null)
                     Cache["RejectedEquityDetails" + adviserVo.advisorId.ToString()] = dsEquity;
 
-                DateTime fromDate = DateTime.Now.AddDays(-30);
+                DateTime fromDate = DateTime.Now.AddMonths(-1);
                 txtFromTran.SelectedDate = fromDate.Date;
                 txtToTran.SelectedDate = DateTime.Now;
                if (adviserVo.advisorId != 1000)
-                {
-                    if (ProcessId != 0)
+               {
+                   BindddlRejectReason();
+                    if (ProcessId!= 0)
                     {
                         divConditional.Visible = false;
+                        BindEquityTransactionGrid(ProcessId);
                     }
                     else
                     {
                         divConditional.Visible = true;
                     }
-                    BindddlRejectReason();
+                   
                     //BindEquityTransactionGrid(ProcessId);
                 }
                 else
                 {
-                    if (ProcessId != 0)
+                    if (ProcessId!= 0)
                     {
                         divConditional.Visible = false;
-                        BindEquityTransactionGrid(ProcessId);
+                       // BindEquityTransactionGrid(ProcessId);
                     }
                     else
                     {
@@ -154,7 +156,7 @@ namespace WealthERP.Uploads
 
             }
            
-            btnExport.Visible = false;
+           // btnExport.Visible = false;
             //btnExport.Visible = false;
             Msgerror.Visible = false;
        }
