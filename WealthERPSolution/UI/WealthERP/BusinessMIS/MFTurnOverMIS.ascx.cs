@@ -1110,6 +1110,11 @@ namespace WealthERP.BusinessMIS
             dtGetFolioTransactionDeatails.Columns["PRJCount"].DefaultValue = 0;
             dtGetFolioTransactionDeatails.Columns["PRJAmount"].DefaultValue = 0;
 
+             dtGetFolioTransactionDeatails.Columns["BUYCount"].DefaultValue = 0;
+             dtGetFolioTransactionDeatails.Columns["BUYAmount"].DefaultValue = 0;
+             dtGetFolioTransactionDeatails.Columns["SELCount"].DefaultValue = 0;
+             dtGetFolioTransactionDeatails.Columns["SELAmount"].DefaultValue = 0;
+
             #endregion
 
 
