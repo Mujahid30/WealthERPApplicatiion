@@ -168,31 +168,32 @@ namespace WealthERP.Uploads
                 txtFromTran.SelectedDate = DateTime.Now.AddMonths(-1).Date;
                 txtToTran.SelectedDate = DateTime.Now;
 
-                if (adviserId != 1000)
+                if (adviserId!= 1000)
                 {
-                    if (ProcessId != 0)
-                    {
-                        divConditional.Visible = false;
-                    }
-                    else
-                    {
-                        divConditional.Visible = true;
-                    }
                     BindddlRejectReason();
-                    //BindGrid(ProcessId);
-                }
-                else
-                {
-                    if (ProcessId != 0)
+                    if (ProcessId!= 0)
                     {
                         divConditional.Visible = false;
                         BindGrid(ProcessId);
                     }
                     else
                     {
+                        divConditional.Visible = true;
+                    }
+                   
+                    //BindGrid(ProcessId);
+                }
+                else
+                {
+                    if (ProcessId!= 0)
+                    {
+                        divConditional.Visible = false;
+                        //BindGrid(ProcessId);
+                    }
+                    else
+                    {
                         divGvCAMSProfileReject.Visible = false;
                         BindAdviserDropDownList();
-
                         tdBtnViewRejetcs.Visible = false;
                         tdTxtToDate.Visible = false;
                         tdlblToDate.Visible = false;
