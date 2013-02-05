@@ -121,30 +121,31 @@ namespace WealthERP.Uploads
                 if (Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()] != null)
                     Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()] = dsSIP;
 
-                DateTime fromDate = DateTime.Now.AddDays(-30);
+                DateTime fromDate = DateTime.Now.AddMonths(-1);
                 txtFromSIP.SelectedDate = fromDate.Date;
                 txtToSIP.SelectedDate = DateTime.Now;
 
 
-                 if (adviserVo.advisorId != 1000)
+              if (adviserVo.advisorId != 1000)
+                {   BindddlRejectReason();
+                    if(processId!=0)
                 {
-                if(processId!=0)
-                {
-                divConditional.Visible = false;
+                    divConditional.Visible = false;
+                    BindRejectedSIPGrid(processId);
                 }
-                    else
+               else
                 {
                    divConditional.Visible = true;
                 }
-                    BindddlRejectReason();
+                    
                    // BindRejectedSIPGrid(processId);
                 }
                 else
                 {
-                    if (processId != 0)
+                    if (processId!= 0)
                     {
                       divConditional.Visible = false;
-                      BindRejectedSIPGrid(processId);
+                      //BindRejectedSIPGrid(processId);
                     }
                     else
                     {
@@ -163,7 +164,7 @@ namespace WealthERP.Uploads
                   }
                 }
               }
-            btnExport.Visible = false;
+           // btnExport.Visible = false;
             Msgerror.Visible = false;
            }
      
@@ -223,10 +224,11 @@ namespace WealthERP.Uploads
                 gvSIPReject.CurrentPageIndex = 0;
                 gvSIPReject.DataSource = dsRejectedSIP.Tables[0];
                 gvSIPReject.DataBind();
+                btnExport.Visible = true;
                 gvSIPReject.Visible = true;
                 Msgerror.Visible = false;
                 Panel3.Visible = true;
-                btnExport.Visible = true;
+               
             }
             else
             {
