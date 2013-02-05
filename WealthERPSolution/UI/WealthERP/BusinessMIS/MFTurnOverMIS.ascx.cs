@@ -1148,7 +1148,7 @@ namespace WealthERP.BusinessMIS
 
                             //if (drCheckIfCategoryExistForCluster.Count() > 0)
                             //{
-                            string transactiontype = drFolioTransaction["WMTT_TransactionClassificationCode"].ToString();
+                           // string transactiontype = drFolioTransaction["WMTT_TransactionClassificationCode"].ToString();
                             //SwitchCaseOnTransactionClassificationCode(transactiontype, ref drFolioTransaction, ref drCluster);
                             //}
 
@@ -1159,12 +1159,16 @@ namespace WealthERP.BusinessMIS
                             drGetFolioTransactionDeatails["Parent"] = drFolioTransaction["Parent"].ToString();
                             drGetFolioTransactionDeatails["RMName"] = drFolioTransaction["RmName"].ToString();
                             drGetFolioTransactionDeatails["Folio"] = drFolioTransaction["CMFA_FolioNum"].ToString();
+                            //if (drGetFolioTransactionDeatails["Folio"].ToString() == "FEDLE")
+                            //{
+
+                            //}
                             if (drTransactionFolioWise.Count() > 0)
                             {
                                 foreach (DataRow dr in drTransactionFolioWise)
                                 {
 
-                                    //string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
+                                    string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
                                     switch (transactiontype)
                                     {
                                         case "BUY":
