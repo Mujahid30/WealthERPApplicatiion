@@ -32,7 +32,7 @@ namespace WealthERP.Advisor
 {
     public partial class AdvisorMISCommission : System.Web.UI.UserControl
     {
-        AdvisorMISBo advisorMISBo=new AdvisorMISBo();
+        AdvisorMISBo advisorMISBo = new AdvisorMISBo();
         string path = string.Empty;
         DataSet dsMISCommission=new DataSet();
         UserVo userVo = new UserVo();
