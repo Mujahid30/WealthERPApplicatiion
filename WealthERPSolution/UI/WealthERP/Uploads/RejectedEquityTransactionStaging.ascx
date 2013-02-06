@@ -262,7 +262,7 @@
 <table width="100%">
     <tr>
         <td align="center">
-            <div id="Msgerror" runat="server" class="success-msg" align="center" visible="false">
+            <div id="Msgerror" runat="server" class="failure-msg" align="center" visible="false">
                 No Records Found...!
             </div>
         </td>
