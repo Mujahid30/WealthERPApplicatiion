@@ -806,7 +806,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = true;
                     hdnRecordCount.Value = "0";
                     btnTrnxExport.Visible = false;
-                    imgBtnTrail.Visible = false;
+                    //imgBtnTrail.Visible = false;
                 }
 
                 
