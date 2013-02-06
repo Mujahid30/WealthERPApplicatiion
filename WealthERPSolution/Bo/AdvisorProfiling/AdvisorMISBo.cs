@@ -57,13 +57,13 @@ namespace BoAdvisorProfiling
         /// <param name="dtFrom"></param>
         /// <param name="dtTo"></param>
         /// <returns></returns>
-        public DataSet GetEQMIS(string userType, int Id, DateTime dtFrom, DateTime dtTo,int rmId, int branchId, int branchHeadId, int all)
+        public DataSet GetEQMIS(string userType, int AdviserId, DateTime dtFrom, DateTime dtTo, int rmId, int branchId, int branchHeadId, int all)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetEQMIS(userType, Id, dtFrom, dtTo, rmId, branchId, branchHeadId, all);
+                dsMIS = MISDao.GetEQMIS(userType, AdviserId, dtFrom, dtTo, rmId, branchId, branchHeadId, all);
             }
             catch (BaseApplicationException Ex)
             {
@@ -78,7 +78,7 @@ namespace BoAdvisorProfiling
 
                 object[] objects = new object[8];
                 objects[0] = userType;
-                objects[1] = Id;
+                objects[1] = AdviserId;
                 objects[2] = dtFrom;
                 objects[3] = dtTo;
                 objects[4] = rmId;
