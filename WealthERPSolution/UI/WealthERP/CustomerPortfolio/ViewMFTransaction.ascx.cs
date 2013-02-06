@@ -223,7 +223,7 @@ namespace WealthERP.CustomerPortfolio
                     mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
 
                 bool bResult = customerTransactionBo.UpdateMFTransaction(mfTransactionVo, userVo.UserId);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionsView','none');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
                 Session["MFEditValue"] = "View";
             }
             catch (BaseApplicationException Ex)
