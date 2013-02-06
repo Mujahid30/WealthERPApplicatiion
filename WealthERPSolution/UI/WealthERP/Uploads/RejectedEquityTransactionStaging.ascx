@@ -312,7 +312,7 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="RejectReason" AllowFiltering="true" HeaderText="Reject Reason"
-                                HeaderStyle-Width="300px" UniqueName="RejectReasonCode" SortExpression="RejectReason"
+                                HeaderStyle-Width="300px" UniqueName="RejectReasonCode" SortExpression="RejectReasonCode"
                                 AutoPostBackOnFilter="false" ShowFilterIcon="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
@@ -375,7 +375,7 @@
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="true" HeaderText="Transaction Type"
-                                HeaderStyle-Width="100px" UniqueName="TransactionTypeCode" SortExpression="TransactionType" 
+                                HeaderStyle-Width="100px" UniqueName="TransactionTypeCode" SortExpression="TransactionTypeCode" 
                                 AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
