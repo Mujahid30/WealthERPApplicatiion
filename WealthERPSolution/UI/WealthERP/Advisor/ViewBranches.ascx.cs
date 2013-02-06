@@ -478,8 +478,11 @@ namespace WealthERP.Advisor
                 advisorBranchVo = advisorBranchBo.GetBranch(branchId);
                 Session["advisorBranchVo"] = advisorBranchVo;
 
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBranchDetails','none');", true);
-                
+                   // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBranchDetails','none');", true);
+
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewBranchDetails','none');", true);           
+
             }
             catch (BaseApplicationException Ex)
             {
