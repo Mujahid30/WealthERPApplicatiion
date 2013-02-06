@@ -492,7 +492,7 @@
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Transaction Date"
-                                                            AllowFiltering="false" Visible="false" SortExpression="Transaction Date" ShowFilterIcon="false"
+                                                            AllowFiltering="false" Visible="true" SortExpression="Transaction Date" ShowFilterIcon="false"
                                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Date"
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
