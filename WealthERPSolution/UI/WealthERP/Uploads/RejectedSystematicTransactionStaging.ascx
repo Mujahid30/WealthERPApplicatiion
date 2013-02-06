@@ -421,7 +421,7 @@
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="true"
                                 HeaderText="Reject Reason" HeaderStyle-Width="300px" UniqueName="WRR_RejectReasonCode"
-                                SortExpression="RejectReason" AutoPostBackOnFilter="false" ShowFilterIcon="false">
+                                SortExpression="WRR_RejectReasonCode" AutoPostBackOnFilter="false" ShowFilterIcon="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
                                     <telerik:RadComboBox ID="RadComboBoxRR" Width="290px" CssClass="cmbField" AllowFiltering="true"
@@ -523,7 +523,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSCS_SystematicCode" AllowFiltering="true"
                                 HeaderText="Transaction Type" HeaderStyle-Width="100px" UniqueName="CMFSCS_SystematicCode"
-                                SortExpression="TransactionType" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                                SortExpression="CMFSCS_SystematicCode" AutoPostBackOnFilter="true" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
@@ -561,8 +561,8 @@
                                 UniqueName="CMFSCS_ToDate" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField=" CMFSCS_SystematicDate" HeaderText="Systematic Date"
-                                AllowFiltering="false" HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression=" CMFSCS_SystematicDate"
+                            <telerik:GridBoundColumn DataField="CMFSCS_SystematicDate" HeaderText="Systematic Date"
+                                AllowFiltering="false" HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CMFSCS_SystematicDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="CMFSCS_SystematicDate" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
