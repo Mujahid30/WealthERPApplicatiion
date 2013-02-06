@@ -612,7 +612,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Customer User Management" Value="Customer User Management">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Login History" Value="Adviser_Login_Track">
+                                                    <telerik:RadPanelItem runat="server" Text="Login History" Value="Adviser_Login_Track" Vissble="true">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -644,7 +644,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF Commission MIS" Value="MF Commission MIS">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Customer SignUp" Value="CustomerSignUp">
+                                            <telerik:RadPanelItem runat="server" Text="Customer SignUp" Value="CustomerSignUp" Vissble="true">
                                             </telerik:RadPanelItem>
                                                    <%------------------New Tree View--------------%> 
                                         </Items>

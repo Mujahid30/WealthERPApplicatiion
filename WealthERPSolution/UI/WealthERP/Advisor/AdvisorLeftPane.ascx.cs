@@ -1633,7 +1633,7 @@ namespace WealthERP.Advisor
                             if ( dr[2].ToString() == "Goal MIS" 
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
                                 || dr[2].ToString() == "MF Turnover MIS" || dr[2].ToString() == "MF Dashboard"
-                                || dr[2].ToString() == "Customer Accounts Compare" || dr[2].ToString() == "Returns" || dr[2].ToString() == "Returns")
+                                || dr[2].ToString() == "Customer Accounts Compare" || dr[2].ToString() == "Returns" || dr[2].ToString() == "Customer SignUp")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
@@ -1950,7 +1950,7 @@ namespace WealthERP.Advisor
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
                                 || dr[2].ToString() == "MF Turnover MIS" 
                                 || dr[2].ToString() == "ISA Status" || dr[2].ToString() == "MF Dashboard"
-                                || dr[2].ToString() == "ISA Folio Mapping" || dr[2].ToString() == "Customer Accounts Compare")
+                                || dr[2].ToString() == "ISA Folio Mapping" || dr[2].ToString() == "Customer Accounts Compare" || dr[2].ToString() == "Returns" || dr[2].ToString() == "Customer SignUp")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
@@ -1976,6 +1976,11 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[2].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
+                            if (dr[2].ToString() == "Login History")
+                            {
+                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            }
+
                         }
                     }
                 }
