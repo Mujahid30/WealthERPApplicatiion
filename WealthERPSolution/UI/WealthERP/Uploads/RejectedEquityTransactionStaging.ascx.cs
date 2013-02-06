@@ -679,6 +679,10 @@ namespace WealthERP.Uploads
                 // Success Message
                 //reprocessSucess.Style.Add("visible", "true");
                 msgReprocessComplete.Visible = true;
+                ViewState.Remove("RejectReasonCode");
+                msgDelete.Visible = false;
+                ViewState.Remove("TransactionTypeCode");
+            
                 //lblError.Text = "Reprocess Done Successfully!";
             }
             else
