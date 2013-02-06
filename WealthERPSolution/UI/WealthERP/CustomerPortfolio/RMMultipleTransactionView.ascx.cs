@@ -88,11 +88,16 @@ namespace WealthERP.CustomerPortfolio
                     customerId = customerVo.CustomerId;
                     trRangeNcustomer.Visible = false;
                     trRange.Visible = false;
-                    ddlDisplayType.Items.RemoveAt(2);
+                   
                 }
 
                 if (!IsPostBack)
                 {
+
+                    if (Session["CustomerVo"] != null)
+                    {
+                        ddlDisplayType.Items.RemoveAt(2);
+                    }
 
                     Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
                     trGroupHead.Visible = false;
