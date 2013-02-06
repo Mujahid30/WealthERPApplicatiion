@@ -63,7 +63,7 @@ namespace DaoAdvisorProfiling
         }
 
 
-        public DataSet GetEQMIS(string userType, int Id, DateTime dtFrom, DateTime dtTo,int rmId, int branchId, int branchHeadId, int all )
+        public DataSet GetEQMIS(string userType, int AdviserId, DateTime dtFrom, DateTime dtTo, int rmId, int branchId, int branchHeadId, int all)
         {
             Database db;
             DbCommand getEQMICmd;
@@ -73,7 +73,7 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getEQMICmd = db.GetStoredProcCommand("SP_GetEQMIS");
                 db.AddInParameter(getEQMICmd, "@userType", DbType.String, userType);
-                db.AddInParameter(getEQMICmd, "@id", DbType.Int32, Id);
+                db.AddInParameter(getEQMICmd, "@id", DbType.Int32, AdviserId);
                 db.AddInParameter(getEQMICmd, "@dtFrom", DbType.DateTime, dtFrom);
                 db.AddInParameter(getEQMICmd, "@dtTo", DbType.DateTime, dtTo);
                 if (rmId != 0)
@@ -100,7 +100,7 @@ namespace DaoAdvisorProfiling
                 FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetEQMIS()");
 
                 object[] objects = new object[1];
-                objects[0] = Id;
+                objects[0] = AdviserId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
