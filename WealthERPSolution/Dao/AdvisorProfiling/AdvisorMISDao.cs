@@ -1686,7 +1686,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getMFReturnsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(getMFReturnsCmd, "@BranchId", DbType.Int32, branchId);
                 db.AddInParameter(getMFReturnsCmd, "@all", DbType.Int32, All);
-                db.AddInParameter(getMFReturnsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
+                if (strValuationDate != "01/01/0001")
+                  db.AddInParameter(getMFReturnsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
                 getMFReturnsCmd.CommandTimeout = 60 * 60;
                 dsGetMFReturns = db.ExecuteDataSet(getMFReturnsCmd);
                 dtGetReturns = dsGetMFReturns.Tables[0];
@@ -1730,7 +1731,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getEQReturnsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(getEQReturnsCmd, "@BranchId", DbType.Int32, branchId);
                 db.AddInParameter(getEQReturnsCmd, "@all", DbType.Int32, All);
-                db.AddInParameter(getEQReturnsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
+                if(strValuationDate!="01/01/0001")
+                    db.AddInParameter(getEQReturnsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
                 getEQReturnsCmd.CommandTimeout = 60 * 60;
                 dsGetEQReturns = db.ExecuteDataSet(getEQReturnsCmd);
                 dtGetEQReturns = dsGetEQReturns.Tables[0];
