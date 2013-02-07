@@ -1421,7 +1421,7 @@
                     </td>
                     <td >
                         <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                      <asp:RegularExpressionValidator ControlToValidate="txtMobile1" Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit"  ValidationExpression="^[0-9]{10}"></asp:RegularExpressionValidator>
+                      <asp:RegularExpressionValidator ValidationGroup="btnEdit" ControlToValidate="txtMobile1" Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit"  ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
                           
                     </td>
                     <td class="leftField">
@@ -1429,7 +1429,7 @@
                     </td>
                     <td >
                         <asp:TextBox ID="txtMobile2" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                       <asp:RegularExpressionValidator ControlToValidate="txtMobile2" Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit"  ValidationExpression="^[0-9]{10}"></asp:RegularExpressionValidator>
+                       <asp:RegularExpressionValidator ValidationGroup="btnEdit" ControlToValidate="txtMobile2" Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit"  ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
                       
                                          </td>
                 </tr>
@@ -1582,7 +1582,7 @@
     </tr>
     <tr>
         <td colspan="3" class="SubmitCell">
-            <asp:Button ID="btnEdit" runat="server" Text="Save" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerIndividualProfile_btnEdit');"
+            <asp:Button ID="btnEdit" runat="server" ValidationGroup="btnEdit" Text="Save" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerIndividualProfile_btnEdit');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EditCustomerIndividualProfile_btnEdit');"
                 OnClick="btnEdit_Click" />
         </td>
