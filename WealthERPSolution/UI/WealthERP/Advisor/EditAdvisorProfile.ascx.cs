@@ -433,10 +433,12 @@ namespace WealthERP.Advisor
                     if (logoChange.HasFile)
                     {
                         string[] fileName = logoChange.FileName.Split('.');
-                        advisorVo.LogoPath = advisorVo.OrganizationName + "_" + fileName[0] + ".png";
+                        //advisorVo.LogoPath = advisorVo.OrganizationName + "_" + fileName[0] + ".png";
                         //advisorBranchVo.LogoPath = advisorVo.advisorId + "_" + txtBranchCode.Text.ToString() + ".jpg";
+                        advisorVo.LogoPath = advisorVo.advisorId.ToString() + "_" + userVo.UserId.ToString() + ".png";
                         HttpPostedFile myFile = logoChange.PostedFile;
-                        UploadImage(path, myFile, advisorVo.advisorId.ToString()+"-"+userVo.UserId.ToString());
+                        UploadImage(path, myFile, advisorVo.LogoPath);
+                       
                     }
                     advisorVo.AddressLine1 = txtAddressLine1.Text.Trim().ToString();
                     advisorVo.AddressLine2 = txtAddressLine2.Text.Trim().ToString();
