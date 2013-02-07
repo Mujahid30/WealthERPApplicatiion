@@ -1421,25 +1421,20 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                       <%-- <asp:CompareValidator ID="txtMobile1_CompareValidator" ControlToValidate="txtMobile1"
+                       <asp:CompareValidator ID="txtMobile1_CompareValidator" ControlToValidate="txtMobile1"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Mobile Number."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidatormb1" runat="server" ControlToValidate="txtMobile1"
-                         CssClass="cvPCG" ErrorMessage="<br /> Please enter a numeric value for Mobile Number." ValidationExpression="^([7-9]{1})([0-9]{9})$"></asp:RegularExpressionValidator>
-
+                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                          
                     </td>
                     <td class="leftField">
                         <asp:Label ID="Label43" CssClass="FieldName" runat="server" Text="Mobile2:"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtMobile2" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                       <%-- <asp:CompareValidator ID="txtMobile2_CompareValidator" ControlToValidate="txtMobile2"
+                       <asp:CompareValidator ID="txtMobile2_CompareValidator" ControlToValidate="txtMobile2"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Mobile Number."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtMobile2"
-                         CssClass="cvPCG" ErrorMessage="<br /> Please enter a numeric value for Mobile Number." ValidationExpression="^([7-9]{1})([0-9]{9})$"></asp:RegularExpressionValidator>
-
-                    </td>
+                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                         </td>
                 </tr>
                 <tr>
                     <td class="leftField">
