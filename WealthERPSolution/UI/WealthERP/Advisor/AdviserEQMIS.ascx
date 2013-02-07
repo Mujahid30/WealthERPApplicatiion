@@ -181,8 +181,7 @@
         <td >
              <asp:Label ID="lblEQPortfolio" runat="server" Text="Portfolio :"  CssClass="FieldName"></asp:Label>
                   <asp:DropDownList ID="ddlPortfolioGroup" runat="server" 
-                 CssClass="cmbField" Width="180" AutoPostBack="true"
-                 onselectedindexchanged="ddlPortfolioGroup_SelectedIndexChanged">
+                 CssClass="cmbField" Width="180">
                         <asp:ListItem Text="Managed" Value="1">Managed</asp:ListItem>
                         <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
                   </asp:DropDownList>
@@ -204,9 +203,7 @@
     <td>
     <asp:Image Visible="false" runat="server" Width="10px" />
     <asp:Label ID="lblChooseRM" runat="server" Font-Bold="true" Width="60" CssClass="FieldName"  Text="RM: "></asp:Label>
-    <asp:DropDownList ID="ddlRMEQ" style="vertical-align: middle" Width="180"  CssClass="cmbField" runat="server" 
-            AutoPostBack="true" 
-            onselectedindexchanged="ddlRMEQ_SelectedIndexChanged">
+    <asp:DropDownList ID="ddlRMEQ" style="vertical-align: middle" Width="180"  CssClass="cmbField" runat="server">
     </asp:DropDownList>
     </td>
     </tr>
@@ -277,8 +274,19 @@
                         </FooterTemplate>
                     </asp:TemplateField>
                     
-                    <asp:BoundField DataField="NoOfShare" HeaderText="No Of Shares" DataFormatString="{0:n2}" HeaderStyle-HorizontalAlign="Right" 
-                    ItemStyle-HorizontalAlign="Right"  />
+                    <%--<asp:BoundField DataField="NoOfShare" HeaderText="No. Of Shares" DataFormatString="{0:n2}" HeaderStyle-HorizontalAlign="Right" 
+                    ItemStyle-HorizontalAlign="Right"  />--%>
+                    <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-HorizontalAlign="Right" HeaderText="No. Of Shares" FooterStyle-HorizontalAlign="Right">
+                        <ItemTemplate>
+                            <asp:Label ID="lblNoOfShare" runat="server" Text='<%# Eval("NoOfShare").ToString() %>'></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle Wrap="False"></HeaderStyle>
+                        <FooterTemplate>
+                            <asp:Label ID="lblNoOfShareTotalText" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                        </FooterTemplate>
+                    </asp:TemplateField>
                     
                     <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-HorizontalAlign="Right">
                         <HeaderTemplate>

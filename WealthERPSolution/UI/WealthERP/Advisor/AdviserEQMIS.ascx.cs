@@ -547,6 +547,7 @@ namespace WealthERP.Advisor
 
             int adviserId = 0;
             int rmId = 0;
+            int TotalShares = 0;
 
             adviserId = advisorVo.advisorId;
 
@@ -651,6 +652,7 @@ namespace WealthERP.Advisor
                     drAdvEQMIS["MValue_Percentage_SpecSell"] = nfi1.NumberDecimalSeparator;
                     drAdvEQMIS["MValue_Blank_SpecBuy"] = nfi2.NumberDecimalSeparator;
                     drAdvEQMIS["NoOfShare"] = Math.Round(double.Parse(dsCompSecEQMIS.Tables[0].Rows[i]["NoOfShare"].ToString()), 0);
+                    TotalShares = TotalShares + int.Parse(drAdvEQMIS["NoOfShare"].ToString());
                     
 
                     dtCompSecEQMIS.Rows.Add(drAdvEQMIS);
@@ -685,6 +687,8 @@ namespace WealthERP.Advisor
 
                     Label TotalPerValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValueBlankSpecBuy");
 
+                    Label lblTotalshares = (Label)gvEQMIS.FooterRow.FindControl("lblNoOfShareTotalText");
+                    lblTotalshares.Text = TotalShares.ToString();
                     TotalPerValue.Text = "100%";
                     TotalPerValue.Style.Add("float", "right");
 
@@ -717,6 +721,9 @@ namespace WealthERP.Advisor
 
                     TotalPerValue.Text = "100%";
                     TotalPerValue.Style.Add("float", "right");
+
+                    Label lblTotalshares = (Label)gvEQMIS.FooterRow.FindControl("lblNoOfShareTotalText");
+                    lblTotalshares.Text = TotalShares.ToString();
 
                     gvEQMIS.Columns[0].Visible = false;
 
