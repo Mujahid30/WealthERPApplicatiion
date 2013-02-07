@@ -125,17 +125,19 @@
         <td class="leftField" style="width: 20%">
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date of Profiling:"></asp:Label>
         </td>
-        <td id="tdprofileDate" runat="server">
-            <telerik:RadDatePicker ID="txtProfilingDate" CssClass="txtField" runat="server" Culture="English (United States)"
+        <td class="rightField">
+            <%--<asp:TextBox ID="txtProfilingDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>--%>
+            
+              <telerik:RadDatePicker ID="txtProfilingDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput ID="DateInput3" EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
-                    DateFormat="d/M/yyyy">
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
+            
         </td>
     </tr>
     <tr>
@@ -1419,22 +1421,24 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                    <%--    <asp:CompareValidator ID="txtMobile1_CompareValidator" ControlToValidate="txtMobile1"
+                       <%-- <asp:CompareValidator ID="txtMobile1_CompareValidator" ControlToValidate="txtMobile1"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Mobile Number."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidatormb1" runat="server" ControlToValidate="txtMobile1"
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidatormb1" runat="server" ControlToValidate="txtMobile1"
                          CssClass="cvPCG" ErrorMessage="<br /> Please enter a numeric value for Mobile Number." ValidationExpression="^([7-9]{1})([0-9]{9})$"></asp:RegularExpressionValidator>
+
                     </td>
                     <td class="leftField">
                         <asp:Label ID="Label43" CssClass="FieldName" runat="server" Text="Mobile2:"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtMobile2" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                         <asp:RegularExpressionValidator ID="RegularExpressionValidatormb2" runat="server" ControlToValidate="txtMobile2"
-                          CssClass="cvPCG"  ErrorMessage="<br /> Please enter a numeric value for Mobile Number." ValidationExpression="^([7-9]{1})([0-9]{9})$"></asp:RegularExpressionValidator>
-                   <%--     <asp:CompareValidator ID="txtMobile2_CompareValidator" ControlToValidate="txtMobile2"
+                       <%-- <asp:CompareValidator ID="txtMobile2_CompareValidator" ControlToValidate="txtMobile2"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Mobile Number."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtMobile2"
+                         CssClass="cvPCG" ErrorMessage="<br /> Please enter a numeric value for Mobile Number." ValidationExpression="^([7-9]{1})([0-9]{9})$"></asp:RegularExpressionValidator>
+
                     </td>
                 </tr>
                 <tr>
