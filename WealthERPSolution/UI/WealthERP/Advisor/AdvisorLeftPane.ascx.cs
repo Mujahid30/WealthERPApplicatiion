@@ -1378,7 +1378,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "CustomerSignUp")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerSignUp','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserNewSignupMIS','login');", true);
                 }
 
                 else if (e.Item.Value == "MFTurnOverMIS")
