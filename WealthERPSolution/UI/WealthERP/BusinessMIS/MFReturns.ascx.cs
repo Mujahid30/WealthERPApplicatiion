@@ -52,7 +52,7 @@ namespace WealthERP.BusinessMIS
             if (Session[SessionContents.ValuationDate] == null)
                 GetLatestValuationDate();
             genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
-            strValuationDate = genDict[Constants.MFDate.ToString()].ToString();
+            strValuationDate = genDict[Constants.MFDate.ToString()].ToShortDateString();
             lblPickDate.Text = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString()).ToShortDateString();
 
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
