@@ -1421,7 +1421,7 @@
                     </td>
                     <td >
                         <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                      <asp:RegularExpressionValidator ControlToValidate="txtMobile1" Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit"  ValidationExpression="^([7-9]{1})([0-9]{9})$"></asp:RegularExpressionValidator>
+                      <asp:RegularExpressionValidator ControlToValidate="txtMobile1" Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit"  ValidationExpression="^[0-9]{10}"></asp:RegularExpressionValidator>
                           
                     </td>
                     <td class="leftField">
@@ -1429,7 +1429,7 @@
                     </td>
                     <td >
                         <asp:TextBox ID="txtMobile2" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                       <asp:RegularExpressionValidator ControlToValidate="txtMobile2" Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit"  ValidationExpression="^([7-9]{1})([0-9]{9})$"></asp:RegularExpressionValidator>
+                       <asp:RegularExpressionValidator ControlToValidate="txtMobile2" Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit"  ValidationExpression="^[0-9]{10}"></asp:RegularExpressionValidator>
                       
                                          </td>
                 </tr>
