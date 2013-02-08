@@ -58,10 +58,11 @@ namespace WealthERP.BusinessMIS
             int RMId = rmVo.RMId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
-            trEQProductLevel.Visible = false;
-            trOrgLevel.Visible = false;
+            
             if (!IsPostBack)
             {
+                trEQProductLevel.Visible = false;
+                trOrgLevel.Visible = false;
                 rbtnPickDate.Checked = true;
                 rbtnPickPeriod.Checked = false;
                 divDateRange.Visible = true;
