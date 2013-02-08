@@ -134,13 +134,6 @@
     </tr>
 </table>
 <table style="width: 100%">
-    <tr id="ErrorMessage" align="center" style="width: 100%" runat="server" visible="false">
-        <td align="center" style="width: 100%">
-            <div class="failure-msg" style="text-align: center" align="center">
-                No Equity Records found, please do valuation...
-            </div>
-        </td>
-    </tr>
     <tr>
         <td colspan="2" align="Left" style="width: 100%" class="style3">
             <telerik:RadGrid ID="gvEQMIS" runat="server" GridLines="None" AutoGenerateColumns="False"

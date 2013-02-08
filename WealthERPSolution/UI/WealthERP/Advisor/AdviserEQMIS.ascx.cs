@@ -514,17 +514,11 @@ namespace WealthERP.Advisor
 
             if (dsCompSecEQMIS.Tables[0].Rows.Count == 0)
             {
-                ErrorMessage.Visible = true;
                 gvEQMIS.DataSource = dsCompSecEQMIS;
                 gvEQMIS.DataBind();
             }
             else
             {
-
-
-                ErrorMessage.Visible = false;
-
-
                 dtCompSecEQMIS.Columns.Add("Company");
                 dtCompSecEQMIS.Columns.Add("Industry");
                 dtCompSecEQMIS.Columns.Add("NoOfShare",typeof(Decimal));

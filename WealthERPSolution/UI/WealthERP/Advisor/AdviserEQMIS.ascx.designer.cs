@@ -194,15 +194,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
-        /// ErrorMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow ErrorMessage;
-        
-        /// <summary>
         /// gvEQMIS control.
         /// </summary>
         /// <remarks>
