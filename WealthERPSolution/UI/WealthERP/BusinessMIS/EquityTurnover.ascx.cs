@@ -58,15 +58,15 @@ namespace WealthERP.BusinessMIS
             int RMId = rmVo.RMId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
-
+            trEQProductLevel.Visible = false;
+            trOrgLevel.Visible = false;
             if (!IsPostBack)
             {
                 rbtnPickDate.Checked = true;
                 rbtnPickPeriod.Checked = false;
                 divDateRange.Visible = true;
                 divDatePeriod.Visible = false;
-                trEQProductLevel.Visible = false;
-                trOrgLevel.Visible = false;
+                
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
@@ -272,7 +272,7 @@ namespace WealthERP.BusinessMIS
             {
                 trOrgLevel.Visible = false;
                 trEQProductLevel.Visible = true;
-                lblMFMISType.Text = "Category/Company/Exchange/Customer";
+                lblMFMISType.Text = "Company/Sector/Exchange";
                 BindProductLevelGrid();
             }
             else if (ddlAction.SelectedValue == "Organization")
