@@ -46,6 +46,7 @@ namespace WealthERP.Uploads
         int rejectReasonCode;
         DateTime fromDate;
         DateTime toDate;
+        DataView dvSIPReject;
         CustomerBo customerBo = new CustomerBo();
         CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
         PortfolioBo portfolioBo = new PortfolioBo();
@@ -284,6 +285,44 @@ namespace WealthERP.Uploads
 
             }
         }
+     protected void NeedSource()
+     {
+         string rcbType = string.Empty;
+         string tttype = string.Empty;
+        // btnExport.Visible = true;
+         DataSet dsSIP = new DataSet();
+         DataTable dtrr = new DataTable();
+         dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
+         if (dsSIP.Tables.Count > 0)
+         {
+             dtrr = dsSIP.Tables[0];
+             if (ViewState["WRR_RejectReasonCode"] != null)
+                 rcbType = ViewState["WRR_RejectReasonCode"].ToString();
+             if (ViewState["CMFSCS_SystematicCode"] != null)
+                 tttype = ViewState["CMFSCS_SystematicCode"].ToString();
+             if ((!string.IsNullOrEmpty(rcbType)) && (string.IsNullOrEmpty(tttype)))
+             {
+                 DataView dvStaffList = new DataView(dtrr, "WRR_RejectReasonCode = '" + rcbType + "'", "WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
+                 gvSIPReject.DataSource = dvStaffList.ToTable();
+             }
+             else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
+             {
+                 DataView dvStaffList = new DataView(dtrr, "CMFSCS_SystematicCode= '" + tttype + "'", "WRR_RejectReasonCode,WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
+                 gvSIPReject.DataSource = dvStaffList.ToTable();
+             }
+             else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
+             {
+                 DataView dvStaffList = new DataView(dtrr, "WRR_RejectReasonCode = '" + rcbType + "'and CMFSCS_SystematicCode= '" + tttype + "'", "WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
+                 gvSIPReject.DataSource = dvStaffList.ToTable();
+
+             }
+             else
+             {
+                 gvSIPReject.DataSource = dtrr;
+                 //btnExport.Visible = true;
+             }
+         }
+     }
 
         protected void gvSIPReject_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
@@ -804,17 +843,39 @@ namespace WealthERP.Uploads
 
             else
             {
-                DataSet ds = uploadsCommonBo.GetSIPUploadRejectDistinctProcessIdForAdviser(adviserVo.advisorId);
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                #region removed coz it was selecting all the processids
+                //DataSet ds = uploadsCommonBo.GetSIPUploadRejectDistinctProcessIdForAdviser(adviserVo.advisorId);
+                #endregion
+
+                string StagingID = string.Empty;
+
+                foreach (GridDataItem gvr in this.gvSIPReject.Items)
                 {
-                    processIdReprocessAll = int.Parse(dr["WUPL_ProcessId"].ToString());
-                    processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
-
-                    blResult = MFWERPSIPTransactionInsertion(processIdReprocessAll);
-
-                    if (blResult == false)
+                    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                     {
-                        error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
+                        StagingID += Convert.ToString(gvSIPReject.MasterTableView.DataKeyValues[gvr.ItemIndex]["WUPL_ProcessId"]) + "~";
+                        
+                    }
+                }
+
+                string[] a = StagingID.Split('~');
+
+
+                foreach(string word in a) 
+                //foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    if (word != "")
+                    {
+                        //processIdReprocessAll = int.Parse(dr["WUPL_ProcessId"].ToString());
+                        processIdReprocessAll = Convert.ToInt32(word);
+                        processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
+
+                        blResult = MFWERPSIPTransactionInsertion(processIdReprocessAll);
+
+                        if (blResult == false)
+                        {
+                            error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
+                        }
                     }
                 }
 
@@ -827,8 +888,10 @@ namespace WealthERP.Uploads
                 //lblError.Text = "Reprocess Done Successfully!";
                 msgReprocessComplete.Visible = true;
                 msgDelete.Visible = false;
-                ViewState.Remove("WRR_RejectReasonCode");
-                ViewState.Remove("CMFSCS_SystematicCode");
+               // ViewState.Remove("WRR_RejectReasonCode");
+                //ViewState.Remove("CMFSCS_SystematicCode");
+                NeedSource();
+                gvSIPReject.MasterTableView.Rebind();
                 
             }
             else
@@ -899,6 +962,8 @@ namespace WealthERP.Uploads
             else
             {
                 CustomerSIPTransactionDelete();
+                NeedSource();
+                gvSIPReject.MasterTableView.Rebind();
                 msgReprocessComplete.Visible = false;
                 msgDelete.Visible = true;
                 msgDelete.Visible = true;
@@ -910,20 +975,20 @@ namespace WealthERP.Uploads
         private void CustomerSIPTransactionDelete()
         {
            // int i = 0;
+            
             foreach (GridDataItem gvr in this.gvSIPReject.Items)
             {
                 if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                 {
-                    int StagingID = int.Parse(gvSIPReject.MasterTableView.DataKeyValues[gvr.ItemIndex]["CMFSCS_ID"].ToString());
+                int  StagingID = int.Parse(gvSIPReject.MasterTableView.DataKeyValues[gvr.ItemIndex]["CMFSCS_ID"].ToString());
                     //i = i + 1;
-                    uploadsCommonBo.DeleteMFSIPTransactionStaging(StagingID);
-                    BindRejectedSIPGrid(processId); 
+                uploadsCommonBo.DeleteMFSIPTransactionStaging(StagingID);
                 //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
                     
                 }
                
             }
-           
+          BindRejectedSIPGrid(processId); 
         }
 
         protected void LinkInputRejects_Click(object sender, EventArgs e)
