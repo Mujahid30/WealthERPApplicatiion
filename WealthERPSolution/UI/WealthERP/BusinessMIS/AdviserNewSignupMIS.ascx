@@ -115,7 +115,7 @@
         <telerik:RadGrid ID="gvNewCustomerSignUpMIS" runat="server" CssClass="RadGrid" GridLines="None"
             Width="100%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
             ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-            AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvNewCustomerSignUpMIS_NeedDataSource"
+            AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvNewCustomerSignUpMIS_ItemDataBound" OnNeedDataSource="gvNewCustomerSignUpMIS_NeedDataSource"
             EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
             AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">

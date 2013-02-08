@@ -64,8 +64,10 @@ namespace WealthERP.BusinessMIS
             dsNEWSignupMISDetails = advisorBranchBo.GetNEWSignupMISDetails(adviserVo.advisorId,dtFromDate,dtToDate);
             gvNewCustomerSignUpMIS.DataSource = dsNEWSignupMISDetails;
             gvNewCustomerSignUpMIS.DataBind();
-            if (dsNEWSignupMISDetails != null)
+            if (dsNEWSignupMISDetails.Tables[0].Rows.Count>0)
                 btnExportFilteredData.Visible = true;
+            else
+                btnExportFilteredData.Visible = false;
             if (Cache["gvSchemeDetailsForMappinginSuperAdmin"] == null)
             {
                 Cache.Insert("gvSchemeDetailsForMappinginSuperAdmin", dsNEWSignupMISDetails);
@@ -91,6 +93,22 @@ namespace WealthERP.BusinessMIS
             gvNewCustomerSignUpMIS.ExportSettings.FileName = "NEW customer Signup Details";
             gvNewCustomerSignUpMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvNewCustomerSignUpMIS.MasterTableView.ExportToExcel();
+        }
+
+        protected void gvNewCustomerSignUpMIS_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridHeaderItem)
+            {
+                if (!Convert.ToBoolean(adviserVo.MultiBranch))
+                {
+                    if (adviserVo.MultiBranch != 1)
+                    {
+                        gvNewCustomerSignUpMIS.MasterTableView.GetColumn("ZoneName").Visible = false;
+                        gvNewCustomerSignUpMIS.MasterTableView.GetColumn("ClusterName").Visible = false;
+                    }
+                }
+
+            }
         }
     }
 }
