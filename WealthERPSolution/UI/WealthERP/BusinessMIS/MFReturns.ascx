@@ -128,8 +128,7 @@
             <tr>
                 <td>
                     <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbField" 
-                    Text="Note: 1.To Group or hide fields right click on label & make the selection. <br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.You can also hide/unhide on thr right clicking particular label, & making the selection."></asp:Label>
+                    Text="Note: 1.You can group/ungroup or hide/unhide fields by a right click on the grid label and then making the selection."></asp:Label>
                 </td>
             </tr>
 </table>
