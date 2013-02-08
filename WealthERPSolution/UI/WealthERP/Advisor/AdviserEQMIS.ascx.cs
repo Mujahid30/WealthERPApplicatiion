@@ -464,6 +464,17 @@ namespace WealthERP.Advisor
             hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
             hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
             hdnrmId.Value = ddlRMEQ.SelectedValue;
+            hdnEQMISType.Value = ddlMISType.SelectedValue;
+            if (ddlMISType.SelectedValue == "SectorWise")
+            {
+                hdnEQMISType.Value = "1";
+            }
+            else if(ddlMISType.SelectedValue == "CompanyWise")
+            {
+             
+                hdnEQMISType.Value = "0";
+            }
+
 
 
 
