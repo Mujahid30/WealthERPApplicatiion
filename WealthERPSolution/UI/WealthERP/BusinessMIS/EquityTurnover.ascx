@@ -146,7 +146,7 @@
                         <td>
                             <div runat="server" id="divEQTurnover" style="margin: 2px; width: 640px;">
                                 <telerik:RadGrid ID="gvEQTurnover" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                    PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                                     EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false"
                                     ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvEQTurnover_OnNeedDataSource">
@@ -159,7 +159,7 @@
                                         <Columns>
                                            <telerik:GridBoundColumn HeaderText="Company/Scrip" DataField="PEM_CompanyName" UniqueName="PEM_CompanyName"
                                                 SortExpression="PEM_CompanyName" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterText="Grand Total:">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="Sector" DataField="PGSC_SectorCategoryName" UniqueName="PGSC_SectorCategoryName"
@@ -167,7 +167,7 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderText="Exchange" DataField="XE_ExchangeCode" UniqueName="XE_ExchangeCode"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="70px" HeaderText="Exchange" DataField="XE_ExchangeCode" UniqueName="XE_ExchangeCode"
                                                 SortExpression="XE_ExchangeCode" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -175,19 +175,19 @@
                                             <telerik:GridBoundColumn HeaderText="DeliveryBuy Amt" DataField="DeliveryBuy" UniqueName="DeliveryBuy"
                                                 SortExpression="DeliveryBuy" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
-                                                Aggregate="Sum">
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="DeliveryBuy Cnt" DataField="DeliveryBuyCount"
                                                 UniqueName="DeliveryBuyCount" SortExpression="DeliveryBuyCount" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                DataFormatString="{0:N0}" Aggregate="Sum">
+                                                DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="DeliverySell Amt" DataField="DeliverySell" UniqueName="DeliverySell"
                                                 SortExpression="DeliverySell" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
-                                                Aggregate="Sum">
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="DeliverySell Cnt" DataField="DeliverySellCount"
@@ -243,7 +243,7 @@
                         <td>
                             <div runat="server" id="divOrgLevel" style="margin: 2px; width: 640px;">
                                 <telerik:RadGrid ID="gvOrgLevel" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                    PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                                     EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false"
                                     ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvOrgLevel_OnNeedDataSource">
@@ -257,7 +257,7 @@
                                            <telerik:GridBoundColumn HeaderText="Branch" DataField="AB_BranchName" HeaderStyle-HorizontalAlign="left"
                                                 UniqueName="AB_BranchName" SortExpression="AB_BranchName" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                FooterStyle-HorizontalAlign="left">
+                                                FooterStyle-HorizontalAlign="left" FooterText="Grand Total:">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="RM" DataField="AR_FirstName" UniqueName="AR_FirstName"
@@ -267,25 +267,25 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="Customer" DataField="Customer" UniqueName="Customer"
                                                 SortExpression="Customer" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" Aggregate="Count" FooterText="Row Count : ">
+                                                CurrentFilterFunction="Contains" Aggregate="Count" >
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="DeliveryBuy Amt" DataField="DeliveryBuy" UniqueName="DeliveryBuy"
                                                 SortExpression="DeliveryBuy" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
-                                                Aggregate="Sum">
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="DeliveryBuy Cnt" DataField="DeliveryBuyCount"
                                                 UniqueName="DeliveryBuyCount" SortExpression="DeliveryBuyCount" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                DataFormatString="{0:N0}" Aggregate="Sum">
+                                                DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="DeliverySell Amt" DataField="DeliverySell" UniqueName="DeliverySell"
                                                 SortExpression="DeliverySell" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
-                                                Aggregate="Sum">
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="DeliverySell Cnt" DataField="DeliverySellCount"
