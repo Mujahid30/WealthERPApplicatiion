@@ -70,18 +70,11 @@ namespace WealthERP.BusinessMIS
             bmID = rmVo.RMId;
             if (!IsPostBack)
             {
-                pnlMfReturns.Visible = false;
-                gvMfReturns.Visible = false;
+                SetParameters();
+                BindMfReturnsGrid();
             }
         }
         
-
-        protected void btnGo_Click(object sender, EventArgs e)
-        {
-            SetParameters();
-            BindMfReturnsGrid();
-        }
-
         private void BindMfReturnsGrid()
         {
             DataTable dtMfReturns;
