@@ -575,7 +575,7 @@
                                         </telerik:GridGroupByExpression>
                                     </GroupByExpressions>
                                     
-                                      <GroupByExpressions>
+                                  <%--    <GroupByExpressions>
                                         <telerik:GridGroupByExpression>
                                             <GroupByFields>
                                                 <telerik:GridGroupByField FieldName="AMC"   />
@@ -594,11 +594,11 @@
                                                 <telerik:GridGroupByField FieldName="Scheme" FieldAlias="Scheme" />
                                             </SelectFields>
                                         </telerik:GridGroupByExpression>
-                                    </GroupByExpressions>
+                                    </GroupByExpressions>--%>
                                     
                                     <Columns>
                                         <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
-                                            DataField="action" FooterText="Grand Total:">
+                                            DataField="action" FooterText="Grand Total:" Visible="false">
                                            <%-- <ItemTemplate>
                                                 <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text="Details"
                                                     ItemStyle-Width="12px" />
@@ -607,7 +607,7 @@
                                          <telerik:GridBoundColumn HeaderText="Category" HeaderTooltip="Category" DataField="Category"
                                             UniqueName="Category" SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true"
                                           
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterText="Grand Total:">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderText="AMC" DataField="AMC" UniqueName="AMC" SortExpression="AMC"
@@ -1240,7 +1240,7 @@
                                     grouploadmode="Client" editmode="EditForms" showgroupfooter="true" width="100%"
                                     allowmulticolumnsorting="True" autogeneratecolumns="false" commanditemdisplay="None">
                                     
-                                        <GroupByExpressions>
+                                   <%--     <GroupByExpressions>
                                         <telerik:GridGroupByExpression>
                                             <GroupByFields>
                                                 <telerik:GridGroupByField FieldName="RMName" />
@@ -1271,7 +1271,7 @@
                                                 <telerik:GridGroupByField FieldName="Folio" FieldAlias="Folio" />
                                             </SelectFields>
                                         </telerik:GridGroupByExpression>
-                                    </GroupByExpressions>
+                                    </GroupByExpressions>--%>
                                     
                                     <Columns>
                                         <%--<telerik:GridTemplateColumn  AllowFiltering="false" UniqueName="action"
