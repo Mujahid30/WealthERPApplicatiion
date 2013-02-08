@@ -145,6 +145,15 @@
         </td>
     </tr>
 </table>
+<table width="100%">
+            <tr>
+                <td>
+                    <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbField" 
+                    Text="Note: 1.To Group or hide fields right click on label & make the selection. <br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.You can also hide/unhide on thr right clicking particular label, & making the selection."></asp:Label>
+                </td>
+            </tr>
+</table>
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />

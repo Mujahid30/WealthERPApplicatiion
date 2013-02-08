@@ -77,6 +77,15 @@ namespace WealthERP.BusinessMIS {
         protected global::Telerik.Web.UI.RadGrid gvEQReturns;
         
         /// <summary>
+        /// LabelMainNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelMainNote;
+        
+        /// <summary>
         /// hdnbranchId control.
         /// </summary>
         /// <remarks>
