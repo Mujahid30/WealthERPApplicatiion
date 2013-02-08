@@ -890,8 +890,8 @@ namespace WealthERP.Uploads
                 //lblError.Text = "Reprocess Done Successfully!";
                 msgReprocessComplete.Visible = true;
                 msgDelete.Visible = false;
-               // ViewState.Remove("WRR_RejectReasonCode");
-                //ViewState.Remove("CMFSCS_SystematicCode");
+               ViewState.Remove("WRR_RejectReasonCode");
+               ViewState.Remove("CMFSCS_SystematicCode");
                 NeedSource();
                 gvSIPReject.MasterTableView.Rebind();
                 
