@@ -70,8 +70,8 @@ namespace WealthERP.BusinessMIS
             bmID = rmVo.RMId;
             if (!IsPostBack)
             {
-                pnlEQReturns.Visible = false;
-                gvEQReturns.Visible = false;
+                SetParameters();
+                BindEQReturnsGrid();
             }
         }
         private void GetLatestValuationDate()
@@ -113,14 +113,6 @@ namespace WealthERP.BusinessMIS
                 throw exBase;
             }
 
-        }
-
-
-
-        protected void btnGo_Click(object sender, EventArgs e)
-        {
-            SetParameters();
-            BindEQReturnsGrid();
         }
 
         private void BindEQReturnsGrid()
