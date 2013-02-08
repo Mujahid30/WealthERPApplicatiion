@@ -81,7 +81,7 @@ namespace WealthERP.BusinessMIS
                 //trDivProduct.Visible = true;
                 //trDivOrganization.Visible = false;
                 //ShowHideMISMenu("Organization");
-                ShowHideMISMenu(ddlAction.SelectedValue.ToString());
+               
                 trPnlAMC.Visible = false;
                 trPnlScheme.Visible = false;
                 trPnlBranch.Visible = false;
@@ -90,25 +90,40 @@ namespace WealthERP.BusinessMIS
                 trPnlRM.Visible = false;
                 trPnlZoneCluster.Visible = false;
                 BindCategory();
-                if (userType == "advisor")
+                if (userType == "advisor" || userType == "rm")
                 {
                     BindBranchDropDown();
                     BindRMDropDown();
+                    if (userType == "rm")
+                    {
+                        ddlBranch.Enabled = false;
+                        ddlRM.SelectedValue = rmVo.RMId.ToString();
+                        ddlRM.Enabled = false;
+                        //ddlAction.SelectedIndex = 1;
+                        ddlAction.Items.RemoveAt(0);
+
+                        //Action.Visible = false;
+                        //ddlAction.Visible = false;
+                        //  trBranchRM.Visible = false;
+                    }
                 }
                 else if (userType == "rm")
                 {
-                    Action.Visible = false;
-                    ddlAction.Visible = false;
-                    trBranchRM.Visible = false;
+                    //ddlBranch.SelectedValue = rmVo.RMId.ToString();
+                    // ddlRM.SelectedValue=rmVo.RMId.ToString();
+                    //Action.Visible = false;
+                    //ddlAction.Visible = false;
+                  //  trBranchRM.Visible = false;
                 }
                 if (userType == "bm")
                 {
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
                 }
-                LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                txtFromDate.SelectedDate = DateTime.Parse(LatestValuationdate.ToShortDateString());
-                txtToDate.SelectedDate = DateTime.Parse(LatestValuationdate.ToShortDateString());
+                //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                txtFromDate.SelectedDate =DateTime.Now;
+                txtToDate.SelectedDate = DateTime.Now;
+                ShowHideMISMenu(ddlAction.SelectedValue.ToString());
             }
 
         }

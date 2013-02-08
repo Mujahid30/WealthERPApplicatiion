@@ -227,7 +227,7 @@
                         <MasterTableView GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
                             GroupLoadMode="Client" EditMode="EditForms" ShowGroupFooter="true" Width="100%"
                             AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
-                            <GroupByExpressions>
+                           <%-- <GroupByExpressions>
                                 <telerik:GridGroupByExpression>
                                     <GroupByFields>
                                         <telerik:GridGroupByField FieldName="AMCName" />
@@ -256,7 +256,7 @@
                                         <telerik:GridGroupByField FieldName="TransactionType" FieldAlias="Transaction" />
                                     </SelectFields>
                                 </telerik:GridGroupByExpression>
-                            </GroupByExpressions>
+                            </GroupByExpressions>--%>
                             <Columns>
                                 <telerik:GridBoundColumn HeaderText="AMC" HeaderTooltip="AMC" DataField="AMCName"
                                     UniqueName="AMCName" SortExpression="AMCName" AllowFiltering="true" AutoPostBackOnFilter="true"
@@ -324,10 +324,10 @@
 <table runat="server" id="tblZoneClusterWiseMIS" width="100%">
     <tr>
         <td>
-            <asp:Panel ID="pnlZoneClusterWiseMIS" ScrollBars="Horizontal" Width="77%" runat="server">
+            <asp:Panel ID="pnlZoneClusterWiseMIS" ScrollBars="Horizontal" Height="440px" runat="server">
                 <div runat="server" id="divZoneClusterWiseMIS" style="margin: 2px; width: 440px;">
                     <telerik:RadGrid ID="gvZoneClusterWiseCommissionMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                         AllowSorting="true"  ShowStatusBar="True" ShowFooter="true"
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
                         OnNeedDataSource="gvZoneClusterWiseCommissionMIS_OnNeedDataSource"
                         EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false" enab

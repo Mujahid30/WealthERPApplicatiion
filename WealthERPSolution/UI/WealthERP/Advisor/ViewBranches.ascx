@@ -117,12 +117,12 @@
     
     <tr>
         <td style="padding-top:8px;">
-            <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" Width="100%" runat="server">
+            <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" Height="440px" runat="server">
                 <div runat="server" id="divZoneCluster" style="margin: 2px; width: 640px;">
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                         <ContentTemplate>
                             <telerik:RadGrid ID="gvZoneClusterdetails" runat="server" CssClass="RadGrid" GridLines="None"
-                                Width="120%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                                Width="120%" AllowSorting="True" AutoGenerateColumns="false"
                                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                                 AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvZoneClusterdetails_NeedDataSource"
                                 EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
