@@ -43,7 +43,7 @@
                         <td>
                             <div runat="server" id="divEQReturns" style="margin: 2px; width: 640px;">
                                 <telerik:RadGrid ID="gvEQReturns" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                    PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                                     AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" 
                                     OnNeedDataSource="gvEQReturns_OnNeedDataSource" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
@@ -126,7 +126,7 @@
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Profit/Loss (%)" DataField="Percentage" HeaderStyle-HorizontalAlign="Right"
                                                 UniqueName="Percentage" SortExpression="Percentage" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                DataFormatString="{0:N2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                                DataFormatString="{0:N2}"  FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                         </Columns>
