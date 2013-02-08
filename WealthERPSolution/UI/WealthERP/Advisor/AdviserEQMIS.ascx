@@ -137,7 +137,7 @@
     <tr>
         <td colspan="2" align="Left" style="width: 100%" class="style3">
             <telerik:RadGrid ID="gvEQMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="80%" AllowFilteringByColumn="true"
                 AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvEQMIS_OnNeedDataSource"
                 EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
@@ -150,7 +150,7 @@
                                         <Columns>
                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Company" DataField="Company"
                                                 UniqueName="Company" SortExpression="Company" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterText="Grand Total:">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Industry" DataField="Industry"
