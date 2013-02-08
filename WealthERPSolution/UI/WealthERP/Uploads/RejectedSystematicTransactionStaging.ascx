@@ -78,6 +78,39 @@
     }
 </script>
 
+<script type="text/javascript">
+    function SelectProcessId() {
+        var TargetBaseControl = null;
+        var count = 0;
+        try {
+            //get target base control.
+            TargetBaseControl = document.getElementById('<%= this.gvSIPReject.ClientID %>');
+        }
+        catch (err) {
+            TargetBaseControl = null;
+        }
+        if (TargetBaseControl == null) return false;
+
+        //get target child control.
+
+        var TargetChildControl = "chkId";
+
+        //get all the control of the type INPUT in the base control.
+        var Inputs = TargetBaseControl.getElementsByTagName("input");
+
+        for (var n = 0; n < Inputs.length; ++n)
+            if (Inputs[n].type == 'checkbox' &&
+            Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 &&
+            Inputs[n].checked) {
+            count++;
+        }
+        if (count == 0 || count > 1) {
+            alert('Please select a single processid');
+            return false;
+        }
+    }
+</script>
+
 <script language="javascript" type="text/javascript">
     function checkAllBoxes() {
 
@@ -786,8 +819,8 @@
         <tr id="trReprocess" runat="server">
             <td class="SubmitCell">
                 <asp:Button ID="btnReprocess" runat="server" Text="Reprocess" OnClick="btnReprocess_Click"
-                    CssClass="PCGLongButton" OnClientClick="Loading(true);" />
-                <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
+                    CssClass="PCGLongButton"  OnClientClick="SelectProcessId();Loading(true);" />
+                <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records" OnClientClick="return SelectProcessId();"
                     OnClick="btnDelete_Click" />
             </td>
         </tr>
