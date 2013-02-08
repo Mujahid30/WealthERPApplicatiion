@@ -423,12 +423,12 @@
    --%>
 <asp:Panel ID="Panel3" visible ="false" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="2">
-        <%--<tr>
-            <%--<td>
+        <tr>
+           <td>
                 <asp:LinkButton runat="server" ID="lnkViewInputRejects" Text="View Input Rejects"
                     CssClass="LinkButtons" OnClick="lnkViewInputRejects_OnClick"></asp:LinkButton>
-            </td>--%>
-        <%-- </tr>--%>
+            </td>
+       </tr>
         <tr>
             <td>
                 <telerik:RadGrid ID="gvSIPReject" runat="server" GridLines="None" AutoGenerateColumns="False"

@@ -78,7 +78,7 @@ namespace WealthERP.Uploads {
 
 
         protected global::System.Web.UI.WebControls.LinkButton LinkInputRejects;
-
+        protected global::System.Web.UI.WebControls.LinkButton lnkViewInputRejects;
         /// <summary>
         /// lblCurrentPage control.
         /// </summary>

@@ -132,10 +132,12 @@ namespace WealthERP.Uploads
                     if(processId!=0)
                 {
                     divConditional.Visible = false;
+                    lnkViewInputRejects.Visible = true;
                     BindRejectedSIPGrid(processId);
                 }
                else
-                {
+                    {
+                   lnkViewInputRejects.Visible = false; ;
                    divConditional.Visible = true;
                 }
                     
