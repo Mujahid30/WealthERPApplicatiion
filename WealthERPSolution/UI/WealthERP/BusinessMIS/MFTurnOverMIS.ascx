@@ -2572,9 +2572,12 @@
         <table width="100%">
             <tr>
                 <td>
-                    <asp:Label ID="LabelMainNote" runat="server" Text="Note:1.To sort on a field click on its label. <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.To know field details browse over the label"
-                        Font-Size="Small" CssClass="cmbField"></asp:Label>
+                    <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbField" 
+                    Text="Note:1.To sort on a field click on its label. <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.To know field details browse over the label.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.To Group or hide fields right click on label & make the selection.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.You can also hide/unhide on thr right clicking particular label, & making the selection."
+                        ></asp:Label>
                 </td>
             </tr>
         </table>
