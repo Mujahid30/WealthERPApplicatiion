@@ -79,6 +79,8 @@ namespace WealthERP.CustomerPortfolio
                     txtParentCustomer.Visible = false;
                     rfvGroupHead.Visible = false;
                     BindLastTradeDate();
+                    txtFromDate.SelectedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                    txtToDate.SelectedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
 
                     if (txtFromDate.SelectedDate != null || txtToDate.SelectedDate != null)
                         BindGrid(txtFromDate.SelectedDate.Value, txtToDate.SelectedDate.Value);
