@@ -717,9 +717,9 @@ namespace WealthERP.Uploads
                 msgReprocessComplete.Visible = true;
                 NeedSource();
                 gvWERPTrans.MasterTableView.Rebind();
-                //ViewState.Remove("RejectReasonCode");
+                ViewState.Remove("RejectReasonCode");
                 msgDelete.Visible = false;
-                //ViewState.Remove("TransactionTypeCode");
+                ViewState.Remove("TransactionTypeCode");
             
                 //lblError.Text = "Reprocess Done Successfully!";
             }
