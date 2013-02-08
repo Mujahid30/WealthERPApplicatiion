@@ -121,6 +121,7 @@ namespace WealthERP.Uploads
                     if (ProcessId!= 0)
                     {
                         divConditional.Visible = false;
+                        lnkViewInputRejects.Visible = true;
                         BindEquityTransactionGrid(ProcessId);
                     }
                     else
