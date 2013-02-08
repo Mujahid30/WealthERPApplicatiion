@@ -9,6 +9,37 @@
 </asp:ScriptManager>
 
 <script type="text/javascript">
+    function selectRecordToReprocess() {
+        var TargetBaseControl = null;
+        try {
+            //get target base control.
+            TargetBaseControl = document.getElementById('<%= this.gvWERPTrans.ClientID %>');
+        }
+        catch (err) {
+            TargetBaseControl = null;
+        }
+        if (TargetBaseControl == null) return false;
+
+        //get target child control.
+
+        var TargetChildControl = "chkBxWPTrans";
+
+        //get all the control of the type INPUT in the base control.
+        var Inputs = TargetBaseControl.getElementsByTagName("input");
+
+        for (var n = 0; n < Inputs.length; ++n)
+            if (Inputs[n].type == 'checkbox' &&
+            Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 &&
+            Inputs[n].checked)
+            return true;
+
+        alert('Please select a record to reprocess!');
+        return false;
+    }
+</script>
+
+
+<script type="text/javascript">
     function GetSelectedNames() {
         var TargetBaseControl = null;
         var count = 0;
@@ -298,13 +329,13 @@
                     <%--  OnPreRender="gvWERPTrans_PreRender"--%>
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
-                    <MasterTableView TableLayout="Auto" DataKeyNames="WERPTransactionId" AllowFilteringByColumn="true"
+                    <MasterTableView TableLayout="Auto" DataKeyNames="WERPTransactionId,ProcessId" AllowFilteringByColumn="true"
                         Width="120%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
                                 HeaderStyle-Width="65px">
                                 <HeaderTemplate>
-                                    <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
+                                    <input id="chkBxWPTransAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <asp:CheckBox ID="chkBxWPTrans" runat="server" />
@@ -317,7 +348,7 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
                                     <telerik:RadComboBox ID="RadComboBoxRR" Width="290px" CssClass="cmbField" AllowFiltering="true"
-                                        AutoPostBack="true" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged"
+                                        AutoPostBack="true" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged" 
                                         IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
                                         EnableViewState="true" OnPreRender="rcbContinents1_PreRender" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectReasonCode").CurrentFilterValue %>'
                                         runat="server">
@@ -555,12 +586,12 @@
 <div runat="server" id="DivAction" visible="false">
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
-            <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
+            <asp:Button ID="btnReprocess" OnClientClick="return selectRecordToReprocess();" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
                 CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');" />
             <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
                 OnClientClick="return ShowPopup()" />
-            <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
+            <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records" OnClientClick="return GetSelectedNames();"
                 OnClick="btnDelete_Click" />
             <asp:Button ID="btnAddLob" runat="server" CssClass="PCGLongButton" Visible="false"
                 OnClick="btnAddLob_Click" Text="Add Broker Code" OnClientClick="return  GetSelectedNames();" />
