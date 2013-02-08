@@ -100,7 +100,12 @@ namespace WealthERP.BusinessMIS
                         ddlRM.SelectedValue = rmVo.RMId.ToString();
                         ddlRM.Enabled = false;
                         //ddlAction.SelectedIndex = 1;
-                        ddlAction.Items.RemoveAt(0);
+                        if (Convert.ToBoolean(advisorVo.MultiBranch))
+                        {
+                            ddlAction.Items.RemoveAt(0);
+
+                        }
+                        
 
                         //Action.Visible = false;
                         //ddlAction.Visible = false;
@@ -119,6 +124,11 @@ namespace WealthERP.BusinessMIS
                 {
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
+                    if (Convert.ToBoolean(advisorVo.MultiBranch))
+                    {
+                        ddlAction.Items.RemoveAt(0);
+
+                    }
                 }
                 //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
                 txtFromDate.SelectedDate =DateTime.Now;
