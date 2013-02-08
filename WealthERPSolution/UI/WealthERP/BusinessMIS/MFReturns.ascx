@@ -105,7 +105,7 @@
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Profit/Loss (%)" DataField="Percentage"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="Percentage" SortExpression="Percentage"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                DataFormatString="{0:N2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                                DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                         </Columns>
