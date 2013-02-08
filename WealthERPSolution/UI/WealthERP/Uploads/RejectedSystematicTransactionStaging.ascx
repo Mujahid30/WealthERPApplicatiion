@@ -426,7 +426,7 @@
         <tr>
            <td>
                 <asp:LinkButton runat="server" ID="lnkViewInputRejects" Text="View Input Rejects"
-                    CssClass="LinkButtons" OnClick="lnkViewInputRejects_OnClick"></asp:LinkButton>
+                    CssClass="LinkButtons"></asp:LinkButton>
             </td>
        </tr>
         <tr>
