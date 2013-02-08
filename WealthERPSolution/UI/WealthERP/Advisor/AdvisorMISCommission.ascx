@@ -63,7 +63,7 @@
                     </td>
                     <td runat="server">
                         <telerik:RadComboBox ID="ddlMISType" runat="server" CssClass="cmbField" EnableEmbeddedSkins="false"
-                            Skin="Telerik" AllowCustomText="true" Width="120px">
+                            Skin="Telerik" AllowCustomText="true" Width="180px">
                             <Items>
                             <telerik:RadComboBoxItem Text="Organization Level" Value="Zone_Cluster_Wise" />
                                 <telerik:RadComboBoxItem Text="AMC/Folio/Type Wise" Value="AMC_Folio_Type_AllMIS" />                               
@@ -78,6 +78,7 @@
                     <td>
                         <asp:RadioButton ID="rbtnPickPeriod" Class="cmbField" runat="server" Text="Pick a Period"
                             AutoPostBack="true" GroupName="Date" OnCheckedChanged="RadioButtonClick" />
+                            
                     </td>
                 </tr>
             </table>
@@ -134,13 +135,17 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
-                        <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period: </asp:Label>
+                    <td>
+                        <asp:Label ID="lblPeriod" runat="server" Text="Period:" CssClass="FieldName"> </asp:Label>
                     </td>
                     <td valign="top">
                         <telerik:RadComboBox ID="ddlPeriod" runat="server" CssClass="cmbField" EnableEmbeddedSkins="false"
                             Skin="Telerik" AllowCustomText="true" Width="120px">
                         </telerik:RadComboBox>
+                         
+                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPeriod"
+                            CssClass="rfvPCG" ErrorMessage="Please select a Period" Operator="NotEqual" ValueToCompare="Select a Period"
+                            ValidationGroup="btnView"> </asp:CompareValidator>
                     </td>
                 </tr>
                 <tr id="PickAPeriodValidation" runat="server">

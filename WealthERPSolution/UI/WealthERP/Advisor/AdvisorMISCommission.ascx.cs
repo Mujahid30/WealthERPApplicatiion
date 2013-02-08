@@ -62,7 +62,9 @@ namespace WealthERP.Advisor
 
                 BindPeriodDropDown();
                 RadioButtonClick(sender, e);
-                ddlMISType.SelectedIndex = 0;                
+                ddlMISType.SelectedIndex = 0;
+                txtFromDate.SelectedDate = DateTime.Now;
+                txtToDate.SelectedDate = DateTime.Now;
             }
         }
         /// <summary>
@@ -79,6 +81,7 @@ namespace WealthERP.Advisor
             ddlPeriod.DataBind();
             ddlPeriod.Items.Insert(0, new RadComboBoxItem("Select a Period","0"));
             ddlPeriod.Items.Remove(15);
+            ddlPeriod.SelectedIndex = 0;
         }
         public void BindCommissionMISGridCategoryWise()
         {
