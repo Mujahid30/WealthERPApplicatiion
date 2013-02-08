@@ -42,7 +42,7 @@
                         <td>
                             <div runat="server" id="divMfReturns" style="margin: 2px; width: 640px;">
                                 <telerik:RadGrid ID="gvMfReturns" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                                    PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                                     AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvMfReturns_OnNeedDataSource"
                                     EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
@@ -123,6 +123,15 @@
             </asp:Panel>
         </td>
     </tr>
+</table>
+<table width="100%">
+            <tr>
+                <td>
+                    <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbField" 
+                    Text="Note: 1.To Group or hide fields right click on label & make the selection. <br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.You can also hide/unhide on thr right clicking particular label, & making the selection."></asp:Label>
+                </td>
+            </tr>
 </table>
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
