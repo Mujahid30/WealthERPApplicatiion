@@ -66,6 +66,10 @@ namespace WealthERP.Advisor
                 txtFromDate.SelectedDate = DateTime.Now;
                 txtToDate.SelectedDate = DateTime.Now;
             }
+            //if(rbtnPickDate.Checked == true)
+            //{
+            //    CompareValidator2.ErrorMessage = "";
+            //}
         }
         /// <summary>
         /// Binding Period Dropdown From Xml File
