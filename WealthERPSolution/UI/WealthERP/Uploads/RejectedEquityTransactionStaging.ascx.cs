@@ -126,6 +126,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
+                        lnkViewInputRejects.Visible = false;
                         divConditional.Visible = true;
                     }
                    
