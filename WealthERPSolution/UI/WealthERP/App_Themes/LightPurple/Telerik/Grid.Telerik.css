@@ -453,9 +453,10 @@
 .RadGrid_Telerik .rgGroupHeader
 {
     background:0 -6489px repeat-x url('Grid/sprite.gif');
-    font-size:1.1em;
+   
     line-height:21px;
-	color:#039;
+	color:Black;	
+ font-weight: BOLD;
 }
 
 .RadGrid_Telerik .rgGroupHeader td
@@ -752,7 +753,7 @@
 
 	/* background-image: url('ImageHandler.ashx?mode=get&suite=aspnet-ajax&control=Grid&skin=Telerik&file=rgCommandRow1.gif&t=918579226'); */
 
-	color: rgb(255, 255, 255);
+	color: Black;
 	background-position: center;
    /* background-image: url('rgCommandRow1.gif'); */
 
