@@ -106,6 +106,8 @@ namespace WealthERP.CustomerPortfolio
                     Panel1.Visible = false;
                     gvMFTransactions.Visible = false;
                     gvBalanceView.Visible = false;
+                    gvTrail.Visible = false;
+                    divTrail.Visible = false;
                    
                     hdnSchemeSearch.Value = string.Empty;
                     hdnTranType.Value = string.Empty;
@@ -795,7 +797,7 @@ namespace WealthERP.CustomerPortfolio
                     //imgBtnTrail.Visible = true;
                     ErrorMessage.Visible = false;
                     gvTrail.Visible = true;
-                    Div3.Visible = true;
+                    divTrail.Visible = true;
                   
                 }
 

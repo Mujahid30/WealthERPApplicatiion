@@ -584,12 +584,12 @@
             </tr>
             <tr>
                 <td style="padding-top: 20px">
-                    <div id="divTrail" runat="server" style="margin: 2px; width: 100%; overflow: scroll">
-                        <%--    <asp:Panel ID="pnlTrail" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
+                    <div id="divTrail" runat="server" style="margin: 2px; width: 100%;">
+                       <asp:Panel ID="pnlTrail" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
                         <table width="100%" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td>
-                                    <div id="Div3" visible="false" runat="server" style="margin: 2px; width: 100%;">
+                                    <div id="Div3"  runat="server" style="margin: 2px; width: 100%;">
                                         <telerik:RadGrid ID="gvTrail" runat="server" GridLines="None" AutoGenerateColumns="False"
                                             PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                             Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
@@ -700,7 +700,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <%-- </asp:Panel>--%>
+                       </asp:Panel>
                     </div>
                 </td>
             </tr>
