@@ -81,6 +81,18 @@
                 <tr>
                     <td>
                         <table>
+                        <tr>
+                        <td>
+                          <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Display Type:"></asp:Label>
+                        </td>
+                        <td colspan="4">
+                           <asp:DropDownList ID="ddlDisplayType" runat="server" CssClass="cmbField">
+                                        <asp:ListItem Text="TransactionView " Value="TV">Transaction View</asp:ListItem>
+                                        <asp:ListItem Text="BalanceView" Value="RHV">Return Holding View</asp:ListItem>
+                                        <asp:ListItem Text="TrailCommissionView" Value="TCV">Trail Commission View</asp:ListItem>
+                                    </asp:DropDownList>
+                                    </td>
+                        </tr>
                             <tr id="trRangeNcustomer" runat="server">
                                 <td align="right">
                                     <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:"></asp:Label>
@@ -208,14 +220,10 @@
                                     &nbsp;&nbsp;
                                 </td>
                                 <td align="right">
-                                    <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Display Type:"></asp:Label>
+                                  
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="ddlDisplayType" runat="server" CssClass="cmbField">
-                                        <asp:ListItem Text="TransactionView " Value="TV">Transaction View</asp:ListItem>
-                                        <asp:ListItem Text="BalanceView" Value="RHV">Return Holding View</asp:ListItem>
-                                        <asp:ListItem Text="TrailCommissionView" Value="TCV">Trail Commission View</asp:ListItem>
-                                    </asp:DropDownList>
+                                 
                                 </td>
                                 <td>
                                     &nbsp;
@@ -613,23 +621,23 @@
                                                             AutoPostBackOnFilter="true" ShowFilterIcon="false" Visible="false">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                         <telerik:GridBoundColumn ShowFilterIcon="false" DataField="ADUL_ProcessId" HeaderText="ProcessId" HeaderStyle-Width="100px"  FooterStyle-HorizontalAlign="Right"
+                                                         <telerik:GridBoundColumn ShowFilterIcon="false" DataField="ADUL_ProcessId" HeaderText="Process Id" HeaderStyle-Width="100px"  FooterStyle-HorizontalAlign="Right"
                                                             UniqueName="ADUL_ProcessId" SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true"
                                                             FooterText="Grand Total :">
                                                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn ShowFilterIcon="false" DataField="customerName" HeaderText="Customer Name" HeaderStyle-Width="150px" 
+                                                        <telerik:GridBoundColumn ShowFilterIcon="false" DataField="customerName" HeaderText="Customer" HeaderStyle-Width="150px" 
                                                             UniqueName="customerName" SortExpression="customerName" AutoPostBackOnFilter="true"
                                                             >
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="AMC Name" HeaderStyle-Width="450px" 
+                                                        <telerik:GridBoundColumn ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="Scheme" HeaderStyle-Width="250px" 
                                                             SortExpression="PASP_SchemePlanName" ItemStyle-Wrap="false" UniqueName="PASP_SchemePlanName"
                                                             AutoPostBackOnFilter="true">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Units" HeaderStyle-Width="100px"  FooterStyle-HorizontalAlign="Right"
-                                                            HeaderText='Units' ItemStyle-Wrap="false" Aggregate="Sum" DataFormatString="{0:N0}"
+                                                            HeaderText='Units' ItemStyle-Wrap="false" Aggregate="Sum" DataFormatString="{0:0.00}" 
                                                             UniqueName="CMFTCSU_Units">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
@@ -644,6 +652,10 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
+                                                         <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TrailFee" HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right"
+                                                            HeaderText="Trail Fee" UniqueName="CMFTCSU_TrailFee" Aggregate="Sum" DataFormatString="{0:N0}">
+                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridDateTimeColumn AutoPostBackOnFilter="true" DataField="CMFTCSU_PRDate"
                                                             HeaderText="PR Date" ShowFilterIcon="false" DataFormatString="{0:d}" UniqueName="CMFTCSU_PRDate"  ItemStyle-HorizontalAlign="Center">
                                                             <FilterTemplate>
@@ -665,12 +677,9 @@
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
-                                                        <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TrailFee" HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right"
-                                                            HeaderText="Trail Fee" UniqueName="CMFTCSU_TrailFee" Aggregate="Sum" DataFormatString="{0:N0}">
-                                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridBoundColumn>
+                                                       
                                                     </Columns>
-                                                    <HeaderStyle Width="180px" />
+                                                    <HeaderStyle Width="130px" />
                                                 </MasterTableView>
                                                 <ClientSettings>
                                                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />

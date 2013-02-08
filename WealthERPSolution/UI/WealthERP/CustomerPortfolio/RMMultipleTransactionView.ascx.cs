@@ -821,6 +821,8 @@ namespace WealthERP.CustomerPortfolio
                 }
                 Panel2.Visible = false;
                 Panel1.Visible = false;
+                //Div1.Visible = false;
+                //tbl.Visible = false;
 
             }
             catch (Exception e)
