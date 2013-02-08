@@ -75,28 +75,28 @@ namespace WealthERP.Uploads
            // this.BindRejectedSIPGrid(processId);
         }
 
-        private void GetPageCount()
-        {
-            string upperlimit;
-            string lowerlimit;
-            int rowCount = 0;
-            if (hdnRecordCount.Value != "")
-                rowCount = Convert.ToInt32(hdnRecordCount.Value);
-            if (rowCount > 0)
-            {
-                int ratio = rowCount / 10;
-                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
-                upperlimit = (mypager.CurrentPage * 10).ToString();
-                if (mypager.CurrentPage == mypager.PageCount)
-                    upperlimit = hdnRecordCount.Value;
-                string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                lblCurrentPage.Text = PageRecords;
+        //private void GetPageCount()
+        //{
+        //    string upperlimit;
+        //    string lowerlimit;
+        //    int rowCount = 0;
+        //    if (hdnRecordCount.Value != "")
+        //        rowCount = Convert.ToInt32(hdnRecordCount.Value);
+        //    if (rowCount > 0)
+        //    {
+        //        int ratio = rowCount / 10;
+        //        mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+        //        mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+        //        lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
+        //        upperlimit = (mypager.CurrentPage * 10).ToString();
+        //        if (mypager.CurrentPage == mypager.PageCount)
+        //            upperlimit = hdnRecordCount.Value;
+        //        string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //        lblCurrentPage.Text = PageRecords;
 
-                hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-            }
-        }
+        //        hdnCurrentPage.Value = mypager.CurrentPage.ToString();
+        //    }
+        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -159,7 +159,7 @@ namespace WealthERP.Uploads
                         tdlblFromDate.Visible = false;
                         tdlblRejectReason.Visible = false;
                         tdDDLRejectReason.Visible = false;
-                        lblEmptyMsg.Visible = false;
+                        //lblEmptyMsg.Visible = false;
                         gvSIPReject.Visible = false;
                         Panel3.Visible = false;
                         btnExport.Visible = false;
@@ -901,9 +901,9 @@ namespace WealthERP.Uploads
                 // Failure Message
 
                 msgDelete.Visible = false;
-                trErrorMessage.Visible = true;
+                //trErrorMessage.Visible = true;
                 msgReprocessincomplete.Visible = true;
-                lblError.Text = "ErrorStatus:" + error;
+                //lblError.Text = "ErrorStatus:" + error;
             }
 
             BindRejectedSIPGrid(processId);
