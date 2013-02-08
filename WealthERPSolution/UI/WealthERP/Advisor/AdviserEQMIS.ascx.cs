@@ -102,10 +102,10 @@ namespace WealthERP.Advisor
                     userVo = (UserVo)Session["userVo"];
                     rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                     bmID = rmVo.RMId;
-
+                    gvEQMIS.Visible = false;
                     if (!IsPostBack)
                     {
-                        gvEQMIS.Visible = false;
+                        
                         if (valuedate != "")
                         {
                             LatestValuationdate = Convert.ToDateTime(portfoliobo.GetLatestValuationDate(advisorVo.advisorId, "EQ"));
@@ -516,6 +516,7 @@ namespace WealthERP.Advisor
             {
                 gvEQMIS.DataSource = dsCompSecEQMIS;
                 gvEQMIS.DataBind();
+                imgEQAllocatio.Visible = false;
             }
             else
             {
@@ -557,6 +558,7 @@ namespace WealthERP.Advisor
                 gvEQMIS.DataSource = dtCompSecEQMIS;
                 gvEQMIS.DataBind();
                 gvEQMIS.Visible = true;
+                imgEQAllocatio.Visible = true;
                 if (Cache["gvEQMIS" + userVo.UserId + userType] == null)
                 {
                     Cache.Insert("gvEQMIS" + userVo.UserId + userType, dtCompSecEQMIS);
@@ -771,7 +773,7 @@ namespace WealthERP.Advisor
             {
                 BindRMforBranchDropdown(int.Parse(ddlBranchForEQ.SelectedValue.ToString()), 0, 0);
             }
-            GenerateEQMIS();
+            
         }
 
 

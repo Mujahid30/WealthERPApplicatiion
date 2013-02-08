@@ -148,7 +148,7 @@
                     commanditemdisplay="None" groupsdefaultexpanded="false" expandcollapsecolumn-groupable="true"
                     grouploadmode="Client" showgroupfooter="true">
                                         <Columns>
-                                           <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Company Name" DataField="Company"
+                                           <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Company" DataField="Company"
                                                 UniqueName="Company" SortExpression="Company" AutoPostBackOnFilter="true" AllowFiltering="true"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -186,6 +186,14 @@
             </telerik:RadGrid>
         </td>
     </tr>
+</table>
+<table width="100%">
+            <tr>
+                <td>
+                    <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbField" 
+                    Text="Note: 1.You can group/ungroup or hide/unhide fields by a right click on the grid label and then making the selection."></asp:Label>
+                </td>
+            </tr>
 </table>
 <asp:HiddenField ID="hdnbranchId" runat="server" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" />
