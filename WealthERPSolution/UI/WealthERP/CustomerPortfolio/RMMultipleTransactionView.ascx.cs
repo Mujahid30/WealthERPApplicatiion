@@ -661,7 +661,7 @@ namespace WealthERP.CustomerPortfolio
         protected void CallAllGridBindingFunctions()
         {
         }
-     protected void ExportGrid(string hdnExportType)
+        protected void ExportGrid(string hdnExportType)
         {
             if (hdnExportType == "TV")
             {
