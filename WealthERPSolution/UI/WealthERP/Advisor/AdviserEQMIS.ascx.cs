@@ -68,7 +68,6 @@ namespace WealthERP.Advisor
             hdnValuationDate.Value = valuedate.ToString();
             if (hdnValuationDate.Value == string.Empty)
             {
-                ValuationNotDoneErrorMsg.Visible = true;
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
@@ -88,7 +87,6 @@ namespace WealthERP.Advisor
             }
             else
             {
-                ValuationNotDoneErrorMsg.Visible = false;
                 try
                 {
                     /* For UserType */
@@ -107,7 +105,7 @@ namespace WealthERP.Advisor
 
                     if (!IsPostBack)
                     {
-
+                        gvEQMIS.Visible = false;
                         if (valuedate != "")
                         {
                             LatestValuationdate = Convert.ToDateTime(portfoliobo.GetLatestValuationDate(advisorVo.advisorId, "EQ"));
@@ -139,20 +137,9 @@ namespace WealthERP.Advisor
                     {
                         dtLastTradeDate = (DateTime)dsGetLastTradeDate.Tables[0].Rows[0]["WTD_Date"];
 
-                        txtFrom.SelectedDate = DateTime.Parse(dtLastTradeDate.ToShortDateString());
-                        txtTo.SelectedDate = DateTime.Parse(dtLastTradeDate.ToShortDateString());
-
                     }
 
                     //to hide the dropdown selection for mis type for adviser and bm
-                    if (!IsPostBack)
-                    {
-                        rbtnPickDate.Checked = true;
-                        rbtnPickPeriod.Checked = false;
-                        //trRange.Visible = true;
-                        trPeriod.Visible = false;
-                    }
-                    //BindMISTypeDropDown();
                 }
                 catch (BaseApplicationException Ex)
                 {
@@ -183,64 +170,26 @@ namespace WealthERP.Advisor
             {
                 if ((userType == "advisor") || (userType == "bm"))
                 {
-                    //if (ddlMISType.SelectedValue == "TurnOverSummery")
-                    //{
-                    //    ValuationNotDoneErrorMsg.Visible = true;
-                    //    rbtnPickDate.Checked = true;
-                    //    rbtnPickPeriod.Checked = false;
-                    //    trPeriod.Visible = false;
-                    //    trRange.Visible = true;
-                    //    trRbtnPickDate.Visible = true;
-                    //    tableComSecWiseOptions.Visible = false;
-                    //    trBranchRmDpRow.Visible = true;
-                    //}
-                     if (ddlMISType.SelectedValue == "CompanyWise")
+                    if (ddlMISType.SelectedValue == "CompanyWise")
                     {
-                        ValuationNotDoneErrorMsg.Visible = true;
-                        trRange.Visible = false;
-                        trRbtnPickDate.Visible = false;
-                        trPeriod.Visible = false;
                         tableComSecWiseOptions.Visible = true;
                         trBranchRmDpRow.Visible = true;
                     }
                     else if (ddlMISType.SelectedValue == "SectorWise")
                     {
-                        ValuationNotDoneErrorMsg.Visible = true;
-                        trRange.Visible = false;
-                        trRbtnPickDate.Visible = false;
-                        trPeriod.Visible = false;
                         tableComSecWiseOptions.Visible = true;
                         trBranchRmDpRow.Visible = true;
                     }
                 }
                 else if (userType == "rm")
                 {
-                    //if (ddlMISType.SelectedValue == "TurnOverSummery")
-                    //{
-                    //    ValuationNotDoneErrorMsg.Visible = true;
-                    //    rbtnPickDate.Checked = true;
-                    //    rbtnPickPeriod.Checked = false;
-                    //    trPeriod.Visible = false;
-                    //    trRange.Visible = true;
-                    //    trRbtnPickDate.Visible = true;
-                    //    tableComSecWiseOptions.Visible = false;
-                    //    trBranchRmDpRow.Visible = false;
-                    //}
-                     if (ddlMISType.SelectedValue == "CompanyWise")
+                    if (ddlMISType.SelectedValue == "CompanyWise")
                     {
-                        ValuationNotDoneErrorMsg.Visible = true;
-                        trRange.Visible = false;
-                        trRbtnPickDate.Visible = false;
-                        trPeriod.Visible = false;
                         tableComSecWiseOptions.Visible = true;
                         trBranchRmDpRow.Visible = false;
                     }
                     else if (ddlMISType.SelectedValue == "SectorWise")
                     {
-                        ValuationNotDoneErrorMsg.Visible = true;
-                        trRange.Visible = false;
-                        trRbtnPickDate.Visible = false;
-                        trPeriod.Visible = false;
                         tableComSecWiseOptions.Visible = true;
                         trBranchRmDpRow.Visible = false;
                     }
@@ -255,48 +204,12 @@ namespace WealthERP.Advisor
                 hdnValuationDate.Value = LatestValuationdate.ToString();
                 DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
 
-                //if (ddlMISType.SelectedValue == "TurnOverSummery")
-                //{
-                //    rbtnPickDate.Checked = true;
-                //    rbtnPickPeriod.Checked = false;
-                //    trPeriod.Visible = false;
-
-                //    trRange.Visible = true;
-                //    trRbtnPickDate.Visible = true;
-                //    //trPeriod.Visible = false;
-
-                //    tableComSecWiseOptions.Visible = false;
-                //    if ((!IsPostBack) && (userType == "advisor"))
-                //    {
-                //        BindBranchDropDown();
-                //        BindRMDropDown();
-                //    }
-                //    else if ((!IsPostBack) && (userType == "rm"))
-                //    {
-                //        trBranchRmDpRow.Visible = false;
-
-                //    }
-                //    else if ((!IsPostBack) && (userType == "bm"))
-                //    {
-                //        BindBranchForBMDropDown();
-                //        BindRMforBranchDropdown(0, bmID, 1);
-                //        trComSecWiseOptions.Visible = true;
-                //    }
-                //}
-
                  if (ddlMISType.SelectedValue == "CompanyWise")
                 {
-                    //tableTurnOverOptions.Visible = false;
-                    trRange.Visible = false;
-                    trRbtnPickDate.Visible = false;
-                    trPeriod.Visible = false;
                     tableComSecWiseOptions.Visible = true;
 
 
                     hdnEQMISType.Value = "0";
-                    //trRbtnPickDate.Visible = false;
-                    //trRange.Visible = false;
-                    //trPeriod.Visible = false;
                     trBranchRmDpRow.Visible = true;
 
                     if (userType == "advisor")
@@ -320,16 +233,9 @@ namespace WealthERP.Advisor
                 }
                 else if (ddlMISType.SelectedValue == "SectorWise")
                 {
-                    //tableTurnOverOptions.Visible = false;
-                    trRange.Visible = false;
-                    trRbtnPickDate.Visible = false;
-                    trPeriod.Visible = false;
                     tableComSecWiseOptions.Visible = true;
 
                     hdnEQMISType.Value = "1";
-                    //trRbtnPickDate.Visible = false;
-                    //trRange.Visible = false;
-                    //trPeriod.Visible = false;
                     trBranchRmDpRow.Visible = true;
 
                     if (userType == "advisor")
@@ -355,188 +261,188 @@ namespace WealthERP.Advisor
 
         }
 
-        private void BindGrid(DateTime dtFrom, DateTime dtTo)
-        {
-            DataSet dsEQMIS = new DataSet();
-            DataTable dtAdviserEQMIS = new DataTable();
+        //private void BindGrid(DateTime dtFrom, DateTime dtTo)
+        //{
+        //    DataSet dsEQMIS = new DataSet();
+        //    DataTable dtAdviserEQMIS = new DataTable();
 
 
-            int ID = 0;
+        //    int ID = 0;
 
-            if (userType == "advisor")
-                ID = advisorVo.advisorId;
-
-
-            else if (userType == "rm")
-            {
-                rmVo = (RMVo)Session[SessionContents.RmVo];
-                ID = rmVo.RMId;
-            }
-            else if (userType == "bm")
-            {
-                rmVo = (RMVo)Session[SessionContents.RmVo];
-                ID = rmVo.RMId;
-                if (userType == "bm")
-                {
-                    if (hdnall.Value == "0")
-                    {
-                        hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
-                        hdnrmId.Value = ddlRMEQ.SelectedValue;
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 0);
-                    }
-                    else if (hdnall.Value == "1")
-                    {
-                        hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
-                    }
-                    else if (hdnall.Value == "2")
-                    {
-                        hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
-                    }
-                    else if (hdnall.Value == "3")
-                    {
-                        hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
-                        hdnrmId.Value = ddlRMEQ.SelectedValue;
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 3);
-                    }
-                    //dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo,0, 0, 0, 0);
-                }
-            }
-
-            try
-            {
-                if (userType == "advisor")
-                {
-                    if (hdnall.Value == "0")
-                    {
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 0);
-                    }
-                    else if (hdnall.Value == "1")
-                    {
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
-                    }
-                    else if (hdnall.Value == "2")
-                    {
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
-                    }
-                    else if (hdnall.Value == "3")
-                    {
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 3);
-                    }
-                }
-                if (userType == "rm")
-                {
-                    dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, 0, 0, 0);
-                }
-
-                if (dsEQMIS.Tables[0].Rows.Count > 0)
-                {
-                    DataRow drAdvEQMIS;
-                    drAdvEQMIS = dtAdviserEQMIS.NewRow();
+        //    if (userType == "advisor")
+        //        ID = advisorVo.advisorId;
 
 
-                    dtAdviserEQMIS.Columns.Add("CName_Industry_Delby");
-                    dtAdviserEQMIS.Columns.Add("Industry_MValue_DelSell");
-                    dtAdviserEQMIS.Columns.Add("MValue_Percentage_SpecSell");
-                    dtAdviserEQMIS.Columns.Add("MValue_Blank_SpecBuy");
+        //    else if (userType == "rm")
+        //    {
+        //        rmVo = (RMVo)Session[SessionContents.RmVo];
+        //        ID = rmVo.RMId;
+        //    }
+        //    else if (userType == "bm")
+        //    {
+        //        rmVo = (RMVo)Session[SessionContents.RmVo];
+        //        ID = rmVo.RMId;
+        //        if (userType == "bm")
+        //        {
+        //            if (hdnall.Value == "0")
+        //            {
+        //                hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+        //                hdnrmId.Value = ddlRMEQ.SelectedValue;
+        //                dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 0);
+        //            }
+        //            else if (hdnall.Value == "1")
+        //            {
+        //                hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+        //                dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
+        //            }
+        //            else if (hdnall.Value == "2")
+        //            {
+        //                hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
+        //                dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
+        //            }
+        //            else if (hdnall.Value == "3")
+        //            {
+        //                hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
+        //                hdnrmId.Value = ddlRMEQ.SelectedValue;
+        //                dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 3);
+        //            }
+        //            //dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo,0, 0, 0, 0);
+        //        }
+        //    }
 
-                    int flag = 0;
+        //    try
+        //    {
+        //        if (userType == "advisor")
+        //        {
+        //            if (hdnall.Value == "0")
+        //            {
+        //                dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 0);
+        //            }
+        //            else if (hdnall.Value == "1")
+        //            {
+        //                dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
+        //            }
+        //            else if (hdnall.Value == "2")
+        //            {
+        //                dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
+        //            }
+        //            else if (hdnall.Value == "3")
+        //            {
+        //                dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 3);
+        //            }
+        //        }
+        //        if (userType == "rm")
+        //        {
+        //            dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, 0, 0, 0);
+        //        }
 
-                    for (int i = 0; i < dsEQMIS.Tables[0].Rows.Count; i++)
-                    {
-                        NumberFormatInfo nfi0 = new CultureInfo("en-US", false).NumberFormat;
-                        NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
-                        NumberFormatInfo nfi2 = new CultureInfo("en-US", false).NumberFormat;
-                        NumberFormatInfo nfi3 = new CultureInfo("en-US", false).NumberFormat;
-
-                        nfi0.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliveryBuy"].ToString()).ToString("N", nfi0));
-                        nfi1.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliverySell"].ToString()).ToString("N", nfi1));
-                        nfi2.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeSell"].ToString()).ToString("N", nfi2));
-                        nfi3.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeBuy"].ToString()).ToString("N", nfi3));
-
-                        drAdvEQMIS[0] = nfi0.NumberDecimalSeparator;
-                        drAdvEQMIS[1] = nfi1.NumberDecimalSeparator;
-                        drAdvEQMIS[2] = nfi2.NumberDecimalSeparator;
-                        drAdvEQMIS[3] = nfi3.NumberDecimalSeparator;
-
-                        dtAdviserEQMIS.Rows.Add(drAdvEQMIS);
-
-
-                    }
-
-                    if ((decimal.Parse(dsEQMIS.Tables[0].Rows[0]["DeliveryBuy"].ToString()) != 0) || (decimal.Parse(dsEQMIS.Tables[0].Rows[0]["DeliverySell"].ToString()) != 0) ||
-                            (decimal.Parse(dsEQMIS.Tables[0].Rows[0]["SpeculativeSell"].ToString()) != 0) || (decimal.Parse(dsEQMIS.Tables[0].Rows[0]["SpeculativeBuy"].ToString()) != 0))
-                    {
-                        flag = 1;
-                    }
-
-                    if (flag == 0)
-                    {
-                        gvEQMIS.Visible = false;
-                        ErrorMessage.Visible = true;
-                    }
-                    else
-                    {
-                        gvEQMIS.Visible = true;
-                        ErrorMessage.Visible = false;
-                        gvEQMIS.DataSource = dtAdviserEQMIS;
-                        gvEQMIS.DataBind();
-                        gvEQMIS.Columns[0].ItemStyle.HorizontalAlign = HorizontalAlign.Right;
-                        gvEQMIS.Columns[1].ItemStyle.HorizontalAlign = HorizontalAlign.Right;
+        //        if (dsEQMIS.Tables[0].Rows.Count > 0)
+        //        {
+        //            DataRow drAdvEQMIS;
+        //            drAdvEQMIS = dtAdviserEQMIS.NewRow();
 
 
-                        //Assigning Text To Header template
+        //            dtAdviserEQMIS.Columns.Add("CName_Industry_Delby");
+        //            dtAdviserEQMIS.Columns.Add("Industry_MValue_DelSell");
+        //            dtAdviserEQMIS.Columns.Add("MValue_Percentage_SpecSell");
+        //            dtAdviserEQMIS.Columns.Add("MValue_Blank_SpecBuy");
 
-                        Label Hlb1 = (Label)gvEQMIS.HeaderRow.FindControl("lblCustIndDelby");
-                        Hlb1.Text = "Delivery Buy Value";
+        //            int flag = 0;
 
-                        Label Hlb2 = (Label)gvEQMIS.HeaderRow.FindControl("lblIndMValueDelSell");
-                        Hlb2.Text = "Delivery Sell Value";
+        //            for (int i = 0; i < dsEQMIS.Tables[0].Rows.Count; i++)
+        //            {
+        //                NumberFormatInfo nfi0 = new CultureInfo("en-US", false).NumberFormat;
+        //                NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
+        //                NumberFormatInfo nfi2 = new CultureInfo("en-US", false).NumberFormat;
+        //                NumberFormatInfo nfi3 = new CultureInfo("en-US", false).NumberFormat;
 
-                        Label Hlb3 = (Label)gvEQMIS.HeaderRow.FindControl("lblMValuePerCSpecSell");
-                        Hlb3.Text = "Speculative Sell Value";
+        //                nfi0.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliveryBuy"].ToString()).ToString("N", nfi0));
+        //                nfi1.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliverySell"].ToString()).ToString("N", nfi1));
+        //                nfi2.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeSell"].ToString()).ToString("N", nfi2));
+        //                nfi3.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeBuy"].ToString()).ToString("N", nfi3));
 
-                        Label Hlb4 = (Label)gvEQMIS.HeaderRow.FindControl("lblMvalueBlankSpecbuy");
-                        Hlb4.Text = "Speculative Buy Value";
+        //                drAdvEQMIS[0] = nfi0.NumberDecimalSeparator;
+        //                drAdvEQMIS[1] = nfi1.NumberDecimalSeparator;
+        //                drAdvEQMIS[2] = nfi2.NumberDecimalSeparator;
+        //                drAdvEQMIS[3] = nfi3.NumberDecimalSeparator;
 
-                        Label TotalText = (Label)gvEQMIS.FooterRow.FindControl("lblTotalText");
+        //                dtAdviserEQMIS.Rows.Add(drAdvEQMIS);
 
-                        TotalText.Text = string.Empty;
 
-                        Label TotalMText = (Label)gvEQMIS.FooterRow.FindControl("lblSectorWiseTotalText");
+        //            }
 
-                        TotalMText.Text = string.Empty;
+        //            if ((decimal.Parse(dsEQMIS.Tables[0].Rows[0]["DeliveryBuy"].ToString()) != 0) || (decimal.Parse(dsEQMIS.Tables[0].Rows[0]["DeliverySell"].ToString()) != 0) ||
+        //                    (decimal.Parse(dsEQMIS.Tables[0].Rows[0]["SpeculativeSell"].ToString()) != 0) || (decimal.Parse(dsEQMIS.Tables[0].Rows[0]["SpeculativeBuy"].ToString()) != 0))
+        //            {
+        //                flag = 1;
+        //            }
 
-                        Label TotalMarketValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValue");
+        //            if (flag == 0)
+        //            {
+        //                gvEQMIS.Visible = false;
+        //                ErrorMessage.Visible = true;
+        //            }
+        //            else
+        //            {
+        //                gvEQMIS.Visible = true;
+        //                ErrorMessage.Visible = false;
+        //                gvEQMIS.DataSource = dtAdviserEQMIS;
+        //                gvEQMIS.DataBind();
+        //                gvEQMIS.Columns[0].ItemStyle.HorizontalAlign = HorizontalAlign.Right;
+        //                gvEQMIS.Columns[1].ItemStyle.HorizontalAlign = HorizontalAlign.Right;
 
-                        TotalMarketValue.Text = string.Empty;
 
-                        Label TotalValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValue");
+        //                //Assigning Text To Header template
 
-                        TotalValue.Text = string.Empty;
-                    }
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdviserEQMIS.ascx.cs:BindGrid()");
-                object[] objects = new object[2];
-                objects[0] = dtFrom;
-                objects[1] = dtTo;
+        //                Label Hlb1 = (Label)gvEQMIS.HeaderRow.FindControl("lblCustIndDelby");
+        //                Hlb1.Text = "Delivery Buy Value";
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //                Label Hlb2 = (Label)gvEQMIS.HeaderRow.FindControl("lblIndMValueDelSell");
+        //                Hlb2.Text = "Delivery Sell Value";
+
+        //                Label Hlb3 = (Label)gvEQMIS.HeaderRow.FindControl("lblMValuePerCSpecSell");
+        //                Hlb3.Text = "Speculative Sell Value";
+
+        //                Label Hlb4 = (Label)gvEQMIS.HeaderRow.FindControl("lblMvalueBlankSpecbuy");
+        //                Hlb4.Text = "Speculative Buy Value";
+
+        //                Label TotalText = (Label)gvEQMIS.FooterRow.FindControl("lblTotalText");
+
+        //                TotalText.Text = string.Empty;
+
+        //                Label TotalMText = (Label)gvEQMIS.FooterRow.FindControl("lblSectorWiseTotalText");
+
+        //                TotalMText.Text = string.Empty;
+
+        //                Label TotalMarketValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValue");
+
+        //                TotalMarketValue.Text = string.Empty;
+
+        //                Label TotalValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValue");
+
+        //                TotalValue.Text = string.Empty;
+        //            }
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "AdviserEQMIS.ascx.cs:BindGrid()");
+        //        object[] objects = new object[2];
+        //        objects[0] = dtFrom;
+        //        objects[1] = dtTo;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         private void BindEQMISgrid(DateTime Valuationdate)
         {
@@ -619,11 +525,11 @@ namespace WealthERP.Advisor
                 ErrorMessage.Visible = false;
 
 
-                dtCompSecEQMIS.Columns.Add("CName_Industry_Delby");
-                dtCompSecEQMIS.Columns.Add("Industry_MValue_DelSell");
-                dtCompSecEQMIS.Columns.Add("MValue_Percentage_SpecSell");
-                dtCompSecEQMIS.Columns.Add("MValue_Blank_SpecBuy");
-                dtCompSecEQMIS.Columns.Add("NoOfShare");
+                dtCompSecEQMIS.Columns.Add("Company");
+                dtCompSecEQMIS.Columns.Add("Industry");
+                dtCompSecEQMIS.Columns.Add("NoOfShare",typeof(Decimal));
+                dtCompSecEQMIS.Columns.Add("MarketValue", typeof(Decimal));
+                dtCompSecEQMIS.Columns.Add("NetAssets", typeof(Decimal));
 
 
                 DataRow drAdvEQMIS;
@@ -631,104 +537,44 @@ namespace WealthERP.Advisor
                 for (int i = 0; i < dsCompSecEQMIS.Tables[0].Rows.Count; i++)
                 {
                     drAdvEQMIS = dtCompSecEQMIS.NewRow();
-
-                    NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
-                    NumberFormatInfo nfi2 = new CultureInfo("en-US", false).NumberFormat;
-
-
-
-
                     if (hdnEQMISType.Value == "0")
                     {
-                        drAdvEQMIS["CName_Industry_Delby"] = dsCompSecEQMIS.Tables[0].Rows[i]["CompanyName"].ToString();
+                        drAdvEQMIS["Company"] = dsCompSecEQMIS.Tables[0].Rows[i]["CompanyName"].ToString();
                     }
                     else
-                        drAdvEQMIS["CName_Industry_Delby"] = string.Empty;
-
-                    drAdvEQMIS["Industry_MValue_DelSell"] = dsCompSecEQMIS.Tables[0].Rows[i]["Industry"].ToString();
-                    nfi1.NumberDecimalSeparator = String.Format("{0:0,0}", decimal.Parse(dsCompSecEQMIS.Tables[0].Rows[i]["MarketValue"].ToString()).ToString("N", nfi1));
-                    nfi2.NumberDecimalSeparator = String.Format("{0:0,0}", decimal.Parse(dsCompSecEQMIS.Tables[0].Rows[i]["NetAssetsPercentage"].ToString()).ToString("N", nfi2));
-
-                    drAdvEQMIS["MValue_Percentage_SpecSell"] = nfi1.NumberDecimalSeparator;
-                    drAdvEQMIS["MValue_Blank_SpecBuy"] = nfi2.NumberDecimalSeparator;
-                    drAdvEQMIS["NoOfShare"] = Math.Round(double.Parse(dsCompSecEQMIS.Tables[0].Rows[i]["NoOfShare"].ToString()), 0);
-                    TotalShares = TotalShares + int.Parse(drAdvEQMIS["NoOfShare"].ToString());
+                        drAdvEQMIS["Company"] = string.Empty;
+                    drAdvEQMIS["Industry"] = dsCompSecEQMIS.Tables[0].Rows[i]["Industry"].ToString();
+                    drAdvEQMIS["NoOfShare"] = dsCompSecEQMIS.Tables[0].Rows[i]["NoOfShare"].ToString();
+                    drAdvEQMIS["MarketValue"] = dsCompSecEQMIS.Tables[0].Rows[i]["MarketValue"].ToString();
+                    drAdvEQMIS["NetAssets"] = dsCompSecEQMIS.Tables[0].Rows[i]["NetAssetsPercentage"].ToString();
                     
 
                     dtCompSecEQMIS.Rows.Add(drAdvEQMIS);
                 }
+                GridBoundColumn ghItem = gvEQMIS.MasterTableView.Columns.FindByUniqueName("Company") as GridBoundColumn;
+                if (ddlMISType.SelectedValue == "CompanyWise")
+                {
+                    ghItem.Visible = true;
+                }
+                else if (ddlMISType.SelectedValue == "SectorWise")
+                {
+                    ghItem.Visible = false;
+                }
                 gvEQMIS.DataSource = dtCompSecEQMIS;
                 gvEQMIS.DataBind();
+                gvEQMIS.Visible = true;
+                if (Cache["gvEQMIS" + userVo.UserId + userType] == null)
+                {
+                    Cache.Insert("gvEQMIS" + userVo.UserId + userType, dtCompSecEQMIS);
+                }
+                else
+                {
+                    Cache.Remove("gvEQMIS" + userVo.UserId + userType);
+                    Cache.Insert("gvEQMIS" + userVo.UserId + userType, dtCompSecEQMIS);
+                }
 
                 //Assigning Text To Header template
-                if (hdnEQMISType.Value == "0")
-                {
-                    Label Hlb1 = (Label)gvEQMIS.HeaderRow.FindControl("lblCustIndDelby");
-                    Hlb1.Text = "Company Name";
-
-
-                    Label Hlb2 = (Label)gvEQMIS.HeaderRow.FindControl("lblIndMValueDelSell");
-                    Hlb2.Text = "Industry";
-
-                    Label Hlb3 = (Label)gvEQMIS.HeaderRow.FindControl("lblMValuePerCSpecSell");
-                    Hlb3.Text = "Market Value";
-
-                    Label Hlb4 = (Label)gvEQMIS.HeaderRow.FindControl("lblMvalueBlankSpecbuy");
-                    Hlb4.Text = "% to net Assets";
-
-                    Label TotalText = (Label)gvEQMIS.FooterRow.FindControl("lblTotalText");
-
-                    TotalText.Text = "Total";
-
-                    Label TotalMarketValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValue");
-
-                    TotalMarketValue.Text = decimal.Parse((dsCompSecEQMIS.Tables[2].Rows[0]["Total"].ToString()).ToString()).ToString();
-                    TotalMarketValue.Style.Add("float", "right");
-
-                    Label TotalPerValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValueBlankSpecBuy");
-
-                    Label lblTotalshares = (Label)gvEQMIS.FooterRow.FindControl("lblNoOfShareTotalText");
-                    lblTotalshares.Text = TotalShares.ToString();
-                    TotalPerValue.Text = "100%";
-                    TotalPerValue.Style.Add("float", "right");
-
-
-
-                    //TotalValue.Text = drAdvEQMIS[dsCompSecEQMIS.Tables[0].Columns.Count - 1].ToString();
-
-                }
-                else if (hdnEQMISType.Value == "1")
-                {
-                    Label Hlb2 = (Label)gvEQMIS.HeaderRow.FindControl("lblIndMValueDelSell");
-                    Hlb2.Text = "Industry";
-
-                    Label Hlb3 = (Label)gvEQMIS.HeaderRow.FindControl("lblMValuePerCSpecSell");
-                    Hlb3.Text = "Market Value";
-
-                    Label Hlb4 = (Label)gvEQMIS.HeaderRow.FindControl("lblMvalueBlankSpecbuy");
-                    Hlb4.Text = "% to net Assets";
-
-                    Label TotalText = (Label)gvEQMIS.FooterRow.FindControl("lblSectorWiseTotalText");
-
-                    TotalText.Text = "Total";
-
-                    Label TotalValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValue");
-
-                    TotalValue.Text = decimal.Parse((dsCompSecEQMIS.Tables[2].Rows[0]["Total"].ToString()).ToString()).ToString();
-                    TotalValue.Style.Add("float", "right");
-
-                    Label TotalPerValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValueBlankSpecBuy");
-
-                    TotalPerValue.Text = "100%";
-                    TotalPerValue.Style.Add("float", "right");
-
-                    Label lblTotalshares = (Label)gvEQMIS.FooterRow.FindControl("lblNoOfShareTotalText");
-                    lblTotalshares.Text = TotalShares.ToString();
-
-                    gvEQMIS.Columns[0].Visible = false;
-
-                    //gvEQMIS.Columns[1].Visible = false;
-                }
+                
 
 
 
@@ -737,59 +583,6 @@ namespace WealthERP.Advisor
         }
 
         /* End */
-
-
-        protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbtnPickDate.Checked == true)
-            {
-                trRange.Visible = true;
-                trPeriod.Visible = false;
-            }
-            else if (rbtnPickPeriod.Checked == true)
-            {
-                trRange.Visible = false;
-                trPeriod.Visible = true;
-                BindPeriodDropDown();
-            }
-        }
-
-        private void BindPeriodDropDown()
-        {
-            DataTable dtPeriod;
-            path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-            dtPeriod = XMLBo.GetDatePeriod(path);
-
-            ddlPeriod.DataSource = dtPeriod;
-            ddlPeriod.DataTextField = "PeriodType";
-            ddlPeriod.DataValueField = "PeriodCode";
-            ddlPeriod.DataBind();
-            ddlPeriod.Items.Insert(0, new ListItem("Select a Period", "Select a Period"));
-            ddlPeriod.Items.RemoveAt(15);
-        }
-
-        protected void ddlPeriod_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            GenerateEQMIS();
-        }
-
-        public void GereratePickPeriod()
-        {
-            DateTime dtFrom = new DateTime();
-            DateTime dtTo = new DateTime();
-            DateBo dtBo = new DateBo();
-
-            if (ddlPeriod.SelectedIndex != 0)
-            {
-                dtBo.CalculateFromToDatesUsingPeriod(ddlPeriod.SelectedValue, out dtFrom, out dtTo);
-                this.BindGrid(dtFrom, dtTo);
-            }
-            else
-            {
-
-            }
-
-        }
 
 
         protected void btnGo_Click(object sender, EventArgs e)
@@ -806,11 +599,6 @@ namespace WealthERP.Advisor
             LatestValuationdate = Convert.ToDateTime(txtEQDate.Text);
             hdnValuationDate.Value = LatestValuationdate.ToString();
             DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
-
-            //convertedFromDate = Convert.ToDateTime(txtFrom.SelectedDate, ci);
-            //convertedToDate = Convert.ToDateTime(txtTo.SelectedDate, ci);
-
-
 
             /* For CompanyWise EQ */
             if ((userType == "advisor") && (ddlMISType.SelectedValue == "CompanyWise"))
@@ -959,14 +747,14 @@ namespace WealthERP.Advisor
                     this.BindEQMISgrid(Valuation_Date);
                 }
 
-                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
-                {
-                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
-                    hdnbranchHeadId.Value = "0";
-                    hdnall.Value = "3";
-                    hdnrmId.Value = ddlRMEQ.SelectedValue;
-                    this.BindGrid(convertedFromDate, convertedToDate);
-                }
+                //else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
+                //{
+                //    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                //    hdnbranchHeadId.Value = "0";
+                //    hdnall.Value = "3";
+                //    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                //    this.BindGrid(convertedFromDate, convertedToDate);
+                //}
 
             }
             else if ((userType == "rm") && (ddlMISType.SelectedValue == "SectorWise"))
@@ -1071,14 +859,6 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void ddlRMEQ_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            GenerateEQMIS();
-        }
-
-        /* ********** */
-
         /*for AdviserAssociateCategorySetup drop down */
 
         private void BindBranchDropDown()
@@ -1151,18 +931,24 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
-
-        protected void ddlMISType_SelectedIndexChanged(object sender, EventArgs e)
+        protected void gvEQMIS_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            BindMISTypeDropDown();
-
+            DataTable dtCompSecEQMIS = new DataTable();
+            dtCompSecEQMIS = (DataTable)Cache["gvEQMIS" + userVo.UserId + userType];
+            gvEQMIS.DataSource = dtCompSecEQMIS;
+            gvEQMIS.Visible = true;
         }
 
-        protected void ddlPortfolioGroup_SelectedIndexChanged(object sender, EventArgs e)
+        protected void imgEQAllocatio_Click(object sender, ImageClickEventArgs e)
         {
-            GenerateEQMIS();
+            gvEQMIS.ExportSettings.OpenInNewWindow = true;
+            gvEQMIS.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvEQMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvEQMIS.MasterTableView.ExportToExcel();
         }
-
 
     }
 }
