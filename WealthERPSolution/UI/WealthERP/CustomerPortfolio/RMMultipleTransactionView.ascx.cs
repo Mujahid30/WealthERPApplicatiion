@@ -477,10 +477,12 @@ namespace WealthERP.CustomerPortfolio
 
                     GridBoundColumn gbcCustomer = gvMFTransactions.MasterTableView.Columns.FindByUniqueName("Customer Name") as GridBoundColumn;
                     GridBoundColumn gbcPortfolio = gvMFTransactions.MasterTableView.Columns.FindByUniqueName("Portfolio Name") as GridBoundColumn;
+                    GridBoundColumn gbCMFT_ExternalBrokerageAmount = gvMFTransactions.MasterTableView.Columns.FindByUniqueName("CMFT_ExternalBrokerageAmount") as GridBoundColumn;
                     if (Session["IsCustomerDrillDown"] == "Yes")
                     {
                         gbcCustomer.Visible = false;
                         gbcPortfolio.Visible = false;
+                        gbCMFT_ExternalBrokerageAmount.Visible = false;
                     }
                     else
                     gbcCustomer.Visible = true;
