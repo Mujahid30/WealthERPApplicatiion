@@ -282,24 +282,24 @@
             </ExportSettings>
             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false">
                 <Columns>
-                    <telerik:GridBoundColumn DataField="CustomerName" HeaderText="CustomerName" HeaderStyle-Width="146px"
+                    <telerik:GridBoundColumn DataField="CustomerName" HeaderText="CustomerName" HeaderStyle-Width="100px"
                         ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="CustomerName"
                         FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="SystematicTransactionType" ShowFilterIcon="false"
-                        AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="SystematicTransactionType">
+                    <telerik:GridBoundColumn DataField="SystematicTransactionType" ShowFilterIcon="false" HeaderStyle-Width="50px"
+                       FilterControlWidth="30px" AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="SystematicTransactionType">
                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                     </telerik:GridBoundColumn>
                     <%-- <telerik:GridBoundColumn DataField="AMCname" HeaderText="AMC" 
                                        UniqueName="AMCname">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>--%>
-                    <telerik:GridBoundColumn DataField="SchemePlaneName" HeaderStyle-Width="200px" ShowFilterIcon="false"
+                    <telerik:GridBoundColumn DataField="SchemePlaneName" HeaderStyle-Width="400px" ShowFilterIcon="false" FilterControlWidth="370px"
                         AutoPostBackOnFilter="true" HeaderText="Scheme" UniqueName="SchemePlaneName">
                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Wrap="true" />
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="FolioNumber" HeaderText="Folio" ShowFilterIcon="false"
+                    <telerik:GridBoundColumn DataField="FolioNumber" HeaderText="Folio" ShowFilterIcon="false" HeaderStyle-Width="80px"
                         AutoPostBackOnFilter="true" UniqueName="FolioNumber">
                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                     </telerik:GridBoundColumn>
@@ -381,7 +381,7 @@
                 <Scrolling AllowScroll="false" UseStaticHeaders="True" SaveScrollPosition="true"
                     FrozenColumnsCount="1"></Scrolling>
                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" UseClientSelectColumnOnly />
-                <Resizing AllowColumnResize="true" />
+                <Resizing AllowColumnResize="false" />
             </ClientSettings>
         </telerik:RadGrid>
     </div>
@@ -494,7 +494,7 @@
         </asp:UpdatePanel>--%>
         <ClientSettings>
             <%-- <ClientEvents OnRowSelected="RowSelected" /> --%>
-            <Resizing AllowColumnResize="True"></Resizing>
+            <Resizing AllowColumnResize="true"></Resizing>
         </ClientSettings>
     </telerik:RadGrid>
 </div>
