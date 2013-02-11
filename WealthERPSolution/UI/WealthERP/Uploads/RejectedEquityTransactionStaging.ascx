@@ -11,6 +11,7 @@
 <script type="text/javascript">
     function selectRecordToReprocess() {
         var TargetBaseControl = null;
+        var count = 0;
         try {
             //get target base control.
             TargetBaseControl = document.getElementById('<%= this.gvWERPTrans.ClientID %>');
@@ -32,12 +33,12 @@
             Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 &&
             Inputs[n].checked)
             return true;
-
+ if (count == 0||count > 1) {
         alert('Please select a record to reprocess!');
         return false;
     }
+    
 </script>
-
 
 <script type="text/javascript">
     function GetSelectedNames() {
@@ -65,7 +66,7 @@
             Inputs[n].checked) {
             count++;
         }
-        if (count == 0|| count>1) {
+        if (count == 0 || count > 1) {
             alert('Please select a single processid');
             return false;
         }
@@ -74,7 +75,7 @@
 
 <script type="text/javascript">
     function ShowPopup() {
-//        alert(transactionId);
+        //        alert(transactionId);
         var form = document.forms[0];
         var transactionId = "";
         var count = 0
@@ -82,13 +83,13 @@
             if (form.elements[i].type == 'checkbox') {
                 if (form.elements[i].checked == true) {
                     count++;
-                   // alert(count);
+                    // alert(count);
                     hiddenField = form.elements[i].id.replace("chkBxWPTrans", "hdnchkBx");
-                   // alert("hi");
+                    // alert("hi");
                     hiddenFieldValues = document.getElementById(hiddenField).value;
-                   // alert(hiddenFieldValues);
+                    // alert(hiddenFieldValues);
                     var splittedValues = hiddenFieldValues.split("-");
-                   // alert(count);
+                    // alert(count);
                     if (count == 1) {
                         transactionId = splittedValues[0];
                     }
@@ -107,14 +108,14 @@
             alert("Please select one record.")
             return false;
         }
-       // alert(transactionId);
+        // alert(transactionId);
         window.open('Uploads/EquityMapToCustomers.aspx?id=' + transactionId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
         return true;
     }
    
-  </script>
+</script>
 
- <%--  // <script type="text/javascript">--%>
+<%--  // <script type="text/javascript">--%>
 
 <script language="javascript" type="text/javascript">
 
@@ -161,10 +162,10 @@
                         </td>
                         <td align="right">
                             &nbsp; &nbsp;
-                            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
-                                OnClick="lnkBtnBack_Click"></asp:LinkButton> 
+                            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="View UploadLog"
+                                OnClick="lnkBtnBack_Click"></asp:LinkButton>
                         </td>
-                         <td align="right" style="width: 10px">
+                        <td align="right" style="width: 10px">
                             <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
@@ -201,8 +202,7 @@
                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                     </Calendar>
                     <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput1"  runat="server" DisplayDateFormat="d/M/yyyy"
-                        DateFormat="d/M/yyyy">
+                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                     </DateInput>
                 </telerik:RadDatePicker>
                 <div id="dvTransactionDate" runat="server" class="dvInLine">
@@ -226,8 +226,7 @@
                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                     </Calendar>
                     <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy"
-                        DateFormat="d/M/yyyy">
+                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                     </DateInput>
                 </telerik:RadDatePicker>
                 <div id="Div1" runat="server" class="dvInLine">
@@ -307,8 +306,9 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="Panel2" visible ="false" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-    <table width="100%" cellspacing="0" cellpadding="0">
+<asp:Panel ID="Panel2" Visible="false" runat="server" class="Landscape" Width="100%"
+    ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="2">
         <tr>
             <td>
                 <asp:LinkButton runat="server" ID="lnkViewInputRejects" Text="View Input Rejects"
@@ -348,7 +348,7 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
                                     <telerik:RadComboBox ID="RadComboBoxRR" Width="290px" CssClass="cmbField" AllowFiltering="true"
-                                        AutoPostBack="true" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged" 
+                                        AutoPostBack="true" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged"
                                         IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
                                         EnableViewState="true" OnPreRender="rcbContinents1_PreRender" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectReasonCode").CurrentFilterValue %>'
                                         runat="server">
@@ -370,43 +370,45 @@
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="ProcessId" AllowFiltering="true" HeaderText="ProcessId" AllowSorting="true"
-                                HeaderStyle-Width="60px" UniqueName="ProcessId" SortExpression="ProcessId" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />                               
+                            <telerik:GridBoundColumn DataField="ProcessId" AllowFiltering="true" HeaderText="ProcessId"
+                                AllowSorting="true" HeaderStyle-Width="60px" UniqueName="ProcessId" SortExpression="ProcessId"
+                                AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="TradeAccountNumber" HeaderText="Trade Acct.No." AllowSorting="true"
-                                HeaderStyle-Width="60px" UniqueName="TradeAccountNumber" SortExpression="TradeAccountNumber"
-                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="ScripCode" AllowFiltering="false" HeaderText="Scrip Code" AllowSorting="true"
-                                HeaderStyle-Width="75px" UniqueName="ScripCode" SortExpression="ScripCode" AutoPostBackOnFilter="true"
+                            <telerik:GridBoundColumn DataField="TradeAccountNumber" HeaderText="Trade Acct.No."
+                                AllowSorting="true" HeaderStyle-Width="60px" UniqueName="TradeAccountNumber"
+                                SortExpression="TradeAccountNumber" AutoPostBackOnFilter="true" AllowFiltering="false"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Exchange" AllowFiltering="true" HeaderText="Exchange" AllowSorting="true"
-                                HeaderStyle-Width="85px" UniqueName="Exchange" SortExpression="Exchange" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <telerik:GridBoundColumn DataField="ScripCode" AllowFiltering="false" HeaderText="Scrip Code"
+                                AllowSorting="true" HeaderStyle-Width="75px" UniqueName="ScripCode" SortExpression="ScripCode"
+                                AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Share" AllowFiltering="false" HeaderText="Share" AllowSorting="true"
-                                HeaderStyle-Width="80px" UniqueName="Share" SortExpression="Share" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:n0}" >
+                            <telerik:GridBoundColumn DataField="Exchange" AllowFiltering="true" HeaderText="Exchange"
+                                AllowSorting="true" HeaderStyle-Width="85px" UniqueName="Exchange" SortExpression="Exchange"
+                                AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Share" AllowFiltering="false" HeaderText="Share"
+                                AllowSorting="true" HeaderStyle-Width="80px" UniqueName="Share" SortExpression="Share"
+                                AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                DataFormatString="{0:n0}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="Price" AllowFiltering="false"
-                                HeaderStyle-Width="65px" HeaderText="Price" UniqueName="Price" Aggregate="Sum" AllowSorting="true"
-                                DataFormatString="{0:N2}">
+                                HeaderStyle-Width="65px" HeaderText="Price" UniqueName="Price" Aggregate="Sum"
+                                AllowSorting="true" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="Amount" AllowFiltering="false"
-                                HeaderStyle-Width="75px" HeaderText="Amount" UniqueName="Amount" Aggregate="Sum" AllowSorting="true"
-                                DataFormatString="{0:N2}">
+                                HeaderStyle-Width="75px" HeaderText="Amount" UniqueName="Amount" Aggregate="Sum"
+                                AllowSorting="true" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="true" HeaderText="Transaction Type"
-                                HeaderStyle-Width="100px" UniqueName="TransactionTypeCode" SortExpression="TransactionTypeCode" 
+                                HeaderStyle-Width="100px" UniqueName="TransactionTypeCode" SortExpression="TransactionTypeCode"
                                 AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
@@ -434,14 +436,15 @@
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" AllowFiltering="true"
-                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CustomerName" AllowSorting="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CustomerName"
+                                AllowSorting="true" ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="CustomerName" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="BrokerCode" HeaderText="Broker Code" HeaderStyle-Width="85px" AllowSorting="true"
-                                AllowFiltering="false" SortExpression="BrokerCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" UniqueName="BrokerCode" FooterStyle-HorizontalAlign="Left">
+                            <telerik:GridBoundColumn DataField="BrokerCode" HeaderText="Broker Code" HeaderStyle-Width="85px"
+                                AllowSorting="true" AllowFiltering="false" SortExpression="BrokerCode" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="BrokerCode"
+                                FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                         </Columns>
@@ -582,58 +585,58 @@
             </td>
         </tr>
     </table>
-</asp:Panel>
-<div runat="server" id="DivAction" visible="false">
-    <tr id="trReprocess" runat="server">
-        <td class="SubmitCell">
-            <asp:Button ID="btnReprocess" OnClientClick="return selectRecordToReprocess();" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
-                CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');" />
-            <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
-                OnClientClick="return ShowPopup()" />
-            <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records" OnClientClick="return GetSelectedNames();"
-                OnClick="btnDelete_Click" />
-            <asp:Button ID="btnAddLob" runat="server" CssClass="PCGLongButton" Visible="false"
-                OnClick="btnAddLob_Click" Text="Add Broker Code" OnClientClick="return  GetSelectedNames();" />
-            <br />
-        </td>
-    </tr>
-</div>
-<%--<tr id="trMessage" runat="server" visible="false">
+    </asp:Panel>
+    <div runat="server" id="DivAction" visible="false">
+        <tr id="trReprocess" runat="server">
+            <td class="SubmitCell">
+                <asp:Button ID="btnReprocess" OnClientClick="return selectRecordToReprocess();" OnClick="btnReprocess_Click"
+                    runat="server" Text="Reprocess" CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');"
+                    onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');" />
+                <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
+                    OnClientClick="return ShowPopup()" />
+                <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
+                    OnClick="btnDelete_Click" />
+                <asp:Button ID="btnAddLob" runat="server" CssClass="PCGLongButton" Visible="false"
+                    OnClick="btnAddLob_Click" Text="Add Broker Code" OnClientClick="return  GetSelectedNames();" />
+                <br />
+            </td>
+        </tr>
+    </div>
+    <%--<tr id="trMessage" runat="server" visible="false">
     <td class="Message">
         <label id="lblEmptyMsg" class="FieldName">
             There are no records to be displayed!</label>
     </td>
 </tr>--%>
-  <tr id="trErrorMessage" runat="server" visible="false">
+    <tr id="trErrorMessage" runat="server" visible="false">
         <td class="Message">
             <asp:Label ID="lblError" CssClass="Message" runat="server">
             </asp:Label>
         </td>
     </tr>
-<div id="DivPager" runat="server" style="display: none">
-    <table style="width: 100%">
-        <tr align="center">
-            <td>
-                <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-            </td>
-        </tr>
-    </table>
-</div>
-<asp:HiddenField ID="hdnRecordCount" runat="server" />
-<asp:HiddenField ID="hdnCurrentPage" runat="server" />
-<asp:HiddenField ID="hdnSort" runat="server" Value="WERPCustomerName ASC" />
-<asp:HiddenField ID="hdnPanNumberFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnTradeAccountNumberFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnScripFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnExchangeFilter" runat="server" Visible="false" />
-<%--<asp:HiddenField ID="hdnShareFilter" runat="server" Visible="false" />
+    <div id="DivPager" runat="server" style="display: none">
+        <table style="width: 100%">
+            <tr align="center">
+                <td>
+                    <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <asp:HiddenField ID="hdnRecordCount" runat="server" />
+    <asp:HiddenField ID="hdnCurrentPage" runat="server" />
+    <asp:HiddenField ID="hdnSort" runat="server" Value="WERPCustomerName ASC" />
+    <asp:HiddenField ID="hdnPanNumberFilter" runat="server" Visible="false" />
+    <asp:HiddenField ID="hdnTradeAccountNumberFilter" runat="server" Visible="false" />
+    <asp:HiddenField ID="hdnScripFilter" runat="server" Visible="false" />
+    <asp:HiddenField ID="hdnExchangeFilter" runat="server" Visible="false" />
+    <%--<asp:HiddenField ID="hdnShareFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAmountFilter" runat="server" Visible="false" />--%>
-<asp:HiddenField ID="hdnTransactionTypeFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnRejectReasonFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="hfRmId" runat="server" />
-<%-- <asp:HiddenField ID="hdnIsRejectedFilter" runat="server" Visible="false" />
+    <asp:HiddenField ID="hdnTransactionTypeFilter" runat="server" Visible="false" />
+    <asp:HiddenField ID="hdnRejectReasonFilter" runat="server" Visible="false" />
+    <asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
+    <asp:HiddenField ID="hfRmId" runat="server" />
+    <%-- <asp:HiddenField ID="hdnIsRejectedFilter" runat="server" Visible="false" />
 --%>
-<asp:Button ID="btnGridSearch" runat="server" Text="" OnClick="btnGridSearch_Click"
-    BorderStyle="None" BackColor="Transparent" />
+    <asp:Button ID="btnGridSearch" runat="server" Text="" OnClick="btnGridSearch_Click"
+        BorderStyle="None" BackColor="Transparent" />

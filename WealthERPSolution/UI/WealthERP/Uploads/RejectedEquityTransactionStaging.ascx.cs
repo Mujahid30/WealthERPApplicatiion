@@ -248,9 +248,11 @@ namespace WealthERP.Uploads
             if (txtToTran.SelectedDate != null)
                 toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
             BindEquityTransactionGrid(ProcessId);
-            ViewState.Remove("RejectReasonCode");
             msgDelete.Visible = false;
+            msgReprocessincomplete.Visible = false;
+            msgReprocessComplete.Visible = false;
            // ViewState.Remove("ProcessId");
+            ViewState.Remove("RejectReasonCode");
             ViewState.Remove("TransactionTypeCode");
             
           
@@ -364,10 +366,12 @@ namespace WealthERP.Uploads
           {
              // DataView dvEquityReject=new DataView();
               CustomerTransactionDelete();
-              msgReprocessComplete.Visible = false;
-              msgDelete.Visible = true;
               NeedSource();
               gvWERPTrans.MasterTableView.Rebind();
+              msgReprocessComplete.Visible = false;
+              msgReprocessincomplete.Visible = false;
+              msgDelete.Visible = true;
+             
              
               //gvWERPTrans.MasterTableView.Rebind();
           } 
@@ -710,18 +714,15 @@ namespace WealthERP.Uploads
                 error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
             }
 
-            if (blResult)
+            if (blResult==true)
             {
-                // Success Message
-                //reprocessSucess.Style.Add("visible", "true");
-                msgReprocessComplete.Visible = true;
+                            
                 NeedSource();
                 gvWERPTrans.MasterTableView.Rebind();
-                ViewState.Remove("RejectReasonCode");
-                msgDelete.Visible = false;
-                ViewState.Remove("TransactionTypeCode");
+                msgReprocessComplete.Visible = true;
+                msgDelete.Visible = false;          
             
-                //lblError.Text = "Reprocess Done Successfully!";
+               
             }
             else
             {
