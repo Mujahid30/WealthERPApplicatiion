@@ -342,8 +342,8 @@
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Date" AllowFiltering="true" AllowSorting="true" 
-                                                            HeaderStyle-Wrap="false" SortExpression="Transaction Date" ShowFilterIcon="false" DataFormatString="{0:d}"
+                                                        <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Date" AllowFiltering="true" AllowSorting="true"
+                                                            HeaderStyle-Wrap="false" SortExpression="Transaction Date" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
                                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Date"
                                                             FooterStyle-HorizontalAlign="Center">
                                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
@@ -491,7 +491,7 @@
                                                             AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Transaction Date" DataFormatString="{0:d}"
+                                                        <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Transaction Date" DataFormatString="{0:d}" DataType="System.DateTime"
                                                             AllowFiltering="true" Visible="true" SortExpression="Transaction Date" ShowFilterIcon="false" AllowSorting="true" 
                                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Date"
                                                             FooterStyle-HorizontalAlign="Left">

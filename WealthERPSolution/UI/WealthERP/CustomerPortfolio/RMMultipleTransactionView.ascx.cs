@@ -405,7 +405,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("Folio Number");                    
                     dtMFTransactions.Columns.Add("Scheme Name");
                     dtMFTransactions.Columns.Add("Transaction Type");
-                    dtMFTransactions.Columns.Add("Transaction Date");
+                    dtMFTransactions.Columns.Add("Transaction Date", typeof(DateTime));
                     dtMFTransactions.Columns.Add("Price", typeof(double));
                     dtMFTransactions.Columns.Add("Units", typeof(double));
                     dtMFTransactions.Columns.Add("Amount", typeof(double));
@@ -568,7 +568,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("Scheme Name");
                     dtMFBalance.Columns.Add("CurrentValue");
                     dtMFBalance.Columns.Add("Transaction Type");
-                    dtMFBalance.Columns.Add("Transaction Date");
+                    dtMFBalance.Columns.Add("Transaction Date",typeof(DateTime));
                     dtMFBalance.Columns.Add("Category");
                     dtMFBalance.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
                     dtMFBalance.Columns.Add("Price", typeof(double));
