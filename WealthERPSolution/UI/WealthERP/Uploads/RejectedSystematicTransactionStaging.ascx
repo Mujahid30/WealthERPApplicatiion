@@ -24,10 +24,10 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            Systematic Transaction Exceptions 
+                            Systematic Transaction Exceptions
                         </td>
                         <td align="right">
-                            <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Back To Upload Log"
+                            <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="View UploadLog"
                                 OnClick="lnkBtnBackToUploadLog_Click"></asp:LinkButton>
                         </td>
                         <td>
@@ -104,8 +104,8 @@
             Inputs[n].checked) {
             count++;
         }
-        if (count == 0 || count > 1) {
-            alert('Please select a single processid');
+        if (count == 0){ 
+            alert('Please select a record to reprocess!');
             return false;
         }
     }
@@ -134,6 +134,12 @@
             if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
                 inputTypes[i].checked = mainChkBox.checked;
         }
+    }
+</script>
+<script language="javascript" type="text/javascript">
+    //    Function to call btnReprocess_Click method to refresh user control
+    function Reprocess() {
+        document.getElementById('<%= btnReprocess.ClientID %>').click();
     }
 </script>
 
@@ -421,14 +427,15 @@
      </telerik:RadAjaxPanel>
           
    --%>
-<asp:Panel ID="Panel3" visible ="false" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+<asp:Panel ID="Panel3" Visible="false" runat="server" class="Landscape" Width="100%"
+    ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="2">
         <tr>
-           <td>
+            <td>
                 <asp:LinkButton runat="server" ID="lnkViewInputRejects" Text="View Input Rejects"
                     CssClass="LinkButtons"></asp:LinkButton>
             </td>
-       </tr>
+        </tr>
         <tr>
             <td>
                 <telerik:RadGrid ID="gvSIPReject" runat="server" GridLines="None" AutoGenerateColumns="False"
@@ -479,13 +486,13 @@
 
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
-                            </telerik:GridBoundColumn>                            
-                             <telerik:GridBoundColumn HeaderText="ProcessId" HeaderStyle-Width="60px" DataField="WUPL_ProcessId"
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderText="ProcessId" HeaderStyle-Width="60px" DataField="WUPL_ProcessId"
                                 UniqueName="ProcessId" SortExpression="WUPL_ProcessId" AutoPostBackOnFilter="true"
                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                           <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="File Name" HeaderStyle-Width="60px"
+                            <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="File Name" HeaderStyle-Width="60px"
                                 UniqueName="ADUL_FileName" SortExpression="ADUL_FileName" AutoPostBackOnFilter="true"
                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -819,13 +826,13 @@
         <tr id="trReprocess" runat="server">
             <td class="SubmitCell">
                 <asp:Button ID="btnReprocess" runat="server" Text="Reprocess" OnClick="btnReprocess_Click"
-                    CssClass="PCGLongButton"  OnClientClick="SelectProcessId();Loading(true);" />
-                <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records" OnClientClick="return SelectProcessId();"
+                    CssClass="PCGLongButton" OnClientClick="SelectProcessId();" />
+                <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                     OnClick="btnDelete_Click" />
             </td>
         </tr>
     </div>
-   <%-- <tr id="trMessage" runat="server" visible="false">
+    <%-- <tr id="trMessage" runat="server" visible="false">
         <td class="Message">
             <label id="lblEmptyMsg" class="FieldName" visible="false">
                 There are no records to be displayed!</label>

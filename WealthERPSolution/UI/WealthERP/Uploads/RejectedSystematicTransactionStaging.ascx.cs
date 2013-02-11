@@ -106,15 +106,19 @@ namespace WealthERP.Uploads
             processId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
-                processId = Int32.Parse(Request.QueryString["processId"].ToString());
-           if (Request.QueryString["filetypeid"] != null)
             {
-                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+                processId = Int32.Parse(Request.QueryString["processId"].ToString());
                 LinkInputRejects.Visible = true;
             }
-            else
-                LinkInputRejects.Visible = false;
+            //if (Request.QueryString["filetypeid"] != null)
+            // {
+            //     filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
 
+           // }
+            else
+            {
+                LinkInputRejects.Visible = false;
+            }
 
             if (!Page.IsPostBack)
             {
@@ -131,14 +135,12 @@ namespace WealthERP.Uploads
                 {   BindddlRejectReason();
                     if(processId!=0)
                 {
-                    divConditional.Visible = false;
-                    lnkViewInputRejects.Visible = true;
+                    divConditional.Visible = false;                   
                     BindRejectedSIPGrid(processId);
                 }
                else
                     {
-                   lnkViewInputRejects.Visible = false; ;
-                   divConditional.Visible = true;
+                    divConditional.Visible = true;
                 }
                     
                    // BindRejectedSIPGrid(processId);
@@ -284,18 +286,17 @@ namespace WealthERP.Uploads
                 RadComboBoxTT.DataValueField = dtSIP.Columns["CMFSCS_SystematicCode"].ToString();
                 RadComboBoxTT.DataTextField = dtSIP.Columns["CMFSCS_SystematicCode"].ToString();
                 RadComboBoxTT.DataBind();
-
             }
         }
-     protected void NeedSource()
+   protected void NeedSource()
      {
          string rcbType = string.Empty;
          string tttype = string.Empty;
-        // btnExport.Visible = true;
+         // btnExport.Visible = true;
          DataSet dsSIP = new DataSet();
          DataTable dtrr = new DataTable();
          dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
-         if (dsSIP.Tables.Count > 0)
+         if (dsSIP != null)
          {
              dtrr = dsSIP.Tables[0];
              if (ViewState["WRR_RejectReasonCode"] != null)
@@ -334,7 +335,7 @@ namespace WealthERP.Uploads
             DataSet dsSIP = new DataSet();
             DataTable dtrr = new DataTable();
             dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
-            if (dsSIP.Tables.Count>0)
+            if (dsSIP!=null)
             {
                 dtrr = dsSIP.Tables[0];
                 if (ViewState["WRR_RejectReasonCode"] != null)
@@ -882,19 +883,14 @@ namespace WealthERP.Uploads
                 }
 
             }
-
-            if (error == "")
+            if(blResult==true)
+           // if (error == "")
             {
-                // Success Message
-                //trErrorMessage.Visible = true;
-                //lblError.Text = "Reprocess Done Successfully!";
-                msgReprocessComplete.Visible = true;
-                msgDelete.Visible = false;
-               ViewState.Remove("WRR_RejectReasonCode");
-               ViewState.Remove("CMFSCS_SystematicCode");
                 NeedSource();
                 gvSIPReject.MasterTableView.Rebind();
-                
+                msgReprocessComplete.Visible = true;
+                msgDelete.Visible = false;         
+                                          
             }
             else
             {
@@ -906,7 +902,7 @@ namespace WealthERP.Uploads
                 //lblError.Text = "ErrorStatus:" + error;
             }
 
-            BindRejectedSIPGrid(processId);
+           
         }
 
 
@@ -967,8 +963,9 @@ namespace WealthERP.Uploads
                 NeedSource();
                 gvSIPReject.MasterTableView.Rebind();
                 msgReprocessComplete.Visible = false;
+                msgReprocessincomplete.Visible = false;
                 msgDelete.Visible = true;
-                msgDelete.Visible = true;
+               
             }
            
         }
@@ -1030,6 +1027,7 @@ namespace WealthERP.Uploads
             BindRejectedSIPGrid(processId);
             msgDelete.Visible = false;
             msgReprocessComplete.Visible = false;
+            msgReprocessincomplete.Visible = false;
             ViewState.Remove("WRR_RejectReasonCode");
             ViewState.Remove("CMFSCS_SystematicCode");
         }
