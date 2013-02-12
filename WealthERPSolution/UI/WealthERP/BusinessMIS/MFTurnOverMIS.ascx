@@ -1383,7 +1383,7 @@
                                             DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Vt Count" HeaderText="STB Cnt"
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Count" HeaderText="STB Cnt"
                                             DataField="STBCount" HeaderStyle-HorizontalAlign="Right" UniqueName="STBCount"
                                             SortExpression="STBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
@@ -2274,7 +2274,7 @@
                                             DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Vt Count" HeaderText="STB Cnt"
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="STP Buy Count" HeaderText="STB Cnt"
                                             DataField="STBCount" HeaderStyle-HorizontalAlign="Right" UniqueName="STBCount"
                                             SortExpression="STBCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
