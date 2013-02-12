@@ -590,13 +590,13 @@
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSCS_StartDate" HeaderText="Start Date" AllowFiltering="false"
-                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CMFSCS_StartDate"
+                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CMFSCS_StartDate" DataFormatString="{0:d}"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="CMFSCS_StartDate" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSCS_ToDate" HeaderText="End Date" AllowFiltering="false"
-                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CMFSCS_ToDate"
+                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CMFSCS_ToDate" DataFormatString="{0:d}"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="CMFSCS_ToDate" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
