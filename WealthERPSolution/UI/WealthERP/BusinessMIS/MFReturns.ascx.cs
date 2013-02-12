@@ -77,25 +77,87 @@ namespace WealthERP.BusinessMIS
         
         private void BindMfReturnsGrid()
         {
+            double totalinvestedCost = 0.0;
+            double totalcurrentvalue = 0.0;
+            double totalPL = 0.0;
             DataTable dtMfReturns;
             dtMfReturns = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate);
-            if (dtMfReturns != null)
+            if (dtMfReturns == null)
             {
                 gvMfReturns.DataSource = dtMfReturns;
                 gvMfReturns.DataBind();
+            }
+            else
+            {
+                DataTable dtMFReturnsNew = new DataTable();
+                dtMFReturnsNew.Columns.Add("CustomerId");
+                dtMFReturnsNew.Columns.Add("Customer");
+                dtMFReturnsNew.Columns.Add("PAN");
+                dtMFReturnsNew.Columns.Add("Parent");
+                dtMFReturnsNew.Columns.Add("Branch");
+                dtMFReturnsNew.Columns.Add("RM");
+                dtMFReturnsNew.Columns.Add("InvestedCost", typeof(Double));
+                dtMFReturnsNew.Columns.Add("CurrentValue", typeof(Double));
+                dtMFReturnsNew.Columns.Add("ProfitLoss", typeof(Double));
+                dtMFReturnsNew.Columns.Add("Percentage", typeof(Double));
+
+                DataRow drMFReturnsNew;
+                foreach (DataRow dr in dtMfReturns.Rows)
+                {
+                    drMFReturnsNew = dtMFReturnsNew.NewRow();
+                    drMFReturnsNew["CustomerId"] = dr["CustomerId"].ToString();
+                    drMFReturnsNew["Customer"] = dr["Customer"].ToString();
+                    drMFReturnsNew["PAN"] = dr["PAN"].ToString();
+                    drMFReturnsNew["Parent"] = dr["Parent"].ToString();
+                    drMFReturnsNew["Branch"] = dr["Branch"].ToString();
+                    drMFReturnsNew["RM"] = dr["RM"].ToString();
+                    if (!string.IsNullOrEmpty(dr["InvestedCost"].ToString().Trim()))
+                        drMFReturnsNew["InvestedCost"] = Double.Parse(dr["InvestedCost"].ToString());
+                    else
+                        drMFReturnsNew["InvestedCost"] = 0;
+                    totalinvestedCost = totalinvestedCost + Double.Parse(dr["InvestedCost"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["CurrentValue"].ToString().Trim()))
+                        drMFReturnsNew["CurrentValue"] = Double.Parse(dr["CurrentValue"].ToString());
+                    else
+                        drMFReturnsNew["CurrentValue"] = 0;
+                    totalcurrentvalue = totalcurrentvalue + Double.Parse(dr["CurrentValue"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["ProfitLoss"].ToString().Trim()))
+                        drMFReturnsNew["ProfitLoss"] = dr["ProfitLoss"].ToString();
+                    else
+                        drMFReturnsNew["ProfitLoss"] = 0;
+
+                    if (!string.IsNullOrEmpty(dr["Percentage"].ToString().Trim()))
+                        drMFReturnsNew["Percentage"] = Double.Parse(dr["Percentage"].ToString());
+                    else
+                        drMFReturnsNew["Percentage"] = 0;
+
+                    dtMFReturnsNew.Rows.Add(drMFReturnsNew);
+                }
+                GridBoundColumn TotalPercentage = gvMfReturns.MasterTableView.Columns.FindByUniqueName("Percentage") as GridBoundColumn;
+                totalPL = ((totalcurrentvalue - totalinvestedCost) / totalinvestedCost) * 100;
+                TotalPercentage.FooterText = totalPL.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                gvMfReturns.DataSource = dtMFReturnsNew;
+                gvMfReturns.DataBind();
+                //GridFooterItem fitem = (GridFooterItem)gvMfReturns.MasterTableView.GetItems(GridItemType.Footer)[0];
+                //Label lbl = (Label)fitem.FindControl("lblTotalPercentage");
+                //hdnTotalPL.Value = totalPL.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                //lbl.Text = hdnTotalPL.Value;
                 pnlMfReturns.Visible = true;
                 gvMfReturns.Visible = true;
                 imgMFReturns.Visible = true;
                 if (Cache["gvMfReturns" + userVo.UserId + userType] == null)
                 {
-                    Cache.Insert("gvMfReturns" + userVo.UserId + userType, dtMfReturns);
+                    Cache.Insert("gvMfReturns" + userVo.UserId + userType, dtMFReturnsNew);
                 }
                 else
                 {
                     Cache.Remove("gvMfReturns" + userVo.UserId + userType);
-                    Cache.Insert("gvMfReturns" + userVo.UserId + userType, dtMfReturns);
+                    Cache.Insert("gvMfReturns" + userVo.UserId + userType, dtMFReturnsNew);
                 }
             }
+            
         }
 
         private void SetParameters()
@@ -179,6 +241,9 @@ namespace WealthERP.BusinessMIS
             dtMfReturns = (DataTable)Cache["gvMfReturns" + userVo.UserId + userType];
             gvMfReturns.DataSource = dtMfReturns;
             gvMfReturns.Visible = true;
+            //GridFooterItem fitem = (GridFooterItem)gvMfReturns.MasterTableView.GetItems(GridItemType.Footer)[0];
+            //Label lbl = (Label)fitem.FindControl("lblTotalPercentage");
+            //lbl.Text = hdnTotalPL.Value;
         }
 
         protected void imgMFReturns_Click(object sender, ImageClickEventArgs e)

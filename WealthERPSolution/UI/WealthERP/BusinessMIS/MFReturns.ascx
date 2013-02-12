@@ -12,7 +12,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            MF Returns
+                            MF Returns(Holdings)
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="imgMFReturns" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -108,6 +108,18 @@
                                                 DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                            <%--<telerik:GridTemplateColumn HeaderText="Profit/Loss (%)" AllowFiltering="False" UniqueName="Percentage"
+                                                SortExpression="Percentage" ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right" >
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblTptalPL" runat="server" Text='<%#Eval("Percentage") %>'></asp:Label>
+                                                </ItemTemplate>
+                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Right" />
+                                                <FooterTemplate>
+                                                    <asp:Label ID="lblTotalPercentage" runat="server" Font-Bold="true" Text="">
+                                                    </asp:Label>
+                                                </FooterTemplate>
+                                            </telerik:GridTemplateColumn>--%>
                                         </Columns>
                                     </MasterTableView>
                                     <HeaderStyle Width="150px" />
@@ -137,3 +149,4 @@
 <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnadviserId" runat="server" />
+<asp:HiddenField ID="hdnTotalPL" runat="server" />
