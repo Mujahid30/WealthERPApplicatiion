@@ -2193,8 +2193,8 @@ namespace WealthERP.BusinessMIS
                 //trDivOrganization.Visible = false;
                 //trDivStaff.Visible = true;
 
-                lblCategory.Visible = true;
-                ddlCategory.Visible = true;
+                lblCategory.Visible = false;
+                ddlCategory.Visible = false;
             }
         }
 

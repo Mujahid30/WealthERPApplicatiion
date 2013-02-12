@@ -24,7 +24,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            MF MIS Commission
+                            MF Commission  MIS 
                         </td>
                         <td align="right" id="trCommissionMIS" runat="server">
                             <asp:ImageButton ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"

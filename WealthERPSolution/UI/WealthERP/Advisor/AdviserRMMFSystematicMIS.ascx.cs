@@ -116,6 +116,7 @@ namespace WealthERP.Advisor
                         lblpageHeader.Text = "MF SIP Projections";
                         ddlDateFilter.Items.RemoveAt(2);
                         ddlDateFilter.Items.RemoveAt(1);
+                        ddlDateFilter.Items.RemoveAt(0);
                     }
 
                  }
