@@ -384,7 +384,7 @@ namespace WealthERP.CustomerPortfolio
                 if(mfTransactionVo!=null)
                     customerTransactionBo.CancelMFTransaction(mfTransactionVo, userId);
                 btnCancel.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionsView','none');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
 
             }
             catch (BaseApplicationException Ex)
