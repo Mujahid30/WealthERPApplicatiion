@@ -12,7 +12,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            MF Returns(Holdings)
+                            MF Returns (Holdings)
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="imgMFReturns" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
