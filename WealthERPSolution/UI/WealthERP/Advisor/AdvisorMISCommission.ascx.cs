@@ -394,7 +394,7 @@ namespace WealthERP.Advisor
         public void gvCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
         {
             gvCommissionMIS.Visible = true;
-            trCommissionMIS.Visible = true;
+            tdCategoryWise.Visible = true;
             DataTable dtMIS = new DataTable();
             dtMIS = (DataTable)Cache["MIS" + advisorVo.advisorId];
             gvCommissionMIS.DataSource = dtMIS;

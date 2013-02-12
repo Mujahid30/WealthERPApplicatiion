@@ -2486,7 +2486,7 @@
                                             <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Dividend Sweep Out Count"
-                                            HeaderText="CNO Cnt" DataField="DSOCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="DSO Cnt" DataField="DSOCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="DSOCount" SortExpression="DSOCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">

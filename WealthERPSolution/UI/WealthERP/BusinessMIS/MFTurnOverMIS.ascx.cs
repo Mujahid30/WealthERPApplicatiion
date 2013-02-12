@@ -2142,7 +2142,7 @@ namespace WealthERP.BusinessMIS
 
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dvSectionHeading.Visible = false;
+            //dvSectionHeading.Visible = false;
             //gvSchemeWise.Visible = false;
             pnlZoneCluster.Visible = false;
             pnlFolio.Visible = false;
