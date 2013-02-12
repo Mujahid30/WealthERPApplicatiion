@@ -117,12 +117,92 @@ namespace WealthERP.BusinessMIS
 
         private void BindEQReturnsGrid()
         {
+            double totalinvestedCost = 0.0;
+            double totalcurrentvalue = 0.0;
+            double totalPL=0.0;
             DataTable dtEQReturns;
             dtEQReturns = adviserMFMIS.GetEQReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate);
-            if (dtEQReturns != null)
+            if(dtEQReturns == null)
             {
                 gvEQReturns.DataSource = dtEQReturns;
                 gvEQReturns.DataBind();
+                pnlEQReturns.Visible = true;
+                gvEQReturns.Visible = true;
+            }
+            else
+            {
+                DataTable dtEQReturnsNew = new DataTable();
+                dtEQReturnsNew.Columns.Add("CustomerId");
+                dtEQReturnsNew.Columns.Add("Customer");
+                dtEQReturnsNew.Columns.Add("PAN");
+                dtEQReturnsNew.Columns.Add("Parent");
+                dtEQReturnsNew.Columns.Add("Branch");
+                dtEQReturnsNew.Columns.Add("RM");
+                dtEQReturnsNew.Columns.Add("CompanyName");
+                dtEQReturnsNew.Columns.Add("Sector");
+                dtEQReturnsNew.Columns.Add("Price", typeof(Double));
+                dtEQReturnsNew.Columns.Add("NoOfShares", typeof(Double));
+                dtEQReturnsNew.Columns.Add("InvestedCost", typeof(Double));
+                dtEQReturnsNew.Columns.Add("CurrentValue", typeof(Double));
+                dtEQReturnsNew.Columns.Add("ProfitLoss", typeof(Double));
+                dtEQReturnsNew.Columns.Add("Percentage", typeof(Double));
+
+                DataRow drEQReturnsNew;
+                foreach (DataRow dr in dtEQReturns.Rows)
+                {
+                    drEQReturnsNew = dtEQReturnsNew.NewRow();
+                    drEQReturnsNew["CustomerId"] = dr["CustomerId"].ToString();
+                    drEQReturnsNew["Customer"] = dr["Customer"].ToString();
+                    drEQReturnsNew["PAN"] = dr["PAN"].ToString();
+                    drEQReturnsNew["Parent"] = dr["Parent"].ToString();
+                    drEQReturnsNew["Branch"] = dr["Branch"].ToString();
+                    drEQReturnsNew["RM"] = dr["RM"].ToString();
+                    drEQReturnsNew["CompanyName"] = dr["CompanyName"].ToString();
+                    drEQReturnsNew["Sector"] = dr["PGSC_SectorCategoryName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["NoOfShares"].ToString().Trim()))
+                        drEQReturnsNew["NoOfShares"] = dr["NoOfShares"].ToString();
+                    else
+                        drEQReturnsNew["NoOfShares"] = 0;
+
+                    if (!string.IsNullOrEmpty(dr["Price"].ToString().Trim()))
+                        drEQReturnsNew["Price"] = dr["Price"].ToString();
+                    else
+                        drEQReturnsNew["Price"] = 0;
+                    
+                    if (!string.IsNullOrEmpty(dr["InvestedCost"].ToString().Trim()))
+                        drEQReturnsNew["InvestedCost"] = Double.Parse(dr["InvestedCost"].ToString());
+                    else
+                        drEQReturnsNew["InvestedCost"] = 0;
+                    totalinvestedCost = totalinvestedCost + Double.Parse(dr["InvestedCost"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["MarketValue"].ToString().Trim()))
+                        drEQReturnsNew["CurrentValue"] = Double.Parse(dr["MarketValue"].ToString());
+                    else
+                        drEQReturnsNew["CurrentValue"] = 0;
+                    totalcurrentvalue = totalcurrentvalue + Double.Parse(dr["MarketValue"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["ProfitLoss"].ToString().Trim()))
+                        drEQReturnsNew["ProfitLoss"] = dr["ProfitLoss"].ToString();
+                    else
+                        drEQReturnsNew["ProfitLoss"] = 0;
+
+                    if (!string.IsNullOrEmpty(dr["Percentage"].ToString().Trim()))
+                        drEQReturnsNew["Percentage"] = Double.Parse(dr["Percentage"].ToString());
+                    else
+                        drEQReturnsNew["Percentage"] = 0;
+
+                    dtEQReturnsNew.Rows.Add(drEQReturnsNew);
+                }
+                GridBoundColumn TotalPercentage = gvEQReturns.MasterTableView.Columns.FindByUniqueName("Percentage") as GridBoundColumn;
+                totalPL = ((totalcurrentvalue - totalinvestedCost) / totalinvestedCost) * 100;
+                TotalPercentage.FooterText = totalPL.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                gvEQReturns.DataSource = dtEQReturnsNew;
+                gvEQReturns.DataBind();
+
+                //GridFooterItem fitem = (GridFooterItem)gvEQReturns.MasterTableView.GetItems(GridItemType.Footer)[0];
+                //Label lbl = (Label)fitem.FindControl("lblTotalPercentage"); 
+                //Label lblTotalText = (Label)gvEQReturns.FindControl("lblTotalPercentage");
+                //lbl.Text = totalPL.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 pnlEQReturns.Visible = true;
                 gvEQReturns.Visible = true;
                 imgEQReturns.Visible = true;
