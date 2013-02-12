@@ -114,6 +114,8 @@ namespace WealthERP.Advisor
                     else if (Request.QueryString["action"] == "SIP_Projection")
                     {
                         lblpageHeader.Text = "MF SIP Projections";
+                        ddlDateFilter.Items.RemoveAt(2);
+                        ddlDateFilter.Items.RemoveAt(1);
                     }
 
                  }
