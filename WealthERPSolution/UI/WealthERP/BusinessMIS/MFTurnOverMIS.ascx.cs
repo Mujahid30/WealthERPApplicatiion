@@ -973,6 +973,7 @@ namespace WealthERP.BusinessMIS
                 gvSchemeWise.DataSource = dtGetSchemeTransactionDeatails;
                 gvSchemeWise.DataBind();
                 gvSchemeWise.Visible = true;
+                pnlScheme.Visible = true;
                 this.gvSchemeWise.GroupingSettings.RetainGroupFootersVisibility = true;
                 if (Cache["SchemeTransactionDeatails" + userVo.UserId] == null)
                 {
@@ -1469,6 +1470,8 @@ namespace WealthERP.BusinessMIS
                 gvFolioWise.DataSource = dtGetFolioTransactionDeatails;
                 gvFolioWise.DataBind();
                 gvFolioWise.Visible = true;
+                pnlFolio.Visible = true;
+
                 this.gvFolioWise.GroupingSettings.RetainGroupFootersVisibility = true;
                 if (Cache["FolioTransactionDeatails" + userVo.UserId] == null)
                 {
@@ -2139,17 +2142,26 @@ namespace WealthERP.BusinessMIS
 
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
         {
+            dvSectionHeading.Visible = false;
+            //gvSchemeWise.Visible = false;
+            pnlZoneCluster.Visible = false;
+            pnlFolio.Visible = false;
+            pnlScheme.Visible = false;
+
             if (ddlAction.SelectedValue == "Product")
             {
                 ShowHideMISMenu("Product");
+                showHideGrid("SchemeWise");
             }
             else if (ddlAction.SelectedValue == "Organization")
             {
                 ShowHideMISMenu("Organization");
+                showHideGrid("ZoneClusterWise");
             }
             else if (ddlAction.SelectedValue == "Staff")
             {
                 ShowHideMISMenu("Staff");
+                showHideGrid("FolioWise");
             }
         }
 
@@ -2157,18 +2169,18 @@ namespace WealthERP.BusinessMIS
         {
             if (misType == "Product")
             {
-                trDivProduct.Visible = true;
-                trDivOrganization.Visible = false;
-                trDivStaff.Visible = false;
+                //trDivProduct.Visible = true;
+                //trDivOrganization.Visible = false;
+                //trDivStaff.Visible = false;
 
                 lblCategory.Visible = true;
                 ddlCategory.Visible = true;
             }
             else if (misType == "Organization")
             {
-                trDivProduct.Visible = false;
-                trDivOrganization.Visible = true;
-                trDivStaff.Visible = false;
+                //trDivProduct.Visible = false;
+                //trDivOrganization.Visible = true;
+                //trDivStaff.Visible = false;
 
                 lblCategory.Visible = false;
                 ddlCategory.Visible = false;
@@ -2177,9 +2189,9 @@ namespace WealthERP.BusinessMIS
             }
             else if (misType == "Staff")
             {
-                trDivProduct.Visible = false;
-                trDivOrganization.Visible = false;
-                trDivStaff.Visible = true;
+                //trDivProduct.Visible = false;
+                //trDivOrganization.Visible = false;
+                //trDivStaff.Visible = true;
 
                 lblCategory.Visible = true;
                 ddlCategory.Visible = true;
@@ -2803,6 +2815,9 @@ namespace WealthERP.BusinessMIS
                 gvZoneClusterWise.DataSource = dtGetClusterTransactionDeatails;
                 gvZoneClusterWise.DataBind();
                 gvZoneClusterWise.Visible = true;
+                pnlZoneCluster.Visible = true;
+                trPnlZoneCluster.Visible = true;
+                divZoneWise.Visible = true;
                 this.gvZoneClusterWise.GroupingSettings.RetainGroupFootersVisibility = true;
                 //GridGroupByExpression expression = new GridGroupByExpression();
                 //GridGroupByField gridGroupByField = new GridGroupByField();
@@ -3127,5 +3142,61 @@ namespace WealthERP.BusinessMIS
             gvZoneClusterWise.Visible = true;
             //this.gvFolioWise.GroupingSettings.RetainGroupFootersVisibility = true;
         }
+
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            if (ddlAction.SelectedValue == "Product")
+            {
+                SetParameters();
+                showHideGrid("SchemeWise");
+                BindSchemeWiseTransactionDetails();
+                lblMFMISType.Text = "AMC/Scheme/Category Wise";
+
+                ShowHideMISMenu("Product");
+            }
+            else if (ddlAction.SelectedValue == "Organization")
+            {
+                SetParameters();
+                showHideGrid("ZoneClusterWise");
+                BindZoneClusterTransactionDetails();
+                lblMFMISType.Text = "Zone/Cluster/Branch Wise";
+
+                ShowHideMISMenu("Organization");
+            }
+            else if (ddlAction.SelectedValue == "Staff")
+            {
+                SetParameters();
+                showHideGrid("FolioWise");
+                BindFolioWiseTransactionDetails();
+                lblMFMISType.Text = "Staff/Customer/Folio Wise";
+
+                ShowHideMISMenu("Staff");
+            }
+        }
+
+
+        //protected void gvZoneClusterWise_PreRender(object sender, EventArgs e)
+        //{
+        //    int i = 0;
+        //    foreach (GridGroupHeaderItem groupHeader in gvZoneClusterWise.MasterTableView.GetItems(GridItemType.GroupHeader))//accessing header
+        //    {
+        //        i++;
+        //        GridItem[] children = groupHeader.GetChildItems();//accessing child items
+        //        foreach (GridDataItem child in children)
+        //        {
+        //            GridDataItem childItem = child as GridDataItem;
+        //            if (i % 2 == 0)
+        //            {
+        //                childItem.BackColor = System.Drawing.Color.Red;
+        //            }
+        //            else
+        //            {
+        //                childItem.BackColor = System.Drawing.Color.Black;
+        //            }
+        //        }
+        //    }
+        //}
+
     }
 }

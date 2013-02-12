@@ -189,7 +189,7 @@
     <tr>
         <td>
             <telerik:RadGrid ID="gvCommissionMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true" EnableViewState="false"
                 Skin="Telerik" OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false"
                 Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -206,6 +206,10 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="MISType" AllowFiltering="true" AutoPostBackOnFilter="true"
                             ShowFilterIcon="false" HeaderText="" FooterStyle-HorizontalAlign="Right" AllowSorting="true">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn UniqueName="subCategoryName" AllowFiltering="true" AutoPostBackOnFilter="true" DataField="subCategoryName"
+                            ShowFilterIcon="false" HeaderText="SubCategory" FooterStyle-HorizontalAlign="Right" AllowSorting="true">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="RM_Name" DataField="RM_Name" AllowFiltering="true"
@@ -282,11 +286,11 @@
                             </GroupByExpressions>--%>
                             <Columns>
                                 <telerik:GridBoundColumn HeaderText="AMC" HeaderTooltip="AMC" DataField="AMCName"
-                                    UniqueName="AMCName" SortExpression="AMCName" AllowFiltering="true" AutoPostBackOnFilter="true"
+                                    UniqueName="AMCName" SortExpression="AMCName" FooterText="Grand Total:" AllowFiltering="true" AutoPostBackOnFilter="true"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderText="Scheme" HeaderTooltip="Scheme" DataField="SchemeName"
+                                <telerik:GridBoundColumn HeaderText="Scheme" HeaderTooltip="Scheme" DataField="SchemeName" HeaderStyle-Width="350px"
                                     UniqueName="SchemeName" SortExpression="SchemeName" AutoPostBackOnFilter="true"
                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -391,7 +395,7 @@
                             </GroupByExpressions>
                             <Columns>
                                 <telerik:GridBoundColumn HeaderText="Zone" HeaderTooltip="Zone" DataField="ZoneName"
-                                    UniqueName="ZoneName" SortExpression="ZoneName" AllowFiltering="true" AutoPostBackOnFilter="true"
+                                    UniqueName="ZoneName" SortExpression="ZoneName" FooterText="Grand Total:" AllowFiltering="true" AutoPostBackOnFilter="true"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>

@@ -139,6 +139,8 @@ namespace WealthERP.Advisor
                         ghItem1.Visible = false;
                         ghItem2.Visible = false;
                         ghItem3.Visible = false;
+                        ghItem.FooterText = "Grand Total:";
+                        ghItem.FooterStyle.HorizontalAlign = HorizontalAlign.Left;
                         break;
                     default:
                         ghItem.HeaderText = "Folio Number";

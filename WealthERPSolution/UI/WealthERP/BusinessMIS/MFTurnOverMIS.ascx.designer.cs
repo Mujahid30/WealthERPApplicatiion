@@ -327,6 +327,9 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDatePeriod;
+
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvSectionHeading;
+
         
         /// <summary>
         /// lblPeriod control.
@@ -362,7 +365,7 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivOrganization;
+        //protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivOrganization;
         
         /// <summary>
         /// lblOrganizationMISHeading control.
@@ -371,7 +374,7 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOrganizationMISHeading;
+        //protected global::System.Web.UI.WebControls.Label lblOrganizationMISHeading;
         
         /// <summary>
         /// lnkZoneCluster control.
@@ -380,7 +383,7 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkZoneCluster;
+        //protected global::System.Web.UI.WebControls.LinkButton lnkZoneCluster;
         
         /// <summary>
         /// trDivStaff control.
@@ -389,7 +392,7 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivStaff;
+       // protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivStaff;
         
         /// <summary>
         /// Label4 control.
@@ -398,7 +401,7 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+       // protected global::System.Web.UI.WebControls.Label Label4;
         
         /// <summary>
         /// lnkStaffCustomerFolioWise control.
@@ -407,7 +410,7 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkStaffCustomerFolioWise;
+       // protected global::System.Web.UI.WebControls.LinkButton lnkStaffCustomerFolioWise;
         
         /// <summary>
         /// trDivProduct control.
@@ -416,7 +419,7 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivProduct;
+        //protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivProduct;
         
         /// <summary>
         /// Label1 control.
@@ -425,7 +428,7 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+      //  protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// lnkBtnSCHEMEWISEAUM control.
@@ -434,7 +437,7 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnSCHEMEWISEAUM;
+        //protected global::System.Web.UI.WebControls.LinkButton lnkBtnSCHEMEWISEAUM;
         
         /// <summary>
         /// lblMFMISType control.
@@ -795,5 +798,8 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGoButton;
+       // protected global::System.Web.UI.HtmlControls.HtmlTableRow trPnlAMC;
+
     }
 }
