@@ -22,7 +22,7 @@
             <tr>
                 <td colspan="3" style="width: 100%;">
                     <div class="divPageHeading">
-                        <table cellspacing="0" cellpadding="3" width="100%">
+                        <table cellspacing="0" cellpadding="0" width="100%">
                             <tr>
                                 <td align="left" style="width: 33%">
                                     Mutual Fund Net Position
@@ -30,20 +30,14 @@
                                 <td style="width: 34%">
                                     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
                                         <ProgressTemplate>
-                                            <table width="100%">
-                                                <tr>
-                                                    <td align="center">
-                                                        <asp:Image ID="imgProgress" ImageUrl="~/Images/ajax-loader.gif" AlternateText="Processing"
-                                                            runat="server" />
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                            <asp:Image ID="imgProgress" ImageUrl="~/Images/ajax-loader.gif" AlternateText="Processing"
+                                                runat="server" />
                                             <%--<img alt="Processing" src="~/Images/ajax_loader.gif" style="width: 200px; height: 100px" />--%>
                                         </ProgressTemplate>
                                     </asp:UpdateProgress>
                                 </td>
                                 <td align="right" style="width: 33%">
-                                <%--<asp:ImageButton Visible="true" ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                    <%--<asp:ImageButton Visible="true" ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                      runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
                                                         OnClick="GetParentCustomerId();" Height="25px" Width="25px">
                                 </asp:ImageButton>--%>
@@ -70,8 +64,7 @@
                     <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 15%">
-                    <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" 
-                        OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
                 </td>
                 <td class="leftField" style="width: 10%">
@@ -116,7 +109,7 @@
                         </telerik:RadTabStrip>
                         <telerik:RadMultiPage ID="ReturnsTabs" runat="server" EnableViewState="true" SelectedIndex="0">
                             <telerik:RadPageView ID="MFPortfolioHoldingsTabPage" runat="server">
-                                <table width="99%">
+                                <table width="100%">
                                     <tr align="left">
                                         <td style="width: 100%;">
                                             <asp:Label ID="lblHoldingTotalPL" Text="Total P/L: " runat="server" CssClass="FieldName"> </asp:Label>
@@ -129,7 +122,7 @@
                                     </tr>
                                 </table>
                                 <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" Width="99%" ScrollBars="Horizontal">
-                                    <table id="tblHoldings" runat="server" width="50%">
+                                    <table id="tblHoldings" runat="server" width="100%">
                                         <tr>
                                             <td>
                                                 <div id="dvHoldings" runat="server" style="width: 640px;">
@@ -286,7 +279,7 @@
                                 </asp:Panel>
                             </telerik:RadPageView>
                             <telerik:RadPageView ID="MFPortfolioAllTabPage" runat="server">
-                                <table width="99%">
+                                <table width="100%">
                                     <tr align="left">
                                         <td style="width: 100%;">
                                             <asp:Label ID="lblALLTotalPL" Text="Total P/L: " runat="server" CssClass="FieldName"> </asp:Label>
@@ -302,7 +295,7 @@
                                     </tr>
                                 </table>
                                 <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
-                                    <table width="99%">
+                                    <table width="100%">
                                         <tr>
                                             <td>
                                                 <div id="dvAll" runat="server" style="width: 640px">
@@ -1252,7 +1245,11 @@
         <asp:HiddenField ID="hdnTaxRealizedCategory" runat="server" />
     </ContentTemplate>
     <Triggers>
-       <%-- <asp:PostBackTrigger ControlID="btnTrnxExport" />--%>
-        <%-- <asp:PostBackTrigger ControlID="btnbalncExport" />--%>
+        <asp:PostBackTrigger ControlID="imgBtnrgTaxRealized" />
+        <asp:PostBackTrigger ControlID="imgBtnrgTaxHoldings" />
+        <asp:PostBackTrigger ControlID="imgBtnrgRealized" />
+        <asp:PostBackTrigger ControlID="imgBtnrgAll" />
+        <asp:PostBackTrigger ControlID="imgBtnrgHoldings" />
+        <%--<asp:PostBackTrigger ControlID="imgBtnrgHoldings" />--%>
     </Triggers>
 </asp:UpdatePanel>
