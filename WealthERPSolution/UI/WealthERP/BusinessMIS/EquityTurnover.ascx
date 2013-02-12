@@ -167,8 +167,8 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="70px" HeaderText="Exchange" DataField="XE_ExchangeCode" UniqueName="XE_ExchangeCode"
-                                                SortExpression="XE_ExchangeCode" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="70px" HeaderText="Exchange" DataField="Exchange" UniqueName="Exchange"
+                                                SortExpression="Exchange" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
@@ -267,7 +267,7 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="Customer" DataField="Customer" UniqueName="Customer"
                                                 SortExpression="Customer" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
-                                                CurrentFilterFunction="Contains" Aggregate="Count" >
+                                                CurrentFilterFunction="Contains" >
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderText="DeliveryBuy Amt" DataField="DeliveryBuy" UniqueName="DeliveryBuy"

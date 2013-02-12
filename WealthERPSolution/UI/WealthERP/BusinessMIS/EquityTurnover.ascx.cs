@@ -58,7 +58,15 @@ namespace WealthERP.BusinessMIS
             int RMId = rmVo.RMId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
-            
+
+            imgOrgGridExport.Visible = false;
+            imgProductGridExport.Visible = false;
+            pnlEQTurnover.Visible = false;
+            pnlOrgLevel.Visible = false;
+            gvEQTurnover.Visible = false;
+            gvOrgLevel.Visible = false;
+
+
             if (!IsPostBack)
             {
                 trEQProductLevel.Visible = false;
@@ -287,52 +295,266 @@ namespace WealthERP.BusinessMIS
 
         private void BindOrganisationLevelGrid()
         {
+            int branchId = 0;
+            int branchIdOld = 0;
             DataTable dtOrgLevel = new DataTable();
             dsEQMIS = adviserMFMIS.GetEQMIS(userType, int.Parse(hdnadviserId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value));
             dtOrgLevel = dsEQMIS.Tables[1];
-            if (dtOrgLevel != null)
+            if (dtOrgLevel == null)
             {
                 pnlOrgLevel.Visible = true;
                 gvOrgLevel.Visible = true;
                 gvOrgLevel.DataSource = dtOrgLevel;
                 gvOrgLevel.DataBind();
-                imgOrgGridExport.Visible = true;
-                this.gvOrgLevel.GroupingSettings.RetainGroupFootersVisibility = true;
-                if (Cache["gvOrgLevel" + userVo.UserId + userType] == null)
+            }
+            else
+            {
+                DataTable dtEQOrgNew = new DataTable();
+                dtEQOrgNew.Columns.Add("AB_BranchId");
+                dtEQOrgNew.Columns.Add("AB_BranchName");
+                dtEQOrgNew.Columns.Add("AR_FirstName");
+                dtEQOrgNew.Columns.Add("Customer");
+                dtEQOrgNew.Columns.Add("DeliveryBuy", typeof(Double));
+                dtEQOrgNew.Columns.Add("DeliveryBuyCount", typeof(int));
+                dtEQOrgNew.Columns.Add("DeliverySell", typeof(Double));
+                dtEQOrgNew.Columns.Add("DeliverySellCount", typeof(int));
+                dtEQOrgNew.Columns.Add("SpeculativeBuy", typeof(Double));
+                dtEQOrgNew.Columns.Add("SpeculativeBuyCount", typeof(int));
+                dtEQOrgNew.Columns.Add("SpeculativeSell", typeof(Double));
+                dtEQOrgNew.Columns.Add("SpeculativeSellCount", typeof(int));
+
+                #region Data Table Default value
+
+                dtEQOrgNew.Columns["DeliveryBuy"].DefaultValue = 0;
+                dtEQOrgNew.Columns["DeliveryBuyCount"].DefaultValue = 0;
+                dtEQOrgNew.Columns["DeliverySell"].DefaultValue = 0;
+                dtEQOrgNew.Columns["DeliverySellCount"].DefaultValue = 0;
+
+                dtEQOrgNew.Columns["SpeculativeBuy"].DefaultValue = 0;
+                dtEQOrgNew.Columns["SpeculativeBuyCount"].DefaultValue = 0;
+                dtEQOrgNew.Columns["SpeculativeSell"].DefaultValue = 0;
+                dtEQOrgNew.Columns["SpeculativeSellCount"].DefaultValue = 0;
+
+                #endregion Data Table Default value
+
+                DataRow drGetEQOrgNew;
+                DataRow[] drEQOrgWise;
+                if (dtEQOrgNew != null)
                 {
-                    Cache.Insert("gvOrgLevel" + userVo.UserId + userType, dtOrgLevel);
-                }
-                else
-                {
-                    Cache.Remove("gvOrgLevel" + userVo.UserId + userType);
-                    Cache.Insert("gvOrgLevel" + userVo.UserId + userType, dtOrgLevel);
+                    DataTable dtGetEQOrg = dsEQMIS.Tables[1];
+
+                    foreach (DataRow drEQgOrTransaction in dtGetEQOrg.Rows)
+                    {
+
+                        Int32.TryParse(drEQgOrTransaction["AB_BranchId"].ToString(), out branchId);
+                        if (branchId != branchIdOld)
+                        { //go for another row to find new customer
+                            branchIdOld = branchId;
+                            drGetEQOrgNew = dtEQOrgNew.NewRow();
+                            if (branchId != 0)
+                            { // add row in manual datatable within this brace end
+                                drEQOrgWise = dtGetEQOrg.Select("AB_BranchId=" + branchId.ToString());
+                                drGetEQOrgNew["AB_BranchId"] = drEQgOrTransaction["AB_BranchId"].ToString();
+                                drGetEQOrgNew["AB_BranchName"] = drEQgOrTransaction["AB_BranchName"].ToString();
+                                drGetEQOrgNew["AR_FirstName"] = drEQgOrTransaction["AR_FirstName"].ToString();
+                                drGetEQOrgNew["Customer"] = drEQgOrTransaction["Customer"].ToString();
+                                if (drEQOrgWise.Count() > 0)
+                                {
+                                    foreach (DataRow dr in drEQOrgWise)
+                                    {
+
+                                        string transactiontype = dr["CET_BuySell"].ToString();
+                                        switch (transactiontype)
+                                        {
+                                            case "B":
+                                                {
+                                                    if (int.Parse(dr["CET_IsSpeculative"].ToString()) == 0)
+                                                    {
+                                                        drGetEQOrgNew["DeliveryBuy"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                        drGetEQOrgNew["DeliveryBuyCount"] = dr["TrnsCount"].ToString();
+                                                    }
+                                                    else
+                                                    {
+                                                        drGetEQOrgNew["SpeculativeBuy"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                        drGetEQOrgNew["SpeculativeBuyCount"] = dr["TrnsCount"].ToString();
+                                                    }
+                                                    break;
+                                                }
+                                            case "S":
+                                                {
+                                                    if (int.Parse(dr["CET_IsSpeculative"].ToString()) == 0)
+                                                    {
+                                                        drGetEQOrgNew["DeliverySell"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                        drGetEQOrgNew["DeliverySellCount"] = dr["TrnsCount"].ToString();
+                                                    }
+                                                    else
+                                                    {
+                                                        drGetEQOrgNew["SpeculativeSell"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                        drGetEQOrgNew["SpeculativeSellCount"] = dr["TrnsCount"].ToString();
+                                                    }
+                                                    break;
+                                                }
+
+                                        }
+
+                                    }
+                                }
+                                dtEQOrgNew.Rows.Add(drGetEQOrgNew);
+                            }//*
+
+                        }//**
+
+                    }//***
+                    pnlOrgLevel.Visible = true;
+                    gvOrgLevel.Visible = true;
+                    gvOrgLevel.DataSource = dtEQOrgNew;
+                    gvOrgLevel.DataBind();
+                    imgOrgGridExport.Visible = true;
+                    this.gvOrgLevel.GroupingSettings.RetainGroupFootersVisibility = true;
+                    if (Cache["gvOrgLevel" + userVo.UserId + userType] == null)
+                    {
+                        Cache.Insert("gvOrgLevel" + userVo.UserId + userType, dtEQOrgNew);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvOrgLevel" + userVo.UserId + userType);
+                        Cache.Insert("gvOrgLevel" + userVo.UserId + userType, dtEQOrgNew);
+                    }
                 }
             }
         }
-
         private void BindProductLevelGrid()
         {
-            
+            int amcCode = 0;
+            int amcCodeOld = 0;
             DataTable dtAdviserEQMIS = new DataTable();
             dsEQMIS = adviserMFMIS.GetEQMIS(userType, int.Parse(hdnadviserId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value));
             dtAdviserEQMIS = dsEQMIS.Tables[0];
-            if (dtAdviserEQMIS != null)
+
+            if (dtAdviserEQMIS == null)
             {
-                pnlEQTurnover.Visible = true;
-                gvEQTurnover.Visible = true;
                 gvEQTurnover.DataSource = dtAdviserEQMIS;
                 gvEQTurnover.DataBind();
-                imgProductGridExport.Visible = true;
-                this.gvEQTurnover.GroupingSettings.RetainGroupFootersVisibility = true;
-                if (Cache["gvEQTurnover" + userVo.UserId + userType] == null)
+                pnlEQTurnover.Visible = true;
+                gvEQTurnover.Visible = true;
+            }
+            else
+            {
+                DataTable dtEQProductNew = new DataTable();
+                dtEQProductNew.Columns.Add("PEM_ScripCode");
+                dtEQProductNew.Columns.Add("PEM_CompanyName");
+                dtEQProductNew.Columns.Add("PGSC_SectorCategoryName");
+                dtEQProductNew.Columns.Add("Exchange");
+                dtEQProductNew.Columns.Add("DeliveryBuy", typeof(Double));
+                dtEQProductNew.Columns.Add("DeliveryBuyCount", typeof(int));
+                dtEQProductNew.Columns.Add("DeliverySell", typeof(Double));
+                dtEQProductNew.Columns.Add("DeliverySellCount", typeof(int));
+                dtEQProductNew.Columns.Add("SpeculativeBuy", typeof(Double));
+                dtEQProductNew.Columns.Add("SpeculativeBuyCount", typeof(int));
+                dtEQProductNew.Columns.Add("SpeculativeSell", typeof(Double));
+                dtEQProductNew.Columns.Add("SpeculativeSellCount", typeof(int));
+
+                #region Data Table Default value
+
+                dtEQProductNew.Columns["DeliveryBuy"].DefaultValue = 0;
+                dtEQProductNew.Columns["DeliveryBuyCount"].DefaultValue = 0;
+                dtEQProductNew.Columns["DeliverySell"].DefaultValue = 0;
+                dtEQProductNew.Columns["DeliverySellCount"].DefaultValue = 0;
+
+                dtEQProductNew.Columns["SpeculativeBuy"].DefaultValue = 0;
+                dtEQProductNew.Columns["SpeculativeBuyCount"].DefaultValue = 0;
+                dtEQProductNew.Columns["SpeculativeSell"].DefaultValue = 0;
+                dtEQProductNew.Columns["SpeculativeSellCount"].DefaultValue = 0;
+
+                #endregion Data Table Default value
+
+                DataRow drGetEQProductNew;
+                DataRow[] drEQProductWise;
+                if (dtAdviserEQMIS != null)
                 {
-                    Cache.Insert("gvEQTurnover" + userVo.UserId + userType, dtAdviserEQMIS);
+                    DataTable dtGetEQProduct = dsEQMIS.Tables[0];
+
+                    foreach (DataRow drEQProdTransaction in dtGetEQProduct.Rows)
+                    {
+
+                        Int32.TryParse(drEQProdTransaction["PEM_ScripCode"].ToString(), out amcCode);
+                        if (amcCode != amcCodeOld)
+                        { //go for another row to find new customer
+                            amcCodeOld = amcCode;
+                            drGetEQProductNew = dtEQProductNew.NewRow();
+                            if (amcCode != 0)
+                            { // add row in manual datatable within this brace end
+                                drEQProductWise = dtGetEQProduct.Select("PEM_ScripCode=" + amcCode.ToString());
+                                drGetEQProductNew["PEM_ScripCode"] = drEQProdTransaction["PEM_ScripCode"].ToString();
+                                drGetEQProductNew["PEM_CompanyName"] = drEQProdTransaction["PEM_CompanyName"].ToString();
+                                drGetEQProductNew["PGSC_SectorCategoryName"] = drEQProdTransaction["PGSC_SectorCategoryName"].ToString();
+                                drGetEQProductNew["Exchange"] = drEQProdTransaction["XE_ExchangeCode"].ToString();
+                                if (drEQProductWise.Count() > 0)
+                                {
+                                    foreach (DataRow dr in drEQProductWise)
+                                    {
+
+                                        string transactiontype = dr["CET_BuySell"].ToString();
+                                        switch (transactiontype)
+                                        {
+                                            case "B":
+                                                {
+                                                    if (int.Parse(dr["CET_IsSpeculative"].ToString()) == 0)
+                                                    {
+                                                        drGetEQProductNew["DeliveryBuy"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                        drGetEQProductNew["DeliveryBuyCount"] = dr["TrnsCount"].ToString();
+                                                    }
+                                                    else
+                                                    {
+                                                        drGetEQProductNew["SpeculativeBuy"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                        drGetEQProductNew["SpeculativeBuyCount"] = dr["TrnsCount"].ToString();
+                                                    }
+                                                    break;
+                                                }
+                                            case "S":
+                                                {
+                                                    if (int.Parse(dr["CET_IsSpeculative"].ToString()) == 0)
+                                                    {
+                                                        drGetEQProductNew["DeliverySell"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                        drGetEQProductNew["DeliverySellCount"] = dr["TrnsCount"].ToString();
+                                                    }
+                                                    else
+                                                    {
+                                                        drGetEQProductNew["SpeculativeSell"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                        drGetEQProductNew["SpeculativeSellCount"] = dr["TrnsCount"].ToString();
+                                                    }
+                                                    break;
+                                                }
+
+                                        }
+
+                                    }
+                                }
+                                dtEQProductNew.Rows.Add(drGetEQProductNew);
+                            }//*
+
+                        }//**
+
+                    }//***
+
+
+                    pnlEQTurnover.Visible = true;
+                    gvEQTurnover.Visible = true;
+                    gvEQTurnover.DataSource = dtEQProductNew;
+                    gvEQTurnover.DataBind();
+                    imgProductGridExport.Visible = true;
+                    this.gvEQTurnover.GroupingSettings.RetainGroupFootersVisibility = true;
+                    if (Cache["gvEQTurnover" + userVo.UserId + userType] == null)
+                    {
+                        Cache.Insert("gvEQTurnover" + userVo.UserId + userType, dtEQProductNew);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvEQTurnover" + userVo.UserId + userType);
+                        Cache.Insert("gvEQTurnover" + userVo.UserId + userType, dtEQProductNew);
+                    }
                 }
-                else
-                {
-                    Cache.Remove("gvEQTurnover" + userVo.UserId + userType);
-                    Cache.Insert("gvEQTurnover" + userVo.UserId + userType, dtAdviserEQMIS);
-                }
+
             }
         }
 
@@ -459,9 +681,13 @@ namespace WealthERP.BusinessMIS
         }
         protected void gvEQTurnover_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataTable dtAdviserEQMIS = new DataTable();
-            dtAdviserEQMIS = (DataTable)Cache["gvEQTurnover" + userVo.UserId + userType];
-            gvEQTurnover.DataSource = dtAdviserEQMIS;
+            DataTable dtEQProductNew = new DataTable();
+            dtEQProductNew = (DataTable)Cache["gvEQTurnover" + userVo.UserId + userType];
+            gvEQTurnover.DataSource = dtEQProductNew;
+            gvEQTurnover.Visible = true;
+            imgOrgGridExport.Visible = false;
+            imgProductGridExport.Visible = true;
+            pnlEQTurnover.Visible = true;
             gvEQTurnover.Visible = true;
         }
         protected void gvOrgLevel_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
@@ -469,6 +695,10 @@ namespace WealthERP.BusinessMIS
             DataTable dtOrgLevel = new DataTable();
             dtOrgLevel = (DataTable)Cache["gvOrgLevel" + userVo.UserId + userType];
             gvOrgLevel.DataSource = dtOrgLevel;
+            gvOrgLevel.Visible = true;
+            imgOrgGridExport.Visible = true;
+            imgProductGridExport.Visible = false;
+            pnlOrgLevel.Visible = true;
             gvOrgLevel.Visible = true;
         }
 
