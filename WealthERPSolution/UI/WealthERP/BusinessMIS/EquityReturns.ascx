@@ -13,7 +13,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            EQ Returns(Holdings)
+                            EQ Returns (Holdings)
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="imgEQReturns" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
