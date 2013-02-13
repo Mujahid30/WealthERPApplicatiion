@@ -2173,8 +2173,8 @@ namespace WealthERP.BusinessMIS
                 //trDivOrganization.Visible = false;
                 //trDivStaff.Visible = false;
 
-                lblCategory.Visible = true;
-                ddlCategory.Visible = true;
+                lblCategory.Visible = false;
+                ddlCategory.Visible = false;
             }
             else if (misType == "Organization")
             {

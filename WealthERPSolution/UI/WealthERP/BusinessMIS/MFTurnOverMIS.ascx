@@ -2328,6 +2328,7 @@
                                             AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                             </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Broker Change In Count"
                                             HeaderText="BCI Cnt" DataField="BCICount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="BCICount" SortExpression="BCICount" AutoPostBackOnFilter="true" AllowFiltering="false"
@@ -2518,7 +2519,12 @@
                     <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbField" 
                     Text="Note:1.To sort on a field click on its label. <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.To know field details browse over the label.<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.You can group/ungroup or hide/unhide fields by a right click on the grid label and then making the selection."
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.You can group/ungroup or hide/unhide fields by a right click on the grid label and then making the selection.<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.Gross Investment : BUY,DVR,SIP,SWB,STB,BCI,BIR,BNS,CNI,DSI,HLD,NFO,RRJ. <br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.Gross Redemption : SELL,STS,SWP,SWS,SRJ,BCO,CNO,DSO. <br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  6.DVP & PRJ : Excluded from both categories."
+            
+            
                         ></asp:Label>
                 </td>
             </tr>
