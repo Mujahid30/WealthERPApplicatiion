@@ -1095,7 +1095,7 @@ namespace WealthERP.CustomerPortfolio
                 accountId = int.Parse(ddlFolioNum.SelectedValue);
                 amcCode = productMfBo.GetAMCfromFolioNo(accountId);
                 ddlAMC.SelectedValue = amcCode.ToString();
-                if(ddlScheme.SelectedIndex == 0)
+               // if(ddlScheme.SelectedIndex == 0)
                      BindScheme();
  
             }
