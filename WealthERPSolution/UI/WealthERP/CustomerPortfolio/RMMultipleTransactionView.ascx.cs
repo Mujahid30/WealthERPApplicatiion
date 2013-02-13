@@ -166,7 +166,6 @@ namespace WealthERP.CustomerPortfolio
                         PasssedFolioValue = Convert.ToInt32(ht["Account"].ToString());
                         BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
                         Session.Remove("tranDates");
-                        hdnExportType.Value = "TV";
                     }
 
                     //if (Session["tranDates"] != null)
