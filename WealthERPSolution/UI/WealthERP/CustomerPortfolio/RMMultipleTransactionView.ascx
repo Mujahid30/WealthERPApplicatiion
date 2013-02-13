@@ -330,7 +330,7 @@
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
-                                                            HeaderText="Scheme" ShowFilterIcon="false">
+                                                            HeaderText="Scheme" ShowFilterIcon="false" FilterControlWidth="280px">
                                                             <ItemStyle Wrap="false" />
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />
@@ -498,7 +498,7 @@
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
-                                                            HeaderText="Scheme" ShowFilterIcon="false">
+                                                            HeaderText="Scheme" ShowFilterIcon="false" FilterControlWidth="280px">
                                                             <ItemStyle Wrap="false" />
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />
@@ -578,7 +578,7 @@
             </tr>
             <tr>
                 <td style="padding-top: 20px">
-                    <div id="divTrail" runat="server" style="margin: 2px; width: 100%; overflow:scroll">
+                    <div id="divTrail" runat="server" style="margin: 2px; width: 100%; overflow:scroll" >
                     <%--    <asp:Panel ID="pnlTrail" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
                             <table width="100%" cellspacing="0" cellpadding="0">
                                 <tr>
@@ -625,7 +625,7 @@
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="AMC Name" HeaderStyle-Width="450px" 
                                                             SortExpression="PASP_SchemePlanName" ItemStyle-Wrap="false" UniqueName="PASP_SchemePlanName"
-                                                            AutoPostBackOnFilter="true">
+                                                            AutoPostBackOnFilter="true" FilterControlWidth="280px">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Units" HeaderStyle-Width="100px"  FooterStyle-HorizontalAlign="Right"

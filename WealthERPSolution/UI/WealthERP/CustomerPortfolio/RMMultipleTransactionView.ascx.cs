@@ -304,7 +304,9 @@ namespace WealthERP.CustomerPortfolio
                 BindGrid(convertedFromDate, convertedToDate);
                 hdnExportType.Value = "TV";
                 gvBalanceView.Visible = false;
-                Panel1.Visible = false;     
+                Panel1.Visible = false;
+                gvTrail.Visible = false;
+                divTrail.Visible = false;
                            
             }
             if(DisplayType=="RHV")
@@ -313,6 +315,8 @@ namespace WealthERP.CustomerPortfolio
                 hdnExportType.Value = "RHV";
                 gvMFTransactions.Visible = false;
                 Panel2.Visible = false;
+                gvTrail.Visible = false;
+                divTrail.Visible = false;
                
             }
 
@@ -320,8 +324,10 @@ namespace WealthERP.CustomerPortfolio
             {
                 BindGridTrailCommission(convertedFromDate, convertedToDate);
                 hdnExportType.Value = "TCV";
-                //gvMFTransactions.Visible = false;
-                //Panel2.Visible = false;
+                gvMFTransactions.Visible = false;
+                Panel2.Visible = false;
+                gvBalanceView.Visible = false;
+                Panel1.Visible = false;   
 
             }
            
@@ -790,23 +796,24 @@ namespace WealthERP.CustomerPortfolio
                 {
                     btnTrnxExport.Visible = true;
                     ErrorMessage.Visible = false;
-                    Panel1.Visible = true;
+                    Panel1.Visible = false;
                 
                     GridBoundColumn gbcCustomer = gvBalanceView.MasterTableView.Columns.FindByUniqueName("Customer Name") as GridBoundColumn;
                   
                     gvTrail.DataSource = dsTrailCommissionDetails;
                     gvTrail.DataBind();
-                    //imgBtnTrail.Visible = true;
-                    ErrorMessage.Visible = false;
-                    gvTrail.Visible = true;
                     divTrail.Visible = true;
-                  
+                    Div3.Visible = true;
+                    gvTrail.Visible = true;
+                    //imgBtnTrail.Visible = true;
+                    ErrorMessage.Visible = false;        
                 }
 
                 else
                 {
                     gvTrail.Visible = false;
                     Div3.Visible = false;
+                    divTrail.Visible = false;
                     ErrorMessage.Visible = true;
                     hdnRecordCount.Value = "0";
                     btnTrnxExport.Visible = false;
