@@ -7220,6 +7220,7 @@
     <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\SIPTempletonUpload.database" />
     <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\SIPTempletonUpload.dtproj" />
     <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\xmlToInputToXtrnl.dtsx" />
+    <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\xtrnlToStagingAndCheck.dtsx" />
     <None Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage.database" />
     <None Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage.dtproj" />
     <None Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\UploadChecksOnTempletonStaging.dtsx" />
