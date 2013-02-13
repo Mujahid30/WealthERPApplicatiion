@@ -275,6 +275,11 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderText="Product Code" DataField="PASC_AMC_ExternalCode" UniqueName="PASC_AMC_ExternalCode"
+                    SortExpression="PASC_AMC_ExternalCode" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
+                    CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderText="Category" DataField="Category" UniqueName="Category"
                     SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
                     CurrentFilterFunction="Contains">
