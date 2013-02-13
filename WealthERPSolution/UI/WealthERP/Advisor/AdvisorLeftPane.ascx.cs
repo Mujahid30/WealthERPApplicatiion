@@ -2016,9 +2016,9 @@ namespace WealthERP.Advisor
                                 case "Customer":
                                     Item.Visible = false;
                                     break;
-                                case "Operations":
-                                    Item.Visible = false;
-                                    break;
+                                //case "Operations":
+                                //    Item.Visible = false;
+                                //    break;
                                 case "Returns_Analytics":
                                     Item.Visible = false;
                                     break;
@@ -2069,6 +2069,17 @@ namespace WealthERP.Advisor
                                 case "MF Reversal Txn Exception Handling":
                                     Item.Visible = false;
                                     break;
+                                case "Reconciliation":
+                                    Item.Visible = false;
+                                    break;
+                                case "Add EQ Transactions":
+                                    Item.Visible = false;
+                                    break;
+                                   
+                                case "Valuation":
+                                    Item.Visible = false;
+                                    break;
+                                    
                                 case "Loan Schemes":
                                     Item.Visible = false;
                                     break;
