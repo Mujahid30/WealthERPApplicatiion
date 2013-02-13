@@ -7217,6 +7217,7 @@
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadTempDataTranslationChecksFirstStaging.dtsx" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadTempletonProfileDataFromFileToInput.dtsx" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadTempXtrnlProfileInputToXtrnlProfileStaging.dtsx" />
+    <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\commonStagingToFinalTable.dtsx" />
     <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\SIPTempletonUpload.database" />
     <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\SIPTempletonUpload.dtproj" />
     <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\xmlToInputToXtrnl.dtsx" />
