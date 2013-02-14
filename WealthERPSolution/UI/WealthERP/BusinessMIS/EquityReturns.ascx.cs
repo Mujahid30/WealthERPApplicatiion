@@ -208,12 +208,12 @@ namespace WealthERP.BusinessMIS
                 imgEQReturns.Visible = true;
                 if (Cache["gvEQReturns" + userVo.UserId + userType] == null)
                 {
-                    Cache.Insert("gvEQReturns" + userVo.UserId + userType, dtEQReturns);
+                    Cache.Insert("gvEQReturns" + userVo.UserId + userType, dtEQReturnsNew);
                 }
                 else
                 {
                     Cache.Remove("gvEQReturns" + userVo.UserId + userType);
-                    Cache.Insert("gvEQReturns" + userVo.UserId + userType, dtEQReturns);
+                    Cache.Insert("gvEQReturns" + userVo.UserId + userType, dtEQReturnsNew);
                 }
             }
         }
