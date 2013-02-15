@@ -6241,6 +6241,8 @@
     <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />
     <Content Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads.sln" />
     <Content Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads.dtproj.user" />
+    <Content Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload.sln" />
+    <Content Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\SIPSundaramUpload.dtproj.user" />
     <Content Include="UploadPackages\StandardMFTransactionUploads\StandardMFTransactionUploads.sln" />
     <Content Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\StandardMFTransactionUploads.dtproj.user" />
     <Content Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.sln" />
@@ -7159,6 +7161,11 @@
     <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadStandardTransactionStagingtoCommonStaging.dtsx" />
     <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadSystematicTransationInputToStaging.dtsx" />
     <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadSystematicTransationXMLToInput.dtsx" />
+    <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\SIPSundaramUpload.database" />
+    <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\SIPSundaramUpload.dtproj" />
+    <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\SUcommonStagingToFinalTable.dtsx" />
+    <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\SUxmlToInputToXtrnl.dtsx" />
+    <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\SUxtrnlToStagingAndCheck.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadsCommonFolioChecksInFolioStaging.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadStdFolioFromFolioStagingToWerpTable.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.database" />
