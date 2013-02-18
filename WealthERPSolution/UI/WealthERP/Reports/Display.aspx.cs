@@ -3663,7 +3663,7 @@ namespace WealthERP.Reports
                         dtReturnsPortfolio = dsReturnsPortfolio.Tables[0];
                         //dtReturnsPortfolio.Columns.Add("FolioStartDate");
                         DataTable dtPortfolioXIRRComp = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
-                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[6];
+                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[1];
 
                         dtPortfolioXIRRComp = GetAbsolutereturnToXIRRDt(dtPortfolioXIRRComp, dtReturnsPortfolio);
 
@@ -3676,8 +3676,8 @@ namespace WealthERP.Reports
                             //crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dtMFSchemePerformance);
                             crmain.Subreports["Portfolio_XIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRRComp);
                             //crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dsReturnsPortfolio.Tables[1]);
-                            crmain.Subreports["MFTopTenHoldings"].Database.Tables["ToptenHoldings"].SetDataSource(dsReturnsPortfolio.Tables[2]);
-                            crmain.Subreports["MFTopTenSectors"].Database.Tables["TopTenSectors"].SetDataSource(dsReturnsPortfolio.Tables[5]);
+                            //crmain.Subreports["MFTopTenHoldings"].Database.Tables["ToptenHoldings"].SetDataSource(dsReturnsPortfolio.Tables[2]);
+                            //crmain.Subreports["MFTopTenSectors"].Database.Tables["TopTenSectors"].SetDataSource(dsReturnsPortfolio.Tables[5]);
 
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
@@ -3709,6 +3709,9 @@ namespace WealthERP.Reports
                         {
                             //crmain.SetDataSource(dsCustomerPortfolioComposition.Tables[0]);
                             crmain.Database.Tables["PortfolioComposition"].SetDataSource(dsCustomerPortfolioComposition.Tables[0]);
+                            crmain.Subreports["MFTopTenHoldings"].Database.Tables["ToptenHoldings"].SetDataSource(dsCustomerPortfolioComposition.Tables[1]);
+                            crmain.Subreports["MFTopTenSectors"].Database.Tables["TopTenSectors"].SetDataSource(dsCustomerPortfolioComposition.Tables[4]);
+
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("DateRange", "As on: " + report.FromDate.ToShortDateString());
