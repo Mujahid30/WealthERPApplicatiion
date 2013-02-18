@@ -352,7 +352,7 @@ namespace WealthERP.Uploads
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
 
-                    else if (filetypeId == 20 || filetypeId == 26 || filetypeId == 27)
+                    else if (filetypeId == 20 || filetypeId == 26 || filetypeId == 27 || filetypeId == 34 || filetypeId == 23)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processID + "');", true);
                     }                 
