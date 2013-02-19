@@ -551,12 +551,12 @@
                                                             FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Age" HeaderText="Age(Days)" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn DataField="Age" HeaderText="Age (Days)" AllowFiltering="false"
                                                             HeaderStyle-Wrap="false" SortExpression="CMFTB_Age" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                             AutoPostBackOnFilter="true" UniqueName="CMFTB_Age" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Balance" HeaderText="Abs Rtn(%)" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn DataField="Balance" HeaderText="Abs Rtn (%)" AllowFiltering="false"
                                                             DataFormatString="{0:n2}" HeaderStyle-Wrap="false" SortExpression="Return" ShowFilterIcon="false"
                                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Return"
                                                             FooterStyle-HorizontalAlign="Left">
