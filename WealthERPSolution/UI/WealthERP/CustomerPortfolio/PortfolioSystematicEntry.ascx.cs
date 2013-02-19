@@ -1166,7 +1166,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else if (ddlPeriodSelection.SelectedItem.Value == "MN")
             {
-                endDate = startDate.AddMonths(period);
+                endDate = startDate.AddMonths((period-1));
             }
             else if (ddlPeriodSelection.SelectedItem.Value == "YR")
             {
