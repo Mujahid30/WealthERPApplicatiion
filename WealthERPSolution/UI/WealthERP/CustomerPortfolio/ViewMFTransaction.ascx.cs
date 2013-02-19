@@ -21,23 +21,25 @@ namespace WealthERP.CustomerPortfolio
         CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
         MFTransactionVo mfTransactionVo;
         UserVo userVo = new UserVo();
-        CustomerVo customerVo = new CustomerVo();        
+        CustomerVo customerVo = new CustomerVo();
+        AdvisorVo advisorVo = new AdvisorVo();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             try
             {
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
                 mfTransactionVo = (MFTransactionVo)Session["MFTransactionVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
+                advisorVo = (AdvisorVo)Session["advisorVo"];
                 userVo = (UserVo)Session["userVo"];
                 if (!Page.IsPostBack)
                 {
                     Session["MFEditValue"] = "View";
                     LoadViewFields();
                 }
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -63,10 +65,10 @@ namespace WealthERP.CustomerPortfolio
 
         private void LoadViewFields()
         {
-            bool isMainPortfolio=false;
-            DataSet dsPortfolioType=new DataSet();
+            bool isMainPortfolio = false;
+            DataSet dsPortfolioType = new DataSet();
             dsPortfolioType = customerTransactionBo.GetPortfolioType(mfTransactionVo.Folio);
-            
+
             try
             {
                 if (dsPortfolioType.Tables[0].Rows.Count > 0)
@@ -78,14 +80,14 @@ namespace WealthERP.CustomerPortfolio
 
                 }
 
-                if (Session["MFEditValue"].ToString() =="Edit")
+                if (Session["MFEditValue"].ToString() == "Edit")
                 {
                     SetFields(1);
                 }
                 else
                 {
                     SetFields(0);
-                }                
+                }
 
                 //if (mfTransactionVo.IsSourceManual == 1)
                 //{
@@ -104,7 +106,7 @@ namespace WealthERP.CustomerPortfolio
                 txtTransactionDate.Text = mfTransactionVo.TransactionDate.ToShortDateString().ToString();
                 if (mfTransactionVo.TransactionClassificationCode == "DVR" || mfTransactionVo.TransactionClassificationCode == "DVP")
                 {
-                    trDividendRate.Visible = true;                    
+                    trDividendRate.Visible = true;
                     txtDividentRate.Text = mfTransactionVo.DividendRate.ToString();
                 }
                 else
@@ -169,10 +171,10 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ShowHideCommandButton(bool isMainportfolio, bool isManulSource, bool isCustomerLogin, bool isOkTransaction)
         {
-            if (isCustomerLogin == true || isOkTransaction==false)
+            if (isCustomerLogin == true || isOkTransaction == false)
             {
                 lnkEdit.Visible = false;
-                btnDelete.Visible = false;
+                //btnDelete.Visible = false;
                 btnCancel.Visible = false;
             }
             else if (isMainportfolio == true)
@@ -181,14 +183,14 @@ namespace WealthERP.CustomerPortfolio
                 {
                     lnkEdit.Visible = true;
                     btnCancel.Visible = false;
-                    btnDelete.Visible = true;
-                    btnDelete.Enabled = false;
+                    //btnDelete.Visible = true;
+                    //btnDelete.Enabled = false;
                 }
                 else
                 {
                     lnkEdit.Visible = true;
-                    btnDelete.Visible = false;
-                    btnCancel.Visible = true;
+                    //btnDelete.Visible = false;
+                    btnCancel.Visible = false;
                     btnCancel.Enabled = false;
                 }
 
@@ -196,11 +198,11 @@ namespace WealthERP.CustomerPortfolio
             else
             {
                 lnkEdit.Visible = true;
-                btnDelete.Visible = true;
-                btnDelete.Enabled = false;
+                //btnDelete.Visible = true;
+                //btnDelete.Enabled = false;
 
             }
- 
+
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -213,7 +215,7 @@ namespace WealthERP.CustomerPortfolio
                 //DateTime tradeDate = new DateTime(year, month, day);
 
                 mfTransactionVo.TransactionDate = DateTime.Parse(txtTransactionDate.Text);
-                if(txtDividentRate.Text!="")
+                if (txtDividentRate.Text != "")
                     mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
                 mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
                 mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
@@ -247,7 +249,7 @@ namespace WealthERP.CustomerPortfolio
 
         private void SetFields(int i)
         {
-            
+
             if (i == 0)
             {
                 lblAMC.Enabled = false;
@@ -275,49 +277,51 @@ namespace WealthERP.CustomerPortfolio
                 dvNAV.Visible = false;
                 dvDividentRate.Visible = false;
                 dvTransactionDate.Visible = false;
+                btnDelete.Visible = false;
 
             }
             else
             {
 
-                    lblAMC.Enabled = true; 
-                    lblcategoryName.Enabled = true;
-                    lblScheme.Enabled = true;
-                    lblFolioNumber.Enabled = true;
-                    lblTransactionType.Enabled = true;
-                    txtTransactionDate.Enabled = true;
-                    txtDividentRate.Enabled = true;
-                    txtAmount.Enabled = true;
-                    txtNAV.Enabled = true;
-                    txtPrice.Enabled = true;
-                    txtSTT.Enabled = true;
-                    txtUnits.Enabled = true;
-                    btnSubmit.Visible = true;
+                lblAMC.Enabled = true;
+                lblcategoryName.Enabled = true;
+                lblScheme.Enabled = true;
+                lblFolioNumber.Enabled = true;
+                lblTransactionType.Enabled = true;
+                txtTransactionDate.Enabled = true;
+                txtDividentRate.Enabled = true;
+                txtAmount.Enabled = true;
+                txtNAV.Enabled = true;
+                txtPrice.Enabled = true;
+                txtSTT.Enabled = true;
+                txtUnits.Enabled = true;
+                btnSubmit.Visible = true;
 
-                    // Un-Hide the Validation Divs
-                    dvSTT.Visible = true;
-                    dvUnits.Visible = true;
-                    dvAmount.Visible = true;
-                    dvPrice.Visible = true;
-                    dvNAV.Visible = true;
-                    dvDividentRate.Visible = true;
-                    dvTransactionDate.Visible = true;
-               
+                // Un-Hide the Validation Divs
+                dvSTT.Visible = true;
+                dvUnits.Visible = true;
+                dvAmount.Visible = true;
+                dvPrice.Visible = true;
+                dvNAV.Visible = true;
+                dvDividentRate.Visible = true;
+                dvTransactionDate.Visible = true;
+                btnDelete.Visible = true;
+
             }
         }
         protected void txtAmount_TextChanged(object sender, EventArgs e)
         {
             bool istrue = RegularExpressionValidator4.IsValid;
             Regex regex = new Regex("^\\d*(\\.(\\d{0,4}))?$");
-            if(regex.IsMatch(txtAmount.Text))
-                txtUnits.Text = (Math.Round((double.Parse(txtAmount.Text) / double.Parse(txtPrice.Text)),4)).ToString();
+            if (regex.IsMatch(txtAmount.Text))
+                txtUnits.Text = (Math.Round((double.Parse(txtAmount.Text) / double.Parse(txtPrice.Text)), 4)).ToString();
         }
 
         protected void txtUnits_TextChanged(object sender, EventArgs e)
         {
             Regex regex = new Regex("^\\d*(\\.(\\d{0,4}))?$");
             if (regex.IsMatch(txtAmount.Text))
-                txtAmount.Text = Math.Round((double.Parse(txtPrice.Text) * double.Parse(txtUnits.Text)),4).ToString();
+                txtAmount.Text = Math.Round((double.Parse(txtPrice.Text) * double.Parse(txtUnits.Text)), 4).ToString();
         }
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
@@ -337,16 +341,16 @@ namespace WealthERP.CustomerPortfolio
                 txtPrice.Text = mfTransactionVo.Price.ToString();
                 txtSTT.Text = mfTransactionVo.STT.ToString();
                 txtUnits.Text = mfTransactionVo.Units.ToString("f4");
-                Session["MFEditValue"] = "Edit";              
+                Session["MFEditValue"] = "Edit";
                 lnkEdit.Visible = false;
                 if (btnDelete.Visible == true)
                 {
                     btnDelete.Enabled = true;
                 }
-                else if (btnCancel.Visible == true)
-                {
-                    btnCancel.Enabled = true;
-                }
+                //else if (btnCancel.Visible == true)
+                //{
+                //    btnCancel.Enabled = true;
+                //}
 
             }
 
@@ -381,7 +385,7 @@ namespace WealthERP.CustomerPortfolio
             int userId = ((UserVo)Session["userVo"]).UserId;
             try
             {
-                if(mfTransactionVo!=null)
+                if (mfTransactionVo != null)
                     customerTransactionBo.CancelMFTransaction(mfTransactionVo, userId);
                 btnCancel.Visible = false;
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
@@ -410,14 +414,40 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+
             CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
             int userId = ((UserVo)Session["userVo"]).UserId;
             try
             {
+
                 if (mfTransactionVo != null)
-                    customerTransactionBo.DeleteMFTransaction(mfTransactionVo);
-                btnCancel.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionsView','none');", true);
+                {
+                    if (mfTransactionVo.TransactionStatusCode == 1)
+                    {
+                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "confirm('Are you sure you want to delete transaction?');", true);
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage('1');", true);
+
+
+                    }
+                    else if (mfTransactionVo.TransactionStatusCode == 2)
+                    {
+                        if (!string.IsNullOrEmpty(mfTransactionVo.OriginalTransactionNumber))
+                        {
+                            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "confirm('Origional transaction not found.Please make sure if origional already deleted.Want to delete Cancel alone?');", true);
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage('2');", true);
+                        }
+                        else
+                        {
+                            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "confirm('Origional transaction will autometically deleted on deleting cancel.Want to delete?');", true);
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage('3');", true);
+                        }
+                    }
+                    else if (mfTransactionVo.TransactionStatusCode == 3)
+                    {
+                         Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage('4');", true);
+                    }
+                }
+
 
             }
             catch (BaseApplicationException Ex)
@@ -428,7 +458,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewMFTransaction.ascx:btnCancel_Click(object sender, EventArgs e)");
+                FunctionInfo.Add("Method", "ViewMFTransaction.ascx:btnDelete_Click(object sender, EventArgs e)");
                 object[] objects = new object[1];
                 objects[0] = mfTransactionVo;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -436,6 +466,19 @@ namespace WealthERP.CustomerPortfolio
                 ExceptionManager.Publish(exBase);
                 throw exBase;
 
+            }
+        }
+
+        protected void hdnDeleteTrnx_Click(object sender, EventArgs e)
+        {
+            int adviserId = 0;
+            if (advisorVo != null)
+                adviserId = advisorVo.advisorId;
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                customerTransactionBo.DeleteMFTransaction(mfTransactionVo, adviserId);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
             }
         }
 

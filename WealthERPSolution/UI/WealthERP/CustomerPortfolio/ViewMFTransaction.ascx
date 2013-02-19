@@ -18,6 +18,35 @@
         }
     }
 
+    function showmessage(val) {
+
+        if (val == '1') {
+            var bool = window.confirm('Are you sure you want to delete transaction?');
+        }
+        if (val == '3') {
+            var bool = window.confirm('Origional transaction not found.Please make sure if origional already deleted.Want to delete Cancel alone?');
+        }
+        if (val == '2') {
+            var bool = window.confirm('Origional transaction will autometically deleted on deleting cancel.Want to delete?');
+        }
+      
+        if (val == '4') {
+            var bool = window.confirm('Cancel transaction will autometically deleted on deleting origional.Want to delete?');
+        }
+
+        if (bool) {
+            document.getElementById("ctrl_ViewMFTransaction_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_ViewMFTransaction_hdnDeleteTrnx").click();
+
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_ViewMFTransaction_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_ViewMFTransaction_hdnDeleteTrnx").click();
+            return true;
+        }
+    }
+
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -264,12 +293,15 @@
                 OnClick="btnSubmit_Click" />
         </td>
         <td>                <asp:Button ID="btnDelete" runat="server" 
-                Text="Delete Transaction" CssClass="PCGLongButton" CausesValidation="True" Visible="false"
-                onclick="btnDelete_Click" OnClientClick="javascript: return confirm('Are you sure you want to Delete the Transaction?')"/>
+                Text="Delete Transaction" CssClass="PCGLongButton" CausesValidation="True" 
+                onclick="btnDelete_Click" />
         </td>
-       <td>                <asp:Button ID="btnCancel" runat="server" 
+       <td>                <asp:Button ID="btnCancel" runat="server"  Visible="false"
                 Text="Cancel Transaction" CssClass="PCGLongButton" CausesValidation="True"
                 onclick="btnCancel_Click" OnClientClick="javascript: return confirm('Are you sure you want to cancel the Transaction?')"/>
        </td>        
     </tr>
 </table>
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:Button ID="hdnDeleteTrnx" runat="server" 
+ BorderStyle="None" BackColor="Transparent" onclick="hdnDeleteTrnx_Click" />
