@@ -1691,12 +1691,18 @@ namespace WealthERP.Uploads
                                     bool TempletonSIPCommonStagingToWERP = false;
 
 
-                                    packagePath = Server.MapPath("\\UploadPackages\\TempletonSIPUpload\\SIPTempletonUpload\\SIPTempletonUpload\\xmlToInputToXtrnl.dtsx");
+                                    processlogVo.IsInsertionToInputComplete = 1;
+                                    processlogVo.IsInsertionToXtrnlComplete = 1;
+                                    processlogVo.EndTime = DateTime.Now;
+                                    processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                    packagePath = Server.MapPath("\\UploadPackages\\TempletonSIPUploadNewLatest\\TempletonSIPUploadNewLatest\\xmlToInputToXtrnl.dtsx");
                                     TempletonSIPInputResult = camsUploadsBo.TempletonSIPInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
                                     if (TempletonSIPInputResult)
                                     {
-                                        processlogVo.IsInsertionToInputComplete = 1;
-                                        processlogVo.IsInsertionToXtrnlComplete = 1;
+                                        processlogVo.IsInsertionToInputComplete = 2;
+                                        processlogVo.IsInsertionToXtrnlComplete = 2;
                                         processlogVo.EndTime = DateTime.Now;
                                         processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
                                         updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
@@ -1705,7 +1711,7 @@ namespace WealthERP.Uploads
 
 
 
-                                        packagePath = Server.MapPath("\\UploadPackages\\TempletonSIPUpload\\SIPTempletonUpload\\SIPTempletonUpload\\xtrnlToStagingAndCheck.dtsx");
+                                        packagePath = Server.MapPath("\\UploadPackages\\TempletonSIPUploadNewLatest\\TempletonSIPUploadNewLatest\\xtrnlToStagingAndCheck.dtsx");
                                         TempletonSIPStagingResult = camsUploadsBo.TempletonSIPInsertToStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
                                         if (TempletonSIPStagingResult)
                                         {
@@ -1725,7 +1731,7 @@ namespace WealthERP.Uploads
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                                 if (TempletonSIPCommonStagingChk)
                                                 {
-                                                    packagePath = Server.MapPath("\\UploadPackages\\TempletonSIPUpload\\SIPTempletonUpload\\SIPTempletonUpload\\commonStagingToFinalTable.dtsx");
+                                                    packagePath = Server.MapPath("\\UploadPackages\\TempletonSIPUploadNewLatest\\TempletonSIPUploadNewLatest\\commonStagingToFinalTable.dtsx");
                                                     TempletonSIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(UploadProcessId, packagePath, configPath);
 
                                                     if (TempletonSIPCommonStagingToWERP)
