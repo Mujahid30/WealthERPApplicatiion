@@ -1709,6 +1709,7 @@ namespace DaoCustomerPortfolio
                             mfSystematicVo.SwitchSchemePlanCode = 0;
                         if (dr["SwitchScheme"] != null)
                             mfSystematicVo.SwitchSchemePlanName = dr["SwitchScheme"].ToString();
+                        if (!string.IsNullOrEmpty(dr["CMFSS_SystematicDate"].ToString()))
                         mfSystematicVo.SystematicDay = int.Parse(dr["CMFSS_SystematicDate"].ToString());
                         mfSystematicVo.SystematicSetupId = int.Parse(dr["CMFSS_SystematicSetupId"].ToString());
                         mfSystematicVo.SystematicTypeCode = dr["XSTT_SystematicTypeCode"].ToString();
@@ -3963,6 +3964,7 @@ namespace DaoCustomerPortfolio
                 ds = db.ExecuteDataSet(getRMCustomerMFBalanceCmd);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
+  
                     dtGetMFBalance = ds.Tables[0];
                     mfBalanceList = new List<MFTransactionVo>();
                     foreach (DataRow dr in dtGetMFBalance.Rows)
