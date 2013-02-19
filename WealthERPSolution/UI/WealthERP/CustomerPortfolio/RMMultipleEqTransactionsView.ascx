@@ -300,6 +300,10 @@
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Transaction Status" DataField="TransactionStatus" UniqueName="TransactionStatus" SortExpression="TransactionStatus"
+                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
                             </Columns>
                         </MasterTableView>
                         <ClientSettings>

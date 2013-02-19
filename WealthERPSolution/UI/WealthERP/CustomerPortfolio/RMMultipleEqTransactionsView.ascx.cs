@@ -258,6 +258,7 @@ namespace WealthERP.CustomerPortfolio
                     dtEQTransactions.Columns.Add("GrossPrice", typeof(double));
                     dtEQTransactions.Columns.Add("Speculative Or Delivery");
                     dtEQTransactions.Columns.Add("Portfolio Name");
+                    dtEQTransactions.Columns.Add("TransactionStatus");
 
                     DataRow drEQTransaction;
 
@@ -293,6 +294,7 @@ namespace WealthERP.CustomerPortfolio
                         totalBrokerage += Convert.ToDouble(drEQTransaction["Brokerage"].ToString());
                         totalOtherCharges += Convert.ToDouble(drEQTransaction["OtherCharges"].ToString());
                         totalSTT += Convert.ToDouble(drEQTransaction["STT"].ToString());
+                        drEQTransaction["TransactionStatus"] = dtTransactions.Rows[i]["WTS_TransactionStatus"].ToString();
 
                     }
 
