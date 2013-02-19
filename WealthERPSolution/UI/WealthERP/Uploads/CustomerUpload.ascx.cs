@@ -1697,7 +1697,7 @@ namespace WealthERP.Uploads
                                     processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
                                     updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                    packagePath = Server.MapPath("\\UploadPackages\\TempletonSIPUploadNewLatest\\TempletonSIPUploadNewLatest\\xmlToInputToXtrnl.dtsx");
+                                    packagePath = Server.MapPath("\\UploadPackages\\TempSIPUpload\\TempSIPUpload\\InputTillXtrnl.dtsx");
                                     TempletonSIPInputResult = camsUploadsBo.TempletonSIPInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
                                     if (TempletonSIPInputResult)
                                     {
@@ -1711,7 +1711,7 @@ namespace WealthERP.Uploads
 
 
 
-                                        packagePath = Server.MapPath("\\UploadPackages\\TempletonSIPUploadNewLatest\\TempletonSIPUploadNewLatest\\xtrnlToStagingAndCheck.dtsx");
+                                        packagePath = Server.MapPath("\\UploadPackages\\TempSIPUpload\\TempSIPUpload\\xtrnlToStagingAndCheck.dtsx");
                                         TempletonSIPStagingResult = camsUploadsBo.TempletonSIPInsertToStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
                                         if (TempletonSIPStagingResult)
                                         {
@@ -1731,7 +1731,7 @@ namespace WealthERP.Uploads
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                                 if (TempletonSIPCommonStagingChk)
                                                 {
-                                                    packagePath = Server.MapPath("\\UploadPackages\\TempletonSIPUploadNewLatest\\TempletonSIPUploadNewLatest\\commonStagingToFinalTable.dtsx");
+                                                    packagePath = Server.MapPath("\\UploadPackages\\TempSIPUpload\\TempSIPUpload\\commonStagingToFinalTable.dtsx");
                                                     TempletonSIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(UploadProcessId, packagePath, configPath);
 
                                                     if (TempletonSIPCommonStagingToWERP)
