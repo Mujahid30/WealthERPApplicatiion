@@ -213,7 +213,7 @@
             <tr>
                 <td>
                     <telerik:RadGrid ID="gvMFTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
-                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
+                        PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
                         EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
                         ExportSettings-FileName="Equity transaction Details" ShowFooter="true" OnNeedDataSource="gvMFTransactions_OnNeedDataSource"
                         OnItemDataBound="gvMFTransactions_RowDataBound">
