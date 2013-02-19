@@ -277,7 +277,7 @@ namespace WealthERP.CustomerPortfolio
                 dvNAV.Visible = false;
                 dvDividentRate.Visible = false;
                 dvTransactionDate.Visible = false;
-                btnDelete.Visible = false;
+                btnDelete.Visible = true;
 
             }
             else
