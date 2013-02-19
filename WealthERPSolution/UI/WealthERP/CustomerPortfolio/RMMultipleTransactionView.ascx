@@ -303,7 +303,7 @@
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CMFT_SubBrokerCode" HeaderText="Sub-Broker Code"
-                                                            AllowFiltering="false" SortExpression="CMFT_SubBrokerCode" ShowFilterIcon="false"
+                                                            AllowFiltering="true" SortExpression="CMFT_SubBrokerCode" ShowFilterIcon="false"
                                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_SubBrokerCode"
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -551,7 +551,7 @@
                                                             FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Age" HeaderText="Age" AllowFiltering="false"
+                                                        <telerik:GridBoundColumn DataField="Age" HeaderText="Age(Days)" AllowFiltering="false"
                                                             HeaderStyle-Wrap="false" SortExpression="CMFTB_Age" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                             AutoPostBackOnFilter="true" UniqueName="CMFTB_Age" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -619,14 +619,19 @@
                                                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn ShowFilterIcon="false" DataField="customerName" HeaderText="Customer Name" HeaderStyle-Width="150px" 
-                                                            UniqueName="customerName" SortExpression="customerName" AutoPostBackOnFilter="true"
-                                                            >
+                                                            UniqueName="customerName" SortExpression="customerName" AutoPostBackOnFilter="true">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="Scheme" HeaderStyle-Width="450px" 
                                                             SortExpression="PASP_SchemePlanName" ItemStyle-Wrap="false" UniqueName="PASP_SchemePlanName"
                                                             AutoPostBackOnFilter="true" FilterControlWidth="280px">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="CMFTCSU_SubBroker" HeaderText="Sub-Broker Code"
+                                                            AllowFiltering="true" SortExpression="CMFTCSU_SubBroker" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFTCSU_SubBroker"
+                                                            FooterStyle-HorizontalAlign="Left">
+                                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Units" HeaderStyle-Width="100px"  FooterStyle-HorizontalAlign="Right"
                                                             HeaderText='Units' ItemStyle-Wrap="false" Aggregate="Sum" DataFormatString="{0:N0}"
@@ -666,7 +671,7 @@
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
                                                         <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_TrailFee" HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right"
-                                                            HeaderText="Trail Fee" UniqueName="CMFTCSU_TrailFee" Aggregate="Sum" DataFormatString="{0:N0}">
+                                                            HeaderText="Trail Fee" UniqueName="CMFTCSU_TrailFee" Aggregate="Sum" DataFormatString="{0:N2}">
                                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
