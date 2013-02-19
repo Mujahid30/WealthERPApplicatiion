@@ -43,7 +43,8 @@ namespace VoCustomerPortfolio
         private int m_TransactionCode;
         private string m_TransactionType;
         private int m_IsSourceManual;       
-         private long m_TradeNum;
+        private long m_TradeNum;
+        private string m_TransactionStatus;
 
         
         #endregion fields
@@ -239,6 +240,11 @@ namespace VoCustomerPortfolio
         {
             get { return m_TransactionType; }
             set { m_TransactionType = value; }
+        }
+        public string TransactionStatus
+        {
+            get { return m_TransactionStatus; }
+            set { m_TransactionStatus = value; }
         }
 
         #endregion properties
