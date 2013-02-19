@@ -256,6 +256,7 @@ namespace WealthERP.CustomerPortfolio
                     dtEquityTransactions.Columns.Add("Brokerage", typeof(double));
                     dtEquityTransactions.Columns.Add("TradeTotal", typeof(double));
                     dtEquityTransactions.Columns.Add("OtherCharges", typeof(double));
+                    dtEquityTransactions.Columns.Add("TransactionStatus");
 
                     //dtTradeDate.Columns.Add("TransactionId");
                     //dtTradeDate.Columns.Add("TradeDate");
@@ -270,9 +271,9 @@ namespace WealthERP.CustomerPortfolio
 
                         equityTransactionVo = new EQTransactionVo();
                         equityTransactionVo = equityTransactionList[i];
-                        drEquityTransaction[0] = equityTransactionVo.TransactionId.ToString();
-                        drEquityTransaction[1] = equityTransactionVo.TradeAccountNum.ToString();
-                        drEquityTransaction[2] = equityTransactionVo.ScripName.ToString();
+                        drEquityTransaction["TransactionId"] = equityTransactionVo.TransactionId.ToString();
+                        drEquityTransaction["TradeAccountNum"] = equityTransactionVo.TradeAccountNum.ToString();
+                        drEquityTransaction["Scheme Name"] = equityTransactionVo.ScripName.ToString();
 
                         if (equityTransactionVo.TradeType.ToString() == "D")
                         {
@@ -284,15 +285,16 @@ namespace WealthERP.CustomerPortfolio
                             //drEquityTransaction[2] = "Speculation";
                             mode = "Speculation";
                         }
-                        drEquityTransaction[3] = equityTransactionVo.TransactionType + "/" + mode;
-                        drEquityTransaction[4] = equityTransactionVo.Exchange.ToString();
+                        drEquityTransaction["Transaction Type"] = equityTransactionVo.TransactionType + "/" + mode;
+                        drEquityTransaction["Exchange"] = equityTransactionVo.Exchange.ToString();
                         //  dsExange.Tables[0].Rows[i][0] = equityTransactionVo.Exchange;
-                        drEquityTransaction[5] = equityTransactionVo.TradeDate.ToShortDateString().ToString();
-                        drEquityTransaction[6] = decimal.Parse(equityTransactionVo.Rate.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        drEquityTransaction[7] = equityTransactionVo.Quantity.ToString("f0");
-                        drEquityTransaction[8] = (decimal.Parse(equityTransactionVo.Brokerage.ToString()) * decimal.Parse(equityTransactionVo.Quantity.ToString("f0").ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        drEquityTransaction[9] = decimal.Parse(equityTransactionVo.TradeTotal.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        drEquityTransaction[10] = (decimal.Parse(equityTransactionVo.OtherCharges.ToString()) * decimal.Parse(equityTransactionVo.Quantity.ToString("f0").ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drEquityTransaction["TradeDate"] = equityTransactionVo.TradeDate.ToShortDateString().ToString();
+                        drEquityTransaction["Rate"] = decimal.Parse(equityTransactionVo.Rate.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drEquityTransaction["Quantity"] = equityTransactionVo.Quantity.ToString("f0");
+                        drEquityTransaction["Brokerage"] = (decimal.Parse(equityTransactionVo.Brokerage.ToString()) * decimal.Parse(equityTransactionVo.Quantity.ToString("f0").ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drEquityTransaction["TradeTotal"] = decimal.Parse(equityTransactionVo.TradeTotal.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drEquityTransaction["OtherCharges"] = (decimal.Parse(equityTransactionVo.OtherCharges.ToString()) * decimal.Parse(equityTransactionVo.Quantity.ToString("f0").ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drEquityTransaction["TransactionStatus"] = equityTransactionVo.TransactionStatus.ToString();
 
 
                         dtEquityTransactions.Rows.Add(drEquityTransaction);

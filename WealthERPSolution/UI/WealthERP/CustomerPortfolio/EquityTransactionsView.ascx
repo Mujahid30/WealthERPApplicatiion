@@ -178,7 +178,7 @@
         <tr>
             <td>--%>
         <telerik:RadGrid ID="gvEquityTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
-            PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+            PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
             Skin="Telerik" EnableEmbeddedSkins="false" Width="1090px" AllowFilteringByColumn="true"
             AllowAutomaticInserts="false" ExportSettings-FileName="Equity Transaction Details"
             OnNeedDataSource="gvEquityTransactions_OnNeedDataSource">
@@ -251,6 +251,11 @@
                         DataFormatString="{0:N2}" Aggregate="Sum">
                         <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         <FooterStyle />
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn HeaderText="Transaction Status" DataField="TransactionStatus" UniqueName="TransactionStatus"
+                        SortExpression="TransactionStatus" AutoPostBackOnFilter="true" AllowFiltering="true" CurrentFilterFunction="Contains"
+                        ShowFilterIcon="false">
+                        <ItemStyle Width="50px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                     </telerik:GridBoundColumn>
                 </Columns>
             </MasterTableView>
