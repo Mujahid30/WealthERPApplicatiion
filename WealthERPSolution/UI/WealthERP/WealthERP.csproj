@@ -6251,6 +6251,8 @@
     <Content Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.dtproj.user" />
     <Content Include="UploadPackages\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest.sln" />
     <Content Include="UploadPackages\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest.dtproj.user" />
+    <Content Include="UploadPackages\TempSIPUpload\TempSIPUpload.sln" />
+    <Content Include="UploadPackages\TempSIPUpload\TempSIPUpload\TempSIPUpload.dtproj.user" />
     <Content Include="UploadPackages\TrailCommisionUploadPackage\TrailCommissionUpload\TrailCommissionUpload.sln" />
     <Content Include="UploadPackages\TrailCommisionUploadPackage\TrailCommissionUpload\TrailCommissionUpload\TrailCommissionUpload.dtproj.user" />
     <Content Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.sln" />
@@ -7232,6 +7234,11 @@
     <None Include="UploadPackages\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest.dtproj" />
     <None Include="UploadPackages\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest\xmlToInputToXtrnl.dtsx" />
     <None Include="UploadPackages\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest\xtrnlToStagingAndCheck.dtsx" />
+    <None Include="UploadPackages\TempSIPUpload\TempSIPUpload\CommonToWerp.dtsx" />
+    <None Include="UploadPackages\TempSIPUpload\TempSIPUpload\InputTillXtrnl.dtsx" />
+    <None Include="UploadPackages\TempSIPUpload\TempSIPUpload\StagingTillCommon.dtsx" />
+    <None Include="UploadPackages\TempSIPUpload\TempSIPUpload\TempSIPUpload.database" />
+    <None Include="UploadPackages\TempSIPUpload\TempSIPUpload\TempSIPUpload.dtproj" />
     <None Include="UploadPackages\TrailCommisionUploadPackage\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage.database" />
     <None Include="UploadPackages\TrailCommisionUploadPackage\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage.dtproj" />
     <None Include="UploadPackages\TrailCommisionUploadPackage\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\UploadChecksOnTempletonStaging.dtsx" />
