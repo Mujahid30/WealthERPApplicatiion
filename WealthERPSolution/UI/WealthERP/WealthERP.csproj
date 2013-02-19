@@ -7161,6 +7161,9 @@
     <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadStandardTransactionStagingtoCommonStaging.dtsx" />
     <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadSystematicTransationInputToStaging.dtsx" />
     <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadSystematicTransationXMLToInput.dtsx" />
+    <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\bin\SUcommonStagingToFinalTable.dtsx" />
+    <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\bin\SUxmlToInputToXtrnl.dtsx" />
+    <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\bin\SUxtrnlToStagingAndCheck.dtsx" />
     <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\SIPSundaramUpload.database" />
     <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\SIPSundaramUpload.dtproj" />
     <None Include="UploadPackages\SIPSundaramUpload\SIPSundaramUpload\SUcommonStagingToFinalTable.dtsx" />
@@ -7224,6 +7227,9 @@
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadTempDataTranslationChecksFirstStaging.dtsx" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadTempletonProfileDataFromFileToInput.dtsx" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadTempXtrnlProfileInputToXtrnlProfileStaging.dtsx" />
+    <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\bin\commonStagingToFinalTable.dtsx" />
+    <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\bin\xmlToInputToXtrnl.dtsx" />
+    <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\bin\xtrnlToStagingAndCheck.dtsx" />
     <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\commonStagingToFinalTable.dtsx" />
     <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\SIPTempletonUpload.database" />
     <None Include="UploadPackages\TempletonSIPUpload\SIPTempletonUpload\SIPTempletonUpload\SIPTempletonUpload.dtproj" />
