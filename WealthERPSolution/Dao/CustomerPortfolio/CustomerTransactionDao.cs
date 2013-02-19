@@ -253,12 +253,13 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
                         if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
-                            eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());                      
+                            eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
 
                         eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
                         eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
                         eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
                         eqTransactionVo.IsCorpAction = int.Parse(dr["WETT_IsCorpAxn"].ToString());
+                        eqTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
                         eqTransactionsList.Add(eqTransactionVo);
                     }
                 }
@@ -387,7 +388,7 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
                         if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
-                         eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+                            eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
                         eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
                         eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
                         eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
@@ -479,7 +480,7 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
                         if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
-                         eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+                            eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
                         eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
                         eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
                         eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
@@ -578,12 +579,13 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
                         if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
-                          eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
-                        
+                            eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+
                         eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
                         eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
                         eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
                         eqTransactionVo.IsCorpAction = int.Parse(dr["WETT_IsCorpAxn"].ToString());
+                        eqTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
 
                         eqTransactionsList.Add(eqTransactionVo);
                     }
@@ -668,7 +670,7 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
                         if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
-                          eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+                            eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
                         eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
                         eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
                         //eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
@@ -773,7 +775,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateEQTransactionCmd, "@CET_IsSplit", DbType.Int16, eqTransactionVo.IsSplit);
                 db.AddInParameter(updateEQTransactionCmd, "@CET_SplitCustEqTransId", DbType.Int32, eqTransactionVo.SplitTransactionId);
                 db.AddInParameter(updateEQTransactionCmd, "@XES_SourceCode", DbType.String, eqTransactionVo.SourceCode);
-                db.AddInParameter(updateEQTransactionCmd, "@WETT_TransactionCode", DbType.Int16, eqTransactionVo.TransactionCode);               
+                db.AddInParameter(updateEQTransactionCmd, "@WETT_TransactionCode", DbType.Int16, eqTransactionVo.TransactionCode);
                 db.AddInParameter(updateEQTransactionCmd, "@CET_IsSourceManual", DbType.Int16, eqTransactionVo.IsSourceManual);
                 db.AddInParameter(updateEQTransactionCmd, "@CET_ModifiedBy", DbType.String, userId);
                 if (db.ExecuteNonQuery(updateEQTransactionCmd) != 0)
@@ -1053,7 +1055,7 @@ namespace DaoCustomerPortfolio
             return transactionId;
         }
 
-        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId,DateTime FromDate, DateTime ToDate)
+        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId, DateTime FromDate, DateTime ToDate)
         {
             List<MFTransactionVo> mfTransactionsList = null;
             MFTransactionVo mfTransactionVo = new MFTransactionVo();
@@ -1146,7 +1148,7 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
                         mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
                         if (!string.IsNullOrEmpty(dr["CMFT_IsSourceManual"].ToString()))
-                        mfTransactionVo.IsSourceManual = int.Parse(dr["CMFT_IsSourceManual"].ToString());
+                            mfTransactionVo.IsSourceManual = int.Parse(dr["CMFT_IsSourceManual"].ToString());
                         mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
                         mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
                         mfTransactionVo.TransactionClassificationCode = dr["WMTT_TransactionClassificationCode"].ToString();
@@ -1169,6 +1171,8 @@ namespace DaoCustomerPortfolio
                             mfTransactionVo.TransactionStatusCode = 1;
 
                         }
+                        if (!string.IsNullOrEmpty(dr["CMFT_OriginalTransactionNumber"].ToString()))
+                            mfTransactionVo.OriginalTransactionNumber = dr["CMFT_OriginalTransactionNumber"].ToString();
                         mfTransactionsList.Add(mfTransactionVo);
                     }
                 }
@@ -1295,7 +1299,7 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
                         mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
                         if (!string.IsNullOrEmpty(dr["CMFT_IsSourceManual"].ToString()))
-                        mfTransactionVo.IsSourceManual = int.Parse(dr["CMFT_IsSourceManual"].ToString());
+                            mfTransactionVo.IsSourceManual = int.Parse(dr["CMFT_IsSourceManual"].ToString());
                         mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
                         mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
                         mfTransactionVo.TransactionClassificationCode = dr["WMTT_TransactionClassificationCode"].ToString();
@@ -2089,7 +2093,7 @@ namespace DaoCustomerPortfolio
         }
 
 
-        public bool DeleteMFTransaction(MFTransactionVo mfTransactionVo)
+        public bool DeleteMFTransaction(MFTransactionVo mfTransactionVo, int adviserId)
         {
             bool bResult = false;
             Database db;
@@ -2098,8 +2102,13 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 DeleteMFTransactionCmd = db.GetStoredProcCommand("SP_DeleteMFTransaction");
-
+                db.AddInParameter(DeleteMFTransactionCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(DeleteMFTransactionCmd, "@cmftTransactionId", DbType.Int32, mfTransactionVo.TransactionId);
+                db.AddInParameter(DeleteMFTransactionCmd, "@CustomerId", DbType.Int32, mfTransactionVo.CustomerId);
+                db.AddInParameter(DeleteMFTransactionCmd, "@SchemeCode", DbType.Int32, mfTransactionVo.MFCode);
+                db.AddInParameter(DeleteMFTransactionCmd, "@accountId", DbType.Int32, mfTransactionVo.AccountId);
+                db.AddInParameter(DeleteMFTransactionCmd, "@OriginalTrnxNo", DbType.String, mfTransactionVo.TransactionId);
+                db.AddInParameter(DeleteMFTransactionCmd, "@stausCode", DbType.Int16, mfTransactionVo.TransactionStatusCode);
 
                 db.ExecuteNonQuery(DeleteMFTransactionCmd);
                 bResult = true;
@@ -2286,7 +2295,7 @@ namespace DaoCustomerPortfolio
         /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
         /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
         /// <returns></returns>
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly,int SchemePlanCode)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode)
         {
             DataSet ds = null;
             Database db;
@@ -2308,7 +2317,7 @@ namespace DaoCustomerPortfolio
                 //}
                 //else
                 //{
-                    getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetRMCustomerMFTransactions");
+                getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetRMCustomerMFTransactions");
                 //}
 
                 if (RMId != 0)
@@ -2438,7 +2447,7 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
                         mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
-                      if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
+                        if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
                         {
                             mfTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
                             mfTransactionVo.TransactionStatusCode = int.Parse(dr["WTS_TransactionStatusCode"].ToString());
@@ -2449,8 +2458,8 @@ namespace DaoCustomerPortfolio
                             mfTransactionVo.TransactionStatusCode = 1;
 
                         }
-                      if (!string.IsNullOrEmpty(dr["CMFT_ExternalBrokerageAmount"].ToString()))
-                          mfTransactionVo.BrokerageAmount = float.Parse(dr["CMFT_ExternalBrokerageAmount"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CMFT_ExternalBrokerageAmount"].ToString()))
+                            mfTransactionVo.BrokerageAmount = float.Parse(dr["CMFT_ExternalBrokerageAmount"].ToString());
 
                         mfTransactionsList.Add(mfTransactionVo);
                     }
@@ -2530,7 +2539,7 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
 
                 getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetRMCustomerTrailCommission");
-                
+
                 if (RMId != 0)
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RMId", DbType.Int32, RMId);
                 else
@@ -2551,7 +2560,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, DBNull.Value);
                 }
 
-                
+
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
@@ -2559,9 +2568,9 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, AccountId);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, DBNull.Value);
-              
 
-               
+
+
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
 
@@ -2689,7 +2698,7 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.NAV = float.Parse(dr["CMFT_NAV"].ToString());
                         mfTransactionVo.Price = float.Parse(dr["CMFT_Price"].ToString());
                         mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
-                        mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());                     
+                        mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
                         mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
                         mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
                         mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
@@ -2987,7 +2996,7 @@ namespace DaoCustomerPortfolio
                     {
                         string jointHolderName = "";
                         AccountVo = new CustomerAccountsVo();
-                        AccountVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());                      
+                        AccountVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
                         AccountVo.AccountNum = dr["CMFA_FolioNum"].ToString();
                         if (dr["ADUL_ProcessId"].ToString() == null || dr["ADUL_ProcessId"].ToString() == "")
                         {
@@ -3002,17 +3011,17 @@ namespace DaoCustomerPortfolio
                         else
                             AccountVo.AccountOpeningDate = DateTime.MinValue;
 
-                        if (dr["PA_AMCCode"].ToString() != string.Empty)                         
-                        AccountVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
-                        if (dr["PA_AMCName"].ToString() != string.Empty) 
-                        AccountVo.AMCName = dr["PA_AMCName"].ToString();
+                        if (dr["PA_AMCCode"].ToString() != string.Empty)
+                            AccountVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        if (dr["PA_AMCName"].ToString() != string.Empty)
+                            AccountVo.AMCName = dr["PA_AMCName"].ToString();
                         //AccountVo.Name = dr["CMFA_INV_NAME"].ToString(); // to capture the original cosumer name
 
-                        if (dr["XMOH_ModeOfHolding"].ToString() != string.Empty) 
-                        AccountVo.ModeOfHolding = dr["XMOH_ModeOfHolding"].ToString();
-                        if (dr["XMOH_ModeOfHoldingCode"].ToString() != string.Empty) 
-                        
-                        AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
+                        if (dr["XMOH_ModeOfHolding"].ToString() != string.Empty)
+                            AccountVo.ModeOfHolding = dr["XMOH_ModeOfHolding"].ToString();
+                        if (dr["XMOH_ModeOfHoldingCode"].ToString() != string.Empty)
+
+                            AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
                         if (AccountVo.ModeOfHoldingCode == "JO")
                         {
                             drJointHolder = ds.Tables[2].Select("CMFA_AccountId=" + AccountVo.AccountId + "AND CMFAA_AssociationType =" + "'" + "Joint Holder" + "'");
@@ -3066,8 +3075,8 @@ namespace DaoCustomerPortfolio
         {
 
             CustomerAccountsVo AccountVo = new CustomerAccountsVo();
-            CustomerBankAccountVo CustomerBankAccountVo =new CustomerBankAccountVo();
-            
+            CustomerBankAccountVo CustomerBankAccountVo = new CustomerBankAccountVo();
+
 
             Database db;
             DbCommand getMFTransactionCmd;
@@ -3093,8 +3102,8 @@ namespace DaoCustomerPortfolio
                         AccountVo.AccountOpeningDate = DateTime.Parse(dr["CMFA_AccountOpeningDate"].ToString());
                     else
                         AccountVo.AccountOpeningDate = DateTime.MinValue;
-                    if(!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString()))
-                    AccountVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString()))
+                        AccountVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
                     Int32.TryParse(dr["CB_CustPrimaryBankAccId"].ToString(), out bankId);
                     if (dr["CMFA_IsJointlyHeld"].ToString() != string.Empty)
                         AccountVo.IsJointHolding = int.Parse(dr["CMFA_IsJointlyHeld"].ToString());
@@ -3108,7 +3117,7 @@ namespace DaoCustomerPortfolio
                     AccountVo.CAddress3 = dr["CMGCXP_ADDRESS3"].ToString();
                     AccountVo.CCity = dr["CMGCXP_CITY"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMGCXP_PINCODE"].ToString()))
-                    AccountVo.CPinCode = int.Parse(dr["CMGCXP_PINCODE"].ToString());
+                        AccountVo.CPinCode = int.Parse(dr["CMGCXP_PINCODE"].ToString());
                     AccountVo.JointName1 = dr["CMGCXP_JOINT_NAME1"].ToString();
                     AccountVo.JointName2 = dr["CMGCXP_JOINT_NAME2"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMGCXP_PHONE_OFF"].ToString()))
@@ -3130,10 +3139,10 @@ namespace DaoCustomerPortfolio
 
 
                     if (!string.IsNullOrEmpty(dr["CMGCXP_DOB"].ToString()))
-                    AccountVo.CDOB = DateTime.Parse(dr["CMGCXP_DOB"].ToString());                    
+                        AccountVo.CDOB = DateTime.Parse(dr["CMGCXP_DOB"].ToString());
 
                 }
-                
+
                 if (dsGetMFTransaction.Tables[1].Rows.Count > 0)
                 {
                     dr1 = dsGetMFTransaction.Tables[1].Rows[0];
@@ -3141,20 +3150,20 @@ namespace DaoCustomerPortfolio
                     AccountVo.BankAccountNum = dr1["CB_AccountNum"].ToString();
                     AccountVo.ModeOfOperation = dr1["XMOH_ModeOfHoldingCode"].ToString();
                     if (!string.IsNullOrEmpty(dr1["WERPBDTM_BankName"].ToString()))
-                    AccountVo.BankName = dr1["WERPBDTM_BankName"].ToString();
+                        AccountVo.BankName = dr1["WERPBDTM_BankName"].ToString();
                     AccountVo.BranchName = dr1["CB_BranchName"].ToString();
                     AccountVo.BranchAdrLine1 = dr1["CB_BranchAdrLine1"].ToString();
                     AccountVo.BranchAdrLine2 = dr1["CB_BranchAdrLine2"].ToString();
                     AccountVo.BranchAdrLine3 = dr1["CB_BranchAdrLine3"].ToString();
                     AccountVo.BranchAdrCity = dr1["CB_BranchAdrCity"].ToString();
                     if (!string.IsNullOrEmpty(dr1["CB_BranchAdrPinCode"].ToString()))
-                    AccountVo.BranchAdrPinCode = int.Parse(dr1["CB_BranchAdrPinCode"].ToString());
+                        AccountVo.BranchAdrPinCode = int.Parse(dr1["CB_BranchAdrPinCode"].ToString());
                     if (!string.IsNullOrEmpty(dr1["CB_MICR"].ToString()))
-                    AccountVo.MICR = int.Parse(dr1["CB_MICR"].ToString());
+                        AccountVo.MICR = int.Parse(dr1["CB_MICR"].ToString());
                     if (!string.IsNullOrEmpty(dr1["CB_IFSC"].ToString()))
-                    AccountVo.IFSC = dr1["CB_IFSC"].ToString();
+                        AccountVo.IFSC = dr1["CB_IFSC"].ToString();
                 }
-  
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -3186,7 +3195,7 @@ namespace DaoCustomerPortfolio
             bool blResult = false;
             Database db;
             DbCommand updateMFFolioDetailsCmd;
-            try 
+            try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateMFFolioDetailsCmd = db.GetStoredProcCommand("SP_UpdateCustomerMFFolioDetails");
@@ -3199,7 +3208,7 @@ namespace DaoCustomerPortfolio
                 else
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@XMOH_ModeOfHoldingCode", DbType.String, AccountVo.ModeOfHoldingCode);
-                
+
 
                 #region newly added
                 db.AddInParameter(updateMFFolioDetailsCmd, "@CP_PortfolioId", DbType.Int32, AccountVo.PortfolioId);
@@ -3240,7 +3249,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_BROKERCODE", DbType.String, DBNull.Value);
                 }
 
-                if (AccountVo.XCT_CustomerTypeCode!=null && AccountVo.XCT_CustomerTypeCode!="0")
+                if (AccountVo.XCT_CustomerTypeCode != null && AccountVo.XCT_CustomerTypeCode != "0")
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@XCT_CustomerTypeCode", DbType.String, AccountVo.XCT_CustomerTypeCode);
                 }
@@ -3249,7 +3258,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(updateMFFolioDetailsCmd, "@XCT_CustomerTypeCode", DbType.String, DBNull.Value);
                 }
 
-                if (AccountVo.XCST_CustomerSubTypeCode!="0")
+                if (AccountVo.XCST_CustomerSubTypeCode != "0")
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@XCST_CustomerSubTypeCode", DbType.String, AccountVo.XCST_CustomerSubTypeCode);
                 }
@@ -3316,7 +3325,7 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_JOINT_NAME2", DbType.String, DBNull.Value);
                 }
-                if (AccountVo.CPhoneOffice!=0)
+                if (AccountVo.CPhoneOffice != 0)
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, AccountVo.CPhoneOffice);
                 }
@@ -3479,7 +3488,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CB_IFSC", DbType.String, DBNull.Value);
                 }
 
-               
+
                 #endregion
 
 
@@ -3924,7 +3933,7 @@ namespace DaoCustomerPortfolio
             List<MFTransactionVo> mfBalanceList = new List<MFTransactionVo>();
             MFTransactionVo mfBalanceVo = new MFTransactionVo();
             DataTable dtGetMFBalance;
-           
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -3969,7 +3978,7 @@ namespace DaoCustomerPortfolio
                     mfBalanceList = new List<MFTransactionVo>();
                     foreach (DataRow dr in dtGetMFBalance.Rows)
                     {
-                        mfBalanceVo = new MFTransactionVo();                       
+                        mfBalanceVo = new MFTransactionVo();
                         if (dr["PAISC_AssetInstrumentSubCategoryName"].ToString() != null && dr["PAISC_AssetInstrumentSubCategoryName"].ToString() != string.Empty)
                             mfBalanceVo.SubCategoryName = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
                         else
@@ -3991,14 +4000,14 @@ namespace DaoCustomerPortfolio
                         mfBalanceVo.TransactionClassificationCode = dr["WMTT_TransactionClassificationCode"].ToString();
                         mfBalanceVo.TransactionType = dr["WMTT_TransactionClassificationName"].ToString();
                         mfBalanceVo.Folio = dr["CMFA_FolioNum"].ToString();
-                        mfBalanceVo.Age =  int.Parse(dr["CMFTB_Age"].ToString());
+                        mfBalanceVo.Age = int.Parse(dr["CMFTB_Age"].ToString());
                         mfBalanceVo.Balance = double.Parse(dr["ABS_Return"].ToString());
                         mfBalanceVo.CurrentValue = double.Parse(dr["CMFTB_CurrentValue"].ToString());
                         mfBalanceVo.NAV = float.Parse(dr["NAV"].ToString());
                         mfBalanceList.Add(mfBalanceVo);
                     }
                 }
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -4037,7 +4046,7 @@ namespace DaoCustomerPortfolio
             //}
             return mfBalanceList;
         }
-       
+
 
     }
 }
