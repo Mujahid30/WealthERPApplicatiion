@@ -47,14 +47,14 @@
                         </asp:DropDownList>
                     </td>
                     <td id="Td3" runat="server">
-                        <asp:Label ID="lblReportType" runat="server" CssClass="FieldName" Text="View:"></asp:Label>
+                        <asp:Label ID="lblReportType" runat="server" CssClass="FieldName" Text="Exceptions:"></asp:Label>
                     </td>
                     <td id="Td4" runat="server">
                         <asp:DropDownList ID="ddlViewType" runat="server" CssClass="cmbLongField" AutoPostBack="True"
                             OnSelectedIndexChanged="ddlViewType_SelectedIndexChanged">
                             <asp:ListItem Text="All" Value="ALL" Selected="True"></asp:ListItem>
-                            <asp:ListItem Text="Actual Transactions Not Found" Value="NAT"></asp:ListItem>
-                            <asp:ListItem Text="Systematic Transactions Not Found" Value="NST"></asp:ListItem>
+                            <asp:ListItem Text="SIP Transactios not found in the feed" Value="NAT"></asp:ListItem>
+                            <asp:ListItem Text="SIP set up found missing" Value="NST"></asp:ListItem>
                         </asp:DropDownList>
                     </td>
                 </tr>
