@@ -38,7 +38,7 @@ namespace BoCustomerPortfolio
                 FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetCustomerMFFolios()");
                 object[] objects = new object[2];
                 objects[0] = PortfolioId;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -119,7 +119,7 @@ namespace BoCustomerPortfolio
             return id;
         }
 
-        public List<EQTransactionVo> GetEquityTransactions( int customerId,int portfolioId,DateTime FromDate, DateTime ToDate)
+        public List<EQTransactionVo> GetEquityTransactions(int customerId, int portfolioId, DateTime FromDate, DateTime ToDate)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
 
@@ -191,14 +191,14 @@ namespace BoCustomerPortfolio
             return eqTransactionsList;
         }
 
-        public List<EQTransactionVo> GetEquityTransactions(int customerId, int portfolioId, int eqCode, DateTime tradeDate,int accountId)
+        public List<EQTransactionVo> GetEquityTransactions(int customerId, int portfolioId, int eqCode, DateTime tradeDate, int accountId)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
 
             List<EQTransactionVo> eqTransactionsList = new List<EQTransactionVo>();
             try
             {
-                eqTransactionsList = customerTransactionDao.GetEquityTransactions(customerId, portfolioId, eqCode, tradeDate,accountId);
+                eqTransactionsList = customerTransactionDao.GetEquityTransactions(customerId, portfolioId, eqCode, tradeDate, accountId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -441,7 +441,7 @@ namespace BoCustomerPortfolio
 
                 object[] objects = new object[1];
                 objects[0] = bResult;
-                
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -489,7 +489,7 @@ namespace BoCustomerPortfolio
             return transactionId;
         }
 
-        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId,DateTime FromDate, DateTime ToDate)
+        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId, DateTime FromDate, DateTime ToDate)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
 
@@ -500,7 +500,7 @@ namespace BoCustomerPortfolio
 
             try
             {
-                mfTransactionsList = customerTransactionDao.GetMFTransactions(customerId, portfolioId,FromDate, ToDate);
+                mfTransactionsList = customerTransactionDao.GetMFTransactions(customerId, portfolioId, FromDate, ToDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -640,7 +640,7 @@ namespace BoCustomerPortfolio
             List<MFTransactionVo> mfTransactionsList = new List<MFTransactionVo>();
             try
             {
-                mfTransactionsList = customerTransactionDao.GetMFRejectTransactions(portfolioId,adviserId);
+                mfTransactionsList = customerTransactionDao.GetMFRejectTransactions(portfolioId, adviserId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -655,7 +655,7 @@ namespace BoCustomerPortfolio
 
 
                 object[] objects = new object[2];
-               
+
                 objects[0] = portfolioId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -701,12 +701,12 @@ namespace BoCustomerPortfolio
             return mfTransactionsList;
         }
 
-        public List<MFSystematicTransactionReportVo> GetMFSystematicTransactionsReport(int adviserId, DateTime fromDate, DateTime toDate,string customerSearch,string schemeSearch,string transType,string portfolioType,out List<string> transactionTypeList)
+        public List<MFSystematicTransactionReportVo> GetMFSystematicTransactionsReport(int adviserId, DateTime fromDate, DateTime toDate, string customerSearch, string schemeSearch, string transType, string portfolioType, out List<string> transactionTypeList)
         {
             List<MFSystematicVo> mfSystematicVoList = new List<MFSystematicVo>();
             List<MFSystematicTransactionVo> mfSystematicTransactionVoList = new List<MFSystematicTransactionVo>();
             List<MFSystematicTransactionReportVo> mfSystematicTransactionReportVoList = new List<MFSystematicTransactionReportVo>();
-            MFSystematicTransactionReportVo mfSystematicTransactionReportVo=new MFSystematicTransactionReportVo();
+            MFSystematicTransactionReportVo mfSystematicTransactionReportVo = new MFSystematicTransactionReportVo();
             DateTime TransDate = new DateTime();
             List<string> originalTransTypeList = new List<string>();
             List<string> sysTransTypeList = new List<string>();
@@ -736,7 +736,7 @@ namespace BoCustomerPortfolio
                     transactionTypeList = originalTransTypeList;
                 }
 
-                
+
 
                 #region Systematic Transaction Generation and Matching Original Transactions
                 if (mfSystematicVoList != null)
@@ -791,13 +791,13 @@ namespace BoCustomerPortfolio
                                 }
                                 else
                                 {
-                                    if(mfSystematicVoList[i].SystematicDay==31)
+                                    if (mfSystematicVoList[i].SystematicDay == 31)
                                         TransDate = new DateTime(tempTransStartDate.Year, tempTransStartDate.Month, 1).AddMonths(1).AddDays(-1);
-                                    else if ((mfSystematicVoList[i].SystematicDay == 30 || mfSystematicVoList[i].SystematicDay==29)&& tempTransStartDate.Month == 2)
+                                    else if ((mfSystematicVoList[i].SystematicDay == 30 || mfSystematicVoList[i].SystematicDay == 29) && tempTransStartDate.Month == 2)
                                         TransDate = new DateTime(tempTransStartDate.Year, tempTransStartDate.Month, 1).AddMonths(1).AddDays(-1);
                                     else
                                         TransDate = new DateTime(tempTransStartDate.Year, tempTransStartDate.Month, mfSystematicVoList[i].SystematicDay);
- 
+
                                 }
                             }
                             //For Daily, Weekly and FortNightly Frequency
@@ -874,7 +874,7 @@ namespace BoCustomerPortfolio
                                                 && mfSystematicTransactionReportVo.SchemePlanCode == mfSystematicTransactionVoList[j].SchemePlanCode
                                                 //&& (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate)
                                                 && (((mfSystematicTransactionVoList[j].TransactionDate >= mfSystematicTransactionReportVo.SystematicTransactionDate) && (mfSystematicTransactionVoList[j].TransactionDate <= mfSystematicTransactionReportVo.SystematicTransactionDate.AddDays(5))) || (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate))
-                                                && mfSystematicTransactionReportVo.SystematicAmount == Math.Round(mfSystematicTransactionVoList[j].Amount,2)
+                                                && mfSystematicTransactionReportVo.SystematicAmount == Math.Round(mfSystematicTransactionVoList[j].Amount, 2)
                                                 && !mfSystematicTransactionVoList[j].MatchFound)
                                             {
                                                 mfSystematicTransactionReportVo.OriginalTransactionAmount = mfSystematicTransactionVoList[j].Amount;
@@ -909,7 +909,7 @@ namespace BoCustomerPortfolio
                                                 //&& (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[k].TransactionDate)
                                                 && (((mfSystematicTransactionVoList[k].TransactionDate >= mfSystematicTransactionReportVo.SystematicTransactionDate) && (mfSystematicTransactionVoList[k].TransactionDate <= mfSystematicTransactionReportVo.SystematicTransactionDate.AddDays(5))) || (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[k].TransactionDate))
                                                 && mfSystematicTransactionReportVo.SystematicTransacionType == mfSystematicTransactionVoList[k].TransactionClassificationCode
-                                                && mfSystematicTransactionReportVo.SystematicAmount == Math.Round(mfSystematicTransactionVoList[k].Amount,2)
+                                                && mfSystematicTransactionReportVo.SystematicAmount == Math.Round(mfSystematicTransactionVoList[k].Amount, 2)
                                                 && !mfSystematicTransactionVoList[k].MatchFound)
                                             {
                                                 mfSystematicTransactionReportVo.OriginalTransactionAmount = mfSystematicTransactionVoList[k].Amount;
@@ -932,7 +932,7 @@ namespace BoCustomerPortfolio
                             {
                                 //Monthly
                                 case "MN":
-                                    
+
                                     tempTransStartDate = tempTransStartDate.AddMonths(1);
                                     if (tempTransStartDate.Day != mfSystematicVoList[i].SystematicDay)
                                     {
@@ -1041,7 +1041,7 @@ namespace BoCustomerPortfolio
             try
             {
 
-                mfSystematicTransactionVoList = customerTransactionDao.GetMFSystematicTransactions(adviserId, fromDate, toDate,customerSearch, schemeSearch, transType, portfolioType, out transactionTypeList);
+                mfSystematicTransactionVoList = customerTransactionDao.GetMFSystematicTransactions(adviserId, fromDate, toDate, customerSearch, schemeSearch, transType, portfolioType, out transactionTypeList);
 
             }
             catch (BaseApplicationException Ex)
@@ -1068,7 +1068,7 @@ namespace BoCustomerPortfolio
 
             }
             return mfSystematicTransactionVoList;
-        
+
         }
 
         public List<MFSystematicVo> GetMFSystematicTransactionSetups(int adviserId, DateTime fromDate, DateTime toDate, string customerSearch, string schemeSearch, string transType, string portfolioType, out List<string> transactionTypeList)
@@ -1078,7 +1078,7 @@ namespace BoCustomerPortfolio
             try
             {
 
-                mfSystematicVoList = customerTransactionDao.GetMFSystematicTransactionSetups(adviserId, fromDate, toDate,customerSearch,schemeSearch,transType,portfolioType,out transactionTypeList);
+                mfSystematicVoList = customerTransactionDao.GetMFSystematicTransactionSetups(adviserId, fromDate, toDate, customerSearch, schemeSearch, transType, portfolioType, out transactionTypeList);
 
             }
             catch (BaseApplicationException Ex)
@@ -1287,14 +1287,14 @@ namespace BoCustomerPortfolio
             return bResult;
         }
 
-        public bool DeleteMFTransaction(MFTransactionVo mfTransactionVo)
+        public bool DeleteMFTransaction(MFTransactionVo mfTransactionVo, int adviserId)
         {
             bool bResult = false;
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             try
             {
 
-                bResult = customerTransactionDao.DeleteMFTransaction(mfTransactionVo);
+                bResult = customerTransactionDao.DeleteMFTransaction(mfTransactionVo, adviserId);
 
             }
             catch (BaseApplicationException Ex)
@@ -1311,7 +1311,7 @@ namespace BoCustomerPortfolio
 
                 object[] objects = new object[2];
                 objects[0] = mfTransactionVo;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1403,7 +1403,7 @@ namespace BoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerTransactionBo.cs:GetMFFolioAccountAssociates()");
-                object[] objects = new object[2];                
+                object[] objects = new object[2];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1662,7 +1662,7 @@ namespace BoCustomerPortfolio
             try
             {
 
-                ds = customerTransactionDao.GetRMCustomerEqTransactions(RMId,adviserId, GroupHeadId, From, To, Manage);
+                ds = customerTransactionDao.GetRMCustomerEqTransactions(RMId, adviserId, GroupHeadId, From, To, Manage);
 
             }
             catch (BaseApplicationException Ex)
@@ -1739,7 +1739,7 @@ namespace BoCustomerPortfolio
         /// </summary>
         /// <param name="eqTradeAccId"></param>
         /// <returns></returns>
-        
+
         public bool CheckEQTradeAccNoAssociatedWithTransactions(int eqTradeAccId)
         {
             bool blResult = false;
@@ -1761,7 +1761,7 @@ namespace BoCustomerPortfolio
                 FunctionInfo.Add("Method", "CustomerTransactionDao.cs:CheckEQTradeAccNoAssociatedWithTransactions()");
                 object[] objects = new object[2];
                 objects[0] = eqTradeAccId;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1813,7 +1813,7 @@ namespace BoCustomerPortfolio
         /// </summary>
         /// <param name="FolioId"></param>
         /// <returns></returns>
-        
+
         public bool CheckMFFOlioAssociatedWithTransactions(int FolioId)
         {
             bool blResult = false;
