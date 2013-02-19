@@ -8,7 +8,7 @@ namespace VoCustomerPortfolio
     /// <summary>
     /// Class Containing MF Transaction Details.
     /// </summary>
-    public class MFTransactionVo:ICloneable
+    public class MFTransactionVo : ICloneable
     {
         #region Fields
         //Test Comment
@@ -33,7 +33,7 @@ namespace VoCustomerPortfolio
         private float m_Price;
         private double m_Amount;
         private double m_BrokerageAmount;
-        private double  m_Units;
+        private double m_Units;
         private float m_STT;
         private string m_Source;
         private int m_IsSourceManual;
@@ -56,10 +56,10 @@ namespace VoCustomerPortfolio
         private int m_Age;
         private double m_Balance;
         private DateTime m_CreatedOn;
-
+        private string m_OriginalTransactionNumber;
         #endregion Fields
 
-        #region Properties       
+        #region Properties
         public string PortfolioName
         {
             get { return m_PortfolioName; }
@@ -128,14 +128,14 @@ namespace VoCustomerPortfolio
             get { return m_SchemePlan; }
             set { m_SchemePlan = value; }
         }
-        
+
 
         public string Category
         {
             get { return m_Category; }
             set { m_Category = value; }
         }
-       
+
         public string CategoryCode
         {
             get { return m_CategoryCode; }
@@ -288,8 +288,14 @@ namespace VoCustomerPortfolio
         {
             get { return m_CreatedOn; }
             set { m_CreatedOn = value; }
-        
+
         }
+        public string OriginalTransactionNumber
+        {
+            get { return m_OriginalTransactionNumber; }
+            set { m_OriginalTransactionNumber = value; }
+        }
+
         #endregion Properties
 
         #region ICloneable Members
