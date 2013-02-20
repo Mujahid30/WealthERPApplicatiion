@@ -621,7 +621,7 @@
                     <iframe name="leftframe" id="leftframe" onload="javascript:calcHeight('leftframe');"
                         src="ControlLeftHost.aspx"></iframe>
                 </td>
-                <td id="splitter_bar_left" style="display: block" onclick="javascript:hb1('left');">
+                <td id="splitter_bar_left" title="Hide/Display the left tree node" style="display: block" onclick="javascript:hb1('left');">
                     &nbsp;
                     <%--<img alt="collapse" id="imgCollapseLeft" src="Images/splitter_bar_left_pointer.jpg" style="vertical-align:middle;" /> --%>
                 </td>
