@@ -6247,6 +6247,8 @@
     <Content Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\StandardMFTransactionUploads.dtproj.user" />
     <Content Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.sln" />
     <Content Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.dtproj.user" />
+    <Content Include="UploadPackages\SundaramUploadPackageNew\SundaramUploadPackageNew.sln" />
+    <Content Include="UploadPackages\SundaramUploadPackageNew\SundaramUploadPackageNew\SundaramUploadPackageNew.dtproj.user" />
     <Content Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew.sln" />
     <Content Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.dtproj.user" />
     <Content Include="UploadPackages\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest.sln" />
@@ -7217,6 +7219,9 @@
     <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\UploadStandardTransactionStagingtoCommonStaging.dtsx" />
     <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\UploadSystematicTransationInputToStaging.dtsx" />
     <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\UploadSystematicTransationXMLToInput.dtsx" />
+    <None Include="UploadPackages\SundaramUploadPackageNew\SundaramUploadPackageNew\SundaramUploadPackageNew.database" />
+    <None Include="UploadPackages\SundaramUploadPackageNew\SundaramUploadPackageNew\SundaramUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\SundaramUploadPackageNew\SundaramUploadPackageNew\XmltoXtrn.dtsx" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramFileToInput.dtsx" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.database" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.dtproj" />
