@@ -346,7 +346,7 @@
                 <div id="Div3" runat="server">
                     <telerik:RadGrid ID="gvStandardGoaldetails" runat="server" GridLines="None" AutoGenerateColumns="False"
                         AlternatingItemStyle-Wrap="true" PageSize="10" AllowSorting="true" AllowPaging="True"
-                        ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
+                        ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" OnNeedDataSource="gvStandardGoaldetails_OnNeedDataSource"
                         AllowFilteringByColumn="true" AllowAutomaticInserts="false" OnItemDataBound="gvStandardGoaldetails_ItemDataBound">
                         <ExportSettings HideStructureColumns="false">
                         </ExportSettings>

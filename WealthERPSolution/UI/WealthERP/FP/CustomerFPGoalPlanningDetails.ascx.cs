@@ -813,6 +813,12 @@ namespace WealthERP.FP
                 gvStandardGoaldetails.DataBind();
                 Cache[customerVo.CustomerId + "dtGoalProfile"] = dtGoalProfile;
             }
+        protected void gvStandardGoaldetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache[customerVo.CustomerId + "dtGoalProfile"];
+            gvStandardGoaldetails.DataSource = dt;
+        }
         public void gvStandardGoaldetails_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
