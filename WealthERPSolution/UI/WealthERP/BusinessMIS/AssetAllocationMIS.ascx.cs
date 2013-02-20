@@ -439,6 +439,31 @@ namespace WealthERP.BusinessMIS
             dtAssetallocationDetails.Columns.Add("AlternateRecomendedValue", typeof(double));
             dtAssetallocationDetails.Columns.Add("AlternateRecomendedPer", typeof(double));
 
+            #region Data Table Default value
+
+            dtAssetallocationDetails.Columns["EquityCurrentValue"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["EquityCurrentPer"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["EquityRecomendedValue"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["EquityRecomendedPer"].DefaultValue = 0;
+
+            dtAssetallocationDetails.Columns["DebtCurrentValue"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["DebtCurrentPer"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["DebtRecomendedValue"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["DebtRecomendedPer"].DefaultValue = 0;
+
+            dtAssetallocationDetails.Columns["CashCurrentValue"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["CashCurrentPer"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["CashRecomendedValue"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["CashRecomendedPer"].DefaultValue = 0;
+
+            dtAssetallocationDetails.Columns["AlternateCurrentValue"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["AlternateCurrentPer"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["AlternateRecomendedValue"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["AlternateRecomendedPer"].DefaultValue = 0;
+
+            #endregion Data Table Default value
+
+
 
             DataTable dtFinanceTotal = new DataTable();
             if (dsGetAssetAllocationlist != null)
@@ -601,18 +626,6 @@ namespace WealthERP.BusinessMIS
                                    }
                                }
 
-
-                               else
-                               {
-                                   drAssetAllocationDetails["EquityRecomendedValue"] = 0;
-                                   drAssetAllocationDetails["EquityRecomendedPer"] = 0;
-                                   drAssetAllocationDetails["DebtRecomendedValue"] = 0;
-                                   drAssetAllocationDetails["DebtRecomendedPer"] = 0;
-                                   drAssetAllocationDetails["CashRecomendedValue"] = 0;
-                                   drAssetAllocationDetails["CashRecomendedPer"] = 0;
-                                   drAssetAllocationDetails["AlternateRecomendedValue"] = 0;
-                                   drAssetAllocationDetails["AlternateRecomendedPer"] = 0;
-                               }
                            }
                        }
                    }
@@ -825,6 +838,57 @@ namespace WealthERP.BusinessMIS
                 filter.Visible = false;
             }
             gvAssetAllocationMIS.MasterTableView.ExportToExcel();
+        }
+        protected void gvAssetAllocationMIS_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                double eqCur = double.Parse(e.Item.Cells[3].Text); 
+                double eqRec = double.Parse(e.Item.Cells[5].Text);
+                double dtCur = double.Parse(e.Item.Cells[7].Text);
+                double dtRec = double.Parse(e.Item.Cells[9].Text);
+                double cashCur = double.Parse(e.Item.Cells[11].Text);
+                double cashRec = double.Parse(e.Item.Cells[13].Text);
+                double altCur = double.Parse(e.Item.Cells[15].Text);
+                double altRec = double.Parse(e.Item.Cells[17].Text);
+                GridDataItem item = (GridDataItem)e.Item;
+
+                if (eqCur >= eqRec)
+                {
+                    e.Item.Cells[3].ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    e.Item.Cells[3].ForeColor = System.Drawing.Color.Red;
+                }
+                if (dtCur >= dtRec)
+                {
+                    e.Item.Cells[7].ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    e.Item.Cells[7].ForeColor = System.Drawing.Color.Red;
+                }
+                if (cashCur >= cashRec)
+                {
+                    e.Item.Cells[11].ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    e.Item.Cells[11].ForeColor = System.Drawing.Color.Red;
+                }
+                if (altCur >= altRec)
+                {
+
+                    e.Item.Cells[15].ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    e.Item.Cells[15].ForeColor = System.Drawing.Color.Red;
+                }
+
+            } 
+
         }
     }
 

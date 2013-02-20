@@ -152,7 +152,8 @@
                 <telerik:RadGrid ID="gvAssetAllocationMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                    AllowAutomaticInserts="false" ExportSettings-FileName="AssetAllocation MIS" OnNeedDataSource="gvAssetAllocationMIS_OnNeedDataSource"> 
+                    AllowAutomaticInserts="false" ExportSettings-FileName="AssetAllocation MIS" 
+                    OnNeedDataSource="gvAssetAllocationMIS_OnNeedDataSource" OnItemDataBound="gvAssetAllocationMIS_ItemDataBound"> 
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="AssetAllocation MIS" Excel-Format="ExcelML">
                     </ExportSettings>
                     <MasterTableView 
