@@ -248,6 +248,45 @@ namespace BoUploads
             }
             return result;
         }
+
+
+        public bool SUNSIPInsertToInput(int processId, string Packagepath, string XMLFilepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+
+            try
+            {
+                Package SUNSIPProPkg1 = App.LoadPackage(Packagepath, null);
+                SUNSIPProPkg1.Variables["varXMLFilePath"].Value = XMLFilepath;
+                SUNSIPProPkg1.Variables["varProcessId"].Value = processId;
+                SUNSIPProPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult camsProResult1 = SUNSIPProPkg1.Execute();
+                if (camsProResult1.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:SUNSIPInsertToInput()");
+
+                object[] objects = new object[2];
+                objects[0] = Packagepath;
+                objects[1] = XMLFilepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
 //*******************************************************************************************************************
         //Second phase: of the Upload; Insertion of CAMS Data from XML to Input table, Cleaning
         public bool CAMSInsertToInputProfile(int processId,string Packagepath, string XMLFilepath, string configPath)
@@ -1540,8 +1579,8 @@ namespace BoUploads
                 standardProPkg1.Variables["varXMLFilePath"].Value = XMLFilepath;
                 standardProPkg1.Variables["varProcessId"].Value = processId;
                 standardProPkg1.ImportConfigurationFile(configPath);
-                DTSExecResult karvyProResult1 = standardProPkg1.Execute();
-                if (karvyProResult1.ToString() == "Success")
+                DTSExecResult SundaramSIPInsertToInputTransResult = standardProPkg1.Execute();
+                if (SundaramSIPInsertToInputTransResult.ToString() == "Success")
                     IsProcessComplete = true;
             }
             catch (BaseApplicationException Ex)
