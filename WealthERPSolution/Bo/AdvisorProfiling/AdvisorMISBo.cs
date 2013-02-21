@@ -1126,13 +1126,13 @@ namespace BoAdvisorProfiling
             return dsGetMISCommission;
         }
 
-        public DataTable GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate)
+        public DataSet GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
-            DataTable dtGetReturns;
+            DataSet dsGetReturns;
             try
             {
-                dtGetReturns = MISDao.GetMFReturnsDetails(userType, adviserid, RmId, branchId, branchHeadId, All, strValuationDate);
+                dsGetReturns = MISDao.GetMFReturnsDetails(userType, adviserid, RmId, branchId, branchHeadId, All, strValuationDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1154,16 +1154,16 @@ namespace BoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dtGetReturns;
+            return dsGetReturns;
         }
 
-        public DataTable GetEQReturnsDetails(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int all, string strValuationDate)
+        public DataSet GetEQReturnsDetails(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int all, string strValuationDate)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
-            DataTable dtGetEQReturns;
+            DataSet dsGetEQReturns;
             try
             {
-                dtGetEQReturns = MISDao.GetEQReturnsDetails(userType, adviserId, rmId, branchId, branchHeadId, all, strValuationDate);
+                dsGetEQReturns = MISDao.GetEQReturnsDetails(userType, adviserId, rmId, branchId, branchHeadId, all, strValuationDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1185,7 +1185,7 @@ namespace BoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dtGetEQReturns;
+            return dsGetEQReturns;
         }
     }
 }
