@@ -52,9 +52,10 @@
                             View Equity Transactions
                         </td>
                         <td align="right">
-                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png" Visible="false"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick">
+                            </asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -227,9 +228,9 @@
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn FooterText="Grand Total" HeaderText="Customer" DataField="Customer Name" UniqueName="CustomerName"
-                                    SortExpression="Customer Name" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <telerik:GridBoundColumn FooterText="Grand Total" HeaderText="Customer" DataField="Customer Name"
+                                    UniqueName="CustomerName" SortExpression="Customer Name" AutoPostBackOnFilter="true"
+                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderText="Scrip" DataField="Scrip" UniqueName="Scrip"
@@ -246,50 +247,49 @@
                                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridDateTimeColumn HeaderStyle-Width="150px" HeaderStyle-Wrap="false" DataField="Date" SortExpression="Date"
-                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" AllowFiltering="true"
-                                    HeaderText="Trade Date (dd/mm/yyyy)" UniqueName="Date" DataFormatString="{0:d}" ShowFilterIcon="false">
+                                <telerik:GridDateTimeColumn HeaderStyle-Width="150px" HeaderStyle-Wrap="false" DataField="Date"
+                                    SortExpression="Date" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                    AllowFiltering="true" HeaderText="Trade Date (dd/mm/yyyy)" UniqueName="Date"
+                                    DataFormatString="{0:d}" ShowFilterIcon="false">
                                     <ItemStyle HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                     <FilterTemplate>
                                         <telerik:RadDatePicker ID="calFilter" runat="server">
                                         </telerik:RadDatePicker>
                                     </FilterTemplate>
                                 </telerik:GridDateTimeColumn>
-                                <telerik:GridBoundColumn  FooterStyle-HorizontalAlign="Right" HeaderText="Rate (Per Unit)" DataField="Rate" UniqueName="Rate"
-                                    SortExpression="Rate" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
-                                    CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Rate (Per Unit)"
+                                    DataField="Rate" UniqueName="Rate" SortExpression="Rate" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    Aggregate="Sum" DataFormatString="{0:N2}">
                                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn  FooterStyle-HorizontalAlign="Right" HeaderText="Quantity" DataField="Quantity" UniqueName="Quantity"
-                                    SortExpression="Quantity" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Quantity"
+                                    DataField="Quantity" UniqueName="Quantity" SortExpression="Quantity" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    Aggregate="Sum" DataFormatString="{0:N2}">
                                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn  FooterStyle-HorizontalAlign="Right" HeaderText="Brokerage (Per Unit)" DataField="Brokerage" UniqueName="Brokerage"
-                                    SortExpression="Brokerage" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
+                                <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Brokerage (Per Unit)"
+                                    DataField="Brokerage" UniqueName="Brokerage" SortExpression="Brokerage" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    Aggregate="Sum" DataFormatString="{0:N2}">
                                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="OtherCharges (Per Unit)" DataField="OtherCharges" UniqueName="OtherCharges"
-                                    SortExpression="OtherCharges" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum" DataFormatString="{0:N2}">
-                                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn  FooterStyle-HorizontalAlign="Right" HeaderText="STT (Per Unit)" DataField="STT" UniqueName="STT" SortExpression="STT"
+                                <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="OtherCharges (Per Unit)"
+                                    DataField="OtherCharges" UniqueName="OtherCharges" SortExpression="OtherCharges"
                                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     Aggregate="Sum" DataFormatString="{0:N2}">
                                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn  FooterStyle-HorizontalAlign="Right" HeaderText="Gross Price" DataField="GrossPrice" UniqueName="GrossPrice"
-                                    SortExpression="GrossPrice" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N2}">
+                                <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="STT (Per Unit)"
+                                    DataField="STT" UniqueName="STT" SortExpression="STT" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    Aggregate="Sum" DataFormatString="{0:N2}">
                                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <%--<telerik:GridBoundColumn HeaderText="Gross Price" DataField="Gross Price" UniqueName="Gross Price" SortExpression="Gross Price"
-                                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    DataFormatString="{0:N2}">
-                                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>--%>
+                                <telerik:GridCalculatedColumn ShowFilterIcon="false" AllowFiltering="false" HeaderText="Gross Price" UniqueName="TotalPrice" DataType="System.Double"
+                                    DataFields="Rate,Quantity,STT,Brokerage,OtherCharges" Expression="({0}*{1})+{2}+{3}+{4}" Aggregate="Sum" DataFormatString="{0:N2}"
+                                     />
                                 <telerik:GridBoundColumn HeaderText="Speculative/Delivery" DataField="Speculative Or Delivery"
                                     UniqueName="Speculative Or Delivery" SortExpression="Speculative Or Delivery"
                                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -300,15 +300,16 @@
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderText="Transaction Status" DataField="TransactionStatus" UniqueName="TransactionStatus" SortExpression="TransactionStatus"
-                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <telerik:GridBoundColumn HeaderText="Transaction Status" DataField="TransactionStatus"
+                                    UniqueName="TransactionStatus" SortExpression="TransactionStatus" AutoPostBackOnFilter="true"
+                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                             </Columns>
                         </MasterTableView>
                         <ClientSettings>
                             <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
-                           <%--<Resizing AllowColumnResize="true"  />--%>
+                            <%--<Resizing AllowColumnResize="true"  />--%>
                         </ClientSettings>
                     </telerik:RadGrid>
                     <%-- <asp:GridView ID="gvMFTransactions" runat="server" AllowSorting="True" AutoGenerateColumns="False"

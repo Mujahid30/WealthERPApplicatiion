@@ -345,40 +345,41 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvMFTransactions_RowDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridDataItem)
-            {
-                double otherCharges = 0;
-                double brokerage = 0;
-                double grossPrice = 0;
-                double quantity = 0;
+            //if (e.Item is GridDataItem)
+            //{
+            //    double otherCharges = 0;
+            //    double brokerage = 0;
+            //    double grossPrice = 0;
+            //    double quantity = 0;
 
-                double rate = 0;
-                GridDataItem dataItem = e.Item as GridDataItem;
-                if (dataItem["Rate"].Text != string.Empty)
-                    rate = Convert.ToDouble(dataItem["Rate"].Text.ToString().Trim());
-                double STT = 0;
+            //    double rate = 0;
+            //    GridDataItem dataItem = e.Item as GridDataItem;
+            //    if (dataItem["Rate"].Text != string.Empty)
+            //        rate = Convert.ToDouble(dataItem["Rate"].Text.ToString().Trim());
+            //    double STT = 0;
 
-                if (dataItem["Brokerage"].Text != string.Empty)
-                    brokerage = Convert.ToDouble(dataItem["Brokerage"].Text.ToString().Trim());
-                if (dataItem["Quantity"].Text != string.Empty)
-                    quantity = Convert.ToDouble(dataItem["Quantity"].Text.ToString().Trim());
+            //    if (dataItem["Brokerage"].Text != string.Empty)
+            //        brokerage = Convert.ToDouble(dataItem["Brokerage"].Text.ToString().Trim());
+            //    if (dataItem["Quantity"].Text != string.Empty)
+            //        quantity = Convert.ToDouble(dataItem["Quantity"].Text.ToString().Trim());
 
-                if (dataItem["OtherCharges"].Text != string.Empty)
-                    otherCharges = Convert.ToDouble(dataItem["OtherCharges"].Text.ToString().Trim());
-                if (dataItem["STT"].Text != string.Empty)
-                    STT = Convert.ToDouble(dataItem["STT"].Text.ToString().Trim());
+            //    if (dataItem["OtherCharges"].Text != string.Empty)
+            //        otherCharges = Convert.ToDouble(dataItem["OtherCharges"].Text.ToString().Trim());
+            //    if (dataItem["STT"].Text != string.Empty)
+            //        STT = Convert.ToDouble(dataItem["STT"].Text.ToString().Trim());
 
-                grossPrice = ((rate) * quantity) + STT + brokerage + otherCharges;
+            //    grossPrice = ((rate) * quantity) + STT + brokerage + otherCharges;
 
-                totalGrossPrice += grossPrice;
+            //    totalGrossPrice += grossPrice;
 
-                dataItem["GrossPrice"].Text = grossPrice.ToString();
-            }
-            if (e.Item is GridFooterItem)
-            {
-                GridFooterItem Footeritem = e.Item as GridFooterItem;
-                Footeritem["GrossPrice"].Text = totalGrossPrice.ToString();
-            }
+            //    dataItem["GrossPrice"].Text = grossPrice.ToString();
+            //    //dataItem["GrossPrice"]. = Convert.ToDouble(dataItem["GrossPrice"].Text.ToString().Trim());
+            //}
+            //if (e.Item is GridFooterItem)
+            //{
+            //    GridFooterItem Footeritem = e.Item as GridFooterItem;
+            //    Footeritem["GrossPrice"].Text = totalGrossPrice.ToString();
+            //}
         }
 
         protected void gvMFTransactions_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
