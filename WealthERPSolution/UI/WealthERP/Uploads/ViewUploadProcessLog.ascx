@@ -209,7 +209,7 @@
                                ShowFilterIcon="false">
                             </telerik:GridNumericColumn>--%>
                             <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="Process Id" UniqueName="ADUL_ProcessId"
-                                AllowFiltering="false">
+                                AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="Actual FileName" UniqueName="ADUL_FileName"
