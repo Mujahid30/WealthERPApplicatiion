@@ -116,7 +116,7 @@ namespace WealthERP.Advisor
                         lblpageHeader.Text = "MF SIP Projections";
                         ddlDateFilter.Items.RemoveAt(2);
                         ddlDateFilter.Items.RemoveAt(1);
-                        ddlDateFilter.Items.RemoveAt(0);
+                        //ddlDateFilter.Items.RemoveAt(0);
                     }
 
                  }
@@ -1445,8 +1445,8 @@ namespace WealthERP.Advisor
             if (dtSIPDetails.Rows.Count > 0)
             {
                 DataTable dtCalenderSymmary = new DataTable();
-                dtCalenderSymmary.Columns.Add("Year");
-                dtCalenderSymmary.Columns.Add("Month");
+                dtCalenderSymmary.Columns.Add("Year", typeof(Int32));
+                dtCalenderSymmary.Columns.Add("Month",typeof(Int32));            
                 dtCalenderSymmary.Columns.Add("FinalMonth");
                 dtCalenderSymmary.Columns.Add("NoOfSIP", typeof(Int16));
                 dtCalenderSymmary.Columns.Add("SIPAmount", typeof(Decimal));
@@ -1669,10 +1669,13 @@ namespace WealthERP.Advisor
                 ////this.CustomizeExpression(expression1);
                 //this.reptCalenderSummaryView.MasterTableView.GroupByExpressions.Add(expression1);
                 // Get the DefaultViewManager of a DataTable.
-                DataView calenderView = dtCalenderSymmary.DefaultView;
-                // By default, the first column sorted ascending.
-                calenderView.Sort = "Year DESC";
+                //DataView calenderView = dtCalenderSymmary.DefaultView;
 
+                DataView calenderView = new DataView(dtCalenderSymmary, "1=1", "Year,Month", DataViewRowState.CurrentRows);
+                // By default, the first column sorted ascending.
+                //calenderView.Sort = "Year DESC";
+                calenderView.Sort = ("Year ASC,Month");
+              
                 reptCalenderSummaryView.DataSource = calenderView;
                 reptCalenderSummaryView.DataBind();
 
