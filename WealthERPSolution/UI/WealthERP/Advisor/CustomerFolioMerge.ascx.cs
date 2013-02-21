@@ -560,10 +560,17 @@ namespace WealthERP.Advisor
 
         protected void hypFolioNo_Click(object sender, EventArgs e)
         {
+            int rowIndex = 0;
+            LinkButton lnkIssueCode = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkIssueCode.NamingContainer;
+            rowIndex = gdi.ItemIndex + 1;
+            //csissueId = int.Parse((gvCSIssueTracker.MasterTableView.DataKeyValues[selectedRow - 1]["CSI_id"].ToString()));
+
             GridDataItem gvFoliomerge = ((GridDataItem)(((LinkButton)sender).Parent.Parent));
 
             //GridViewRow gvFoliomerge = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
-            int rowIndex = gvFoliomerge.ItemIndex;
+            //int rowIndex = gvFoliomerge.ItemIndex;
 
             //string folioNumber = gvCustomerFolioMerge.DataKeys[rowIndex].Values["Count"].ToString();
             ////int accountId = int.Parse(gvCustomerFolioMerge.DataKeys[row.RowIndex].Values[""].ToString());
@@ -572,9 +579,9 @@ namespace WealthERP.Advisor
 
 
 
-            int customerId = Convert.ToInt32(gvCustomerFolioMerge.MasterTableView.DataKeyValues[rowIndex-1]["CustomerId"].ToString());
-            int portfolioId = Convert.ToInt32(gvCustomerFolioMerge.MasterTableView.DataKeyValues[rowIndex-1]["portfilionumber"].ToString());
-            string folioNumber = gvCustomerFolioMerge.MasterTableView.DataKeyValues[rowIndex-1]["rowIndex"].ToString();   
+            int customerId = Convert.ToInt32(gvCustomerFolioMerge.MasterTableView.DataKeyValues[rowIndex - 1]["CustomerId"].ToString());
+            int portfolioId = Convert.ToInt32(gvCustomerFolioMerge.MasterTableView.DataKeyValues[rowIndex - 1]["portfilionumber"].ToString());
+            string folioNumber = gvCustomerFolioMerge.MasterTableView.DataKeyValues[rowIndex - 1]["Count"].ToString();
 
             customerVo = customerBo.GetCustomer(customerId);
 

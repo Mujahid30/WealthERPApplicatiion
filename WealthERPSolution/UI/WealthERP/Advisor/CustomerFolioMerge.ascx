@@ -335,7 +335,7 @@
     <tr>
         <td>
             <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
-                Width="100%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                Width="100%" AllowPaging="True" PageSize="15" AllowSorting="True" AutoGenerateColumns="false"
                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                 AllowAutomaticUpdates="false" Skin="Telerik" 
                 EnableEmbeddedSkins="false"
@@ -345,7 +345,7 @@
                 </ExportSettings>
                 <MasterTableView DataKeyNames="CustomerId,AMCCode,Count,portfilionumber" CommandItemDisplay="None">
                     <Columns>
-                        <telerik:GridTemplateColumn AllowFiltering="false">
+                        <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px">
                             <ItemTemplate>
                                 <asp:CheckBox ID="rdbGVRow" OnCheckedChanged="rdbGVRow_CheckedChanged" onclick="javascript:CheckOtherIsCheckedByGVID(this);"
                                     runat="server" AutoPostBack="true" />
@@ -355,23 +355,30 @@
                             SortExpression="GroupHead" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="CustomerName" HeaderText="Name" DataField="CustomerName" HeaderStyle-Width="200px"
+                        <telerik:GridBoundColumn UniqueName="CustomerName" HeaderText="Customer" DataField="CustomerName" HeaderStyle-Width="200px"
                             SortExpression="CustomerName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="AMCName" HeaderText="AMCName" DataField="AMCName" HeaderStyle-Width="280px"
+                        <telerik:GridBoundColumn UniqueName="AMCName" HeaderText="AMC" DataField="AMCName" HeaderStyle-Width="280px"
                             SortExpression="AMCName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="Count" HeaderText="Folios" DataField="Count" HeaderStyle-Width="140px"
-                            SortExpression="Count" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <telerik:GridTemplateColumn DataField="Count" AllowFiltering="true" HeaderText="Folios" HeaderStyle-Width="100px" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <ItemTemplate>
+                         <asp:LinkButton ID="hypFolioNo" runat="server" CssClass="CmbField" OnClick="hypFolioNo_Click"
+                                Text='<%# Eval("Count").ToString() %>'>
+                            </asp:LinkButton>
+                              </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                     <telerik:GridBoundColumn UniqueName="FolioName" HeaderText="Folio Name" DataField="FolioName" HeaderStyle-Width="100px"
+                            SortExpression="FolioName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="mergerstatus" HeaderText="Merged To" DataField="mergerstatus" HeaderStyle-Width="100px"
                             SortExpression="mergerstatus" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="processId" HeaderText="ProcessId" DataField="processId" HeaderStyle-Width="108px"
+                        <telerik:GridBoundColumn UniqueName="processId" HeaderText="Process Id" DataField="processId" HeaderStyle-Width="108px"
                             SortExpression="processId" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
