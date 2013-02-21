@@ -307,7 +307,7 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
-                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Purchase Trnx" HeaderTooltip="Purchase Transaction"
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Purchase Cnt" HeaderTooltip="Purchase Transaction"
                                             DataField="BUYCount" HeaderStyle-HorizontalAlign="Right" UniqueName="BUYCount"
                                             SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
@@ -321,7 +321,7 @@
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                             <ItemStyle HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Sell Trnx" HeaderTooltip="Sell Transaction"
+                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Sell Cnt" HeaderTooltip="Sell Transaction"
                                             DataField="SELCount" HeaderStyle-HorizontalAlign="Right" UniqueName="SELCount"
                                             SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
@@ -605,7 +605,7 @@
                                         </telerik:GridBoundColumn>
                                         
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
-                                            HeaderText="Purchase Trnx" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -679,7 +679,7 @@
                                        
                                        
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction"
-                                            HeaderText="Sell Trnx" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Sell Cnt" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -987,7 +987,7 @@
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
-                                            HeaderText="Purchase Trnx" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -1001,7 +1001,7 @@
                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction"
-                                            HeaderText="Sell Trnx" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Sell Cnt" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -1286,7 +1286,7 @@
                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
-                                            HeaderText="Purchase Trnx" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -1357,7 +1357,7 @@
                                         </telerik:GridBoundColumn>
                                        
                                        <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction"
-                                            HeaderText="Sell Trnx" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Sell Cnt" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -1642,7 +1642,7 @@
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
-                                            HeaderText="Purchase Trnx" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -1656,7 +1656,7 @@
                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction"
-                                            HeaderText="Sell Trnx" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Sell Cnt" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -1867,7 +1867,7 @@
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction Count"
-                                            HeaderText="Purchase Trnx" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -1881,7 +1881,7 @@
                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction"
-                                            HeaderText="Sell Trnx" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Sell Cnt" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -2160,7 +2160,7 @@
                                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Purchase Transaction"
-                                            HeaderText="Purchase Trnx" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Purchase Cnt" DataField="BUYCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="BUYCount" SortExpression="BUYCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
@@ -2232,7 +2232,7 @@
                                         
                                         
                                         <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Sell Transaction"
-                                            HeaderText="Sell Trnx" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
+                                            HeaderText="Sell Cnt" DataField="SELCount" HeaderStyle-HorizontalAlign="Right"
                                             UniqueName="SELCount" SortExpression="SELCount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                             Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
