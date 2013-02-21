@@ -1703,14 +1703,14 @@ namespace BoAdvisorProfiling
             //return dsValuationDetails;
         }
 
-        public void InsertHistoricalValuationInQueue(DateTime valuationDate, int adviserId ,int userId)
+        public void InsertHistoricalValuationInQueue(DateTime valuationDate, int adviserId ,int userId , int isCurrent)
         {
             AdvisorDao adviserDao = new AdvisorDao();
             //DataSet dsValuationDetails = new DataSet();
             try
             {
                 //dsValuationDetails = 
-                adviserDao.InsertHistoricalValuationInQueue(valuationDate, adviserId , userId);
+                adviserDao.InsertHistoricalValuationInQueue(valuationDate, adviserId, userId, isCurrent);
 
             }
             catch (BaseApplicationException Ex)

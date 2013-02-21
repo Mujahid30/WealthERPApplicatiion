@@ -2744,7 +2744,7 @@ namespace DaoAdvisorProfiling
             //return dsValuationDetails;
         }
 
-        public void InsertHistoricalValuationInQueue(DateTime valuationDate, int adviserId, int userId)
+        public void InsertHistoricalValuationInQueue(DateTime valuationDate, int adviserId, int userId,int isCurrent)
         {
             Database db;
             DbCommand getValuationDetailsCmd;
@@ -2757,6 +2757,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getValuationDetailsCmd, "@valuationDate", DbType.DateTime, valuationDate);
                 db.AddInParameter(getValuationDetailsCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getValuationDetailsCmd, "@userId", DbType.Int32, userId);
+                db.AddInParameter(getValuationDetailsCmd, "@isCurrent", DbType.Int32, isCurrent);
 
                 db.ExecuteNonQuery(getValuationDetailsCmd);
             }

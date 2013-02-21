@@ -505,7 +505,7 @@ namespace WealthERP.SuperAdmin
                                 MFEngineBo mfEngineBo = new MFEngineBo();
                                 //mfEngineBo.MFBalanceCreation(adviserId, 0, valuationFor);
 
-                                advisorBo.InsertHistoricalValuationInQueue(valuationDate, adviserId, userVo.UserId);
+                                advisorBo.InsertHistoricalValuationInQueue(valuationDate, adviserId, userVo.UserId,1);
                                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request successfully sent !!...Please wait for another 30 mints');", true);
 
 

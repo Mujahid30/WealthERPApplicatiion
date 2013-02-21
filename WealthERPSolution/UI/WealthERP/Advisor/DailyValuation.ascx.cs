@@ -1144,7 +1144,7 @@ namespace WealthERP.Advisor
 
         protected void InsertHistoricalValuationInQueue(DateTime valuationDate)
         {
-            advisorBo.InsertHistoricalValuationInQueue(valuationDate, advisorVo.advisorId,userVo.UserId);
+            advisorBo.InsertHistoricalValuationInQueue(valuationDate, advisorVo.advisorId,userVo.UserId,0);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request successfully sent !!...Please wait for another 30 mints');", true);
 
         }
