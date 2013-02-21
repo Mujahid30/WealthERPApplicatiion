@@ -68,11 +68,17 @@ namespace WealthERP.BusinessMIS
             int RMId = rmVo.RMId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
-            if (!IsPostBack)
-            {
-                SetParameters();
-                BindEQReturnsGrid();
-            }
+            //if (!IsPostBack)
+            //{
+            //    SetParameters();
+            //    BindEQReturnsGrid();
+            //}
+            pnlEqHoldings.Visible = false;
+            pnlEQReturns.Visible = false;
+            gvEqHldings.Visible = false;
+            gvEQReturns.Visible = false;
+            imgCompany.Visible = false;
+            imgEQReturns.Visible = false;
         }
         private void GetLatestValuationDate()
         {
@@ -120,8 +126,10 @@ namespace WealthERP.BusinessMIS
             double totalinvestedCost = 0.0;
             double totalcurrentvalue = 0.0;
             double totalPL=0.0;
+            DataSet dsEQReturns;
             DataTable dtEQReturns;
-            dtEQReturns = adviserMFMIS.GetEQReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate);
+            dsEQReturns = adviserMFMIS.GetEQReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate);
+            dtEQReturns = dsEQReturns.Tables[1];
             if(dtEQReturns == null)
             {
                 gvEQReturns.DataSource = dtEQReturns;
@@ -257,6 +265,12 @@ namespace WealthERP.BusinessMIS
             dtMfReturns = (DataTable)Cache["gvEQReturns" + userVo.UserId + userType];
             gvEQReturns.DataSource = dtMfReturns;
             gvEQReturns.Visible = true;
+
+            pnlEqHoldings.Visible = false;
+            pnlEQReturns.Visible = true;
+            gvEqHldings.Visible = false;
+            imgCompany.Visible = false;
+            imgEQReturns.Visible = true;
         }
 
         protected void imgEQReturns_Click(object sender, ImageClickEventArgs e)
@@ -268,6 +282,136 @@ namespace WealthERP.BusinessMIS
                 filter.Visible = false;
             }
             gvEQReturns.MasterTableView.ExportToExcel();
+        }
+
+        protected void imgCompany_Click(object sender, ImageClickEventArgs e)
+        {
+            gvEqHldings.ExportSettings.OpenInNewWindow = true;
+            gvEqHldings.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvEQReturns.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvEqHldings.MasterTableView.ExportToExcel();
+        }
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            SetParameters();
+            if (ddlType.SelectedValue == "CustomerWise")
+                BindEQHoldings();
+            else if (ddlType.SelectedValue == "CompanyWise")
+                BindEQReturnsGrid();
+        }
+
+        private void BindEQHoldings()
+        {
+            double totalinvestedCost = 0.0;
+            double totalcurrentvalue = 0.0;
+            double totalPL = 0.0;
+            DataSet dsEqReturns;
+            DataTable dtEQHoldings;
+            dsEqReturns = adviserMFMIS.GetEQReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate);
+            dtEQHoldings = dsEqReturns.Tables[0];
+            if (dtEQHoldings == null)
+            {
+                gvEqHldings.DataSource = dtEQHoldings;
+                gvEqHldings.DataBind();
+                pnlEqHoldings.Visible = true;
+                gvEqHldings.Visible = true;
+            }
+            else
+            {
+                DataTable dtEQHoldingsNew = new DataTable();
+                dtEQHoldingsNew.Columns.Add("CustomerId");
+                dtEQHoldingsNew.Columns.Add("Customer");
+                dtEQHoldingsNew.Columns.Add("PAN");
+                dtEQHoldingsNew.Columns.Add("Parent");
+                dtEQHoldingsNew.Columns.Add("Branch");
+                dtEQHoldingsNew.Columns.Add("RM");
+                dtEQHoldingsNew.Columns.Add("Price", typeof(Double));
+                dtEQHoldingsNew.Columns.Add("NoOfShares", typeof(Double));
+                dtEQHoldingsNew.Columns.Add("InvestedCost", typeof(Double));
+                dtEQHoldingsNew.Columns.Add("CurrentValue", typeof(Double));
+                dtEQHoldingsNew.Columns.Add("ProfitLoss", typeof(Double));
+                dtEQHoldingsNew.Columns.Add("Percentage", typeof(Double));
+
+                DataRow drEQHoldingsNew;
+                foreach (DataRow dr in dtEQHoldings.Rows)
+                {
+                    drEQHoldingsNew = dtEQHoldingsNew.NewRow();
+                    drEQHoldingsNew["CustomerId"] = dr["CustomerId"].ToString();
+                    drEQHoldingsNew["Customer"] = dr["Customer"].ToString();
+                    drEQHoldingsNew["PAN"] = dr["PAN"].ToString();
+                    drEQHoldingsNew["Parent"] = dr["Parent"].ToString();
+                    drEQHoldingsNew["Branch"] = dr["Branch"].ToString();
+                    drEQHoldingsNew["RM"] = dr["RM"].ToString();
+                    if (!string.IsNullOrEmpty(dr["NoOfShares"].ToString().Trim()))
+                        drEQHoldingsNew["NoOfShares"] = dr["NoOfShares"].ToString();
+                    else
+                        drEQHoldingsNew["NoOfShares"] = 0;
+
+                    if (!string.IsNullOrEmpty(dr["Price"].ToString().Trim()))
+                        drEQHoldingsNew["Price"] = dr["Price"].ToString();
+                    else
+                        drEQHoldingsNew["Price"] = 0;
+
+                    if (!string.IsNullOrEmpty(dr["InvestedCost"].ToString().Trim()))
+                        drEQHoldingsNew["InvestedCost"] = Double.Parse(dr["InvestedCost"].ToString());
+                    else
+                        drEQHoldingsNew["InvestedCost"] = 0;
+                    totalinvestedCost = totalinvestedCost + Double.Parse(dr["InvestedCost"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["MarketValue"].ToString().Trim()))
+                        drEQHoldingsNew["CurrentValue"] = Double.Parse(dr["MarketValue"].ToString());
+                    else
+                        drEQHoldingsNew["CurrentValue"] = 0;
+                    totalcurrentvalue = totalcurrentvalue + Double.Parse(dr["MarketValue"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["ProfitLoss"].ToString().Trim()))
+                        drEQHoldingsNew["ProfitLoss"] = dr["ProfitLoss"].ToString();
+                    else
+                        drEQHoldingsNew["ProfitLoss"] = 0;
+
+                    if (!string.IsNullOrEmpty(dr["Percentage"].ToString().Trim()))
+                        drEQHoldingsNew["Percentage"] = Double.Parse(dr["Percentage"].ToString());
+                    else
+                        drEQHoldingsNew["Percentage"] = 0;
+
+                    dtEQHoldingsNew.Rows.Add(drEQHoldingsNew);
+                }
+                GridBoundColumn TotalPercentage = gvEQReturns.MasterTableView.Columns.FindByUniqueName("Percentage") as GridBoundColumn;
+                totalPL = ((totalcurrentvalue - totalinvestedCost) / totalinvestedCost) * 100;
+                TotalPercentage.FooterText = totalPL.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                gvEqHldings.DataSource = dtEQHoldingsNew;
+                gvEqHldings.DataBind();
+                pnlEqHoldings.Visible = true;
+                gvEqHldings.Visible = true;
+                imgCompany.Visible = true;
+                if (Cache["gvEqHldings" + userVo.UserId + userType] == null)
+                {
+                    Cache.Insert("gvEqHldings" + userVo.UserId + userType, dtEQHoldingsNew);
+                }
+                else
+                {
+                    Cache.Remove("gvEqHldings" + userVo.UserId + userType);
+                    Cache.Insert("gvEqHldings" + userVo.UserId + userType, dtEQHoldingsNew);
+                }
+            }
+        }
+
+        protected void gvEqHldings_OnNeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtEQHoldings = new DataTable();
+            dtEQHoldings = (DataTable)Cache["gvEqHldings" + userVo.UserId + userType];
+            gvEqHldings.DataSource = dtEQHoldings;
+            gvEqHldings.Visible = true;
+
+            pnlEqHoldings.Visible = true;
+            pnlEQReturns.Visible = false;
+            gvEQReturns.Visible = false;
+            imgCompany.Visible = true;
+            imgEQReturns.Visible = false;
         }
     }
 }
