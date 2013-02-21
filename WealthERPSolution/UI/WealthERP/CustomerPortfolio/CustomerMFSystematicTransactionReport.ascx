@@ -27,9 +27,24 @@
 <table width="100%">
     <tr>
         <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                            MF SystematicTransactionsReport
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <%--<td>
             <asp:Label ID="lblSystematicTransactionsReport" runat="server" Text="MF SystematicTransactionsReport"
                 CssClass="HeaderTextSmall"></asp:Label>
-        </td>
+        </td>--%>
     </tr>
     <tr>
         <td>
@@ -139,77 +154,72 @@
         <td>
             <asp:Panel ID="pnlSystematicTransactions" runat="server" Height="500px" Width="100%"
                 ScrollBars="Vertical" Visible="false" HorizontalAlign="Left">
-                <div id="dvHoldings" runat="server" style="width: 650px; padding:4px">
-                <telerik:RadGrid ID="gvSystematicTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    AllowSorting="true" AllowPaging="false" ShowStatusBar="True" ShowFooter="true" PageSize="10"
-                    OnItemCreated="gvSystematicTransactions_ItemCreated"
-                    OnItemDataBound="gvSystematicTransactions_ItemDataBound" OnNeedDataSource="gvSystematicTransactions_OnNeedDataSource"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" 
-                    AllowAutomaticInserts="false">
-                    <exportsettings HideStructureColumns="true" ExportOnlyData="true">
-                    </exportsettings>
-                    <mastertableview datakeynames="RowId" width="100%" allowmulticolumnsorting="True"
-                        autogeneratecolumns="false" commanditemdisplay="Top">
-                        <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-                            ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="false"/>
-                        <Columns>   
-                            <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="Select">
-                                <ItemTemplate>
-                                    <asp:CheckBox ID="chkSystematicTransaction" runat="server" Visible="false" CssClass="Field" 
-                                    AutoPostBack="true" OnCheckedChanged="chkSystematicTransaction_CheckedChanged" />
-                                </ItemTemplate> 
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />                                
-                            </telerik:GridTemplateColumn>
-                            
-                            <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="true" HeaderText="CustomerName"
-                                UniqueName="CustomerName">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn> 
-                                                
-                            <telerik:GridBoundColumn DataField="Folio" AllowFiltering="false" HeaderText="Folio"
-                                UniqueName="Folio">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>  
-                            <telerik:GridBoundColumn DataField="Scheme" AllowFiltering="true" HeaderText="Scheme"
-                                UniqueName="Scheme">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                                                        
-                            <telerik:GridTemplateColumn AllowFiltering="false">
-                                <HeaderTemplate>
-                                    <asp:Label CssClass="label" ID="lblTransactionType" runat="server" Text='Trans Type'></asp:Label>
-                                    <asp:DropDownList ID="ddlTranType" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
-                                        OnSelectedIndexChanged="ddlTranType_SelectedIndexChanged">
-                                    </asp:DropDownList>
-                                </HeaderTemplate>
-                                <ItemTemplate>
-                                    <asp:Label CssClass="label" ID="lblContainer" runat="server" Text='<%# Eval("SystematicType") %>'></asp:Label>
-                                </ItemTemplate>
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridTemplateColumn> 
-                                    
-                            <telerik:GridBoundColumn DataField="SystematicAmount" AllowFiltering="false" HeaderText="SystematicAmount"
-                                UniqueName="SystematicAmount">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>   
-                            <telerik:GridBoundColumn DataField="SystematicDate" AllowFiltering="false" HeaderText="SystematicDate"
-                                UniqueName="SystematicDate">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>   
-                            <telerik:GridBoundColumn DataField="ActualAmount" AllowFiltering="false" HeaderText="ActualAmount"
-                                UniqueName="ActualAmount">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>  
-                            <telerik:GridBoundColumn DataField="ActualDate" AllowFiltering="false" HeaderText="ActualDate"
-                                UniqueName="ActualDate">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>                                                
-                        </Columns>
-                    </mastertableview>
-                    <clientsettings>
-                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    </clientsettings>
-                </telerik:RadGrid>
+                <div id="dvHoldings" runat="server" style="width: 650px; padding: 4px">
+                    <telerik:RadGrid ID="gvSystematicTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
+                        AllowSorting="true" AllowPaging="false" ShowStatusBar="True" ShowFooter="true"
+                        PageSize="10" OnItemCreated="gvSystematicTransactions_ItemCreated" OnItemDataBound="gvSystematicTransactions_ItemDataBound"
+                        OnNeedDataSource="gvSystematicTransactions_OnNeedDataSource" Skin="Telerik" EnableEmbeddedSkins="false"
+                        Width="100%" AllowFilteringByColumn="true" AllowAutomaticInserts="false">
+                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                        </ExportSettings>
+                        <MasterTableView DataKeyNames="RowId" Width="100%" AllowMultiColumnSorting="True"
+                            AutoGenerateColumns="false" CommandItemDisplay="Top">
+                            <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
+                            <Columns>
+                                <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="Select">
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chkSystematicTransaction" runat="server" Visible="false" CssClass="Field"
+                                            AutoPostBack="true" OnCheckedChanged="chkSystematicTransaction_CheckedChanged" />
+                                    </ItemTemplate>
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="true" HeaderText="CustomerName"
+                                    UniqueName="CustomerName">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="Folio" AllowFiltering="false" HeaderText="Folio"
+                                    UniqueName="Folio">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="Scheme" AllowFiltering="true" HeaderText="Scheme"
+                                    UniqueName="Scheme">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn AllowFiltering="false">
+                                    <HeaderTemplate>
+                                        <asp:Label CssClass="label" ID="lblTransactionType" runat="server" Text='Trans Type'></asp:Label>
+                                        <asp:DropDownList ID="ddlTranType" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
+                                            OnSelectedIndexChanged="ddlTranType_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label CssClass="label" ID="lblContainer" runat="server" Text='<%# Eval("SystematicType") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="SystematicAmount" AllowFiltering="false" HeaderText="SystematicAmount"
+                                    UniqueName="SystematicAmount">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SystematicDate" AllowFiltering="false" HeaderText="SystematicDate"
+                                    UniqueName="SystematicDate">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="ActualAmount" AllowFiltering="false" HeaderText="ActualAmount"
+                                    UniqueName="ActualAmount">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="ActualDate" AllowFiltering="false" HeaderText="ActualDate"
+                                    UniqueName="ActualDate">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                            </Columns>
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        </ClientSettings>
+                    </telerik:RadGrid>
                 </div>
                 <%--<asp:GridView ID="gvSystematicTransactions" runat="server" AutoGenerateColumns="False" CellPadding="4"
                         DataKeyNames="RowId" Width="624px" Height="78px" 
