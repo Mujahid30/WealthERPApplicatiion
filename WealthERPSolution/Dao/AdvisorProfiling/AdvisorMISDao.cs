@@ -1670,7 +1670,7 @@ namespace DaoAdvisorProfiling
             return dsGetMISCommission;
         }
 
-        public DataTable GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate)
+        public DataSet GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate)
         {
             Database db;
             DbCommand getMFReturnsCmd;
@@ -1690,7 +1690,7 @@ namespace DaoAdvisorProfiling
                   db.AddInParameter(getMFReturnsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
                 getMFReturnsCmd.CommandTimeout = 60 * 60;
                 dsGetMFReturns = db.ExecuteDataSet(getMFReturnsCmd);
-                dtGetReturns = dsGetMFReturns.Tables[0];
+                //dtGetReturns = dsGetMFReturns.Tables[0];
             }
             catch (BaseApplicationException Ex)
             {
@@ -1712,10 +1712,10 @@ namespace DaoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dtGetReturns;
+            return dsGetMFReturns;
         }
 
-        public DataTable GetEQReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate)
+        public DataSet GetEQReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate)
         {
             Database db;
             DbCommand getEQReturnsCmd;
@@ -1735,7 +1735,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getEQReturnsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
                 getEQReturnsCmd.CommandTimeout = 60 * 60;
                 dsGetEQReturns = db.ExecuteDataSet(getEQReturnsCmd);
-                dtGetEQReturns = dsGetEQReturns.Tables[0];
+                //dtGetEQReturns = dsGetEQReturns.Tables[0];
             }
             catch (BaseApplicationException Ex)
             {
@@ -1757,7 +1757,7 @@ namespace DaoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dtGetEQReturns;
+            return dsGetEQReturns;
         }
     }
 }
