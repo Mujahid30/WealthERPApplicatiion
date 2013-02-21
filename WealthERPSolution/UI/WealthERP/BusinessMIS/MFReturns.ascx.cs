@@ -68,11 +68,17 @@ namespace WealthERP.BusinessMIS
             int RMId = rmVo.RMId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
-            if (!IsPostBack)
-            {
-                SetParameters();
-                BindMfReturnsGrid();
-            }
+
+            pnlMfReturns.Visible = false;
+            pnlScheme.Visible = false;
+            gvMfReturns.Visible = false;
+            gvMfReturnsScheme.Visible = false;
+            imgScheme.Visible = false;
+            imgMFReturns.Visible = false;
+            //if (!IsPostBack)
+            //{
+                
+            //}
         }
         
         private void BindMfReturnsGrid()
@@ -80,8 +86,10 @@ namespace WealthERP.BusinessMIS
             double totalinvestedCost = 0.0;
             double totalcurrentvalue = 0.0;
             double totalPL = 0.0;
+            DataSet dsMfReturns;
             DataTable dtMfReturns;
-            dtMfReturns = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate);
+            dsMfReturns = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate);
+            dtMfReturns = dsMfReturns.Tables[0];
             if (dtMfReturns == null)
             {
                 gvMfReturns.DataSource = dtMfReturns;
@@ -241,9 +249,12 @@ namespace WealthERP.BusinessMIS
             dtMfReturns = (DataTable)Cache["gvMfReturns" + userVo.UserId + userType];
             gvMfReturns.DataSource = dtMfReturns;
             gvMfReturns.Visible = true;
-            //GridFooterItem fitem = (GridFooterItem)gvMfReturns.MasterTableView.GetItems(GridItemType.Footer)[0];
-            //Label lbl = (Label)fitem.FindControl("lblTotalPercentage");
-            //lbl.Text = hdnTotalPL.Value;
+
+            pnlMfReturns.Visible = true;
+            pnlScheme.Visible = false;
+            gvMfReturnsScheme.Visible = false;
+            imgScheme.Visible = false;
+            imgMFReturns.Visible = true;
         }
 
         protected void imgMFReturns_Click(object sender, ImageClickEventArgs e)
@@ -255,6 +266,126 @@ namespace WealthERP.BusinessMIS
                 filter.Visible = false;
             }
             gvMfReturns.MasterTableView.ExportToExcel();
+        }
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            SetParameters();
+            if (ddlType.SelectedValue == "CustomerWise")
+                BindMfReturnsGrid();
+            else if (ddlType.SelectedValue == "SchemeWise")
+                BindMFSchemeWise();
+
+        }
+
+        private void BindMFSchemeWise()
+        {
+            double totalinvestedCost = 0.0;
+            double totalcurrentvalue = 0.0;
+            double totalPL = 0.0;
+            DataSet dsMfReturnsScheme;
+            DataTable dtMfReturnsScheme;
+            dsMfReturnsScheme = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate);
+            dtMfReturnsScheme = dsMfReturnsScheme.Tables[1];
+            if (dtMfReturnsScheme == null)
+            {
+                gvMfReturnsScheme.DataSource = dtMfReturnsScheme;
+                gvMfReturnsScheme.DataBind();
+            }
+            else
+            {
+                DataTable dtMFReturnsSchemeNew = new DataTable();
+                dtMFReturnsSchemeNew.Columns.Add("CustomerId");
+                dtMFReturnsSchemeNew.Columns.Add("Customer");
+                dtMFReturnsSchemeNew.Columns.Add("PAN");
+                dtMFReturnsSchemeNew.Columns.Add("Parent");
+                dtMFReturnsSchemeNew.Columns.Add("Branch");
+                dtMFReturnsSchemeNew.Columns.Add("RM");
+                dtMFReturnsSchemeNew.Columns.Add("Scheme");
+                dtMFReturnsSchemeNew.Columns.Add("InvestedCost", typeof(Double));
+                dtMFReturnsSchemeNew.Columns.Add("CurrentValue", typeof(Double));
+                dtMFReturnsSchemeNew.Columns.Add("ProfitLoss", typeof(Double));
+                dtMFReturnsSchemeNew.Columns.Add("Percentage", typeof(Double));
+
+                DataRow drMFReturnsSchemeNew;
+                foreach (DataRow dr in dtMfReturnsScheme.Rows)
+                {
+                    drMFReturnsSchemeNew = dtMFReturnsSchemeNew.NewRow();
+                    drMFReturnsSchemeNew["CustomerId"] = dr["CustomerId"].ToString();
+                    drMFReturnsSchemeNew["Customer"] = dr["Customer"].ToString();
+                    drMFReturnsSchemeNew["PAN"] = dr["PAN"].ToString();
+                    drMFReturnsSchemeNew["Parent"] = dr["Parent"].ToString();
+                    drMFReturnsSchemeNew["Branch"] = dr["Branch"].ToString();
+                    drMFReturnsSchemeNew["RM"] = dr["RM"].ToString();
+                    drMFReturnsSchemeNew["Scheme"] = dr["PASP_SchemePlanName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["InvestedCost"].ToString().Trim()))
+                        drMFReturnsSchemeNew["InvestedCost"] = Double.Parse(dr["InvestedCost"].ToString());
+                    else
+                        drMFReturnsSchemeNew["InvestedCost"] = 0;
+                    totalinvestedCost = totalinvestedCost + Double.Parse(dr["InvestedCost"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["CurrentValue"].ToString().Trim()))
+                        drMFReturnsSchemeNew["CurrentValue"] = Double.Parse(dr["CurrentValue"].ToString());
+                    else
+                        drMFReturnsSchemeNew["CurrentValue"] = 0;
+                    totalcurrentvalue = totalcurrentvalue + Double.Parse(dr["CurrentValue"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["ProfitLoss"].ToString().Trim()))
+                        drMFReturnsSchemeNew["ProfitLoss"] = dr["ProfitLoss"].ToString();
+                    else
+                        drMFReturnsSchemeNew["ProfitLoss"] = 0;
+
+                    if (!string.IsNullOrEmpty(dr["Percentage"].ToString().Trim()))
+                        drMFReturnsSchemeNew["Percentage"] = Double.Parse(dr["Percentage"].ToString());
+                    else
+                        drMFReturnsSchemeNew["Percentage"] = 0;
+
+                    dtMFReturnsSchemeNew.Rows.Add(drMFReturnsSchemeNew);
+                }
+                GridBoundColumn TotalPercentage = gvMfReturns.MasterTableView.Columns.FindByUniqueName("Percentage") as GridBoundColumn;
+                totalPL = ((totalcurrentvalue - totalinvestedCost) / totalinvestedCost) * 100;
+                TotalPercentage.FooterText = totalPL.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                gvMfReturnsScheme.DataSource = dtMFReturnsSchemeNew;
+                gvMfReturnsScheme.DataBind();
+                pnlMfReturns.Visible = false;
+                pnlScheme.Visible = true;
+                gvMfReturnsScheme.Visible = true;
+                imgScheme.Visible = true;
+                imgMFReturns.Visible = false;
+                if (Cache["gvMfReturnsScheme" + userVo.UserId + userType] == null)
+                {
+                    Cache.Insert("gvMfReturnsScheme" + userVo.UserId + userType, dtMFReturnsSchemeNew);
+                }
+                else
+                {
+                    Cache.Remove("gvMfReturnsScheme" + userVo.UserId + userType);
+                    Cache.Insert("gvMfReturnsScheme" + userVo.UserId + userType, dtMFReturnsSchemeNew);
+                }
+            }
+        }
+        protected void gvMfReturnsScheme_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtMfReturnsScheme = new DataTable();
+            dtMfReturnsScheme = (DataTable)Cache["gvMfReturnsScheme" + userVo.UserId + userType];
+            gvMfReturnsScheme.DataSource = dtMfReturnsScheme;
+            gvMfReturnsScheme.Visible = true;
+
+            pnlMfReturns.Visible = false;
+            pnlScheme.Visible = true;
+            gvMfReturns.Visible = false;
+            imgScheme.Visible = true;
+            imgMFReturns.Visible = false;
+        }
+
+        protected void imgScheme_Click(object sender, ImageClickEventArgs e)
+        {
+            gvMfReturnsScheme.ExportSettings.OpenInNewWindow = true;
+            gvMfReturnsScheme.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvMfReturnsScheme.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvMfReturnsScheme.MasterTableView.ExportToExcel();
         }
     }
 }
