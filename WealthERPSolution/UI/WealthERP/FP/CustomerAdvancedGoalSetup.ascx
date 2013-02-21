@@ -1305,7 +1305,7 @@
                         </div>
                     </td>
                     <td style="width: 2%">
-                        <asp:ImageButton ID="ImageButton2" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        <asp:ImageButton ID="ImageButton2" Visible="false" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                             runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnexistEQinvest_OnClick"
                             OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                     </td>

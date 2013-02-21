@@ -2837,8 +2837,12 @@ namespace WealthERP.FP
 
         protected void BindEquityFundedDetails()
         {
-            RadGrid4.DataSource = dsGoalFundingDetails.Tables[2];
-            RadGrid4.DataBind();
+            if (dsGoalFundingDetails.Tables[2].Rows.Count > 0)
+            {
+                ImageButton2.Visible = true;
+                RadGrid4.DataSource = dsGoalFundingDetails.Tables[2];
+                RadGrid4.DataBind();
+            }
         }
         protected void BindDDLScripsAllocated(DropDownList ddlPickScrips, int customerId)
         {
