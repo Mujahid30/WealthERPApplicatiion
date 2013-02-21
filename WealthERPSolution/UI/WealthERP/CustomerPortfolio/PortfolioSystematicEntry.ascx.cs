@@ -1162,7 +1162,7 @@ namespace WealthERP.CustomerPortfolio
             DateTime endDate = new DateTime();
             if (ddlPeriodSelection.SelectedItem.Value == "DA")
             {
-                endDate = startDate.AddDays(period);
+                endDate = startDate.AddDays(period-1);
             }
             else if (ddlPeriodSelection.SelectedItem.Value == "MN")
             {
@@ -1170,7 +1170,8 @@ namespace WealthERP.CustomerPortfolio
             }
             else if (ddlPeriodSelection.SelectedItem.Value == "YR")
             {
-                endDate = startDate.AddYears(period);
+                period = period * 12;
+                endDate = startDate.AddMonths(period - 1);
             }
 
 
