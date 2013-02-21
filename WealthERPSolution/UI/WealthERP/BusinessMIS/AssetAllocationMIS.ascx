@@ -150,7 +150,7 @@
        <td>
        <div id="dvHoldings" runat="server" style="width: 640px;">
                 <telerik:RadGrid ID="gvAssetAllocationMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" ExportSettings-FileName="AssetAllocation MIS" 
                     OnNeedDataSource="gvAssetAllocationMIS_OnNeedDataSource" OnItemDataBound="gvAssetAllocationMIS_ItemDataBound"> 
