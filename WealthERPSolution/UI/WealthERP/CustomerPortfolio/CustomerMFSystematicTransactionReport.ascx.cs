@@ -210,10 +210,12 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (dtSystematicTransactionReport.Rows.Count != 0)
                 {
+                    ViewState["SystematicTransactions"] = dtSystematicTransactionReport;
+                    gvSystematicTransactions.CurrentPageIndex = 0;
                     gvSystematicTransactions.DataSource = dtSystematicTransactionReport;
                     gvSystematicTransactions.DataBind();
 
-                    ViewState["SystematicTransactions"] = dtSystematicTransactionReport;
+                   // ViewState["SystematicTransactions"] = dtSystematicTransactionReport;
 
                     gvSystematicTransactions.Visible = true;
                     pnlSystematicTransactions.Visible = true;
@@ -279,14 +281,39 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvSystematicTransactions_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridHeaderItem)
-            {
-                GridHeaderItem item = e.Item as GridHeaderItem;
-                ddlTransactionType = (DropDownList)item.FindControl("ddlTranType");
-                txtCustomerName = (TextBox)item.FindControl("txtCustomerSearch");
-                txtSchemeName = (TextBox)item.FindControl("txtSchemeSearch");
+            
+            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
+            {                                       
+                GridFilteringItem filterItem = (GridFilteringItem)e.Item;
+                RadComboBox ddlTranType = (RadComboBox)filterItem.FindControl("ddlTranType");
+                DataTable dt = new DataTable();
+                if (ViewState["SystematicTransactions"] != null)
+                dt = (DataTable)ViewState["SystematicTransactions"];
+                
+                DataTable dtsystmatic = new DataTable();
+                DataRow drsystematic;
+                dtsystmatic.Columns.Add("SystematicType");
+                foreach (DataRow dr in dt.Rows)
+                {
+                    drsystematic = dtsystmatic.NewRow();
+                    drsystematic["SystematicType"] = dr["SystematicType"].ToString();
+                    dtsystmatic.Rows.Add(drsystematic);
+                }
+                DataView view = new DataView(dt);
+                DataTable distinctValues = view.ToTable(true, "SystematicType");
+                ddlTranType.DataSource = distinctValues;
+                ddlTranType.DataValueField = dtsystmatic.Columns["SystematicType"].ToString();
+                ddlTranType.DataTextField = dtsystmatic.Columns["SystematicType"].ToString();
+                ddlTranType.DataBind();
+            
+           // if (e.Item is GridHeaderItem)
+            //{
+              //  GridHeaderItem item = e.Item as GridHeaderItem;
+               // ddlTransactionType = (RadComboBox)item.FindControl("ddlTranType");
+                //txtCustomerName = (TextBox)item.FindControl("txtCustomerSearch");
+                //txtSchemeName = (TextBox)item.FindControl("txtSchemeSearch");
 
-                BindTranTypeDDL(ddlTransactionType);
+               // BindTranTypeDDL(ddlTransactionType);
             }
             if (e.Item.ItemType == GridItemType.Item || e.Item.ItemType == GridItemType.AlternatingItem)
             {
@@ -297,15 +324,43 @@ namespace WealthERP.CustomerPortfolio
                 }
             }
         }
+        protected void gvSystematicTransactions_PreRender(object sender, EventArgs e)
+        {
+            if (gvSystematicTransactions.MasterTableView.FilterExpression != string.Empty)
+            {
+                RefreshCombos();
+            }
+        }
 
+        protected void RefreshCombos()
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)ViewState["SystematicTransactions"];
+            DataView view = new DataView(dt);
+            DataTable distinctValues = view.ToTable();
+            DataRow[] rows = distinctValues.Select(gvSystematicTransactions.MasterTableView.FilterExpression.ToString());
+            gvSystematicTransactions.MasterTableView.Rebind();
+        }
         protected void gvSystematicTransactions_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dt = new DataTable();
-            if (ViewState["SystematicTransactions"] != null)
-            {
-                dt = (DataTable)ViewState["SystematicTransactions"];
+            DataView dvTType = new DataView();
+            string ttype = string.Empty;
+           dt = (DataTable)ViewState["SystematicTransactions"];
+                if (dt != null)
+                {  
+                  if (ViewState["SystematicType"] != null)
+                  ttype = ViewState["SystematicType"].ToString();
+                     if ((!string.IsNullOrEmpty(ttype)))
+               {
+                   dvTType = new DataView(dt, "SystematicType = '" + ttype + "'", "CustomerName,Scheme,SystematicDate", DataViewRowState.CurrentRows);
+                   gvSystematicTransactions.DataSource = dvTType.ToTable();
+               
+               }
+                else
                 gvSystematicTransactions.DataSource = dt;
             }
+           
         }
 
         private void BindGridSearchBoxes(List<string> transTypeList, string transType, string customerSearch, string schemeSearch)
@@ -409,20 +464,44 @@ namespace WealthERP.CustomerPortfolio
             SetSystematicTransactions();
         }
 
-        protected void ddlTranType_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlTranType_SelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
             //string strTransactionType = string.Empty;
-            
-            GridHeaderItem headerItem = gvSystematicTransactions.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
-            DropDownList ddl = headerItem.FindControl("ddlTranType") as DropDownList;
-            if (ddl != null)
+            RadComboBox dropdown = sender as RadComboBox;
+            ViewState["SystematicType"] = dropdown.SelectedValue;
+            if (ViewState["SystematicType"] != "")
             {
-                hdnDdlTranTypeSelectedValue.Value = ddl.SelectedValue;
-            }            
+                GridColumn column = gvSystematicTransactions.MasterTableView.GetColumnSafe("SystematicType");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvSystematicTransactions.CurrentPageIndex = 0;
+                gvSystematicTransactions.MasterTableView.Rebind();
+            }
+            else
+            {
+                GridColumn column = gvSystematicTransactions.MasterTableView.GetColumnSafe("SystematicType");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvSystematicTransactions.CurrentPageIndex = 0;
+                gvSystematicTransactions.MasterTableView.Rebind();
+
+            } 
+            //GridHeaderItem headerItem = gvSystematicTransactions.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            //DropDownList ddl = headerItem.FindControl("ddlTranType") as DropDownList;
+            //if (ddl != null)
+            //{
+            //    hdnDdlTranTypeSelectedValue.Value = ddl.SelectedValue;
+            //}            
             SetSystematicTransactions();
             hdnDdlTranTypeSelectedValue.Value = string.Empty;
         }
 
+        protected void TranType_PreRender(object sender, EventArgs e)
+        {
+            RadComboBox Combo = sender as RadComboBox;
+            if (ViewState["SystematicType"] != null)
+            {
+                Combo.SelectedValue = ViewState["SystematicType"].ToString();
+            }
+        }
         protected void ddlPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetSystematicTransactions();
@@ -489,6 +568,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnGen_Click(object sender, EventArgs e)
         {
+            ViewState.Remove("SystematicType");   
             SetSystematicTransactions();
         }
 
@@ -508,6 +588,18 @@ namespace WealthERP.CustomerPortfolio
                 ddl.SelectedValue = hdnDdlTranTypeSelectedValue.Value;
             else
                 ddl.SelectedValue = "Select";
+        }
+
+        public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvSystematicTransactions.ExportSettings.OpenInNewWindow = true;
+            gvSystematicTransactions.ExportSettings.IgnorePaging = true;
+            gvSystematicTransactions.ExportSettings.HideStructureColumns = true;
+            gvSystematicTransactions.ExportSettings.ExportOnlyData = true;
+            gvSystematicTransactions.ExportSettings.FileName = "CustomerMFSystematicReport";
+            gvSystematicTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvSystematicTransactions.MasterTableView.ExportToExcel();
+
         }
     }
 }

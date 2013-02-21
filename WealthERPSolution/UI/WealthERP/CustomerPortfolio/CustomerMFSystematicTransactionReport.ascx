@@ -31,7 +31,13 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            MF SystematicTransactionsReport
+                            MF Systematic Recon
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="true" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -156,14 +162,14 @@
                 ScrollBars="Vertical" Visible="false" HorizontalAlign="Left">
                 <div id="dvHoldings" runat="server" style="width: 650px; padding: 4px">
                     <telerik:RadGrid ID="gvSystematicTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
-                        AllowSorting="true" AllowPaging="false" ShowStatusBar="True" ShowFooter="true"
+                        AllowSorting="true" AllowPaging="true" ShowStatusBar="True" ShowFooter="true"  OnPreRender= "gvSystematicTransactions_PreRender"
                         PageSize="10" OnItemCreated="gvSystematicTransactions_ItemCreated" OnItemDataBound="gvSystematicTransactions_ItemDataBound"
                         OnNeedDataSource="gvSystematicTransactions_OnNeedDataSource" Skin="Telerik" EnableEmbeddedSkins="false"
                         Width="100%" AllowFilteringByColumn="true" AllowAutomaticInserts="false">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
                         </ExportSettings>
                         <MasterTableView DataKeyNames="RowId" Width="100%" AllowMultiColumnSorting="True"
-                            AutoGenerateColumns="false" CommandItemDisplay="Top">
+                            AutoGenerateColumns="false" CommandItemDisplay="None">
                             <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                 ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                             <Columns>
@@ -175,7 +181,7 @@
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="true" HeaderText="CustomerName"
-                                    UniqueName="CustomerName">
+                                    UniqueName="CustomerName" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Folio" AllowFiltering="false" HeaderText="Folio"
@@ -183,10 +189,35 @@
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Scheme" AllowFiltering="true" HeaderText="Scheme"
-                                    UniqueName="Scheme">
+                                    UniqueName="Scheme" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridTemplateColumn AllowFiltering="false">
+                                <telerik:GridBoundColumn  DataField="SystematicType" AllowFiltering="true" AutoPostBackOnFilter="true"
+                                ShowFilterIcon="false">
+                                 <FilterTemplate>
+                                        <telerik:RadComboBox ID="ddlTranType" AutoPostBack="true" AllowFiltering="true"
+                                            CssClass="cmbField" Width="130px" IsFilteringEnabled="true" AppendDataBoundItems="true"
+                                            OnPreRender="TranType_PreRender" EnableViewState="true" OnSelectedIndexChanged="ddlTranType_SelectedIndexChanged"
+                                            SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("SystematicType").CurrentFilterValue %>'
+                                            runat="server">
+                                            <Items>
+                                                <telerik:RadComboBoxItem Text="ALL" Value="" Selected="false"></telerik:RadComboBoxItem>
+                                               <%-- <telerik:RadComboBoxItem Text="STP" Value="STP" Selected="false"></telerik:RadComboBoxItem>--%>
+                                            </Items>
+                                        </telerik:RadComboBox>
+                                        <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+
+                                            <script type="text/javascript">
+                                                function TranTypeIndexChanged(sender, args) {
+                                                    var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                                    tableView.filter("SystematicType", args.get_item().get_value(), "EqualTo");
+                                                }
+                                            </script>
+
+                                        </telerik:RadScriptBlock>
+                                    </FilterTemplate>
+                                </telerik:GridBoundColumn>
+                            <%--    <telerik:GridTemplateColumn AllowFiltering="false">
                                     <HeaderTemplate>
                                         <asp:Label CssClass="label" ID="lblTransactionType" runat="server" Text='Trans Type'></asp:Label>
                                         <asp:DropDownList ID="ddlTranType" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
@@ -197,13 +228,13 @@
                                         <asp:Label CssClass="label" ID="lblContainer" runat="server" Text='<%# Eval("SystematicType") %>'></asp:Label>
                                     </ItemTemplate>
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridTemplateColumn>
+                                </telerik:GridTemplateColumn>--%>
                                 <telerik:GridBoundColumn DataField="SystematicAmount" AllowFiltering="false" HeaderText="SystematicAmount"
                                     UniqueName="SystematicAmount">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="SystematicDate" AllowFiltering="false" HeaderText="SystematicDate"
-                                    UniqueName="SystematicDate">
+                                <telerik:GridBoundColumn DataField="SystematicDate" AllowFiltering="true" HeaderText="SystematicDate"
+                                    UniqueName="SystematicDate" SortExpression="SystematicDate" ShowFilterIcon="false">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="ActualAmount" AllowFiltering="false" HeaderText="ActualAmount"
