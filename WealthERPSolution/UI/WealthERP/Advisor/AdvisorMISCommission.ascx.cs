@@ -45,14 +45,14 @@ namespace WealthERP.Advisor
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["userVo"];
-            trCommissionMIS.Visible = false;
-            gvCommissionMIS.Visible = false;
-            divCommissionMIS.Visible = false;
-            pnlCommissionMIS.Visible = false;
-            pnlZoneClusterWiseMIS.Visible = false;
-            divZoneClusterWiseMIS.Visible = false;
-            tdZoneClusterCommissionMIS.Visible = false;
-            tdCategoryWise.Visible = false;
+            //trCommissionMIS.Visible = false;
+            ////gvCommissionMIS.Visible = false;
+            //divCommissionMIS.Visible = false;
+            //pnlCommissionMIS.Visible = false;
+            //pnlZoneClusterWiseMIS.Visible = false;
+            //divZoneClusterWiseMIS.Visible = false;
+            //tdZoneClusterCommissionMIS.Visible = false;
+            //tdCategoryWise.Visible = false;
             if (!Page.IsPostBack)
             {
                 if (!Convert.ToBoolean(advisorVo.MultiBranch))
@@ -100,6 +100,9 @@ namespace WealthERP.Advisor
             dsMISCommission = advisorMISBo.GetMFMISCommission(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), out sumTotal);            
             if (dsMISCommission.Tables[0].Rows.Count > 0)
             {
+                imgMISCommission.Visible = true;
+                imgZoneClusterCommissionMIS.Visible = false;
+                btnCommissionMIS.Visible = false;
                 //trCommissionMIS.Visible = true;
                 dtMIS = dsMISCommission.Tables[0];
                 string misType = hdnMISType.Value.ToString();                
@@ -183,6 +186,10 @@ namespace WealthERP.Advisor
            DataSet dsALLMISCommission = advisorMISBo.GetCommissionMIS(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()));
            if (dsALLMISCommission.Tables[0].Rows.Count > 0)
             {
+                imgMISCommission.Visible = false;
+                imgZoneClusterCommissionMIS.Visible = false;
+                btnCommissionMIS.Visible = true;
+
                 trCommissionMIS.Visible = true;
               
                 string misType = hdnMISType.Value.ToString();
@@ -219,7 +226,11 @@ namespace WealthERP.Advisor
         {
             DataSet dsZoneClusterMISCommission = advisorMISBo.GetCommissionMISZoneClusterWise(advisorVo.advisorId, DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()));
             if (dsZoneClusterMISCommission.Tables[0].Rows.Count > 0)
-            {              
+            {
+                imgMISCommission.Visible = false;
+                imgZoneClusterCommissionMIS.Visible = true;
+                btnCommissionMIS.Visible = false;
+
                 string misType = hdnMISType.Value.ToString();
                 tblMessage.Visible = false;
                 ErrorMessage.Visible = false;
@@ -403,10 +414,10 @@ namespace WealthERP.Advisor
         {
             gvMISCommission.Visible = true;
             tdCategoryWise.Visible = true;
-            DataTable dtMIS = new DataTable();
-            dtMIS = (DataTable)Cache["AllMIS" + advisorVo.advisorId + userVo.UserId];
-            gvMISCommission.DataSource = dtMIS;
-            
+            DataTable dtFolioDetails = new DataTable();
+            dtFolioDetails = (DataTable)Cache["AllMIS" + advisorVo.advisorId + userVo.UserId];
+            gvMISCommission.DataSource = dtFolioDetails;
+            gvMISCommission.Visible = true;
         }
         public void gvZoneClusterWiseCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
         {
