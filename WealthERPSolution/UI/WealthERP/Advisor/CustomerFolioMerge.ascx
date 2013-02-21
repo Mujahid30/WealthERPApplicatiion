@@ -1,8 +1,9 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFolioMerge.ascx.cs" Inherits="WealthERP.Advisor.CustomerFolioMerge" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFolioMerge.ascx.cs"
+    Inherits="WealthERP.Advisor.CustomerFolioMerge" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
 <script src="/Scripts/jquery.js" type="text/javascript"></script>
 
@@ -11,11 +12,10 @@
 <script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
 
 <asp:ScriptManager ID="scptMgr" runat="server" EnablePartialRendering="true">
- <Services>
+    <Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
-
 
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
@@ -24,12 +24,10 @@
     };
 </script>
 
-
-
 <script type="text/javascript">
 
     function CheckFolioSelected() {
-         var Count = 0;        
+        var Count = 0;
         Parent = document.getElementById("<%=gvCustomerFolioMerge.ClientID %>");
         var items = Parent.getElementsByTagName('input');
         for (i = 0; i < items.length; i++) {
@@ -44,7 +42,7 @@
     }
 
     function CheckOtherIsCheckedByGVID(spanChk) {
-    
+
         var IsChecked = spanChk.checked;
         var CurrentRdbID = spanChk.id;
         var Chk = spanChk;
@@ -53,7 +51,7 @@
         var items = Parent.getElementsByTagName('input');
         for (i = 0; i < items.length; i++) {
             if (items[i].id != CurrentRdbID && items[i].type == "checkbox") {
-                    if (items[i].checked) {
+                if (items[i].checked) {
                     items[i].checked = false;
                     alert("Please select one customer at a time.");
                 }
@@ -64,145 +62,147 @@
 
 <link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-.CheckField
-{
-    font-family: Verdana,Tahoma;
-    font-weight: normal;
-    font-size: 11px;
-    color: #16518A;
-    
-}
+    .CheckField
+    {
+        font-family: Verdana,Tahoma;
+        font-weight: normal;
+        font-size: 11px;
+        color: #16518A;
+    }
 </style>
-
 <table width="100%">
-<tr>
-<td colspan="3" style="width: 100%;">
-<div class="divPageHeading">
-    <table cellspacing="0"  width="100%">
-        <tr>
-        <td align="left">Accounts</td>
-        <td  align="right" style="padding-bottom:2px;">
+    <tr>
+        <td colspan="3" style="width: 100%;">
+            <div class="divPageHeading">
+                <table cellspacing="0" width="100%">
+                    <tr>
+                        <td align="left">
+                            Accounts
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton Visible="false" ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
-        </tr>
-    </table>
-</div>
-</td>
-</tr>
+    </tr>
 </table>
-
-
 <table width="70%">
-<tr>
-<td style="width:100px"></td>
-<td style="width:120px" align="right">
-    <asp:Label ID="lblAction" runat="server" Text="Action:" CssClass="FieldName"></asp:Label></td>
-<td style="width:300px">
-    <asp:DropDownList ID="ddlMovePortfolio" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-        onselectedindexchanged="ddlMovePortfolio_SelectedIndexChanged">
-        <asp:ListItem Value="S">Select</asp:ListItem>
-        <asp:ListItem Value="Merge">Folio merge</asp:ListItem>
-        <asp:ListItem Value="MtoAC">Folio transfer to another customer</asp:ListItem>
-        <asp:ListItem Value="MtoAP">Folio Transfer to another portfolio</asp:ListItem>
-    </asp:DropDownList>
-</td>
-<td style="width:200px">
-        <%--<asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClientClick="return CheckFolioSelected();"
+    <tr>
+        <td style="width: 100px">
+        </td>
+        <td style="width: 120px" align="right">
+            <asp:Label ID="lblAction" runat="server" Text="Action:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td style="width: 300px">
+            <asp:DropDownList ID="ddlMovePortfolio" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlMovePortfolio_SelectedIndexChanged">
+                <asp:ListItem Value="S">Select</asp:ListItem>
+                <asp:ListItem Value="Merge">Folio merge</asp:ListItem>
+                <asp:ListItem Value="MtoAC">Folio transfer to another customer</asp:ListItem>
+                <asp:ListItem Value="MtoAP">Folio Transfer to another portfolio</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td style="width: 200px">
+            <%--<asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClientClick="return CheckFolioSelected();"
         onclick="btnGo_Click" />--%>
-    </td>
-</tr>
-
-<tr id="trMergeToAnotherAMC" runat="server" visible="false">
-        <td style="width:100px"></td>
+        </td>
+    </tr>
+    <tr id="trMergeToAnotherAMC" runat="server" visible="false">
+        <td style="width: 100px">
+        </td>
         <td align="right">
             <asp:Label ID="lblMergeTo" Text="Merge to folio:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlAdvisorBranchList" runat="server" CssClass="cmbLongField">
-            <asp:ListItem Value="0">Select</asp:ListItem>
+                <asp:ListItem Value="0">Select</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td>
-            <asp:Button ID="btnmerge" CssClass="PCGButton" runat="server" ValidationGroup="vgBtn" OnClick="btnEdit_Click" Text="Submit" OnClientClick="return CheckFolioSelected();"/>
-          <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ValidationGroup="vgBtn" ControlToValidate="ddlAdvisorBranchList" ValueToCompare="null" ErrorMessage="Field is required" Operator="NotEqual" ></asp:CompareValidator>--%>
-        </td>        
+            <asp:Button ID="btnmerge" CssClass="PCGButton" runat="server" ValidationGroup="vgBtn"
+                OnClick="btnEdit_Click" Text="Submit" OnClientClick="return CheckFolioSelected();" />
+            <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ValidationGroup="vgBtn" ControlToValidate="ddlAdvisorBranchList" ValueToCompare="null" ErrorMessage="Field is required" Operator="NotEqual" ></asp:CompareValidator>--%>
+        </td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
         <td>
-        <asp:Label ID="lblerror" Text="No Folios to merge" CssClass="rfvPCG" Visible="false" runat="server"></asp:Label> 
+        </td>
+        <td>
+        </td>
+        <td>
+            <asp:Label ID="lblerror" Text="No Folios to merge" CssClass="rfvPCG" Visible="false"
+                runat="server"></asp:Label>
         </td>
     </tr>
-    
     <tr id="trPickCustomer" runat="server" visible="false">
-        <td></td>
+        <td>
+        </td>
         <td align="right">
-        <asp:Label ID="lblPickCustomer" Text="Customer:" CssClass="FieldName" runat="server"></asp:Label>
+            <asp:Label ID="lblPickCustomer" Text="Customer:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
-        <%--<asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtField" OnValueChanged="txtPickCustomer_ValueChanged" ></asp:TextBox>--%>
-
-              <asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtLongAddField" 
-              AutoComplete="Off"  AutoPostBack="True" 
-              ontextchanged="txtPickCustomer_TextChanged" ></asp:TextBox>
-              <cc1:TextBoxWatermarkExtender ID="txtPickCustomer_water" TargetControlID="txtPickCustomer" WatermarkText="Enter few characters"
-              runat="server" EnableViewState="false"></cc1:TextBoxWatermarkExtender>
-              <ajaxToolkit:AutoCompleteExtender ID="txtPickCustomer_autoCompleteExtender" runat="server"
-              TargetControlID="txtPickCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-              MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-              CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-              CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-              UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" Enabled="True"  />
-              
-              <span id="Span1" class="spnRequiredField">*</span>
-              <%--<span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
+            <%--<asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtField" OnValueChanged="txtPickCustomer_ValueChanged" ></asp:TextBox>--%>
+            <asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtLongAddField" AutoComplete="Off"
+                AutoPostBack="True" OnTextChanged="txtPickCustomer_TextChanged"></asp:TextBox>
+            <cc1:TextBoxWatermarkExtender ID="txtPickCustomer_water" TargetControlID="txtPickCustomer"
+                WatermarkText="Enter few characters" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtPickCustomer_autoCompleteExtender" runat="server"
+                TargetControlID="txtPickCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                Enabled="True" />
+            <span id="Span1" class="spnRequiredField">*</span>
+            <%--<span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
                 few characters of customer name.</span>--%>
-                </td>   
+        </td>
         <td>
-                <asp:RequiredFieldValidator ID="rfvPickCustomer" ControlToValidate="txtPickCustomer" ErrorMessage="Please select a customer."
-                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
-                </asp:RequiredFieldValidator>
-            </td>
+            <asp:RequiredFieldValidator ID="rfvPickCustomer" ControlToValidate="txtPickCustomer"
+                ErrorMessage="Please select a customer." Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSubmit">
+            </asp:RequiredFieldValidator>
+        </td>
     </tr>
-
     <tr id="trPickPortfolio" runat="server" visible="false">
-        <td style="width:100px"></td>
+        <td style="width: 100px">
+        </td>
         <td align="right">
-        <asp:Label ID="lblPickPortfolio" Text="Portfolio:" CssClass="FieldName" runat="server"></asp:Label>
+            <asp:Label ID="lblPickPortfolio" Text="Portfolio:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbLongField">
                 <asp:ListItem Value="0">Select </asp:ListItem>
-            </asp:DropDownList>                
-            <span id="Span2" class="spnRequiredField">*
-            </span>                
+            </asp:DropDownList>
+            <span id="Span2" class="spnRequiredField">* </span>
         </td>
         <td>
-            <span id="Span4" class="spnRequiredField">
-            <span id="Span3" class="spnRequiredField">
-         <asp:RequiredFieldValidator ID="rfvddlPortfolio" ControlToValidate="ddlPortfolio" ErrorMessage="Please pick a portfolio"
-        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
-        </asp:RequiredFieldValidator>
-            </span>                
-            </span>                
-        </td>                
+            <span id="Span4" class="spnRequiredField"><span id="Span3" class="spnRequiredField">
+                <asp:RequiredFieldValidator ID="rfvddlPortfolio" ControlToValidate="ddlPortfolio"
+                    ErrorMessage="Please pick a portfolio" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                    ValidationGroup="btnSubmit">
+                </asp:RequiredFieldValidator>
+            </span></span>
+        </td>
     </tr>
-   
     <tr id="trBtnSubmit" runat="server" visible="false">
         <td>
         </td>
         <td>
         </td>
         <td>
-            <asp:Button ID="btnSubmitPortfolio" CssClass="PCGButton" runat="server" ValidationGroup="btnSubmit" OnClientClick="return CheckFolioSelected();"
-            Text="Submit" onclick="btnSubmitPortfolio_Click"/>
+            <asp:Button ID="btnSubmitPortfolio" CssClass="PCGButton" runat="server" ValidationGroup="btnSubmit"
+                OnClientClick="return CheckFolioSelected();" Text="Submit" OnClick="btnSubmitPortfolio_Click" />
         </td>
-        <td></td>
-        
+        <td>
+        </td>
     </tr>
 </table>
-
-
 <table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
     visible="false">
     <tr>
@@ -213,8 +213,7 @@
         </td>
     </tr>
 </table>
-
-  <table width="100%">
+<table width="100%">
     <tr id="trFolioStatus" runat="server">
         <td align="center">
             <div id="msgFolioStatus" runat="server" class="success-msg" align="center">
@@ -229,26 +228,23 @@
             </div>
         </td>
     </tr>
-  </table>
-
+</table>
 <table width="100%">
- <td class="leftField" align="right">
-             
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-     </td>
-     <tr>
+   <%-- <td class="leftField" align="right">
+        <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+        <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+    </td>--%>
+    <tr>
         <td>
-            <asp:Label ID="Label1" class="Field" Text="Note: Select the folios below that needs to be transferred/merged." runat="server"></asp:Label>
+            <asp:Label ID="Label1" class="Field" Text="Note: Select the folios below that needs to be transferred/merged."
+                runat="server"></asp:Label>
         </td>
-     </tr>
-
-  <tr>
-        <td colspan="3" allign="center" >
+    </tr>
+    <tr>
+        <%--<td colspan="3" allign="center">
             <asp:GridView ID="gvCustomerFolioMerge" runat="server" CellPadding="4" CssClass="GridViewStyle"
-                AllowSorting="True"  ShowFooter="true" AutoGenerateColumns="False"
-                DataKeyNames="CustomerId,AMCCode,Count,portfilionumber" 
-                onselectedindexchanged="gvCustomerFolioMerge_SelectedIndexChanged">
+                AllowSorting="True" ShowFooter="true" AutoGenerateColumns="False" DataKeyNames="CustomerId,AMCCode,Count,portfilionumber"
+                OnSelectedIndexChanged="gvCustomerFolioMerge_SelectedIndexChanged">
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -257,39 +253,36 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle " />
                 <Columns>
-                
-                 <asp:TemplateField HeaderText="Select">
-                     <HeaderTemplate>
+                    <asp:TemplateField HeaderText="Select">
+                        <HeaderTemplate>
                             <asp:Label ID="LblSelect" runat="server" Text=""></asp:Label>
                             <br />
-                            <%--<asp:Button ID="lnkSelectAll" Text="All" runat="server"  OnClientClick="return CheckAll();" />--%>
-                           <%--<input id="chkBoxAll" class="CheckField" name="CheckAllCustomer" value="Customer" type="checkbox"  />--%>
                         </HeaderTemplate>
                         <ItemTemplate>
-
-                     <asp:checkbox ID="rdbGVRow" oncheckedchanged="rdbGVRow_CheckedChanged" onclick="javascript:CheckOtherIsCheckedByGVID(this);"  runat="server" AutoPostBack="true" />
-
-                  </ItemTemplate>
+                            <asp:CheckBox ID="rdbGVRow" OnCheckedChanged="rdbGVRow_CheckedChanged" onclick="javascript:CheckOtherIsCheckedByGVID(this);"
+                                runat="server" AutoPostBack="true" />
+                        </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="GroupHead" HeaderText="Group Head">
-                                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                     </asp:BoundField>
-                    
+                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                    </asp:BoundField>
                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                         <HeaderTemplate>
                             <asp:Label ID="lblCustomerName" runat="server" Text="Name"></asp:Label>
                             <br />
-                            <asp:TextBox ID="txtCustNameSearch" Width="50%" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_AdvisorCustomerAccounts_btnCustomerSearch');" />
+                            <asp:TextBox ID="txtCustNameSearch" Width="50%" runat="server" CssClass="GridViewTxtField"
+                                onkeydown="return JSdoPostback(event,'ctrl_AdvisorCustomerAccounts_btnCustomerSearch');" />
                         </HeaderTemplate>
                         <ItemTemplate>
-                           <asp:HyperLink ID="hypCustomerName"  runat="server" OnClick="lnkCustomerName_Click" Text='<%# Eval("CustomerName").ToString() %>'>HyperLink</asp:HyperLink>                         
+                            <asp:HyperLink ID="hypCustomerName" runat="server" OnClick="lnkCustomerName_Click"
+                                Text='<%# Eval("CustomerName").ToString() %>'>HyperLink</asp:HyperLink>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>
                     </asp:TemplateField>
                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                         <HeaderTemplate>
-                            <asp:Label ID="lblAMCName" runat="server" Text="AMC Name"></asp:Label>                            
+                            <asp:Label ID="lblAMCName" runat="server" Text="AMC Name"></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblAMC" runat="server" Text='<%# Eval("AMCName").ToString() %>'></asp:Label>
@@ -300,84 +293,124 @@
                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                         <HeaderTemplate>
                             <asp:Label ID="lblcount" runat="server" Text="Folios"></asp:Label><br />
-                            <asp:TextBox ID="txtFolioSearch" Width="50%" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_AdvisorCustomerAccounts_btnFolioNumberSearch');" />
+                            <asp:TextBox ID="txtFolioSearch" Width="50%" runat="server" CssClass="GridViewTxtField"
+                                onkeydown="return JSdoPostback(event,'ctrl_AdvisorCustomerAccounts_btnFolioNumberSearch');" />
                         </HeaderTemplate>
                         <ItemTemplate>
-                         <asp:LinkButton ID="hypFolioNo" runat="server" CssClass="CmbField" OnClick="hypFolioNo_Click" Text='<%# Eval("Count").ToString() %>'>
-                         </asp:LinkButton>
-                           <%-- <asp:Label ID="lblFolioCount" runat="server" Text='<%# Eval("Count").ToString() %>'></asp:Label>--%>
+                            <asp:LinkButton ID="hypFolioNo" runat="server" CssClass="CmbField" OnClick="hypFolioNo_Click"
+                                Text='<%# Eval("Count").ToString() %>'>
+                            </asp:LinkButton>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField> 
+                    </asp:TemplateField>
                     <asp:BoundField DataField="FolioName" HeaderText="Folio Name">
-                                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                     </asp:BoundField>
+                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                    </asp:BoundField>
                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                         <HeaderTemplate>
-                            <asp:Label ID="lblmergeStatus" runat="server" Text="Merged To"></asp:Label>                            
+                            <asp:Label ID="lblmergeStatus" runat="server" Text="Merged To"></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblmergerstatus" ItemStyle-HorizontalAlign="Right" runat="server" Text='<%# Eval("mergerstatus").ToString() %>'></asp:Label>
+                            <asp:Label ID="lblmergerstatus" ItemStyle-HorizontalAlign="Right" runat="server"
+                                Text='<%# Eval("mergerstatus").ToString() %>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField> 
-                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
+                    </asp:TemplateField>
+                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                         <HeaderTemplate>
-                            <asp:Label ID="lblprocessId" runat="server" Text="ProcessId"></asp:Label>                            
+                            <asp:Label ID="lblprocessId" runat="server" Text="ProcessId"></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblprocessId" runat="server" Text='<%# Eval("processId").ToString() %>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField>                
-                    
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
+        </td>--%>
+    </tr>
+    <tr>
+        <td>
+            <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
+                Width="100%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+                AllowAutomaticUpdates="false" Skin="Telerik" 
+                EnableEmbeddedSkins="false"
+                EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true"
+                OnNeedDataSource="gvCustomerFolioMerge_NeedDataSource">
+                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
+                </ExportSettings>
+                <MasterTableView DataKeyNames="CustomerId,AMCCode,Count,portfilionumber" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridTemplateColumn AllowFiltering="false">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="rdbGVRow" OnCheckedChanged="rdbGVRow_CheckedChanged" onclick="javascript:CheckOtherIsCheckedByGVID(this);"
+                                    runat="server" AutoPostBack="true" />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn UniqueName="Group Head" HeaderText="Group Head" DataField="GroupHead" HeaderStyle-Width="200px"
+                            SortExpression="GroupHead" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="CustomerName" HeaderText="Name" DataField="CustomerName" HeaderStyle-Width="200px"
+                            SortExpression="CustomerName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="AMCName" HeaderText="AMCName" DataField="AMCName" HeaderStyle-Width="280px"
+                            SortExpression="AMCName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="Count" HeaderText="Folios" DataField="Count" HeaderStyle-Width="140px"
+                            SortExpression="Count" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="mergerstatus" HeaderText="Merged To" DataField="mergerstatus" HeaderStyle-Width="100px"
+                            SortExpression="mergerstatus" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="processId" HeaderText="ProcessId" DataField="processId" HeaderStyle-Width="108px"
+                            SortExpression="processId" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+                    <Scrolling AllowScroll="false" />
+                    <Resizing AllowColumnResize="true" />
+                    <Selecting AllowRowSelect="true" />
+                </ClientSettings>
+            </telerik:RadGrid>
         </td>
     </tr>
 </table>
-
 <table width="100%">
- <tr style="width:100%">
-    <td colspan="3">
-        <table width="100%">
-            <tr id="trPager" runat="server" width="100%" >
-                <td align="right">
-                    <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-                </td>
-               
-            </tr>
-        </table>
-    </td>
- </tr>
-  
- <tr id="trReassignBranch" runat="server">
+   <%-- <tr style="width: 100%">
+        <td colspan="3">
+            <table width="100%">
+                <tr id="trPager" runat="server" width="100%">
+                    <td align="right">
+                        <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>--%>
+    <tr id="trReassignBranch" runat="server">
         <td class="SubmitCell" align="left">
-       &nbsp
-       &nbsp
-       &nbsp
-            </td>
-      
-        
-        <td>
-        &nbsp
-        &nbsp
-            <%--<span id="spanAdvisorBranch" class="spnRequiredField" runat="server">*</span>--%>
-            
+            &nbsp &nbsp &nbsp
         </td>
         <td>
-        &nbsp
-        &nbsp
+            &nbsp &nbsp
+            <%--<span id="spanAdvisorBranch" class="spnRequiredField" runat="server">*</span>--%>
+        </td>
+        <td>
+            &nbsp &nbsp
         </td>
     </tr>
-    </table>
-
-
-
-
+</table>
 <%--  <table>
     <tr>
         <td style="width:150px">
@@ -406,14 +439,13 @@
         <td></td>
     </tr>
   </table>--%>
-
-  
-
-<asp:HiddenField ID="hdnCustomerId" runat="server" Value="0" OnValueChanged="txtPickCustomer_TextChanged" />     
+<asp:HiddenField ID="hdnCustomerId" runat="server" Value="0" OnValueChanged="txtPickCustomer_TextChanged" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
-<asp:Button ID="btnCustomerSearch" runat="server" Text="" onclick="btnCustomerSearch_Click" BorderStyle="None" BackColor="Transparent"/> 
+<asp:Button ID="btnCustomerSearch" runat="server" Text="" 
+    BorderStyle="None" BackColor="Transparent" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnBranchFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnFolioFilter" runat="server" Visible="false" />
-<asp:Button ID="btnFolioNumberSearch" runat="server" Text="" OnClick="btnFolioNumberSearch_Click" BorderStyle="None" BackColor="Transparent" />
+<asp:Button ID="btnFolioNumberSearch" runat="server" Text="" 
+    BorderStyle="None" BackColor="Transparent" />
