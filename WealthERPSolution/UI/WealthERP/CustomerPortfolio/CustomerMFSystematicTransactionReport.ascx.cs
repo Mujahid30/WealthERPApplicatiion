@@ -106,6 +106,7 @@ namespace WealthERP.CustomerPortfolio
 
             if (mfSystematicTransactionReportVoList != null && mfSystematicTransactionReportVoList.Count != 0)
             {
+                imgexportButton.Visible = true;
                 for (int i = 0; i < mfSystematicTransactionReportVoList.Count; i++)
                 {
                     if (viewType == "ALL")
@@ -223,51 +224,21 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    drSystematicTransactionReport = dtSystematicTransactionReport.NewRow();
-                    drSystematicTransactionReport[0] = "";
-                    drSystematicTransactionReport[1] = "";
-                    drSystematicTransactionReport[2] = "";
-                    drSystematicTransactionReport[3] = "";
-                    drSystematicTransactionReport[4] = "";
-                    drSystematicTransactionReport[5] = "";
-                    drSystematicTransactionReport[6] = "";
-                    drSystematicTransactionReport[7] = "";
-                    drSystematicTransactionReport[8] = "";
-                    dtSystematicTransactionReport.Rows.Add(drSystematicTransactionReport);
-
                     gvSystematicTransactions.DataSource = dtSystematicTransactionReport;
                     gvSystematicTransactions.DataBind();
-
-                    ViewState["SystematicTransactions"] = dtSystematicTransactionReport;
-
                     gvSystematicTransactions.Visible = true;
                     pnlSystematicTransactions.Visible = true;
-                    //BindGridSearchBoxes(transactionTypeList, transType, customerNameSearch, schemeNameSearch);
-                    trErrorMessage.Visible = true;
+                    trErrorMessage.Visible = false;
                 }
             }
             else
             {
-                drSystematicTransactionReport = dtSystematicTransactionReport.NewRow();
-                drSystematicTransactionReport[0] = "";
-                drSystematicTransactionReport[1] = "";
-                drSystematicTransactionReport[2] = "";
-                drSystematicTransactionReport[3] = "";
-                drSystematicTransactionReport[4] = "";
-                drSystematicTransactionReport[5] = "";
-                drSystematicTransactionReport[6] = "";
-                drSystematicTransactionReport[7] = "";
-                dtSystematicTransactionReport.Rows.Add(drSystematicTransactionReport);
-
+                imgexportButton.Visible = false;
                 gvSystematicTransactions.DataSource = dtSystematicTransactionReport;
-                gvSystematicTransactions.DataBind();
-
-                ViewState["SystematicTransactions"] = dtSystematicTransactionReport;
-
+                gvSystematicTransactions.DataBind();               
                 gvSystematicTransactions.Visible = true;
                 pnlSystematicTransactions.Visible = true;
-                //BindGridSearchBoxes(transactionTypeList, transType, customerNameSearch, schemeNameSearch);
-                trErrorMessage.Visible = true;
+                trErrorMessage.Visible = false;
             }
         }
 

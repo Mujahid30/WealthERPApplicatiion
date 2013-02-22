@@ -192,7 +192,7 @@
                                     UniqueName="Scheme" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn  DataField="SystematicType" AllowFiltering="true" AutoPostBackOnFilter="true"
+                                <telerik:GridBoundColumn HeaderText="Trans Type"  DataField="SystematicType" AllowFiltering="true" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false">
                                  <FilterTemplate>
                                         <telerik:RadComboBox ID="ddlTranType" AutoPostBack="true" AllowFiltering="true"
@@ -229,19 +229,19 @@
                                     </ItemTemplate>
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridTemplateColumn>--%>
-                                <telerik:GridBoundColumn DataField="SystematicAmount" AllowFiltering="false" HeaderText="SystematicAmount"
+                                <telerik:GridBoundColumn DataField="SystematicAmount" AllowFiltering="false" HeaderText="Systematic Amount"
                                     UniqueName="SystematicAmount">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="SystematicDate" AllowFiltering="true" HeaderText="SystematicDate"
+                                <telerik:GridBoundColumn DataField="SystematicDate" AllowFiltering="true" HeaderText="Systematic Date"
                                     UniqueName="SystematicDate" SortExpression="SystematicDate" ShowFilterIcon="false">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="ActualAmount" AllowFiltering="false" HeaderText="ActualAmount"
+                                <telerik:GridBoundColumn DataField="ActualAmount" AllowFiltering="false" HeaderText="Actual Amount"
                                     UniqueName="ActualAmount">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="ActualDate" AllowFiltering="false" HeaderText="ActualDate"
+                                <telerik:GridBoundColumn DataField="ActualDate" AllowFiltering="false" HeaderText="Actual Date"
                                     UniqueName="ActualDate">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
