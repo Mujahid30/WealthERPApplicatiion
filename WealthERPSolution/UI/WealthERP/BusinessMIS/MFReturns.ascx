@@ -178,11 +178,11 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="PAN" DataField="PAN"
+                                            <%--<telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="PAN" DataField="PAN"
                                                 UniqueName="PAN" SortExpression="PAN" AutoPostBackOnFilter="true" AllowFiltering="true"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
+                                            </telerik:GridBoundColumn>--%>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Group Head" DataField="Parent"
                                                 UniqueName="Parent" SortExpression="Parent" AutoPostBackOnFilter="true" AllowFiltering="true"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -202,6 +202,11 @@
                                                 UniqueName="Scheme" SortExpression="Scheme" AutoPostBackOnFilter="true" AllowFiltering="true"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Folio No" DataField="Folio"
+                                                UniqueName="Folio" SortExpression="Folio" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Invested Cost" DataField="InvestedCost"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="InvestedCost" SortExpression="InvestedCost"

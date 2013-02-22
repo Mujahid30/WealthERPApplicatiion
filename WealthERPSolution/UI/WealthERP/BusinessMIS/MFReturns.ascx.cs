@@ -297,7 +297,7 @@ namespace WealthERP.BusinessMIS
                 DataTable dtMFReturnsSchemeNew = new DataTable();
                 dtMFReturnsSchemeNew.Columns.Add("CustomerId");
                 dtMFReturnsSchemeNew.Columns.Add("Customer");
-                dtMFReturnsSchemeNew.Columns.Add("PAN");
+                dtMFReturnsSchemeNew.Columns.Add("Folio");
                 dtMFReturnsSchemeNew.Columns.Add("Parent");
                 dtMFReturnsSchemeNew.Columns.Add("Branch");
                 dtMFReturnsSchemeNew.Columns.Add("RM");
@@ -313,7 +313,7 @@ namespace WealthERP.BusinessMIS
                     drMFReturnsSchemeNew = dtMFReturnsSchemeNew.NewRow();
                     drMFReturnsSchemeNew["CustomerId"] = dr["CustomerId"].ToString();
                     drMFReturnsSchemeNew["Customer"] = dr["Customer"].ToString();
-                    drMFReturnsSchemeNew["PAN"] = dr["PAN"].ToString();
+                    drMFReturnsSchemeNew["Folio"] = dr["CMFA_FolioNum"].ToString();
                     drMFReturnsSchemeNew["Parent"] = dr["Parent"].ToString();
                     drMFReturnsSchemeNew["Branch"] = dr["Branch"].ToString();
                     drMFReturnsSchemeNew["RM"] = dr["RM"].ToString();
@@ -342,7 +342,7 @@ namespace WealthERP.BusinessMIS
 
                     dtMFReturnsSchemeNew.Rows.Add(drMFReturnsSchemeNew);
                 }
-                GridBoundColumn TotalPercentage = gvMfReturns.MasterTableView.Columns.FindByUniqueName("Percentage") as GridBoundColumn;
+                GridBoundColumn TotalPercentage = gvMfReturnsScheme.MasterTableView.Columns.FindByUniqueName("Percentage") as GridBoundColumn;
                 totalPL = ((totalcurrentvalue - totalinvestedCost) / totalinvestedCost) * 100;
                 TotalPercentage.FooterText = totalPL.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 gvMfReturnsScheme.DataSource = dtMFReturnsSchemeNew;
