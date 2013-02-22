@@ -10,6 +10,14 @@ using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using Microsoft.Practices.EnterpriseLibrary.Common;
+using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+using System.Data.SqlClient;
+using System.Configuration;
+
+
+
+
 
 namespace DaoUploads
 {
@@ -4208,7 +4216,137 @@ namespace DaoUploads
             return dsGetRejectReasonSIPList;
         }
 
+        public bool InsertIntoInputTableForTNSIP(string xmlTableString)
+        {
+            bool inserted = false;
+            int IsSuccess = 0;
+            string conString;
+            conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(conString);
+            
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("wealtherp");
+                DbCommand cmdXML = db.GetStoredProcCommand("SPROC_InsertIntoInputTableForTNSIP");
 
+                db.AddInParameter(cmdXML, "@XmlString", DbType.String, xmlTableString);
+                db.AddParameter(cmdXML, "@ret", DbType.Int32,ParameterDirection.ReturnValue, "", DataRowVersion.Current,IsSuccess);
+
+                db.ExecuteNonQuery(cmdXML);
+                IsSuccess = Convert.ToInt32(db.GetParameterValue(cmdXML, "ret"));
+               
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+            }
+            finally
+            {
+                sqlCon.Close();
+            }
+            if (IsSuccess == 1)
+                inserted = true;
+            else
+                inserted = false;
+
+            return inserted;
+        }
+
+        public bool InsertFromXMLToInputTableForSUSIP(int UploadProcessId, string fileName)
+        {
+            bool inserted = false;
+            int IsSuccess = 0;
+            string conString;
+            conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(conString);
+
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("wealtherp");
+                DbCommand cmdXML = db.GetStoredProcCommand("SPROC_InsertIntoSIPSundaramInput");
+
+                db.AddInParameter(cmdXML, "@processId", DbType.String, UploadProcessId);
+                db.AddParameter(cmdXML, "@ret", DbType.Int32, ParameterDirection.ReturnValue, "", DataRowVersion.Current, IsSuccess);
+
+                db.ExecuteNonQuery(cmdXML);
+                IsSuccess = Convert.ToInt32(db.GetParameterValue(cmdXML, "ret"));
+
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+            }
+            finally
+            {
+                sqlCon.Close();
+            }
+            if (IsSuccess == 1)
+                inserted = true;
+            else
+                inserted = false;
+
+            return inserted;
+        }
+
+        public bool InsertIntoXtrnlTableForSUSIP(int UploadProcessId, string fileName)
+        {
+            bool inserted = false;
+            int IsSuccess = 0;
+            string conString;
+            conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(conString);
+
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("wealtherp");
+                DbCommand cmdXML = db.GetStoredProcCommand("SPROC_InsertIntoXtrnlTableForSUSIP");
+
+                db.AddInParameter(cmdXML, "@processId", DbType.String, UploadProcessId);
+                db.AddParameter(cmdXML, "@ret", DbType.Int32, ParameterDirection.ReturnValue, "", DataRowVersion.Current, IsSuccess);
+
+                db.ExecuteNonQuery(cmdXML);
+                IsSuccess = Convert.ToInt32(db.GetParameterValue(cmdXML, "ret"));
+
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+            }
+            finally
+            {
+                sqlCon.Close();
+            }
+            if (IsSuccess == 1)
+                inserted = true;
+            else
+                inserted = false;
+
+            return inserted;
+        }
 
     }
 }

@@ -17,6 +17,7 @@ using System.Configuration;
 using BoCustomerPortfolio;
 
 
+
 namespace BoUploads
 {
     public class UploadCommonBo
@@ -4824,6 +4825,32 @@ namespace BoUploads
 
             return dsRejectReasonSIPList;
 
+        }
+
+        public bool InsertIntoInputTableForTNSIP(string xmlTableString)
+        {
+            bool inserted = false;
+            UploadsCommonDao UploadsCommonDao = new UploadsCommonDao();
+            inserted = UploadsCommonDao.InsertIntoInputTableForTNSIP(xmlTableString);
+
+            return inserted;
+        }
+        public bool InsertIntoXtrnlTableForSUSIP(int UploadProcessId,string fileName)
+        {
+            bool inserted = false;
+            UploadsCommonDao UploadsCommonDao = new UploadsCommonDao();
+            inserted = UploadsCommonDao.InsertIntoXtrnlTableForSUSIP(UploadProcessId, fileName);
+
+            return inserted;
+        }
+
+        public bool InsertFromXMLToInputTableForSUSIP(int UploadProcessId, string fileName)
+        {
+            bool inserted = false;
+            UploadsCommonDao UploadsCommonDao = new UploadsCommonDao();
+            inserted = UploadsCommonDao.InsertFromXMLToInputTableForSUSIP(UploadProcessId, fileName);
+
+            return inserted;
         }
 
     }
