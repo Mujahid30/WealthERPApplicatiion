@@ -351,13 +351,18 @@ namespace WealthERP.Advisor
                 gvValuationDate.DataSource = dtValuation;
                 gvValuationDate.DataBind();
                 gvValuationDate.Visible = true;
-                if (ddlValuationTypes.SelectedValue == "MF")
+                if (dtValuation.Rows.Count > 0)
                 {
-                    gvValuationDate.Rows[0].Visible = false;
-                }
-                if (ddlValuationTypes.SelectedValue == "EQ")
-                {
-                    gvValuationDate.Rows[0].Visible = true;
+                    if (ddlValuationTypes.SelectedValue == "MF")
+                    {
+                        gvValuationDate.Rows[0].Visible = false;
+
+                    }
+                    if (ddlValuationTypes.SelectedValue == "EQ")
+                    {
+                        gvValuationDate.Rows[0].Visible = true;
+
+                    }
                 }
 
             }
