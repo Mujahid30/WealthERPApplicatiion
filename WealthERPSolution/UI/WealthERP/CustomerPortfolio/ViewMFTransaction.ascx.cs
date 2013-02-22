@@ -171,12 +171,12 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ShowHideCommandButton(bool isMainportfolio, bool isManulSource, bool isCustomerLogin, bool isOkTransaction)
         {
-            if (isCustomerLogin == true || isOkTransaction == false)
+            if (isCustomerLogin == true)
             {
                 lnkEdit.Visible = false;
                 //btnDelete.Visible = false;
                 btnCancel.Visible = false;
-            }
+             }
             else if (isMainportfolio == true)
             {
                 if (isManulSource == true)
@@ -200,7 +200,8 @@ namespace WealthERP.CustomerPortfolio
                 lnkEdit.Visible = true;
                 //btnDelete.Visible = true;
                 //btnDelete.Enabled = false;
-
+                SetFields(1);
+                btnDelete.Visible = true;
             }
 
         }
@@ -277,7 +278,8 @@ namespace WealthERP.CustomerPortfolio
                 dvNAV.Visible = false;
                 dvDividentRate.Visible = false;
                 dvTransactionDate.Visible = false;
-                btnDelete.Visible = true;
+                
+                
 
             }
             else
@@ -306,7 +308,6 @@ namespace WealthERP.CustomerPortfolio
                 dvDividentRate.Visible = true;
                 dvTransactionDate.Visible = true;
                 btnDelete.Visible = true;
-
             }
         }
         protected void txtAmount_TextChanged(object sender, EventArgs e)

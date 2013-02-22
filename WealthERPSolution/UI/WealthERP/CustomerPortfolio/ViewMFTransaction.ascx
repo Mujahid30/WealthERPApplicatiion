@@ -285,7 +285,7 @@
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewMFTransaction_btnSubmit', 'S');"
                 OnClick="btnSubmit_Click" />
         </td>
-        <td>                <asp:Button ID="btnDelete" runat="server" 
+        <td>                <asp:Button ID="btnDelete" runat="server" Visible="false"
                 Text="Delete Transaction" CssClass="PCGLongButton" CausesValidation="True" 
                 onclick="btnDelete_Click" />
         </td>
