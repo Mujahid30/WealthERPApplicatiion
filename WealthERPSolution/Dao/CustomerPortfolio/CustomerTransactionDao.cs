@@ -1922,6 +1922,7 @@ namespace DaoCustomerPortfolio
                     mfTransactionVo.AMCName = dr["PA_AMCName"].ToString();
                     mfTransactionVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     mfTransactionVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                    mfTransactionVo.OriginalTransactionNumber = dr["CMFT_OriginalTransactionNumber"].ToString();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -2093,7 +2094,7 @@ namespace DaoCustomerPortfolio
         }
 
 
-        public bool DeleteMFTransaction(MFTransactionVo mfTransactionVo, int adviserId)
+        public bool DeleteMFTransaction(MFTransactionVo mfTransactionVo, int adviserId,int UserId)
         {
             bool bResult = false;
             Database db;
@@ -2103,11 +2104,12 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 DeleteMFTransactionCmd = db.GetStoredProcCommand("SP_DeleteMFTransaction");
                 db.AddInParameter(DeleteMFTransactionCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(DeleteMFTransactionCmd, "@UserId", DbType.Int32, UserId);
                 db.AddInParameter(DeleteMFTransactionCmd, "@cmftTransactionId", DbType.Int32, mfTransactionVo.TransactionId);
-                db.AddInParameter(DeleteMFTransactionCmd, "@CustomerId", DbType.Int32, mfTransactionVo.CustomerId);
+                //db.AddInParameter(DeleteMFTransactionCmd, "@CustomerId", DbType.Int32, mfTransactionVo.CustomerId);
                 db.AddInParameter(DeleteMFTransactionCmd, "@SchemeCode", DbType.Int32, mfTransactionVo.MFCode);
                 db.AddInParameter(DeleteMFTransactionCmd, "@accountId", DbType.Int32, mfTransactionVo.AccountId);
-                db.AddInParameter(DeleteMFTransactionCmd, "@OriginalTrnxNo", DbType.String, mfTransactionVo.TransactionId);
+                db.AddInParameter(DeleteMFTransactionCmd, "@OriginalTrnxNo", DbType.String, mfTransactionVo.OriginalTransactionNumber);
                 db.AddInParameter(DeleteMFTransactionCmd, "@stausCode", DbType.Int16, mfTransactionVo.TransactionStatusCode);
 
                 db.ExecuteNonQuery(DeleteMFTransactionCmd);
