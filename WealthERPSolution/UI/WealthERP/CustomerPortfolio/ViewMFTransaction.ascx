@@ -23,15 +23,8 @@
         if (val == '1') {
             var bool = window.confirm('Are you sure you want to delete transaction?');
         }
-        if (val == '3') {
-            var bool = window.confirm('Origional transaction not found.Please make sure if origional already deleted.Want to delete Cancel alone?');
-        }
         if (val == '2') {
-            var bool = window.confirm('Origional transaction will autometically deleted on deleting cancel.Want to delete?');
-        }
-      
-        if (val == '4') {
-            var bool = window.confirm('Cancel transaction will autometically deleted on deleting origional.Want to delete?');
+            var bool = window.confirm('This is a reversal transaction.Both the origional and the reversal transactions will be deleted.?');
         }
 
         if (bool) {

@@ -416,7 +416,7 @@ namespace WealthERP.CustomerPortfolio
         {
 
             CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
-            int userId = ((UserVo)Session["userVo"]).UserId;
+           
             try
             {
 
@@ -439,12 +439,22 @@ namespace WealthERP.CustomerPortfolio
                         else
                         {
                             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "confirm('Origional transaction will autometically deleted on deleting cancel.Want to delete?');", true);
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage('3');", true);
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage('1');", true);
                         }
                     }
                     else if (mfTransactionVo.TransactionStatusCode == 3)
                     {
-                         Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage('4');", true);
+                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage('2');", true);
+                        if (!string.IsNullOrEmpty(mfTransactionVo.OriginalTransactionNumber))
+                        {
+                            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "confirm('Origional transaction not found.Please make sure if origional already deleted.Want to delete Cancel alone?');", true);
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage('2');", true);
+                        }
+                        else
+                        {
+                            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "confirm('Origional transaction will autometically deleted on deleting cancel.Want to delete?');", true);
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage('1');", true);
+                        }
                     }
                 }
 
@@ -472,12 +482,13 @@ namespace WealthERP.CustomerPortfolio
         protected void hdnDeleteTrnx_Click(object sender, EventArgs e)
         {
             int adviserId = 0;
+            int userId = ((UserVo)Session["userVo"]).UserId;
             if (advisorVo != null)
                 adviserId = advisorVo.advisorId;
             string val = Convert.ToString(hdnMsgValue.Value);
             if (val == "1")
             {
-                customerTransactionBo.DeleteMFTransaction(mfTransactionVo, adviserId);
+                customerTransactionBo.DeleteMFTransaction(mfTransactionVo, adviserId, userId);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
             }
         }
