@@ -189,11 +189,11 @@
                                 AllowFiltering="false" UniqueName="EqValueAction" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="EqPerAction" HeaderText="Eq Action Needed(%)" SortExpression="EqPerAction"
+                        <telerik:GridBoundColumn DataField="EqPerAction" HeaderText="Eq Action Needed (%)" SortExpression="EqPerAction"
                                 AllowFiltering="false" UniqueName="EqPerAction" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridTemplateColumn HeaderText="Eq Indicator" ShowFilterIcon="false" AllowFiltering="false">
+                        <telerik:GridTemplateColumn HeaderText="Eq Action Indicator" ShowFilterIcon="false" AllowFiltering="false">
                         <ItemTemplate>
                             <asp:Image ID="imgEqIndicator" ImageAlign="Middle" runat="server" />
                         </ItemTemplate>
@@ -221,11 +221,11 @@
                                 AllowFiltering="false" UniqueName="DtValueAction" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="DtPerAction" HeaderText="Debt Action Needed(%)" SortExpression="DtPerAction"
+                        <telerik:GridBoundColumn DataField="DtPerAction" HeaderText="Debt Action Needed (%)" SortExpression="DtPerAction"
                                 AllowFiltering="false" UniqueName="DtPerAction" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridTemplateColumn HeaderText="Dt Indicator" ShowFilterIcon="false" AllowFiltering="false">
+                        <telerik:GridTemplateColumn HeaderText="Debt Action Indicator" ShowFilterIcon="false" AllowFiltering="false">
                         <ItemTemplate>
                             <asp:Image ID="imgDtIndicator" ImageAlign="Middle" runat="server" />
                         </ItemTemplate>
@@ -253,11 +253,11 @@
                                 AllowFiltering="false" UniqueName="CaValueAction" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CaPerAction" HeaderText="Cash Action Needed(%)" SortExpression="CaPerAction"
+                        <telerik:GridBoundColumn DataField="CaPerAction" HeaderText="Cash Action Needed (%)" SortExpression="CaPerAction"
                                 AllowFiltering="false" UniqueName="CaPerAction" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridTemplateColumn HeaderText="Cash Indicator" ShowFilterIcon="false" AllowFiltering="false">
+                        <telerik:GridTemplateColumn HeaderText="Cash Action Indicator" ShowFilterIcon="false" AllowFiltering="false">
                         <ItemTemplate>
                             <asp:Image ID="imgCaIndicator" ImageAlign="Middle" runat="server" />
                         </ItemTemplate>
@@ -284,11 +284,11 @@
                                 AllowFiltering="false" UniqueName="AltValueAction" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AltPerAction" HeaderText="Alt Action Needed(%)" SortExpression="AltPerAction"
+                        <telerik:GridBoundColumn DataField="AltPerAction" HeaderText="Alt Action Needed (%)" SortExpression="AltPerAction"
                                 AllowFiltering="false" UniqueName="AltPerAction" DataFormatString="{0:N2}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridTemplateColumn HeaderText="Alt Indicator" ShowFilterIcon="false" AllowFiltering="false">
+                        <telerik:GridTemplateColumn HeaderText="Alt Action Indicator" ShowFilterIcon="false" AllowFiltering="false">
                         <ItemTemplate>
                             <asp:Image ID="imgAltIndicator" ImageAlign="Middle" runat="server" />
                         </ItemTemplate>

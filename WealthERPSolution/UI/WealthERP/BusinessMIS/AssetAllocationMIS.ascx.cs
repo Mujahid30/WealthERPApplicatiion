@@ -926,8 +926,8 @@ namespace WealthERP.BusinessMIS
                 if (cashRec > cashCur)
                 {
                     imgCaIndicator.ImageUrl = "~/Images/GreenUpArrow.png";
-                    e.Item.Cells[21].ForeColor = System.Drawing.Color.Red;
-                    e.Item.Cells[22].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[21].ForeColor = System.Drawing.Color.Green;
+                    e.Item.Cells[22].ForeColor = System.Drawing.Color.Green;
                 }
                 else if (cashCur > cashRec)
                 {
@@ -938,16 +938,16 @@ namespace WealthERP.BusinessMIS
                 else if (cashCur == cashRec)
                 {
                     imgCaIndicator.Visible = false;
-                    e.Item.Cells[21].ForeColor = System.Drawing.Color.Red;
-                    e.Item.Cells[22].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[21].ForeColor = System.Drawing.Color.Black;
+                    e.Item.Cells[22].ForeColor = System.Drawing.Color.Black;
                 }
 
                 //----------------------
-                if (altRec > cashCur)
+                if (altRec > altCur)
                 {
                     imgAltIndicator.ImageUrl = "~/Images/GreenUpArrow.png";
-                    e.Item.Cells[28].ForeColor = System.Drawing.Color.Red;
-                    e.Item.Cells[19].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[28].ForeColor = System.Drawing.Color.Green;
+                    e.Item.Cells[29].ForeColor = System.Drawing.Color.Green;
                 }
                 else if (altCur > altRec)
                 {
@@ -958,8 +958,8 @@ namespace WealthERP.BusinessMIS
                 else if (altCur == altRec)
                 {
                     imgAltIndicator.Visible = false;
-                    e.Item.Cells[28].ForeColor = System.Drawing.Color.Red;
-                    e.Item.Cells[29].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[28].ForeColor = System.Drawing.Color.Black;
+                    e.Item.Cells[29].ForeColor = System.Drawing.Color.Black;
                 }
             } 
 
