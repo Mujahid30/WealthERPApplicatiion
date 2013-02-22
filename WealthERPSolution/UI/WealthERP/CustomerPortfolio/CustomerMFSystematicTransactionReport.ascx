@@ -180,7 +180,7 @@
                                     </ItemTemplate>
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="true" HeaderText="CustomerName"
+                                <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="true" HeaderText="Customer"
                                     UniqueName="CustomerName" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>

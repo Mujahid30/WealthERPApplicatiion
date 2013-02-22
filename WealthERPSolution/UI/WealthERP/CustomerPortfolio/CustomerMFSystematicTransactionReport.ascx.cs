@@ -420,8 +420,8 @@ namespace WealthERP.CustomerPortfolio
         {
             if (rbtnPickPeriod.Checked && ddlPeriod.SelectedValue != "Select a Period")
                 SetSystematicTransactions();
-            else
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select a Period');", true);
+            //else
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select a Period');", true);
 
         }
 
