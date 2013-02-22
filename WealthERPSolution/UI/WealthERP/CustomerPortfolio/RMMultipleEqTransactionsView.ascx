@@ -289,6 +289,7 @@
                                 </telerik:GridBoundColumn>
                                 <telerik:GridCalculatedColumn ShowFilterIcon="false" AllowFiltering="false" HeaderText="Gross Price" UniqueName="TotalPrice" DataType="System.Double"
                                     DataFields="Rate,Quantity,STT,Brokerage,OtherCharges" Expression="({0}*{1})+{2}+{3}+{4}" Aggregate="Sum" DataFormatString="{0:N2}"
+                                     ItemStyle-HorizontalAlign="Right"
                                      />
                                 <telerik:GridBoundColumn HeaderText="Speculative/Delivery" DataField="Speculative Or Delivery"
                                     UniqueName="Speculative Or Delivery" SortExpression="Speculative Or Delivery"
