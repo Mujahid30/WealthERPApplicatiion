@@ -51,7 +51,7 @@ namespace WealthERP.Admin
             advisorVo = (AdvisorVo)Session["advisorVo"];
             compDateValidator.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
             cvChkFutureDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
-            trMFFundPerformance.Visible = false;
+            //trMFFundPerformance.Visible = false;
             trExportFilteredMFRecord.Visible = false;
             gvEquityRecord.Visible =false;
             imgBtnrgHoldings.Visible = false;
@@ -1061,7 +1061,14 @@ namespace WealthERP.Admin
             //{
             gvMFFundPerformance.DataSource = dtGetMFfund.DefaultView;
             gvMFFundPerformance.DataBind();
-
+            if (dtGetMFfund.DefaultView.Table.Rows.Count > 0)
+            {
+                trMFFundPerformance.Visible = true;
+            }
+            else if (dtGetMFfund.DefaultView.Table.Rows.Count ==0)
+            {
+                trMFFundPerformance.Visible = false;
+            }
 
             if (Cache["FundPerformanceDetails" + advisorVo.advisorId] == null)
             {
@@ -1082,7 +1089,7 @@ namespace WealthERP.Admin
             //}
             Panel2.Visible = true;
             gvMFFundPerformance.Visible = true;
-            trMFFundPerformance.Visible = true;
+            //trMFFundPerformance.Visible = true;
         }
 
         //protected void gvMFFundPerformance_ItemDataBound(object sender, GridItemEventArgs e)
