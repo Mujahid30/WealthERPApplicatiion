@@ -1287,14 +1287,14 @@ namespace BoCustomerPortfolio
             return bResult;
         }
 
-        public bool DeleteMFTransaction(MFTransactionVo mfTransactionVo, int adviserId)
+        public bool DeleteMFTransaction(MFTransactionVo mfTransactionVo, int adviserId, int UserId)
         {
             bool bResult = false;
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             try
             {
 
-                bResult = customerTransactionDao.DeleteMFTransaction(mfTransactionVo, adviserId);
+                bResult = customerTransactionDao.DeleteMFTransaction(mfTransactionVo, adviserId, UserId);
 
             }
             catch (BaseApplicationException Ex)
