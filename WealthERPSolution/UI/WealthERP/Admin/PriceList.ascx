@@ -618,11 +618,11 @@
                 &nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="pnlSchemeComparison" runat="server">
                     <table class="TableBackground" width="100%">
-                        <tr>
+                       <%-- <tr>
                             <td>
                                 <asp:Label ID="lblFundPerformance" runat="server" CssClass="HeaderText" Text="Fund Performance"></asp:Label>
                             </td>
-                        </tr>
+                        </tr>--%>
                         <tr>
                             <td>
                                 <table>

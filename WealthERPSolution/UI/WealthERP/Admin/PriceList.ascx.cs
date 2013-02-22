@@ -1741,10 +1741,10 @@ namespace WealthERP.Admin
         {
             gvMFFundPerformance.ExportSettings.OpenInNewWindow = true;
             gvMFFundPerformance.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvMFFundPerformance.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
+            gvMFFundPerformance.ExportSettings.HideStructureColumns = true;
+            gvMFFundPerformance.ExportSettings.ExportOnlyData = true;
+            gvMFFundPerformance.ExportSettings.FileName = "Scheme Details";
+            gvMFFundPerformance.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvMFFundPerformance.MasterTableView.ExportToExcel();
         }
 
