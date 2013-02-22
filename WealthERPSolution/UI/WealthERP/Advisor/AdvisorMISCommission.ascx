@@ -26,17 +26,15 @@
                         <td align="left">
                             MF Commission MIS
                         </td>
-                        <td align="right" id="trCommissionMIS" runat="server">
+                        <td align="right">
                             <asp:ImageButton Visible="false" ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                        </td>
-                        <td align="right" id="tdZoneClusterCommissionMIS" runat="server">
+                       
                             <asp:ImageButton Visible="false" ID="imgZoneClusterCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnZoneCLusterMISCommission_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                        </td>
-                        <td align="right" id="tdCategoryWise" runat="server">
+                     
                             <asp:ImageButton Visible="false" ID="imgMISCommission" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCategoryWise_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
@@ -242,7 +240,7 @@
 <table runat="server" id="tblCommissionMIS" width="95%">
     <tr>
         <td>
-            <asp:Panel ID="pnlCommissionMIS" ScrollBars="Horizontal" Width="100%" runat="server">
+            <asp:Panel Visible="false" ID="pnlCommissionMIS" ScrollBars="Horizontal" Width="100%" runat="server">
                 <div runat="server" id="divCommissionMIS" style="margin: 2px; width: 640px;">
                     <telerik:RadGrid ID="gvMISCommission" runat="server" GridLines="None" AutoGenerateColumns="False"
                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
@@ -377,7 +375,7 @@
 <table runat="server" id="tblZoneClusterWiseMIS" width="100%">
     <tr>
         <td>
-            <asp:Panel ID="pnlZoneClusterWiseMIS" ScrollBars="Horizontal" Height="440px" runat="server">
+            <asp:Panel ID="pnlZoneClusterWiseMIS" Visible="false" ScrollBars="Horizontal" Height="440px" runat="server">
                 <div runat="server" id="divZoneClusterWiseMIS" style="margin: 2px; width: 440px;">
                     <telerik:RadGrid Visible="false" ID="gvZoneClusterWiseCommissionMIS" runat="server" GridLines="None"
                         AutoGenerateColumns="False" AllowSorting="true" ShowStatusBar="True" ShowFooter="true"

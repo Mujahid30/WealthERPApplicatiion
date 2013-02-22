@@ -190,7 +190,7 @@ namespace WealthERP.Advisor
                 imgZoneClusterCommissionMIS.Visible = false;
                 btnCommissionMIS.Visible = true;
 
-                trCommissionMIS.Visible = true;
+                //trCommissionMIS.Visible = true;
               
                 string misType = hdnMISType.Value.ToString();
                 tblMessage.Visible = false;
@@ -216,6 +216,7 @@ namespace WealthERP.Advisor
             }
             else
             {
+                pnlCommissionMIS.Visible = false;
                 gvMISCommission.Visible = false;
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
@@ -255,6 +256,9 @@ namespace WealthERP.Advisor
             }
             else
             {
+                btnCommissionMIS.Visible = false;
+                imgZoneClusterCommissionMIS.Visible = false;
+                divZoneClusterWiseMIS.Visible = false;
                 pnlZoneClusterWiseMIS.Visible = false;
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
@@ -296,8 +300,8 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.Visible = true;
                 pnlCommissionMIS.Visible = false;
                 tblZoneClusterWiseMIS.Visible = false;
-                tdCategoryWise.Visible = true;
-                trCommissionMIS.Visible = false;
+                //tdCategoryWise.Visible = true;
+                //trCommissionMIS.Visible = false;
                 BindCommissionMISGridCategoryWise();
 
             }
@@ -307,7 +311,7 @@ namespace WealthERP.Advisor
                 pnlCommissionMIS.Visible = false;
                 tblCommissionMIS.Visible = false;
                 tblZoneClusterWiseMIS.Visible = true;
-                tdZoneClusterCommissionMIS.Visible = true;
+                //tdZoneClusterCommissionMIS.Visible = true;
                 BindMISCommissionGridZoneCluster();
             }
             else
@@ -405,7 +409,7 @@ namespace WealthERP.Advisor
         public void gvCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
         {
             gvCommissionMIS.Visible = true;
-            tdCategoryWise.Visible = true;
+            //tdCategoryWise.Visible = true;
             DataTable dtMIS = new DataTable();
             dtMIS = (DataTable)Cache["MIS" + advisorVo.advisorId];
             gvCommissionMIS.DataSource = dtMIS;
@@ -413,7 +417,7 @@ namespace WealthERP.Advisor
         public void gvMISCommission_OnNeedDataSource(object sender, EventArgs e)
         {
             gvMISCommission.Visible = true;
-            tdCategoryWise.Visible = true;
+            //tdCategoryWise.Visible = true;
             DataTable dtFolioDetails = new DataTable();
             dtFolioDetails = (DataTable)Cache["AllMIS" + advisorVo.advisorId + userVo.UserId];
             gvMISCommission.DataSource = dtFolioDetails;
@@ -424,7 +428,7 @@ namespace WealthERP.Advisor
             //gvZoneClusterWiseCommissionMIS.Visible = true;
             pnlZoneClusterWiseMIS.Visible = true;
             divZoneClusterWiseMIS.Visible = true;
-            tdZoneClusterCommissionMIS.Visible = true;
+            //tdZoneClusterCommissionMIS.Visible = true;
             DataTable dtMIS = new DataTable();
             dtMIS = (DataTable)Cache["ClusterZoneMIS" + advisorVo.advisorId + userVo.UserId];
             gvZoneClusterWiseCommissionMIS.DataSource = dtMIS;
