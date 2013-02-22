@@ -426,18 +426,33 @@ namespace WealthERP.BusinessMIS
             dtAssetallocationDetails.Columns.Add("EquityCurrentPer", typeof(double));
             dtAssetallocationDetails.Columns.Add("EquityRecomendedValue", typeof(double));
             dtAssetallocationDetails.Columns.Add("EquityRecomendedPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("EqValueAction", typeof(double));
+            dtAssetallocationDetails.Columns.Add("EqPerAction", typeof(double));
+            
+
             dtAssetallocationDetails.Columns.Add("DebtCurrentValue", typeof(double));
             dtAssetallocationDetails.Columns.Add("DebtCurrentPer", typeof(double));
             dtAssetallocationDetails.Columns.Add("DebtRecomendedValue", typeof(double));
             dtAssetallocationDetails.Columns.Add("DebtRecomendedPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("DtValueAction", typeof(double));
+            dtAssetallocationDetails.Columns.Add("DtPerAction", typeof(double));
+            
+
             dtAssetallocationDetails.Columns.Add("CashCurrentValue", typeof(double));
             dtAssetallocationDetails.Columns.Add("CashCurrentPer", typeof(double));
             dtAssetallocationDetails.Columns.Add("CashRecomendedValue", typeof(double));
             dtAssetallocationDetails.Columns.Add("CashRecomendedPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("CaValueAction", typeof(double));
+            dtAssetallocationDetails.Columns.Add("CaPerAction", typeof(double));
+            
+
             dtAssetallocationDetails.Columns.Add("AlternateCurrentValue", typeof(double));
             dtAssetallocationDetails.Columns.Add("AlternateCurrentPer", typeof(double));
             dtAssetallocationDetails.Columns.Add("AlternateRecomendedValue", typeof(double));
             dtAssetallocationDetails.Columns.Add("AlternateRecomendedPer", typeof(double));
+            dtAssetallocationDetails.Columns.Add("AltValueAction", typeof(double));
+            dtAssetallocationDetails.Columns.Add("AltPerAction", typeof(double));
+            
 
             #region Data Table Default value
 
@@ -445,21 +460,29 @@ namespace WealthERP.BusinessMIS
             dtAssetallocationDetails.Columns["EquityCurrentPer"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["EquityRecomendedValue"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["EquityRecomendedPer"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["EqValueAction"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["EqPerAction"].DefaultValue = 0;
 
             dtAssetallocationDetails.Columns["DebtCurrentValue"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["DebtCurrentPer"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["DebtRecomendedValue"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["DebtRecomendedPer"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["DtValueAction"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["DtPerAction"].DefaultValue = 0;
 
             dtAssetallocationDetails.Columns["CashCurrentValue"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["CashCurrentPer"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["CashRecomendedValue"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["CashRecomendedPer"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["CaValueAction"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["CaPerAction"].DefaultValue = 0;
 
             dtAssetallocationDetails.Columns["AlternateCurrentValue"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["AlternateCurrentPer"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["AlternateRecomendedValue"].DefaultValue = 0;
             dtAssetallocationDetails.Columns["AlternateRecomendedPer"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["AltValueAction"].DefaultValue = 0;
+            dtAssetallocationDetails.Columns["AltPerAction"].DefaultValue = 0;
 
             #endregion Data Table Default value
 
@@ -495,15 +518,7 @@ namespace WealthERP.BusinessMIS
                     { // add row in manual datatable within this brace end
                        drAssetAllocationCustomerWise = dtAssetAllocation.Select("C_CustomerId=" + customerId.ToString());
                         drAssetAllocationDetails["CustomerName"] = drAssetAllCustomer["CustomerName"].ToString();
-                        
-                   //if (drAssetAllocationCustomerWise.Count() > 0)
-                   //{
-                   // foreach (DataRow dr in drAssetAllocationCustomerWise)
-                   // {
-                   //     sumAssetTotal = sumAssetTotal + double.Parse(dr["CurrentValue"].ToString());
-                   // }
-                   //}
-                  double sumFinancialAssetTotal = 0;
+                        double sumFinancialAssetTotal = 0;
                    object sumObject;
                    sumObject = dtFinanceTotal.Compute("Sum(FinancialTotal)", "C_CustomerId = " + "'" + customerId + "'");
                    double.TryParse(Convert.ToString(sumObject), out sumFinancialAssetTotal);
@@ -571,12 +586,7 @@ namespace WealthERP.BusinessMIS
                                                    if (!string.IsNullOrEmpty(dr1["CAA_RecommendedPercentage"].ToString().Trim()))
                                                    {
                                                        drAssetAllocationDetails["EquityRecomendedValue"] = Math.Round((double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumFinancialAssetTotal / 100)),0);
-                                                       drAssetAllocationDetails["EquityRecomendedPer"] = Math.Round(double.Parse( dr1["CAA_RecommendedPercentage"].ToString()),2);
-                                                   }
-                                                   else
-                                                   {
-                                                       drAssetAllocationDetails["EquityRecomendedValue"] = 0;
-                                                       drAssetAllocationDetails["EquityRecomendedPer"] = 0;
+                                                       drAssetAllocationDetails["EquityRecomendedPer"] = Math.Round(double.Parse( dr1["CAA_RecommendedPercentage"].ToString()),2);                                                     
                                                    }
                                                    break;
                                                }
@@ -587,38 +597,24 @@ namespace WealthERP.BusinessMIS
                                                        drAssetAllocationDetails["DebtRecomendedValue"] = Math.Round((double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumFinancialAssetTotal / 100)), 0);
                                                        drAssetAllocationDetails["DebtRecomendedPer"] = Math.Round(double.Parse(dr1["CAA_RecommendedPercentage"].ToString()), 2);
                                                    }
-                                                   else
-                                                   {
-                                                       drAssetAllocationDetails["DebtRecomendedValue"] = 0;
-                                                       drAssetAllocationDetails["DebtRecomendedPer"] = 0;
-                                                   }
                                                    break;
                                                }
                                            case 3:
-                                               {
+                                              
                                                    if (!string.IsNullOrEmpty(dr1["CAA_RecommendedPercentage"].ToString().Trim()))
                                                    {
                                                        drAssetAllocationDetails["CashRecomendedValue"] = Math.Round((double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumFinancialAssetTotal / 100)), 0);
                                                        drAssetAllocationDetails["CashRecomendedPer"] = Math.Round(double.Parse(dr1["CAA_RecommendedPercentage"].ToString()), 2);
                                                    }
-                                                   else
-                                                   {
-                                                       drAssetAllocationDetails["CashRecomendedValue"] = 0;
-                                                       drAssetAllocationDetails["CashRecomendedPer"] = 0;
-                                                   }
                                                    break;
-                                               }
+
+                                               
                                            case 4:
                                                {
                                                    if (!string.IsNullOrEmpty(dr1["CAA_RecommendedPercentage"].ToString().Trim()))
                                                    {
                                                        drAssetAllocationDetails["AlternateRecomendedValue"] = Math.Round((double.Parse(dr1["CAA_RecommendedPercentage"].ToString()) * (sumFinancialAssetTotal / 100)), 0);
                                                        drAssetAllocationDetails["AlternateRecomendedPer"] = Math.Round(double.Parse(dr1["CAA_RecommendedPercentage"].ToString()), 2);
-                                                   }
-                                                   else
-                                                   {
-                                                       drAssetAllocationDetails["AlternateRecomendedValue"] = 0;
-                                                       drAssetAllocationDetails["AlternateRecomendedPer"] = 0;
                                                    }
                                                    break;
                                                }
@@ -628,8 +624,26 @@ namespace WealthERP.BusinessMIS
 
                            }
                        }
+
+                       drAssetAllocationDetails["EqValueAction"] = Math.Round(double.Parse(drAssetAllocationDetails["EquityRecomendedValue"].ToString())) - Math.Round(double.Parse(drAssetAllocationDetails["EquityCurrentValue"].ToString()));
+                       drAssetAllocationDetails["EqPerAction"] = Math.Round(double.Parse(drAssetAllocationDetails["EquityRecomendedPer"].ToString())) - Math.Round(double.Parse(drAssetAllocationDetails["EquityCurrentPer"].ToString()));
+
+                       drAssetAllocationDetails["DtValueAction"] = Math.Round(double.Parse(drAssetAllocationDetails["DebtRecomendedValue"].ToString())) - Math.Round(double.Parse(drAssetAllocationDetails["DebtCurrentValue"].ToString()));
+                       drAssetAllocationDetails["DtPerAction"] = Math.Round(double.Parse(drAssetAllocationDetails["DebtRecomendedPer"].ToString())) - Math.Round(double.Parse(drAssetAllocationDetails["DebtCurrentPer"].ToString()));
+      
+                       drAssetAllocationDetails["AltValueAction"] = Math.Round(double.Parse(drAssetAllocationDetails["AlternateRecomendedValue"].ToString())) - Math.Round(double.Parse(drAssetAllocationDetails["AlternateCurrentValue"].ToString()));
+                       drAssetAllocationDetails["AltPerAction"] = Math.Round(double.Parse(drAssetAllocationDetails["AlternateRecomendedPer"].ToString())) - Math.Round(double.Parse(drAssetAllocationDetails["AlternateCurrentPer"].ToString()));
+
+                       drAssetAllocationDetails["CaValueAction"] = Math.Round(double.Parse(drAssetAllocationDetails["CashRecomendedValue"].ToString())) - Math.Round(double.Parse(drAssetAllocationDetails["CashCurrentValue"].ToString()));
+                       drAssetAllocationDetails["CaPerAction"] = Math.Round(double.Parse(drAssetAllocationDetails["CashRecomendedPer"].ToString())) - Math.Round(double.Parse(drAssetAllocationDetails["CashCurrentPer"].ToString()));
+                                                  
+ 
+
                    }
-                   dtAssetallocationDetails.Rows.Add(drAssetAllocationDetails); 
+                   dtAssetallocationDetails.Rows.Add(drAssetAllocationDetails);
+
+                   
+                        
                 }//*
     
                 }//**
@@ -843,50 +857,110 @@ namespace WealthERP.BusinessMIS
         {
             if (e.Item is GridDataItem)
             {
+                //GridDataItem dataItem = e.Item as GridDataItem;
+                //Image imgEqIndicator = (Image)dataItem.FindControl("imgEqIndicator");
+                 //ImageButton imgEqIndicator = e.Item.FindControl("imgEqIndicator") as ImageButton;
+
+                Image imgEqIndicator = e.Item.FindControl("imgEqIndicator") as Image;
+                Image imgDtIndicator = e.Item.FindControl("imgDtIndicator") as Image;
+                Image imgCaIndicator = e.Item.FindControl("imgCaIndicator") as Image;
+                Image imgAltIndicator = e.Item.FindControl("imgAltIndicator") as Image;
+                //imgDtIndicator
+                //    imgCaIndicator
+                //    imgAltIndicator
+                ////System.Web.UI.WebControls.Image imgEqIndicator = e.Item.FindControl("imgEqIndicator") as System.Web.UI.WebControls.Image;
+                //System.Web.UI.WebControls.Image imgDtIndicator = e.Item.FindControl("imgDtIndicator") as System.Web.UI.WebControls.Image;
+                //System.Web.UI.WebControls.Image imgCaIndicator = e.Item.FindControl("imgCaIndicator") as System.Web.UI.WebControls.Image;
+                //System.Web.UI.WebControls.Image imgAltIndicator = e.Item.FindControl("imgAltIndicator") as System.Web.UI.WebControls.Image;
+
                 double eqCur = double.Parse(e.Item.Cells[3].Text); 
                 double eqRec = double.Parse(e.Item.Cells[5].Text);
-                double dtCur = double.Parse(e.Item.Cells[7].Text);
-                double dtRec = double.Parse(e.Item.Cells[9].Text);
-                double cashCur = double.Parse(e.Item.Cells[11].Text);
-                double cashRec = double.Parse(e.Item.Cells[13].Text);
-                double altCur = double.Parse(e.Item.Cells[15].Text);
-                double altRec = double.Parse(e.Item.Cells[17].Text);
+                double dtCur = double.Parse(e.Item.Cells[10].Text);
+                double dtRec = double.Parse(e.Item.Cells[12].Text);
+                double cashCur = double.Parse(e.Item.Cells[17].Text);
+                double cashRec = double.Parse(e.Item.Cells[19].Text);
+                double altCur = double.Parse(e.Item.Cells[24].Text);
+                double altRec = double.Parse(e.Item.Cells[26].Text);
                 GridDataItem item = (GridDataItem)e.Item;
 
-                if (eqCur >= eqRec)
-                {
-                    e.Item.Cells[3].ForeColor = System.Drawing.Color.Green;
-                }
-                else
-                {
-                    e.Item.Cells[3].ForeColor = System.Drawing.Color.Red;
-                }
-                if (dtCur >= dtRec)
+                if (eqRec > eqCur)
                 {
                     e.Item.Cells[7].ForeColor = System.Drawing.Color.Green;
+                    e.Item.Cells[8].ForeColor = System.Drawing.Color.Green;
+                    imgEqIndicator.Visible = true;
+                    imgEqIndicator.ImageUrl = "~/Images/GreenUpArrow.png";
                 }
-                else
+                else if (eqCur > eqRec)
                 {
                     e.Item.Cells[7].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[8].ForeColor = System.Drawing.Color.Red;
+                    imgEqIndicator.Visible = true;
+                    imgEqIndicator.ImageUrl = "~/Images/RedDownArrow.png";
                 }
-                if (cashCur >= cashRec)
+                else if (eqRec == eqCur)
                 {
-                    e.Item.Cells[11].ForeColor = System.Drawing.Color.Green;
+                    e.Item.Cells[7].ForeColor = System.Drawing.Color.Black;
+                    e.Item.Cells[8].ForeColor = System.Drawing.Color.Black;
+                    imgEqIndicator.Visible = false;
                 }
-                else
+                //----------------------
+                if (dtRec > dtCur)
                 {
-                    e.Item.Cells[11].ForeColor = System.Drawing.Color.Red;
-                }
-                if (altCur >= altRec)
-                {
-
+                    e.Item.Cells[14].ForeColor = System.Drawing.Color.Green;
                     e.Item.Cells[15].ForeColor = System.Drawing.Color.Green;
+                    imgDtIndicator.ImageUrl = "~/Images/GreenUpArrow.png";
                 }
-                else
+                else if (dtCur > dtRec)
                 {
+                    e.Item.Cells[14].ForeColor = System.Drawing.Color.Red;
                     e.Item.Cells[15].ForeColor = System.Drawing.Color.Red;
+                    imgDtIndicator.ImageUrl = "~/Images/RedDownArrow.png";
+                }
+                else if (dtCur == dtRec)
+                {
+                    imgDtIndicator.Visible = false;
+                    e.Item.Cells[14].ForeColor = System.Drawing.Color.Black;
+                    e.Item.Cells[15].ForeColor = System.Drawing.Color.Black;
+                }
+                //----------------------
+                if (cashRec > cashCur)
+                {
+                    imgCaIndicator.ImageUrl = "~/Images/GreenUpArrow.png";
+                    e.Item.Cells[21].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[22].ForeColor = System.Drawing.Color.Red;
+                }
+                else if (cashCur > cashRec)
+                {
+                    e.Item.Cells[21].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[22].ForeColor = System.Drawing.Color.Red;
+                    imgCaIndicator.ImageUrl = "~/Images/RedDownArrow.png";
+                }
+                else if (cashCur == cashRec)
+                {
+                    imgCaIndicator.Visible = false;
+                    e.Item.Cells[21].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[22].ForeColor = System.Drawing.Color.Red;
                 }
 
+                //----------------------
+                if (altRec > cashCur)
+                {
+                    imgAltIndicator.ImageUrl = "~/Images/GreenUpArrow.png";
+                    e.Item.Cells[28].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[19].ForeColor = System.Drawing.Color.Red;
+                }
+                else if (altCur > altRec)
+                {
+                    e.Item.Cells[28].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[29].ForeColor = System.Drawing.Color.Red;
+                    imgAltIndicator.ImageUrl = "~/Images/RedDownArrow.png";
+                }
+                else if (altCur == altRec)
+                {
+                    imgAltIndicator.Visible = false;
+                    e.Item.Cells[28].ForeColor = System.Drawing.Color.Red;
+                    e.Item.Cells[29].ForeColor = System.Drawing.Color.Red;
+                }
             } 
 
         }
