@@ -179,20 +179,20 @@ namespace WealthERP.CustomerPortfolio
              }
             else if (isMainportfolio == true)
             {
-                if (isManulSource == true)
-                {
+                //if (isManulSource == true)
+                //{
                     lnkEdit.Visible = true;
                     btnCancel.Visible = false;
                     //btnDelete.Visible = true;
                     //btnDelete.Enabled = false;
-                }
-                else
-                {
-                    lnkEdit.Visible = true;
-                    //btnDelete.Visible = false;
-                    btnCancel.Visible = false;
-                    btnCancel.Enabled = false;
-                }
+                //}
+                //else
+                //{
+                //    lnkEdit.Visible = true;
+                //    //btnDelete.Visible = false;
+                //    btnCancel.Visible = false;
+                //    btnCancel.Enabled = false;
+                //}
 
             }
             else
@@ -200,8 +200,6 @@ namespace WealthERP.CustomerPortfolio
                 lnkEdit.Visible = true;
                 //btnDelete.Visible = true;
                 //btnDelete.Enabled = false;
-                SetFields(1);
-                btnDelete.Visible = true;
             }
 
         }
@@ -307,7 +305,7 @@ namespace WealthERP.CustomerPortfolio
                 dvNAV.Visible = true;
                 dvDividentRate.Visible = true;
                 dvTransactionDate.Visible = true;
-                btnDelete.Visible = true;
+               
             }
         }
         protected void txtAmount_TextChanged(object sender, EventArgs e)
@@ -329,7 +327,25 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 Session["MFEditValue"] = "View";
-                SetFields(1);
+                btnDelete.Visible = true;
+                DataSet dsPortfolioType = new DataSet();
+               dsPortfolioType = customerTransactionBo.GetPortfolioType(mfTransactionVo.Folio);
+
+         
+                if (dsPortfolioType.Tables[0].Rows.Count > 0)
+                {
+                    if (Convert.ToInt16(dsPortfolioType.Tables[0].Rows[0][0].ToString()) == 1)
+                    {
+                        SetFields(0);
+                    }
+                    else
+                    {
+                        SetFields(1);
+                    }
+
+                }
+
+             
                 lblAMCName.Text = mfTransactionVo.AMCName;
                 lblcategoryName.Text = mfTransactionVo.Category;
                 lblScheme.Text = mfTransactionVo.SchemePlan.ToString();
@@ -344,10 +360,9 @@ namespace WealthERP.CustomerPortfolio
                 txtUnits.Text = mfTransactionVo.Units.ToString("f4");
                 Session["MFEditValue"] = "Edit";
                 lnkEdit.Visible = false;
-                if (btnDelete.Visible == true)
-                {
+               
                     btnDelete.Enabled = true;
-                }
+             
                 //else if (btnCancel.Visible == true)
                 //{
                 //    btnCancel.Enabled = true;
