@@ -2839,10 +2839,14 @@ namespace WealthERP.FP
         {
             if (dsGoalFundingDetails.Tables[2].Rows.Count > 0)
             {
-                ImageButton2.Visible = true;
-                RadGrid4.DataSource = dsGoalFundingDetails.Tables[2];
-                RadGrid4.DataBind();
+                ImageButton2.Visible = true;              
             }
+            else if (dsGoalFundingDetails.Tables[2].Rows.Count > 0)
+            {
+                ImageButton2.Visible = false;  
+            }
+            RadGrid4.DataSource = dsGoalFundingDetails.Tables[2];
+            RadGrid4.DataBind();
         }
         protected void BindDDLScripsAllocated(DropDownList ddlPickScrips, int customerId)
         {
