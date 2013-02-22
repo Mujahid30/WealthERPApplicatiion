@@ -380,7 +380,7 @@ namespace WealthERP.BusinessMIS
 
                     dtEQHoldingsNew.Rows.Add(drEQHoldingsNew);
                 }
-                GridBoundColumn TotalPercentage = gvEQReturns.MasterTableView.Columns.FindByUniqueName("Percentage") as GridBoundColumn;
+                GridBoundColumn TotalPercentage = gvEqHldings.MasterTableView.Columns.FindByUniqueName("Percentage") as GridBoundColumn;
                 totalPL = ((totalcurrentvalue - totalinvestedCost) / totalinvestedCost) * 100;
                 TotalPercentage.FooterText = totalPL.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 gvEqHldings.DataSource = dtEQHoldingsNew;
