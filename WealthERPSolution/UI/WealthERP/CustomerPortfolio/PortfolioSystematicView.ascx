@@ -125,7 +125,7 @@
             <td>
                 <telerik:RadGrid ID="gvrSystematicSchemes" runat="server" CssClass="RadGrid" GridLines="None"
                     Width="100%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
-                    ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+                    ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false" ShowFooter="true"
                     AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvMFFolio_NeedDataSource"
                     EnableEmbeddedSkins="false"  EnableHeaderContextMenu="true"
                     EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
@@ -151,7 +151,7 @@
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn HeaderText="Scheme Name" HeaderStyle-Width="250px" DataField="Scheme Name" UniqueName="Scheme Name"
                                 SortExpression="Scheme Name" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains">
+                                CurrentFilterFunction="Contains" FooterText="Grand Total :">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Folio" DataField="Folio" UniqueName="Folio" HeaderStyle-Width="100px"
@@ -177,12 +177,12 @@
                             <telerik:GridBoundColumn HeaderText="Systematic Date" DataField="Systematic Date" UniqueName="Systematic Date"
                                 SortExpression="Systematic Date" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderText="Amount (Rs)" DataField="Amount" UniqueName="Amount"
+                            <telerik:GridBoundColumn HeaderText="Amount (Rs)" DataField="Amount" UniqueName="Amount" DataFormatString="{0:n}"
                                 SortExpression="Amount" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                CurrentFilterFunction="Contains" Aggregate="Sum">
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Frequency" DataField="Frequency" UniqueName="Frequency"
                                 SortExpression="Frequency" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"

@@ -191,7 +191,7 @@ namespace WealthERP.CustomerPortfolio
                     dtSystematicSetup.Columns.Add("Start Date");
                     dtSystematicSetup.Columns.Add("End Date");
                     dtSystematicSetup.Columns.Add("Systematic Date");
-                    dtSystematicSetup.Columns.Add("Amount");
+                    dtSystematicSetup.Columns.Add("Amount",typeof (double));
                     dtSystematicSetup.Columns.Add("Frequency");
                     DataRow drSystematicSetup;
                     for (int i = 0; i < systematicSetupList.Count; i++)
@@ -207,7 +207,7 @@ namespace WealthERP.CustomerPortfolio
                         drSystematicSetup[4] = systematicSetupVo.StartDate.ToShortDateString();
                         drSystematicSetup[5] = systematicSetupVo.EndDate.ToShortDateString();
                         drSystematicSetup[6] = systematicSetupVo.SystematicDate.ToString();
-                        drSystematicSetup[7] = String.Format("{0:n2}", systematicSetupVo.Amount.ToString("f2"));
+                        drSystematicSetup[7] = systematicSetupVo.Amount;
                         drSystematicSetup[8] = systematicSetupVo.Frequency.ToString();//join
 
                         dtSystematicSetup.Rows.Add(drSystematicSetup);
