@@ -258,6 +258,7 @@ namespace WealthERP.Advisor
             {
                 btnCommissionMIS.Visible = false;
                 imgZoneClusterCommissionMIS.Visible = false;
+                imgMISCommission.Visible = false;
                 divZoneClusterWiseMIS.Visible = false;
                 pnlZoneClusterWiseMIS.Visible = false;
                 tblMessage.Visible = true;
