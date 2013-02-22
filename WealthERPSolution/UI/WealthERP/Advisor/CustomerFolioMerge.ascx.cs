@@ -186,7 +186,8 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("FolioName");
                 dtCustomerFolio.Columns.Add("portfilionumber");
                 dtCustomerFolio.Columns.Add("mergerstatus");
-
+                dtCustomerFolio.Columns.Add("Nominee");
+                dtCustomerFolio.Columns.Add("ModeOfHolding");
                 if (dsCustomerFolio.Tables[0].Rows.Count == 0)
                 {
                     //hdnRecordCount.Value = "0";

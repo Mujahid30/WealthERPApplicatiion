@@ -333,9 +333,9 @@
         </td>--%>
     </tr>
     <tr>
-        <td>
+        <td><div style="width:1100px;overflow:scroll">
             <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
-                Width="100%" AllowPaging="True" PageSize="15" AllowSorting="True" AutoGenerateColumns="false"
+                Width="100px" AllowPaging="True" PageSize="15" AllowSorting="True" AutoGenerateColumns="false"
                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                 AllowAutomaticUpdates="false" Skin="Telerik" 
                 EnableEmbeddedSkins="false"
@@ -382,14 +382,24 @@
                             SortExpression="processId" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn UniqueName="Nominee" HeaderStyle-Width="100px" HeaderText="Nominee"
+                    DataField="Nominee" SortExpression="Nominee" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="ModeOfHolding" HeaderStyle-Width="80px" HeaderText="Mode Of Holding"
+                    DataField="ModeOfHolding SortExpression="ModeOfHolding" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
                     </Columns>
                 </MasterTableView>
                 <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
-                    <Scrolling AllowScroll="false" />
+                  
                     <Resizing AllowColumnResize="true" />
                     <Selecting AllowRowSelect="true" />
                 </ClientSettings>
-            </telerik:RadGrid>
+            </telerik:RadGrid></div>
         </td>
     </tr>
 </table>
