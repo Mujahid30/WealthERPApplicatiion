@@ -72,12 +72,12 @@ namespace BoCustomerPortfolio
             return bResult;
         }
 
-        public List<SystematicSetupVo> GetSystematicSchemeSetupList(int portfolioId, int CurrentPage, string sortOrder, out int count)
+        public List<SystematicSetupVo> GetSystematicSchemeSetupList(int portfolioId)
         {
             List<SystematicSetupVo> systematicSetupList = new List<SystematicSetupVo>();
             try
             {
-                systematicSetupList = systematicSetupDao.GetSystematicSchemeSetupList(portfolioId, CurrentPage, sortOrder, out count);
+                systematicSetupList = systematicSetupDao.GetSystematicSchemeSetupList(portfolioId);
             }
             catch (BaseApplicationException Ex)
             {

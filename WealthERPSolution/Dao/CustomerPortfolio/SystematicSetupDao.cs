@@ -190,7 +190,7 @@ namespace DaoCustomerPortfolio
         /// <param name="sortOrder">Gives the sort order ASC or DSC (Parameters for paging)</param>
         /// <param name="count">Number of records per page (Parameters for paging)</param>
         /// <returns></returns>
-        public List<SystematicSetupVo> GetSystematicSchemeSetupList(int portfolioId, int CurrentPage, string sortOrder, out int count)
+        public List<SystematicSetupVo> GetSystematicSchemeSetupList(int portfolioId)
         {
             SystematicSetupVo systematicSetupVo;
             List<SystematicSetupVo> systematicSetupList = null;
@@ -202,14 +202,14 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getSystematicSetupListCmd = db.GetStoredProcCommand("SP_GetSystematicSetupSchemes");
                 db.AddInParameter(getSystematicSetupListCmd, "@CP_PortfolioId", DbType.Int32, portfolioId);
-                db.AddInParameter(getSystematicSetupListCmd, "@CurrentPage", DbType.Int16, CurrentPage);
-                db.AddInParameter(getSystematicSetupListCmd, "@SortOrder", DbType.String, sortOrder);
+                //db.AddInParameter(getSystematicSetupListCmd, "@CurrentPage", DbType.Int16, CurrentPage);
+                //db.AddInParameter(getSystematicSetupListCmd, "@SortOrder", DbType.String, sortOrder);
 
                 dsSystematicSetups = db.ExecuteDataSet(getSystematicSetupListCmd);
-                if (dsSystematicSetups.Tables[1] != null && dsSystematicSetups.Tables[1].Rows.Count > 0)
-                    count = Int32.Parse(dsSystematicSetups.Tables[1].Rows[0][0].ToString());
-                else
-                    count = 0;
+                //if (dsSystematicSetups.Tables[1] != null && dsSystematicSetups.Tables[1].Rows.Count > 0)
+                //    count = Int32.Parse(dsSystematicSetups.Tables[1].Rows[0][0].ToString());
+                //else
+                //    count = 0;
                 if (dsSystematicSetups.Tables[0].Rows.Count > 0)
                 {
                     systematicSetupList = new List<SystematicSetupVo>();
@@ -338,6 +338,7 @@ namespace DaoCustomerPortfolio
                     systematicSetupVo.Folio = dr["CMFA_FolioNum"].ToString();
                     systematicSetupVo.StartDate = DateTime.Parse(dr["CMFSS_StartDate"].ToString());
                     systematicSetupVo.EndDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());
+                    if (!string.IsNullOrEmpty(dr["CMFSS_SystematicDate"].ToString()))
                     systematicSetupVo.SystematicDate = int.Parse(dr["CMFSS_SystematicDate"].ToString());
                     systematicSetupVo.Amount = double.Parse(dr["CMFSS_Amount"].ToString());
                     systematicSetupVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
