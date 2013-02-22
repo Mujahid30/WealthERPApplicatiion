@@ -150,17 +150,17 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn HeaderText="Scheme Name" HeaderStyle-Width="250px" DataField="Scheme Name" UniqueName="Scheme Name"
-                                SortExpression="Scheme Name" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                SortExpression="Scheme Name" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Folio" DataField="Folio" UniqueName="Folio" HeaderStyle-Width="100px"
-                                SortExpression="Folio" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                SortExpression="Folio" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Systematic Transaction Type" HeaderStyle-Width="200px" DataField="Systematic Transaction Type"
-                                UniqueName="Systematic Transaction Type" SortExpression="Systematic Transaction Type" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                UniqueName="Systematic Transaction Type" SortExpression="Systematic Transaction Type" AutoPostBackOnFilter="true" AllowFiltering="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
@@ -185,7 +185,7 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Frequency" DataField="Frequency" UniqueName="Frequency"
-                                SortExpression="Frequency" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                SortExpression="Frequency" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
