@@ -124,20 +124,21 @@ namespace WealthERP.Admin
                     int amcCode = int.Parse(Request.QueryString["AMCCode"].ToString());
                     int schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
                     BindYear();
-                    ShowFactSheet();
                     BindMutualFundDropDowns();
                     ddlAmcCode.SelectedValue = amcCode.ToString();
+                    BindNAVCategory();
                     LoadAllSchemeList(amcCode);
                     ddlSchemeList.SelectedValue = schemeCode.ToString();
                     BindMonth();
                     ddMonth.SelectedValue = month.ToString();
+                    ShowFactSheet();
                     RadTabStrip1.Tabs[2].Selected = true;
                     FactsheetMultiPage.PageViews[2].Selected = true;
                 }
             }
             BindSelectAMCDropdown();            
         }
-      private void BindNAVCategory()
+         private void BindNAVCategory()
         {
             DataSet dsNavCategory;
             DataTable dtNavCategory;
