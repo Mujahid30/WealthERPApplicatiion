@@ -527,11 +527,14 @@ namespace WealthERP.BusinessMIS
                    double.TryParse(Convert.ToString(sumObject), out sumAssetTotal);
                    if (drAssetAllocationCustomerWise.Count() > 0)
                    {
+                       double currentPercentage=0;
                        foreach (DataRow dr in drAssetAllocationCustomerWise)
                        {
 
                            classificationCode = int.Parse(dr["WAC_AssetClassificationCode"].ToString());
-                           double currentPercentage = (double.Parse(dr["CurrentValue"].ToString()) / sumAssetTotal) * 100;
+                           if(sumAssetTotal!=0)
+                               currentPercentage = (double.Parse(dr["CurrentValue"].ToString()) / sumAssetTotal) * 100;
+
                            switch (classificationCode)
                            {
                                case 1:
