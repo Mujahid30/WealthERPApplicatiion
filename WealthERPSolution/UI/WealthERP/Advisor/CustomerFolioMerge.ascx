@@ -363,13 +363,17 @@
                             SortExpression="AMCName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridTemplateColumn DataField="Count" AllowFiltering="true" HeaderText="Folios" HeaderStyle-Width="100px" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                       <%-- <telerik:GridTemplateColumn DataField="Count" AllowFiltering="true" HeaderText="Folios" HeaderStyle-Width="100px" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <ItemTemplate>
                          <asp:LinkButton ID="hypFolioNo" runat="server" CssClass="CmbField" OnClick="hypFolioNo_Click"
                                 Text='<%# Eval("Count").ToString() %>'>
                             </asp:LinkButton>
                               </ItemTemplate>
-                        </telerik:GridTemplateColumn>
+                        </telerik:GridTemplateColumn>--%>
+                        <telerik:GridBoundColumn UniqueName="Count" HeaderText="Folios" DataField="Count" HeaderStyle-Width="100px"
+                            SortExpression="Count" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
                      <telerik:GridBoundColumn UniqueName="FolioName" HeaderText="Folio Name" DataField="FolioName" HeaderStyle-Width="100px"
                             SortExpression="FolioName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
