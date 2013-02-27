@@ -161,10 +161,10 @@ namespace WealthERP.Uploads
             //    {
                    
             //    }
-                DataSet dsMFFolio = new DataSet();
+              
                 if (Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()] != null)
-                    Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()] = dsMFFolio;
-                
+                    Cache.Remove("RejectedMFFolioDetails" + adviserVo.advisorId.ToString());
+                  
                 txtFromTran.SelectedDate = DateTime.Now.AddMonths(-1).Date;
                 txtToTran.SelectedDate = DateTime.Now;
 
