@@ -794,9 +794,9 @@ namespace WealthERP.Advisor
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            DataSet dtGvSchemeDetails = new DataSet();
-            dtGvSchemeDetails = (DataSet)Cache["gvSchemeDetailsForMappinginSuperAdmin"];
-            gvCustomerFolioMerge.DataSource = dtGvSchemeDetails;
+            DataTable dtGvFolioDetails = new DataTable();
+            dtGvFolioDetails = (DataTable)Cache["gvCustomerFolioMerge" + adviserVo.advisorId];
+            gvCustomerFolioMerge.DataSource = dtGvFolioDetails;
 
             gvCustomerFolioMerge.ExportSettings.OpenInNewWindow = true;
             gvCustomerFolioMerge.ExportSettings.IgnorePaging = true;

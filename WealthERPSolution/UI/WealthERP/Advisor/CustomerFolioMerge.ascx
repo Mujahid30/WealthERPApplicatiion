@@ -392,7 +392,7 @@
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="ModeOfHolding" HeaderStyle-Width="80px" HeaderText="Mode Of Holding"
-                    DataField="ModeOfHolding SortExpression="ModeOfHolding" AllowFiltering="true"
+                    DataField="ModeOfHolding" SortExpression="ModeOfHolding" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
