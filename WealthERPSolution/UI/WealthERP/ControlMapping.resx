@@ -1537,4 +1537,8 @@
     <value>BusinessMIS//EquityReturns.ascx</value>
     <comment>BusinessMIS//EquityReturns.ascx</comment>
   </data>
+  <data name="AdviserZoneCluster" xml:space="preserve">
+    <value>Advisor//AdviserZoneCluster.ascx</value>
+    <comment>Advisor//AdviserZoneCluster.ascx</comment>
+  </data>
 </root>

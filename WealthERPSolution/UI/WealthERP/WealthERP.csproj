@@ -584,6 +584,13 @@
     <Compile Include="Advisor\AdviserStaffSMTP.ascx.designer.cs">
       <DependentUpon>AdviserStaffSMTP.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\AdviserZoneCluster.ascx.cs">
+      <DependentUpon>AdviserZoneCluster.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserZoneCluster.ascx.designer.cs">
+      <DependentUpon>AdviserZoneCluster.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\AdvisorCustomerAccounts.ascx.cs">
       <DependentUpon>AdvisorCustomerAccounts.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1158,6 +1165,7 @@
     </Compile>
     <Compile Include="BusinessMIS\EquityReturns.ascx.cs">
       <DependentUpon>EquityReturns.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BusinessMIS\EquityReturns.ascx.designer.cs">
       <DependentUpon>EquityReturns.ascx</DependentUpon>
@@ -3821,6 +3829,7 @@
     <Content Include="Advisor\AdviserMFMIS.ascx" />
     <Content Include="Advisor\AdviserRMMFSystematicMIS.ascx" />
     <Content Include="Advisor\AdviserStaffSMTP.ascx" />
+    <Content Include="Advisor\AdviserZoneCluster.ascx" />
     <Content Include="Advisor\AdvisorMISCommission.ascx" />
     <Content Include="Advisor\AdvisorRMCustGroupDashboard.ascx" />
     <Content Include="Advisor\AssociateCategory.ascx" />
