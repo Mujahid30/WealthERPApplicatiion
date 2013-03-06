@@ -23,6 +23,7 @@ namespace WealthERP.Advisor
         UserVo userVo = new UserVo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         string path;
+        DataSet dsZoneCluster;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -236,6 +237,27 @@ namespace WealthERP.Advisor
                     lblPhone1.Text = advisorBranchVo.Phone1Isd.ToString() + "-" + advisorBranchVo.Phone1Std.ToString() + "-" + advisorBranchVo.Phone1Number.ToString();
                     lblPhone2.Text = advisorBranchVo.Phone2Isd.ToString() + "-" + advisorBranchVo.Phone2Std.ToString() + "-" + advisorBranchVo.Phone2Number.ToString();
                     lblPin.Text = advisorBranchVo.PinCode.ToString();
+
+                    //ddlAttachToZoneCluster.SelectedValue = advisorBranchVo.ZoneClusterType;
+
+                    if (advisorBranchVo.ZoneClusterType == "Zone")
+                        ddlAttachToZoneCluster.SelectedValue = "1";
+                    else
+                        ddlAttachToZoneCluster.SelectedValue = "2";
+
+                    dsZoneCluster = new DataSet();
+                    advisorBranchBo = new AdvisorBranchBo();
+                    dsZoneCluster = advisorBranchBo.GetZoneClusterDetailsForBanchAdd(advisorBranchVo.AdviserId, Convert.ToInt32(ddlAttachToZoneCluster.SelectedValue));
+                    ddlPickZoneCluster.DataTextField = dsZoneCluster.Tables[0].Columns["AZOC_Name"].ToString();
+                    ddlPickZoneCluster.DataValueField = dsZoneCluster.Tables[0].Columns["AZOC_ZoneClusterId"].ToString();
+
+                    ddlPickZoneCluster.DataSource = dsZoneCluster;
+                    ddlPickZoneCluster.DataBind();
+
+                    ddlPickZoneCluster.SelectedValue = advisorBranchVo.ZoneClusterId.ToString();
+                    ddlPickZoneCluster.Enabled = false;
+                    ddlAttachToZoneCluster.Enabled = false;
+
                     if (advisorBranchVo.State == "")
                     {
                         lblState.Text = "";
@@ -315,6 +337,20 @@ namespace WealthERP.Advisor
             
 
         }
+
+        protected void ddlAttachToZoneCluster_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //binding the zone cluster on the basis of the ddl filter
+            BindDDLZoneCluster();
+        }
+
+
+        public void BindDDLZoneCluster()
+        {
+            dsZoneCluster = new DataSet();
+            advisorBranchBo = new AdvisorBranchBo();
+            dsZoneCluster = advisorBranchBo.GetZoneClusterDetailsForBanchAdd(advisorBranchVo.AdviserId, Convert.ToInt32(ddlAttachToZoneCluster.SelectedValue));
+        } 
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
