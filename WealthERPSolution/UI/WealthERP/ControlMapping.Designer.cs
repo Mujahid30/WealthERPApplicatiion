@@ -2302,6 +2302,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Receivable//ReceivableSetup.ascx.
+        /// </summary>
+        internal static string ReceivableSetup {
+            get {
+                return ResourceManager.GetString("ReceivableSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//RegistrationType.ascx.
         /// </summary>
         internal static string RegistrationType {

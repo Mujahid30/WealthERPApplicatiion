@@ -1541,4 +1541,8 @@
     <value>Advisor//AdviserZoneCluster.ascx</value>
     <comment>Advisor//AdviserZoneCluster.ascx</comment>
   </data>
+  <data name="ReceivableSetup" xml:space="preserve">
+    <value>Receivable//ReceivableSetup.ascx</value>
+    <comment>Receivable//ReceivableSetup.ascx</comment>
+  </data>
 </root>

@@ -2619,6 +2619,13 @@
     <Compile Include="Advisor\RMCustomer.ascx.designer.cs">
       <DependentUpon>RMCustomer.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Receivable\ReceivableSetup.ascx.cs">
+      <DependentUpon>ReceivableSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Receivable\ReceivableSetup.ascx.designer.cs">
+      <DependentUpon>ReceivableSetup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6179,6 +6186,7 @@
     <Content Include="Admin\UploadRejects.ascx" />
     <Content Include="Admin\ViewRepository.ascx" />
     <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />
+    <Content Include="Receivable\ReceivableSetup.ascx" />
     <Content Include="Register.aspx" />
     <Content Include="RegistrationConfirmation.aspx" />
     <Content Include="Releases.html" />
