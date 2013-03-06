@@ -878,6 +878,35 @@ namespace BoAdvisorProfiling
             }
             return dt;
         }
+
+        public DataSet GetZoneClusterDetailsForBanchAdd(int adviserId, int type)
+        {
+            DataSet dsZoneClusterDetailsForBanchAdd;
+            AdvisorBranchDao adviserBranchDao = new AdvisorBranchDao();
+            try
+            {
+                dsZoneClusterDetailsForBanchAdd = adviserBranchDao.GetZoneClusterDetailsForBanchAdd(adviserId, type);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetZoneClusterDetailsForBanchAdd(int adviserId, int type)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                objects[1] = type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsZoneClusterDetailsForBanchAdd;
+        }
+
         /// <summary>
         /// 
         /// </summary>

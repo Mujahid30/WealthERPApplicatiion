@@ -87,7 +87,8 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            
+                                             <telerik:RadPanelItem runat="server" Text="Zone/Cluster" Value="Zone_Cluster">                                              
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
@@ -102,6 +103,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
+                                            
                                             <telerik:RadPanelItem runat="server" Text="LOB" Value="LOB">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add LOB" Value="Add LOB">

@@ -31,7 +31,7 @@ namespace DaoAdvisorProfiling
 
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createAdvisorBranchCmd = db.GetStoredProcCommand("SP_CreateAdviserBranch");
-                db.AddInParameter(createAdvisorBranchCmd, "@A_AdviserId", DbType.Int32, advisorId);
+                db.AddInParameter(createAdvisorBranchCmd, "@A_AdviserId", DbType.Int32, advisorBranchVo.AdviserId);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_AddressLine1", DbType.String, advisorBranchVo.AddressLine1);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_AddressLine2", DbType.String, advisorBranchVo.AddressLine2);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_AddressLine3", DbType.String, advisorBranchVo.AddressLine3);
@@ -75,6 +75,9 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(createAdvisorBranchCmd, "@AB_IsHeadBranch", DbType.Int32, DBNull.Value);
                 db.AddOutParameter(createAdvisorBranchCmd, "BranchId", DbType.Int32, 5000);
+                //added for Zone cluster Id insertion
+                db.AddInParameter(createAdvisorBranchCmd, "@AB_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
+                
                 if (db.ExecuteNonQuery(createAdvisorBranchCmd) != 0)
                     branchId = int.Parse(db.GetParameterValue(createAdvisorBranchCmd, "BranchId").ToString());
 
@@ -1120,7 +1123,9 @@ namespace DaoAdvisorProfiling
                     advisorBranchVo.Phone2Std = int.Parse(dr["AB_Phone2STD"].ToString());
                     advisorBranchVo.PinCode = int.Parse(dr["AB_PinCode"].ToString());
                     advisorBranchVo.State = dr["AB_State"].ToString();
-
+                    advisorBranchVo.ZoneClusterId =Convert.ToInt32(dr["AZOC_ZoneClusterId"].ToString());
+                    advisorBranchVo.ZoneClusterType = dr["AZOC_Type"].ToString();
+                    advisorBranchVo.ZoneClusterName = dr["AZOC_Name"].ToString();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1251,8 +1256,40 @@ namespace DaoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
             return blResult;
+        }
+
+
+        public DataSet GetZoneClusterDetailsForBanchAdd(int adviserId, int type)
+        {
+            Database db = DatabaseFactory.CreateDatabase("wealtherp");
+            DbCommand cmdZoneClusterDetailsForBanchAdd;
+            DataSet dsZoneClusterDetailsForBanchAdd;
+            try
+            {
+                cmdZoneClusterDetailsForBanchAdd = db.GetStoredProcCommand("SPROC_GetZoneClusterDetailsForBanchAdd");
+                db.AddInParameter(cmdZoneClusterDetailsForBanchAdd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdZoneClusterDetailsForBanchAdd, "@type", DbType.Int32, type);
+                dsZoneClusterDetailsForBanchAdd = db.ExecuteDataSet(cmdZoneClusterDetailsForBanchAdd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetZoneClusterDetailsForBanchAdd(int adviserId, int type)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsZoneClusterDetailsForBanchAdd;
         }
 
         public DataTable GetAdviserAssetGroups(int adviserId)
@@ -2112,7 +2149,7 @@ namespace DaoAdvisorProfiling
             return ds;
         }
 
-        public DataSet GetNEWSignupMISDetails(int adviserId,DateTime fromDate,DateTime toDate)
+        public DataSet GetNEWSignupMISDetails(int adviserId, DateTime fromDate, DateTime toDate)
         {
 
             Database db;

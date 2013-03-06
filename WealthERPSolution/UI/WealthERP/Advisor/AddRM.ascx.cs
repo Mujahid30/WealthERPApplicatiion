@@ -867,6 +867,14 @@ namespace WealthERP.Advisor
                 {
                     rmVo.RMRole = "Research";
                 }
+                else if (ChklistRMBM.Items[3].Selected == true)
+                {
+                    rmVo.RMRole = "Zonal Head";
+                }
+                else if (ChklistRMBM.Items[3].Selected == true)
+                {
+                    rmVo.RMRole = "Cluster Head";
+                }
                 //rmVo.RMRole = ddlRMRole.SelectedValue.ToString();
 
                 rmVo.AdviserId = advisorVo.advisorId;
