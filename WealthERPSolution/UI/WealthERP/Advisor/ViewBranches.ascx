@@ -93,7 +93,6 @@
     <asp:HiddenField ID="hdnCurrentPage" runat="server" />
     <asp:HiddenField ID="hdnSort" runat="server" Value="AB_BranchName ASC" />
 </div>
-
 <table id="tblClusterZone" runat="server" width="100%" class="TableBackground">
     <tr>
         <td>
@@ -114,25 +113,24 @@
             </div>
         </td>
     </tr>
-    
     <tr>
-        <td style="padding-top:8px;">
+        <td style="padding-top: 8px;">
             <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" Height="440px" runat="server">
                 <div runat="server" id="divZoneCluster" style="margin: 2px; width: 640px;">
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                         <ContentTemplate>
                             <telerik:RadGrid ID="gvZoneClusterdetails" runat="server" CssClass="RadGrid" GridLines="None"
-                                Width="120%" AllowSorting="True" AutoGenerateColumns="false"
-                                ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                                AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvZoneClusterdetails_NeedDataSource"
-                                EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
-                                AllowFilteringByColumn="true" ShowFooter="false">
+                                Width="120%" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
+                                AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
+                                Skin="Telerik" OnNeedDataSource="gvZoneClusterdetails_NeedDataSource" EnableEmbeddedSkins="false"
+                                EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true"
+                                ShowFooter="false">
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ZoneClusterdetailslist">
                                 </ExportSettings>
                                 <MasterTableView ShowGroupFooter="true" EditMode="EditForms" GroupLoadMode="Client"
-                                    CommandItemSettings-ShowRefreshButton="false" DataKeyNames="AB_BranchId">
+                                    CommandItemSettings-ShowRefreshButton="false" DataKeyNames="AB_BranchId,ZoneName,ClusterName">
                                     <GroupByExpressions>
-                                        <telerik:GridGroupByExpression>
+                                        <telerik:GridGroupByExpression>                                         
                                             <GroupByFields>
                                                 <telerik:GridGroupByField FieldName="ZoneName" />
                                             </GroupByFields>
@@ -157,9 +155,10 @@
                                             AutoPostBackOnFilter="true">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridTemplateColumn AllowFiltering="true" AutoPostBackOnFilter="true" ShowFilterIcon="false"
-                                            HeaderText="Branch" UniqueName="AB_BranchName" DataField="AB_BranchName">
-                                            <ItemTemplate>
+                                        <telerik:GridTemplateColumn SortExpression="AB_BranchName" AllowFiltering="true"
+                                            AutoPostBackOnFilter="true" ShowFilterIcon="false" HeaderText="Branch" Groupable="true"
+                                            UniqueName="AB_BranchName" DataField="AB_BranchName">
+                                            <ItemTemplate   >
                                                 <asp:LinkButton ID="lnkBranchName" OnClick="lnkBranchName_OnClick" runat="server"
                                                     Text='<%#Eval("AB_BranchName")%>'></asp:LinkButton>
                                             </ItemTemplate>
