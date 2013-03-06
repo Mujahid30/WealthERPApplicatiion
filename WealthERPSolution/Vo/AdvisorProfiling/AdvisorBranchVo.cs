@@ -39,11 +39,14 @@ namespace VoAdvisorProfiling
         private int m_FaxIsd;
         private long m_MobileNumber;
         private int m_IsHeadBranch;
-
-       
+               
         public string LogoPath { get; set; }
         public string AssociateCategory { get; set; }
         public int AssociateCategoryId { get; set; }
+        public int ZoneClusterId { get; set; }
+        public string ZoneClusterName { get; set; }
+        public string ZoneClusterType { get; set; }
+
 
         #endregion Fields
 
