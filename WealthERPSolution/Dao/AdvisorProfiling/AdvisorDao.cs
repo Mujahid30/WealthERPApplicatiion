@@ -438,28 +438,28 @@ namespace DaoAdvisorProfiling
                         advisorVo.FaxStd = int.Parse(dr["A_FaxSTD"].ToString());
                     if (dr["A_ContactPersonMobile"] != null && dr["A_ContactPersonMobile"].ToString() != "")
                         advisorVo.MobileNumber = Convert.ToInt64(dr["A_ContactPersonMobile"].ToString());
-                    if(dr["A_IsMultiBranch"].ToString()!="" && dr["A_IsMultiBranch"].ToString()!=null)
+                    if (dr["A_IsMultiBranch"].ToString() != "" && dr["A_IsMultiBranch"].ToString() != null)
                         advisorVo.MultiBranch = int.Parse(dr["A_IsMultiBranch"].ToString());
                     if (dr["A_IsAssociateModel"].ToString() != "" && dr["A_IsAssociateModel"].ToString() != null)
                         advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
                     if (dr["A_Phone1STD"] != null && dr["A_Phone1STD"].ToString() != "")
                         advisorVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
                     if (dr["A_Phone2STD"] != null && dr["A_Phone2STD"].ToString() != "")
-                    advisorVo.Phone2Std = int.Parse(dr["A_Phone2STD"].ToString());
+                        advisorVo.Phone2Std = int.Parse(dr["A_Phone2STD"].ToString());
 
                     if (dr["A_VaultSize(in MB)"] != null && dr["A_VaultSize(in MB)"].ToString() != "")
                         advisorVo.VaultSize = float.Parse(dr["A_VaultSize(in MB)"].ToString());
 
                     if (dr["A_Phone1ISD"] != null && dr["A_Phone1ISD"].ToString() != "")
-                    advisorVo.Phone1Isd = int.Parse(dr["A_Phone1ISD"].ToString());
+                        advisorVo.Phone1Isd = int.Parse(dr["A_Phone1ISD"].ToString());
                     if (dr["A_Phone2ISD"] != null && dr["A_Phone2ISD"].ToString() != "")
-                    advisorVo.Phone2Isd = int.Parse(dr["A_Phone2ISD"].ToString());
+                        advisorVo.Phone2Isd = int.Parse(dr["A_Phone2ISD"].ToString());
                     if (dr["A_Phone1Number"] != null && dr["A_Phone1Number"].ToString() != "")
-                    advisorVo.Phone1Number = int.Parse(dr["A_Phone1Number"].ToString());
+                        advisorVo.Phone1Number = int.Parse(dr["A_Phone1Number"].ToString());
                     if (dr["A_Phone2Number"] != null && dr["A_Phone2Number"].ToString() != "")
-                    advisorVo.Phone2Number = int.Parse(dr["A_Phone2Number"].ToString());
+                        advisorVo.Phone2Number = int.Parse(dr["A_Phone2Number"].ToString());
                     if (dr["A_PinCode"] != null && dr["A_PinCode"].ToString() != "")
-                    advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
+                        advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
                     if (dr["A_AdviserLogo"] != DBNull.Value)
                         advisorVo.LogoPath = dr["A_AdviserLogo"].ToString();
                     if (!string.IsNullOrEmpty(dr["A_IsActive"].ToString().Trim()))
@@ -553,7 +553,7 @@ namespace DaoAdvisorProfiling
                 GetAdviserSubscriptionDetailsCmd = db.GetStoredProcCommand("SP_GetAdviserSubscriptionDetails");
                 db.AddInParameter(GetAdviserSubscriptionDetailsCmd, "@A_AdviserId", DbType.Int32, adviserId);
 
-                dsAdviserSubscriptionDetails = db.ExecuteDataSet(GetAdviserSubscriptionDetailsCmd);            
+                dsAdviserSubscriptionDetails = db.ExecuteDataSet(GetAdviserSubscriptionDetailsCmd);
 
 
             }
@@ -575,7 +575,7 @@ namespace DaoAdvisorProfiling
                 throw exBase;
             }
             return dsAdviserSubscriptionDetails;
-        
+
         }
 
         public bool AddToAdviserSMSLog(SMSVo smsVo, int adviserId, string smsType)
@@ -1113,7 +1113,7 @@ namespace DaoAdvisorProfiling
                         customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
                         customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
                         if (!string.IsNullOrEmpty(dr["C_IsActive"].ToString().Trim()))
-                         customerVo.IsActive = int.Parse(dr["C_IsActive"].ToString());
+                            customerVo.IsActive = int.Parse(dr["C_IsActive"].ToString());
                         customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
                         customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
                         customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
@@ -1461,9 +1461,9 @@ namespace DaoAdvisorProfiling
                     if (dr["A_Phone2Number"] != DBNull.Value && dr["A_Phone2Number"].ToString() != string.Empty)
                         advisorVo.Phone2Number = int.Parse(dr["A_Phone2Number"].ToString());
                     if (dr["A_PinCode"] != DBNull.Value)
-                    advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
+                        advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
                     if (dr["A_State"] != DBNull.Value)
-                    advisorVo.State = dr["A_State"].ToString();
+                        advisorVo.State = dr["A_State"].ToString();
                     if (dr["A_AdviserLogo"] != DBNull.Value)
                         advisorVo.LogoPath = dr["A_AdviserLogo"].ToString();
                     if (dr["A_Designation"] != DBNull.Value)
@@ -1693,7 +1693,7 @@ namespace DaoAdvisorProfiling
         /// </summary>
         /// <param name="userRole"></param>
         /// <returns></returns>
-        public DataSet GetTreeNodesBasedOnUserRoles(string userRole,string treeType,int adviserId)
+        public DataSet GetTreeNodesBasedOnUserRoles(string userRole, string treeType, int adviserId)
         {
             Database db;
             DbCommand GetAdviserTreeNodes;
@@ -1768,7 +1768,7 @@ namespace DaoAdvisorProfiling
         /// </summary>
         /// <param name="adviserId"></param>
         /// <returns></returns>
-        public DataSet GetTreeNodesBasedOnPlans(int adviserId,string userRole,string treeType)
+        public DataSet GetTreeNodesBasedOnPlans(int adviserId, string userRole, string treeType)
         {
             Database db;
             DbCommand GetAdviserTreeNodes;
@@ -1935,7 +1935,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_IsMultiBranch", DbType.Int32, advisorVo.MultiBranch);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_IsActive", DbType.String, advisorVo.IsActive);
                 if (advisorVo.ActivationDate != DateTime.MinValue)
-                    db.AddInParameter(createCompleteAdvisorCmd, "@A_ActivationDate", DbType.DateTime,DBNull.Value);
+                    db.AddInParameter(createCompleteAdvisorCmd, "@A_ActivationDate", DbType.DateTime, DBNull.Value);
                 else
                 {
                     advisorVo.ActivationDate = DateTime.Now;
@@ -1970,7 +1970,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createCompleteAdvisorCmd, "@U_UserId", DbType.Int32, userVo.UserId);
                 db.AddInParameter(createCompleteAdvisorCmd, "@AR_RMId", DbType.Int32, rmVo.RMId);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_AdviserId", DbType.Int32, advisorVo.advisorId);
-                if(advisorVo.IsActive==1)
+                if (advisorVo.IsActive == 1)
                     db.AddInParameter(createCompleteAdvisorCmd, "@A_IsValuationReq", DbType.Int16, 1);
                 else
                     db.AddInParameter(createCompleteAdvisorCmd, "@A_IsValuationReq", DbType.Int16, 0);
@@ -1998,7 +1998,7 @@ namespace DaoAdvisorProfiling
 
             }
         }
-  
+
         /// <summary>
         ///Getting domain name for login widget 
         /// </summary>
@@ -2049,7 +2049,7 @@ namespace DaoAdvisorProfiling
         /// <param name="adviserIPvo"></param>
         /// <param name="createdBy"></param>
         /// <returns>adviserIPPoolstatus</returns>
-        
+
         public bool CreateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy)
         {
             bool bStatus = false;
@@ -2101,14 +2101,14 @@ namespace DaoAdvisorProfiling
         /// </summary>
         /// <param name="AdviserId"></param>
         /// <returns></returns>
-        
+
         public DataSet GetAdviserIPPoolsInformation(int AdviserId)
         {
             AdviserIPVo adviserIPPoolsVo = new AdviserIPVo();
             Database db;
             DbCommand getAdviserIPPoolsInformationCmd;
             DataSet getAdviserIPPoolsInformationDs;
-            
+
             try
             {
 
@@ -2176,7 +2176,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(deleteCustomerBankCmd, "@AIPP_poolId", DbType.Int32, adviserIPPoolId);
                 db.AddInParameter(deleteCustomerBankCmd, "@A_AdviserID", DbType.Int32, adviserId);
                 db.AddInParameter(deleteCustomerBankCmd, "@Flag", DbType.String, Flag);
-                if(isSingleIP == true)
+                if (isSingleIP == true)
                     db.AddInParameter(deleteCustomerBankCmd, "@isSingleIP", DbType.Int32, 1);
                 else
                     db.AddInParameter(deleteCustomerBankCmd, "@isSingleIP", DbType.Int32, 0);
@@ -2253,7 +2253,7 @@ namespace DaoAdvisorProfiling
         /// <param name="createdBy"></param>
         /// <param name="Flag"></param>
         /// <returns></returns>
-        
+
         public bool UpdateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy, string Flag)
         {
             bool bResult = false;
@@ -2347,7 +2347,7 @@ namespace DaoAdvisorProfiling
         /// <param name="RMId"></param>
         /// <param name="RMLoginStatus"></param>
         /// <returns></returns>
-        
+
         public bool UpdateOpsStaffLoginStatus(int RMId, int RMLoginStatus)
         {
             bool bResult = false;
@@ -2432,14 +2432,14 @@ namespace DaoAdvisorProfiling
                             {
                                 aoTALVo.WLMLinks = dr["WLM_Link"].ToString();
                             }
-                            
+
                             aoTALVo.AMCImagePath = dr["WLM_LinkImagePath"].ToString();
                             if (!string.IsNullOrEmpty(dr["WELM_LinkCode"].ToString()))
                             {
                                 aoTALVo.ExternalLinkCode = dr["WELM_LinkCode"].ToString();
                             }
                             aoTALVo.WerpMasterlinkId = int.Parse(dr["WLM_Id"].ToString());
-                            aoTALVo.IsAMCLinksWithPin= int.Parse(dr["AL_LinkWithPin"].ToString());
+                            aoTALVo.IsAMCLinksWithPin = int.Parse(dr["AL_LinkWithPin"].ToString());
                             if (!string.IsNullOrEmpty(dr["WLM_AltLinkName"].ToString()))
                             {
                                 aoTALVo.AltLinkName = dr["WLM_AltLinkName"].ToString();
@@ -2494,7 +2494,7 @@ namespace DaoAdvisorProfiling
                     advisorLoginWidgetDetails.Add("IsActive", dsGetAdviserDetails.Tables[0].Rows[0]["A_IsActive"].ToString().Trim());
                     advisorLoginWidgetDetails.Add("Theme", dsGetAdviserDetails.Tables[0].Rows[0]["U_Theme"].ToString().Trim());
                 }
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -2517,11 +2517,11 @@ namespace DaoAdvisorProfiling
 
         }
 
-        public bool UpdateAdviserFPBatch(string customerIds,int adviserId)
+        public bool UpdateAdviserFPBatch(string customerIds, int adviserId)
         {
             Database db;
             DbCommand dbCustomerSync;
-           
+
             bool result = true;
             try
             {
@@ -2531,7 +2531,7 @@ namespace DaoAdvisorProfiling
 
                 db.AddInParameter(dbCustomerSync, "@AdviserId", DbType.Int32, adviserId);
                 dbCustomerSync.CommandTimeout = 60 * 60;
-                db.ExecuteNonQuery(dbCustomerSync);                     
+                db.ExecuteNonQuery(dbCustomerSync);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2591,14 +2591,14 @@ namespace DaoAdvisorProfiling
         {
             Database db;
             DbCommand updateAdviserStorageBalanceCmd;
-           
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateAdviserStorageBalanceCmd = db.GetStoredProcCommand("sproc_UpdateAdviserLginWidgetSetting");
                 db.AddInParameter(updateAdviserStorageBalanceCmd, "@adviserId", DbType.Int16, adviserId);
                 db.AddInParameter(updateAdviserStorageBalanceCmd, "@WebSite", DbType.String, webSiteName);
-                db.AddInParameter(updateAdviserStorageBalanceCmd, "@isLoginWidgetEnable", DbType.UInt16, webSiteName); 
+                db.AddInParameter(updateAdviserStorageBalanceCmd, "@isLoginWidgetEnable", DbType.UInt16, webSiteName);
                 db.ExecuteNonQuery(updateAdviserStorageBalanceCmd);
             }
             catch (BaseApplicationException Ex)
@@ -2619,7 +2619,7 @@ namespace DaoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-          
+
         }
         public DataSet GetAdviserCustomerCategory(int AdviserId)
         {
@@ -2632,7 +2632,7 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetAdviserCustomerCategoryCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerCategory");
                 db.AddInParameter(GetAdviserCustomerCategoryCmd, "@AdviserId", DbType.Int16, AdviserId);
-                dsGetAdviserCustomerCategory= db.ExecuteDataSet(GetAdviserCustomerCategoryCmd);
+                dsGetAdviserCustomerCategory = db.ExecuteDataSet(GetAdviserCustomerCategoryCmd);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2640,6 +2640,175 @@ namespace DaoAdvisorProfiling
             }
             return dsGetAdviserCustomerCategory;
         }
+
+        public DataSet GetRMDetailsAdviserwiseAndZoneDetails(int AdviserId)
+        {
+            DataSet dsGetRMDetailsAdviserwiseAndZoneDetails;
+            Database db;
+            DbCommand GetRMDetailsAdviserwiseAndZoneDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetRMDetailsAdviserwiseAndZoneDetailsCmd = db.GetStoredProcCommand("SPROC_GetRMDetailsAdviserwiseAndZoneDetails");
+                db.AddInParameter(GetRMDetailsAdviserwiseAndZoneDetailsCmd, "@AdviserId", DbType.Int16, AdviserId);
+                dsGetRMDetailsAdviserwiseAndZoneDetails = db.ExecuteDataSet(GetRMDetailsAdviserwiseAndZoneDetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetRMDetailsAdviserwiseAndZoneDetails(int AdviserId)");
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetRMDetailsAdviserwiseAndZoneDetails;
+        }
+
+        /// <summary>
+        /// Get the details of the Zone/cluster according to adviserId and type
+        /// </summary>
+        /// <param name="AdviserId"></param>
+        /// <param name="type"></param>
+        /// <returns>dataset</returns>
+        public DataSet GetZoneClusterDetailsAdviserwise(int AdviserId, int type)
+        {
+            DataSet dsGetZoneClusterDetails;
+            Database db;
+            DbCommand GetGetZoneClusterDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetZoneClusterDetailsCmd = db.GetStoredProcCommand("SP_GetZoneClusterDetailsAdviserwise");
+                db.AddInParameter(GetGetZoneClusterDetailsCmd, "@AdviserId", DbType.Int16, AdviserId);
+                db.AddInParameter(GetGetZoneClusterDetailsCmd, "@type", DbType.Int16, type);
+                dsGetZoneClusterDetails = db.ExecuteDataSet(GetGetZoneClusterDetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetZoneClusterDetailsAdviserwise(int AdviserId,int type)");
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetZoneClusterDetails;
+        }
+
+
+        /// <summary>
+        /// perform add edit or delete
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="ZoneId"></param>
+        /// <param name="Description"></param>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="userId"></param>
+        /// <param name="createdDate"></param>
+        /// <param name="modifiedDate"></param>
+        /// <param name="CommandName"></param>
+        /// <returns>true or false</returns>
+        public bool ZoneClusterDetailsAddEditDelete(int adviserId, int rmId, int ZoneId, string Description, string name, string type, int createdBy,int modifiedBy, DateTime createdDate, DateTime modifiedDate, string CommandName)
+        {
+            bool inserted = false;
+            Database db;
+            DbCommand InsertZoneClusterDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                InsertZoneClusterDetailsCmd = db.GetStoredProcCommand("SPROC_ZoneClusterDetailsAddEditDelete");
+                db.AddInParameter(InsertZoneClusterDetailsCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(InsertZoneClusterDetailsCmd, "@rmId", DbType.Int32, rmId);
+                db.AddInParameter(InsertZoneClusterDetailsCmd, "@type", DbType.String, type);
+
+                if(createdBy!=0)
+
+                db.AddInParameter(InsertZoneClusterDetailsCmd, "@createdBy", DbType.Int32, createdBy);
+                else
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@createdBy", DbType.Int32, DBNull.Value);
+
+                if(modifiedBy!=0)
+                db.AddInParameter(InsertZoneClusterDetailsCmd, "@modifiedBy", DbType.Int32, modifiedBy);
+                else
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@modifiedBy", DbType.Int32, DBNull.Value);
+
+                if (createdDate != DateTime.MinValue)
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@createdDate", DbType.DateTime, createdDate);
+                else
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@createdDate", DbType.DateTime, DBNull.Value);
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@CommandName", DbType.String, CommandName);
+                //if(type=="Zone")
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@ZoneClusterId", DbType.Int32, ZoneId);
+                //else
+                //    db.AddInParameter(InsertZoneClusterDetailsCmd, "@ZoneClusterId", DbType.Int32, DBNull.Value);
+                
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@Description", DbType.String, Description);
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@Name", DbType.String, name);
+
+                if (modifiedDate != DateTime.MinValue)
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@modifiedDate", DbType.DateTime, modifiedDate);
+                else
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@modifiedDate", DbType.DateTime, DBNull.Value);
+
+                //if (CommandName == "Delete")
+                //{
+                //    if (db.ExecuteNonQuery(InsertZoneClusterDetailsCmd)==1)
+                //         inserted = true;
+                //    else
+                //       inserted = false;
+                //}
+                //else
+                //{
+                    if (db.ExecuteNonQuery(InsertZoneClusterDetailsCmd) != 0)
+                        inserted = true;
+                //}
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:ZoneClusterDetailsAddEditDelete(int adviserId,int rmId,int ZoneId, string Description, string name, string type, int userId, DateTime createdDate, string CommandName)");
+                object[] objects = new object[10];
+                objects[0] = adviserId;
+                objects[1] = rmId;
+                objects[2] = ZoneId;
+                objects[3] = Description;
+                objects[4] = name;
+                objects[5] = type;
+                objects[6] = createdBy;
+                objects[7] = modifiedBy;
+                objects[8] = createdDate;
+                objects[9] = CommandName;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return inserted;
+        }
+
 
         public bool DeleteAdviserCustomerCategory(int CategoryCode)
         {
@@ -2744,12 +2913,12 @@ namespace DaoAdvisorProfiling
             //return dsValuationDetails;
         }
 
-        public void InsertHistoricalValuationInQueue(DateTime valuationDate, int adviserId, int userId,int isCurrent)
+        public void InsertHistoricalValuationInQueue(DateTime valuationDate, int adviserId, int userId, int isCurrent)
         {
             Database db;
             DbCommand getValuationDetailsCmd;
             //DataSet dsValuationDetails = new DataSet();
-           
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");

@@ -1594,7 +1594,7 @@ namespace BoAdvisorProfiling
 
         public void UpdateAdviserLoginWidgetSetting(int adviserId, string webSiteName, bool isLoginWidgetEnable)
         {
-            AdvisorDao adviserDao = new AdvisorDao();            
+            AdvisorDao adviserDao = new AdvisorDao();
             try
             {
                 adviserDao.UpdateAdviserLoginWidgetSetting(adviserId, webSiteName, isLoginWidgetEnable);
@@ -1621,6 +1621,123 @@ namespace BoAdvisorProfiling
 
         }
 
+        /// <summary>
+        /// This method would perform the operation for add edit and delete
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="ZoneId"></param>
+        /// <param name="Description"></param>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="createdBy"></param>
+        /// <param name="modifiedBy"></param>
+        /// <param name="createdDate"></param>
+        /// <param name="modifiedDate">modified date of the zone/cluster</param>
+        /// <param name="CommandName">operation filtered by commandname if edit delete or add</param>
+        /// <returns>rows true or false</returns>
+        public bool ZoneClusterDetailsAddEditDelete(int adviserId, int rmId, int ZoneId, string Description, string name, string type, int createdBy,int modifiedBy, DateTime createdDate,DateTime modifiedDate,string CommandName)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            bool inserted = false;
+            try
+            {
+                inserted = adviserDao.ZoneClusterDetailsAddEditDelete(adviserId, rmId, ZoneId, Description, name, type, createdBy, modifiedBy, createdDate, modifiedDate, CommandName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:ZoneClusterDetailsAddEditDelete(int adviserId,int rmId,int ZoneId, string Description, string name, string type, int createdBy,int modifiedBy,DateTime createdDate, string CommandName)");
+                object[] objects = new object[10];
+                objects[0] = adviserId;
+                objects[1] = rmId;
+                objects[2] = ZoneId;
+                objects[3] = Description;
+                objects[4] = name;
+                objects[5] = type;
+                objects[6] = createdBy;
+                objects[7] = modifiedBy;
+                objects[8] = createdDate;
+                objects[9] = CommandName;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return inserted;
+        }
+
+
+        /// <summary>
+        /// Get the details of the zone and the RM to bind the RM and the zone drop down 
+        /// </summary>
+        /// <param name="AdviserId"></param>
+        /// <returns>dataset with two tables consisting of the RM and the Zone details</returns>
+        public DataSet GetRMDetailsAdviserwiseAndZoneDetails(int AdviserId)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            DataSet dsGetRMDetailsAdviserwiseAndZoneDetails;
+            try
+            {
+                dsGetRMDetailsAdviserwiseAndZoneDetails = adviserDao.GetRMDetailsAdviserwiseAndZoneDetails(AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetRMDetailsAdviserwiseAndZoneDetails(int AdviserId)");
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetRMDetailsAdviserwiseAndZoneDetails;
+        }
+
+        /// <summary>
+        /// Getting all the details of the zone/cluster of the adviser
+        /// </summary>
+        /// <param name="AdviserId"></param>
+        /// <param name="type"></param>
+        /// <returns>dataset of the zone/cluster adviserwise</returns>
+        public DataSet GetZoneClusterDetailsAdviserwise(int AdviserId, int type)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            DataSet dsGetZoneClusterDetails;
+            try
+            {
+                dsGetZoneClusterDetails = adviserDao.GetZoneClusterDetailsAdviserwise(AdviserId, type);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetZoneClusterDetailsAdviserwise(int AdviserId,int type)");
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetZoneClusterDetails;
+        }
 
         public DataSet GetAdviserCustomerCategory(int AdviserId)
         {
@@ -1644,14 +1761,14 @@ namespace BoAdvisorProfiling
             bool isDeleted = false;
             try
             {
-                isDeleted=adviserDao.DeleteAdviserCustomerCategory(CategoryCode);
+                isDeleted = adviserDao.DeleteAdviserCustomerCategory(CategoryCode);
 
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            return isDeleted; 
+            return isDeleted;
         }
 
         public bool InsertAdviserCustomerCategory(string CategoryName, int AdviserId)
@@ -1693,7 +1810,7 @@ namespace BoAdvisorProfiling
             try
             {
                 //dsValuationDetails = 
-                adviserDao.CheckIfValuationDateAlreadyInQueue(valuationDate, adviserId, out Count,out totalCountGivenToday, out CountforPendingRecords);
+                adviserDao.CheckIfValuationDateAlreadyInQueue(valuationDate, adviserId, out Count, out totalCountGivenToday, out CountforPendingRecords);
 
             }
             catch (BaseApplicationException Ex)
@@ -1703,7 +1820,7 @@ namespace BoAdvisorProfiling
             //return dsValuationDetails;
         }
 
-        public void InsertHistoricalValuationInQueue(DateTime valuationDate, int adviserId ,int userId , int isCurrent)
+        public void InsertHistoricalValuationInQueue(DateTime valuationDate, int adviserId, int userId, int isCurrent)
         {
             AdvisorDao adviserDao = new AdvisorDao();
             //DataSet dsValuationDetails = new DataSet();
