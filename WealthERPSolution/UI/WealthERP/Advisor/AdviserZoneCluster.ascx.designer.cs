@@ -24,7 +24,8 @@ namespace WealthERP.Advisor {
 
         protected global::Telerik.Web.UI.RadGrid gvZoneClusterDetails;
         protected global::Telerik.Web.UI.RadComboBox rcbShow;
-        
+
+        protected global::System.Web.UI.WebControls.Button btnAction;
         /// <summary>
         /// btnExportFilteredData control.
         /// </summary>

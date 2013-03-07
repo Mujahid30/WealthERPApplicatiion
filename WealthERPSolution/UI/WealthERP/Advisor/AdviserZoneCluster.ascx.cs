@@ -44,36 +44,43 @@ namespace WealthERP.Advisor
             }
         }
 
+
         /// <summary>
         /// This method will fire the event of the main combobox which will bind the grid in accordance to the selected type
         /// if it is zone or cluster
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void rcbShow_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+        protected void btnAction_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dsRMAndZoneDetails = new DataSet(); 
-            try
+            if (rcbShow.SelectedIndex != 0)
             {
-                BindZoneClusterGrid(advisorVo.advisorId, Convert.ToInt32(rcbShow.SelectedValue));               
+                dsRMAndZoneDetails = new DataSet();
+                try
+                {
+                    BindZoneClusterGrid(advisorVo.advisorId, Convert.ToInt32(rcbShow.SelectedValue));
+                    gvZoneClusterDetails.Visible = true;
+                }
+                catch (BaseApplicationException Ex)
+                {
+                    throw Ex;
+                }
+                catch (Exception Ex)
+                {
+                    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                    NameValueCollection FunctionInfo = new NameValueCollection();
+                    FunctionInfo.Add("Method", "AdviserZoneCluster.ascx:rcbShow_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)");
+                    object[] objects = new object[3];
+                    objects[0] = sender;
+                    objects[1] = e;
+                    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                    exBase.AdditionalInformation = FunctionInfo;
+                    ExceptionManager.Publish(exBase);
+                    throw exBase;
+                }
             }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdviserZoneCluster.ascx:rcbShow_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)");
-                object[] objects = new object[3];
-                objects[0] = sender;
-                objects[1] = e;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            else
+                gvZoneClusterDetails.Visible = false;
         }
 
         /// <summary>

@@ -48,7 +48,7 @@
 <div style="border: none; padding-left: 8px">
     <asp:Label ID="lblAction" runat="server" Text="Show:" CssClass="FieldName"></asp:Label>
     <telerik:RadComboBox AutoPostBack="true" runat="server" ID="rcbShow" EmptyMessage="Show"
-        OnSelectedIndexChanged="rcbShow_SelectedIndexChanged">
+        >
         <Items>
             <telerik:RadComboBoxItem Text="Select" Value="0" />
             <telerik:RadComboBoxItem Text="Zone" Value="1" />
@@ -57,6 +57,9 @@
         </Items>
     </telerik:RadComboBox>
     <span id="Span1" class="spnRequiredField">*</span>
+    <br />
+    <asp:RequiredFieldValidator ControlToValidate="rcbShow" runat="server" ValidationGroup="VgBtnAction" InitialValue="0"></asp:RequiredFieldValidator>
+    <asp:Button runat="server" ID="btnAction" Text="Go" OnClick="btnAction_SelectedIndexChanged" ValidationGroup="VgBtnAction" />
 </div>
 <br />
 <div style="padding-left:8px;">
