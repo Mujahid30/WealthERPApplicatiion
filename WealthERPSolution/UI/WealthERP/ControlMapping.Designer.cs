@@ -2302,7 +2302,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Receivable//ReceivableSetup.ascx.
+        ///   Looks up a localized string similar to CommisionManagement//ReceivableSetup.ascx.
         /// </summary>
         internal static string ReceivableSetup {
             get {

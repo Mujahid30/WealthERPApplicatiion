@@ -2619,11 +2619,11 @@
     <Compile Include="Advisor\RMCustomer.ascx.designer.cs">
       <DependentUpon>RMCustomer.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Receivable\ReceivableSetup.ascx.cs">
+    <Compile Include="CommisionManagement\ReceivableSetup.ascx.cs">
       <DependentUpon>ReceivableSetup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Receivable\ReceivableSetup.ascx.designer.cs">
+    <Compile Include="CommisionManagement\ReceivableSetup.ascx.designer.cs">
       <DependentUpon>ReceivableSetup.ascx</DependentUpon>
     </Compile>
     <Compile Include="Register.aspx.cs">
@@ -3538,6 +3538,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BoCommisionManagement\BoCommisionManagement.csproj">
+      <Project>{DCAD67B1-A11C-489C-8F22-7A04FC6B8CBA}</Project>
+      <Name>BoCommisionManagement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BoOps\BoOps.csproj">
       <Project>{CE5A655E-364A-41E9-94D3-DE042CCE001E}</Project>
       <Name>BoOps</Name>
@@ -3630,6 +3634,10 @@
       <Project>{D34F58BD-27F2-4C13-82E0-1A694CEAA430}</Project>
       <Name>BoUser</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DaoCommisionManagement\DaoCommisionManagement.csproj">
+      <Project>{9424CBF8-2AD9-4367-8AF7-9759DC9FA145}</Project>
+      <Name>DaoCommisionManagement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Dao\AdvisorProfiling\DaoAdvisorProfiling.csproj">
       <Project>{B3A976E6-D981-4E80-8E59-92197CFB43B8}</Project>
       <Name>DaoAdvisorProfiling</Name>
@@ -3721,6 +3729,10 @@
     <ProjectReference Include="..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
       <Project>{CA477068-2337-4E11-B066-AC5B1ED36CCF}</Project>
       <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VoCommisionManagement\VoCommisionManagement.csproj">
+      <Project>{EAD1D6B2-CECB-4617-AB08-0F7B5F8EE981}</Project>
+      <Name>VoCommisionManagement</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\VoOps\VoOps.csproj">
       <Project>{690CB1D4-3B93-48D2-AE69-2B365D6D1DEE}</Project>
@@ -5755,6 +5767,8 @@
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\BoAdvisorProfiling.dll" />
     <Content Include="bin\BoAdvisorProfiling.pdb" />
+    <Content Include="bin\BoCommisionManagement.dll" />
+    <Content Include="bin\BoCommisionManagement.pdb" />
     <Content Include="bin\BoCommon.pdb" />
     <Content Include="bin\BoCustomerPortfolio.pdb" />
     <Content Include="bin\BoCustomerRiskProfiling.dll" />
@@ -5771,6 +5785,8 @@
     <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
     <Content Include="bin\DaoAdvisorProfiling.dll" />
     <Content Include="bin\DaoAdvisorProfiling.pdb" />
+    <Content Include="bin\DaoCommisionManagement.dll" />
+    <Content Include="bin\DaoCommisionManagement.pdb" />
     <Content Include="bin\DaoCommon.dll" />
     <Content Include="bin\DaoCommon.pdb" />
     <Content Include="bin\DaoFPSuperlite.pdb" />
@@ -5800,6 +5816,8 @@
     <Content Include="bin\Microsoft.Vbe.Interop.dll" />
     <Content Include="bin\office.dll" />
     <Content Include="bin\Telerik.Web.UI.dll" />
+    <Content Include="bin\VoCommisionManagement.dll" />
+    <Content Include="bin\VoCommisionManagement.pdb" />
     <Content Include="bin\VoOps.dll" />
     <Content Include="bin\VoOps.pdb" />
     <Content Include="bin\VoResearch.dll" />
@@ -6186,7 +6204,7 @@
     <Content Include="Admin\UploadRejects.ascx" />
     <Content Include="Admin\ViewRepository.ascx" />
     <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />
-    <Content Include="Receivable\ReceivableSetup.ascx" />
+    <Content Include="CommisionManagement\ReceivableSetup.ascx" />
     <Content Include="Register.aspx" />
     <Content Include="RegistrationConfirmation.aspx" />
     <Content Include="Releases.html" />
