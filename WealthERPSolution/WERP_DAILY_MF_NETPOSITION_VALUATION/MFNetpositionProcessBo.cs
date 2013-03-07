@@ -17,25 +17,25 @@ namespace WERP_DAILY_MF_NETPOSITION_VALUATION
     public class MFNetpositionProcessBo
     {
         AdviserMaintenanceBo adviserMaintenanceBo = new AdviserMaintenanceBo();
-        List<AdvisorVo> adviserVoList = new List<AdvisorVo>();
+        DataTable dtAdviserList;
         BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Advisor;
         MFEngineBo mfEngineBo = new MFEngineBo();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
-        bool isValuationDateTradeDate = false;
+        bool isValuationDateTradeDate = false;        
 
-        public void CreateMFNetpositionForAllAdviser()
+        public void CreateMFNetpositionForAllAdviser(bool adviserListFlag)
         {
             CheckForTradeDate(DateTime.Today.AddDays(-1));
             if (isValuationDateTradeDate)
             {
-                adviserVoList = adviserMaintenanceBo.GetAdviserList();
-                for (int i = 0; i < adviserVoList.Count; i++)
+                dtAdviserList = GetAllAdviserListForValuation(adviserListFlag);
+                foreach (DataRow dr in dtAdviserList.Rows)
                 {
                     int logId = 0;
-                    logId = CreateAdviserEODLog("MF", DateTime.Today.AddDays(-1), adviserVoList[i].advisorId);
+                    logId = CreateAdviserEODLog("MF", DateTime.Today.AddDays(-1), Convert.ToInt16(dr["A_AdviserId"].ToString()));
                     try
                     {
-                        mfEngineBo.MFNetPositionCreation(adviserVoList[i].advisorId, 0, valuationFor, DateTime.Today.AddDays(-1));
+                        mfEngineBo.MFNetPositionCreation(Convert.ToInt16(dr["A_AdviserId"].ToString()), 0, valuationFor, DateTime.Today.AddDays(-1));
                         UpdateAdviserEODLog("MF", 1, logId);
                     }
                     catch
@@ -127,6 +127,16 @@ namespace WERP_DAILY_MF_NETPOSITION_VALUATION
             {
                 isValuationDateTradeDate = true;
             }
+        }
+
+        protected DataTable GetAllAdviserListForValuation(bool flag)
+        {
+            SqlParameter[] Params = new SqlParameter[1];
+            Params[0] = new SqlParameter("@AdviserListFlag", flag);
+            Params[0].DbType = DbType.Int16;
+            DataSet DS = Utils.ExecuteDataSet("SPROC_GetAllAdviserListForValuation", Params);
+            return DS.Tables[0];
+ 
         }
 
     }
