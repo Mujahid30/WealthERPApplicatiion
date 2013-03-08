@@ -35,6 +35,10 @@ namespace BoUploads
                 dtInputfile.Columns.Add("Error", typeof(string));
                 //dtresult = dtInputfile.Clone();
 
+                //string d = "31.040 0";
+                //string g = string.Empty;
+                //g = d.Replace(" ", string.Empty);                
+
                 //Get the columnnames for which the validations has to be done for the selected Upload type
                 dtValidationColumns = XMLBo.GetUploadInpuValidationColumns(Uploadtype, Extracttype, Path);
 
@@ -70,6 +74,10 @@ namespace BoUploads
                                 if (drValidations["CheckNumeric"].ToString() == "1")
                                 {
                                     double Num;
+
+                                    string strNumbersWithWhiteSpace = drInputfile[columnname].ToString();
+                                    drInputfile[columnname] = strNumbersWithWhiteSpace.Replace(" ", string.Empty); 
+
                                     //Update value as zero if null
                                     if (String.IsNullOrEmpty(drInputfile[columnname].ToString()))
                                     {
