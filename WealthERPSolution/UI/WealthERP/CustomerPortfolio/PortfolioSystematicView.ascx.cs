@@ -231,8 +231,8 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     lblMsg.Visible = true;
-                    tblPager.Visible = false;
-                    trPager.Visible = false;
+                    //tblPager.Visible = false;
+                    //trPager.Visible = false;
                     gvrSystematicSchemes.DataSource = null;
                     gvrSystematicSchemes.DataBind();
                 }

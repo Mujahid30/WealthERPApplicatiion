@@ -124,7 +124,7 @@
         <tr>
             <td>
                 <telerik:RadGrid ID="gvrSystematicSchemes" runat="server" CssClass="RadGrid" GridLines="None"
-                    Width="100%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+                    Width="100%" AllowPaging="True" PageSize="15" AllowSorting="True" AutoGenerateColumns="false"
                     ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false" ShowFooter="true"
                     AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvMFFolio_NeedDataSource"
                     EnableEmbeddedSkins="false"  EnableHeaderContextMenu="true"
@@ -179,9 +179,9 @@
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderText="Amount (Rs)" DataField="Amount" UniqueName="Amount" DataFormatString="{0:n}"
+                            <telerik:GridBoundColumn HeaderText="Amount (Rs)" DataField="Amount" UniqueName="Amount" DataFormatString="{0:N0}" Aggregate="Sum"
                                 SortExpression="Amount" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains" Aggregate="Sum">
+                                CurrentFilterFunction="Contains" >
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Frequency" DataField="Frequency" UniqueName="Frequency"
