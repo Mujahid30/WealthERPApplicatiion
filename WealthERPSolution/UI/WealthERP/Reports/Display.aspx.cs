@@ -2028,7 +2028,7 @@ namespace WealthERP.Reports
                     }
                     else if (pair.Key.Trim() == "#TelePhoneNo#")
                     {
-                        strRMMessage = strRMMessage.Replace(pair.Key, customerRMVo.OfficePhoneDirectStd + "-" + customerRMVo.OfficePhoneDirectNumber);
+                        strRMMessage = strRMMessage.Replace(pair.Key, "+91-" + customerRMVo.OfficePhoneDirectStd + "-" + customerRMVo.OfficePhoneDirectNumber);
 
                     }
                     else if (pair.Key.Trim() == "#RMEmail#")
@@ -3187,8 +3187,10 @@ namespace WealthERP.Reports
                         DataSet dsEquityholdingwise = equityReports.GetEquityHolding(report, advisorVo.advisorId);
                         DataTable dtEquityholdingwise = dsEquityholdingwise.Tables[0];
                         //crmain.Load(Server.MapPath("AbsoluteReturn.rpt"));
+                        DataTable dtabsoluteReturn = dsEquityholdingwise.Tables[1];
                         DataTable dtXIRR = equityReports.GetEquityCustomerPortfolioLabelXIRR(report.PortfolioIds);
-                        dtXIRR = GetAbsolutereturnToXIRRDt(dtXIRR, dtEquityholdingwise);
+                        dtXIRR = GetAbsolutereturnToXIRRDt(dtXIRR, dtabsoluteReturn);
+                        
                         if (dsEquityholdingwise.Tables[0].Rows.Count > 0)
                         {
 
