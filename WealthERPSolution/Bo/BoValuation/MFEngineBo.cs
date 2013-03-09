@@ -697,9 +697,11 @@ namespace BoValuation
             //DataTable dtSellPaired = new DataTable();          
             TimeSpan span = new TimeSpan();
             double buyUnits = 0;
+            double buyReturnUnits = 0;
             double age;
             //  double avgValue=0;
             double units = sellUnits;
+            double returnSellUnits = sellUnits;
             foreach (DataRow dr in dt.Rows)
             {
 
@@ -714,6 +716,10 @@ namespace BoValuation
                     //{
                     //    dr["CMFTB_InsertUpdate_Flag"] = 2;
                     //}
+
+                    //----------------->>>> Tax FIFO <<<<-----------------\\
+
+
                     buyUnits = double.Parse(dr["CMFTB_UnitBalanceTAX"].ToString());
                     if (buyUnits != 0)
                     {
@@ -738,18 +744,69 @@ namespace BoValuation
                         }
                         else if (buyUnits < sellUnits)
                         {
-                            dr["CMFTB_UnitBalanceTAX"]=0;
+                            dr["CMFTB_UnitBalanceTAX"] = 0;
                             dr["CMFTB_TotalCostBalanceTAX"] = 0;
-                            sellUnits = sellUnits - buyUnits;                           
+                            sellUnits = sellUnits - buyUnits;
                             span = sellTransactiondate - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                             age = span.TotalDays;
                             FillSellPairedDataSet(buyUnits, age, sellId, double.Parse(dr["CMFT_MFTransId"].ToString()), sellPrice, double.Parse(dr["CMFT_Price"].ToString()), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()));
 
                         }
                     }
+
+                    //----------------->>>> Tax FIFO END<<<<-----------------\\
+
+
+
+
+                    //----------------->>>> Return FIFO <<<<-----------------\\
                 }
             }
-            dt = UpdateBalancedTransactionDetails(dt, units);
+                    foreach (DataRow drReturns in dt.Rows)
+                    {
+
+                        if (drReturns["WMTT_TransactionClassificationCode"].ToString() != "SEL" && drReturns["WMTT_TransactionClassificationCode"].ToString() != "DVP")
+                        {
+                            buyReturnUnits = double.Parse(drReturns["CMFTB_UnitBalanceRETURN"].ToString());
+                            if (buyReturnUnits != 0)
+                            {
+                                if (buyReturnUnits == returnSellUnits)
+                                {
+                                    drReturns["CMFTB_DivPayout"] = 0;
+                                    drReturns["CMFTB_UnitBalanceRETURN"] = 0;
+                                    drReturns["CMFTB_TotalCostBalRETURN"] = 0;
+                                    break;
+                                }
+                                else if (buyReturnUnits > returnSellUnits)
+                                {
+                                    drReturns["CMFTB_DivPayout"] = Math.Round((((buyReturnUnits - returnSellUnits) / double.Parse(drReturns["CMFTB_UnitBalanceRETURN"].ToString())) * double.Parse(drReturns["CMFTB_DivPayout"].ToString())), 4);
+                                    drReturns["CMFTB_UnitBalanceRETURN"] = buyReturnUnits - returnSellUnits;
+                                    drReturns["CMFTB_TotalCostBalRETURN"] = double.Parse(drReturns["CMFTB_UnitBalanceRETURN"].ToString()) * double.Parse(drReturns["CMFT_Price"].ToString());
+                                    break;
+                                }
+                                else if (buyReturnUnits < returnSellUnits)
+                                {
+                                    drReturns["CMFTB_DivPayout"] = 0;
+                                    drReturns["CMFTB_UnitBalanceRETURN"] = 0;
+                                    drReturns["CMFTB_TotalCostBalRETURN"] = 0;
+                                    returnSellUnits = returnSellUnits - buyReturnUnits;
+                                }
+                                if (drReturns["CMFTB_Id"].ToString() != null && drReturns["CMFTB_Id"].ToString() != "")
+                                {
+                                    drReturns["CMFTB_InsertUpdate_Flag"] = 2;
+                                }
+                            }
+                        }
+                    }
+
+                  
+                    
+                    //----------------->>>> Return FIFO End <<<<-----------------\\
+
+
+                  
+          
+          //  dt = UpdateBalancedTransactionDetails(dt, units);
             return dt;
         }
 
