@@ -1636,13 +1636,13 @@ namespace BoAdvisorProfiling
         /// <param name="modifiedDate">modified date of the zone/cluster</param>
         /// <param name="CommandName">operation filtered by commandname if edit delete or add</param>
         /// <returns>rows true or false</returns>
-        public bool ZoneClusterDetailsAddEditDelete(int adviserId, int rmId, int ZoneId, string Description, string name, string type, int createdBy,int modifiedBy, DateTime createdDate,DateTime modifiedDate,string CommandName)
+        public bool ZoneClusterDetailsAddEditDelete(int adviserId, int rmId, int ZoneClusterId,int ZoneId, string Description, string name, string type, int createdBy, int modifiedBy, DateTime createdDate, DateTime modifiedDate, string CommandName)
         {
             AdvisorDao adviserDao = new AdvisorDao();
             bool inserted = false;
             try
             {
-                inserted = adviserDao.ZoneClusterDetailsAddEditDelete(adviserId, rmId, ZoneId, Description, name, type, createdBy, modifiedBy, createdDate, modifiedDate, CommandName);
+                inserted = adviserDao.ZoneClusterDetailsAddEditDelete(adviserId, rmId, ZoneClusterId, ZoneId, Description, name, type, createdBy, modifiedBy, createdDate, modifiedDate, CommandName);
             }
             catch (BaseApplicationException Ex)
             {
