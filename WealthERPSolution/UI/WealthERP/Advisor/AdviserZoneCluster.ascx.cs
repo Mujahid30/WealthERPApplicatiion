@@ -284,7 +284,10 @@ namespace WealthERP.Advisor
                 RadComboBox rcbHead = (RadComboBox)e.Item.FindControl("rcbHead");
                 RadComboBox rcbPickAZone = (RadComboBox)e.Item.FindControl("rcbPickAZone");
                 TextBox txtDescription = (TextBox)e.Item.FindControl("txtDescription");
-                string zoneName = gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_Name"].ToString();
+
+                int AZOC_ZoneId =Convert.ToInt32(rcbPickAZone.SelectedValue);
+                string AZOC_Type = gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_Type"].ToString();
+                string zoneName = txtName.Text;
                 int AZOC_ZoneClusterId = Convert.ToInt32(gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_ZoneClusterId"].ToString());
                 type = Convert.ToInt32(rcbEditFormAddType.SelectedValue);
                 if (type == 1)
@@ -292,7 +295,7 @@ namespace WealthERP.Advisor
                 else
                     insertType = "Cluster";
                 //check if update then show the message
-                isUpdated = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), AZOC_ZoneClusterId, txtDescription.Text, txtName.Text, insertType, 0, UserVo.UserId, DateTime.MinValue, DateTime.Now, e.CommandName);
+                isUpdated = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), AZOC_ZoneClusterId, AZOC_ZoneId, txtDescription.Text, txtName.Text, insertType, 0, UserVo.UserId, DateTime.MinValue, DateTime.Now, e.CommandName);
                 if (isUpdated == false)
                     Response.Write(@"<script language='javascript'>alert('The error updating Zone : \n" + zoneName + "');</script>");
                 else
@@ -313,14 +316,14 @@ namespace WealthERP.Advisor
                 {
                     insertType = "Zone";
                     //check if inserted then show message
-                    isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(0), txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
+                    isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(0),0, txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
 
                 }
                 else
                 {
                     insertType = "Cluster";
                     //check if inserted then show message
-                    isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(rcbPickAZone.SelectedValue), txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
+                    isInserted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, Convert.ToInt32(rcbHead.SelectedValue), Convert.ToInt32(rcbPickAZone.SelectedValue), 0,txtDescription.Text, txtName.Text, insertType, UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
 
                 }
                 if (isInserted == false)
@@ -338,7 +341,7 @@ namespace WealthERP.Advisor
                 int zoneId = int.Parse(ZoneClusterIdForDelete.Text);
                 string deleteType = gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_Type"].ToString();
                 //check if deleted then show message
-                isDeleted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, 0, zoneId, string.Empty, string.Empty, deleteType.ToString(), UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
+                isDeleted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, 0, zoneId,0, string.Empty, string.Empty, deleteType.ToString(), UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
                 if (isDeleted == false)
                     Response.Write(@"<script language='javascript'>alert('The Zone : \n" + zoneName + " Cannot be deleted since it is attached to a branch.');</script>");
                 else
