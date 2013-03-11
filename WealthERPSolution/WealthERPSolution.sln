@@ -238,9 +238,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoCommisionManagement", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoCommisionManagement", "BoCommisionManagement\BoCommisionManagement.csproj", "{DCAD67B1-A11C-489C-8F22-7A04FC6B8CBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_BULK_REPORT_GENERATION_QUEUE", "WERP_BULK_REPORT_GENERATION_QUEUE\WERP_BULK_REPORT_GENERATION_QUEUE.csproj", "{2DCB9AC9-B536-4763-A88A-37DBC8F312F2}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 98
+		SccNumberOfProjects = 99
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -611,6 +613,9 @@ Global
 		SccProjectTopLevelParentUniqueName97 = WealthERPSolution.sln
 		SccProjectName97 = BoCommisionManagement
 		SccLocalPath97 = BoCommisionManagement
+		SccProjectUniqueName98 = WERP_BULK_REPORT_GENERATION_QUEUE\\WERP_BULK_REPORT_GENERATION_QUEUE.csproj
+		SccProjectName98 = WERP_BULK_REPORT_GENERATION_QUEUE
+		SccLocalPath98 = WERP_BULK_REPORT_GENERATION_QUEUE
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1009,6 +1014,10 @@ Global
 		{DCAD67B1-A11C-489C-8F22-7A04FC6B8CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCAD67B1-A11C-489C-8F22-7A04FC6B8CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCAD67B1-A11C-489C-8F22-7A04FC6B8CBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DCB9AC9-B536-4763-A88A-37DBC8F312F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DCB9AC9-B536-4763-A88A-37DBC8F312F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DCB9AC9-B536-4763-A88A-37DBC8F312F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DCB9AC9-B536-4763-A88A-37DBC8F312F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
