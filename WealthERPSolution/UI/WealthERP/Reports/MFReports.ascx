@@ -398,6 +398,7 @@
         arr["CAPITAL_GAIN_SUMMARY"] = "DATE_RANGE";
         arr["CAPITAL_GAIN_DETAILS"] = "DATE_RANGE";
         arr["REALIZED_REPORT"] = "AS_ON";
+        arr["COMPOSITION_REPORT"] = "AS_ON";
 
         var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
         selectedReport = dropdown.options[dropdown.selectedIndex].value
