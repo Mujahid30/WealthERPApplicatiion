@@ -274,8 +274,10 @@ namespace WealthERP.Advisor
             string description = string.Empty;
             string name = string.Empty;
             string insertType = string.Empty;
+            
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
+                int AZOC_ZoneId=0;
                 advisorBo = new AdvisorBo();
                 bool isUpdated = false;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
@@ -285,8 +287,13 @@ namespace WealthERP.Advisor
                 RadComboBox rcbPickAZone = (RadComboBox)e.Item.FindControl("rcbPickAZone");
                 TextBox txtDescription = (TextBox)e.Item.FindControl("txtDescription");
 
-                int AZOC_ZoneId =Convert.ToInt32(rcbPickAZone.SelectedValue);
                 string AZOC_Type = gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_Type"].ToString();
+
+                if (AZOC_Type != "Zone")
+                {
+                     AZOC_ZoneId = Convert.ToInt32(rcbPickAZone.SelectedValue);
+                }
+                
                 string zoneName = txtName.Text;
                 int AZOC_ZoneClusterId = Convert.ToInt32(gvZoneClusterDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AZOC_ZoneClusterId"].ToString());
                 type = Convert.ToInt32(rcbEditFormAddType.SelectedValue);
