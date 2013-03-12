@@ -114,7 +114,7 @@
                     SortExpression="AZOC_Name" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridDateTimeColumn AllowFiltering="false" HeaderText="Closed Date" DataField="AZOC_CreatedOn" UniqueName="AZOC_CreatedOn"
+                <telerik:GridDateTimeColumn AllowFiltering="false" HeaderText="Created Date" DataField="AZOC_CreatedOn" UniqueName="AZOC_CreatedOn"
                     DataFormatString="{0:d}" AutoPostBackOnFilter="true">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                     <FilterTemplate>
