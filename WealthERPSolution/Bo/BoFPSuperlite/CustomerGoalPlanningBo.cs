@@ -241,10 +241,14 @@ namespace BoFPSuperlite
                 }
                 else
                 {
+                    double corpsTobeLeftBehindRetirement = 0;
+                    corpsTobeLeftBehindRetirement = PV((customerAssumptionVo.PostRetirementReturn / 100), (customerAssumptionVo.CustomerEOL - customerAssumptionVo.RetirementAge), 0, -goalPlanningVo.CorpusLeftBehind, 1);
                     if (spouseLifeAfterCustomerRet > 0)
-                        corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, spouseLifeAfterCustomerRet * 12, -amountAfterFirstMonthRetirement, -goalPlanningVo.CorpusLeftBehind, 1);
+                        corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, spouseLifeAfterCustomerRet * 12, -amountAfterFirstMonthRetirement,0, 1);
                     else
                         corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, -(spouseLifeAfterCustomerRet * 12), -amountAfterFirstMonthRetirement, -goalPlanningVo.CorpusLeftBehind, 1);
+
+                    corpusReqAtTimeOfRetirement = corpusReqAtTimeOfRetirement + corpsTobeLeftBehindRetirement;
 
                 }
                 double lumpsumInvestment = 0;
