@@ -87,7 +87,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     customerId = customerVo.CustomerId;
                     trRangeNcustomer.Visible = false;
-                    trRange.Visible = false;
+                    //trRange.Visible = false;
                    
                 }
 
@@ -296,7 +296,7 @@ namespace WealthERP.CustomerPortfolio
             }
             if (Session["CustomerVo"] != null)
             {
-                trRange.Visible = true;
+                //trRange.Visible = true;
             }
 
             if (DisplayType =="TV")
@@ -476,8 +476,7 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction[15] = mfTransactionVo.SubBrokerCode;
                         drMFTransaction[16] = mfTransactionVo.SubCategoryName;
                         drMFTransaction[17] = mfTransactionVo.CreatedOn;
-                        drMFTransaction[18] = decimal.Parse(mfTransactionVo.BrokerageAmount.ToString());
-                       
+                        drMFTransaction[18] = decimal.Parse(mfTransactionVo.BrokerageAmount.ToString());                      
 
                         dtMFTransactions.Rows.Add(drMFTransaction);
                     }
@@ -485,7 +484,7 @@ namespace WealthERP.CustomerPortfolio
                     GridBoundColumn gbcCustomer = gvMFTransactions.MasterTableView.Columns.FindByUniqueName("Customer Name") as GridBoundColumn;
                     GridBoundColumn gbcPortfolio = gvMFTransactions.MasterTableView.Columns.FindByUniqueName("Portfolio Name") as GridBoundColumn;
                     GridBoundColumn gbCMFT_ExternalBrokerageAmount = gvMFTransactions.MasterTableView.Columns.FindByUniqueName("CMFT_ExternalBrokerageAmount") as GridBoundColumn;
-                    if (Session["IsCustomerDrillDown"] == "Yes")
+                    if (Convert.ToString(Session["IsCustomerDrillDown"]) == "Yes")
                     {
                         gbcCustomer.Visible = false;
                         gbcPortfolio.Visible = false;
@@ -729,6 +728,7 @@ namespace WealthERP.CustomerPortfolio
             mfTransactionVo = customerTransactionBo.GetMFTransaction(transactionId);
             Session["MFTransactionVo"] = mfTransactionVo;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMCustomerIndividualDashboard", "loadcontrol('ViewMFTransaction','login');", true);
+          //  Response.Write("<script type='text/javascript'>detailedresults=window.open('CustomerPortfolio/ViewMFTransaction.aspx','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMFTransaction','none');", true);
         }
         protected void gvMFTransactions_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
@@ -891,10 +891,10 @@ namespace WealthERP.CustomerPortfolio
 
                 }
             }
-            if (Session["IsCustomerDrillDown"] != null)
-            {
-                trRange.Visible = true;
-            }
+            //if (Session["IsCustomerDrillDown"] != null)
+            //{
+            //    trRange.Visible = true;
+            //}
             //gvMFTransactions.Visible = true;
             //DataTable dtMFTransactions = new DataTable();
             //dtMFTransactions = (DataTable)Cache["ViewTransaction" + userVo.UserId ];
@@ -911,7 +911,7 @@ namespace WealthERP.CustomerPortfolio
             gvBalanceView.DataSource = dtMFBalance;
             if (Session["IsCustomerDrillDown"] != null)
             {
-                trRange.Visible = true;
+                //trRange.Visible = true;
             }
            
         }

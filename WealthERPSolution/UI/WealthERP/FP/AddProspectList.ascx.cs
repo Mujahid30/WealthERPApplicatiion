@@ -57,7 +57,7 @@ namespace WealthERP.FP
                 if (Session[SessionContents.CurrentUserRole].ToString() != "")
                     Role = Session[SessionContents.CurrentUserRole].ToString();
 
-                if ((Role != "") && (Role == "Admin"))
+                if ((Role != "") && (Role == "Admin" || Role == "Ops"))
                 {
                     btnConvertToCustomer.Enabled = true;
                 }
@@ -69,6 +69,8 @@ namespace WealthERP.FP
                 btnDelete.Enabled = false;
                 int customerId = 0;
                 advisorVo = (AdvisorVo)Session["advisorVo"];
+
+              
                 if (Session["customerVo"] != null)
                     customerVo = (CustomerVo)Session["customerVo"];
 
@@ -97,7 +99,7 @@ namespace WealthERP.FP
                 if (!IsPostBack)
                 {
                     //if(Role == "
-                    BindBranch(advisorVo, rmVo);
+                   
                     if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
                     {
                         customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
@@ -170,18 +172,22 @@ namespace WealthERP.FP
                         {
                             dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
                         }
-                        for (int i = 0; i < ddlPickBranch.Items.Count; i++)
-                        {
-                            if (ddlPickBranch.Items[i].Value == customerVo.BranchId.ToString())
-                            {
-                                ddlPickBranch.SelectedIndex = i;
-                            }
-                        }
+                        //for (int i = 0; i < ddlPickBranch.Items.Count; i++)
+                        //{
+                        //    if (ddlPickBranch.Items[i].Value == customerVo.BranchId.ToString())
+                        //    {
+                        //        ddlPickBranch.SelectedIndex = i;
+                        //    }
+                        //}
+                        //ddlPickBranch.SelectedValue = customerVo.BranchId;
                         Rebind();
                         if (Session[SessionContents.FPS_AddProspectListActionStatus].ToString() == "View")
                         {
                             // View things have been handled here
-                            aplToolBar.Visible = true;
+
+                            BindBranch(advisorVo.advisorId, customerVo.RmId);
+
+                            aplToolBar.Visible = true;                         
                             btnSubmit.Visible = false;
                             btnSubmitAddDetails.Visible = false;
                             btnConvertToCustomer.Enabled = false;
@@ -220,15 +226,19 @@ namespace WealthERP.FP
                             headertitle.Text = "View Prospect";
                             btnDelete.Enabled = false;
                             RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
+                            ddlPickBranch.SelectedValue = customerVo.BranchId.ToString();
 
                         }
                         else if (Session[SessionContents.FPS_AddProspectListActionStatus].ToString() == "Edit")
                         {
                             // Edit thing have been handled here
+
+                            BindBranch(advisorVo.advisorId, customerVo.RmId);
+
                             aplToolBar.Visible = true;
                             btnConvertToCustomer.Visible = true;
                             RadToolBarButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
-                            if ((Role != "") && (Role == "Admin"))
+                            if ((Role != "") && (Role == "Admin" || Role == "Ops"))
                                 btnConvertToCustomer.Enabled = true;
                             else
                                 btnConvertToCustomer.Enabled = false;
@@ -246,7 +256,14 @@ namespace WealthERP.FP
                             txtSlab.Enabled = true;
                             btnDelete.Enabled = true;
                             RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = true;
+                            ddlPickBranch.SelectedValue = customerVo.BranchId.ToString();
+
                         }
+                       
+                    }
+                    else
+                    {
+                        BindBranch(advisorVo.advisorId, rmVo.RMId);
                     }
                     //RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = true;
                 }
@@ -269,12 +286,12 @@ namespace WealthERP.FP
         /// </summary>
         /// <param name="advisorVo"></param>
         /// <param name="rmVo"></param>
-        private void BindBranch(AdvisorVo advisorVo, RMVo rmVo)
+        private void BindBranch(int adviserId, int rmId)
         {
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             UploadCommonBo uploadsCommonDao = new UploadCommonBo();
             //DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
-            DataSet ds = advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, advisorVo.advisorId, "A");
+            DataSet ds = advisorBranchBo.GetRMBranchAssociation(rmId, adviserId, "A");
             if (ds != null)
             {
                 ddlPickBranch.DataSource = ds;
@@ -1509,8 +1526,8 @@ namespace WealthERP.FP
                 else if(userRole == "RM")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomer','login');", true);
-                }   
-                else if(userRole == "Admin")
+                }
+                else if (userRole == "Admin" || userRole == "Ops")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                 }

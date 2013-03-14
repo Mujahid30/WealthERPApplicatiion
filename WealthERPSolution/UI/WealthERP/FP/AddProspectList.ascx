@@ -94,7 +94,7 @@
 <hr />
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
     Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
-    Width="100%" Visible="false">
+    Width="100%" Visible="false" CausesValidation="false">
     <Items>
         <telerik:RadToolBarButton runat="server" Text="Back" Value="Back" ImageUrl="/Images/Telerik/BackButton.gif"
             ImagePosition="Left" ToolTip="Back">

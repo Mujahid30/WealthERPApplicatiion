@@ -109,7 +109,7 @@
                                 </td>
                             </tr>
                             <tr id="trRange" visible="false" runat="server" onkeypress="return keyPress(this, event)">
-                                <td align="right" valign="top">
+                                <td align="right">
                                     <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
                                 </td>
                                 <td valign="top">
@@ -129,10 +129,10 @@
                                 <td>
                                     &nbsp;&nbsp;
                                 </td>
-                                <td align="right" valign="top">
+                                <td align="right">
                                     <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
                                 </td>
-                                <td valign="top">
+                                <td>
                                     <telerik:RadDatePicker ID="txtToDate" CssClass="txtTo" runat="server" Culture="English (United States)"
                                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                                         <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -151,10 +151,10 @@
                                 </td>
                             </tr>
                             <tr id="trPeriod" visible="false" runat="server">
-                                <td align="right" valign="top">
+                                <td align="right">
                                     <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
                                 </td>
-                                <td valign="top">
+                                <td>
                                     <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField">
                                     </asp:DropDownList>
                                     <span id="Span4" class="spnRequiredField"></span>
@@ -171,7 +171,7 @@
                                 </td>
                             </tr>
                             <tr id="trGroupHead" runat="server">
-                                <td align="right" valign="top">
+                                <td align="right">
                                     <asp:Label ID="lblGroupHead" runat="server" CssClass="FieldName" Text="Group Head :"></asp:Label>
                                 </td>
                                 <td valign="top">
