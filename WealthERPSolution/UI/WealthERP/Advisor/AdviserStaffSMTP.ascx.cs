@@ -62,6 +62,7 @@ namespace WealthERP.Advisor
                 txtsmsCredit.Text = adviserstaffsmtpvo.SmsInitialcredit.ToString();
 
                 SetAdviserPreference();
+              
 
             }
 
@@ -336,7 +337,8 @@ namespace WealthERP.Advisor
             {
                 txtWebSiteDomainName.Text = advisorPreferenceVo.WebSiteDomainName;
                 txtLogOutPageUrl.Text = advisorPreferenceVo.LoginWidgetLogOutPageURL;
-                txtBrowserTitleBarName.Text = advisorPreferenceVo.BrowserTitleBarName;                
+                txtBrowserTitleBarName.Text = advisorPreferenceVo.BrowserTitleBarName;
+                txtGridPageSize.Text = Convert.ToInt32(advisorPreferenceVo.GridPageSize).ToString();
                 if (advisorPreferenceVo.IsLoginWidgetEnable)
                 {
                     rbLoginWidGetYes.Checked = true;
@@ -363,6 +365,7 @@ namespace WealthERP.Advisor
             advisorPreferenceVo.WebSiteDomainName= txtWebSiteDomainName.Text;
             advisorPreferenceVo.LoginWidgetLogOutPageURL=txtLogOutPageUrl.Text;
             advisorPreferenceVo.BrowserTitleBarName = txtBrowserTitleBarName.Text;
+            advisorPreferenceVo.GridPageSize =  Convert.ToInt32(txtGridPageSize.Text);
             isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId);
             if (isSuccess)
             {
@@ -374,7 +377,22 @@ namespace WealthERP.Advisor
 
 
         }
-
-
+        protected void SetAdviserGridPageSize()
+        {           
+        }
+        protected void btnSubmitPageSize_Click(object sender, EventArgs e)
+        {
+            bool isSuccess = false;
+            advisorPreferenceVo.GridPageSize = Convert.ToInt32(txtGridPageSize.Text);
+            isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId);
+            if (isSuccess)
+            {
+                trMsg.Visible = true;
+                divMsgSuccess.InnerText = "Preference Updated Successfully";
+            }
+            SetAdviserPreference();
+            Session["AdvisorPreferenceVo"] = advisorPreferenceVo;
+        
+        }
     }
 }

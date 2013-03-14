@@ -435,6 +435,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSuccessMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMsg;
         
         /// <summary>
         /// divSuccessMsg control.
@@ -561,5 +562,8 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSendLoginWidGet;
+        protected global::System.Web.UI.WebControls.TextBox txtGridPageSize;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMsgSuccess;
+        
     }
 }
