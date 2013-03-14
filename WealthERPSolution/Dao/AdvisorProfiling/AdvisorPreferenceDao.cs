@@ -38,6 +38,7 @@ namespace DaoAdvisorProfiling
                     advisorPreferenceVo.BrowserTitleBarName = dtAdviserPreference.Rows[0]["AP_BrowserTitleBarName"].ToString();                 
                     advisorPreferenceVo.BrowserTitleBarIconImageName = dtAdviserPreference.Rows[0]["AP_BrowserTitleBarIconImageName"].ToString();
                     advisorPreferenceVo.WebSiteDomainName = dtAdviserPreference.Rows[0]["AP_WebSiteDomainName"].ToString();
+                    advisorPreferenceVo.GridPageSize = Convert.ToInt32(dtAdviserPreference.Rows[0]["AP_GridPageSize"].ToString());
                     if (dtAdviserPreference.Rows[0]["AP_IsBannerEnable"].ToString()=="1")
                       advisorPreferenceVo.IsBannerEnabled =true;
                     advisorPreferenceVo.BannerImageName = dtAdviserPreference.Rows[0]["AP_BannerImageName"].ToString();
@@ -69,6 +70,7 @@ namespace DaoAdvisorProfiling
             Database db;
             DbCommand cmdAdviserPreferenceSetUp;           
             DataTable dtAdviserPreference = new DataTable();
+           // string LoginWidgetLogOutPageURL=null;
             bool isSuccess = false;
             try
             {
@@ -76,9 +78,13 @@ namespace DaoAdvisorProfiling
                 cmdAdviserPreferenceSetUp = db.GetStoredProcCommand("SPROC_UpdateAdviserPreference");
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@IsLoginWidgetEnable", DbType.Int16, advisorPreferenceVo.IsLoginWidgetEnable);
+                //if ()
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@LoginWidgetLogOutPageURL", DbType.String, advisorPreferenceVo.LoginWidgetLogOutPageURL);
+                //else
+                //db.AddInParameter(cmdAdviserPreferenceSetUp, "@LoginWidgetLogOutPageURL", DbType.Int32, DBNull.Value);
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@BrowserTitleBarName", DbType.String, advisorPreferenceVo.BrowserTitleBarName);
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@WebSiteDomainName", DbType.String, advisorPreferenceVo.WebSiteDomainName);
+                db.AddInParameter(cmdAdviserPreferenceSetUp, "@GridPageSize", DbType.Int32, advisorPreferenceVo.GridPageSize);
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@UserId", DbType.String, UserId);
                 if (db.ExecuteNonQuery(cmdAdviserPreferenceSetUp) != 0)
                     isSuccess = true;
