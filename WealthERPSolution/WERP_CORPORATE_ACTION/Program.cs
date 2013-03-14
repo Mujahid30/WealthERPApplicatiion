@@ -9,6 +9,13 @@ namespace WERP_CORPORATE_ACTION
     {
         static void Main(string[] args)
         {
+            ProcessCorporateAction();
+        }
+
+        public static void ProcessCorporateAction()
+        {
+            CorporateActionBo corporateActionBo = new CorporateActionBo();
+            corporateActionBo.ProcessCorporateAction();
         }
     }
 }
