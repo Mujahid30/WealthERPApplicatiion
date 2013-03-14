@@ -68,6 +68,15 @@ namespace WealthERP {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl GeneralHeader;
         
         /// <summary>
+        /// imgPlaceholders control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable imgPlaceholders;
+        
+        /// <summary>
         /// imgLeftPlaceHolder control.
         /// </summary>
         /// <remarks>
@@ -93,6 +102,24 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlImage imgRightPlaceholder;
+        
+        /// <summary>
+        /// tblIFALongBanner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblIFALongBanner;
+        
+        /// <summary>
+        /// imgIFABanner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgIFABanner;
         
         /// <summary>
         /// tdSettings control.

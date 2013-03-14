@@ -27,12 +27,12 @@ namespace WealthERP
         UserVo userVo = new UserVo();
         string xmlPath = "";
         AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
+        AdvisorVo advisorVo = new AdvisorVo();
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
-            GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
-            AdvisorVo advisorVo = new AdvisorVo();
+            GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();            
             HttpCookie UserPreference;
             string userTheme = string.Empty;
 
@@ -122,6 +122,7 @@ namespace WealthERP
                 imgLeftPlaceHolder.Style.Add("display", "none");
                 imgCenterPlaceholder.Style.Add("display", "none");
                 imgRightPlaceholder.Style.Add("display", "none");
+                imgIFABanner.Style.Add("display", "none");                
                 if (Session[SessionContents.SAC_HostGeneralDetails] != null)
                 {
                     generalconfigurationvo = (GeneralConfigurationVo)Session[SessionContents.SAC_HostGeneralDetails];
@@ -254,6 +255,23 @@ namespace WealthERP
                                 }
                             }
                         }
+                        if (advisorPreferenceVo.IsBannerEnabled)
+                        {
+                            imgPlaceholders.Visible = false;
+
+                            if (!string.IsNullOrEmpty(advisorPreferenceVo.BannerImageName))
+                            {
+                                imgIFABanner.Style.Add("display", "block");
+                                imgIFABanner.Src = "Images/" + advisorPreferenceVo.BannerImageName;                               
+                            }
+                            else
+                                imgIFABanner.Style.Add("display", "none");
+
+                        }
+                        else
+                        {
+                            tblIFALongBanner.Visible = false;
+                        }
                         //if (logoPath != "Images/")
                         //{
                         //    AdvisorLogo.Src = logoPath;
@@ -261,44 +279,10 @@ namespace WealthERP
                         //if (branchLogoPath != "Images/")
                         //{
                         //    BranchLogo.Src = branchLogoPath;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         //}
 
                         CustomerVo customerVo = new CustomerVo();
                         customerVo = (CustomerVo)(Session["CustomerVo"]);
-
-
-
-
-
-
-
-
-
-
-
-
-
                     }
                     else
                     {

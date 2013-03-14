@@ -154,7 +154,7 @@
                                 height: 90px;" --%>
                                 <%--background-color: #D1E1F7"--%>
                                 <td colspan="3" valign="top" class="TDBackground" style="padding: 0px;">
-                                    <table id="imgPlaceholders" width="100%">
+                                    <table id="imgPlaceholders" width="100%" runat="server">
                                         <tr style="height: 55px" valign="middle">
                                             <td align="left" width="33%">
                                                 <img id="imgLeftPlaceHolder" runat="server" />
@@ -165,6 +165,13 @@
                                             <td align="right" center="34%">
                                                 <img id="imgRightPlaceholder" runat="server" style="height: 50px" width="180" />
                                             </td>
+                                        </tr>
+                                    </table>
+                                    <table id="tblIFALongBanner" width="100%" runat="server">
+                                        <tr style="height: 55px" valign="middle">
+                                         <td align="left" width="100%">
+                                                <img id="imgIFABanner" runat="server" />
+                                         </td>
                                         </tr>
                                     </table>
                                     <table style="clear: both; z-index: 2500; text-align: right; float: right" cellpadding="1"
