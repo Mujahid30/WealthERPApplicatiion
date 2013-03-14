@@ -652,21 +652,31 @@ namespace WealthERP.BusinessMIS
                 }//**
 
             }//***
-                gvAssetAllocationMIS.DataSource = dtAssetallocationDetails;
-                gvAssetAllocationMIS.DataBind();
-                tbl.Visible = true;
-                gvAssetAllocationMIS.Visible = true;
-                if (Cache["AssetAllocationMIS" + advisorVo.advisorId] == null)
+                if (dtAssetallocationDetails.Rows.Count > 0)
                 {
-                    Cache.Insert("AssetAllocationMIS" + userVo.UserId, dtAssetallocationDetails);
+                    gvAssetAllocationMIS.DataSource = dtAssetallocationDetails;
+                    gvAssetAllocationMIS.DataBind();
+                    tbl.Visible = true;
+                    gvAssetAllocationMIS.Visible = true;
+                    if (Cache["AssetAllocationMIS" + advisorVo.advisorId] == null)
+                    {
+                        Cache.Insert("AssetAllocationMIS" + userVo.UserId, dtAssetallocationDetails);
+                    }
+                    else
+                    {
+                        Cache.Remove("AssetAllocationMIS" + userVo.UserId);
+                        Cache.Insert("AssetAllocationMIS" + userVo.UserId, dtAssetallocationDetails);
+                    }
+                    ErrorMessage.Visible = false;
+                    btnImagExport.Visible = true;
                 }
                 else
                 {
-                    Cache.Remove("AssetAllocationMIS" + userVo.UserId);
-                    Cache.Insert("AssetAllocationMIS" + userVo.UserId, dtAssetallocationDetails);
+                    gvAssetAllocationMIS.DataSource = null;
+                    gvAssetAllocationMIS.DataBind();
+                    ErrorMessage.Visible = true;
+                    btnImagExport.Visible = false;
                 }
-                ErrorMessage.Visible = false;
-                btnImagExport.Visible = true;
           }
             else
             {
