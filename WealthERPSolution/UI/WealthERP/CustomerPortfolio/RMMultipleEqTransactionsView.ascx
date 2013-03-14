@@ -25,9 +25,11 @@
     function GridCreated(sender, args) {
         var scrollArea = sender.GridDataDiv;
         var dataHeight = sender.get_masterTableView().get_element().clientHeight;
+        var dataWidth = sender.get_masterTableView().get_element().clientWidth;
         if (dataHeight < 300) {
-            scrollArea.style.height = dataHeight + 17 + "px";
+            scrollArea.style.height = dataHeight + 17 + "px";          
         }
+        
     }  
 </script>
 
@@ -203,16 +205,25 @@
         </td>
     </tr>
 </table>
+<table  width="100%">
+    <tr>
+        <td align="center">
+            <div id="Msgerror" class="failure-msg"  visible="true"  runat="server" align="center">
+                No Records found.....
+            </div>
+        </td>
+    </tr>
+</table>
 <html>
 <body class="Landscape">
     <%--<div id="tbl" runat="server">--%>
     <%-- <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%">--%>
-    <table cellspacing="0" cellpadding="0">
+    <table cellspacing="0" cellpadding="1">
         <tr>
             <td>
                 <telerik:RadGrid ID="gvMFTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik" EnableEmbeddedSkins="false"
-                    Width="1061px" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-FileName="Equity transaction Details"
+                    Width="1062px" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-FileName="Equity transaction Details"
                     ShowFooter="true" OnNeedDataSource="gvMFTransactions_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
@@ -245,7 +256,7 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridDateTimeColumn HeaderStyle-Width="150px" HeaderStyle-Wrap="false" DataField="Date"
-                                SortExpression="Date" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                SortExpression="Date" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" 
                                 AllowFiltering="true" HeaderText="Trade Date (dd/mm/yyyy)" UniqueName="Date"
                                 DataFormatString="{0:d}" ShowFilterIcon="false">
                                 <ItemStyle HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
@@ -284,7 +295,7 @@
                                 Aggregate="Sum" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridCalculatedColumn ShowFilterIcon="false" AllowFiltering="false" HeaderText="Gross Price"
+                            <telerik:GridCalculatedColumn ShowFilterIcon="false" AllowFiltering="false" HeaderText="Gross Price" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="110px" UniqueName="TotalPrice" DataType="System.Double" DataFields="Rate,Quantity,STT,Brokerage,OtherCharges"
                                 Expression="({0}*{1})+{2}+{3}+{4}" Aggregate="Sum" DataFormatString="{0:N2}"
                                 ItemStyle-HorizontalAlign="Right" />
@@ -308,7 +319,7 @@
                     </MasterTableView>
                     <ClientSettings>
                         <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="True" ScrollHeight="300px" />
-                        <ClientEvents OnGridCreated="GridCreated" />
+                        <ClientEvents OnGridCreated="GridCreated" OnKeyPress="KeyPress"/>
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
                         <%--<Resizing AllowColumnResize="true"  />--%>
@@ -407,13 +418,13 @@
         </tr>
     </table>
     <%-- </asp:Panel>--%>
-    <table width="100%">
+    <%--<table width="100%">
         <tr id="trMessage" runat="server">
             <td colspan="2">
                 <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found..."></asp:Label>
             </td>
         </tr>
-    </table>
+    </table>--%>
     <%--  </div>--%>
 </body>
 </html>

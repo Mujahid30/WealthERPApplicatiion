@@ -49,6 +49,7 @@ namespace WealthERP.CustomerPortfolio
        
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             //if (BindGroupHead() == "IE7 Compatibility View")
             //{
             //    HtmlMeta force = new HtmlMeta();
@@ -60,6 +61,7 @@ namespace WealthERP.CustomerPortfolio
             //}
             try
             {
+                
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
                 advisorPreferenceVo = (AdvisorPreferenceVo)(Session["AdvisorPreferenceVo"]);
@@ -80,9 +82,12 @@ namespace WealthERP.CustomerPortfolio
                     txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                 }
 
-
+               
                 if (!IsPostBack)
                 {
+
+                    if (Cache["EquityTransactionDetails" + advisorVo.advisorId.ToString()] != null)
+                        Cache.Remove("EquityTransactionDetails" + advisorVo.advisorId.ToString());
                     rbtnPickDate.Checked = true;
                     rbtnPickPeriod.Checked = false;
                     trRange.Visible = true;
@@ -91,17 +96,20 @@ namespace WealthERP.CustomerPortfolio
                     lblGroupHead.Visible = false;
                     txtParentCustomer.Visible = false;
                     rfvGroupHead.Visible = false;
+                    Msgerror.Visible = false;
+                    gvMFTransactions.Visible = false;
                     BindLastTradeDate();
                     txtFromDate.SelectedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
                     txtToDate.SelectedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
 
-                    if (txtFromDate.SelectedDate != null || txtToDate.SelectedDate != null)
-                        BindGrid(txtFromDate.SelectedDate.Value, txtToDate.SelectedDate.Value);
-                    else
-                      //  Panel2.Visible = false;
-
-                    trMessage.Visible = false;
-                }
+                //    if (txtFromDate.SelectedDate != null || txtToDate.SelectedDate != null)
+                //        BindGrid(txtFromDate.SelectedDate.Value, txtToDate.SelectedDate.Value);
+                //    else
+                //        //  Panel2.Visible = false;
+                //        Msgerror.Visible = false;
+                //   // trMessage.Visible = false;
+               }
+                Msgerror.Visible = false;
             }
             catch (BaseApplicationException Ex)
             {
@@ -144,6 +152,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 trRange.Visible = false;
                 trPeriod.Visible = true;
+                gvMFTransactions.Visible = false;
                 BindPeriodDropDown();
             }
             gvMFTransactions.DataSource = null;
@@ -251,7 +260,7 @@ namespace WealthERP.CustomerPortfolio
 
         private void BindGrid(int currentPage, DateTime convertedFromDate, DateTime convertedToDate)
         {
-            BindGrid(currentPage, convertedFromDate, convertedToDate);
+           //BindGrid(currentPage, convertedFromDate, convertedToDate);
         }
         /// <summary>
         /// 
@@ -285,7 +294,7 @@ namespace WealthERP.CustomerPortfolio
                 dtTransactions = ds.Tables[0];
                 if (dtTransactions.Rows.Count > 0)
                 {
-                    trMessage.Visible = false;
+                    Msgerror.Visible = false;
                    
 
                     DataTable dtEQTransactions = new DataTable();
@@ -312,8 +321,6 @@ namespace WealthERP.CustomerPortfolio
                     {
 
                         drEQTransaction = dtEQTransactions.NewRow();
-
-
                         drEQTransaction["TransactionId"] = dtTransactions.Rows[i]["CET_EqTransId"].ToString();
                         drEQTransaction["Customer Name"] = dtTransactions.Rows[i]["Name"].ToString();
                         drEQTransaction["Scrip"] = dtTransactions.Rows[i]["PEM_CompanyName"].ToString();
@@ -346,7 +353,9 @@ namespace WealthERP.CustomerPortfolio
 
                     gvMFTransactions.DataSource = dtEQTransactions;
                     gvMFTransactions.PageSize = advisorPreferenceVo.GridPageSize;
-                    gvMFTransactions.DataBind();             
+                    gvMFTransactions.Visible = true;
+                    gvMFTransactions.DataBind();
+                    Msgerror.Visible = false;
 
                     if (Cache["EquityTransactionDetails" + advisorVo.advisorId.ToString()] == null)
                     {
@@ -365,7 +374,8 @@ namespace WealthERP.CustomerPortfolio
                     gvMFTransactions.DataSource = null;
                     gvMFTransactions.DataBind();
                     imgBtnrgHoldings.Visible = false;
-                    trMessage.Visible = true;
+                    Msgerror.Visible = true;
+                   // trMessage.Visible = true;
                    // Panel2.Visible = false;
                 }   
             }
@@ -434,7 +444,10 @@ namespace WealthERP.CustomerPortfolio
             DataTable dtProcessLogDetails = new DataTable();
 
             dtProcessLogDetails = (DataTable)Cache["EquityTransactionDetails" + advisorVo.advisorId.ToString()];
-            gvMFTransactions.DataSource = dtProcessLogDetails;
+            if (dtProcessLogDetails != null)
+            {
+                gvMFTransactions.DataSource = dtProcessLogDetails;
+            }
         }
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
