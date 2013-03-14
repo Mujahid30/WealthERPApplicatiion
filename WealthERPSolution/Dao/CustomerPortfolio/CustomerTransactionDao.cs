@@ -2362,6 +2362,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, SchemePlanCode);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, DBNull.Value);
+               
 
                 //db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
                 //if (CustomerName != string.Empty)
@@ -2398,6 +2399,7 @@ namespace DaoCustomerPortfolio
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMCCode", DbType.String, AMCCode);
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
+               
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     dtGetMFTransactions = ds.Tables[0];
@@ -2571,10 +2573,9 @@ namespace DaoCustomerPortfolio
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, DBNull.Value);
 
-
-
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
+                
 
             }
             catch (BaseApplicationException Ex)
@@ -2820,6 +2821,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
+               
                 //db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
 
                 //db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ExportFlag", DbType.Int32, exportFlag);
@@ -2843,7 +2845,7 @@ namespace DaoCustomerPortfolio
 
 
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
-
+                //PageSize = int.Parse(db.GetParameterValue(getRMCustomerMFTransactionsCmd, "PageSize").ToString());
 
                 //if (ds.Tables.Count > 1 && ds.Tables[2].Rows.Count > 0)
                 //{
@@ -3970,9 +3972,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@AccountId", DbType.String, AccountId);
                 else
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@AccountId", DbType.String, DBNull.Value);
-
+               
                 getRMCustomerMFBalanceCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFBalanceCmd);
+               
                 if (ds.Tables[0].Rows.Count > 0)
                 {
   
