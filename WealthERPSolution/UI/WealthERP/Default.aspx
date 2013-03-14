@@ -167,7 +167,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <table id="tblIFALongBanner" width="100%" runat="server">
+                                    <table id="tblIFALongBanner" width="100%" runat="server" visible ="false">
                                         <tr style="height: 55px" valign="middle">
                                          <td align="left" width="100%">
                                                 <img id="imgIFABanner" runat="server" />
