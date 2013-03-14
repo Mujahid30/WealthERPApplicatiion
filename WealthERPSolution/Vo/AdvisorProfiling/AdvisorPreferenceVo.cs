@@ -13,6 +13,7 @@ namespace VoAdvisorProfiling
         public string BrowserTitleBarName { get; set; }
         public string BrowserTitleBarIconImageName { get; set; }
         public string WebSiteDomainName { get; set; }
+        public int  GridPageSize { get; set; }
         public bool IsBannerEnabled { get; set; }
         public string BannerImageName { get; set; }
         
