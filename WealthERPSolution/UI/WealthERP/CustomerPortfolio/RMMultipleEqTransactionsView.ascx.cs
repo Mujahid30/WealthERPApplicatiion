@@ -16,6 +16,7 @@ using BoCustomerProfiling;
 using WealthERP.Base;
 using VoCustomerPortfolio;
 using System.IO;
+using VoAdvisorProfiling;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Web.UI.HtmlControls;
@@ -43,15 +44,27 @@ namespace WealthERP.CustomerPortfolio
         double totalOtherCharges = 0;
         double totalSTT = 0;
         double totalGrossPrice = 0;
+        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
         bool GridViewCultureFlag = true; //For gridview currency culture export to excel
-
+       
         protected void Page_Load(object sender, EventArgs e)
         {
+            //if (BindGroupHead() == "IE7 Compatibility View")
+            //{
+            //    HtmlMeta force = new HtmlMeta();
+            //    force.HttpEquiv = "X-UA-Compatible";
+            //    force.Content = "IE=edge";
+              
+
+            //    //Header.GetType.AddAt(0, force);
+            //}
             try
             {
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
-
+                advisorPreferenceVo = (AdvisorPreferenceVo)(Session["AdvisorPreferenceVo"]);
+                
+               // PageSize = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"].ToString();
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -85,7 +98,7 @@ namespace WealthERP.CustomerPortfolio
                     if (txtFromDate.SelectedDate != null || txtToDate.SelectedDate != null)
                         BindGrid(txtFromDate.SelectedDate.Value, txtToDate.SelectedDate.Value);
                     else
-                        Panel2.Visible = false;
+                      //  Panel2.Visible = false;
 
                     trMessage.Visible = false;
                 }
@@ -176,10 +189,42 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
-        private void BindGroupHead()
-        {
+        //private string  BindGroupHead()
+        //{
+            //string mode = "";
+            //string userAgent = Request.UserAgent; //entire UA string
+            //string browser = Request.Browser.Type; //Browser name and Major Version #
 
-        }
+            //if (userAgent.Contains("Trident/6.0")) //IE9 has this token
+            //{
+            //    if (browser == "IE10")
+            //    {
+            //        mode = "IE7 Compatibility View";
+            //    }
+            //    else
+            //    {
+            //        mode = "IE7 Standard";
+            //    }
+            //}
+            //else if (userAgent.Contains("Trident/4.0")) //IE8 has this token
+            //{
+            //    if (browser == "IE10")
+            //    {
+            //        mode = "IE8 Compatibility View";
+            //    }
+            //    else
+            //    {
+            //        mode = "IE8 Standard";
+            //    }
+            //}
+            //else if (!userAgent.Contains("Trident")) //Earlier versions of IE do not contain the Trident token
+            //{
+            //    mode = browser;
+            //}
+
+            //return mode;
+
+       // }
         protected void btnGo_Click(object sender, EventArgs e)
         {
             CalculateDateRange();
@@ -220,6 +265,7 @@ namespace WealthERP.CustomerPortfolio
             Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
             DataSet ds = new DataSet();
             int Count = 0;
+           
 
 
             string extraSearch = "";
@@ -299,6 +345,7 @@ namespace WealthERP.CustomerPortfolio
                     }
 
                     gvMFTransactions.DataSource = dtEQTransactions;
+                    gvMFTransactions.PageSize = advisorPreferenceVo.GridPageSize;
                     gvMFTransactions.DataBind();             
 
                     if (Cache["EquityTransactionDetails" + advisorVo.advisorId.ToString()] == null)
@@ -311,7 +358,7 @@ namespace WealthERP.CustomerPortfolio
                         Cache.Insert("EquityTransactionDetails" + advisorVo.advisorId.ToString(), dtEQTransactions);
                     }
                     imgBtnrgHoldings.Visible = true;
-                    Panel2.Visible = true;
+                    //Panel2.Visible = true;
                 }
                 else
                 {
@@ -319,7 +366,7 @@ namespace WealthERP.CustomerPortfolio
                     gvMFTransactions.DataBind();
                     imgBtnrgHoldings.Visible = false;
                     trMessage.Visible = true;
-                    Panel2.Visible = false;
+                   // Panel2.Visible = false;
                 }   
             }
             catch (BaseApplicationException Ex)
