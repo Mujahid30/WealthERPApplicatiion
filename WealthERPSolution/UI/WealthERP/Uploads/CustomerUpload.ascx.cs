@@ -2180,7 +2180,7 @@ namespace WealthERP.Uploads
                                     bool SundaramTrailStagingResult = false;
                                     bool SundaramTrailCommonStagingToWERP = false;
 
-                                    packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xmltoSundaraminput.dtsx");
+                                    packagePath = Server.MapPath("\\UploadPackages\\SUTrail\\SUTRAIL\\SUTRAIL\\xmltoSundaraminput.dtsx");
                                     SundaramTrailInputResult = camsUploadsBo.SundaramTrailCommissionInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
                                     if (SundaramTrailInputResult)
                                     {
@@ -2194,7 +2194,7 @@ namespace WealthERP.Uploads
                                         updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
 
-                                        packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xtrnlToSundaramStaging.dtsx");
+                                        packagePath = Server.MapPath("\\UploadPackages\\SUTrail\\SUTRAIL\\SUTRAIL\\xtrnlToSundaramStaging.dtsx");
                                         SundaramTrailStagingResult = camsUploadsBo.SundaramTrailCommissionInsertToStagingTrans(UploadProcessId, packagePath, configPath);
                                         if (SundaramTrailStagingResult)
                                         {
@@ -2202,7 +2202,7 @@ namespace WealthERP.Uploads
                                             processlogVo.EndTime = DateTime.Now;
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                            packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToSundaramCommonStaging.dtsx");
+                                            packagePath = Server.MapPath("\\UploadPackages\\SUTrail\\SUTRAIL\\SUTRAIL\\stagingToSundaramCommonStaging.dtsx");
                                             SundaramTrailStagingCheckResult = camsUploadsBo.SundaramTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId, "SU", packagePath, configPath);
                                             if (SundaramTrailStagingCheckResult)
                                             {
