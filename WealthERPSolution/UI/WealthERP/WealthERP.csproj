@@ -6286,6 +6286,8 @@
     <Content Include="UploadPackages\SundaramUploadPackageNew\SundaramUploadPackageNew\SundaramUploadPackageNew.dtproj.user" />
     <Content Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew.sln" />
     <Content Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.dtproj.user" />
+    <Content Include="UploadPackages\SUTrail\SUTRAIL\SUTRAIL.sln" />
+    <Content Include="UploadPackages\SUTrail\SUTRAIL\SUTRAIL\SUTRAIL.dtproj.user" />
     <Content Include="UploadPackages\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest.sln" />
     <Content Include="UploadPackages\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest\TempletonSIPUploadNewLatest.dtproj.user" />
     <Content Include="UploadPackages\TempSIPUpload\TempSIPUpload.sln" />
@@ -7262,6 +7264,11 @@
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.dtproj" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\UploadChkSundaramTransactionStaging.dtsx" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\UploadFolioDataFromSundaramStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\SUTrail\SUTRAIL\SUTRAIL\stagingToSundaramCommonStaging.dtsx" />
+    <None Include="UploadPackages\SUTrail\SUTRAIL\SUTRAIL\SUTRAIL.database" />
+    <None Include="UploadPackages\SUTrail\SUTRAIL\SUTRAIL\SUTRAIL.dtproj" />
+    <None Include="UploadPackages\SUTrail\SUTRAIL\SUTRAIL\xmltoSundaraminput.dtsx" />
+    <None Include="UploadPackages\SUTrail\SUTRAIL\SUTRAIL\xtrnlToSundaramStaging.dtsx" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.database" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.dtproj" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadFolioDataFromTempStagingToCommonStaging.dtsx" />
