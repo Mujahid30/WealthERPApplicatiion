@@ -2028,6 +2028,238 @@ namespace BoUploads
 
         //--------------------------END SIP Templeton Uploads-------------------------------\\
 
+        //--------------------------Sundaram Trail Commission Uploads---------------------------------\\
+        public bool SundaramTrailCommissionInsertToInputTrans(int processId, string Packagepath, string XMLFilepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+
+            try
+            {
+                Package standardProPkg1 = App.LoadPackage(Packagepath, null);
+                standardProPkg1.Variables["varXMLFilePath"].Value = XMLFilepath;
+                standardProPkg1.Variables["varProcessId"].Value = processId;
+                standardProPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult1 = standardProPkg1.Execute();
+                if (karvyProResult1.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:SundaramTrailCommissionInsertToInputTrans(int processId, string Packagepath, string XMLFilepath, string configPath)");
+
+                object[] objects = new object[2];
+                objects[0] = Packagepath;
+                objects[1] = XMLFilepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool SundaramTrailCommissionInsertToStagingTrans(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:SundaramTrailCommissionInsertToStagingTrans(int processId, string Packagepath, string configPath)");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool SundaramTrailCommissionProcessDataInStagingTrans(int adviserId, int processId, String uploadType, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
+                standardTranPkg3.Variables["varProcessId"].Value = processId;
+                standardTranPkg3.Variables["varAdviserId"].Value = adviserId;
+                standardTranPkg3.Variables["varUploadtypeFullName"].Value = uploadType;
+                //standardTranPkg3.Variables["varUploadtypeFullName"].Value = varUploadtypeFullName;
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult karvyTranResult3 = standardTranPkg3.Execute();
+                if (karvyTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:SundaramTrailCommissionProcessDataInStagingTrans(int adviserId, int processId, String uploadType, string Packagepath, string configPath)");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        public bool SundaramTrailCommissionStagingToCommonStaging(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:SundaramTrailCommissionStagingToCommonStaging(int processId, string Packagepath, string configPath)");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool SundaramTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.Variables["varUploadTypeShortForm"].Value = UploadTypeShortForm;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:SundaramTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm)");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+
+        public bool SundaramTrailCommissionCommonStagingToWERP(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
+
+                standardTranPkg3.Variables["varProcessId"].Value = processId;
+
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult standardTranResult3 = standardTranPkg3.Execute();
+                if (standardTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:SundaramTrailCommissionCommonStagingToWERP(int processId, string Packagepath, string configPath)");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        //-------------------------End Sundaram Trail Commission Uploads---------------------------------\\
+
+
 
         //--------------------------Start SIP KARVY Uploads---------------------------------\\
         public bool KarvySIPInsertToInputTrans(int processId, string Packagepath, string XMLFilepath, string configPath)
