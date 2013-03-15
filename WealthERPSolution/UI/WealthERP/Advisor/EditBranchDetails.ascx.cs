@@ -19,7 +19,7 @@ using System.Drawing;
 using System.IO;
 using System.Globalization;
 
-namespace WealthERP.Advisor
+namespace WealthERP.Advisor 
 {
     public partial class EditBranchDetails : System.Web.UI.UserControl
     {
@@ -35,7 +35,7 @@ namespace WealthERP.Advisor
         AdvisorVo advisorVo = new AdvisorVo();
         UserVo userVo = new UserVo();
         static string firstName, middleName, lastName;
-        DataSet dsZoneCluster;
+
         System.Drawing.Image thumbnail_image = null;
         System.Drawing.Image original_image = null;
         System.Drawing.Bitmap final_image = null;
@@ -44,7 +44,6 @@ namespace WealthERP.Advisor
         string UploadImagePath = string.Empty;
         string imgPath = string.Empty;
         bool branchRMDependendency = false;
-        string branchDeletedOrNot = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -168,22 +167,6 @@ namespace WealthERP.Advisor
         //    }
         //}
 
-        protected void ddlAttachToZoneCluster_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //binding the zone cluster on the basis of the ddl filter
-            BindDDLZoneCluster();
-        }
-
-
-        public void BindDDLZoneCluster()
-        {
-            dsZoneCluster = new DataSet();
-            advisorBranchBo = new AdvisorBranchBo();
-            dsZoneCluster = advisorBranchBo.GetZoneClusterDetailsForBanchAdd(advisorVo.advisorId, Convert.ToInt32(ddlAttachToZoneCluster.SelectedValue));
-            ddlPickZoneCluster.DataSource=dsZoneCluster;
-            ddlPickZoneCluster.DataBind();
-        }  
-
         public void showRM()
         {
 
@@ -261,26 +244,6 @@ namespace WealthERP.Advisor
                 txtStdPhone1.Text = advisorBranchVo.Phone1Std.ToString();
                 txtStdPhone2.Text = advisorBranchVo.Phone2Std.ToString();
                 txtCity.Text = advisorBranchVo.City.ToString();
-                
-                if (advisorBranchVo.ZoneClusterType == "Zone")
-                    ddlAttachToZoneCluster.SelectedValue = "1";
-                else
-                    ddlAttachToZoneCluster.SelectedValue = "2";
-
-                dsZoneCluster = new DataSet();
-                advisorBranchBo = new AdvisorBranchBo();
-                dsZoneCluster = advisorBranchBo.GetZoneClusterDetailsForBanchAdd(advisorBranchVo.AdviserId, Convert.ToInt32(ddlAttachToZoneCluster.SelectedValue));
-                ddlPickZoneCluster.DataTextField = dsZoneCluster.Tables[0].Columns["AZOC_Name"].ToString();
-                ddlPickZoneCluster.DataValueField = dsZoneCluster.Tables[0].Columns["AZOC_ZoneClusterId"].ToString();
-
-                ddlPickZoneCluster.DataSource = dsZoneCluster;
-                ddlPickZoneCluster.DataBind();
-
-                ddlPickZoneCluster.SelectedValue = advisorBranchVo.ZoneClusterId.ToString();
-                ddlPickZoneCluster.Enabled = true;
-                ddlAttachToZoneCluster.Enabled = true;
-                
-                
                 ddlCountry.Items.Clear();
                 if (!string.IsNullOrEmpty(advisorBranchVo.Country.ToString().Trim()))
                     ddlCountry.Items.Add(advisorBranchVo.Country.ToString());
@@ -503,9 +466,7 @@ namespace WealthERP.Advisor
                     newAdvisorBranchVo.Phone2Std = int.Parse(txtStdPhone2.Text.ToString());
                     newAdvisorBranchVo.PinCode = int.Parse(txtPinCode.Text.ToString());
                     newAdvisorBranchVo.BranchHeadId = int.Parse(ddlRmlist.SelectedItem.Value.ToString());
-                    newAdvisorBranchVo.ZoneClusterType = ddlAttachToZoneCluster.SelectedValue;
-                    newAdvisorBranchVo.ZoneClusterId = Convert.ToInt32(ddlPickZoneCluster.SelectedValue.ToString());
-
+                   
                     if (ddlState.SelectedIndex != 0)
                     {
                         newAdvisorBranchVo.State = ddlState.SelectedValue.ToString();
@@ -707,7 +668,7 @@ namespace WealthERP.Advisor
             branchCustomerDependency = advisorBranchBo.CheckBranchCustomerDependency(advisorBranchVo.BranchId);
             if (branchCustomerDependency == true)
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert(\"Branch cannot be deleted because of customer association to this branch.\\n To delete branch first re-assign all customer to other branch.\");", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Sorry... Branch is not deleted...');", true);
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
 
             }
@@ -718,8 +679,9 @@ namespace WealthERP.Advisor
             }
             if (res == true)
             {
-                branchDeletedOrNot = "Branch is deleted";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','DeleteBranchFlag=" + branchDeletedOrNot + "' );", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Branch deleted Sucessfully');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
+ 
             }
       
             
