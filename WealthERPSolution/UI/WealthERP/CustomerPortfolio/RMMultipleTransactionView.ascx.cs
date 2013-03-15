@@ -1028,7 +1028,7 @@ namespace WealthERP.CustomerPortfolio
                 RowElement row = new RowElement();
                 CellElement cell = new CellElement();
                 cell.MergeAcross = e.Row.Cells.Count - 1;
-                cell.Data.DataItem = "Adviser" + " : " + advisorVo.OrganizationName;
+                cell.Data.DataItem = "Adviser" + ": " + advisorVo.OrganizationName;
                 row.Cells.Add(cell);
                 e.Worksheet.Table.Rows.Insert(rowIndex, row);
                 rowIndex++;
@@ -1037,7 +1037,7 @@ namespace WealthERP.CustomerPortfolio
                     RowElement row1 = new RowElement();
                     CellElement cell1 = new CellElement();
                     cell1.MergeAcross = e.Row.Cells.Count - 1;
-                    cell1.Data.DataItem = "Customer" + " : " + customerVo.FirstName + "  " + customerVo.MiddleName + "  " + customerVo.LastName;
+                    cell1.Data.DataItem = "Customer" + ": " + customerVo.FirstName + "  " + customerVo.MiddleName + "  " + customerVo.LastName;
                     row1.Cells.Add(cell1);
 
                     e.Worksheet.Table.Rows.Insert(rowIndex, row1);
@@ -1048,7 +1048,7 @@ namespace WealthERP.CustomerPortfolio
                 RowElement DateRow = new RowElement();
                 CellElement Datecell = new CellElement();
                 Datecell.MergeAcross = e.Row.Cells.Count - 1;
-                Datecell.Data.DataItem = "From" + " : " + Convert.ToDateTime(txtFromDate.SelectedDate).ToLongDateString() + "  " + "To" + " : " + Convert.ToDateTime(txtToDate.SelectedDate).ToLongDateString();
+                Datecell.Data.DataItem = "From" + ": " + Convert.ToDateTime(txtFromDate.SelectedDate).ToLongDateString() + "  " + "To" + ": " + Convert.ToDateTime(txtToDate.SelectedDate).ToLongDateString();
                 DateRow.Cells.Add(Datecell);
                 e.Worksheet.Table.Rows.Insert(rowIndex, DateRow);
                 rowIndex++;
