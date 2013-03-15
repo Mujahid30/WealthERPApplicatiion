@@ -17,7 +17,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.IO;
 
-namespace WealthERP.Advisor
+namespace WealthERP.Advisor 
 {
     public partial class AddBranch : System.Web.UI.UserControl
     {
@@ -35,7 +35,7 @@ namespace WealthERP.Advisor
         List<RMVo> rmList = null;
         int advisorId;
         int userId;
-        DataSet dsZoneCluster;
+
         System.Drawing.Image thumbnail_image = null;
         System.Drawing.Image original_image = null;
         System.Drawing.Bitmap final_image = null;
@@ -358,9 +358,7 @@ namespace WealthERP.Advisor
                     advisorBranchVo.AddressLine2 = txtLine2.Text.ToString();
                     advisorBranchVo.AddressLine3 = txtLine3.Text.ToString();
                     advisorBranchVo.BranchCode = txtBranchCode.Text.ToString();
-                    advisorBranchVo .AdviserId= advisorVo.advisorId;
                     rmList = advisorStaffBo.GetRMList(advisorVo.advisorId);
-
                     if (rmList == null)
                     {
                         advisorBranchVo.BranchHeadId = 100;
@@ -475,10 +473,6 @@ namespace WealthERP.Advisor
                     else
                     {
                         advisorBranchVo.State = "";
-                    }
-                    if (ddlPickZoneCluster.SelectedIndex != 0)
-                    {
-                        advisorBranchVo.ZoneClusterId = Convert.ToInt32(ddlPickZoneCluster.SelectedValue);
                     }
 
                     // Create Branch 
@@ -698,25 +692,6 @@ namespace WealthERP.Advisor
         //        CommSharingStructureGv.Visible = false;
         //    }
         //}
-
-
-        protected void ddlAttachToZoneCluster_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //binding the zone cluster on the basis of the ddl filter
-            BindDDLZoneCluster();
-        }
-
-        public void BindDDLZoneCluster()
-        {      
-            dsZoneCluster = new DataSet();
-            advisorBranchBo = new AdvisorBranchBo();
-            dsZoneCluster = advisorBranchBo.GetZoneClusterDetailsForBanchAdd(advisorVo.advisorId, Convert.ToInt32(ddlAttachToZoneCluster.SelectedValue));
-            ddlPickZoneCluster.DataTextField = dsZoneCluster.Tables[0].Columns["AZOC_Name"].ToString();
-            ddlPickZoneCluster.DataValueField = dsZoneCluster.Tables[0].Columns["AZOC_ZoneClusterId"].ToString();
-
-            ddlPickZoneCluster.DataSource = dsZoneCluster;
-            ddlPickZoneCluster.DataBind();
-        }
 
         protected void ddlBranchAssociateType_SelectedIndexChanged(object sender, EventArgs e)
         {
