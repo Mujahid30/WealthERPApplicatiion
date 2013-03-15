@@ -11,7 +11,7 @@
 
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
-<script type="text/javascript">
+<script type="text/javascript"> 
     $(document).ready(function() {
         $(".flip").click(function() { $(".panel").slideToggle(); });
     });
@@ -163,11 +163,11 @@
             }
         }
         else {
-
-
-            document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
-
-
+            
+            
+                document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
+                
+           
             document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
             document.getElementById("<%= associatedBranch.ClientID %>").disabled = false;
             document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = false;
@@ -187,28 +187,28 @@
     function CheckSubscription() {
         document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
     }
-    //    function XYZ() {
-    //        var flag = 0;
-    //        var chkControlId = '<%=CheckListCKMK.ClientID%>';
-    //           if document.getElementById("<%= trCKMK.ClientID %>").Visible=true;
-    //           {
-    //            var options = document.getElementById(chkControlId).getElementsByTagName('input');
-    //          
-    //            for (a = 0; a <= options.length; a++) {
-    //               
-    //                if (options[a].checked) {
-    //                    flag++;
-    //                    alert(flag);
-    //            }
-    //        
-    //        if (flag != 1) {
-    //            alert("You must check one and only one checkbox!");
-    //            return false;
-    //        }
-    //        return true;
-    //        alert('hi');
-    //    }
-    //        }
+//    function XYZ() {
+//        var flag = 0;
+//        var chkControlId = '<%=CheckListCKMK.ClientID%>';
+//           if document.getElementById("<%= trCKMK.ClientID %>").Visible=true;
+//           {
+//            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+//          
+//            for (a = 0; a <= options.length; a++) {
+//               
+//                if (options[a].checked) {
+//                    flag++;
+//                    alert(flag);
+//            }
+//        
+//        if (flag != 1) {
+//            alert("You must check one and only one checkbox!");
+//            return false;
+//        }
+//        return true;
+//        alert('hi');
+//    }
+//        }
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -315,14 +315,12 @@
                 <asp:ListItem Value="1001">RM</asp:ListItem>
                 <asp:ListItem Value="1002">BM</asp:ListItem>
                 <asp:ListItem Value="1005">Research</asp:ListItem>
-                <asp:ListItem Value="1007">Zonal Head</asp:ListItem>
-                <asp:ListItem Value="1008">Cluster Head</asp:ListItem>
             </asp:CheckBoxList>
             <asp:Label ID="lblOr" runat="server" Text="&nbsp;/&nbsp;" CssClass="FieldName"></asp:Label>
             <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" value="1004"
                 onclick="DisableControls()" />&nbsp; <span id="Span4" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged"
-                runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
+                runat="server" AutoPostBack="true"  Text="IsExternalStaff" CssClass="cmbField" />
             <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail"
                 ValidationGroup="btnSubmit" ErrorMessage="<br />Select at least one role" ClientValidationFunction="CheckItem"
                 ValidateEmptyText="true"></asp:CustomValidator>
@@ -345,6 +343,7 @@
             </asp:CheckBoxList>
         </td>
     </tr>
+    
     <tr>
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="CTC:"></asp:Label>
@@ -376,7 +375,6 @@
             &nbsp;
         </td>
     </tr>
-    
     <tr id="tr1" runat="server" visible="true">
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
