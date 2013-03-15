@@ -2168,6 +2168,135 @@ namespace WealthERP.Uploads
                                 }
                                 #endregion MF Templeton Trail Commission Upload
 
+                                //****************Sundaram Trail Commission Uploads**************\\
+                                //*********gobinda Uploads Templeton Trail Commission**************\\
+
+                                #region MF Sundaram Trail Commission Upload
+                                //MF Templeton Trail Commission Upload
+                                else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "Sundaram")
+                                {
+                                    bool updateProcessLog = false;
+                                    bool TempletonTrailCommonStagingChk = false;
+                                    bool SundaramTrailInputResult = false;
+                                    bool SundaramTrailStagingCheckResult = false;
+                                    bool SundaramTrailStagingResult = false;
+                                    bool SundaramTrailCommonStagingToWERP = false;
+
+                                    packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xmltoSundaraminput.dtsx");
+                                    SundaramTrailInputResult = camsUploadsBo.SundaramTrailCommissionInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
+                                    if (SundaramTrailInputResult)
+                                    {
+                                        processlogVo.IsInsertionToInputComplete = 1;
+                                        processlogVo.IsInsertionToXtrnlComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        processlogVo.IsInsertionToXtrnlComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+
+                                        packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xtrnlToSundaramStaging.dtsx");
+                                        SundaramTrailStagingResult = camsUploadsBo.SundaramTrailCommissionInsertToStagingTrans(UploadProcessId, packagePath, configPath);
+                                        if (SundaramTrailStagingResult)
+                                        {
+                                            processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                            processlogVo.EndTime = DateTime.Now;
+                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                            packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToSundaramCommonStaging.dtsx");
+                                            SundaramTrailStagingCheckResult = camsUploadsBo.SundaramTrailCommissionProcessDataInStagingTrans(adviserId, UploadProcessId, "TN", packagePath, configPath);
+                                            if (SundaramTrailStagingCheckResult)
+                                            {
+                                                //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
+                                                //karvySIPStagingToCommonStaging = camsUploadsBo.KarvySIPStagingToCommonStaging(UploadProcessId, packagePath, configPath);
+                                                processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                processlogVo.EndTime = DateTime.Now;
+                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                //packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
+                                                //if (TempletonTrailStagingCheckResult)
+                                                //{
+                                                packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
+                                                TempletonTrailCommonStagingChk = camsUploadsBo.SundaramTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "SU");
+                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "SU");
+                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                //TempletonTrailCommonStagingToWERP = camsUploadsBo.TempletonTrailCommissionCommonStagingToWERP(UploadProcessId, packagePath, configPath);
+
+                                                if (TempletonTrailCommonStagingChk)
+                                                {
+                                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                                    processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "SU");
+                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCountForTrail(UploadProcessId, "SU");
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "SU");
+                                                    processlogVo.NoOfTransactionDuplicates = 0;
+                                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                    //processlogVo.IsInsertionToWERPComplete = 1;
+                                                    //processlogVo.EndTime = DateTime.Now;
+                                                    //processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "TN");
+                                                    //updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                }
+                                                //}
+                                            }
+                                        }
+
+                                        // Update Process Progress Monitoring Text Boxes
+                                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                                        if (XmlCreated)
+                                            XMLProgress = "Done";
+                                        else
+                                            XMLProgress = "Failure";
+
+                                        if (SundaramTrailInputResult)
+                                        {
+                                            XtrnlInsertionProgress = "Done";
+                                            InputInsertionProgress = "Done";
+                                        }
+                                        else
+                                        {
+                                            InputInsertionProgress = "Failure";
+                                            XtrnlInsertionProgress = "Failure";
+                                        }
+
+                                        if (SundaramTrailStagingResult)
+                                            FirstStagingInsertionProgress = "Done";
+                                        else
+                                            FirstStagingInsertionProgress = "Failure";
+
+                                        if (TempletonTrailCommonStagingChk)
+                                            SecondStagingInsertionProgress = "Done";
+                                        else
+                                            SecondStagingInsertionProgress = "Failure";
+
+                                        if (TempletonTrailCommonStagingChk && SundaramTrailCommonStagingToWERP)
+                                        {
+                                            WERPInsertionProgress = "Done";
+
+                                        }
+                                        else
+                                            WERPInsertionProgress = "Failure";
+
+                                        if (SundaramTrailCommonStagingToWERP)
+                                            XtrnlInsertionProgress = "Done";
+                                        else
+                                            XtrnlInsertionProgress = "Failure";
+
+                                        // Update Process Summary Text Boxes
+                                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+
+                                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                                        Session[SessionContents.ProcessLogVo] = processlogVo;
+                                    }
+                                }
+                                #endregion MF Templeton Trail Commission Upload
 
                                 #region MF Sundaram Trail Commission Upload
                                 //MF Templeton Trail Commission Upload
@@ -5464,6 +5593,74 @@ namespace WealthERP.Uploads
                         //Reject upload if there are any data error validations
                         if (dsXML.Tables.Count > 0)
                             ValidateInputfile("TN", Contants.ExtractTypeMFTransaction, pathxml, skiprowsval);
+
+                    }
+                }
+                #endregion
+
+                //**************Gobinda Trail Comission For Sundaram***********************
+                #region Trail Commision for Sundaram
+                else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "Sundaram")
+                {
+                    if (extension == "dbf")
+                    {
+                        string filename = "SUTrail.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                            //for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                            //{
+                            //    if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS")
+                            //        ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS";
+
+                            //    if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS1")
+                            //        ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS1";
+                            //}
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+
+                    else if (extension == "xls" || extension == "xlsx")
+                    {
+                        string Filepath = Server.MapPath("UploadFiles") + "\\SundaramTrailCommission.xls";
+                        FileUpload.SaveAs(Filepath);
+                        ds = readFile.ReadExcelfile(Filepath);
+                    }
+
+
+                    //get all column nams for the selcted file type
+                    dsColumnNames = uploadcommonBo.GetColumnNames(32);
+
+                    //Get werp Column Names for the selected type of file
+                    dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(32);
+
+                    dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 32);
+
+                    //Get XML after mapping, checking for columns
+                    dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+
+                    //Get filetypeid from XML
+                    filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "SU", "TrailCommission");
+
+
+                    if (filereadflag == true)
+                    {
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "SU", "TrailCommission");
+
+                        //Reject upload if there are any data error validations
+                        if (dsXML.Tables.Count > 0)
+                            ValidateInputfile("SU", Contants.ExtractTypeMFTransaction, pathxml, skiprowsval);
 
                     }
                 }
