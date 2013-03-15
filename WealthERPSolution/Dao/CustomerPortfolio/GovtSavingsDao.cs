@@ -387,10 +387,39 @@ namespace DaoCustomerPortfolio
 
             }
             return govtSavingsVo;
+        }
+        public DataTable GetGovtSavingGridDetails(int portfolioId)
+        {
+            DataSet dsGetGovtSavingGridDetails;
+            DataTable dtGetGovtSavingGridDetails;
+            Database db;
+            DbCommand GetGovtSavingGridDetailsCmd;
 
-
-
-
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGovtSavingGridDetailsCmd = db.GetStoredProcCommand("SPROC_GetGovtSavingGridDetails");
+                db.AddInParameter(GetGovtSavingGridDetailsCmd, "@portfolioId", DbType.Int32, portfolioId);
+                dsGetGovtSavingGridDetails = db.ExecuteDataSet(GetGovtSavingGridDetailsCmd);
+                dtGetGovtSavingGridDetails = dsGetGovtSavingGridDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GovtSavingsBo.cs:UpdateGovtSavingsAccount()");
+                object[] objects = new object[1];
+                objects[0] = portfolioId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetGovtSavingGridDetails;
         }
     }
 }
