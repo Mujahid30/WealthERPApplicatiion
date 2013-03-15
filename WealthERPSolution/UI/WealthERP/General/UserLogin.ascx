@@ -79,6 +79,16 @@
                                     <asp:Label ID="lblIllegal" Text="" runat="server" CssClass="Error" />
                                 </td>
                             </tr>
+                            <tr id="trGodaddy" runat="server">
+                                <td align="right" colspan="2">
+                                    <span id="siteseal">
+
+                                        <script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OB3Z92r1Re28pR7Rrwh09U9YkpYQ15o7Xc72vLCP3q87CHp3JBZidCm">
+                                        </script>
+
+                                    </span>
+                                </td>
+                            </tr>
                             <tr>
                                 <td colspan="2">
                                     <span class="FieldName">
