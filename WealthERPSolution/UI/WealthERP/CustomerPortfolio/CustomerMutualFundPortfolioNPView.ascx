@@ -232,9 +232,9 @@
                                                                     FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="CMFNP_RET_Hold_DVRAmounts" HeaderText="DVR Units"
+                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="CMFNP_RET_Hold_DVRAmounts" HeaderText="DVR Amount"
                                                                     DataField="CMFNP_RET_Hold_DVRAmounts" AllowFiltering="false" FooterStyle-HorizontalAlign="Right"
-                                                                    DataFormatString="{0:N3}" Aggregate="Sum">
+                                                                    DataFormatString="{0:N0}" Aggregate="Sum">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="120px" UniqueName="InvestedCost" HeaderText="Invested Cost"

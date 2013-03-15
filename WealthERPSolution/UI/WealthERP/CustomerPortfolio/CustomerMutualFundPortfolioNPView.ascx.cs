@@ -746,9 +746,9 @@ namespace WealthERP.CustomerPortfolio
                 //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
                 drMFPortfolioHoldings[19] = mfVo.InvestmentStartDate.ToShortDateString();
             if (mfVo.ReturnHoldDVRAmounts != 0)
-                drMFPortfolioHoldings[20] = mfVo.ReturnHoldDVRAmounts.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = mfVo.ReturnHoldDVRAmounts.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioHoldings[20] = "0.00";
+                drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = "0.00";
 
             if (mfVo.NavDate== DateTime.MinValue)
                 drMFPortfolioHoldings[21] = "N/A";
@@ -928,7 +928,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("SubCategoryName");
             dtReturnsHoldings.Columns.Add("FolioStartDate");
             dtReturnsHoldings.Columns.Add("InvestmentStartDate");
-            dtReturnsHoldings.Columns.Add("CMFNP_RET_Hold_DVRAmounts");
+            dtReturnsHoldings.Columns.Add("CMFNP_RET_Hold_DVRAmounts", typeof(double));
             dtReturnsHoldings.Columns.Add("CMFNP_NAVDate");
         }
 
