@@ -79,16 +79,6 @@
                                     <asp:Label ID="lblIllegal" Text="" runat="server" CssClass="Error" />
                                 </td>
                             </tr>
-                            <tr id="trGodaddy" runat="server">
-                                <td align="right" colspan="2">
-                                    <span id="siteseal">
-
-                                        <script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OB3Z92r1Re28pR7Rrwh09U9YkpYQ15o7Xc72vLCP3q87CHp3JBZidCm">
-                                        </script>
-
-                                    </span>
-                                </td>
-                            </tr>
                             <tr>
                                 <td colspan="2">
                                     <span class="FieldName">
@@ -97,10 +87,20 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr runat="server" visible="false">
+                            <tr id="Tr1" runat="server" visible="false">
                                 <td colspan="2" align="right">
                                     <span class="FieldName">Forgot Password?
                                         <asp:LinkButton ID="lnkForgotPassword" runat="server" OnClick="ForgotPassword_Click">Click Here</asp:LinkButton>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr id="trGodaddy" runat="server">
+                                <td align="right" colspan="2">
+                                    <span id="siteseal">
+
+                                        <script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OB3Z92r1Re28pR7Rrwh09U9YkpYQ15o7Xc72vLCP3q87CHp3JBZidCm">
+                                        </script>
+
                                     </span>
                                 </td>
                             </tr>

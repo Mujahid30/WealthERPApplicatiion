@@ -113,15 +113,6 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.Label lblIllegal;
         
         /// <summary>
-        /// trGodaddy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGodaddy;
-        
-        /// <summary>
         /// hlRegistration control.
         /// </summary>
         /// <remarks>
@@ -131,6 +122,15 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.HyperLink hlRegistration;
         
         /// <summary>
+        /// Tr1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow Tr1;
+        
+        /// <summary>
         /// lnkForgotPassword control.
         /// </summary>
         /// <remarks>
@@ -138,5 +138,14 @@ namespace WealthERP.General {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkForgotPassword;
+        
+        /// <summary>
+        /// trGodaddy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGodaddy;
     }
 }
