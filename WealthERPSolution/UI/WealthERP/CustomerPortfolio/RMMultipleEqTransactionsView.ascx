@@ -25,7 +25,6 @@
     function GridCreated(sender, args) {
         var scrollArea = sender.GridDataDiv;
         var dataHeight = sender.get_masterTableView().get_element().clientHeight;
-        var dataWidth = sender.get_masterTableView().get_element().clientWidth;
         if (dataHeight < 300) {
             scrollArea.style.height = dataHeight + 17 + "px";          
         }
@@ -38,7 +37,7 @@
     {
         height: auto;
         width: 101.5% !important;
-        position: relative;
+        
     }
 </style>
 <table width="100%">
@@ -319,7 +318,7 @@
                     </MasterTableView>
                     <ClientSettings>
                         <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="True" ScrollHeight="300px" />
-                        <ClientEvents OnGridCreated="GridCreated" OnKeyPress="KeyPress"/>
+                        <ClientEvents OnGridCreated="GridCreated" />
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
                         <%--<Resizing AllowColumnResize="true"  />--%>
