@@ -823,7 +823,7 @@ namespace DaoCustomerPortfolio
                             mfPortfNetPositionVo.FolioStartDate = DateTime.Parse(dr["CMFNP_FolioSchemeStartDate"].ToString());
 
                         if (dr["CMFNP_RET_Hold_DVRAmounts"].ToString().Trim() != String.Empty)
-                            mfPortfNetPositionVo.ReturnsAllDVRAmt = double.Parse(dr["CMFNP_RET_Hold_DVRAmounts"].ToString());
+                            mfPortfNetPositionVo.ReturnHoldDVRAmounts = double.Parse(dr["CMFNP_RET_Hold_DVRAmounts"].ToString());
 
                         if (dr["CMFNP_NAVDate"].ToString().Trim() != String.Empty)
                             mfPortfNetPositionVo.NavDate = DateTime.Parse(dr["CMFNP_NAVDate"].ToString());
