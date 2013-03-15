@@ -261,7 +261,7 @@ namespace WealthERP
                         if (advisorPreferenceVo.IsBannerEnabled)
                         {
                             imgPlaceholders.Visible = false;
-
+                            tblIFALongBanner.Visible = true;
                             if (!string.IsNullOrEmpty(advisorPreferenceVo.BannerImageName))
                             {
                                 imgIFABanner.Style.Add("display", "block");
