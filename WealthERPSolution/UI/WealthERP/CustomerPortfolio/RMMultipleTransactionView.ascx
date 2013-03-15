@@ -342,7 +342,7 @@
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Date" AllowFiltering="true" AllowSorting="true"
+                                                        <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Date" AllowFiltering="false" AllowSorting="true"
                                                             HeaderStyle-Wrap="false" SortExpression="Transaction Date" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
                                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Date"
                                                             FooterStyle-HorizontalAlign="Center">
