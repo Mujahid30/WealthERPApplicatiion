@@ -2726,7 +2726,7 @@ namespace DaoAdvisorProfiling
         /// <param name="modifiedDate"></param>
         /// <param name="CommandName"></param>
         /// <returns>true or false</returns>
-        public bool ZoneClusterDetailsAddEditDelete(int adviserId, int rmId, int ZoneClusterId,int ZoneId , string Description, string name, string type, int createdBy, int modifiedBy, DateTime createdDate, DateTime modifiedDate, string CommandName)
+        public bool ZoneClusterDetailsAddEditDelete(int adviserId, int rmId, int ZoneClusterId, int ZoneId, string Description, string name, string type, int createdBy, int modifiedBy, DateTime createdDate, DateTime modifiedDate, string CommandName)
         {
             bool inserted = false;
             Database db;
@@ -2736,7 +2736,11 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 InsertZoneClusterDetailsCmd = db.GetStoredProcCommand("SPROC_ZoneClusterDetailsAddEditDelete");
                 db.AddInParameter(InsertZoneClusterDetailsCmd, "@adviserId", DbType.Int32, adviserId);
-                db.AddInParameter(InsertZoneClusterDetailsCmd, "@rmId", DbType.Int32, rmId);
+                if (rmId != 0)
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@rmId", DbType.Int32, rmId);
+                else
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@rmId", DbType.Int32, DBNull.Value);
+
                 db.AddInParameter(InsertZoneClusterDetailsCmd, "@type", DbType.String, type);
 
                 if (createdBy != 0)
@@ -2763,25 +2767,32 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(InsertZoneClusterDetailsCmd, "@Description", DbType.String, Description);
                 db.AddInParameter(InsertZoneClusterDetailsCmd, "@Name", DbType.String, name);
 
-                db.AddInParameter(InsertZoneClusterDetailsCmd, "@AZOC_ZoneId", DbType.Int32, ZoneId);
+                if (ZoneId != 0)
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@AZOC_ZoneId", DbType.Int32, ZoneId);
+                else
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@AZOC_ZoneId", DbType.Int32, DBNull.Value);
+
 
                 if (modifiedDate != DateTime.MinValue)
                     db.AddInParameter(InsertZoneClusterDetailsCmd, "@modifiedDate", DbType.DateTime, modifiedDate);
                 else
                     db.AddInParameter(InsertZoneClusterDetailsCmd, "@modifiedDate", DbType.DateTime, DBNull.Value);
 
-                //if (CommandName == "Delete")
-                //{
-                //    if (db.ExecuteNonQuery(InsertZoneClusterDetailsCmd)==1)
-                //         inserted = true;
-                //    else
-                //       inserted = false;
-                //}
-                //else
-                //{
+                db.AddOutParameter(InsertZoneClusterDetailsCmd, "@deleted", DbType.Int32, 5000);
+
                 if (db.ExecuteNonQuery(InsertZoneClusterDetailsCmd) != 0)
                     inserted = true;
-                //}
+
+                if (CommandName == "Delete")
+                {
+                   
+                    modifiedBy = int.Parse(db.GetParameterValue(InsertZoneClusterDetailsCmd, "deleted").ToString());
+                    if (modifiedBy == 0)
+                        inserted = false;
+                }
+              
+              
+               
             }
             catch (BaseApplicationException Ex)
             {
