@@ -5,54 +5,8 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<%--<%@ Register TagPrefix="qsf" Namespace="Telerik.QuickStart" %>--%>
-<%--<asp:ScriptManager ID="scptMgr" runat="server">
-</asp:ScriptManager>--%>
-
-<style type="text/css">
-          
-        #panel {
-              
-            height: 100px;
-            display: none;
-        }
-  
-        .btn-slide {
-            background: url(./images/btnDN.gif) no-repeat;
-            width: 18px;
-            height: 18px;
-            display: block;
-              
-        }
-        .active {
-            background: url(./images/btnUP.gif) no-repeat;
-        }
-         
-    </style>
- 
-   <telerik:RadScriptManager ID="ScriptManager1" runat="server" EnableTheming="True">
-    <Scripts>
-            <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js" />
-            <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQuery.js" />
-        </Scripts>
-    </telerik:RadScriptManager>
-  
-    <script type="text/javascript">
-
-
-        (function($) {
-            $(document).ready(function() {
-
-                $(".btn-slide").click(function() {
-                    $("#panel").slideToggle("slow");
-                    $(this).toggleClass("active"); return false;
-                });
-            });
-        })($telerik.$);
-    </script> 
-
-
-
+<asp:ScriptManager ID="scptMgr" runat="server">
+</asp:ScriptManager>
 
 <script type="text/javascript" language="javascript">
     function GetParentCustomerId(source, eventArgs) {
@@ -88,23 +42,42 @@
         page-break-before: always;
     }
 </style>
-
-     <table cellpadding="0" cellspacing="3" >
-                                <tr>
-                                    <td>
-                                    Click the button for more advanced features (You can put the button anywhere) > 
-                                        </td>
-                                    <td>
-                                         <a href="#" class="btn-slide" title="Advanced Search"></a>
-                                    </td>
-                                </tr>
-                            </table>
-  
-                            <br />
-                            <br />
-  
-  <div id="panel" >              
-                
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td style="width: 100%;">
+                                <div class="divPageHeading">
+                                    <table cellspacing="0" cellpadding="3" width="100%">
+                                        <tr>
+                                            <td align="left">
+                                                View MF Transaction
+                                            </td>
+                                            <td align="right" style="padding-bottom: 2px;">
+                                                <asp:LinkButton ID="lbBack" runat="server" Text="Back" OnClick="lbBack_Click" Visible="false"
+                                                    CssClass="FieldName"></asp:LinkButton>
+                                                <asp:ImageButton ID="btnTrnxExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                                    Height="23px" Width="25px" OnClick="btnTrnxExport_Click"></asp:ImageButton>
+                                               <%-- <asp:ImageButton ID="imgBtnTrail" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="23px"
+                                                    Width="25px" OnClick="btnTrailExport_Click"></asp:ImageButton>--%>
+                                                <%-- <asp:ImageButton ID="btnbalncExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                                    Height="23px" Width="25px" OnClick="btnbalncExport_Click"></asp:ImageButton>--%>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <div>
                 <tr>
                     <td>
                         <table>
@@ -258,47 +231,7 @@
                         </table>
                     </td>
                 </tr>
-            </div>             
-               
-
-
-<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>
- <%--  <qsf:ConfiguratorPanel ID="ConfiguratorPanel1" runat="server" Expanded="true">--%>
-        <table width="100%" cellpadding="0" cellspacing="0">
-            <tr>
-                <td>
-                    <table width="100%">
-                        <tr>
-                            <td style="width: 100%;">
-                                <div class="divPageHeading">
-                                    <table cellspacing="0" cellpadding="3" width="100%">
-                                        <tr>
-                                            <td align="left">
-                                                View MF Transaction
-                                            </td>
-                                            <td align="right" style="padding-bottom: 2px;">
-                                                <asp:LinkButton ID="lbBack" runat="server" Text="Back" OnClick="lbBack_Click" Visible="false"
-                                                    CssClass="FieldName"></asp:LinkButton>
-                                                <asp:ImageButton ID="btnTrnxExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
-                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                                    Height="23px" Width="25px" OnClick="btnTrnxExport_Click"></asp:ImageButton>
-                                               <%-- <asp:ImageButton ID="imgBtnTrail" ImageUrl="~/Images/Export_Excel.png" Visible="false"
-                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="23px"
-                                                    Width="25px" OnClick="btnTrailExport_Click"></asp:ImageButton>--%>
-                                                <%-- <asp:ImageButton ID="btnbalncExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
-                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                                    Height="23px" Width="25px" OnClick="btnbalncExport_Click"></asp:ImageButton>--%>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-           
+            </div>
             <tr>
                 <td>
                     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
@@ -339,9 +272,9 @@
                                     <td>
                                         <div id="dvTransactionsView" runat="server" style="margin: 2px; width: 640px;">
                                             <telerik:RadGrid ID="gvMFTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                                AllowFiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true" OnExcelMLExportRowCreated="gvMFTransactions_OnExcelMLExportRowCreated"
-                                                OnPreRender="gvMFTransactions_PreRender" AllowPaging="True" ShowStatusBar="True"
-                                                OnItemCommand="gvMFTransactions_OnItemCommand" OnItemDataBound="gvMFTransactions_ItemDataBound" OnExcelMLExportStylesCreated="gvMFTransactions_OnExcelMLExportStylesCreated"
+                                                AllowFiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
+                                                OnPreRender="gvMFTransactions_PreRender" AllowPaging="True" ShowStatusBar="True" OnExcelMLExportStylesCreated="gvMFTransactions_OnExcelMLExportStylesCreated" OnExcelMLExportRowCreated="gvMFTransactions_OnExcelMLExportRowCreated"
+                                                OnItemCommand="gvMFTransactions_OnItemCommand" OnItemDataBound="gvMFTransactions_ItemDataBound"
                                                 OnNeedDataSource="gvMFTransactions_OnNeedDataSource" ShowFooter="true" Skin="Telerik"
                                                 EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false">
                                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -786,7 +719,6 @@
                 </td>
             </tr>
         </table>
-        <%-- </qsf:ConfiguratorPanel> --%>
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="btnTrnxExport" />

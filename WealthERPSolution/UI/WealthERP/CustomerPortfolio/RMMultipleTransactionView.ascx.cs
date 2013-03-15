@@ -679,10 +679,8 @@ namespace WealthERP.CustomerPortfolio
                 gvMFTransactions.ExportSettings.HideStructureColumns = true;
                 gvMFTransactions.ExportSettings.ExportOnlyData = true;
                 gvMFTransactions.ExportSettings.FileName = "View Transactions Details";
-                //gvMFTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvMFTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvMFTransactions.MasterTableView.ExportToExcel();
-             
             }
             if (hdnExportType == "RHV")
             {
@@ -715,111 +713,6 @@ namespace WealthERP.CustomerPortfolio
             }
         
         }
-        protected void gvMFTransactions_OnExcelMLExportStylesCreated(object source, Telerik.Web.UI.GridExcelBuilder.GridExportExcelMLStyleCreatedArgs e)
-        {
-            BorderStylesCollection borders = new BorderStylesCollection();
-            BorderStyles borderStyle = null;
-            for (int i = 1; i <= 3; i++)
-            {
-                borderStyle = new BorderStyles();
-                borderStyle.PositionType = (PositionType)i;
-                borderStyle.Color = System.Drawing.Color.Black;
-                borderStyle.LineStyle = LineStyle.Continuous;
-                borderStyle.Weight = 1.0;
-                borders.Add(borderStyle);
-            }
-           
-
-            foreach (Telerik.Web.UI.GridExcelBuilder.StyleElement style in e.Styles)
-            {
-                foreach (BorderStyles border in borders)
-                {
-                    style.Borders.Add(border);
-                }
-                if (style.Id == "headerStyle")
-                {
-                    style.FontStyle.Bold = true;
-                    style.FontStyle.Color = System.Drawing.Color.Black;
-                    style.InteriorStyle.Color = System.Drawing.Color.LightBlue;
-                    style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
-                }
-                else if (style.Id == "itemStyle")
-                {
-                    style.InteriorStyle.Color = System.Drawing.Color.WhiteSmoke;
-                    style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
-                }
-                else if (style.Id == "alternatingItemStyle")
-                {
-                    style.InteriorStyle.Color = System.Drawing.Color.LightGray;
-                    style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
-                }
-                else if (style.Id == "dateItemStyle")
-                {
-                    style.InteriorStyle.Color = System.Drawing.Color.WhiteSmoke;
-                    style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
-                }
-                else if (style.Id == "alternatingDateItemStyle")
-                {
-                    style.InteriorStyle.Color = System.Drawing.Color.LightGray;
-                    style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
-                }
-            }
-
-            Telerik.Web.UI.GridExcelBuilder.StyleElement myStyle = new Telerik.Web.UI.GridExcelBuilder.StyleElement("MyCustomStyle");
-            myStyle.FontStyle.Bold = true;
-            myStyle.FontStyle.Italic = true;
-            myStyle.InteriorStyle.Color = System.Drawing.Color.Gray;
-            myStyle.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
-            e.Styles.Add(myStyle);
-        } 
-        protected void gvMFTransactions_OnExcelMLExportRowCreated(object source, GridExportExcelMLRowCreatedArgs e)
-        {
-
-            if (e.RowType == GridExportExcelMLRowType.HeaderRow)
-            {
-                int rowIndex = 0;
-                RowElement row = new RowElement();
-                CellElement cell = new CellElement();
-                cell.MergeAcross = e.Row.Cells.Count - 1;
-                cell.Data.DataItem = "Adviser" + " : " + advisorVo.OrganizationName;              
-                row.Cells.Add(cell);
-                e.Worksheet.Table.Rows.Insert(rowIndex, row);
-                rowIndex++;
-                if (Session["IsCustomerDrillDown"] == "Yes")
-                {
-                    RowElement row1 = new RowElement();
-                    CellElement cell1 = new CellElement();
-                    cell1.MergeAcross = e.Row.Cells.Count - 1;
-                    cell1.Data.DataItem = "Customer" + " : " + customerVo.FirstName + "  " + customerVo.MiddleName + "  " + customerVo.LastName;
-                    row1.Cells.Add(cell1);
-
-                    e.Worksheet.Table.Rows.Insert(rowIndex, row1);
-                    rowIndex++;
-                }
-               
-
-                RowElement DateRow = new RowElement();
-                CellElement Datecell = new CellElement();
-                Datecell.MergeAcross = e.Row.Cells.Count - 1;
-                Datecell.Data.DataItem = "From" + " : " + Convert.ToDateTime(txtFromDate.SelectedDate).ToLongDateString() + "  " + "To" + " : " + Convert.ToDateTime(txtToDate.SelectedDate).ToLongDateString();
-                DateRow.Cells.Add(Datecell);
-                e.Worksheet.Table.Rows.Insert(rowIndex, DateRow);
-                rowIndex++;
-
-
-                RowElement BlankRow = new RowElement();
-                CellElement Blankcell = new CellElement();
-                Blankcell.MergeAcross = e.Row.Cells.Count - 1;
-                Blankcell.Data.DataItem = "";
-                BlankRow.Cells.Add(Blankcell);
-                e.Worksheet.Table.Rows.Insert(rowIndex, BlankRow);
-
-
-
-                    //e.Worksheet.AutoFilter.Range = e.Worksheet.AutoFilter.Range.Replace("R1", "R2");
-            }
-        }
-        
 
         protected void gvMFTransactions_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1031,7 +924,6 @@ namespace WealthERP.CustomerPortfolio
         protected void btnTrnxExport_Click(object sender, ImageClickEventArgs e)
         {   
             ExportGrid(hdnExportType.Value);        
-           
         }
         protected void btnbalncExport_Click(object sender, ImageClickEventArgs e)
         {            
@@ -1069,6 +961,112 @@ namespace WealthERP.CustomerPortfolio
             }
         
            }
+
+        protected void gvMFTransactions_OnExcelMLExportStylesCreated(object source, Telerik.Web.UI.GridExcelBuilder.GridExportExcelMLStyleCreatedArgs e)
+        {
+            BorderStylesCollection borders = new BorderStylesCollection();
+            BorderStyles borderStyle = null;
+            for (int i = 1; i <= 3; i++)
+            {
+                borderStyle = new BorderStyles();
+                borderStyle.PositionType = (PositionType)i;
+                borderStyle.Color = System.Drawing.Color.Black;
+                borderStyle.LineStyle = LineStyle.Continuous;
+                borderStyle.Weight = 1.0;
+                borders.Add(borderStyle);
+            }
+
+
+            foreach (Telerik.Web.UI.GridExcelBuilder.StyleElement style in e.Styles)
+            {
+                foreach (BorderStyles border in borders)
+                {
+                    style.Borders.Add(border);
+                }
+                if (style.Id == "headerStyle")
+                {
+                    style.FontStyle.Bold = true;
+                    style.FontStyle.Color = System.Drawing.Color.Black;
+                    style.InteriorStyle.Color = System.Drawing.Color.LightBlue;
+                    style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
+                }
+                else if (style.Id == "itemStyle")
+                {
+                    style.InteriorStyle.Color = System.Drawing.Color.WhiteSmoke;
+                    style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
+                }
+                else if (style.Id == "alternatingItemStyle")
+                {
+                    style.InteriorStyle.Color = System.Drawing.Color.LightGray;
+                    style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
+                }
+                else if (style.Id == "dateItemStyle")
+                {
+                    style.InteriorStyle.Color = System.Drawing.Color.WhiteSmoke;
+                    style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
+                }
+                else if (style.Id == "alternatingDateItemStyle")
+                {
+                    style.InteriorStyle.Color = System.Drawing.Color.LightGray;
+                    style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
+                }
+            }
+
+            Telerik.Web.UI.GridExcelBuilder.StyleElement myStyle = new Telerik.Web.UI.GridExcelBuilder.StyleElement("MyCustomStyle");
+            myStyle.FontStyle.Bold = true;
+            myStyle.FontStyle.Italic = true;
+            myStyle.InteriorStyle.Color = System.Drawing.Color.Gray;
+            myStyle.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
+            e.Styles.Add(myStyle);
+        }
+        protected void gvMFTransactions_OnExcelMLExportRowCreated(object source, GridExportExcelMLRowCreatedArgs e)
+        {
+
+            if (e.RowType == GridExportExcelMLRowType.HeaderRow)
+            {
+                int rowIndex = 0;
+                RowElement row = new RowElement();
+                CellElement cell = new CellElement();
+                cell.MergeAcross = e.Row.Cells.Count - 1;
+                cell.Data.DataItem = "Adviser" + " : " + advisorVo.OrganizationName;
+                row.Cells.Add(cell);
+                e.Worksheet.Table.Rows.Insert(rowIndex, row);
+                rowIndex++;
+                if (Session["IsCustomerDrillDown"] == "Yes")
+                {
+                    RowElement row1 = new RowElement();
+                    CellElement cell1 = new CellElement();
+                    cell1.MergeAcross = e.Row.Cells.Count - 1;
+                    cell1.Data.DataItem = "Customer" + " : " + customerVo.FirstName + "  " + customerVo.MiddleName + "  " + customerVo.LastName;
+                    row1.Cells.Add(cell1);
+
+                    e.Worksheet.Table.Rows.Insert(rowIndex, row1);
+                    rowIndex++;
+                }
+
+
+                RowElement DateRow = new RowElement();
+                CellElement Datecell = new CellElement();
+                Datecell.MergeAcross = e.Row.Cells.Count - 1;
+                Datecell.Data.DataItem = "From" + " : " + Convert.ToDateTime(txtFromDate.SelectedDate).ToLongDateString() + "  " + "To" + " : " + Convert.ToDateTime(txtToDate.SelectedDate).ToLongDateString();
+                DateRow.Cells.Add(Datecell);
+                e.Worksheet.Table.Rows.Insert(rowIndex, DateRow);
+                rowIndex++;
+
+
+                RowElement BlankRow = new RowElement();
+                CellElement Blankcell = new CellElement();
+                Blankcell.MergeAcross = e.Row.Cells.Count - 1;
+                Blankcell.Data.DataItem = "";
+                BlankRow.Cells.Add(Blankcell);
+                e.Worksheet.Table.Rows.Insert(rowIndex, BlankRow);
+
+
+
+                //e.Worksheet.AutoFilter.Range = e.Worksheet.AutoFilter.Range.Replace("R1", "R2");
+            }
+        }
+
          }
       }
 
