@@ -1174,7 +1174,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Govt Savings")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewGovtSavings", "loadcontrol('ViewGovtSavings', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerGovtSaving", "loadcontrol('CustomerGovtSaving', 'none')", true);
                 }
                 else if (e.Item.Value == "Add Govt Savings")
                 {
