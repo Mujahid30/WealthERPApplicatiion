@@ -986,8 +986,8 @@ namespace WealthERP.CustomerPortfolio
                 if (style.Id == "headerStyle")
                 {
                     style.FontStyle.Bold = true;
-                    style.FontStyle.Color = System.Drawing.Color.Black;
-                    style.InteriorStyle.Color = System.Drawing.Color.LightBlue;
+                    style.FontStyle.Color = System.Drawing.Color.White;
+                    style.InteriorStyle.Color = System.Drawing.Color.Black;
                     style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
                 }
                 else if (style.Id == "itemStyle")
