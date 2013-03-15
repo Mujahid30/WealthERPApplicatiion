@@ -37,14 +37,14 @@ namespace BoValuation
         string expression = "CMFTB_UnitBalanceRETURN" + ">0";
         DataTable dtFinalCustomerMFTransactionBalance = new DataTable();
         DataTable dtCustomerMutualFundNetPosition = new DataTable();
-       
+
         bool isMFTractionSellPairRecreate;
 
         DataTable dtCustomerMFTransactionBalanceForNP = new DataTable();
         DataTable dtCustomerMFTransactionSellPairedForNP = new DataTable();
         DataTable dtAdviserMFNetPosition = new DataTable();
         int adviserId = 0;
-      
+
 
         public enum ValuationLabel
         {
@@ -127,7 +127,7 @@ namespace BoValuation
                                 }
 
                             }
-                            
+
 
 
                             break;
@@ -148,7 +148,7 @@ namespace BoValuation
                             {
                                 if (dtCustomerTransactionsToProcess.Rows.Count > 0)
                                 {
-                                    
+
 
                                     dtCustomerTransactionsToProcess.DefaultView.RowFilter = "CMFA_AccountId=" + commonId.ToString() + " AND " + "PASP_SchemePlanCode=" + schemePlanCode.ToString();
                                     dtMFTransactionsToProcess = dtCustomerTransactionsToProcess.DefaultView.ToTable();
@@ -220,8 +220,8 @@ namespace BoValuation
                                     {
                                         if (dsMFTransactionProcessedBalance.Tables[0] != null)
                                             dtMFTransactionProcessedBalance = dsMFTransactionProcessedBalance.Tables[0];
-                                    }       
-                                        dtMFTransactionProcessedBalance.PrimaryKey = null;
+                                    }
+                                    dtMFTransactionProcessedBalance.PrimaryKey = null;
 
 
 
@@ -322,6 +322,7 @@ namespace BoValuation
             dtTransactionDetails.Columns.Add("CMFTB_DivPayout", typeof(System.Decimal));
             dtTransactionDetails.Columns.Add("CMFTB_DVRUnitsAllocation_Share", typeof(System.Decimal));
             dtTransactionDetails.Columns.Add("CMFTB_DVRUnits_Contributed", typeof(System.Decimal));
+            //dtTransactionDetails.Columns.Add("CMFNP_RET_Hold_DVRAmounts", typeof(System.Decimal));
             dtTransactionDetails.Columns.Add("CMFTB_InsertUpdate_Flag", typeof(System.Int32));
 
             return dtTransactionDetails;
@@ -378,7 +379,7 @@ namespace BoValuation
                                 drTransactionDetails["CMFTB_Age"] = span.TotalDays;
 
                                 drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
-                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] =Math.Round((double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString())),4) ;
+                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = Math.Round((double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString())), 4);
                                 drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFTB_DivPayout"] = 0;
                                 drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
@@ -386,6 +387,9 @@ namespace BoValuation
                                 drTransactionDetails["CMFTB_DVRUnitsAllocation_Share"] = 0;
                                 drTransactionDetails["CMFTB_DVRUnits_Contributed"] = 0;
                                 drTransactionDetails["CMFTB_InsertUpdate_Flag"] = 1;
+
+                                //drTransactionDetails["CMFNP_RET_Hold_DVRAmounts"] = 0;
+
                                 dtTransactionDetails.Rows.Add(drTransactionDetails);
                                 dtTransactionDetailsTemp = dtTransactionDetails.Copy();
 
@@ -411,7 +415,7 @@ namespace BoValuation
 
                                 drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
                                 dvrUnits = double.Parse(dr["CMFT_Units"].ToString());
-                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = Math.Round((double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString())),4);
+                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = Math.Round((double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString())), 4);
                                 drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFTB_DivPayout"] = 0;
                                 drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
@@ -427,7 +431,7 @@ namespace BoValuation
                                     int count1 = 0;
                                     double dvrUnitsContribution = 0;
                                     double totalCost = 0;
-                                    double unitBalanceReturnOldSum=0.0;
+                                    double unitBalanceReturnOldSum = 0.0;
 
                                     DataRow[] drLastTransactionDetails;
 
@@ -438,7 +442,7 @@ namespace BoValuation
                                     double.TryParse(Convert.ToString(sumObject), out sum);
 
                                     sumObject = dtTransactionDetailsTemp.Compute("Sum([CMFTB_TotalCostBalRETURN])", string.Empty);
-                                    double.TryParse(Convert.ToString(sumObject), out totalCost);                               
+                                    double.TryParse(Convert.ToString(sumObject), out totalCost);
 
                                     dtTransactionDetails.DefaultView.RowFilter = expression;
                                     //  dtTransactionDetails = dtTransactionDetails.DefaultView.Table;
@@ -449,7 +453,7 @@ namespace BoValuation
                                         foreach (DataRow dr3 in dtDefaultView.Rows)
                                         {
                                             //count1 is for finding the last row in the default view
-                                            
+
                                             count1++;
                                             if (dr3["WMTT_TransactionClassificationCode"].ToString() != "SEL" && dr3["WMTT_TransactionClassificationCode"].ToString() != "DVP")
                                             {
@@ -480,11 +484,11 @@ namespace BoValuation
                                                     dvrUnitsContribution = dvrUnits * unitBalanceReturnOldSum;
                                                     avgCostReturn = totalCostBalanceReturn / (dvrUnitsContribution + double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()));
 
-                                                    dr3["CMFTB_DVRUnitsAllocation_Share"] = Math.Round(unitBalanceReturnOldSum,4);
-                                                    
-                                                    dr3["CMFTB_DVRUnits_Contributed"] =Math.Round(dvrUnitsContribution,4);
-                                                    dr3["CMFTB_AvgCostBalRETURN"] =Math.Round(avgCostReturn,4);
-                                                    dr3["CMFTB_TotalCostBalRETURN"] = Math.Round(avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()),4);
+                                                    dr3["CMFTB_DVRUnitsAllocation_Share"] = Math.Round(unitBalanceReturnOldSum, 4);
+
+                                                    dr3["CMFTB_DVRUnits_Contributed"] = Math.Round(dvrUnitsContribution, 4);
+                                                    dr3["CMFTB_AvgCostBalRETURN"] = Math.Round(avgCostReturn, 4);
+                                                    dr3["CMFTB_TotalCostBalRETURN"] = Math.Round(avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()), 4);
                                                 }
                                                 else
                                                 {
@@ -497,16 +501,16 @@ namespace BoValuation
                                                         totalCostBalance = totalCostBalance + double.Parse(dr4["CMFTB_TotalCostBalRETURN"].ToString());
                                                     }
                                                     avlCostDVR = totalCost - totalCostBalance;
-                                                    dr3["CMFTB_TotalCostBalRETURN"] =Math.Round( avlCostDVR,4);
+                                                    dr3["CMFTB_TotalCostBalRETURN"] = Math.Round(avlCostDVR, 4);
                                                     if (dvrUnits != 0)
-                                                        dr3["CMFTB_AvgCostBalRETURN"] = Math.Round( (avlCostDVR / dvrUnits),4);
+                                                        dr3["CMFTB_AvgCostBalRETURN"] = Math.Round((avlCostDVR / dvrUnits), 4);
                                                     else
                                                         dr3["CMFTB_AvgCostBalRETURN"] = 0;
                                                     dr3["CMFTB_DVRUnitsAllocation_Share"] = 0;
                                                     dr3["CMFTB_DVRUnits_Contributed"] = 0;
                                                 }
+                                                // drTransactionDetails["CMFNP_RET_Hold_DVRAmounts"] = Math.Round((double.Parse(drTransactionDetails["CMFTB_UnitBalanceRETURN"].ToString()) * double.Parse(dr["CMFT_Price"].ToString())), 4);
                                             }
-
                                         }
                                         // dtTransactionDetails = dtTransactionDetails.DefaultView.Table.Copy();
                                         dtTransactionDetails.Merge(dtDefaultView, false);
@@ -568,7 +572,7 @@ namespace BoValuation
                                 drTransactionDetails["CMFA_AccountId"] = dr["CMFA_AccountId"].ToString();
                                 drTransactionDetails["PASP_SchemePlanCode"] = dr["PASP_SchemePlanCode"].ToString();
                                 drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                                drTransactionDetails["CMFT_TransactionDate"] =Convert.ToDateTime(dr["CMFT_TransactionDate"].ToString());
+                                drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"].ToString());
                                 drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"];
                                 drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
@@ -577,7 +581,7 @@ namespace BoValuation
                                 span = DateTime.Today - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                                 drTransactionDetails["CMFTB_Age"] = span.TotalDays;
                                 drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
-                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = Math.Round(double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString()),4);
+                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = Math.Round(double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString()), 4);
                                 drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFTB_DivPayout"] = 0;
                                 drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
@@ -616,7 +620,7 @@ namespace BoValuation
                                                 dr1["CMFTB_InsertUpdate_Flag"] = 2;
                                             }
                                             if (dr1["WMTT_TransactionClassificationCode"].ToString() == "DVR" || dr1["WMTT_TransactionClassificationCode"].ToString() == "BUY")
-                                                dr1["CMFTB_DivPayout"] = Math.Round((double.Parse(dr1["CMFTB_DivPayout"].ToString())+(double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * amount),4);
+                                                dr1["CMFTB_DivPayout"] = Math.Round((double.Parse(dr1["CMFTB_DivPayout"].ToString()) + (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * amount), 4);
                                             //costReturn = costReturn + (double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString()) * avgValue);
 
 
@@ -635,7 +639,7 @@ namespace BoValuation
                                 drTransactionDetails["CMFA_AccountId"] = dr["CMFA_AccountId"].ToString();
                                 drTransactionDetails["PASP_SchemePlanCode"] = dr["PASP_SchemePlanCode"].ToString();
                                 drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                                drTransactionDetails["CMFT_TransactionDate"] =DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
+                                drTransactionDetails["CMFT_TransactionDate"] = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                                 drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"];
                                 drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
@@ -655,7 +659,7 @@ namespace BoValuation
                                 dtTransactionDetails.Rows.Add(drTransactionDetails);
                                 dtTransactionDetails.DefaultView.RowFilter = expression;
                                 dtDefaultView = dtTransactionDetails.DefaultView.ToTable();
-                               // dtDefaultView.PrimaryKey = new DataColumn[] { dtDefaultView.Columns["CMFT_MFTransId"] };                               
+                                // dtDefaultView.PrimaryKey = new DataColumn[] { dtDefaultView.Columns["CMFT_MFTransId"] };                               
                                 dtmodifiedDetails = GetTransactiondetailsAfterSell(dtDefaultView, double.Parse(dr["CMFT_Units"].ToString()), double.Parse(dr["CMFT_Price"].ToString()), int.Parse(dr["CMFT_MFTransId"].ToString()), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()));
                                 dtmodifiedDetails.PrimaryKey = new DataColumn[] { dtmodifiedDetails.Columns["CMFT_MFTransId"] };
                                 dtTransactionDetails.Merge(dtmodifiedDetails, false);
@@ -762,55 +766,55 @@ namespace BoValuation
                     //----------------->>>> Return FIFO <<<<-----------------\\
                 }
             }
-                    foreach (DataRow drReturns in dt.Rows)
-                    {
+            foreach (DataRow drReturns in dt.Rows)
+            {
 
-                        if (drReturns["WMTT_TransactionClassificationCode"].ToString() != "SEL" && drReturns["WMTT_TransactionClassificationCode"].ToString() != "DVP")
+                if (drReturns["WMTT_TransactionClassificationCode"].ToString() != "SEL" && drReturns["WMTT_TransactionClassificationCode"].ToString() != "DVP")
+                {
+                    buyReturnUnits = double.Parse(drReturns["CMFTB_UnitBalanceRETURN"].ToString());
+                    if (buyReturnUnits != 0)
+                    {
+                        if (buyReturnUnits == returnSellUnits)
                         {
-                            buyReturnUnits = double.Parse(drReturns["CMFTB_UnitBalanceRETURN"].ToString());
-                            if (buyReturnUnits != 0)
-                            {
-                                if (buyReturnUnits == returnSellUnits)
-                                {
-                                    drReturns["CMFTB_DivPayout"] = 0;
-                                    drReturns["CMFTB_UnitBalanceRETURN"] = 0;
-                                    drReturns["CMFTB_TotalCostBalRETURN"] = 0;
-                                    break;
-                                }
-                                else if (buyReturnUnits > returnSellUnits)
-                                {
-                                    drReturns["CMFTB_DivPayout"] = Math.Round((((buyReturnUnits - returnSellUnits) / double.Parse(drReturns["CMFTB_UnitBalanceRETURN"].ToString())) * double.Parse(drReturns["CMFTB_DivPayout"].ToString())), 4);
-                                    drReturns["CMFTB_UnitBalanceRETURN"] = buyReturnUnits - returnSellUnits;
-                                    drReturns["CMFTB_TotalCostBalRETURN"] = double.Parse(drReturns["CMFTB_UnitBalanceRETURN"].ToString()) * double.Parse(drReturns["CMFT_Price"].ToString());
-                                    break;
-                                }
-                                else if (buyReturnUnits < returnSellUnits)
-                                {
-                                    drReturns["CMFTB_DivPayout"] = 0;
-                                    drReturns["CMFTB_UnitBalanceRETURN"] = 0;
-                                    drReturns["CMFTB_TotalCostBalRETURN"] = 0;
-                                    returnSellUnits = returnSellUnits - buyReturnUnits;
-                                }
-                                if (drReturns["CMFTB_Id"].ToString() != null && drReturns["CMFTB_Id"].ToString() != "")
-                                {
-                                    drReturns["CMFTB_InsertUpdate_Flag"] = 2;
-                                }
-                            }
+                            drReturns["CMFTB_DivPayout"] = 0;
+                            drReturns["CMFTB_UnitBalanceRETURN"] = 0;
+                            drReturns["CMFTB_TotalCostBalRETURN"] = 0;
+                            break;
+                        }
+                        else if (buyReturnUnits > returnSellUnits)
+                        {
+                            drReturns["CMFTB_DivPayout"] = Math.Round((((buyReturnUnits - returnSellUnits) / double.Parse(drReturns["CMFTB_UnitBalanceRETURN"].ToString())) * double.Parse(drReturns["CMFTB_DivPayout"].ToString())), 4);
+                            drReturns["CMFTB_UnitBalanceRETURN"] = buyReturnUnits - returnSellUnits;
+                            drReturns["CMFTB_TotalCostBalRETURN"] = double.Parse(drReturns["CMFTB_UnitBalanceRETURN"].ToString()) * double.Parse(drReturns["CMFT_Price"].ToString());
+                            break;
+                        }
+                        else if (buyReturnUnits < returnSellUnits)
+                        {
+                            drReturns["CMFTB_DivPayout"] = 0;
+                            drReturns["CMFTB_UnitBalanceRETURN"] = 0;
+                            drReturns["CMFTB_TotalCostBalRETURN"] = 0;
+                            returnSellUnits = returnSellUnits - buyReturnUnits;
+                        }
+                        if (drReturns["CMFTB_Id"].ToString() != null && drReturns["CMFTB_Id"].ToString() != "")
+                        {
+                            drReturns["CMFTB_InsertUpdate_Flag"] = 2;
                         }
                     }
-
-                  
-                    
-                    //----------------->>>> Return FIFO End <<<<-----------------\\
+                }
+            }
 
 
-                  
-          
-          //  dt = UpdateBalancedTransactionDetails(dt, units);
+
+            //----------------->>>> Return FIFO End <<<<-----------------\\
+
+
+
+
+            //  dt = UpdateBalancedTransactionDetails(dt, units);
             return dt;
         }
 
-        protected void FillSellPairedDataSet(double units, double age, double sellId, double buyId, double sellPrice, double buyPrice ,DateTime transactionDate)
+        protected void FillSellPairedDataSet(double units, double age, double sellId, double buyId, double sellPrice, double buyPrice, DateTime transactionDate)
         {
             //if (dtSellPaired.Rows.Count == 0)
             //{
@@ -850,7 +854,7 @@ namespace BoValuation
             {
                 if (age > 365)
                 {
-                    drSellPaired["CMFT_LTG"] = Math.Round(gainLossValue , 4);
+                    drSellPaired["CMFT_LTG"] = Math.Round(gainLossValue, 4);
                 }
                 else
                 {
@@ -876,7 +880,7 @@ namespace BoValuation
                 foreach (DataRow dr1 in dt.Rows)
                 {
                     double unitBalancereturnOld = double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString());
-                    dr1["CMFTB_UnitBalanceRETURN"] =Math.Round( (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) - (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * units),10);
+                    dr1["CMFTB_UnitBalanceRETURN"] = Math.Round((double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) - (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * units), 10);
 
                     // if CMFTB_Id is null then this will get insert in Database with flag 1
                     // else It will update with flag 2
@@ -887,8 +891,8 @@ namespace BoValuation
                     }
                     if (dr1["WMTT_TransactionClassificationCode"].ToString() == "BUY" || dr1["WMTT_TransactionClassificationCode"].ToString() == "DVR")
                     {
-                        dr1["CMFTB_DivPayout"] = Math.Round( ((double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / unitBalancereturnOld) * double.Parse(dr1["CMFTB_DivPayout"].ToString())),4);
-                        dr1["CMFTB_TotalCostBalRETURN"] = Math.Round( (double.Parse(dr1["CMFTB_AvgCostBalRETURN"].ToString()) * double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString())),4);
+                        dr1["CMFTB_DivPayout"] = Math.Round(((double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / unitBalancereturnOld) * double.Parse(dr1["CMFTB_DivPayout"].ToString())), 4);
+                        dr1["CMFTB_TotalCostBalRETURN"] = Math.Round((double.Parse(dr1["CMFTB_AvgCostBalRETURN"].ToString()) * double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString())), 4);
 
                     }
                     else
@@ -933,10 +937,10 @@ namespace BoValuation
                                     dtCustomerMutualFundNetPosition.Clear();
 
                                 }
-                                mfEngineDao.CreateAdviserMFNetPosition(adviserId, valuationDate, dtAdviserMFNetPosition,1);
+                                mfEngineDao.CreateAdviserMFNetPosition(adviserId, valuationDate, dtAdviserMFNetPosition, 1);
                                 //DataSet ds = new DataSet();
                                 //ds.WriteXml(Server..MapPath("UploadFiles") + "\\" + processlogVo.ProcessId + ".xml", XmlWriteMode.WriteSchema);
- 
+
                                 dtAdviserMFNetPosition.Clear();
                             }
                             break;
@@ -1109,7 +1113,17 @@ namespace BoValuation
 
             dtMFNetPosition.Columns.Add("CMFNP_InvestmentStartDate", typeof(DateTime));
 
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_DVRAmounts", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_NAVDate", typeof(DateTime));
 
+            //dtMFNetPosition.Columns.Add("CMFT_Price", typeof(decimal));
+
+            //DataColumn CMFNP_RET_Hold_DVRAmounts = new DataColumn();
+            //CMFNP_RET_Hold_DVRAmounts.DataType = System.Type.GetType("System.Decimal");
+            //CMFNP_RET_Hold_DVRAmounts.ColumnName = "CMFNP_RET_Hold_DVRAmounts";
+            //CMFNP_RET_Hold_DVRAmounts.Expression = "price + tax";
+
+            //dtMFNetPosition.Columns.Add(CMFNP_RET_Hold_DVRAmounts);
             return dtMFNetPosition;
 
         }
@@ -1172,6 +1186,7 @@ namespace BoValuation
                 if (dtMFTransactionBalance.Rows.Count > 0)
                 {
                     drMFNetPosition["CMFNP_MarketPrice"] = dtMFTransactionBalance.Rows[0]["NAV"];
+                    drMFNetPosition["CMFNP_NAVDate"] = dtMFTransactionBalance.Rows[0]["NAVDate"];
                     drMFNetPosition["CMFNP_RET_Hold_XIRR"] = 0; //Still Confusion
                     drMFNetPosition["CMFNP_RET_Realized_XIRR"] = 0; // Still Confusion
                     //drMFNetPosition["CMFNP_RET_ALL_TotalXIRR"] = 0;  // XIRR 
@@ -1185,7 +1200,7 @@ namespace BoValuation
                     object sumObject;
 
                     sumObject = dtMFTransactionBalance.Compute("Sum([InvestedCostReturnHolding])", string.Empty);
-                    double.TryParse(Convert.ToString(sumObject), out CMFNP_RET_Hold_AcqCost);   
+                    double.TryParse(Convert.ToString(sumObject), out CMFNP_RET_Hold_AcqCost);
 
                     sumObject = dtMFTransactionBalance.Compute("Sum([CMFT_Amount])", "WMTT_TransactionClassificationCode = 'BUY'");
                     double.TryParse(Convert.ToString(sumObject), out returnInvestedCost);
@@ -1280,7 +1295,7 @@ namespace BoValuation
                     drMFNetPosition["CMFNP_RET_Hold_AcqCost"] = CMFNP_RET_Hold_AcqCost;  //  Return Holding   ----  Invested Cost
                     returnHoldingTotalPL = currentValue + CMFTB_DivPayout - CMFNP_RET_Hold_AcqCost;
 
-                    drMFNetPosition["CMFNP_RET_Hold_TotalPL"] =Math.Round(returnHoldingTotalPL,4);
+                    drMFNetPosition["CMFNP_RET_Hold_TotalPL"] = Math.Round(returnHoldingTotalPL, 4);
 
                     if (CMFNP_RET_Hold_AcqCost != 0)
                     {
@@ -1309,17 +1324,27 @@ namespace BoValuation
 
                     drMFNetPosition["CMFNP_RET_Hold_PurchaseUnit"] = returnPurchaseUnits;   // confusion  // Resolved
 
-                    if (returnPurchaseUnits > 0)
-                    {
-                        if (openUnits > returnPurchaseUnits)
-                        {
-                            drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = openUnits - returnPurchaseUnits;
-                        }
-                        else
-                            drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = 0;
-                    }
-                    else
-                        drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = 0;
+                    double holdingDvrUnits = 0;
+                    sumObject = dtMFTransactionBalance.Compute("Sum(CMFTB_UnitBalanceTAX)", "WMTT_TransactionClassificationCode = 'DVR'");
+                    double.TryParse(Convert.ToString(sumObject), out holdingDvrUnits);
+
+                    double holdingDvrAmount = 0;
+                    sumObject = dtMFTransactionBalance.Compute("Sum(CMFNP_RET_Hold_DVRAmounts)", "WMTT_TransactionClassificationCode = 'DVR'");
+                    double.TryParse(Convert.ToString(sumObject), out holdingDvrAmount);
+                    drMFNetPosition["CMFNP_RET_Hold_DVRAmounts"] = holdingDvrAmount;
+                    drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = holdingDvrUnits;
+
+                    //if (returnPurchaseUnits > 0)
+                    //{
+                    //    if (openUnits > returnPurchaseUnits)
+                    //    {
+                    //        drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = openUnits - returnPurchaseUnits;
+                    //    }
+                    //    else
+                    //        drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = 0;
+                    //}
+                    //else
+                    //    drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = 0;
                     sumObject = dtMFTransactionBalance.Compute("Sum(EligibleLTG)", "CMFTB_UnitBalanceTAX > 0");
                     double.TryParse(Convert.ToString(sumObject), out eligibleLTCG);
 
@@ -1406,6 +1431,7 @@ namespace BoValuation
             DataSet dsMfNetPositionValue = new DataSet();
             DataTable dtMFTransactionProcessedBalance = new DataTable();
             double nav = 0;
+            DateTime navDate = new DateTime();
             DataTable dtBalanceRecord = new DataTable();
             DataTable dtSellPaired = new DataTable();
 
@@ -1431,6 +1457,10 @@ namespace BoValuation
                     {
                         nav = double.Parse(dsSchemeNavDetail.Tables[0].Rows[0]["NAV"].ToString());
                     }
+                    if (dsSchemeNavDetail.Tables[1].Rows.Count > 0)
+                    {
+                        navDate = DateTime.Parse(dsSchemeNavDetail.Tables[1].Rows[0]["PSP_Date"].ToString());
+                    }
                 }
             }
             if (dtMFTransactionProcessedBalance.Rows.Count > 0)
@@ -1450,6 +1480,7 @@ namespace BoValuation
                     drBalanceRecord["CMFTB_TotalCostBalRETURN"] = drMFBalanced["CMFTB_TotalCostBalRETURN"].ToString();
                     drBalanceRecord["CMFTB_DivPayout"] = drMFBalanced["CMFTB_DivPayout"].ToString();
                     drBalanceRecord["NAV"] = nav;
+                    drBalanceRecord["NAVDate"] = navDate;
                     drBalanceRecord["CurrentValueTax"] = double.Parse(drMFBalanced["CMFTB_UnitBalanceTAX"].ToString()) * nav;
                     span = valuationDate - DateTime.Parse(drMFBalanced["CMFT_TransactionDate"].ToString());
                     drBalanceRecord["AGE"] = span.TotalDays;
@@ -1468,7 +1499,6 @@ namespace BoValuation
                     }
 
                     if (drMFBalanced["WMTT_TransactionClassificationCode"].ToString() == "BUY")
-                        
                     {
                         drBalanceRecord["XIRR_ALL"] = -double.Parse(drMFBalanced["CMFT_Amount"].ToString());
                     }
@@ -1480,10 +1510,11 @@ namespace BoValuation
                     {
                         drBalanceRecord["XIRR_ALL"] = 0;
                     }
-                    
+
                     drBalanceRecord["CMFT_Price"] = drMFBalanced["CMFT_Price"].ToString();
 
                     drBalanceRecord["InvestedCostReturnHolding"] = double.Parse(drMFBalanced["CMFTB_AvgCostBalRETURN"].ToString()) * double.Parse(drMFBalanced["CMFTB_UnitBalanceRETURN"].ToString());
+                    drBalanceRecord["CMFNP_RET_Hold_DVRAmounts"] = double.Parse(drMFBalanced["CMFT_Price"].ToString()) * double.Parse(drMFBalanced["CMFTB_UnitBalanceRETURN"].ToString());
                     dtBalanceRecord.Rows.Add(drBalanceRecord);
                 }
             }
@@ -1541,6 +1572,7 @@ namespace BoValuation
 
             dtMFBalanced.Columns.Add("CMFTB_DivPayout", typeof(double));
             dtMFBalanced.Columns.Add("NAV", typeof(double));
+            dtMFBalanced.Columns.Add("NAVDate", typeof(System.DateTime));
             dtMFBalanced.Columns.Add("CurrentValueTax", typeof(double));
 
             dtMFBalanced.Columns.Add("AGE", typeof(double));
@@ -1552,6 +1584,7 @@ namespace BoValuation
             dtMFBalanced.Columns.Add("WMTT_TransactionClassificationCode", typeof(System.String));
             dtMFBalanced.Columns.Add("XIRR_ALL", typeof(double));
             dtMFBalanced.Columns.Add("InvestedCostReturnHolding", typeof(double));
+            dtMFBalanced.Columns.Add("CMFNP_RET_Hold_DVRAmounts", typeof(double));
 
             return dtMFBalanced;
 
@@ -1574,5 +1607,9 @@ namespace BoValuation
             return dtMFSellPaired;
 
         }
+
+
+
+
     }
 }
