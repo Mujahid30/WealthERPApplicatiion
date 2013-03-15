@@ -318,7 +318,7 @@
                     </MasterTableView>
                     <ClientSettings>
                         <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="True" ScrollHeight="300px" />
-                        <ClientEvents OnGridCreated="GridCreated" />
+                        <ClientEvents OnGridCreated="GridCreated" OnKeyPress=""/>
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
                         <%--<Resizing AllowColumnResize="true"  />--%>
