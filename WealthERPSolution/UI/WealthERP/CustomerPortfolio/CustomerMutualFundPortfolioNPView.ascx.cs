@@ -496,6 +496,8 @@ namespace WealthERP.CustomerPortfolio
                     imgBtnrgTaxRealized.Visible = true;
                 else
                     imgBtnrgTaxRealized.Visible = false;
+               
+               
             }
         }
 
@@ -661,6 +663,10 @@ namespace WealthERP.CustomerPortfolio
             else
                 //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
                 drMFPortfolioAll[24] = mfVo.InvestmentStartDate.ToShortDateString();
+            if (mfVo.NavDate == DateTime.MinValue)
+                drMFPortfolioAll[25] = "N/A";
+            else
+                drMFPortfolioAll[25] = mfVo.NavDate.ToShortDateString();
 
         }
 
@@ -739,6 +745,15 @@ namespace WealthERP.CustomerPortfolio
             else
                 //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
                 drMFPortfolioHoldings[19] = mfVo.InvestmentStartDate.ToShortDateString();
+            if (mfVo.ReturnHoldDVRAmounts != 0)
+                drMFPortfolioHoldings[20] = mfVo.ReturnHoldDVRAmounts.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            else
+                drMFPortfolioHoldings[20] = "0.00";
+
+            if (mfVo.NavDate== DateTime.MinValue)
+                drMFPortfolioHoldings[21] = "N/A";
+            else
+                 drMFPortfolioHoldings[21] = mfVo.NavDate.ToShortDateString();
         }
 
         private static void PopulateTaxHoldDataTable(DataRow drTaxHoldings, MFPortfolioNetPositionVo mfVo)
@@ -797,6 +812,11 @@ namespace WealthERP.CustomerPortfolio
             else
                 //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
                 drTaxHoldings[16] = mfVo.InvestmentStartDate.ToShortDateString();
+            if (mfVo.NavDate == DateTime.MinValue)
+                drTaxHoldings[17] = "N/A";
+            else
+                drTaxHoldings[17] = mfVo.NavDate.ToShortDateString();
+
 
         }
 
@@ -908,6 +928,8 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("SubCategoryName");
             dtReturnsHoldings.Columns.Add("FolioStartDate");
             dtReturnsHoldings.Columns.Add("InvestmentStartDate");
+            dtReturnsHoldings.Columns.Add("CMFNP_RET_Hold_DVRAmounts");
+            dtReturnsHoldings.Columns.Add("CMFNP_NAVDate");
         }
 
         private void ReturnsAllDataTableCreation(DataTable dtReturnsAll)
@@ -937,6 +959,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsAll.Columns.Add("SubCategoryName");
             dtReturnsAll.Columns.Add("FolioStartDate");
             dtReturnsAll.Columns.Add("InvestmentStartDate");
+            dtReturnsAll.Columns.Add("CMFNP_NAVDate");
         }
 
         private void ReturnsRealizedDataTableCreation(DataTable dtReturnsRealized)
@@ -980,6 +1003,7 @@ namespace WealthERP.CustomerPortfolio
             dtTaxHoldings.Columns.Add("SubCategoryName");
             dtTaxHoldings.Columns.Add("FolioStartDate");
             dtTaxHoldings.Columns.Add("InvestmentStartDate");
+            dtTaxHoldings.Columns.Add("CMFNP_NAVDate");
         }
 
         private void TaxRealizedDataTableCreation(DataTable dtTaxRealized)

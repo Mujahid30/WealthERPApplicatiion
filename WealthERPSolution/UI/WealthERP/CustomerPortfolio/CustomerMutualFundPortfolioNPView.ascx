@@ -232,15 +232,24 @@
                                                                     FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
+                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="CMFNP_RET_Hold_DVRAmounts" HeaderText="DVR Units"
+                                                                    DataField="CMFNP_RET_Hold_DVRAmounts" AllowFiltering="false" FooterStyle-HorizontalAlign="Right"
+                                                                    DataFormatString="{0:N3}" Aggregate="Sum">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="120px" UniqueName="InvestedCost" HeaderText="Invested Cost"
                                                                     DataField="InvestedCost" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum"
                                                                     FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
-                                                                </telerik:GridBoundColumn>
+                                                                </telerik:GridBoundColumn>                                                                
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="NAV" HeaderText="NAV"
                                                                     DataField="NAV" AllowFiltering="false" DataFormatString="{0:N4}">
                                                                     <ItemStyle HorizontalAlign="Right" />
-                                                                </telerik:GridBoundColumn>
+                                                                </telerik:GridBoundColumn> 
+                                                                <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
+                                                                    DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>                                                               
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="88px" UniqueName="MarketValue" HeaderText="Market Value"
                                                                     DataField="MarketValue" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum"
                                                                     FooterStyle-HorizontalAlign="Right">
@@ -429,6 +438,10 @@
                                                                     DataField="NAV" FooterStyle-HorizontalAlign="Right" AllowFiltering="false" DataFormatString="{0:N4}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
+                                                                 <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
+                                                                    DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn> 
                                                                 <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value" DataField="CurrentValue"
                                                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" Aggregate="Sum"
                                                                     AllowFiltering="false">
@@ -1062,6 +1075,10 @@
                                                                     DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
+                                                                 <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
+                                                                    DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn> 
                                                                 <telerik:GridBoundColumn UniqueName="MarketValue" HeaderText="Market Value" DataField="MarketValue"
                                                                     AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
