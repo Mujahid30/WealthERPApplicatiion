@@ -153,14 +153,17 @@ namespace WealthERP
                     {
                         userVo = (UserVo)(Session["userVo"]);
                         rmVo = (RMVo)(Session[SessionContents.RmVo]);
+                        tdTermsCondition.Visible = true;
                         if (userVo.UserType == "Advisor")
                         {
 
-                            tdTermsCondition.Visible = true;
+                          
+                            tdGodaddySeal.Visible = true;
                         }
                         else
                         {
                             tdTermsCondition.Visible = false;
+                            
                         }
 
                         if ((!IsPostBack) && (userVo.UserType == "Customer"))

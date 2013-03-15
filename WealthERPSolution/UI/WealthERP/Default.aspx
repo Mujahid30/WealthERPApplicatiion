@@ -7,11 +7,11 @@
 <%@ Register Src="Advisor/AdvisorLeftPane.ascx" TagName="AdvisorLeftPane" TagPrefix="uc5" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server"> 
-    <title> </title>
+<head id="Head1" runat="server">
+    <title></title>
     <%-- <link href="CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="CSS/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
-    <link id="lnkBrowserIcon" rel="Shortcut Icon" type="image/x-icon"  runat="server"/>
+    <link id="lnkBrowserIcon" rel="Shortcut Icon" type="image/x-icon" runat="server" />
 
     <script src="/Scripts/jquery.js" type="text/javascript"></script>
 
@@ -167,11 +167,11 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <table id="tblIFALongBanner" width="100%" runat="server" visible ="false">
+                                    <table id="tblIFALongBanner" width="100%" runat="server" visible="false">
                                         <tr style="height: 55px" valign="middle">
-                                         <td align="left" width="100%">
+                                            <td align="left" width="100%">
                                                 <img id="imgIFABanner" runat="server" />
-                                         </td>
+                                            </td>
                                         </tr>
                                     </table>
                                     <table style="clear: both; z-index: 2500; text-align: right; float: right" cellpadding="1"
@@ -195,8 +195,8 @@
                                                     class="LinkButtons" target="_blank">Help</a> &nbsp;
                                             </td>
                                             <td id="tdSignOut" runat="server">
-                                                <asp:LinkButton ID="lblSignOut" runat="server" Text="" Style="text-decoration: none"                                                    
-                                                    CssClass="LinkButtons" onclick="lblSignOut_Click"></asp:LinkButton>
+                                                <asp:LinkButton ID="lblSignOut" runat="server" Text="" Style="text-decoration: none"
+                                                    CssClass="LinkButtons" OnClick="lblSignOut_Click"></asp:LinkButton>
                                             </td>
                                         </tr>
                                     </table>
@@ -222,7 +222,8 @@
                                 <td class="PCGRedBcknd" style="width: 18%;">
                                     <asp:Label ID="lblUserName" runat="server" CssClass="HeaderDateText"></asp:Label>
                                     <br />
-                                    <asp:Label ID="lblPermissionList" runat="server" CssClass="UserPermissionList" Text="Permission: " Visible="false"></asp:Label>
+                                    <asp:Label ID="lblPermissionList" runat="server" CssClass="UserPermissionList" Text="Permission: "
+                                        Visible="false"></asp:Label>
                                 </td>
                                 <td colspan="2" class="PCGRedBcknd" valign="middle">
                                     <%-- <div id="GeneralMenu" style="height: auto; width: 78%; float: left;" runat="server">
@@ -291,8 +292,8 @@
                                                             <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
-                                                                Text="Transact/Business online" Value="Transact/Business online"
-                                                                SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                                Text="Transact/Business online" Value="Transact/Business online" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
+                                                            </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository"
                                                                 Value="Repository" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" Text="Info links"
@@ -600,14 +601,13 @@
                                                         <LevelSubMenuStyles>
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
-                                                        <Items>                                                          
-                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data"
+                                                        <Items>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                           <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InterestCalculator','login');"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InterestCalculator','login');"
                                                                 Text="Interest Calculator" Value="Interest Calculator"></asp:MenuItem>
-                                                            
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -628,7 +628,8 @@
                     <iframe name="leftframe" id="leftframe" onload="javascript:calcHeight('leftframe');"
                         src="ControlLeftHost.aspx"></iframe>
                 </td>
-                <td id="splitter_bar_left" title="Hide/Display the left tree node" style="display: block" onclick="javascript:hb1('left');">
+                <td id="splitter_bar_left" title="Hide/Display the left tree node" style="display: block"
+                    onclick="javascript:hb1('left');">
                     &nbsp;
                     <%--<img alt="collapse" id="imgCollapseLeft" src="Images/splitter_bar_left_pointer.jpg" style="vertical-align:middle;" /> --%>
                 </td>
@@ -668,6 +669,14 @@
                                 <a id="anchorTermsCondition" name="lnkTermsCondition" runat="server" href="~/WERPTermsandConditions.pdf"
                                     style="font-size: x-small" class="PCGWhiteText" target="_blank">Terms & Condition</a>
                             </td>
+                            <td align="center" id="tdGodaddySeal" runat="server" visible="false">
+                                <span id="siteseal">
+
+                                    <script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OB3Z92r1Re28pR7Rrwh09U9YkpYQ15o7Xc72vLCP3q87CHp3JBZidCm">
+                                    </script>
+
+                                </span>
+                            </td>
                             <td align="right">
                                 <%--                            <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OWPyWbNsq7qPWzrss8sCH3weSSj3SjP21EhheOl4L7s2vBTlMzf"></script><br/><a style="font-family: arial; font-size: 9px" href="https://www.godaddy.com" target="_blank">Best Web Hosting</a></span>
 --%>
@@ -702,8 +711,6 @@
                 </div>
             </td>
         </tr>
-    </table>    
-    
-    
+    </table>
 </body>
 </html>
