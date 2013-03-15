@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditBranchDetails.ascx.cs"
     Inherits="WealthERP.Advisor.EditBranchDetails" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
+ 
 <script language="javascript" type="text/javascript">
     function showmessage() {
 
@@ -104,30 +104,6 @@
             </asp:CompareValidator>
         </td>
     </tr>
-    
-        <tr>
-        <td class="leftField">
-            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Type :"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:DropDownList ID="ddlAttachToZoneCluster" AutoPostBack="true" OnSelectedIndexChanged="ddlAttachToZoneCluster_SelectedIndexChanged" runat="server" CssClass="cmbField">
-            <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-            <asp:ListItem Text="Zone" Value="1"></asp:ListItem>
-            <asp:ListItem Text="Cluster" Value="2"></asp:ListItem>            
-            </asp:DropDownList>         
-        </td>       
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label16" runat="server" CssClass="FieldName" Text="Name :"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:DropDownList ID="ddlPickZoneCluster" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <span id="Span9" class="spnRequiredField">*</span> 
-        </td>        
-    </tr>
-    
     <tr id="AssociateCategoryRow" runat="server">
         <td class="leftField">
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Associate Category:"></asp:Label>

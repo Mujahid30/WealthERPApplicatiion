@@ -19,7 +19,7 @@ using System.Drawing;
 using System.IO;
 using System.Globalization;
 
-namespace WealthERP.Advisor 
+namespace WealthERP.Advisor
 {
     public partial class EditBranchDetails : System.Web.UI.UserControl
     {
