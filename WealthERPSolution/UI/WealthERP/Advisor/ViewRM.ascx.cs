@@ -24,7 +24,7 @@ using BoUploads;
 using Telerik.Web.UI;
 
 
-namespace WealthERP.Advisor
+namespace WealthERP.Advisor 
 {
     public partial class ViewRM : System.Web.UI.UserControl
     {
