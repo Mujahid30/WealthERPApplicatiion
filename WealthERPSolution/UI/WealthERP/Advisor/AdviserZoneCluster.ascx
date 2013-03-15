@@ -101,7 +101,7 @@
                     SortExpression="AZOC_Type" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="Name" HeaderText="Head" DataField="Name" SortExpression="Name"
+                <telerik:GridBoundColumn Visible="false" UniqueName="Name" HeaderText="Head" DataField="Name" SortExpression="Name"
                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
@@ -175,12 +175,12 @@
                                     </tr>
                                     <tr>
                                         <td align="right">
-                                            <asp:Label runat="server" Text="Head :" ID="Label2"></asp:Label>
+                                            <asp:Label Visible="false" runat="server" Text="Head :" ID="Label2"></asp:Label>
                                         </td>
                                         <td>
-                                            <telerik:RadComboBox runat="server" ID="rcbHead" Text="Show" EmptyMessage="Select">
+                                            <telerik:RadComboBox Visible="false" runat="server" ID="rcbHead" Text="Show" EmptyMessage="Select">                                          
                                             </telerik:RadComboBox>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
+                                            <asp:RequiredFieldValidator Visible="false" ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
                                                 ErrorMessage="Please select a head" Display="Dynamic" ValidationGroup="btnSubmit"
                                                 ControlToValidate="rcbHead">
                                             </asp:RequiredFieldValidator>

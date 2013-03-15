@@ -116,9 +116,9 @@ namespace WealthERP.Advisor
                 dtZoneDetail = (DataTable)Cache["ZoneDetail" + advisorVo.advisorId];
 
                 RadComboBoxItem defaultItem = new RadComboBoxItem();
-                //setting default for radcombobox
-                defaultItem.Text = "";
-                defaultItem.Value = "";
+                //setting default for radcombobox // need to remove after adding the head 
+                defaultItem.Text = "0";
+                defaultItem.Value = "0";
 
 
                 RadComboBoxItem defaultItemPickAZone = new RadComboBoxItem();
@@ -319,6 +319,8 @@ namespace WealthERP.Advisor
                 TextBox txtDescription = (TextBox)e.Item.FindControl("txtDescription");
                 RadComboBox rcbPickAZone = (RadComboBox)e.Item.FindControl("rcbPickAZone");
                 type = Convert.ToInt32(rcbEditFormAddType.SelectedValue);
+                if (string.IsNullOrEmpty(rcbHead.SelectedValue))
+                    rcbHead.SelectedValue = "0";
                 if (type == 1)
                 {
                     insertType = "Zone";
@@ -350,7 +352,7 @@ namespace WealthERP.Advisor
                 //check if deleted then show message
                 isDeleted = advisorBo.ZoneClusterDetailsAddEditDelete(advisorVo.advisorId, 0, zoneId,0, string.Empty, string.Empty, deleteType.ToString(), UserVo.UserId, 0, DateTime.Now, DateTime.MinValue, e.CommandName);
                 if (isDeleted == false)
-                    Response.Write(@"<script language='javascript'>alert('The Zone : \n" + zoneName + " Cannot be deleted since it is attached to a branch.');</script>");
+                    Response.Write(@"<script language='javascript'>alert('The Zone : \n" + zoneName + " Cannot be deleted since it is attached to a Zone.');</script>");
                 else
                     Response.Write(@"<script language='javascript'>alert('The Zone: \n" + zoneName + " deleted successfully.');</script>");
             }
