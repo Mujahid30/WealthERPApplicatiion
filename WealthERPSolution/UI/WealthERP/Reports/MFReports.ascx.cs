@@ -454,7 +454,7 @@ namespace WealthERP.Reports
             }
             else
             {
-                if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO")
+                if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "COMPOSITION_REPORT")
                 {
                     isCorrect = customerBo.ChckBussinessDate(dtAsOnDate);
                     if (isCorrect == true)
