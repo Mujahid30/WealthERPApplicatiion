@@ -17,7 +17,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.IO;
 
-namespace WealthERP.Advisor 
+namespace WealthERP.Advisor
 {
     public partial class AddBranch : System.Web.UI.UserControl
     {

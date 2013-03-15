@@ -356,47 +356,6 @@
                 CssClass="revPCG"></asp:RegularExpressionValidator>
         </td>
     </tr>
-    <tr>
-        <td colspan="4">
-            <asp:Label ID="Label13" runat="server" CssClass="HeaderTextSmall" Text="Zone/Cluster Details"></asp:Label>
-            <hr />
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Do u wish to attach to :"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:DropDownList ID="ddlAttachToZoneCluster" AutoPostBack="true" OnSelectedIndexChanged="ddlAttachToZoneCluster_SelectedIndexChanged" runat="server" CssClass="cmbField">
-            <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-            <asp:ListItem Text="Zone" Value="1"></asp:ListItem>
-            <asp:ListItem Text="Cluster" Value="2"></asp:ListItem>            
-            </asp:DropDownList>         
-        </td>
-        <td class="leftField">
-        &nbsp;
-        </td>
-        <td class="rightField">
-               &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label16" runat="server" CssClass="FieldName" Text="Pick Zone/Cluster :"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:DropDownList ID="ddlPickZoneCluster" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <span id="Span9" class="spnRequiredField">*</span> 
-        </td>
-        <td class="leftField">
-        &nbsp;
-        </td>
-        <td class="rightField">
-                           &nbsp;
-        </td>
-    </tr>
-    
     <tr id="trCommsharingHeading" runat="server">
      <td colspan="4">
      <asp:Label ID="Label10" runat="server" CssClass="HeaderTextSmall" Text="Commision Sharing Structure"></asp:Label>
