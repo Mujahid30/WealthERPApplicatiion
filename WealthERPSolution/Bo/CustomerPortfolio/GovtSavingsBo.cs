@@ -6,6 +6,7 @@ using DaoCustomerPortfolio;
 using VoCustomerPortfolio;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using System.Data;
 
 namespace BoCustomerPortfolio
 {
@@ -181,6 +182,32 @@ namespace BoCustomerPortfolio
                 throw exBase;
             }
             return bResult;
+        }
+        public DataTable GetGovtSavingGridDetails(int portfolioId)
+        {
+            DataTable dtGetGovtSavingGridDetails;
+            GovtSavingsDao govtSavingsDao = new GovtSavingsDao();
+            try
+            {
+                dtGetGovtSavingGridDetails = govtSavingsDao.GetGovtSavingGridDetails(portfolioId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GovtSavingsBo.cs:UpdateGovtSavingsAccount()");
+                object[] objects = new object[1];
+                objects[0] = portfolioId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetGovtSavingGridDetails;
         }
     }
 }
