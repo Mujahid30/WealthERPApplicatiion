@@ -36,6 +36,8 @@ namespace VoCustomerPortfolio
         public double ReturnsHoldPurchaseUnit { get; set; }
         public double ReturnsHoldDVRUnits { get; set; }
         public double ReturnsHoldDVPAmt { get; set; }
+        public double ReturnHoldDVRAmounts { get; set; }
+        public DateTime NavDate { get; set; }
         public double ReturnsHoldXIRR { get; set; }
         public double ReturnsRealizedInvestedCost { get; set; }
         public double ReturnsRealizedDVPAmt { get; set; }
