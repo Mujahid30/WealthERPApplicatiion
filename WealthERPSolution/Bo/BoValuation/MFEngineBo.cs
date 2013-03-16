@@ -1186,7 +1186,15 @@ namespace BoValuation
                 if (dtMFTransactionBalance.Rows.Count > 0)
                 {
                     drMFNetPosition["CMFNP_MarketPrice"] = dtMFTransactionBalance.Rows[0]["NAV"];
+
+                    
                     drMFNetPosition["CMFNP_NAVDate"] = dtMFTransactionBalance.Rows[0]["NAVDate"];
+
+                    if (DateTime.Parse(drMFNetPosition["CMFNP_NAVDate"].ToString()) == DateTime.MinValue)
+                    {
+                        drMFNetPosition["CMFNP_NAVDate"] = DBNull.Value;
+                    }
+
                     drMFNetPosition["CMFNP_RET_Hold_XIRR"] = 0; //Still Confusion
                     drMFNetPosition["CMFNP_RET_Realized_XIRR"] = 0; // Still Confusion
                     //drMFNetPosition["CMFNP_RET_ALL_TotalXIRR"] = 0;  // XIRR 
