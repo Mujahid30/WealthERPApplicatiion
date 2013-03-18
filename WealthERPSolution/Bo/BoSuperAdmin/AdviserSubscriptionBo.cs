@@ -321,5 +321,38 @@ namespace BoSuperAdmin
             }
         }
 
+        /// <summary>
+        ///  Get adviserwise plan/Flavour/Subscription details
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetAdviserSubscriptionPlanFlavourDetails(int adviserId)
+        {
+            DataSet ds = new DataSet();
+            AdviserSubscriptionDao adviserSubscriptionDao = new AdviserSubscriptionDao();
+            try
+            {
+                ds = adviserSubscriptionDao.GetAdviserSubscriptionPlanFlavourDetails(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdviserSubscriptionBo.cs:GetAdviserSubscriptionPlanFlavourDetails()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
     }
 }
