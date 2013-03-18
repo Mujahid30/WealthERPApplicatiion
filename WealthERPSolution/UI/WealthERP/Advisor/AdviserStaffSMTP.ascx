@@ -107,6 +107,14 @@
         </TargetControls>
         <Validation IsRequired="True" ValidationGroup="PreferenceSubmit"></Validation>
     </telerik:RegExpTextBoxSetting>
+    <%-- <telerik:RegExpTextBoxSetting BehaviorID="retPagesize" Validation-IsRequired="true"
+        ValidationExpression="^\d" ErrorMessage="Row per page should numeric" >
+        <TargetControls>
+            <telerik:TargetInput ControlID="txtGridPageSize" />
+          
+        </TargetControls>
+        <Validation IsRequired="True" ValidationGroup="BtnSubmitpage"></Validation>
+    </telerik:RegExpTextBoxSetting>--%>
 </telerik:RadInputManager>
 <table width="100%" class="TableBackground" style="padding-bottom: 6px;">
     <tr>
@@ -439,13 +447,16 @@
                                             <asp:Label ID="Label4" runat="server" Text="Default Rows Per Page :" CssClass="FieldName"></asp:Label>
                                         </td>
                                         <td class="RightField">
-                                            <asp:TextBox ID="txtGridPageSize" runat="server" CssClass="txtField" Width="260px" ValidationGroup="check"></asp:TextBox>
+                                            <asp:TextBox ID="txtGridPageSize" runat="server" CssClass="txtField" Width="260px"
+                                                ValidationGroup="check"></asp:TextBox>
                                             <span id="Span12" class="spnRequiredField">*</span>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtGridPageSize"
                                                 CssClass="rfvPCG" ErrorMessage="<br />Please enter Row per page " Display="Dynamic"
                                                 runat="server" InitialValue="" ValidationGroup="BtnSubmitpage"></asp:RequiredFieldValidator>
-                                            <asp:RegularExpressionValidator runat="server" ID="PagesizeValidator" ControlToValidate="txtGridPageSize"
-                                                ErrorMessage=" Row per pages should be numeric" ValidationExpression="^\d+$"  ValidationGroup="check"/>
+                                            <asp:RegularExpressionValidator ID="emailValidator" runat="server" Display="Dynamic"
+                                                ErrorMessage="Please, enter valid number."  CssClass="rfvPCG" ValidationExpression="^[0-9]+$"
+                                                ControlToValidate="txtGridPageSize">
+                                            </asp:RegularExpressionValidator>
                                         </td>
                                     </tr>
                                     <tr>
