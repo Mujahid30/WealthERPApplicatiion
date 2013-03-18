@@ -38,7 +38,7 @@ namespace DaoAdvisorProfiling
                     advisorPreferenceVo.BrowserTitleBarName = dtAdviserPreference.Rows[0]["AP_BrowserTitleBarName"].ToString();                 
                     advisorPreferenceVo.BrowserTitleBarIconImageName = dtAdviserPreference.Rows[0]["AP_BrowserTitleBarIconImageName"].ToString();
                     advisorPreferenceVo.WebSiteDomainName = dtAdviserPreference.Rows[0]["AP_WebSiteDomainName"].ToString();
-                    advisorPreferenceVo.GridPageSize = Convert.ToInt32(dtAdviserPreference.Rows[0]["AP_GridPageSize"].ToString());
+                    advisorPreferenceVo.GridPageSize = int.Parse(dtAdviserPreference.Rows[0]["AP_GridPageSize"].ToString());
                     if (dtAdviserPreference.Rows[0]["AP_IsBannerEnable"].ToString()=="1")
                       advisorPreferenceVo.IsBannerEnabled =true;
                     advisorPreferenceVo.BannerImageName = dtAdviserPreference.Rows[0]["AP_BannerImageName"].ToString();
