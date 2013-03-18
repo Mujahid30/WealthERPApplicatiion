@@ -119,7 +119,7 @@ namespace DaoSuperAdmin
                 //db.AddInParameter(createAdviserSubscriptionCmd, "@AS_IsDeactivated", DbType.Int32, rmVo.OfficePhoneExtStd);
                 //db.AddInParameter(createAdviserSubscriptionCmd, "@AS_DeactivationDate", DbType.Int32, rmVo.OfficePhoneExtNumber);
                 db.AddInParameter(createAdviserSubscriptionCmd, "@AS_Comments", DbType.String, adviserSubscriptionVo.Comments);
-                db.AddInParameter(createAdviserSubscriptionCmd, "@WP_PlanId", DbType.String, 3);
+                db.AddInParameter(createAdviserSubscriptionCmd, "@WP_PlanId", DbType.String, adviserSubscriptionVo.PlanId);
                 db.AddInParameter(createAdviserSubscriptionCmd, "@WFC_FlavourCategoryCode", DbType.String, adviserSubscriptionVo.FlavourCategory);
                 db.AddInParameter(createAdviserSubscriptionCmd, "@AS_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createAdviserSubscriptionCmd, "@AS_ModifiedBy", DbType.Int32, userId);
@@ -423,6 +423,47 @@ namespace DaoSuperAdmin
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        /// <summary>
+        /// Get adviserwise plan/Flavour/Subscription details
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetAdviserSubscriptionPlanFlavourDetails(int adviserId)
+        {
+            Database db;
+            DbCommand SubscriptionPlanFlavourDetailsCmd;
+            DataSet dsSubscriptionPlanFlavourDetails = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                SubscriptionPlanFlavourDetailsCmd = db.GetStoredProcCommand("SPROC_GetAdviserSubscriptionPlanFlavourDetails");
+                db.AddInParameter(SubscriptionPlanFlavourDetailsCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                dsSubscriptionPlanFlavourDetails = db.ExecuteDataSet(SubscriptionPlanFlavourDetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorSubscriptionDao.cs:GetAdviserSubscriptionPlanFlavourDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsSubscriptionPlanFlavourDetails;
+
         }
         
     }
