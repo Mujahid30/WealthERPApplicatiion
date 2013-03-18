@@ -49,7 +49,7 @@
    
     function alertOnBadSelection() {
 
-        var select = document.getElementById('<%=ddlFlavourCategory.ClientID %>');
+        var select = document.getElementById('<%=ddlPlan.ClientID %>');
         var status = false;
         var storageUsed = 0;
         var storagePaid = 0;
@@ -155,7 +155,7 @@
     </table>
 <table width="100%">
     <tr>
-        <td>
+        <td style="width:70%;">
             <table width="100%">
                 <tr>
                     <td align="right">
@@ -228,7 +228,7 @@
                         <asp:Label ID="lblNoOfBranches" runat="server" CssClass="FieldName" Text="No Of Branches : "></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtNoOfBranches" runat="server" CssClass="txtField" MaxLength="3"></asp:TextBox>
+                        <asp:TextBox ID="txtNoOfBranches" runat="server" CssClass="txtField" MaxLength="3" Enabled="false" ></asp:TextBox>
                          <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server"  CssClass="cvPCG" ControlToValidate="txtNoOfBranches"
                                      Display="Dynamic"  ErrorMessage="Please Enter Numbers" ValidationExpression="^0$|^[1-9][0-9]*$|^[1-9][0-9]{0,2}(,[0-9]{3})$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
 
@@ -239,7 +239,7 @@
                         <asp:Label ID="lblNoOfStaffLogins" runat="server" CssClass="FieldName" Text="No of StaffLogins : "></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtNoOfStaffLogins" runat="server" CssClass="txtField"  MaxLength="5"></asp:TextBox>
+                        <asp:TextBox ID="txtNoOfStaffLogins" runat="server" CssClass="txtField"  MaxLength="5" Enabled="false" ></asp:TextBox>
                          <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" CssClass="cvPCG" ControlToValidate="txtNoOfStaffLogins"
                                      Display="Dynamic"  ErrorMessage="Please Enter Numbers" ValidationExpression="^0$|^[1-9][0-9]*$|^[1-9][0-9]{0,2}(,[0-9]{3})$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
 
@@ -250,7 +250,7 @@
                         <asp:Label ID="lblNoOfCustomerLogins" runat="server" CssClass="FieldName" Text="No.of CustomerLogins:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtNoOfCustomerLogins" runat="server" CssClass="txtField" MaxLength="5"></asp:TextBox>
+                        <asp:TextBox ID="txtNoOfCustomerLogins" runat="server" CssClass="txtField" MaxLength="5" Enabled="false"></asp:TextBox>
                          <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" CssClass="cvPCG" ControlToValidate="txtNoOfCustomerLogins"
                                      Display="Dynamic"  ErrorMessage="Please Enter Numbers" ValidationExpression="^0$|^[1-9][0-9]*$|^[1-9][0-9]{0,2}(,[0-9]{3})$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
 
@@ -272,7 +272,7 @@
                         <asp:Label ID="lblDefaultStorage" runat="server" CssClass="FieldName" Text="Vault Default Size(mb):"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtDefaultStorage" runat="server" CssClass="txtField" onchange="BalanceCalculate()"></asp:TextBox>
+                        <asp:TextBox ID="txtDefaultStorage" runat="server" CssClass="txtField" onchange="BalanceCalculate()" Enabled="false"></asp:TextBox>
                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="cvPCG" ControlToValidate="txtDefaultStorage"
                                      Display="Dynamic"  ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
                     </td>
@@ -325,29 +325,32 @@
                 </tr>
             </table>
         </td>
-        <td valign="top">
-        <asp:UpdatePanel runat="server" ID="uplPresentValue" UpdateMode="Conditional">
-                                        <ContentTemplate>
-            <table>
+        <td valign="top" style="width:30%;">
+        <%--<asp:UpdatePanel runat="server" ID="uplPresentValue" UpdateMode="Conditional">
+                                        <ContentTemplate>--%>
+            <table width="100%">
                 <tr>
                     <td>
-                        <asp:Label ID="lblFlavourCategory" runat="server" CssClass="FieldName" Text="Flavour Category: "></asp:Label>
+                        <%--<asp:Label ID="lblFlavourCategory" runat="server" CssClass="FieldName" Text="Flavour Category: "></asp:Label>--%>
+                        <asp:Label ID="lblPlan" runat="server" CssClass="FieldName" Text="Pick a Plan: "></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlFlavourCategory" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlFlavourCategory_SelectedIndexChanged"
+                    <asp:DropDownList ID="ddlPlan" runat="server" Style="vertical-align: middle" AutoPostBack="true"
+                     CssClass="cmbField" onselectedindexchanged="ddlPlan_SelectedIndexChanged" ></asp:DropDownList>
+                        <%--<asp:DropDownList ID="ddlFlavourCategory" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlFlavourCategory_SelectedIndexChanged"
                             AutoPostBack="true">
                             <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                             <asp:ListItem Text="Advisory" Value="AD"></asp:ListItem>
                             <asp:ListItem Text="All" Value="AL"></asp:ListItem>
                             <asp:ListItem Text="Distribution" Value="DT"></asp:ListItem>
-                            <%--<asp:ListItem Text="Value Adds" Value="VA"></asp:ListItem>--%>
-                        </asp:DropDownList>
+                           
+                        </asp:DropDownList>--%>
                           
                     </td>
                 </tr>
                 <tr>
-                <td>
-                    </td>
+               <td>
+                </td>
                     <td>
                         <asp:CheckBoxList ID="chkModules" runat="server" CssClass="FieldName">
                             <asp:ListItem Text="Mutual Funds" Value="1"></asp:ListItem>
@@ -358,7 +361,13 @@
                             <asp:ListItem Text="Multi Asset" Value="6"></asp:ListItem>
                             <asp:ListItem Text="Common" Value="7" Enabled="false" Selected="True"></asp:ListItem>                            
                             <asp:ListItem Text="Goal" Value="8"></asp:ListItem>
-                            <asp:ListItem Text="Risk Profile" Value="9"></asp:ListItem>                          
+                            <asp:ListItem Text="Risk Profile" Value="9"></asp:ListItem>  
+                            <asp:ListItem Text="ISA" Value="13"></asp:ListItem> 
+                            <asp:ListItem Text="Research" Value="14"></asp:ListItem> 
+                            <asp:ListItem Text="Order Management" Value="15"></asp:ListItem> 
+                            <asp:ListItem Text="Organization Hierarchies" Value="16"></asp:ListItem>   
+                            <asp:ListItem Text="Product Master" Value="17"></asp:ListItem> 
+                            <asp:ListItem Text="Customized Theme" Value="18"></asp:ListItem>                     
                         </asp:CheckBoxList>
                         <asp:CustomValidator runat="server" ID="cvmodulelist" 
                             ErrorMessage="Please Select Atleast one Module" CssClass="cvPCG"></asp:CustomValidator>
@@ -370,15 +379,15 @@
                 </td>
                 <td>
                         <asp:CheckBoxList ID="chkValueAdds" runat="server" CssClass="FieldName">
-                            <asp:ListItem Text="Inbox" Value="10"></asp:ListItem>
-                            <asp:ListItem Text="Repository" Value="11"></asp:ListItem>
-                            <asp:ListItem Text="Vault" Value="12"></asp:ListItem>                                              
+                            <asp:ListItem Text="Inbox" Value="10" Selected="True"></asp:ListItem>
+                            <asp:ListItem Text="Repository" Value="11" Selected="True"></asp:ListItem>
+                            <asp:ListItem Text="Vault" Value="12" Selected="True"></asp:ListItem>                                              
                         </asp:CheckBoxList>                  
                 </td>
                 </tr>
             </table>
-            </ContentTemplate>
-            </asp:UpdatePanel>
+            <%--</ContentTemplate>
+            </asp:UpdatePanel>--%>
         </td>
     </tr>      
 </table>
