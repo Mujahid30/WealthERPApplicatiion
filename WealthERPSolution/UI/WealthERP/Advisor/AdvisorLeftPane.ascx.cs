@@ -25,6 +25,7 @@ namespace WealthERP.Advisor
         AdvisorVo advisorVo;
         DataSet dsTreeNodes;
         DataSet dsSubscriptionDetails;
+        DataTable dtPlanDetails;
         RMVo rmVo = new RMVo();
         UserBo userBo = new UserBo();
         UserVo userVo;
@@ -178,9 +179,22 @@ namespace WealthERP.Advisor
                         RadPanelBar3.FindItemByValue("Staff").Visible = false;
                     }
                 }
-
+                dtPlanDetails = dsTreeNodes.Tables[3];
                 if (!userVo.RoleList.Contains("Admin"))
+                {
                     RadPanelBar1.Visible = false;
+                }
+                else
+                {
+                    if(int.Parse(dtPlanDetails.Rows[0]["WP_IsMultiBranchPlan"].ToString()) == 1)
+                        RadPanelBar3.Visible = true;
+                    else
+                        RadPanelBar3.Visible = false;
+                    if (int.Parse(dtPlanDetails.Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 1)
+                        RadPanelBar2.Visible = true;
+                    else
+                        RadPanelBar2.Visible = false;
+                }
                 if (!userVo.RoleList.Contains("RM"))
                     RadPanelBar2.Visible = false;
                 if (!userVo.RoleList.Contains("BM"))
@@ -398,7 +412,11 @@ namespace WealthERP.Advisor
             if (dsTreeNode.Tables[5].Rows.Count > 0)
             {
                 dsTreeFilterNodePlan.Tables.Add(dsTreeNode.Tables[5].Copy()); ;
-            }           
+            }
+            if (dsTreeNode.Tables[8].Rows.Count > 0)
+            {
+                dsTreeFilterNodePlan.Tables.Add(dsTreeNode.Tables[8].Copy()); ;
+            } 
          
             return dsTreeFilterNodePlan;
         }
