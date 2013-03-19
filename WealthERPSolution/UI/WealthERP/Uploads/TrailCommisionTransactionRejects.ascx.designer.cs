@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.Uploads {
-    
-    
-    public partial class TrailCommisionTransactionRejects {
-        
+namespace WealthERP.Uploads
+{
+
+
+    public partial class TrailCommisionTransactionRejects
+    {
+
         /// <summary>
         /// RadStyleSheetManager1 control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
-        
+
         /// <summary>
         /// RadScriptManager1 control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
-        
+
         /// <summary>
         /// msgReprocessComplete control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessComplete;
-        
+
         /// <summary>
         /// msgDelete control.
         /// </summary>
@@ -48,7 +50,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgDelete;
-        
+
         /// <summary>
         /// msgReprocessincomplete control.
         /// </summary>
@@ -57,7 +59,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessincomplete;
-        
+
         /// <summary>
         /// Panel2 control.
         /// </summary>
@@ -66,7 +68,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel2;
-        
+
         /// <summary>
         /// lnkBtnBack control.
         /// </summary>
@@ -75,7 +77,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnBack;
-        
+
         /// <summary>
         /// imgBtnrgHoldings control.
         /// </summary>
@@ -84,7 +86,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnrgHoldings;
-        
+
         /// <summary>
         /// GVTrailTransactionRejects control.
         /// </summary>
@@ -93,7 +95,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid GVTrailTransactionRejects;
-        
+
         /// <summary>
         /// trReprocess control.
         /// </summary>
@@ -102,7 +104,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trReprocess;
-        
+
         /// <summary>
         /// btnReprocess control.
         /// </summary>
@@ -111,7 +113,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnReprocess;
-        
+
         /// <summary>
         /// btnDelete control.
         /// </summary>
@@ -120,7 +122,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDelete;
-        
+
         /// <summary>
         /// trMessage control.
         /// </summary>
@@ -129,7 +131,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMessage;
-        
+
         /// <summary>
         /// trErrorMessage control.
         /// </summary>
@@ -138,7 +140,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trErrorMessage;
-        
+
         /// <summary>
         /// lblError control.
         /// </summary>
@@ -147,5 +149,16 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblError;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBtnViewRejetcs;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRejectReason;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDLRejectReason;
+        protected global::Telerik.Web.UI.RadDatePicker txtFromMFT;
+        protected global::Telerik.Web.UI.RadDatePicker txtToMFT;
+        protected global::System.Web.UI.WebControls.ImageButton btnExport;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Msgerror;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRejectReason;
     }
 }

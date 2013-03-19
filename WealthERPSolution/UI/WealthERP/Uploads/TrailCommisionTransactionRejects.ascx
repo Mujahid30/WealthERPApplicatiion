@@ -6,21 +6,105 @@
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 <table width="100%">
-<tr>
-<td>
-<div class="divPageHeading">
-    <table cellspacing="0" cellpadding="3" width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                            Trail Commission Exceptions
+                        </td>
+                        <td align="right">
+                            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="View UploadLog"
+                                OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                        </td>
+                        <td align="right" style="width: 10px">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportFilteredData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<div id="divConditional" runat="server">
+    <table class="TableBackground" cellspacing="0" cellpadding="2">
         <tr>
-            <td align="left">               
-                Trail Commission Rejects
+            <%--  <td id="tdLblAdviser" runat="server" align="right">
+            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+        </td>
+       <td id="tdDdlAdviser" runat="server" align="left">
+     <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged" ></asp:DropDownList>
+     </td>--%>
+            <td id="tdlblRejectReason" runat="server">
+                <asp:Label runat="server" class="FieldName" Text="Select reject reason :" ID="lblRejectReason"></asp:Label>
+            </td>
+            <td id="tdDDLRejectReason" runat="server">
+                <asp:DropDownList CssClass="cmbField" ID="ddlRejectReason" runat="server">
+                </asp:DropDownList>
+            </td>
+            <td id="tdlblFromDate" runat="server" align="right">
+                <asp:Label class="FieldName" ID="lblFromSIP" Text="From :" runat="server" />
+            </td>
+            <td id="tdTxtFromDate" runat="server">
+                <telerik:RadDatePicker ID="txtFromMFT" CssClass="txtField" runat="server" Culture="English (United States)"
+                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput ID="DateInput1" EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
+                        DateFormat="d/M/yyyy">
+                    </DateInput>
+                </telerik:RadDatePicker>
+                <div id="dvTransactionDate" runat="server" class="dvInLine">
+                    <span id="Span1" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="rfvtxtSIPDate" ControlToValidate="txtFromMFT" ErrorMessage="<br />Please select a From Date"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" InitialValue="">
+                    </asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                        Type="Date" ControlToValidate="txtFromMFT" CssClass="cvPCG" Operator="DataTypeCheck"
+                        Display="Dynamic"></asp:CompareValidator>
+                </div>
+            </td>
+            <td id="tdlblToDate" runat="server">
+                <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
+            </td>
+            <td id="tdTxtToDate" runat="server">
+                <telerik:RadDatePicker ID="txtToMFT" CssClass="txtField" runat="server" Culture="English (United States)"
+                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput ID="DateInput2" runat="server" EmptyMessage="dd/mm/yyyy" DisplayDateFormat="d/M/yyyy"
+                        DateFormat="d/M/yyyy">
+                    </DateInput>
+                </telerik:RadDatePicker>
+                <div id="Div1" runat="server" class="dvInLine">
+                    <span id="Span2" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToMFT"
+                        ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
+                        runat="server" InitialValue="">
+                    </asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                        Type="Date" ControlToValidate="txtToMFT" CssClass="cvPCG" Operator="DataTypeCheck"
+                        Display="Dynamic"></asp:CompareValidator>
+                </div>
+                <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtToMFT"
+                    ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
+                    ControlToCompare="txtFromMFT" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic">
+                </asp:CompareValidator>
+            </td>
+            <td id="tdBtnViewRejetcs" runat="server">
+                <asp:Button ID="btnViewTrail" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewTrail_Click" />
             </td>
         </tr>
     </table>
 </div>
-</td>
-</tr>
-</table>
-
 <table width="100%">
     <tr>
         <td align="center">
@@ -50,30 +134,28 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="Msgerror" runat="server" class="success-msg" align="center" visible="false">
+                No Records Found...!
+            </div>
+        </td>
+    </tr>
+</table>
+<asp:Panel ID="Panel2" Visible="false" runat="server" class="Landscape" Width="100%"
+    ScrollBars="Horizontal">
     <table>
         <tr>
             <td>
-                <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="View ProcessLog"
-                    OnClick="lnkBtnBack_Click"></asp:LinkButton>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                 <telerik:RadGrid ID="GVTrailTransactionRejects" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
-                    OnNeedDataSource="GVTrailTransactionRejects_OnNeedDataSource">
+                    AllowFilteringByColumn="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowAutomaticInserts="false"
+                    OnNeedDataSource="GVTrailTransactionRejects_NeedDataSource" OnItemDataBound="GVTrailTransactionRejects_ItemDataBound"
+                    OnPreRender="GVTrailTransactionRejects_PreRender">
                     <ExportSettings ExportOnlyData="true" FileName="Trail Commission Reject Details">
                     </ExportSettings>
-                    <MasterTableView AllowFilteringByColumn="false" DataKeyNames="CMFTCCS_Id,A_AdviserId,Adul_ProcessId"
+                    <MasterTableView AllowFilteringByColumn="true" DataKeyNames="CMFTCCS_Id,A_AdviserId,Adul_ProcessId"
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false">
@@ -84,17 +166,42 @@
                                     <asp:CheckBox runat="server" ID="ChkOne" AutoPostBack="True" OnCheckedChanged="ToggleRowSelection" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="false"
-                                HeaderText="Reject Reason" UniqueName="RejectReason">
+                            <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="true"
+                                HeaderText="Reject Reason" UniqueName="RejectReasonCode" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <FilterTemplate>
+                                    <telerik:RadComboBox ID="RadComboBoxRR" Width="210px" CssClass="cmbField" AllowFiltering="true"
+                                        AutoPostBack="true" OnSelectedIndexChanged="RadComboBoxRR_SelectedIndexChanged"
+                                        IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
+                                        OnPreRender="rcbContinents1_PreRender" EnableViewState="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectReasonCode").CurrentFilterValue %>'
+                                        runat="server">
+                                        <%--OnPreRender="rcbContinents_PreRender"--%>
+                                        <Items>
+                                            <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
+                                        </Items>
+                                    </telerik:RadComboBox>
+                                    <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+
+                                        <script type="text/javascript">
+                                            function RejectReasonIndexChanged(sender, args) {
+                                                alert(tableView);
+                                                var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                                //////                                                    sender.value = args.get_item().get_value();
+                                                tableView.filter("RejectReasonCode", args.get_item().get_value(), "EqualTo");
+                                            } 
+                                        </script>
+
+                                    </telerik:RadScriptBlock>
+                                </FilterTemplate>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Adul_ProcessId" AllowFiltering="false" HeaderText="Process Id"
-                                UniqueName="ProcessId">
+                                UniqueName="ProcessId" SortExpression="Adul_ProcessId" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="false" DataField="ADUL_FileName" HeaderText="File Name"
-                                UniqueName="ADUL_FileName" SortExpression="ADUL_FileName" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                FilterControlWidth="150px" UniqueName="ADUL_FileName" SortExpression="ADUL_FileName"
+                                AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFA_FolioNum" HeaderText="Folio Number"
@@ -103,8 +210,9 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderText="Scheme Plan Name"
-                                UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName" AutoPostBackOnFilter="true"
-                                ShowFilterIcon="false" AllowFiltering="false">
+                                FilterControlWidth="220px" UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AllowFiltering="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_FROMDate" HeaderText="From Date"
@@ -125,11 +233,11 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_Units" HeaderText="Units"
-                                UniqueName="units">
+                                UniqueName="units"  DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_Amount" HeaderText="Amount"
-                                UniqueName="amount">
+                                UniqueName="amount" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_SubBroker" HeaderText="Sub Broker"
@@ -147,7 +255,7 @@
     </table>
 </asp:Panel>
 <table width="100%">
-    <tr id="trReprocess" runat="server">
+    <tr id="trReprocess" visible="false" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" runat="server" Text="Reprocess" CssClass="PCGLongButton"
                 OnClick="btnReprocess_Click" OnClientClick="Loading(true);" />
