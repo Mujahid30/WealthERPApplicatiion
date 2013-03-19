@@ -31,6 +31,16 @@
 <%--This script is used to add Progress bar--%>
 
 <script type="text/javascript">
+
+    function GridCreated(sender, args) {
+        var scrollArea = sender.GridDataDiv;
+        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
+        if (dataHeight < 300) {
+            scrollArea.style.height = dataHeight +17+ "px";
+        }
+    }
+    
+    
     function pageLoad() {
         InitDialogs();
         Loading(false);
@@ -60,6 +70,14 @@
         }
     }
 </script>
+
+<style id="Style1" type="text/css" runat="server">
+    .rgDataDiv
+    {
+        height: auto;
+        width: 101.5% !important;
+    }
+</style>
 
 <table width="100%">
     <tr>
@@ -152,8 +170,8 @@
         </td>
     </tr>
 </table>--%>
-<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%">
-    <table width="100%" cellspacing="0" cellpadding="4">
+<%--<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Visible=false>--%>
+    <table width="100%" cellspacing="0" cellpadding="0">
     <tr id="trAdviserSelection" runat="server">
      <td align="right" style="width: 20%">
             <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
@@ -172,8 +190,8 @@
         
             <td colspan="2">
                 <telerik:RadGrid ID="gvProcessLog" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                    AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="1062px" AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS" OnPreRender="gvProcessLog_PreRender"
                     OnItemDataBound="gvProcessLog_ItemDataBound" OnNeedDataSource="gvProcessLog_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true">
@@ -300,14 +318,15 @@
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
+                    <Scrolling   AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px"/>
+                    <ClientEvents OnGridCreated="GridCreated" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
-                </telerik:RadGrid>
-               
+                </telerik:RadGrid>               
             </td>
         </tr>
     </table>
-</asp:Panel>
+<%--</asp:Panel>--%>
 <table width="100%">
     <tr id="trTransactionMessage" runat="server" visible="false">
         <td class="Message">
