@@ -13,6 +13,14 @@
             args.set_cancel(!confirm('Delete all selected customers?'));
         }
     }
+
+    function GridCreated(sender, args) {
+        var scrollArea = sender.GridDataDiv;
+        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
+        if (dataHeight < 300) {
+            scrollArea.style.height = dataHeight + "px";
+        }
+    }     
 </script>
 
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
@@ -67,7 +75,7 @@
                 Style="vertical-align: middle">
             </asp:DropDownList>
         </td>
-        <td align="right" style="width:10%">
+        <td align="right" style="width: 10%">
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" OnClick="btnGo_Click" />
         </td>
         <td>
@@ -86,84 +94,92 @@
         </td>
     </tr>
 </table>
-<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="98%" EnableHistory="True"
+<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="100%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
-    <telerik:RadGrid ID="gvCustomerProspectlist" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="95%" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-FileName="Networth MIS" OnNeedDataSource="gvCustomerProspectlist_OnNeedDataSource">
-        <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" DataKeyNames="C_CustomerId">
-            <CommandItemSettings ExportToPdfText="Export to Pdf" />
-            <Columns>
-                <telerik:GridTemplateColumn DataField="Name" AllowFiltering="true" UniqueName="Name"
-                    HeaderText="Customer" SortExpression="Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    AutoPostBackOnFilter="true">
-                    <HeaderStyle></HeaderStyle>
-                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" />
-                    <HeaderTemplate>
-                        <asp:Label ID="lblNAme" runat="server" Text=""></asp:Label>
-                    </HeaderTemplate>
-                    <ItemTemplate>
-                       <%-- <asp:LinkButton ID="lnkbtnGvProspectListName" Style="float: left" runat="server"
+    <table cellspacing="0" cellpadding="2" style="padding-left: 2px;padding-right: 2px">
+        <tr>
+            <td>
+                <telerik:RadGrid ID="gvCustomerProspectlist" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                    AllowAutomaticInserts="false" ExportSettings-FileName="Networth MIS" OnNeedDataSource="gvCustomerProspectlist_OnNeedDataSource">
+                    <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" DataKeyNames="C_CustomerId">
+                        <CommandItemSettings ExportToPdfText="Export to Pdf" />
+                        <Columns>
+                            <telerik:GridTemplateColumn DataField="Name" AllowFiltering="true" UniqueName="Name"
+                                HeaderText="Customer" SortExpression="Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                                <HeaderTemplate>
+                                    <asp:Label ID="lblNAme" runat="server" Text=""></asp:Label>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <%-- <asp:LinkButton ID="lnkbtnGvProspectListName" Style="float: left" runat="server"
                             OnClick="lnkbtnGvProspectListName_Click" Text='<%# Eval("Name").ToString() %>' ></asp:LinkButton>--%>
-                              <asp:Label ID="lnkbtnGvProspectListName" runat="server"  Text='<%# Eval("Name").ToString() %>' ></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                <%--<telerik:GridBoundColumn DataField="Name" HeaderText="Name" SortExpression="Name" 
+                                    <asp:Label ID="lnkbtnGvProspectListName" runat="server" Text='<%# Eval("Name").ToString() %>'></asp:Label>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <%--<telerik:GridBoundColumn DataField="Name" HeaderText="Name" SortExpression="Name" 
                     UniqueName="Name">
                     <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
-                <telerik:GridBoundColumn DataField="IsProspect" HeaderText="Is Prospect" SortExpression="IsProspect"
-                    UniqueName="IsProspect" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    AutoPostBackOnFilter="true">
-                    <HeaderStyle></HeaderStyle>
-                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <%--<telerik:GridBoundColumn DataField="C_Email" HeaderText="Email" SortExpression="C_Email"
+                            <telerik:GridBoundColumn DataField="IsProspect" HeaderText="Is Prospect" SortExpression="IsProspect"
+                                UniqueName="IsProspect" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <%--<telerik:GridBoundColumn DataField="C_Email" HeaderText="Email" SortExpression="C_Email"
                      UniqueName="C_Email">
                  <HeaderStyle Width="150Px"></HeaderStyle>
                  <ItemStyle Width="150Px" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
-                <%-- <telerik:GridBoundColumn DataField="C_Mobile1" HeaderText="Mobile" SortExpression="C_Mobile1"
+                            <%-- <telerik:GridBoundColumn DataField="C_Mobile1" HeaderText="Mobile" SortExpression="C_Mobile1"
                     UniqueName="C_Mobile1">
                      <HeaderStyle Width="150Px"></HeaderStyle>
                      <ItemStyle Width="150Px" HorizontalAlign="Right" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
-                <%-- <telerik:GridBoundColumn DataField="Address" HeaderText="Address" SortExpression="Address"
+                            <%-- <telerik:GridBoundColumn DataField="Address" HeaderText="Address" SortExpression="Address"
                     UniqueName="Address"  >
                     <HeaderStyle Width="150Px"></HeaderStyle>
                     <ItemStyle Width="150Px" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
-                <telerik:GridBoundColumn DataField="Asset" HeaderText="Asset" SortExpression="Asset"
-                    UniqueName="Asset" ShowFilterIcon="false" AllowFiltering="false" CurrentFilterFunction="Contains"
-                    AutoPostBackOnFilter="true" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
-                    Aggregate="Sum">
-                    <HeaderStyle></HeaderStyle>
-                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn DataField="Liabilities" AllowFiltering="false" HeaderText="Liabilities"
-                    SortExpression="Liabilities" UniqueName="Liabilities" ShowFilterIcon="false"
-                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" DataFormatString="{0:N0}"
-                    FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
-                    <HeaderStyle></HeaderStyle>
-                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn DataField="Networth" AllowFiltering="false" HeaderText="Networth"
-                    SortExpression="Networth" UniqueName="Networth" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    AutoPostBackOnFilter="true" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
-                    Aggregate="Sum">
-                    <HeaderStyle></HeaderStyle>
-                    <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-            </Columns>
-        </MasterTableView>
-        <ClientSettings>
-            <%--<Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" FrozenColumnsCount="1">
-            </Scrolling>--%>
-            <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
-            <ClientEvents />
-        </ClientSettings>
-    </telerik:RadGrid>
+                            <telerik:GridBoundColumn DataField="Asset" HeaderText="Asset" SortExpression="Asset"
+                                UniqueName="Asset" ShowFilterIcon="false" AllowFiltering="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
+                                Aggregate="Sum">
+                                <HeaderStyle></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Liabilities" AllowFiltering="false" HeaderText="Liabilities"
+                                SortExpression="Liabilities" UniqueName="Liabilities" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" DataFormatString="{0:N0}"
+                                FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
+                                <HeaderStyle></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Networth" AllowFiltering="false" HeaderText="Networth"
+                                SortExpression="Networth" UniqueName="Networth" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
+                                Aggregate="Sum">
+                                <HeaderStyle></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px">
+                        </Scrolling>
+                        <ClientEvents OnGridCreated="GridCreated" />
+                        <Resizing AllowColumnResize="true" />
+                        <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
+                        <ClientEvents />
+                    </ClientSettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+    </table>
 </telerik:RadAjaxPanel>
 <table class="TableBackground" width="100%">
     <tr align="center">
