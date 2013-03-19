@@ -31,6 +31,7 @@ namespace WealthERP.Advisor
         List<RMVo> rmUserList = null;
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         int userId;
+        int PageSize;
         OneWayEncryption encryption;
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
@@ -211,9 +212,9 @@ namespace WealthERP.Advisor
                         dtRMUsers.Rows.Add(drRMUsers);
                     }
 
-                    gvRMUsers.DataSource = dtRMUsers;
-                   
+                    gvRMUsers.DataSource = dtRMUsers;                   
                     gvRMUsers.DataBind();
+                    gvRMUsers.PageSize = PageSize;
 
                     if (trPagger.Visible == false)
                         trPagger.Visible = true;
