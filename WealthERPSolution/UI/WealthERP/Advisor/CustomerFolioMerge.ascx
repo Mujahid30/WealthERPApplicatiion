@@ -25,7 +25,14 @@
 </script>
 
 <script type="text/javascript">
-
+    function GridCreated(sender, args) {
+        var scrollArea = sender.GridDataDiv;
+        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
+        if (dataHeight < 300) {
+            scrollArea.style.height = dataHeight +17+ "px";
+        }
+    }     
+    
     function CheckFolioSelected() {
         var Count = 0;
         Parent = document.getElementById("<%=gvCustomerFolioMerge.ClientID %>");
@@ -59,6 +66,14 @@
         }
     }          
 </script>
+
+<style id="Style1" type="text/css" runat="server">
+    .rgDataDiv
+    {
+        height: auto;
+        width: 101.5% !important;
+    }
+</style>
 
 <link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
@@ -229,6 +244,7 @@
         </td>
     </tr>
 </table>
+<asp:Panel ID="pnlmergefolio" class="LandScape" ScrollBars="Horizontal" runat="server" >
 <table width="100%">
    <%-- <td class="leftField" align="right">
         <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
@@ -335,10 +351,10 @@
     <tr>
         <td><div style="width:1100px;overflow:scroll">
             <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
-                Width="100px" AllowPaging="True" PageSize="15" AllowSorting="True" AutoGenerateColumns="false"
+                Width="1062px" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false"
                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                 AllowAutomaticUpdates="false" Skin="Telerik" 
-                EnableEmbeddedSkins="false"
+                EnableEmbeddedSkins="false" 
                 EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true"
                 OnNeedDataSource="gvCustomerFolioMerge_NeedDataSource">
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
@@ -399,7 +415,9 @@
                     </Columns>
                 </MasterTableView>
                 <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
-                  
+                
+                    <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="300px" />
+                    <ClientEvents OnGridCreated="GridCreated" />
                     <Resizing AllowColumnResize="true" />
                     <Selecting AllowRowSelect="true" />
                 </ClientSettings>
@@ -407,6 +425,7 @@
         </td>
     </tr>
 </table>
+</asp:Panel>
 <table width="100%">
    <%-- <tr style="width: 100%">
         <td colspan="3">

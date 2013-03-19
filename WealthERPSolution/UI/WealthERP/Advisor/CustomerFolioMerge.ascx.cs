@@ -25,6 +25,7 @@ using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using BoCommon;
 using VoCustomerProfiling;
+using VoAdvisorProfiling;
 using Telerik.Web.UI;
 
 
@@ -41,7 +42,7 @@ namespace WealthERP.Advisor
         DataSet dsCustomerPortfolioList = new DataSet();
         int customerPortfolioID = 0;
         int isBankAssociatedWithOtherTransactions=0;
-
+        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
         //protected override void OnInit(EventArgs e)
         //{
         //    try
@@ -99,6 +100,7 @@ namespace WealthERP.Advisor
             //CheckBox rdbGVRow = new CheckBox();
             //rdbGVRow = GetGvRadioButton();
             //rdbGVRow.Attributes.Add("onClick", "javascript:CheckOtherIsCheckedByGVID(value);");
+            advisorPreferenceVo = (AdvisorPreferenceVo)(Session["AdvisorPreferenceVo"]);
             adviserVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
@@ -230,6 +232,7 @@ namespace WealthERP.Advisor
                         dtCustomerFolio.Rows.Add(drCustomerFolio);
                     }
                     gvCustomerFolioMerge.DataSource = dtCustomerFolio;
+                    gvCustomerFolioMerge.PageSize = advisorPreferenceVo.GridPageSize;
                     gvCustomerFolioMerge.DataBind();
 
                     if (Cache["gvCustomerFolioMerge" + adviserVo.advisorId] == null)
