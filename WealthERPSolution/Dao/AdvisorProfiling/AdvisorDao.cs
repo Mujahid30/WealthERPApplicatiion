@@ -1135,31 +1135,31 @@ namespace DaoAdvisorProfiling
                 else
                     customerList = null;
 
-                if (getCustomerDs.Tables[2].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
-                    {
-                        genDictParent.Add(dr["CustomerId"].ToString(), dr["Parent"].ToString());
-                    }
-                }
+                //if (getCustomerDs.Tables[2].Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
+                //    {
+                //        genDictParent.Add(dr["CustomerId"].ToString(), dr["Parent"].ToString());
+                //    }
+                //}
 
-                if (getCustomerDs.Tables[3].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in getCustomerDs.Tables[3].Rows)
-                    {
-                        if (dr["RMName"].ToString().Trim() != "")
-                        {
-                            genDictRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
-                        }
-                    }
-                }
-                if (getCustomerDs.Tables[4].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in getCustomerDs.Tables[4].Rows)
-                    {
-                        genDictReassignRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
-                    }
-                }
+                //if (getCustomerDs.Tables[3].Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in getCustomerDs.Tables[3].Rows)
+                //    {
+                //        if (dr["RMName"].ToString().Trim() != "")
+                //        {
+                //            genDictRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                //        }
+                //    }
+                //}
+                //if (getCustomerDs.Tables[4].Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in getCustomerDs.Tables[4].Rows)
+                //    {
+                //        genDictReassignRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                //    }
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -2949,6 +2949,219 @@ namespace DaoAdvisorProfiling
             }
             //return dsValuationDetails;
         }
+
+        /// <summary>
+        /// Get StaffUser Customer List
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="UserRole"></param>
+        /// <param name="branchHeadId"></param>       
+        /// <param name="genDictParent"></param>
+        /// <param name="genDictRM"></param>
+        /// <param name="genDictReassignRM"></param>
+        /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, string UserRole, int branchHeadId, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        {
+            List<CustomerVo> customerList = null;
+            CustomerVo customerVo;
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet getCustomerDs;
+            genDictParent = new Dictionary<string, string>();
+            genDictRM = new Dictionary<string, string>();
+            genDictReassignRM = new Dictionary<string, string>();
+         try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerListCmd = db.GetStoredProcCommand("SPROC_GetStaffUserCustomerList");
+                db.AddInParameter(getCustomerListCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getCustomerListCmd, "@UserRole", DbType.String, UserRole);
+                db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
+                db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                      
+                getCustomerListCmd.CommandTimeout = 60 * 60;
+                getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+              
+               
+                if (getCustomerDs.Tables[0].Rows.Count > 0)
+                {                                                  
+                    customerList = new List<CustomerVo>();                 
+                    foreach (DataRow dr in getCustomerDs.Tables[0].Rows)
+                    {
+                        customerVo = new CustomerVo();
+                        customerVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        customerVo.ParentId =   int.Parse(dr["ParentId"].ToString());
+                        if (dr["ADUL_ProcessId"].ToString() == null || dr["ADUL_ProcessId"].ToString() == "")
+                        {
+                            customerVo.ProcessId = 0;
+                        }
+                        else
+                        {
+                            customerVo.ProcessId = int.Parse(dr["ADUL_ProcessId"].ToString());
+                        }
+                        customerVo.FirstName = dr["C_FirstName"].ToString();
+                        customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
+                        customerVo.MiddleName = dr["C_MiddleName"].ToString();
+                        customerVo.LastName = dr["C_LastName"].ToString();
+                        customerVo.CustCode = dr["C_CustCode"].ToString();
+                        if (dr["C_PANNum"].ToString() != string.Empty)
+                            customerVo.PANNum = dr["C_PANNum"].ToString();
+                        customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
+                        customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
+                        customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
+                        customerVo.Email = dr["C_Email"].ToString();
+                        customerVo.RmId = int.Parse(dr["AR_RMId"].ToString());
+                        customerVo.Adr1City = dr["C_Adr1City"].ToString();
+                        customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
+                        customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
+                        customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
+                        if (!string.IsNullOrEmpty(dr["C_IsActive"].ToString().Trim()))
+                            customerVo.IsActive = int.Parse(dr["C_IsActive"].ToString());
+                        customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
+                        customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
+                        if (dr["Parent"].ToString() != "")
+                            customerVo.ParentCustomer = dr["Parent"].ToString();
+                        customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
+                        if (dr["C_Mobile1"].ToString() != "")
+                            customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
+                        if (UserRole!= "rm")
+                        {
+                            if (dr["RMName"].ToString() != "")
+                                customerVo.AssignedRM = dr["RMName"].ToString();
+                        }
+                        if (dr["C_IsProspect"].ToString() != "")
+                            customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        if (UserRole!= "rm")
+                        {
+                            if (dr["BranchName"].ToString() != "")
+                                customerVo.BranchName = dr["BranchName"].ToString();
+                        }
+                        customerList.Add(customerVo);
+                    }
+                }
+                else
+                    customerList = null;
+                if (UserRole =="advisor"|| UserRole=="bm")
+                {
+                    //if (getCustomerDs.Tables[1].Rows.Count > 0)
+                    //{
+
+                    //    int count = 0;
+                    //    foreach (DataRow dr in getCustomerDs.Tables[1].Rows)
+                    //    {
+                    //        genDictParent.Add(dr["ParentId"].ToString(), dr["Parent"].ToString());
+                    //        count = count + 1;
+                    //    }
+                    //}
+
+                    if (getCustomerDs.Tables[2].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
+                        {
+                            if (dr["RMName"].ToString().Trim() != "")
+                            {
+                                genDictRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                            }
+                        }
+                    }
+                     if (getCustomerDs.Tables[3].Rows.Count > 0)
+                    {
+                    foreach (DataRow dr in getCustomerDs.Tables[3].Rows)
+                    {
+                        genDictReassignRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                    }
+                }
+                }
+               // if (UserRole == "advisor")
+               // {
+                //    if (getCustomerDs.Tables[2].Rows.Count > 0)
+                //    {
+                //        foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
+                //        {
+                //            if (dr["RMName"].ToString().Trim() != "")
+                //            {
+                //                genDictRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                //            }
+                //        }
+                //    }
+                //}
+                //if (UserRole == "advisor")
+                //if (getCustomerDs.Tables[3].Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in getCustomerDs.Tables[3].Rows)
+                //    {
+                //        genDictReassignRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                //    }
+                //}
+                if (UserRole == "rm")
+                {
+                    if (getCustomerDs.Tables[1].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in getCustomerDs.Tables[1].Rows)
+                        {
+                            genDictParent.Add(dr["ParentId"].ToString(), dr["Parent"].ToString());
+                        }
+                    }
+                }
+                if (UserRole == "bm")
+                {
+                    if (getCustomerDs.Tables[1].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in getCustomerDs.Tables[1].Rows)
+                        {
+                            genDictParent.Add(dr["ParentId"].ToString(), dr["Parent"].ToString());
+                        }
+                    }
+                }
+                //if (UserRole == "bm")
+                //if (getCustomerDs.Tables[2].Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
+                //    {
+                //        if (dr["RMName"].ToString().Trim() != "")
+                //        {
+                //            genDictRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                //        }
+                //    }
+                //}               
+                //if (UserRole == "bm")
+                //    if (getCustomerDs.Tables[3].Rows.Count > 0)
+                //    {
+                //        foreach (DataRow dr in getCustomerDs.Tables[3].Rows)
+                //        {
+                //            genDictReassignRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                //        }
+                //    }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+                
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetStaffUserCustomerList()");
+
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = genDictParent;
+                objects[2] = genDictRM;
+                objects[3] = genDictReassignRM;
+                objects[4] = rmId;
+                objects[5] = UserRole;
+                objects[6] = branchHeadId;                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+          return customerList;
+        }
+
     }
 }
 
