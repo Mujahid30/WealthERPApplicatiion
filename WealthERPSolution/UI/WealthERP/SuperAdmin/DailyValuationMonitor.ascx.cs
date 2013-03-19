@@ -34,6 +34,10 @@ namespace WealthERP.SuperAdmin
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
         SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
+        int onlyDuplicate;
+        DataSet dsDuplicateFolioOrTransactions;
+        int adviserId;
+
         int count;
 
         //protected override void OnInit(EventArgs e)
@@ -135,7 +139,11 @@ namespace WealthERP.SuperAdmin
             cvSelectDate.ValueToCompare = DateTime.Now.ToShortDateString();
             if (!Page.IsPostBack)
             {
+                //remove if any thing is in the cache
+                Cache.Remove("DuplicateTransactionDetailsSA");
+                Cache.Remove("DuplicateFolioDetailsSA");
 
+                BindAdviserDropDownList();
                 trRange.Visible = true;
                 if (rbtnPickDate.Checked == true)
                 {
@@ -163,6 +171,10 @@ namespace WealthERP.SuperAdmin
                 trDate.Visible = false;
                 //pnlReject.Visible = false;
                 BindPeriodDropDown();
+            }
+            if (ddlAction.SelectedValue == "AumMis" || ddlAction.SelectedValue == "DuplicateMis" || ddlAction.SelectedValue == "mfRejects" || ddlAction.SelectedValue == "NAVChange")
+            {
+                trFolioAndTransactionDuplicateMonitor.Visible = false;
             }
         }
 
@@ -202,14 +214,27 @@ namespace WealthERP.SuperAdmin
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
-
-
-            if (ddlAction.SelectedValue != "NAVChange")
+            if (ddlAction.SelectedValue != "NAVChange" && (ddlAction.SelectedValue == "DuplicateFolios" || ddlAction.SelectedValue == "DuplicateTransactions"))
             {
-                CalculateDateRange(out dtFrom, out dtTo);
-                hdnFromDate.Value = dtFrom.ToString();
-                hdnToDate.Value = dtTo.ToString();
-                hdnSelectDate.Value = txtDate.SelectedDate.ToString();
+                if (ddlAction.SelectedValue == "DuplicateFolios")
+                {
+                    BindGridForDuplicateFolioOrTransaction();
+                }
+                else if (ddlAction.SelectedValue == "DuplicateTransactions")
+                {
+                    CalculateDateRange(out dtFrom, out dtTo);
+                    hdnFromDate.Value = dtFrom.ToString();
+                    hdnToDate.Value = dtTo.ToString();
+                    hdnSelectDate.Value = txtDate.SelectedDate.ToString();
+                    BindGridForDuplicateFolioOrTransaction();
+                }
+                else
+                {
+                    CalculateDateRange(out dtFrom, out dtTo);
+                    hdnFromDate.Value = dtFrom.ToString();
+                    hdnToDate.Value = dtTo.ToString();
+                    hdnSelectDate.Value = txtDate.SelectedDate.ToString();
+                }
             }
             if (ddlAction.SelectedValue == "DuplicateMis")
             {
@@ -273,6 +298,8 @@ namespace WealthERP.SuperAdmin
                 btnDeleteAll.Visible = false;
             }
 
+
+
             gvAumMis_Init(sender, e);
 
         }
@@ -285,7 +312,7 @@ namespace WealthERP.SuperAdmin
             NavPer = double.Parse(ddlNavPer.SelectedValue);
             dsGetNAV = superAdminOpsBo.GetNAVPercentage(DateTime.Parse(txtDate.SelectedDate.ToString()), NavPer);
             dtGetNAV = dsGetNAV.Tables[0];
-           
+
             try
             {
                 if (dtGetNAV.Rows.Count > 0)
@@ -298,7 +325,7 @@ namespace WealthERP.SuperAdmin
                     //dtGetNAVPercentageDetails.Columns.Add("PreviousNAV");
                     //dtGetNAVPercentageDetails.Columns.Add("PercentChange");
 
-                   
+
 
                     //DataRow drGetNAVPercentageDetails;
 
@@ -326,7 +353,7 @@ namespace WealthERP.SuperAdmin
                         Cache.Insert("dsGetNAVList", dsGetNAV);
                     }
                     gvNavChange.Visible = true;
-                   
+
                     //this.GetPageCountNAV();
                     //lblNAVCount.Visible = true;
                     //lblNAVTotal.Visible = true;
@@ -1367,6 +1394,27 @@ namespace WealthERP.SuperAdmin
                     trPeriod.Visible = false;
 
                 }
+                else if (ddlAction.SelectedValue == "DuplicateTransactions")
+                {
+                    trFolioAndTransactionDuplicateMonitor.Visible = true;
+                    trRange.Visible = true;
+                    //trPeriod.Visible = true;
+                    trRadioDatePeriod.Visible = true;
+                    rbtnPickDate.Checked = true;
+                    trDate.Visible = false;
+                    divGvFolioDuplicates.Visible = false;
+                    btnExportDuplicateFolioFilteredData.Visible = false;
+                }
+                else if (ddlAction.SelectedValue == "DuplicateFolios")
+                {
+                    trRange.Visible = false;
+                    trPeriod.Visible = false;
+                    trRadioDatePeriod.Visible = false;
+                    trFolioAndTransactionDuplicateMonitor.Visible = true;
+                    trDate.Visible = false;
+                    divGvTransactionDuplicates.Visible = false;
+                    btnExportDuplicateTransactionFilteredData.Visible = false;
+                }
                 else
                 {
                     trRadioDatePeriod.Visible = true;
@@ -1493,7 +1541,7 @@ namespace WealthERP.SuperAdmin
         protected void gvNavChange_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dsGetNAV = new DataSet();
-             gvAumMis.Visible = false;
+            gvAumMis.Visible = false;
             trbtnDelete.Visible = false;
             gvDuplicateCheck.Visible = false;
             gvMFRejectedDetails.Visible = false;
@@ -1501,7 +1549,7 @@ namespace WealthERP.SuperAdmin
             gvNavChange.Visible = true;
             dsGetNAV = (DataSet)Cache["dsGetNAVList"];
             gvNavChange.DataSource = dsGetNAV;
-             }
+        }
         protected void btnExportFilteredNavData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvNavChange.ExportSettings.OpenInNewWindow = true;
@@ -1541,6 +1589,239 @@ namespace WealthERP.SuperAdmin
                 filter.Visible = false;
             }
             gvAumMis.MasterTableView.ExportToExcel();
+        }
+
+        //binding the ddl for advisor for selection
+        protected void BindAdviserDropDownList()
+        {
+            DataTable dtAdviserList = new DataTable();
+            dtAdviserList = superAdminOpsBo.BindAdviserForUpload();
+
+            if (dtAdviserList.Rows.Count > 0)
+            {
+                ddlAdviser.DataSource = dtAdviserList;
+                ddlAdviser.DataTextField = "A_OrgName";
+                ddlAdviser.DataValueField = "A_AdviserId";
+                ddlAdviser.DataBind();
+            }
+            ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+
+        }
+
+        //binding the grid for folio duplicate or transaction duplicate
+        protected void BindGridForDuplicateFolioOrTransaction()
+        {
+            try
+            {
+                //since we donot need the dates in case of the folio details we will make the hidden value dates as minvalue of the datetime
+                if (ddlAction.SelectedValue == "DuplicateFolios")
+                {
+                    hdnFromDate.Value = DateTime.MinValue.ToString();
+                    hdnToDate.Value = DateTime.MinValue.ToString();
+                }
+                //see if we need on the duplicate transactions or the whole transactions
+                if (chkFolioDuplicatesOnly.Checked == true)
+                    onlyDuplicate = 1;
+                //selection of one adviser or all adviser
+                if (ddlAdviser.SelectedIndex != 0)
+                    adviserId = Convert.ToInt32(ddlAdviser.SelectedValue);
+                //creating the dataset for transaction and the folio both
+                dsDuplicateFolioOrTransactions = new DataSet();
+                //creation of the business object 
+                superAdminOpsBo = new SuperAdminOpsBo();
+                //getting dataset for grid and the rm ddl and the zone name ddl
+                dsDuplicateFolioOrTransactions = superAdminOpsBo.GetDuplicateTransactionDetailsORFolioDetails(ddlMonitorfr.SelectedValue, ddlAction.SelectedValue, adviserId, DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), onlyDuplicate);
+                //bind the grid on the basis of the action selection 
+                if (ddlAction.SelectedValue == "DuplicateFolios")
+                {
+                    //bind the folio grid
+                    gvFolioDuplicates.DataSource = dsDuplicateFolioOrTransactions;
+                    gvFolioDuplicates.DataBind();
+                    //change the visibility according to the type of duplicates
+                    divGvFolioDuplicates.Visible = true;
+                    divGvTransactionDuplicates.Visible = false;
+                    //storing the transaction details in the cahce so that we wont go to the database again and again 
+                    if (Cache["DuplicateFolioDetailsSA"] == null)
+                    {
+                        Cache.Insert("DuplicateFolioDetailsSA", dsDuplicateFolioOrTransactions);
+                    }
+                    else
+                    {
+                        Cache.Remove("DuplicateFolioDetailsSA");
+                        Cache.Insert("DuplicateFolioDetailsSA", dsDuplicateFolioOrTransactions);
+                    }
+                }
+                else
+                {
+                    //bind the transaction grid
+                    gvTransactionDuplicates.DataSource = dsDuplicateFolioOrTransactions;
+                    gvTransactionDuplicates.DataBind();
+                    //change the visibility according to the type of duplicates
+                    divGvFolioDuplicates.Visible = false;
+                    divGvTransactionDuplicates.Visible = true;
+                    //storing the folio details in the cahce so that we wont go to the database again and again 
+                    if (Cache["DuplicateTransactionDetailsSA"] == null)
+                    {
+                        Cache.Insert("DuplicateTransactionDetailsSA", dsDuplicateFolioOrTransactions);
+                    }
+                    else
+                    {
+                        Cache.Remove("DuplicateTransactionDetailsSA");
+                        Cache.Insert("DuplicateTransactionDetailsSA", dsDuplicateFolioOrTransactions);
+                    }
+                }
+                //set the visibility for export button
+                if (dsDuplicateFolioOrTransactions != null && ddlAction.SelectedValue == "DuplicateFolios")
+                    btnExportDuplicateFolioFilteredData.Visible = true;
+                else
+                    btnExportDuplicateTransactionFilteredData.Visible = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DailyValuationMonitor.ascx.cs:BindGridForDuplicateFolioOrTransaction()");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        /// <summary>
+        /// filling the datasource of the grid for grid operations 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        protected void gvFolioDuplicates_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataSet dtFolioDuplicatesDetails = new DataSet();
+            try
+            {
+                dtFolioDuplicatesDetails = (DataSet)Cache["DuplicateFolioDetailsSA"];
+                gvFolioDuplicates.DataSource = dtFolioDuplicatesDetails;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DailyValuationMonitor.ascx.cs:gvFolioDuplicates_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        /// <summary>
+        /// filling the datasource of the grid for grid operations 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        protected void gvTransactionDuplicates_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            try
+            {
+                DataSet dtTransactionDuplicatesDetails = new DataSet();
+                dtTransactionDuplicatesDetails = (DataSet)Cache["DuplicateTransactionDetailsSA"];
+                gvTransactionDuplicates.DataSource = dtTransactionDuplicatesDetails;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DailyValuationMonitor.ascx.cs:gvTransactionDuplicates_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        /// <summary>
+        /// This will export the grid data to a excel sheet 
+        /// </summary>
+        public void btnExportDuplicateTransactionFilteredData_Click(object sender, ImageClickEventArgs e)
+        {
+            DataSet dtDuplicateTransactionDetails = new DataSet();
+            try
+            {
+                dtDuplicateTransactionDetails = (DataSet)Cache["DuplicateTransactionDetailsSA"];
+                gvFolioDuplicates.DataSource = dtDuplicateTransactionDetails;
+                gvTransactionDuplicates.ExportSettings.OpenInNewWindow = true;
+                gvTransactionDuplicates.ExportSettings.IgnorePaging = true;
+                gvTransactionDuplicates.ExportSettings.HideStructureColumns = true;
+                gvTransactionDuplicates.ExportSettings.ExportOnlyData = true;
+                gvTransactionDuplicates.ExportSettings.FileName = "Duplicate Transaction Details";
+                gvTransactionDuplicates.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvTransactionDuplicates.MasterTableView.ExportToExcel();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DailyValuationMonitor.ascx.cs:btnExportDuplicateTransactionFilteredData_Click(object sender, ImageClickEventArgs e)");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        /// <summary>
+        /// This will export the grid data to a excel sheet 
+        /// </summary>
+        public void btnExportDuplicateFolioFilteredData_Click(object sender, ImageClickEventArgs e)
+        {
+            DataSet dtDuplicateFolioDetails = new DataSet();
+            try
+            {
+                dtDuplicateFolioDetails = (DataSet)Cache["DuplicateFolioDetailsSA"];
+                gvFolioDuplicates.DataSource = dtDuplicateFolioDetails;
+                gvFolioDuplicates.ExportSettings.OpenInNewWindow = true;
+                gvFolioDuplicates.ExportSettings.IgnorePaging = true;
+                gvFolioDuplicates.ExportSettings.HideStructureColumns = true;
+                gvFolioDuplicates.ExportSettings.ExportOnlyData = true;
+                gvFolioDuplicates.ExportSettings.FileName = "Duplicate Folio Details";
+                gvFolioDuplicates.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvFolioDuplicates.MasterTableView.ExportToExcel();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DailyValuationMonitor.ascx.cs:btnExportDuplicateFolioFilteredData_Click(object sender, ImageClickEventArgs e)");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
     }
 }

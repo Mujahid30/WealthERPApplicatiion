@@ -52,6 +52,9 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.Label lblIProcessId;
         protected global::System.Web.UI.WebControls.Label lblHRejectReason;
         protected global::System.Web.UI.WebControls.Label lblIRejectReason;
+        protected global::System.Web.UI.WebControls.ImageButton btnExportDuplicateTransactionFilteredData;
+        protected global::System.Web.UI.WebControls.ImageButton btnExportDuplicateFolioFilteredData;
+
         /// <summary>
         /// ddlMonitorfr control.
         /// </summary>
@@ -82,6 +85,7 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredDupData;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredAumData;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredRejData;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trFolioAndTransactionDuplicateMonitor;
         /// <summary>
         /// lblAction control.
         /// </summary>
@@ -396,7 +400,18 @@ namespace WealthERP.SuperAdmin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        /// 
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDuplicateControls;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvFolioDuplicates;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvTransactionDuplicates;
+
         protected global::Telerik.Web.UI.RadGrid gvDuplicateCheck;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
+        protected global::System.Web.UI.WebControls.Button btnGoForDuplicates;
+        protected global::System.Web.UI.WebControls.CheckBox chkFolioDuplicatesOnly;
+        protected global::Telerik.Web.UI.RadGrid gvFolioDuplicates;
+        protected global::Telerik.Web.UI.RadGrid gvTransactionDuplicates;
         protected global::Telerik.Web.UI.RadGrid gvAumMis;
         /// <summary>
         /// btnDelete control.

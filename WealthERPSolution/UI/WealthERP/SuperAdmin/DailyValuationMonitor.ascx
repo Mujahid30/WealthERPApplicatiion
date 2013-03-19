@@ -51,13 +51,36 @@
     }
 </script>
 
-<table width="100%">
-    <tr>
-        <td colspan="6">
-            <asp:Label ID="Label7" runat="server" CssClass="HeaderTextSmall" Text="Daily Valuation Monitor"></asp:Label>
+<table width="100%" class="TableBackground">
+    <%--<tr>
+        <td class="HeaderCell">
+            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Add Staff"></asp:Label>
             <hr />
         </td>
+    </tr>--%>
+    <tr>
+        <td colspan="4">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            <asp:Label ID="lblTitle" runat="server" Text="Daily Valuation Monitor"></asp:Label>
+                        </td>
+                        <td colspan="4" align="right">
+                            <asp:ImageButton ID="btnExportDuplicateFolioFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('CSV')"
+                                Height="20px" Width="25px" Visible="false" OnClick="btnExportDuplicateFolioFilteredData_Click"></asp:ImageButton>
+                            <asp:ImageButton ID="btnExportDuplicateTransactionFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('CSV')"
+                                Height="20px" Width="25px" Visible="false" OnClick="btnExportDuplicateTransactionFilteredData_Click"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
     </tr>
+</table>
+<table width="100%">
     <tr>
         <td align="Left" style="width: 158px" valign="top">
             <asp:Label ID="Mntfr" runat="server" CssClass="FieldName" Text="Monitor For" Width="100%"></asp:Label>
@@ -93,6 +116,8 @@
                 <asp:ListItem Text="Duplicates" Value="DuplicateMis"></asp:ListItem>
                 <asp:ListItem Text="MF Rejects" Value="mfRejects"></asp:ListItem>
                 <asp:ListItem Text="NAV Change" Value="NAVChange"></asp:ListItem>
+                <asp:ListItem Text="Folios" Value="DuplicateFolios"></asp:ListItem>
+                <asp:ListItem Text="Transactions" Value="DuplicateTransactions"></asp:ListItem>
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cmpamc" runat="server" ErrorMessage="<br />Please select an Action"
@@ -203,6 +228,18 @@
                 CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
+    <tr runat="server" id="trFolioAndTransactionDuplicateMonitor" visible="false">
+        <td>
+            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true">
+            </asp:DropDownList>
+        </td>
+        <td>
+            <asp:CheckBox ID="chkFolioDuplicatesOnly" CssClass="cmbField" runat="server" Text="Duplicates Only" />
+        </td>
+    </tr>
     <tr id="trDate" runat="server">
         <td valign="top">
             <asp:Label ID="lblDate" runat="server" Width="80" CssClass="FieldName">Select Date:</asp:Label>
@@ -277,6 +314,14 @@
             <asp:ImageButton ID="btnExportFilteredDupData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredDupData_OnClick"
                 OnClientClick="setFormat('CSV')" Height="25px" Width="25px"></asp:ImageButton>
+        </td>
+    </tr>
+    <tr id="tr1" runat="server">
+        <td>
+        </td>
+    </tr>
+    <tr id="tr2" runat="server">
+        <td>
         </td>
     </tr>
     <%-- <tr>
@@ -718,7 +763,7 @@
             <telerik:RadGrid ID="gvNavChange" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false"
-                AllowAutomaticInserts="false"  ExportSettings-Excel-Format="ExcelML" OnNeedDataSource="gvNavChange_OnNeedDataSource">
+                AllowAutomaticInserts="false" ExportSettings-Excel-Format="ExcelML" OnNeedDataSource="gvNavChange_OnNeedDataSource">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="NavChangelist">
                 </ExportSettings>
                 <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
@@ -750,9 +795,8 @@
                 </MasterTableView>
                 <ClientSettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    <ClientEvents/>
+                    <ClientEvents />
                 </ClientSettings>
-               
             </telerik:RadGrid>
             <%--<asp:GridView ID="gvNavChange" runat="server" AutoGenerateColumns="False" AllowSorting="True"
                             CellPadding="4" CssClass="GridViewStyle" HeaderStyle-Width="100%" ShowFooter="True">
@@ -791,6 +835,270 @@
         </td>
     </tr>
 </table>
+<br />
+<div id="divGvFolioDuplicates" style="padding: 8px;" runat="server" visible="false">
+    <telerik:RadGrid ID="gvFolioDuplicates" runat="server" CssClass="RadGrid" GridLines="None"
+        Width="1000px" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+        AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true"
+        EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true" OnNeedDataSource="gvFolioDuplicates_OnNeedDataSource">
+        <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
+        </ExportSettings>
+        <MasterTableView CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
+            <Columns>
+                <telerik:GridBoundColumn UniqueName="A_AdviserId" HeaderText="AdviserId" HeaderStyle-Width="100px"
+                    DataField="A_AdviserId" SortExpression="A_AdviserId" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="OrgName" HeaderText="A_OrgName" HeaderStyle-Width="100px"
+                    DataField="A_OrgName" SortExpression="A_OrgName" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="CMFA_FolioNum" HeaderText="FolioNum" DataField="CMFA_FolioNum"
+                    HeaderStyle-Width="120px" SortExpression="CMFA_FolioNum" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PA_AMCCode" HeaderText="AMCCode" DataField="PA_AMCCode"
+                    HeaderStyle-Width="100px" SortExpression="PA_AMCCode" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn UniqueName="PA_AMCName" HeaderText="AMCName" DataField="PA_AMCName"
+                    HeaderStyle-Width="250px" SortExpression="PA_AMCCode" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="TotalDuplicates" HeaderText="TotalDuplicates"
+                    HeaderStyle-Width="100px" DataField="TotalDuplicates" SortExpression="TotalDuplicates"
+                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
+                <%--<telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                    DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    
+                    <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                        DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                        DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                        DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="ExternalCode"
+                        DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        
+                    </telerik:GridBoundColumn>
+                </telerik:GridBoundColumn>--%>
+            </Columns>
+        </MasterTableView>
+        <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+            <Scrolling AllowScroll="false" />
+            <Resizing AllowColumnResize="true" />
+            <Selecting AllowRowSelect="true" />
+        </ClientSettings>
+    </telerik:RadGrid>
+</div>
+<br />
+<div id="divGvTransactionDuplicates" runat="server" style="overflow: scroll;" visible="false">
+    <telerik:RadGrid ID="gvTransactionDuplicates" runat="server" CssClass="RadGrid" GridLines="None"
+        Width="100%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+        AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true"
+        EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true" OnNeedDataSource="gvTransactionDuplicates_OnNeedDataSource">
+        <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
+        </ExportSettings>
+        <MasterTableView CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
+            <Columns>
+                <telerik:GridBoundColumn UniqueName="CMFT_Units" HeaderText="Units" DataField="CMFT_Units"
+                    SortExpression="CMFT_Units" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="CMFT_Amount" HeaderText="Amount" DataField="CMFT_Amount"
+                    SortExpression="CMFT_Amount" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="CMFT_TransactionDate" HeaderText="TransactionDate"
+                    DataField="CMFT_TransactionDate" SortExpression="CMFT_TransactionDate" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true" DataFormatString="{0:D}" HeaderStyle-Width="130px">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="CMFA_AccountId" HeaderText="AccountId" DataField="CMFA_AccountId"
+                    SortExpression="CMFA_AccountId" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="100px">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="CMFT_TransactionNumber" HeaderText="TransactionNumber"
+                    DataField="CMFT_TransactionNumber" SortExpression="CMFT_TransactionNumber" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="140px">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="WMTT_TransactionClassificationCode" HeaderText="TransactionClassificationCode"
+                    DataField="WMTT_TransactionClassificationCode" SortExpression="WMTT_TransactionClassificationCode"
+                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="178px">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="PASP_SchemePlanCode" HeaderText="SchemePlanCode"
+                    DataField="PASP_SchemePlanCode" SortExpression="PASP_SchemePlanCode" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="WTS_TransactionStatusCode" HeaderText="TransactionStatusCode"
+                    DataField="WTS_TransactionStatusCode" SortExpression="WTS_TransactionStatusCode"
+                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="140px">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="XES_SourceCode" HeaderText="SourceCode" DataField="XES_SourceCode"
+                    SortExpression="XES_SourceCode" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="100px">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="totalDuplicates" HeaderText="totalDuplicates"
+                    DataField="totalDuplicates" SortExpression="totalDuplicates" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="100px">
+                </telerik:GridBoundColumn>
+            </Columns>
+            <HeaderStyle Width="200px" />
+        </MasterTableView>
+        <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+            <Scrolling AllowScroll="false" />
+            <Resizing AllowColumnResize="true" />
+            <Selecting AllowRowSelect="true" />
+        </ClientSettings>
+    </telerik:RadGrid>
+</div>
+<br />
 <%--<table width="100%">
     <tr style="width: 100%">
         <td colspan="3">
