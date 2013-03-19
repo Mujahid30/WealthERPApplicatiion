@@ -1,20 +1,29 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserCustomer.ascx.cs"
     Inherits="WealthERP.Advisor.AdviserCustomer" %>
-<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+<telerik:RadStyleSheetManager ID="RdStylesheet" runat="server">
+</telerik:RadStyleSheetManager>
 
 <script language="javascript" type="text/javascript">
 
-    function showmessage() {
+    function GridCreated(sender, args) {
+        var scrollArea = sender.GridDataDiv;
+        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
+        if (dataHeight < 350) {
+            scrollArea.style.height = dataHeight + 17 + "px";
+        }
+    }
 
+    windowwindow.onresize = window.onload = Resize;
+    function showmessage() {
         var bool = window.confirm('Are you sure you want to delete this profile?');
 
         if (bool) {
             document.getElementById("ctrl_AdviserCustomer_hdnMsgValue").value = 1;
             document.getElementById("ctrl_AdviserCustomer_hiddenassociation").click();
-
             return false;
         }
         else {
@@ -23,7 +32,6 @@
             return true;
         }
     }
-
     function showassocation() {
 
         var bool = window.confirm('Customer has associations, cannot be deleted');
@@ -38,24 +46,7 @@
             return true;
         }
     }
-    
-    function DownloadScript() {
-
-        btn = document.getElementById('<%= btnExportExcel.ClientID %>');
-        btn.click(
-        );
-
-    }
-    function setPageType(pageType) {
-        document.getElementById('<%= hdnDownloadPageType.ClientID %>').value = pageType;
-
-    }
-    function setFormat(format) {
-        document.getElementById('<%= hdnDownloadFormat.ClientID %>').value = format;
-    }
     function Print_Click(div, btnID) {
-
-
         var ContentToPrint = document.getElementById(div);
         var myWindowToPrint = window.open('', '', 'width=200,height=100,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,directories=0');
         myWindowToPrint.document.write(document.getElementById(div).innerHTML);
@@ -63,7 +54,6 @@
         myWindowToPrint.focus();
         myWindowToPrint.print();
         myWindowToPrint.close();
-
         var btn = document.getElementById(btnID);
         btn.click();
     }
@@ -74,10 +64,340 @@
     function getScrollBottom(p_oElem) {
         return p_oElem.scrollHeight - p_oElem.scrollTop - p_oElem.clientHeight;
     }
+   
 
 </script>
 
-<style>
+
+<style type="text/css" runat="server">
+    .rgDataDiv
+    {
+        height: auto;
+        width: 101.5% !important;
+    }
+</style>
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                            Customer List
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div class="success-msg" id="CreationSuccessMessage" runat="server" visible="false"
+                align="center">
+                Record deleted successfully...
+            </div>
+        </td>
+    </tr>
+</table>
+<table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
+    visible="false">
+    <tr>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage1" runat="server" visible="true" align="center">
+                No Records found.....
+            </div>
+        </td>
+    </tr>
+</table>
+<div>
+<table width="100%" cellspacing="0" cellpadding="4">
+    <tr>
+        <td>
+            <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
+                EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
+                ShowStatusBar="false" ShowFooter="false" AllowPaging="true" Width="1061px" AllowSorting="true"
+                GridLines="none" AllowAutomaticInserts="false" OnItemDataBound="gvCustomerList_ItemDataBound"
+                Skin="Telerik" EnableHeaderContextMenu="true" OnNeedDataSource="gvCustomerList_OnNeedDataSource"
+                OnPreRender="gvCustomerList_PreRender">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView DataKeyNames="CustomerId,UserId,RMId" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" TableLayout="fixed">
+                    <Columns>
+                        <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
+                            HeaderStyle-Width="112px">
+                            <ItemTemplate>
+                                <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged"
+                                    CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" AllowCustomText="false"
+                                    Width="100px" AutoPostBack="true" Height="150px">
+                                    <Items>
+                                        <telerik:RadComboBoxItem Text="Select" Value="0" Selected="false" />
+                                        <telerik:RadComboBoxItem Text="ShortCuts" Value="QuickLinks" />
+                                        <telerik:RadComboBoxItem Text="Dashboard" Value="Dashboard" />
+                                        <telerik:RadComboBoxItem Text="Profile" Value="Profile" />
+                                        <telerik:RadComboBoxItem Text="Assets" Value="Portfolio" />
+                                        <telerik:RadComboBoxItem Text="Alerts" Value="Alerts" />
+                                        <telerik:RadComboBoxItem Text="Delete Profile" Value="DeleteProfile" />
+                                        <telerik:RadComboBoxItem Text="Financial Planning" Value="FinancialPlanning" />
+                                    </Items>
+                                </telerik:RadComboBox>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn DataField="CustomerId" UniqueName="CustomerId" HeaderText="Customer Id"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="100px"
+                            SortExpression="CustomerId" FilterControlWidth="80px" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Cust_Comp_Name" UniqueName="Cust_Comp_Name" HeaderText="Name"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="140px"
+                            SortExpression="Cust_Comp_Name" FilterControlWidth="120px" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Group" UniqueName="ParentId" HeaderText="Group"
+                            AutoPostBackOnFilter="true" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="145px">
+                            <ItemStyle Width="145px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            <%-- <FilterTemplate>
+                                    <telerik:RadComboBox ID="RadComboGroup" AutoPostBack="true" AllowFiltering="true"
+                                        Height="200px" CssClass="cmbField" Width="130px" IsFilteringEnabled="true" AppendDataBoundItems="true"
+                                        OnPreRender="rcbgroup_PreRender" EnableViewState="true" OnSelectedIndexChanged="RadComboGroup_SelectedIndexChanged"
+                                        SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("ParentId").CurrentFilterValue %>'
+                                        runat="server">
+                                        <Items>
+                                            <telerik:RadComboBoxItem Text="ALL" Value="" Selected="false"></telerik:RadComboBoxItem>
+                                        </Items>
+                                    </telerik:RadComboBox>
+                                    <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+
+                                        <script type="text/javascript">
+                                            function GroupIndexChanged(sender, args) {
+                                                var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                                tableView.filter("ParentId", args.get_item().get_value(), "EqualTo");
+                                            }
+                                        </script>
+
+                                    </telerik:RadScriptBlock>
+                                </FilterTemplate>--%>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="PANNumber" UniqueName="PANNumber" HeaderText="PAN"
+                            SortExpression="PANNumber" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderStyle-Width="100px" FilterControlWidth="80px" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="BranchName" UniqueName="BranchName" HeaderText="Branch"
+                            AutoPostBackOnFilter="true" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="100px"
+                            FilterControlWidth="80px" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="AssignedRM" UniqueName="RMId" HeaderText="RM"
+                            AutoPostBackOnFilter="true" SortExpression="RMId" ShowFilterIcon="false" AllowFiltering="true"
+                            HeaderStyle-Width="140px">
+                            <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            <FilterTemplate>
+                                <telerik:RadComboBox ID="RadComboRM" AutoPostBack="true" AllowFiltering="true" CssClass="cmbField"
+                                    Height="150px" Width="120px" IsFilteringEnabled="true" AppendDataBoundItems="true"
+                                    OnPreRender="rcbRM_PreRender" EnableViewState="true" OnSelectedIndexChanged="RadComboRM_SelectedIndexChanged"
+                                    SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RMId").CurrentFilterValue %>'
+                                    runat="server">
+                                    <Items>
+                                        <telerik:RadComboBoxItem Text="ALL" Value="" Selected="false"></telerik:RadComboBoxItem>
+                                    </Items>
+                                </telerik:RadComboBox>
+                                <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
+
+                                    <script type="text/javascript">
+                                        function TransactionIndexChanged(sender, args) {
+                                            var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                            tableView.filter("RMId", args.get_item().get_value(), "EqualTo");
+                                        }
+                                    </script>
+
+                                </telerik:RadScriptBlock>
+                            </FilterTemplate>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="MobileNumber" UniqueName="MobileNumber" HeaderText="Mobile"
+                            SortExpression="MobileNumber" AllowFiltering="false" HeaderStyle-Width="80px"
+                            FilterControlWidth="60px" CurrentFilterFunction="Contains" ShowFilterIcon="false">
+                            <ItemStyle Width="80px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="PhoneNumber" UniqueName="PhoneNumber" HeaderText="Phone"
+                            SortExpression="PhoneNumber" ShowFilterIcon="false" AllowFiltering="false" HeaderStyle-Width="100px"
+                            FilterControlWidth="60px" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Email" UniqueName="Email" HeaderText="Email"
+                            SortExpression="Email" ShowFilterIcon="false" AllowFiltering="false" HeaderStyle-Width="140px"
+                            CurrentFilterFunction="Contains">
+                            <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Address" UniqueName="Address" HeaderText="Address"
+                            SortExpression="Address" ShowFilterIcon="false" AllowFiltering="false" HeaderStyle-Width="200px"
+                            FilterControlWidth="60px" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="200px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Area" UniqueName="Area" HeaderText="Area" SortExpression="Area"
+                            AutoPostBackOnFilter="true" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="120px"
+                            FilterControlWidth="80px" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="City" UniqueName="City" HeaderText="City" SortExpression="City"
+                            ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="85px" FilterControlWidth="70px"
+                            CurrentFilterFunction="Contains">
+                            <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Pincode" UniqueName="Pincode" HeaderText="Pincode"
+                            AutoPostBackOnFilter="true" SortExpression="Pincode" ShowFilterIcon="false" AllowFiltering="true"
+                            HeaderStyle-Width="90px" FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="IsProspect" UniqueName="IsProspect" HeaderText="Is Prospect"
+                            ShowFilterIcon="false" AllowFiltering="true" AutoPostBackOnFilter="true" HeaderStyle-Width="79px">
+                            <ItemStyle Width="79px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            <FilterTemplate>
+                                <telerik:RadComboBox ID="IsProspect" AutoPostBack="true" AllowFiltering="true" CssClass="cmbField"
+                                    Width="60px" IsFilteringEnabled="true" AppendDataBoundItems="true" OnPreRender="Isprospect_Prerender"
+                                    EnableViewState="true" OnSelectedIndexChanged="IsProspect_SelectedIndexChanged"
+                                    SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("IsProspect").CurrentFilterValue %>'
+                                    runat="server">
+                                    <Items>
+                                        <telerik:RadComboBoxItem Text="ALL" Value="" Selected="false"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem Text="Yes" Value="Yes" Selected="false"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem Text="No" Value="No" Selected="false"></telerik:RadComboBoxItem>
+                                    </Items>
+                                </telerik:RadComboBox>
+                                <telerik:RadScriptBlock ID="RadScriptBlock3" runat="server">
+
+                                    <script type="text/javascript">
+                                        function TransactionIndexChanged(sender, args) {
+                                            var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                            tableView.filter("IsProspect", args.get_item().get_value(), "EqualTo");
+                                        }
+                                    </script>
+
+                                </telerik:RadScriptBlock>
+                            </FilterTemplate>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="IsActive" UniqueName="IsActive" HeaderText="Status"
+                            ShowFilterIcon="false" AllowFiltering="true" AutoPostBackOnFilter="true" HeaderStyle-Width="70px">
+                            <ItemStyle Width="70px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            <FilterTemplate>
+                                <telerik:RadComboBox ID="Status" AutoPostBack="true" AllowFiltering="true" CssClass="cmbField"
+                                    Width="60px" IsFilteringEnabled="true" AppendDataBoundItems="true" OnPreRender="Status_Prerender"
+                                    EnableViewState="true" OnSelectedIndexChanged="Status_SelectedIndexChanged" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("IsActive").CurrentFilterValue %>'
+                                    runat="server">
+                                    <Items>
+                                        <telerik:RadComboBoxItem Text="ALL" Value="" Selected="false"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem Text="Active" Value="Active" Selected="false"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem Text="InActive" Value="InActive" Selected="false"></telerik:RadComboBoxItem>
+                                    </Items>
+                                </telerik:RadComboBox>
+                                <telerik:RadScriptBlock ID="RadScriptBlock4" runat="server">
+
+                                    <script type="text/javascript">
+                                        function StatusIndexChanged(sender, args) {
+                                            var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                            tableView.filter("IsActive", args.get_item().get_value(), "EqualTo");
+                                        }
+                                    </script>
+
+                                </telerik:RadScriptBlock>
+                            </FilterTemplate>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="ADUL_ProcessId" UniqueName="ADUL_ProcessId" HeaderText="Process Id"
+                            SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true" AllowFiltering="true"
+                            HeaderStyle-Width="85px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
+                            ShowFilterIcon="false">
+                            <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="350px" />
+                    <ClientEvents OnGridCreated="GridCreated" />
+                    <Resizing AllowColumnResize="true" />
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </td>
+    </tr>
+</table>
+</div>
+<%--<div>
+    <telerik:RadRotator ID="RadRotatorImage" runat="server" Width="224px" Height="112px"
+        CssClass="rotatorStyle" ItemHeight="112" ItemWidth="112" ScrollDuration="500"
+        RotatorType="SlideShow">
+        <Items>
+            <telerik:RadRotatorItem>
+                <ItemTemplate>
+                    <asp:Image runat="server" ID="Image" ImageUrl='~/Images/reprocess.png' CssClass="RotatorItem">
+                    </asp:Image>
+                </ItemTemplate>
+            </telerik:RadRotatorItem>
+            <telerik:RadRotatorItem>
+                <ItemTemplate>
+                    <asp:Image runat="server" ID="Image1" ImageUrl='~/Images/rollback.png' CssClass="RotatorItem">
+                    </asp:Image>
+                </ItemTemplate>
+            </telerik:RadRotatorItem>
+            <telerik:RadRotatorItem>
+                <ItemTemplate>
+                    <asp:Image runat="server" ID="Image2" ImageUrl='~/Images/ManageRejects.png' CssClass="RotatorItem">
+                    </asp:Image>
+                </ItemTemplate>
+            </telerik:RadRotatorItem>
+            <telerik:RadRotatorItem>
+                <ItemTemplate>
+                    <asp:Image runat="server" ID="Image3" ImageUrl='~/Images/Imagego.jpg' CssClass="RotatorItem">
+                    </asp:Image>
+                </ItemTemplate>
+            </telerik:RadRotatorItem>
+            <telerik:RadRotatorItem>
+                <ItemTemplate>
+                    <asp:Image runat="server" ID="Image4" ImageUrl='~/Images/mozilla.jpg' CssClass="RotatorItem">
+                    </asp:Image>
+                </ItemTemplate>
+            </telerik:RadRotatorItem>
+        </Items>
+    </telerik:RadRotator>--%>
+    <%-- <telerik:RadTicker AutoStart="true" runat="server" ID="Radticker1" Loop="true" r>
+        <Items>
+            <telerik:RadTickerItem>Monday</telerik:RadTickerItem>
+            <telerik:RadTickerItem>Tuesday</telerik:RadTickerItem>
+            <telerik:RadTickerItem>Wednesday</telerik:RadTickerItem>
+            <telerik:RadTickerItem>Thursday</telerik:RadTickerItem>
+            <telerik:RadTickerItem>Friday</telerik:RadTickerItem>
+            <telerik:RadTickerItem>Saturday</telerik:RadTickerItem>
+            <telerik:RadTickerItem>Sunday</telerik:RadTickerItem>
+        </Items>
+    </telerik:RadTicker>--%>
+<%--</div>--%>
+
+
+
+
+<%--<telerik:RadPanelBar ID="pnlRadBar" runat="server" Skin="Telerik" AllowCollapseAllItems="true"
+    ExpandAnimation-Type="InCubic" ExpandMode="SingleExpandedItem">
+    <Items>
+        <telerik:RadPanelItem runat="server" Text="Customer Grid">
+            <Items>
+            <telerik:RadPanelItem runat="server" Text ="Customer" >
+            </telerik:RadPanelItem>
+            <telerik:RadPanelItem runat="server" Text ="List">
+            </telerik:RadPanelItem>   
+            </Items>
+        </telerik:RadPanelItem>
+    </Items>
+</telerik:RadPanelBar>--%>
+<%--</asp:Panel>--%>
+<%--<asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />--%>
+<%--<style>
     .HeaderStyle1
     {
         background-image: url(Images/PCGGridViewHeaderGlass2.jpg);
@@ -85,10 +405,11 @@
         position: relative;
         background-repeat: repeat-x;
         vertical-align: top;
-        top: expression(this.offsetParent.scrollTop-3);
+        top: expression(this.offsetGroup.scrollTop-3);
     }
 </style>
-<table id="Table1" class="TableBackground" width="100%" runat="server">
+--%>
+<%--<table id="Table1" class="TableBackground" width="100%" runat="server">
 <tr>
 <td colspan="3" style="width: 100%;">
 <div class="divPageHeading">
@@ -157,9 +478,9 @@
                         VerticalAlign="Top" />
                     <SelectedRowStyle CssClass="SelectedRowStyle" />
                     <%--<PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />--%>
-                    <HeaderStyle CssClass="HeaderStyle" />
-                    <AlternatingRowStyle CssClass="AltRowStyle" />
-                    <Columns>
+<%--<headerstyle cssclass="HeaderStyle" />
+<alternatingrowstyle cssclass="AltRowStyle" />
+<columns>
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
@@ -170,18 +491,18 @@
                                     <asp:ListItem Text="Profile" Value="Profile" />
                                     <asp:ListItem Text="Assets" Value="Portfolio" />
                                    <%-- <asp:ListItem Text="User Details" Value="User Details" />--%>
-                                    <asp:ListItem Text="Alerts" Value="Alerts" />
+<%--          <asp:ListItem Text="Alerts" Value="Alerts" />
                                     <asp:ListItem Text="Delete Profile" />
                                     <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
                                     
                                 </asp:DropDownList>
-                            </ItemTemplate>
-                            <%-- <FooterTemplate>
+                            </ItemTemplate>--%>
+<%-- <FooterTemplate>
                                 <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" />
                             </FooterTemplate>--%>
-                        </asp:TemplateField>
-                        <%--<asp:BoundField DataField="Parent" HeaderText="Parent" SortExpression="Parent" ItemStyle-Wrap="false" />--%>
-                        <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+<%--  </asp:TemplateField>--%>
+<%--<asp:BoundField DataField="Group" HeaderText="Group" SortExpression="Group" ItemStyle-Wrap="false" />--%>
+<%-- <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblCustName" runat="server" Text="Name"></asp:Label>
                                 <br />
@@ -198,20 +519,20 @@
                         </asp:TemplateField>
                         <asp:TemplateField ItemStyle-Wrap="true">
                             <HeaderTemplate>
-                                <asp:Label ID="lblParent" runat="server" Text="Group"></asp:Label>
+                                <asp:Label ID="lblGroup" runat="server" Text="Group"></asp:Label>
                                 <br />
-                                <asp:DropDownList ID="ddlParent" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
-                                    OnSelectedIndexChanged="ddlParent_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlGroup" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                    OnSelectedIndexChanged="ddlGroup_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblParenteHeader" runat="server" 
-                                    Text='<%# Eval("Parent").ToString() %>'></asp:Label>
+                                <asp:Label ID="lblGroupeHeader" runat="server" 
+                                    Text='<%# Eval("Group").ToString() %>'></asp:Label>
                             </ItemTemplate>
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>
                         <%-- <asp:BoundField DataField="PAN" HeaderStyle-Wrap="false" HeaderText="PAN Number" />--%>
-                        <asp:TemplateField ItemStyle-Wrap="false">
+<%-- <asp:TemplateField ItemStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblPAN" runat="server" Text="PAN"></asp:Label>
                                 <br />
@@ -262,9 +583,9 @@
                                     Text='<%# Eval("Area").ToString() %>'></asp:Label>
                             </ItemTemplate>
                             <ItemStyle Wrap="False" />
-                        </asp:TemplateField>
-                        <%--<asp:BoundField DataField="Area" HeaderText="Area" />--%>
-                        <asp:BoundField DataField="City" HeaderText="City" />
+                        </asp:TemplateField>--%>
+<%--<asp:BoundField DataField="Area" HeaderText="Area" />--%>
+<%--  <asp:BoundField DataField="City" HeaderText="City" />
                         <asp:TemplateField ItemStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblPincode" runat="server" Text="Pincode"></asp:Label>
@@ -278,9 +599,9 @@
                                     Text='<%# Eval("Pincode").ToString() %>'></asp:Label>
                             </ItemTemplate>
                             <ItemStyle Wrap="False" />
-                        </asp:TemplateField>
-                       <%-- <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />--%>
-                        <asp:TemplateField HeaderStyle-Wrap="false" HeaderText="Is Prospect" 
+                        </asp:TemplateField>--%>
+<%-- <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />--%>
+<%-- <asp:TemplateField HeaderStyle-Wrap="false" HeaderText="Is Prospect" 
                             ItemStyle-Wrap="false">
                             <HeaderTemplate>
                              <asp:Label ID="lblHeaderIsProspect" runat="server" Text="Is Prospect"></asp:Label>
@@ -297,14 +618,10 @@
                             <ItemTemplate>
                                 <asp:Label ID="lblIsFpClient" runat="server" Text='<%# Eval("IsProspect").ToString() %>'></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
-                       
-                           
-                       
-                     
-                        <%--<asp:BoundField DataField="Assigned RM" HeaderText="Assigned RM" HeaderStyle-Wrap="false"
+                        </asp:TemplateField>--%>
+<%--<asp:BoundField DataField="Assigned RM" HeaderText="Assigned RM" HeaderStyle-Wrap="false"
                             ItemStyle-Wrap="false" />--%>
-                        <asp:TemplateField HeaderText="IsActive">
+<%-- <asp:TemplateField HeaderText="IsActive">
                             <ItemTemplate>
                                 <asp:Label ID="lblIsActive" runat="server" Text='<%#Eval("IsActive") %>'>
                                 </asp:Label>
@@ -326,19 +643,19 @@
                         <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblProcessId" runat="server" Text="ProcessId"></asp:Label>
-                                <br />
-                                <%--<asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="GridViewTxtField" 
+                                <br />--%>
+<%--<asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="GridViewTxtField" 
                                     
                                     onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnNameSearch');" />--%>
-                            </HeaderTemplate>
+<%-- </HeaderTemplate>
                               <ItemTemplate>
                                 <asp:Label ID="lblProcessId" runat="server" 
                                     Text='<%# Eval("ADUL_ProcessId").ToString() %>'></asp:Label>
                             </ItemTemplate>
                             </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
-            <%--<hr />
+                    </columns>
+</asp:GridView>--%>
+<%--<hr />
         </td>
     </tr>
 </table>
@@ -372,28 +689,23 @@
         
         <tr>
             <td class="rightField" width="100%">--%>
-               </td>
-        </tr>        
-    </table>
-</asp:Panel>
+<%--</td> </tr> </table> </asp:Panel>
 <table id="tblpager" class="TableBackground" width="100%" runat="server">
     <tr id="trPager" runat="server">
         <td width="100%" align="center">
             <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-        </td>        
-     </tr>
+        </td>
+    </tr>
 </table>
-
-
-<table class="TableBackground" width="100%" id="tblGV" runat="server" cellspacing="0" cellpadding="0">
+<table class="TableBackground" width="100%" id="tblGV" runat="server" cellspacing="0"
+    cellpadding="0">
     <tr>
         <td>
-            
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
                 Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();">
-            </cc1:ModalPopupExtender>
-            <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/App_Themes/Maroon/Images/Export_Word.png"
+            </cc1:ModalPopupExtender>--%>
+<%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/App_Themes/Maroon/Images/Export_Word.png"
                 runat="server" AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click"
                 OnClientClick="setFormat('word')" />
             <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/App_Themes/Maroon/Images/Export_Pdf.png"
@@ -402,13 +714,13 @@
             <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/App_Themes/Maroon/Images/Print.png"
                 runat="server" AlternateText="Print" OnClientClick="setFormat('print')" ToolTip="Print"
                 OnClick="imgBtnPrint_Click" />--%>
-            <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />
+<%-- <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
+                BorderStyle="None" BackColor="TransGroup" ToolTip="Print" />
         </td>
     </tr>
     <tr id="Tr1" runat="server">
-        <td>
-            <%--<asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" Width="150px">
+        <td>--%>
+<%--<asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" Width="150px">
                 <input type="radio" id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" />
                 <label for="rbtnSin" class="cmbField">Current Page</label>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
@@ -419,7 +731,7 @@
                     <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
                 </div>--%>
-            <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" Style="display: none">
+<%--   <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" Style="display: none">
                 <br />
                 <table width="100%">
                     <tr>
@@ -468,24 +780,20 @@
             <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found..."></asp:Label>
         </td>
     </tr>
-</table>
-
-
-<asp:Button ID="btnPANSearch" runat="server" Text="" OnClick="btnPANSearch_Click"
-    BorderStyle="None" BackColor="Transparent" />
+</table>--%>
+<%--<asp:Button ID="btnPANSearch" runat="server" Text="" OnClick="btnPANSearch_Click"
+    BorderStyle="None" BackColor="TransGroup" />
 <asp:Button ID="btnPincodeSearch" runat="server" Text="" OnClick="btnPincodeSearch_Click"
-    BorderStyle="None" BackColor="Transparent" />
+    BorderStyle="None" BackColor="TransGroup" />
 <asp:Button ID="btnAreaSearch" runat="server" Text="" OnClick="btnAreaSearch_Click"
-    BorderStyle="None" BackColor="Transparent" />
+    BorderStyle="None" BackColor="TransGroup" />
 <asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
-    BorderStyle="None" BackColor="Transparent" />
+    BorderStyle="None" BackColor="TransGroup" />
     
 <asp:Button ID="hiddenassociation" runat="server" 
-    onclick="hiddenassociation_Click" BorderStyle="None" BackColor="Transparent" />
-
-
-
-<asp:HiddenField ID="hdnRecordCount" runat="server" />
+    onclick="hiddenassociation_Click" BorderStyle="None" BackColor="TransGroup" />
+--%>
+<%--<asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnPincodeFilter" runat="server" Visible="false" />
@@ -493,11 +801,11 @@
 <asp:HiddenField ID="hdnAreaFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnRMFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnParentFilter" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnGroupFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnReassignRM" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnactive" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnIsProspect" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
-<asp:HiddenField ID="hdnassociationcount" runat="server" />
+<asp:HiddenField ID="hdnassociationcount" runat="server" />--%>
