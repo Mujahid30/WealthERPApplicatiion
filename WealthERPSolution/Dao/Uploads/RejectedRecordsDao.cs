@@ -205,7 +205,10 @@ namespace DaoUploads
                 //else
                 //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DBNull.Value);
                 #endregion
+                
                 dsGetCAMSRejectedProfiles = db.ExecuteDataSet(getCAMSRejectedProfilesCmd);
+               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -804,7 +807,9 @@ namespace DaoUploads
                     db.AddInParameter(getWERPRejectedTransactionsCmd, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
                 else
                     db.AddInParameter(getWERPRejectedTransactionsCmd, "@rejectReasonCode", DbType.Int32, DBNull.Value);
+                
                     dsGetWERPRejectedTransactions = db.ExecuteDataSet(getWERPRejectedTransactionsCmd);
+             
             }
             catch (BaseApplicationException Ex)
             {
