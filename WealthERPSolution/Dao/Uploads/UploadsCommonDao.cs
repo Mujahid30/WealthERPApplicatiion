@@ -418,7 +418,7 @@ namespace DaoUploads
             return blResult;
         }
 
-        public DataSet GetUploadProcessLogAdmin(int adviserId, string SortExpression)
+        public DataSet GetUploadProcessLogAdmin(int adviserId, string SortExpression )
         {
             Database db;
             DbCommand getProcessLogCmd;
@@ -432,6 +432,7 @@ namespace DaoUploads
                 //db.AddInParameter(getProcessLogCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getProcessLogCmd, "@processIdSort", DbType.String, SortExpression);
                 getProcessLogDs = db.ExecuteDataSet(getProcessLogCmd);
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -3612,10 +3613,9 @@ namespace DaoUploads
                     db.AddInParameter(getCount, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
                 else
                     db.AddInParameter(getCount, "@rejectReasonCode", DbType.Int32, DBNull.Value);
-
-               
+                                           
                 dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
-
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -3754,8 +3754,6 @@ namespace DaoUploads
 
             return getProcessLogDs;
         }
-
-
 
         public DataSet GetWERPUploadDetailsForProcessId(int processId)
           {
@@ -4068,42 +4066,57 @@ namespace DaoUploads
         /// <param name="adviserId"></param>
         /// <param name="processId"></param>
         /// <returns></returns>
-        public DataSet GetTrailCommissionRejectRejectDetails(int adviserId,int processId)
-        {
-            Database db;
-            DbCommand cmdGetTrailRejectDetails;
-            DataSet dsTrailRejectRecords =null;
+          public DataSet GetTrailCommissionRejectRejectDetails(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
+          {
+              Database db;
+              DbCommand cmdGetTrailRejectDetails;
+              DataSet dsTrailRejectRecords = null;
 
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetTrailRejectDetails = db.GetStoredProcCommand("SP_GetTrailCommissionRejectDetail");
-                db.AddInParameter(cmdGetTrailRejectDetails, "@adviserId", DbType.Int32, adviserId);
-                db.AddInParameter(cmdGetTrailRejectDetails, "@processId", DbType.Int32, processId);
-                dsTrailRejectRecords=db.ExecuteDataSet(cmdGetTrailRejectDetails);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+              try
+              {
+                  db = DatabaseFactory.CreateDatabase("wealtherp");
+                  cmdGetTrailRejectDetails = db.GetStoredProcCommand("SP_GetTrailCommissionRejectDetail");
+                  db.AddInParameter(cmdGetTrailRejectDetails, "@adviserId", DbType.Int32, adviserId);
+                  if (processId != 0)
+                      db.AddInParameter(cmdGetTrailRejectDetails, "@processId", DbType.Int32, processId);
+                  else
+                      db.AddInParameter(cmdGetTrailRejectDetails, "@processId", DbType.Int32, DBNull.Value);
+                  if (fromDate != DateTime.MinValue)
+                      db.AddInParameter(cmdGetTrailRejectDetails, "@fromDate", DbType.DateTime, fromDate);
+                  else
+                      db.AddInParameter(cmdGetTrailRejectDetails, "@fromDate", DbType.DateTime, DBNull.Value);
 
-                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteMFSIPTransactionStaging()");
+                  if (toDate != DateTime.MinValue)
+                      db.AddInParameter(cmdGetTrailRejectDetails, "@toDate", DbType.DateTime, toDate);
+                  else
+                      db.AddInParameter(cmdGetTrailRejectDetails, "@toDate", DbType.DateTime, DBNull.Value);
+                  if (rejectReasonCode != 0)
+                      db.AddInParameter(cmdGetTrailRejectDetails, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
+                  else
+                      db.AddInParameter(cmdGetTrailRejectDetails, "@rejectReasonCode", DbType.Int32, DBNull.Value);
+                  dsTrailRejectRecords = db.ExecuteDataSet(cmdGetTrailRejectDetails);
+              }
+              catch (BaseApplicationException Ex)
+              {
+                  throw Ex;
+              }
+              catch (Exception Ex)
+              {
+                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                  NameValueCollection FunctionInfo = new NameValueCollection();
 
-                object[] objects = new object[1];
-                objects[0] = adviserId;
-                objects[1] = processId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return dsTrailRejectRecords;
-        }
+                  FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteMFSIPTransactionStaging()");
 
+                  object[] objects = new object[1];
+                  objects[0] = adviserId;
+                  objects[1] = processId;
+                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                  exBase.AdditionalInformation = FunctionInfo;
+                  ExceptionManager.Publish(exBase);
+                  throw exBase;
+              }
+              return dsTrailRejectRecords;
+          }
         public int GetInputRejectForCAMSProfile(int processID)
         {
             string count = string.Empty;
@@ -4347,6 +4360,34 @@ namespace DaoUploads
 
             return inserted;
         }
-
+        public DataSet GetRejectReasonTrailList(int uploadFileType)
+        {
+            DataSet dsRejectReasonTrailList;
+            Database db;
+            DbCommand getGetRejectReasonListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetRejectReasonListCmd = db.GetStoredProcCommand("SP_GetRejectReasonTrailList");
+                db.AddInParameter(getGetRejectReasonListCmd, "@uploadFileType", DbType.Int32, uploadFileType);
+                dsRejectReasonTrailList = db.ExecuteDataSet(getGetRejectReasonListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:GetRejectReasonList()");
+                object[] objects = new object[9];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsRejectReasonTrailList;
+        }
     }
 }
