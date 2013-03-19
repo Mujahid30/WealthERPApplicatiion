@@ -324,10 +324,11 @@ namespace DaoAdvisorProfiling
                 findRMCmd = db.GetStoredProcCommand("SP_FindRM");
                 db.AddInParameter(findRMCmd, "@AR_FirstName", DbType.String, rmName);
                 db.AddInParameter(findRMCmd, "@A_AdviserId", DbType.Int16, advisorId);
+              
                 //db.AddInParameter(findRMCmd, "@CurrentPage", DbType.Int16, currentpage);
                // db.AddInParameter(findRMCmd, "@SortOrder", DbType.String, sortorder);
                 ds = db.ExecuteDataSet(findRMCmd);
-
+              
 
                 count = 0;
             }
@@ -519,6 +520,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getAdvisorCmd, "@SortOrder", DbType.String, sortOrder);
                 db.AddInParameter(getAdvisorCmd, "@nameSrch", DbType.String, nameSrch);
                 getAdvisorDs = db.ExecuteDataSet(getAdvisorCmd);
+               
                 //Count = Int32.Parse(getAdvisorDs.Tables[1].Rows[0][0].ToString());
                 if (getAdvisorDs.Tables[0].Rows.Count > 0)
                 {
