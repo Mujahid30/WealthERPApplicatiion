@@ -105,7 +105,7 @@
                         <telerik:GridBoundColumn HeaderText="City" DataField="IFFCity" AllowFiltering="false" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Contact Person" DataField=" IFFContactPerson" AllowFiltering="false" ShowFilterIcon="false">
+                        <telerik:GridBoundColumn HeaderText="Contact Person" AutoPostBackOnFilter="true" DataField="IFFContactPerson"  AllowFiltering ="true" ShowFilterIcon="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Mobile" DataField="IFFMobileNumber" AllowFiltering="false" ShowFilterIcon="false">
