@@ -1,16 +1,14 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RejectedMFFolio.ascx.cs"
     Inherits="WealthERP.Uploads.RejectedMFFolio" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
 <asp:ScriptManager runat="server">
 </asp:ScriptManager>
 
-
-
-
 <script type="text/javascript">
-      function GetSelectedNames() {
+    function GetSelectedNames() {
         var TargetBaseControl = null;
         var count = 0;
         try {
@@ -33,15 +31,22 @@
             if (Inputs[n].type == 'checkbox' &&
             Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 &&
             Inputs[n].checked) {
-                count++;
-            }
-        if (count == 0 || count>1) {
+            count++;
+        }
+        if (count == 0 || count > 1) {
             alert('Please select a single processid');
             return false;
         }
     }
-</script>
 
+    function GridCreated(sender, args) {
+        var scrollArea = sender.GridDataDiv;
+        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
+        if (dataHeight < 300) {
+            scrollArea.style.height = dataHeight +17+ "px";
+        }
+    }
+</script>
 
 <script language="javascript" type="text/javascript">
     function checkAllFPBoxes() {
@@ -114,6 +119,14 @@
     }
 </script>
 
+<style id="Style1" type="text/css" runat="server">
+    .rgDataDiv
+    {
+        height: auto;
+        width: 101.5% !important;
+    }
+</style>
+
 <script language="javascript" type="text/javascript">
     //    Function to call btnReprocess_Click method to refresh user control
     function Reprocess() {
@@ -148,13 +161,14 @@
 <div id="divConditional" runat="server">
     <table class="TableBackground" cellpadding="2">
         <tr>
-         <td id="tdLblAdviser" runat="server" align="right">
-            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
-        </td>
-       <td id="tdDdlAdviser" runat="server" align="left">
-     <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged" ></asp:DropDownList>
-    
-     </td>
+            <td id="tdLblAdviser" runat="server" align="right">
+                <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+            </td>
+            <td id="tdDdlAdviser" runat="server" align="left">
+                <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged">
+                </asp:DropDownList>
+            </td>
             <td id="tdlblRejectReason" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="Select reject reason :" ID="lblRejectReason"></asp:Label>
             </td>
@@ -252,162 +266,170 @@
         OnClick="LinkInputRejects_Click"></asp:LinkButton>
 </div>
 <br />
-<div style="overflow: scroll" id="divGvCAMSProfileReject" runat="server">
-    <telerik:RadGrid ID="gvCAMSProfileReject" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true" EnableViewState="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true" OnPreRender="gvCAMSProfileReject_PreRender"
-        AllowAutomaticInserts="false" ExportSettings-FileName="MF Folio Reject Details" OnItemDataBound="gvCAMSProfileReject_ItemDataBound"
-        OnNeedDataSource="gvCAMSProfileReject_OnNeedDataSource">
-        <ExportSettings HideStructureColumns="true">
-        </ExportSettings>
-        <MasterTableView DataKeyNames="CMFFS_Id,CMFFS_MainStagingId,ADUL_ProcessId,CMFSS_BrokerCode,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
-            Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
-            <Columns>
-                <telerik:GridTemplateColumn HeaderStyle-Width="80px" AllowFiltering="false" UniqueName="action"
-                    DataField="action">
-                    <HeaderTemplate>
-                        <input id="chkBxAll" name="chkBxAll" type="checkbox" onclick="checkAllBoxes()" />
-                    </HeaderTemplate>
-                    <ItemTemplate>
-                        <asp:CheckBox ID="chkBx" runat="server" />
-                        <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFFS_Id").ToString() + "-" +  Eval("WRR_RejectReasonCode").ToString()%>' />
-                        <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("ADUL_ProcessId").ToString() %>' />
-                        <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("CMFFS_Id").ToString() %>' />
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:Button ID="btnSave" CssClass="FieldName" OnClick="btnSave_Click" runat="server"
-                            Text="Save" />
-                    </FooterTemplate>
-                </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="322px" HeaderText="Reject Reason" DataField="RejectReason"
-                    UniqueName="RejectReason" SortExpression="RejectReason" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                      <FilterTemplate>
-                                    <telerik:RadComboBox ID="RadComboBoxRR" Width="305px" CssClass="cmbField" AllowFiltering="true" AutoPostBack="true"  OnSelectedIndexChanged="RadComboBoxRR_SelectedIndexChanged"                                                           
-                                            IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false" OnPreRender="rcbContinents1_PreRender" EnableViewState="true"
-                                          SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectReason").CurrentFilterValue %>' runat="server" >
-                                           <%--OnPreRender="rcbContinents_PreRender"--%>
-                                    <Items>
-                                    <telerik:RadComboBoxItem Text="All" Value="" Selected="true">
-                                    </telerik:RadComboBoxItem>
-                                    </Items>                                                          
-                                       </telerik:RadComboBox>
-                                        <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
-                                            <script type="text/javascript">
-                                                function InvesterNameIndexChanged(sender, args) {
-                                                    var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
-                                                    //////                                                    sender.value = args.get_item().get_value();
-                                                    tableView.filter("RejectReason", args.get_item().get_value(), "EqualTo");
-                                                } 
-                                     </script>
-                                    </telerik:RadScriptBlock>                                                                  
-                                 </FilterTemplate>           
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="322px" HeaderText="WUXFT_XMLFileTypeId"
-                    DataField="WUXFT_XMLFileTypeId" UniqueName="WUXFT_XMLFileTypeId" SortExpression="WUXFT_XMLFileTypeId"
-                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="322px" HeaderText="XUET_ExtractTypeCode"
-                    DataField="XUET_ExtractTypeCode" UniqueName="XUET_ExtractTypeCode" SortExpression="XUET_ExtractTypeCode"
-                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                
-                <telerik:GridBoundColumn HeaderText="ProcessId" HeaderStyle-Width="100px" DataField="ADUL_ProcessId"
-                    UniqueName="ProcessId" SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="220px" HeaderText="Inv Name" DataField="CMFFS_INV_NAME"
-                    UniqueName="InvName" SortExpression="CMFFS_INV_NAME" AutoPostBackOnFilter="true" AllowFiltering="true"
-                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="PAN Number" DataField="CMFSFS_PANNum"
-                    SortExpression="PANNumber" AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                    <ItemTemplate>
-                        <asp:TextBox ID="txtPan" CssClass="txtField" runat="server" Text='<%# Bind("CMFSFS_PANNum") %>'></asp:TextBox>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:TextBox ID="txtPanMultiple" CssClass="txtField" runat="server" />
-                    </FooterTemplate>
-                </telerik:GridTemplateColumn>
-                
-                <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="Folio" DataField="CMFSFS_FolioNum"
-                    SortExpression="CMFSFS_FolioNum" AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                    <ItemTemplate>
-                        <asp:TextBox ID="txtFolio" CssClass="txtField" runat="server" Text='<%# Bind("CMFSFS_FolioNum") %>'></asp:TextBox>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:TextBox ID="txtFolioMultiple" CssClass="txtField" runat="server" />
-                    </FooterTemplate>
-                </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="AMC Name" DataField="PA_AMCName"
-                    UniqueName="PA_AMCName" SortExpression="PA_AMCName" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridTemplateColumn HeaderStyle-Width="116px" HeaderText="Broker Code" DataField="CMFSS_BrokerCode"
-                    SortExpression="CMFSS_BrokerCode" AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                    <ItemTemplate>
-                        <asp:TextBox ID="txtBroker" CssClass="txtField" runat="server" Text='<%# Bind("CMFSS_BrokerCode") %>'></asp:TextBox>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:TextBox ID="txtBrokerMultiple" CssClass="txtField" runat="server" />
-                    </FooterTemplate>
-                </telerik:GridTemplateColumn>
-               <%-- <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Broker Code" DataField="CMFSS_BrokerCode"
+<%--<asp:Panel ID="PnlCAMSProfileReject" runat="server" class="Landscape" Width="100%" Visible="false">--%>
+    <table width="100%" cellspacing="0" cellpadding="4" style="table-layout: auto;">
+        <tr>
+            <td>
+                <telerik:RadGrid ID="gvCAMSProfileReject" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    EnableViewState="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="1062px"
+                    AllowFilteringByColumn="true" OnPreRender="gvCAMSProfileReject_PreRender" AllowAutomaticInserts="false"
+                    ExportSettings-FileName="MF Folio Reject Details" OnItemDataBound="gvCAMSProfileReject_ItemDataBound"
+                    OnNeedDataSource="gvCAMSProfileReject_OnNeedDataSource">
+                    <ExportSettings HideStructureColumns="true">
+                    </ExportSettings>
+                    <MasterTableView DataKeyNames="CMFFS_Id,CMFFS_MainStagingId,ADUL_ProcessId,CMFSS_BrokerCode,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
+                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                        <Columns>
+                            <telerik:GridTemplateColumn HeaderStyle-Width="80px" AllowFiltering="false" UniqueName="action"
+                                DataField="action">
+                                <HeaderTemplate>
+                                    <input id="chkBxAll" name="chkBxAll" type="checkbox" onclick="checkAllBoxes()" />
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkBx" runat="server" />
+                                    <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFFS_Id").ToString() + "-" +  Eval("WRR_RejectReasonCode").ToString()%>' />
+                                    <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("ADUL_ProcessId").ToString() %>' />
+                                    <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("CMFFS_Id").ToString() %>' />
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Button ID="btnSave" CssClass="FieldName" OnClick="btnSave_Click" runat="server"
+                                        Text="Save" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn HeaderStyle-Width="322px" HeaderText="Reject Reason" DataField="RejectReason"
+                                UniqueName="RejectReason" SortExpression="RejectReason" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <FilterTemplate>
+                                    <telerik:RadComboBox ID="RadComboBoxRR" Width="305px" CssClass="cmbField" AllowFiltering="true"
+                                        AutoPostBack="true" OnSelectedIndexChanged="RadComboBoxRR_SelectedIndexChanged"
+                                        IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
+                                        OnPreRender="rcbContinents1_PreRender" EnableViewState="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectReason").CurrentFilterValue %>'
+                                        runat="server">
+                                        <%--OnPreRender="rcbContinents_PreRender"--%>
+                                        <Items>
+                                            <telerik:RadComboBoxItem Text="All" Value="" Selected="true"></telerik:RadComboBoxItem>
+                                        </Items>
+                                    </telerik:RadComboBox>
+                                    <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
+
+                                        <script type="text/javascript">
+                                            function InvesterNameIndexChanged(sender, args) {
+                                                var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                                //////                                                    sender.value = args.get_item().get_value();
+                                                tableView.filter("RejectReason", args.get_item().get_value(), "EqualTo");
+                                            } 
+                                        </script>
+
+                                    </telerik:RadScriptBlock>
+                                </FilterTemplate>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="322px" HeaderText="WUXFT_XMLFileTypeId"
+                                DataField="WUXFT_XMLFileTypeId" UniqueName="WUXFT_XMLFileTypeId" SortExpression="WUXFT_XMLFileTypeId"
+                                AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="322px" HeaderText="XUET_ExtractTypeCode"
+                                DataField="XUET_ExtractTypeCode" UniqueName="XUET_ExtractTypeCode" SortExpression="XUET_ExtractTypeCode"
+                                AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderText="ProcessId" HeaderStyle-Width="100px" DataField="ADUL_ProcessId"
+                                UniqueName="ProcessId" SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderStyle-Width="220px" HeaderText="Inv Name" DataField="CMFFS_INV_NAME"
+                                UniqueName="InvName" SortExpression="CMFFS_INV_NAME" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="PAN Number" DataField="CMFSFS_PANNum"
+                                SortExpression="PANNumber" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtPan" CssClass="txtField" runat="server" Text='<%# Bind("CMFSFS_PANNum") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtPanMultiple" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="Folio" DataField="CMFSFS_FolioNum"
+                                SortExpression="CMFSFS_FolioNum" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtFolio" CssClass="txtField" runat="server" Text='<%# Bind("CMFSFS_FolioNum") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtFolioMultiple" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="AMC Name" DataField="PA_AMCName"
+                                UniqueName="PA_AMCName" SortExpression="PA_AMCName" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn HeaderStyle-Width="116px" HeaderText="Broker Code" DataField="CMFSS_BrokerCode"
+                                SortExpression="CMFSS_BrokerCode" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtBroker" CssClass="txtField" runat="server" Text='<%# Bind("CMFSS_BrokerCode") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtBrokerMultiple" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <%-- <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Broker Code" DataField="CMFSS_BrokerCode"
                     UniqueName="CMFSS_BrokerCode" SortExpression="CMFSS_BrokerCode" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Bank Name" DataField="CMFFS_BANK_NAME"
-                    UniqueName="CMFFS_BANK_NAME" SortExpression="CMFFS_BANK_NAME" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Address" DataField="CMGCXP_ADDRESS1"
-                    UniqueName="CMGCXP_ADDRESS1" SortExpression="CMGCXP_ADDRESS1" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="City" DataField="CMGCXP_CITY"
-                    UniqueName="CMGCXP_CITY" SortExpression="CMGCXP_CITY" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Pin Code" DataField="CMGCXP_PINCODE"
-                    UniqueName="CMGCXP_PINCODE" SortExpression="CMGCXP_PINCODE" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Ph. Off" DataField="CMGCXP_PHONE_OFF"
-                    UniqueName="CMGCXP_PHONE_OFF" SortExpression="CMGCXP_PHONE_OFF" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Ph. Res" DataField="CMGCXP_PHONE_RES"
-                    UniqueName="CMGCXP_PHONE_RES" SortExpression="CMGCXP_PHONE_RES" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="DOB" DataField="CMGCXP_DOB"
-                    UniqueName="CMGCXP_DOB" SortExpression="CMGCXP_DOB" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-            </Columns>
-        </MasterTableView>
-        <ClientSettings>
-            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-            <Resizing AllowColumnResize="true" />
-        </ClientSettings>
-    </telerik:RadGrid>
-</div>
+                            <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Bank Name" DataField="CMFFS_BANK_NAME"
+                                UniqueName="CMFFS_BANK_NAME" SortExpression="CMFFS_BANK_NAME" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Address" DataField="CMGCXP_ADDRESS1"
+                                UniqueName="CMGCXP_ADDRESS1" SortExpression="CMGCXP_ADDRESS1" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="City" DataField="CMGCXP_CITY"
+                                UniqueName="CMGCXP_CITY" SortExpression="CMGCXP_CITY" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Pin Code" DataField="CMGCXP_PINCODE"
+                                UniqueName="CMGCXP_PINCODE" SortExpression="CMGCXP_PINCODE" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Ph. Off" DataField="CMGCXP_PHONE_OFF"
+                                UniqueName="CMGCXP_PHONE_OFF" SortExpression="CMGCXP_PHONE_OFF" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Ph. Res" DataField="CMGCXP_PHONE_RES"
+                                UniqueName="CMGCXP_PHONE_RES" SortExpression="CMGCXP_PHONE_RES" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="DOB" DataField="CMGCXP_DOB"
+                                UniqueName="CMGCXP_DOB" SortExpression="CMGCXP_DOB" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px" />
+                        <ClientEvents OnGridCreated="GridCreated" />
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        <Resizing AllowColumnResize="true" />
+                    </ClientSettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+    </table>
+<%--</asp:Panel>--%>
 <div runat="server" id="divBtnActionSection" visible="false">
     <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
         CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedMFFolio_btnReprocess','L');"
@@ -416,16 +438,12 @@
         OnClientClick="return ShowPopup()" />
     <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" OnClick="btnDelete_Click"
         Text="Delete Records" />
-    <asp:Button ID="btnAddLob" runat="server" CssClass="PCGLongButton"
-        OnClick="btnAddLob_Click" Text="Add Broker Code" OnClientClick="return  GetSelectedNames();" />
+    <asp:Button ID="btnAddLob" runat="server" CssClass="PCGLongButton" OnClick="btnAddLob_Click"
+        Text="Add Broker Code" OnClientClick="return  GetSelectedNames();" />
     <br />
 </div>
 <div id="divProfileMessage" runat="server" visible="false" class="message">
     <asp:Label ID="lblEmptyMsg" class="FieldName" runat="server" Text="There are no records to be displayed!">
     </asp:Label>
 </div>
-
 <asp:HiddenField ID="hfRmId" runat="server" />
-
-
- 

@@ -67,13 +67,14 @@ namespace WealthERP.Uploads
         string xmlPath;
         string xmlFileName = string.Empty;
         string extracttype;
-
+        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
         DataTable dtgvWERPMF = new DataTable();
        // DataSet dsRejectedRecords = new DataSet();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           
+            advisorPreferenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
             SessionBo.CheckSession();
             //ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
@@ -192,7 +193,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        divGvCAMSProfileReject.Visible = false;
+                       // divGvCAMSProfileReject.Visible = false;
                         BindAdviserDropDownList();
                         tdBtnViewRejetcs.Visible = false;
                         tdTxtToDate.Visible = false;
@@ -214,6 +215,7 @@ namespace WealthERP.Uploads
                 //    divGvCAMSProfileReject.Visible = false;
                 //}
             }
+            gvCAMSProfileReject.Visible = false;
         }
 
         protected void BindAdviserDropDownList()
@@ -336,7 +338,7 @@ namespace WealthERP.Uploads
                 if (dsRejectedRecords.Tables[0].Rows.Count > 0)
                 {   // If Records found, then bind them to grid
                     divProfileMessage.Visible = false;
-                    divGvCAMSProfileReject.Visible = true;
+                   // divGvCAMSProfileReject.Visible = true;
                     imgBtnrgHoldings.Visible = true;
                     divBtnActionSection.Visible = true;
                 
@@ -352,6 +354,8 @@ namespace WealthERP.Uploads
 
                     gvCAMSProfileReject.CurrentPageIndex = 0;
                     gvCAMSProfileReject.DataSource = dsRejectedRecords.Tables[0];
+                    gvCAMSProfileReject.PageSize = advisorPreferenceVo.GridPageSize;
+                    gvCAMSProfileReject.Visible = true;
                     gvCAMSProfileReject.DataBind();
                    
 
@@ -360,7 +364,8 @@ namespace WealthERP.Uploads
                 {
                     divProfileMessage.Visible = true;
                     divBtnActionSection.Visible = false;
-                    divGvCAMSProfileReject.Visible = false;
+                    gvCAMSProfileReject.Visible = false;
+                  //  divGvCAMSProfileReject.Visible = false;
                     imgBtnrgHoldings.Visible = false;
                 }
 
