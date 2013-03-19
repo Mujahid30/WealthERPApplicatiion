@@ -4743,13 +4743,13 @@ namespace BoUploads
             }
         }
 
-        public DataSet GetTrailCommissionRejectRejectDetails(int advisorId, int processId)
+        public DataSet GetTrailCommissionRejectRejectDetails(int advisorId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
         {
             DataSet dsTrailRejectRecords = new DataSet();
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
             try
             {
-                dsTrailRejectRecords = uploadDAO.GetTrailCommissionRejectRejectDetails(advisorId, processId);
+                dsTrailRejectRecords = uploadDAO.GetTrailCommissionRejectRejectDetails(advisorId, processId, fromDate, toDate, rejectReasonCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -4851,6 +4851,33 @@ namespace BoUploads
             inserted = UploadsCommonDao.InsertFromXMLToInputTableForSUSIP(UploadProcessId, fileName);
 
             return inserted;
+        }
+        public DataSet GetRejectReasonTrailList(int uploadFileType)
+        {
+            DataSet dsRejectReasonTrailList;
+            UploadsCommonDao UploadsCommonDao = new UploadsCommonDao();
+            try
+            {
+                dsRejectReasonTrailList = UploadsCommonDao.GetRejectReasonSIPList(uploadFileType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:GetRejectReasonList()");
+                object[] objects = new object[9];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsRejectReasonTrailList;
+
         }
 
     }
