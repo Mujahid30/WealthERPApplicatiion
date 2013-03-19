@@ -24,7 +24,7 @@
         else if (searchtype == "AdviserCustomer") {
             if (sessionValue == "RM") {
                 var searchstring = document.getElementById('ctrl_AdvisorLeftPane_txtFindAdviserCustomer').value;
-                loadsearchcontrol('RMCustomer', 'RMCustomer', searchstring);
+                loadsearchcontrol('AdviserCustomer', 'AdviserCustomer', searchstring);
             }
             else {
                 var searchstring = document.getElementById('ctrl_AdvisorLeftPane_txtFindAdviserCustomer').value;

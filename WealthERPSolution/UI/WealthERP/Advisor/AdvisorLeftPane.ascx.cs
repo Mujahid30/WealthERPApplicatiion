@@ -881,7 +881,8 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "CustomerList")
                 {
                     Session["Customer"] = "Customer";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomer','login');", true);
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                 }
                 else if (e.Item.Value == "Customer_Report")
                 {
@@ -1102,7 +1103,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "CustomerList")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BMCustomer", "loadcontrol('BMCustomer','login');", true);
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer','login');", true);
                 }
                 else if (e.Item.Value == "Customer_Report")
                 {
