@@ -50,7 +50,7 @@ namespace BoSuperAdmin
                 object[] objects = new object[7];
                 objects[0] = FromDate;
                 objects[1] = ToDate;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -65,13 +65,13 @@ namespace BoSuperAdmin
         /// <param name="fromdate"></param>
         /// <param name="todate"></param>
         /// <returns></returns>
-        public DataSet GetAllAdviserAUM(DateTime fromdate, DateTime todate,string asset)
+        public DataSet GetAllAdviserAUM(DateTime fromdate, DateTime todate, string asset)
         {
             DataSet dsGetAum;
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
             try
             {
-                dsGetAum = superAdminOpsDao.GetAllAdviserAUM(fromdate, todate,asset);
+                dsGetAum = superAdminOpsDao.GetAllAdviserAUM(fromdate, todate, asset);
             }
             catch (BaseApplicationException Ex)
             {
@@ -93,7 +93,7 @@ namespace BoSuperAdmin
             }
             return dsGetAum;
         }
-        public DataSet GetMfrejectedDetails(DateTime fromdate,DateTime todate)
+        public DataSet GetMfrejectedDetails(DateTime fromdate, DateTime todate)
         {
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
             DataSet dsRejectedRecords;
@@ -111,13 +111,13 @@ namespace BoSuperAdmin
             return dsRejectedRecords;
         }
 
-        public void DeleteDuplicateRecord(int adviserId,int accountId,double netHolding,int schemeCode,DateTime ValuationDate)
+        public void DeleteDuplicateRecord(int adviserId, int accountId, double netHolding, int schemeCode, DateTime ValuationDate)
         {
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
 
             try
             {
-                superAdminOpsDao.DeleteDuplicateRecord(adviserId, accountId,netHolding,schemeCode,ValuationDate);
+                superAdminOpsDao.DeleteDuplicateRecord(adviserId, accountId, netHolding, schemeCode, ValuationDate);
 
             }
             catch (BaseApplicationException Ex)
@@ -125,7 +125,7 @@ namespace BoSuperAdmin
                 throw Ex;
             }
 
-            
+
         }
 
         SuperAdminOpsDao ProductGoldPriceDao = new SuperAdminOpsDao();
@@ -149,8 +149,8 @@ namespace BoSuperAdmin
             DataSet ds = new DataSet();
             try
             {
-                
-                 ds=ProductGoldPriceDao.GetDataBetweenDatesForGoldPrice(productGoldPriceVO,productGoldPriceId,CurrentPage,out Count);
+
+                ds = ProductGoldPriceDao.GetDataBetweenDatesForGoldPrice(productGoldPriceVO, productGoldPriceId, CurrentPage, out Count);
             }
             catch
             {
@@ -235,9 +235,9 @@ namespace BoSuperAdmin
 
             try
             {
-                 int i;
-                 i=ProductGoldPriceDao.deleteGoldPriceDetails(productGoldPriceID);
-                 return i;
+                int i;
+                i = ProductGoldPriceDao.deleteGoldPriceDetails(productGoldPriceID);
+                return i;
             }
             catch
             {
@@ -245,6 +245,48 @@ namespace BoSuperAdmin
             }
         }
 
+        /// <summary>
+        /// This function will get the duplicate foliodetails or the transaction details 
+        /// </summary>
+        /// <param name="adviserId">filter according to the adviserid or All</param>
+        /// <param name="toDate">to transaction date</param>
+        /// <param name="fromDate">from transaction date</param>
+        /// <param name="isDuplicatesOnly">if only duplicate records are expected</param>
+        /// <returns>dataset for duplicate folios or transactions</returns>
+        public DataSet GetDuplicateTransactionDetailsORFolioDetails(string strMonitorFor,string strTypeOfMonitor,int adviserId, DateTime todate, DateTime fromDate,int isDuplicateOnly)
+        {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            DataSet dsDuplicateTransactions;
+            try
+            {
+                dsDuplicateTransactions = superAdminOpsDao.GetDuplicateTransactionDetailsOrFolioDetails(strMonitorFor,strTypeOfMonitor,adviserId, todate, fromDate, isDuplicateOnly);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "SuperAdminOpsBo.cs:GetDuplicateTransactionDetailsORFolioDetails(string strMonitorFor,string strTypeOfMonitor,int adviserId, DateTime todate, DateTime fromDate,int isDuplicateOnly)");
+                object[] objects = new object[10];
+                objects[0] = strMonitorFor;
+                objects[1] = strTypeOfMonitor;
+                objects[2] = adviserId;
+                objects[3] = todate;
+                objects[4] = fromDate;
+                objects[5] = isDuplicateOnly;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsDuplicateTransactions;
+        }
+
+      
 
         public void DeleteAllDuplicates()
         {
@@ -316,7 +358,7 @@ namespace BoSuperAdmin
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
-            }           
+            }
         }
 
         public DataSet GetNAVPercentage(DateTime navDate, double NavPer)
@@ -325,7 +367,7 @@ namespace BoSuperAdmin
             DataSet dsGetNAVPer;
             try
             {
-                dsGetNAVPer = superAdminOpsDao.GetNAVPercentage(navDate,NavPer);
+                dsGetNAVPer = superAdminOpsDao.GetNAVPercentage(navDate, NavPer);
 
             }
             catch (BaseApplicationException Ex)
@@ -354,7 +396,7 @@ namespace BoSuperAdmin
             try
             {
                 dsAdviserRMDetails = superAdminOpsDao.GetAdviserRmDetails(adviserId);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -365,10 +407,10 @@ namespace BoSuperAdmin
         public bool FolioStartDate(int adviserId)
         {
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
-            bool isComplete=false;
+            bool isComplete = false;
             try
             {
-                
+
                 superAdminOpsDao.FolioStartDate(adviserId);
                 isComplete = true;
             }
