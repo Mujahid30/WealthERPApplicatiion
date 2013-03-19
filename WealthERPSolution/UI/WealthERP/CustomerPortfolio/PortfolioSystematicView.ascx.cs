@@ -138,9 +138,11 @@ namespace WealthERP.CustomerPortfolio
                 SessionBo.CheckSession();
                 customerVo = (CustomerVo)Session["customerVo"];
                 portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
-
-                if (!Page.IsPostBack)
+                 if (!Page.IsPostBack)
                 {
+                    //remove what ever is in the cache
+                    Cache.Remove("SIP Details" + customerVo.CustomerId.ToString());
+               
                    
                     BindPortfolioDropDown(customerVo.CustomerId);
                     ddlportfolio.SelectedValue = portfolioId.ToString();
@@ -172,18 +174,11 @@ namespace WealthERP.CustomerPortfolio
             List<SystematicSetupVo> systematicSetupList = new List<SystematicSetupVo>();
             try
             {
-                string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                int count;
-
+                string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());  
                 systematicSetupList = systematicSetupBo.GetSystematicSchemeSetupList(portfolioId);
-                
-                if (systematicSetupList != null)
-                {
-                    lblMsg.Visible = false;                   
-                    //tblPager.Visible = true;
-                    //trPager.Visible = true;
+                    
+                    gvrSystematicSchemes.Visible = true;
                     DataTable dtSystematicSetup = new DataTable();
-                    //dtProperty.Columns.Add("SI.No");
                     dtSystematicSetup.Columns.Add("SystematicSetupId");
                     dtSystematicSetup.Columns.Add("Scheme Name");
                     dtSystematicSetup.Columns.Add("Folio");
@@ -194,48 +189,50 @@ namespace WealthERP.CustomerPortfolio
                     dtSystematicSetup.Columns.Add("Amount",typeof (double));
                     dtSystematicSetup.Columns.Add("Frequency");
                     DataRow drSystematicSetup;
-                    for (int i = 0; i < systematicSetupList.Count; i++)
+                    if (systematicSetupList != null)
                     {
-                        drSystematicSetup = dtSystematicSetup.NewRow();
-                        systematicSetupVo = new SystematicSetupVo();
-                        systematicSetupVo = systematicSetupList[i];
-                        //drProperty[0] = (i + 1).ToString();
-                        drSystematicSetup[0] = systematicSetupVo.SystematicSetupId.ToString();
-                        drSystematicSetup[1] = systematicSetupVo.SchemePlan.ToString();//add to Vo scheme name and use join in SP
-                        drSystematicSetup[2] = systematicSetupVo.Folio.ToString();//add folio to Vo and use join in SP
-                        drSystematicSetup[3] = systematicSetupVo.SystematicType.ToString();//join
-                        drSystematicSetup[4] = systematicSetupVo.StartDate.ToShortDateString();
-                        drSystematicSetup[5] = systematicSetupVo.EndDate.ToShortDateString();
-                        drSystematicSetup[6] = systematicSetupVo.SystematicDate.ToString();
-                        drSystematicSetup[7] = systematicSetupVo.Amount;
-                        drSystematicSetup[8] = systematicSetupVo.Frequency.ToString();//join
+                        imgBtnrgHoldings.Visible = true;
+                        for (int i = 0; i < systematicSetupList.Count; i++)
+                        {
+                            drSystematicSetup = dtSystematicSetup.NewRow();
+                            systematicSetupVo = new SystematicSetupVo();
+                            systematicSetupVo = systematicSetupList[i];
+                            drSystematicSetup[0] = systematicSetupVo.SystematicSetupId.ToString();
+                            drSystematicSetup[1] = systematicSetupVo.SchemePlan.ToString();//add to Vo scheme name and use join in SP
+                            drSystematicSetup[2] = systematicSetupVo.Folio.ToString();//add folio to Vo and use join in SP
+                            drSystematicSetup[3] = systematicSetupVo.SystematicType.ToString();//join
+                            drSystematicSetup[4] = systematicSetupVo.StartDate.ToShortDateString();
+                            drSystematicSetup[5] = systematicSetupVo.EndDate.ToShortDateString();
+                            drSystematicSetup[6] = systematicSetupVo.SystematicDate.ToString();
+                            drSystematicSetup[7] = systematicSetupVo.Amount;
+                            drSystematicSetup[8] = systematicSetupVo.Frequency.ToString();//join
 
-                        dtSystematicSetup.Rows.Add(drSystematicSetup);
-                    }
-                    if (Cache["SIP Details" + customerVo.CustomerId.ToString()] == null)
-                    {
-                        Cache.Insert("SIP Details" + customerVo.CustomerId.ToString(), dtSystematicSetup);
+                            dtSystematicSetup.Rows.Add(drSystematicSetup);
+                        }
+
+                        gvrSystematicSchemes.DataSource = dtSystematicSetup;
+                        gvrSystematicSchemes.DataBind();
+                        if (Cache["SIP Details" + customerVo.CustomerId.ToString()] == null)
+                        {
+                            Cache.Insert("SIP Details" + customerVo.CustomerId.ToString(), dtSystematicSetup);
+                        }
+                        else
+                        {
+                            Cache.Remove("SIP Details" + customerVo.CustomerId.ToString());
+                            Cache.Insert("SIP Details" + customerVo.CustomerId.ToString(), dtSystematicSetup);
+                        }
+
                     }
                     else
                     {
                         Cache.Remove("SIP Details" + customerVo.CustomerId.ToString());
-                        Cache.Insert("SIP Details" + customerVo.CustomerId.ToString(), dtSystematicSetup);
+                        imgBtnrgHoldings.Visible = false;
+                        gvrSystematicSchemes.DataSource = dtSystematicSetup;
+                        gvrSystematicSchemes.DataBind();
                     }
-                    gvrSystematicSchemes.DataSource = dtSystematicSetup;
-                    gvrSystematicSchemes.DataBind();
 
+                
 
-                   
-                    //this.GetPageCount();
-                }
-                else
-                {
-                    lblMsg.Visible = true;
-                    //tblPager.Visible = false;
-                    //trPager.Visible = false;
-                    gvrSystematicSchemes.DataSource = null;
-                    gvrSystematicSchemes.DataBind();
-                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -380,6 +377,7 @@ namespace WealthERP.CustomerPortfolio
             ddlportfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
             ddlportfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlportfolio.DataBind();
+           
         }
 
         protected void ddlportfolio_SelectedIndexChanged(object sender, EventArgs e)
@@ -398,6 +396,9 @@ namespace WealthERP.CustomerPortfolio
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
+
+            //Cache["SIP Details" + customerVo.CustomerId.ToString()]
+
             DataTable dtFolioDetails = new DataTable();
             dtFolioDetails = (DataTable)Cache["SIP Details" + customerVo.CustomerId.ToString()];
             gvrSystematicSchemes.DataSource = dtFolioDetails;
