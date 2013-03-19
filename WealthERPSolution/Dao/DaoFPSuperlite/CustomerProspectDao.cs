@@ -1260,8 +1260,10 @@ namespace DaoFPSuperlite
                     db.AddInParameter(getAllProspectCustomersForRMCmd, "@BranchId", DbType.Int32, branchId);
                 //if (All != 0)
                     db.AddInParameter(getAllProspectCustomersForRMCmd, "@all", DbType.Int32, All);
+                    
 
                 dsGetAllProspectCustomersForRM = db.ExecuteDataSet(getAllProspectCustomersForRMCmd);
+               
 
 
             }
