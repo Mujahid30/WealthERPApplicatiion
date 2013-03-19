@@ -20,6 +20,7 @@ using System.Collections;
 using WealthERP.Base;
 using BoCommon;
 using System.Configuration;
+using VoAdvisorProfiling;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -56,6 +57,7 @@ namespace WealthERP.Uploads
         int processId;
         string configPath;
         DataSet dsRejectedSIP = new DataSet();
+        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
         protected override void OnInit(EventArgs e)
         {
             //((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
@@ -103,6 +105,7 @@ namespace WealthERP.Uploads
           
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
+            advisorPreferenceVo = (AdvisorPreferenceVo)(Session["AdvisorPreferenceVo"]);
             processId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
@@ -163,7 +166,7 @@ namespace WealthERP.Uploads
                         tdDDLRejectReason.Visible = false;
                         //lblEmptyMsg.Visible = false;
                         gvSIPReject.Visible = false;
-                        Panel3.Visible = false;
+                        ///Panel3.Visible = false;
                         btnExport.Visible = false;
                                             
                   }
@@ -171,6 +174,7 @@ namespace WealthERP.Uploads
               }
            // btnExport.Visible = false;
             Msgerror.Visible = false;
+            gvSIPReject.Visible = false;
            }
      
         public void BindddlRejectReason()
@@ -228,11 +232,12 @@ namespace WealthERP.Uploads
                 }
                 gvSIPReject.CurrentPageIndex = 0;
                 gvSIPReject.DataSource = dsRejectedSIP.Tables[0];
+                gvSIPReject.PageSize = advisorPreferenceVo.GridPageSize;
                 gvSIPReject.DataBind();
                 btnExport.Visible = true;
                 gvSIPReject.Visible = true;
                 Msgerror.Visible = false;
-                Panel3.Visible = true;
+              //  Panel3.Visible = true;
                
             }
             else
@@ -242,7 +247,7 @@ namespace WealthERP.Uploads
                 gvSIPReject.DataSource = null;
                 gvSIPReject.DataBind();
                 gvSIPReject.Visible = false;
-                Panel3.Visible = false;
+              //  Panel3.Visible = false;
                 Msgerror.Visible = true;
                 btnExport.Visible = false;
                 DivAction.Visible = false;

@@ -143,6 +143,25 @@
     }
 </script>
 
+
+<script language="javascript" type="text/javascript">
+function GridCreated(sender, args) {
+        var scrollArea = sender.GridDataDiv;
+        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
+         if (dataHeight < 300) {
+            scrollArea.style.height = dataHeight +17+ "px";
+        }
+    }
+</script>
+
+<style id="Style1" type="text/css" runat="server">
+    .rgDataDiv
+    {
+        height: auto;
+        width: 101.5% !important;
+    }
+</style>
+
 <div id="divConditional" runat="server">
     <table class="TableBackground" cellspacing="0" cellpadding="2">
         <tr>
@@ -427,8 +446,8 @@
      </telerik:RadAjaxPanel>
           
    --%>
-<asp:Panel ID="Panel3" Visible="false" runat="server" class="Landscape" Width="100%"
-    ScrollBars="Horizontal">
+<%--<asp:Panel ID="Panel3" Visible="false" runat="server" class="Landscape" Width="100%"
+    ScrollBars="Horizontal">--%>
     <table width="100%" cellspacing="0" cellpadding="2">
         <tr>
             <td>
@@ -439,9 +458,9 @@
         <tr>
             <td>
                 <telerik:RadGrid ID="gvSIPReject" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    AllowFiltering="true" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
+                    AllowFiltering="true" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                     Skin="Telerik" OnItemDataBound="gvSIPReject_ItemDataBound" EnableEmbeddedSkins="false"
-                    Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
+                    Width="1062px" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
                     ShowFooter="true" OnNeedDataSource="gvSIPReject_NeedDataSource" OnPreRender="gvSIPReject_PreRender">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
@@ -627,6 +646,8 @@
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
+                    <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px" />
+                    <ClientEvents OnGridCreated="GridCreated" />
                         <Resizing AllowColumnResize="false" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
@@ -634,7 +655,7 @@
             </td>
         </tr>
     </table>
-</asp:Panel>
+<%--</asp:Panel>--%>
 <%--  <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
                     <table width="100%" cellspacing="0" cellpadding="0">
                         <tr>
