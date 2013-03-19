@@ -21,6 +21,7 @@ using System.Text;
 using BoCommon;
 using WealthERP.Base;
 using BoUploads;
+using VoAdvisorProfiling;
 using Telerik.Web.UI;
 
 
@@ -50,6 +51,7 @@ namespace WealthERP.Advisor
         private const string DESCENDING = " DESC";
         List<int> rmList = new List<int>();
         string currentRole = "";
+        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
 
         #region removed the pager
 
@@ -163,6 +165,7 @@ namespace WealthERP.Advisor
             rmVo = (RMVo)Session["rmVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["UserVo"];
+            advisorPreferenceVo = (AdvisorPreferenceVo)(Session["AdvisorPreferenceVo"]);
             string rm = "";
             try
             {
@@ -296,6 +299,7 @@ namespace WealthERP.Advisor
                     }
 
                     gvRMList.DataSource = dtAdvisorStaff;
+                    gvRMList.PageSize = advisorPreferenceVo.GridPageSize;
                     gvRMList.DataBind();
 
                     //gvRMList.MasterTableView.FilterExpression = "([Name] LIKE \'%" + rm + "%\')";
@@ -405,7 +409,8 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[7] =  rmVo.BranchList;
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
-                        gvRMList.DataSource = dtAdvisorStaff;                      
+                        gvRMList.DataSource = dtAdvisorStaff;
+                        gvRMList.PageSize = advisorPreferenceVo.GridPageSize;
                         gvRMList.DataBind();
 
 
@@ -484,6 +489,7 @@ namespace WealthERP.Advisor
                         }
                         dtAdvisorStaff.DefaultView.Sort = "RMName ASC";
                         gvRMList.DataSource = dtAdvisorStaff;
+                        gvRMList.PageSize = advisorPreferenceVo.GridPageSize;
                         gvRMList.DataBind();
 
 

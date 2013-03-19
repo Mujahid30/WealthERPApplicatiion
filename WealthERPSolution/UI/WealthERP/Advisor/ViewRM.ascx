@@ -88,8 +88,22 @@
         columnName = eventArgs.get_column().get_uniqueName();
     }
 
-
+    function GridCreated(sender, args) {
+        var scrollArea = sender.GridDataDiv;
+        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
+        if (dataHeight < 300) {
+            scrollArea.style.height = dataHeight +17+ "px";
+        }
+    }
 </script>
+
+<style id="Style1" type="text/css" runat="server">
+    .rgDataDiv
+    {
+        height: auto;
+        width: 101.5% !important;
+    }
+</style>
 
 <table class="TableBackground" width="100%">
     <tr>
@@ -143,7 +157,7 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" >
     <table width="100%">
         <%--<tr>
             <td class="HeaderCell">
@@ -155,7 +169,7 @@
             <td>
                 <telerik:RadGrid ID="gvRMList" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="1062px" AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" OnNeedDataSource="gvRMList_OnNeedDataSource" OnPreRender="gvRMList_PreRender">
                     <ExportSettings FileName="Staff Details" HideStructureColumns="true" ExportOnlyData="true">
                     </ExportSettings>
@@ -241,6 +255,8 @@
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
+                    <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px" />
+                    <ClientEvents OnGridCreated="GridCreated" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                         <ClientEvents OnFilterMenuShowing="filterMenuShowing" />
                     </ClientSettings>
