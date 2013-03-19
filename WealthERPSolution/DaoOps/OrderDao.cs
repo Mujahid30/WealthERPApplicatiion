@@ -970,7 +970,8 @@ namespace DaoOps
                     db.AddInParameter(dbOrder, "@orderType", DbType.String, orderType);
                 }
                     dsOrder = db.ExecuteDataSet(dbOrder);
-                dtOrder = dsOrder.Tables[0];
+                    dtOrder = dsOrder.Tables[0];
+                   
             }
             catch (BaseApplicationException ex)
             {
