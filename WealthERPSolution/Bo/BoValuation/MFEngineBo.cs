@@ -1190,7 +1190,7 @@ namespace BoValuation
                     
                     drMFNetPosition["CMFNP_NAVDate"] = dtMFTransactionBalance.Rows[0]["NAVDate"];
 
-                    if (DateTime.Parse(drMFNetPosition["CMFNP_NAVDate"].ToString()) == DateTime.MinValue)
+                    if (drMFNetPosition["CMFNP_NAVDate"].ToString() == "" || DateTime.Parse(drMFNetPosition["CMFNP_NAVDate"].ToString()) == DateTime.MinValue)
                     {
                         drMFNetPosition["CMFNP_NAVDate"] = DBNull.Value;
                     }
