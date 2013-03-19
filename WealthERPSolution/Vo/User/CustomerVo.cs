@@ -13,6 +13,7 @@ namespace VoUser
         #region Fields
 
         private int m_CustomerId;
+        private int m_ParentId;
         private string m_CustCode;
         private int m_RmId;
         private DateTime m_ProfilingDate;
@@ -269,6 +270,12 @@ namespace VoUser
             set { m_CustomerId = value; }
         }
 
+        public int ParentId
+        {
+            get { return m_ParentId; }
+            set { m_ParentId = value; }
+        
+        }
         public string CustCode
         {
             get { return m_CustCode; }
