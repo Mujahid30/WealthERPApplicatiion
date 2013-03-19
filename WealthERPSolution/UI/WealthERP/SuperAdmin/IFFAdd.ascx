@@ -168,7 +168,7 @@
 <table width="100%">
     <tr>
         <td align="right">
-            <asp:Label ID="lblNameOfIFF" Text="Name of IFF:" CssClass="FieldName" runat="server"></asp:Label>
+            <asp:Label ID="lblNameOfIFF" Text="Name of IFA:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtNameofIFF" CssClass="txtField" runat="server" Width="175px"></asp:TextBox>
