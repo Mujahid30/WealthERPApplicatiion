@@ -202,7 +202,7 @@
                             <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             <FilterTemplate>
                                 <telerik:RadComboBox ID="RadComboRM" AutoPostBack="true" AllowFiltering="true" CssClass="cmbField"
-                                    Height="150px" Width="120px" IsFilteringEnabled="true" AppendDataBoundItems="true"
+                                    Height="" Width="120px" IsFilteringEnabled="true" AppendDataBoundItems="true" DropDownWidth="130px"
                                     OnPreRender="rcbRM_PreRender" EnableViewState="true" OnSelectedIndexChanged="RadComboRM_SelectedIndexChanged"
                                     SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RMId").CurrentFilterValue %>'
                                     runat="server">
