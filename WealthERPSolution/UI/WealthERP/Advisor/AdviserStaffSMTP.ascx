@@ -454,9 +454,13 @@
                                                 CssClass="rfvPCG" ErrorMessage="<br />Please enter Row per page " Display="Dynamic"
                                                 runat="server" InitialValue="" ValidationGroup="BtnSubmitpage"></asp:RequiredFieldValidator>
                                             <asp:RegularExpressionValidator ID="emailValidator" runat="server" Display="Dynamic"
-                                                ErrorMessage="Please, enter valid number."  CssClass="rfvPCG" ValidationExpression="^[0-9]+$"
+                                                ErrorMessage="Please, enter valid number." CssClass="rfvPCG" ValidationExpression="^[0-9]+$"
                                                 ControlToValidate="txtGridPageSize">
                                             </asp:RegularExpressionValidator>
+                                            <asp:RangeValidator runat="server" ID="RangeValidator1" ControlToValidate="txtGridPageSize" Type="Integer" Display="Dynamic"
+                                                MinimumValue="10" MaximumValue="100" CssClass="rfvPCG" ErrorMessage="Page Range between 10-100 Acceptable" ValidationGroup="BtnSubmitpage">
+                                                </asp:RangeValidator>                                                 
+                                               
                                         </td>
                                     </tr>
                                     <tr>
