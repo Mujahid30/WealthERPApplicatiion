@@ -19,6 +19,7 @@ using BoCustomerProfiling;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Numeric;
+using VoAdvisorProfiling;
 using Telerik.Web.UI;
 
 
@@ -62,7 +63,6 @@ namespace WealthERP.Advisor
         int monthCode = 0;
         int year = 0;
         int isIndividualOrGroup = 0;
-
         int all;
         string customerType = string.Empty;
 
@@ -72,14 +72,14 @@ namespace WealthERP.Advisor
         private int totalNoOfFreshSIP = 0;
         private int totalNoOfSWP = 0;
         private int totalNoOfFreshSWP = 0;
-
+        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
 
         string path;
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
-
+            advisorPreferenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
@@ -522,15 +522,15 @@ namespace WealthERP.Advisor
                 if (Request.QueryString["action"] == "SIP_MIS")
                 {
                     BindgvSystematicMIS();
+                    //Panel1.Visible = false;
                 }
                 else if (Request.QueryString["action"] == "SIP_Projection")
                 {
                     CreateCalenderViewSummaryDataTable();
+                   // Pnlsystematic.Visible = false;
                 }
-
-            }
-            
-            
+           }          
+           
         }
         protected void CallAllGridBindingFunctions()
         {
@@ -1076,12 +1076,12 @@ namespace WealthERP.Advisor
         private void BindgvSystematicMIS()
         {
             SetParameter();
-            dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup);
+            dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()));
             try
             {
                 dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
                 dtSystematicMIS2 = dsBindGvSystematicMIS.Tables[1];
-                //dtSystematicMIS3 = dsBindGvSystematicMIS.Tables[2];
+                //dtSystematicMIS3 = dsBindGvSystematicMIS.Tables[2]; 
                 //dtSystematicMIS4 = dsBindGvSystematicMIS.Tables[3];
 
                 DataTable dtSystematicDetails = new DataTable();
@@ -1111,7 +1111,18 @@ namespace WealthERP.Advisor
                     drSystematicDetails["StartDate"] = DateTime.Parse(dr["StartDate"].ToString()).ToShortDateString();
                     drSystematicDetails["EndDate"] = DateTime.Parse(dr["EndDate"].ToString()).ToShortDateString();
                     drSystematicDetails["Frequency"] = dr["Frequency"].ToString();
-                    systematicDate = Convert.ToInt32(dr["SystematicDate"].ToString());
+                   // if (!string.IsNullOrEmpty("SystematicDate"))
+                    if (dr["SystematicDate"].ToString() == null || dr["SystematicDate"].ToString() == "")
+                    {
+                        systematicDate = 0;
+                    }
+                    else
+                    {
+                        systematicDate = int.Parse(dr["SystematicDate"].ToString());
+                    }
+                        
+                    //systematicDate = Convert.ToInt32(dr["SystematicDate"].ToString());
+                    //systematicDate = Convert.ToInt32(dr["SystematicDate"].ToString());
                     //startDate = Convert.ToDateTime(dr["StartDate"].ToString());
                     endDate = Convert.ToDateTime(dr["EndDate"].ToString());
                     frequency = dr["Frequency"].ToString();
@@ -1133,6 +1144,7 @@ namespace WealthERP.Advisor
                     dtSystematicDetails.Rows.Add(drSystematicDetails);
                 }
                 gvSystematicMIS.DataSource = dtSystematicDetails;
+                gvSystematicMIS.PageSize = advisorPreferenceVo.GridPageSize;
                 gvSystematicMIS.DataBind();
 
                 if (Cache["gvSystematicMIS" + userVo.UserId + userType] == null)
@@ -1153,6 +1165,7 @@ namespace WealthERP.Advisor
                     tblMessage.Visible = false;
                     ErrorMessage.Visible = false;
                     btnExportSystematicMIS.Visible = true;
+                    //Pnlsystematic.Visible = true;
 
                     //trPager.Visible = true;
                 }
@@ -1164,6 +1177,7 @@ namespace WealthERP.Advisor
                     ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = "No Records Found...!";
                     btnExportSystematicMIS.Visible = false;
+                   // Pnlsystematic.Visible = true;
 
                     //trPager.Visible = false;
                 }
@@ -1439,7 +1453,7 @@ namespace WealthERP.Advisor
             SetParameter();
             DataSet dsCalenderSummaryView;
             DataTable dtSIPDetails;
-            dsCalenderSummaryView = systematicSetupBo.GetCalenderSummaryView(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup, hdnstartdate.Value, hdnendDate.Value);
+            dsCalenderSummaryView = systematicSetupBo.GetCalenderSummaryView(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup, hdnstartdate.Value, hdnendDate.Value,int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()));
             //dtSIPDetails = dsBindGvSystematicMIS.Tables[2];
             dtSIPDetails = dsCalenderSummaryView.Tables[0];
             if (dtSIPDetails.Rows.Count > 0)
@@ -1677,6 +1691,7 @@ namespace WealthERP.Advisor
                 calenderView.Sort = ("Year ASC,Month");
               
                 reptCalenderSummaryView.DataSource = calenderView;
+                reptCalenderSummaryView.PageSize = advisorPreferenceVo.GridPageSize;
                 reptCalenderSummaryView.DataBind();
 
                 if (Cache["reptCalenderSummaryView" + userVo.UserId + userType] == null)
@@ -1695,6 +1710,7 @@ namespace WealthERP.Advisor
                     tblMessage.Visible = false;
                     ErrorMessage.Visible = false;
                     btnExportSummary.Visible = true;
+                    //Panel1.Visible = true;
                     //trPager.Visible = true;
                 }
             }
@@ -1705,6 +1721,7 @@ namespace WealthERP.Advisor
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
                 btnExportSummary.Visible = false;
+               // Panel1.Visible = false;
                 //trPager.Visible = false;
             }
 
