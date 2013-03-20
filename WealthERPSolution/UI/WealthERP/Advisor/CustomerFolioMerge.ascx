@@ -244,7 +244,7 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="pnlmergefolio" class="LandScape" ScrollBars="Horizontal" runat="server" >
+
 <table width="100%">
    <%-- <td class="leftField" align="right">
         <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
@@ -256,7 +256,7 @@
                 runat="server"></asp:Label>
         </td>
     </tr>
-    <tr>
+    
         <%--<td colspan="3" allign="center">
             <asp:GridView ID="gvCustomerFolioMerge" runat="server" CellPadding="4" CssClass="GridViewStyle"
                 AllowSorting="True" ShowFooter="true" AutoGenerateColumns="False" DataKeyNames="CustomerId,AMCCode,Count,portfilionumber"
@@ -347,9 +347,8 @@
                 </Columns>
             </asp:GridView>
         </td>--%>
-    </tr>
-    <tr>
-        <td><div style="width:1100px;overflow:scroll">
+     <tr>
+        <td>
             <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
                 Width="1062px" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false"
                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
@@ -421,11 +420,10 @@
                     <Resizing AllowColumnResize="true" />
                     <Selecting AllowRowSelect="true" />
                 </ClientSettings>
-            </telerik:RadGrid></div>
+            </telerik:RadGrid>
         </td>
     </tr>
 </table>
-</asp:Panel>
 <table width="100%">
    <%-- <tr style="width: 100%">
         <td colspan="3">
