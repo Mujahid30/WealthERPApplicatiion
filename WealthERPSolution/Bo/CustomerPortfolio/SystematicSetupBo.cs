@@ -223,12 +223,12 @@ namespace BoCustomerPortfolio
         /// <param name="dtFrom"></param>
         /// <param name="dtTo"></param>
         /// <returns></returns>
-        public DataSet GetAllSystematicMISData(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, string StartDate, string EndDate, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup)
+        public DataSet GetAllSystematicMISData(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, string StartDate, string EndDate, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup,int Manage)
         {
             DataSet dsGetSystematicMIS = new DataSet();
             try
             {
-                dsGetSystematicMIS = systematicSetupDao.GetAllSystematicMISData(UserType, AdviserId, RmId, CustomerId, BranchHeadId, BranchId, All, Category, SysType, AmcCode, SchemePlanCode, StartDate, EndDate, dtFrom, dtTo, isIndividualOrGroup);
+                dsGetSystematicMIS = systematicSetupDao.GetAllSystematicMISData(UserType, AdviserId, RmId, CustomerId, BranchHeadId, BranchId, All, Category, SysType, AmcCode, SchemePlanCode, StartDate, EndDate, dtFrom, dtTo, isIndividualOrGroup,Manage);
             }
             catch (BaseApplicationException Ex)
             {
@@ -267,12 +267,12 @@ namespace BoCustomerPortfolio
 
 
 
-        public DataSet GetCalenderSummaryView(string userType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup, string StartDate, string EndDate)
+        public DataSet GetCalenderSummaryView(string userType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup, string StartDate, string EndDate,int Manage)
         {
             DataSet dsGetCalenderSummaryView = new DataSet();
             try
             {
-                dsGetCalenderSummaryView = systematicSetupDao.GetCalenderSummaryView(userType, AdviserId, RmId, CustomerId, BranchHeadId, BranchId, All, Category, SysType, AmcCode, SchemePlanCode, dtFrom, dtTo, isIndividualOrGroup, StartDate, EndDate);
+                dsGetCalenderSummaryView = systematicSetupDao.GetCalenderSummaryView(userType, AdviserId, RmId, CustomerId, BranchHeadId, BranchId, All, Category, SysType, AmcCode, SchemePlanCode, dtFrom, dtTo, isIndividualOrGroup, StartDate, EndDate,Manage);
             }
             catch (BaseApplicationException Ex)
             {
