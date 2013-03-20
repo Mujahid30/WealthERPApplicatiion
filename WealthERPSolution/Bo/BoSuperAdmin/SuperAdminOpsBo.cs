@@ -420,5 +420,25 @@ namespace BoSuperAdmin
             }
             return isComplete;
         }
+
+        public DataSet CheckForBusinessDateAndIsCurrent(DateTime dtTradeDate, out bool isValidDate)
+        {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            isValidDate = false;
+            DataSet ds = new DataSet();
+            try
+            {
+
+               ds= superAdminOpsDao.CheckForBusinessDateAndIsCurrent(dtTradeDate,out isValidDate);
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
+        
+
     }
 }

@@ -548,61 +548,89 @@ namespace DaoSuperAdmin
             return dsAdviserListHavingSIPGoalFunding.Tables[0]; ;
         }
 
-        public DataTable BindAdviserForUpload()
-        {
-            DataSet dsBindAdviserForUpload = new DataSet();
-            Database db;
-            DbCommand AdviserListcmd;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                AdviserListcmd = db.GetStoredProcCommand("SP_GetAllAdvisers");
-                db.AddInParameter(AdviserListcmd, "@IsforOldVluation", DbType.Int32, 0);
-                dsBindAdviserForUpload = db.ExecuteDataSet(AdviserListcmd);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            return dsBindAdviserForUpload.Tables[0];
-        }
-        public DataSet GetAdviserRmDetails(int adviserId)
-        {
-            DataSet dsAdviserRmDetails = new DataSet();
-            Database db;
-            DbCommand AdviserRmDetailscmd;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                AdviserRmDetailscmd = db.GetStoredProcCommand("SP_GetAdviserRmDetails");
-                db.AddInParameter(AdviserRmDetailscmd, "@AdviserId", DbType.Int32, adviserId);
-                dsAdviserRmDetails = db.ExecuteDataSet(AdviserRmDetailscmd);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            return dsAdviserRmDetails;
-        }
-        public bool FolioStartDate(int adviserId)
-        {
-            DataSet dsFolioStartDate = new DataSet();
-            Database db;
-            DbCommand FolioStartDatecmd;
-            bool isComplete = false;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                FolioStartDatecmd = db.GetStoredProcCommand("SP_FolioStartDate");
-                db.AddInParameter(FolioStartDatecmd, "@AdviserId", DbType.Int32, adviserId);
-                dsFolioStartDate = db.ExecuteDataSet(FolioStartDatecmd);
-                isComplete = true;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            return isComplete;
-        }
+       public DataTable BindAdviserForUpload()
+       {
+           DataSet dsBindAdviserForUpload = new DataSet();
+           Database db;
+           DbCommand AdviserListcmd;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               AdviserListcmd = db.GetStoredProcCommand("SP_GetAllAdvisers");
+               db.AddInParameter(AdviserListcmd, "@IsforOldVluation", DbType.Int32, 0);
+               dsBindAdviserForUpload = db.ExecuteDataSet(AdviserListcmd);
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           return dsBindAdviserForUpload.Tables[0];
+       }
+       public DataSet GetAdviserRmDetails(int adviserId)
+       {
+           DataSet dsAdviserRmDetails = new DataSet();
+           Database db;
+           DbCommand AdviserRmDetailscmd;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               AdviserRmDetailscmd = db.GetStoredProcCommand("SP_GetAdviserRmDetails");
+               db.AddInParameter(AdviserRmDetailscmd, "@AdviserId", DbType.Int32, adviserId);
+               dsAdviserRmDetails = db.ExecuteDataSet(AdviserRmDetailscmd);
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           return dsAdviserRmDetails;
+       }
+       public bool FolioStartDate(int adviserId)
+       {
+           DataSet dsFolioStartDate = new DataSet();
+           Database db;
+           DbCommand FolioStartDatecmd;
+           bool isComplete = false;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               FolioStartDatecmd = db.GetStoredProcCommand("SP_FolioStartDate");
+               db.AddInParameter(FolioStartDatecmd, "@AdviserId", DbType.Int32, adviserId);
+               dsFolioStartDate=db.ExecuteDataSet(FolioStartDatecmd);
+               isComplete = true;
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           return isComplete;
+       }
+       public DataSet CheckForBusinessDateAndIsCurrent(DateTime dtTradeDate,out bool isValidDate)
+       {
+           DataSet ds = new DataSet();
+           Database db;
+           DbCommand cmd;
+           isValidDate = false;
+
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               cmd = db.GetStoredProcCommand("SP_CheckForBusinessDateAndIsCurrent");
+               db.AddInParameter(cmd, "@dtTradeDate", DbType.DateTime, dtTradeDate);
+               ds = db.ExecuteDataSet(cmd);
+
+               if (ds.Tables[0].Rows.Count>0)
+                   isValidDate = true;
+               else
+                   isValidDate = false;
+
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           return ds;
+
+       }
+       
     }
 }

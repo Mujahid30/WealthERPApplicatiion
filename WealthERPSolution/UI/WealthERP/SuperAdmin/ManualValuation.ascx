@@ -3,7 +3,8 @@
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
+<asp:ScriptManager ID="scptMgr" runat="server">
+</asp:ScriptManager>
 <style type="text/css">
         .module1
         {
@@ -11,9 +12,29 @@
             border: 1px solid #c6e1f2;
         }
     </style>
+    
+    <script type="text/javascript">
+
+                function changeEndDate(sender, eventArgs) {
+                    try
+                        {
+                            var grd_Cb = document.getElementById("<%= gvAdviserList.ClientID %>");
+                            document.getElementById("<%= gvAdviserList.ClientID %>").style.display = 'none';
+                        }
+
+                     catch(err){}
+
+                }
+
+                </script>
 
 
 <table width="100%">
+<%--<tr>
+<td>
+ <asp:Image ID="imgGoalImage" ImageAlign="Left" runat="server" ImageUrl="~/Images/Telerik/EditButton.gif" />
+</td>
+</tr>--%>
      <tr>
         <td class="HeaderCell" colspan="2">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Manual Valuation"></asp:Label>
@@ -54,10 +75,37 @@
         </td>
     </tr>
     <tr id="trMF" runat="server">
-        <td>
-            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Trade Date"></asp:Label>
+        <td align="right">
+            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Trade Date:"></asp:Label>
         </td>
-        <td>
+        <td id="tdTradeDate" runat="server">
+                <telerik:RadDatePicker ID="txtTradeDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput ID="DateInput1" EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
+                        DateFormat="d/M/yyyy">
+                    </DateInput>
+                    <ClientEvents OnDateSelected="changeEndDate" />
+                </telerik:RadDatePicker>
+                <div id="dvTradeDate" runat="server" class="dvInLine">
+                    <span id="Span1" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtTradeDate"
+                        ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic"
+                        runat="server" InitialValue="">
+                    </asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                        Type="Date" ControlToValidate="txtTradeDate" CssClass="cvPCG" Operator="DataTypeCheck"
+                        Display="Dynamic"></asp:CompareValidator>
+                </div>
+            </td>
+            <td>
+    <asp:Button ID="btnAdviserList" runat="server" Text="Go" CssClass="PCGLongButton" 
+            onclick="btnAdviserList_Click" Visible="true" />
+    </td>
+        <%--<td>
             <asp:DropDownList ID="ddTradeMFYear" runat="server" CssClass="cmbField" AutoPostBack="True"
                 OnSelectedIndexChanged="ddTradeMFYear_SelectedIndexChanged">
             </asp:DropDownList>
@@ -68,7 +116,7 @@
                 AutoPostBack="True" 
                 onselectedindexchanged="ddlTradeMFDate_SelectedIndexChanged">
             </asp:DropDownList>
-        </td>
+        </td>--%>
     </tr>
     
       
@@ -122,7 +170,7 @@
     </td>
    </tr>    
  </table>
-    
+    <asp:HiddenField ID="hfIsCurrentValuation" runat="server" />
 
  
 

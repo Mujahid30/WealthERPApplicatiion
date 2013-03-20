@@ -111,13 +111,13 @@ namespace WealthERP.SuperAdmin
                 //trNote.Visible = true;
                 //trHeader.Visible = true;
                 trEquity.Visible = false;
-                ddTradeMFYear.Items.Clear();
-                ddTradeMFMonth.Items.Clear();
+                //ddTradeMFYear.Items.Clear();
+                //ddTradeMFMonth.Items.Clear();
 
                 PopulateMFTradeYear();
                 //PopulateMFTradeDate();
-                PopulateMFTradeMonth();
-                BindTradeDateDropDown("MF", Convert.ToInt32(ddTradeMFYear.SelectedValue.ToString()), Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
+               // PopulateMFTradeMonth();
+                //BindTradeDateDropDown("MF", Convert.ToInt32(ddTradeMFYear.SelectedValue.ToString()), Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
                 //assetGroup = "MF";
                
             }
@@ -129,15 +129,15 @@ namespace WealthERP.SuperAdmin
         private void PopulateMFTradeYear()
         {
             trEquity.Visible = false;
-            trMF.Visible = true;
-            ddTradeMFYear.Visible = true;
+            //trMF.Visible = true;
+            //ddTradeMFYear.Visible = true;
 
-            DataSet ds = customerPortfolioBo.PopulateEQTradeYear();
-            ddTradeMFYear.DataSource = ds;
-            ddTradeMFYear.DataTextField = ds.Tables[0].Columns["TradeYear"].ToString();
-            ddTradeMFYear.DataValueField = ds.Tables[0].Columns["TradeYear"].ToString();
-            ddTradeMFYear.DataBind();
-            ddTradeMFYear.SelectedValue = DateTime.Now.Year.ToString();
+            //DataSet ds = customerPortfolioBo.PopulateEQTradeYear();
+            //ddTradeMFYear.DataSource = ds;
+            //ddTradeMFYear.DataTextField = ds.Tables[0].Columns["TradeYear"].ToString();
+            //ddTradeMFYear.DataValueField = ds.Tables[0].Columns["TradeYear"].ToString();
+            //ddTradeMFYear.DataBind();
+            //ddTradeMFYear.SelectedValue = DateTime.Now.Year.ToString();
             // ddTradeMFYear.SelectedIndex = ds.Tables[0].Rows.Count - 1;
 
 
@@ -321,7 +321,7 @@ namespace WealthERP.SuperAdmin
                 {
                     assetGroup = "MF";
                     //hdnMsgValue.Value = "1";
-                    dsAdviserValuationDate = customerPortfolioBo.GetAdviserValuationDate(advisorVo.advisorId, assetGroup, int.Parse(ddTradeMFMonth.SelectedValue.ToString()), int.Parse(ddTradeMFYear.SelectedItem.Value.ToString()));
+                  //  dsAdviserValuationDate = customerPortfolioBo.GetAdviserValuationDate(advisorVo.advisorId, assetGroup, int.Parse(ddTradeMFMonth.SelectedValue.ToString()), int.Parse(ddTradeMFYear.SelectedItem.Value.ToString()));
                 }
 
 
@@ -429,7 +429,6 @@ namespace WealthERP.SuperAdmin
 
                             if (DateTime.Compare(valuationDate, DateTime.Today) <= 1)
                             {
-
                                 customerList = customerPortfolioBo.GetAdviserCustomerList_EQ(adviserId);
 
                                 if (customerList != null)
@@ -481,13 +480,13 @@ namespace WealthERP.SuperAdmin
                                     BindAdviserGrid("EQ", valuationDate);
                                 }
                                 
-                            }                               
-                           
-                            //if (notNullcnt == 0)
-                            //{
-                            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Customers With Equity Transactions....');", true);
+                            }
 
-                            //}
+                            if (notNullcnt == 0)
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Customers With Equity Transactions....');", true);
+
+                            }
                         }
 
                     }
@@ -495,93 +494,26 @@ namespace WealthERP.SuperAdmin
                 }
                 else if (value == "1" && assetGroup == "MF")
                 {
-                   if (ddTradeMFMonth.SelectedValue != "" && ddTradeMFYear.SelectedValue != "")
-                    {
+                    
                         customerPortfolioBo.DeleteAdviserEODLog(adviserId, "MF", valuationDate, 0);
-                         if (DateTime.Compare(valuationDate, DateTime.Today) <= 1)
-                            {
+                        if (DateTime.Compare(valuationDate, DateTime.Today) <= 1)
+                        {
+                            MFEngineBo mfEngineBo = new MFEngineBo();
+                            //mfEngineBo.MFBalanceCreation(adviserId, 0, valuationFor);
 
+                            advisorBo.InsertHistoricalValuationInQueue(valuationDate, adviserId, userVo.UserId, int.Parse(hfIsCurrentValuation.Value));
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request successfully sent !!...Please wait for another 30 mints');", true);
 
-                                MFEngineBo mfEngineBo = new MFEngineBo();
-                                //mfEngineBo.MFBalanceCreation(adviserId, 0, valuationFor);
+                            BindAdviserGrid("MF", valuationDate);                          
 
-                                advisorBo.InsertHistoricalValuationInQueue(valuationDate, adviserId, userVo.UserId,1);
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Request successfully sent !!...Please wait for another 30 mints');", true);
-
-
-                                //LogId = CreateAdviserEODLog("MF", valuationDate, adviserId);
-                                //mfEngineBo.MFNetPositionCreation(adviserId, 0, valuationFor, valuationDate);
-                                //UpdateAdviserEODLog("MF", 1, LogId);
-                                //if (Cache[adviserId.ToString()] != null && dt == DateTime.Today)
-                                //{
-                                //    Cache.Remove(adviserId.ToString());
-                                //}
-                                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
-
-                                BindAdviserGrid("MF", valuationDate);
-
-                                  //customerList = customerPortfolioBo.GetAdviserCustomerList_MF(adviserId);
-                                  //    if (customerList != null)
-                                  //      {
-                                  //          notNullcnt = notNullcnt + 1;
-                                  //          LogId = CreateAdviserEODLog("MF", valuationDate,adviserId);
-                                  //          if (LogId != 0)
-                                  //          {
-                                  //              cnt = 0;
-                                  //              for (int j = 0; j < customerList.Count; j++)
-                                  //              {
-                                  //                  customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList[j]);
-                                  //                  customerPortfolioBo.DeleteMutualFundNetPosition(customerList[j], valuationDate);
-                                  //                  if (customerPortfolioList != null)
-                                  //                  {
-                                  //                      for (int k = 0; k < customerPortfolioList.Count; k++)
-                                  //                      {
-                                  //                          mfPortfolioList = customerPortfolioBo.GetCustomerMFPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, valuationDate, "", "", "");
-
-
-                                  //                          if (mfPortfolioList != null)
-                                  //                          {
-                                  //                              customerPortfolioBo.AddMutualFundNetPosition(mfPortfolioList, userVo.UserId);
-
-                                  //                          }
-                                  //                      }
-                                  //                  }
-
-
-                                  //                  cnt = cnt + 1;
-
-                                  //              }
-                                  //          }
-                                  //          if (cnt == customerList.Count)
-                                  //          {
-                                  //              UpdateAdviserEODLog("MF", 1, LogId);
-                                  //              if (Cache[adviserId.ToString()] != null && valuationDate == DateTime.Today)
-                                  //              {
-                                  //                  Cache.Remove(adviserId.ToString());
-                                  //              }
-                                  //              ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
-                                  //          }
-                                  //          else
-                                  //          {
-                                  //              UpdateAdviserEODLog("MF", 0, LogId);
-                                  //              ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation not done...!');", true);
-                                  //          }
-
-                                  //          //  GetTradeDate();
-                                  //          BindAdviserGrid("MF", valuationDate);
-                                  //      }
-
-                                    }
-                               
-                               
-
-                            }
                         }
-                        //if (notNullcnt == 0)
-                        //{
-                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Customers With MF Transactions....');", true);
+                }
+                
+                //if (notNullcnt == 0)
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Customers With MF Transactions....');", true);
 
-                        //}
+                //}
 
                 //GetTradeDate();
                 btnRunValuation.Visible = true;
@@ -606,59 +538,59 @@ namespace WealthERP.SuperAdmin
                 throw exBase;
             }
         }
-        //protected void ddTradeDay_SelectedIndexChanged(object sender, EventArgs e)
+        ////protected void ddTradeDay_SelectedIndexChanged(object sender, EventArgs e)
+        ////{
+        ////    lblTradeDate.Text = ddTradeDay.SelectedItem.Value.ToString();
+        ////    // GetTradeDate();
+        ////}
+
+        //protected void ddTradeMFYear_SelectedIndexChanged(object sender, EventArgs e)
         //{
-        //    lblTradeDate.Text = ddTradeDay.SelectedItem.Value.ToString();
-        //    // GetTradeDate();
+        //    PopulateMFTradeMonth();
         //}
 
-        protected void ddTradeMFYear_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PopulateMFTradeMonth();
-        }
+        //private void PopulateMFTradeMonth()
+        //{
+        //    try
+        //    {
+        //        //if (ddTradeMFYear.SelectedIndex != 0)
+        //        //{
+        //        //ddTradeMFMonth.Visible = true;
 
-        private void PopulateMFTradeMonth()
-        {
-            try
-            {
-                //if (ddTradeMFYear.SelectedIndex != 0)
-                //{
-                ddTradeMFMonth.Visible = true;
+        //        //DataSet ds = customerPortfolioBo.PopulateEQTradeMonth(int.Parse(ddTradeMFYear.SelectedItem.Value.ToString()));
+        //        //ddTradeMFMonth.DataSource = ds;
+        //        //ddTradeMFMonth.DataTextField = ds.Tables[0].Columns["TradeMonth"].ToString();
+        //        //ddTradeMFMonth.DataValueField = ds.Tables[0].Columns["WTD_Month"].ToString();
+        //        //ddTradeMFMonth.DataBind();
+        //        //ddTradeMFMonth.SelectedValue = DateTime.Now.Month.ToString();
+        //        //ddTradeMFMonth.SelectedIndex = ds.Tables[0].Rows.Count - 1;
+        //        //}
+        //        //else
+        //        //{
+        //        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select the trade Year..!');", true);
+        //        //}
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "DailyValuation.ascx.cs:PopulateMFTradeMonth()");
+        //        object[] objects = new object[0];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
-                DataSet ds = customerPortfolioBo.PopulateEQTradeMonth(int.Parse(ddTradeMFYear.SelectedItem.Value.ToString()));
-                ddTradeMFMonth.DataSource = ds;
-                ddTradeMFMonth.DataTextField = ds.Tables[0].Columns["TradeMonth"].ToString();
-                ddTradeMFMonth.DataValueField = ds.Tables[0].Columns["WTD_Month"].ToString();
-                ddTradeMFMonth.DataBind();
-                ddTradeMFMonth.SelectedValue = DateTime.Now.Month.ToString();
-                //ddTradeMFMonth.SelectedIndex = ds.Tables[0].Rows.Count - 1;
-                //}
-                //else
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select the trade Year..!');", true);
-                //}
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "DailyValuation.ascx.cs:PopulateMFTradeMonth()");
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
-
-        protected void ddTradeMFMonth_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            BindTradeDateDropDown("MF",Convert.ToInt32(ddTradeMFYear.SelectedValue.ToString()),Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
-        }
+        //protected void ddTradeMFMonth_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    BindTradeDateDropDown("MF",Convert.ToInt32(ddTradeMFYear.SelectedValue.ToString()),Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
+        //}
 
         //private void PopulateMFTradeDay()
         //{
@@ -734,12 +666,12 @@ namespace WealthERP.SuperAdmin
             DataSet dsTradeDate = customerPortfolioBo.PopulateEQTradeDay(year, month, 0, assetType);
             if (assetType == "MF")
             {
-                Session["TradeDateTable"] = dsTradeDate.Tables[0];
-                ddlTradeMFDate.DataSource = dsTradeDate.Tables[0];
-                ddlTradeMFDate.DataTextField = dsTradeDate.Tables[0].Columns["TradeDay"].ToString();
-                ddlTradeMFDate.DataValueField = dsTradeDate.Tables[0].Columns["TradeDay"].ToString();
-                ddlTradeMFDate.DataBind();
-                ddlTradeMFDate.Items.Insert(0, "Select Trade Day");
+            //    Session["TradeDateTable"] = dsTradeDate.Tables[0];
+            //    ddlTradeMFDate.DataSource = dsTradeDate.Tables[0];
+            //    ddlTradeMFDate.DataTextField = dsTradeDate.Tables[0].Columns["TradeDay"].ToString();
+            //    ddlTradeMFDate.DataValueField = dsTradeDate.Tables[0].Columns["TradeDay"].ToString();
+            //    ddlTradeMFDate.DataBind();
+            //    ddlTradeMFDate.Items.Insert(0, "Select Trade Day");
 
             }
             else if (assetType == "EQ")
@@ -775,71 +707,223 @@ namespace WealthERP.SuperAdmin
             
         }
 
-        protected void ddlTradeMFDate_SelectedIndexChanged(object sender, EventArgs e)
+       // protected void ddlTradeMFDate_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DateTime selectedValuationDate = DateTime.MinValue;
+        //    //DateTime validValuationDate = DateTime.MinValue;
+        //    //valuationDate.AddYears(Convert.ToInt32(ddTradeMFYear.SelectedValue.ToString()));
+        //    //valuationDate.AddMonths(Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
+        //    if (ddlTradeMFDate.SelectedIndex != 0)
+        //    {
+        //        IFormatProvider provider = new System.Globalization.CultureInfo("en-CA", true);
+        //        DateTime dt1 = DateTime.Parse(ddlTradeMFDate.SelectedValue, provider, System.Globalization.DateTimeStyles.NoCurrentDateDefault);
+
+
+        //        selectedValuationDate = DateTime.Parse(ddlTradeMFDate.SelectedValue.ToString());
+               
+        //        DataTable dtTradeDate = new DataTable();
+        //        DataTable dt = new DataTable();
+        //        //DateTime.ToString(string format, IFormatProvider provider);
+        //          dt.Columns.Add("TradeDay", typeof(DateTime));
+        //        //dt.Columns[0] = typeof(DateTime);
+        //        dtTradeDate = (DataTable)Session["TradeDateTable"];
+        //         dt = dtTradeDate;
+        //        DataRow[] foundRows;
+        //        string filter = string.Format("{0: dd MMM yyyy}", DateTime.Now).Trim();
+
+
+        //        //foreach (DataRow dr in dt.Rows)
+        //        //{
+        //        //    dr["TradeDay"] = string.Format("{0:MM/dd/yyyy}", dr["TradeDay"]);
+        //        //}
+
+
+        //        DateTime filterInDateformat = DateTime.Parse(filter);
+
+        //        object validValuationDate = dtTradeDate.Compute("max(TradeDay)", "TradeDay < '" + filter + "'");
+        //        //if (holdingStartDate != DBNull.Value)
+        //        //{
+        //        //   string dt = Convert.ToDateTime(holdingStartDate).ToShortDateString();
+        //        //}
+        //        //foundRows = dtTradeDate.Select("TradeDay='" + holdingStartDate + "'");
+        //        //int index = 0;
+
+        //        if (Convert.ToDateTime(validValuationDate) == selectedValuationDate)
+        //        {
+        //            hfIsCurrentValuation.Value = "1";
+        //        }
+        //        else if (selectedValuationDate < Convert.ToDateTime(validValuationDate))
+        //        {
+        //            hfIsCurrentValuation.Value = "0";
+        //        }
+               
+        //        //int index = dt.Rows.IndexOf(dt.Select("1 = 'A'"));
+
+        //        //        dtTradeDate.Rows.IndexOf("17-Jan-2012");
+        //        //validValuationDate = DateTime.Parse(ddlTradeMFDate.Items[preTradeId - 1].Text);
+        //        //if (index != 0)
+        //        //{
+        //            //validValuationDate = DateTime.Parse(dtTradeDate.Rows[index - 1][0].ToString());
+
+        //            //validValuationDate = DateTime.Parse(DateTime.Now.ToShortDateString()).AddDays(-1);
+        //            //valuationDate.AddDays(Convert.ToInt32(ddlTradeMFDate.SelectedValue.ToString()));
+        //        if (selectedValuationDate <= Convert.ToDateTime(validValuationDate))
+        //            {
+        //                gvAdviserList.Visible = true;
+        //                BindAdviserGrid("MF", selectedValuationDate);
+        //                btnRunValuation.Visible = true;
+        //            }
+        //            else
+        //            {
+
+        //                gvAdviserList.Visible = false;
+        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Future Business Dates not allowed');", true);
+
+        //            }
+        //        //}
+        //        //else
+        //        //{
+
+        //        //    gvAdviserList.Visible = false;
+        //        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Valuation date should be previous date only');", true);
+
+        //        //}
+                
+
+        //    }
+        //    else
+        //    {
+        //        gvAdviserList.Visible = false;
+        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Select Valuation Date');", true);
+
+        //    }
+        //}
+
+        protected void btnAdviserList_Click(object sender, EventArgs e)
         {
             DateTime selectedValuationDate = DateTime.MinValue;
-            DateTime validValuationDate = DateTime.MinValue;
-            //valuationDate.AddYears(Convert.ToInt32(ddTradeMFYear.SelectedValue.ToString()));
-            //valuationDate.AddMonths(Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
-            if (ddlTradeMFDate.SelectedIndex != 0)
+            selectedValuationDate = txtTradeDate.SelectedDate.Value;
+            DataSet dsTradeDate= new DataSet();
+            bool isValidDate=false;
+            dsTradeDate =  superAdminBo.CheckForBusinessDateAndIsCurrent(selectedValuationDate,out isValidDate);
+
+                DateTime validValuationDate = DateTime.MinValue;
+                //valuationDate.AddYears(Convert.ToInt32(ddTradeMFYear.SelectedValue.ToString()));
+                //valuationDate.AddMonths(Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
+               
+                //if (ddlTradeMFDate.SelectedIndex != 0)
+                //{
+                //    IFormatProvider provider = new System.Globalization.CultureInfo("en-CA", true);
+                //    DateTime dt1 = DateTime.Parse(ddlTradeMFDate.SelectedValue, provider, System.Globalization.DateTimeStyles.NoCurrentDateDefault);
+
+
+                //    selectedValuationDate = DateTime.Parse(ddlTradeMFDate.SelectedValue.ToString());
+
+                    //DataTable dtTradeDate = new DataTable();
+                    //DataTable dt = new DataTable();
+                    ////DateTime.ToString(string format, IFormatProvider provider);
+                    //  dt.Columns.Add("TradeDay", typeof(DateTime));
+                    ////dt.Columns[0] = typeof(DateTime);
+                    //dtTradeDate = (DataTable)Session["TradeDateTable"];
+                    // dt = dtTradeDate;
+                    //DataRow[] foundRows;
+                    //string filter = string.Format("{0: dd MMM yyyy}", DateTime.Now).Trim();
+
+
+                    ////foreach (DataRow dr in dt.Rows)
+                    ////{
+                    ////    dr["TradeDay"] = string.Format("{0:MM/dd/yyyy}", dr["TradeDay"]);
+                    ////}
+
+
+                    //DateTime filterInDateformat = DateTime.Parse(filter);
+
+                    //object validValuationDate = dtTradeDate.Compute("max(TradeDay)", "TradeDay < '" + filter + "'");
+                    //if (holdingStartDate != DBNull.Value)
+                    //{
+                    //   string dt = Convert.ToDateTime(holdingStartDate).ToShortDateString();
+                    //}
+                    //foundRows = dtTradeDate.Select("TradeDay='" + holdingStartDate + "'");
+                    //int index = 0;
+
+                //StringBuilder sb = new StringBuilder();
+                //sb.Append(@"<img src=""~/Images/Telerik/EditButton.gif"" />");
+                //Response.Write(sb.ToString());
+
+                //gvAdviserList.Visible = false;
+
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('" + "Hi" + imgGoalImage.ClientID + "');", true);
+
+
+            if (isValidDate)
             {
-                selectedValuationDate = DateTime.Parse(ddlTradeMFDate.SelectedValue.ToString());
-               
-                DataTable dtTradeDate = new DataTable();
-               
-                dtTradeDate = (DataTable)Session["TradeDateTable"];
-
-                DataRow[] foundRows;
-                string filter = string.Format("{0: dd MMM yyyy}", DateTime.Now).Trim();
-                foundRows = dtTradeDate.Select("TradeDay='" + filter + "'");
-                int index = 0;
-                foreach (DataRow dr in foundRows)
+                if (dsTradeDate != null)
                 {
-                    index = dr.Table.Rows.IndexOf(dr);
-
+                    if (dsTradeDate.Tables.Count > 1)
+                    {
+                        if (dsTradeDate.Tables[1].Rows.Count > 0)
+                        {
+                            validValuationDate = DateTime.Parse(dsTradeDate.Tables[1].Rows[0]["MaxTradeDate"].ToString());
+                        }                      
+                    }
                 }
+                if (Convert.ToDateTime(validValuationDate) == selectedValuationDate)
+                {
+                    hfIsCurrentValuation.Value = "1";
+                }
+                else if (selectedValuationDate < Convert.ToDateTime(validValuationDate))
+                {
+                    hfIsCurrentValuation.Value = "0";
+                }
+
                 //int index = dt.Rows.IndexOf(dt.Select("1 = 'A'"));
 
                 //        dtTradeDate.Rows.IndexOf("17-Jan-2012");
                 //validValuationDate = DateTime.Parse(ddlTradeMFDate.Items[preTradeId - 1].Text);
-                if (index != 0)
+                //if (index != 0)
+                //{
+                //validValuationDate = DateTime.Parse(dtTradeDate.Rows[index - 1][0].ToString());
+
+                //validValuationDate = DateTime.Parse(DateTime.Now.ToShortDateString()).AddDays(-1);
+                //valuationDate.AddDays(Convert.ToInt32(ddlTradeMFDate.SelectedValue.ToString()));
+                if (selectedValuationDate <= Convert.ToDateTime(validValuationDate))
                 {
-                    validValuationDate = DateTime.Parse(dtTradeDate.Rows[index - 1][0].ToString());
-
-                    //validValuationDate = DateTime.Parse(DateTime.Now.ToShortDateString()).AddDays(-1);
-                    //valuationDate.AddDays(Convert.ToInt32(ddlTradeMFDate.SelectedValue.ToString()));
-                    if (selectedValuationDate == validValuationDate)
-                    {
-                        gvAdviserList.Visible = true;
-                        BindAdviserGrid("MF", selectedValuationDate);
-                        btnRunValuation.Visible = true;
-                    }
-                    else
-                    {
-
-                        gvAdviserList.Visible = false;
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Valuation date should be previous date only');", true);
-
-                    }
+                    gvAdviserList.Visible = true;
+                    BindAdviserGrid("MF", selectedValuationDate);
+                    btnRunValuation.Visible = true;
                 }
                 else
                 {
+                    //StringBuilder sb = new StringBuilder();
+                    //sb.Append(@"<img src=""~/Images/Telerik/EditButton.gif"" />");
+                    //Response.Write(sb.ToString());
 
                     gvAdviserList.Visible = false;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Valuation date should be previous date only');", true);
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Invalid Business Dates !!!!');", true);
 
                 }
-                
+                //}
+                //else
+                //{
+
+                //    gvAdviserList.Visible = false;
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Valuation date should be previous date only');", true);
+
+                //}
+
 
             }
             else
             {
                 gvAdviserList.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Select Valuation Date');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Invalid Business Dates !!!!');", true);
 
             }
-        }
+          
 
+        }
+        
         protected void btnRunValuation_Click(object sender, EventArgs e)
         {
             try
@@ -851,14 +935,22 @@ namespace WealthERP.SuperAdmin
                     CheckBox ChkBxItem = (CheckBox)gvRow.FindControl("chkBx");
                     if (ChkBxItem.Checked)
                     {
-                        adviserId =Convert.ToInt32(gvAdviserList.DataKeys[gvRow.RowIndex].Value.ToString());
-                        if(rbtnEquity.Checked==true)
-                           UpdateLOG("1","EQ",adviserId,DateTime.Parse(ddlTradeDate.SelectedValue.ToString()));
-                        else if(rbtnMF.Checked==true)
-                           UpdateLOG("1", "MF", adviserId, DateTime.Parse(ddlTradeMFDate.SelectedValue.ToString()));
+                        adviserId = Convert.ToInt32(gvAdviserList.DataKeys[gvRow.RowIndex].Value.ToString());
+                        //if (ddlTradeDate.SelectedIndex != 0 && ddlTradeDate.SelectedIndex != -1)
+                        //{
+                            gvAdviserList.Visible = true;
+                            if (rbtnEquity.Checked == true)
+                                UpdateLOG("1", "EQ", adviserId, DateTime.Parse(ddlTradeDate.SelectedValue.ToString()));
+                            else if (rbtnMF.Checked == true)
+                                UpdateLOG("1", "MF", adviserId, DateTime.Parse(txtTradeDate.SelectedDate.ToString()));
+                        //}
+                        //else
+                        //{
+                        //    gvAdviserList.Visible = false;
+                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Select Valuation Date');", true);
+                        //}
                     }
                 }
-
             }
             catch (BaseApplicationException Ex)
             {
