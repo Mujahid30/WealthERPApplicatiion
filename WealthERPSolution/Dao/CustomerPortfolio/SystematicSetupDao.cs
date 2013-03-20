@@ -510,7 +510,7 @@ namespace DaoCustomerPortfolio
         /// <param name="dtFrom"></param>
         /// <param name="dtTo"></param>
         /// <returns></returns>
-        public DataSet GetAllSystematicMISData(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, string StartDate, string EndDate, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup)
+        public DataSet GetAllSystematicMISData(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, string StartDate, string EndDate, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup,int Manage)
         {
             DataSet dsGetSystematicMIS = new DataSet();
             Database db;
@@ -526,6 +526,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getSystemaicMISCmd, "@branchHeadId", DbType.Int32, BranchHeadId);
                 db.AddInParameter(getSystemaicMISCmd, "@BranchId", DbType.Int32, BranchId);
                 db.AddInParameter(getSystemaicMISCmd, "@all", DbType.Int32, All);
+                db.AddInParameter(getSystemaicMISCmd, "@Manage", DbType.Int32, Manage);
                 if (!string.IsNullOrEmpty(Category))
                     db.AddInParameter(getSystemaicMISCmd, "@Category", DbType.String, Category);
                 if (!string.IsNullOrEmpty(SysType))
@@ -587,7 +588,7 @@ namespace DaoCustomerPortfolio
             }
             return dsGetSystematicMIS;
         }
-        public DataSet GetCalenderSummaryView(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup, string StartDate, string EndDate)
+        public DataSet GetCalenderSummaryView(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup, string StartDate, string EndDate,int Manage)
         {
             DataSet dsGetcalenderSummaryView = new DataSet();
             Database db;
@@ -603,6 +604,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getCalenderSummaryViewCmd, "@branchHeadId", DbType.Int32, BranchHeadId);
                 db.AddInParameter(getCalenderSummaryViewCmd, "@BranchId", DbType.Int32, BranchId);
                 db.AddInParameter(getCalenderSummaryViewCmd, "@all", DbType.Int32, All);
+                db.AddInParameter(getCalenderSummaryViewCmd, "@Manage", DbType.Int32, Manage);
                 if (!string.IsNullOrEmpty(Category))
                     db.AddInParameter(getCalenderSummaryViewCmd, "@Category", DbType.String, Category);
                 if (!string.IsNullOrEmpty(SysType))
