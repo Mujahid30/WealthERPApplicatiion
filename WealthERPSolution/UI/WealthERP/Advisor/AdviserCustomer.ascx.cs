@@ -161,8 +161,10 @@ namespace WealthERP.Advisor
                 customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
                 if (customerList == null)
                 {
-                    gvCustomerList.Visible = true;
+                    gvCustomerList.Visible = false;
                     imgexportButton.Visible = false;
+                    ErrorMessage.Visible = true;
+
                 }
                 else
                 {
@@ -255,20 +257,21 @@ namespace WealthERP.Advisor
                         dtCustomerList.Rows.Add(drCustomer);
 
                     }
-                    if (Cache["CustomerList" + adviserVo.advisorId.ToString()] == null)
+                    if (Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole] == null)
                     {
-                        Cache.Insert("CustomerList" + adviserVo.advisorId.ToString(), dtCustomerList);
+                        Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
                     }
                     else
                     {
-                        Cache.Remove("CustomerList" + adviserVo.advisorId.ToString());
-                        Cache.Insert("CustomerList" + adviserVo.advisorId.ToString(), dtCustomerList);
+                        Cache.Remove("CustomerList+UserRole" + adviserVo.advisorId + UserRole);
+                        Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
                     }
                     gvCustomerList.DataSource = dtCustomerList;
                     gvCustomerList.PageSize = advisorPrefernceVo.GridPageSize;
                     gvCustomerList.DataBind();
                     gvCustomerList.Visible = true;
                     imgexportButton.Visible = true;
+                    ErrorMessage.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -313,8 +316,10 @@ namespace WealthERP.Advisor
 
                 if (customerList == null)
                 {
-                    gvCustomerList.Visible = true;
-                    imgexportButton.Visible = false; ;
+                    gvCustomerList.Visible = false;
+                    imgexportButton.Visible = false;
+                    ErrorMessage.Visible = true;
+                   
                 }
                 else
                 {
@@ -407,14 +412,14 @@ namespace WealthERP.Advisor
                         dtCustomerList.Rows.Add(drCustomer);
 
                     }
-                    if (Cache["CustomerList" + adviserVo.advisorId.ToString()] == null)
+                    if (Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole] == null)
                     {
-                        Cache.Insert("CustomerList" + adviserVo.advisorId.ToString(), dtCustomerList);
+                        Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
                     }
                     else
                     {
-                        Cache.Remove("CustomerList" + adviserVo.advisorId.ToString());
-                        Cache.Insert("CustomerList" + adviserVo.advisorId.ToString(), dtCustomerList);
+                        Cache.Remove("CustomerList+UserRole" + adviserVo.advisorId + UserRole);
+                        Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
                     }
 
                     gvCustomerList.DataSource = dtCustomerList;
@@ -422,6 +427,7 @@ namespace WealthERP.Advisor
                     gvCustomerList.DataBind();
                     gvCustomerList.Visible = true;
                     imgexportButton.Visible = true;
+                    ErrorMessage.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -495,7 +501,7 @@ namespace WealthERP.Advisor
             string parentType = string.Empty;
             string rmType = string.Empty;
             DataTable dtCustomer = new DataTable();
-            dtCustomer = (DataTable)Cache["CustomerList" + adviserVo.advisorId.ToString()];
+            dtCustomer = (DataTable)Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole];
 
             if (dtCustomer != null)
             {
@@ -759,14 +765,15 @@ namespace WealthERP.Advisor
 
         protected void RefreshCombos()
         {
-            AdvisorBo adviserBo = new AdvisorBo();
-            adviserVo = (AdvisorVo)Session["advisorVo"];
             DataTable dtCustomerList = new DataTable();
-            dtCustomerList = (DataTable)Cache["CustomerList" + adviserVo.advisorId.ToString()];
-            DataView view = new DataView(dtCustomerList);
-            DataTable distinctValues = view.ToTable();
-            DataRow[] rows = distinctValues.Select(gvCustomerList.MasterTableView.FilterExpression.ToString());
-            gvCustomerList.MasterTableView.Rebind();
+            dtCustomerList = (DataTable)Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole];
+            if (dtCustomerList != null)
+            {
+                DataView view = new DataView(dtCustomerList);
+                DataTable distinctValues = view.ToTable();
+                DataRow[] rows = distinctValues.Select(gvCustomerList.MasterTableView.FilterExpression.ToString());
+                gvCustomerList.MasterTableView.Rebind();
+            }
         }
         #region Group filter prerender code
         protected void rcbgroup_PreRender(object sender, EventArgs e)
