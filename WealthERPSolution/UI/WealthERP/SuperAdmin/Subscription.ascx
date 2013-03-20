@@ -353,21 +353,21 @@
                 </td>
                     <td>
                         <asp:CheckBoxList ID="chkModules" runat="server" CssClass="FieldName">
-                            <asp:ListItem Text="Mutual Funds" Value="1"></asp:ListItem>
-                            <asp:ListItem Text="Equity" Value="2"></asp:ListItem>
-                            <asp:ListItem Text="Financial Planning" Value="3"></asp:ListItem>
-                            <asp:ListItem Text="Insurance" Value="4"></asp:ListItem>                            
-                            <asp:ListItem Text="Liabilities" Value="5"></asp:ListItem>
-                            <asp:ListItem Text="Multi Asset" Value="6"></asp:ListItem>
+                            <asp:ListItem Text="Mutual Funds" Value="1" Enabled="false"></asp:ListItem>
+                            <asp:ListItem Text="Equity" Value="2" Enabled="false"></asp:ListItem>
+                            <asp:ListItem Text="Financial Planning" Value="3" Enabled="false"></asp:ListItem>
+                            <asp:ListItem Text="Insurance" Value="4" Enabled="false"></asp:ListItem>                            
+                            <asp:ListItem Text="Liabilities" Value="5" Enabled="false"></asp:ListItem>
+                            <asp:ListItem Text="Multi Asset" Value="6" Enabled="false"></asp:ListItem>
                             <asp:ListItem Text="Common" Value="7" Enabled="false" Selected="True"></asp:ListItem>                            
-                            <asp:ListItem Text="Goal" Value="8"></asp:ListItem>
-                            <asp:ListItem Text="Risk Profile" Value="9"></asp:ListItem>  
-                            <asp:ListItem Text="ISA" Value="13"></asp:ListItem> 
-                            <asp:ListItem Text="Research" Value="14"></asp:ListItem> 
-                            <asp:ListItem Text="Order Management" Value="15"></asp:ListItem> 
-                            <asp:ListItem Text="Organization Hierarchies" Value="16"></asp:ListItem>   
-                            <asp:ListItem Text="Product Master" Value="17"></asp:ListItem> 
-                            <asp:ListItem Text="Customized Theme" Value="18"></asp:ListItem>                     
+                            <asp:ListItem Text="Goal" Value="8" Enabled="false"></asp:ListItem>
+                            <asp:ListItem Text="Risk Profile" Value="9" Enabled="false"></asp:ListItem>  
+                            <asp:ListItem Text="ISA" Value="13" Enabled="false"></asp:ListItem> 
+                            <asp:ListItem Text="Research" Value="14" Enabled="false"></asp:ListItem> 
+                            <asp:ListItem Text="Order Management" Value="15" Enabled="false"></asp:ListItem> 
+                            <asp:ListItem Text="Organization Hierarchies" Value="16" Enabled="false"></asp:ListItem>   
+                            <asp:ListItem Text="Product Master" Value="17" Enabled="false"></asp:ListItem> 
+                            <asp:ListItem Text="Customized Theme" Value="18" Enabled="false"></asp:ListItem>                     
                         </asp:CheckBoxList>
                         <asp:CustomValidator runat="server" ID="cvmodulelist" 
                             ErrorMessage="Please Select Atleast one Module" CssClass="cvPCG"></asp:CustomValidator>
@@ -379,9 +379,9 @@
                 </td>
                 <td>
                         <asp:CheckBoxList ID="chkValueAdds" runat="server" CssClass="FieldName">
-                            <asp:ListItem Text="Inbox" Value="10" Selected="True"></asp:ListItem>
-                            <asp:ListItem Text="Repository" Value="11" Selected="True"></asp:ListItem>
-                            <asp:ListItem Text="Vault" Value="12" Selected="True"></asp:ListItem>                                              
+                            <asp:ListItem Text="Inbox" Value="10" Enabled="false" Selected="True"></asp:ListItem>
+                            <asp:ListItem Text="Repository" Value="11" Enabled="false" Selected="True"></asp:ListItem>
+                            <asp:ListItem Text="Vault" Value="12" Enabled="false" Selected="True"></asp:ListItem>                                              
                         </asp:CheckBoxList>                  
                 </td>
                 </tr>

@@ -56,31 +56,6 @@ namespace WealthERP.SuperAdmin
                 dsGetPlanSubscriptionFlavourDetails = _advisersubscriptionbo.GetAdviserSubscriptionPlanFlavourDetails(adviserId);
                 Session["PlanSubscriptionFlavourDetails"] = dsGetPlanSubscriptionFlavourDetails;
                 BindWerpPlan();
-                //--------------------------------------
-                //if (ddlPlan.SelectedValue == "1")
-                //{
-                //    chkModules.Enabled = true;
-                //    chkModules.Items[0].Enabled = true;
-                //    chkModules.Items[1].Enabled = true;
-                //    chkModules.Items[3].Enabled = true;
-                //    chkModules.Items[5].Enabled = true;
-                //    chkModules.Items[2].Enabled = false;
-                //    chkModules.Items[4].Enabled = false;
-                //    chkModules.Items[7].Enabled = false;
-                //    chkModules.Items[8].Enabled = false;
-                //    chkModules.Items[9].Enabled = false;
-                //    chkModules.Items[10].Enabled = false;
-                //    chkModules.Items[11].Enabled = false;
-                //    chkModules.Items[12].Enabled = false;
-                //    chkModules.Items[13].Enabled = false;
-                //    chkModules.Items[14].Enabled = false;
-
-                //    chkModules.Items[0].Selected = true;
-                //    chkModules.Items[1].Selected = true;
-                //    chkModules.Items[3].Selected = true;
-                //    chkModules.Items[5].Selected = true;
-
-                //}
                 if (advisorVo != null)
                 {
                     SetAdviserFlavourSubscription();
@@ -188,22 +163,6 @@ namespace WealthERP.SuperAdmin
 
                     if (ddlPlan.SelectedValue == "1")
                     {
-                        chkModules.Enabled = true;
-                        chkModules.Items[0].Enabled = true;
-                        chkModules.Items[1].Enabled = true;
-                        chkModules.Items[3].Enabled = true;
-                        chkModules.Items[5].Enabled = true;
-
-                        chkModules.Items[2].Enabled = false;
-                        chkModules.Items[4].Enabled = false;
-                        chkModules.Items[7].Enabled = false;
-                        chkModules.Items[8].Enabled = false;
-                        chkModules.Items[9].Enabled = false;
-                        chkModules.Items[10].Enabled = false;
-                        chkModules.Items[11].Enabled = false;
-                        chkModules.Items[12].Enabled = false;
-                        chkModules.Items[13].Enabled = false;
-                        chkModules.Items[14].Enabled = false;
 
                         chkModules.Items[0].Selected = true;
                         chkModules.Items[1].Selected = true;
@@ -214,23 +173,6 @@ namespace WealthERP.SuperAdmin
 
                     else if (ddlPlan.SelectedValue == "2")
                     {
-                        chkModules.Enabled = true;
-                        chkModules.Items[0].Enabled = true;
-                        chkModules.Items[1].Enabled = true;
-                        chkModules.Items[3].Enabled = true;
-                        chkModules.Items[5].Enabled = true;
-                        chkModules.Items[8].Enabled = true;
-                        chkModules.Items[4].Enabled = true;
-                        chkModules.Items[11].Enabled = true;
-                        chkModules.Items[2].Enabled = true;
-                        chkModules.Items[7].Enabled = true;
-                        chkModules.Items[10].Enabled = true;
-                        chkModules.Items[13].Enabled = true;
-
-                        chkModules.Items[9].Enabled = false;
-                        chkModules.Items[12].Enabled = false;
-                        chkModules.Items[14].Enabled = false;
-
                         chkModules.Items[0].Selected = true;
                         chkModules.Items[1].Selected = true;
                         chkModules.Items[3].Selected = true;
@@ -245,23 +187,6 @@ namespace WealthERP.SuperAdmin
                     }
                     else if (ddlPlan.SelectedValue == "3")
                     {
-                        chkModules.Enabled = true;
-                        chkModules.Items[0].Enabled = true;
-                        chkModules.Items[1].Enabled = true;
-                        chkModules.Items[3].Enabled = true;
-                        chkModules.Items[5].Enabled = true;
-                        chkModules.Items[8].Enabled = true;
-                        chkModules.Items[4].Enabled = true;
-                        chkModules.Items[11].Enabled = true;
-                        chkModules.Items[2].Enabled = true;
-                        chkModules.Items[7].Enabled = true;
-                        chkModules.Items[10].Enabled = true;
-                        chkModules.Items[13].Enabled = true;
-
-                        chkModules.Items[9].Enabled = false;
-                        chkModules.Items[12].Enabled = false;
-                        chkModules.Items[14].Enabled = false;
-
                         chkModules.Items[0].Selected = true;
                         chkModules.Items[1].Selected = true;
                         chkModules.Items[3].Selected = true;
@@ -276,25 +201,6 @@ namespace WealthERP.SuperAdmin
                     }
                     else if (ddlPlan.SelectedValue == "4")
                     {
-                        chkModules.Enabled = true;
-                        chkModules.Items[0].Enabled = true;
-                        chkModules.Items[1].Enabled = true;
-                        chkModules.Items[3].Enabled = true;
-                        chkModules.Items[5].Enabled = true;
-                        chkModules.Items[8].Enabled = true;
-                        chkModules.Items[4].Enabled = true;
-                        chkModules.Items[11].Enabled = true;
-                        chkModules.Items[2].Enabled = true;
-                        chkModules.Items[7].Enabled = true;
-                        chkModules.Items[10].Enabled = true;
-                        chkModules.Items[13].Enabled = true;
-                        chkModules.Items[12].Enabled = true;
-                        chkModules.Items[14].Enabled = true;
-
-                        chkModules.Items[9].Enabled = false;
-                        chkModules.Items[12].Enabled = false;
-                        chkModules.Items[14].Enabled = false;
-
                         chkModules.Items[0].Selected = true;
                         chkModules.Items[1].Selected = true;
                         chkModules.Items[3].Selected = true;
@@ -311,23 +217,6 @@ namespace WealthERP.SuperAdmin
                     }
                     else if (ddlPlan.SelectedValue == "5")
                     {
-                        chkModules.Enabled = true;
-                        chkModules.Items[0].Enabled = true;
-                        chkModules.Items[1].Enabled = true;
-                        chkModules.Items[2].Enabled = true;
-                        chkModules.Items[3].Enabled = true;
-                        chkModules.Items[4].Enabled = true;
-                        chkModules.Items[5].Enabled = true;
-                        chkModules.Items[7].Enabled = true;
-                        chkModules.Items[8].Enabled = true;
-                        chkModules.Items[9].Enabled = true;
-                        chkModules.Items[10].Enabled = true;
-                        chkModules.Items[11].Enabled = true;
-                        chkModules.Items[12].Enabled = true;
-                        chkModules.Items[13].Enabled = true;
-                        chkModules.Items[14].Enabled = true;
-
-
                         chkModules.Items[0].Selected = true;
                         chkModules.Items[1].Selected = true;
                         chkModules.Items[2].Selected = true;
@@ -469,7 +358,7 @@ namespace WealthERP.SuperAdmin
                                 string flavourIds = GetFlavourIds();
                                 _advisersubscriptionbo.SetFlavoursToAdviser(flavourIds, advisorVo.advisorId);
                                 SettingsSavedMessage.Visible = true;
-                                SetAdviserFlavourSubscription();
+                                //SetAdviserFlavourSubscription();
                                 if (IFAuserVo.IsTempPassword == 1)
                                 {
                                     if (chkMailSend.Checked == true)
@@ -490,7 +379,7 @@ namespace WealthERP.SuperAdmin
                                     Cache.Remove("AdminLeftTreeNode" + advisorVo.advisorId.ToString());
                                 }
                             }
-                            SetAdviserFlavourSubscription();
+                            //SetAdviserFlavourSubscription();
                         }
 
                         //else
@@ -850,24 +739,6 @@ namespace WealthERP.SuperAdmin
             }
             if (ddlPlan.SelectedValue == "1")
             {
-                
-                chkModules.Enabled = true;
-                chkModules.Items[0].Enabled = true;
-                chkModules.Items[1].Enabled = true;
-                chkModules.Items[3].Enabled = true;
-                chkModules.Items[5].Enabled = true;
-
-                chkModules.Items[2].Enabled = false;
-                chkModules.Items[4].Enabled = false;
-                chkModules.Items[7].Enabled = false;
-                chkModules.Items[8].Enabled = false;
-                chkModules.Items[9].Enabled = false;
-                chkModules.Items[10].Enabled = false;
-                chkModules.Items[11].Enabled = false;
-                chkModules.Items[12].Enabled = false;
-                chkModules.Items[13].Enabled = false;
-                chkModules.Items[14].Enabled = false;
-
                 chkModules.Items[0].Selected= true;
                 chkModules.Items[1].Selected = true;
                 chkModules.Items[3].Selected = true;
@@ -889,23 +760,6 @@ namespace WealthERP.SuperAdmin
             }
             else if (ddlPlan.SelectedValue == "2")
             {
-                chkModules.Enabled = true;
-                chkModules.Items[0].Enabled = true;
-                chkModules.Items[1].Enabled = true;
-                chkModules.Items[3].Enabled = true;
-                chkModules.Items[5].Enabled = true;
-                chkModules.Items[8].Enabled = true;
-                chkModules.Items[4].Enabled = true;
-                chkModules.Items[11].Enabled = true;
-                chkModules.Items[2].Enabled = true;
-                chkModules.Items[7].Enabled = true;
-                chkModules.Items[10].Enabled = true;
-                chkModules.Items[13].Enabled = true;
-
-                chkModules.Items[9].Enabled = false;
-                chkModules.Items[12].Enabled = false;
-                chkModules.Items[14].Enabled = false;
-
                 chkModules.Items[0].Selected = true;
                 chkModules.Items[1].Selected = true;
                 chkModules.Items[3].Selected = true;
@@ -924,23 +778,6 @@ namespace WealthERP.SuperAdmin
             }
             else if (ddlPlan.SelectedValue == "3")
             {
-                chkModules.Enabled = true;
-                chkModules.Items[0].Enabled = true;
-                chkModules.Items[1].Enabled = true;
-                chkModules.Items[3].Enabled = true;
-                chkModules.Items[5].Enabled = true;
-                chkModules.Items[8].Enabled = true;
-                chkModules.Items[4].Enabled = true;
-                chkModules.Items[11].Enabled = true;
-                chkModules.Items[2].Enabled = true;
-                chkModules.Items[7].Enabled = true;
-                chkModules.Items[10].Enabled = true;
-                chkModules.Items[13].Enabled = true;
-
-                chkModules.Items[9].Enabled = false;
-                chkModules.Items[12].Enabled = false;
-                chkModules.Items[14].Enabled = false;
-
                 chkModules.Items[0].Selected = true;
                 chkModules.Items[1].Selected = true;
                 chkModules.Items[3].Selected = true;
@@ -959,25 +796,6 @@ namespace WealthERP.SuperAdmin
             }
             else if (ddlPlan.SelectedValue == "4")
             {
-                chkModules.Enabled = true;
-                chkModules.Items[0].Enabled = true;
-                chkModules.Items[1].Enabled = true;
-                chkModules.Items[3].Enabled = true;
-                chkModules.Items[5].Enabled = true;
-                chkModules.Items[8].Enabled = true;
-                chkModules.Items[4].Enabled = true;
-                chkModules.Items[11].Enabled = true;
-                chkModules.Items[2].Enabled = true;
-                chkModules.Items[7].Enabled = true;
-                chkModules.Items[10].Enabled = true;
-                chkModules.Items[13].Enabled = true;
-                chkModules.Items[12].Enabled = true;
-                chkModules.Items[14].Enabled = true;
-
-                chkModules.Items[9].Enabled = false;
-                chkModules.Items[12].Enabled = false;
-                chkModules.Items[14].Enabled = false;
-
                 chkModules.Items[0].Selected = true;
                 chkModules.Items[1].Selected = true;
                 chkModules.Items[3].Selected = true;
@@ -998,23 +816,6 @@ namespace WealthERP.SuperAdmin
             }
             else if (ddlPlan.SelectedValue == "5" )
             {
-                chkModules.Enabled = true;
-                chkModules.Items[0].Enabled = true;
-                chkModules.Items[1].Enabled = true;
-                chkModules.Items[2].Enabled = true;
-                chkModules.Items[3].Enabled = true;
-                chkModules.Items[4].Enabled = true;
-                chkModules.Items[5].Enabled = true;
-                chkModules.Items[7].Enabled = true;
-                chkModules.Items[8].Enabled = true;
-                chkModules.Items[9].Enabled = true;
-                chkModules.Items[10].Enabled = true;
-                chkModules.Items[11].Enabled = true;
-                chkModules.Items[12].Enabled = true;
-                chkModules.Items[13].Enabled = true;
-                chkModules.Items[14].Enabled = true;
-
-
                 chkModules.Items[0].Selected = true;
                 chkModules.Items[1].Selected = true;
                 chkModules.Items[2].Selected = true;
