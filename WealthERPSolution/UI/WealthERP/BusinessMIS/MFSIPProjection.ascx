@@ -18,8 +18,18 @@
         document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value();
         return false;
     };
+    
+    function GridCreated(sender, args) {
+        var scrollArea = sender.GridDataDiv;
+        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
+        if (dataHeight < 300) {
+            scrollArea.style.height = dataHeight + 17 + "px";
+        }
+    }       
 </script>
+
 <script src="jquery.js"></script>
+
 <script>
     $(document).ready(function() {
         $("div").ajaxStart(function() {
@@ -30,6 +40,13 @@
         });
     });
 </script>
+<style type="text/css" runat="server">
+ .rgDataDiv
+    {
+        height: auto;
+        width: 101.5% !important;
+    }
+</style>
 <table width="100%">
     <tr>
         <td>
@@ -210,14 +227,14 @@
 </table>
 <table>
 <tr>
-
   <td>
-        <table>
-          <tr><td>
-            <div runat="server" id="divProjection" style="margin: 2px;width: 640px;">
+       <table>
+          <tr>
+          <td>
+           <%-- <div runat="server" id="divProjection" style="margin: 2px;width: 640px;">--%>
             <telerik:RadGrid ID="reptCalenderSummaryView" runat="server" GridLines="Both" AutoGenerateColumns="False"
-                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true" 
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" AllowAutomaticDeletes="True"
+                    AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true" 
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="1060px" AllowFilteringByColumn="false" AllowAutomaticDeletes="True"
                     AllowAutomaticInserts="false" 
                     OnPreRender="reptCalenderSummaryView_PreRender">
                     <PagerStyle Mode="NextPrevAndNumeric" ></PagerStyle>
@@ -262,10 +279,11 @@
                                 DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                                              </Columns>
-                    </MasterTableView>
-       
+                     </Columns>
+                    </MasterTableView>       
                     <ClientSettings>
+                <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="300px" />
+                <ClientEvents OnGridCreated="GridCreated" />
                         <Resizing AllowColumnResize="True"></Resizing>
                     </ClientSettings>
                 </telerik:RadGrid>

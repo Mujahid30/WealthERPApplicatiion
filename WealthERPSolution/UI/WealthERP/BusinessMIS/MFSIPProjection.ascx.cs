@@ -19,6 +19,7 @@ using BoCustomerProfiling;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Numeric;
+using VoAdvisorProfiling;
 using Telerik.Web.UI;
 
 namespace WealthERP.BusinessMIS
@@ -64,20 +65,20 @@ namespace WealthERP.BusinessMIS
 
         int all;
         string customerType = string.Empty;
-
+        int PageSize;
         private decimal totalSIPAmount = 0;
         private decimal totalSWPAmount = 0;
         private int totalNoOfSIP = 0;
         private int totalNoOfFreshSIP = 0;
         private int totalNoOfSWP = 0;
         private int totalNoOfFreshSWP = 0;
-
-
+        AdvisorPreferenceVo advisorPrefrenceVo = new AdvisorPreferenceVo();       
         string path;
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
+            advisorPrefrenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
 
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
@@ -893,7 +894,7 @@ namespace WealthERP.BusinessMIS
         {
             DataSet dsCalenderSummaryView;
             DataTable dtSIPDetails;
-            dsCalenderSummaryView = systematicSetupBo.GetCalenderSummaryView(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup, hdnstartdate.Value, hdnendDate.Value);
+            dsCalenderSummaryView = systematicSetupBo.GetCalenderSummaryView(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup, hdnstartdate.Value, hdnendDate.Value,int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()));
             //dtSIPDetails = dsBindGvSystematicMIS.Tables[2];
             dtSIPDetails = dsCalenderSummaryView.Tables[0];
             if (dtSIPDetails.Rows.Count > 0)
@@ -1128,6 +1129,7 @@ namespace WealthERP.BusinessMIS
                 calenderView.Sort = "Year DESC";
 
                 reptCalenderSummaryView.DataSource = calenderView;
+                reptCalenderSummaryView.PageSize = advisorPrefrenceVo.GridPageSize;
                 reptCalenderSummaryView.DataBind();
                 //reptCalenderSummaryView.Columns[0].Visible = false;
                 if (dtCalenderSymmary.Rows.Count > 0)
