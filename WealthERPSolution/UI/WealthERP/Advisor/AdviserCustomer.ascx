@@ -119,9 +119,10 @@
     <table width="100%" cellspacing="0" cellpadding="4">
         <tr>
             <td>
+            <div style="width:55%;">
                 <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
-                    ShowStatusBar="false" ShowFooter="false" AllowPaging="true" Width="1061px" AllowSorting="true"
+                    ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
                     GridLines="none" AllowAutomaticInserts="false" OnItemDataBound="gvCustomerList_ItemDataBound"
                     Skin="Telerik" EnableHeaderContextMenu="true" OnNeedDataSource="gvCustomerList_OnNeedDataSource"
                     OnPreRender="gvCustomerList_PreRender">
@@ -323,6 +324,7 @@
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
+                </div>
             </td>
         </tr>
     </table>
