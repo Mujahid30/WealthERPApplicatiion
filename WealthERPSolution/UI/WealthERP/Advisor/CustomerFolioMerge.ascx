@@ -67,7 +67,7 @@
     }          
 </script>
 
-<style id="Style1" type="text/css" runat="server">
+<style type="text/css" runat="server">
     .rgDataDiv
     {
         height: auto;
@@ -245,7 +245,7 @@
     </tr>
 </table>
 
-<table width="100%">
+<table width="100%" cellspacing="0" cellpadding="2">
    <%-- <td class="leftField" align="right">
         <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
         <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
@@ -349,8 +349,9 @@
         </td>--%>
      <tr>
         <td>
+        <div style="width:78%;">
             <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
-                Width="1062px" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false"
+                 AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false"
                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                 AllowAutomaticUpdates="false" Skin="Telerik" 
                 EnableEmbeddedSkins="false" 
@@ -358,7 +359,7 @@
                 OnNeedDataSource="gvCustomerFolioMerge_NeedDataSource">
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                 </ExportSettings>
-                <MasterTableView DataKeyNames="CustomerId,AMCCode,Count,portfilionumber" CommandItemDisplay="None">
+                <MasterTableView DataKeyNames="CustomerId,AMCCode,Count,portfilionumber" CommandItemDisplay="None" Width="100%">
                     <Columns>
                         <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px">
                             <ItemTemplate>
@@ -421,6 +422,7 @@
                     <Selecting AllowRowSelect="true" />
                 </ClientSettings>
             </telerik:RadGrid>
+            </div>
         </td>
     </tr>
 </table>
