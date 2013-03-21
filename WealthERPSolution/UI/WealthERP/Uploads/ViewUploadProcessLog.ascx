@@ -72,10 +72,10 @@
 </script>
 
 <style id="Style1" type="text/css" runat="server">
-    .rgDataDiv
+  .rgDataDiv
     {
         height: auto;
-        width: 101.5% !important;
+        width: 101.5s% !important;
     }
 </style>
 
@@ -189,15 +189,16 @@
         <tr id="trGridView" runat="server">
         
             <td colspan="2">
+            <div style="width:55%;">
                 <telerik:RadGrid ID="gvProcessLog" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="1062px" AllowFilteringByColumn="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS" OnPreRender="gvProcessLog_PreRender"
                     OnItemDataBound="gvProcessLog_ItemDataBound" OnNeedDataSource="gvProcessLog_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
-                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                        width="60%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
                                 <ItemTemplate>
@@ -322,7 +323,8 @@
                     <ClientEvents OnGridCreated="GridCreated" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
-                </telerik:RadGrid>               
+                </telerik:RadGrid>
+                </div>               
             </td>
         </tr>
     </table>
