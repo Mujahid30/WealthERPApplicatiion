@@ -119,7 +119,7 @@
     }
 </script>
 
-<style id="Style1" type="text/css" runat="server">
+<style type="text/css" runat="server">
     .rgDataDiv
     {
         height: auto;
@@ -267,12 +267,13 @@
 </div>
 <br />
 <%--<asp:Panel ID="PnlCAMSProfileReject" runat="server" class="Landscape" Width="100%" Visible="false">--%>
-    <table width="100%" cellspacing="0" cellpadding="4" style="table-layout: auto;">
+    <table width="100%" cellspacing="0" cellpadding="4">
         <tr>
-            <td>
+          <td>
+            <div style="width:50%">
                 <telerik:RadGrid ID="gvCAMSProfileReject" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    EnableViewState="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="1062px"
+                    EnableViewState="true" Skin="Telerik" EnableEmbeddedSkins="false" 
                     AllowFilteringByColumn="true" OnPreRender="gvCAMSProfileReject_PreRender" AllowAutomaticInserts="false"
                     ExportSettings-FileName="MF Folio Reject Details" OnItemDataBound="gvCAMSProfileReject_ItemDataBound"
                     OnNeedDataSource="gvCAMSProfileReject_OnNeedDataSource">
@@ -426,6 +427,7 @@
                         <Resizing AllowColumnResize="true" />
                     </ClientSettings>
                 </telerik:RadGrid>
+                </div>
             </td>
         </tr>
     </table>
