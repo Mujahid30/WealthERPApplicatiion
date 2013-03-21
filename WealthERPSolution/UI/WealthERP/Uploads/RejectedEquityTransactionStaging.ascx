@@ -152,7 +152,7 @@
         }
     }
 </script>
-<style id="Style1" type="text/css" runat="server">
+<style type="text/css" runat="server">
     .rgDataDiv
     {
         height: auto;
@@ -333,10 +333,11 @@
         </tr>
         <tr>
             <td>
+            <div style="width:87%;">
                 <telerik:RadGrid ID="gvWERPTrans" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowFiltering="true" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                     Skin="Telerik" OnItemDataBound="gvWERPTrans_ItemDataBound" EnableEmbeddedSkins="false"
-                    Width="1062px" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
+                    AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
                     ExportSettings-FileName="MF Transaction Reject Details" ShowFooter="true" OnNeedDataSource="gvWERPTrans_OnNeedDataSource"
                     OnPreRender="gvWERPTrans_PreRender">
                     <%-- OnPreRender="gvWERPTrans_PreRender"
@@ -472,6 +473,7 @@
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
+                </div>
                 <%--  <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
                     Width="101%" ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="WERPTransactionId"
                     AllowSorting="true" OnSorting="gvWERPTrans_Sort">
