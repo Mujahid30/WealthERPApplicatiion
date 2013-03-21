@@ -67,6 +67,78 @@ namespace DaoSuperAdmin
         }
 
         /// <summary>
+        /// Delete the duplicate transactions as per the filters 
+        /// </summary>
+        /// <param name="adviserId">adviser filter</param>
+        /// <param name="CommandName">if the command is delete</param>
+        /// <param name="deleted">if the operation is success</param>
+        /// <param name="cmfaAccountId">the account for which the duplicate is deleted</param>
+        /// <returns>true or false</returns>
+        
+        public bool DeleteDuplicateTransactionDetailsORFolioDetails(int adviserId,string CommandName,int deleted,int cmfaAccountId)
+        {
+            bool completed = false;
+            Database db;
+            DbCommand InsertZoneClusterDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                InsertZoneClusterDetailsCmd = db.GetStoredProcCommand("SPROC_DeleteDuplicateTransactionDetailsORFolioDetails");
+               
+                //if (adviserId != 0)
+                //    db.AddInParameter(InsertZoneClusterDetailsCmd, "@adviserId", DbType.Int32, adviserId);
+                //else
+                //    db.AddInParameter(InsertZoneClusterDetailsCmd, "@adviserId", DbType.Int32, DBNull.Value);
+
+
+                //if (!string.IsNullOrEmpty(CommandName))
+                //    db.AddInParameter(InsertZoneClusterDetailsCmd, "@CommandName", DbType.DateTime, CommandName);
+                //else
+                //    db.AddInParameter(InsertZoneClusterDetailsCmd, "@CommandName", DbType.DateTime, DBNull.Value);
+
+                if (cmfaAccountId != 0)
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@CMFA_AccountId", DbType.Int32, cmfaAccountId);
+                else
+                    db.AddInParameter(InsertZoneClusterDetailsCmd, "@CMFA_AccountId", DbType.Int32, DBNull.Value);
+
+
+                db.AddOutParameter(InsertZoneClusterDetailsCmd, "@deleted", DbType.Int32, 5000);
+
+
+                db.ExecuteNonQuery(InsertZoneClusterDetailsCmd);
+                    completed = true;
+
+
+                    deleted = Convert.ToInt32(db.GetParameterValue(InsertZoneClusterDetailsCmd, "deleted").ToString());
+                    if (deleted == 0)
+                        completed = false;
+               
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:ZoneClusterDetailsAddEditDelete(int adviserId,int rmId,int ZoneId, string Description, string name, string type, int userId, DateTime createdDate, string CommandName)");
+                object[] objects = new object[10];
+                objects[0] = adviserId;
+                objects[1] = CommandName;
+                objects[2] = deleted;
+                objects[3] = cmfaAccountId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return completed;
+        }
+
+
+        /// <summary>
         /// This function will get the duplicate foliodetails or the transaction details 
         /// </summary>
         /// <param name="adviserId">filter according to the adviserid or All</param>
@@ -90,7 +162,11 @@ namespace DaoSuperAdmin
                 //initialize the dataset
                 getDuplicateTransactionDetailsOrFolioDetailsCmd = db.GetStoredProcCommand("SPROC_GetDuplicateTransactionDetailsOrFolioDetails");
                 //add parameter for the adviserid filter or the all filter
-                db.AddInParameter(getDuplicateTransactionDetailsOrFolioDetailsCmd, "@adviserId", DbType.Int32, adviserId);
+                if (adviserId != 0)
+                    db.AddInParameter(getDuplicateTransactionDetailsOrFolioDetailsCmd, "@adviserId", DbType.Int32, adviserId);
+                else
+                    db.AddInParameter(getDuplicateTransactionDetailsOrFolioDetailsCmd, "@adviserId", DbType.Int32, DBNull.Value);
+
                 //add parameter for the type of monitor for
                 db.AddInParameter(getDuplicateTransactionDetailsOrFolioDetailsCmd, "@strMonitorFor", DbType.String, strMonitorFor);
                 //add parameter for the type of monitor
@@ -124,11 +200,11 @@ namespace DaoSuperAdmin
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "PortfolioBo.cs:GetDuplicateTransactionDetailsOrFolioDetails(int adviserId,DateTime toDate,DateTime fromDate,int isDuplicatesOnly)");
-                object[] objects = new object[7];               
+                object[] objects = new object[7];
                 objects[0] = strMonitorFor;
                 objects[1] = strTypeOfMonitor;
                 objects[2] = adviserId;
-                objects[3] = toDate;                
+                objects[3] = toDate;
                 objects[4] = fromDate;
                 objects[5] = isDuplicatesOnly;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
