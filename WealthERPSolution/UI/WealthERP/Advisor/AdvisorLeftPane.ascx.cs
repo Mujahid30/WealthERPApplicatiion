@@ -194,6 +194,10 @@ namespace WealthERP.Advisor
                         RadPanelBar2.Visible = true;
                     else
                         RadPanelBar2.Visible = false;
+                    if (int.Parse(dtPlanDetails.Rows[0]["WP_PlanId"].ToString()) != 1)
+                        RadPanelBar5.Visible = true;
+                    else
+                        RadPanelBar5.Visible = false;
                 }
                 if (!userVo.RoleList.Contains("RM"))
                     RadPanelBar2.Visible = false;
@@ -2016,12 +2020,17 @@ namespace WealthERP.Advisor
         {
             int flag = 0;
             DataView tempView;
+            //int isMultiBranch = 0;
+            //int isStaffEnabled = 0;
+            //string noOfAgents;
 
             tempView = new DataView(dsAdminTreeNodes.Tables[0]);
             tempView.Sort = "WTN_TreeNode";
 
             if (userVo.RoleList.Contains("Admin"))
             {
+                //Session["PlanDetails"] = dsAdminTreeNodes.Tables[3];
+                //isMultiBranch = int.Parse(dsAdminTreeNodes.Tables[3].Rows[0]["AS_NoOfStaffWebLogins"].ToString()); 
                 flag = 0;
                 tempView = new DataView(dsAdminTreeNodes.Tables[0]);
                 tempView.Sort = "WTN_TreeNode";
@@ -2061,6 +2070,7 @@ namespace WealthERP.Advisor
                                     break;
                             }
                         }
+                       
                     }
                 }
 
@@ -2113,6 +2123,21 @@ namespace WealthERP.Advisor
                                     break;
                             }
                         }
+                        //if (int.Parse(dsAdminTreeNodes.Tables[3].Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 0)
+                        //{
+                        //    if (Item.Value == "Staff")
+                        //        Item.Visible = false;
+                        //}
+                        if (int.Parse(dsAdminTreeNodes.Tables[3].Rows[0]["WP_IsMultiBranchPlan"].ToString()) == 0)
+                        {
+                            if (Item.Value == "Branch/Association")
+                                Item.Visible = false;
+                        }
+                        if (string.IsNullOrEmpty(dsAdminTreeNodes.Tables[3].Rows[0]["WP_NoOfAgents"].ToString().Trim()))
+                        {
+                            if (Item.Value == "Setup Associate Category")
+                                Item.Visible = false;
+                        }
                     }
                 }
 
@@ -2134,6 +2159,31 @@ namespace WealthERP.Advisor
                             switch (Item.Value)
                             {
                                 case "Customer User Management":
+                                    Item.Visible = false;
+                                    break;
+                            }
+                        }
+                        if (int.Parse(dsAdminTreeNodes.Tables[3].Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 0)
+                        {
+
+                            switch (Item.Value)
+                            {
+                                //case "Add Staff":
+                                //    Item.Visible = false;
+                                //    break;
+                                case "Staff User Management":
+                                    Item.Visible = false;
+                                    break;
+                            }
+                        }
+                        if (int.Parse(dsAdminTreeNodes.Tables[3].Rows[0]["WP_IsMultiBranchPlan"].ToString()) == 0)
+                        {
+                            switch (Item.Value)
+                            {
+                                case "Add Branch":
+                                    Item.Visible = false;
+                                    break;
+                                case "View Branch Association":
                                     Item.Visible = false;
                                     break;
                             }
