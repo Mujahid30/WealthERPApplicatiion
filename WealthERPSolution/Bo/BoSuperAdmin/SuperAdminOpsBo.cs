@@ -245,6 +245,36 @@ namespace BoSuperAdmin
             }
         }
 
+        public bool DeleteDuplicateTransactionDetailsORFolioDetails(int adviserId, string CommandName, int deleted, int cmfaAccountId)
+        {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao(); 
+            bool completed = false;
+            try
+            {
+                completed = superAdminOpsDao.DeleteDuplicateTransactionDetailsORFolioDetails(adviserId, CommandName, deleted, cmfaAccountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:ZoneClusterDetailsAddEditDelete(int adviserId,int rmId,int ZoneId, string Description, string name, string type, int createdBy,int modifiedBy,DateTime createdDate, string CommandName)");
+                object[] objects = new object[10];
+                objects[0] = deleted;
+                objects[1] = adviserId;
+                objects[2] = CommandName;
+                objects[3] = cmfaAccountId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return completed;
+        }
+
         /// <summary>
         /// This function will get the duplicate foliodetails or the transaction details 
         /// </summary>
