@@ -154,7 +154,7 @@ function GridCreated(sender, args) {
     }
 </script>
 
-<style id="Style1" type="text/css" runat="server">
+<style type="text/css" runat="server">
     .rgDataDiv
     {
         height: auto;
@@ -457,10 +457,11 @@ function GridCreated(sender, args) {
         </tr>
         <tr>
             <td>
+            <div style="width:62%">
                 <telerik:RadGrid ID="gvSIPReject" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowFiltering="true" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                     Skin="Telerik" OnItemDataBound="gvSIPReject_ItemDataBound" EnableEmbeddedSkins="false"
-                    Width="1062px" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
+                    AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
                     ShowFooter="true" OnNeedDataSource="gvSIPReject_NeedDataSource" OnPreRender="gvSIPReject_PreRender">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
@@ -652,6 +653,7 @@ function GridCreated(sender, args) {
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
+                </div>
             </td>
         </tr>
     </table>
