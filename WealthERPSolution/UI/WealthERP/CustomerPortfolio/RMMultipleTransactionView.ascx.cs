@@ -189,6 +189,15 @@ namespace WealthERP.CustomerPortfolio
                    
                     ErrorMessage.Visible = false;
                 }
+                //System.Web.HttpBrowserCapabilities browser = Request.Browser;
+
+                //if (browser.Browser.ToLower() == "ie")
+
+                //   // myLinkstyle.Href = "CSS/IEStyles.css";
+
+                //else
+
+                   // myLinkstyle.Href = "CSS/OtherBrowserStyle.css";
             }
             catch (BaseApplicationException Ex)
             {
@@ -513,6 +522,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = false;
                     gvMFTransactions.Visible = true;
                     btnTrnxExport.Visible = true;
+                    
                    
                 }
                 else
@@ -653,6 +663,7 @@ namespace WealthERP.CustomerPortfolio
                    // Panel1.Visible = true;
                     ErrorMessage.Visible = false;
                     gvBalanceView.Visible = true;
+                    dvBalanceView.Visible = true;
                     btnTrnxExport.Visible = true;
                   }
                               
@@ -662,6 +673,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = true;
                    // Panel1.Visible = false;
                     hdnRecordCount.Value = "0";
+                    dvBalanceView.Visible = false;
                     btnTrnxExport.Visible = false;
                 }
                gvTrail.Visible = false;
