@@ -195,7 +195,7 @@ namespace WealthERP.OPS
 
                 ErrorMessage.Visible = false;
                 tblMessage.Visible = false;
-                pnlOrderList.Visible = true;
+              //  pnlOrderList.Visible = true;
                 btnExportFilteredDupData.Visible = true;
             }
             else
@@ -205,7 +205,7 @@ namespace WealthERP.OPS
                 ErrorMessage.Visible = true;
                 btnExportFilteredDupData.Visible = false;
                 ErrorMessage.InnerText = "No Records Found...!";
-                pnlOrderList.Visible = false;
+                //pnlOrderList.Visible = false;
             }
         }
         protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)

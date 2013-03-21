@@ -31,7 +31,7 @@
     }
 </script>
 
-<style id="Style1" type="text/css" runat="server">
+<style type="text/css" runat="server">
     .rgDataDiv
     {
         height: auto;
@@ -225,8 +225,6 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="pnlOrderList" runat="server" class="Landscape" Width="100%" Height="80%"
-    ScrollBars="Horizontal">
     <table width="100%">
         <tr id="trExportFilteredDupData" runat="server">
             <td>
@@ -234,13 +232,14 @@
         </tr>
         <tr>
             <td>
+            <div style="width:95%;">
                 <telerik:RadGrid ID="gvOrderList" runat="server" GridLines="None" AutoGenerateColumns="False"
-                   AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true" Width="1062px"
+                   AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true" 
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
                     OnNeedDataSource="gvOrderList_OnNeedDataSource" OnItemDataBound="gvOrderList_ItemDataBound">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode" Width="100%"
+                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode" Width="101%"
                         AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
@@ -354,15 +353,16 @@
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
-                        <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px" />
+                        <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="300px" />
                         <ClientEvents OnGridCreated="GridCreated" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
+                </div>
             </td>
         </tr>
     </table>
-</asp:Panel>
+
 <asp:HiddenField ID="hdnBranchId" runat="server" />
 <asp:HiddenField ID="hdnRMId" runat="server" />
 <asp:HiddenField ID="hdnFromdate" runat="server" />
