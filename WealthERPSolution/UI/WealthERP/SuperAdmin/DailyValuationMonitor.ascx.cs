@@ -1747,16 +1747,18 @@ namespace WealthERP.SuperAdmin
             string CommandName = string.Empty;
             int deleted = 0;
 
-            cmfaAccountId = Convert.ToInt32(gvTransactionDuplicates.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFA_AccountId"].ToString());
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                cmfaAccountId = Convert.ToInt32(gvTransactionDuplicates.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFA_AccountId"].ToString());
 
-            //check if deleted then show message
-            isDeleted = superAdminOpsBo.DeleteDuplicateTransactionDetailsORFolioDetails(adviserId, CommandName, deleted, cmfaAccountId);
-            if (isDeleted == false)
-                Response.Write(@"<script language='javascript'>alert('The Duplicates transactions for accountid : '" + cmfaAccountId + "' cannot be deleted .');</script>");
-            else
-                Response.Write(@"<script language='javascript'>alert('The Duplicates transactions for accountid : '" + cmfaAccountId + "' are deleted .');</script>");
+                //check if deleted then show message
+                isDeleted = superAdminOpsBo.DeleteDuplicateTransactionDetailsORFolioDetails(adviserId, CommandName, deleted, cmfaAccountId);
+                if (isDeleted == false)
+                    Response.Write(@"<script language='javascript'>alert('The Duplicates transactions for accountid : '" + cmfaAccountId + "' cannot be deleted .');</script>");
+                else
+                    Response.Write(@"<script language='javascript'>alert('The Duplicates transactions for accountid : '" + cmfaAccountId + "' are deleted .');</script>");
 
-
+            }
             BindGridForDuplicateFolioOrTransaction();
         }
 

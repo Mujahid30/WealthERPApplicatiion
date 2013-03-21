@@ -85,7 +85,7 @@
 <table width="100%">
     <tr>
         <td align="Left" style="width: 158px" valign="top">
-            <asp:Label ID="Mntfr" runat="server" CssClass="FieldName" Text="Monitor For" Width="100%"></asp:Label>
+            <asp:Label ID="Mntfr" runat="server" CssClass="FieldName" Text="Monitor For :" Width="100%"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlMonitorfr" runat="server" AutoPostBack="true" CssClass="cmbField"
@@ -849,6 +849,10 @@
         </ExportSettings>
         <MasterTableView CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
             <Columns>
+             <telerik:GridBoundColumn UniqueName="aname" HeaderText="Adviser Name" HeaderStyle-Width="200px"
+                    DataField="aname" SortExpression="aname" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="A_AdviserId" HeaderText="AdviserId" HeaderStyle-Width="100px"
                     DataField="A_AdviserId" SortExpression="A_AdviserId" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
@@ -1054,6 +1058,11 @@
         </ExportSettings>
         <MasterTableView DataKeyNames="CMFA_AccountId" CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
             <Columns>
+            
+             <telerik:GridBoundColumn UniqueName="aname" HeaderText="Adviser Name" HeaderStyle-Width="200px"
+                    DataField="aname" SortExpression="aname" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="cname" HeaderText="Customer Name" HeaderStyle-Width="200px"
                     DataField="cname" SortExpression="cname" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
