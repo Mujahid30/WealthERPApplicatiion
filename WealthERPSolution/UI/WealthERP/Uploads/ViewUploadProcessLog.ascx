@@ -71,11 +71,11 @@
     }
 </script>
 
-<style id="Style1" type="text/css" runat="server">
+<style  type="text/css" runat="server">
   .rgDataDiv
     {
         height: auto;
-        width: 101.5s% !important;
+        width: 101.5% !important;
     }
 </style>
 
