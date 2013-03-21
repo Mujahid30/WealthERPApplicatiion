@@ -69,10 +69,12 @@
                         <td colspan="4" align="right">
                             <asp:ImageButton ID="btnExportDuplicateFolioFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('CSV')"
-                                Height="20px" Width="25px" Visible="false" OnClick="btnExportDuplicateFolioFilteredData_Click"></asp:ImageButton>
+                                Height="20px" Width="25px" Visible="false" OnClick="btnExportDuplicateFolioFilteredData_Click">
+                            </asp:ImageButton>
                             <asp:ImageButton ID="btnExportDuplicateTransactionFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('CSV')"
-                                Height="20px" Width="25px" Visible="false" OnClick="btnExportDuplicateTransactionFilteredData_Click"></asp:ImageButton>
+                                Height="20px" Width="25px" Visible="false" OnClick="btnExportDuplicateTransactionFilteredData_Click">
+                            </asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -233,7 +235,7 @@
             <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
         <td>
@@ -840,7 +842,8 @@
     <telerik:RadGrid ID="gvFolioDuplicates" runat="server" CssClass="RadGrid" GridLines="None"
         Width="1000px" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
         ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-        AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true"
+        OnItemCommand="gvFolioDuplicates_ItemCommand" AllowAutomaticUpdates="false" Skin="Telerik"
+        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" OnItemDataBound="gvFolioDuplicates_ItemDataBound"
         EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true" OnNeedDataSource="gvFolioDuplicates_OnNeedDataSource">
         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
         </ExportSettings>
@@ -862,7 +865,7 @@
                     HeaderStyle-Width="100px" SortExpression="PA_AMCCode" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn UniqueName="PA_AMCName" HeaderText="AMCName" DataField="PA_AMCName"
+                <telerik:GridBoundColumn UniqueName="PA_AMCName" HeaderText="AMCName" DataField="PA_AMCName"
                     HeaderStyle-Width="250px" SortExpression="PA_AMCCode" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
@@ -1043,13 +1046,22 @@
 <div id="divGvTransactionDuplicates" runat="server" style="overflow: scroll;" visible="false">
     <telerik:RadGrid ID="gvTransactionDuplicates" runat="server" CssClass="RadGrid" GridLines="None"
         Width="100%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
-        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-        AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true"
-        EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true" OnNeedDataSource="gvTransactionDuplicates_OnNeedDataSource">
+        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false" OnItemCommand="gvTransactionDuplicates_ItemCommand"
+        AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="false" OnItemDataBound="gvTransactionDuplicates_ItemDataBound"
+        EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true"
+        OnNeedDataSource="gvTransactionDuplicates_OnNeedDataSource">
         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
         </ExportSettings>
-        <MasterTableView CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
+        <MasterTableView DataKeyNames="CMFA_AccountId" CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
             <Columns>
+                <telerik:GridBoundColumn UniqueName="cname" HeaderText="Customer Name" HeaderStyle-Width="200px"
+                    DataField="cname" SortExpression="cname" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="A_AdviserId" HeaderText="AdviserId" HeaderStyle-Width="100px"
+                    DataField="A_AdviserId" SortExpression="A_AdviserId" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="CMFT_Units" HeaderText="Units" DataField="CMFT_Units"
                     SortExpression="CMFT_Units" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
@@ -1072,22 +1084,27 @@
                     DataField="WMTT_TransactionClassificationCode" SortExpression="WMTT_TransactionClassificationCode"
                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="178px">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="PASP_SchemePlanCode" HeaderText="SchemePlanCode"
-                    DataField="PASP_SchemePlanCode" SortExpression="PASP_SchemePlanCode" AllowFiltering="true"
-                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
+                <telerik:GridBoundColumn UniqueName="PA_AMCName" HeaderText="AMCName" DataField="PA_AMCName"
+                    SortExpression="PA_AMCName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                    HeaderStyle-Width="200px">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="WTS_TransactionStatusCode" HeaderText="TransactionStatusCode"
-                    DataField="WTS_TransactionStatusCode" SortExpression="WTS_TransactionStatusCode"
-                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="140px">
+                <telerik:GridBoundColumn UniqueName="WTS_TransactionStatus" HeaderText="TransactionStatus"
+                    DataField="WTS_TransactionStatus" SortExpression="WTS_TransactionStatus" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="140px">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="XES_SourceCode" HeaderText="SourceCode" DataField="XES_SourceCode"
                     SortExpression="XES_SourceCode" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true" HeaderStyle-Width="100px">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="totalDuplicates" HeaderText="totalDuplicates"
+                <telerik:GridBoundColumn UniqueName="totalDuplicates" HeaderText="TotalDuplicates"
                     DataField="totalDuplicates" SortExpression="totalDuplicates" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="100px">
                 </telerik:GridBoundColumn>
+                <telerik:GridButtonColumn UniqueName="deleteColumn" HeaderStyle-Width="100px" ConfirmText="This will delete all the duplicates for this transaction"
+                    ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                    Text="Delete">
+                    <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                </telerik:GridButtonColumn>
             </Columns>
             <HeaderStyle Width="200px" />
         </MasterTableView>

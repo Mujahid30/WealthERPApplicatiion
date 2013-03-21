@@ -1604,7 +1604,7 @@ namespace WealthERP.SuperAdmin
                 ddlAdviser.DataValueField = "A_AdviserId";
                 ddlAdviser.DataBind();
             }
-            ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("ALL", "0"));
 
         }
 
@@ -1693,6 +1693,92 @@ namespace WealthERP.SuperAdmin
                 throw exBase;
             }
         }
+
+        protected void gvFolioDuplicates_ItemDataBound(object source, GridItemEventArgs e)
+        {
+            bool removeDelete = false;
+            if (chkFolioDuplicatesOnly.Checked == false)
+                removeDelete = true;
+
+            if (removeDelete == true)
+            {
+                gvFolioDuplicates.MasterTableView.GetColumn("totalDuplicates").Visible = false;
+            }
+            else
+            {
+                gvFolioDuplicates.MasterTableView.GetColumn("totalDuplicates").Visible = true;
+            }
+
+        }
+
+        protected void gvFolioDuplicates_ItemCommand(object source, GridCommandEventArgs e)
+        {
+
+        }
+
+        //performing the command for the grid
+        protected void gvTransactionDuplicates_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            int cmfaAccountId= 0;
+            bool isDeleted = false;
+            //string strExternalType = string.Empty;
+            //DateTime createdDate = new DateTime();
+            //DateTime editedDate = new DateTime();
+            //DateTime deletedDate = new DateTime();
+            //if (e.CommandName == RadGrid.UpdateCommandName)
+
+            //if (e.CommandName == RadGrid.DeleteCommandName)
+            //{
+            //    bool isDeleted = false;
+            //    customerBo = new CustomerBo();
+            //    GridDataItem dataItem = (GridDataItem)e.Item;
+            //    TableCell strSchemePlanCodeForDelete = dataItem["PASP_SchemePlanCode"];
+            //    TableCell strSchemePlanNameForDelete = dataItem["PASP_SchemePlanName"];
+            //    TableCell StrExternalCodeForDelete = dataItem["PASC_AMC_ExternalCode"];
+            //    TableCell strExternalTypeForDelete = dataItem["PASC_AMC_ExternalType"];
+            //    strSchemePlanCode = int.Parse(strSchemePlanCodeForDelete.Text);
+            //    strExternalCode = StrExternalCodeForDelete.Text;
+            //    strExternalType = strExternalTypeForDelete.Text;
+            //    deletedDate = DateTime.Now;
+            //    isDeleted = customerBo.DeleteMappedSchemeDetails(strSchemePlanCode, strExternalCode, strExternalType, createdDate, editedDate, deletedDate);
+            //}
+
+            int adviserId = 0;
+            string CommandName = string.Empty;
+            int deleted = 0;
+
+            cmfaAccountId = Convert.ToInt32(gvTransactionDuplicates.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFA_AccountId"].ToString());
+
+            //check if deleted then show message
+            isDeleted = superAdminOpsBo.DeleteDuplicateTransactionDetailsORFolioDetails(adviserId, CommandName, deleted, cmfaAccountId);
+            if (isDeleted == false)
+                Response.Write(@"<script language='javascript'>alert('The Duplicates transactions for accountid : '" + cmfaAccountId + "' cannot be deleted .');</script>");
+            else
+                Response.Write(@"<script language='javascript'>alert('The Duplicates transactions for accountid : '" + cmfaAccountId + "' are deleted .');</script>");
+
+
+            BindGridForDuplicateFolioOrTransaction();
+        }
+
+
+        protected void gvTransactionDuplicates_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            bool removeDelete = false;
+            if (chkFolioDuplicatesOnly.Checked == false)
+                removeDelete = true;
+
+            if (removeDelete == true)
+            {
+                gvTransactionDuplicates.MasterTableView.GetColumn("deleteColumn").Visible = false;
+                gvTransactionDuplicates.MasterTableView.GetColumn("totalDuplicates").Visible = false;
+            }
+            else
+            {
+                gvTransactionDuplicates.MasterTableView.GetColumn("deleteColumn").Visible = true;
+                gvTransactionDuplicates.MasterTableView.GetColumn("totalDuplicates").Visible = true;
+            }
+        }
+
 
         /// <summary>
         /// filling the datasource of the grid for grid operations 
