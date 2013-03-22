@@ -457,8 +457,8 @@
                                                 ErrorMessage="Please, enter valid number." CssClass="rfvPCG" ValidationExpression="^[0-9]+$"
                                                 ControlToValidate="txtGridPageSize">
                                             </asp:RegularExpressionValidator>
-                                            <asp:RangeValidator runat="server" ID="RangeValidator1" ControlToValidate="txtGridPageSize" Type="Integer" Display="Dynamic"
-                                                MinimumValue="10" MaximumValue="100" CssClass="rfvPCG" ErrorMessage="Page Range between 10-100 Acceptable" ValidationGroup="BtnSubmitpage">
+                                            <asp:RangeValidator runat="server" ID="RangeValidator1" ControlToValidate="txtGridPageSize" Type="Integer" 
+                                                MinimumValue="10" MaximumValue="100" CssClass="rfvPCG"  ErrorMessage="Page Range between 10-100 Acceptable" ValidationGroup="BtnSubmitpage">
                                                 </asp:RangeValidator>                                                 
                                                
                                         </td>
@@ -472,7 +472,7 @@
                                             &nbsp;
                                         </td>
                                         <td>
-                                            <asp:Button ID="BtnSubmitpage" runat="server" Text="Submit" CssClass="PCGButton"
+                                            <asp:Button ID="BtnSubmitpage" runat="server" Text="Submit" ValidationGroup="BtnSubmitpage" CssClass="PCGButton"
                                                 OnClick="btnSubmitPageSize_Click" />
                                         </td>
                                         <td class="tdEmpty">
