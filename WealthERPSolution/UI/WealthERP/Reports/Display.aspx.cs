@@ -515,7 +515,8 @@ namespace WealthERP.Reports
             MFReportsBo mfReportBo = new MFReportsBo();
             if (Request.QueryString["Page"] == null)
             {
-                report = (OrderTransactionSlipVo)Session["reportParams"];
+                if (Session["reportParams"]!=null)
+                    report = (OrderTransactionSlipVo)Session["reportParams"];
             }
             DataSet dstransactionSlip = new DataSet();
             DataSet dsOrderTransactionForm=new DataSet();
