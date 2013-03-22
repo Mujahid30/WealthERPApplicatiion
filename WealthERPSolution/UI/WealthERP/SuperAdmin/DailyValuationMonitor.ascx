@@ -1100,7 +1100,7 @@
                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                      <ItemStyle HorizontalAlign="Left" /> 
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="WMTT_TransactionClassificationCode" HeaderText="Transaction"
+                <telerik:GridBoundColumn UniqueName="WMTT_TransactionClassificationCode" HeaderText="Transaction code"
                     DataField="WMTT_TransactionClassificationCode" SortExpression="WMTT_TransactionClassificationCode"
                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="178px">
                      <ItemStyle HorizontalAlign="Left" /> 
@@ -1125,7 +1125,7 @@
                     DataField="WTS_TransactionStatus" SortExpression="WTS_TransactionStatus" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="140px">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="WMTT_TransactionClassificationName" HeaderText="TransactionNumber"
+                <telerik:GridBoundColumn UniqueName="WMTT_TransactionClassificationName" HeaderText="Transaction"
                     DataField="WMTT_TransactionClassificationName" SortExpression="WMTT_TransactionClassificationName" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="140px">
                     <ItemStyle HorizontalAlign="Left" /> 
