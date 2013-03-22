@@ -448,7 +448,7 @@ function GridCreated(sender, args) {
    --%>
 <%--<asp:Panel ID="Panel3" Visible="false" runat="server" class="Landscape" Width="100%"
     ScrollBars="Horizontal">--%>
-    <table width="100%" cellspacing="0" cellpadding="2">
+    <table width="100%" cellspacing="0" cellpadding="1">
         <tr>
             <td>
                 <asp:LinkButton runat="server" ID="lnkViewInputRejects" Text="View Input Rejects"
@@ -457,7 +457,7 @@ function GridCreated(sender, args) {
         </tr>
         <tr>
             <td>
-            <div style="width:62%">
+            <div style="width:61%">
                 <telerik:RadGrid ID="gvSIPReject" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowFiltering="true" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                     Skin="Telerik" OnItemDataBound="gvSIPReject_ItemDataBound" EnableEmbeddedSkins="false"
