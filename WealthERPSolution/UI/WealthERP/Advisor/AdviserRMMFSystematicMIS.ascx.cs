@@ -149,6 +149,7 @@ namespace WealthERP.Advisor
                 {
                     trBranchRM.Visible = false;
 
+
                 }
                 if (userType == "bm")
                 {

@@ -50,13 +50,14 @@
         }
     }               
 </script>
-    <style type="text/css" runat="server">
-        .rgDataDiv
-        {
-            height: auto;
-            width: 101.5% !important;
-        }
-    </style>
+
+<style type="text/css" runat="server">
+    .rgDataDiv
+    {
+        height: auto;
+        width: 101.5% !important;
+    }
+</style>
 <table width="100%">
     <tr>
         <td>
@@ -103,15 +104,12 @@
                         <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" Style="vertical-align: middle">
                         </asp:DropDownList>
                     </td>
-                    <td align="right" style="width: 10%;">
-                        <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio:"></asp:Label>
-                    </td>
-                    <td align="left" style="width: 10%;">
+                    <%-- <td align="left" style="width: 10%;">
                         <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField">
                             <asp:ListItem Text="Managed" Value="1">Managed</asp:ListItem>
                             <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
-                        </asp:DropDownList>
-                    </td>
+                        </asp:DropDownList>--%>
+                    <%--  </td>--%>
                     <td>
                     </td>
                     <td>
@@ -129,102 +127,112 @@
                             <asp:ListItem Value="All Customer" Text="All Customer"></asp:ListItem>
                             <asp:ListItem Value="Pick Customer" Text="Pick Customer"></asp:ListItem>
                         </asp:DropDownList>
-                        <%--<asp:RadioButton runat="server" ID="rdoAllCustomer" Text="All Customers" AutoPostBack="true"
+                    </td>
+                    <td align="right" style="width: 10%;">
+                        <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Portfolio:"></asp:Label>
+                    </td>
+                    <td align="left" style="width: 10%;">
+                        <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField">
+                            <asp:ListItem Text="Managed" Value="1">Managed</asp:ListItem>
+                            <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                    <%--<asp:RadioButton runat="server" ID="rdoAllCustomer" Text="All Customers" AutoPostBack="true"
               Class="cmbField" GroupName="SelectCustomer" Checked="True" 
               oncheckedchanged="rdoAllCustomer_CheckedChanged" />
               <br />
               <asp:RadioButton runat="server" ID="rdoPickCustomer" Text="Pick Customer" AutoPostBack="true"
               Class="cmbField" GroupName="SelectCustomer" 
               oncheckedchanged="rdoPickCustomer_CheckedChanged" />--%>
-                    </td>
-                    <td align="right" width="10%">
-                        <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="FieldName" Text="Customer Type: "></asp:Label>
-                    </td>
-                    <td align="left" width="10%">
-                        <asp:DropDownList ID="ddlSelectCutomer" Style="vertical-align: middle" runat="server"
-                            CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlSelectCutomer_SelectedIndexChanged">
-                            <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
-                            <asp:ListItem Value="Group Head" Text="Group Head"></asp:ListItem>
-                            <asp:ListItem Value="Individual" Text="Individual"></asp:ListItem>
-                        </asp:DropDownList>
-                    </td>
-                    <td align="right" width="10%">
-                        <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer: "></asp:Label>
-                    </td>
-                    <td align="left" width="10%">
-                        <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
-                            AutoPostBack="True">  </asp:TextBox>
-                        <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer"
-                            WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
-                        </cc1:TextBoxWatermarkExtender>
-                        <ajaxToolkit:AutoCompleteExtender ID="txtIndividualCustomer_autoCompleteExtender"
-                            runat="server" TargetControlID="txtIndividualCustomer" ServiceMethod="GetCustomerName"
-                            ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="1" EnableCaching="False"
-                            CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
-                            CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                            UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
-                            Enabled="True" />
-                        <asp:RequiredFieldValidator ID="rquiredFieldValidatorIndivudialCustomer" Display="Dynamic"
-                            ControlToValidate="txtIndividualCustomer" CssClass="rfvPCG" ErrorMessage="<br />Please select the customer"
-                            runat="server" ValidationGroup="btnGo">
-                        </asp:RequiredFieldValidator>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" width="10%">
-                        <asp:Label ID="lblSystematicType" runat="server" Text="Systematic Type:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td align="left" width="10%">
-                        <asp:DropDownList ID="ddlSystematicType" runat="server" CssClass="cmbField" AutoPostBack="false">
-                        </asp:DropDownList>
-                    </td>
-                    <td align="right" width="10%">
-                        <asp:Label ID="lblAMC" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td align="left" width="10%">
-                        <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged">
-                        </asp:DropDownList>
-                    </td>
-                    <td align="right" width="10%">
-                        <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td align="left" width="10%">
-                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="false">
-                        </asp:DropDownList>
-                    </td>
-                    <td align="right" width="10%">
-                        <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td align="left" width="10%">
-                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true">
-                        </asp:DropDownList>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" width="10%">
-                        <asp:Label ID="lblDate" runat="server" Text="SIP filter on: " CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td align="left" width="10%">
-                        <asp:DropDownList ID="ddlDateFilter" Style="vertical-align: middle" runat="server"
-                            AutoPostBack="true" CssClass="cmbField" OnSelectedIndexChanged="ddlDateFilter_SelectedIndexChanged">
-                            <asp:ListItem Text="Active SIP" Value="ActiveSIP" Selected="True"></asp:ListItem>
-                            <asp:ListItem Text="Expired SIP" Value="ExpiredSIP"></asp:ListItem>
-                            <asp:ListItem Text="Ceased SIP" Value="CeasedSIP"></asp:ListItem>
-                            <asp:ListItem Text="SIP Start Date" Value="StartDate"></asp:ListItem>
-                            <asp:ListItem Text="SIP End Date" Value="EndDate"></asp:ListItem>
-                        </asp:DropDownList>
-                    </td>
-                    <td align="right" width="10%">
-                        <asp:Label ID="lblFromDate" Text="From:" runat="server" CssClass="FieldName">
-                        </asp:Label>
-                    </td>
-                    <td align="left" width="10%">
-                        <%--<asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+        <td align="right" width="10%">
+            <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="FieldName" Text="Customer Type: "></asp:Label>
+        </td>
+        <td align="left" width="10%">
+            <asp:DropDownList ID="ddlSelectCutomer" Style="vertical-align: middle" runat="server"
+                CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlSelectCutomer_SelectedIndexChanged">
+                <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
+                <asp:ListItem Value="Group Head" Text="Group Head"></asp:ListItem>
+                <asp:ListItem Value="Individual" Text="Individual"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td align="right" width="10%">
+            <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer: "></asp:Label>
+        </td>
+        <td align="left" width="10%">
+            <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
+                AutoPostBack="True">  </asp:TextBox>
+            <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer"
+                WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtIndividualCustomer_autoCompleteExtender"
+                runat="server" TargetControlID="txtIndividualCustomer" ServiceMethod="GetCustomerName"
+                ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="1" EnableCaching="False"
+                CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                Enabled="True" />
+            <asp:RequiredFieldValidator ID="rquiredFieldValidatorIndivudialCustomer" Display="Dynamic"
+                ControlToValidate="txtIndividualCustomer" CssClass="rfvPCG" ErrorMessage="<br />Please select the customer"
+                runat="server" ValidationGroup="btnGo">
+            </asp:RequiredFieldValidator>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" width="10%">
+            <asp:Label ID="lblSystematicType" runat="server" Text="Systematic Type:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+            <asp:DropDownList ID="ddlSystematicType" runat="server" CssClass="cmbField" AutoPostBack="false">
+            </asp:DropDownList>
+        </td>
+        <td align="right" width="10%">
+            <asp:Label ID="lblAMC" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+        <td align="right" width="10%">
+            <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="false">
+            </asp:DropDownList>
+        </td>
+        <td align="right" width="10%">
+            <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true">
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" width="10%">
+            <asp:Label ID="lblDate" runat="server" Text="SIP filter on: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+            <asp:DropDownList ID="ddlDateFilter" Style="vertical-align: middle" runat="server"
+                AutoPostBack="true" CssClass="cmbField" OnSelectedIndexChanged="ddlDateFilter_SelectedIndexChanged">
+                <asp:ListItem Text="Active SIP" Value="ActiveSIP" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Expired SIP" Value="ExpiredSIP"></asp:ListItem>
+                <asp:ListItem Text="Ceased SIP" Value="CeasedSIP"></asp:ListItem>
+                <asp:ListItem Text="SIP Start Date" Value="StartDate"></asp:ListItem>
+                <asp:ListItem Text="SIP End Date" Value="EndDate"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td align="right" width="10%">
+            <asp:Label ID="lblFromDate" Text="From:" runat="server" CssClass="FieldName">
+            </asp:Label>
+        </td>
+        <td align="left" width="10%">
+            <%--<asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox>
          <span id="SpanFromDate" class="spnRequiredField">*</span>
          <ajaxToolkit:CalendarExtender ID="txtFrom_CalendarExtender" runat="server" TargetControlID="txtFrom" Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
          </ajaxToolkit:CalendarExtender>
@@ -232,21 +240,21 @@
          </ajaxToolkit:TextBoxWatermarkExtender>
          <asp:RequiredFieldValidator ID="RequiredFieldValidator3" Display="Dynamic" ControlToValidate="txtFrom" CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" runat="server" ValidationGroup="btnGo">
           </asp:RequiredFieldValidator>--%>
-                        <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
-                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                            <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                            </Calendar>
-                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                            <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                            </DateInput>
-                        </telerik:RadDatePicker>
-                    </td>
-                    <td align="right" width="10%">
-                        <asp:Label ID="lblToDate" runat="server" CssClass="FieldName" Text="To:"></asp:Label>
-                    </td>
-                    <td align="left" width="10%" valign="middle" colspan="2">
-                        <%--<asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
+            <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+        </td>
+        <td align="right" width="10%">
+            <asp:Label ID="lblToDate" runat="server" CssClass="FieldName" Text="To:"></asp:Label>
+        </td>
+        <td align="left" width="10%" valign="middle" colspan="2">
+            <%--<asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
           <span id="SpanToDate" class="spnRequiredField">*</span>
               <ajaxToolkit:CalendarExtender ID="txtTo_CalendarExtender" runat="server" TargetControlID="txtTo" Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
                </ajaxToolkit:CalendarExtender>
@@ -258,35 +266,33 @@
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="To Date should not be less than From Date" Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo">
                </asp:CompareValidator>--%>
-                        <telerik:RadDatePicker ID="txtTo" CssClass="txtTo" runat="server" Culture="English (United States)"
-                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                            <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                            </Calendar>
-                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                            <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                            </DateInput>
-                        </telerik:RadDatePicker>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="8">
-                        <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
-                            OnClick="btnGo_Click" />
-                    </td>
-                </tr>
-            </table>
+            <telerik:RadDatePicker ID="txtTo" CssClass="txtTo" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="8">
+            <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
+                OnClick="btnGo_Click" />
         </td>
     </tr>
 </table>
+</td>
+ </tr> 
+ </table>
 <%--<asp:Panel ID="Pnlsystematic" runat="server" class="Landscape" ScrollBars="Horizontal"
     Visible="false">--%>
-<table style="width: 100%" cellspacing="0" cellpadding="4">
-   
+<table style="width: 100%" cellspacing="0" cellpadding="1">
     <tr>
- 
         <td>
             <%--    <table id="Table1" runat="server">
         <tr>
@@ -296,7 +302,7 @@
             </td>
         </tr>
     </table>--%>
-            <div style="width:80%;">
+            <div style="width:77.2%;">
                 <telerik:RadGrid ID="gvSystematicMIS" AllowSorting="true" runat="server" AllowAutomaticInserts="false"
                     EnableLoadOnDemand="True" AllowFilteringByColumn="true" AllowPaging="True" AutoGenerateColumns="False"
                     EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true" PagerStyle-AlwaysVisible="true"
@@ -434,29 +440,28 @@
     </style>--%>
 <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
-        
         <td>
-        <div style="width:85%;">
-            <telerik:RadGrid ID="reptCalenderSummaryView" runat="server" GridLines="none" AutoGenerateColumns="False"
-                AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
-                AllowAutomaticDeletes="True" AllowAutomaticInserts="false" OnItemDataBound="reptCalenderSummaryView_ItemDataBound"
-                OnNeedDataSource="reptCalenderSummaryView_OnNeedDataSource">
-                <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                    FileName="MF SIP Projections" Excel-Format="ExcelML">
-                </ExportSettings>
-                <MasterTableView Width="101.5%" ExpandCollapseColumn-ButtonType="ImageButton">
-                    <Columns>
-                        <telerik:GridBoundColumn DataField="Year" HeaderText="Year" UniqueName="Year" HeaderStyle-Width="90px"
-                            FooterText="Grand Total: ">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="FinalMonth" HeaderText="Month" HeaderStyle-Width="90px"
-                            UniqueName="FinalMonth">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <%--<telerik:GridTemplateColumn HeaderText="SIP Amount" UniqueName="SIPAmount"  ItemStyle-HorizontalAlign="Right">
+            <div style="width: 85%;">
+                <telerik:RadGrid ID="reptCalenderSummaryView" runat="server" GridLines="none" AutoGenerateColumns="False"
+                    AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticDeletes="True"
+                    AllowAutomaticInserts="false" OnItemDataBound="reptCalenderSummaryView_ItemDataBound"
+                    OnNeedDataSource="reptCalenderSummaryView_OnNeedDataSource">
+                    <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                        FileName="MF SIP Projections" Excel-Format="ExcelML">
+                    </ExportSettings>
+                    <MasterTableView Width="101.5%" ExpandCollapseColumn-ButtonType="ImageButton">
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="Year" HeaderText="Year" UniqueName="Year" HeaderStyle-Width="90px"
+                                FooterText="Grand Total: ">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="FinalMonth" HeaderText="Month" HeaderStyle-Width="90px"
+                                UniqueName="FinalMonth">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <%--<telerik:GridTemplateColumn HeaderText="SIP Amount" UniqueName="SIPAmount"  ItemStyle-HorizontalAlign="Right">
                     <ItemTemplate>
                         <asp:Label runat="server" ID="lblSIPAmount" Text='<%# Eval("SIPAmount")%>'></asp:Label>
                     </ItemTemplate>
@@ -464,17 +469,17 @@
                         <asp:Label runat="server" ID="lblSIPAmountFooter" Text=""></asp:Label>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>--%>
-                        <telerik:GridBoundColumn Aggregate="sum" DataField="SIPAmount" HeaderStyle-Width="90px"
-                            DataType="System.Decimal" HeaderText="SIP Amount" UniqueName="SIPAmount" FooterText=""
-                            FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
-                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Aggregate="Sum" DataField="NoOfSIP" HeaderStyle-Width="90px"
-                            HeaderText="No. of SIPs" DataFormatString="{0:N0}" UniqueName="SIPAmount" DataType="System.Int16"
-                            FooterText="" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
-                        </telerik:GridBoundColumn>
-                        <%--<telerik:GridTemplateColumn HeaderText="No. of Fresh SIPs" UniqueName="NoOfFreshSIP" ItemStyle-HorizontalAlign="Right" >
+                            <telerik:GridBoundColumn Aggregate="sum" DataField="SIPAmount" HeaderStyle-Width="90px"
+                                DataType="System.Decimal" HeaderText="SIP Amount" UniqueName="SIPAmount" FooterText=""
+                                FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn Aggregate="Sum" DataField="NoOfSIP" HeaderStyle-Width="90px"
+                                HeaderText="No. of SIPs" DataFormatString="{0:N0}" UniqueName="SIPAmount" DataType="System.Int16"
+                                FooterText="" FooterStyle-HorizontalAlign="Right">
+                                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <%--<telerik:GridTemplateColumn HeaderText="No. of Fresh SIPs" UniqueName="NoOfFreshSIP" ItemStyle-HorizontalAlign="Right" >
                     <ItemTemplate>
                         <asp:Label runat="server" ID="lblNoOfFreshSIP" Text='<%# Eval("NoOfFreshSIP")%>'></asp:Label>
                     </ItemTemplate>
@@ -482,12 +487,12 @@
                         <asp:Label runat="server" ID="lblNoOfFreshSIPFooter" Text=""></asp:Label>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>--%>
-                        <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSIP" HeaderStyle-Width="90px"
-                            DataType="System.Int16" HeaderText="No. of Fresh SIPs" UniqueName="SIPAmount"
-                            FooterText="" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
-                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
-                        </telerik:GridBoundColumn>
-                        <%--<telerik:GridTemplateColumn HeaderText="SWP Amount" UniqueName="NoOfFreshSIP" ItemStyle-HorizontalAlign="Right" >
+                            <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSIP" HeaderStyle-Width="90px"
+                                DataType="System.Int16" HeaderText="No. of Fresh SIPs" UniqueName="SIPAmount"
+                                FooterText="" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <%--<telerik:GridTemplateColumn HeaderText="SWP Amount" UniqueName="NoOfFreshSIP" ItemStyle-HorizontalAlign="Right" >
                     <ItemTemplate>
                         <asp:Label runat="server" ID="lblSWPAmount" Text='<%# Eval("SWPAmount")%>'></asp:Label>
                     </ItemTemplate>
@@ -495,12 +500,12 @@
                         <asp:Label runat="server" ID="lblSWPAmountFooter" Text=""></asp:Label>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>--%>
-                        <telerik:GridBoundColumn Aggregate="sum" DataField="SWPAmount" HeaderStyle-Width="90px"
-                            DataType="System.Decimal" HeaderText="SWP Amount" UniqueName="SIPAmount" FooterText=""
-                            FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
-                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
-                        </telerik:GridBoundColumn>
-                        <%-- <telerik:GridTemplateColumn HeaderText="No. of SWPs" UniqueName="NoOfSWP" ItemStyle-HorizontalAlign="Right" >
+                            <telerik:GridBoundColumn Aggregate="sum" DataField="SWPAmount" HeaderStyle-Width="90px"
+                                DataType="System.Decimal" HeaderText="SWP Amount" UniqueName="SIPAmount" FooterText=""
+                                FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <%-- <telerik:GridTemplateColumn HeaderText="No. of SWPs" UniqueName="NoOfSWP" ItemStyle-HorizontalAlign="Right" >
                     <ItemTemplate >
                         <asp:Label runat="server" ID="lblNoOfSWP" Text='<%# Eval("NoOfSWP")%>'></asp:Label>
                     </ItemTemplate>
@@ -508,12 +513,12 @@
                         <asp:Label runat="server" ID="lblNoOfSWPFooter" Text=""></asp:Label>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>--%>
-                        <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfSWP" HeaderStyle-Width="90px"
-                            DataType="System.Int16" HeaderText="No. of SWPs" UniqueName="NoOfSWP" FooterText=""
-                            FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
-                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
-                        </telerik:GridBoundColumn>
-                        <%--<telerik:GridTemplateColumn HeaderText="No. of fresh SWPs" UniqueName="NoOfFreshSWP" ItemStyle-HorizontalAlign="Right" >
+                            <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfSWP" HeaderStyle-Width="90px"
+                                DataType="System.Int16" HeaderText="No. of SWPs" UniqueName="NoOfSWP" FooterText=""
+                                FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <%--<telerik:GridTemplateColumn HeaderText="No. of fresh SWPs" UniqueName="NoOfFreshSWP" ItemStyle-HorizontalAlign="Right" >
                     <ItemTemplate>
                         <asp:Label runat="server" ID="lblNoOfFreshSWP" Text='<%# Eval("NoOfFreshSWP")%>'></asp:Label>
                     </ItemTemplate>
@@ -521,14 +526,14 @@
                         <asp:Label runat="server" ID="lblNoOfFreshSWPFooter" Text=""></asp:Label>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>--%>
-                        <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSWP" HeaderStyle-Width="90px"
-                            DataType="System.Decimal" HeaderText="No. of fresh SWPs" UniqueName="NoOfFreshSWP"
-                            FooterText="" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
-                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
-                        </telerik:GridBoundColumn>
-                    </Columns>
-                </MasterTableView>
-                <%-- <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
+                            <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSWP" HeaderStyle-Width="90px"
+                                DataType="System.Decimal" HeaderText="No. of fresh SWPs" UniqueName="NoOfFreshSWP"
+                                FooterText="" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <%-- <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
                 <ProgressTemplate>
                 <img alt="" src="upload_progress.gif"
                 style="width: 100px; height: 100px" />
@@ -536,12 +541,12 @@
               </asp:UpdateProgress>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         </asp:UpdatePanel>--%>
-                <ClientSettings>
-                    <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="300Px" />
-                    <ClientEvents OnGridCreated="GridCreated" />
-                    <Resizing AllowColumnResize="false" ></Resizing>
-                </ClientSettings>
-            </telerik:RadGrid>
+                    <ClientSettings>
+                        <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="300Px" />
+                        <ClientEvents OnGridCreated="GridCreated" />
+                        <Resizing AllowColumnResize="false"></Resizing>
+                    </ClientSettings>
+                </telerik:RadGrid>
             </div>
         </td>
     </tr>
