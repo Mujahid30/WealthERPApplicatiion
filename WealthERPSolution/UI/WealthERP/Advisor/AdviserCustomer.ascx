@@ -119,7 +119,7 @@
     <table width="100%" cellspacing="0" cellpadding="4">
         <tr>
             <td>
-            <div style="width:55%;">
+            <div style="width:45%;">
                 <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
@@ -128,7 +128,7 @@
                     OnPreRender="gvCustomerList_PreRender">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CustomerId,UserId,RMId" Width="100%" AllowMultiColumnSorting="True"
+                    <MasterTableView DataKeyNames="CustomerId,UserId,RMId" Width="101%" AllowMultiColumnSorting="True"
                         AutoGenerateColumns="false" TableLayout="fixed">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
