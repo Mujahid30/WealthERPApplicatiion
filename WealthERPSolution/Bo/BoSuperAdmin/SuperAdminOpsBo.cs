@@ -245,13 +245,13 @@ namespace BoSuperAdmin
             }
         }
 
-        public bool DeleteDuplicateTransactionDetailsORFolioDetails(int adviserId, string CommandName, int deleted, int cmfaAccountId)
+        public bool DeleteDuplicateTransactionDetailsORFolioDetails(int adviserId, string CommandName, int deleted, int cmfaAccountId,string folioNo)
         {
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao(); 
             bool completed = false;
             try
             {
-                completed = superAdminOpsDao.DeleteDuplicateTransactionDetailsORFolioDetails(adviserId, CommandName, deleted, cmfaAccountId);
+                completed = superAdminOpsDao.DeleteDuplicateTransactionDetailsORFolioDetails(adviserId, CommandName, deleted, cmfaAccountId,folioNo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -267,6 +267,7 @@ namespace BoSuperAdmin
                 objects[1] = adviserId;
                 objects[2] = CommandName;
                 objects[3] = cmfaAccountId;
+                objects[4] = folioNo;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
