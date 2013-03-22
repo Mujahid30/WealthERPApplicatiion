@@ -189,7 +189,7 @@
         <tr id="trGridView" runat="server">
         
             <td colspan="2">
-            <div style="width:45%;">
+            <div style="width:54.5%;">
                 <telerik:RadGrid ID="gvProcessLog" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
