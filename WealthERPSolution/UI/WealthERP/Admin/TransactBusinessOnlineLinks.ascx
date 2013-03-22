@@ -36,7 +36,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Transact/Bussiness Links
+                            Transact/Business Links
                         </td>
                         <td align="right">
                             <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
