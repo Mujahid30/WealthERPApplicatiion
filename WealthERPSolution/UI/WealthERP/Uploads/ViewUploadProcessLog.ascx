@@ -189,7 +189,7 @@
         <tr id="trGridView" runat="server">
         
             <td colspan="2">
-            <div style="width:55%;">
+            <div style="width:45%;">
                 <telerik:RadGrid ID="gvProcessLog" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
@@ -198,7 +198,7 @@
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
-                        width="60%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                        width="70%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
                                 <ItemTemplate>
