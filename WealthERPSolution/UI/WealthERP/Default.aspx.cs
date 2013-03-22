@@ -109,6 +109,8 @@ namespace WealthERP
 
         }
 
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             RMVo rmVo = new RMVo();
@@ -408,6 +410,11 @@ namespace WealthERP
             CustType = customerVo.Type;
 
             return CustType;
+        }
+
+        protected void lnkIECompatibilityView_Click(object sender,EventArgs e)
+        {
+            Response.Redirect("~/Images/IECompatibility.jpg");
         }
 
         protected void lblSignOut_Click(object sender, EventArgs e)

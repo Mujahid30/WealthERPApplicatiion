@@ -8,6 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
+  <%-- <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" >--%>
     <title></title>
     <%-- <link href="CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="CSS/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
@@ -664,6 +665,10 @@
                             <td>
                                 <asp:Label ID="lblBestViewed" Text="Best Viewed in Mozilla Firefox Version 8.0 and above"
                                     runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
+                            </td>
+                            <td>
+                             <asp:LinkButton ID="lnkIECompatibilityView" target="_blank" href="Images/IECompatibility.jpg" CssClass="LinkButtons" runat="server" Text="For IE Click here">
+                            </asp:LinkButton>
                             </td>
                             <td id="tdTermsCondition" runat="server">
                                 <a id="anchorTermsCondition" name="lnkTermsCondition" runat="server" href="~/WERPTermsandConditions.pdf"
