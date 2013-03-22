@@ -214,7 +214,7 @@ namespace WealthERP.Advisor
 
                     gvRMUsers.DataSource = dtRMUsers;                   
                     gvRMUsers.DataBind();
-                    gvRMUsers.PageSize = PageSize;
+                    //gvRMUsers.PageSize = PageSize;
 
                     if (trPagger.Visible == false)
                         trPagger.Visible = true;
