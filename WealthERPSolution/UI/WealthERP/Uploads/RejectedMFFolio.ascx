@@ -267,10 +267,10 @@
 </div>
 <br />
 <%--<asp:Panel ID="PnlCAMSProfileReject" runat="server" class="Landscape" Width="100%" Visible="false">--%>
-    <table width="100%" cellspacing="0" cellpadding="4">
+    <table width="100%" cellspacing="0" cellpadding="1">
         <tr>
           <td>
-            <div style="width:50%">
+            <div style="width:49%">
                 <telerik:RadGrid ID="gvCAMSProfileReject" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     EnableViewState="true" Skin="Telerik" EnableEmbeddedSkins="false" 
