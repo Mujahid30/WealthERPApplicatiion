@@ -1396,12 +1396,24 @@ namespace WealthERP.SuperAdmin
                 }
                 else if (ddlAction.SelectedValue == "DuplicateTransactions")
                 {
+                    if (rbtnPickPeriod.Checked == true)
+                    {
+                        trRange.Visible = false;
+                        trPeriod.Visible = true;
+                    }
+
+                    if (rbtnPickDate.Checked == true)
+                    {
+                        trPeriod.Visible = false;
+                        trRange.Visible = true;
+                    }
+
                     trFolioAndTransactionDuplicateMonitor.Visible = true;
-                    trRange.Visible = true;
+                    //trRange.Visible = true;
                     //trPeriod.Visible = true;
                     trRadioDatePeriod.Visible = true;
-                    rbtnPickDate.Checked = true;
-                    trDate.Visible = false;
+                    //rbtnPickDate.Checked = true;
+                    //trDate.Visible = false;
                     divGvFolioDuplicates.Visible = false;
                     btnExportDuplicateFolioFilteredData.Visible = false;
                 }
