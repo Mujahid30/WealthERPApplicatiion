@@ -116,10 +116,10 @@
     </tr>
 </table>
 <div>
-    <table width="100%" cellspacing="0" cellpadding="4">
+    <table width="100%" cellspacing="0" cellpadding="1">
         <tr>
             <td>
-            <div style="width:45%;">
+            <div style="width:53%;">
                 <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
