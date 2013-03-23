@@ -355,7 +355,19 @@ namespace WealthERP.Advisor
                 {
                     if (ddlValuationTypes.SelectedValue == "MF")
                     {
-                        gvValuationDate.Rows[0].Visible = false;
+                        int currentMonth = DateTime.Now.Month;
+                        int currentYear = DateTime.Now.Year;
+                        int selectedMonth=  int.Parse(ddTradeMFMonth.SelectedValue.ToString());
+                        int selectedYear =int.Parse(ddTradeMFYear.SelectedItem.Value.ToString());
+
+                        if (currentMonth == selectedMonth && currentYear == selectedYear)
+                        {
+                            gvValuationDate.Rows[0].Visible = false;
+                        }
+                        else
+                        {
+                            gvValuationDate.Rows[0].Visible = true;
+                        }
 
                     }
                     if (ddlValuationTypes.SelectedValue == "EQ")
