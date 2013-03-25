@@ -36,7 +36,7 @@
     <td>
      <telerik:RadGrid ID="gvCustomerCategory" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None" AllowPaging="True" 
     PageSize="10" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false" 
-    AllowAutomaticInserts="false" OnItemCommand="gvCustomerCategory_ItemCommand" OnItemDataBound="gvCustomerCategory_ItemDataBound"
+    AllowAutomaticInserts="false" OnItemCommand="gvCustomerCategory_ItemCommand" OnItemDataBound="gvCustomerCategory_ItemDataBound" OnNeedDataSource="gvCustomerCategory_OnNeedDataSource"
     AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="ACC_CustomerCategoryCode">
         <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="ACC_CustomerCategoryCode">
             <Columns>

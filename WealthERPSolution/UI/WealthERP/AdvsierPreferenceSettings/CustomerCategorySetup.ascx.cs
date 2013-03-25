@@ -19,7 +19,10 @@ namespace WealthERP.AdvsierPreferenceSettings
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-            BindCustomerCategory();
+            if (!IsPostBack)
+            {
+                BindCustomerCategory();
+            }
         }
 
         private void BindCustomerCategory()
@@ -30,11 +33,23 @@ namespace WealthERP.AdvsierPreferenceSettings
             //SetControls(false);
             dsCustomerCategoryList = advisorBo.GetAdviserCustomerCategory(AdviserId);
             dtCustomerCategoryList = dsCustomerCategoryList.Tables[0];
+            ViewState["CustomerCategory"] = dtCustomerCategoryList;
             if (dtCustomerCategoryList!= null)
             {
                 gvCustomerCategory.DataSource = dtCustomerCategoryList;
                 gvCustomerCategory.DataBind();
             }
+        }
+
+        protected void gvCustomerCategory_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            if (ViewState["CustomerCategory"] != null)
+            {
+                dt = (DataTable)ViewState["CustomerCategory"];
+                gvCustomerCategory.DataSource = dt;
+            }
+
         }
         protected void gvCustomerCategory_ItemCommand(object source, GridCommandEventArgs e)
         {
@@ -67,6 +82,14 @@ namespace WealthERP.AdvsierPreferenceSettings
                 CategoryCode = int.Parse(strCategoryCodeForDelete.Text);
                 deletedDate = DateTime.Now;
                 isDeleted = advisorBo.DeleteAdviserCustomerCategory(CategoryCode);
+                if (!isDeleted)
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Already Assigned to Customer. Please remove association first');", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Record has been deleted successfully !!');", true);
+                }
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
