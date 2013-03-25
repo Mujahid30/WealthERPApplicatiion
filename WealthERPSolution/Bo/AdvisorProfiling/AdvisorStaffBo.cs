@@ -1277,9 +1277,40 @@ namespace BoAdvisorProfiling
 
 
         /* ******************** */
-     
 
-        
+
+
+        /// <summary>
+        /// To check Ops Planwise ops enable or not
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetPlanOpsStaffAddStatus(int adviserId)
+        {
+            DataSet dsPlanOpsStaffAddStatus;
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            try
+            {
+                dsPlanOpsStaffAddStatus = advisorStaffDao.GetPlanOpsStaffAddStatus(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetPlanOpsStaffAddStatus()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsPlanOpsStaffAddStatus;
+        }
     }
 
 }
