@@ -8,6 +8,8 @@ using System.Numeric;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using DaoValuation;
+using BoCommon;
+
 
 //using VoValuation;
 
@@ -17,6 +19,7 @@ namespace BoValuation
     {
 
         MFEngineDao mfEngineDao = new MFEngineDao();
+        EmailSMSBo emailSMSBo = new EmailSMSBo(); 
         List<int> AdviserCustomers = new List<int>();
         //List<CustomerPortfolioVo> customerPortfolioList = new List<CustomerPortfolioVo>();
         //CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
@@ -103,7 +106,7 @@ namespace BoValuation
                             dsCustomerMFTransBalanceSellPaired.Tables[0].TableName = "TransactionBalance";
                             dsCustomerMFTransBalanceSellPaired.Tables[1].TableName = "TransactionSellPair";
                             if (dsCustomerMFTransBalanceSellPaired.Tables[0].Rows.Count > 0 || dsCustomerMFTransBalanceSellPaired.Tables[1].Rows.Count > 0)
-                                mfEngineDao.CreateCustomerMFTransactionBalance(dsCustomerMFTransBalanceSellPaired);
+                                mfEngineDao.CreateCustomerMFTransactionBalance(dsCustomerMFTransBalanceSellPaired,commonId);
 
                             dtFinalCustomerMFTransactionBalance.Clear();
                             dtCustomerMFTransactionSellPaired.Clear();
@@ -255,6 +258,7 @@ namespace BoValuation
             }
             catch (BaseApplicationException Ex)
             {
+                emailSMSBo.SendErrorExceptionMail(commonId, startFrom.ToString(),schemePlanCode, Ex.Message, "MFEngineBo.cs_MFBalanceCreation");
                 throw Ex;
             }
             catch (Exception Ex)
@@ -1035,6 +1039,7 @@ namespace BoValuation
             }
             catch (BaseApplicationException Ex)
             {
+                emailSMSBo.SendErrorExceptionMail(commonId, startFrom.ToString(), schemePlanCode, Ex.Message, "MFEngineBo.cs_MFNetPositionCreation");
                 throw Ex;
             }
             catch (Exception Ex)
@@ -1389,6 +1394,7 @@ namespace BoValuation
             }
             catch (BaseApplicationException Ex)
             {
+                emailSMSBo.SendErrorExceptionMail(int.Parse(drMFNetPosition["CMFA_AccountId"].ToString()), "AccountId", int.Parse(drMFNetPosition["PASP_SchemePlanCode"].ToString()), Ex.Message, "MFEngineBo.cs_CreateMFNetPositionDataTable");
                 throw Ex;
             }
             catch (Exception Ex)

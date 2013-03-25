@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using DaoValuation;
 using BoValuation;
+using BoCommon;
 
 namespace BoValuation
 {
@@ -17,7 +18,7 @@ namespace BoValuation
       MFEngineDao mfEngineDao = new MFEngineDao();
       MFEngineBo mfEngineBo = new MFEngineBo();
       List<int> AdviserCustomers = new List<int>();
-
+      EmailSMSBo emailSMSBo = new EmailSMSBo(); 
       DataSet dsCustomerTransactionsDetails = new DataSet();
 
       DataTable dtCustomerPortfolio = new DataTable();
@@ -238,11 +239,13 @@ namespace BoValuation
           }
           catch (BaseApplicationException Ex)
           {
+              emailSMSBo.SendErrorExceptionMail(adviserId, startFrom.ToString(), schemePlanCode, Ex.Message, "MFHistoricalValuationBo.Cs_MFNetPositionCreation");
+
               throw Ex;
           }
           catch (Exception Ex)
           {
-              BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                          BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
               NameValueCollection FunctionInfo = new NameValueCollection();
 
               FunctionInfo.Add("Method", "MFHistoricalValuationBo.cs:MFNetPositionCreation()");

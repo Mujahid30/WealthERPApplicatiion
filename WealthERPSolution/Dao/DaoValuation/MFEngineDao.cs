@@ -17,6 +17,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Configuration;
 using VoValuation;
+using BoCommon;
 
 
 
@@ -25,6 +26,8 @@ namespace DaoValuation
 {
     public class MFEngineDao
     {
+        EmailSMSBo emailSMSBo = new EmailSMSBo(); 
+
         public List<int> GetAdviserCustomerList_MF(int adviserId)
         {
             List<int> customerList = null;
@@ -267,7 +270,7 @@ namespace DaoValuation
 
         }
 
-        public void CreateCustomerMFTransactionBalance(DataSet dsCustomerMFTransBalanceSellPair)
+        public void CreateCustomerMFTransactionBalance(DataSet dsCustomerMFTransBalanceSellPair,int customerId)
         {
 
             string conString;
@@ -335,6 +338,7 @@ namespace DaoValuation
 
             catch (BaseApplicationException Ex)
             {
+                emailSMSBo.SendErrorExceptionMail(customerId, "", 0, Ex.Message, "MFEngineDao.cs_CreateCustomerMFTransactionBalance");
                 throw Ex;
             }
             catch (Exception Ex)
@@ -516,6 +520,7 @@ namespace DaoValuation
 
             catch (BaseApplicationException Ex)
             {
+                emailSMSBo.SendErrorExceptionMail(customerId, "CustomerId", 0, Ex.Message + " Fail while Instant Val Dump", "MFEngineDao.cs_CreateCustomerMFNetPosition");
                 throw Ex;
             }
             catch (Exception Ex)
@@ -665,6 +670,7 @@ namespace DaoValuation
 
             catch (BaseApplicationException Ex)
             {
+                emailSMSBo.SendErrorExceptionMail(adviserId, "AdviserId", 0, Ex.Message + " Fail while NP Dump iSForPreviousDate = " + iSForPreviousDate.ToString(), "MFEngineDao.cs_CreateAdviserMFNetPosition");
                 throw Ex;
             }
             catch (Exception Ex)

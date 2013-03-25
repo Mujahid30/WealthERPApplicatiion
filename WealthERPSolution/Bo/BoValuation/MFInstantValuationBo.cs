@@ -8,6 +8,7 @@ using System.Numeric;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using DaoValuation;
+using BoCommon;
 
 namespace BoValuation
 {
@@ -15,6 +16,8 @@ namespace BoValuation
     {
         MFEngineDao mfEngineDao = new MFEngineDao();
         MFEngineBo mfEngineBo = new MFEngineBo();
+        EmailSMSBo emailSMSBo = new EmailSMSBo(); 
+
 
         bool isMFTractionSellPairRecreate = false;
 
@@ -111,6 +114,8 @@ namespace BoValuation
             }
             catch (BaseApplicationException Ex)
             {
+                emailSMSBo.SendErrorExceptionMail(accountId, "AccountId", schemePlanCode, Ex.Message, "MFInstantValuationBo.Cs_MFInstantValuation");
+
                 throw Ex;
             }
             catch (Exception Ex)

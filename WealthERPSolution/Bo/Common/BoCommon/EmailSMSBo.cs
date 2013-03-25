@@ -6,6 +6,11 @@ using VoEmailSMS;
 using DaoCommon;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using PCGMailLib;
+using System.Net;
+using System.Net.Configuration;
+using System.Net.Mail;
+using System.Configuration;
 
 namespace BoCommon
 {
@@ -142,5 +147,21 @@ namespace BoCommon
             }
             return isCompleted;
         }
+
+        public void SendErrorExceptionMail(int adviserId,string startFrom,int schemeplanCode, string errorMsg , string processName)
+        {
+            bool isCompleted = false;
+            EmailVo emailVo = new EmailVo();
+            string excepMailTo = "ssourabh@ampsys.in,bmohanty@ampsys.in,vshenoy@ampsys.in,mjamwal@ampsys.in";
+
+            emailVo.Subject = "Error Log";
+            emailVo.Body = errorMsg + "  for " + adviserId.ToString() + "  " + "Level: " + startFrom + "and Scheme Plan Code = " + schemeplanCode + "Path: " + processName;
+            emailVo.To = excepMailTo;
+            emailVo.HasAttachment = 0;
+            //emailVo.CustomerId = customerId;
+            emailVo.AdviserId = adviserId;
+            isCompleted = AddToEmailQueue(emailVo);
+        }
+
     }
 }
