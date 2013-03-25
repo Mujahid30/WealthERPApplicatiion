@@ -128,24 +128,28 @@ namespace WealthERP.SuperAdmin
                     txtUsedSpace.Text = Convert.ToString(storageSize - storageBalance);
                     txtDefaultStorage.Text = dtPlanSubscription.Rows[0]["StaorageSpace"].ToString();
                     txtBalanceSize.Text = Math.Round(decimal.Parse(dtPlanSubscription.Rows[0]["AS_StorageBalance"].ToString()), 2).ToString();
+                    //if (int.Parse(dtPlanSubscription.Rows[0]["WP_IsMultiBranchPlan"].ToString()) == 1)
+                    //    txtNoOfBranches.Text = dtPlanSubscription.Rows[0]["NoOfBranches"].ToString();
+                    //else
+                    //{
+                    //    txtNoOfBranches.Text = "0";
+                    //    lblNoOfBranches.Visible = false;
+                    //    txtNoOfBranches.Visible = false;
+                    //}
                     if (int.Parse(dtPlanSubscription.Rows[0]["WP_IsMultiBranchPlan"].ToString()) == 1)
                         txtNoOfBranches.Text = dtPlanSubscription.Rows[0]["NoOfBranches"].ToString();
-                    else
-                    {
-                        txtNoOfBranches.Text = "0";
-                        lblNoOfBranches.Visible = false;
-                        txtNoOfBranches.Visible = false;
-                    }
-
                     txtNoOfCustomerLogins.Text = dtPlanSubscription.Rows[0]["customerWebLogins"].ToString();
                     if (int.Parse(dtPlanSubscription.Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 1)
                         txtNoOfStaffLogins.Text = dtPlanSubscription.Rows[0]["StaffWebLogins"].ToString();
-                    else
-                    {
-                        txtNoOfStaffLogins.Text = "0";
-                        lblNoOfStaffLogins.Visible = false;
-                        txtNoOfStaffLogins.Visible = false;
-                    }
+                    //if (int.Parse(dtPlanSubscription.Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 1)
+                    //    txtNoOfStaffLogins.Text = dtPlanSubscription.Rows[0]["StaffWebLogins"].ToString();
+                    //else
+                    //{
+                    //    txtNoOfStaffLogins.Text = dtPlanSubscription.Rows[0]["StaffWebLogins"].ToString();
+                    //    lblNoOfStaffLogins.Visible = false;
+                    //    txtNoOfStaffLogins.Visible = false;
+                    //}
+                   
                     txtSMSBought.Text = dtPlanSubscription.Rows[0]["AS_SMSLicences"].ToString();
                     if (!string.IsNullOrEmpty(dtPlanSubscription.Rows[0]["AS_SubscriptionStartDate"].ToString()))
                     {
@@ -692,7 +696,8 @@ namespace WealthERP.SuperAdmin
             DataTable dtPlan = new DataTable(); ;
             DataRow[] drPlan;
             int isNoBranchs=0; int isNooStaffs=0; int customerLogins=0;
-            int noOfStaffWebLogins = 0; int noOfBranches = 0; int storageSize = 0;
+            int noOfStaffWebLogins = 0; int noOfBranches = 0; 
+            int storageSize = 0;
 
             if (Session["PlanSubscriptionFlavourDetails"] != null)
             {
@@ -712,28 +717,30 @@ namespace WealthERP.SuperAdmin
                             noOfBranches = int.Parse(dr["WP_NoOfBranches"].ToString());
                         storageSize = int.Parse(dr["WP_Proofstaoragespace"].ToString());
                     }
-                    if (isNoBranchs == 1)
-                    {
-                        lblNoOfBranches.Visible = true;
-                        txtNoOfBranches.Visible = true;
-                        txtNoOfBranches.Text = noOfBranches.ToString();
-                    }
-                    else
-                    {
-                        lblNoOfBranches.Visible = false;
-                        txtNoOfBranches.Visible = false;
-                    }
-                    if (isNooStaffs == 1)
-                    {
-                        txtNoOfStaffLogins.Text = noOfStaffWebLogins.ToString();
-                        lblNoOfStaffLogins.Visible = true;
-                        txtNoOfStaffLogins.Visible = true;
-                    }
-                    else
-                    {
-                        lblNoOfStaffLogins.Visible = false;
-                        txtNoOfStaffLogins.Visible = false;
-                    }
+                    txtNoOfBranches.Text = noOfBranches.ToString();
+                    txtNoOfStaffLogins.Text = noOfStaffWebLogins.ToString();
+                    //if (isNoBranchs == 1)
+                    //{
+                    //    lblNoOfBranches.Visible = true;
+                    //    txtNoOfBranches.Visible = true;
+                    //    txtNoOfBranches.Text = noOfBranches.ToString();
+                    //}
+                    //else
+                    //{
+                    //    lblNoOfBranches.Visible = false;
+                    //    txtNoOfBranches.Visible = false;
+                    //}
+                    //if (isNooStaffs == 1)
+                    //{
+                    //    txtNoOfStaffLogins.Text = noOfStaffWebLogins.ToString();
+                    //    lblNoOfStaffLogins.Visible = true;
+                    //    txtNoOfStaffLogins.Visible = true;
+                    //}
+                    //else
+                    //{
+                    //    lblNoOfStaffLogins.Visible = false;
+                    //    txtNoOfStaffLogins.Visible = false;
+                    //}
                     txtNoOfCustomerLogins.Text = customerLogins.ToString();
                     txtDefaultStorage.Text = storageSize.ToString();
                 }
