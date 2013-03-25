@@ -940,7 +940,7 @@ namespace DaoReports
                 throw (ex);
             }
         }
-        public DataSet GetARNNoAndJointHoldings(int CustomerId, int PortfolioId)
+        public DataSet GetARNNoAndJointHoldings(int CustomerId, int PortfolioId,string  folio)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmdGetARNNoAndJointHoldings;
@@ -952,6 +952,7 @@ namespace DaoReports
                 cmdGetARNNoAndJointHoldings = db.GetStoredProcCommand("SPROC_GetARNNoAndJointHoldings");
                 db.AddInParameter(cmdGetARNNoAndJointHoldings, "@CustomerId", DbType.Int32, CustomerId); 
                 db.AddInParameter(cmdGetARNNoAndJointHoldings, "@PortfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(cmdGetARNNoAndJointHoldings, "@folio", DbType.String, folio);
                 cmdGetARNNoAndJointHoldings.CommandTimeout = 60 * 60;
                 dsGetARNNoAndJointHoldings = db.ExecuteDataSet(cmdGetARNNoAndJointHoldings);
 
