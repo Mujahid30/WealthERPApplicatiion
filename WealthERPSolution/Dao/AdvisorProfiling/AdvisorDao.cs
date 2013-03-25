@@ -2828,13 +2828,20 @@ namespace DaoAdvisorProfiling
             Database db;
             DbCommand deleteAdviserCustomerCategoryCmd;
             bool bResult = false;
+            int affectedRows = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deleteAdviserCustomerCategoryCmd = db.GetStoredProcCommand("SP_DeleteAdviserCustomerCategory");
                 db.AddInParameter(deleteAdviserCustomerCategoryCmd, "@CategoryCode", DbType.Int16, CategoryCode);
+                db.AddOutParameter(deleteAdviserCustomerCategoryCmd, "@affectedRows", DbType.Int16, 100);
+
                 //db.ExecuteNonQuery(deleteAdviserCustomerCategoryCmd);
-                if (db.ExecuteNonQuery(deleteAdviserCustomerCategoryCmd) != 0)
+                //int numberOfRecords = db.ExecuteNonQuery();
+                db.ExecuteNonQuery(deleteAdviserCustomerCategoryCmd);
+                affectedRows = int.Parse(db.GetParameterValue(deleteAdviserCustomerCategoryCmd, "affectedRows").ToString());
+
+                if(affectedRows == 1)
                     bResult = true;
 
             }
