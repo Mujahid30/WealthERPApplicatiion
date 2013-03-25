@@ -178,6 +178,11 @@ namespace WealthERP.Advisor
                         RadPanelBar1.FindItemByValue("Staff").Visible = false;
                         RadPanelBar3.FindItemByValue("Staff").Visible = false;
                     }
+                    //else
+                    //{
+                    //    RadPanelBar1.FindItemByValue("Staff").Visible = true;
+                    //    RadPanelBar3.FindItemByValue("Staff").Visible = true;
+                    //}
                 }
                 dtPlanDetails = dsTreeNodes.Tables[3];
                 if (!userVo.RoleList.Contains("Admin"))
