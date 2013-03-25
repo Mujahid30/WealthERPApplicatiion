@@ -2332,5 +2332,44 @@ namespace DaoAdvisorProfiling
 
             return getAdviserRMListDs;
         }
+        /// <summary>
+        ///  To check Ops Planwise ops enable or not
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetPlanOpsStaffAddStatus(int adviserId)
+        {
+            Database db;
+            DbCommand PlanOpsStaffAddStatusCmd;
+            DataSet dsPlanOpsStaffAddStatus;
+            DataTable dt = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                PlanOpsStaffAddStatusCmd = db.GetStoredProcCommand("SPROC_GetPlanOpsStaffAddStatus");
+                if (adviserId != 0)
+                    db.AddInParameter(PlanOpsStaffAddStatusCmd, "@AdviserId", DbType.Int32, adviserId);
+                else
+                    db.AddInParameter(PlanOpsStaffAddStatusCmd, "@AdviserId", DbType.Int32, DBNull.Value);
+                dsPlanOpsStaffAddStatus = db.ExecuteDataSet(PlanOpsStaffAddStatusCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetPlanOpsStaffAddStatus()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsPlanOpsStaffAddStatus;
+        }
     }
 }
