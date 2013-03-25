@@ -53,10 +53,32 @@ namespace WealthERP.Advisor
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
                 lblEmailDuplicate.Visible = false;
+                GetPlanOpsStaffAddStatus(advisorVo.advisorId);
                 setBranchList("N");
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
             }
             
+        }
+        /// <summary>
+        /// To check Ops Planwise ops enable or not
+        /// </summary>
+        /// <param name="adviserId"></param>
+        private void GetPlanOpsStaffAddStatus(int adviserId)
+        {
+            DataSet dsPlanOpsStaffAddStatus = advisorStaffBo.GetPlanOpsStaffAddStatus(adviserId);
+            if (dsPlanOpsStaffAddStatus.Tables[1].Rows[0]["WP_IsOpsEnabled"].ToString() == "1")
+            {
+                if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) > 0)
+                {
+                    chkOps.Visible = false;
+                    lblOr.Visible = false;
+                }
+            }
+            else
+            {
+                chkOps.Visible = false;
+                lblOr.Visible = false;
+            }
         }
 
         public void setBranchList1(string IsExternal)
