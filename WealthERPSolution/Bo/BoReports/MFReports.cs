@@ -538,14 +538,14 @@ namespace BoReports
             return dsCustomerPortfolioComposition;
         }
 
-        public DataSet GetARNNoAndJointHoldings(int OCustomerId, int OportfolioId)
+        public DataSet GetARNNoAndJointHoldings(int OCustomerId, int OportfolioId,string oFolio)
         {
             MFReportsDao mfReports = new MFReportsDao();
             DataSet dsGetARNNoAndJointHoldings;
 
             try
             {
-                dsGetARNNoAndJointHoldings = mfReports.GetARNNoAndJointHoldings(OCustomerId, OportfolioId);
+                dsGetARNNoAndJointHoldings = mfReports.GetARNNoAndJointHoldings(OCustomerId, OportfolioId, oFolio);
 
             }
             catch (Exception ex)
