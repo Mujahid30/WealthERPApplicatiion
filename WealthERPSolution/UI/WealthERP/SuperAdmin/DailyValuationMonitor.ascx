@@ -1095,12 +1095,12 @@
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                      <ItemStyle HorizontalAlign="Left" /> 
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderText="SchemePlan"
+                <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderText="Scheme"
                     HeaderStyle-Width="200px" DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                      <ItemStyle HorizontalAlign="Left" /> 
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="WMTT_TransactionClassificationCode" HeaderText="Transaction code"
+                <telerik:GridBoundColumn UniqueName="WMTT_TransactionClassificationCode" HeaderText="Type"
                     DataField="WMTT_TransactionClassificationCode" SortExpression="WMTT_TransactionClassificationCode"
                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="178px">
                      <ItemStyle HorizontalAlign="Left" /> 
@@ -1117,6 +1117,10 @@
                     SortExpression="CMFT_Amount" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <ItemStyle HorizontalAlign="Right" /> 
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn  HeaderStyle-Width="200px" UniqueName="CMFT_TransactionNumber" HeaderText="Transaction No." DataField="CMFT_TransactionNumber"
+                    SortExpression="CMFT_TransactionNumber" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    <ItemStyle HorizontalAlign="Right" /> 
+                </telerik:GridBoundColumn>                
                 <telerik:GridBoundColumn UniqueName="CMFT_TransactionDate" HeaderText="TransactionDate"
                     DataField="CMFT_TransactionDate" SortExpression="CMFT_TransactionDate" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true" DataFormatString="{0:D}" HeaderStyle-Width="130px">
@@ -1125,7 +1129,7 @@
                     DataField="WTS_TransactionStatus" SortExpression="WTS_TransactionStatus" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="140px">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="WMTT_TransactionClassificationName" HeaderText="Transaction"
+                <telerik:GridBoundColumn UniqueName="WMTT_TransactionClassificationName" HeaderText="Transaction Type"
                     DataField="WMTT_TransactionClassificationName" SortExpression="WMTT_TransactionClassificationName" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderStyle-Width="140px">
                     <ItemStyle HorizontalAlign="Left" /> 
