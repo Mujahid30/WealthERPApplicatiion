@@ -24,6 +24,7 @@ namespace WealthERP.BusinessMIS
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            if(!IsPostBack)
             BindMfDashBoard();
         }
 
