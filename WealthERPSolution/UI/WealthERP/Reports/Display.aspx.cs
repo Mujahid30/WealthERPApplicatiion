@@ -528,7 +528,7 @@ namespace WealthERP.Reports
             {
                 setLogo();
                 customerVo = customerBo.GetCustomer(OCustomerId);
-                DataSet ds = mfReportBo.GetARNNoAndJointHoldings(OCustomerId,OportfolioId);
+                DataSet ds = mfReportBo.GetARNNoAndJointHoldings(OCustomerId,OportfolioId,OFolioNo);
                 DataRow[] drARNNo= new DataRow[ds.Tables[0].Columns.Count];
                 setLogo();
 
