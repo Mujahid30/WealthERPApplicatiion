@@ -31,7 +31,7 @@ namespace DaoAdvisorProfiling
 
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createAdvisorBranchCmd = db.GetStoredProcCommand("SP_CreateAdviserBranch");
-                db.AddInParameter(createAdvisorBranchCmd, "@A_AdviserId", DbType.Int32, advisorBranchVo.AdviserId);
+                db.AddInParameter(createAdvisorBranchCmd, "@A_AdviserId", DbType.Int32, advisorId);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_AddressLine1", DbType.String, advisorBranchVo.AddressLine1);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_AddressLine2", DbType.String, advisorBranchVo.AddressLine2);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_AddressLine3", DbType.String, advisorBranchVo.AddressLine3);
