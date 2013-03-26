@@ -136,10 +136,10 @@ namespace WealthERP.SuperAdmin
                     //    lblNoOfBranches.Visible = false;
                     //    txtNoOfBranches.Visible = false;
                     //}
-                    if (int.Parse(dtPlanSubscription.Rows[0]["WP_IsMultiBranchPlan"].ToString()) == 1)
+                    if (!string.IsNullOrEmpty(dtPlanSubscription.Rows[0]["NoOfBranches"].ToString()))
                         txtNoOfBranches.Text = dtPlanSubscription.Rows[0]["NoOfBranches"].ToString();
                     txtNoOfCustomerLogins.Text = dtPlanSubscription.Rows[0]["customerWebLogins"].ToString();
-                    if (int.Parse(dtPlanSubscription.Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 1)
+                    if (!string.IsNullOrEmpty(dtPlanSubscription.Rows[0]["StaffWebLogins"].ToString()))
                         txtNoOfStaffLogins.Text = dtPlanSubscription.Rows[0]["StaffWebLogins"].ToString();
                     //if (int.Parse(dtPlanSubscription.Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 1)
                     //    txtNoOfStaffLogins.Text = dtPlanSubscription.Rows[0]["StaffWebLogins"].ToString();
