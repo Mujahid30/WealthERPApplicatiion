@@ -85,7 +85,7 @@ namespace WealthERP.Uploads
                 {
                     trGridView.Visible = false;
                     Panel2.ScrollBars = ScrollBars.None; 
-                   // Panel2.Visible = false;
+                    Panel2.Visible = false;
                     adviserId = 1000;
                 }
             }
@@ -93,7 +93,7 @@ namespace WealthERP.Uploads
             {
                 trGridView.Visible = true;
                 Panel2.ScrollBars = ScrollBars.Horizontal; 
-                //Panel2.Visible = true;
+                Panel2.Visible = true;
                 trAdviserSelection.Visible = false;
                 adviserId = adviserVo.advisorId;
                 rmId =rmVo.RMId;
