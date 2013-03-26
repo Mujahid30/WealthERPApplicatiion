@@ -62,12 +62,29 @@ namespace VoReports
     {
         public int advisorId;
         public int CustomerId;
+        public string amcCode;
+        public string FolioNo;
         public string Type;
         public int SchemeCode;
         public int orderId;
         public string accountId;
         public string portfolioId;
-        public string amcCode;
+        //------------- For new Order  Transaction Report---------------
+        public string Scheme;
+        public string BankName;
+        public string BranchName;
+        public string Amount;
+        public string StartDateSIP;
+        public string StartDateSTP;
+        public string NewAmount;
+        public string EndDateSIP;
+        public string EndDateSTP;
+        public bool UnitsChk;
+        public bool AmountsChk;
+        public string ChequeDate;
+        public string ChequeNo;
+        public string SchemeSwitch;
+        
     }
 
     public enum ReportType
