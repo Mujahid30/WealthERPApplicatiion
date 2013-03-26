@@ -724,31 +724,36 @@ namespace WealthERP.Advisor
                         cActualAsset.Palette = ChartColorPalette.Pastel;
                         cActualAsset.PaletteCustomColors = new Color[]{Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
                                                                           Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
+                        object sumObject;
+                        double totalPercentage = 0;
+                        sumObject = dtAsset.Compute("Sum([Percentage])", string.Empty);
+                        double.TryParse(Convert.ToString(sumObject), out totalPercentage);
 
+                        if (totalPercentage > 0)
+                        {
+                            cActualAsset.Legends.Add(ShowRecomondedAssetAlllegend);
+                            cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Title = "Assets";
+                            cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleAlignment = StringAlignment.Center;
+                            cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.None;
+                            cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Alignment = StringAlignment.Center;
+                            cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.GradientLine;
+                            cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparatorColor = Color.Black;
 
-                        cActualAsset.Legends.Add(ShowRecomondedAssetAlllegend);
-                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Title = "Assets";
-                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleAlignment = StringAlignment.Center;
-                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.None;
-                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Alignment = StringAlignment.Center;
-                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.GradientLine;
-                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparatorColor = Color.Black;
+                            // Enable X axis margin
+                            LegendCellColumn colorColumn = new LegendCellColumn();
+                            colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
+                            colorColumn.HeaderBackColor = Color.WhiteSmoke;
+                            cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(colorColumn);
+                            cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].BackColor = Color.FloralWhite;
+                            LegendCellColumn totalColumn = new LegendCellColumn();
+                            totalColumn.Alignment = ContentAlignment.MiddleLeft;
 
-                        // Enable X axis margin
-                        LegendCellColumn colorColumn = new LegendCellColumn();
-                        colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
-                        colorColumn.HeaderBackColor = Color.WhiteSmoke;
-                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(colorColumn);
-                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].BackColor = Color.FloralWhite;
-                        LegendCellColumn totalColumn = new LegendCellColumn();
-                        totalColumn.Alignment = ContentAlignment.MiddleLeft;
-
-                        totalColumn.Text = "#VALX: #PERCENT";
-                        totalColumn.Name = "AssetsColumn";
-                        totalColumn.HeaderBackColor = Color.WhiteSmoke;
-                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(totalColumn);
-                        cActualAsset.Series[0]["PieLabelStyle"] = "Disabled";
-
+                            totalColumn.Text = "#VALX: #PERCENT";
+                            totalColumn.Name = "AssetsColumn";
+                            totalColumn.HeaderBackColor = Color.WhiteSmoke;
+                            cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(totalColumn);
+                            cActualAsset.Series[0]["PieLabelStyle"] = "Disabled";
+                        }
                         // Enable X axis margin
                         cActualAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
                         cActualAsset.BackColor = Color.Transparent;
