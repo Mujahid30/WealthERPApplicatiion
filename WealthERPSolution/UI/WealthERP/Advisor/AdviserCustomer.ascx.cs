@@ -55,7 +55,7 @@ namespace WealthERP.Advisor
             CreationSuccessMessage.Visible = false;
             rmVo = (RMVo)Session["rmVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 UserRole = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                 UserRole = "rm";
@@ -163,6 +163,7 @@ namespace WealthERP.Advisor
                 {
                     gvCustomerList.Visible = false;
                     imgexportButton.Visible = false;
+                    pnlCustomerList.Visible = false;
                     ErrorMessage.Visible = true;
 
                 }
@@ -266,10 +267,13 @@ namespace WealthERP.Advisor
                         Cache.Remove("CustomerList+UserRole" + adviserVo.advisorId + UserRole);
                         Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
                     }
+
+                   
                     gvCustomerList.DataSource = dtCustomerList;
                     gvCustomerList.PageSize = advisorPrefernceVo.GridPageSize;
                     gvCustomerList.DataBind();
-                    gvCustomerList.Visible = true;
+                    gvCustomerList.Visible = true;                   
+                    pnlCustomerList.Visible = true;
                     imgexportButton.Visible = true;
                     ErrorMessage.Visible = false;
                 }
@@ -317,6 +321,7 @@ namespace WealthERP.Advisor
                 if (customerList == null)
                 {
                     gvCustomerList.Visible = false;
+                    pnlCustomerList.Visible = true; 
                     imgexportButton.Visible = false;
                     ErrorMessage.Visible = true;
                    
@@ -421,11 +426,13 @@ namespace WealthERP.Advisor
                         Cache.Remove("CustomerList+UserRole" + adviserVo.advisorId + UserRole);
                         Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
                     }
-
+                    
                     gvCustomerList.DataSource = dtCustomerList;
                     gvCustomerList.PageSize = advisorPrefernceVo.GridPageSize;
                     gvCustomerList.DataBind();
                     gvCustomerList.Visible = true;
+                    //pnlCustomerList.Style.Add("Height", "410px");
+                    pnlCustomerList.Visible = true;                    
                     imgexportButton.Visible = true;
                     ErrorMessage.Visible = false;
                 }
@@ -495,6 +502,7 @@ namespace WealthERP.Advisor
 
         protected void gvCustomerList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+
             DataView dvcustomerList = new DataView();
             string prospectType = string.Empty;
             string statustype = string.Empty;
@@ -522,11 +530,21 @@ namespace WealthERP.Advisor
                     {
                         dvcustomerList = new DataView(dtCustomer, "IsActive = '" + statustype + "'", "CustomerId,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsProspect", DataViewRowState.CurrentRows);
                         gvCustomerList.DataSource = dvcustomerList.ToTable();
+                        if (dvcustomerList.Count > 10)
+                            pnlCustomerList.Style.Add("Height", "410px");
+                        else
+                            pnlCustomerList.Style.Remove("Height");
+
                     }
                     else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)))
                     {
                         dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'", "CustomerId,Cust_Comp_Name,ParentId,PANNumber,BranchName,RMId,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
                         gvCustomerList.DataSource = dvcustomerList.ToTable();
+                        if (dvcustomerList.Count > 10)
+                            pnlCustomerList.Style.Add("Height", "410px");
+                        else
+                            pnlCustomerList.Style.Remove("Height");
+
                     }
                     #region dependency code of group filter and other filter but not use
                     //else if ((string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)) && (string.IsNullOrEmpty(rmType)))
@@ -539,6 +557,13 @@ namespace WealthERP.Advisor
                     {
                         dvcustomerList = new DataView(dtCustomer, "RMId = '" + rmType + "'", "CustomerId,Cust_Comp_Name,ParentId,PANNumber,BranchName,Area,Pincode,City,ADUL_ProcessId,IsProspect,IsActive", DataViewRowState.CurrentRows);
                         gvCustomerList.DataSource = dvcustomerList.ToTable();
+
+                        if (dvcustomerList.Count > 10)
+                            pnlCustomerList.Style.Add("Height", "410px");
+                        else
+                            pnlCustomerList.Style.Remove("Height");
+
+
                     }
                     else if ((!string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)) && (string.IsNullOrEmpty(rmType)))
                     {
@@ -598,6 +623,8 @@ namespace WealthERP.Advisor
                     else
                     {
                         gvCustomerList.DataSource = dtCustomer;
+                        pnlCustomerList.Style.Add("Height", "410px");
+
                     }
                 }
                 else
@@ -606,11 +633,23 @@ namespace WealthERP.Advisor
                     {
                         dvcustomerList = new DataView(dtCustomer, "IsActive = '" + statustype + "'", "CustomerId,Cust_Comp_Name,ParentId,PANNumber,Area,Pincode,City,ADUL_ProcessId,IsProspect", DataViewRowState.CurrentRows);
                         gvCustomerList.DataSource = dvcustomerList.ToTable();
+                        if (dvcustomerList.Count > 10)
+                            pnlCustomerList.Style.Add("Height", "410px");
+                        else
+                            pnlCustomerList.Style.Remove("Height");
+
                     }
                     else if ((string.IsNullOrEmpty(statustype)) && (!string.IsNullOrEmpty(prospectType)))
                     {
                         dvcustomerList = new DataView(dtCustomer, "IsProspect = '" + prospectType + "'", "CustomerId,Cust_Comp_Name,ParentId,PANNumber,Area,Pincode,City,ADUL_ProcessId,IsActive", DataViewRowState.CurrentRows);
                         gvCustomerList.DataSource = dvcustomerList.ToTable();
+                        if (dvcustomerList.Count > 10)
+                            pnlCustomerList.Style.Add("Height", "410px");
+                        else
+                            pnlCustomerList.Style.Remove("Height");
+
+
+
                     }
                     #region dependency code of group filter and other filter but not use
                     //else if ((string.IsNullOrEmpty(statustype)) && (string.IsNullOrEmpty(prospectType)) && (!string.IsNullOrEmpty(parentType)))
@@ -644,6 +683,7 @@ namespace WealthERP.Advisor
                     else
                     {
                         gvCustomerList.DataSource = dtCustomer;
+                        pnlCustomerList.Style.Add("Height", "410px");
                     }
                 }
             }
@@ -772,6 +812,12 @@ namespace WealthERP.Advisor
                 DataView view = new DataView(dtCustomerList);
                 DataTable distinctValues = view.ToTable();
                 DataRow[] rows = distinctValues.Select(gvCustomerList.MasterTableView.FilterExpression.ToString());
+                
+                if(rows.Length>10)
+                    pnlCustomerList.Style.Add("Height", "410px");
+                else
+                    pnlCustomerList.Style.Remove("Height");
+
                 gvCustomerList.MasterTableView.Rebind();
             }
         }
@@ -967,7 +1013,7 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMAlertNotifications", "loadcontrol('RMAlertNotifications','login');", true);
                 }
 
-                else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
+                else if (ddlAction.SelectedItem.Value.ToString() == "DeleteProfile")
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
