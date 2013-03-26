@@ -14,11 +14,10 @@ using BoUploads;
 using WealthERP.Base;
 using System.Configuration;
 using BoCommon;
-using VoAdvisorProfiling;
 using Telerik.Web.UI;
 using BoSuperAdmin;
 
-namespace WealthERP.Uploads
+namespace WealthERP.Uploads 
 {
     public partial class ViewUploadProcessLog : System.Web.UI.UserControl
     {
@@ -57,12 +56,13 @@ namespace WealthERP.Uploads
         string xmlFileName = string.Empty;
         string configPath;
         int rmId;
-        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
+
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            advisorPreferenceVo = (AdvisorPreferenceVo)(Session["AdvisorPreferenceVo"]);
+
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -84,7 +84,7 @@ namespace WealthERP.Uploads
                 else
                 {
                     trGridView.Visible = false;
-                  //  Panel2.ScrollBars = ScrollBars.None; 
+                    Panel2.ScrollBars = ScrollBars.None; 
                    // Panel2.Visible = false;
                     adviserId = 1000;
                 }
@@ -92,7 +92,7 @@ namespace WealthERP.Uploads
             else
             {
                 trGridView.Visible = true;
-               // Panel2.ScrollBars = ScrollBars.Horizontal; 
+                Panel2.ScrollBars = ScrollBars.Horizontal; 
                 //Panel2.Visible = true;
                 trAdviserSelection.Visible = false;
                 adviserId = adviserVo.advisorId;
@@ -149,7 +149,7 @@ namespace WealthERP.Uploads
             DataTable dtForInsertedOrNotInserted = new DataTable();
             UploadCommonBo uploadProcessLogBo = new UploadCommonBo();
             GridColumn gcStatus;
-           
+
             try
             {
                 getProcessLogDs = uploadProcessLogBo.GetUploadProcessLogAdmin(adviserId, hdnSort.Value);
@@ -210,16 +210,15 @@ namespace WealthERP.Uploads
                     Cache.Remove("ProcessLogDetails" + adviserId.ToString());
                     Cache.Insert("ProcessLogDetails" + adviserId.ToString(), getProcessLogDs);
                 }
-                //Panel2.ScrollBars = ScrollBars.Horizontal;
+                Panel2.ScrollBars = ScrollBars.Horizontal;
                 trGridView.Visible = true;
                 gvProcessLog.DataSource = getProcessLogDs;
-                gvProcessLog.PageSize = advisorPreferenceVo.GridPageSize;
                 gvProcessLog.DataBind();
 
             }
             else
             {
-               // Panel2.ScrollBars = ScrollBars.None;
+                Panel2.ScrollBars = ScrollBars.None;
                 trGridView.Visible = false;
                 trTransactionMessage.Visible = true;
                 //gvProcessLog.DataSource = null;
