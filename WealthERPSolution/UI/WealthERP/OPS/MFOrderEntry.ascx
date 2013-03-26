@@ -108,6 +108,8 @@
                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
                              <asp:Button id="btnreport" runat="server" CssClass="CrystalButton"  Visible="false"
                                 OnClick="btnreport_Click" />
+                             <asp:Button id="btnpdfReport" runat="server" CssClass="PDFButton"  
+                                Visible="false" onclick="btnpdfReport_Click"  />
                             <div id="div2" style="display: none;">
                                 <p class="tip">
                                     Click here to view order details.

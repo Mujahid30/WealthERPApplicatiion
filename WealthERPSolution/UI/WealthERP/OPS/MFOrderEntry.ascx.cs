@@ -58,8 +58,8 @@ namespace WealthERP.OPS
         string updatedReason = "";
         bool result = false;
         string userType = string.Empty;
-        int var1 = 5;
-        int var2 = 10;
+        string mail = string.Empty;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -1094,6 +1094,7 @@ namespace WealthERP.OPS
                 ddltransType.SelectedIndex = 0;
                 BindISAList();
                 btnreport.Visible = true;
+                btnpdfReport.Visible = true;
             //    if (ISAList.Rows.Count!=0)
             //    {
             //        string formatstring = "";
@@ -2116,6 +2117,8 @@ namespace WealthERP.OPS
             btnAddMore.Visible = false;
             btnUpdate.Visible = true;
             lnkBtnEdit.Visible = false;
+            btnreport.Visible = true;
+            btnpdfReport.Visible = true;
         }
 
         protected void lnlBack_Click(object sender, EventArgs e)
@@ -2362,8 +2365,15 @@ namespace WealthERP.OPS
 
         protected void btnreport_Click(object sender, EventArgs e)
         {
-            string schemeSwitch=""; string bankName="";
-            if(!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
+            mail = "0";
+            DisplayTransactionSlip();
+           
+        }
+
+        private void DisplayTransactionSlip()
+        {
+            string schemeSwitch = ""; string bankName = "";
+            if (!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(hdnCustomerId.Value);
             if (!string.IsNullOrEmpty(hdnPortfolioId.Value.ToString().Trim()))
                 portfolioId = int.Parse(hdnPortfolioId.Value);
@@ -2379,7 +2389,14 @@ namespace WealthERP.OPS
                 "&BankName=" + bankName + "&BranchName=" + txtBranchName.Text + "&Amount=" + txtAmount.Text + "&ChequeNo=" + txtPaymentNumber.Text + "&ChequeDate=" + txtPaymentInstDate.SelectedDate +
                 "&StartDateSIP=" + txtstartDateSIP.SelectedDate + "&StartDateSTP=" + txtstartDateSTP.SelectedDate + "&NewAmount=" + txtNewAmount.Text +
                 "&EndDateSIP=" + txtendDateSIP.SelectedDate + "&EndDateSTP=" + txtendDateSTP.SelectedDate + "&SchemeSwitch=" + schemeSwitch +
-                "&RbtnUnits=" + rbtUnit.Checked + "&RbtnAmounts=" + rbtAmount.Checked + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
+                "&RbtnUnits=" + rbtUnit.Checked + "&RbtnAmounts=" + rbtAmount.Checked + "&mail=" + mail + 
+                "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
+        }
+
+        protected void btnpdfReport_Click(object sender, EventArgs e)
+        {
+            mail = "2";
+            DisplayTransactionSlip();
         }
 
     }
