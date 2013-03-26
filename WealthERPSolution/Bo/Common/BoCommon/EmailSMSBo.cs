@@ -6,7 +6,6 @@ using VoEmailSMS;
 using DaoCommon;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
-using PCGMailLib;
 using System.Net;
 using System.Net.Configuration;
 using System.Net.Mail;
