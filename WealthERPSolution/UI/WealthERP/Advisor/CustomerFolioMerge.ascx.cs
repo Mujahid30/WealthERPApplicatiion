@@ -229,6 +229,8 @@ namespace WealthERP.Advisor
                             drCustomerFolio["FolioName"] = "";
                         drCustomerFolio["portfilionumber"] = dtCustomer.Rows[i]["portfilionumber"];
                         drCustomerFolio["mergerstatus"] = dtCustomer.Rows[i]["mergerstatus"];
+                        drCustomerFolio["Nominee"] = dtCustomer.Rows[i]["Nominee"];
+                        drCustomerFolio["ModeOfHolding"] = dtCustomer.Rows[i]["ModeOfHolding"];
                         dtCustomerFolio.Rows.Add(drCustomerFolio);
                     }
                     gvCustomerFolioMerge.DataSource = dtCustomerFolio;
