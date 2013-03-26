@@ -102,7 +102,7 @@
                 </div>
             </td>
             <td>
-    <asp:Button ID="btnAdviserList" runat="server" Text="Go" CssClass="PCGLongButton" 
+    <asp:Button ID="btnAdviserList" runat="server" Text="Go" CssClass="PCGButton" 
             onclick="btnAdviserList_Click" Visible="true" />
     </td>
         <%--<td>
