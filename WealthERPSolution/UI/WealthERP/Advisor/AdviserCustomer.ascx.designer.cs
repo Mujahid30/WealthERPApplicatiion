@@ -43,6 +43,8 @@ namespace WealthERP.Advisor {
         protected global::Telerik.Web.UI.RadGrid gvCustomerList;
         protected global::Telerik.Web.UI.RadComboBox Status;
         protected global::System.Web.UI.WebControls.HiddenField hdnNameFilter;
+        protected global::System.Web.UI.WebControls.HiddenField hdnMsgValue;
+        protected global::System.Web.UI.WebControls.HiddenField hdnassociationcount;
         protected global::Telerik.Web.UI.RadRotator RadRotatorImage;
         protected global::Telerik.Web.UI.RadComboBox ddlAction;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;

@@ -46,6 +46,7 @@ namespace WealthERP.Advisor
         int branchHeadId;
         AdvisorPreferenceVo advisorPrefernceVo = new AdvisorPreferenceVo();
         string customer = "";
+        int ParentId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -55,12 +56,14 @@ namespace WealthERP.Advisor
             CreationSuccessMessage.Visible = false;
             rmVo = (RMVo)Session["rmVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops"|| Session[SessionContents.CurrentUserRole].ToString().ToLower() == "research" )
                 UserRole = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                 UserRole = "rm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 UserRole = "bm";
+            //else
+            //    UserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
             rmId = rmVo.RMId;
             branchHeadId = rmVo.RMId;
@@ -1099,6 +1102,64 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                ParentId = int.Parse(Session["ParentIdForDelete"].ToString());
+                hdnassociationcount.Value = customerBo.GetAssociationCount("C", ParentId).ToString();
+                string asc = Convert.ToString(hdnassociationcount.Value);
+
+                if (asc == "0")
+
+                    DeleteCustomerProfile();
+
+
+                else
+
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
+            }
+        }
+
+         private void DeleteCustomerProfile()
+        {
+            try
+            {
+                customerVo = (CustomerVo)Session["CustomerVo"];
+                userVo = (UserVo)Session[SessionContents.UserVo];
+
+
+                if (customerBo.DeleteCustomer(customerVo.ParentId, "D"))
+                {
+                    string DeleteStatus = "Customer Deleted Successfully";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','CustomerDeleteStatus=" + DeleteStatus + "');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','login');", true);
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewCustomerIndividualProfile.ascx:btnDelete_Click()");
+                object[] objects = new object[3];
+                objects[0] = customerVo;
+                //objects[1] = userVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
     }
 
 }

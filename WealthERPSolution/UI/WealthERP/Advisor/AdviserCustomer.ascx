@@ -374,6 +374,8 @@
         <%--</div>--%>
     </asp:Panel>
 </div>
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="hdnassociationcount" runat="server" />
 <%--<div>
     <telerik:RadRotator ID="RadRotatorImage" runat="server" Width="224px" Height="112px"
         CssClass="rotatorStyle" ItemHeight="112" ItemWidth="112" ScrollDuration="500"
