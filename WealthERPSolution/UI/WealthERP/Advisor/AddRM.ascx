@@ -39,16 +39,37 @@
         return result;
     }
     function CheckItem(sender, args) {
+        var hdnIsOpsEnabled = document.getElementById("<%= hdnIsOpsEnabled.ClientID %>");
 
-        var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
+        if (hdnIsOpsEnabled == "1") {
+            var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
 
-        if (chk4ops.checked == false) {
+            if (chk4ops.checked == false) {
 
-            var chkControlId = '<%=ChklistRMBM.ClientID%>';
-            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+                var chkControlId = '<%=ChklistRMBM.ClientID%>';
+                var options = document.getElementById(chkControlId).getElementsByTagName('input');
+                var ischecked = false;
+                args.IsValid = false;
+
+                for (i = 0; i < options.length; i++) {
+                    var opt = options[i];
+                    if (opt.type == "checkbox") {
+                        if (opt.checked) {
+                            ischecked = true;
+                            args.IsValid = true;
+                        }
+                    }
+                }
+            }
+            else {
+
+            }
+        }
+        else {
             var ischecked = false;
             args.IsValid = false;
-
+            var chkControlId = '<%=ChklistRMBM.ClientID%>';
+            var options = document.getElementById(chkControlId).getElementsByTagName('input');
             for (i = 0; i < options.length; i++) {
                 var opt = options[i];
                 if (opt.type == "checkbox") {
@@ -59,9 +80,7 @@
                 }
             }
         }
-        else {
-
-        }
+        
     }
 
     function addbranches() {
@@ -651,4 +670,5 @@
 <asp:HiddenField ID="hdnExistingBranches" runat="server" />
 <asp:HiddenField ID="hdnSelectedBranches" runat="server" />
 <asp:HiddenField ID="hdnIsSubscripted" runat="server" />
+<asp:HiddenField ID="hdnIsOpsEnabled" runat="server" />
 <%--</ContentTemplate>--%><%--</asp:UpdatePanel>--%>
