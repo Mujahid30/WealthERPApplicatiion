@@ -9,7 +9,6 @@
 <script src="Scripts/jquery-1.2.6.js" type="text/javascript"></script>
 
 <script src="Scripts/webtoolkit.jscrollable.js" type="text/javascript"></script>
-
 <script src="Scripts/webtoolkit.scrollabletable.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
