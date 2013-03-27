@@ -48,6 +48,7 @@ namespace WealthERP.Advisor
                         {
                             //.ToString() == "FromAdvView")
                             advisorVo = (AdvisorVo)Session["advisorVo"];
+                            GetPlanOpsStaffAddStatus(advisorVo.advisorId);
                             lnkEdit.Visible = true;
                             lnkBtnBack.Visible = true;
                             //Session.Remove("FromAdvisorView");
@@ -79,7 +80,21 @@ namespace WealthERP.Advisor
             }
 
         }
-
+        private void GetPlanOpsStaffAddStatus(int adviserId)
+        {
+            DataSet dsPlanOpsStaffAddStatus = advisorStaffBo.GetPlanOpsStaffAddStatus(adviserId);
+            if (dsPlanOpsStaffAddStatus.Tables[1].Rows[0]["WP_IsOpsEnabled"].ToString() == "1")
+            {
+                if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) > 0)
+                {
+                    chkOps.Visible = false;
+                }
+            }
+            else
+            {
+                chkOps.Visible = false;
+            }
+        }
         //private void BindBranchAssociation()
         //{
         //    DataSet ds;
