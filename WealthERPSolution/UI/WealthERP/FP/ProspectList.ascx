@@ -18,7 +18,7 @@
         var scrollArea = sender.GridDataDiv;
         var dataHeight = sender.get_masterTableView().get_element().clientHeight;
         if (dataHeight < 300) {
-            scrollArea.style.height = dataHeight + "px";
+            scrollArea.style.height = dataHeight +17+ "px";
         }
     }     
 </script>
@@ -94,13 +94,13 @@
         </td>
     </tr>
 </table>
-<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="100%" EnableHistory="True"
-    HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
-    <table cellspacing="0" cellpadding="2" style="padding-left: 2px;padding-right: 2px">
+<%--<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="100%" EnableHistory="True"
+    HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">--%>
+    <table cellspacing="0" cellpadding="2">
         <tr>
             <td>
                 <telerik:RadGrid ID="gvCustomerProspectlist" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true" EnableLoadOnDemand="True"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" ExportSettings-FileName="Networth MIS" OnNeedDataSource="gvCustomerProspectlist_OnNeedDataSource">
                     <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" DataKeyNames="C_CustomerId">
@@ -169,7 +169,7 @@
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
-                        <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px">
+                        <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="300px">
                         </Scrolling>
                         <ClientEvents OnGridCreated="GridCreated" />
                         <Resizing AllowColumnResize="true" />
@@ -180,7 +180,7 @@
             </td>
         </tr>
     </table>
-</telerik:RadAjaxPanel>
+<%--</telerik:RadAjaxPanel>--%>
 <table class="TableBackground" width="100%">
     <tr align="center">
         <td align="center" width="100%">
