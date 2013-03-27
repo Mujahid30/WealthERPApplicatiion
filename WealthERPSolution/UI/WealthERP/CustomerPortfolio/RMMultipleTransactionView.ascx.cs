@@ -20,7 +20,6 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Web.UI.HtmlControls;
 using Telerik.Web.UI;
-using VoAdvisorProfiling;
 using System.Collections;
 using Telerik.Web.UI.GridExcelBuilder;
 
@@ -55,7 +54,6 @@ namespace WealthERP.CustomerPortfolio
         String DisplayType;
         Hashtable ht = new Hashtable();
         int schemePlanCode=0;
-        AdvisorPreferenceVo advisorPrefrenceVo = new AdvisorPreferenceVo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -64,7 +62,7 @@ namespace WealthERP.CustomerPortfolio
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
                 userVo = (UserVo)Session["userVo"];
-                advisorPrefrenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
+
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 rmVo = (RMVo)Session[SessionContents.RmVo];
 
@@ -105,12 +103,12 @@ namespace WealthERP.CustomerPortfolio
                     Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
                     trGroupHead.Visible = false;
                     hdnProcessIdSearch.Value = "0";
-                    //Panel2.Visible = false;
-                   // Panel1.Visible = false;
+                    Panel2.Visible = false;
+                    Panel1.Visible = false;
                     gvMFTransactions.Visible = false;
                     gvBalanceView.Visible = false;
                     gvTrail.Visible = false;
-                    //divTrail.Visible = false;
+                    divTrail.Visible = false;
                    
                     hdnSchemeSearch.Value = string.Empty;
                     hdnTranType.Value = string.Empty;
@@ -189,15 +187,6 @@ namespace WealthERP.CustomerPortfolio
                    
                     ErrorMessage.Visible = false;
                 }
-                //System.Web.HttpBrowserCapabilities browser = Request.Browser;
-
-                //if (browser.Browser.ToLower() == "ie")
-
-                //   // myLinkstyle.Href = "CSS/IEStyles.css";
-
-                //else
-
-                   // myLinkstyle.Href = "CSS/OtherBrowserStyle.css";
             }
             catch (BaseApplicationException Ex)
             {
@@ -317,9 +306,9 @@ namespace WealthERP.CustomerPortfolio
                 BindGrid(convertedFromDate, convertedToDate);
                 hdnExportType.Value = "TV";
                 gvBalanceView.Visible = false;
-               // Panel1.Visible = false;
+                Panel1.Visible = false;
                 gvTrail.Visible = false;
-                //divTrail.Visible = false;
+                divTrail.Visible = false;
                            
             }
             if(DisplayType=="RHV")
@@ -327,9 +316,9 @@ namespace WealthERP.CustomerPortfolio
                 BindGridBalance(convertedFromDate, convertedToDate);
                 hdnExportType.Value = "RHV";
                 gvMFTransactions.Visible = false;
-               // Panel2.Visible = false;
+                Panel2.Visible = false;
                 gvTrail.Visible = false;
-                //divTrail.Visible = false;
+                divTrail.Visible = false;
                
             }
 
@@ -338,9 +327,9 @@ namespace WealthERP.CustomerPortfolio
                 BindGridTrailCommission(convertedFromDate, convertedToDate);
                 hdnExportType.Value = "TCV";
                 gvMFTransactions.Visible = false;
-                //Panel2.Visible = false;
+                Panel2.Visible = false;
                 gvBalanceView.Visible = false;
-                //Panel1.Visible = false;   
+                Panel1.Visible = false;   
 
             }
            
@@ -416,7 +405,7 @@ namespace WealthERP.CustomerPortfolio
                 if (mfTransactionList.Count != 0)
                 {
                     ErrorMessage.Visible = false;
-                   // Panel2.Visible = true;
+                    Panel2.Visible = true;
                     DataTable dtMFTransactions = new DataTable();
 
                     dtMFTransactions.Columns.Add("TransactionId");
@@ -516,13 +505,11 @@ namespace WealthERP.CustomerPortfolio
                     }
                     gvMFTransactions.CurrentPageIndex = 0;
                     gvMFTransactions.DataSource = dtMFTransactions;
-                    gvMFTransactions.PageSize = advisorPrefrenceVo.GridPageSize;
                     gvMFTransactions.DataBind();
-                    //Panel2.Visible = true;
+                    Panel2.Visible = true;
                     ErrorMessage.Visible = false;
                     gvMFTransactions.Visible = true;
                     btnTrnxExport.Visible = true;
-                    
                    
                 }
                 else
@@ -530,7 +517,7 @@ namespace WealthERP.CustomerPortfolio
                     gvMFTransactions.Visible = false;
                     hdnRecordCount.Value = "0";
                     ErrorMessage.Visible = true;
-                   // Panel2.Visible = false;
+                    Panel2.Visible = false;
                     btnTrnxExport.Visible = false;
                   
                 }
@@ -579,7 +566,7 @@ namespace WealthERP.CustomerPortfolio
                if (mfBalanceList.Count != 0)
                 {
                     ErrorMessage.Visible = false;
-                   // Panel1.Visible = true;
+                    Panel1.Visible = true;
                     DataTable dtMFBalance = new DataTable();
 
                     dtMFBalance.Columns.Add("TransactionId");
@@ -658,12 +645,10 @@ namespace WealthERP.CustomerPortfolio
                         Cache.Insert("ViewBalance" + userVo.UserId + userType, dtMFBalance);
                     }
                     gvBalanceView.DataSource = dtMFBalance;
-                    gvBalanceView.PageSize =advisorPrefrenceVo.GridPageSize;
                     gvBalanceView.DataBind();
-                   // Panel1.Visible = true;
+                    Panel1.Visible = true;
                     ErrorMessage.Visible = false;
                     gvBalanceView.Visible = true;
-                    dvBalanceView.Visible = true;
                     btnTrnxExport.Visible = true;
                   }
                               
@@ -671,9 +656,8 @@ namespace WealthERP.CustomerPortfolio
                 {
                     gvBalanceView.Visible = false;
                     ErrorMessage.Visible = true;
-                   // Panel1.Visible = false;
+                    Panel1.Visible = false;
                     hdnRecordCount.Value = "0";
-                    dvBalanceView.Visible = false;
                     btnTrnxExport.Visible = false;
                 }
                gvTrail.Visible = false;
@@ -814,14 +798,13 @@ namespace WealthERP.CustomerPortfolio
                 {
                     btnTrnxExport.Visible = true;
                     ErrorMessage.Visible = false;
-                  //  Panel1.Visible = false;
+                    Panel1.Visible = false;
                 
                     GridBoundColumn gbcCustomer = gvBalanceView.MasterTableView.Columns.FindByUniqueName("Customer Name") as GridBoundColumn;
                   
                     gvTrail.DataSource = dsTrailCommissionDetails;
-                    gvTrail.PageSize = advisorPrefrenceVo.GridPageSize;
                     gvTrail.DataBind();
-                    //divTrail.Visible = true;
+                    divTrail.Visible = true;
                     Div3.Visible = true;
                     gvTrail.Visible = true;
                     //imgBtnTrail.Visible = true;
@@ -832,7 +815,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     gvTrail.Visible = false;
                     Div3.Visible = false;
-                   // divTrail.Visible = false;
+                    divTrail.Visible = false;
                     ErrorMessage.Visible = true;
                     hdnRecordCount.Value = "0";
                     btnTrnxExport.Visible = false;
