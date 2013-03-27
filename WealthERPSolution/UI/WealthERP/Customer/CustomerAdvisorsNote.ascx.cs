@@ -84,6 +84,7 @@ namespace WealthERP.Customer
             ddlClassification.DataValueField = classificationDs.Tables[0].Columns["ACC_CustomerCategoryCode"].ToString();
             ddlClassification.DataTextField = classificationDs.Tables[0].Columns["ACC_customerCategoryName"].ToString();
             ddlClassification.DataBind();
+            ddlClassification.Items.Insert(0, new ListItem("Select a Classification", "Select a Classification"));
 
         }
 
@@ -103,6 +104,7 @@ namespace WealthERP.Customer
             {
                 customerVo = customerBo.GetCustomer(customerVo.CustomerId);
                 Session["CustomerVo"] = customerVo;
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Classification updated Succesfully');", true);
                 //if (customerVo.Type.ToUpper().ToString() == "IND")
                 //{
                 //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);

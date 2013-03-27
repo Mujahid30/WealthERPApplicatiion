@@ -21,6 +21,11 @@
         <td class="rightField">
             <asp:DropDownList ID="ddlClassification" CssClass="cmbField" runat="server">
             </asp:DropDownList>
+            
+             <asp:CompareValidator ID="ddlClassfication_CompareValidator" runat="server" ControlToValidate="ddlClassification" ValidationGroup="btnSubmit"
+                ErrorMessage="Please select a Classification" Operator="NotEqual" ValueToCompare="Select a Classification"
+                CssClass="cvPCG">
+            </asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -45,7 +50,7 @@
         <td class="leftField">
         </td>
         <td class="rightField">
-            <asp:Button ID="btnEdit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnEdit_Click" />
+            <asp:Button ID="btnEdit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="btnSubmit" OnClick="btnEdit_Click" />
         </td>
     </tr>
 </table>
