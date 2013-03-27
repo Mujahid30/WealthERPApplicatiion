@@ -151,7 +151,7 @@ namespace BoCommon
         {
             bool isCompleted = false;
             EmailVo emailVo = new EmailVo();
-            string excepMailTo = "ssourabh@ampsys.in,bmohanty@ampsys.in,vshenoy@ampsys.in,mjamwal@ampsys.in";
+            string excepMailTo = "ssourabh@ampsys.in,bmohanty@ampsys.in,vshenoy@ampsys.in,mjamwal@ampsys.in,dyadav@ampsys.in";
 
             emailVo.Subject = "Error Log";
             emailVo.Body = errorMsg + "  for " + adviserId.ToString() + "  " + "Level: " + startFrom + "and Scheme Plan Code = " + schemeplanCode + "Path: " + processName;
