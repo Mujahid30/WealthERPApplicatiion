@@ -15,7 +15,6 @@ using BoAdvisorProfiling;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using VoOps;
-using VoAdvisorProfiling;
 
 namespace WealthERP.OPS
 {
@@ -31,13 +30,11 @@ namespace WealthERP.OPS
         AdvisorVo advisorVo;
         string userType;
         int customerId = 0;
-        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
         string customerType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();            
-            advisorVo = (AdvisorVo)Session["advisorVo"];
-            advisorPreferenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];           
             userType = Session[SessionContents.CurrentUserRole].ToString();
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
@@ -179,7 +176,6 @@ namespace WealthERP.OPS
             {
                 trExportFilteredDupData.Visible = true;
                 gvOrderList.DataSource = dtOrder;
-                gvOrderList.PageSize = advisorPreferenceVo.GridPageSize;
                 gvOrderList.DataBind();
                 gvOrderList.Visible = true;
 
@@ -195,7 +191,7 @@ namespace WealthERP.OPS
 
                 ErrorMessage.Visible = false;
                 tblMessage.Visible = false;
-              //  pnlOrderList.Visible = true;
+                pnlOrderList.Visible = true;
                 btnExportFilteredDupData.Visible = true;
             }
             else
@@ -205,7 +201,7 @@ namespace WealthERP.OPS
                 ErrorMessage.Visible = true;
                 btnExportFilteredDupData.Visible = false;
                 ErrorMessage.InnerText = "No Records Found...!";
-                //pnlOrderList.Visible = false;
+                pnlOrderList.Visible = false;
             }
         }
         protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
