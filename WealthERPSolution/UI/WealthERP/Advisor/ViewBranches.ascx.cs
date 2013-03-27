@@ -465,7 +465,7 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void lnkBranchName_OnClick(object sender, EventArgs e) 
+        protected void lnkBranchName_OnClick(object sender, EventArgs e)
         {
             int selectedRow = 0;
             int branchId = 0;
