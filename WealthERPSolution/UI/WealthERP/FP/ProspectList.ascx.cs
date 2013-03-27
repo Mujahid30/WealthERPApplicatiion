@@ -13,7 +13,6 @@ using BoFPSuperlite;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoAdvisorProfiling;
-using VoAdvisorProfiling;
 using BoUploads;
 
 namespace WealthERP.FP
@@ -33,10 +32,10 @@ namespace WealthERP.FP
         int bmID = 0;
         int advisorId = 0;
         string userType = "";
-        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             rmVo = (RMVo)Session[SessionContents.RmVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["userVo"];
@@ -44,7 +43,6 @@ namespace WealthERP.FP
             int RMId = rmVo.RMId;
             bmID = rmVo.RMId;
             rmId = rmVo.RMId;
-            advisorPreferenceVo = (AdvisorPreferenceVo)(Session["AdvisorPreferenceVo"]);
 
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
@@ -57,6 +55,7 @@ namespace WealthERP.FP
 
             if (!IsPostBack)
             {
+
                 if (userType == "advisor")
                 {
                     btnGo.Visible = true;
@@ -88,13 +87,13 @@ namespace WealthERP.FP
 
         private void BindCustomerProspectGrid()
         {
-            
             SetParameters();
             DataTable dtcustomerProspect = new DataTable();
             dsGetAllProspectCustomersForRM = customerProspectBo.GetAllProspectCustomersForRM(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value));
             if ((dsGetAllProspectCustomersForRM.Tables[0].Rows.Count > 0) && (!string.IsNullOrEmpty(dsGetAllProspectCustomersForRM.ToString())))
             {
                 gvCustomerProspectlist.Visible = true;
+
                 dtcustomerProspect.Columns.Add("C_CustomerId");
                 dtcustomerProspect.Columns.Add("Name");
                 dtcustomerProspect.Columns.Add("IsProspect");
@@ -135,7 +134,6 @@ namespace WealthERP.FP
                     dtcustomerProspect.Rows.Add(drCustomerProspect);
                 }
                 gvCustomerProspectlist.DataSource = dtcustomerProspect;
-                gvCustomerProspectlist.PageSize = advisorPreferenceVo.GridPageSize;
                 gvCustomerProspectlist.DataBind();
                 lblErrorMsg.Visible = false;
                 if (Cache["NetworthMIS" + userVo.UserId] == null)
@@ -431,9 +429,6 @@ namespace WealthERP.FP
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
-            //gvCustomerProspectlist.MasterTableView.GetColumnSafe("Name").CurrentFilterValue = String.Empty;
-            //gvCustomerProspectlist.MasterTableView.GetColumnSafe("IsProspect").CurrentFilterValue = String.Empty;
-           // gvCustomerProspectlist.Rebind();
             BindCustomerProspectGrid();
         }
 
