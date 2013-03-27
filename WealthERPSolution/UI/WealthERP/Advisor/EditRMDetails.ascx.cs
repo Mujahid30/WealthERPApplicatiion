@@ -83,6 +83,7 @@ namespace WealthERP.Advisor
                 hndRmCustomerCount.Value = htRMInfo["RMCustomerCount"].ToString();
                 hndBMBranchHead.Value = htRMInfo["BMBranchHead"].ToString();
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
+                GetPlanOpsStaffAddStatus(advisorVo.advisorId);
             }
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
@@ -99,7 +100,21 @@ namespace WealthERP.Advisor
             lblSTD.CssClass = "FieldName";
 
         }
-
+        private void GetPlanOpsStaffAddStatus(int adviserId)
+        {
+            DataSet dsPlanOpsStaffAddStatus = advisorStaffBo.GetPlanOpsStaffAddStatus(adviserId);
+            if (dsPlanOpsStaffAddStatus.Tables[1].Rows[0]["WP_IsOpsEnabled"].ToString() == "1")
+            {
+                if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) > 0)
+                {
+                    chkOps.Visible = false;
+                }
+            }
+            else
+            {
+                chkOps.Visible = false;
+            }
+        }
         //protected void rbtnMainBranch_CheckedChanged(object sender, EventArgs e)
         //{
         //    foreach (GridViewRow row in gvBranchList.Rows)
