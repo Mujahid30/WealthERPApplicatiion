@@ -322,8 +322,8 @@
         </td>
     </tr>
 </table>
-<%--<asp:Panel ID="Panel2" Visible="false" runat="server" class="Landscape" Width="100%"
-    ScrollBars="Horizontal">--%>
+<asp:Panel ID="Panel2" Visible="false" runat="server" class="Landscape" Width="100%"
+    ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="1">
         <tr>
             <td>
@@ -333,9 +333,8 @@
         </tr>
         <tr>
             <td>
-            <div style="width:86%;">
-                <telerik:RadGrid ID="gvWERPTrans" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    AllowFiltering="true" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
+              <telerik:RadGrid ID="gvWERPTrans" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    AllowFiltering="true" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Width="100%"
                     Skin="Telerik" OnItemDataBound="gvWERPTrans_ItemDataBound" EnableEmbeddedSkins="false"
                     AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
                     ExportSettings-FileName="MF Transaction Reject Details" ShowFooter="true" OnNeedDataSource="gvWERPTrans_OnNeedDataSource"
@@ -467,13 +466,13 @@
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
-                    <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px" />
-                    <ClientEvents OnGridCreated="GridCreated" />
+                   <%-- <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px" />
+                    <ClientEvents OnGridCreated="GridCreated" />--%>
                         <Resizing AllowColumnResize="false" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
-                </div>
+               
                 <%--  <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
                     Width="101%" ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="WERPTransactionId"
                     AllowSorting="true" OnSorting="gvWERPTrans_Sort">
