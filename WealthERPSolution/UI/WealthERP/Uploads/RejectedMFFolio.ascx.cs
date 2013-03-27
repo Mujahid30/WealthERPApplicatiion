@@ -67,14 +67,13 @@ namespace WealthERP.Uploads
         string xmlPath;
         string xmlFileName = string.Empty;
         string extracttype;
-        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
+
         DataTable dtgvWERPMF = new DataTable();
        // DataSet dsRejectedRecords = new DataSet();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-            advisorPreferenceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
+
             SessionBo.CheckSession();
             //ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
@@ -162,39 +161,35 @@ namespace WealthERP.Uploads
             //    {
                    
             //    }
-              
-                if (Cache["RejectedMFFolioDetails" + adviserVo.advisorId.ToString()] != null)
-                    Cache.Remove("RejectedMFFolioDetails" + adviserVo.advisorId.ToString());
-                  
-                txtFromTran.SelectedDate = DateTime.Now.AddMonths(-1).Date;
+                DateTime fromDate = DateTime.Now.AddDays(-30);
+                txtFromTran.SelectedDate = fromDate.Date;
                 txtToTran.SelectedDate = DateTime.Now;
 
-                if (adviserId!= 1000)
+                if (adviserId != 1000)
                 {
+                    if (ProcessId != 0)
+                    {
+                        divConditional.Visible = false;
+                    }
+                    else
+                    {
+                        divConditional.Visible = true;
+                    }
                     BindddlRejectReason();
-                    if (ProcessId!= 0)
+                    BindGrid(ProcessId);
+                }
+                else
+                {
+                    if (ProcessId != 0)
                     {
                         divConditional.Visible = false;
                         BindGrid(ProcessId);
                     }
                     else
                     {
-                        divConditional.Visible = true;
-                    }
-                   
-                    //BindGrid(ProcessId);
-                }
-                else
-                {
-                    if (ProcessId!= 0)
-                    {
-                        divConditional.Visible = false;
-                        //BindGrid(ProcessId);
-                    }
-                    else
-                    {
-                       // divGvCAMSProfileReject.Visible = false;
+                        divGvCAMSProfileReject.Visible = false;
                         BindAdviserDropDownList();
+
                         tdBtnViewRejetcs.Visible = false;
                         tdTxtToDate.Visible = false;
                         tdlblToDate.Visible = false;
@@ -215,7 +210,6 @@ namespace WealthERP.Uploads
                 //    divGvCAMSProfileReject.Visible = false;
                 //}
             }
-            gvCAMSProfileReject.Visible = false;
         }
 
         protected void BindAdviserDropDownList()
@@ -320,10 +314,7 @@ namespace WealthERP.Uploads
             {
                 if (ProcessId == null || ProcessId == 0)
                 {
-                    //if (txtFromTran.SelectedDate != null)
-                    //    fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
-                    //if (txtToTran.SelectedDate != null)
-                    //    toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
+                   
                     rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
                 }
 
@@ -333,12 +324,12 @@ namespace WealthERP.Uploads
                 Dictionary<string, string> genDictIsCustomerExisting = new Dictionary<string, string>();
 
                 rejectedRecordsBo = new RejectedRecordsBo();
-                dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserId, ProcessId, DateTime.Parse(txtFromTran.SelectedDate.ToString()), DateTime.Parse(txtToTran.SelectedDate.ToString()), rejectReasonCode);
+                dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserId, ProcessId, fromDate, toDate, rejectReasonCode);
 
                 if (dsRejectedRecords.Tables[0].Rows.Count > 0)
                 {   // If Records found, then bind them to grid
                     divProfileMessage.Visible = false;
-                   // divGvCAMSProfileReject.Visible = true;
+                    divGvCAMSProfileReject.Visible = true;
                     imgBtnrgHoldings.Visible = true;
                     divBtnActionSection.Visible = true;
                 
@@ -354,8 +345,6 @@ namespace WealthERP.Uploads
 
                     gvCAMSProfileReject.CurrentPageIndex = 0;
                     gvCAMSProfileReject.DataSource = dsRejectedRecords.Tables[0];
-                    gvCAMSProfileReject.PageSize = advisorPreferenceVo.GridPageSize;
-                    gvCAMSProfileReject.Visible = true;
                     gvCAMSProfileReject.DataBind();
                    
 
@@ -364,8 +353,7 @@ namespace WealthERP.Uploads
                 {
                     divProfileMessage.Visible = true;
                     divBtnActionSection.Visible = false;
-                    gvCAMSProfileReject.Visible = false;
-                  //  divGvCAMSProfileReject.Visible = false;
+                    divGvCAMSProfileReject.Visible = false;
                     imgBtnrgHoldings.Visible = false;
                 }
 
@@ -622,28 +610,26 @@ namespace WealthERP.Uploads
             DataTable dtrr = new DataTable();
             dtrr = (DataTable)Cache["RejectedMFFolioDetails" + adviserId.ToString()];
            // dtrr = dtRejectedMFFolioDetails.Tables[0];
-            if (dtrr != null)
+            if (ViewState["RejectReason"] != null)
+                rcbType = ViewState["RejectReason"].ToString();
+            if (!string.IsNullOrEmpty(rcbType))
             {
-                if (ViewState["RejectReason"] != null)
-                    rcbType = ViewState["RejectReason"].ToString();
-                if (!string.IsNullOrEmpty(rcbType))
-                {
-                    DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "ADUL_ProcessId,CMFFS_INV_NAME,CMFSFS_PANNum,CMFSFS_FolioNum,PA_AMCName,CMFSS_BrokerCode,CMFFS_BANK_NAME,CMGCXP_ADDRESS1,CMGCXP_CITY,CMGCXP_PINCODE,CMGCXP_PHONE_OFF,CMGCXP_PHONE_RES,CMGCXP_DOB", DataViewRowState.CurrentRows);
-                    // DataView dvStaffList = dtMIS.DefaultView;
-                    gvCAMSProfileReject.DataSource = dvStaffList.ToTable();
+                DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "ADUL_ProcessId,CMFFS_INV_NAME,CMFSFS_PANNum,CMFSFS_FolioNum,PA_AMCName,CMFSS_BrokerCode,CMFFS_BANK_NAME,CMGCXP_ADDRESS1,CMGCXP_CITY,CMGCXP_PINCODE,CMGCXP_PHONE_OFF,CMGCXP_PHONE_RES,CMGCXP_DOB", DataViewRowState.CurrentRows);
+                // DataView dvStaffList = dtMIS.DefaultView;
+                gvCAMSProfileReject.DataSource = dvStaffList.ToTable();
 
-                }
-                else
-                {
-                    gvCAMSProfileReject.DataSource = dtrr;
-
-                }
             }
+            else
+            {
+                gvCAMSProfileReject.DataSource = dtrr;
+
+            }
+           
         }
            
         protected void btnViewTran_Click(object sender, EventArgs e)
         {
-           // if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
+            if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
             if (txtFromTran.SelectedDate != null)
                 fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
             if (txtToTran.SelectedDate != null)
