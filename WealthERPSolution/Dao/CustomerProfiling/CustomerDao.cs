@@ -656,6 +656,9 @@ namespace DaoCustomerProfiling
                         customerVo.BranchName = dr["AB_BranchName"].ToString();
                     if (!string.IsNullOrEmpty(dr["CA_AssociationId"].ToString()))
                         customerVo.AssociationId = int.Parse(dr["CA_AssociationId"].ToString());
+                    if (!string.IsNullOrEmpty(dr["ACC_CustomerCategoryCode"].ToString()))
+                        customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerCategoryCode"].ToString());
+
                 }
             }
             catch (BaseApplicationException Ex)
