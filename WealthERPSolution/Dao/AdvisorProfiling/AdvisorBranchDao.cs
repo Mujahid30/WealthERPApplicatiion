@@ -1123,8 +1123,11 @@ namespace DaoAdvisorProfiling
                     advisorBranchVo.Phone2Std = int.Parse(dr["AB_Phone2STD"].ToString());
                     advisorBranchVo.PinCode = int.Parse(dr["AB_PinCode"].ToString());
                     advisorBranchVo.State = dr["AB_State"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AZOC_ZoneClusterId"].ToString()))
                     advisorBranchVo.ZoneClusterId =Convert.ToInt32(dr["AZOC_ZoneClusterId"].ToString());
+                    if (!string.IsNullOrEmpty(dr["AZOC_Type"].ToString()))
                     advisorBranchVo.ZoneClusterType = dr["AZOC_Type"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AZOC_Name"].ToString()))
                     advisorBranchVo.ZoneClusterName = dr["AZOC_Name"].ToString();
                 }
             }
