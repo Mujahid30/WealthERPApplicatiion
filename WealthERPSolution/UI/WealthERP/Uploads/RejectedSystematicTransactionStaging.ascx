@@ -9,6 +9,7 @@
 <script src="Scripts/jquery-1.2.6.js" type="text/javascript"></script>
 
 <script src="Scripts/webtoolkit.jscrollable.js" type="text/javascript"></script>
+
 <script src="Scripts/webtoolkit.scrollabletable.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
@@ -141,25 +142,6 @@
         document.getElementById('<%= btnReprocess.ClientID %>').click();
     }
 </script>
-
-
-<script language="javascript" type="text/javascript">
-function GridCreated(sender, args) {
-        var scrollArea = sender.GridDataDiv;
-        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
-         if (dataHeight < 300) {
-            scrollArea.style.height = dataHeight +17+ "px";
-        }
-    }
-</script>
-
-<style type="text/css" runat="server">
-    .rgDataDiv
-    {
-        height: auto;
-        width: 101.5% !important;
-    }
-</style>
 
 <div id="divConditional" runat="server">
     <table class="TableBackground" cellspacing="0" cellpadding="2">
@@ -445,9 +427,9 @@ function GridCreated(sender, args) {
      </telerik:RadAjaxPanel>
           
    --%>
-<%--<asp:Panel ID="Panel3" Visible="false" runat="server" class="Landscape" Width="100%"
-    ScrollBars="Horizontal">--%>
-    <table width="100%" cellspacing="0" cellpadding="1">
+<asp:Panel ID="Panel3" Visible="false" runat="server" class="Landscape" Width="100%"
+    ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="2">
         <tr>
             <td>
                 <asp:LinkButton runat="server" ID="lnkViewInputRejects" Text="View Input Rejects"
@@ -456,11 +438,10 @@ function GridCreated(sender, args) {
         </tr>
         <tr>
             <td>
-            <div style="width:61%">
                 <telerik:RadGrid ID="gvSIPReject" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    AllowFiltering="true" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
+                    AllowFiltering="true" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                     Skin="Telerik" OnItemDataBound="gvSIPReject_ItemDataBound" EnableEmbeddedSkins="false"
-                    AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
+                    Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
                     ShowFooter="true" OnNeedDataSource="gvSIPReject_NeedDataSource" OnPreRender="gvSIPReject_PreRender">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
@@ -646,17 +627,14 @@ function GridCreated(sender, args) {
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
-                    <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px" />
-                    <ClientEvents OnGridCreated="GridCreated" />
                         <Resizing AllowColumnResize="false" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
-                </div>
             </td>
         </tr>
     </table>
-<%--</asp:Panel>--%>
+</asp:Panel>
 <%--  <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
                     <table width="100%" cellspacing="0" cellpadding="0">
                         <tr>
