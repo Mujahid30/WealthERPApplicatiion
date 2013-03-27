@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewBranchDetails.ascx.cs"
     Inherits="WealthERP.Advisor.ViewBranchDetails" %>
- 
+  
 
 <script language="javascript" type="text/javascript">
     function showmessage() {
