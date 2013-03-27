@@ -13,7 +13,6 @@ using System.Collections.Specialized;
 using VoUploads;
 using System.Configuration;
 using BoCommon;
-using VoAdvisorProfiling;
 using Telerik.Web.UI;
 
 namespace WealthERP.Uploads
@@ -41,7 +40,7 @@ namespace WealthERP.Uploads
         int rejectReasonCode;
         string configPath;
         string xmlFileName = string.Empty;
-        AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
+
         protected override void OnInit(EventArgs e)
         {
             ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
@@ -61,12 +60,29 @@ namespace WealthERP.Uploads
 
         private void GetPageCount()
         {
-            
+            string upperlimit;
+            string lowerlimit;
+            int rowCount = 0;
+            if (hdnRecordCount.Value != "")
+                rowCount = Convert.ToInt32(hdnRecordCount.Value);
+            if (rowCount > 0)
+            {
+                int ratio = rowCount / 10;
+                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
+                upperlimit = (mypager.CurrentPage * 10).ToString();
+                if (mypager.CurrentPage == mypager.PageCount)
+                    upperlimit = hdnRecordCount.Value;
+                string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+                lblCurrentPage.Text = PageRecords;
+
+                hdnCurrentPage.Value = mypager.CurrentPage.ToString();
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {   ProcessId = 0;
-            advisorPreferenceVo = (AdvisorPreferenceVo)(Session["AdvisorPreferenceVo"]);
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());               
             if (Request.QueryString["processId"] != null)
             {
@@ -134,7 +150,7 @@ namespace WealthERP.Uploads
                         tdDDLRejectReason.Visible = false;
                        // lblEmptyMsg.Visible = false;
                       //  gvWERPTrans.Visible = false;
-                       // Panel2.Visible = false;
+                        Panel2.Visible = false;
                         BindAdviserDropDownList();
                         tdTxtFromDate.Visible = false;
                   }
@@ -146,7 +162,7 @@ namespace WealthERP.Uploads
            // btnExport.Visible = false;
             //btnExport.Visible = false;
             Msgerror.Visible = false;
-            gvWERPTrans.Visible = false; 
+            
        }
         
      private void BindEquityTransactionGrid(int ProcessId)
@@ -189,10 +205,9 @@ namespace WealthERP.Uploads
 
                 gvWERPTrans.CurrentPageIndex = 0;
                 gvWERPTrans.DataSource = dsRejectedRecords.Tables[0];
-                gvWERPTrans.PageSize = advisorPreferenceVo.GridPageSize;
                 gvWERPTrans.DataBind();
                 gvWERPTrans.Visible = true;
-                //Panel2.Visible = true;
+                Panel2.Visible = true;
                 msgDelete.Visible = false;
                 btnExport.Visible = true;
             }
@@ -205,7 +220,7 @@ namespace WealthERP.Uploads
                 //trMessage.Visible = true;
                 DivAction.Visible = false;
                 gvWERPTrans.Visible = false;
-              //  Panel2.Visible = false;
+                Panel2.Visible = false;
                 trReprocess.Visible = false;
                 btnExport.Visible = false;
             }

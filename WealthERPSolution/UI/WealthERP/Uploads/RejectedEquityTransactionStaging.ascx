@@ -71,15 +71,6 @@
             return false;
         }
     }
-
-    function GridCreated(sender, args) {
-        var scrollArea = sender.GridDataDiv;
-        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
-        if (dataHeight < 300) {
-            scrollArea.style.height = dataHeight +17+ "px";
-        }
-    }
-       
 </script>
 
 <script type="text/javascript">
@@ -152,13 +143,6 @@
         }
     }
 </script>
-<style type="text/css" runat="server">
-    .rgDataDiv
-    {
-        height: auto;
-        width: 101.5% !important;
-    }
-</style>
 
 <script language="javascript" type="text/javascript">
     //    Function to call btnReprocess_Click method to refresh user control
@@ -324,7 +308,7 @@
 </table>
 <asp:Panel ID="Panel2" Visible="false" runat="server" class="Landscape" Width="100%"
     ScrollBars="Horizontal">
-    <table width="100%" cellspacing="0" cellpadding="1">
+    <table width="100%" cellspacing="0" cellpadding="2">
         <tr>
             <td>
                 <asp:LinkButton runat="server" ID="lnkViewInputRejects" Text="View Input Rejects"
@@ -333,10 +317,10 @@
         </tr>
         <tr>
             <td>
-              <telerik:RadGrid ID="gvWERPTrans" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    AllowFiltering="true" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Width="100%"
+                <telerik:RadGrid ID="gvWERPTrans" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    AllowFiltering="true" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                     Skin="Telerik" OnItemDataBound="gvWERPTrans_ItemDataBound" EnableEmbeddedSkins="false"
-                    AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
+                    Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
                     ExportSettings-FileName="MF Transaction Reject Details" ShowFooter="true" OnNeedDataSource="gvWERPTrans_OnNeedDataSource"
                     OnPreRender="gvWERPTrans_PreRender">
                     <%-- OnPreRender="gvWERPTrans_PreRender"
@@ -346,7 +330,7 @@
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
                     <MasterTableView TableLayout="Auto" DataKeyNames="WERPTransactionId,ProcessId" AllowFilteringByColumn="true"
-                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                        Width="120%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
                                 HeaderStyle-Width="65px">
@@ -466,13 +450,10 @@
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
-                   <%-- <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" ScrollHeight="300px" />
-                    <ClientEvents OnGridCreated="GridCreated" />--%>
                         <Resizing AllowColumnResize="false" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
-               
                 <%--  <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
                     Width="101%" ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="WERPTransactionId"
                     AllowSorting="true" OnSorting="gvWERPTrans_Sort">
@@ -604,7 +585,7 @@
             </td>
         </tr>
     </table>
-    <%--</asp:Panel>--%>
+    </asp:Panel>
     <div runat="server" id="DivAction" visible="false">
         <tr id="trReprocess" runat="server">
             <td class="SubmitCell">
