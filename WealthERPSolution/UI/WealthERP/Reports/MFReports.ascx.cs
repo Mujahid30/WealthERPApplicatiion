@@ -16,6 +16,7 @@ using VoReports;
 using BoReports;
 using CrystalDecisions.CrystalReports.Engine;
 using DanLudwig;
+using BoCustomerPortfolio;
 
 namespace WealthERP.Reports
 {
@@ -31,6 +32,7 @@ namespace WealthERP.Reports
         DateTime convertedFromDate;
         DateTime convertedToDate;
         DateBo dtBo = new DateBo();
+        PortfolioBo portfolioBo = new PortfolioBo();
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
         int activeTabIndex = 0;
@@ -309,7 +311,31 @@ namespace WealthERP.Reports
                     txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
                     txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
                     txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
+                    
                 }
+                //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
+                //{
+                //    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                //    LatestValuationdate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, "MF").ToString());
+                //    hdnValuationDate.Value = LatestValuationdate.ToString();
+                //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+
+                //}
+                //else
+                //{
+                //    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                //    hdnValuationDate.Value = LatestValuationdate.ToString();
+                //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtFromDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtToDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
+                //}
                 if (CustomerLogin == false)
                 {
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
@@ -454,7 +480,7 @@ namespace WealthERP.Reports
             }
             else
             {
-                if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "COMPOSITION_REPORT")
+                if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
                 {
                     isCorrect = customerBo.ChckBussinessDate(dtAsOnDate);
                     if (isCorrect == true)
