@@ -355,7 +355,7 @@ namespace DaoCustomerProfiling
                     }
                     else
                     {
-                        customerVo.CustomerClassificationID = '0';
+                        customerVo.CustomerClassificationID = 0;
                     }
 
                     customerVo.LastName = dr["C_LastName"].ToString();
@@ -1000,6 +1000,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_MothersMaidenName", DbType.String, customerVo.MothersMaidenName);
                 db.AddInParameter(editCustomerCmd, "@C_AdvNote", DbType.String, customerVo.AdviseNote);
                 db.AddInParameter(editCustomerCmd, "@C_IsAct", DbType.Int32, customerVo.IsActive);
+                if(customerVo.CustomerClassificationID != 0)
                 db.AddInParameter(editCustomerCmd, "@C_ClassCode", DbType.Int32, customerVo.CustomerClassificationID);
                 db.AddInParameter(editCustomerCmd, "@C_ProspectAddDate", DbType.DateTime, customerVo.ProspectAddDate);
                 db.AddInParameter(editCustomerCmd, "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
