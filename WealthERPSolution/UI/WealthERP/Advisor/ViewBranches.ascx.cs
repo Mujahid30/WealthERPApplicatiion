@@ -465,21 +465,16 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void lnkBranchName_OnClick(object sender, EventArgs e)
+        protected void lnkBranchName_OnClick(object sender, EventArgs e) 
         {
             int selectedRow = 0;
             int branchId = 0;
-            string ZoneName = string.Empty;
-            string ClusterName = string.Empty;
-            
             try
             {              
                 LinkButton lnkBranchName = (LinkButton)sender;
                 GridDataItem gvrForZoneClusterDetails = (GridDataItem)lnkBranchName.NamingContainer;
                 selectedRow = gvrForZoneClusterDetails.ItemIndex + 1;
                 branchId = int.Parse(gvZoneClusterdetails.MasterTableView.DataKeyValues[selectedRow - 1]["AB_BranchId"].ToString());
-                ZoneName = gvZoneClusterdetails.MasterTableView.DataKeyValues[selectedRow - 1]["ZoneName"].ToString();
-                ClusterName = gvZoneClusterdetails.MasterTableView.DataKeyValues[selectedRow - 1]["ClusterName"].ToString();   
                 advisorBranchVo = advisorBranchBo.GetBranch(branchId);
                 Session["advisorBranchVo"] = advisorBranchVo;
 
