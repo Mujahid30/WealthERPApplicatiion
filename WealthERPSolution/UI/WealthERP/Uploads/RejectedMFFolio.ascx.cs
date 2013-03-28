@@ -414,9 +414,9 @@ namespace WealthERP.Uploads
             {
                 if (((CheckBox)item.FindControl("chkBx")).Checked == true)
                 {
-                    ProcessId = int.Parse(gvCAMSProfileReject.MasterTableView.DataKeyValues[item.RowIndex-2]["ADUL_ProcessId"].ToString());
-                    filetypeId = Int32.Parse(gvCAMSProfileReject.MasterTableView.DataKeyValues[item.RowIndex-2]["WUXFT_XMLFileTypeId"].ToString());
-                    extracttype = gvCAMSProfileReject.MasterTableView.DataKeyValues[item.RowIndex-2]["XUET_ExtractTypeCode"].ToString();
+                    ProcessId = int.Parse(gvCAMSProfileReject.MasterTableView.DataKeyValues[item.ItemIndex]["ADUL_ProcessId"].ToString());
+                    filetypeId = Int32.Parse(gvCAMSProfileReject.MasterTableView.DataKeyValues[item.ItemIndex]["WUXFT_XMLFileTypeId"].ToString());
+                    extracttype = gvCAMSProfileReject.MasterTableView.DataKeyValues[item.ItemIndex]["XUET_ExtractTypeCode"].ToString();
                     break;
 
                 }
@@ -698,6 +698,11 @@ namespace WealthERP.Uploads
                                 bool stdProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserId, packagePath, configPath);  //StandardProfileUploadBo.StdCommonProfileChecks(processID, adviserId, packagePath, configPath);
                                 if (stdProCommonChecksResult)
                                 {
+
+                                    //Create new Bank Accounts newly added 
+                                    packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
+                                    bool CreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(processID, packagePath, configPath, adviserId);
+
                                     // Insert Customer Details into WERP Tables
                                     bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                     if (camsProCreateCustomerResult)
@@ -964,6 +969,11 @@ namespace WealthERP.Uploads
                                 bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserId, packagePath, configPath);
                                 if (karvyProCommonChecksResult)
                                 {
+
+                                    //Create new Bank Accounts newly added 
+                                    packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
+                                    bool CreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(processID, packagePath, configPath, adviserId);
+
                                     // Insert Customer Details into WERP Tables
                                     bool karvyProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                     if (karvyProCreateCustomerResult)
