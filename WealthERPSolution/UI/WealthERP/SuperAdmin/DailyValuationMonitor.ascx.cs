@@ -674,12 +674,12 @@ namespace WealthERP.SuperAdmin
         /// </summary>
         private void CalculateDateRange(out DateTime fromDate, out DateTime toDate)
         {
-            if (rbtnPickDate.Checked == true)
+            if (rbtnPickDate.Checked == true && rbtnPickDate.Visible==true)
             {
                 fromDate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
                 toDate = DateTime.Parse(txtToDate.SelectedDate.ToString());
             }
-            else if (rbtnPickPeriod.Checked == true)
+            else if (rbtnPickPeriod.Checked == true && rbtnPickPeriod.Visible == true)
             {
                 dtBo.CalculateFromToDatesUsingPeriod(ddlPeriod.SelectedValue.ToString(), out dtFrom, out dtTo);
                 fromDate = dtFrom;
@@ -1474,6 +1474,8 @@ namespace WealthERP.SuperAdmin
                     ddlAction.Items[3].Enabled = false;
 
                     ddlAction.Items[4].Enabled = false;
+                    ddlAction.Items[5].Enabled = false;
+                    ddlAction.Items[6].Enabled = false;
                 }
                 else
                 {
@@ -1483,6 +1485,8 @@ namespace WealthERP.SuperAdmin
                     ddlAction.Items[3].Enabled = true;
 
                     ddlAction.Items[4].Enabled = true;
+                    ddlAction.Items[5].Enabled = true;
+                    ddlAction.Items[6].Enabled = true;
                     string asset = ddlMonitorfr.SelectedValue;
                     // trdd1.Visible = true;
                     trRadioDatePeriod.Visible = true;
