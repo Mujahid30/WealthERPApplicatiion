@@ -385,13 +385,13 @@ namespace BoUploads
             return result;
         }
 
-        public bool UpdateMFFolioStaging(int StagingID, int MainStagingId, string PanNumber, string Folio, string broker)
+        public bool UpdateMFFolioStaging(int CPS_Id,int StagingID, int MainStagingId, string PanNumber, string Folio, string broker)
         {
             bool result = false;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                result = rejecetedRecords.UpdateMFFolioStaging(StagingID,MainStagingId, PanNumber, Folio,broker);
+                result = rejecetedRecords.UpdateMFFolioStaging(CPS_Id,StagingID,MainStagingId, PanNumber, Folio,broker);
             }
             catch (BaseApplicationException Ex)
             {
