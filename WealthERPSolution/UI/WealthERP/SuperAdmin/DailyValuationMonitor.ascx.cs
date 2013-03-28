@@ -214,6 +214,11 @@ namespace WealthERP.SuperAdmin
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
+            CalculateDateRange(out dtFrom, out dtTo);
+            hdnFromDate.Value = dtFrom.ToString();
+            hdnToDate.Value = dtTo.ToString();
+            hdnSelectDate.Value = txtDate.SelectedDate.ToString();
+
             if (ddlAction.SelectedValue != "NAVChange" && (ddlAction.SelectedValue == "DuplicateFolios" || ddlAction.SelectedValue == "DuplicateTransactions"))
             {
                 if (ddlAction.SelectedValue == "DuplicateFolios")
