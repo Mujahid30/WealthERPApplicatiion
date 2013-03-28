@@ -93,7 +93,18 @@
    
 
 </script>
-
+<script language="javascript" type="text/javascript">
+ function semicolon(text, e) {
+        var regx, flg;
+        regx = /[;]/
+        flg = regx.test(text.value);
+        if (flg) {
+            var val = text.value;
+            val = val.substr(0, (val.length) - 1)
+            text.value = val;
+        }
+    }
+    </script> 
 <script language="javascript" type="text/javascript">
     var ht = document.getElementById('pnlCustomerList').offsetHeight;
     var ele = document.getElementById('pnlCustomerList')
@@ -161,10 +172,10 @@
         <table width="100%" cellspacing="0" cellpadding="1" style="height: 30%">
             <tr>
                 <td>
-                    <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
+                    <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false" 
                         PagerStyle-AlwaysVisible="true" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
                         AutoGenerateColumns="False" ShowStatusBar="false" ShowFooter="false" AllowPaging="true"
-                        AllowSorting="true" Width="100%" GridLines="none" AllowAutomaticInserts="false"
+                        AllowSorting="true" Width="100%" GridLines="none" AllowAutomaticInserts="false" OnItemCreated="gvCustomerList_ItemCreated"
                         Height="20%" OnItemDataBound="gvCustomerList_ItemDataBound" Skin="Telerik" EnableHeaderContextMenu="true"
                         OnNeedDataSource="gvCustomerList_OnNeedDataSource" OnPreRender="gvCustomerList_PreRender">
                         <ExportSettings HideStructureColumns="true">
@@ -196,7 +207,7 @@
                                     SortExpression="CustomerId" FilterControlWidth="80px" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="Cust_Comp_Name" UniqueName="Cust_Comp_Name" HeaderText="Name" 
+                                <telerik:GridBoundColumn DataField="Cust_Comp_Name" UniqueName="Cust_Comp_Name" HeaderText="Name"
                                     ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="140px"
                                     SortExpression="Cust_Comp_Name" FilterControlWidth="120px" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
@@ -374,6 +385,8 @@
         <%--</div>--%>
     </asp:Panel>
 </div>
+<asp:Button ID="hiddenassociation" runat="server"  
+    onclick="hiddenassociation_Click" BorderStyle="None" BackColor="Transparent"/>
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnassociationcount" runat="server" />
 <%--<div>

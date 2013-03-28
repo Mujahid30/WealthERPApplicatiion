@@ -48,5 +48,6 @@ namespace WealthERP.Advisor {
         protected global::Telerik.Web.UI.RadRotator RadRotatorImage;
         protected global::Telerik.Web.UI.RadComboBox ddlAction;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;
+        protected global::System.Web.UI.WebControls.Button hiddenassociation;
     }
 }

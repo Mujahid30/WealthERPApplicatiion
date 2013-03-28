@@ -64,7 +64,7 @@ namespace WealthERP.Advisor
                 UserRole = "bm";
             //else
             //    UserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
-
+            //hiddenassociation.Visible = false;
             rmId = rmVo.RMId;
             branchHeadId = rmVo.RMId;
             #region
@@ -514,8 +514,9 @@ namespace WealthERP.Advisor
             DataTable dtCustomer = new DataTable();
             dtCustomer = (DataTable)Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole];
 
-            if (dtCustomer != null)
+            if (dtCustomer!=null)
             {
+                              
                 if (ViewState["IsActive"] != null)
                     statustype = ViewState["IsActive"].ToString();
                 if (ViewState["IsProspect"] != null)
@@ -626,8 +627,11 @@ namespace WealthERP.Advisor
                     else
                     {
                         gvCustomerList.DataSource = dtCustomer;
-                        pnlCustomerList.Style.Add("Height", "410px");
-
+                        if (dtCustomer.Rows.Count> 10)
+                        pnlCustomerList.Style.Add("Height", "410px");                             
+                        else
+                        pnlCustomerList.Style.Remove("Height");
+                            
                     }
                 }
                 else
@@ -686,10 +690,15 @@ namespace WealthERP.Advisor
                     else
                     {
                         gvCustomerList.DataSource = dtCustomer;
-                        pnlCustomerList.Style.Add("Height", "410px");
+                        if (dtCustomer.Rows.Count > 10)
+                            pnlCustomerList.Style.Add("Height", "410px");
+                        else
+                            pnlCustomerList.Style.Remove("Height");
+
                     }
                 }
             }
+                
         }
         /// <summary>
         /// 
@@ -786,6 +795,18 @@ namespace WealthERP.Advisor
                 gvCustomerList.MasterTableView.Rebind();
             }
         }
+        protected void gvCustomerList_ItemCreated(object sender, GridItemEventArgs e)
+        {
+            //if (e.Item is GridFilteringItem)
+            //{
+            //    GridFilteringItem fItem = (GridFilteringItem)e.Item;
+            //    foreach (GridColumn col in gvCustomerList.MasterTableView.Columns)
+            //    {
+
+            //        (fItem[col.UniqueName].Controls[0] as TextBox).Attributes.Add("onkeyup", "semicolon(this, event)");
+            //    }
+            //}
+        } 
         protected void gvCustomerList_PreRender(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -800,6 +821,7 @@ namespace WealthERP.Advisor
             {
                 RefreshCombos();
             }
+           
         }
 
         /// <summary>
@@ -874,13 +896,13 @@ namespace WealthERP.Advisor
             {
                 RadComboBox ddlAction = (RadComboBox)sender;
                 GridDataItem item = (GridDataItem)ddlAction.NamingContainer;
-                CustomerId = int.Parse(gvCustomerList.MasterTableView.DataKeyValues[item.ItemIndex]["CustomerId"].ToString());
+                ParentId = int.Parse(gvCustomerList.MasterTableView.DataKeyValues[item.ItemIndex]["CustomerId"].ToString());
                 userId = int.Parse(gvCustomerList.MasterTableView.DataKeyValues[item.ItemIndex]["UserId"].ToString());
-                Session["ParentIdForDelete"] = CustomerId;
-                customerVo = customerBo.GetCustomer(CustomerId);
+                Session["ParentIdForDelete"] = ParentId;
+                customerVo = customerBo.GetCustomer(ParentId);
                 Session["CustomerVo"] = customerVo;
 
-                if (ddlAction.SelectedItem.Value.ToString() != "Delete Profile")
+                if (ddlAction.SelectedItem.Value.ToString() != "DeleteProfile")
                 {
                     if (ddlAction.SelectedItem.Value.ToString() != "Profile")
                     {
@@ -903,15 +925,15 @@ namespace WealthERP.Advisor
                 {
                 }
                 //to check whether he is group head or not
-                isGrpHead = customerBo.CheckCustomerGroupHead(CustomerId);
+                isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
                 //to set portfolio Id and its details
-                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(CustomerId);
+                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
                 Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                 Session["customerPortfolioVo"] = customerPortfolioVo;
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-                    isGrpHead = customerBo.CheckCustomerGroupHead(CustomerId);
+                    isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
                     if (customerVo.IsProspect == 0)
                     {
                         if (isGrpHead == true)
@@ -927,8 +949,8 @@ namespace WealthERP.Advisor
                         }
                         else
                         {
-                            CustomerId = customerBo.GetCustomerGroupHead(CustomerId);
-                            customerVo = customerBo.GetCustomer(CustomerId);
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                            customerVo = customerBo.GetCustomer(ParentId);
                             Session["CustomerVo"] = customerVo;
 
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorRMCustGroupDashboard", "loadcontrol('AdvisorRMCustIndiDashboard','login');", true);
@@ -939,7 +961,7 @@ namespace WealthERP.Advisor
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
                     Session["IsDashboard"] = "false";
-                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(CustomerId);
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
                     if (customerVo.IsProspect == 0)
                     {
                         Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
@@ -948,14 +970,14 @@ namespace WealthERP.Advisor
                     }
                     else
                     {
-                        isGrpHead = customerBo.CheckCustomerGroupHead(CustomerId);
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
                         if (isGrpHead == false)
                         {
-                            CustomerId = customerBo.GetCustomerGroupHead(CustomerId);
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
                         }
                         else
                         {
-                            CustomerId = customerVo.CustomerId;
+                            ParentId = customerVo.ParentId;
                         }
                         Session[SessionContents.FPS_ProspectList_CustomerId] = CustomerId;
                         Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
@@ -968,22 +990,22 @@ namespace WealthERP.Advisor
                     Session["IsDashboard"] = "portfolio";
                     if (customerVo.IsProspect == 0)
                     {
-                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(CustomerId);
+                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
                         Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','login');", true);
                     }
                     else
                     {
-                        isGrpHead = customerBo.CheckCustomerGroupHead(CustomerId);
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
                         if (isGrpHead == false)
                         {
-                            CustomerId = customerBo.GetCustomerGroupHead(CustomerId);
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
                         }
                         else
                         {
-                            CustomerId = customerVo.CustomerId;
+                            ParentId = customerVo.CustomerId;
                         }
-                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(CustomerId);
+                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
                         Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                         customerVo = customerBo.GetCustomer(CustomerId);
                         Session["CustomerVo"] = customerVo;
@@ -993,7 +1015,7 @@ namespace WealthERP.Advisor
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
                     Session["IsDashboard"] = "alerts";
-                    isGrpHead = customerBo.CheckCustomerGroupHead(CustomerId);
+                    isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
                     if (isGrpHead == false)
                     {
                         if (customerVo.IsProspect == 1)
@@ -1024,27 +1046,27 @@ namespace WealthERP.Advisor
                 else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
                 {
                     Session["IsDashboard"] = "FP";
-                    if (CustomerId != 0)
+                    if (ParentId != 0)
                     {
                         if (customerVo.IsProspect == 0)
                         {
-                            Session[SessionContents.FPS_ProspectList_CustomerId] = CustomerId;
+                            Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
                         }
                         else
                         {
-                            isGrpHead = customerBo.CheckCustomerGroupHead(CustomerId);
+                            isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
                             if (isGrpHead == false)
                             {
-                                CustomerId = customerBo.GetCustomerGroupHead(CustomerId);
+                                ParentId = customerBo.GetCustomerGroupHead(ParentId);
                             }
                             else
                             {
                                 CustomerId = customerVo.CustomerId;
                             }
-                            Session[SessionContents.FPS_ProspectList_CustomerId] = CustomerId;
-                            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(CustomerId);
+                            Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
                             Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                            customerVo = customerBo.GetCustomer(CustomerId);
+                            customerVo = customerBo.GetCustomer(ParentId);
                             Session["CustomerVo"] = customerVo;
                         }
                     }
@@ -1064,25 +1086,25 @@ namespace WealthERP.Advisor
                 {
 
                     Session["IsDashboard"] = "CusDashBoardQuicklinks";
-                    isGrpHead = customerBo.CheckCustomerGroupHead(CustomerId);
+                    isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
                     if (isGrpHead == false)
                     {
                         if (customerVo.IsProspect == 1)
                         {
-                            CustomerId = customerBo.GetCustomerGroupHead(CustomerId);
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
                         }
                         else
                         {
-                            CustomerId = customerVo.CustomerId;
+                            ParentId = customerVo.CustomerId;
                         }
                     }
                     else
                     {
-                        CustomerId = customerVo.CustomerId;
+                        ParentId = customerVo.CustomerId;
                     }
-                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(CustomerId);
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                    customerVo = customerBo.GetCustomer(CustomerId);
+                    customerVo = customerBo.GetCustomer(ParentId);
                     Session["CustomerVo"] = customerVo;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerDashBoardShortcut", "loadcontrol('CustomerDashBoardShortcut','login');", true);
                 }
@@ -1111,28 +1133,25 @@ namespace WealthERP.Advisor
                 ParentId = int.Parse(Session["ParentIdForDelete"].ToString());
                 hdnassociationcount.Value = customerBo.GetAssociationCount("C", ParentId).ToString();
                 string asc = Convert.ToString(hdnassociationcount.Value);
-
                 if (asc == "0")
-
+                {
                     DeleteCustomerProfile();
-
-
+                }
                 else
-
+                {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
+                }
             }
         }
 
-         private void DeleteCustomerProfile()
+     private void DeleteCustomerProfile()
         {
             try
             {
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 userVo = (UserVo)Session[SessionContents.UserVo];
-
-
-                if (customerBo.DeleteCustomer(customerVo.ParentId, "D"))
-                {
+                if (customerBo.DeleteCustomer(customerVo.CustomerId, "D"))
+                { 
                     string DeleteStatus = "Customer Deleted Successfully";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','CustomerDeleteStatus=" + DeleteStatus + "');", true);
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','login');", true);
