@@ -260,7 +260,7 @@
         OnNeedDataSource="gvCAMSProfileReject_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView DataKeyNames="CMFFS_Id,CMFFS_MainStagingId,ADUL_ProcessId,CMFSS_BrokerCode,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
+        <MasterTableView DataKeyNames="CPS_Id,CMFFS_Id,CMFFS_MainStagingId,ADUL_ProcessId,CMFSS_BrokerCode,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
             Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn HeaderStyle-Width="80px" AllowFiltering="false" UniqueName="action"
@@ -309,6 +309,15 @@
                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                
+                
+                 <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="322px" HeaderText="CPS_Id"
+                    DataField="CPS_Id" UniqueName="CPS_Id" SortExpression="CPS_Id"
+                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                
                 
                 <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="322px" HeaderText="XUET_ExtractTypeCode"
                     DataField="XUET_ExtractTypeCode" UniqueName="XUET_ExtractTypeCode" SortExpression="XUET_ExtractTypeCode"

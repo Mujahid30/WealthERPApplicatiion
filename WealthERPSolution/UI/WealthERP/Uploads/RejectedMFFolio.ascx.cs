@@ -258,6 +258,7 @@ namespace WealthERP.Uploads
             string newFolio = string.Empty;
             string newbroker = string.Empty; 
             int StagingId = 0;
+            int CPS_Id = 0;
             int MainStagingId = 0;
             bool blResult = false;
             rejectedRecordsBo = new RejectedRecordsBo();
@@ -286,8 +287,8 @@ namespace WealthERP.Uploads
                     selectedRow = gdi.ItemIndex + 1;
                     StagingId = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CMFFS_Id"].ToString()));
                     MainStagingId = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CMFFS_MainStagingId"].ToString()));
-
-                    blResult = rejectedRecordsBo.UpdateMFFolioStaging(StagingId, MainStagingId, newPan, newFolio, newbroker);
+                    CPS_Id = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CPS_Id"].ToString()));
+                    blResult = rejectedRecordsBo.UpdateMFFolioStaging(CPS_Id, StagingId, MainStagingId, newPan, newFolio, newbroker);
                 }
             }
             if (blResult)
