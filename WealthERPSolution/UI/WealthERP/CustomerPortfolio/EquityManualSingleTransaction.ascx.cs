@@ -325,7 +325,7 @@ namespace WealthERP.CustomerPortfolio
                 if (txtOtherCharge.Text != "")
                     eqTransactionVo.OtherCharges = float.Parse(txtOtherCharge.Text);
                 eqTransactionVo.Quantity = float.Parse(txtNumShares.Text);
-                eqTransactionVo.IsSpeculative = 0;
+                //eqTransactionVo.IsSpeculative = 0;
                 eqTransactionVo.TradeType = "D";
 
 
