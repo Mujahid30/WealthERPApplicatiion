@@ -386,8 +386,8 @@ namespace WealthERP.Uploads
             genDictMFSystematic.Add("CAMS", "CA");
             genDictMFSystematic.Add("KARVY", "KA");
 
-            //genDictMFSystematic.Add("TEMPLETON", "TN");
-            //genDictMFSystematic.Add("SUNDARAM", "SU");
+            genDictMFSystematic.Add("TEMPLETON", "TN");
+            genDictMFSystematic.Add("SUNDARAM", "SU");
             genDictMFSystematic.Add("STANDARD", "WPT");
             return genDictMFSystematic;
         }
@@ -1701,8 +1701,8 @@ namespace WealthERP.Uploads
                                     updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
 
-                                    TempletonSIPInputResult = uploadsCommonBo.InsertIntoInputTableForTNSIP(sbXMLString.ToString());
-                                    //packagePath = Server.MapPath("\\UploadPackages\\TempSIPUpload\\TempSIPUpload\\InputTillXtrnl.dtsx");
+                                    //TempletonSIPInputResult = uploadsCommonBo.InsertIntoInputTableForTNSIP(sbXMLString.ToString());
+                                    packagePath = Server.MapPath("\\UploadPackages\\TempSIPUpload\\TempSIPUpload\\InputTillXtrnl.dtsx");
                                     TempletonSIPInputResult = camsUploadsBo.TempletonSIPInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
                                     if (TempletonSIPInputResult)
                                     {
@@ -1810,25 +1810,27 @@ namespace WealthERP.Uploads
                                 {
                                     bool updateProcessLog = false;
                                     bool SundaramSIPCommonStagingChk = false;
-                                    bool SundaramSIPInputResult = false;
+                                    bool SundaramSIPInputResult = true;
                                     bool SundaramSIPStagingCheckResult = false;
                                     bool SundaramSIPStagingResult = false;
                                     bool SundaramSIPCommonStagingToWERP = false;
 
-                                    SundaramSIPInputResult = uploadsCommonBo.InsertIntoInputTableForTNSIP(sbXMLString.ToString());
-                                    if (SundaramSIPInputResult)
-                                    {
-                                        SundaramSIPInputResult = uploadsCommonBo.InsertFromXMLToInputTableForSUSIP(UploadProcessId,fileName);
-                                        processlogVo.IsInsertionToInputComplete = 1;
-                                        processlogVo.IsInsertionToXtrnlComplete = 1;
-                                        processlogVo.EndTime = DateTime.Now;
-                                        processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                    //SundaramSIPInputResult = uploadsCommonBo.InsertIntoInputTableForTNSIP(sbXMLString.ToString());
+                                    //if (SundaramSIPInputResult)
+                                    //{
+                                       //SundaramSIPInputResult = uploadsCommonBo.InsertFromXMLToInputTableForSUSIP(UploadProcessId,fileName);
+                                        //processlogVo.IsInsertionToInputComplete = 1;
+                                        //processlogVo.IsInsertionToXtrnlComplete = 1;
+                                        //processlogVo.EndTime = DateTime.Now;
+                                        //processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                        //updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                         if (SundaramSIPInputResult)
                                             {
                                                 processlogVo.IsInsertionToSecondStagingComplete = 1;
                                                 processlogVo.EndTime = DateTime.Now;
                                                 SundaramSIPStagingCheckResult = uploadsCommonBo.InsertIntoXtrnlTableForSUSIP(UploadProcessId, fileName);
+                                                packagePath = Server.MapPath("\\UploadPackages\\SIPSundaramUpload\\SIPSundaramUpload\\SUxmlToInputToXtrnl.dtsx");
+                                                SundaramSIPStagingResult = camsUploadsBo.SundaramSIPInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
                                                 //SundaramSIPStagingCheckResult = true;
                                                 if (SundaramSIPStagingCheckResult)
                                                 {
@@ -1919,7 +1921,7 @@ namespace WealthERP.Uploads
 
                                             Session[SessionContents.ProcessLogVo] = processlogVo;
                                         }
-                                    }
+                                    //}
                                 }
 
 
