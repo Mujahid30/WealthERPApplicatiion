@@ -33,6 +33,8 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
             return DS;
         }
 
+     
+
         public static void ExecuteNonQuery(string CommandText, SqlParameter[] Params)
         {
             Database D = DatabaseFactory.CreateDatabase("wealtherp");
@@ -43,6 +45,14 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                 D.AddInParameter(DC, Param.ParameterName, Param.DbType, Param.Value);
             }
             D.ExecuteNonQuery(DC);
+        }
+
+       
+
+
+        public static void Trace(string Msg)
+        {
+            Console.WriteLine(DateTime.Now.ToString() + ": " + Msg);
         }
     }
 }
