@@ -79,6 +79,7 @@
     <Reference Include="VoEmailSMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonLookupDao.cs" />
     <Compile Include="EmailSMSDao.cs" />
     <Compile Include="MessageDao.cs" />
     <Compile Include="RepositoryDao.cs" />
