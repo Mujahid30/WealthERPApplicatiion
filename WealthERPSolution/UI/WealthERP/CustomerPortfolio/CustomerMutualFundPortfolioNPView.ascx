@@ -273,6 +273,14 @@
                                                                     DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
+                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="Annualized_Return" HeaderText="Annualized Return"
+                                                                    DataField="weightage returns" AllowFiltering="false" DataFormatString="{0:N2}">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>
+                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="Weighted_NAV" HeaderText="Weighted NAV"
+                                                                    DataField="Weighted NAV" AllowFiltering="false" DataFormatString="{0:N2}">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>                                                                 
                                                             </Columns>
                                                         </MasterTableView>
                                                         <HeaderStyle Width="150px" />
