@@ -70,6 +70,8 @@ namespace WealthERP.FP
         {
             SessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
+            tbl.Visible = false;
+            Panel2.Visible = false;
 
             if (!Page.IsPostBack)
             {
