@@ -58,5 +58,9 @@ namespace VoCustomerPortfolio
         public string AssetInstrumentSubCategoryName { get; set; }
         public DateTime FolioStartDate { get; set; }
         public DateTime InvestmentStartDate { get; set; }
+        public double AnnualisedReturns { get; set; }
+        public double WeightageNAV { get; set; }
+        public double WeightageDays { get; set; }
+        
     }
 }
