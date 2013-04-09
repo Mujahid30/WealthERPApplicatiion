@@ -1689,6 +1689,8 @@ namespace WealthERP.Reports {
             
             private global::System.Data.DataColumn columnCMFNP_RET_Hold_AnnualisedReturns;
             
+            private global::System.Data.DataColumn columnCMFNP_NAVDate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public MFReturnHoldingsDataTable() {
                 this.TableName = "MFReturnHoldings";
@@ -1895,6 +1897,13 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn CMFNP_NAVDateColumn {
+                get {
+                    return this.columnCMFNP_NAVDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1948,7 +1957,8 @@ namespace WealthERP.Reports {
                         string CustomerName, 
                         System.DateTime InvestmentStartDate, 
                         short CMFNP_RET_Hold_WeightageNAV, 
-                        long CMFNP_RET_Hold_AnnualisedReturns) {
+                        long CMFNP_RET_Hold_AnnualisedReturns, 
+                        System.DateTime CMFNP_NAVDate) {
                 MFReturnHoldingsRow rowMFReturnHoldingsRow = ((MFReturnHoldingsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Scheme,
@@ -1975,7 +1985,8 @@ namespace WealthERP.Reports {
                         CustomerName,
                         InvestmentStartDate,
                         CMFNP_RET_Hold_WeightageNAV,
-                        CMFNP_RET_Hold_AnnualisedReturns};
+                        CMFNP_RET_Hold_AnnualisedReturns,
+                        CMFNP_NAVDate};
                 rowMFReturnHoldingsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMFReturnHoldingsRow);
                 return rowMFReturnHoldingsRow;
@@ -2020,6 +2031,7 @@ namespace WealthERP.Reports {
                 this.columnInvestmentStartDate = base.Columns["InvestmentStartDate"];
                 this.columnCMFNP_RET_Hold_WeightageNAV = base.Columns["CMFNP_RET_Hold_WeightageNAV"];
                 this.columnCMFNP_RET_Hold_AnnualisedReturns = base.Columns["CMFNP_RET_Hold_AnnualisedReturns"];
+                this.columnCMFNP_NAVDate = base.Columns["CMFNP_NAVDate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2074,6 +2086,8 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnCMFNP_RET_Hold_WeightageNAV);
                 this.columnCMFNP_RET_Hold_AnnualisedReturns = new global::System.Data.DataColumn("CMFNP_RET_Hold_AnnualisedReturns", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCMFNP_RET_Hold_AnnualisedReturns);
+                this.columnCMFNP_NAVDate = new global::System.Data.DataColumn("CMFNP_NAVDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCMFNP_NAVDate);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3875,6 +3889,21 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime CMFNP_NAVDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableMFReturnHoldings.CMFNP_NAVDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CMFNP_NAVDate\' in table \'MFReturnHoldings\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFReturnHoldings.CMFNP_NAVDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsSchemeNull() {
                 return this.IsNull(this.tableMFReturnHoldings.SchemeColumn);
             }
@@ -4122,6 +4151,16 @@ namespace WealthERP.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetCMFNP_RET_Hold_AnnualisedReturnsNull() {
                 this[this.tableMFReturnHoldings.CMFNP_RET_Hold_AnnualisedReturnsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsCMFNP_NAVDateNull() {
+                return this.IsNull(this.tableMFReturnHoldings.CMFNP_NAVDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetCMFNP_NAVDateNull() {
+                this[this.tableMFReturnHoldings.CMFNP_NAVDateColumn] = global::System.Convert.DBNull;
             }
         }
         
