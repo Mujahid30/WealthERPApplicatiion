@@ -104,6 +104,7 @@ namespace VoUser
         private int m_TaxSlab;
         private int m_CustomerCategoryCode;
         private int m_mfKYC;
+        private string m_ACC_customerCategoryName;
 
         public int CustomerCategoryCode
         {
@@ -111,7 +112,6 @@ namespace VoUser
             set { m_CustomerCategoryCode = value; }
         }
       
-
         public long RMMobile
         {
             get { return m_RMMobile; }
@@ -587,7 +587,11 @@ namespace VoUser
             get { return m_mfKYC; }
             set { m_mfKYC = value; }
         }
-       
+        public string ACC_CustomerCategoryName
+        {
+            get { return m_ACC_customerCategoryName; }
+            set { m_ACC_customerCategoryName = value; }
+        }
         #endregion Properties
 
     }
@@ -638,6 +642,7 @@ namespace VoUser
             get { return m_ProofImage; }
             set { m_ProofImage = value; }
         }
+     
         #endregion Properties
     }
 }
