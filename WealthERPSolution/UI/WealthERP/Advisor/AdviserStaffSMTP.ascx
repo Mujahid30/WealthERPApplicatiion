@@ -457,10 +457,10 @@
                                                 ErrorMessage="Please, enter valid number." CssClass="rfvPCG" ValidationExpression="^[0-9]+$"
                                                 ControlToValidate="txtGridPageSize">
                                             </asp:RegularExpressionValidator>
-                                            <asp:RangeValidator runat="server" ID="RangeValidator1" ControlToValidate="txtGridPageSize" Type="Integer" 
-                                                MinimumValue="10" MaximumValue="100" CssClass="rfvPCG"  ErrorMessage="Page Range between 10-100 Acceptable" ValidationGroup="BtnSubmitpage">
-                                                </asp:RangeValidator>                                                 
-                                               
+                                            <asp:RangeValidator runat="server" ID="RangeValidator1" ControlToValidate="txtGridPageSize"
+                                                Type="Integer" MinimumValue="10" MaximumValue="100" CssClass="rfvPCG" ErrorMessage="Page Range between 10-100 Acceptable"
+                                                ValidationGroup="BtnSubmitpage">
+                                            </asp:RangeValidator>
                                         </td>
                                     </tr>
                                     <tr>
@@ -472,13 +472,31 @@
                                             &nbsp;
                                         </td>
                                         <td>
-                                            <asp:Button ID="BtnSubmitpage" runat="server" Text="Submit" ValidationGroup="BtnSubmitpage" CssClass="PCGButton"
-                                                OnClick="btnSubmitPageSize_Click" />
+                                            <asp:Button ID="BtnSubmitpage" runat="server" Text="Submit" ValidationGroup="BtnSubmitpage"
+                                                CssClass="PCGButton" OnClick="btnSubmitPageSize_Click" />
+                                        </td>
+                                        <td class="tdEmpty">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div id="Div3" class="Note">
+                                                <p>
+                                                    <span style="font-weight: bold">Note:</span><br />
+                                                     Following Grid associated with display setting.<br />
+                                                     1.Accounts <br />
+                                                     2.MF SIP MIS <br />
+                                                     3.MF SIP Projections <br />
+                                                     4.Customer List <br />
+                                                     5.View Equity Transactions <br/>
+                                                </p>
+                                            </div>
                                         </td>
                                         <td class="tdEmpty">
                                         </td>
                                     </tr>
                                 </table>
+                    
                             </td>
                         </tr>
                     </table>
