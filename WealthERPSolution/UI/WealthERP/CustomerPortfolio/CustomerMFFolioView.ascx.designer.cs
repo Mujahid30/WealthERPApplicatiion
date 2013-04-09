@@ -192,7 +192,7 @@ namespace WealthERP.CustomerPortfolio
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtCustomerId;
-
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnrgHoldings;
         /// <summary>
         /// txtCustomer control.
         /// </summary>

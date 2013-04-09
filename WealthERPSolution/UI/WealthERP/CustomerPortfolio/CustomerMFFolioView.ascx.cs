@@ -75,6 +75,9 @@ namespace WealthERP.CustomerPortfolio
             
             if (!IsPostBack)
             {
+
+                Cache.Remove("FolioDetails" + customerVo.CustomerId.ToString());
+
                 this.Page.Culture = "en-GB";
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 BindPortfolioDropDown();
@@ -92,20 +95,36 @@ namespace WealthERP.CustomerPortfolio
                 FolioList = CustomerTransactionBo.GetCustomerMFFolios(portfolioId, customerVo.CustomerId);
 
                 // lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+
+                DataTable dtMFFolio = new DataTable();
+
+                dtMFFolio.Columns.Add("FolioId");
+                dtMFFolio.Columns.Add("ADUL_ProcessId");
+                dtMFFolio.Columns.Add("Folio No");
+                dtMFFolio.Columns.Add("AMC Name");
+                dtMFFolio.Columns.Add("Name");// original costumer name from folio uploads
+                dtMFFolio.Columns.Add("Mode Of Holding");
+                dtMFFolio.Columns.Add("A/C Opening Date", typeof(DateTime));
+
+
+                DataRow drMFFolio;
+
                 if (FolioList == null)
                 {
+                    imgBtnrgHoldings.Visible = false;
                     trSelectAction.Visible = false;
-                    trErrorMsg.Visible = true;
+                    //trErrorMsg.Visible = true;
                     //lblCurrentPage.Visible = false;
                     //lblTotalRows.Visible = false;
                     //DivPager.Visible = false;
-                    gvMFFolio.DataSource = null;
+                    gvMFFolio.DataSource = dtMFFolio;
                     gvMFFolio.DataBind();                    
                     //btnTransferFolio.Visible = false;
                     //btnMoveFolio.Visible = false;
                 }
                 else
                 {
+                    imgBtnrgHoldings.Visible = true;
                     if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
                     {
                         trSelectAction.Visible = false;
@@ -114,22 +133,11 @@ namespace WealthERP.CustomerPortfolio
                     {
                         trSelectAction.Visible = true;
                     }
-                    trErrorMsg.Visible = false;
+                    //trErrorMsg.Visible = false;
                     //lblTotalRows.Visible = true;
                     //lblCurrentPage.Visible = true;
                     //DivPager.Visible = true;
-                    DataTable dtMFFolio = new DataTable();
-
-                    dtMFFolio.Columns.Add("FolioId");
-                    dtMFFolio.Columns.Add("ADUL_ProcessId");
-                    dtMFFolio.Columns.Add("Folio No");
-                    dtMFFolio.Columns.Add("AMC Name");
-                    dtMFFolio.Columns.Add("Name");// original costumer name from folio uploads
-                    dtMFFolio.Columns.Add("Mode Of Holding");
-                    dtMFFolio.Columns.Add("A/C Opening Date", typeof(DateTime));
-
-
-                DataRow drMFFolio;
+                   
 
                     for (int i = 0; i < FolioList.Count; i++)
                     {
@@ -232,7 +240,6 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
             ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlPortfolio.DataBind();
-
             ddlPortfolio.SelectedValue = portfolioId.ToString();
         }
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
@@ -357,7 +364,7 @@ namespace WealthERP.CustomerPortfolio
                 if (portfolioVo.PortfolioId < 1)
                 {
                     lblMessage.Text = "No default Portfolio found for the selected customer.";
-                    trErrorMsg.Visible = true;
+                    //trErrorMsg.Visible = true;
                     tblTransferFolio.Visible = false;
                     tblMoveFolio.Visible = false;
                     return;
@@ -366,7 +373,7 @@ namespace WealthERP.CustomerPortfolio
             else
             {
                 lblMessage.Text = "Please select a customer.";
-                trErrorMsg.Visible = true;
+                //trErrorMsg.Visible = true;
                 tblTransferFolio.Visible = false;
                 tblMoveFolio.Visible = false;
                 return;

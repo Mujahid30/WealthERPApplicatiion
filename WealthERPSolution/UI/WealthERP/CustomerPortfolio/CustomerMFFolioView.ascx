@@ -84,7 +84,7 @@
                             View MF Folio
                         </td>
                         <td align="right" style="width: 10px">
-                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                            <asp:ImageButton Visible="false" ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="20px"></asp:ImageButton>
                         </td>
@@ -129,7 +129,7 @@
     </tr>
 </table>
 <div style="width: 1100px; overflow: scroll">
-    <telerik:RadGrid ID="gvMFFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
+    <telerik:RadGrid ID="gvMFFolio"  runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
         AllowAutomaticInserts="false" OnItemDataBound="gvMFFolio_ItemDataBound" OnNeedDataSource="gvMFFolio_NeedDataSource">
@@ -264,10 +264,10 @@
         </td>
     </tr>
 </table>
-<table class="TableBackground" width="100%">
+<table visible="false" class="TableBackground" width="100%">
     <tr id="trErrorMsg" runat="server">
         <td align="center">
-            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found!"></asp:Label>
+            <asp:Label ID="lblMessage" Visible="false" runat="server" CssClass="Error" Text="No Records Found!"></asp:Label>
         </td>
     </tr>
 </table>
