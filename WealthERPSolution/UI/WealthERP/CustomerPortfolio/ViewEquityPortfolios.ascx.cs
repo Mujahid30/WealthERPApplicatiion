@@ -81,7 +81,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     EQPortfolioTabPages.Visible = false;
                     RadTabStrip1.Visible = false;
-                    Label4.Visible=false;
+                    //Label3.Visible = false;
                     lblCurrentValue.Visible = false;
                     Label1.Visible = false;
 
@@ -93,6 +93,7 @@ namespace WealthERP.CustomerPortfolio
                     //LoadEquityPortfolio();
                     //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     lblCurrentValue.Text = strLblCurrentValue;
+                    Label3.Text = strLblCurrentValue;
                 }
 
             }
@@ -386,6 +387,7 @@ namespace WealthERP.CustomerPortfolio
                         GridFooterItem footer = (GridFooterItem)gvEquityPortfolio.MasterTableView.GetItems(GridItemType.Footer)[0];
                         strLblCurrentValue = Convert.ToString(footer.Cells[9].Text);
                         lblCurrentValue.Text = strLblCurrentValue;
+                        Label3.Text = strLblCurrentValue;
                         //currentValue = int.Parse(totaltemp);
 
                         gvEquityPortfolio.Visible = true;
@@ -544,6 +546,7 @@ namespace WealthERP.CustomerPortfolio
                 LoadEquityPortfolio();
                 //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 lblCurrentValue.Text = strLblCurrentValue;
+                Label3.Text = strLblCurrentValue;
                 if (e.CommandName.ToString() != "Filter")
                 {
                     if (e.CommandName.ToString() != "Sort")
@@ -597,6 +600,7 @@ namespace WealthERP.CustomerPortfolio
                 LoadEquityPortfolio();
                 //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 lblCurrentValue.Text = strLblCurrentValue;
+                Label3.Text = strLblCurrentValue;
                 if (e.CommandName.ToString() != "Filter")
                 {
                     if (e.CommandName.ToString() != "Sort")
@@ -652,6 +656,7 @@ namespace WealthERP.CustomerPortfolio
                 LoadEquityPortfolio();
                 //lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
                 lblCurrentValue.Text = strLblCurrentValue;
+                Label4.Text = strLblCurrentValue;
                 if (e.CommandName.ToString() != "Filter")
                 {
                     if (e.CommandName.ToString() != "Sort")
@@ -708,6 +713,7 @@ namespace WealthERP.CustomerPortfolio
                 LoadEquityPortfolio();
                 //lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
                 lblCurrentValue.Text = strLblCurrentValue;
+                Label3.Text = strLblCurrentValue;
                 if (e.CommandName.ToString() != "Filter")
                 {
                     if (e.CommandName.ToString() != "Sort")
@@ -862,7 +868,8 @@ namespace WealthERP.CustomerPortfolio
             //Session[SessionContents.PortfolioId] = portfolioId;
             LoadEquityPortfolio();
             //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-            lblCurrentValue.Text = strLblCurrentValue;            
+            lblCurrentValue.Text = strLblCurrentValue;
+            Label3.Text = strLblCurrentValue;
         }
     }
 }

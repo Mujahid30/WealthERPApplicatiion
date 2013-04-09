@@ -41,6 +41,7 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblPortfolio;
         protected global::System.Web.UI.WebControls.Label lblPickDate;
         protected global::System.Web.UI.WebControls.Label lblErrorMsg;
+        protected global::System.Web.UI.WebControls.Label Label3;
         /// <summary>
         /// ddlPortfolio control.
         /// </summary>

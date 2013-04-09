@@ -55,12 +55,13 @@
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
-        <td></td>
+        <td>
+        </td>
         <td>
             <asp:Label ID="lblDate" runat="server" CssClass="FieldName">As on Date:</asp:Label>
         </td>
         <td>
-          <asp:Label ID="lblPickDate" runat="server"  CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblPickDate" runat="server" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnGo_Click"
@@ -70,7 +71,7 @@
 </table>
 <br />
 <br />
-<table  width="100%">
+<table width="100%">
     <tr align="center">
         <td>
             <div align="center">
@@ -184,6 +185,13 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Current Value  "></asp:Label>
+                         <asp:Label ID="Label3" runat="server" CssClass="Field"></asp:Label>
+                        
+                    </td>
+                </tr>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -232,13 +240,13 @@
                                             DataFormatString="{0:N2}">
                                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Sales Proceeds  "
+                                        <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Cost Of Sales"
                                             DataField="RealizedSalesProceeds" UniqueName="RealizedSalesProceeds" SortExpression="RealizedSalesProceeds"
                                             AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             Aggregate="Sum" DataFormatString="{0:N2}">
                                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Cost Of Sales  "
+                                        <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" HeaderText="Sales Proceed  "
                                             DataField="CostOfSales" UniqueName="CostOfSales" SortExpression="CostOfSales"
                                             AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             Aggregate="Sum" DataFormatString="{0:N2}">
@@ -441,6 +449,12 @@
                             </telerik:RadGrid>
                         </div>
                     </td>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Current Value  "></asp:Label>
+                            <asp:Label ID="lblCurrentValue" runat="server" CssClass="Field" Text="lblCurrentValue"></asp:Label>
+                        </td>
+                    </tr>
                 </tr>
             </table>
         </asp:Panel>
@@ -455,14 +469,6 @@
     <tr>
         <td colspan="3">
             &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Current Value  "></asp:Label>
-        </td>
-        <td colspan="2">
-            <asp:Label ID="lblCurrentValue" runat="server" CssClass="Field" Text="lblCurrentValue"></asp:Label>
         </td>
     </tr>
 </table>
