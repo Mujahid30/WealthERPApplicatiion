@@ -77,7 +77,7 @@ namespace DaoAdvisorProfiling
                 db.AddOutParameter(createAdvisorBranchCmd, "BranchId", DbType.Int32, 5000);
                 //added for Zone cluster Id insertion
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
-                
+
                 if (db.ExecuteNonQuery(createAdvisorBranchCmd) != 0)
                     branchId = int.Parse(db.GetParameterValue(createAdvisorBranchCmd, "BranchId").ToString());
 
@@ -1124,11 +1124,11 @@ namespace DaoAdvisorProfiling
                     advisorBranchVo.PinCode = int.Parse(dr["AB_PinCode"].ToString());
                     advisorBranchVo.State = dr["AB_State"].ToString();
                     if (!string.IsNullOrEmpty(dr["AZOC_ZoneClusterId"].ToString()))
-                    advisorBranchVo.ZoneClusterId =Convert.ToInt32(dr["AZOC_ZoneClusterId"].ToString());
+                        advisorBranchVo.ZoneClusterId = Convert.ToInt32(dr["AZOC_ZoneClusterId"].ToString());
                     if (!string.IsNullOrEmpty(dr["AZOC_Type"].ToString()))
-                    advisorBranchVo.ZoneClusterType = dr["AZOC_Type"].ToString();
+                        advisorBranchVo.ZoneClusterType = dr["AZOC_Type"].ToString();
                     if (!string.IsNullOrEmpty(dr["AZOC_Name"].ToString()))
-                    advisorBranchVo.ZoneClusterName = dr["AZOC_Name"].ToString();
+                        advisorBranchVo.ZoneClusterName = dr["AZOC_Name"].ToString();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1848,7 +1848,11 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerListCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerListForAssociation");
                 db.AddInParameter(getCustomerListCmd, "@A_AdviserId", DbType.Int32, adviserId);
-                db.AddInParameter(getCustomerListCmd, "@CurrentPage", DbType.Int32, currentPage);
+                if (currentPage != 0)
+                    db.AddInParameter(getCustomerListCmd, "@CurrentPage", DbType.Int32, currentPage);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@CurrentPage", DbType.Int32, DBNull.Value);
+
                 db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, sortExpression);
 
                 if (branchIdFilter != 0)
