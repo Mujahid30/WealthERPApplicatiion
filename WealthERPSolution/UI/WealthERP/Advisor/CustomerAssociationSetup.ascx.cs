@@ -75,9 +75,9 @@ namespace WealthERP.Advisor
             try
             {
                 GetPageCount();
-                
+
                 this.BindCustomer(mypager.CurrentPage);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -111,12 +111,12 @@ namespace WealthERP.Advisor
                 setShowHideControls(1);
 
             }
-            
+
 
         }
 
         protected void BindGrid(int CurrentPage)
-        {        
+        {
 
             if (hdnCurrentPage.Value.ToString() != "")
             {
@@ -124,7 +124,7 @@ namespace WealthERP.Advisor
                 hdnCurrentPage.Value = "";
             }
 
-            int Count=0;
+            int Count = 0;
 
             //customerList = advisorBranchBO.(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictRM, out genDictReassignRM);
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
@@ -138,23 +138,41 @@ namespace WealthERP.Advisor
         private StringBuilder GetSelectedCustomerIdString()
         {
             StringBuilder customerIds = new StringBuilder();
-      
-            //'Navigate through each row in the GridView for checkbox items
-            foreach (GridViewRow gvRow in gvAssociation.Rows)
+
+            if (!chkSelectAllpages.Checked)
             {
-                int rowIndex = gvRow.RowIndex;
-                DataKey dKey = gvAssociation.DataKeys[rowIndex];
-
-                int customerId = int.Parse(dKey.Values["CustomerId"].ToString());
-
-                CheckBox chkBxItem = (CheckBox)gvRow.FindControl("chkId");
-                if (chkBxItem.Checked)
+                //'Navigate through each row in the GridView for checkbox items
+                foreach (GridViewRow gvRow in gvAssociation.Rows)
                 {
-                    customerIds.Append(dKey.Values["CustomerId"].ToString());
-                    customerIds.Append("~");
-                    //customerIds += dKey.Values["CustomerId"].ToString() + "~";
+                    int rowIndex = gvRow.RowIndex;
+                    DataKey dKey = gvAssociation.DataKeys[rowIndex];
+
+                    int customerId = int.Parse(dKey.Values["CustomerId"].ToString());
+
+                    CheckBox chkBxItem = (CheckBox)gvRow.FindControl("chkId");
+                    if (chkBxItem.Checked)
+                    {
+                        customerIds.Append(dKey.Values["CustomerId"].ToString());
+                        customerIds.Append("~");
+                        //customerIds += dKey.Values["CustomerId"].ToString() + "~";
+                    }
                 }
             }
+            else
+            {
+                DataTable dtGvAssociationDetails = new DataTable();
+                dtGvAssociationDetails = (DataTable)Cache["gvAssociationFull" + adviserVo.advisorId];
+                int i = 0;
+
+               
+                //DataColumn dc = new DataColumn();
+                foreach (DataRow dr in dtGvAssociationDetails.Rows)
+                {
+                    customerIds.Append(dtGvAssociationDetails.Rows[i]["CustomerId"].ToString()).Append("~");
+                    i++;
+                }
+            }
+
             return customerIds;
 
         }
@@ -171,7 +189,7 @@ namespace WealthERP.Advisor
                 trReassignRMCustomer.Visible = false;
                 trReassignRM.Visible = false;
                 btnReassignBranch.Visible = true;
-                btnReassignRM.Visible=false;
+                btnReassignRM.Visible = false;
                 ErrorMessage.Visible = false;
 
             }
@@ -183,8 +201,8 @@ namespace WealthERP.Advisor
                 trReassignRM.Visible = true;
                 btnReassignBranch.Visible = false;
                 btnReassignRM.Visible = true;
-               
- 
+
+
             }
         }
 
@@ -306,7 +324,7 @@ namespace WealthERP.Advisor
 
 
         }
-        
+
         protected void btnAreaSearch_Click(object sender, EventArgs e)
         {
             TextBox txtArea = GetAreaTextBox();
@@ -316,7 +334,7 @@ namespace WealthERP.Advisor
                 hdnAreaFilter.Value = txtArea.Text.Trim();
 
                 this.BindCustomer(mypager.CurrentPage);
-                
+
             }
 
         }
@@ -395,14 +413,19 @@ namespace WealthERP.Advisor
             string customer = "";
             AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
             List<CustomerVo> customerList = new List<CustomerVo>();
+
+            //
+            List<CustomerVo> allcustomerList = new List<CustomerVo>();
+
             RMVo customerRMVo = new RMVo();
             DataTable dtRMCustomer = new DataTable();
+            DataTable dtRMCustomerFull = new DataTable();
             try
             {
 
                 DropDownList ddl = new DropDownList();
                 Label lbl = new Label();
-               
+
                 //customer = Session["Customer"].ToString();
                 //if (customer.ToLower().Trim() == "find customer" || customer.ToLower().Trim() == "")
                 //    customer = "";
@@ -421,11 +444,13 @@ namespace WealthERP.Advisor
 
                 // Search Term is input into this hidden field
                 //hdnNameFilter.Value = customer;
-               
+
                 //customerList = adviserBranchBo.(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictRM, out genDictReassignRM);
                 customerList = adviserBranchBo.GetAdviserCustomerListForAssociation(int.Parse(hndBranchIdFilter.Value.ToString()), adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnBranchFilter.Value, hdnRMNameFilter.Value, hdnAreaFilter.Value, hdnCityFilter.Value, out advisorBranchList);
+                allcustomerList = adviserBranchBo.GetAdviserCustomerListForAssociation(int.Parse(hndBranchIdFilter.Value.ToString()), adviserVo.advisorId,0, out Count, hdnSort.Value, hdnNameFilter.Value, hdnBranchFilter.Value, hdnRMNameFilter.Value, hdnAreaFilter.Value, hdnCityFilter.Value, out advisorBranchList);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
+                #region forcustomerlist
                 dtRMCustomer.Columns.Add("CustomerId");
                 dtRMCustomer.Columns.Add("UserId");
                 dtRMCustomer.Columns.Add("RMId");
@@ -443,6 +468,28 @@ namespace WealthERP.Advisor
                 dtRMCustomer.Columns.Add("BranchName");
                 dtRMCustomer.Columns.Add("BranchId");
                 dtRMCustomer.Columns.Add("CustomerType");
+                #endregion
+
+
+                #region forallcustomerlist
+                dtRMCustomerFull.Columns.Add("CustomerId");
+                dtRMCustomerFull.Columns.Add("UserId");
+                dtRMCustomerFull.Columns.Add("RMId");
+                dtRMCustomerFull.Columns.Add("Parent");
+                dtRMCustomerFull.Columns.Add("Cust_Comp_Name");
+                dtRMCustomerFull.Columns.Add("PAN Number");
+                dtRMCustomerFull.Columns.Add("Mobile Number");
+                dtRMCustomerFull.Columns.Add("Phone Number");
+                dtRMCustomerFull.Columns.Add("Email");
+                dtRMCustomerFull.Columns.Add("Address");
+                dtRMCustomerFull.Columns.Add("Area");
+                dtRMCustomerFull.Columns.Add("City");
+                dtRMCustomerFull.Columns.Add("Pincode");
+                dtRMCustomerFull.Columns.Add("RMName");
+                dtRMCustomerFull.Columns.Add("BranchName");
+                dtRMCustomerFull.Columns.Add("BranchId");
+                dtRMCustomerFull.Columns.Add("CustomerType");
+                #endregion
 
                 if (customerList == null)
                 {
@@ -465,7 +512,7 @@ namespace WealthERP.Advisor
                     //drRMCustomer[15] = string.Empty;
                     //drRMCustomer[16] = string.Empty;
                     //dtRMCustomer.Rows.Add(drRMCustomer);
-                    
+
                     //gvAssociation.DataSource = dtRMCustomer;
                     //gvAssociation.DataBind();
                     //gvAssociation.Columns[4].Visible = false;
@@ -473,7 +520,7 @@ namespace WealthERP.Advisor
                     //gvAssociation.Columns[8].Visible = false;
 
                     hdnRecordCount.Value = "0";
-                    
+
                     ErrorMessage.Visible = true;
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
@@ -489,14 +536,17 @@ namespace WealthERP.Advisor
                         trReassignRM.Visible = true;
                         btnReassignRM.Visible = true;
                     }
-                    
+
                     ErrorMessage.Visible = false;
                     trPager.Visible = true;
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
-                    
-                    DataRow drRMCustomer;
 
+                    DataRow drRMCustomer;
+                    DataRow drRMCustomerALL;
+
+                    #region customer list according to pagecount
+                    
                     for (int i = 0; i < customerList.Count; i++)
                     {
                         drRMCustomer = dtRMCustomer.NewRow();
@@ -558,10 +608,10 @@ namespace WealthERP.Advisor
                             drRMCustomer[9] = customerVo.Adr1Line2.ToString();
                         else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString() == "")
                             drRMCustomer[9] = customerVo.Adr1Line1.ToString();
-                        else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString()!="")
+                        else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString() != "")
                             drRMCustomer[9] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString() + "," + customerVo.Adr1Line3.ToString() + "," + customerVo.Adr1City.ToString();
 
-                        drRMCustomer[10] = customerVo.Adr1Line3.ToString()+","+customerVo.Adr1City.ToString();
+                        drRMCustomer[10] = customerVo.Adr1Line3.ToString() + "," + customerVo.Adr1City.ToString();
                         if (customerVo.Adr1City.ToString() != "" && customerVo.Adr1Line3.ToString() != "")
                             drRMCustomer[11] = customerVo.Adr1City.ToString() + "," + customerVo.Adr1Line3.ToString();
                         else if (customerVo.Adr1City.ToString() != "" && customerVo.Adr1Line3.ToString() == "")
@@ -569,16 +619,107 @@ namespace WealthERP.Advisor
                         else if (customerVo.Adr1City.ToString() == "" && customerVo.Adr1Line3.ToString() != "")
                             drRMCustomer[11] = customerVo.Adr1Line3.ToString();
                         else if (customerVo.Adr1City.ToString() == "" && customerVo.Adr1Line3.ToString() == "")
-                            drRMCustomer[11] ="-";
+                            drRMCustomer[11] = "-";
                         drRMCustomer[12] = customerVo.Adr1PinCode.ToString();
                         drRMCustomer[13] = customerVo.AssignedRM.ToString();
                         drRMCustomer[14] = customerVo.BranchName.ToString();
                         drRMCustomer[16] = customerVo.UserType.ToString();
-                         dtRMCustomer.Rows.Add(drRMCustomer);
+                        dtRMCustomer.Rows.Add(drRMCustomer);
                     }
+
+                    #endregion
+
+                    #region customerlist full
+                    
+                    for (int i = 0; i < allcustomerList.Count; i++)
+                    {
+                        drRMCustomerALL = dtRMCustomerFull.NewRow();
+                        customerVo = new CustomerVo();
+                        customerVo = allcustomerList[i];
+                        drRMCustomerALL[0] = customerVo.CustomerId.ToString();
+                        drRMCustomerALL[1] = customerVo.UserId.ToString();
+                        drRMCustomerALL[2] = customerVo.RmId.ToString();
+                        drRMCustomerALL["BranchId"] = customerVo.BranchId.ToString();
+                        if (customerVo.ParentCustomer != null)
+                        {
+                            drRMCustomerALL[3] = customerVo.ParentCustomer.ToString();
+                        }
+
+                        drRMCustomerALL[4] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+                        if (customerVo.PANNum != null)
+                            drRMCustomerALL[5] = customerVo.PANNum.ToString();
+                        else
+                            drRMCustomerALL[5] = "";
+                        drRMCustomerALL[6] = customerVo.Mobile1.ToString();
+                        drRMCustomerALL[7] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
+                        drRMCustomerALL[8] = customerVo.Email.ToString();
+                        if (customerVo.Adr1Line1 == null)
+                            customerVo.Adr1Line1 = "";
+                        if (customerVo.Adr1Line2 == null)
+                            customerVo.Adr1Line2 = "";
+                        if (customerVo.Adr1Line3 == null)
+                            customerVo.Adr1Line3 = "";
+                        if (customerVo.Adr1City == null)
+                            customerVo.Adr1City = "";
+                        if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() == "")
+                            drRMCustomerALL[9] = "-";
+                        else if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() != "")
+                            drRMCustomerALL[9] = customerVo.Adr1Line2.ToString();
+                        else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString() == "")
+                            drRMCustomerALL[9] = customerVo.Adr1Line1.ToString();
+                        else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString() != "")
+                            drRMCustomerALL[9] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString() + "," + customerVo.Adr1Line3.ToString() + "," + customerVo.Adr1City.ToString();
+
+                        drRMCustomerALL[10] = customerVo.Adr1Line3.ToString() + "," + customerVo.Adr1City.ToString();
+                        if (customerVo.Adr1City.ToString() != "" && customerVo.Adr1Line3.ToString() != "")
+                            drRMCustomerALL[11] = customerVo.Adr1City.ToString() + "," + customerVo.Adr1Line3.ToString();
+                        else if (customerVo.Adr1City.ToString() != "" && customerVo.Adr1Line3.ToString() == "")
+                            drRMCustomerALL[11] = customerVo.Adr1City.ToString();
+                        else if (customerVo.Adr1City.ToString() == "" && customerVo.Adr1Line3.ToString() != "")
+                            drRMCustomerALL[11] = customerVo.Adr1Line3.ToString();
+                        else if (customerVo.Adr1City.ToString() == "" && customerVo.Adr1Line3.ToString() == "")
+                            drRMCustomerALL[11] = "-";
+                        drRMCustomerALL[12] = customerVo.Adr1PinCode.ToString();
+                        drRMCustomerALL[13] = customerVo.AssignedRM.ToString();
+                        drRMCustomerALL[14] = customerVo.BranchName.ToString();
+                        drRMCustomerALL[16] = customerVo.UserType.ToString();
+                        dtRMCustomerFull.Rows.Add(drRMCustomerALL);
+                    }
+
+                    #endregion
 
                     gvAssociation.DataSource = dtRMCustomer;
                     gvAssociation.DataBind();
+
+                    #region customerlist
+                    
+                    if (Cache["gvAssociation"+adviserVo.advisorId] == null)
+                    {
+                        Cache.Insert("gvAssociation" + adviserVo.advisorId, dtRMCustomer);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvAssociation" + adviserVo.advisorId);
+                        Cache.Insert("gvAssociation" + adviserVo.advisorId, dtRMCustomer);
+                    }
+
+                    #endregion
+
+                    #region customerlist full
+                    if (Cache["gvAssociationFull" + adviserVo.advisorId] == null)
+                    {
+                        Cache.Insert("gvAssociationFull" + adviserVo.advisorId, dtRMCustomerFull);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvAssociationFull" + adviserVo.advisorId);
+                        Cache.Insert("gvAssociationFull" + adviserVo.advisorId, dtRMCustomerFull);
+                    }
+
+                    #endregion
+
+
+
                     gvAssociation.Columns[4].Visible = false;
                     //gvAssociation.Columns[5].Visible = false;
                     gvAssociation.Columns[8].Visible = false;
@@ -602,7 +743,7 @@ namespace WealthERP.Advisor
                     //}
 
                     if (advisorBranchList.Count > 0)
-                    {                        
+                    {
                         if (ddlAdvisorBranchList != null)
                         {
                             ddlAdvisorBranchList.DataSource = advisorBranchList;
@@ -613,7 +754,7 @@ namespace WealthERP.Advisor
                         }
                         if (hdnRMFilter.Value != "")
                         {
-                            ddlAdvisorBranchList.SelectedIndex=0;
+                            ddlAdvisorBranchList.SelectedIndex = 0;
                         }
                     }
                     if (advisorBranchList.Count > 0 && !Page.IsPostBack)
@@ -678,7 +819,7 @@ namespace WealthERP.Advisor
                         }
                     }
 
-                                       
+
 
                     this.GetPageCount();
                 }
@@ -762,7 +903,7 @@ namespace WealthERP.Advisor
             bool groupHead = false;
             if (ddlAdvisorBranchList.SelectedIndex != 0)
             {
-               string allCustomersId=Convert.ToString(GetSelectedCustomerIdString());
+                string allCustomersId = Convert.ToString(GetSelectedCustomerIdString());
                 if (string.IsNullOrEmpty(allCustomersId))
                 {
                     ddlAdvisorBranchList.SelectedIndex = 0;
@@ -770,9 +911,9 @@ namespace WealthERP.Advisor
                     return;
                 }
                 groupHead = advisorBranchBO.CheckCustomerGroupHead(allCustomersId);
-                if (groupHead==true)
+                if (groupHead == true)
                 {
-                    hndIsGroupHead.Value="true";
+                    hndIsGroupHead.Value = "true";
                 }
                 else
                     hndIsGroupHead.Value = "false";
@@ -814,7 +955,7 @@ namespace WealthERP.Advisor
                         else
                         {
                             trReassignRM.Visible = false;
- 
+
                         }
 
 
@@ -825,7 +966,7 @@ namespace WealthERP.Advisor
             }
         }
 
-        
+
 
         protected void btnReassignBranch_Click(object sender, EventArgs e)
         {
@@ -848,7 +989,7 @@ namespace WealthERP.Advisor
                 advisorBranchBO.ReassignCustomersBranchRM(selectedCusmoerIds, int.Parse(ddlBranchList.SelectedValue), int.Parse(ddlBranchRMList.SelectedValue));
                 SuccessMsg.Visible = true;
                 this.BindCustomer(mypager.CurrentPage);
- 
+
             }
 
         }
@@ -856,7 +997,7 @@ namespace WealthERP.Advisor
         protected void rdReassignRM_CheckedChanged(object sender, EventArgs e)
         {
             setShowHideControls(0);
-            ddlBranchList.SelectedIndex=0;
+            ddlBranchList.SelectedIndex = 0;
             hndBranchIdFilter.Value = "0";
             this.BindCustomer(mypager.CurrentPage);
             ddlBranchList.SelectedIndex = 0;
@@ -886,9 +1027,9 @@ namespace WealthERP.Advisor
         {
             hdnBranchFilter.Value = string.Empty;
             hndBranchIdFilter.Value = "0";
-            this.BindCustomer(mypager.CurrentPage);          
+            this.BindCustomer(mypager.CurrentPage);
             setShowHideControls(1);
-          
+
         }
         /// <summary>
         /// Binding RM list For a Branch
@@ -907,27 +1048,35 @@ namespace WealthERP.Advisor
         protected void ddlBranchRMList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-             bool groupHead = false;
-             if (ddlAdvisorBranchList.SelectedIndex != 0)
-             {
-                 string allCustomersId = Convert.ToString(GetSelectedCustomerIdString());
-                 if (string.IsNullOrEmpty(allCustomersId))
-                 {
-                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", "alert('Please select some customer for RM reassign');", true);
-                     return;
-                 }
-                 groupHead = advisorBranchBO.CheckCustomerGroupHead(allCustomersId);
-                 if (groupHead == true)
-                 {
-                     hndIsGroupHead.Value = "true";
-                 }
-                 else
-                     hndIsGroupHead.Value = "false";
+            bool groupHead = false;
+            if (ddlAdvisorBranchList.SelectedIndex != 0)
+            {
+                string allCustomersId = Convert.ToString(GetSelectedCustomerIdString());
+                if (string.IsNullOrEmpty(allCustomersId))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", "alert('Please select some customer for RM reassign');", true);
+                    return;
+                }
+                groupHead = advisorBranchBO.CheckCustomerGroupHead(allCustomersId);
+                if (groupHead == true)
+                {
+                    hndIsGroupHead.Value = "true";
+                }
+                else
+                    hndIsGroupHead.Value = "false";
 
-             }
+            }
         }
 
 
-       
+
+        protected void chkSelectAllpages_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkSelectAllpages.Checked == true)
+                gvAssociation.Columns[0].Visible = false;
+            else
+                gvAssociation.Columns[0].Visible = true;
+
+        }
     }
 }

@@ -56,17 +56,18 @@
             
             var gvAssociation = document.getElementById("ctrl_CuCustomerAssociationSetup_gvAssociation");
             var chkArray = gvAssociation.getElementsByTagName("input");
-           
+            alert(chkArray.length);
           
             
             var checked = 0;
             for (var i = 0; i < chkArray.length; i++) {
                 if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
+                    alert(chkArray[i].type);
                  checked = 1;
                    break;
                 }
             }
-            if (checked == 0) {
+            if (checked == 0 && chkArray.length!=0) {
                 alert('Please select atleast one Customer..');
                 return false;
             }
@@ -81,7 +82,11 @@
                     alert("Please select a RM");
                     return false;
                 }
-                CheckBranchGroupHead();
+                
+                
+                
+                
+                ();
 
             }
             else {
@@ -191,6 +196,10 @@
                 onselectedindexchanged="ddlBranchList_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
             <span id="spanddlBranchList" class="spnRequiredField" runat="server">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a branch"
+                Text="Please select a branch" Display="Dynamic" ValidationGroup="btnReassign"
+                ControlToValidate="ddlBranchList" InitialValue="0">
+            </asp:RequiredFieldValidator>
        
         </td>
     </tr>
@@ -212,7 +221,7 @@
     <tr>
     <td colspan="2" style="padding-left:8px">
     
-    <input id="chkSelectAllpages"  name="Select All across pages" value="Customer" type="checkbox" onclick="checkAllBoxes('AllPage')" />
+    <asp:CheckBox id="chkSelectAllpages"  name="Select All across pages" value="Customer" runat="server" type="checkbox" AutoPostBack="true" OnCheckedChanged="chkSelectAllpages_CheckedChanged" />
  <%--   <asp:CheckBox ID="chkSelectAllpages" runat="server" CssClass="FieldName" Text="Select All across pages"/>--%>
    <asp:Label ID="lblAllpages" class="Field" Text="Select all across pages" runat="server"></asp:Label>
     </td>
@@ -362,6 +371,10 @@
                 onselectedindexchanged="ddlAdvisorBranchList_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
             <span id="spanAdvisorBranch" class="spnRequiredField" runat="server">*</span>
+            <asp:RequiredFieldValidator ID="reqddlAdviser" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a Branch"
+                Text="Please select a Branch" Display="Dynamic" ValidationGroup="btnReassign"
+                ControlToValidate="ddlAdvisorBranchList" InitialValue="0">
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr id="trReassignRM" runat="server">
@@ -373,6 +386,10 @@
                 onselectedindexchanged="ddlBranchRMList_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
             <span id="spanBranchRM" class="spnRequiredField" runat="server">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a RM"
+                Text="Please select a RM" Display="Dynamic" ValidationGroup="btnReassign"
+                ControlToValidate="ddlBranchRMList" InitialValue="0">
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
 <tr>
@@ -380,9 +397,8 @@
     
     </td>
         <td align="left">        
-        <asp:Button ID="btnReassignBranch" runat="server"  ValidationGroup="btnReassign"
-                OnClientClick="return CheckSelection('BranchGroupHead');"  CssClass="PCGMediumButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddBranch_btnSubmit','M');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddBranch_btnSubmit','M');"
+        <asp:Button ID="btnReassignBranch" runat="server"  ValidationGroup="btnReassign"              
+                CssClass="PCGMediumButton"                
                 Text="Reassign" onclick="btnReassignBranch_Click" />            
         </td>
     </tr>
@@ -392,8 +408,7 @@
      </td>
         <td align="left">
            <asp:Button ID="btnReassignRM" runat="server" ValidationGroup="btnReassign" 
-                OnClientClick="return CheckSelection('RMGroupHead');" CssClass="PCGMediumButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddBranch_btnSubmit','M');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddBranch_btnSubmit','M');"
+                CssClass="PCGMediumButton"               
                 Text="Reassign" onclick="btnReassignRM_Click" />         
         </td>
     </tr>
