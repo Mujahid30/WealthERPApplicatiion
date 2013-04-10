@@ -146,8 +146,8 @@ namespace WealthERP.Advisor
         {
             if (UserRole == "rm")
             {
-                gvCustomerList.Columns[5].Visible = false;
                 gvCustomerList.Columns[6].Visible = false;
+                gvCustomerList.Columns[7].Visible = false;
             }
         }
 
