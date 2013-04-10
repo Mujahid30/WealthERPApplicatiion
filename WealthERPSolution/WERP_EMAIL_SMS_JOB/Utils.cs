@@ -25,13 +25,13 @@ namespace WERP_EMAIL_SMS_JOB
         private static string _SMTPPassword = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPPassword"]);
         private static string _SMTPFromDisplay = ConfigurationSettings.AppSettings["SMTPFromDisplay"];
         private static string _SMTPFrom = ConfigurationSettings.AppSettings["SMTPFrom"];
-        private static bool _SMTPDefaultCredentials=false;
+        private static bool _SMTPDefaultCredentials = false;
 
         private static string _SMSURL = ConfigurationSettings.AppSettings["SMSURL"];
         private static string _SMSUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMSUsername"]);
         private static string _SMSPassword = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMSPassword"]);
 
-      
+
 
         public static DataSet ExecuteDataSet(string CommandText, SqlParameter[] Params)
         {
@@ -70,76 +70,80 @@ namespace WERP_EMAIL_SMS_JOB
         }
 
         public static void SendMail(string To, string Cc, string Bcc, string Subject, string Body, ArrayList Attachments, string from, DataTable dtAdviserSMTP)
-        {          
-                                     
-              SetAdviserSMTP(dtAdviserSMTP, from);
+        {
 
-              SmtpClient smtpClient = new SmtpClient();
-              MailMessage mail = new MailMessage(_SMTPFromDisplay, To);
-            
+            SetAdviserSMTP(dtAdviserSMTP, from);
 
-              if (_SMTPDefaultCredentials == true)
-              {
-                  NetworkCredential basicCredential = new NetworkCredential(_SMTPUsername, _SMTPPassword);
-                  smtpClient.UseDefaultCredentials = false;
-                  smtpClient.Credentials = basicCredential;
-              }
-              else
-              {
-                  smtpClient.UseDefaultCredentials = true;
-              }
+            SmtpClient smtpClient = new SmtpClient();
+            MailMessage mail = new MailMessage(_SMTPFromDisplay, To);
 
-                smtpClient.Host = _SMTPServer;
-                if (_SMTPPort > 0)
-                    smtpClient.Port = _SMTPPort;
 
-                //Hardcoding SSL settings for gmail SMTP
-                if (_SMTPServer.Contains("smtp.gmail.com") || _SMTPServer.Contains("smtp.live.com"))
+            if (_SMTPDefaultCredentials == true)
+            {
+                NetworkCredential basicCredential = new NetworkCredential(_SMTPUsername, _SMTPPassword);
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = basicCredential;
+            }
+            else
+            {
+                smtpClient.UseDefaultCredentials = true;
+            }
+
+            smtpClient.Host = _SMTPServer;
+            if (_SMTPPort > 0)
+                smtpClient.Port = _SMTPPort;
+
+            //Hardcoding SSL settings for gmail SMTP
+            if (_SMTPServer.Contains("smtp.gmail.com") || _SMTPServer.Contains("smtp.live.com"))
+            {
+                smtpClient.EnableSsl = true;
+
+            }
+
+            if (!string.IsNullOrEmpty(_SMTPFromDisplay.Trim()))
+            {
+                if (_SMTPDefaultCredentials == true)
                 {
-                    smtpClient.EnableSsl = true;
-                    
+                    MailAddress md1 = new MailAddress(_SMTPUsername, _SMTPFromDisplay);
+                    mail.From = md1;
                 }
 
-                if (!string.IsNullOrEmpty(_SMTPFromDisplay.Trim()))
+                if (!string.IsNullOrEmpty(from.Trim()))
                 {
-                    if (_SMTPDefaultCredentials == true)
-                    {
-                        MailAddress md1 = new MailAddress(_SMTPUsername, _SMTPFromDisplay);
-                        mail.From = md1;
-                    }
-
-                    if (!string.IsNullOrEmpty(from.Trim()))
-                    {
-                        MailAddress md3 = new MailAddress(from, _SMTPFromDisplay);
-                        mail.ReplyTo = md3;
-                    }
+                    MailAddress md3 = new MailAddress(from, _SMTPFromDisplay);
+                    mail.ReplyTo = md3;
                 }
-                             
-                 
-               
-               
-               mail.Subject = Subject;
-               mail.IsBodyHtml = true;
-               mail.Body = Body;
+            }
 
-               if (mail.AlternateViews.Count != 0)
-               {
-                   foreach (AlternateView altrView in mail.AlternateViews)
-                   {
-                       mail.AlternateViews.Add(altrView);
-                   }
-               }
 
-               smtpClient.Send( mail);         
+            foreach (object obj in Attachments)
+            {
+                Attachment attachment = attachment = new Attachment(obj.ToString());
+                mail.Attachments.Add(attachment);
+            }  
 
-           
+            mail.Subject = Subject;
+            mail.IsBodyHtml = true;
+            mail.Body = Body;
+
+            if (mail.AlternateViews.Count != 0)
+            {
+                foreach (AlternateView altrView in mail.AlternateViews)
+                {
+                    mail.AlternateViews.Add(altrView);
+                }
+            }
+
+            smtpClient.Send(mail);
+
+
         }
 
-     
+
 
         public static void SetAdviserSMTP(DataTable dtAdviserSMTP, string from)
         {
-            
+
             if (dtAdviserSMTP.Rows.Count > 0)
             {
                 //_SMTPServer = dtAdviserSMTP.Rows[0]["ASS_HostServer"].ToString();
@@ -151,12 +155,12 @@ namespace WERP_EMAIL_SMS_JOB
                 _SMTPFromDisplay = dtAdviserSMTP.Rows[0]["ASS_SenderEmailAlias"].ToString();
                 if (string.IsNullOrEmpty(_SMTPFromDisplay.Trim()))
                 {
-                    _SMTPFromDisplay = dtAdviserSMTP.Rows[0]["A_OrgName"].ToString(); 
+                    _SMTPFromDisplay = dtAdviserSMTP.Rows[0]["A_OrgName"].ToString();
                 }
 
                 if (_SMTPFrom.Contains("WealthERP") || string.IsNullOrEmpty(_SMTPFrom))
                 {
-                    _SMTPFrom = dtAdviserSMTP.Rows[0]["A_Email"].ToString(); 
+                    _SMTPFrom = dtAdviserSMTP.Rows[0]["A_Email"].ToString();
                 }
 
                 if (!string.IsNullOrEmpty(_SMTPFromDisplay) && !string.IsNullOrEmpty(_SMTPFrom))
@@ -166,11 +170,11 @@ namespace WERP_EMAIL_SMS_JOB
                 }
                 _SMTPDefaultCredentials = Convert.ToBoolean(Convert.ToInt16(dtAdviserSMTP.Rows[0]["ASS_IsAuthenticationRequired"].ToString()));
             }
-            
+
 
         }
 
-       
+
 
 
         public static string SendSMS(Dictionary<string, string> SMSDetails)
