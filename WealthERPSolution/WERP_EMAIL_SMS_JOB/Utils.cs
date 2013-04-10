@@ -100,6 +100,11 @@ namespace WERP_EMAIL_SMS_JOB
 
             }
 
+            if (Cc != null && Cc.Trim().Length > 0)
+                mail.CC.Add(Cc);
+            if (Bcc != null && Bcc.Trim().Length > 0)
+                mail.Bcc.Add(Bcc);
+
             if (!string.IsNullOrEmpty(_SMTPFromDisplay.Trim()))
             {
                 if (_SMTPDefaultCredentials == true)
