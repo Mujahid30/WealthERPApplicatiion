@@ -305,8 +305,6 @@
             document.getElementById("<%= trRange.ClientID %>").style.display = 'block';
             document.getElementById("<%= trPeriod.ClientID %>").style.display = 'none';
             document.getElementById("<%= trAsOn.ClientID %>").style.display = 'none';
-            document.getElementById("<%= lblNote1.ClientID %>").style.display = 'block';
-            document.getElementById("<%= lblNote2.ClientID %>").style.display = 'none';
             
             var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
             selectedReport = dropdown.options[dropdown.selectedIndex].value
@@ -327,16 +325,12 @@
             document.getElementById("<%= trRange.ClientID %>").style.display = 'none';
             document.getElementById("<%= trPeriod.ClientID %>").style.display = 'block';
             document.getElementById("<%= trAsOn.ClientID %>").style.display = 'none';
-            document.getElementById("<%= lblNote1.ClientID %>").style.display = 'block';
-            document.getElementById("<%= lblNote2.ClientID %>").style.display = 'none';
         }
         else if (type == 'AS_ON') {
             document.getElementById("<%= trAsOn.ClientID %>").style.display = 'block';
             document.getElementById("tblPickDate").style.display = 'none';
             document.getElementById("<%= trRange.ClientID %>").style.display = 'none';
             document.getElementById("<%= trPeriod.ClientID %>").style.display = 'none';
-            document.getElementById("<%= lblNote1.ClientID %>").style.display = 'none';
-            document.getElementById("<%= lblNote2.ClientID %>").style.display = 'block';
            
             
         }
@@ -1290,10 +1284,8 @@
     </tr>
 </table>
 <div style="margin: 6px">
-    <label id="lblNote1" runat="server" class="HeaderTextSmall" style="display:none">
+    <label id="lbl" class="HeaderTextSmall">
         Note: Only historical data is accessible from this screen. Recent data for the last 2 Business day will not be available. To view the recent data View Dashboards & Net Positions.</label>
-        <label id="lblNote2" runat="server" class="HeaderTextSmall" style="display:none">
-        Note: You can view the recent data, as on last business date.</label>
 </div>
 
 <asp:HiddenField ID="hidFromDate" Value="" runat="server" />
