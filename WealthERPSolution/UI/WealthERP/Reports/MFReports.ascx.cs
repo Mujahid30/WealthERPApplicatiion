@@ -186,6 +186,7 @@ namespace WealthERP.Reports
                 //}
                 if (!IsPostBack)
                 {
+                    lblNote2.Visible = true;
                     ddlMFTransactionTypeBind();
                     if (CustomerLogin == true)
                     {
