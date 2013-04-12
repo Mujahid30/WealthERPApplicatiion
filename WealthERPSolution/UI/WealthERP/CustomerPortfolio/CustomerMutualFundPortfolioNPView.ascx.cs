@@ -263,10 +263,10 @@ namespace WealthERP.CustomerPortfolio
             double totalRealizedInvestedCost = 0;
             double totalHoldingInvestedCost = 0;
 
-
-            if (ddlPortfolio.Items.Count == 0 || Session["mfPortfolioList"] == null)
+           
+            if (ddlPortfolio.Items.Count == 0 || Session["mfPortfolioList"]==null)
             {
-                ReturnsLabelVisibility(true);
+                ReturnsLabelVisibility(true);               
             }
             else
             {
@@ -370,7 +370,6 @@ namespace WealthERP.CustomerPortfolio
 
                 rgHoldings.DataSource = dtMFReturnsholding;
                 rgHoldings.DataBind();
-                
                 ViewState["HoldingReturns"] = dtMFReturnsholding;
                 if (dtMFReturnsholding.Rows.Count != 0)
                     imgBtnrgHoldings.Visible = true;
@@ -432,10 +431,10 @@ namespace WealthERP.CustomerPortfolio
             string expressonTaxHoldings = "";
             string expressonTaxRealized = "";
 
-
-            if (ddlPortfolio.Items.Count == 0 || Session["mfPortfolioList"] == null)
+           
+            if (ddlPortfolio.Items.Count == 0 || Session["mfPortfolioList"]==null)
             {
-                TaxLabelVisibility(true);
+                TaxLabelVisibility(true);                
             }
             else
             {
@@ -497,8 +496,8 @@ namespace WealthERP.CustomerPortfolio
                     imgBtnrgTaxRealized.Visible = true;
                 else
                     imgBtnrgTaxRealized.Visible = false;
-
-
+               
+               
             }
         }
 
@@ -751,24 +750,10 @@ namespace WealthERP.CustomerPortfolio
             else
                 drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = "0.00";
 
-            if (mfVo.NavDate == DateTime.MinValue)
+            if (mfVo.NavDate== DateTime.MinValue)
                 drMFPortfolioHoldings[21] = "N/A";
             else
-                drMFPortfolioHoldings[21] = mfVo.NavDate.ToShortDateString();
-
-            if (mfVo.AnnualisedReturns != 0)
-                drMFPortfolioHoldings[22] = mfVo.AnnualisedReturns.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[22] = "0.00";
-            if (mfVo.WeightageNAV != 0)
-                drMFPortfolioHoldings[23] = mfVo.WeightageNAV.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[23] = "0.00";
-            if (mfVo.WeightageDays != 0)
-                drMFPortfolioHoldings[24] = mfVo.WeightageDays.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[24] = "0.00";
-
+                 drMFPortfolioHoldings[21] = mfVo.NavDate.ToShortDateString();
         }
 
         private static void PopulateTaxHoldDataTable(DataRow drTaxHoldings, MFPortfolioNetPositionVo mfVo)
@@ -945,9 +930,6 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("InvestmentStartDate");
             dtReturnsHoldings.Columns.Add("CMFNP_RET_Hold_DVRAmounts", typeof(double));
             dtReturnsHoldings.Columns.Add("CMFNP_NAVDate");
-            dtReturnsHoldings.Columns.Add("weightage returns");
-            dtReturnsHoldings.Columns.Add("Weighted NAV");
-            dtReturnsHoldings.Columns.Add("Weighted Days");
         }
 
         private void ReturnsAllDataTableCreation(DataTable dtReturnsAll)
@@ -1052,7 +1034,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 AdvisorVo adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 DataSet dsMFInv = assetBo.GetMFInvAggrCurrentValues(portfolioId, adviserVo.advisorId);
-
+                
 
                 if (dsMFInv.Tables[0].Rows.Count > 0)
                 {
@@ -1162,73 +1144,73 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 dtSubCategoryPie = dsSubcategoryValue.Tables[0];
-                if (dtSubCategoryPie.Rows.Count > 0)
-                {
-                    // Total Assets Chart
-                    Series seriesAssets = new Series("seriesMFC");
-                    Legend legend = new Legend("AssetsLegend");
-                    legend.Enabled = true;
-                    string[] XValues = new string[dtSubCategoryPie.Rows.Count];
-                    double[] YValues = new double[dtSubCategoryPie.Rows.Count];
-                    int i = 0;
-                    seriesAssets.ChartType = SeriesChartType.Pie;
-
-                    foreach (DataRow dr in dtSubCategoryPie.Rows)
+                    if (dtSubCategoryPie.Rows.Count > 0)
                     {
-                        XValues[i] = dr["SubCategory"].ToString();
-                        YValues[i] = double.Parse(dr["AggrCurrentValue"].ToString());
-                        i++;
+                        // Total Assets Chart
+                        Series seriesAssets = new Series("seriesMFC");
+                        Legend legend = new Legend("AssetsLegend");
+                        legend.Enabled = true;
+                        string[] XValues = new string[dtSubCategoryPie.Rows.Count];
+                        double[] YValues = new double[dtSubCategoryPie.Rows.Count];
+                        int i = 0;
+                        seriesAssets.ChartType = SeriesChartType.Pie;
+
+                        foreach (DataRow dr in dtSubCategoryPie.Rows)
+                        {
+                            XValues[i] = dr["SubCategory"].ToString();
+                            YValues[i] = double.Parse(dr["AggrCurrentValue"].ToString());
+                            i++;
+                        }
+                        seriesAssets.Points.DataBindXY(XValues, YValues);
+
+
+                        chrtSubCategory.Series.Clear();
+                        chrtSubCategory.Series.Add(seriesAssets);
+
+                        chrtSubCategory.Legends.Clear();
+                        chrtSubCategory.Legends.Add(legend);
+                        chrtSubCategory.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
+                        chrtSubCategory.Legends["AssetsLegend"].Title = "Assets";
+                        chrtSubCategory.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
+                        chrtSubCategory.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+                        chrtSubCategory.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
+                        chrtSubCategory.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
+
+                        chrtSubCategory.ChartAreas[0].Area3DStyle.Enable3D = true;
+                        chrtSubCategory.ChartAreas[0].Area3DStyle.Perspective = 50;
+                        chrtSubCategory.Width = 500;
+                        chrtSubCategory.BackColor = System.Drawing.Color.Transparent;
+                        chrtSubCategory.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
+                        chrtSubCategory.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
+
+                        LegendCellColumn colors = new LegendCellColumn();
+                        colors.HeaderText = "Color";
+                        colors.ColumnType = LegendCellColumnType.SeriesSymbol;
+                        colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
+                        chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(colors);
+
+                        LegendCellColumn asset = new LegendCellColumn();
+                        asset.Alignment = ContentAlignment.MiddleLeft;
+                        asset.HeaderText = "SubCategory";
+                        asset.Text = "#VALX";
+                        chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(asset);
+
+                        LegendCellColumn assetPercent = new LegendCellColumn();
+                        assetPercent.Alignment = ContentAlignment.MiddleLeft;
+                        assetPercent.HeaderText = "AssetPercentage";
+                        assetPercent.Text = "#PERCENT";
+                        chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
+
+                        foreach (DataPoint point in chrtSubCategory.Series["seriesMFC"].Points)
+                        {
+                            point["Exploded"] = "true";
+                        }
+
+                        chrtSubCategory.DataBind();
+                        //chrtTotalAssets.Series["Assets"]. 
+                        chrtSubCategory.Visible = true;
+                        trSubCategoryWise.Visible = true;
                     }
-                    seriesAssets.Points.DataBindXY(XValues, YValues);
-
-
-                    chrtSubCategory.Series.Clear();
-                    chrtSubCategory.Series.Add(seriesAssets);
-
-                    chrtSubCategory.Legends.Clear();
-                    chrtSubCategory.Legends.Add(legend);
-                    chrtSubCategory.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
-                    chrtSubCategory.Legends["AssetsLegend"].Title = "Assets";
-                    chrtSubCategory.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
-                    chrtSubCategory.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
-                    chrtSubCategory.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
-                    chrtSubCategory.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
-
-                    chrtSubCategory.ChartAreas[0].Area3DStyle.Enable3D = true;
-                    chrtSubCategory.ChartAreas[0].Area3DStyle.Perspective = 50;
-                    chrtSubCategory.Width = 500;
-                    chrtSubCategory.BackColor = System.Drawing.Color.Transparent;
-                    chrtSubCategory.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
-                    chrtSubCategory.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
-
-                    LegendCellColumn colors = new LegendCellColumn();
-                    colors.HeaderText = "Color";
-                    colors.ColumnType = LegendCellColumnType.SeriesSymbol;
-                    colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
-                    chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(colors);
-
-                    LegendCellColumn asset = new LegendCellColumn();
-                    asset.Alignment = ContentAlignment.MiddleLeft;
-                    asset.HeaderText = "SubCategory";
-                    asset.Text = "#VALX";
-                    chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(asset);
-
-                    LegendCellColumn assetPercent = new LegendCellColumn();
-                    assetPercent.Alignment = ContentAlignment.MiddleLeft;
-                    assetPercent.HeaderText = "AssetPercentage";
-                    assetPercent.Text = "#PERCENT";
-                    chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
-
-                    foreach (DataPoint point in chrtSubCategory.Series["seriesMFC"].Points)
-                    {
-                        point["Exploded"] = "true";
-                    }
-
-                    chrtSubCategory.DataBind();
-                    //chrtTotalAssets.Series["Assets"]. 
-                    chrtSubCategory.Visible = true;
-                    trSubCategoryWise.Visible = true;
-                }
 
                 else
                 {
@@ -2203,7 +2185,7 @@ namespace WealthERP.CustomerPortfolio
             SetReturnsGridsNull();
             if (ddlDisplayType.SelectedIndex == 0)
             {
-
+               
                 BindReturnsGrid();
                 SetPanelVisibility(true, false);
                 trChart.Visible = true;
