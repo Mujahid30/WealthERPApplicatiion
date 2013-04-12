@@ -86,7 +86,7 @@ namespace WealthERP.Advisor
                         hdnUserRole.Value = "BM";
                         
                     }
-                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
                     {
                         hdnUserRole.Value = "Adviser";
                         

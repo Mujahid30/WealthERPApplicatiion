@@ -7,13 +7,14 @@
 <script id="pagescript" type="text/javascript" language="javascript">
     function callSearch(searchtype) {
         var searchstring = document.getElementById('<%= txtFindCustomer.ClientID %>').value;
-        var userRole = document.getElementById('<%=hdnUserRole.ClientID %>').value;
+        var userRole = document.getElementById('<%=hdnUserRole.ClientID %>').value;       
         if (userRole == 'RM')
             loadsearchcontrol('RMCustomer', 'RMCustomer', searchstring);
         else if (userRole == 'Adviser')
             loadsearchcontrol('AdviserCustomer', 'AdviserCustomer', searchstring);
         else if (userRole == 'BM')
             loadsearchcontrol('BMCustomer', 'BMCustomer', searchstring);
+       
     }
 </script>
 
