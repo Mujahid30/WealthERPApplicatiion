@@ -830,12 +830,12 @@ namespace DaoCustomerPortfolio
 
                         //newly added for wt nav , returns and days
 
-                        if (dr["CMFNP_RET_Hold_AnnualisedReturns"].ToString().Trim() != String.Empty)
-                            mfPortfNetPositionVo.AnnualisedReturns = double.Parse(dr["CMFNP_RET_Hold_AnnualisedReturns"].ToString());
-                        if (dr["CMFNP_RET_Hold_WeightageNAV"].ToString().Trim() != String.Empty)
-                            mfPortfNetPositionVo.WeightageNAV = double.Parse(dr["CMFNP_RET_Hold_WeightageNAV"].ToString());
-                        if (dr["CMFNP_RET_Hold_WeightageDays"].ToString().Trim() != String.Empty)
-                            mfPortfNetPositionVo.WeightageDays = double.Parse(dr["CMFNP_RET_Hold_WeightageDays"].ToString());
+                        //if (dr["CMFNP_RET_Hold_AnnualisedReturns"].ToString().Trim() != String.Empty)
+                        //    mfPortfNetPositionVo.AnnualisedReturns = double.Parse(dr["CMFNP_RET_Hold_AnnualisedReturns"].ToString());
+                        //if (dr["CMFNP_RET_Hold_WeightageNAV"].ToString().Trim() != String.Empty)
+                        //    mfPortfNetPositionVo.WeightageNAV = double.Parse(dr["CMFNP_RET_Hold_WeightageNAV"].ToString());
+                        //if (dr["CMFNP_RET_Hold_WeightageDays"].ToString().Trim() != String.Empty)
+                        //    mfPortfNetPositionVo.WeightageDays = double.Parse(dr["CMFNP_RET_Hold_WeightageDays"].ToString());
 
                         mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
                     }
