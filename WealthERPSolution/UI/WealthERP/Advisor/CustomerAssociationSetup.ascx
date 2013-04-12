@@ -7,103 +7,90 @@
 <script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
 
 <link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript">
 
-    function checkAllBoxes(type) {
+<script language="javascript" type="text/javascript">
+    function checkAllBoxes() {
 
         //get total number of rows in the gridview and do whatever
         //you want with it..just grabbing it just cause
         var totalChkBoxes = parseInt('<%= gvAssociation.Rows.Count %>');
-        var gvAssociation = document.getElementById('<%= gvAssociation.ClientID %>');
+        var gvControl = document.getElementById('<%= gvAssociation.ClientID %>');
 
         //this is the checkbox in the item template...this has to be the same name as the ID of it
         var gvChkBoxControl = "chkId";
-               
+
         //this is the checkbox in the header template
         var mainChkBox = document.getElementById("chkBoxAll");
-        if (type == "AllPage") {
-            if (mainChkBox.checked == false) {
-                mainChkBox.checked = true;
-
-            }
-            else {
-                mainChkBox.checked = false;
-            }
-
-        }
-        else {
-            var allMainChkBox = document.getElementById("chkSelectAllpages");
-            if (allMainChkBox.checked == true) {
-                allMainChkBox.checked = false;
-            }
-            
-         
-        }
 
         //get an array of input types in the gridview
-        var inputTypes = gvAssociation.getElementsByTagName("input");
+        var inputTypes = gvControl.getElementsByTagName("input");
 
         for (var i = 0; i < inputTypes.length; i++) {
             //if the input type is a checkbox and the id of it is what we set above
-            //then check or uncheck according to the main checkbox in the header template            
+            //then check or uncheck according to the main checkbox in the header template
             if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
                 inputTypes[i].checked = mainChkBox.checked;
         }
-    } 
- //********************************************************************************************************
-    
-        function CheckSelection(type){
-            
-            var gvAssociation = document.getElementById("ctrl_CuCustomerAssociationSetup_gvAssociation");
-            var chkArray = gvAssociation.getElementsByTagName("input");
-            alert(chkArray.length);
-          
-            
-            var checked = 0;
-            for (var i = 0; i < chkArray.length; i++) {
-                if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
-                    alert(chkArray[i].type);
-                 checked = 1;
-                   break;
-                }
-            }
-            if (checked == 0 && chkArray.length!=0) {
-                alert('Please select atleast one Customer..');
-                return false;
-            }
-            if (type == "BranchGroupHead") {
-                var ddlBranch = document.getElementById("<%=ddlAdvisorBranchList.ClientID %>").value
-                if (ddlBranch == 0) {
-                    alert("Please select a Branch");
-                    return false;
-                }
-                var ddlBranchRM = document.getElementById("<%=ddlBranchRMList.ClientID %>").value
-                if (ddlBranchRM == 0) {
-                    alert("Please select a RM");
-                    return false;
-                }
-                
-                
-                
-                
-                ();
+    }
+    </script>
 
-            }
-            else {
-                var ddlRMBranch = document.getElementById("<%=ddlBranchList.ClientID %>").value
-                if (ddlRMBranch == 0) {
-                    alert("Please select a Branch");
-                    return false;
-                }
-                
-                var ddlRM = document.getElementById("<%=ddlBranchRMList.ClientID %>").value
-                if (ddlRM == 0) {
-                    alert("Please select a RM");
-                    return false;
-                }
-                CheckRMGroupHead();
+<script type="text/javascript">
+
+ //********************************************************************************************************
+
+
+    function CheckSelection(type) {
+
+        var gvAssociation = document.getElementById("ctrl_CuCustomerAssociationSetup_gvAssociation");
+        var chkArray = gvAssociation.getElementsByTagName("input");
+
+
+
+        var checked = 0;
+        for (var i = 0; i < chkArray.length; i++) {
+            if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
+
+                checked = 1;
+                break;
             }
         }
+        if (checked == 0) {
+            alert('Please select atleast one Customer..');
+            return false;
+        }
+        if (type == "BranchGroupHead") {
+            var ddlBranch = document.getElementById("<%=ddlAdvisorBranchList.ClientID %>").value
+            if (ddlBranch == 0) {
+                alert("Please select a Branch");
+                return false;
+            }
+            var ddlBranchRM = document.getElementById("<%=ddlBranchRMList.ClientID %>").value
+            if (ddlBranchRM == 0) {
+                alert("Please select a RM");
+                return false;
+            }
+            CheckBranchGroupHead();
+
+
+
+
+
+        }
+        else {
+            var ddlRMBranch = document.getElementById("<%=ddlBranchList.ClientID %>").value
+            if (ddlRMBranch == 0) {
+                alert("Please select a Branch");
+                return false;
+            }
+
+            var ddlRM = document.getElementById("<%=ddlBranchRMList.ClientID %>").value
+            if (ddlRM == 0) {
+                alert("Please select a RM");
+                return false;
+            }
+            CheckRMGroupHead();
+        }
+    }
         
   //********************************************************************
 
@@ -248,7 +235,7 @@
                             <asp:Label ID="LblSelect" runat="server" Text=""></asp:Label>
                             <br />
                             <%--<asp:Button ID="lnkSelectAll" Text="All" runat="server"  OnClientClick="return CheckAll();" />--%>
-                           <input id="chkBoxAll" class="CheckField" name="CheckAllCustomer" value="Customer" type="checkbox" onclick="checkAllBoxes('CurrentPage')" />
+                           <input id="chkBoxAll" class="CheckField" name="CheckAllCustomer" value="Customer" type="checkbox" onclick="checkAllBoxes()"  />
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:CheckBox ID="chkId" runat="server" />
