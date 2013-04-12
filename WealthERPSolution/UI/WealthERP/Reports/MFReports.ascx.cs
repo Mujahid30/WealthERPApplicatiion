@@ -32,7 +32,6 @@ namespace WealthERP.Reports
         DateTime convertedFromDate;
         DateTime convertedToDate;
         DateBo dtBo = new DateBo();
-        PortfolioBo portfolioBo = new PortfolioBo();
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
         int activeTabIndex = 0;
@@ -43,6 +42,7 @@ namespace WealthERP.Reports
         DateTime chckdate = new DateTime();
         DateTime LatestValuationdate = new DateTime();
         AdvisorMISBo adviserMISBo = new AdvisorMISBo();
+        PortfolioBo portfolioBo = new PortfolioBo();
         int advisorId;
         //For Storing customer Details in to session for Report
         CustomerVo customerVo = new CustomerVo();
@@ -186,7 +186,6 @@ namespace WealthERP.Reports
                 //}
                 if (!IsPostBack)
                 {
-                    lblNote2.Visible = true;
                     ddlMFTransactionTypeBind();
                     if (CustomerLogin == true)
                     {
@@ -312,31 +311,7 @@ namespace WealthERP.Reports
                     txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
                     txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
                     txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
-                    
                 }
-                //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
-                //{
-                //    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                //    LatestValuationdate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, "MF").ToString());
-                //    hdnValuationDate.Value = LatestValuationdate.ToString();
-                //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-
-                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-
-                //}
-                //else
-                //{
-                //    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                //    hdnValuationDate.Value = LatestValuationdate.ToString();
-                //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtFromDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtToDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
-                //}
                 if (CustomerLogin == false)
                 {
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
