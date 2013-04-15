@@ -16,7 +16,8 @@ using VoReports;
 using BoReports;
 using CrystalDecisions.CrystalReports.Engine;
 using DanLudwig;
-using BoCustomerPortfolio;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
 
 namespace WealthERP.Reports
 {
@@ -32,6 +33,7 @@ namespace WealthERP.Reports
         DateTime convertedFromDate;
         DateTime convertedToDate;
         DateBo dtBo = new DateBo();
+        PortfolioBo portfolioBo = new PortfolioBo();
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
         int activeTabIndex = 0;
@@ -42,13 +44,19 @@ namespace WealthERP.Reports
         DateTime chckdate = new DateTime();
         DateTime LatestValuationdate = new DateTime();
         AdvisorMISBo adviserMISBo = new AdvisorMISBo();
-        PortfolioBo portfolioBo = new PortfolioBo();
         int advisorId;
         //For Storing customer Details in to session for Report
         CustomerVo customerVo = new CustomerVo();
         bool isGrpHead = false;
         bool CustomerLogin = false;
         bool strFromCustomerDashBoard = false;
+        Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
+
+        public enum Constants
+        {
+            MF = 1,
+            MFDate = 3
+        };
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -186,6 +194,7 @@ namespace WealthERP.Reports
                 //}
                 if (!IsPostBack)
                 {
+                    lblNote2.Visible = true;
                     ddlMFTransactionTypeBind();
                     if (CustomerLogin == true)
                     {
@@ -302,7 +311,15 @@ namespace WealthERP.Reports
                     tabViewAndEmailReports.ActiveTabIndex = 0;
                     //ShowFolios();
                     advisorId = advisorVo.advisorId;
-                    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                    //---------------------------------- Old code to get last Valuation date from History----
+                    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                    //hdnValuationDate.Value = LatestValuationdate.ToString();
+
+                    //---------------------------------- New code to get last Valuation date----------------------
+                    if (Session[SessionContents.ValuationDate] == null)
+                        GetLatestValuationDate();
+                    genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
+                    LatestValuationdate = genDict[Constants.MFDate.ToString()];
                     hdnValuationDate.Value = LatestValuationdate.ToString();
                     txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
                     txtFromDate.Text = LatestValuationdate.ToShortDateString();
@@ -311,7 +328,31 @@ namespace WealthERP.Reports
                     txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
                     txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
                     txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
+                    
                 }
+                //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
+                //{
+                //    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                //    LatestValuationdate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, "MF").ToString());
+                //    hdnValuationDate.Value = LatestValuationdate.ToString();
+                //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+
+                //}
+                //else
+                //{
+                //    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                //    hdnValuationDate.Value = LatestValuationdate.ToString();
+                //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtFromDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtToDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
+                //}
                 if (CustomerLogin == false)
                 {
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
@@ -350,6 +391,46 @@ namespace WealthERP.Reports
                 }
             }
 
+        }
+
+        private void GetLatestValuationDate()
+        {
+            DateTime EQValuationDate = new DateTime();
+            DateTime MFValuationDate = new DateTime();
+            PortfolioBo portfolioBo = null;
+            genDict = new Dictionary<string, DateTime>();
+            AdvisorVo advisorVo = new AdvisorVo();
+            int adviserId = 0;
+            try
+            {
+                portfolioBo = new PortfolioBo();
+                advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                adviserId = advisorVo.advisorId;
+                if (portfolioBo.GetLatestValuationDate(adviserId, Constants.MF.ToString()) != null)
+                {
+                    MFValuationDate = DateTime.Parse(portfolioBo.GetLatestValuationDate(adviserId, Constants.MF.ToString()).ToString());
+                }
+                genDict.Add(Constants.MFDate.ToString(), MFValuationDate);
+                Session[SessionContents.ValuationDate] = genDict;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "PortfolioDashboard.ascx.cs:GetLatestValuationDate()");
+                object[] objects = new object[3];
+                objects[0] = EQValuationDate;
+                objects[1] = adviserId;
+                objects[2] = MFValuationDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
