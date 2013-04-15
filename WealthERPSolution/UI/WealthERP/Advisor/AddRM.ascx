@@ -39,8 +39,10 @@
         return result;
     }
     function CheckItem(sender, args) {
-        var hdnIsOpsEnabled = document.getElementById("<%= hdnIsOpsEnabled.ClientID %>");
 
+        var hdnIsOpsEnabled = document.getElementById('ctrl_AddRM_hdnIsOpsEnabled').value;
+         
+        
         if (hdnIsOpsEnabled == "1") {
             var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
 
@@ -670,5 +672,5 @@
 <asp:HiddenField ID="hdnExistingBranches" runat="server" />
 <asp:HiddenField ID="hdnSelectedBranches" runat="server" />
 <asp:HiddenField ID="hdnIsSubscripted" runat="server" />
-<asp:HiddenField ID="hdnIsOpsEnabled" runat="server" />
+<asp:HiddenField ID="hdnIsOpsEnabled" runat="server"/>
 <%--</ContentTemplate>--%><%--</asp:UpdatePanel>--%>
