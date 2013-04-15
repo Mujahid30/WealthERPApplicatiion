@@ -228,6 +228,13 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label12;
+        protected global::System.Web.UI.WebControls.TextBox txtEducationExpense;
+        protected global::System.Web.UI.WebControls.TextBox txtWERPVehicleInsurance;
+        protected global::System.Web.UI.WebControls.TextBox txtVehicleInsuranceP;
+        protected global::System.Web.UI.WebControls.TextBox txtVehicleInsuranceA;
+        protected global::System.Web.UI.WebControls.TextBox txtVehicleInsurancePremium;
+        protected global::System.Web.UI.WebControls.TextBox txtVehicleInsuranceSA;
+        protected global::System.Web.UI.WebControls.TextBox txtTotalVehicleInsurancePremium;
         
         /// <summary>
         /// lblDirectEquity control.
@@ -3189,5 +3196,6 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnModalPopupId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnTabSelectedIndex;
     }
 }

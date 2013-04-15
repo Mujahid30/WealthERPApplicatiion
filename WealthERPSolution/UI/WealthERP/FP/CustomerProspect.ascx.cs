@@ -97,7 +97,10 @@ namespace WealthERP.FP
                         //rtb.Visible = false;
                         btnCustomerProspect.Visible = true;
                         //RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
-
+                        if (Session["SelectedTabIndex"] != null)
+                        {
+                            RadTabStrip1.SelectedIndex = int.Parse(Session["SelectedTabIndex"].ToString());
+                        }
                         //tblChildCustomer.Visible = true;
 
                     }
@@ -137,6 +140,9 @@ namespace WealthERP.FP
                 txtEducationLoanLO.Attributes.Add("readonly", "readonly");
                 txtOthersGISA.Attributes.Add("readonly", "readonly");
 
+                txtVehicleInsuranceSA.Attributes.Add("readonly", "readonly");
+                txtPersonalAccidentSA.Attributes.Add("readonly", "readonly");
+
                 txtTotalTermPremium.Attributes.Add("readonly", "readonly");
                 txtTotalEndowmentPremium.Attributes.Add("readonly", "readonly");
                 txtTotalWholeLifePremium.Attributes.Add("readonly", "readonly");
@@ -153,6 +159,7 @@ namespace WealthERP.FP
                 txtTotalPremiumOthers.Attributes.Add("readonly", "readonly");
                 txtIncomeTotal.Attributes.Add("readonly", "readonly");
                 txtTotalLO.Attributes.Add("readonly", "readonly");
+                txtTotalVehicleInsurancePremium.Attributes.Add("readonly", "readonly");
 
                 // EMI Total textboxes
                 txtHomeLoanEMITotal.Attributes.Add("readonly", "readonly");
@@ -180,6 +187,7 @@ namespace WealthERP.FP
                 ParentCustomerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                 Dictionary<string, object> Databuffer = customerProspectBo.Databuffer(ParentCustomerId);
                 DataRetrival(Databuffer);
+             
             }
 
         }
@@ -219,6 +227,7 @@ namespace WealthERP.FP
             {
                 //if (RadTabStrip1.TabIndex != 0)
                 //{
+                Session["SelectedTabIndex"] = RadTabStrip1.SelectedIndex.ToString();
                 Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
                 //}
@@ -1371,6 +1380,35 @@ namespace WealthERP.FP
                 }
                 assetdetailssubvolist.Add(assetdetailssubvo);
 
+                //Vehicle         
+
+                assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
+                assetdetailssubvo.AssetGroupCode = "GI";
+                assetdetailssubvo.AssetInstrumentCategoryCode = "GIBC";
+                assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIBCVE";
+                if (txtVehicleInsuranceA.Text.Trim() != string.Empty)
+                {
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtVehicleInsuranceA.Text.Trim()), 0);
+                }
+                if (txtVehicleInsuranceSA.Text.Trim() != string.Empty)
+                {
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtVehicleInsuranceSA.Text.Trim()), 0);
+                    totalgi += assetdetailssubvo.Value;
+                }
+                if (txtVehicleInsuranceP.Text.Trim() != string.Empty)
+                {
+                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtVehicleInsuranceP.Text.Trim()), 0);
+                }
+                if (txtVehicleInsurancePremium.Text.Trim() != string.Empty)
+                {
+                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtVehicleInsurancePremium.Text.Trim()), 0);
+                }
+                if (txtTotalVehicleInsurancePremium.Text.Trim() != string.Empty)
+                {
+                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalVehicleInsurancePremium.Text.Trim()), 0);
+                }
+                assetdetailssubvolist.Add(assetdetailssubvo);
+
 
                 //Others
 
@@ -1408,9 +1446,9 @@ namespace WealthERP.FP
                     txtTotalPersonalAccidentPremium.Text = "0";
                 if (txtTotalPremiumOthers.Text.Trim() == "")
                     txtTotalPremiumOthers.Text = "0";
-                if ((txtToalHealthInsurancePremium.Text.Trim() != "") || (txtTotalPropertyInsurancePremium.Text.Trim() != "") || (txtTotalPersonalAccidentPremium.Text.Trim() != "") || (txtTotalPremiumOthers.Text.Trim() != ""))
+                if ((txtToalHealthInsurancePremium.Text.Trim() != "") || (txtTotalPropertyInsurancePremium.Text.Trim() != "") || (txtTotalPersonalAccidentPremium.Text.Trim() != "") || (txtTotalPremiumOthers.Text.Trim() != "") || (txtTotalVehicleInsurancePremium.Text.Trim() != ""))
                 {
-                    totalGIPremium = (float.Parse(txtToalHealthInsurancePremium.Text.Trim()) + float.Parse(txtTotalPropertyInsurancePremium.Text.Trim()) + float.Parse(txtTotalPersonalAccidentPremium.Text.Trim()) + float.Parse(txtTotalPremiumOthers.Text.Trim()));
+                    totalGIPremium = (float.Parse(txtToalHealthInsurancePremium.Text.Trim()) + float.Parse(txtTotalPropertyInsurancePremium.Text.Trim()) + float.Parse(txtTotalPersonalAccidentPremium.Text.Trim()) + float.Parse(txtTotalVehicleInsurancePremium.Text.Trim()) + float.Parse(txtTotalPremiumOthers.Text.Trim()));
                 }
 
                 if ((totalLIPremium != 0) || (totalGIPremium != 0))
@@ -1489,6 +1527,10 @@ namespace WealthERP.FP
                 if (txtTotalPersonalAccidentPremium.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails.TotalPremiumValue += Math.Round(double.Parse(txtTotalPersonalAccidentPremium.Text.Trim()), 0);
+                }
+                if (txtTotalVehicleInsurancePremium.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += Math.Round(double.Parse(txtTotalVehicleInsurancePremium.Text.Trim()), 0);
                 }
                 if (txtTotalPremiumOthers.Text.Trim() != string.Empty)
                 {
@@ -1596,6 +1638,18 @@ namespace WealthERP.FP
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
+
+                //Education Expense
+                if (txtEducationExpense.Text.Trim() != string.Empty)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 15;
+                    if (txtEducationExpense.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtEducationExpense.Text.Trim()), 0);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+
                 //Insurance Premium
                 if ((finalPremiumtotal != 0) || (finalPremiumtotal == 0))
                 {
@@ -2007,6 +2061,11 @@ namespace WealthERP.FP
                         txtDomesticHelp.Text = cped.ExpenseValue.ToString();
                         totalexpense += cped.ExpenseValue;
                     }
+                    if (cped.ExpenseCategoryCode == 15)
+                    {
+                        txtEducationExpense.Text = cped.ExpenseValue.ToString();
+                        totalexpense += cped.ExpenseValue;
+                    }
                     if (cped.ExpenseCategoryCode == 9)
                     {
                         txtInsurance.Text = cped.ExpenseValue.ToString();
@@ -2307,6 +2366,16 @@ namespace WealthERP.FP
                         totalgi += cpasd.Value;
 
                     }
+                    if (cpasd.AssetGroupCode == "GI" && cpasd.AssetInstrumentCategoryCode == "GIBC" && cpasd.AssetInstrumentSubCategoryCode == "GIBCVE")
+                    {
+                        txtVehicleInsuranceA.Text = cpasd.AdjustedValue.ToString();
+                        txtVehicleInsuranceSA.Text = cpasd.Value.ToString();
+                        txtVehicleInsuranceP.Text = cpasd.Premium.ToString();
+                        txtVehicleInsurancePremium.Text = cpasd.AdjustedPremium.ToString();
+                        txtTotalVehicleInsurancePremium.Text = cpasd.TotalPremiumValue.ToString();
+                        totalgi += cpasd.Value;
+
+                    }
                     if (cpasd.AssetGroupCode == "GI" && cpasd.AssetInstrumentCategoryCode == "GIRI" && cpasd.AssetInstrumentSubCategoryCode == "GIRIOT")
                     {
                         txtOthersGIA.Text = cpasd.AdjustedValue.ToString();
@@ -2582,6 +2651,11 @@ namespace WealthERP.FP
                     {
                         txtWERPPersonalAccident.Text = Math.Round(double.Parse(!string.IsNullOrEmpty(drThird["CFPASID_WERPManagedValue"].ToString()) ? drThird["CFPASID_WERPManagedValue"].ToString() : "0"), 0).ToString();  
                         txtPersonalAccidentSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIBC" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIBCVE")
+                    {
+                        txtWERPVehicleInsurance.Text = Math.Round(double.Parse(!string.IsNullOrEmpty(drThird["CFPASID_WERPManagedValue"].ToString()) ? drThird["CFPASID_WERPManagedValue"].ToString() : "0"), 0).ToString();
+                        txtVehicleInsuranceSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()), 0).ToString();
                     }
                     if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIOT")
                     {
