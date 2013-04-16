@@ -50,6 +50,7 @@ namespace WealthERP.Reports
         bool isGrpHead = false;
         bool CustomerLogin = false;
         bool strFromCustomerDashBoard = false;
+
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
 
         public enum Constants
