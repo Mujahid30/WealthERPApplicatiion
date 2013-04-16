@@ -850,6 +850,12 @@
     <Compile Include="Advisor\LOB.ascx.designer.cs">
       <DependentUpon>LOB.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\MFNPAndTransactionCompare.ascx.cs">
+      <DependentUpon>MFNPAndTransactionCompare.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\MFNPAndTransactionCompare.ascx.designer.cs">
+      <DependentUpon>MFNPAndTransactionCompare.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\PopUp.aspx.cs">
       <DependentUpon>PopUp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3210,6 +3216,12 @@
     <Compile Include="Uploads\RejectedFoliosTransactionUpload.ascx.designer.cs">
       <DependentUpon>RejectedFoliosTransactionUpload.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Uploads\RejectedMFAutoSIPTransactions.ascx.cs">
+      <DependentUpon>RejectedMFAutoSIPTransactions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\RejectedMFAutoSIPTransactions.ascx.designer.cs">
+      <DependentUpon>RejectedMFAutoSIPTransactions.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Uploads\RejectedMFFolio.ascx.cs">
       <DependentUpon>RejectedMFFolio.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3865,6 +3877,7 @@
     <Content Include="Advisor\LeadManagement.ascx" />
     <Content Include="Advisor\LeadManagementAdd.ascx" />
     <Content Include="Advisor\LoanTrackingGrid.ascx" />
+    <Content Include="Advisor\MFNPAndTransactionCompare.ascx" />
     <Content Include="Advisor\RMAMCSchemewiseMIS.ascx" />
     <Content Include="Advisor\RMAMCWiseMIS.ascx" />
     <Content Include="Advisor\RMCustomerAMCSchemewiseMIS.ascx" />
@@ -6307,6 +6320,7 @@
     <Content Include="App_Themes\Maroon\PCG.skin" />
     <Content Include="App_Themes\Purple\TB.skin" />
     <Content Include="Uploads\RejectedFoliosTransactionUpload.ascx" />
+    <Content Include="Uploads\RejectedMFAutoSIPTransactions.ascx" />
     <Content Include="Uploads\RejectedSystematicTransactionInputRejects.ascx" />
     <Content Include="Uploads\RejectedSystematicTransactionStaging.ascx" />
     <Content Include="Uploads\StandardProfileInputRejects.ascx" />
