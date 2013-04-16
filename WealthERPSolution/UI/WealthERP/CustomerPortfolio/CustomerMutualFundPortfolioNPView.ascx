@@ -2,9 +2,9 @@
     Inherits="WealthERP.CustomerPortfolio.CustomerMutualFundPortfolioNPView" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
-</asp:ScriptManager>
+</asp:ScriptManager> 
 
-<script type="text/javascript" language="javascript"> 
+<script type="text/javascript" language="javascript">
     
 </script>
 
@@ -273,6 +273,14 @@
                                                                     DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
+                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="Annualized_Return" HeaderText="Annualized Return"
+                                                                    DataField="weightage returns" AllowFiltering="false" DataFormatString="{0:N2}">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>
+                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="Weighted_NAV" HeaderText="Weighted NAV"
+                                                                    DataField="Weighted NAV" AllowFiltering="false" DataFormatString="{0:N2}">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>                                                                 
                                                             </Columns>
                                                         </MasterTableView>
                                                         <HeaderStyle Width="150px" />
