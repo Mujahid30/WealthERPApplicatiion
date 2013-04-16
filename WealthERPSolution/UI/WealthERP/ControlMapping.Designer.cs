@@ -1915,6 +1915,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//MFNPAndTransactionCompare.ascx.
+        /// </summary>
+        internal static string MFNPAndTransactionCompare {
+            get {
+                return ResourceManager.GetString("MFNPAndTransactionCompare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OPS//MFOrderEntry.ascx.
         /// </summary>
         internal static string MFOrderEntry {
@@ -2379,6 +2388,15 @@ namespace WealthERP {
         internal static string RejectedKarvyTransaction {
             get {
                 return ResourceManager.GetString("RejectedKarvyTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploads//RejectedMFAutoSIPTransactions.ascx.
+        /// </summary>
+        internal static string RejectedMFAutoSIPTransactions {
+            get {
+                return ResourceManager.GetString("RejectedMFAutoSIPTransactions", resourceCulture);
             }
         }
         

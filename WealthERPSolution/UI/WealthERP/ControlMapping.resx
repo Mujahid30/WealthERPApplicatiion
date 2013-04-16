@@ -1545,4 +1545,12 @@
     <value>CommisionManagement//ReceivableSetup.ascx</value>
     <comment>CommisionManagement//ReceivableSetup.ascx</comment>
   </data>
+  <data name="MFNPAndTransactionCompare" xml:space="preserve">
+    <value>Advisor//MFNPAndTransactionCompare.ascx</value>
+    <comment>Advisor//MFNPAndTransactionCompare.ascx</comment>
+  </data>
+  <data name="RejectedMFAutoSIPTransactions" xml:space="preserve">
+    <value>Uploads//RejectedMFAutoSIPTransactions.ascx</value>
+    <comment>Uploads//RejectedMFAutoSIPTransactions.ascx</comment>
+  </data>
 </root>
