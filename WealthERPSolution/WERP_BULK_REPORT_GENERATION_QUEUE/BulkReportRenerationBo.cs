@@ -46,6 +46,8 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
         MFReportVo mfReportVo;
         string reportFilePath, adviserLogoPath, savedLocation;
         string reportFileName = string.Empty;
+        string reportStatus = string.Empty;
+        string tempAdviserId, tempRMId, tempCustomerId;
 
         public BulkReportRenerationBo()
         {
@@ -97,8 +99,8 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
 
         private void BulkReportSubProcessor(int parentRequestId)
         {
-            int requestLogId = 0;
-            DataSet dtBulkReportRequest = bulkReportGenerationDao.GetTheSubBulkReportRequestList(parentRequestId, daemonCode, out requestLogId);
+            
+            DataSet dtBulkReportRequest = bulkReportGenerationDao.GetTheSubBulkReportRequestList(parentRequestId, daemonCode);
             DataTable dtSubRequestList = dtBulkReportRequest.Tables[0];
             DataTable dtSubParameterValues = dtBulkReportRequest.Tables[1];
             try
@@ -107,18 +109,29 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                 foreach (DataRow dr in dtSubRequestList.Rows)
                 {
                     int subRequestId = Convert.ToInt32(dr["WR_SubRequestId"].ToString());
+                    int subRequestLogId = 0;
+                    bool exportStatus = false;
                     try
                     {
                         reportFileName = string.Empty;
+                        bulkReportGenerationDao.CreateTaskRequestLOG(subRequestId, out subRequestLogId);
                         DataView dvRReportParamerValues = new DataView(dtSubParameterValues, "WR_RequestId='" + subRequestId.ToString() + "'", "WR_RequestId", DataViewRowState.CurrentRows);
-                        ProcessBulkReport(dvRReportParamerValues.ToTable());
-                        bulkReportGenerationDao.InsertRequestOutputData(subRequestId, reportFileName);
-                        bulkReportGenerationDao.UpdateTaskRequestAndLOG(subRequestId, requestLogId, "SUCCESS");
-                        bulkReportGenerationDao.UpdateTaskRequestStatus(subRequestId, 1);
+                        exportStatus=ProcessBulkReport(dvRReportParamerValues.ToTable());
+                        if (exportStatus == true)
+                        {
+                            bulkReportGenerationDao.InsertRequestOutputData(subRequestId, reportFileName);
+                            bulkReportGenerationDao.UpdateTaskRequestAndLOG(subRequestId, subRequestLogId, reportStatus);
+                            bulkReportGenerationDao.UpdateTaskRequestStatus(subRequestId, 1);
+                        }
+                        else
+                        {
+                            bulkReportGenerationDao.UpdateTaskRequestAndLOG(subRequestId, subRequestLogId, reportStatus);
+                            
+                        }
                     }
                     catch (Exception ex)
                     {
-                        bulkReportGenerationDao.UpdateTaskRequestAndLOG(subRequestId, requestLogId, ex.Message);
+                        bulkReportGenerationDao.UpdateTaskRequestAndLOG(subRequestId, subRequestLogId, ex.Message);
 
                     }
                     finally
@@ -127,11 +140,11 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                     }
 
                 }
-                bulkReportGenerationDao.UpdateTaskRequestAndLOG(parentRequestId, requestLogId, "SUCCESS");
+               
             }
             catch (Exception ex)
             {
-                bulkReportGenerationDao.UpdateTaskRequestAndLOG(parentRequestId, requestLogId, ex.Message);
+               
 
             }
             finally
@@ -142,11 +155,13 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
 
         }
 
-        private void ProcessBulkReport(DataTable dtReportParamerValues)
+        private bool ProcessBulkReport(DataTable dtReportParamerValues)
         {
+            bool exportStatus = false;
             mfReportVo = new MFReportVo();
             mfReportVo = FillReportParamerValues(dtReportParamerValues);
-            ExportToPDF(mfReportVo);
+            exportStatus=ExportToPDF(mfReportVo);
+            return exportStatus;
 
         }
 
@@ -334,11 +349,37 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
             crmain = new ReportDocument();
             try
             {
+                if (string.IsNullOrEmpty(tempAdviserId))
+                {
+                    tempAdviserId = reportVo.AdviserId.ToString();
+                    advisorVo = advisorBo.GetAdvisor(reportVo.AdviserId);
+                }
+                if (string.IsNullOrEmpty(tempRMId))
+                {
+                    tempRMId = reportVo.RMId.ToString();
+                    customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(reportVo.RMId);
+                }
+                if (string.IsNullOrEmpty(tempCustomerId))
+                {
+                    tempCustomerId = reportVo.CustomerIds.ToString();
+                    customerVo = customerBo.GetCustomer(Convert.ToInt32(reportVo.CustomerIds));
+                }
 
+                if (tempAdviserId != reportVo.AdviserId.ToString())
+                {
+                    advisorVo = advisorBo.GetAdvisor(reportVo.AdviserId);
+                }
+                if (tempRMId != reportVo.RMId.ToString())
+                {
+                    customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(reportVo.RMId);
+                }
+                if (tempCustomerId != reportVo.CustomerIds.ToString())
+                {
+                    customerVo = customerBo.GetCustomer(Convert.ToInt32(reportVo.CustomerIds));
+                }
 
-                advisorVo = advisorBo.GetAdvisor(reportVo.AdviserId);
-                customerVo = customerBo.GetCustomer(Convert.ToInt32(reportVo.CustomerIds));
-                customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(reportVo.RMId);
+               
+                                
 
                 switch (reportVo.SubType)
                 {
@@ -357,9 +398,14 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 //crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                                 //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                                 AssignReportViewerProperties();
-                                reportFileName =  reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
+                                reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
                                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                                reportStatus = "Exported_Successfully";
+                            }
+                            else
+                            {
+                                reportStatus = "No_Record_Found";
                             }
                             break;
                         }
@@ -380,6 +426,11 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
                                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                                reportStatus = "Exported_Successfully";
+                            }
+                            else
+                            {
+                                reportStatus = "No_Record_Found";
                             }
                             break;
                         }
@@ -406,8 +457,12 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
                                 crmain.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, exportReportFullPath);
+                                reportStatus = "Exported_Successfully";
                             }
-
+                            else
+                            {
+                                reportStatus = "No_Record_Found";
+                            }
                             break;
                         }
 
@@ -431,6 +486,11 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
                                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                                reportStatus = "Exported_Successfully";
+                            }
+                            else
+                            {
+                                reportStatus = "No_Record_Found";
                             }
                             break;
                         }
@@ -453,6 +513,11 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
                                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                                reportStatus = "Exported_Successfully";
+                            }
+                            else
+                            {
+                                reportStatus = "No_Record_Found";
                             }
                             break;
                         }
@@ -482,6 +547,11 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
                                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                                reportStatus = "Exported_Successfully";
+                            }
+                            else
+                            {
+                                reportStatus = "No_Record_Found";
                             }
 
                             break;
@@ -515,6 +585,11 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
                                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
 
+                                reportStatus = "Exported_Successfully";
+                            }
+                            else
+                            {
+                                reportStatus = "No_Record_Found";
                             }
 
                             break;
@@ -540,35 +615,40 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
                                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                                reportStatus = "Exported_Successfully";
+                            }
+                            else
+                            {
+                                reportStatus = "No_Record_Found";
                             }
 
                             break;
                         }
                     //Added Three more cases for Display three new report : Author-Pramod
-                    case "RETURNS_PORTFOLIO_REALIZED":
-                        {
-                            finalReportPath = reportFilePath + @"\MFReturnsRealized.rpt";
-                            crmain.Load(finalReportPath);
-                            DataTable dtReturnsREPortfolio = mfReports.GetMFReturnRESummaryReport(reportVo, advisorVo.advisorId);
-                            if (dtReturnsREPortfolio.Rows.Count > 0)
-                            {
-                                crmain.SetDataSource(dtReturnsREPortfolio);
-                                setLogo(adviserLogoPath);
-                                crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToShortDateString());
-                                crmain.SetParameterValue("AsOnDate", reportVo.FromDate.ToShortDateString());
-                                AssignReportViewerProperties();
-                                reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
-                                exportReportFullPath = savedLocation + @"/" + reportFileName;
-                                crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
-                            }
+                    //case "RETURNS_PORTFOLIO_REALIZED":
+                    //    {
+                    //        finalReportPath = reportFilePath + @"\MFReturnsRealized.rpt";
+                    //        crmain.Load(finalReportPath);
+                    //        DataTable dtReturnsREPortfolio = mfReports.GetMFReturnRESummaryReport(reportVo, advisorVo.advisorId);
+                    //        if (dtReturnsREPortfolio.Rows.Count > 0)
+                    //        {
+                    //            crmain.SetDataSource(dtReturnsREPortfolio);
+                    //            setLogo(adviserLogoPath);
+                    //            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                    //            crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToShortDateString());
+                    //            crmain.SetParameterValue("AsOnDate", reportVo.FromDate.ToShortDateString());
+                    //            AssignReportViewerProperties();
+                    //            reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
+                    //            exportReportFullPath = savedLocation + @"/" + reportFileName;
+                    //            crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                    //        }
 
-                            break;
-                        }
+                    //        break;
+                    //    }
 
                     case "ELIGIBLE_CAPITAL_GAIN_DETAILS":
                         {
-                            finalReportPath = reportFilePath + @"\EligibleCapitalGainsDetails.rpt";
+                            finalReportPath = reportFilePath + @"\EligibleCapitalGainsSummary.rpt";
                             crmain.Load(finalReportPath);
                             DataTable dtEligibleCapitalGainsDetails = mfReports.GetEligibleCapitalGainDetailsReport(reportVo);
                             if (dtEligibleCapitalGainsDetails.Rows.Count > 0)
@@ -582,13 +662,18 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
                                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                                reportStatus = "Exported_Successfully";
+                            }
+                            else
+                            {
+                                reportStatus = "No_Record_Found";
                             }
 
                             break;
                         }
                     case "ELIGIBLE_CAPITAL_GAIN_SUMMARY":                 
                         {
-                            finalReportPath = reportFilePath + @"\EligibleCapitalGainsDetails.rpt";
+                            finalReportPath = reportFilePath + @"\EligibleCapitalGainsSummary.rpt";
                             crmain.Load(finalReportPath);
                             DataTable dtEligibleCapitalGainsSummary = mfReports.GetEligibleCapitalGainDetailsReport(reportVo);
                             if (dtEligibleCapitalGainsSummary.Rows.Count > 0)
@@ -602,7 +687,92 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
                                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                                reportStatus = "Exported_Successfully";
                             }
+                            else
+                            {
+                                reportStatus = "No_Record_Found";
+                            }
+                        }
+                        break;
+                    case "TRANSACTION_REPORT_OPEN_CLOSE_BALANCE":
+                        finalReportPath = reportFilePath + @"\MFOpenCloseTransactionReport.rpt";
+                        crmain.Load(finalReportPath);
+                        DataTable dtOpeningClosingTransactions = mfReports.GetOpeningClosingTransactionReport(reportVo); 
+                        if (dtOpeningClosingTransactions.Rows.Count > 0)
+                        {
+
+                            setLogo(adviserLogoPath);
+                            //crmain.SetDataSource(dtOpeningClosingTransactions);
+                            crmain.Database.Tables["MFOpenCloseTransactionReport"].SetDataSource((DataTable)dtOpeningClosingTransactions);
+
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToShortDateString() + " to " + reportVo.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("FromDate", reportVo.FromDate.ToShortDateString());
+                            crmain.SetParameterValue("ToDate", reportVo.ToDate.ToShortDateString());
+                            AssignReportViewerProperties();
+                         
+                            reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
+                            exportReportFullPath = savedLocation + @"/" + reportFileName;
+                            crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                            reportStatus = "Exported_Successfully";
+                        }
+                        else
+                        {
+                            reportStatus = "No_Record_Found";
+                        }
+                       
+                        break;
+                    case "REALIZED_REPORT":
+                        finalReportPath = reportFilePath + @"\MFRealized.rpt";
+                        crmain.Load(finalReportPath);                        
+                        DataTable dtMFRealized = mfReports.GetMFRealizedReport(reportVo, advisorVo.advisorId);
+                        if (dtMFRealized.Rows.Count > 0)
+                        {
+                            crmain.SetDataSource(dtMFRealized);
+                            setLogo(adviserLogoPath);
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("AsOnDate", reportVo.FromDate.ToShortDateString());
+                            AssignReportViewerProperties();
+
+                            reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
+                            exportReportFullPath = savedLocation + @"/" + reportFileName;
+                            crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                            reportStatus = "Exported_Successfully";
+                        }
+                        else
+                        {
+                            reportStatus = "No_Record_Found";
+                        }
+                        
+                        break;
+                    case "COMPOSITION_REPORT":
+                        finalReportPath = reportFilePath + @"\SchemePerformance.rpt";
+                        crmain.Load(finalReportPath);                          
+                        DataSet dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(reportVo, advisorVo.advisorId);
+
+                        if (dsCustomerPortfolioComposition.Tables[0].Rows.Count > 0)
+                        {
+                            //crmain.SetDataSource(dsCustomerPortfolioComposition.Tables[0]);
+                            crmain.Database.Tables["PortfolioComposition"].SetDataSource(dsCustomerPortfolioComposition.Tables[0]);
+                            crmain.Subreports["MFTopTenHoldings"].Database.Tables["ToptenHoldings"].SetDataSource(dsCustomerPortfolioComposition.Tables[1]);
+                            crmain.Subreports["MFTopTenSectors"].Database.Tables["TopTenSectors"].SetDataSource(dsCustomerPortfolioComposition.Tables[4]);
+
+                            setLogo(adviserLogoPath);
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "As on: " + reportVo.FromDate.ToShortDateString());
+                            crmain.SetParameterValue("AsOnDate", reportVo.ToDate.ToShortDateString());
+                            AssignReportViewerProperties();
+
+                            reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
+                            exportReportFullPath = savedLocation + @"/" + reportFileName;
+                            crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportReportFullPath);
+                            reportStatus = "Exported_Successfully";
+                        }
+                        else
+                        {
+                            reportStatus = "No_Record_Found";
                         }
                         break;
 

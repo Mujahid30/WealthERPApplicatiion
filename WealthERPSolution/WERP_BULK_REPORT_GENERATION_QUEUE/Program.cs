@@ -19,7 +19,7 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
         {
             
             string adviserLogoPath = ConfigurationSettings.AppSettings["ADVISER_LOGO_PATH"].ToString();
-            string reportFilePath = ConfigurationSettings.AppSettings["REPORT_FILE_PATH"].ToString();
+            string reportFilePath = ConfigurationSettings.AppSettings["REPORT_RPT_FILE_PATH"].ToString();
             string reportSavePath = ConfigurationSettings.AppSettings["REPORT_SAVE_PATH"].ToString();
             BulkReportRenerationBo bulkReportRenerationBo = new BulkReportRenerationBo(reportFilePath, adviserLogoPath, reportSavePath);
             bulkReportRenerationBo.BulkReportProcessor();

@@ -54,7 +54,7 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
 
         }
 
-        public DataSet GetTheSubBulkReportRequestList(int parentRequestId, string daemonCode,out int logId)
+        public DataSet GetTheSubBulkReportRequestList(int parentRequestId, string daemonCode)
         {
             DataSet subRequestDS = null;
            
@@ -65,9 +65,9 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                 DbCommand CMD = DB.GetStoredProcCommand("SPROC_GetWERPSubRequestWithParameterValues");
                 DB.AddInParameter(CMD, "@TaskRequestId", DbType.Int32, parentRequestId);
                 DB.AddInParameter(CMD, "@DaemonCode", DbType.String, daemonCode);
-                DB.AddOutParameter(CMD, "@RequestLogId", DbType.Int32, 1000000);
+                //DB.AddOutParameter(CMD, "@RequestLogId", DbType.Int32, 1000000);
                 subRequestDS = DB.ExecuteDataSet(CMD);                    
-                logId = int.Parse(DB.GetParameterValue(CMD, "RequestLogId").ToString());
+                //logId = int.Parse(DB.GetParameterValue(CMD, "RequestLogId").ToString());
 
 
 
@@ -140,9 +140,9 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
             try
             {
                 SqlParameter[] Params = new SqlParameter[3];
-                Params[0] = new SqlParameter("@RequestLogId", taskRequestId);
+                Params[0] = new SqlParameter("@RequestLogId", logId);
                 Params[0].DbType = DbType.Int32;
-                Params[1] = new SqlParameter("@RequestTaskId", 1000000);
+                Params[1] = new SqlParameter("@RequestTaskId", taskRequestId);
                 Params[1].DbType = DbType.Int32;
                 Params[2] = new SqlParameter("@Message", message);
                 Params[2].DbType = DbType.String;
