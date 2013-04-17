@@ -765,9 +765,9 @@ namespace WealthERP.CustomerPortfolio
             else
                 drMFPortfolioHoldings[23] = "0.00";
             if (mfVo.WeightageDays != 0)
-                drMFPortfolioHoldings[24] = mfVo.WeightageDays.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings[24] = mfVo.WeightageDays;
             else
-                drMFPortfolioHoldings[24] = "0.00";
+                drMFPortfolioHoldings[24] = "0";
 
         }
 
@@ -945,8 +945,8 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("InvestmentStartDate");
             dtReturnsHoldings.Columns.Add("CMFNP_RET_Hold_DVRAmounts", typeof(double));
             dtReturnsHoldings.Columns.Add("CMFNP_NAVDate");
-            dtReturnsHoldings.Columns.Add("weightage returns");
-            dtReturnsHoldings.Columns.Add("Weighted NAV");
+            dtReturnsHoldings.Columns.Add("weightage returns", typeof(double));
+            dtReturnsHoldings.Columns.Add("Weighted NAV", typeof(double));
             dtReturnsHoldings.Columns.Add("Weighted Days");
         }
 

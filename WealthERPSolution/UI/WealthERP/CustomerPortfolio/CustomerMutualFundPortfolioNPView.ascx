@@ -265,7 +265,7 @@
                                                                     FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn HeaderStyle-Width="79px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)"
+                                                                <telerik:GridBoundColumn HeaderStyle-Width="79px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return (%)"
                                                                     DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
@@ -273,14 +273,19 @@
                                                                     DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="Annualized_Return" HeaderText="Annualized Return"
-                                                                    DataField="weightage returns" AllowFiltering="false" DataFormatString="{0:N2}">
+                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="Annualized_Return" HeaderText="Annualized Return (%)"
+                                                                    DataField="weightage returns" Aggregate="Sum" AllowFiltering="false" DataFormatString="{0:N2}"  FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="Weighted_NAV" HeaderText="Weighted NAV"
-                                                                    DataField="Weighted NAV" AllowFiltering="false" DataFormatString="{0:N2}">
+                                                                 <telerik:GridBoundColumn  Aggregate="Sum"  HeaderStyle-Width="77px" UniqueName="Weighted_NAV" HeaderText="Weighted NAV"
+                                                                    DataField="Weighted NAV" AllowFiltering="false" DataFormatString="{0:N4}"  FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
-                                                                </telerik:GridBoundColumn>                                                                 
+                                                                </telerik:GridBoundColumn>  
+                                                                 <telerik:GridBoundColumn   HeaderStyle-Width="77px" UniqueName="Weighted_Days" HeaderText="Weighted Days"
+                                                                    DataField="Weighted Days" AllowFiltering="false">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>   
+                                                                                                                          
                                                             </Columns>
                                                         </MasterTableView>
                                                         <HeaderStyle Width="150px" />
@@ -475,7 +480,7 @@
                                                                     AllowFiltering="false">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn HeaderStyle-Width="59px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)"
+                                                                <telerik:GridBoundColumn HeaderStyle-Width="59px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return (%)"
                                                                     DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
@@ -654,7 +659,7 @@
                                                                     FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn HeaderStyle-Width="63px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)"
+                                                                <telerik:GridBoundColumn HeaderStyle-Width="63px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return (%)"
                                                                     DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
