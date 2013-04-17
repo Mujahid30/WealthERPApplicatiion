@@ -60,7 +60,7 @@ namespace VoCustomerPortfolio
         public DateTime InvestmentStartDate { get; set; }
         public double AnnualisedReturns { get; set; }
         public double WeightageNAV { get; set; }
-        public double WeightageDays { get; set; }
+        public int WeightageDays { get; set; }
         
     }
 }
