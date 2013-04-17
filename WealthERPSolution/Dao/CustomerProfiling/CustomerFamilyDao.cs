@@ -569,6 +569,41 @@ namespace DaoCustomerProfiling
             else return 1;
 
         }
+        public bool Deleteassociation(int associateId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteAssociationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteAssociationCmd = db.GetStoredProcCommand("SPROC_DeleteAssociates");
+                db.AddInParameter(deleteAssociationCmd, "@C_AssociateId", DbType.String, associateId);
+                if (db.ExecuteNonQuery(deleteAssociationCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerFamilyBo.cs:Deleteassociation()");
+
+                object[] objects = new object[1];
+                objects[0] = associateId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return bResult;
+        }
     
     }
 }
