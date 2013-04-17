@@ -14,5 +14,9 @@ namespace WealthERP.Uploads
 
     public partial class RejectedMFAutoSIPTransactions
     {
+        protected global::Telerik.Web.UI.RadGrid gvAutoSIPReject;
+        protected global::Telerik.Web.UI.RadDatePicker txtFromSIP;
+        protected global::Telerik.Web.UI.RadDatePicker txtToSIP;
+        protected global::System.Web.UI.WebControls.Button btnViewSIP;
     }
 }

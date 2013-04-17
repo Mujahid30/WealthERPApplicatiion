@@ -352,6 +352,10 @@ namespace WealthERP.Uploads
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
                 }
+                else if (lnkbtn1.CommandArgument == "3029")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedMFAutoSIPTransactions','login');", true);
+                }
                 //else if (imgBtn1.CommandArgument == "3011" || lnkbtn1.CommandArgument == "3011")
                 //{
                 //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('RejectedWERPProfile','login');", true);
@@ -380,6 +384,15 @@ namespace WealthERP.Uploads
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
+                LinkButton col2 = e.Item.FindControl("lnkMFTreeNode2") as LinkButton;
+
+                if (col2.Text == "")
+                {
+                    var a = e.Item.FindControl("div2MF");                    
+                     a.Visible = false;
+                   
+
+                }
 
                 //ImageButton col1 = e.Item.FindControl("imgbtnUpload2") as ImageButton;
                 //ImageButton col0 = e.Item.FindControl("imgbtnUpload1") as ImageButton;

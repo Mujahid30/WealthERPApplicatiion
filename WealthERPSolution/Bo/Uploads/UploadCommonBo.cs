@@ -4879,6 +4879,34 @@ namespace BoUploads
             return dsRejectReasonTrailList;
 
         }
+        public DataSet GetRejectedAutoSIPRecords(int adviserId, DateTime fromDate, DateTime toDate)
+        {
+            DataSet dsSIPRejectedDetails = new DataSet();
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
 
+            try
+            {
+                dsSIPRejectedDetails = uploadDAO.GetRejectedAutoSIPRecords(adviserId, fromDate, toDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetRejectedAutoSIPRecords()");
+
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsSIPRejectedDetails;
+        }
     }
 }

@@ -4389,5 +4389,39 @@ namespace DaoUploads
             }
             return dsRejectReasonTrailList;
         }
+
+        public DataSet GetRejectedAutoSIPRecords(int adviserId,DateTime fromDate, DateTime toDate)
+        {
+            DataSet dsSIPRejectedDetails = new DataSet();
+
+            Database db;
+            DbCommand getCount;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_GetRejectedAutoSIPRecords");
+
+                db.AddInParameter(getCount, "@adviserId", DbType.Int32, adviserId);
+               
+                if (fromDate != DateTime.MinValue)
+                    db.AddInParameter(getCount, "@fromDate", DbType.DateTime, fromDate);
+                else
+                    db.AddInParameter(getCount, "@fromDate", DbType.DateTime, DBNull.Value);
+
+                if (toDate != DateTime.MinValue)
+                    db.AddInParameter(getCount, "@toDate", DbType.DateTime, toDate);
+                else
+                    db.AddInParameter(getCount, "@toDate", DbType.DateTime, DBNull.Value);               
+
+                dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSIPRejectedDetails;
+        }
+
     }
 }

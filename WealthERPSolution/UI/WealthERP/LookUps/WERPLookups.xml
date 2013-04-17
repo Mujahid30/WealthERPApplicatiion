@@ -2888,6 +2888,7 @@
 
     <TreeSubSubNode	TreeSubNodeCode="2016" TreeSubSubNodeCode="3027" TreeSubSubNodeText="MF Returns" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
     <TreeSubSubNode	TreeSubNodeCode="2016" TreeSubSubNodeCode="3028" TreeSubSubNodeText="EQ Returns" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
+    <TreeSubSubNode	TreeSubNodeCode="2009" TreeSubSubNodeCode="3029" TreeSubSubNodeText="Auto SIP Exceptions" Path="~/Images/1044_prin.jpg" Category="MF" Deleted="False"	/>
   </SuperAdminTreeSubSubNode>
   
   <UserRole>
@@ -2946,6 +2947,7 @@
     <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3022" Deleted="False" 	/>
 
     <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3023" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3029" Deleted="False" 	/>
   </UserRoleToTreeAssociation>
 
     <!--<NewAdminTreeNode>

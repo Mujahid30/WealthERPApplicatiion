@@ -54,7 +54,7 @@
                             
                             </td>
                             <td id="td2MF" style="width: 25%;" runat="server" align="center">
-                            <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
+                            <div id="div2MF" runat="server" class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
                                 <asp:LinkButton ID="lnkMFTreeNode2"  Font-Underline="false" CssClass="LinkTextBig" Text='<%# Eval("TreeNodeText2").ToString() %>'
                                     runat="server" CommandName="Tree_MF_Row2" CommandArgument='<%# Eval("TreeNode2").ToString() %>'>  
                                 </asp:LinkButton>
