@@ -383,5 +383,36 @@ namespace BoCustomerProfiling
 
 
         }
+
+        public bool Deleteassociation(int associateCustomerId)
+        {
+            bool bResult = false;
+            CustomerFamilyDao customerFamilyDao = new CustomerFamilyDao();
+            try
+            {
+                bResult = customerFamilyDao.Deleteassociation(associateCustomerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerFamilyBo.cs:Deleteassociation()");
+
+                object[] objects = new object[1];
+                objects[0] = associateCustomerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return bResult;
+        }
     }
 }
