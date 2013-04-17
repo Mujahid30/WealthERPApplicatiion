@@ -100,6 +100,8 @@ namespace WealthERP.FP
                         if (Session["SelectedTabIndex"] != null)
                         {
                             RadTabStrip1.SelectedIndex = int.Parse(Session["SelectedTabIndex"].ToString());
+                            RadTabStrip1.Tabs[RadTabStrip1.SelectedIndex].Selected = true;
+                            CustomerProspectMultiPage.SelectedIndex = int.Parse(Session["SelectedTabIndex"].ToString());
                         }
                         //tblChildCustomer.Visible = true;
 
@@ -1446,6 +1448,8 @@ namespace WealthERP.FP
                     txtTotalPersonalAccidentPremium.Text = "0";
                 if (txtTotalPremiumOthers.Text.Trim() == "")
                     txtTotalPremiumOthers.Text = "0";
+                if (txtTotalVehicleInsurancePremium.Text.Trim() == "")
+                    txtTotalVehicleInsurancePremium.Text = "0";
                 if ((txtToalHealthInsurancePremium.Text.Trim() != "") || (txtTotalPropertyInsurancePremium.Text.Trim() != "") || (txtTotalPersonalAccidentPremium.Text.Trim() != "") || (txtTotalPremiumOthers.Text.Trim() != "") || (txtTotalVehicleInsurancePremium.Text.Trim() != ""))
                 {
                     totalGIPremium = (float.Parse(txtToalHealthInsurancePremium.Text.Trim()) + float.Parse(txtTotalPropertyInsurancePremium.Text.Trim()) + float.Parse(txtTotalPersonalAccidentPremium.Text.Trim()) + float.Parse(txtTotalVehicleInsurancePremium.Text.Trim()) + float.Parse(txtTotalPremiumOthers.Text.Trim()));
