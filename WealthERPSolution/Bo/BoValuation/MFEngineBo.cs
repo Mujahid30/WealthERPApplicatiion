@@ -1121,6 +1121,10 @@ namespace BoValuation
             dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_DVRAmounts", typeof(decimal));
             dtMFNetPosition.Columns.Add("CMFNP_NAVDate", typeof(DateTime));
 
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_AnnualisedReturns", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_WeightageNAV", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_WeightageDays", typeof(decimal));
+
             //dtMFNetPosition.Columns.Add("CMFT_Price", typeof(decimal));
 
             //DataColumn CMFNP_RET_Hold_DVRAmounts = new DataColumn();
@@ -1140,9 +1144,18 @@ namespace BoValuation
             DataTable dtMFTransactionSellPair = new DataTable();
             dtMFTransactionBalance = dsMFTransactionBalanceAndSellPair.Tables[0];
             dtMFTransactionSellPair = dsMFTransactionBalanceAndSellPair.Tables[1];
+
+            dtMFTransactionBalance.Columns.Add("WeightageInvestedCost",typeof(double));
+            dtMFTransactionBalance.Columns.Add("WeightageReturns", typeof(double));
+            dtMFTransactionBalance.Columns.Add("WeightageNAV", typeof(double));
+            dtMFTransactionBalance.Columns.Add("WeightageDays", typeof(double));
+
             dtMFNetPosition = CreateNetpositionTable();
             DataRow drMFNetPosition;
             drMFNetPosition = dtMFNetPosition.NewRow();
+
+
+            object sumObject;
 
             double returnInvestedCost = 0;
             double reedemedAmount = 0;
@@ -1165,6 +1178,9 @@ namespace BoValuation
             double CMFTB_DivPayout = 0;
             double CMFNP_RET_Realized_DVPAmt = 0;
             double sellUnits = 0;
+            double annualizedReturns = 0;
+            double WeightageNAV = 0;
+            double WeightageDays = 0;
             double[] currentValueXIRR;
             DateTime[] tranDateXIRR;
             double CMFNP_TAX_Realized_AcqCost = 0;
@@ -1175,23 +1191,53 @@ namespace BoValuation
 
             try
             {
-
+                TimeSpan span = new TimeSpan();
                 if (dtMFTransactionBalance.Rows.Count > 0)
                 {
                     int i = 0;
+
+                    sumObject = dtMFTransactionBalance.Compute("Sum(CMFTB_UnitBalanceTAX)", string.Empty);
+                    double.TryParse(Convert.ToString(sumObject), out openUnits);
+
+                    sumObject = dtMFTransactionBalance.Compute("Sum(CMFTB_TotalCostBalanceTAX)", string.Empty);
+                    double.TryParse(Convert.ToString(sumObject), out totalDiv);
+
                     foreach (DataRow drTransactionBalance in dtMFTransactionBalance.Rows)
                     {
                         currentValueXIRR[i] = double.Parse(drTransactionBalance["XIRR_ALL"].ToString());
                         tranDateXIRR[i] = DateTime.Parse(drTransactionBalance["CMFT_TransactionDate"].ToString());
-                        i++;
 
-                    }
-                }
+                        if (!String.IsNullOrEmpty(drTransactionBalance["CMFTB_TotalCostBalanceTAX"].ToString()))
+                        {
+                            span = valuationDate - DateTime.Parse(drTransactionBalance["CMFT_TransactionDate"].ToString());
 
-                if (dtMFTransactionBalance.Rows.Count > 0)
-                {
+                            if (totalDiv != 0)
+                            {
+                                drTransactionBalance["WeightageInvestedCost"] = Convert.ToDouble(drTransactionBalance["CMFTB_TotalCostBalanceTAX"].ToString()) / totalDiv;
+                                drTransactionBalance["WeightageReturns"] = Convert.ToDouble(drTransactionBalance["ABS_ReturnPA"].ToString()) * Convert.ToDouble(drTransactionBalance["WeightageInvestedCost"].ToString());
+                                drTransactionBalance["WeightageNAV"] = Convert.ToDouble(drTransactionBalance["CMFT_Price"].ToString()) * Convert.ToDouble(drTransactionBalance["WeightageInvestedCost"].ToString());
+                                drTransactionBalance["WeightageDays"] = span.TotalDays * Convert.ToDouble(drTransactionBalance["WeightageInvestedCost"].ToString());
+                                
+                            }
+                            else
+                            {
+                                drTransactionBalance["WeightageInvestedCost"] = 0;
+                                drTransactionBalance["WeightageReturns"] = 0;
+                                drTransactionBalance["WeightageNAV"] = 0;
+                                 drTransactionBalance["WeightageDays"] = 0;
+                            }
+
+                        }
+                        else
+                        {
+                            drTransactionBalance["WeightageInvestedCost"] = 0;
+                            drTransactionBalance["WeightageReturns"] = 0;
+                            drTransactionBalance["WeightageNAV"] = 0;
+                            drTransactionBalance["WeightageDays"] = 0;
+                        }
+                            i++;
+                    }               
                     drMFNetPosition["CMFNP_MarketPrice"] = dtMFTransactionBalance.Rows[0]["NAV"];
-
                     
                     drMFNetPosition["CMFNP_NAVDate"] = dtMFTransactionBalance.Rows[0]["NAVDate"];
 
@@ -1209,16 +1255,28 @@ namespace BoValuation
 
                     drMFNetPosition["PASP_SchemePlanCode"] = Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["PASP_SchemePlanCode"]));
                     drMFNetPosition["CMFA_AccountId"] = Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["CMFA_AccountId"]));
-
-                    object sumObject;
-
+                   
                     sumObject = dtMFTransactionBalance.Compute("Sum([InvestedCostReturnHolding])", string.Empty);
                     double.TryParse(Convert.ToString(sumObject), out CMFNP_RET_Hold_AcqCost);
+
+                    sumObject = dtMFTransactionBalance.Compute("Sum([WeightageReturns])", string.Empty);
+                    double.TryParse(Convert.ToString(sumObject), out annualizedReturns);
+
+                    sumObject = dtMFTransactionBalance.Compute("Sum([WeightageNAV])", string.Empty);
+                    double.TryParse(Convert.ToString(sumObject), out WeightageNAV);
+
+                    sumObject = dtMFTransactionBalance.Compute("Sum([WeightageDays])", string.Empty);
+                    double.TryParse(Convert.ToString(sumObject), out WeightageDays);
 
                     sumObject = dtMFTransactionBalance.Compute("Sum([CMFT_Amount])", "WMTT_TransactionClassificationCode = 'BUY'");
                     double.TryParse(Convert.ToString(sumObject), out returnInvestedCost);
 
                     drMFNetPosition["CMFNP_InvestedCost"] = returnInvestedCost;
+                    drMFNetPosition["CMFNP_RET_Hold_AnnualisedReturns"] = annualizedReturns;
+                    drMFNetPosition["CMFNP_RET_Hold_WeightageNAV"] = WeightageNAV;
+                    drMFNetPosition["CMFNP_RET_Hold_WeightageDays"] = WeightageDays;
+                    
+
                     if (dtMFTransactionSellPair.Rows.Count > 0)
                     {
                         foreach (DataRow dr in dtMFTransactionSellPair.Rows)
@@ -1239,8 +1297,7 @@ namespace BoValuation
 
                     drMFNetPosition["CMFNP_RedeemedAmount"] = reedemedAmount;
                     drMFNetPosition["CMFNP_TAX_Realized_TotalPL"] = reedemedAmount - CMFNP_TAX_Realized_AcqCost;
-                    sumObject = dtMFTransactionBalance.Compute("Sum(CMFTB_UnitBalanceTAX)", string.Empty);
-                    double.TryParse(Convert.ToString(sumObject), out openUnits);
+                   
 
                     drMFNetPosition["CMFNP_NetHoldings"] = openUnits;
 
@@ -1249,8 +1306,7 @@ namespace BoValuation
 
                     drMFNetPosition["CMFNP_SalesQuantity"] = sellUnits;
 
-                    sumObject = dtMFTransactionBalance.Compute("Sum(CMFTB_TotalCostBalanceTAX)", string.Empty);
-                    double.TryParse(Convert.ToString(sumObject), out totalDiv);
+                  
 
                     drMFNetPosition["CMFNP_TAX_Hold_BalanceAmt"] = totalDiv;
                     if (Math.Round(openUnits, 1) != 0)
@@ -1387,6 +1443,12 @@ namespace BoValuation
                         drMFNetPosition["CMFNP_InvestmentStartDate"] = Convert.ToDateTime(holdingStartDate).ToShortDateString();
                     }
 
+                    if (openUnits != 0)
+                        drMFNetPosition["CMFNP_RET_Hold_WeightageNAV"] = totalDiv / openUnits;
+                    else
+                    {
+                        drMFNetPosition["CMFNP_RET_Hold_WeightageNAV"] = 0 ;
+                    }
 
                     dtMFNetPosition.Rows.Add(drMFNetPosition);
                 }
@@ -1529,6 +1591,16 @@ namespace BoValuation
 
                     drBalanceRecord["InvestedCostReturnHolding"] = double.Parse(drMFBalanced["CMFTB_AvgCostBalRETURN"].ToString()) * double.Parse(drMFBalanced["CMFTB_UnitBalanceRETURN"].ToString());
                     drBalanceRecord["CMFNP_RET_Hold_DVRAmounts"] = double.Parse(drMFBalanced["CMFT_Price"].ToString()) * double.Parse(drMFBalanced["CMFTB_UnitBalanceRETURN"].ToString());
+
+                    if (Math.Round(decimal.Parse(drMFBalanced["CMFTB_TotalCostBalRETURN"].ToString()),0) != 0 && span.TotalDays > 0 )
+                        drBalanceRecord["ABS_ReturnPA"] = (((double.Parse(drMFBalanced["CMFTB_UnitBalanceRETURN"].ToString()) * nav) - double.Parse(drMFBalanced["CMFTB_TotalCostBalRETURN"].ToString())) / double.Parse(drMFBalanced["CMFTB_TotalCostBalRETURN"].ToString())) * 36500 / span.TotalDays;
+                    //AS ABS_ReturnPA
+                    else
+                        drBalanceRecord["ABS_ReturnPA"] = 0;
+
+
+                    drBalanceRecord["CMFNP_RET_Hold_DVRAmounts"] = double.Parse(drMFBalanced["CMFT_Price"].ToString()) * double.Parse(drMFBalanced["CMFTB_UnitBalanceRETURN"].ToString());
+
                     dtBalanceRecord.Rows.Add(drBalanceRecord);
                 }
             }
@@ -1599,6 +1671,8 @@ namespace BoValuation
             dtMFBalanced.Columns.Add("XIRR_ALL", typeof(double));
             dtMFBalanced.Columns.Add("InvestedCostReturnHolding", typeof(double));
             dtMFBalanced.Columns.Add("CMFNP_RET_Hold_DVRAmounts", typeof(double));
+            dtMFBalanced.Columns.Add("ABS_ReturnPA", typeof(double));
+            dtMFBalanced.Columns.Add("AverageNAV", typeof(double));
 
             return dtMFBalanced;
 
