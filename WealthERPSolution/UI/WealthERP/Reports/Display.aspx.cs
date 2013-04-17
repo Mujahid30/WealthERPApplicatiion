@@ -1266,7 +1266,7 @@ namespace WealthERP.Reports
                 crmain.SetParameterValue("SurpressInsurance", "1");
             }
             else
-                crmain.SetParameterValue("SurpressInsurance", "1");
+                crmain.SetParameterValue("SurpressInsurance", "0");
 
             if (dtGeneralInsurance.Rows.Count > 0)
             {
