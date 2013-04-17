@@ -137,7 +137,7 @@ namespace WealthERP.Customer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-       // /protected global::System.Web.UI.WebControls.TextBox txtProfilingDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtProfilingDate;
         
         /// <summary>
         /// Label5 control.
@@ -1382,15 +1382,6 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtMobile1;
         
         /// <summary>
-        /// txtMobile1_CompareValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator txtMobile1_CompareValidator;
-        
-        /// <summary>
         /// Label43 control.
         /// </summary>
         /// <remarks>
@@ -1407,15 +1398,6 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMobile2;
-        
-        /// <summary>
-        /// txtMobile2_CompareValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator txtMobile2_CompareValidator;
         
         /// <summary>
         /// Label39 control.
@@ -1776,7 +1758,5 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnRequestId;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdprofileDate;
-        protected global::Telerik.Web.UI.RadDatePicker txtProfilingDate;
     }
 }

@@ -328,6 +328,11 @@
                                                 UniqueName="XR_Relationship" SortExpression="XR_Relationship">
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                            <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Association?"
+                                             ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                             Text="Delete">
+                                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                            </telerik:GridButtonColumn>
                                         </Columns>
                                         <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
                                             <FormTemplate>

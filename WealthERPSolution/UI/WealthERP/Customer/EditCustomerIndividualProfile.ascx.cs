@@ -2137,7 +2137,7 @@ namespace WealthERP.Customer
 
         protected void gvFamilyAssociate_ItemCommand(object source, GridCommandEventArgs e)
         {
-
+            int associateCustomerId;
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 CustomerBo customerBo = new CustomerBo();
@@ -2180,8 +2180,8 @@ namespace WealthERP.Customer
                 Button Button3 = (Button)e.Item.FindControl("Button3");
                 Button Button1 = (Button)e.Item.FindControl("Button1");
 
-                gridEditableItem.OwnerTableView.IsItemInserted = false; 
-
+                gridEditableItem.OwnerTableView.IsItemInserted = false;
+                
                 if (Button1.Visible == true)
                 {
                    
@@ -2239,6 +2239,20 @@ namespace WealthERP.Customer
                         relCode = ddlRelation.SelectedItem.Value;
                     customerFamilyBo.CustomerAssociateUpdate(customerId, associateId, relCode, userVo.UserId);
                    // BindFamilyAssociationList(customerId);
+                }
+
+            }
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                bool isDeleted = false;
+                CustomerFamilyBo familyBo = new CustomerFamilyBo();
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                //TableCell strCategoryCodeForDelete = dataItem["CA_AssociationId"];
+                associateCustomerId = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CA_AssociationId"].ToString());
+                isDeleted = familyBo.Deleteassociation(associateCustomerId);
+                if (isDeleted)
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Record has been de-associated successfully !!');", true);
                 }
 
             }
