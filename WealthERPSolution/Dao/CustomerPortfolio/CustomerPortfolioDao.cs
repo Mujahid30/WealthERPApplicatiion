@@ -835,7 +835,7 @@ namespace DaoCustomerPortfolio
                         if (dr["CMFNP_RET_Hold_WeightageNAV"].ToString().Trim() != String.Empty)
                             mfPortfNetPositionVo.WeightageNAV = double.Parse(dr["CMFNP_RET_Hold_WeightageNAV"].ToString());
                         if (dr["CMFNP_RET_Hold_WeightageDays"].ToString().Trim() != String.Empty)
-                            mfPortfNetPositionVo.WeightageDays = double.Parse(dr["CMFNP_RET_Hold_WeightageDays"].ToString());
+                            mfPortfNetPositionVo.WeightageDays = Convert.ToInt32(dr["CMFNP_RET_Hold_WeightageDays"]);
 
                         mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
                     }
