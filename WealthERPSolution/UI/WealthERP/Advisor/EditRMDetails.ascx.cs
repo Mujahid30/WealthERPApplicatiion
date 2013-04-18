@@ -105,9 +105,10 @@ namespace WealthERP.Advisor
             DataSet dsPlanOpsStaffAddStatus = advisorStaffBo.GetPlanOpsStaffAddStatus(adviserId);
             if (dsPlanOpsStaffAddStatus.Tables[1].Rows[0]["WP_IsOpsEnabled"].ToString() == "1")
             {
-                if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) > 0)
+                if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) == 1)
                 {
-                    chkOps.Visible = false;
+                    chkOps.Visible = true;
+                    chkOps.Checked = true;
                 }
             }
             else
