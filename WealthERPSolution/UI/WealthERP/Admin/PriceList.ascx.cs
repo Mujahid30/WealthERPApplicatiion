@@ -18,6 +18,7 @@ using System.Numeric;
 using Telerik.Web.UI;
 using BoCustomerPortfolio;
 using VoUser;
+using System.Reflection;
 //using BoProductMaster;
 
 namespace WealthERP.Admin
@@ -53,12 +54,12 @@ namespace WealthERP.Admin
             cvChkFutureDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
             //trMFFundPerformance.Visible = false;
             trExportFilteredMFRecord.Visible = false;
-            gvEquityRecord.Visible =false;
+            gvEquityRecord.Visible = false;
             imgBtnrgHoldings.Visible = false;
             //DateTime StartDate = DateTime.Now;
             //txtFrom.SelectedDate = StartDate;
             //txtTo.SelectedDate = DateTime.Now;
-         if (Request.QueryString["AssetId"] != null)
+            if (Request.QueryString["AssetId"] != null)
             {
                 hdnassetType.Value = Request.QueryString["AssetId"].ToString();
             }
@@ -92,7 +93,7 @@ namespace WealthERP.Admin
                     BindSchemeCategory();
                     trSelectMutualFund.Visible = false;
                     trSelectSchemeNAV.Visible = false;
-                    trNavCategory.Visible = false;                    
+                    trNavCategory.Visible = false;
                 }
             }
             else if (hdnassetType.Value == "Equity")
@@ -107,13 +108,13 @@ namespace WealthERP.Admin
                 pnlSchemeComparison.Visible = false;
                 rbtnCurrent.Visible = true;
                 rbtnHistorical.Visible = true;
-               // trgvEquityView.Visible = false;
-               // gvEquityRecord.Visible = true;
+                // trgvEquityView.Visible = false;
+                // gvEquityRecord.Visible = true;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
                 trNavCategory.Visible = false;
                 tdFromDate.Visible = false;
-                tdToDate.Visible = false;                          
+                tdToDate.Visible = false;
                 RadTabStrip1.Tabs[0].Text = "Price";
             }
             if (!IsPostBack)
@@ -136,9 +137,9 @@ namespace WealthERP.Admin
                     FactsheetMultiPage.PageViews[2].Selected = true;
                 }
             }
-            BindSelectAMCDropdown();            
+            BindSelectAMCDropdown();
         }
-         private void BindNAVCategory()
+        private void BindNAVCategory()
         {
             DataSet dsNavCategory;
             DataTable dtNavCategory;
@@ -146,7 +147,7 @@ namespace WealthERP.Admin
             dtNavCategory = dsNavCategory.Tables[0];
             if (dtNavCategory.Rows.Count > 0)
             {
-                
+
                 ddlNAVCategory.DataSource = dtNavCategory;
                 ddlNAVCategory.DataValueField = dtNavCategory.Columns["Category_Code"].ToString();
                 ddlNAVCategory.DataTextField = dtNavCategory.Columns["Category_Name"].ToString();
@@ -161,7 +162,7 @@ namespace WealthERP.Admin
                 ddlFactCategory.DataTextField = dtNavCategory.Columns["Category_Name"].ToString();
                 ddlFactCategory.DataBind();
                 ddlFactCategory.Items.Insert(0, new ListItem("All", "All"));
-            }          
+            }
         }
         private void BindSchemeCategory()
         {
@@ -176,7 +177,7 @@ namespace WealthERP.Admin
                 ddlCategory.DataValueField = dtSchemeCategory.Columns["Category_Code"].ToString();
                 ddlCategory.DataTextField = dtSchemeCategory.Columns["Category_Name"].ToString();
                 ddlCategory.DataBind();
-                
+
             }
             ddlCategory.Items.Insert(0, new ListItem("All", "All"));
         }
@@ -208,14 +209,14 @@ namespace WealthERP.Admin
         {
             //trFromDate.Style.Add("display", "none");
             //trToDate.Style.Add("display", "none");
-           // trFromDate.Visible = false;
+            // trFromDate.Visible = false;
             trExportFilteredMFRecord.Visible = false;
             btnSubmit.Visible = true;
             tdFromDate.Visible = false;
             tdToDate.Visible = false;
             //trgrMfView.Visible = false;
             trgvEquityView.Visible = false;
-           // trPageCount.Visible = false;
+            // trPageCount.Visible = false;
             trPager.Visible = false;
             trMfPagecount.Visible = false;
             //if (IsPostBack)
@@ -223,7 +224,7 @@ namespace WealthERP.Admin
             //    ddlSelectMutualFund.SelectedIndex = 0;
             //    ddlSelectSchemeNAV.SelectedIndex = 0;
             //}
-         if (hdnassetType.Value == "MF")
+            if (hdnassetType.Value == "MF")
             {
                 trSelectSchemeNAV.Visible = true;
                 trSelectMutualFund.Visible = true;
@@ -250,11 +251,11 @@ namespace WealthERP.Admin
             //    ddlSelectMutualFund.SelectedIndex = 0;
             //    ddlSelectSchemeNAV.SelectedIndex = 0;
             //}
-         if (rbtnHistorical.Checked)
+            if (rbtnHistorical.Checked)
             {
                 //trFromDate.Style.Add("display", "block");
                 //trToDate.Style.Add("display", "block");
-                tdFromDate.Visible =true;
+                tdFromDate.Visible = true;
                 tdToDate.Visible = true;
                 btnSubmit.Visible = true;
             }
@@ -295,7 +296,7 @@ namespace WealthERP.Admin
                 trSelectSchemeNAV.Visible = false;
             }
         }
-      public void BindMutualFundDropDowns()
+        public void BindMutualFundDropDowns()
         {
             PriceBo priceBo = new PriceBo();
             DataTable dtGetMutualFundList = new DataTable();
@@ -313,7 +314,7 @@ namespace WealthERP.Admin
             ddlAmcCode.DataBind();
             ddlAmcCode.Items.Insert(0, new ListItem("Select", "Select"));
         }
-     protected void ddlSelectMutualFund_OnSelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlSelectMutualFund_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             LoadAllSchemeNAV();
             gvMFRecord.DataSource = null;
@@ -594,173 +595,173 @@ namespace WealthERP.Admin
         }
         public void PagingTelerikGrid()
         {
-        //    PriceBo PriceObj = new PriceBo();
-        //    DataSet ds;
-        //    lblIllegal.Visible = false;
-        //    trgvEquityView.Visible = true;
-        //    //trgrMfView.Visible = true;
-        //    //trPageCount.Visible = true;
-        //    // trPager.Visible = true;
-        //    //trMfPagecount.Visible = true;
-        //    //hdnSchemeSearch.Value = null;
-        //    //hdnCompanySearch.Value = null;
+            //    PriceBo PriceObj = new PriceBo();
+            //    DataSet ds;
+            //    lblIllegal.Visible = false;
+            //    trgvEquityView.Visible = true;
+            //    //trgrMfView.Visible = true;
+            //    //trPageCount.Visible = true;
+            //    // trPager.Visible = true;
+            //    //trMfPagecount.Visible = true;
+            //    //hdnSchemeSearch.Value = null;
+            //    //hdnCompanySearch.Value = null;
 
-        //    //if (ddlAssetGroup.SelectedValue == "0")
-        //    //{
-        //    //    //lblIllegal.Visible = true;
-        //    //    //lblIllegal.Text = "Select Asset";
-        //    //    //trSelectMutualFund.Visible = false;
-        //    //    //trSelectSchemeNAV.Visible = false;
-        //    //}
-        //    //else 
-        //    if (rbtnCurrent.Checked)
-        //    {
-        //        if (hdnassetType.Value == "Equity")
-        //        {
-        //            string Search = hdnCompanySearch.Value;
-        //            //hdnEquityCount.Value = PriceObj.GetEquityCountSnapshot("C", Search, mypager.CurrentPage).ToString();
-        //            //lblTotalRows.Text = hdnEquityCount.Value;
-        //            //GetPageCount_Equity();
-        //            ds = PriceObj.GetEquitySnapshot("D", Search);
-        //            if (ds.Tables[0].Rows.Count > 0)
-        //            {
-        //                gvEquityRecord.DataSource = ds;
-        //                gvEquityRecord.DataBind();
-        //                DivEquity.Style.Add("display", "visible");
-        //                DivPager.Style.Add("display", "visible");
-        //                DivMF.Style.Add("display", "none");
-        //                Search = null;
-        //                hdnCompanySearch.Value = null;
-        //                //trToDate.Visible = true;
-        //                //trFromDate.Visible = true;
-        //                trbtnSubmit.Visible = true;
-        //            }
-        //            else
-        //            {
-        //                trgvEquityView.Visible = false;
-        //                //trgrMfView.Visible = false;
-        //                trPageCount.Visible = false;
-        //                trPager.Visible = false;
-        //                trMfPagecount.Visible = false;
-        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
-    
-        //            }
-        //            trbtnSubmit.Visible = true;
-        //        }
+            //    //if (ddlAssetGroup.SelectedValue == "0")
+            //    //{
+            //    //    //lblIllegal.Visible = true;
+            //    //    //lblIllegal.Text = "Select Asset";
+            //    //    //trSelectMutualFund.Visible = false;
+            //    //    //trSelectSchemeNAV.Visible = false;
+            //    //}
+            //    //else 
+            //    if (rbtnCurrent.Checked)
+            //    {
+            //        if (hdnassetType.Value == "Equity")
+            //        {
+            //            string Search = hdnCompanySearch.Value;
+            //            //hdnEquityCount.Value = PriceObj.GetEquityCountSnapshot("C", Search, mypager.CurrentPage).ToString();
+            //            //lblTotalRows.Text = hdnEquityCount.Value;
+            //            //GetPageCount_Equity();
+            //            ds = PriceObj.GetEquitySnapshot("D", Search);
+            //            if (ds.Tables[0].Rows.Count > 0)
+            //            {
+            //                gvEquityRecord.DataSource = ds;
+            //                gvEquityRecord.DataBind();
+            //                DivEquity.Style.Add("display", "visible");
+            //                DivPager.Style.Add("display", "visible");
+            //                DivMF.Style.Add("display", "none");
+            //                Search = null;
+            //                hdnCompanySearch.Value = null;
+            //                //trToDate.Visible = true;
+            //                //trFromDate.Visible = true;
+            //                trbtnSubmit.Visible = true;
+            //            }
+            //            else
+            //            {
+            //                trgvEquityView.Visible = false;
+            //                //trgrMfView.Visible = false;
+            //                trPageCount.Visible = false;
+            //                trPager.Visible = false;
+            //                trMfPagecount.Visible = false;
+            //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
 
-        //        else
-        //        {
-        //            int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
-        //            int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
-        //            int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
+            //            }
+            //            trbtnSubmit.Visible = true;
+            //        }
 
-        //            string Search = hdnSchemeSearch.Value;
-        //            //hdnMFCount.Value = PriceObj.GetAMFICountSnapshot("C", Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode).ToString();
-        //            //lblMFTotalRows.Text = hdnMFCount.Value;
-        //            //GetPageCount_MF();
-        //            //ds = PriceObj.GetAMFISnapshot("D", Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode);
-        //            ds = PriceObj.GetAMFISnapshot("D", Search, amfiCode, schemeCode, selectAllCode);
-        //            if (ds.Tables[0].Rows.Count > 0)
-        //            {
-        //                gvMFRecord.DataSource = ds.Tables[0]; ;
-        //                gvMFRecord.DataBind();
-        //                DivMF.Style.Add("display", "visible");
-        //                DivEquity.Style.Add("display", "none");
-        //                DivPager.Style.Add("display", "visible");
-        //                Search = null;
-        //                hdnSchemeSearch.Value = null;
+            //        else
+            //        {
+            //            int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
+            //            int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
+            //            int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
 
-        //                //gvNAVPriceList.DataSource = ds.Tables[0];
-        //                //gvNAVPriceList.DataBind();
-        //            }
-        //            else
-        //            {
-        //                // trgvEquityView.Visible = false;
-        //                //trgrMfView.Visible = false;
-        //                //trPageCount.Visible = false;
-        //                // trPager.Visible = false;
-        //                // trMfPagecount.Visible = false;
-        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
-        //            }
-        //        }
-        //    }
-        //    else if (rbtnHistorical.Checked)
-        //    {
-        //        DateTime StartDate = DateTime.Parse(txtFromDate.Text.ToString());
-        //        DateTime EndDate = DateTime.Parse(txtToDate.Text.ToString());
-        //        hdnFromDate.Value = StartDate.ToString();
-        //        hdnToDate.Value = EndDate.ToString();
+            //            string Search = hdnSchemeSearch.Value;
+            //            //hdnMFCount.Value = PriceObj.GetAMFICountSnapshot("C", Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode).ToString();
+            //            //lblMFTotalRows.Text = hdnMFCount.Value;
+            //            //GetPageCount_MF();
+            //            //ds = PriceObj.GetAMFISnapshot("D", Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode);
+            //            ds = PriceObj.GetAMFISnapshot("D", Search, amfiCode, schemeCode, selectAllCode);
+            //            if (ds.Tables[0].Rows.Count > 0)
+            //            {
+            //                gvMFRecord.DataSource = ds.Tables[0]; ;
+            //                gvMFRecord.DataBind();
+            //                DivMF.Style.Add("display", "visible");
+            //                DivEquity.Style.Add("display", "none");
+            //                DivPager.Style.Add("display", "visible");
+            //                Search = null;
+            //                hdnSchemeSearch.Value = null;
 
-        //        if (hdnassetType.Value == "Equity")
-        //        {
-        //            string Search = hdnCompanySearch.Value;
-        //            //Search = null;
-        //            //hdnEquityCount.Value = PriceObj.GetEquityCount("C", StartDate, EndDate, Search, mypager.CurrentPage).ToString();
-        //            //lblTotalRows.Text = hdnEquityCount.Value;
-        //            //GetPageCount_Equity();
-        //            //ds = PriceObj.GetEquityRecord("D", StartDate, EndDate, Search, mypager.CurrentPage);
-        //            ds = PriceObj.GetEquityRecord("D", StartDate, EndDate, Search);
-        //            if (ds.Tables[0].Rows.Count > 0)
-        //            {
-        //                gvEquityRecord.DataSource = ds;
-        //                gvEquityRecord.DataBind();
-        //                DivEquity.Style.Add("display", "visible");
-        //                DivMF.Style.Add("display", "none");
-        //                DivPager.Style.Add("display", "visible");
-        //                trToDate.Visible = true;
-        //                trFromDate.Visible = true;
-        //                trbtnSubmit.Visible = true;
-        //            }
+            //                //gvNAVPriceList.DataSource = ds.Tables[0];
+            //                //gvNAVPriceList.DataBind();
+            //            }
+            //            else
+            //            {
+            //                // trgvEquityView.Visible = false;
+            //                //trgrMfView.Visible = false;
+            //                //trPageCount.Visible = false;
+            //                // trPager.Visible = false;
+            //                // trMfPagecount.Visible = false;
+            //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
+            //            }
+            //        }
+            //    }
+            //    else if (rbtnHistorical.Checked)
+            //    {
+            //        DateTime StartDate = DateTime.Parse(txtFromDate.Text.ToString());
+            //        DateTime EndDate = DateTime.Parse(txtToDate.Text.ToString());
+            //        hdnFromDate.Value = StartDate.ToString();
+            //        hdnToDate.Value = EndDate.ToString();
 
-        //            else
-        //            {
-        //                trgvEquityView.Visible = false;
-        //                //trgrMfView.Visible = false;
-        //                trPageCount.Visible = false;
-        //                trPager.Visible = false;
-        //                trMfPagecount.Visible = false;
-        //                trFromDate.Visible = true;
-        //                trToDate.Visible = true;
-        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
+            //        if (hdnassetType.Value == "Equity")
+            //        {
+            //            string Search = hdnCompanySearch.Value;
+            //            //Search = null;
+            //            //hdnEquityCount.Value = PriceObj.GetEquityCount("C", StartDate, EndDate, Search, mypager.CurrentPage).ToString();
+            //            //lblTotalRows.Text = hdnEquityCount.Value;
+            //            //GetPageCount_Equity();
+            //            //ds = PriceObj.GetEquityRecord("D", StartDate, EndDate, Search, mypager.CurrentPage);
+            //            ds = PriceObj.GetEquityRecord("D", StartDate, EndDate, Search);
+            //            if (ds.Tables[0].Rows.Count > 0)
+            //            {
+            //                gvEquityRecord.DataSource = ds;
+            //                gvEquityRecord.DataBind();
+            //                DivEquity.Style.Add("display", "visible");
+            //                DivMF.Style.Add("display", "none");
+            //                DivPager.Style.Add("display", "visible");
+            //                trToDate.Visible = true;
+            //                trFromDate.Visible = true;
+            //                trbtnSubmit.Visible = true;
+            //            }
 
-        //            }
-        //            trbtnSubmit.Visible = true;
-        //            //hdnCompanySearch.Value = null;
-        //        }
-        //        else if (hdnassetType.Value == "MF")
-        //        {
-        //            int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
-        //            int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
-        //            int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
-        //            string Search = hdnSchemeSearch.Value;
-        //            //hdnMFCount.Value = PriceObj.GetAMFICount("C", StartDate, EndDate, Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode).ToString();
-        //            //lblMFTotalRows.Text = hdnMFCount.Value;
-        //            //ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode);
-        //            ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, amfiCode, schemeCode, selectAllCode);
-        //            if (ds.Tables[0].Rows.Count > 0)
-        //            {
-        //                gvMFRecord.DataSource = ds.Tables[0];
-        //                gvMFRecord.DataBind();
-        //                //GetPageCount_MF();
-        //                //DivPager.Style.Add("display", "visible");
-        //                //DivMF.Style.Add("display", "visible");
-        //                //DivEquity.Style.Add("display", "none");
-        //            }
-        //            else
-        //            {
-        //                trgvEquityView.Visible = false;
-        //                //trgrMfView.Visible = false;
-        //                // trPageCount.Visible = false;
-        //                //trPager.Visible = false;
-        //                // trMfPagecount.Visible = false;
-        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records For This Period Of Time');", true);
-        //            }
-        //            //Search = null;
-        //            //hdnSchemeSearch.Value = null;
-        //        }
-        //    }
+            //            else
+            //            {
+            //                trgvEquityView.Visible = false;
+            //                //trgrMfView.Visible = false;
+            //                trPageCount.Visible = false;
+            //                trPager.Visible = false;
+            //                trMfPagecount.Visible = false;
+            //                trFromDate.Visible = true;
+            //                trToDate.Visible = true;
+            //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
+
+            //            }
+            //            trbtnSubmit.Visible = true;
+            //            //hdnCompanySearch.Value = null;
+            //        }
+            //        else if (hdnassetType.Value == "MF")
+            //        {
+            //            int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
+            //            int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
+            //            int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
+            //            string Search = hdnSchemeSearch.Value;
+            //            //hdnMFCount.Value = PriceObj.GetAMFICount("C", StartDate, EndDate, Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode).ToString();
+            //            //lblMFTotalRows.Text = hdnMFCount.Value;
+            //            //ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode);
+            //            ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, amfiCode, schemeCode, selectAllCode);
+            //            if (ds.Tables[0].Rows.Count > 0)
+            //            {
+            //                gvMFRecord.DataSource = ds.Tables[0];
+            //                gvMFRecord.DataBind();
+            //                //GetPageCount_MF();
+            //                //DivPager.Style.Add("display", "visible");
+            //                //DivMF.Style.Add("display", "visible");
+            //                //DivEquity.Style.Add("display", "none");
+            //            }
+            //            else
+            //            {
+            //                trgvEquityView.Visible = false;
+            //                //trgrMfView.Visible = false;
+            //                // trPageCount.Visible = false;
+            //                //trPager.Visible = false;
+            //                // trMfPagecount.Visible = false;
+            //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records For This Period Of Time');", true);
+            //            }
+            //            //Search = null;
+            //            //hdnSchemeSearch.Value = null;
+            //        }
+            //    }
         }
-        
+
 
 
         private string SchemeName()
@@ -772,7 +773,7 @@ namespace WealthERP.Admin
                 txt1 = (TextBox)gvMFRecord.FindControl("txtSchemeSearch");
                 txt = txt1.Text;
             }
-            return txt;            
+            return txt;
         }
 
         private string CompanyName()
@@ -1066,7 +1067,7 @@ namespace WealthERP.Admin
             {
                 trMFFundPerformance.Visible = true;
             }
-            else if (dtGetMFfund.DefaultView.Table.Rows.Count ==0)
+            else if (dtGetMFfund.DefaultView.Table.Rows.Count == 0)
             {
                 trMFFundPerformance.Visible = false;
             }
@@ -1114,7 +1115,7 @@ namespace WealthERP.Admin
             {
                 gvMFFundPerformance.ExportSettings.ExportOnlyData = true;
             }
-        }        
+        }
 
         protected void btnViewFactsheet_Click(object sender, EventArgs e)
         {
@@ -1280,6 +1281,13 @@ namespace WealthERP.Admin
             }
             BindSectorWiseGrid(dsFactsheetschemeDetails);
             BindTop10Company(dsFactsheetschemeDetails);
+
+            PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+            // make collection editable
+            isreadonly.SetValue(this.Request.QueryString, false, null);
+            // remove
+            Request.QueryString.Remove("SchemeCode");
+            Request.QueryString.Remove("SchemeName");
         }
 
 
@@ -1407,13 +1415,13 @@ namespace WealthERP.Admin
                 ddlSchemeList.DataBind();
                 ddlSchemeList.Items.Insert(0, new ListItem("Select", "Select"));
             }
-            
+
         }
         protected void ddYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindMonth();
         }
-        
+
         protected void gvMFFundPerformance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataView dtFundPerformanceDetailsDetails = new DataView();
@@ -1429,7 +1437,7 @@ namespace WealthERP.Admin
                 lblIllegal.Visible = false;
                 trgvEquityView.Visible = true;
                 trExportFilteredMFRecord.Visible = true;
-        
+
                 if (rbtnCurrent.Checked)
                 {
                     if (hdnassetType.Value == "Equity")
@@ -1442,7 +1450,7 @@ namespace WealthERP.Admin
                             gvEquityRecord.DataSource = ds;
                             gvEquityRecord.DataBind();
                             gvEquityRecord.Visible = true;
-                           // DivEquity.Style.Add("display", "visible");
+                            // DivEquity.Style.Add("display", "visible");
                             DivPager.Style.Add("display", "visible");
                             DivMF.Style.Add("display", "none");
                             Search = null;
@@ -1454,7 +1462,7 @@ namespace WealthERP.Admin
                         {
                             trgvEquityView.Visible = false;
                             gvEquityRecord.Visible = false;
-                          //  trPageCount.Visible = false;
+                            //  trPageCount.Visible = false;
                             trPager.Visible = false;
                             trMfPagecount.Visible = false;
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
@@ -1469,28 +1477,28 @@ namespace WealthERP.Admin
                         int selectAllCode = 0;
                         int schemeCode = 0;
                         int All = 0;
-                        if (ddlSelectMutualFund.SelectedValue == "Select AMC Code" || ddlSelectSchemeNAV.SelectedIndex == -1 || ddlSelectSchemeNAV.SelectedValue == "" )
+                        if (ddlSelectMutualFund.SelectedValue == "Select AMC Code" || ddlSelectSchemeNAV.SelectedIndex == -1 || ddlSelectSchemeNAV.SelectedValue == "")
                         {
-                            
+
                         }
                         else
                         {
-                            
+
                             amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
                             if (ddlNAVCategory.SelectedIndex != 0)
                                 All = 1;
-                             selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
-                             string CategoryCode = ddlNAVCategory.SelectedValue;
+                            selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
+                            string CategoryCode = ddlNAVCategory.SelectedValue;
                             schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
                             string Search = hdnSchemeSearch.Value;
-                            ds = PriceObj.GetAMFISnapshot("D", Search, amfiCode, schemeCode, selectAllCode ,All, CategoryCode);
+                            ds = PriceObj.GetAMFISnapshot("D", Search, amfiCode, schemeCode, selectAllCode, All, CategoryCode);
                             if (ds.Tables[0].Rows.Count > 0)
                             {
                                 gvMFRecord.DataSource = ds.Tables[0];
                                 gvMFRecord.Visible = true;
                                 Panel1.Visible = true;
                                 DivMF.Style.Add("display", "visible");
-                               // DivEquity.Style.Add("display", "none");
+                                // DivEquity.Style.Add("display", "none");
                                 DivPager.Style.Add("display", "visible");
 
                                 //DivMF.Style.Add("display", "visible");
@@ -1509,11 +1517,11 @@ namespace WealthERP.Admin
                             }
                         }
                     }
-                 }                  
-            else if (rbtnHistorical.Checked)
+                }
+                else if (rbtnHistorical.Checked)
                 {
                     //if (txtFromDate.Text == "" || txtToDate.Text=="")
-                    if(txtTo.SelectedDate.ToString() == ""||txtFrom.SelectedDate.ToString()=="")
+                    if (txtTo.SelectedDate.ToString() == "" || txtFrom.SelectedDate.ToString() == "")
                     {
                     }
                     else
@@ -1533,7 +1541,7 @@ namespace WealthERP.Admin
                                 gvEquityRecord.DataSource = ds;
                                 gvEquityRecord.DataBind();
                                 gvEquityRecord.Visible = true;
-                               // DivEquity.Style.Add("display", "visible");
+                                // DivEquity.Style.Add("display", "visible");
                                 DivMF.Style.Add("display", "none");
                                 DivPager.Style.Add("display", "visible");
                                 tdToDate.Visible = true;
@@ -1545,7 +1553,7 @@ namespace WealthERP.Admin
                             {
                                 trgvEquityView.Visible = false;
                                 gvEquityRecord.Visible = false;
-                               // trPageCount.Visible = false;
+                                // trPageCount.Visible = false;
                                 trPager.Visible = false;
                                 trMfPagecount.Visible = false;
                                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
@@ -1554,7 +1562,7 @@ namespace WealthERP.Admin
                         }
                         else if (hdnassetType.Value == "MF")
                         {
-                            int All=0;
+                            int All = 0;
                             int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
                             int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
                             int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
@@ -1570,10 +1578,10 @@ namespace WealthERP.Admin
                                 gvMFRecord.Visible = true;
                                 Panel1.Visible = true;
                                 DivMF.Style.Add("display", "visible");
-                               // DivEquity.Style.Add("display", "none");
+                                // DivEquity.Style.Add("display", "none");
                                 DivPager.Style.Add("display", "visible");
                                 trExportFilteredMFRecord.Visible = true;
-                                
+
                             }
                             else
                             {
@@ -1584,7 +1592,7 @@ namespace WealthERP.Admin
                         }
                     }
                 }
-            }           
+            }
         }
         //private void BindNavSubCategory()
         //{
@@ -1731,7 +1739,7 @@ namespace WealthERP.Admin
                     LoadAllSchemeList(amcCode);
                 }
 
-           }
+            }
             else
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select AMC first');", true);
         }
@@ -1757,7 +1765,7 @@ namespace WealthERP.Admin
         }
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-        {   
+        {
             gvEquityRecord.ExportSettings.OpenInNewWindow = true;
             gvEquityRecord.ExportSettings.IgnorePaging = true;
             gvEquityRecord.ExportSettings.HideStructureColumns = true;
