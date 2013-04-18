@@ -2415,7 +2415,7 @@
                                 </tr>
                                 <tr>
                                     <td align="right">
-                                        <asp:Label ID="lblVehicleInsurance" runat="server" CssClass="FieldName" Text="Vehicle :"></asp:Label>
+                                        <asp:Label ID="lblVehicleInsurance" runat="server" CssClass="FieldName" Text="Motor Vehicle :"></asp:Label>
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtWERPVehicleInsurance" runat="server" Enabled="false" Style="direction: rtl"></asp:TextBox>

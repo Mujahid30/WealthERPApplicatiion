@@ -1386,8 +1386,8 @@ namespace WealthERP.FP
 
                 assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
                 assetdetailssubvo.AssetGroupCode = "GI";
-                assetdetailssubvo.AssetInstrumentCategoryCode = "GIBC";
-                assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIBCVE";
+                assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
+                assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIMV";
                 if (txtVehicleInsuranceA.Text.Trim() != string.Empty)
                 {
                     assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtVehicleInsuranceA.Text.Trim()), 0);
@@ -2370,7 +2370,7 @@ namespace WealthERP.FP
                         totalgi += cpasd.Value;
 
                     }
-                    if (cpasd.AssetGroupCode == "GI" && cpasd.AssetInstrumentCategoryCode == "GIBC" && cpasd.AssetInstrumentSubCategoryCode == "GIBCVE")
+                    if (cpasd.AssetGroupCode == "GI" && cpasd.AssetInstrumentCategoryCode == "GIRI" && cpasd.AssetInstrumentSubCategoryCode == "GIRIMV")
                     {
                         txtVehicleInsuranceA.Text = cpasd.AdjustedValue.ToString();
                         txtVehicleInsuranceSA.Text = cpasd.Value.ToString();
@@ -2656,7 +2656,7 @@ namespace WealthERP.FP
                         txtWERPPersonalAccident.Text = Math.Round(double.Parse(!string.IsNullOrEmpty(drThird["CFPASID_WERPManagedValue"].ToString()) ? drThird["CFPASID_WERPManagedValue"].ToString() : "0"), 0).ToString();  
                         txtPersonalAccidentSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()), 0).ToString();
                     }
-                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIBC" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIBCVE")
+                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIMV")
                     {
                         txtWERPVehicleInsurance.Text = Math.Round(double.Parse(!string.IsNullOrEmpty(drThird["CFPASID_WERPManagedValue"].ToString()) ? drThird["CFPASID_WERPManagedValue"].ToString() : "0"), 0).ToString();
                         txtVehicleInsuranceSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()), 0).ToString();
