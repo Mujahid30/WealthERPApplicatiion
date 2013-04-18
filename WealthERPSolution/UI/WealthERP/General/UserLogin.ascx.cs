@@ -22,6 +22,8 @@ using System.Data;
 using BoHostConfig;
 using VoHostConfig;
 using System.Configuration;
+using VoCustomerPortfolio;
+using BoCustomerPortfolio;
 
 namespace WealthERP.General
 {
@@ -185,7 +187,13 @@ namespace WealthERP.General
                         {
                             customerVo = customerBo.GetCustomerInfo(userVo.UserId);
                             advisorVo = advisorBo.GetAdvisor(advisorBranchBo.GetBranch(customerVo.BranchId).AdviserId);
-                            
+                            if (customerVo.IsProspect == 0)
+                            {
+                                PortfolioBo portfolioBo = new PortfolioBo();
+                                CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+                                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
+                                Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                            }
 
                         }
 
