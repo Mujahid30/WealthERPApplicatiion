@@ -379,7 +379,7 @@
                 </td>
                 <td>
                         <asp:CheckBoxList ID="chkValueAdds" runat="server" CssClass="FieldName">
-                            <asp:ListItem Text="Inbox" Value="10" Enabled="false" ></asp:ListItem>
+                            <asp:ListItem Text="Inbox" Value="10" Enabled="false" Selected="True" ></asp:ListItem>
                             <asp:ListItem Text="Repository" Value="11" Enabled="false" Selected="True"></asp:ListItem>
                             <asp:ListItem Text="Vault" Value="12" Enabled="false" Selected="True"></asp:ListItem>                                              
                         </asp:CheckBoxList>                  
