@@ -228,7 +228,7 @@
                         <asp:Label ID="lblNoOfBranches" runat="server" CssClass="FieldName" Text="No Of Branches : "></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtNoOfBranches" runat="server" CssClass="txtField" MaxLength="3" Enabled="false" ></asp:TextBox>
+                        <asp:TextBox ID="txtNoOfBranches" runat="server" CssClass="txtField" MaxLength="3" ></asp:TextBox>
                          <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server"  CssClass="cvPCG" ControlToValidate="txtNoOfBranches"
                                      Display="Dynamic"  ErrorMessage="Please Enter Numbers" ValidationExpression="^0$|^[1-9][0-9]*$|^[1-9][0-9]{0,2}(,[0-9]{3})$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
 
@@ -239,7 +239,7 @@
                         <asp:Label ID="lblNoOfStaffLogins" runat="server" CssClass="FieldName" Text="No of StaffLogins : "></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtNoOfStaffLogins" runat="server" CssClass="txtField"  MaxLength="5" Enabled="false" ></asp:TextBox>
+                        <asp:TextBox ID="txtNoOfStaffLogins" runat="server" CssClass="txtField"  MaxLength="5" ></asp:TextBox>
                          <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" CssClass="cvPCG" ControlToValidate="txtNoOfStaffLogins"
                                      Display="Dynamic"  ErrorMessage="Please Enter Numbers" ValidationExpression="^0$|^[1-9][0-9]*$|^[1-9][0-9]{0,2}(,[0-9]{3})$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
 
@@ -250,7 +250,7 @@
                         <asp:Label ID="lblNoOfCustomerLogins" runat="server" CssClass="FieldName" Text="No.of CustomerLogins:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtNoOfCustomerLogins" runat="server" CssClass="txtField" MaxLength="5" Enabled="false"></asp:TextBox>
+                        <asp:TextBox ID="txtNoOfCustomerLogins" runat="server" CssClass="txtField" MaxLength="5" ></asp:TextBox>
                          <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" CssClass="cvPCG" ControlToValidate="txtNoOfCustomerLogins"
                                      Display="Dynamic"  ErrorMessage="Please Enter Numbers" ValidationExpression="^0$|^[1-9][0-9]*$|^[1-9][0-9]{0,2}(,[0-9]{3})$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
 
