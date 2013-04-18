@@ -1018,7 +1018,7 @@ namespace WealthERP.Advisor
                         }
                         customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
                         Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                        customerVo = customerBo.GetCustomer(CustomerId);
+                        customerVo = customerBo.GetCustomer(ParentId);
                         Session["CustomerVo"] = customerVo;
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','login');", true);
                     }
