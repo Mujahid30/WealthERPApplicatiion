@@ -1363,6 +1363,8 @@ namespace WealthERP.Reports {
             
             private global::System.Data.DataColumn columnAbsoluteReturn;
             
+            private global::System.Data.DataColumn columnAnnualReturn;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public PortfolioXIRRDataTable() {
                 this.TableName = "PortfolioXIRR";
@@ -1436,6 +1438,13 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn AnnualReturnColumn {
+                get {
+                    return this.columnAnnualReturn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1464,7 +1473,7 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PortfolioXIRRRow AddPortfolioXIRRRow(int CustomerId, string CustomerName, int PortfolioId, decimal XIRR, string PortfolioName, long AbsoluteReturn) {
+            public PortfolioXIRRRow AddPortfolioXIRRRow(int CustomerId, string CustomerName, int PortfolioId, decimal XIRR, string PortfolioName, long AbsoluteReturn, long AnnualReturn) {
                 PortfolioXIRRRow rowPortfolioXIRRRow = ((PortfolioXIRRRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CustomerId,
@@ -1472,7 +1481,8 @@ namespace WealthERP.Reports {
                         PortfolioId,
                         XIRR,
                         PortfolioName,
-                        AbsoluteReturn};
+                        AbsoluteReturn,
+                        AnnualReturn};
                 rowPortfolioXIRRRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPortfolioXIRRRow);
                 return rowPortfolioXIRRRow;
@@ -1498,6 +1508,7 @@ namespace WealthERP.Reports {
                 this.columnXIRR = base.Columns["XIRR"];
                 this.columnPortfolioName = base.Columns["PortfolioName"];
                 this.columnAbsoluteReturn = base.Columns["AbsoluteReturn"];
+                this.columnAnnualReturn = base.Columns["AnnualReturn"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1514,6 +1525,8 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnPortfolioName);
                 this.columnAbsoluteReturn = new global::System.Data.DataColumn("AbsoluteReturn", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAbsoluteReturn);
+                this.columnAnnualReturn = new global::System.Data.DataColumn("AnnualReturn", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAnnualReturn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3434,6 +3447,21 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public long AnnualReturn {
+                get {
+                    try {
+                        return ((long)(this[this.tablePortfolioXIRR.AnnualReturnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AnnualReturn\' in table \'PortfolioXIRR\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePortfolioXIRR.AnnualReturnColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsCustomerIdNull() {
                 return this.IsNull(this.tablePortfolioXIRR.CustomerIdColumn);
             }
@@ -3491,6 +3519,16 @@ namespace WealthERP.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetAbsoluteReturnNull() {
                 this[this.tablePortfolioXIRR.AbsoluteReturnColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAnnualReturnNull() {
+                return this.IsNull(this.tablePortfolioXIRR.AnnualReturnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAnnualReturnNull() {
+                this[this.tablePortfolioXIRR.AnnualReturnColumn] = global::System.Convert.DBNull;
             }
         }
         
