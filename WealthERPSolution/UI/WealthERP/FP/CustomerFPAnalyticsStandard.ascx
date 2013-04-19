@@ -221,6 +221,7 @@ SelectedIndex="3">
                 </tr>        
                 <tr>                
                     <td id="tdgvrIncome" runat="server" valign="top">
+                    <div id="divIncome" runat="server">
                             <telerik:RadGrid ID="gvrIncome" Width="450px" AllowFilteringByColumn="false" CssClass="GridViewStyle"
                                Skin="Telerik" ShowFooter="true" EnableEmbeddedSkins="false" PagerStyle-EnableSEOPaging="true" runat="server">
                            
@@ -243,9 +244,11 @@ SelectedIndex="3">
                                 <ClientSettings>
                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                             </ClientSettings>
-                            </telerik:RadGrid>        
+                            </telerik:RadGrid>    
+                            </div>    
                     </td>                 
                     <td id="tdRedGridExpense" runat="server" valign="top">
+                    <div id="dcExpense" runat="server">
                             <telerik:RadGrid ID="RedGridExpense" Width="450px" AllowFilteringByColumn="false" CssClass="GridViewStyle"
                                Skin="Telerik" ShowFooter="true" EnableEmbeddedSkins="false" PagerStyle-EnableSEOPaging="true" runat="server">
                              <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
@@ -269,6 +272,7 @@ SelectedIndex="3">
                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                             </ClientSettings>
                             </telerik:RadGrid>
+                            </div>
                     </td>                
                 </tr>            
             </table>

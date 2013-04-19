@@ -866,13 +866,15 @@ namespace WealthERP.FP
                     gvrIncome.DataBind();
                     tdIncomeError.Visible = true;
                     lblIncomeError.Visible = false;
+                    divIncome.Visible = true;
                 }
                 else
                 {
                     ChartIncome.DataSource = null;
                     ChartIncome.Visible = false;
                     tdIncomeError.Visible = true;
-                    tdgvrIncome.Visible = false;
+                    divIncome.Visible = false;
+                    //tdgvrIncome.Visible = false;
                 }
             }
 
@@ -973,13 +975,15 @@ namespace WealthERP.FP
                    
                    /* ***************EXPENSE GRID BINDING END**************** */
                     tdExpenseError.Visible = false;
+                    dcExpense.Visible = true;
                 }
                 else
                 {
                     ChartExpense.DataSource = null;
                     ChartExpense.Visible = false;
                     tdExpenseError.Visible = true;
-                    tdRedGridExpense.Visible = false;
+                    //tdRedGridExpense.Visible = false;
+                    dcExpense.Visible = false;
                 }               
             }
             catch (BaseApplicationException Ex)
