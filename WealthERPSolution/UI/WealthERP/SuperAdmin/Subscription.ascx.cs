@@ -763,7 +763,7 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[12].Selected = false;
                 chkModules.Items[13].Selected = false;
                 chkModules.Items[14].Selected = false;
-                chkValueAdds.Items[0].Selected=false;
+                chkValueAdds.Items[0].Selected=true;
 
              
                 
