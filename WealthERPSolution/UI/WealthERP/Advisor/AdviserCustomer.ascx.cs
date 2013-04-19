@@ -988,7 +988,7 @@ namespace WealthERP.Advisor
                         }
                         else
                         {
-                            ParentId = customerVo.ParentId;
+                            ParentId = customerVo.CustomerId;
                         }
                         Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
                         Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
