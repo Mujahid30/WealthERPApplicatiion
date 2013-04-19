@@ -65,7 +65,7 @@ namespace DaoAdvisorProfiling
             return advisorPreferenceVo;
         }
 
-        public bool AdviserPreferenceSetUp(AdvisorPreferenceVo advisorPreferenceVo,int adviserId, int UserId)
+        public bool AdviserPreferenceSetUp(AdvisorPreferenceVo advisorPreferenceVo,int adviserId, int UserId,string strCommand)
         {
             Database db;
             DbCommand cmdAdviserPreferenceSetUp;           
@@ -76,13 +76,18 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdAdviserPreferenceSetUp = db.GetStoredProcCommand("SPROC_UpdateAdviserPreference");
+                if(!string.IsNullOrEmpty(strCommand))
+                db.AddInParameter(cmdAdviserPreferenceSetUp, "@strCommand", DbType.String, strCommand);
+                else
+                    db.AddInParameter(cmdAdviserPreferenceSetUp, "@strCommand", DbType.String, DBNull.Value);
+                
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@IsLoginWidgetEnable", DbType.Int16, advisorPreferenceVo.IsLoginWidgetEnable);
-                //if ()
+                if (!string.IsNullOrEmpty(advisorPreferenceVo.LoginWidgetLogOutPageURL))
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@LoginWidgetLogOutPageURL", DbType.String, advisorPreferenceVo.LoginWidgetLogOutPageURL);
-                //else
-                //db.AddInParameter(cmdAdviserPreferenceSetUp, "@LoginWidgetLogOutPageURL", DbType.Int32, DBNull.Value);
+               if (!string.IsNullOrEmpty(advisorPreferenceVo.BrowserTitleBarName))
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@BrowserTitleBarName", DbType.String, advisorPreferenceVo.BrowserTitleBarName);
+               if (!string.IsNullOrEmpty(advisorPreferenceVo.WebSiteDomainName))
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@WebSiteDomainName", DbType.String, advisorPreferenceVo.WebSiteDomainName);
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@GridPageSize", DbType.Int32, advisorPreferenceVo.GridPageSize);
                 db.AddInParameter(cmdAdviserPreferenceSetUp, "@UserId", DbType.String, UserId);
