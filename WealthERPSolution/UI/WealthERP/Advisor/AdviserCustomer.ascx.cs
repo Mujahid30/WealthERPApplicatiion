@@ -990,7 +990,7 @@ namespace WealthERP.Advisor
                         {
                             ParentId = customerVo.ParentId;
                         }
-                        Session[SessionContents.FPS_ProspectList_CustomerId] = CustomerId;
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
                         Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
                         //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
@@ -1031,7 +1031,7 @@ namespace WealthERP.Advisor
                     {
                         if (customerVo.IsProspect == 1)
                         {
-                            CustomerId = customerBo.GetCustomerGroupHead(CustomerId);
+                            CustomerId = customerBo.GetCustomerGroupHead(ParentId);
                         }
                         else
                         {
