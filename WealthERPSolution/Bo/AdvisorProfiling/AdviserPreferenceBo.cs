@@ -42,13 +42,13 @@ namespace BoAdvisorProfiling
 
         }
 
-        public bool AdviserPreferenceSetUp(AdvisorPreferenceVo advisorPreferenceVo, int adviserId, int UserId)
+        public bool AdviserPreferenceSetUp(AdvisorPreferenceVo advisorPreferenceVo, int adviserId, int UserId,string strCommand)
         {
             bool isSuccess = false;
             try
             {
                 AdvisorPreferenceDao advisorPreferenceDao = new AdvisorPreferenceDao();
-                isSuccess = advisorPreferenceDao.AdviserPreferenceSetUp(advisorPreferenceVo, adviserId, UserId);
+                isSuccess = advisorPreferenceDao.AdviserPreferenceSetUp(advisorPreferenceVo, adviserId, UserId,strCommand);
             }
             catch (BaseApplicationException Ex)
             {
