@@ -235,7 +235,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 imgexportButton.Visible = false;
                 gvSystematicTransactions.DataSource = dtSystematicTransactionReport;
-                gvSystematicTransactions.DataBind();               
+                //gvSystematicTransactions.DataBind();               
                 gvSystematicTransactions.Visible = true;
                 pnlSystematicTransactions.Visible = true;
                 trErrorMessage.Visible = false;
@@ -260,23 +260,27 @@ namespace WealthERP.CustomerPortfolio
                 DataTable dt = new DataTable();
                 if (ViewState["SystematicTransactions"] != null)
                 dt = (DataTable)ViewState["SystematicTransactions"];
-                
-                DataTable dtsystmatic = new DataTable();
-                DataRow drsystematic;
-                dtsystmatic.Columns.Add("SystematicType");
-                foreach (DataRow dr in dt.Rows)
+                if (dt != null )
                 {
-                    drsystematic = dtsystmatic.NewRow();
-                    drsystematic["SystematicType"] = dr["SystematicType"].ToString();
-                    dtsystmatic.Rows.Add(drsystematic);
+                    if (dt.Rows.Count > 0)
+                    {
+                        DataTable dtsystmatic = new DataTable();
+                        DataRow drsystematic;
+                        dtsystmatic.Columns.Add("SystematicType");
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            drsystematic = dtsystmatic.NewRow();
+                            drsystematic["SystematicType"] = dr["SystematicType"].ToString();
+                            dtsystmatic.Rows.Add(drsystematic);
+                        }
+                        DataView view = new DataView(dt);
+                        DataTable distinctValues = view.ToTable(true, "SystematicType");
+                        ddlTranType.DataSource = distinctValues;
+                        ddlTranType.DataValueField = dtsystmatic.Columns["SystematicType"].ToString();
+                        ddlTranType.DataTextField = dtsystmatic.Columns["SystematicType"].ToString();
+                        ddlTranType.DataBind();
+                    }
                 }
-                DataView view = new DataView(dt);
-                DataTable distinctValues = view.ToTable(true, "SystematicType");
-                ddlTranType.DataSource = distinctValues;
-                ddlTranType.DataValueField = dtsystmatic.Columns["SystematicType"].ToString();
-                ddlTranType.DataTextField = dtsystmatic.Columns["SystematicType"].ToString();
-                ddlTranType.DataBind();
-            
            // if (e.Item is GridHeaderItem)
             //{
               //  GridHeaderItem item = e.Item as GridHeaderItem;
