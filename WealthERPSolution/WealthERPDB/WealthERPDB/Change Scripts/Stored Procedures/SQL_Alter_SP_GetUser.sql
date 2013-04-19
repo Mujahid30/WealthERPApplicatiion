@@ -8,3 +8,4 @@ ALTER procedure [dbo].[SP_GetUser]
 as
 select * from [User] where U_LoginId=@U_LoginId
  
+ Seelct * from [User] WHERE 1=2
