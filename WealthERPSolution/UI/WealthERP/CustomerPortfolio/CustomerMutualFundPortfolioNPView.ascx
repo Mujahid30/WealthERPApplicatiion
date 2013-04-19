@@ -269,7 +269,7 @@
                                                                     DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn HeaderStyle-Width="54px" UniqueName="XIRR" HeaderText="XIRR(%)"
+                                                                <telerik:GridBoundColumn HeaderStyle-Width="54px" UniqueName="XIRR" HeaderText="XIRR (%)"
                                                                     DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
@@ -311,7 +311,7 @@
                                                 CssClass="FieldName"> </asp:Label>
                                             <asp:Label ID="lblALLAbsoluteReturnsValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
                                             &nbsp;
-                                            <asp:Label ID="lblPortfolioXIRR" Text="Portfolio XIRR(%): " runat="server" CssClass="FieldName"> </asp:Label>
+                                            <asp:Label ID="lblPortfolioXIRR" Text="Portfolio XIRR (%): " runat="server" CssClass="FieldName"> </asp:Label>
                                             <asp:Label ID="lblPortfolioXIRRValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
                                         </td>
                                     </tr>
@@ -489,7 +489,7 @@
                                                                     FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn HeaderStyle-Width="63px" UniqueName="XIRR" HeaderText="XIRR(%)"
+                                                                <telerik:GridBoundColumn HeaderStyle-Width="63px" UniqueName="XIRR" HeaderText="XIRR (%)"
                                                                     DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
@@ -663,7 +663,7 @@
                                                                     DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn HeaderStyle-Width="63px" UniqueName="XIRR" HeaderText="XIRR(%)"
+                                                                <telerik:GridBoundColumn HeaderStyle-Width="63px" UniqueName="XIRR" HeaderText="XIRR (%)"
                                                                     DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
