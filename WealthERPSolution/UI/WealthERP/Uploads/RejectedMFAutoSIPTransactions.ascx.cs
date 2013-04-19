@@ -70,8 +70,8 @@ namespace WealthERP.Uploads
             Dictionary<string, string> genDictRejectReason = new Dictionary<string, string>();
             dsRejectedSIP = uploadsCommonBo.GetRejectedAutoSIPRecords(adviserVo.advisorId,fromDate, toDate);
 
-            if (dsRejectedSIP.Tables[0].Rows.Count > 0)
-            {
+            //if (dsRejectedSIP.Tables[0].Rows.Count > 0)
+            //{
                 if (Cache["RejectedAutoSIPDetails" + adviserVo.advisorId.ToString()] == null)
                 {
                     Cache.Insert("RejectedAutoSIPDetails" + adviserVo.advisorId.ToString(), dsRejectedSIP);
@@ -85,15 +85,15 @@ namespace WealthERP.Uploads
                 gvAutoSIPReject.DataSource = dsRejectedSIP.Tables[0];
                 gvAutoSIPReject.DataBind();
                 gvAutoSIPReject.Visible = true;
-            }
-            else
-            {
-                gvAutoSIPReject.CurrentPageIndex = 0;               
-                gvAutoSIPReject.DataSource = null;
-                gvAutoSIPReject.DataBind();
-                gvAutoSIPReject.Visible = false;
+            //}
+            //else
+            //{
+            //    gvAutoSIPReject.CurrentPageIndex = 0;               
+            //    gvAutoSIPReject.DataSource = null;
+            //    gvAutoSIPReject.DataBind();
+            //    //gvAutoSIPReject.Visible = false;
                 
-            }
+            //}
         }
 
         protected void btnViewSIP_Click(object sender, EventArgs e)
