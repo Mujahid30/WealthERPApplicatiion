@@ -323,7 +323,7 @@
                     CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Balanced Units" HeaderStyle-Width="100px" DataField="Units"
+                <telerik:GridBoundColumn HeaderText="Unit Balance" HeaderStyle-Width="100px" DataField="Units"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="Units" SortExpression="Units"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
