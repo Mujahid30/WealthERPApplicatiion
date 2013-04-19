@@ -884,6 +884,11 @@ Begin DataProject = "WealthERPDB"
       End
    End
    Begin DBRefFolder = "Database References"
+      Begin DBRefNode = "moon.WealthERP_DEV.dbo"
+         ConnectStr = "Data Source=moon;Initial Catalog=WealthERP_DEV;User ID=platinum"
+         Provider = "{91510608-8809-4020-8897-FBA057E22D54}"
+         Colorizer = 6
+      End
       Begin DBRefNode = "server.wealthERPQA.dbo"
          ConnectStr = "Data Source=192.168.0.2;Initial Catalog=wealthERPQA;User ID=sa"
          Provider = "{91510608-8809-4020-8897-FBA057E22D54}"
