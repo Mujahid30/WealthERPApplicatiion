@@ -2948,6 +2948,7 @@
 
     <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3023" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3029" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3029" Deleted="False" 	/>
   </UserRoleToTreeAssociation>
 
     <!--<NewAdminTreeNode>
