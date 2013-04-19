@@ -4007,6 +4007,7 @@ namespace WealthERP.Reports
             try
             {
                 dtPortfolioXIRR.Columns.Add("AbsoluteReturn", typeof(Int64));
+                dtPortfolioXIRR.Columns.Add("AnnualReturn", typeof(Int64));
                 int portfolioId = 0;
                 String NA="NA";
                 Double XIRR;
@@ -4021,6 +4022,7 @@ namespace WealthERP.Reports
                     foreach (DataRow drAbs in drAbsolutereturn)
                     {
                         dr["AbsoluteReturn"] = drAbs["absoluteReturn"];
+                        dr["AnnualReturn"] = drAbs["CMFNP_RET_Hold_AnnualisedReturns"];
                     }
                     //foreach (DataRow drXIrr in drXirr)
                     //{
