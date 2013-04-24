@@ -377,7 +377,7 @@ namespace WealthERP.CustomerPortfolio
             if (Request.QueryString["strPortfolio"] != null)
             {
                 string portfolio = Request.QueryString["strPortfolio"].ToString();
-                if (portfolio == "unmanagd")
+                if (portfolio != "MyPortfolio")
                 {
                     ddlPortfolioGroup.SelectedItem.Value = "0";
                     ddlPortfolioGroup.SelectedItem.Text = "UnManaged";
