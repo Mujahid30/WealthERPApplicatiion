@@ -1256,7 +1256,7 @@ namespace WealthERP.CustomerPortfolio
             if (e.CommandName == "Select" || e.CommandName == "NavigateToMarketData")
             {
                 string portfolio = string.Empty;
-                if(ddlPortfolio.SelectedIndex!=0)
+                //if(ddlPortfolio.SelectedIndex!=0)
                 portfolio=ddlPortfolio.SelectedItem.ToString();
                 GridDataItem dataItem = e.Item as GridDataItem;
                 string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
@@ -1323,6 +1323,9 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void rgAll_ItemCommand(object sender, GridCommandEventArgs e)
         {
+            string portfolio = string.Empty;
+            //if(ddlPortfolio.SelectedIndex!=0)
+            portfolio = ddlPortfolio.SelectedItem.ToString();
             if (e.CommandName == "Select" || e.CommandName == "NavigateToMarketData")
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
@@ -1355,7 +1358,9 @@ namespace WealthERP.CustomerPortfolio
 
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','strPortfolio=" + portfolio + "');", true);        
+
                 }
                 else if (e.CommandName == "NavigateToMarketData")
                 {
@@ -1385,6 +1390,9 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void rgRealized_ItemCommand(object sender, GridCommandEventArgs e)
         {
+            string portfolio = string.Empty;
+            //if(ddlPortfolio.SelectedIndex!=0)
+            portfolio = ddlPortfolio.SelectedItem.ToString();
             if (e.CommandName == "Select" || e.CommandName == "NavigateToMarketData")
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
@@ -1416,7 +1424,10 @@ namespace WealthERP.CustomerPortfolio
                     #endregion
 
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','strPortfolio=" + portfolio + "');", true);        
+
                 }
                 else if (e.CommandName == "NavigateToMarketData")
                 {
