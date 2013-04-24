@@ -50,7 +50,7 @@ namespace WealthERP.Reports
         bool isGrpHead = false;
         bool CustomerLogin = false;
         bool strFromCustomerDashBoard = false;
-
+        WERPTaskRequestManagementBo taskRequestManagementBo = new WERPTaskRequestManagementBo();
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
 
         public enum Constants
@@ -1026,9 +1026,172 @@ namespace WealthERP.Reports
 
         }
 
+        protected void btnEmailReport_Click(object sender, EventArgs e)
+        {
+            String allCustomerId = SelectedCustomets4Email.Value;
+            CustomerVo custVo = new CustomerVo();
+            char[] separator = new char[] { ',' };
+            int customerId = 0;
+            string[] strSplitArr = allCustomerId.Split(separator);
+            //bool isForGroupCustomer = false;
+            int groupCustomerId = 0;
+            int parentrequestId=0;
+            List<MFReportVo> mfReportVoList=new List<MFReportVo>();
+            DateTime fromDateRangeRpt;
+            DateTime toDateRangeRpt;
+
+            CalculateDateRange(out fromDateRangeRpt, out toDateRangeRpt);
+            taskRequestManagementBo.CreateTaskRequest(1,userVo.UserId,out parentrequestId);
+            
+            foreach (string arrStr in strSplitArr)
+            {
+                if (!String.IsNullOrEmpty(arrStr))
+                {
+                    customerId = int.Parse(arrStr);
+                    //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
+                    if (rbnGroup.Checked == true)
+                    {                      
+                        groupCustomerId = int.Parse(arrStr);
+                    }
+                  
+                     custVo = customerBo.GetCustomer(customerId);
+                     foreach (ListItem chkItems in chkAsOnReportList.Items)
+                     {
+                         if (chkItems.Selected == true)
+                         { 
+                           mfReportVoList.Add(GetReportInputData(chkItems,customerId,groupCustomerId, ref fromDateRangeRpt,ref toDateRangeRpt,"ASON"));
+                         }
+
+                     }
+
+                    foreach (ListItem chkItems in chkRangeReportList.Items)
+                    {
+                         if (chkItems.Selected == true)
+                         { 
+                           mfReportVoList.Add(GetReportInputData(chkItems,customerId,groupCustomerId, ref fromDateRangeRpt,ref toDateRangeRpt,"RANGE"));
+                         }
+
+                     }   
+
+                }
+            }
+
+            taskRequestManagementBo.CreateBulkReportRequest(mfReportVoList, parentrequestId, 1, userVo.UserId);
+
+        }
+
         //protected void btnEmailReport_Click(object sender, EventArgs e)
         //{
         //}
+
+        private MFReportVo GetReportInputData(ListItem chkItems,int customerId, int groupCustomerId, ref DateTime dtFrom, ref DateTime dtTo,string reportDateType)
+        {
+
+            MFReportVo mfReportVo = new MFReportVo();               
+            mfReport.ReportName = chkItems.Value.Trim();
+            if (reportDateType == "RANGE")
+            {
+                mfReport.FromDate = Convert.ToDateTime(txtEmailAsOnDate.Text.Trim());
+                mfReport.ToDate = mfReport.FromDate;
+            }
+            else if (reportDateType == "ASON")
+            {
+                mfReport.FromDate = dtFrom;
+                mfReport.ToDate = dtTo;
+            }
+            mfReport.SubType = "MF";
+            mfReport.AdviserId = advisorVo.advisorId;
+            mfReport.CustomerId = customerId;
+            mfReport.GroupHeadId = groupCustomerId;
+            if (groupCustomerId != 0)
+            {
+                mfReport.PortfolioIds = GetGroupCustomerAllPortfolio(groupCustomerId);
+            }
+            else
+            {
+                mfReport.PortfolioIds = GetCustomerAllPortfolio(customerId);
+            }
+                          
+         return mfReport;
+          }
+
+        
+
+        /// <summary>
+        /// This Returns all portfolio Id of all customers of One Group Head Author:Pramod
+        /// </summary>
+        /// <returns></returns>
+
+        private string GetGroupCustomerAllPortfolio(int groupCustomerId)
+        {
+            string AllFolioIds = "";
+            CustomerBo customerBo = new CustomerBo();
+            CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
+
+            DataTable dt = customerFamilyBo.GetAllCustomerAssociates(groupCustomerId);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    AllFolioIds = AllFolioIds + GetCustomerAllPortfolio(Convert.ToInt32(dr["C_AssociateCustomerId"]));
+
+                }
+            }
+            if (!string.IsNullOrEmpty(AllFolioIds.Trim()))
+                AllFolioIds = AllFolioIds.Substring(0, AllFolioIds.Length - 1);
+
+            return AllFolioIds;
+        }
+
+        /// <summary>
+        /// This Returns all portfolio Id of a particular customer. Author:Pramod
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        private string GetCustomerAllPortfolio(int customerId)
+        {
+            string portfolioIDs = "";
+            PortfolioBo portfolioBo = new PortfolioBo();
+            if (!String.IsNullOrEmpty(customerId.ToString())) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            {
+                //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
+                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
+                {
+
+                    foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
+                    {
+                        if (custPortfolio.PortfolioName == "MyPortfolio" || custPortfolio.PortfolioName == "MyPortfolioProspect")
+                        {
+                            portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
+                            portfolioIDs = portfolioIDs + ",";
+                        }
+                        //checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
+                        //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
+                    }
+
+                }
+
+            }
+
+            return portfolioIDs;
+        }
+
+
+        private void CalculateDateRange(out DateTime fromDate, out DateTime toDate)
+        {
+            if (rdoDatePeriod.Checked==true)
+            {
+                dtBo.CalculateFromToDatesUsingPeriod(ddlEmailDatePeriod.SelectedValue, out fromDate, out toDate);
+                
+            }
+            else //if (Request.Form[ctrlPrefix + "hidDateType"] == "AS_ON")
+            {
+                fromDate = Convert.ToDateTime(txtEmailFromDate.Text);
+                toDate = Convert.ToDateTime(txtEmailFromDate.Text);
+            }
+        }
 
     }
 }
