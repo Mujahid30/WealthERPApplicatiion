@@ -681,17 +681,17 @@ namespace WealthERP.CustomerPortfolio
             drMFPortfolioHoldings[4] = mfVo.FolioNumber;
 
             if (mfVo.ReturnsHoldPurchaseUnit != 0)
-                drMFPortfolioHoldings[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings[5] = "0.00";
 
             if (mfVo.ReturnsHoldDVRUnits != 0)
-                drMFPortfolioHoldings[6] = mfVo.ReturnsHoldDVRUnits.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings[6] = mfVo.ReturnsHoldDVRUnits.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings[6] = "0.00";
 
             if (mfVo.NetHoldings != 0)
-                drMFPortfolioHoldings[7] = mfVo.NetHoldings.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings[7] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings[7] = "0.00";
 
@@ -701,22 +701,22 @@ namespace WealthERP.CustomerPortfolio
                 drMFPortfolioHoldings[8] = "0.00";
 
             if (mfVo.MarketPrice != 0)
-                drMFPortfolioHoldings[9] = mfVo.MarketPrice.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings[9] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings[9] = "0.00";
 
             if (mfVo.CurrentValue != 0)
-                drMFPortfolioHoldings[10] = mfVo.CurrentValue.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings[10] = mfVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings[10] = "0.00";
 
             if (mfVo.ReturnsHoldDVPAmt != 0)
-                drMFPortfolioHoldings[11] = mfVo.ReturnsHoldDVPAmt.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings[11] = mfVo.ReturnsHoldDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings[11] = "0.00";
 
             if (mfVo.ReturnsHoldTotalPL != 0)
-                drMFPortfolioHoldings[12] = mfVo.ReturnsHoldTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings[12] = mfVo.ReturnsHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings[12] = "0.00";
 
@@ -747,7 +747,7 @@ namespace WealthERP.CustomerPortfolio
                 //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
                 drMFPortfolioHoldings[19] = mfVo.InvestmentStartDate.ToShortDateString();
             if (mfVo.ReturnHoldDVRAmounts != 0)
-                drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = mfVo.ReturnHoldDVRAmounts.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = mfVo.ReturnHoldDVRAmounts.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = "0.00";
 
@@ -761,7 +761,7 @@ namespace WealthERP.CustomerPortfolio
             else
                 drMFPortfolioHoldings[22] = "0.00";
             if (mfVo.WeightageNAV != 0)
-                drMFPortfolioHoldings[23] = mfVo.WeightageNAV.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings[23] = mfVo.WeightageNAV.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings[23] = "0.00";
             if (mfVo.WeightageDays != 0)
@@ -780,37 +780,37 @@ namespace WealthERP.CustomerPortfolio
             drTaxHoldings[4] = mfVo.FolioNumber;
 
             if (mfVo.NetHoldings != 0)
-                drTaxHoldings[5] = mfVo.NetHoldings.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxHoldings[5] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxHoldings[5] = "0.00";
 
             if (mfVo.TaxHoldBalanceAmt != 0)
-                drTaxHoldings[6] = mfVo.TaxHoldBalanceAmt.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxHoldings[6] = mfVo.TaxHoldBalanceAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxHoldings[6] = "0.00";
 
             if (mfVo.MarketPrice != 0)
-                drTaxHoldings[7] = mfVo.MarketPrice.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxHoldings[7] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxHoldings[7] = "0.00";
 
             if (mfVo.CurrentValue != 0)
-                drTaxHoldings[8] = mfVo.CurrentValue.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxHoldings[8] = mfVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxHoldings[8] = "0.00";
 
             if (mfVo.TaxHoldTotalPL != 0)
-                drTaxHoldings[9] = mfVo.TaxHoldTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxHoldings[9] = mfVo.TaxHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxHoldings[9] = "0.00";
 
             if (mfVo.TaxHoldEligibleSTCG != 0)
-                drTaxHoldings[10] = mfVo.TaxHoldEligibleSTCG.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxHoldings[10] = mfVo.TaxHoldEligibleSTCG.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxHoldings[10] = "0.00";
 
             if (mfVo.TaxHoldEligibleLTCG != 0)
-                drTaxHoldings[11] = mfVo.TaxHoldEligibleLTCG.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxHoldings[11] = mfVo.TaxHoldEligibleLTCG.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxHoldings[11] = "0.00";
 
@@ -844,27 +844,27 @@ namespace WealthERP.CustomerPortfolio
             drTaxRealized[4] = mfVo.FolioNumber;
 
             if (mfVo.TaxRealizedAcqCost != 0)
-                drTaxRealized[5] = mfVo.TaxRealizedAcqCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxRealized[5] = mfVo.TaxRealizedAcqCost.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxRealized[5] = "0.00";
 
             if (mfVo.RedeemedAmount != 0)
-                drTaxRealized[6] = mfVo.RedeemedAmount.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxRealized[6] = mfVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxRealized[6] = "0.00";
 
             if (mfVo.TaxRealizedTotalPL != 0)
-                drTaxRealized[7] = mfVo.TaxRealizedTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxRealized[7] = mfVo.TaxRealizedTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxRealized[7] = "0.00";
 
             if (mfVo.TaxRealizedSTCG != 0)
-                drTaxRealized[8] = mfVo.TaxRealizedSTCG.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxRealized[8] = mfVo.TaxRealizedSTCG.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxRealized[8] = "0.00";
 
             if (mfVo.TaxRealizedLTCG != 0)
-                drTaxRealized[9] = mfVo.TaxRealizedLTCG.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxRealized[9] = mfVo.TaxRealizedLTCG.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxRealized[9] = "0.00";
 
