@@ -7,9 +7,12 @@ namespace VoReports
 {
     public struct MFReportVo
     {
-        
+
+        public string ReportName;
         public int AdviserId;
         public int RMId;
+        public int CustomerId;
+        public int GroupHeadId;
         public string CustomerName;
         public string CustomerIds;
         public string PortfolioIds;
