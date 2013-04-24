@@ -68,8 +68,15 @@
     <Compile Include="REadExternalFileBO.cs" />
     <Compile Include="RepositoryBo.cs" />
     <Compile Include="SessionBo.cs" />
+    <Compile Include="WERPTaskRequestManagementBo.cs" />
     <Compile Include="XMLBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Vo\VoReports\VoReports.csproj">
+      <Project>{07805AD5-0780-4FFF-9157-7714A5928E32}</Project>
+      <Name>VoReports</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
