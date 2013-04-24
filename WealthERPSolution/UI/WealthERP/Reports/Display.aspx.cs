@@ -3210,7 +3210,8 @@ namespace WealthERP.Reports
                         //crmain.Load(Server.MapPath("AbsoluteReturn.rpt"));
                         DataTable dtabsoluteReturn = dsEquityholdingwise.Tables[1];
                         DataTable dtXIRR = equityReports.GetEquityCustomerPortfolioLabelXIRR(report.PortfolioIds);
-                        dtXIRR = GetAbsolutereturnToXIRRDt(dtXIRR, dtabsoluteReturn);
+                        //----------------------------- To Calulate MF XIRR-------------------------
+                        //dtXIRR = GetAbsolutereturnToXIRRDt(dtXIRR, dtabsoluteReturn);
                         
                         if (dsEquityholdingwise.Tables[0].Rows.Count > 0)
                         {
