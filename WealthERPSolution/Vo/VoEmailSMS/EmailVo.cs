@@ -21,6 +21,26 @@ namespace VoEmailSMS
         private string m_FileName;
         private int m_ReportCode;
         private int m_Status;
+        private string m_EmailFrom;
+        private int m_SourceId;
+        private string m_OrgName;
+
+
+        public string OrgName
+        {
+            get { return m_OrgName; }
+            set { m_OrgName = value; }
+        }
+        public int SourceId
+        {
+            get { return m_SourceId; }
+            set { m_SourceId = value; }
+        }
+        public string EmailFrom
+        {
+            get { return m_EmailFrom; }
+            set { m_EmailFrom = value; }
+        }
 
         public int Status
         {
