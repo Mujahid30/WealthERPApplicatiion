@@ -97,18 +97,21 @@ namespace WERP_EMAIL_SMS_JOB
                                 tempAdviserId = adviserId;
                             }
 
-                            Utils.SendMail(To, Cc, Bcc, Subject, Body, Attachments, emailFrom, dtAdviserSMTP);
+                            string fromSMTPEmail = string.Empty;
+                            Utils.SendMail(To, Cc, Bcc, Subject, Body, Attachments, emailFrom, dtAdviserSMTP, out fromSMTPEmail);
                           
 
                             Trace("Updating email status " + Id.ToString());
 
-                            Params = new SqlParameter[3];
+                            Params = new SqlParameter[4];
                             Params[0] = new SqlParameter("Id", Id);
                             Params[0].DbType = DbType.Int32;
                             Params[1] = new SqlParameter("Status", 1);
                             Params[1].DbType = DbType.Int32;
                             Params[2] = new SqlParameter("ErrorMsg", "");
                             Params[2].DbType = DbType.String;
+                            Params[3] = new SqlParameter("@FromSMTPEmail", fromSMTPEmail);
+                            Params[3].DbType = DbType.String;
 
                             Utils.ExecuteNonQuery("sproc_UpdateOutgoingEmailStatus", Params);
                         }

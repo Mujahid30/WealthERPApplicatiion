@@ -21,7 +21,7 @@ namespace WERP_EMAIL_SMS_JOB
     {
         private static string _SMTPServer = ConfigurationSettings.AppSettings["SMTPServer"];
         private static int _SMTPPort = int.Parse(ConfigurationSettings.AppSettings["SMTPPort"]);
-        private static string _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsername"]);
+        private static string _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameOne"]);
         private static string _SMTPPassword = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPPassword"]);
         private static string _SMTPFromDisplay = ConfigurationSettings.AppSettings["SMTPFromDisplay"];
         private static string _SMTPFrom = ConfigurationSettings.AppSettings["SMTPFrom"];
@@ -69,14 +69,15 @@ namespace WERP_EMAIL_SMS_JOB
             Console.WriteLine(DateTime.Now.ToString() + ": " + Msg);
         }
 
-        public static void SendMail(string To, string Cc, string Bcc, string Subject, string Body, ArrayList Attachments, string from, DataTable dtAdviserSMTP)
+        public static void SendMail(string To, string Cc, string Bcc, string Subject, string Body, ArrayList Attachments, string from, DataTable dtAdviserSMTP,out string fromSMTPEmail)
         {
 
             SetAdviserSMTP(dtAdviserSMTP, from);
 
             SmtpClient smtpClient = new SmtpClient();
             MailMessage mail = new MailMessage(_SMTPFromDisplay, To);
-
+            _SMTPUsername = GetSMTPUserNameFromPool();
+            fromSMTPEmail = _SMTPUsername;
 
             if (_SMTPDefaultCredentials == true)
             {
@@ -144,7 +145,64 @@ namespace WERP_EMAIL_SMS_JOB
 
         }
 
+        private static string GetSMTPUserNameFromPool()
+        {
+            DataTable dtSMTPSendMailCount = new DataTable();
+            string _SMTPUsername = string.Empty;
+            dtSMTPSendMailCount = GetSendEmailSMTPCount();
+            if (dtSMTPSendMailCount.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtSMTPSendMailCount.Rows)
+                {
+                    if (dr["FromSMTPEmailId"].ToString() == "admin1@wealtherp.com")
+                    {
+                        if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) <= 240)
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameOne"]);
+                        else if(Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) >= 240)
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameTwo"]);
+                    }
+                    else if (dr["FromSMTPEmailId"].ToString() == "admin2@wealtherp.com")
+                    {
+                        if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) <= 240)
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameTwo"]);
+                        else if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) >= 240)
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameThree"]);
+                    }
+                    else if (dr["FromSMTPEmailId"].ToString() == "admin3@wealtherp.com")
+                    {
+                        if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) <= 240)
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameThree"]);
+                        else if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) >= 240)
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFour"]);
+                    }
+                    else if (dr["FromSMTPEmailId"].ToString() == "admin4@wealtherp.com")
+                    {
+                        if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) <= 240)
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFour"]);
+                        else if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) >= 240)
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFive"]);
+                    }
+                
+                }
 
+            }
+            else
+            {
+                _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameOne"]);
+            }
+            
+
+            return _SMTPUsername;
+        }
+
+        private static DataTable GetSendEmailSMTPCount()
+        {
+            DataTable dtSendEmailSMTPCount = new DataTable();
+            SqlParameter[] Params = new SqlParameter[0];
+            DataSet dsSMTPDetails = ExecuteDataSet("SPOC_GetSMTPSendMailCount", Params);
+            dtSendEmailSMTPCount = dsSMTPDetails.Tables[0];
+            return dtSendEmailSMTPCount;
+        }
 
         public static void SetAdviserSMTP(DataTable dtAdviserSMTP, string from)
         {
