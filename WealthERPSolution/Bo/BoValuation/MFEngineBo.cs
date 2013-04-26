@@ -1184,6 +1184,7 @@ namespace BoValuation
             double[] currentValueXIRR;
             DateTime[] tranDateXIRR;
             double CMFNP_TAX_Realized_AcqCost = 0;
+            double totalCostReturn = 0;
 
             currentValueXIRR = new double[dtMFTransactionBalance.Rows.Count + 1];
             tranDateXIRR = new DateTime[dtMFTransactionBalance.Rows.Count + 1];
@@ -1202,18 +1203,24 @@ namespace BoValuation
                     sumObject = dtMFTransactionBalance.Compute("Sum(CMFTB_TotalCostBalanceTAX)", string.Empty);
                     double.TryParse(Convert.ToString(sumObject), out totalDiv);
 
+                    sumObject = dtMFTransactionBalance.Compute("Sum(CMFTB_TotalCostBalRETURN)", string.Empty);
+                    double.TryParse(Convert.ToString(sumObject), out totalCostReturn);
+
+
+
+
                     foreach (DataRow drTransactionBalance in dtMFTransactionBalance.Rows)
                     {
                         currentValueXIRR[i] = double.Parse(drTransactionBalance["XIRR_ALL"].ToString());
                         tranDateXIRR[i] = DateTime.Parse(drTransactionBalance["CMFT_TransactionDate"].ToString());
 
-                        if (!String.IsNullOrEmpty(drTransactionBalance["CMFTB_TotalCostBalanceTAX"].ToString()))
+                        if (!String.IsNullOrEmpty(drTransactionBalance["CMFTB_TotalCostBalRETURN"].ToString()))
                         {
                             span = valuationDate - DateTime.Parse(drTransactionBalance["CMFT_TransactionDate"].ToString());
 
-                            if (totalDiv != 0)
+                            if (totalCostReturn != 0)
                             {
-                                drTransactionBalance["WeightageInvestedCost"] = Convert.ToDouble(drTransactionBalance["CMFTB_TotalCostBalanceTAX"].ToString()) / totalDiv;
+                                drTransactionBalance["WeightageInvestedCost"] = Convert.ToDouble(drTransactionBalance["CMFTB_TotalCostBalRETURN"].ToString()) / totalCostReturn;
                                 drTransactionBalance["WeightageReturns"] = Convert.ToDouble(drTransactionBalance["ABS_ReturnPA"].ToString()) * Convert.ToDouble(drTransactionBalance["WeightageInvestedCost"].ToString());
                                 drTransactionBalance["WeightageNAV"] = Convert.ToDouble(drTransactionBalance["CMFT_Price"].ToString()) * Convert.ToDouble(drTransactionBalance["WeightageInvestedCost"].ToString());
                                 drTransactionBalance["WeightageDays"] = span.TotalDays * Convert.ToDouble(drTransactionBalance["WeightageInvestedCost"].ToString());
@@ -1444,7 +1451,7 @@ namespace BoValuation
                     }
 
                     if (openUnits != 0)
-                        drMFNetPosition["CMFNP_RET_Hold_WeightageNAV"] = totalDiv / openUnits;
+                        drMFNetPosition["CMFNP_RET_Hold_WeightageNAV"] = totalCostReturn / openUnits;
                     else
                     {
                         drMFNetPosition["CMFNP_RET_Hold_WeightageNAV"] = 0 ;
