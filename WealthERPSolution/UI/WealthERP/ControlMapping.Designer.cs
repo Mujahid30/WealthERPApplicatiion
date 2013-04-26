@@ -862,6 +862,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//CustomerEquityLedgerMIS.ascx.
+        /// </summary>
+        internal static string CustomerEquityLedgerMIS {
+            get {
+                return ResourceManager.GetString("CustomerEquityLedgerMIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//CustomerExceptionHandling.ascx.
         /// </summary>
         internal static string CustomerExceptionHandling {

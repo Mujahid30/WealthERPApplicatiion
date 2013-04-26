@@ -1553,4 +1553,8 @@
     <value>Uploads//RejectedMFAutoSIPTransactions.ascx</value>
     <comment>Uploads//RejectedMFAutoSIPTransactions.ascx</comment>
   </data>
+  <data name="CustomerEquityLedgerMIS" xml:space="preserve">
+    <value>BusinessMIS//CustomerEquityLedgerMIS.ascx</value>
+    <comment>BusinessMIS//CustomerEquityLedgerMIS.ascx</comment>
+  </data>
 </root>
