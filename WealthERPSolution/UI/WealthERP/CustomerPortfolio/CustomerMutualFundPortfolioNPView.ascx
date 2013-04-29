@@ -273,7 +273,7 @@
                                                                     DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" SortExpression="weightage returns" UniqueName="Annualized_Return" HeaderText="Annualized Return (%)"
+                                                                <%-- <telerik:GridBoundColumn HeaderStyle-Width="77px" SortExpression="weightage returns" UniqueName="Annualized_Return" HeaderText="Annualized Return (%)"
                                                                     DataField="weightage returns"  AllowFiltering="false" DataFormatString="{0:N2}"  FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
@@ -284,7 +284,7 @@
                                                                  <telerik:GridBoundColumn   HeaderStyle-Width="77px" SortExpression="Weighted Days" UniqueName="Weighted_Days" HeaderText="Weighted Days"
                                                                     DataField="Weighted Days" AllowFiltering="false">
                                                                     <ItemStyle HorizontalAlign="Right" />
-                                                                </telerik:GridBoundColumn>   
+                                                                </telerik:GridBoundColumn>   --%>
                                                                                                                           
                                                             </Columns>
                                                         </MasterTableView>
