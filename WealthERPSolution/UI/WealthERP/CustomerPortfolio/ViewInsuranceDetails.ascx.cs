@@ -515,7 +515,11 @@ namespace WealthERP.CustomerPortfolio
             while (nextPremiumDate < currentDate && nextPremiumDate <endDate)
             {
                 nextPremiumDate = new DateTime(nextPremiumDate.Year, nextPremiumDate.Month, 1);
-                 nextPremiumDate = nextPremiumDate.AddDays(startDateOnly - 1);
+                if (frequency != "Daily")
+                {
+                    nextPremiumDate = nextPremiumDate.AddDays(startDateOnly - 1);
+                }
+                 
                 switch (frequency)
                 {
                     case "Daily":
