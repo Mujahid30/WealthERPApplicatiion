@@ -207,7 +207,7 @@ namespace BoReports
             return mfReports.GetDivdendReport(reports);
         }
 
-        public DataTable GetReturnSummaryReport(MFReportVo reports, int adviserId)
+        public DataSet GetReturnSummaryReport(MFReportVo reports, int adviserId)
         {
             MFReportsDao mfReports = new MFReportsDao();
             return mfReports.GetReturnSummaryReport(reports, adviserId);
