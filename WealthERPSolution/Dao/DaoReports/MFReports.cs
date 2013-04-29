@@ -167,7 +167,7 @@ namespace DaoReports
             }
         }
 
-        public DataTable GetReturnSummaryReport(MFReportVo reports,int adviserId)
+        public DataSet GetReturnSummaryReport(MFReportVo reports,int adviserId)
         {
 
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -186,7 +186,7 @@ namespace DaoReports
                 cmdCustomerMFReturns.CommandTimeout = 60 * 60;
                 dsCustomerMFReturns = db.ExecuteDataSet(cmdCustomerMFReturns);
                 //ds = dsCustomerMFReturns;
-                return dsCustomerMFReturns.Tables[0];
+                return dsCustomerMFReturns;
 
             }
             catch (Exception ex)
