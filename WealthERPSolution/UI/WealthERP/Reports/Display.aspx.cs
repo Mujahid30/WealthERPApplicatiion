@@ -4008,7 +4008,7 @@ namespace WealthERP.Reports
             try
             {
                 dtPortfolioXIRR.Columns.Add("AbsoluteReturn", typeof(Int64));
-                dtPortfolioXIRR.Columns.Add("AnnualReturn", typeof(Int64));
+               // dtPortfolioXIRR.Columns.Add("AnnualReturn", typeof(Int64));
                 int portfolioId = 0;
                 String NA="NA";
                 Double XIRR;
@@ -4017,13 +4017,13 @@ namespace WealthERP.Reports
                 foreach (DataRow dr in dtPortfolioXIRR.Rows)
                 {
                     portfolioId = Convert.ToInt32(dr["PortfolioId"].ToString());
-                    //XIRR = Convert.ToDouble(dr["XIRR"].ToString());
+                    //XIRR = Convert.ToDouble(dr["XIRR"].ToString());  //-----Annual return code revert backed
                     drAbsolutereturn = dtReturnsPortfolio.Select("CP_PortfolioId=" + portfolioId.ToString());
                     //drXirr = dtReturnsPortfolio.Select("XIRR=" + XIRR.ToString());
                     foreach (DataRow drAbs in drAbsolutereturn)
                     {
                         dr["AbsoluteReturn"] = drAbs["absoluteReturn"];
-                        dr["AnnualReturn"] = drAbs["CMFNP_RET_Hold_AnnualisedReturns"];
+                        //dr["AnnualReturn"] = drAbs["CMFNP_RET_Hold_AnnualisedReturns"]; //-----Annual return code revert backed
                     }
                     //foreach (DataRow drXIrr in drXirr)
                     //{
