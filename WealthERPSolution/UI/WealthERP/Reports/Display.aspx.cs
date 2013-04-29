@@ -3644,17 +3644,18 @@ namespace WealthERP.Reports
                         break;
 
                     case "RETURNS_PORTFOLIO":
+                        DataTable dtReturnsPortfolio;
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
-                        DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
-                        
+                        DataSet  dsReturnsPortfolioHoldings = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[0];
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
-
+                        dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[1];
                         dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
 
 
-                        if (dtReturnsPortfolio.Rows.Count > 0)
+                        if (dsReturnsPortfolioHoldings.Tables[0].Rows.Count > 0)
                         {
-                            crmain.SetDataSource(dtReturnsPortfolio);
+                            crmain.SetDataSource(dsReturnsPortfolioHoldings.Tables[0]);
                             setLogo();
                             crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRR);
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
@@ -4007,7 +4008,7 @@ namespace WealthERP.Reports
         {
             try
             {
-                dtPortfolioXIRR.Columns.Add("AbsoluteReturn", typeof(Int64));
+                dtPortfolioXIRR.Columns.Add("AbsoluteReturn", typeof(double));
                // dtPortfolioXIRR.Columns.Add("AnnualReturn", typeof(Int64));
                 int portfolioId = 0;
                 String NA="NA";
