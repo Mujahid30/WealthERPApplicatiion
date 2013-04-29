@@ -825,16 +825,18 @@ namespace WealthERP.Reports
                         break;
 
                     case "RETURNS_PORTFOLIO":
+                        DataTable dtReturnsPortfolio;
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
                         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
-                        DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
-                       
+                        //DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        DataSet dsReturnsPortfolioHoldings = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[0];
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
+                        dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[1];
                         dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
-
-                        if (dtReturnsPortfolio.Rows.Count > 0)
+                        if (dsReturnsPortfolioHoldings.Tables[0].Rows.Count > 0)
                         {
-                            crmain.SetDataSource(dtReturnsPortfolio);
+                            crmain.SetDataSource(dsReturnsPortfolioHoldings.Tables[0]);
                             setLogo();
                             crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRR);
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
