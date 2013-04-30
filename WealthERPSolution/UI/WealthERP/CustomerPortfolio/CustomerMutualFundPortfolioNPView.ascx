@@ -1078,7 +1078,7 @@
                                                                     </FilterTemplate>
                                                                 </telerik:GridDateTimeColumn>
                                                                 <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Total Units" DataField="OpenUnits"
-                                                                    AllowFiltering="false" DataFormatString="{0:N2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                                                    AllowFiltering="false" DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="BalanceAmount" HeaderText="Acquisition Cost"
@@ -1087,7 +1087,7 @@
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV" AllowFiltering="false"
-                                                                    DataFormatString="{0:N2}">
+                                                                    DataFormatString="{0:N4}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                  <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
@@ -1221,7 +1221,7 @@
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold"
-                                                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" Aggregate="Sum"
+                                                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N3}" Aggregate="Sum"
                                                                     AllowFiltering="false">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>

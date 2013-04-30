@@ -510,34 +510,34 @@ namespace WealthERP.CustomerPortfolio
             drMFPortfolioRealized[3] = mfVo.SchemePlan;
             drMFPortfolioRealized[4] = mfVo.FolioNumber;
             if (mfVo.ReturnsRealizedInvestedCost != 0)
-                drMFPortfolioRealized[5] = mfVo.ReturnsRealizedInvestedCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioRealized[5] = mfVo.ReturnsRealizedInvestedCost.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[5] = "0.00";
+                drMFPortfolioRealized[5] = "0";
 
             if (mfVo.SalesQuantity != 0)
-                drMFPortfolioRealized[6] = mfVo.SalesQuantity.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioRealized[6] = mfVo.SalesQuantity.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[6] = "0.00";
+                drMFPortfolioRealized[6] = "0.000";
 
             if (mfVo.RedeemedAmount != 0)
-                drMFPortfolioRealized[7] = mfVo.RedeemedAmount.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioRealized[7] = mfVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[7] = "0.00";
+                drMFPortfolioRealized[7] = "0";
 
             if (mfVo.ReturnsRealizedDVPAmt != 0)
-                drMFPortfolioRealized[8] = mfVo.ReturnsRealizedDVPAmt.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioRealized[8] = mfVo.ReturnsRealizedDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[8] = "0.00";
+                drMFPortfolioRealized[8] = "0";
 
             if (mfVo.ReturnsRealizedTotalDividends != 0)
-                drMFPortfolioRealized[9] = mfVo.ReturnsRealizedTotalDividends.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioRealized[9] = mfVo.ReturnsRealizedTotalDividends.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[9] = "0.00";
+                drMFPortfolioRealized[9] = "0";
 
             if (mfVo.ReturnsRealizedTotalPL != 0)
-                drMFPortfolioRealized[10] = mfVo.ReturnsRealizedTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioRealized[10] = mfVo.ReturnsRealizedTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[10] = "0.00";
+                drMFPortfolioRealized[10] = "0";
 
             if (mfVo.ReturnsRealizedAbsReturn != 0)
                 drMFPortfolioRealized[11] = mfVo.ReturnsRealizedAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -576,59 +576,59 @@ namespace WealthERP.CustomerPortfolio
             drMFPortfolioAll[4] = mfVo.FolioNumber;
 
             if (mfVo.ReturnsHoldPurchaseUnit != 0)
-                drMFPortfolioAll[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[5] = "0.00";
+                drMFPortfolioAll[5] = "0.000";
 
             if (mfVo.ReturnsHoldDVRUnits != 0)
-                drMFPortfolioAll[6] = mfVo.ReturnsHoldDVRUnits.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[6] = mfVo.ReturnsHoldDVRUnits.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[6] = "0.00";
+                drMFPortfolioAll[6] = "0.000";
 
             if (mfVo.NetHoldings != 0)
-                drMFPortfolioAll[7] = mfVo.NetHoldings.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[7] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[7] = "0.00";
+                drMFPortfolioAll[7] = "0.000";
 
             if (mfVo.ReturnsAllPrice != 0)
-                drMFPortfolioAll[8] = mfVo.ReturnsAllPrice.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[8] = mfVo.ReturnsAllPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[8] = "0.00";
+                drMFPortfolioAll[8] = "0.0000";
 
             if (mfVo.InvestedCost != 0)
-                drMFPortfolioAll[9] = mfVo.InvestedCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[9] = mfVo.InvestedCost.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[9] = "0.00";
+                drMFPortfolioAll[9] = "0";
 
             if (mfVo.MarketPrice != 0)
-                drMFPortfolioAll[10] = mfVo.MarketPrice.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[10] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[10] = "0.00";
+                drMFPortfolioAll[10] = "0.0000";
 
             if (mfVo.CurrentValue != 0)
-                drMFPortfolioAll[11] = mfVo.CurrentValue.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[11] = mfVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[11] = "0.00";
+                drMFPortfolioAll[11] = "0";
 
             if (mfVo.SalesQuantity != 0)
-                drMFPortfolioAll[12] = mfVo.SalesQuantity.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[12] = mfVo.SalesQuantity.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[12] = "0.00";
+                drMFPortfolioAll[12] = "0.000";
 
             if (mfVo.RedeemedAmount != 0)
-                drMFPortfolioAll[13] = mfVo.RedeemedAmount.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[13] = mfVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[13] = "0.00";
+                drMFPortfolioAll[13] = "0";
 
             if (mfVo.ReturnsAllDVPAmt != 0)
-                drMFPortfolioAll[14] = mfVo.ReturnsAllDVPAmt.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[14] = mfVo.ReturnsAllDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[14] = "0.00";
+                drMFPortfolioAll[14] = "0";
 
             if (mfVo.ReturnsAllTotalPL != 0)
-                drMFPortfolioAll[15] = mfVo.ReturnsAllTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[15] = mfVo.ReturnsAllTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[15] = "0.00";
+                drMFPortfolioAll[15] = "0";
 
             if (mfVo.ReturnsAllAbsReturn != 0)
                 drMFPortfolioAll[16] = mfVo.ReturnsAllAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -636,9 +636,9 @@ namespace WealthERP.CustomerPortfolio
                 drMFPortfolioAll[16] = "0.00";
 
             if (mfVo.ReturnsAllDVRAmt != 0)
-                drMFPortfolioAll[17] = mfVo.ReturnsAllDVRAmt.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[17] = mfVo.ReturnsAllDVRAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[17] = "0.00";
+                drMFPortfolioAll[17] = "0";
 
             if (mfVo.ReturnsAllTotalXIRR != 0)
                 drMFPortfolioAll[18] = mfVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -646,9 +646,9 @@ namespace WealthERP.CustomerPortfolio
                 drMFPortfolioAll[18] = "0.00";
 
             if (mfVo.ReturnsAllTotalDividends != 0)
-                drMFPortfolioAll[19] = mfVo.ReturnsAllTotalDividends.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioAll[19] = mfVo.ReturnsAllTotalDividends.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioAll[19] = "0.00";
+                drMFPortfolioAll[19] = "0";
 
             drMFPortfolioAll[20] = mfVo.AMCCode;
             drMFPortfolioAll[21] = mfVo.SchemePlanCode;
@@ -683,17 +683,17 @@ namespace WealthERP.CustomerPortfolio
             if (mfVo.ReturnsHoldPurchaseUnit != 0)
                 drMFPortfolioHoldings[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioHoldings[5] = "0.00";
+                drMFPortfolioHoldings[5] = "0.000";
 
             if (mfVo.ReturnsHoldDVRUnits != 0)
                 drMFPortfolioHoldings[6] = mfVo.ReturnsHoldDVRUnits.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioHoldings[6] = "0.00";
+                drMFPortfolioHoldings[6] = "0.000";
 
             if (mfVo.NetHoldings != 0)
                 drMFPortfolioHoldings[7] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioHoldings[7] = "0.00";
+                drMFPortfolioHoldings[7] = "0.000";
 
             if (mfVo.InvestedCost != 0)
                 drMFPortfolioHoldings[8] = mfVo.ReturnsHoldAcqCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -703,12 +703,12 @@ namespace WealthERP.CustomerPortfolio
             if (mfVo.MarketPrice != 0)
                 drMFPortfolioHoldings[9] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioHoldings[9] = "0.00";
+                drMFPortfolioHoldings[9] = "0.0000";
 
             if (mfVo.CurrentValue != 0)
                 drMFPortfolioHoldings[10] = mfVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioHoldings[10] = "0.00";
+                drMFPortfolioHoldings[10] = "0";
 
             if (mfVo.ReturnsHoldDVPAmt != 0)
                 drMFPortfolioHoldings[11] = mfVo.ReturnsHoldDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -718,7 +718,7 @@ namespace WealthERP.CustomerPortfolio
             if (mfVo.ReturnsHoldTotalPL != 0)
                 drMFPortfolioHoldings[12] = mfVo.ReturnsHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioHoldings[12] = "0.00";
+                drMFPortfolioHoldings[12] = "0";
 
             if (mfVo.ReturnsHoldAbsReturn != 0)
                 drMFPortfolioHoldings[13] = mfVo.ReturnsHoldAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -873,9 +873,9 @@ namespace WealthERP.CustomerPortfolio
             drTaxRealized[12] = mfVo.AssetInstrumentSubCategoryName;
 
             if (mfVo.SalesQuantity != 0)
-                drTaxRealized[13] = mfVo.SalesQuantity.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drTaxRealized[13] = mfVo.SalesQuantity.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drTaxRealized[13] = "0.00";
+                drTaxRealized[13] = "0.000";
             if (mfVo.FolioStartDate == DateTime.MinValue)
                 drTaxRealized[14] = "N/A";
             else
