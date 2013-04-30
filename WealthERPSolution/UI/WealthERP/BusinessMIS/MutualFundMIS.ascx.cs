@@ -176,6 +176,7 @@ namespace WealthERP.BusinessMIS
                     ddlBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
                     ddlBranch.DataBind();
                 }
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
             }
             catch (BaseApplicationException Ex)
             {
