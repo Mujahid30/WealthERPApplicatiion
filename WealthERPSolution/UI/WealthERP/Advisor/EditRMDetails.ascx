@@ -75,34 +75,79 @@
         //alert(selectedBranches)
     }
 
-    function CheckItem(sender, args) {
-        var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
-        if (chk4ops.checked == false) {
+//    function CheckItem(sender, args) {
+//        var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
+//        if (chk4ops.checked == false) {
 
-            var chkControlId = '<%=ChklistRMBM.ClientID%>';
-            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+//            var chkControlId = '<%=ChklistRMBM.ClientID%>';
+//            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+//            var ischecked = false;
+//            args.IsValid = false;
+//            for (i = 0; i < options.length; i++) {
+//                var opt = options[i];
+//                if (opt.type == "checkbox") {
+//                    var check = opt.checked;
+//                    if (!check && i == 0) {
+//                        var count = document.getElementById("ctrl_EditRMDetails_hndRmCustomerCount").value;
+//                        if (count > 0) {
+//                            alert("Please deassociate Customer First");
+//                            return false;
+//                        }
+//                    }
+//                    if (check) {
+//                        ischecked = true;
+//                        args.IsValid = true;
+//                    }
+//                }
+//            }
+//        }
+//        else {
+//        }
+    //    }
+    function CheckItem(sender, args) {
+        var hdnIsOpsEnabled = document.getElementById('ctrl_EditRMDetails_hdnIsOpsEnabled').value;
+        alert(hdnIsOpsEnabled);
+
+        if (hdnIsOpsEnabled == "1") {
+            var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
+
+            if (chk4ops.checked == false) {
+
+                var chkControlId = '<%=ChklistRMBM.ClientID%>';
+                var options = document.getElementById(chkControlId).getElementsByTagName('input');
+                var ischecked = false;
+                args.IsValid = false;
+
+                for (i = 0; i < options.length; i++) {
+                    var opt = options[i];
+                    if (opt.type == "checkbox") {
+                        if (opt.checked) {
+                            ischecked = true;
+                            args.IsValid = true;
+                        }
+                    }
+                }
+            }
+            else {
+
+            }
+        }
+        else {
             var ischecked = false;
             args.IsValid = false;
+            var chkControlId = '<%=ChklistRMBM.ClientID%>';
+            var options = document.getElementById(chkControlId).getElementsByTagName('input');
             for (i = 0; i < options.length; i++) {
                 var opt = options[i];
                 if (opt.type == "checkbox") {
-                    var check = opt.checked;
-                    if (!check && i == 0) {
-                        var count = document.getElementById("ctrl_EditRMDetails_hndRmCustomerCount").value;
-                        if (count > 0) {
-                            alert("Please deassociate Customer First");
-                            return false;
-                        }
-                    }
-                    if (check) {
+                    if (opt.checked) {
                         ischecked = true;
                         args.IsValid = true;
                     }
                 }
             }
         }
-        else {
-        }
+
     }
 
     function CheckRMBMRole() {
@@ -134,9 +179,9 @@
                var opt = options[i];
             if (opt.type == "checkbox") {
                 if (opt.checked == true) {
-                   
                     ischecked = true;
                     document.getElementById("<%= chkOps.ClientID %>").disabled = true;
+                    document.getElementById("<%= chkOps.ClientID %>").checked = false;
                     document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
                     document.getElementById("<%= associatedBranch.ClientID %>").disabled = false;
                     document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = false;
@@ -147,6 +192,7 @@
 
                     ischecked = false;
                     document.getElementById("<%= chkOps.ClientID %>").disabled = false;
+                    document.getElementById("<%= chkOps.ClientID %>").checked = true;
                     document.getElementById("<%= availableBranch.ClientID %>").disabled = true;
                     document.getElementById("<%= associatedBranch.ClientID %>").disabled = true;
                     document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = true;
@@ -572,3 +618,4 @@
         </td>
     </tr>
 </table>
+<asp:HiddenField ID="hdnIsOpsEnabled" runat="server"/>

@@ -64,6 +64,7 @@ namespace WealthERP.Advisor
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
                 this.Action = Request.QueryString[0];
+                GetPlanOpsStaffAddStatus(advisorVo.advisorId);
                 if (Action == "Edit Profile")
                 {
                     SetStaffDetails();
@@ -83,7 +84,7 @@ namespace WealthERP.Advisor
                 hndRmCustomerCount.Value = htRMInfo["RMCustomerCount"].ToString();
                 hndBMBranchHead.Value = htRMInfo["BMBranchHead"].ToString();
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
-                GetPlanOpsStaffAddStatus(advisorVo.advisorId);
+                
             }
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
@@ -105,15 +106,27 @@ namespace WealthERP.Advisor
             DataSet dsPlanOpsStaffAddStatus = advisorStaffBo.GetPlanOpsStaffAddStatus(adviserId);
             if (dsPlanOpsStaffAddStatus.Tables[1].Rows[0]["WP_IsOpsEnabled"].ToString() == "1")
             {
-                if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) == 1)
+                if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) == 1 && rmVo.RMRole == "Ops")
                 {
+                    hdnIsOpsEnabled.Value = "1";
                     chkOps.Visible = true;
-                    chkOps.Checked = true;
+                    //chkOps.Checked = true;
+                }
+                else if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) == 0 && rmVo.RMRole != "Ops")
+                {
+                    hdnIsOpsEnabled.Value = "1";
+                    chkOps.Visible = true;
+                }
+                else
+                {
+                    chkOps.Visible = false;
+                    hdnIsOpsEnabled.Value = "0";
                 }
             }
             else
             {
                 chkOps.Visible = false;
+                hdnIsOpsEnabled.Value = "0";
             }
         }
         //protected void rbtnMainBranch_CheckedChanged(object sender, EventArgs e)
@@ -728,9 +741,10 @@ namespace WealthERP.Advisor
             BindBranchAssociation();
             if (rmVo.RMRole == "Ops")
             {
+                chkOps.Checked = true;
                 if (advisorVo.IsISASubscribed == true)
                 {
-                    chkOps.Checked = true;
+                    
                     trCKMK.Visible = true;
                     bool Value;
                     foreach (ListItem Items in CheckListCKMK.Items)
