@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.Customer {
-    
-    
-    public partial class ViewBankDetails {
-        
+namespace WealthERP.Customer
+{
+
+
+    public partial class ViewBankDetails
+    {
+
         /// <summary>
         /// imgBtnrgHoldings control.
         /// </summary>
@@ -22,5 +24,89 @@ namespace WealthERP.Customer {
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnrgHoldings;
         protected global::Telerik.Web.UI.RadGrid gvBankDetails;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnYes;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnNo;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNomineeCaption;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNominees;
+        protected global::Telerik.Web.UI.RadGrid gvNominees;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoNominee;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAccountDetail;
+
+        /// <summary>
+        /// lblNoNominee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoNominee;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPopUp;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trJointHolder;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trHoldingAndTrnx;
+        /// <summary>
+        /// lblJointHolders control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblJointHolder;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnholding;
+
+        protected global::System.Web.UI.WebControls.RadioButton rbtntransaction;
+
+
+        /// <summary>
+        /// trJointHolderGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trJointHolderlist;
+
+        /// <summary>
+        /// gvJointHoldersList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvJointHolders;
+
+        /// <summary>
+        /// trNoJointHolders control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoJointHolder;
+
+        /// <summary>
+        /// lblNoJointHolders control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoJointHolder;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAccountDetails;
+        /// <summary>
+        /// trNomineeCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvCashSavingTransaction;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCSTransactionCaption;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trholdingamount;
+        protected global::System.Web.UI.WebControls.TextBox txtholdingAmt;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivTransaction;
+        protected global::System.Web.UI.WebControls.HiddenField hidValidCheck;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAction;
+        
     }
 }
+
