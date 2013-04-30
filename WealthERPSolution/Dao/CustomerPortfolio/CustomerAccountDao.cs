@@ -714,6 +714,22 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(createCustomerEQAccountCmd, "@CETA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
                 }
+                if (!string.IsNullOrEmpty(customerAccountVo.BankName))
+                {
+                    db.AddInParameter(createCustomerEQAccountCmd, "@WERPBM_BankCode", DbType.String, customerAccountVo.BankName);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerEQAccountCmd, "@WERPBM_BankCode", DbType.String, DBNull.Value);
+                }
+                if (!string.IsNullOrEmpty(customerAccountVo.BankAccountNum))
+                {
+                    db.AddInParameter(createCustomerEQAccountCmd, "@CB_AccountNum", DbType.String, customerAccountVo.BankAccountNum);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerEQAccountCmd, "@CB_AccountNum", DbType.String, DBNull.Value);
+                }
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_CreatedBy", DbType.String, userId);
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_ModifiedBy", DbType.String, userId);
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_BrokerDeliveryPercentage", DbType.Double, customerAccountVo.BrokerageDeliveryPercentage);
@@ -984,6 +1000,32 @@ namespace DaoCustomerPortfolio
                 ExceptionManager.Publish(exBase);
                 throw exBase;
 
+            }
+            return bResult;
+        }
+
+        public bool CheckTransactionExistanceOnHoldingAdd(int CBAccountNumber)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int rowCount;
+            DataSet ds;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            chkAvailabilityCmd = db.GetStoredProcCommand("SPROC_CheckTransactionExistanceOnHoldingAdd");
+
+            db.AddInParameter(chkAvailabilityCmd, "@CB_CustBankAccId", DbType.Int32, CBAccountNumber);
+
+            ds = db.ExecuteDataSet(chkAvailabilityCmd);
+            rowCount = ds.Tables[0].Rows.Count;
+            if (rowCount > 0)
+            {
+                bResult = false;
+            }
+            else
+            {
+                bResult = true;
             }
             return bResult;
         }
@@ -2096,21 +2138,21 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
-        public bool CreateCashSavingsAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
+        public bool CreatecustomerBankAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
         {
             bool bResult = false;
             Database db;
-            DbCommand createCashSavingsAccountAssociationCmd;
+            DbCommand CreatecustomerBankAccountAssociationCmd;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                createCashSavingsAccountAssociationCmd = db.GetStoredProcCommand("SP_CreateCashSavingsAccountAssociation");
-                db.AddInParameter(createCashSavingsAccountAssociationCmd, "@CCSA_AccountId", DbType.Int32, customerAccountAssociationVo.AccountId);
-                db.AddInParameter(createCashSavingsAccountAssociationCmd, "@CA_AssociationId", DbType.Int32, customerAccountAssociationVo.AssociationId);
-                db.AddInParameter(createCashSavingsAccountAssociationCmd, "@CCSAA_AssociationType", DbType.String, customerAccountAssociationVo.AssociationType);
-                db.AddInParameter(createCashSavingsAccountAssociationCmd, "@CCSAA_CreatedBy", DbType.Int32, userId);
-                db.AddInParameter(createCashSavingsAccountAssociationCmd, "@CCSAA_ModifiedBy", DbType.Int32, userId);
-                if (db.ExecuteNonQuery(createCashSavingsAccountAssociationCmd) != 0)
+                CreatecustomerBankAccountAssociationCmd = db.GetStoredProcCommand("SP_CreateCustomerBankAssociation");
+                db.AddInParameter(CreatecustomerBankAccountAssociationCmd, "@CB_CustBankAccId", DbType.Int32, customerAccountAssociationVo.AccountId);
+                db.AddInParameter(CreatecustomerBankAccountAssociationCmd, "@CA_AssociationId", DbType.Int32, customerAccountAssociationVo.AssociationId);
+                db.AddInParameter(CreatecustomerBankAccountAssociationCmd, "@CCSAA_AssociationType", DbType.String, customerAccountAssociationVo.AssociationType);
+                db.AddInParameter(CreatecustomerBankAccountAssociationCmd, "@CCSAA_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(CreatecustomerBankAccountAssociationCmd, "@CCSAA_ModifiedBy", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(CreatecustomerBankAccountAssociationCmd) != 0)
                     bResult = true;
             }
             catch (BaseApplicationException Ex)
@@ -2122,7 +2164,7 @@ namespace DaoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CreateCashSavingsAccountAssociation()");
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CreatecustomerBankAccountAssociation()");
 
                 object[] objects = new object[2];
                 objects[0] = customerAccountAssociationVo;
@@ -2570,6 +2612,7 @@ namespace DaoCustomerPortfolio
                 getBankAccountNocmd = db.GetStoredProcCommand("SP_GetAccountNumber");
                 db.AddInParameter(getBankAccountNocmd, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(getBankAccountNocmd, "@accountType", DbType.String, categoryType);
+                //db.AddInParameter(getBankAccountNocmd, "@WERPBM_BankCode", DbType.String, bankcode);
                 dsAccountNo = db.ExecuteDataSet(getBankAccountNocmd);
             }
             catch (BaseApplicationException Ex)
@@ -3004,6 +3047,301 @@ namespace DaoCustomerPortfolio
             }
             return dsGetAccountType;
         }
+        public DataSet GetEQAccountNumber(int customerId, string bankcode)
+        {
+            Database db;
+            DbCommand getBankAccountNocmd;
+            DataSet dsAccountNo;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBankAccountNocmd = db.GetStoredProcCommand("SP_GetEQAccountNumber");
+                db.AddInParameter(getBankAccountNocmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getBankAccountNocmd, "@WERPBM_BankCode", DbType.String, bankcode);
+                dsAccountNo = db.ExecuteDataSet(getBankAccountNocmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetBankName()");
+                object[] objects = new object[4];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAccountNo;
+        }
+        public bool CreatecustomerBankTransaction(CustomerAccountsVo customerAccountVo, int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CreatecustomerBanktransactionCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreatecustomerBanktransactionCmd = db.GetStoredProcCommand("SP_CreateCustomerBankTransaction");
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CB_CustBankAccId", DbType.Int32, customerAccountVo.AccountId);
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ExternalTransactionId", DbType.String, customerAccountVo.ExternalTransactionId);
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Transactiondate", DbType.DateTime, customerAccountVo.Transactiondate);
+                if (customerAccountVo.CCST_Desc != null)
+                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
+                else
+                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, DBNull.Value);
+               // db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_IsWithdrwal", DbType.Int32, customerAccountVo.IsWithdrwal);
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ChequeNo", DbType.String, customerAccountVo.ChequeNo);
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Amount", DbType.Double, customerAccountVo.Amount);
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_AvailableBalance", DbType.Double, customerAccountVo.AvailableBalance);
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ModifiedBy", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(CreatecustomerBanktransactionCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CreatecustomerBankAccountAssociation()");
+
+                object[] objects = new object[2];
+                objects[0] = customerAccountVo;
+                objects[1] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+        public bool InsertholdingAmountCustomerBank(CustomerAccountsVo customerAccountVo, int CustomerId)
+        {
+            bool bResult = false;
+            Database db;
+            string AccountNum;
+            DbCommand InsertholdingAmountCustomerBankCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                InsertholdingAmountCustomerBankCmd = db.GetStoredProcCommand("SP_InsertholdingAmountCustomerBank");
+                db.AddInParameter(InsertholdingAmountCustomerBankCmd, "@C_CustomerId", DbType.Int32,CustomerId);
+                db.AddInParameter(InsertholdingAmountCustomerBankCmd, "@CB_CustBankAccId", DbType.String, customerAccountVo.AccountId);
+                //db.AddInParameter(InsertholdingAmountCustomerBankCmd, "@CB_AccountNum", DbType.String, customerAccountVo.AccountNum);
+                db.AddInParameter(InsertholdingAmountCustomerBankCmd, "@CB_HoldingAmount", DbType.Double, customerAccountVo.Amount);
+                if (db.ExecuteNonQuery(InsertholdingAmountCustomerBankCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:InsertholdingAmountCustomerBank()");
+
+                object[] objects = new object[2];
+                objects[0] = customerAccountVo;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public List<CustomerAccountsVo> GetCustomerBankTransaction(int CustBankAccIds)
+        {
+
+            List<CustomerAccountsVo> accountList = null;
+            CustomerAccountsVo customerAccountsVo;
+            Database db;
+            DataSet getCustomerBankTransactionDs;
+            DbCommand getCustomerBankTransactionCmd;
+
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                accountList = new List<CustomerAccountsVo>();
+                getCustomerBankTransactionCmd = db.GetStoredProcCommand("SP_GetCustomerBankTransaction");
+
+                db.AddInParameter(getCustomerBankTransactionCmd, "@CB_CustBankAccId", DbType.Int32, CustBankAccIds);
+                getCustomerBankTransactionDs = db.ExecuteDataSet(getCustomerBankTransactionCmd);
+                if (getCustomerBankTransactionDs.Tables[0].Rows.Count > 0)
+                {
+
+                    foreach (DataRow dr in getCustomerBankTransactionDs.Tables[0].Rows)
+                    {
+                        customerAccountsVo = new CustomerAccountsVo();
+                        if (!string.IsNullOrEmpty(dr["CCST_TransactionId"].ToString()))
+                            customerAccountsVo.TransactionId = Convert.ToInt32(dr["CCST_TransactionId"].ToString());
+                        else
+                            customerAccountsVo.TransactionId = Convert.ToInt32(dr["CCST_TransactionId"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CCST_ExternalTransactionId"].ToString()))
+                            customerAccountsVo.ExternalTransactionId = dr["CCST_ExternalTransactionId"].ToString();
+                        else
+                            customerAccountsVo.ExternalTransactionId = null;
+                        if (!string.IsNullOrEmpty(dr["CCST_Transactiondate"].ToString()))
+                            customerAccountsVo.Transactiondate = DateTime.Parse(dr["CCST_Transactiondate"].ToString());
+                        else
+                            customerAccountsVo.Transactiondate = DateTime.MinValue;
+                        if (!string.IsNullOrEmpty(dr["CCST_Desc"].ToString()))
+                            customerAccountsVo.CCST_Desc = dr["CCST_Desc"].ToString();
+                        else
+                            customerAccountsVo.CCST_Desc = null;
+                        if (!string.IsNullOrEmpty(dr["CCST_ChequeNo"].ToString()))
+                            customerAccountsVo.ChequeNo = dr["CCST_ChequeNo"].ToString();
+                        else
+                            customerAccountsVo.ChequeNo = null;
+                       
+                        if (!string.IsNullOrEmpty(dr["CCST_IsWithdrwal"].ToString()))                           
+                            if (dr["CCST_IsWithdrwal"].ToString()=="CR")
+                                customerAccountsVo.IsWithdrwal = 0;
+                            else
+                                customerAccountsVo.IsWithdrwal = 1;
+                        else
+                            customerAccountsVo.IsWithdrwal = 0;
+                        if (!string.IsNullOrEmpty(dr["CCST_Amount"].ToString()))
+                            customerAccountsVo.Amount = double.Parse(dr["CCST_Amount"].ToString());
+                        else
+                            customerAccountsVo.Amount = 0.00;
+                        accountList.Add(customerAccountsVo);
+
+                    }
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:GetCustomerBankTransaction()");
+
+
+                object[] objects = new object[1];
+                objects[0] = CustBankAccIds;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return accountList;
+
+        }
+        public bool UpdateCustomerBankTransaction(CustomerAccountsVo customerAccountVo,int TransactionId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand updateCustomerBankTransactionCmd;
+            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateCustomerBankTransactionCmd = db.GetStoredProcCommand("SP_UpdateCustomerBankTransaction");
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_TransactionId", DbType.Int32, customerAccountVo.AccountId);
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_ExternalTransactionId", DbType.String, customerAccountVo.ExternalTransactionId);
+                if(customerAccountVo.Transactiondate!=DateTime.MinValue)
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Transactiondate", DbType.DateTime, customerAccountVo.Transactiondate);
+                else
+                    db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Transactiondate", DbType.DateTime, DBNull.Value);
+                
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_IsWithdrwal", DbType.Int32, customerAccountVo.IsWithdrwal);
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_ChequeNo", DbType.String, customerAccountVo.ChequeNo);
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Amount", DbType.Double, customerAccountVo.Amount);
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_AvailableBalance", DbType.Double, customerAccountVo.AvailableBalance);               
+                if (db.ExecuteNonQuery(updateCustomerBankTransactionCmd) != 0)
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:UpdateCustomerBankTransaction()");
+
+
+                object[] objects = new object[2];               
+                objects[0] = customerAccountVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return bResult;
+        }
+
+        public bool DeleteCustomerBankTransaction(int TransactionId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createCustomerBankCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCustomerBankCmd = db.GetStoredProcCommand("SP_DeleteCustomerBankTransaction");
+                db.AddInParameter(createCustomerBankCmd, "@CCST_TransactionId", DbType.Int32, TransactionId);
+                db.ExecuteNonQuery(createCustomerBankCmd);
+
+                bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                bResult = false;
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:DeleteCustomerBankTransaction()");
+
+                object[] objects = new object[1];
+                objects[0] = TransactionId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+        }
     }
 }
