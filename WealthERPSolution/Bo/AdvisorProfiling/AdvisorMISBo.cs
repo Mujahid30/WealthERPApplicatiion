@@ -1187,5 +1187,36 @@ namespace BoAdvisorProfiling
             }
             return dsGetEQReturns;
         }
+
+        public DataTable MFNPTransactionHoldingDetails(int AdviserId, int rmId, int customerId, int branchId, int branchHeadId, int all, int isGroup, string strValuationDate)
+        {
+            AdvisorMISDao advisorMISDao = new AdvisorMISDao();
+            DataTable dtMFNPTransactionHoldingDetails;
+            try
+            {
+                dtMFNPTransactionHoldingDetails = advisorMISDao.MFNPTransactionHoldingDetails(AdviserId, rmId, customerId, branchId, branchHeadId, all, isGroup, strValuationDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:MFNPTransactionHoldingDetails()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtMFNPTransactionHoldingDetails;
+        }
     }
 }
