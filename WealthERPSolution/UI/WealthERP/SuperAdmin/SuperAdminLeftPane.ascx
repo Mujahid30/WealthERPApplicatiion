@@ -30,6 +30,12 @@
                     </telerik:RadPanelItem>
                 </Items>
                 </telerik:RadPanelItem>
+                <telerik:RadPanelItem Text="Reconciliation" Value="Reconciliation">
+                <Items>
+                    <telerik:RadPanelItem Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
+                    </telerik:RadPanelItem>
+                </Items>
+                </telerik:RadPanelItem>
                  <telerik:RadPanelItem Text="Gold Price Maintenance" Value="Gold_Price_Monito">
                 </telerik:RadPanelItem>
                  <telerik:RadPanelItem Text="Sync" Value="GoalFunding_Sync">
