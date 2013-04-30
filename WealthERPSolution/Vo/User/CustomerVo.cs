@@ -105,6 +105,7 @@ namespace VoUser
         private int m_CustomerCategoryCode;
         private int m_mfKYC;
         private string m_ACC_customerCategoryName;
+        private int m_CustBankAccId;
 
         public int CustomerCategoryCode
         {
@@ -592,6 +593,14 @@ namespace VoUser
             get { return m_ACC_customerCategoryName; }
             set { m_ACC_customerCategoryName = value; }
         }
+
+        public int CBCustAcctId
+        {
+            get { return m_CustBankAccId; }
+            set { m_CustBankAccId = value; }
+        }
+
+
         #endregion Properties
 
     }
