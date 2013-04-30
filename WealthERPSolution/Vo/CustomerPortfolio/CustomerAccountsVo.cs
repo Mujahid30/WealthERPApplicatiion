@@ -46,7 +46,15 @@ namespace VoCustomerPortfolio
         private string m_XCT_CustomerTypeCode;
         private string m_XCST_CustomerSubTypeCode;
         private string m_BankNameInExtFile;
-
+        private DateTime m_Transactiondate;
+        private string m_CCST_Desc;
+        private int m_IsWithdrwal;
+        private string m_ChequeNo;
+        private double m_Amount;
+        private double m_AvailableBalance;
+        private string m_ExternalTransactionId;
+        private int m_TransactionId;
+        private int m_CustBankAccId;
 
         #endregion Fields
 
@@ -357,6 +365,56 @@ namespace VoCustomerPortfolio
             get { return m_BankId; }
             set { m_BankId = value; }
         }
+
+        public DateTime Transactiondate
+        {
+            get { return m_Transactiondate; }
+            set { m_Transactiondate = value; }
+        }
+        public string CCST_Desc
+        {
+            get { return m_CCST_Desc; }
+            set { m_CCST_Desc = value; }
+        }
+        public int IsWithdrwal
+        {
+            get { return m_IsWithdrwal; }
+            set { m_IsWithdrwal = value; }
+        }
+        public string ChequeNo
+        {
+            get { return m_ChequeNo; }
+            set { m_ChequeNo = value; }
+        }
+        public double Amount
+        {
+            get { return m_Amount; }
+            set { m_Amount = value; }
+        }
+        public double AvailableBalance
+       {
+            get { return m_AvailableBalance; }
+            set { m_AvailableBalance = value; }
+    
+    }
+
+        public string ExternalTransactionId
+        {
+            get { return m_ExternalTransactionId; }
+            set { m_ExternalTransactionId = value; }
+
+        }
+        public int TransactionId
+        {
+            get { return m_TransactionId; }
+            set { m_TransactionId = value; }
+        }
+        public int CBCustAcctId
+        {
+            get { return m_CustBankAccId; }
+            set { m_CustBankAccId = value; }
+        }
+       
         #endregion Properties
 
 
