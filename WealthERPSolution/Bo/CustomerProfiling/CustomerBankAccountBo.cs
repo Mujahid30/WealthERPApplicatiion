@@ -23,16 +23,16 @@ namespace BoCustomerProfiling
         /// <param name="customerId">CustomerId of the customer whose Bank Account the method Creates</param>
         /// <param name="userId">UserId of the user who is creating the Bank Account for the Customer</param>
         /// <returns>Returns a boolean Variable stating if the Method is successful</returns>
-        public bool CreateCustomerBankAccount(CustomerBankAccountVo customerBankAccountVo, int customerId, int userId)
+        public int CreateCustomerBankAccount(CustomerBankAccountVo customerBankAccountVo, int customerId, int userId)
         {
 
-            bool bResult = false;
+           int accountId;
             CustomerBankAccountDao customerBankAccountDao = new CustomerBankAccountDao();
 
             try
             {
-                bResult = customerBankAccountDao.CreateCustomerBankAccount(customerBankAccountVo, customerId, userId);
-                bResult=true;
+                accountId = customerBankAccountDao.CreateCustomerBankAccount(customerBankAccountVo, customerId, userId);
+               // bResult=true;
             }
             catch (BaseApplicationException Ex)
             {
@@ -59,7 +59,7 @@ namespace BoCustomerProfiling
 
             }
 
-            return bResult;
+            return accountId;
 
         }
 
@@ -259,6 +259,44 @@ namespace BoCustomerProfiling
             return dt;
         }
 
+        public DataSet GetCustomerIndividualBankDetails(int customerId)
+        {
+            DataSet ds;
+            CustomerBankAccountDao customerBankAccountDao = new CustomerBankAccountDao();
 
+            try
+            {
+                //  userVo = userDao.Getselectlist();
+                ds = customerBankAccountDao.GetCustomerIndividualBankDetails(customerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return ds;
+        }
+
+        public DataTable AssetBankaccountType()
+        {
+            DataTable dt = new DataTable();
+            //UserVo userVo = null;
+            CustomerBankAccountDao customerBankAccountDao = new CustomerBankAccountDao();
+
+            try
+            {
+                //  userVo = userDao.Getselectlist();
+                dt = customerBankAccountDao.AssetBankaccountType();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dt;
+        }
+        
     }
 }
