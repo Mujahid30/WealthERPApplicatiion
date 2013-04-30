@@ -153,7 +153,7 @@ namespace BoCustomerPortfolio
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetCustomerPensionAndGratuitiesAccount()");
                 object[] objects = new object[1];
-                objects[0] = accountId;              
+                objects[0] = accountId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -181,7 +181,7 @@ namespace BoCustomerPortfolio
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetCustomerPropertyAccount()");
                 object[] objects = new object[1];
-                objects[0] = accountId;              
+                objects[0] = accountId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -409,7 +409,7 @@ namespace BoCustomerPortfolio
 
         }
 
-     
+
 
         public bool CheckTradeNoAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
@@ -532,7 +532,7 @@ namespace BoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetCustomerFixedIncomeAccount()");
-                object[] objects = new object[1];                
+                object[] objects = new object[1];
                 objects[0] = accountId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -577,9 +577,9 @@ namespace BoCustomerPortfolio
             return customerAccountVo;
         }
         public DataSet GetCustomerAssetAccounts(int portfolioId, string assetGroup)
-         {
-             CustomerAccountDao customerAccountDao = new CustomerAccountDao();
-             DataSet dsAssetAccounts;
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataSet dsAssetAccounts;
             try
             {
                 dsAssetAccounts = customerAccountDao.GetCustomerAssetAccounts(portfolioId, assetGroup);
@@ -737,7 +737,7 @@ namespace BoCustomerPortfolio
                 objects[0] = portfolioId;
                 objects[1] = assetGroup;
                 objects[2] = assetCategory;
-                
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -808,7 +808,7 @@ namespace BoCustomerPortfolio
                 objects[0] = portfolioId;
                 objects[1] = assetGroup;
                 objects[2] = assetCategory;
-                
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -844,7 +844,7 @@ namespace BoCustomerPortfolio
                 objects[0] = portfolioId;
                 objects[1] = assetGroup;
                 objects[2] = assetCategory;
-               
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -856,7 +856,7 @@ namespace BoCustomerPortfolio
             return dsAssetAccounts;
         }
 
-        public DataSet GetCustomerMFAccounts(int portfolioId, string assetGroup,int schemePlanCode)
+        public DataSet GetCustomerMFAccounts(int portfolioId, string assetGroup, int schemePlanCode)
         {
             CustomerAccountDao customerAccountDao = new CustomerAccountDao();
             DataSet dsAssetAccounts;
@@ -913,7 +913,7 @@ namespace BoCustomerPortfolio
                 object[] objects = new object[3];
                 objects[0] = portfolioId;
                 objects[1] = assetGroup;
-                
+
 
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -948,7 +948,7 @@ namespace BoCustomerPortfolio
 
                 object[] objects = new object[1];
                 objects[0] = portfolioId;
-                
+
 
 
 
@@ -1037,18 +1037,18 @@ namespace BoCustomerPortfolio
             bool isUpdated = false;
             try
             {
-                isUpdated = customerAccountsDao.UpdateBankDetails(customerid, bankCode,amcCode,folioNo);
+                isUpdated = customerAccountsDao.UpdateBankDetails(customerid, bankCode, amcCode, folioNo);
             }
             catch (Exception ex)
             {
                 throw ex;
-            }               
+            }
             return isUpdated;
         }
 
         public DataSet GetCustomerAssociatedRel(int customerId)
         {
-            CustomerAccountDao customerAccountsDao=new CustomerAccountDao();
+            CustomerAccountDao customerAccountsDao = new CustomerAccountDao();
             DataSet dsCustomerAssociates;
             try
             {
@@ -1068,7 +1068,7 @@ namespace BoCustomerPortfolio
 
                 object[] objects = new object[1];
                 objects[0] = customerId;
-                
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1255,41 +1255,41 @@ namespace BoCustomerPortfolio
 
         }
 
-        public bool CreateCashSavingsAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
-        {
-            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
-            bool bResult = false;
-            try
-            {
-                bResult = customerAccountDao.CreateCashSavingsAccountAssociation(customerAccountAssociationVo, userId);
+        //public bool CreateCashSavingsAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
+        //{
+        //    CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+        //    bool bResult = false;
+        //    try
+        //    {
+        //        bResult = customerAccountDao.CreateCashSavingsAccountAssociation(customerAccountAssociationVo, userId);
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCashSavingsAccountAssociation()");
+        //        FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCashSavingsAccountAssociation()");
 
 
-                object[] objects = new object[2];
-                objects[0] = customerAccountAssociationVo;
-                objects[1] = userId;
+        //        object[] objects = new object[2];
+        //        objects[0] = customerAccountAssociationVo;
+        //        objects[1] = userId;
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
 
-            }
+        //    }
 
-            return bResult;
+        //    return bResult;
 
-        }
+        //}
 
         public bool CreateInsuranceAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId, string associationIds)
         {
@@ -1439,7 +1439,7 @@ namespace BoCustomerPortfolio
 
         public DataTable GetTradeAccountNumbersByCustomer(int customerId)
         {
-            CustomerAccountDao customerAccountDao  = new CustomerAccountDao();
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
             return customerAccountDao.GetTradeAccountNumbersByCustomer(customerId);
         }
 
@@ -1480,13 +1480,13 @@ namespace BoCustomerPortfolio
 
         #region AdviserAccountsList
 
-        public List<CustomerAccountsVo> GetAdviserMFAccountList(int adviserId, int CurrentPage, string sortOrder, out int count,string NameFilter, string amcName ,out Dictionary<string, string> genDictAMC)
+        public List<CustomerAccountsVo> GetAdviserMFAccountList(int adviserId, int CurrentPage, string sortOrder, out int count, string NameFilter, string amcName, out Dictionary<string, string> genDictAMC)
         {
             List<CustomerAccountsVo> customerAccountsList = new List<CustomerAccountsVo>();
             CustomerAccountDao customerAccountDao = new CustomerAccountDao();
             try
             {
-                customerAccountsList = customerAccountDao.GetAdviserMFAccountList(adviserId, CurrentPage, sortOrder, out count, NameFilter, amcName ,out genDictAMC);
+                customerAccountsList = customerAccountDao.GetAdviserMFAccountList(adviserId, CurrentPage, sortOrder, out count, NameFilter, amcName, out genDictAMC);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1635,7 +1635,7 @@ namespace BoCustomerPortfolio
             return bResult;
         }
 
-        public bool UpdateISAAccountAssociation(CustomerISAAccountsVo customerISAAccountAssociationVo ,string associationIds)
+        public bool UpdateISAAccountAssociation(CustomerISAAccountsVo customerISAAccountAssociationVo, string associationIds)
         {
             bool bResult = false;
             CustomerAccountDao customerAccountDao = new CustomerAccountDao();
@@ -1673,7 +1673,7 @@ namespace BoCustomerPortfolio
             int customerISAAccountId = 0;
             try
             {
-                IsISAUpdated =Convert.ToBoolean(customerAccountDao.UpdateCustomerISAAccount(customerISAAccountVo));
+                IsISAUpdated = Convert.ToBoolean(customerAccountDao.UpdateCustomerISAAccount(customerISAAccountVo));
             }
             catch (BaseApplicationException Ex)
             {
@@ -1698,9 +1698,9 @@ namespace BoCustomerPortfolio
             return IsISAUpdated;
         }
 
-        public int CreateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo, int customerId, int userId,int requestId)
+        public int CreateCustomerISAAccount(CustomerISAAccountsVo customerISAAccountVo, int customerId, int userId, int requestId)
         {
-            CustomerAccountDao customerAccountDao = new CustomerAccountDao();            
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
             int customerISAAccountId = 0;
             try
             {
@@ -1896,6 +1896,228 @@ namespace BoCustomerPortfolio
             }
             return dsGetAccountType;
         }
-    } 
-   
+        public DataSet GetEQAccountNumber(int customerId, string bankId)
+        {//
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataSet dsgetAccountNo;
+            try
+            {
+                dsgetAccountNo = customerAccountDao.GetEQAccountNumber(customerId, bankId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetAccountNo()");
+                object[] objects = new object[4];
+                objects[0] = customerId;
+                //objects[1] = categoryType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsgetAccountNo;
+        }
+
+
+        public bool CreatecustomerBankAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            bool bResult = false;
+            try
+            {
+                bResult = customerAccountDao.CreatecustomerBankAccountAssociation(customerAccountAssociationVo, userId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreatecustomerBankAccountAssociation()");
+
+
+                object[] objects = new object[2];
+                objects[0] = customerAccountAssociationVo;
+                objects[1] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return bResult;
+
+        }
+        public bool CreatecustomerBankTransaction(CustomerAccountsVo customerAccountVo, int userId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            bool bResult = false;
+            try
+            {
+                bResult = customerAccountDao.CreatecustomerBankTransaction(customerAccountVo, userId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreatecustomerBankAccountAssociation()");
+
+
+                object[] objects = new object[2];
+                objects[0] = customerAccountVo;
+                objects[1] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return bResult;
+
+        }
+
+        public bool InsertholdingAmountCustomerBank(CustomerAccountsVo customerAccountVo, int CustomerId)
+        {
+            bool bResult = false;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+
+            try
+            {
+                bResult = customerAccountDao.InsertholdingAmountCustomerBank(customerAccountVo,CustomerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:InsertholdingAmountCustomerBank()");
+
+
+                object[] objects = new object[2];
+                objects[0] = customerAccountVo;
+                
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return bResult;
+
+        }
+
+        public List<CustomerAccountsVo> GetCustomerBankTransaction(int CustBankAccIds)
+        {
+            List<CustomerAccountsVo> customerAccountlist = null;
+             CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            try
+            {
+                customerAccountlist = customerAccountDao.GetCustomerBankTransaction(CustBankAccIds);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:GetCustomerBankTransaction()");
+
+
+                object[] objects = new object[1];
+                objects[0] = CustBankAccIds;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return customerAccountlist;
+        }
+        public bool DeleteCustomerBankTransaction(int TransactionId)
+        {
+            bool bResult = false;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+
+            try
+            {
+                bResult = customerAccountDao.DeleteCustomerBankTransaction(TransactionId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                bResult = false;
+            }
+
+            return bResult;
+        }
+
+
+        public bool UpdateCustomerBankTransaction(CustomerAccountsVo customerAccountVo,int TransactionId)
+        {
+            bool bResult = false;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+
+            try
+            {
+                bResult = customerAccountDao.UpdateCustomerBankTransaction(customerAccountVo,TransactionId);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:EditCustomerBankTransaction()");
+
+
+                object[] objects = new object[2];
+                objects[0] = customerAccountVo;
+                objects [1]=TransactionId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+
+        }
+
+    }
 }
