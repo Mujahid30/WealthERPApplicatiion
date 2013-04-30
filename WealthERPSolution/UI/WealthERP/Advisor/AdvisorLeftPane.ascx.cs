@@ -746,6 +746,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerExceptionHandling','login');", true);
                 }
+                else if (e.Item.Value == "MFNP_Tranx_Compare")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFNPAndTransactionCompare','login');", true);
+                }
                 else if (e.Item.Value == "OrderEntry")
                 {
                     Session["UserType"] = "adviser";
@@ -1380,6 +1385,12 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PerformanceAndAllocation','login');", true);
                 }
+                else if (e.Item.Value == "Business_MIS_Dashboard")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoginTrack','login');", true);
+                }
                 else if (e.Item.Value == "Multi_Product_MIS")
                 {
                     Session["UserType"] = "adviser";
@@ -1526,6 +1537,11 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerExceptionHandling','login');", true);
+                }
+                else if (e.Item.Value == "MFNP_Tranx_Compare")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFNPAndTransactionCompare','login');", true);
                 }
                 else if (e.Item.Value == "Multi Asset Report")
                 {

@@ -166,7 +166,9 @@
                                                         <telerik:RadPanelItem runat="server" Text="Accounts Compare" Value="Customer_Accounts_Compare">
                                                         </telerik:RadPanelItem>
                                                         <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS">
-                                                           </telerik:RadPanelItem>
+                                                        </telerik:RadPanelItem>
+                                                        <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
+                                                        </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                           
