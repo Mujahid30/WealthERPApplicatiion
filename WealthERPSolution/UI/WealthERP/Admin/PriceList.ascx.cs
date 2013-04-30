@@ -523,6 +523,18 @@ namespace WealthERP.Admin
                             tdToDate.Visible = true;
                             tdFromDate.Visible = true;
                             btnSubmit.Visible = true;
+
+                            if (ds != null)
+                                imgBtnrgHoldings.Visible = true;
+                            if (Cache["gvEquityRecord" + advisorVo.advisorId] == null)
+                            {
+                                Cache.Insert("gvEquityRecord"+advisorVo.advisorId, ds);
+                            }
+                            else
+                            {
+                                Cache.Remove("gvEquityRecord" + advisorVo.advisorId);
+                                Cache.Insert("gvEquityRecord" + advisorVo.advisorId, ds);
+                            }
                         }
 
                         else
@@ -574,6 +586,18 @@ namespace WealthERP.Admin
                             DivMF.Style.Add("display", "visible");
                             // DivEquity.Style.Add("display", "none");
                             Panel1.Visible = true;
+
+                            if (ds.Tables[0] != null)
+                                imgBtnrgHoldings.Visible = true;
+                            if (Cache["gvEquityRecord" + advisorVo.advisorId] == null)
+                            {
+                                Cache.Insert("gvEquityRecord" + advisorVo.advisorId, ds.Tables[0]);
+                            }
+                            else
+                            {
+                                Cache.Remove("gvEquityRecord" + advisorVo.advisorId);
+                                Cache.Insert("gvEquityRecord" + advisorVo.advisorId, ds.Tables[0]);
+                            }
                         }
                         else
                         {
@@ -1427,6 +1451,21 @@ namespace WealthERP.Admin
             DataView dtFundPerformanceDetailsDetails = new DataView();
             dtFundPerformanceDetailsDetails = (DataView)Cache["FundPerformanceDetails" + advisorVo.advisorId.ToString()];
             gvMFFundPerformance.DataSource = dtFundPerformanceDetailsDetails;
+        }
+
+        protected void gvEquityRecord_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataSet dtGvSchemeDetails = new DataSet();
+            dtGvSchemeDetails = (DataSet)Cache["gvEquityRecord" + advisorVo.advisorId];
+            gvEquityRecord.DataSource = dtGvSchemeDetails;
+
+            gvEquityRecord.ExportSettings.OpenInNewWindow = true;
+            gvEquityRecord.ExportSettings.IgnorePaging = true;
+            gvEquityRecord.ExportSettings.HideStructureColumns = true;
+            gvEquityRecord.ExportSettings.ExportOnlyData = true;
+            gvEquityRecord.ExportSettings.FileName = "Equity Details";
+            gvEquityRecord.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvEquityRecord.MasterTableView.ExportToExcel();
         }
 
         protected void gvMFRecord_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)

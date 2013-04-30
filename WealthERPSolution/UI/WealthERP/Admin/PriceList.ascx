@@ -434,13 +434,13 @@
                                 </td>
                             </tr>
                         </table>--%>
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>
+               <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>--%>
                         <div id ="DivEquity" style="overflow: auto" visible="false">
                         <table width="100%" cellspacing="0" cellpadding="2">
                                 <tr id="trgvEquityView" runat="server" visible="false">
                                     <td>
-                                        <telerik:RadGrid ID="gvEquityRecord" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                        <telerik:RadGrid ID="gvEquityRecord" OnNeedDataSource="gvEquityRecord_NeedDataSource" runat="server" GridLines="None" AutoGenerateColumns="False"
                                             EnableLoadOnDemand="false" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
                                             EnableEmbeddedSkins="false" Width="100px" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
                                             EnableViewState="true" ShowFooter="true">
@@ -563,8 +563,8 @@
                                 </tr>
                             </table>
                         </div>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
+                   <%-- </ContentTemplate>
+                </asp:UpdatePanel>--%>
                 <%-- <tr>
                                 <td>
                                 </td>
