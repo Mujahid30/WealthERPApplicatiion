@@ -1255,41 +1255,41 @@ namespace BoCustomerPortfolio
 
         }
 
-        //public bool CreateCashSavingsAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
-        //{
-        //    CustomerAccountDao customerAccountDao = new CustomerAccountDao();
-        //    bool bResult = false;
-        //    try
-        //    {
-        //        bResult = customerAccountDao.CreateCashSavingsAccountAssociation(customerAccountAssociationVo, userId);
+        public bool CreateCashSavingsAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            bool bResult = false;
+            try
+            {
+                bResult = customerAccountDao.CreateCashSavingsAccountAssociation(customerAccountAssociationVo, userId);
 
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
-        //        FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCashSavingsAccountAssociation()");
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCashSavingsAccountAssociation()");
 
 
-        //        object[] objects = new object[2];
-        //        objects[0] = customerAccountAssociationVo;
-        //        objects[1] = userId;
+                object[] objects = new object[2];
+                objects[0] = customerAccountAssociationVo;
+                objects[1] = userId;
 
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
-        //    }
+            }
 
-        //    return bResult;
+            return bResult;
 
-        //}
+        }
 
         public bool CreateInsuranceAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId, string associationIds)
         {
