@@ -1802,6 +1802,7 @@ namespace DaoCustomerPortfolio
                 else
                     db.AddInParameter(getMFTransactionsCmd, "@portfolioType", DbType.String, DBNull.Value);
 
+                getMFTransactionsCmd.CommandTimeout = 60 * 60;
                 dsGetMFTransactions = db.ExecuteDataSet(getMFTransactionsCmd);
                 if (dsGetMFTransactions.Tables[0].Rows.Count > 0)
                 {
