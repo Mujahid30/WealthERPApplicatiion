@@ -1,7 +1,484 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddBankDetails.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddBankDetails.ascx.cs"
     Inherits="WealthERP.Customer.AddBankDetails" %>
+<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<asp:ScriptManager ID="ScriptManager1" runat="server">
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="../Scripts/JScript.js"></script>
+
+<asp:ScriptManager ID="scrptMgr" runat="server">
+    <Services>
+        <asp:ServiceReference Path="AutoComplete.asmx" />
+    </Services>
+</asp:ScriptManager>
+
+<script type="text/javascript">
+    function chkTransactionExists() {
+
+        if ($("#<%=ddlAccountDetails.ClientID %>").val() == "") {
+            $("#spnLoginStatus").html("");
+            return;
+        }
+
+        $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "ControlHost.aspx/CheckTransactionExistanceOnHoldingAdd",
+            data: "{ 'CBBankAccountNum': '" + $("#<%=ddlAccountDetails.ClientID %>").val() + "' }",
+            error: function(xhr, status, error) {
+                //                alert("Please select AMC!");
+            },
+            success: function(msg) {
+
+                if (msg.d) {
+
+                    $("#<%= hidValidCheck.ClientID %>").val("1");
+                    $("#spnLoginStatus").html("");
+                }
+                else {
+
+                    $("#<%= hidValidCheck.ClientID %>").val("0");
+                    $("#spnLoginStatus").removeClass();
+                    alert("Transaction is all ready Exists First delete Transactions");
+                    return false;
+                }
+
+            }
+        });
+    }
+</script>
+
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                       <%-- <td align="left">
+                            Add Bank Transactions/Balance
+                        </td>--%>
+                        <td align="left">
+                            <asp:Label ID="lblheader" runat="server" Class="HeaderTextBig"></asp:Label>
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportFilteredData_OnClick" OnClientClick="setFormat('excel')" Height="25px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<div>
+    <table>
+        <tr id="trAccount" runat="server">
+            <td class="leftField">
+                <asp:Label ID="Label1" CssClass="FieldName" runat="server" Text="Account:"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAccountDetails_SelectedIndexChanged"
+                    CssClass="cmbField" runat="server" ID="ddlAccountDetails" AppendDataBoundItems="true">
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr runat="server" id="trHoldingAndTrnx" visible="false">
+            <td class="leftField">
+                <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Edit:"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAccountSelect_SelectedIndexChanged"
+                    CssClass="cmbField" runat="server" ID="ddlAccountSelect" AppendDataBoundItems="true">
+                    <asp:ListItem Text="Select" Value="0">Select</asp:ListItem>
+                    <asp:ListItem Text="TotalBalance" Value="TB">Total Balance </asp:ListItem>
+                    <asp:ListItem Text="IndividualTransaction" Value="IT">Individual Transaction</asp:ListItem>
+                </asp:DropDownList>
+            </td>
+            <%-- <td>
+                <asp:RadioButton ID="rbtnholding" runat="server" CssClass="cmbField" GroupName="rbtnHolding"
+                    Text="Holding" OnCheckedChanged="Holding_CheckedChanged" AutoPostBack="true" />
+                <asp:RadioButton ID="rbtntransaction" runat="server" CssClass="cmbField" GroupName="rbtnHolding"
+                    Text="Transaction" OnCheckedChanged="Holding_CheckedChanged" AutoPostBack="true" />
+                <%--OnCheckedChanged="Holding_CheckedChanged"  --%>
+            <%--</td>--%>
+        </tr>
+        <tr id="trholdingamount" runat="server" visible="false">
+            <td class="leftField">
+                <asp:Label ID="lblamount" runat="server" CssClass="FieldName" Text="Holdindg Amount:"></asp:Label>
+            </td>
+            <td class="rightField">
+                <asp:TextBox ID="txtholdingAmt" onblur="return chkTransactionExists()" runat="server"
+                    CssClass="txtField" Text='<%# Bind("CB_HoldingAmount") %>'></asp:TextBox>
+                <span id="spnLoginStatus" class="spnRequiredField">*</span>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="rfvPCG"
+                    ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtholdingAmt"
+                    ValidationExpression="^[0-9]+$"></asp:RegularExpressionValidator>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
+                    onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
+                    Text="Submit" Visible="false" OnClick="btnSubmit_Click" />
+                <%----%>
+            </td>
+        </tr>
+    </table>
+</div>
+<%--<table  width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                        Customer Bank Transaction
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportFilteredData_OnClick" OnClientClick="setFormat('excel')" Height="25px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>--%>
+<table width="100%">
+    <tr id="trAddTransaction" runat="server" visible="false">
+        <td>
+            <div class="divSectionHeading" style="vertical-align: text-bottom;">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                            Customer Bank Transaction
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <%--      </td>
+    </tr>
+</table>--%>
+            <table width="100%" class="TableBackground">
+                <tr>
+                    <td align="center">
+                        <div id="DIVAddtransaction" visible="false">
+                            <table>
+                                <tr>
+                                    <td class="leftField">
+                                        <asp:Label ID="lblExternalTransactionId" runat="server" CssClass="FieldName" Text="External Trans.ID:"></asp:Label>
+                                    </td>
+                                    <td class="rightField" colspan="4">
+                                        <asp:TextBox ID="txtExternalTransactionId" runat="server" CssClass="txtField" Text='<%# Bind("CCST_ExternalTransactionId") %>'></asp:TextBox>
+                                        <span id="Span2" class="spnRequiredField">*</span>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtExternalTransactionId"
+                                            ValidationGroup="btnSubmitTransaction" ErrorMessage="<br />Please enter a Extrnl Tran. No."
+                                            Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                        </asp:RequiredFieldValidator>
+                                    </td>
+                                    <td colspan="2">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="leftField">
+                                        <asp:Label ID="lblTransactionDate" runat="server" CssClass="FieldName" Text="Transaction Date:"></asp:Label>
+                                    </td>
+                                    <td class="rightField" colspan="4">
+                                        <telerik:RadDatePicker ID="dpTransactionDate" runat="server" Culture="English (United States)"
+                                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                            <Calendar ID="Calendar1" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                                ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
+                                            </Calendar>
+                                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                            <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                            </DateInput>
+                                        </telerik:RadDatePicker>
+                                        <span id="Span1" class="spnRequiredField">*</span>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="dpTransactionDate"
+                                            ValidationGroup="btnSubmitTransaction" ErrorMessage="<br />Please enter a Date"
+                                            Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                        </asp:RequiredFieldValidator>
+                                    </td>
+                                    <td colspan="2">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="leftField">
+                                        <asp:Label ID="lblDescription" runat="server" CssClass="FieldName" Text="Description:"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:TextBox ID="txtDescripton" runat="server" CssClass="txtField" Text='<%# Bind("CCST_Desc") %>'></asp:TextBox>
+                                        <span id="Span5" class="spnRequiredField">*</span>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtDescripton"
+                                            ValidationGroup="btnSubmitTransaction" ErrorMessage="<br />Please enter Description"
+                                            Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                        </asp:RequiredFieldValidator>
+                                    </td>
+                                    <td colspan="2">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="leftField">
+                                        <asp:Label ID="lblChequeNo" runat="server" Text="Cheque No:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:TextBox ID="txtChequeNo" runat="server" CssClass="txtField" Text='<%# Bind("CCST_ChequeNo") %>'></asp:TextBox>
+                                        <span id="Span3" class="spnRequiredField">*</span>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtChequeNo"
+                                            ValidationGroup="btnSubmitTransaction" ErrorMessage="<br />Please enter a ChequeNo"
+                                            Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                        </asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="leftField">
+                                        <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Transaction Type:"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:RadioButton ID="rbtnY" runat="server" CssClass="cmbField" GroupName="rbtnIs_Withdrwal"
+                                            Text="DR" AutoPostBack="false" />
+                                        <asp:RadioButton ID="rbtnN" runat="server" CssClass="cmbField" GroupName="rbtnIs_Withdrwal"
+                                            Text="CR" AutoPostBack="false" Checked="true" />
+                                        <%--OnCheckedChanged="rbtnYes_CheckedChanged"--%>
+                                    </td>
+                                    <td colspan="2">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="leftField">
+                                        <asp:Label ID="Label3" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" Text='<%# Bind("CCST_Amount") %>'></asp:TextBox>
+                                        <span id="Span4" class="spnRequiredField">*</span>
+                                        <asp:RequiredFieldValidator ID="rfvAmount" ControlToValidate="txtAmount" ValidationGroup="btnSubmitTransaction"
+                                            ErrorMessage="<br />Please enter a Amount" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                        </asp:RequiredFieldValidator>
+                                    </td>
+                                    <td colspan="2">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                        <asp:Button ID="btnSubmitTransaction" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
+                            onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
+                            Text="Submit" OnClick="btnSubmitTransaction_Click" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<div id="DivTransaction" runat="server" visible="false">
+    <telerik:RadGrid ID="gvCashSavingTransaction" runat="server" GridLines="None" AutoGenerateColumns="False"
+        PageSize="1" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
+        EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
+        EnableViewState="true" ShowFooter="true" OnItemCommand="gvCashSavingTransaction_ItemCommand"
+        OnNeedDataSource="gvCashSavingTransaction_OnNeedDataSource">
+        <ExportSettings HideStructureColumns="true">
+        </ExportSettings>
+        <MasterTableView TableLayout="Auto" DataKeyNames="CCST_TransactionId" AllowFilteringByColumn="true"
+            Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
+            EditMode="PopUp">
+            <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                AddNewRecordText="Add Transaction" ShowRefreshButton="false" ShowExportToCsvButton="false"
+                ShowAddNewRecordButton="false" ShowExportToPdfButton="false" />
+            <Columns>
+                <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
+                    UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
+                </telerik:GridEditCommandColumn>
+                <telerik:GridBoundColumn DataField="CCST_ExternalTransactionId" AllowFiltering="false"
+                    HeaderStyle-Width="80px" HeaderText="Transaction Id" UniqueName="CCST_ExternalTransactionId"
+                    SortExpression="CCST_ExternalTransactionId" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="CCST_Transactiondate" AllowFiltering="false"
+                    HeaderStyle-Width="80px" HeaderText="Transaction Date" UniqueName="CCST_Transactiondate"
+                    SortExpression="CCST_Transactiondate" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                    DataFormatString="{0:dd/MM/yyyy}">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="CCST_Desc" HeaderText="Description" HeaderStyle-Width="70px"
+                    AllowFiltering="false" UniqueName="CCST_Desc" SortExpression="CCST_Desc" AutoPostBackOnFilter="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="CCST_ChequeNo" AllowFiltering="false" HeaderText="Cheque No."
+                    UniqueName="CCST_ChequeNo" SortExpression="CCST_ChequeNo" AutoPostBackOnFilter="true"
+                    HeaderStyle-Width="70px" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="CCST_IsWithdrwal" AllowFiltering="false" HeaderText="Type"
+                    HeaderStyle-Width="70px" UniqueName="CCST_IsWithdrwal" SortExpression="CCST_IsWithdrwal"
+                    AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn Visible="true" DataField="CCST_Amount" AllowFiltering="false"
+                    HeaderText="Deposit Amount" HeaderStyle-Width="70px" UniqueName="" SortExpression=""
+                    AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn Visible="false" DataField="CB_HoldingAmount" AllowFiltering="false"
+                    HeaderText="Available Balance" HeaderStyle-Width="50px" UniqueName="CB_HoldingAmount"
+                    SortExpression="CB_HoldingAmount" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                    CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridButtonColumn Visible="true" UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Record?"
+                    ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                    HeaderStyle-Width="80px" Text="Delete">
+                    <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                </telerik:GridButtonColumn>
+            </Columns>
+            <EditFormSettings FormTableStyle-Height="100%" EditFormType="Template" PopUpSettings-Height="220px"
+                PopUpSettings-Width="500px" FormMainTableStyle-Width="3000px">
+                <FormTemplate>
+                    <table width="100%" style="background-color: White;" border="0">
+                        <%-- <tr class="EditFormHeader">
+                            <td colspan="2" style="font-size: small">
+                                <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="Customer Bank Transaction"></asp:Label>
+                            </td>
+                        </tr>--%>
+                        <tr>
+                            <td colspan="4">
+                                <div class="divSectionHeading" style="vertical-align: text-bottom">
+                                    Customer Bank Transaction
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblExternalTransactionId" runat="server" CssClass="FieldName" Text="External Trans.ID:"></asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <asp:TextBox ID="txtExternalTransactionId" runat="server" CssClass="txtField" Text='<%# Bind("CCST_ExternalTransactionId") %>'></asp:TextBox>
+                            </td>
+                            <td colspan="2">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblTransactionDate" runat="server" CssClass="FieldName" Text="Transaction Date:"></asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <telerik:RadDatePicker ID="dpTransactionDate" runat="server" Culture="English (United States)"
+                                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                    <Calendar ID="Calendar2" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
+                                    </Calendar>
+                                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                    <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                    </DateInput>
+                                </telerik:RadDatePicker>
+                            </td>
+                            <td colspan="2">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblDescription" runat="server" CssClass="FieldName" Text="Description:"></asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <asp:TextBox ID="txtDescripton" runat="server" CssClass="txtField" Text='<%# Bind("CCST_Desc") %>'></asp:TextBox>
+                            </td>
+                            <td colspan="2">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblChequeNo" runat="server" Text="Cheque No:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <asp:TextBox ID="txtChequeNo" runat="server" CssClass="txtField" Text='<%# Bind("CCST_ChequeNo") %>'></asp:TextBox>
+                            </td>
+                            <td class="leftField">
+                                <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Transaction Type:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnIs_Withdrwal"
+                                    Text="DR" AutoPostBack="false" />
+                                <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnIs_Withdrwal"
+                                    Text="CR" AutoPostBack="false" Checked="true" />
+                                <%--OnCheckedChanged="rbtnYes_CheckedChanged"--%>
+                            </td>
+                            <td colspan="2">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblAmount" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" Text='<%# Bind("CCST_Amount") %>'></asp:TextBox>
+                            </td>
+                            <td colspan="2">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert":"Update" %>'
+                                    runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                    ValidationGroup="btnSubmit"></asp:Button>
+                                &nbsp;&nbsp;
+                            </td>
+                            <td visible="false">
+                                <asp:Button Visible="false" ID="btnYes" runat="server" Text="Submit and Addmore"
+                                    CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddBankDetails_btnYes','L');"
+                                    onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddBankDetails_btnYes','L');"
+                                    ValidationGroup="btnSubmit" />
+                            </td>
+                            <td>
+                                <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                    CommandName="Cancel"></asp:Button>
+                            </td>
+                        </tr>
+                    </table>
+                </FormTemplate>
+            </EditFormSettings>
+        </MasterTableView>
+        <ClientSettings>
+            <Resizing AllowColumnResize="false" />
+            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+        </ClientSettings>
+    </telerik:RadGrid>
+</div>
+<asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
+<%--<asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 <table class="TableBackground" width="100%">
     <tr>
@@ -31,7 +508,7 @@
             &nbsp;
         </td>
     </tr>--%>
-    <tr>
+<%-- <tr>
         <td class="leftField">
             <asp:Label ID="lblAccountType" runat="server" CssClass="FieldName" Text="Account Type:"></asp:Label>
         </td>
@@ -109,8 +586,8 @@
         <td colspan="2">
             &nbsp;
         </td>
-    </tr>
-    <%--<tr>
+    </tr>--%>
+<%--<tr>
         <td class="leftField">
             <asp:Label ID="lblBalance" runat="server" Text="Balance:" CssClass="FieldName"></asp:Label>
         </td>
@@ -121,7 +598,7 @@
             &nbsp;
         </td>
     </tr>--%>
-    <tr>
+<%--  <tr>
         <td colspan="4">
             &nbsp;
         </td>
@@ -223,8 +700,8 @@
         </td>
     </tr>
 
-</table>
-<table class="TableBackground" width="60%">
+</table>--%>
+<%--<table class="TableBackground" width="60%">
     <tr>
      
         <td align="center">
@@ -241,4 +718,4 @@
             &nbsp;
         </td>
     </tr>
-</table>
+</table>--%>
