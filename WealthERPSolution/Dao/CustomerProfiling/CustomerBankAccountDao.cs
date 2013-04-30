@@ -14,8 +14,9 @@ namespace DaoCustomerProfiling
 {
     public class CustomerBankAccountDao
     {
-        public bool CreateCustomerBankAccount(CustomerBankAccountVo customerBankAccountVo, int customerId, int userId)
+        public int CreateCustomerBankAccount(CustomerBankAccountVo customerBankAccountVo, int customerId, int userId)
         {
+            int accountId = 0;    
             bool bResult = false;
             Database db;
             DbCommand createCustomerBankCmd;
@@ -26,8 +27,13 @@ namespace DaoCustomerProfiling
                 createCustomerBankCmd = db.GetStoredProcCommand("SP_CreateCustomerBankAccount");
                 db.AddInParameter(createCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(createCustomerBankCmd, "@WERPBM_BankCode", DbType.String, customerBankAccountVo.BankName);
-                db.AddInParameter(createCustomerBankCmd, "@XBAT_BankAccountTypeCode", DbType.String, customerBankAccountVo.AccountType);
+                db.AddInParameter(createCustomerBankCmd, "@CP_PortfolioId", DbType.Int32, customerBankAccountVo.PortfolioId);
+                if (!string.IsNullOrEmpty("PAIC_AssetInstrumentCategoryCode".ToString()))
+                db.AddInParameter(createCustomerBankCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerBankAccountVo.AccountType);
+                else
+                db.AddInParameter(createCustomerBankCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String,DBNull.Value);
                 db.AddInParameter(createCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
+                db.AddInParameter(createCustomerBankCmd, "@CB_IsHeldJointly", DbType.Int32, customerBankAccountVo.IsJointHolding);
                 db.AddInParameter(createCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
                 db.AddInParameter(createCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
                 db.AddInParameter(createCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
@@ -42,10 +48,14 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
                 db.AddInParameter(createCustomerBankCmd, "@CB_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerBankCmd, "@CB_ModifiedBy", DbType.Int32, userId);
-                db.ExecuteNonQuery(createCustomerBankCmd);
-                bResult = true;
-            }
+                db.AddOutParameter(createCustomerBankCmd, "@CB_CustBankAccId", DbType.Int32,10000);
+               // db.ExecuteNonQuery(createCustomerBankCmd);
 
+                if (db.ExecuteNonQuery(createCustomerBankCmd) != 0)
+                accountId = int.Parse(db.GetParameterValue(createCustomerBankCmd, "CB_CustBankAccId").ToString());
+               // bResult = true;
+            }
+                
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -71,7 +81,48 @@ namespace DaoCustomerProfiling
 
             }
 
-            return bResult;
+            return accountId;
+        }
+
+        public DataSet GetCustomerIndividualBankDetails(int customerId)
+        {
+            Database db;
+            DataSet getCustomerBankDs;
+            DbCommand getCustomerBankCmd;
+            //string query = "select * from CustomerBankAccount where C_CustomerId=" + customerId.ToString() + "and CB_CustBankAccId=" + customerBankAccId.ToString();
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+              
+                getCustomerBankCmd = db.GetStoredProcCommand("SP_GetCustomerBankAccounts");
+                db.AddInParameter(getCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
+                getCustomerBankDs = db.ExecuteDataSet(getCustomerBankCmd);
+              
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:GetCustomerBankAccounts()");
+
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return getCustomerBankDs;
         }
 
         public List<CustomerBankAccountVo> GetCustomerBankAccounts(int customerId)
@@ -99,7 +150,7 @@ namespace DaoCustomerProfiling
                         customerBankAccountVo = new CustomerBankAccountVo();
                         customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());                                       
                         customerBankAccountVo.WERPBMBankName = dr["WERPBDTM_BankName"].ToString();
-                        customerBankAccountVo.AccountType = dr["XBAT_BankAccountTye"].ToString();
+                        customerBankAccountVo.AccountType = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
                         customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString().Trim();
                         customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
@@ -112,7 +163,7 @@ namespace DaoCustomerProfiling
                         customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
                         customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
                         customerBankAccountVo.ModeOfOperationCode = dr["XMOH_ModeOfHoldingCode"].ToString().Trim();
-                        customerBankAccountVo.AccountTypeCode = dr["XBAT_BankAccountTypeCode"].ToString();
+                        customerBankAccountVo.AccountTypeCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         customerBankAccountVo.BankName = dr["WERPBM_BankCode"].ToString();
                        
                         if (dr["CB_Balance"].ToString() != "")
@@ -246,8 +297,9 @@ namespace DaoCustomerProfiling
                 updateCustomerBankCmd = db.GetStoredProcCommand("SP_UpdateCustomerBankAccount");
                 db.AddInParameter(updateCustomerBankCmd, "@CB_CustBankAccId", DbType.Int32, customerBankAccountVo.CustBankAccId);
                 db.AddInParameter(updateCustomerBankCmd, "@WERPBM_BankCode", DbType.String, customerBankAccountVo.BankName);
-                db.AddInParameter(updateCustomerBankCmd, "@XBAT_BankAccountTypeCode", DbType.String, customerBankAccountVo.AccountType);
+                db.AddInParameter(updateCustomerBankCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerBankAccountVo.AccountType);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
+                db.AddInParameter(updateCustomerBankCmd, "@CB_IsHeldJointly", DbType.Int32, customerBankAccountVo.IsJointHolding);
                 db.AddInParameter(updateCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
                 //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
@@ -370,7 +422,7 @@ namespace DaoCustomerProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getBankAccountCmd = db.GetStoredProcCommand("SP_XMLBankAccountType ");
+                getBankAccountCmd = db.GetStoredProcCommand("SP_XMLBankAccountType");
                 getBankAccountDs = db.ExecuteDataSet(getBankAccountCmd);
 
             }
@@ -401,7 +453,85 @@ namespace DaoCustomerProfiling
             return getModeHoldingDs.Tables[0];
         }
 
+        public DataTable AssetBankaccountType()
+        {
+            //string logoPath = "";
+            Database db;
+            DbCommand getBankAccountCmd;
+            DataSet getBankAccountDs;
+            // DataRow dr;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBankAccountCmd = db.GetStoredProcCommand("SP_BankAssetAccountType");
+                getBankAccountDs = db.ExecuteDataSet(getBankAccountCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return getBankAccountDs.Tables[0];
+        }
+        //public List<CustomerAccountsVo> GetCustomerBankTransaction(int CustBankAccId)
+        //{
+
+        //    List<CustomerBankAccountVo> accountList = null;
+        //    CustomerBankAccountVo CustomerBankAccountVo;
+        //    Database db;
+        //    DataSet getCustomerBankTransactionDs;
+        //    DbCommand getCustomerBankTransactionCmd;
+
+        //    try
+        //    {
+
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        accountList = new List<CustomerBankAccountVo>();
+        //        getCustomerBankTransactionCmd = db.GetStoredProcCommand("SP_GetCustomerBankAccounts");
+        //        db.AddInParameter(getCustomerBankTransactionCmd, "@CB_CustBankAccId", DbType.Int32, CustBankAccId);
+        //        getCustomerBankTransactionDs = db.ExecuteDataSet(getCustomerBankTransactionCmd);
+        //        if (getCustomerBankTransactionDs.Tables[0].Rows.Count > 0)
+        //        {
+
+        //            foreach (DataRow dr in getCustomerBankTransactionDs.Tables[0].Rows)
+        //            {
+        //                CustomerBankAccountVo = new CustomerBankAccountVo();
+        //                CustomerBankAccountVo.TransactionId = Convert.ToInt32(dr["CCST_TransactionId"].ToString());
+        //                CustomerBankAccountVo.ExternalTransactionId = dr["CCST_ExternalTransactionId"].ToString();
+        //                CustomerBankAccountVo.Transactiondate = DateTime.Parse(dr["CCST_Transactiondate"].ToString());
+        //                CustomerBankAccountVo.CCST_Desc = dr["CCST_Desc"].ToString();
+        //                CustomerBankAccountVo.ChequeNo = dr["CCST_ChequeNo"].ToString();
+        //                CustomerBankAccountVo.IsWithdrwal = int.Parse(dr["CCST_IsWithdrwal"].ToString());
+        //                CustomerBankAccountVo.Amount = double.Parse(dr["CB_HoldingAmount"].ToString());
+        //                accountList.Add(CustomerBankAccountVo);
+
+        //            }
+        //        }
+
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:GetCustomerBankTransaction()");
 
 
+        //        object[] objects = new object[1];
+        //        objects[0] = CustBankAccId;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+        //    return accountList;
+
+        //}
     }
 }
