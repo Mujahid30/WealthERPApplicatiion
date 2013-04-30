@@ -38,6 +38,8 @@ namespace WealthERP.CustomerPortfolio
         int isDefault = 0;
         string path;
         string Id;
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
+
         CustomerAccountDao checkAccDao = new CustomerAccountDao();
 
         [WebMethod]
@@ -128,6 +130,17 @@ namespace WealthERP.CustomerPortfolio
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
+
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
+
         }
         private void BindPortfolioDropDown()
         {
@@ -138,6 +151,20 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataBind();
             //ddlPortfolio.Items.Insert(0, "Select the Portfolio");
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+
+             var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)

@@ -46,7 +46,7 @@ namespace WealthERP.CustomerPortfolio
         static int portfolioId;
         string group;
 
-
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -164,6 +164,17 @@ namespace WealthERP.CustomerPortfolio
 
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
         private void LoadModeOfHolding(string path)
@@ -203,6 +214,15 @@ namespace WealthERP.CustomerPortfolio
 
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
         public void SetFields()

@@ -125,4 +125,6 @@
             <Selecting AllowRowSelect="true" />
         </ClientSettings>
     </telerik:RadGrid>
+    <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
 

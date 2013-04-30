@@ -24,12 +24,14 @@ namespace WealthERP.CustomerPortfolio
         CollectiblesVo collectiblesVo = new CollectiblesVo();
         List<CollectiblesVo> collectiblesList = new List<CollectiblesVo>();
         int collectibleId;
-
+        UserVo userVo = new UserVo();
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
         static int portfolioId;
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
+
         protected override void OnInit(EventArgs e)
         {
             try
@@ -129,10 +131,12 @@ namespace WealthERP.CustomerPortfolio
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            userVo = (UserVo)Session["userVo"];
+            portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
             if (!IsPostBack)
             {
                 this.Page.Culture = "en-GB";
-                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+               
                 BindPortfolioDropDown();
                 this.BindData();
             }
@@ -150,6 +154,16 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataBind();
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
 
         }
 
@@ -159,7 +173,15 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
             BindData();
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
 
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
         protected void BindData()
         {
@@ -283,6 +305,9 @@ namespace WealthERP.CustomerPortfolio
                 Session["collectiblesVo"] = collectiblesBo.GetCollectiblesAsset(collectiblesId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry','action=EditCol');", true);
                 }
                 if (ddlAction.SelectedValue.ToString() == "View")
@@ -291,6 +316,9 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (ddlAction.SelectedItem.Value.ToString() == "Delete")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
             }

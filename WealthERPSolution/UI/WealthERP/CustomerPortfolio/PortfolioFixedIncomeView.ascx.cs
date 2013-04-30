@@ -26,12 +26,13 @@ namespace WealthERP.CustomerPortfolio
         FixedIncomeVo fixedincomeVo = new FixedIncomeVo();
         List<FixedIncomeVo> fixedincomeList = new List<FixedIncomeVo>();
         PortfolioBo portfolioBo = new PortfolioBo();
+        UserVo userVo = new UserVo();
         string path;
         int fixedincomeId;
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
         static int portfolioId = 0;
-
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
         //protected override void OnInit(EventArgs e)
         //{
 
@@ -132,11 +133,12 @@ namespace WealthERP.CustomerPortfolio
         {
             trExportFilteredData.Visible = false;
             SessionBo.CheckSession();
-
+            userVo = (UserVo)Session["userVo"];
+            portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
             if (!IsPostBack)
             {
                 this.Page.Culture = "en-GB";
-                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                
                 this.LoadGridView();
                 BindPortfolioDropDown();
 
@@ -152,7 +154,16 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataBind();
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
 
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
         protected void LoadGridView()
         {
@@ -308,10 +319,16 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioFixedIncomeEntry','action=EditFI');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Delete")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
             }
@@ -389,6 +406,15 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
             LoadGridView();
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
         protected void hiddenassociation_Click(object sender, EventArgs e)

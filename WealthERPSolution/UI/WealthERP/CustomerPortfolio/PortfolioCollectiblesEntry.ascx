@@ -18,6 +18,23 @@
         }
     }
 </script>
+
+<script type="text/javascript">
+    function ChkForMainPortFolio(source, args) {
+
+        var hdnIsCustomerLogin = document.getElementById('ctrl_PortfolioCollectiblesEntry_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_PortfolioCollectiblesEntry_hdnIsMainPortfolio').value;
+
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+
+            args.IsValid = false;
+        }
+        else {
+            args.IsValid = true;
+        }
+
+    }    
+</script>
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 <table class="TableBackground" style="width: 100%;">
@@ -56,6 +73,10 @@
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" 
                 onselectedindexchanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
+             <br />
+                                <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server"  ValidationGroup="btnSubmit"
+                                    Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
+                                    ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
         </td>
     </tr>
         <td class="leftField">
@@ -163,3 +184,6 @@
         </td>
     </tr>
 </table>
+
+           <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />

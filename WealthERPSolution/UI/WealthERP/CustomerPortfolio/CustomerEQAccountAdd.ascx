@@ -52,6 +52,8 @@
             font-size: x-small;
         }
     </style>
+    
+  
     <script type="text/javascript">
         function checkLoginId() {
 
@@ -88,8 +90,31 @@
               }
 
           });
-        }
+      }
+      function isValidInUpdateCase() {
+          var hdnIsCustomerLogin = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsCustomerLogin').value;
+          var hdnIsMainPortfolio = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsMainPortfolio').value;
+
+          if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+              alert('Permisssion denied for Manage Portfolio !!');
+              return false;
+          }
+          else {
+              return true;
+          }
+      }
+        
         function isValid() {
+            var hdnIsCustomerLogin = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsCustomerLogin').value;
+            var hdnIsMainPortfolio = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsMainPortfolio').value;
+      
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+            alert('Permisssion denied for Manage Portfolio !!');
+            return false;
+        }
+        else {
+
+
             if (document.getElementById('hidValid').value == '1') {
                 Page_ClientValidate();
                 return Page_IsValid;
@@ -99,6 +124,7 @@
                 alert('Your Selected Trade Number is not available. Please choose some other Trade Number');
                 return false;
             }
+        }
         }
 </script>
             
@@ -179,7 +205,7 @@
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
-        </td>
+                 </td>
             </tr>
            
             <tr>
@@ -325,13 +351,14 @@
          <td colspan="2" class="SubmitCell">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
-                Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
-           <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" onclick="btnUpdate_Click" Visible="False" />
+                Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()"/>
+           <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" onclick="btnUpdate_Click" OnClientClick="return isValidInUpdateCase()" Visible="False" />
         </td>
       
     </tr>
     </table>
-    
+       <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
         </ContentTemplate>
 </asp:UpdatePanel>
 

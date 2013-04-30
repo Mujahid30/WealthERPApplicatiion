@@ -122,7 +122,8 @@
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnPortfolioID" runat="server" />
 
-
+  <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
 
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdndeleteId" runat="server" />

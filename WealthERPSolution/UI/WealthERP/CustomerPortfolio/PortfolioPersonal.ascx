@@ -129,3 +129,5 @@
 <asp:HiddenField ID="hdndeleteId" runat="server" />
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
     BorderStyle="None" BackColor="Transparent" />
+    <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />

@@ -117,7 +117,8 @@
 <asp:HiddenField ID="hdnSort" runat="server" Value="InstrumentCategory ASC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 
-
+           <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
 
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdndeleteId" runat="server" />

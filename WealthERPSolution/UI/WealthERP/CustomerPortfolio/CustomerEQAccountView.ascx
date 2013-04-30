@@ -169,3 +169,5 @@
 <asp:HiddenField ID="hdnStatusValue" runat="server" />
 <asp:Button ID="btnTradeNoAssociation" runat="server" BorderStyle="None" BackColor="Transparent"
     OnClick="btnTradeNoAssociation_Click" />
+     <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />

@@ -504,10 +504,11 @@ namespace WealthERP.CustomerPortfolio
         protected global::System.Web.UI.WebControls.HiddenField hdnCustomerName;
 
         protected global::System.Web.UI.WebControls.HiddenField hdnAssociationIdForNominee;
-
         protected global::System.Web.UI.WebControls.HiddenField hdnAssociationIdForGuardian;
-
         protected global::System.Web.UI.WebControls.HiddenField hdnAssociationIdForJointHolder;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsMainPortfolio;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsCustomerLogin;
+        
 
     }
 }

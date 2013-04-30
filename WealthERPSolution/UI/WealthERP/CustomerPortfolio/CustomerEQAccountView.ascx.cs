@@ -20,18 +20,19 @@ namespace WealthERP.CustomerPortfolio
     {
         static int portfolioId;
         CustomerVo customerVo = new CustomerVo();
+        UserVo userVo = new UserVo();
         PortfolioBo portfolioBo = new PortfolioBo();
         List<CustomerAccountsVo> FolioList = new List<CustomerAccountsVo>();
         CustomerTransactionBo CustomerTransactionBo = new CustomerTransactionBo();
         CustomerAccountsVo FolioVo = new CustomerAccountsVo();
         int FolioId = 0;
         int EQAccountId = 0;
-        
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
         protected void Page_Load(object sender, EventArgs e)
         {
 
             SessionBo.CheckSession();
-
+            userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
                 this.Page.Culture = "en-GB";
@@ -143,13 +144,36 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataBind();
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
             BindFolioGridView();
-                        
+
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -168,6 +192,9 @@ namespace WealthERP.CustomerPortfolio
                 Session["EQAccountVoRow"] = CustomerTransactionBo.GetCustomerEQAccountDetails(EQAccountId, portfolioId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
                 {
+                     if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);                     
+                     else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd','action=Edit');", true);
                 }
                 if (ddlAction.SelectedValue.ToString() == "View")
@@ -176,16 +203,21 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (ddlAction.SelectedValue.ToString() == "Delete")
                 {
-                    bool CheckTradeAccAssociationWithTransactions;
-                    CheckTradeAccAssociationWithTransactions = CustomerTransactionBo.CheckEQTradeAccNoAssociatedWithTransactions(EQAccountId);
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
+                    {
+                        bool CheckTradeAccAssociationWithTransactions;
+                        CheckTradeAccAssociationWithTransactions = CustomerTransactionBo.CheckEQTradeAccNoAssociatedWithTransactions(EQAccountId);
 
-                    if (CheckTradeAccAssociationWithTransactions == true)
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Trade Account can not be deleted as some Transactions are Associated with this Trade Account Number.');", true);
-                    }
-                    else if(CheckTradeAccAssociationWithTransactions == false)
-                    {
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "ShowAlertToDelete();", true);
+                        if (CheckTradeAccAssociationWithTransactions == true)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Trade Account can not be deleted as some Transactions are Associated with this Trade Account Number.');", true);
+                        }
+                        else if (CheckTradeAccAssociationWithTransactions == false)
+                        {
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "ShowAlertToDelete();", true);
+                        }
                     }
 
                 }

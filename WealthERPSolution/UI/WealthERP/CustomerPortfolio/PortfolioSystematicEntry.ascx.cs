@@ -35,7 +35,7 @@ namespace WealthERP.CustomerPortfolio
         DataTable dtFrequency;
         TimeSpan tsPeriod;
 
-
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
         int portfolioId;
         int schemePlanCode;
         int systematicSetupId;
@@ -49,7 +49,7 @@ namespace WealthERP.CustomerPortfolio
         {
 
             // Check Querystring to see if its an Edit/View/Entry
-
+            portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
             if (Request.QueryString["GoalId"] != null)
             {
                 fundGoalId = int.Parse(Request.QueryString["GoalId"].ToString());
@@ -59,9 +59,10 @@ namespace WealthERP.CustomerPortfolio
                 Manage = Request.QueryString["action"].ToString();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+            userVo = (UserVo)Session[SessionContents.UserVo];
             if (!IsPostBack)
             {
-                userVo = (UserVo)Session[SessionContents.UserVo];
+                
                 trSipAutoTranx.Visible = false;
                 //customerAccountsVo = (CustomerAccountsVo)Session["customerAccountVo"];
                 if (Session["systematicSetupVo"] != null)
@@ -132,6 +133,17 @@ namespace WealthERP.CustomerPortfolio
             {
                 trSipAutoTranx.Visible = true;
             }
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
         private void MaintainPageStateForControls()
@@ -1469,6 +1481,16 @@ namespace WealthERP.CustomerPortfolio
             else
                 schemePlanCode = 0;
             BindFolioDropDown(portfolioId);
+
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
         protected void txtStartDate_TextChanged(object sender, EventArgs e)

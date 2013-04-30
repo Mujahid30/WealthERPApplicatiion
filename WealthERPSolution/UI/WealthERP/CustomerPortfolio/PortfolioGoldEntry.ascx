@@ -15,6 +15,24 @@ function showassocation() {
         
     }
 </script>
+
+<script type="text/javascript">
+    function ChkForMainPortFolio(source, args) {
+
+        var hdnIsCustomerLogin = document.getElementById('ctrl_PortfolioGoldEntry_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_PortfolioGoldEntry_hdnIsMainPortfolio').value;
+
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+
+            args.IsValid = false;
+        }
+        else {
+            args.IsValid = true;
+        }
+
+    }    
+</script>
+
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="upPnl" runat="server">
@@ -43,6 +61,10 @@ function showassocation() {
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
+                      <br />
+                                <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server"  ValidationGroup="btnSubmit"
+                                    Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
+                                    ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
                 </td>
             </tr>
             <tr>
@@ -296,11 +318,13 @@ function showassocation() {
                     <asp:Button ID="btnSaveChanges" runat="server" CssClass="PCGButton" Text="Update"
                         OnClick="btnSaveChanges_Click" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioGoldEntry_btnSubmit');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioGoldEntry_btnSubmit');" />
-                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnSubmit_Click"
+                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit"
                         onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioGoldEntry_btnSubmit');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioGoldEntry_btnSubmit');" />
                 </td>
             </tr>
         </table>
+           <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>

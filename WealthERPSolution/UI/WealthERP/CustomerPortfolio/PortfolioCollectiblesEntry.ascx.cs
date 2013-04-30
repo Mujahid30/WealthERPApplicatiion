@@ -29,6 +29,8 @@ namespace WealthERP.CustomerPortfolio
         string command;
         PortfolioBo portfolioBo = new PortfolioBo();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
            
@@ -42,12 +44,12 @@ namespace WealthERP.CustomerPortfolio
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 if (Request.QueryString["action"] != null)
                     command = Request.QueryString["action"].ToString();
+                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 if (!IsPostBack)
-                {
-                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                {                    
                     BindPortfolioDropDown();
                 }
-                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                
                 if (command == "Col")
                 {
                     lnkEdit.Visible = false;
@@ -152,6 +154,16 @@ namespace WealthERP.CustomerPortfolio
             //ddlPortfolio.Items.Insert(0, "Select the Portfolio");
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
         private void SetFields()
@@ -335,6 +347,17 @@ namespace WealthERP.CustomerPortfolio
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
+
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
+        
         }
     }
 }

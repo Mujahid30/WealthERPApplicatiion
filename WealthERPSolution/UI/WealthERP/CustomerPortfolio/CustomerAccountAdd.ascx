@@ -20,6 +20,24 @@
     }
 </script>
 
+<script type="text/javascript">
+    function ChkForMainPortFolio(source, args) {
+
+        var hdnIsCustomerLogin = document.getElementById('ctrl_CustomerAccountAdd_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_CustomerAccountAdd_hdnIsMainPortfolio').value;
+
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+
+            args.IsValid = false;
+        }
+        else {
+            args.IsValid = true;
+        }
+
+    }    
+</script>
+
+
 <asp:ScriptManager ID="scrptMgr" runat="server" EnableScriptLocalization="true">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="up1" runat="server">
@@ -50,6 +68,11 @@
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="True"
                         OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
+                        <br />
+                                <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server"  ValidationGroup="AccountAdd"
+                                    Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
+                                    ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
+
                 </td>
             </tr>
             <tr id="trAssetGroup" runat="server">
@@ -70,7 +93,7 @@
                     </asp:DropDownList>
                     <span id="Span1" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a category"
-                        ControlToValidate="ddlCategory" Operator="NotEqual" ValueToCompare="Select" Display="Dynamic"
+                        ControlToValidate="ddlCategory" Operator="NotEqual" ValueToCompare="Select" Display="Dynamic" ValidationGroup="AccountAdd"  
                         CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>
                 </td>
             </tr>
@@ -94,7 +117,7 @@
                 <td>
                     <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="txtField"></asp:TextBox>
                     <span id="Span3" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtAccountNumber"
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtAccountNumber" ValidationGroup="AccountAdd"
                         ErrorMessage="<br />Please enter a Number" Display="Dynamic" runat="server" CssClass="rfvPCG"
                         SetFocusOnError="true">
                     </asp:RequiredFieldValidator>
@@ -272,6 +295,8 @@
                 </td>
             </tr>
         </table>
+         <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
 <table style="width: 100%;">
@@ -294,7 +319,7 @@
         <td colspan="2" class="SubmitCell">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                Text="Submit" OnClick="btnSubmit_Click" />
+                Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="AccountAdd" />
         </td>
     </tr>
 </table>

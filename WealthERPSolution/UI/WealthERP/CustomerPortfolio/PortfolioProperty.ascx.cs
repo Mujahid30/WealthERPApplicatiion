@@ -20,6 +20,7 @@ namespace WealthERP.CustomerPortfolio
     {
         PropertyBo propertyBo = new PropertyBo();
         PropertyVo propertyVo;
+        UserVo userVo = new UserVo();
         CustomerVo customerVo = new CustomerVo();
         CustomerAccountBo customerAccountsBo = new CustomerAccountBo();
 
@@ -28,6 +29,7 @@ namespace WealthERP.CustomerPortfolio
         static int portfolioId;
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
 
         protected override void OnInit(EventArgs e)
         {
@@ -136,9 +138,10 @@ namespace WealthERP.CustomerPortfolio
             {
                 SessionBo.CheckSession();
                 customerVo = (CustomerVo)Session["customerVo"];
+                userVo = (UserVo)Session["userVo"];
+                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 if (!IsPostBack)
-                {
-                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                {                    
                     BindPortfolioDropDown();
                     LoadPropertyGrid(portfolioId);
                 }
@@ -174,6 +177,17 @@ namespace WealthERP.CustomerPortfolio
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
 
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
+
         }
 
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
@@ -182,6 +196,16 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
             LoadPropertyGrid(portfolioId);
+
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
 
         }
         public void LoadPropertyGrid(int portfolioId)

@@ -1,7 +1,4 @@
-﻿
-
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
@@ -33,6 +30,7 @@ namespace WealthERP.CustomerPortfolio
         EQTransactionVo eqTransactionVo = new EQTransactionVo();
         CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
         CustomerVo customerVo;
+        CustomerPortfolioVo customerPortfolioVo;
         UserVo userVo;
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
         ProductEquityBo productEquityBo = new ProductEquityBo();
@@ -50,6 +48,8 @@ namespace WealthERP.CustomerPortfolio
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         string path;
         AdvisorVo advisorVo = new AdvisorVo();
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             tdScripName.Visible = false;
@@ -129,14 +129,44 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlPortfolio.DataBind();
 
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+            // customerPortfolioVo.PortfolioId = portfolioId;
+            //customerPortfolioVo.PortfolioId = portfolioId;
 
+            //var selectedValues = keysToSelect.Where(genDictPortfolioDetails.ContainsKey)
+            //         .Select(x => genDictPortfolioDetails[x])
+            //         .ToList();
+
+            //  var evenFrenchNumbers =
+            //from entry in genDictPortfolioDetails
+            //where entry.Key == portfolioId
+            //select entry.Value;
+
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;           
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
 
         }
         private void SetFields(int i)

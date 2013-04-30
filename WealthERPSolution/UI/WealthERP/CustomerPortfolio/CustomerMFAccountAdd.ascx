@@ -96,20 +96,40 @@
 
         });
     }
+    function isValidInUpdateCase() {
+        var hdnIsCustomerLogin = document.getElementById('ctrl_CustomerMFAccountAdd_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_CustomerMFAccountAdd_hdnIsMainPortfolio').value;
+
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+            alert('Permisssion denied for Manage Portfolio !!');
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     function isValid() {
+        var hdnIsCustomerLogin = document.getElementById('ctrl_CustomerMFAccountAdd_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_CustomerMFAccountAdd_hdnIsMainPortfolio').value;
 
-        if ($("#<%= ddlProductAmc.ClientID %>").val() == "Select an AMC Code") {
-            alert("Please select the AMC First");
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+            alert('Permisssion denied for Manage Portfolio !!');
             return false;
         }
-        else if ($("#<%= txtFolioNumber.ClientID %>").val() == "") {
-            alert('Please fill the folio No');
-            return false;
-        }
+        else {
+            if ($("#<%= ddlProductAmc.ClientID %>").val() == "Select an AMC Code") {
+                alert("Please select the AMC First");
+                return false;
+            }
+            else if ($("#<%= txtFolioNumber.ClientID %>").val() == "") {
+                alert('Please fill the folio No');
+                return false;
+            }
 
-        if ($("#<%= hidValidCheck.ClientID %>").val() == '1') {
-            return Page_IsValid;
-        }
+            if ($("#<%= hidValidCheck.ClientID %>").val() == '1') {
+                return Page_IsValid;
+            }
+        } 
     }
     function checkDate(sender, args) {
         var selectedDate = new Date();
@@ -876,10 +896,12 @@
         Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" ValidationGroup="btnSubmit" />
     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
-        Text="Update" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit" />
+        Text="Update" OnClick="btnUpdate_Click" OnClientClick="return isValid()"  ValidationGroup="btnSubmit" />
 </div>
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
 <asp:HiddenField ID="hdnCustomerName" runat="server" />
 <asp:HiddenField ID="hdnAssociationIdForNominee" runat="server" />
 <asp:HiddenField ID="hdnAssociationIdForGuardian" runat="server" />
 <asp:HiddenField ID="hdnAssociationIdForJointHolder" runat="server" />
+<asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />

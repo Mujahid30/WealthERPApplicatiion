@@ -111,7 +111,22 @@
 <%--Javascript Calendar Controls - Required Files--%>
 <%--<asp:UpdatePanel ID="up1" runat="server">
     <ContentTemplate>--%>
+<script type="text/javascript">
+    function ChkForMainPortFolio(source, args) {
 
+        var hdnIsCustomerLogin = document.getElementById('ctrl_PortfolioSystematicEntry_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_PortfolioSystematicEntry_hdnIsMainPortfolio').value;
+     
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+
+            args.IsValid = false;
+        }
+        else {
+            args.IsValid = true;
+        }
+
+    }    
+</script>
 <script type="text/javascript">
     function GetSchemeCode(source, eventArgs) {
 
@@ -175,6 +190,10 @@
             <asp:DropDownList ID="ddlportfolio" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlportfolio_SelectedIndexChanged"
                 AutoPostBack="true">
             </asp:DropDownList>
+              <br />
+                                <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server"  ValidationGroup="MFSubmit"
+                                    Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
+                                    ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
         </td>
         <td>
         </td>
@@ -607,5 +626,7 @@
     </tr>
 </table>
 <asp:HiddenField ID="hdnddlPeriodSelection" runat="server" />
+  <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
 <%--    </ContentTemplate>
 </asp:UpdatePanel>--%>

@@ -24,8 +24,9 @@ namespace WealthERP.CustomerPortfolio
         CustomerVo customerVo = new CustomerVo();
         CustomerAccountBo customerAccountsBo = new CustomerAccountBo();
         PortfolioBo portfolioBo = new PortfolioBo();
+        UserVo userVo = new UserVo();
 
-
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
         int portfolioId;
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
@@ -137,6 +138,8 @@ namespace WealthERP.CustomerPortfolio
             {
                 SessionBo.CheckSession();
                 customerVo = (CustomerVo)Session["customerVo"];
+                userVo = (UserVo)Session["userVo"];
+
                 portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
                  if (!Page.IsPostBack)
                 {
@@ -276,6 +279,9 @@ namespace WealthERP.CustomerPortfolio
 
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','action=edit');", true);
                 }
                 if (ddlAction.SelectedItem.Value.ToString() == "View")
@@ -377,6 +383,18 @@ namespace WealthERP.CustomerPortfolio
             ddlportfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
             ddlportfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlportfolio.DataBind();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
+
            
         }
 
@@ -384,6 +402,15 @@ namespace WealthERP.CustomerPortfolio
         {
             portfolioId = int.Parse(ddlportfolio.SelectedValue);
             LoadSystematicSetupGrid(portfolioId);
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
 

@@ -19,6 +19,22 @@
         }
     }
 </script>
+<script type="text/javascript">
+    function ChkForMainPortFolio(source, args) {
+
+        var hdnIsCustomerLogin = document.getElementById('ctrl_PortfolioPersonalEntry_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_PortfolioPersonalEntry_hdnIsMainPortfolio').value;
+
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+
+            args.IsValid = false;
+        }
+        else {
+            args.IsValid = true;
+        }
+
+    }    
+</script>
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
@@ -67,6 +83,11 @@
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
+                       <br />
+                                <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server"  ValidationGroup="btnSubmit"
+                                    Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
+                                    ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
+                    
                 </td>
             </tr>
             <tr id="trCategory" runat="server">
@@ -204,7 +225,7 @@
         <table style="width: 100%;">
             <tr>
                 <td align="center" colspan="2">
-                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnSubmit_Click"
+                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit"
                         onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioPersonalEntry_btnSubmit');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioPersonalEntry_btnSubmit');" />
                     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnUpdate_Click"
@@ -213,6 +234,8 @@
                 </td>
             </tr>
         </table>
+         <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
 <%--<asp:Panel ID="pnlViewEdit" runat="server" Visible="false">

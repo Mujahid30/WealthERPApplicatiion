@@ -20,7 +20,7 @@ namespace WealthERP.CustomerPortfolio
     public partial class ViewGoldPortfolio : System.Web.UI.UserControl
     {
         CustomerVo customerVo = new CustomerVo();
-
+        UserVo userVo = new UserVo();
         GoldBo goldBo = new GoldBo();
         GoldVo goldVo = new GoldVo();
         List<GoldVo> goldList = new List<GoldVo>();
@@ -30,6 +30,8 @@ namespace WealthERP.CustomerPortfolio
         static int portfolioId;
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
+
         protected override void OnInit(EventArgs e)
         {
             try
@@ -135,6 +137,17 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataBind();
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -142,15 +155,26 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
             BindData();
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
+
 
         }
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             this.Page.Culture = "en-GB";
+            portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+
             if (!IsPostBack)
-            {
-                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+            {               
                 BindPortfolioDropDown();
                 this.BindData();
             }
@@ -309,10 +333,16 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGoldEntry','action=EditGold');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Delete")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
 

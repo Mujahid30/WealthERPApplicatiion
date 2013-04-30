@@ -53,6 +53,7 @@ namespace WealthERP.CustomerPortfolio
         DataSet dsAccountType = new DataSet();
         DataTable dtModeofOperation = new DataTable();
         DataTable dtStates = new DataTable();
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
 
 
         [WebMethod]
@@ -598,6 +599,18 @@ namespace WealthERP.CustomerPortfolio
             //ddlPortfolio.Items.Insert(0, "Select the Portfolio");
 
             //ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
+
         }
 
         private void BindALLBankListForCustomer()
@@ -626,6 +639,14 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
 
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;           
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
         private void LoadGuardians()

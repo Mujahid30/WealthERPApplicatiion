@@ -27,6 +27,7 @@ namespace WealthERP.CustomerPortfolio
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
 
         protected override void OnInit(EventArgs e)
         {
@@ -135,6 +136,16 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
             LoadGridview(portfolioId);
+
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -144,9 +155,9 @@ namespace WealthERP.CustomerPortfolio
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["customerVo"];
+                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 if (!IsPostBack)
-                {
-                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                {                   
                     BindPortfolioDropDown();
                     LoadGridview(portfolioId);
                 }
@@ -182,6 +193,17 @@ namespace WealthERP.CustomerPortfolio
             //ddlPortfolio.Items.Insert(0, "Select the Portfolio");
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
            
         }
 
@@ -294,6 +316,9 @@ namespace WealthERP.CustomerPortfolio
                 menu = MyDropDownList.SelectedItem.Value.ToString();
                 if (menu == "Edit")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionAndGratuities','action=edit');", true);
                 }
                 if (menu == "View")
@@ -302,6 +327,9 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (menu == "Delete")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
 

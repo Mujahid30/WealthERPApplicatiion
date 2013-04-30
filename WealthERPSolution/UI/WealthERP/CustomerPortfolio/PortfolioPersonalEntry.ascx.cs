@@ -29,6 +29,8 @@ namespace WealthERP.CustomerPortfolio
         string Manage = string.Empty;
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -37,10 +39,10 @@ namespace WealthERP.CustomerPortfolio
                 this.Page.Culture = "en-GB";
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
-
+                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 if (!IsPostBack)
                 {
-                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                   
                     BindPortfolioDropDown();
                     trSubCategory.Visible = false;
                     dsAssetCategories = assetBo.GetAssetInstrumentCategory("PI"); //Change to the respective GroupCode
@@ -101,6 +103,16 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
 
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
+
         }
         private void BindPortfolioDropDown()
         {
@@ -112,6 +124,17 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataBind();
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
 
         }
         private void BindDropDowns(PersonalVo personalVo)

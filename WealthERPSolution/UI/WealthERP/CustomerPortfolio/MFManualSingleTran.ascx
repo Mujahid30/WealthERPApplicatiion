@@ -43,6 +43,22 @@
 </script>
 
 <script type="text/javascript">
+    function ChkForMainPortFolio(source, args) {
+
+        var hdnIsCustomerLogin = document.getElementById('ctrl_MFManualSingleTran_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_MFManualSingleTran_hdnIsMainPortfolio').value;
+
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+
+            args.IsValid = false;
+        }
+        else {
+            args.IsValid = true;
+        }
+
+    }    
+</script>
+<script type="text/javascript">
     function checkTrxnDate() {
         var selectedDate = new Date();
         selectedDate = document.getElementById("<%= txtTransactionDate.ClientID %>").value;
@@ -159,6 +175,12 @@
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
+                    
+                    <br />
+                                <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server"  ValidationGroup="MFSubmit"
+                                    Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
+                                    ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
+                    
                     <%-- <asp:CustomValidator ID="cv" runat="server" ValidationGroup="MFSubmit"
                          Display="Dynamic" ClientValidationFunction="PortfolioManageMessage" CssClass="revPCG"
                           ErrorMessage="CustomValidator">You can't add transaction for Manage Portfolio.Please select unmanage Portfolio</asp:CustomValidator>--%>
@@ -576,6 +598,8 @@
                     </td>
                 </tr>
         </table>
+          <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
 <table>

@@ -872,7 +872,7 @@ namespace WealthERP.BusinessMIS
             {
                 GridDataItem item = (GridDataItem)e.Item;
                 string value = item.GetDataKeyValue("Customer_Name").ToString();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('RMCustomerAMCSchemewiseMIS','strCustomreId=" + value + " ');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('MutualFundMIS','strCustomreId=" + value + " ');", true);
 
             }
         }
