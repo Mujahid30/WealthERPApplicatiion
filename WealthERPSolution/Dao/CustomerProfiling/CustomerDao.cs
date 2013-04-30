@@ -274,7 +274,7 @@ namespace DaoCustomerProfiling
                 customerVo = new CustomerVo();
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerCmd = db.GetStoredProcCommand("SP_GetCustomer");
-                db.AddInParameter(getCustomerCmd, "@C_CustomerId", DbType.String, customerId.ToString());
+                db.AddInParameter(getCustomerCmd, "@C_CustomerId", DbType.Int32, customerId);
                 getCustomerDs = db.ExecuteDataSet(getCustomerCmd);
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
                 {
