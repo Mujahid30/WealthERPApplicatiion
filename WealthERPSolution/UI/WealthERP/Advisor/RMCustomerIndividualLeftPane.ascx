@@ -95,7 +95,11 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Bank Details" Value="Bank Details">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Add Bank Details" Value="Add Bank Details">
+                                            <telerik:RadPanelItem runat="server" Text="Add Bank Transaction/Balance" Value="Add Bank Details">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="View Bank Transaction" Value="View Bank Transaction">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
