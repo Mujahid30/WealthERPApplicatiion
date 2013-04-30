@@ -963,6 +963,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getLoanMICmd, "@AmcCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(getLoanMICmd, "@AmcCode", DbType.Int32, DBNull.Value);
+                getLoanMICmd.CommandTimeout = 60 * 60;
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
             catch (BaseApplicationException Ex)
@@ -1758,6 +1759,52 @@ namespace DaoAdvisorProfiling
                 throw exBase;
             }
             return dsGetEQReturns;
+        }
+
+        public DataTable MFNPTransactionHoldingDetails(int AdviserId, int rmId, int customerId, int branchId, int branchHeadId, int all, int isGroup, string strValuationDate)
+        {
+            Database db;
+            DbCommand MFNPTransactionHoldingDetailsCmd;
+            DataSet dsMFNPTransactionHoldingDetails = new DataSet();
+            DataTable dtMFNPTransactionHoldingDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                MFNPTransactionHoldingDetailsCmd = db.GetStoredProcCommand("SPROC_MFNPTransactionHoldingDetails");
+                db.AddInParameter(MFNPTransactionHoldingDetailsCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(MFNPTransactionHoldingDetailsCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(MFNPTransactionHoldingDetailsCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(MFNPTransactionHoldingDetailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(MFNPTransactionHoldingDetailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(MFNPTransactionHoldingDetailsCmd, "@IsGroup", DbType.Int16, isGroup);
+                db.AddInParameter(MFNPTransactionHoldingDetailsCmd, "@all", DbType.Int32, all);
+                if (strValuationDate != "01/01/0001")
+                    db.AddInParameter(MFNPTransactionHoldingDetailsCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
+                MFNPTransactionHoldingDetailsCmd.CommandTimeout = 60 * 60;
+                dsMFNPTransactionHoldingDetails = db.ExecuteDataSet(MFNPTransactionHoldingDetailsCmd);
+                dtMFNPTransactionHoldingDetails = dsMFNPTransactionHoldingDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:MFNPTransactionHoldingDetails()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtMFNPTransactionHoldingDetails;
         }
     }
 }
