@@ -32,6 +32,7 @@ namespace WealthERP.CustomerPortfolio
         string path;
         string AssetGroupCode = "PG";
         string Manage;
+        Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,10 +43,10 @@ namespace WealthERP.CustomerPortfolio
                 customerVo = (CustomerVo)Session["customerVo"];
                 customerAccountVo = (CustomerAccountsVo)Session["customerAccountVo"];
                 pensionAndGratuitiesVo = (PensionAndGratuitiesVo)Session["pensionAndGratuitiesVo"];
-          
+                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+
                 if (!IsPostBack)
-                {
-                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                {                    
                     BindPortfolioDropDown();
                     path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
 
@@ -122,6 +123,17 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataBind();
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
+            }
+
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
+            hdnIsCustomerLogin.Value = userVo.UserType;
 
         }
         private void BindDropDowns(string path, string AssetInstrumentCat)
@@ -1098,6 +1110,15 @@ namespace WealthERP.CustomerPortfolio
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
+            if (Session["genDictPortfolioDetails"] != null)
+            {
+                genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
+            }
+            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            //int value = keyValuePair.Value;
+
+            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+            hdnIsCustomerLogin.Value = userVo.UserType;
         }
         protected void ddlEPFInterestCalFreq_SelectedIndexChanged(object sender, EventArgs e)
         {

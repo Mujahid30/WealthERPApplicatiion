@@ -312,6 +312,9 @@ namespace WealthERP.CustomerPortfolio
 
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPropertyEntry','action=Edit');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "View")
@@ -320,6 +323,9 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Delete")
                 {
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
             }

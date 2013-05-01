@@ -315,7 +315,7 @@ function showassocation() {
         <table style="width: 100%;" class="TableBackground">
             <tr>
                 <td align="center">
-                    <asp:Button ID="btnSaveChanges" runat="server" CssClass="PCGButton" Text="Update"
+                    <asp:Button ID="btnSaveChanges" runat="server" CssClass="PCGButton" Text="Update" ValidationGroup="btnSubmit"
                         OnClick="btnSaveChanges_Click" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioGoldEntry_btnSubmit');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioGoldEntry_btnSubmit');" />
                     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit"

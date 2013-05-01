@@ -3,6 +3,26 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+
+<script type="text/javascript">
+    function ChkForMainPortFolio(source, args) {
+
+        var hdnIsCustomerLogin = document.getElementById('ctrl_PensionAndGratuities_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_PensionAndGratuities_hdnIsMainPortfolio').value;
+        
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+
+            args.IsValid = false;
+        }
+        else {
+            args.IsValid = true;
+        }
+
+    }    
+</script>
+
+
+
 <asp:UpdatePanel ID="up1" runat="server">
     <ContentTemplate>
         <table style="width: 100%;">
@@ -31,6 +51,10 @@
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" runat="server"
                         AutoPostBack="true" OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
+                      <br />
+                                <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server"  ValidationGroup="buttonSubmit"
+                                    Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
+                                    ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
                 </td>
             </tr>
         </table>
@@ -614,5 +638,7 @@
                 </td>
             </tr>
         </table>
+          <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>

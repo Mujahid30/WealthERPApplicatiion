@@ -172,7 +172,7 @@ namespace WealthERP.CustomerPortfolio
             SessionBo.CheckSession();
             this.Page.Culture = "en-GB";
             portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
-
+            userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {               
                 BindPortfolioDropDown();
