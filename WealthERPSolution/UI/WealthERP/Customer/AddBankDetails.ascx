@@ -301,7 +301,7 @@
 </table>
 <div id="DivTransaction" runat="server" visible="false">
     <telerik:RadGrid ID="gvCashSavingTransaction" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="1" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
+        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
         EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
         EnableViewState="true" ShowFooter="true" OnItemCommand="gvCashSavingTransaction_ItemCommand"
         OnNeedDataSource="gvCashSavingTransaction_OnNeedDataSource">
