@@ -132,6 +132,14 @@ namespace WealthERP
             return checkAccDao.CheckTradeNoMFAvailability(TradeAccNo, BrokerCode, PortfolioId);
         }
 
+        [WebMethod]
+        public static bool CheckTransactionExistanceOnHoldingAdd(int CBBankAccountNum)
+        {
+
+            CustomerAccountDao checkAccDao = new CustomerAccountDao();
+            return checkAccDao.CheckTransactionExistanceOnHoldingAdd(CBBankAccountNum);
+        }
+
         private void AddSessionTrack()
         {
             UserVo userVo = null;
