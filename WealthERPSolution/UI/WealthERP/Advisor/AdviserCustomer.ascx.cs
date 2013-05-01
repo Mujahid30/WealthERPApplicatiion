@@ -496,13 +496,15 @@ namespace WealthERP.Advisor
             if (e.Item is GridDataItem)
             {
                 GridDataItem item = (e.Item as GridDataItem);
-                RadComboBox rcb = new RadComboBox();
+               // RadComboBox rcb = new RadComboBox();
+                DropDownList rcb = new DropDownList();
                 if (UserRole != "advisor")
                 {
-                    rcb = (RadComboBox)e.Item.FindControl("ddlAction");
+                    rcb = (DropDownList)e.Item.FindControl("ddlAction");
                     if (rcb != null)
                     {
-                        rcb.Items.FindItemByValue("DeleteProfile").Remove();
+                       // rcb.Items.FindItemByValue("Delete Profile").Remove();
+                        rcb.Items.FindByText("Delete Profile").Enabled = false;
                     }
                 }
 
@@ -894,7 +896,7 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void ddlAction_OnSelectedIndexChanged(object sender, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             int userId = 0;
             UserBo userBo = new UserBo();
@@ -905,7 +907,8 @@ namespace WealthERP.Advisor
             }
             try
             {
-                RadComboBox ddlAction = (RadComboBox)sender;
+               DropDownList ddlAction = (DropDownList)sender;
+                //RadComboBox ddlAction = (RadComboBox)sender;
                 GridDataItem item = (GridDataItem)ddlAction.NamingContainer;
                 ParentId = int.Parse(gvCustomerList.MasterTableView.DataKeyValues[item.ItemIndex]["CustomerId"].ToString());
                 userId = int.Parse(gvCustomerList.MasterTableView.DataKeyValues[item.ItemIndex]["UserId"].ToString());
@@ -913,7 +916,7 @@ namespace WealthERP.Advisor
                 customerVo = customerBo.GetCustomer(ParentId);
                 Session["CustomerVo"] = customerVo;
 
-                if (ddlAction.SelectedItem.Value.ToString() != "DeleteProfile")
+                if (ddlAction.SelectedItem.Value.ToString() != "Delete Profile")
                 {
                     if (ddlAction.SelectedItem.Value.ToString() != "Profile")
                     {
@@ -1049,7 +1052,7 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMAlertNotifications", "loadcontrol('RMAlertNotifications','login');", true);
                 }
 
-                else if (ddlAction.SelectedItem.Value.ToString() == "DeleteProfile")
+                else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
