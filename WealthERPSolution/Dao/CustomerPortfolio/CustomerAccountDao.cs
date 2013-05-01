@@ -3113,7 +3113,7 @@ namespace DaoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CreatecustomerBankAccountAssociation()");
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CreatecustomerBankTransaction()");
 
                 object[] objects = new object[2];
                 objects[0] = customerAccountVo;
