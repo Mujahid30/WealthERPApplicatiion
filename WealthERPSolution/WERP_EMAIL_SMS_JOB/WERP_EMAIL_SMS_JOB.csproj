@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\UI\WealthERP\bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\WERP-TB-RE 6.2 22ndMay2012\UI\WealthERP\bin\Microsoft.Office.Interop.Excel.dll</HintPath>
@@ -77,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Emailer.cs" />
     <Compile Include="EmailMessage.cs" />
     <Compile Include="EmailProcessor.cs" />
     <Compile Include="Program.cs" />
@@ -88,9 +93,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bo\AdvisorProfiling\BoAdvisorProfiling.csproj">
+      <Project>{57F14CB4-03CF-4E2D-B015-CBF45984F8A6}</Project>
+      <Name>BoAdvisorProfiling</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bo\Common\BoCommon\BoCommon.csproj">
       <Project>{F034F6F7-2938-4126-921E-9847633F0624}</Project>
       <Name>BoCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bo\CustomerProfiling\BoCustomerProfiling.csproj">
+      <Project>{F15A983D-A783-4935-AABE-59173BCF134B}</Project>
+      <Name>BoCustomerProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vo\AdvisorProfiling\VoAdvisorProfiling.csproj">
+      <Project>{E48FFEBF-AC77-4063-A48C-C9381B5D4C6F}</Project>
+      <Name>VoAdvisorProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vo\User\VoUser.csproj">
+      <Project>{5A775261-8919-4080-81AA-545763D709DB}</Project>
+      <Name>VoUser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
