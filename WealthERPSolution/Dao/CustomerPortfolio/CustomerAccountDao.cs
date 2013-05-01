@@ -3343,5 +3343,47 @@ namespace DaoCustomerPortfolio
 
             return bResult;
         }
+
+
+        public bool CreateCashSavingsAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createCashSavingsAccountAssociationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCashSavingsAccountAssociationCmd = db.GetStoredProcCommand("SP_CreateCashSavingsAccountAssociation");
+                db.AddInParameter(createCashSavingsAccountAssociationCmd, "@CCSA_AccountId", DbType.Int32, customerAccountAssociationVo.AccountId);
+                db.AddInParameter(createCashSavingsAccountAssociationCmd, "@CA_AssociationId", DbType.Int32, customerAccountAssociationVo.AssociationId);
+                db.AddInParameter(createCashSavingsAccountAssociationCmd, "@CCSAA_AssociationType", DbType.String, customerAccountAssociationVo.AssociationType);
+                db.AddInParameter(createCashSavingsAccountAssociationCmd, "@CCSAA_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(createCashSavingsAccountAssociationCmd, "@CCSAA_ModifiedBy", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(createCashSavingsAccountAssociationCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CreateCashSavingsAccountAssociation()");
+
+                object[] objects = new object[2];
+                objects[0] = customerAccountAssociationVo;
+                objects[1] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
     }
 }
