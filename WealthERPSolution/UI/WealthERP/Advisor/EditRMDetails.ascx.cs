@@ -731,7 +731,15 @@ namespace WealthERP.Advisor
 
             }
 
-
+            if (rmVo.RMRole != null)
+            {
+                if(rmVo.RMRole=="RM")
+                    ChklistRMBM.Items[0].Selected=true;
+                if(rmVo.RMRole=="BM")
+                    ChklistRMBM.Items[0].Selected=true;
+                if(rmVo.RMRole=="Research")
+                    ChklistRMBM.Items[0].Selected = true;
+            }
 
             if (rmVo.IsExternal == 1)
                 chkExternalStaff.Checked = true;
@@ -913,40 +921,29 @@ namespace WealthERP.Advisor
 
 
                     //*************Role Association Creation and deletion************************
-                    if (chkOps.Checked == true)
-                    {
-                        rmVo.RMRole = "Ops";
-                        userBo.CreateRoleAssociation(rmVo.UserId, 1004);
-                        //if (advisorVo.IsISASubscribed == true)
-                        //{
-                        //    foreach (ListItem Items in CheckListCKMK.Items)
-                        //    {
-                        //        if (Items.Selected)
-                        //        {
-                        //            if (Items.Text == "Checker")
-                        //            {
-                        //                // Create Association for RM
-                        //                userBo.CreateUserPermisionAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                    //if (chkOps.Checked == true)
+                    //{
+                        //rmVo.RMRole = "Ops";
+                        //userBo.CreateRoleAssociation(rmVo.UserId, 1004);
 
-                        //            }
-                        //            else if (Items.Text == "Maker")
-                        //            {
-                        //                // Create Association for RM
-                        //                userBo.CreateUserPermisionAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
-                        //            }
-
-                        //        }
-                        //    }
-                        //}
-                        //else
-                        //{
-
-                        //}
-                    }
-                    else
-                    {
+                    //}
+                    //else
+                    //{
                         bool RMBMResearchRole = false;
                         string[] RoleListArray = rmVo.RMRoleList.Split(new char[] { ',' });
+                        foreach (string Role in RoleListArray)
+                        {
+                            // Create Role Association for Ops
+                            if (chkOps.Checked == true)
+                            {
+                                userBo.CreateRoleAssociation(rmVo.UserId, 1004);
+                            }
+                            else if (chkOps.Checked == false)
+                            {
+                                userBo.DeleteRoleAssociation(rmVo.UserId, 1004);
+                            }
+
+                        }
                         foreach (ListItem Items in ChklistRMBM.Items)
                         {
 
@@ -1014,6 +1011,7 @@ namespace WealthERP.Advisor
                                     if (RMBMResearchRole == false && Items.Selected == true)
                                     {
                                         userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                                       
                                     }
                                     else if (RMBMResearchRole == true && Items.Selected == false)
                                     {
@@ -1023,9 +1021,8 @@ namespace WealthERP.Advisor
                                     RMBMResearchRole = false;
                                 }
                             }
-
                         }
-                    }
+                   // }
 
 
                     //*************Role Association Creation and deletion************************   
