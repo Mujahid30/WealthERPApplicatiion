@@ -2923,6 +2923,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//UploadFolioTrxnReconcilation.ascx.
+        /// </summary>
+        internal static string UploadFolioTrxnReconcilation {
+            get {
+                return ResourceManager.GetString("UploadFolioTrxnReconcilation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General//UserLogin.ascx.
         /// </summary>
         internal static string Userlogin {

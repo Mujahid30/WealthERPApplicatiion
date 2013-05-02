@@ -1557,4 +1557,8 @@
     <value>BusinessMIS//CustomerEquityLedgerMIS.ascx</value>
     <comment>BusinessMIS//CustomerEquityLedgerMIS.ascx</comment>
   </data>
+  <data name="UploadFolioTrxnReconcilation" xml:space="preserve">
+    <value>SuperAdmin//UploadFolioTrxnReconcilation.ascx</value>
+    <comment>SuperAdmin//UploadFolioTrxnReconcilation.ascx</comment>
+  </data>
 </root>

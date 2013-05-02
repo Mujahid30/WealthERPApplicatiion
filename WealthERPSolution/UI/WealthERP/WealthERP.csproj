@@ -3132,6 +3132,13 @@
     <Compile Include="SuperAdmin\SuperAdminMessageBroadcast.ascx.designer.cs">
       <DependentUpon>SuperAdminMessageBroadcast.ascx</DependentUpon>
     </Compile>
+    <Compile Include="SuperAdmin\UploadFolioTrxnReconcilation.ascx.cs">
+      <DependentUpon>UploadFolioTrxnReconcilation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\UploadFolioTrxnReconcilation.ascx.designer.cs">
+      <DependentUpon>UploadFolioTrxnReconcilation.ascx</DependentUpon>
+    </Compile>
     <Compile Include="SuperAdmin\ViewIssuseDetails.ascx.cs">
       <DependentUpon>ViewIssuseDetails.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6288,6 +6295,7 @@
     <Content Include="SuperAdmin\SuperAdminGoalSIPFundingSync.ascx" />
     <Content Include="SuperAdmin\SuperAdminLeftPane.ascx" />
     <Content Include="SuperAdmin\SuperAdminMessageBroadcast.ascx" />
+    <Content Include="SuperAdmin\UploadFolioTrxnReconcilation.ascx" />
     <Content Include="SuperAdmin\ViewIssuseDetails.ascx" />
     <Content Include="SuperAdmin\ViewUploadHistory.ascx" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.sln" />
