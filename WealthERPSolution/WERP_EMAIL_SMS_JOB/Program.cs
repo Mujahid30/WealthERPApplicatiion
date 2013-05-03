@@ -21,7 +21,7 @@ namespace WERP_EMAIL_SMS_JOB
                 return;
             }
 
-            StartSMSProcessor();
+          //  StartSMSProcessor();
             StartEmailProcessor();
             Console.ReadLine();
 

@@ -30,7 +30,7 @@ namespace WERP_EMAIL_SMS_JOB
 
         public void Start()
         {
-            
+
             try
             {
                 while (1 == 1)
@@ -39,7 +39,7 @@ namespace WERP_EMAIL_SMS_JOB
 
                     DataTable dtAdviserSMTP = new DataTable();
                     DataTable dtEmailParameterValue = new DataTable();
-                   
+
                     DataTable dtWERPEmailTemplateParameter = new DataTable();
                     DataTable dtAdviserEmailTemplate = new DataTable();
                     DataTable dtAdviserEmailTemplateParameterPre = new DataTable();
@@ -69,7 +69,7 @@ namespace WERP_EMAIL_SMS_JOB
                             }
                         }
                     }
-                    if(DS.Tables[1].Rows.Count > 0)
+                    if (DS.Tables[1].Rows.Count > 0)
                     {
                         dtEmailParameterValue = DS.Tables[1];
                     }
@@ -77,7 +77,7 @@ namespace WERP_EMAIL_SMS_JOB
                     foreach (DataRow DR in DS.Tables[0].Rows)
                     {
                         HasItemsToProcess = true;
-                       
+
                         int Id = int.Parse(DR["Id"].ToString());
                         string To = DR["To"].ToString();
                         string Cc = DR["Cc"].ToString();
@@ -85,13 +85,14 @@ namespace WERP_EMAIL_SMS_JOB
                         string Subject = DR["Subject"].ToString();
                         string Body = DR["Body"].ToString();
                         string emailTypeCode = DR["WERPETM_TypeCode"].ToString();
+                        string sourceId = DR["SourceId"].ToString();
                         bool HasAttachment = Convert.ToBoolean(DR["HasAttachment"]);
                         bool isHMTLTemplateBody = Convert.ToBoolean(DR["IsHTMLBody"]);
                         if (tempAdviserId != Convert.ToInt32(DR["A_AdviserId"].ToString()))
                         {
                             adviserId = Convert.ToInt32(DR["A_AdviserId"].ToString());
 
-                            if (dtWERPEmailTemplateParameter.Rows.Count==0 || isHMTLTemplateBody == true)
+                            if (dtWERPEmailTemplateParameter.Rows.Count == 0 || isHMTLTemplateBody == true)
                             {
                                 DataSet dsAdviserEmailTemplate = new DataSet();
                                 dsAdviserEmailTemplate = GetAdviserHTMLTemplateParameter(adviserId);
@@ -108,7 +109,7 @@ namespace WERP_EMAIL_SMS_JOB
                         string emailFrom = DR["From"].ToString();
                         Trace("Processing email " + Id.ToString());
 
-                        
+
                         try
                         {
                             ArrayList Attachments = new ArrayList();
@@ -127,7 +128,7 @@ namespace WERP_EMAIL_SMS_JOB
                                     Attachments.Add(DRA["Path"]);
                                 }
                             }
-                            
+
                             Trace("Sending mail " + Id.ToString());
                             if (tempAdviserId != adviserId)
                             {
@@ -137,9 +138,9 @@ namespace WERP_EMAIL_SMS_JOB
                             }
                             if (isHMTLTemplateBody)
                             {
-                                DataView dvMailParamerValues = new DataView(dtEmailParameterValue, "Id='" + Id.ToString() + "'", "Id", DataViewRowState.CurrentRows);
-                                DataView dvWERPParameter = new DataView(dtWERPEmailTemplateParameter, "WERPETM_TypeCode='" + emailTypeCode + "'", "WERPETM_TypeCode", DataViewRowState.CurrentRows);
-                                DataView dvAdviserEmailTemplate = new DataView(dtAdviserEmailTemplate, "WERPETM_TypeCode='" + emailTypeCode + "'", "WERPETM_TypeCode", DataViewRowState.CurrentRows);
+                                DataView dvMailParamerValues = new DataView(dtEmailParameterValue, "WR_RequestId='" + sourceId + "'", "WR_RequestId", DataViewRowState.CurrentRows);
+                                DataView dvWERPParameter = new DataView(dtWERPEmailTemplateParameter, "WERPTTM_TypeCode='" + emailTypeCode + "'", "WERPTTM_TypeCode", DataViewRowState.CurrentRows);
+                                DataView dvAdviserEmailTemplate = new DataView(dtAdviserEmailTemplate, "WERPTTM_TypeCode='" + emailTypeCode + "'", "WERPTTM_TypeCode", DataViewRowState.CurrentRows);
                                 dsEmailTemplateDetails.Tables.Add(dvMailParamerValues.ToTable());
                                 dsEmailTemplateDetails.Tables[0].TableName = "MailParameterValues";
                                 dsEmailTemplateDetails.Tables.Add(dvWERPParameter.ToTable());
@@ -148,16 +149,16 @@ namespace WERP_EMAIL_SMS_JOB
                                 dsEmailTemplateDetails.Tables[2].TableName = "AdviserEmailTemplateList";
                                 dsEmailTemplateDetails.Tables.Add(dtAdviserEmailTemplateParameterPre.Copy());
                                 dsEmailTemplateDetails.Tables[3].TableName = "AdviserEmailTemplateParameterPreference";
-                                
+
 
                             }
 
                             string fromSMTPEmail = string.Empty;
-                            string statusMessage=string.Empty;
+                            string statusMessage = string.Empty;
                             if (isHMTLTemplateBody)
-                                 Emailer.SendMail(To, Cc, Bcc, Subject, Body, Attachments, emailFrom, emailTypeCode, dtAdviserSMTP, out fromSMTPEmail, dsEmailTemplateDetails, out statusMessage);
+                                Emailer.SendMail(To, Cc, Bcc, Subject, Body, Attachments, emailFrom, emailTypeCode, dtAdviserSMTP, out fromSMTPEmail, dsEmailTemplateDetails, out statusMessage);
                             else
-                                 Emailer.SendMail(To, Cc, Bcc, Subject, Body, Attachments, emailFrom, dtAdviserSMTP, out fromSMTPEmail);
+                                Emailer.SendMail(To, Cc, Bcc, Subject, Body, Attachments, emailFrom, dtAdviserSMTP, out fromSMTPEmail);
 
 
                             Trace("Updating email status " + Id.ToString());
@@ -209,13 +210,13 @@ namespace WERP_EMAIL_SMS_JOB
 
         public DataSet GetAdviserHTMLTemplateParameter(int adviserId)
         {
-          
+
             SqlParameter[] Params = new SqlParameter[1];
             Params[0] = new SqlParameter("@AdviserId", adviserId);
             Params[0].DbType = DbType.Int32;
             DataSet dsSMTPDetails = Utils.ExecuteDataSet("SPROC_GetAdviserHTMLTemplateParameter", Params);
             return dsSMTPDetails;
- 
+
         }
 
         private DataTable getAdviserSMTPDetails(int adviserId)
@@ -234,6 +235,6 @@ namespace WERP_EMAIL_SMS_JOB
             Utils.Trace(_DaemonCode + ": " + Msg);
         }
 
-        
+
     }
 }

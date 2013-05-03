@@ -80,9 +80,9 @@ namespace WERP_EMAIL_SMS_JOB
                         //        this.CC.Add(mailId);
                         //    }
 
-                        this.From = new MailAddress("admin@werp.com", "WealthERP");
-                        this.Subject = "WealthERP Adviser Registration";
-                        break;
+                        //this.From = new MailAddress("admin@werp.com", "WealthERP");
+                        //this.Subject = "WealthERP Adviser Registration";
+                        //break;
                 }
             
 
@@ -104,7 +104,7 @@ namespace WERP_EMAIL_SMS_JOB
         public void ReadSendMailTemplate(string emailTypeCode)
         {
             string emailContent = string.Empty;
-            emailContent = ReadTemplate("Report.html");
+            emailContent = ReadTemplate("SendMail.html");
             //emailContent = emailContent.Replace("[ORGANIZATION]", "Wealtherp");  
             if (emailTypeCode == "RT")
             AssignMailSettings(EmailTypes.ReportMails, emailContent);

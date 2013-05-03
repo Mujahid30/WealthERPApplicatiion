@@ -34,13 +34,11 @@ namespace WERP_EMAIL_SMS_JOB
 
         public static void SendMail(string To, string Cc, string Bcc, string Subject, string Body, ArrayList Attachments, string from,string emailTypeCode, DataTable dtAdviserSMTP, out string fromSMTPEmail,DataSet dsEmailTemplateDetails, out string statusMessage)
         {
-            statusMessage = "";
-            fromSMTPEmail = "";
-            try
-            {
+                   statusMessage = "";
+                   fromSMTPEmail = "";          
 
                 string templateId = string.Empty;
-                string reportTypeCode = string.Empty;
+                string reportType = string.Empty;
                 AdvisorPreferenceVo advisorPreferenceVo = null;
                 AdvisorVo advisorVo = null;
                 CustomerVo customerVo = null;
@@ -70,107 +68,108 @@ namespace WERP_EMAIL_SMS_JOB
 
                 foreach (DataRow dr in dtEmailOutgoingParameterValues.Rows)
                 {
-                    switch (dr["WERPEPM_ParameterCode"].ToString())
+                    switch (dr["WP_ParameterCode"].ToString())
                     {
                         case "AID":
-                            advisorVo = advisorBo.GetAdvisor(Convert.ToInt32(dr["OEP_Value"].ToString()));
+                            advisorVo = advisorBo.GetAdvisor(Convert.ToInt32(dr["WRD_InputParameterValue"].ToString()));
                             advisorPreferenceVo = adviserPreferenceBo.GetAdviserPreference(advisorVo.advisorId);
                             break;
                         case "CID":
-                            customerVo = customerBo.GetCustomer(Convert.ToInt32(dr["OEP_Value"].ToString()));
+                            customerVo = customerBo.GetCustomer(Convert.ToInt32(dr["WRD_InputParameterValue"].ToString()));
                             rmVo = advisorStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
                             break;
-                        case "RTYPE":
-                            reportTypeCode = Convert.ToString(dr["OEP_Value"]);
+                        case "RT":
+                            reportType = Convert.ToString(dr["WRD_InputParameterValue"]);
                             break;
                     }
                 }
 
                 foreach (DataRow dr in dtAdviserEmailTemplate.Rows)
                 {
-                    if (dr["WERPETM_TypeCode"].ToString() == emailTypeCode)
+                    if (dr["WERPTTM_TypeCode"].ToString() == emailTypeCode)
                     {
-                        email.Body=email.Body.Replace("[EMAIL_BODY]", dr["AET_TemplateBody"].ToString());
-                        templateId = dr["AET_Id"].ToString();
+                        email.Body = email.Body.Replace("[EMAIL_BODY]", dr["AHTMLT_TemplateBody"].ToString());
+                        templateId = dr["AHTMLT_Id"].ToString();
                         break;
                     }
                 }
 
                 foreach (DataRow dr in dtEmailTemplateParameters.Rows)
                 {
-                    switch (dr["WERPEPM_EmailTemplateCode"].ToString())
+                    string templateCode = dr["WERPTPM_TemplateParameterCode"].ToString();
+                    switch (templateCode)
                     {
-                        case "[ADVISER_NAME]":
-                            if (email.Body.Contains(dr["WERPEPM_EmailTemplateCode"].ToString()))
-                                email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), advisorVo.FirstName + " " + advisorVo.MiddleName + " " + advisorVo.LastName);
+                           
+                        case "[ADVISER_NAME]":                           
+                            email.Body = email.Body.Replace(templateCode, advisorVo.FirstName + " " + advisorVo.MiddleName + " " + advisorVo.LastName);
                             break;
                         case "[ADVISER_PHONE]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
+                            email.Body = email.Body.Replace(templateCode, advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                             break;
                         case "[ADVISER_MOBILE]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), advisorVo.MobileNumber.ToString());
+                            email.Body = email.Body.Replace(templateCode, advisorVo.MobileNumber.ToString());
                             break;
                         case "[ADVISER_EMAIL]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), advisorVo.Email.ToString());
+                            email.Body = email.Body.Replace(templateCode, advisorVo.Email.ToString());
                             break;
                         case "[A_WEB_SITE]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), advisorPreferenceVo.WebSiteDomainName.ToString());
+                            email.Body = email.Body.Replace(templateCode, advisorPreferenceVo.WebSiteDomainName.ToString());
                             break;
                         case "[RM_NAME]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), rmVo.FirstName + " " + rmVo.MiddleName + " " + rmVo.LastName);
+                            email.Body = email.Body.Replace(templateCode, rmVo.FirstName + " " + rmVo.MiddleName + " " + rmVo.LastName);
                             break;
                         case "[RM_MOBILE]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), rmVo.Mobile.ToString());
+                            email.Body = email.Body.Replace(templateCode, rmVo.Mobile.ToString());
                             break;
                         case "[RM_EMAIL]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), rmVo.Email.ToString());
+                            email.Body = email.Body.Replace(templateCode, rmVo.Email.ToString());
                             break;
                         case "[CUSTOMER_FIRST_NAME]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), customerVo.FirstName);
+                            email.Body = email.Body.Replace(templateCode, customerVo.FirstName);
                             break;
                         case "[CUSTOMER_MIDDLE_NAME]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), customerVo.FirstName);
+                            email.Body = email.Body.Replace(templateCode, customerVo.MiddleName);
                             break;
                         case "[CUSTOMER_LAST_NAME]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), customerVo.FirstName);
+                            email.Body = email.Body.Replace(templateCode, customerVo.LastName);
                             break;
                         case "[START_LINE]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), "<font face=" + "\"" + "[TEXT_FONT_NAME]" + "\"" + " size=" + "\"" + "[TEXT_FONT_SIZE]" + "\"" + " color=" + "\"" + "[TEXT_COLOR]" + "\"" + ">");
+                            email.Body = email.Body.Replace(templateCode, "<font face=" + "\"" + "[TEXT_FONT_NAME]" + "\"" + " size=" + "\"" + "[TEXT_FONT_SIZE]" + "\"" + " color=" + "\"" + "[TEXT_COLOR]" + "\"" + ">");
                             break;
                         case "[END_LINE]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), "</font>");
+                            email.Body = email.Body.Replace(templateCode, "</font>");
                             break;
                         case "[LINE_BREAK]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), "<br />");
+                            email.Body = email.Body.Replace(templateCode, "<br />");
                             break;
                         case "[ONE_EMPTY_SPACE]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), "&nbsp;");
+                            email.Body = email.Body.Replace(templateCode, "&nbsp;");
                             break;
                         case "[HYPERLINK_START]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), "<a href=" + "\"" + "[A_WEB_SITE]" + "\"" + "target=" + "\"" + "_blank" + "\"" + ">");
+                            email.Body = email.Body.Replace(templateCode, "<a href=" + "\"" + "[A_WEB_SITE]" + "\"" + "target=" + "\"" + "_blank" + "\"" + ">");
                             break;
                         case "[HYPERLINK_END]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), "</a>");
+                            email.Body = email.Body.Replace(templateCode, "</a>");
                             break;
                         case "[FONT_BOLD_START]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), "<b>");
+                            email.Body = email.Body.Replace(templateCode, "<b>");
                             break;
                         case "[FONT_BOLD_END]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), "</b>");
+                            email.Body = email.Body.Replace(templateCode, "</b>");
                             break;
                         case "[TEXT_FONT_NAME]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), GetTemplateParamerValue(dtAdviserTemplateParametersPre, templateId, dr["WERPEPM_ParameterCode"].ToString()));
+                            email.Body = email.Body.Replace(templateCode, GetTemplateParamerValue(dtAdviserTemplateParametersPre, templateId, dr["WERPTPM_ParameterCode" ].ToString()));
                             break;
                         case "[TEXT_FONT_SIZE]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), GetTemplateParamerValue(dtAdviserTemplateParametersPre, templateId, dr["WERPEPM_ParameterCode"].ToString()));
+                            email.Body = email.Body.Replace(templateCode, GetTemplateParamerValue(dtAdviserTemplateParametersPre, templateId, dr["WERPTPM_ParameterCode"].ToString()));
                             break;
                         case "[TEXT_COLOR]":
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), GetTemplateParamerValue(dtAdviserTemplateParametersPre, templateId, dr["WERPEPM_ParameterCode"].ToString()));
+                            email.Body = email.Body.Replace(templateCode, GetTemplateParamerValue(dtAdviserTemplateParametersPre, templateId, dr["WERPTPM_ParameterCode"].ToString()));
                             break;
                         case "[REPORT_TYPE]":
-                            string reportType = GetTemplateParamerValue(dtAdviserTemplateParametersPre, reportTypeCode, dr["WERPEPM_ParameterCode"].ToString());
-                            email.Body = email.Body.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(),reportType);
-                            email.Subject = email.Subject.Replace(dr["WERPEPM_EmailTemplateCode"].ToString(), reportType);
+                            //string reportType = GetTemplateParamerValue(dtAdviserTemplateParametersPre, reportTypeCode, dr["WERPTPM_ParameterCode"].ToString());
+                            email.Body = email.Body.Replace(templateCode,reportType);
+                            email.Subject = email.Subject.Replace(templateCode, reportType);
                             break;
 
 
@@ -298,11 +297,7 @@ namespace WERP_EMAIL_SMS_JOB
                 //SendMail(To, Cc, Bcc, email.Subject.ToString(), email.Body.ToString(), Attachments, from, dtAdviserSMTP, out fromSMTPEmail);
 
                 SendMail(email, out statusMessage);
-            }
-            catch (Exception Ex)
-            {
-              
-            }
+            
             
         }
 
@@ -311,9 +306,9 @@ namespace WERP_EMAIL_SMS_JOB
             string parameterValue=string.Empty;
             foreach(DataRow dr in dtAdviserParameterPreference.Rows)
             {
-                if(dr["AETPP_SourceTypeCode"].ToString()==sourceId && dr["WERPEPM_ParameterCode"].ToString()==parameterCode)
+                if (dr["ATPP_SourceTypeCode"].ToString() == sourceId && dr["WERPTPM_ParameterCode"].ToString() == parameterCode)
                 {
-                    parameterValue=dr["AETPP_ParameterValue"].ToString();
+                    parameterValue = dr["ATPP_ParameterValue"].ToString();
                     break;
                 }
 
