@@ -357,11 +357,7 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                     tempAdviserId = reportVo.AdviserId.ToString();
                     advisorVo = advisorBo.GetAdvisor(reportVo.AdviserId);
                 }
-                if (string.IsNullOrEmpty(tempRMId))
-                {
-                    tempRMId = reportVo.RMId.ToString();
-                    customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(reportVo.RMId);
-                }
+                
                 if (string.IsNullOrEmpty(tempCustomerId))
                 {
                     tempCustomerId = reportVo.CustomerIds.ToString();
@@ -379,6 +375,11 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                 if (tempCustomerId != reportVo.CustomerIds.ToString())
                 {
                     customerVo = customerBo.GetCustomer(Convert.ToInt32(reportVo.CustomerIds));
+                }
+                if (string.IsNullOrEmpty(tempRMId))
+                {
+                    tempRMId = reportVo.RMId.ToString();
+                    customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
                 }
 
                
