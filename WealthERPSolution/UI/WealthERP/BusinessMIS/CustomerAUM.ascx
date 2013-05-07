@@ -38,8 +38,8 @@
         <td align="left">Customer AUM</td>
         <td  align="right">
         <asp:ImageButton ID="btnMultiProductMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel"
-                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                    OnClientClick="setFormat('excel')" OnClick="btnMultiProductMIS_Click" Height="20px" Width="25px"></asp:ImageButton>
                           
         </td>
         </tr>

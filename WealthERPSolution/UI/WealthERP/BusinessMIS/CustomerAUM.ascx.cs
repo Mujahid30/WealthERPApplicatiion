@@ -899,5 +899,15 @@ namespace WealthERP.BusinessMIS
                 rgvMultiProductMIS.DataSource = dt;
             }
         }
+        public void btnMultiProductMIS_Click(object sender, ImageClickEventArgs e)
+        {
+            rgvMultiProductMIS.ExportSettings.OpenInNewWindow = true;
+            rgvMultiProductMIS.ExportSettings.IgnorePaging = true;
+            rgvMultiProductMIS.ExportSettings.HideStructureColumns = true;
+            rgvMultiProductMIS.ExportSettings.ExportOnlyData = true;
+            rgvMultiProductMIS.ExportSettings.FileName = "MultiProductMIS Details";
+            rgvMultiProductMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rgvMultiProductMIS.MasterTableView.ExportToExcel();
+        }
     }
 }
