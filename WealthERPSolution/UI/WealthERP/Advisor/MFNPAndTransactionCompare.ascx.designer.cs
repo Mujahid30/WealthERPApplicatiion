@@ -41,6 +41,42 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.ImageButton btnMFNPTranxCompare;
         
         /// <summary>
+        /// tdAdviser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdAdviser;
+        
+        /// <summary>
+        /// lblAdviser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdviser;
+        
+        /// <summary>
+        /// ddlAdviser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
+        
+        /// <summary>
+        /// cvAdviserId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvAdviserId;
+        
+        /// <summary>
         /// trBranchRM control.
         /// </summary>
         /// <remarks>
@@ -104,6 +140,15 @@ namespace WealthERP.Advisor {
         protected global::Telerik.Web.UI.RadDatePicker txtAsOnDate;
         
         /// <summary>
+        /// TrCustomerType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TrCustomerType;
+        
+        /// <summary>
         /// lblGrpOrInd control.
         /// </summary>
         /// <remarks>
@@ -146,34 +191,7 @@ namespace WealthERP.Advisor {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerSearch;
-        
-        /// <summary>
-        /// tdAdviser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdAdviser;
-        
-        /// <summary>
-        /// lblAdviser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAdviser;
-        
-        /// <summary>
-        /// ddlAdviser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell trCustomerSearch;
         
         /// <summary>
         /// lblselectCustomer control.

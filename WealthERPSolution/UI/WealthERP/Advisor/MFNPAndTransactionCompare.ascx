@@ -33,7 +33,7 @@
                         <td align="right" id="tdMFNPTranxCompareExport" runat="server" style="padding-bottom: 2px;">
                             <asp:ImageButton ID="btnMFNPTranxCompare" ImageUrl="~/Images/Export_Excel.png" runat="server"
                                 AlternateText="Excel" ToolTip="Export To Excel" Visible="false" OnClientClick="setFormat('excel')"
-                                Height="25px" Width="25px" onclick="btnMFNPTranxCompare_Click"></asp:ImageButton>
+                                Height="25px" Width="25px" OnClick="btnMFNPTranxCompare_Click"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -42,6 +42,20 @@
     </tr>
 </table>
 <table class="TableBackground" width="100%">
+    <tr>
+        <td id="tdAdviser" runat="server" align="left" style="width: 30%" valign="top">
+            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Select Adviser:"></asp:Label>
+            <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" 
+                AutoPostBack="true" onselectedindexchanged="ddlAdviser_SelectedIndexChanged">
+            </asp:DropDownList>
+            <asp:CompareValidator ID="cvAdviserId" runat="server" ControlToValidate="ddlAdviser"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Adviser"
+                Operator="NotEqual" ValidationGroup="btnGo" ValueToCompare="Select">
+            </asp:CompareValidator>
+        </td>
+        <td colspan="2" class="leftField" style="width: 70%">
+        </td>
+    </tr>
     <tr id="trBranchRM" runat="server">
         <td align="left" style="width: 30%">
             <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
@@ -59,17 +73,17 @@
             <asp:Label ID="lblAsonDate" runat="server" CssClass="FieldName" Text="As on Date: "></asp:Label>
             <%--<asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName"> </asp:Label>--%>
             <telerik:RadDatePicker ID="txtAsOnDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                                        </Calendar>
-                                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                                        </DateInput>
-           </telerik:RadDatePicker>
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
         </td>
     </tr>
-    <tr>
+    <tr id="TrCustomerType" runat="server">
         <td align="left" style="width: 30%">
             <asp:Label ID="lblGrpOrInd" runat="server" CssClass="FieldName" Text="Search for :"></asp:Label>
             <asp:DropDownList ID="ddlSelectCustomer" runat="server" CssClass="cmbField" Style="vertical-align: middle"
@@ -87,27 +101,18 @@
                 <asp:ListItem Value="1" Text="Individual"></asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td class="leftField" style="width: 40%">
-        </td>
-    </tr>
-    <tr id="trCustomerSearch" runat="server">
-        <td id="tdAdviser" runat="server" align="left" style="width: 30%" valign="top">
-            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Select Adviser:"></asp:Label>
-            <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true">
-            </asp:DropDownList>
-        </td>
-        <td align="left" style="width: 30%" onkeypress="return keyPress(this, event)">
+        <td id="trCustomerSearch" runat="server" align="left" style="width: 40%" onkeypress="return keyPress(this, event)">
             <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer: "></asp:Label>
             <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtIndividualCustomer"
                 WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
-            <ajaxToolkit:AutoCompleteExtender ID="txtIndividualCustomer_autoCompleteExtender" runat="server" TargetControlID="txtIndividualCustomer"
-                ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+            <ajaxToolkit:AutoCompleteExtender ID="txtIndividualCustomer_autoCompleteExtender"
+                runat="server" TargetControlID="txtIndividualCustomer" ServiceMethod="GetCustomerName"
+                ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="1" EnableCaching="False"
+                CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" DelimiterCharacters="" OnClientItemSelected="GetCustomerId"
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="rquiredFieldValidatorIndivudialCustomer" Display="Dynamic"
@@ -115,23 +120,20 @@
                 runat="server" ValidationGroup="CustomerValidation">
             </asp:RequiredFieldValidator>
         </td>
-        <td class="leftField" style="width: 40%">
-        </td>
     </tr>
     <tr>
         <td align="left" style="width: 30%">
-            <asp:Button ID="btnGo" runat="Server" Text="Go" CssClass="PCGButton" OnClick="btnGo_Click" />
+            <asp:Button ID="btnGo" runat="Server" Text="Go" CssClass="PCGButton" OnClick="btnGo_Click" ValidationGroup="btnGo"/>
         </td>
         <td class="leftField" style="width: 30%" colspan="2">
             &nbsp;
         </td>
     </tr>
 </table>
-
 <table width="100%">
     <tr>
         <td colspan="4">
-            <asp:Panel ID="pnlMfNPTranxCompare" runat="server"  Width="98%" Visible="true">
+            <asp:Panel ID="pnlMfNPTranxCompare" runat="server" Width="98%" Visible="true">
                 <table>
                     <tr>
                         <td>
@@ -156,8 +158,8 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Customer" DataField="Name"
                                                 UniqueName="Name" SortExpression="Name" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" 
-                                                FooterText="Grand Total:" FooterStyle-HorizontalAlign="Left" >
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterText="Grand Total:"
+                                                FooterStyle-HorizontalAlign="Left">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Folio" DataField="Folio"
@@ -170,44 +172,48 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="NP Holding Units" DataField="MfNpHoldings"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="MfNpHoldings" SortExpression="MfNpHoldings"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="NP Realized units" DataField="MfNpRealized"
-                                                HeaderStyle-HorizontalAlign="Right" UniqueName="MfNpRealized" SortExpression="MfNpRealized"
-                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="NP Realized units"
+                                                DataField="MfNpRealized" HeaderStyle-HorizontalAlign="Right" UniqueName="MfNpRealized"
+                                                SortExpression="MfNpRealized" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Tranx Holding Units" DataField="TranxHoldings"
-                                                HeaderStyle-HorizontalAlign="Right" UniqueName="TranxHoldings" SortExpression="TranxHoldings"
-                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Tranx Holding Units"
+                                                DataField="TranxHoldings" HeaderStyle-HorizontalAlign="Right" UniqueName="TranxHoldings"
+                                                SortExpression="TranxHoldings" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Tranx Realized Units" DataField="TranxRealized"
-                                                HeaderStyle-HorizontalAlign="Right" UniqueName="TranxRealized" SortExpression="TranxRealized"
-                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Tranx Realized Units"
+                                                DataField="TranxRealized" HeaderStyle-HorizontalAlign="Right" UniqueName="TranxRealized"
+                                                SortExpression="TranxRealized" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Holding Difference" DataField="HoldingDiff"
-                                                HeaderStyle-HorizontalAlign="Right" UniqueName="HoldingDiff" SortExpression="HoldingDiff"
-                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Holding Difference"
+                                                DataField="HoldingDiff" HeaderStyle-HorizontalAlign="Right" UniqueName="HoldingDiff"
+                                                SortExpression="HoldingDiff" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Realized Difference" DataField="RealizedDiff"
-                                                HeaderStyle-HorizontalAlign="Right" UniqueName="RealizedDiff" SortExpression="RealizedDiff"
-                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Realized Difference"
+                                                DataField="RealizedDiff" HeaderStyle-HorizontalAlign="Right" UniqueName="RealizedDiff"
+                                                SortExpression="RealizedDiff" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                       </Columns>
+                                        </Columns>
                                     </MasterTableView>
                                     <HeaderStyle Width="150px" />
                                     <ClientSettings>
@@ -223,7 +229,6 @@
         </td>
     </tr>
 </table>
-
 <asp:HiddenField ID="hdnCustomerId" runat="server" OnValueChanged="hdnCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
 <asp:HiddenField ID="hdnGoalCode" runat="server" />

@@ -14,6 +14,7 @@ using BoUploads;
 using BoSuperAdmin;
 using Telerik.Web.UI;
 using BoCustomerPortfolio;
+using BoCommon;
 
 namespace WealthERP.Advisor
 {
@@ -49,11 +50,27 @@ namespace WealthERP.Advisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session["userVo"];
-            if (advisorVo != null)
+            if (Session["UserType"] == "SuperAdmin")
             {
+                userType = "SuperAdmin";
+                
+            }
+            else if (Session["UserType"] == "adviser")
+            {
+                userType = "advisor";
+                advisorId = advisorVo.advisorId;
+                int RMId = rmVo.RMId;
+                customerId = customerVo.CustomerId;
+                rmId = rmVo.RMId;
+                bmID = rmVo.RMId;
+            }
+            if (userType == "advisor")
+            {
+                advisorId = advisorVo.advisorId;
                 if (Session[SessionContents.ValuationDate] == null)
                     GetLatestValuationDate();
                 genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
@@ -67,18 +84,8 @@ namespace WealthERP.Advisor
                 txtAsOnDate.SelectedDate = DateTime.Now;
                 hdnDate.Value = txtAsOnDate.SelectedDate.ToString();
             }
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
-                userType = "advisor";
-            else
-                userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
-            advisorId = advisorVo.advisorId;
-            int RMId = rmVo.RMId;
-            customerId = customerVo.CustomerId;
-            rmId = rmVo.RMId;
-            bmID = rmVo.RMId;
-
-            if (advisorVo.advisorId == 1000)
+            if (userType == "SuperAdmin")
             {
                 if (ddlAdviser.SelectedIndex != -1 && ddlAdviser.SelectedIndex != 0)
                 {
@@ -111,11 +118,30 @@ namespace WealthERP.Advisor
                     BindBranchDropDown();
                     BindRMDropDown();
                 }
-                if (advisorId == 1000)
+                if (userType == "SuperAdmin")
                 {
+                    trBranchRM.Visible = false;
+                    TrCustomerType.Visible = false;
                     BindAdviserDropDownList();
                 }
             }
+        }
+        protected void ddlAdviser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            trBranchRM.Visible = true;
+            TrCustomerType.Visible = true;
+            if (ddlAdviser.SelectedIndex != 0)
+            {
+                advisorId = int.Parse(ddlAdviser.SelectedValue);
+                if (Session[SessionContents.ValuationDate] == null)
+                    GetLatestValuationDate();
+                genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
+                strValuationDate = genDict[Constants.MFDate.ToString()].ToShortDateString();
+                txtAsOnDate.SelectedDate = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString());
+                hdnDate.Value = txtAsOnDate.SelectedDate.ToString();
+            }
+            BindBranchDropDown();
+            BindRMDropDown();
         }
 
         private void GetLatestValuationDate()
@@ -125,21 +151,16 @@ namespace WealthERP.Advisor
             PortfolioBo portfolioBo = null;
             genDict = new Dictionary<string, DateTime>();
             AdvisorVo advisorVo = new AdvisorVo();
-            int adviserId = 0;
             try
             {
                 portfolioBo = new PortfolioBo();
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-                if (advisorVo != null)
-                {
-                    adviserId = advisorVo.advisorId;
-                    if (portfolioBo.GetLatestValuationDate(adviserId, Constants.MF.ToString()) != null)
+                if (portfolioBo.GetLatestValuationDate(advisorId, Constants.MF.ToString()) != null)
                     {
-                        MFValuationDate = DateTime.Parse(portfolioBo.GetLatestValuationDate(adviserId, Constants.MF.ToString()).ToString());
+                        MFValuationDate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, Constants.MF.ToString()).ToString());
                     }
                     genDict.Add(Constants.MFDate.ToString(), MFValuationDate);
                     Session[SessionContents.ValuationDate] = genDict;
-                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -152,7 +173,7 @@ namespace WealthERP.Advisor
                 FunctionInfo.Add("Method", "PortfolioDashboard.ascx.cs:GetLatestValuationDate()");
                 object[] objects = new object[3];
                 objects[0] = EQValuationDate;
-                objects[1] = adviserId;
+                objects[1] = advisorId;
                 objects[2] = MFValuationDate;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -182,11 +203,11 @@ namespace WealthERP.Advisor
 
             RMVo rmVo = new RMVo();
             rmVo = (RMVo)Session[SessionContents.RmVo];
-            int bmID = rmVo.RMId;
+            //int bmID = rmVo.RMId;
             try
             {
                 UploadCommonBo uploadsCommonDao = new UploadCommonBo();
-                DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+                DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorId, "adviser");
                 if (ds != null)
                 {
                     ddlBranch.DataSource = ds;
@@ -194,7 +215,7 @@ namespace WealthERP.Advisor
                     ddlBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
                     ddlBranch.DataBind();
                 }
-                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -220,7 +241,7 @@ namespace WealthERP.Advisor
             try
             {
                 AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
-                DataTable dt = advisorStaffBo.GetAdviserRM(advisorVo.advisorId);
+                DataTable dt = advisorStaffBo.GetAdviserRM(advisorId);
                 if (dt.Rows.Count > 0)
                 {
                     ddlRM.DataSource = dt;
@@ -242,39 +263,6 @@ namespace WealthERP.Advisor
                 FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindRMDropDown()");
 
                 object[] objects = new object[0];
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
-        private void BindBranchForBMDropDown()
-        {
-            try
-            {
-                DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(0, bmID, 0);
-                if (ds != null)
-                {
-                    ddlBranch.DataSource = ds.Tables[1]; ;
-                    ddlBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString();
-                    ddlBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
-                    ddlBranch.DataBind();
-                }
-                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "AdviserRMMFSystematicMIS.ascx:BindBranchDropDown()");
-
-                object[] objects = new object[4];
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -345,11 +333,11 @@ namespace WealthERP.Advisor
                 if (ddlCustomerType.SelectedItem.Value == "0")
                 {
                     customerType = "GROUP";
-                    if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                    if (userType == "advisor" || userType=="SuperAdmin")
                     {
                         if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
                         {
-                            txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorId.ToString();
                             txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
                         }
                         else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
@@ -374,11 +362,11 @@ namespace WealthERP.Advisor
                 {
                     txtIndividualCustomer.Visible = true;
                     customerType = "IND";
-                    if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                    if (userType == "advisor" || userType == "SuperAdmin")
                     {
                         if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
                         {
-                            txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorId.ToString();
                             txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                         }
                         else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
@@ -433,44 +421,50 @@ namespace WealthERP.Advisor
 
         private void SetParameters()
         {
-            if ((ddlSelectCustomer.SelectedItem.Value == "All Customer") && (userType == "advisor"))
+            if (ddlAdviser.SelectedIndex != -1 && ddlAdviser.SelectedIndex != 0)
+                advisorId = int.Parse(ddlAdviser.SelectedValue);
+            if (advisorVo != null)
+                advisorId = advisorVo.advisorId;
+            if ((ddlSelectCustomer.SelectedItem.Value == "All Customer") && (userType == "advisor")
+                || (ddlSelectCustomer.SelectedItem.Value == "All Customer") && (userType == "SuperAdmin"))
             {
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
-                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnadviserId.Value = advisorId.ToString();
                     hdnAll.Value = "0";
                     hdnbranchId.Value = "0";
                     hdnrmId.Value = "0";
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
                 {
-                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnadviserId.Value = advisorId.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnAll.Value = "1";
                     hdnrmId.Value = "0";
                 }
                 else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
                 {
-                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnadviserId.Value = advisorId.ToString();
                     hdnbranchId.Value = "0";
                     hdnAll.Value = "2";
                     hdnrmId.Value = ddlRM.SelectedValue; ;
                 }
                 else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
                 {
-                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnadviserId.Value = advisorId.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnAll.Value = "3";
                 }
 
             }
-            if (ddlSelectCustomer.SelectedItem.Value == "Pick Customer" && userType == "advisor")
+            if (ddlSelectCustomer.SelectedItem.Value == "Pick Customer" && userType == "advisor"
+                || (ddlSelectCustomer.SelectedItem.Value == "Pick Customer") && (userType == "SuperAdmin"))
             {
 
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
-                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnadviserId.Value = advisorId.ToString();
                     hdnAll.Value = "4";
                     hdnbranchId.Value = "0";
                     hdnrmId.Value = "0";
@@ -596,5 +590,7 @@ namespace WealthERP.Advisor
             gvMfNPTranxCompare.Visible = true;
             btnMFNPTranxCompare.Visible = true;
        }
+
+
     }
 }
