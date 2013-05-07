@@ -38,28 +38,44 @@ namespace WealthERP.Customer
         string path;
         string DisplayType;
         string Pagetype;
-
+        int bankId = 0;
+        string accountNum;
+        double amount;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
+
             if (Request.QueryString["name"] != null)
             {
                 Pagetype = Request.QueryString["name"].ToString();
             }
+            if (Request.QueryString["BankId"] != null)
+            {
+                bankId = int.Parse(Request.QueryString["BankId"].ToString());
+            }
+            if (Request.QueryString["accountNum"] != null)
+            {
+                accountNum = Request.QueryString["accountNum"].ToString();
+            }
+            if (Request.QueryString["amount"] != null)
+            {
+                amount = double.Parse(Request.QueryString["amount"].ToString());
+            }
             if (Pagetype == "Add")
             {
                 lblheader.Text = "Add Bank Transaction/Balance";
-               if (!IsPostBack)
+                if (!IsPostBack)
                 {
                     BindDDLBankDetails();
                     gvCashSavingTransaction.Visible = false;
                     DivTransaction.Visible = false;
+                    BindDDLCategory();
                 }
             }
-            else if (Pagetype == "View")
+            else if (Pagetype == "viewTransaction")
             {
                 lblheader.Text = "View Bank Transaction";
                 trAccount.Visible = false;
@@ -68,20 +84,50 @@ namespace WealthERP.Customer
                 imgBtnrgHoldings.Visible = true;
                 if (!IsPostBack)
                 {
-                    BindTransactionGrid();
+                    BindTransactionGrid(bankId);
                     gvCashSavingTransaction.Visible = true;
                     DivTransaction.Visible = true;
                 }
+            }
+            else if (Pagetype == "Editbalance")
+            {
+
+                lblheader.Text = "Add/Update Balance";
+                lblAccId.Text = accountNum.ToString();
+                txtholdingAmt.Text = amount.ToString();
+                //lblAccId.Text = customeraccountVo.AccountNum.ToString();
+                ddlAccountDetails.Visible = false;
+                btnSubmit.Visible = false;
+                btnUpdate.Visible = true;
+                trholdingamount.Visible = true;
             }
         }
 
         /// <summary>
         /// This function use to Getting the Transaction Grid
         /// </summary>
-        private void BindTransactionGrid()
+        private void BindTransactionGrid(int bankId)
         {
-            custBankAccId = Convert.ToInt32(ViewState["BankId"]);
-            TransactionList = customerAccountBo.GetCustomerBankTransaction(custBankAccId);
+            DataTable dtBankAccId = new DataTable();
+            if (bankId == 0)
+            {
+                int i;
+                dtBankAccId = (DataTable)Session["BankAccId"];
+                if (dtBankAccId.Rows.Count > 0)
+                {
+                    for (i = 0; i < dtBankAccId.Rows.Count; i++)
+                    {
+                       custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
+                    }
+                }
+                //(Session["BankAccId"]);
+                // custBankAccId = Convert.ToInt32(ViewState["BankId"]);
+                TransactionList = customerAccountBo.GetCustomerBankTransaction(custBankAccId);
+            }
+            else
+            {
+                TransactionList = customerAccountBo.GetCustomerBankTransaction(bankId);
+            }
             DataTable dtTransaction = new DataTable();
             dtTransaction.Columns.Add("CCST_TransactionId");
             dtTransaction.Columns.Add("CCST_ExternalTransactionId");
@@ -89,6 +135,8 @@ namespace WealthERP.Customer
             dtTransaction.Columns.Add("CCST_Desc");
             dtTransaction.Columns.Add("CCST_ChequeNo");
             dtTransaction.Columns.Add("CCST_IsWithdrwal");
+            dtTransaction.Columns.Add("WERP_CFCCode");
+            dtTransaction.Columns.Add("WERP_CFCName");
             dtTransaction.Columns.Add("CCST_Amount");
             dtTransaction.Columns.Add("CB_HoldingAmount");
             DataRow drTransaction;
@@ -108,7 +156,14 @@ namespace WealthERP.Customer
                 {
                     drTransaction["CCST_Desc"] = customeraccountVo.CCST_Desc.ToString().Trim();
                 }
-                drTransaction["CCST_ChequeNo"] = customeraccountVo.ChequeNo.ToString().Trim();
+                if (customeraccountVo.ChequeNo == null)
+                {
+                    drTransaction["CCST_ChequeNo"] = "N/A";
+                }
+                else
+                {
+                    drTransaction["CCST_ChequeNo"] = customeraccountVo.ChequeNo.ToString().Trim();
+                }
                 if (customeraccountVo.IsWithdrwal == 0)
                 {
                     drTransaction["CCST_IsWithdrwal"] = "CR";
@@ -117,6 +172,13 @@ namespace WealthERP.Customer
                 {
                     drTransaction["CCST_IsWithdrwal"] = "DR";
                 }
+                if (customeraccountVo.CFCCategoryCode == null)
+                {
+                    drTransaction["WERP_CFCCode"] = "N/A";
+                }
+                else
+                drTransaction["WERP_CFCCode"] = customeraccountVo.CFCCategoryCode.ToString();
+                drTransaction["WERP_CFCName"] = customeraccountVo.CFCCategoryName.ToString();
                 drTransaction["CCST_Amount"] = customeraccountVo.Amount.ToString();
                 dtTransaction.Rows.Add(drTransaction);
             }
@@ -125,6 +187,7 @@ namespace WealthERP.Customer
                 gvCashSavingTransaction.DataSource = dtTransaction;
                 gvCashSavingTransaction.DataBind();
                 gvCashSavingTransaction.Visible = true;
+                // BindDDLBankDetails();
             }
             else
             {
@@ -145,8 +208,9 @@ namespace WealthERP.Customer
             dsCustomerBankAccountDetails = customerBankAccountBo.GetCustomerIndividualBankDetails(customerIdForGettingBankDetails);
             ddlAccountDetails.DataSource = dsCustomerBankAccountDetails.Tables[1];
             ddlAccountDetails.DataTextField = "details";
-            ddlAccountDetails.DataValueField = "accNo";
+            ddlAccountDetails.DataValueField = "CB_CustBankAccId";
             ddlAccountDetails.DataBind();
+            // ViewState["BankId"] = dsCustomerBankAccountDetails.Tables[1];
             Session["BankAccId"] = dsCustomerBankAccountDetails.Tables[1];
             ddlAccountDetails.Items.Insert(0, "Select");
         }
@@ -165,7 +229,8 @@ namespace WealthERP.Customer
 
             if (ViewState["BankId"] != null)
                 ViewState.Remove("BankId");
-            ViewState["BankId"] = ddlAccountDetails.SelectedValue;
+            bankId = int.Parse(ddlAccountDetails.SelectedValue);
+            //  Session["BankAccId"] = ddlAccountDetails.SelectedValue.ToString();
         }
 
         public void ddlAccountSelect_SelectedIndexChanged(object sender, EventArgs e)
@@ -175,7 +240,6 @@ namespace WealthERP.Customer
             {
                 gvCashSavingTransaction.Visible = true;
                 btnSubmit.Visible = true;
-                BindTransactionGrid();
                 trAddTransaction.Visible = false;
                 trholdingamount.Visible = true;
                 DivTransaction.Visible = false;
@@ -185,21 +249,73 @@ namespace WealthERP.Customer
                 trAddTransaction.Visible = true;
                 DivTransaction.Visible = false;
                 btnSubmit.Visible = false;
-                BindTransactionGrid();
+                BindTransactionGrid(bankId);
                 gvCashSavingTransaction.Visible = false;
                 trholdingamount.Visible = false;
             }
 
         }
+        protected void lnkBtnBack_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewBankDetails", "loadcontrol('ViewBankDetails','none');", true);
+           // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCashSavingsView', 'none')", true);
+        }
+        public void BindDDLCategory()
+        {
+            DataTable dtCFCCategory = new DataTable();
+            dtCFCCategory = customerAccountBo.GetCashFlowCategory();
+            ddlCFCCategory.DataSource = dtCFCCategory;
+            ddlCFCCategory.DataValueField = dtCFCCategory.Columns["WERP_CFCCode"].ToString();
+            ddlCFCCategory.DataTextField = dtCFCCategory.Columns["WERP_CFCName"].ToString();
+            ddlCFCCategory.DataBind();
+            ddlCFCCategory.Items.Insert(0, new ListItem("Select", "Select"));
+
+        }
+        protected void gvCashSavingTransaction_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                DataTable dtCFCCategory = new DataTable();
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList ddlCFCCategory = (DropDownList)gefi.FindControl("ddlCFCCategory");
+                dtCFCCategory = customerAccountBo.GetCashFlowCategory();
+                ddlCFCCategory.DataSource = dtCFCCategory;
+                ddlCFCCategory.DataValueField = dtCFCCategory.Columns["WERP_CFCCode"].ToString();
+                ddlCFCCategory.DataTextField = dtCFCCategory.Columns["WERP_CFCName"].ToString();
+                ddlCFCCategory.DataBind();
+                ddlCFCCategory.Items.Insert(0, new ListItem("Select", "Select"));
+
+            }
+            string strCasflowcategory;
+
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+            {
+                int accountId = int.Parse(gvCashSavingTransaction.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CCST_TransactionId"].ToString());
+                strCasflowcategory = gvCashSavingTransaction.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WERP_CFCCode"].ToString();
+                GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+                DataTable dtCFCCategory = new DataTable();
+                DropDownList ddlCFCCategory = (DropDownList)editedItem.FindControl("ddlCFCCategory");
+                dtCFCCategory = customerAccountBo.GetCashFlowCategory();
+                ddlCFCCategory.DataSource = dtCFCCategory;
+                ddlCFCCategory.DataValueField = dtCFCCategory.Columns["WERP_CFCCode"].ToString();
+                ddlCFCCategory.DataTextField = dtCFCCategory.Columns["WERP_CFCName"].ToString();
+                ddlCFCCategory.DataBind();
+                ddlCFCCategory.SelectedValue = strCasflowcategory;
+
+            }
+        }
         protected void gvCashSavingTransaction_ItemCommand(object source, GridCommandEventArgs e)
         {
             int accountId = 0;
+            int customerId = 0;
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 RadDatePicker dpTransactionDate = (RadDatePicker)e.Item.FindControl("dpTransactionDate");
                 TextBox txtDescripton = (TextBox)e.Item.FindControl("txtDescripton");
                 TextBox txtChequeNo = (TextBox)e.Item.FindControl("txtChequeNo");
+                DropDownList ddlCFCCategory = (DropDownList)e.Item.FindControl("ddlCFCCategory");
                 TextBox txtAmount = (TextBox)e.Item.FindControl("txtAmount");
                 TextBox txtExternalTransactionId = (TextBox)e.Item.FindControl("txtExternalTransactionId");
                 customeraccountVo = new CustomerAccountsVo();
@@ -207,6 +323,54 @@ namespace WealthERP.Customer
                 customerAccountBo.UpdateCustomerBankTransaction(customeraccountVo, accountId);
 
             }
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                DataTable dtBankAccId = new DataTable();
+                dtBankAccId = (DataTable)Session["BankAccId"];//string strBankAccountID = ViewState["BankId"].ToString();
+                RadDatePicker dpTransactionDate = (RadDatePicker)e.Item.FindControl("dpTransactionDate");
+                TextBox txtDescripton = (TextBox)e.Item.FindControl("txtDescripton");
+                TextBox txtChequeNo = (TextBox)e.Item.FindControl("txtChequeNo");
+                TextBox txtAmount = (TextBox)e.Item.FindControl("txtAmount");
+                TextBox txtExternalTransactionId = (TextBox)e.Item.FindControl("txtExternalTransactionId");
+                DateTime date = Convert.ToDateTime(dpTransactionDate.SelectedDate);
+                DropDownList ddlCFCCategory = (DropDownList)e.Item.FindControl("ddlCFCCategory");
+                RadioButton rbtnY = (RadioButton)e.Item.FindControl("rbtnYes");
+                RadioButton rbtnN = (RadioButton)e.Item.FindControl("rbtnNo");
+                RMVo rmVo = new RMVo();
+                int userId;
+                rmVo = (RMVo)Session["RmVo"];
+                userId = rmVo.UserId;
+                customerId = customerVo.CustomerId;
+                customeraccountVo = new CustomerAccountsVo();
+                customeraccountVo.ExternalTransactionId = txtExternalTransactionId.Text.ToString();
+                customeraccountVo.Transactiondate = date;
+                customeraccountVo.CCST_Desc = txtDescripton.Text.ToString();
+                customeraccountVo.ChequeNo = txtChequeNo.Text.ToString();
+                customeraccountVo.CFCCategoryCode = ddlCFCCategory.SelectedItem.Value.ToString();
+                customeraccountVo.Amount = double.Parse(txtAmount.Text.ToString());
+                int i;
+                dtBankAccId = (DataTable)Session["BankAccId"];
+                if (dtBankAccId.Rows.Count > 0)
+                {
+                    for (i = 0; i < dtBankAccId.Rows.Count; i++)
+                    {
+                        custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
+                    }
+                }
+                customeraccountVo.AccountId = custBankAccId;
+                if (rbtnN.Checked)
+                {
+                    customeraccountVo.IsWithdrwal = 0;
+                }
+                if (rbtnY.Checked)
+                {
+                    customeraccountVo.IsWithdrwal = 1;
+                }
+
+                customerAccountBo.CreatecustomerBankTransaction(customeraccountVo, userId);
+
+            }
+
             if (e.CommandName == "Delete")
             {
                 bool isdeleted = false;
@@ -215,7 +379,7 @@ namespace WealthERP.Customer
                 if (isdeleted == false)
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot delete the bank is associate with a folio');", true);
             }
-            BindTransactionGrid();
+            BindTransactionGrid(bankId);
         }
         /// <summary>
         /// This button use to insert Holding Amount
@@ -224,12 +388,48 @@ namespace WealthERP.Customer
         /// <param name="e"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            int accountId = Convert.ToInt32(ViewState["BankId"]);
+             int i;
+             DataTable dtBankAccId = new DataTable();
+            dtBankAccId = (DataTable)Session["BankAccId"];
+            if (dtBankAccId.Rows.Count > 0)
+            {
+                for (i = 0; i < dtBankAccId.Rows.Count; i++)
+                {
+                    custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
+                }
+            }
             customeraccountVo = new CustomerAccountsVo();
             int customerId = 0;
             customerVo = (CustomerVo)Session["customerVo"];
             customerId = customerVo.CustomerId;
-            customeraccountVo.AccountId = accountId;
+            customeraccountVo.AccountId = custBankAccId;
+            customeraccountVo.Amount = double.Parse(txtholdingAmt.Text.ToString());
+            customerAccountBo.InsertholdingAmountCustomerBank(customeraccountVo, customerId);
+        }
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            int i;
+            bool accountId;
+            DataTable dtBankAccId = new DataTable();
+            dtBankAccId = (DataTable)Session["BankAccId"];
+            if (dtBankAccId.Rows.Count > 0)
+            {
+                for (i = 0; i < dtBankAccId.Rows.Count; i++)
+                {
+                    custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
+                }
+            }
+            customeraccountVo = new CustomerAccountsVo();
+            int customerId = 0;
+            customerVo = (CustomerVo)Session["customerVo"];
+            customerId = customerVo.CustomerId;
+            accountId = customerAccountBo.CheckTransactionExistanceOnHoldingAdd(custBankAccId);
+            if (accountId == false)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Transaction all ready exist first delete Transactions !!');", true);
+            }
+            else
+            customeraccountVo.AccountId = custBankAccId;
             customeraccountVo.Amount = double.Parse(txtholdingAmt.Text.ToString());
             customerAccountBo.InsertholdingAmountCustomerBank(customeraccountVo, customerId);
         }
@@ -240,8 +440,11 @@ namespace WealthERP.Customer
         /// <param name="e"></param>
         protected void btnSubmitTransaction_Click(object sender, EventArgs e)
         {
+
             int customerId = 0;
-            string strBankAccountID = ViewState["BankId"].ToString();
+            DataTable dtBankAccId = new DataTable();
+            dtBankAccId = (DataTable)Session["BankAccId"];
+            //  string strBankAccountID = ViewState["BankId"].ToString();
             RMVo rmVo = new RMVo();
             int userId;
             rmVo = (RMVo)Session["RmVo"];
@@ -253,8 +456,25 @@ namespace WealthERP.Customer
             customeraccountVo.Transactiondate = date;
             customeraccountVo.CCST_Desc = txtDescripton.Text.ToString();
             customeraccountVo.ChequeNo = txtChequeNo.Text.ToString();
-            customeraccountVo.Amount = double.Parse(txtAmount.Text.ToString());
-            customeraccountVo.AccountId = Convert.ToInt32(strBankAccountID);
+            customeraccountVo.CFCCategoryCode = ddlCFCCategory.SelectedItem.Value.ToString();
+            if (txtAmount.Text.ToString() != "")
+            {
+                customeraccountVo.Amount = double.Parse(txtAmount.Text.ToString());
+            }
+            else
+            {
+                customeraccountVo.Amount = 0;
+            }
+            int i;
+            dtBankAccId = (DataTable)Session["BankAccId"];
+            if (dtBankAccId.Rows.Count > 0)
+            {
+                for (i = 0; i < dtBankAccId.Rows.Count; i++)
+                {                  
+                 custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
+                }
+            }
+            customeraccountVo.AccountId = custBankAccId;            
             if (rbtnN.Checked)
             {
                 customeraccountVo.IsWithdrwal = 0;
@@ -264,7 +484,7 @@ namespace WealthERP.Customer
                 customeraccountVo.IsWithdrwal = 1;
             }
             customerAccountBo.CreatecustomerBankTransaction(customeraccountVo, userId);
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AddBankDetails','name=View');", true);
+            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AddBankDetails','name=View');", true);
         }
         //protected void Holding_CheckedChanged(object sender, EventArgs e)
         //{

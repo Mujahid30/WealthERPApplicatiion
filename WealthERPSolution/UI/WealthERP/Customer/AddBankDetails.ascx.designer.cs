@@ -9,9 +9,10 @@
 //------------------------------------------------------------------------------
 
 namespace WealthERP.Customer {
-    
-    
-    public partial class AddBankDetails {
+
+
+    public partial class AddBankDetails
+    {
         /// <summary>
         /// imgBtnrgHoldings control.
         /// </summary>
@@ -142,5 +143,16 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAddTransaction;
         protected global::System.Web.UI.WebControls.DropDownList ddlAccountSelect;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAccount;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAmount;
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCFCCategory;
+        protected global::System.Web.UI.WebControls.Label lblAccId;
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnBack;
     }
+    
 }
