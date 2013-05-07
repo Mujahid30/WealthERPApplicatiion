@@ -139,7 +139,7 @@
         </telerik:RadAjaxLoadingPanel> --%>
 <div style="width: 100%; padding-left: 4px; padding-right: 10px;">
     <telerik:RadGrid ID="gvBankDetails" runat="server" GridLines="None" Width="99%" AllowPaging="true"
-        PageSize="10" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
+        PageSize="10" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true" ShowFooter="true"
         AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
         Skin="Telerik" OnItemDataBound="gvBankDetails_ItemDataBound" EnableEmbeddedSkins="false"
         OnItemCommand="gvBankDetails_ItemCommand" EnableHeaderContextMenu="false" OnPreRender="gvBankDetails_PreRender"
@@ -157,8 +157,8 @@
             <%--,ModeOfHoldingCode,BankAccountTypeCode,CB_BranchAdrState--%>
             <%--  AddNewRecordText="Add New Bank Details"--%>
             <Columns>
-                <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
-                    HeaderStyle-Width="30px">
+                <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action" FooterText="Grand Total:"
+                    HeaderStyle-Width="80px">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkId" runat="server" />
                         <%--<asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("WERPTransactionId").ToString()%>' />--%>
@@ -200,8 +200,8 @@
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="CB_HoldingAmount" HeaderStyle-Width="80px" HeaderText="Holding Amount"
-                    DataField="CB_HoldingAmount" SortExpression="CB_HoldingAmount" AllowFiltering="false"
-                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    DataField="CB_HoldingAmount" SortExpression="CB_HoldingAmount" AllowFiltering="false" Aggregate="Sum" DataFormatString="{0:N3}"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridButtonColumn Visible="false" UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Record?"
