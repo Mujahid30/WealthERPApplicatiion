@@ -72,7 +72,7 @@ namespace DaoCommon
         /// <param name="subreportype"></param>
         /// <param name="fromDate"></param>
         /// <returns></returns>
-        public void CreateBulkReportRequest(List<MFReportVo> mfReportVoList, int parentRequestId, int taskId, int userId)
+        public void CreateBulkReportRequest(List<MFReportVo> mfReportVoList, MFReportEmailVo mfReportEmailVo, int parentRequestId, int taskId, int userId)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmdCreateReportRequest;
@@ -124,8 +124,18 @@ namespace DaoCommon
                     }
                 }
 
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateReportRequest = db.GetStoredProcCommand("SPROC_CreateBulkMailReportRequest");
+                db.AddInParameter(cmdCreateReportRequest, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(cmdCreateReportRequest, "@DependentRequestId", DbType.Int32, parentRequestId);
+                db.AddInParameter(cmdCreateReportRequest, "@ReportTypeName", DbType.String, mfReportEmailVo.ReportTypeName);
+                db.AddInParameter(cmdCreateReportRequest, "@AdviserId", DbType.Int32, mfReportEmailVo.AdviserId);
+                db.AddInParameter(cmdCreateReportRequest, "@CustomerId", DbType.Int32, mfReportEmailVo.CustomerId);
+                db.AddInParameter(cmdCreateReportRequest, "@CustomerEmail", DbType.String, mfReportEmailVo.CustomerEmail);
+                db.AddInParameter(cmdCreateReportRequest, "@RMEMail", DbType.String, mfReportEmailVo.RMEmail);
+                db.ExecuteNonQuery(cmdCreateReportRequest);
 
-
+                
             }
             catch (BaseApplicationException ex)
             {
