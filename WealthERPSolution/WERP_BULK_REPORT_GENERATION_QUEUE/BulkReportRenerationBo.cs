@@ -179,8 +179,11 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                     case "ENDDT":
                         mfReportVo.ToDate = DateTime.Parse(dr["WRD_InputParameterValue"].ToString());
                         break;
-                    case "RT":
+                    case "RN":
                         mfReportVo.SubType = dr["WRD_InputParameterValue"].ToString();
+                        break;
+                    case "RT":
+                        mfReportVo.Type = dr["WRD_InputParameterValue"].ToString();
                         break;
                     case "AID":
                         mfReportVo.AdviserId = int.Parse(dr["WRD_InputParameterValue"].ToString());
@@ -528,9 +531,15 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                             crmain.Load(finalReportPath);
                             //DataTable dtDividendReturnHolding = mfReports.GetDivdendReport(reportVo);
                             CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
-                            DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(reportVo, advisorVo.advisorId);
+                            //DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(reportVo, advisorVo.advisorId);
 
+                            //DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(reportVo.PortfolioIds);
+                            //dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
+
+                            DataSet dsReturnsPortfolioHoldings = mfReports.GetReturnSummaryReport(reportVo, advisorVo.advisorId);
+                            DataTable dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[0];
                             DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(reportVo.PortfolioIds);
+                            dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[1];
                             dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
 
                             if (dtReturnsPortfolio.Rows.Count > 0)
@@ -838,7 +847,8 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
         {
             try
             {
-                dtPortfolioXIRR.Columns.Add("AbsoluteReturn", typeof(Int64));
+                dtPortfolioXIRR.Columns.Add("AbsoluteReturn", typeof(double));
+                // dtPortfolioXIRR.Columns.Add("AnnualReturn", typeof(Int64));
                 int portfolioId = 0;
                 String NA = "NA";
                 Double XIRR;
@@ -847,12 +857,13 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                 foreach (DataRow dr in dtPortfolioXIRR.Rows)
                 {
                     portfolioId = Convert.ToInt32(dr["PortfolioId"].ToString());
-                    //XIRR = Convert.ToDouble(dr["XIRR"].ToString());
+                    //XIRR = Convert.ToDouble(dr["XIRR"].ToString());  //-----Annual return code revert backed
                     drAbsolutereturn = dtReturnsPortfolio.Select("CP_PortfolioId=" + portfolioId.ToString());
                     //drXirr = dtReturnsPortfolio.Select("XIRR=" + XIRR.ToString());
                     foreach (DataRow drAbs in drAbsolutereturn)
                     {
                         dr["AbsoluteReturn"] = drAbs["absoluteReturn"];
+                        //dr["AnnualReturn"] = drAbs["CMFNP_RET_Hold_AnnualisedReturns"]; //-----Annual return code revert backed
                     }
                     //foreach (DataRow drXIrr in drXirr)
                     //{
