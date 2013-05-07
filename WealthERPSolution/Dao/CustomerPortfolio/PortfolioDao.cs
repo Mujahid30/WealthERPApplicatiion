@@ -434,7 +434,7 @@ namespace DaoCustomerPortfolio
             return dsGetCustomerPortfolio;
         }
 
-        public DataTable GetRMCustomerPortfolios(int rmId, int currentPage, out int count, string nameSrchValue)
+        public DataTable GetRMCustomerPortfolios(string userType, int adviserId, int rmId, int currentPage, out int count, string nameSrchValue)
         {
             Database db;
             DbCommand getCustomerPortfoliosCmd;
@@ -444,6 +444,8 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerPortfoliosCmd = db.GetStoredProcCommand("SP_GetRMCustomerPortfolios");
+                db.AddInParameter(getCustomerPortfoliosCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(getCustomerPortfoliosCmd, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getCustomerPortfoliosCmd, "@AR_RMId", DbType.Int32, rmId);
                 db.AddInParameter(getCustomerPortfoliosCmd, "@CurrentPage", DbType.Int32, currentPage);
                 db.AddInParameter(getCustomerPortfoliosCmd, "@nameFilter", DbType.String, nameSrchValue);
