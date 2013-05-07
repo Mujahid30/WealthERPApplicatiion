@@ -3096,6 +3096,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, DBNull.Value);
                // db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_IsWithdrwal", DbType.Int32, customerAccountVo.IsWithdrwal);
+                if (!string.IsNullOrEmpty("@WERP_CFCCode".ToString()))
+                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@WERP_CFCCode", DbType.String, customerAccountVo.CFCCategoryCode);
+                else
+                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@WERP_CFCCode", DbType.String, DBNull.Value);             
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ChequeNo", DbType.String, customerAccountVo.ChequeNo);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Amount", DbType.Double, customerAccountVo.Amount);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_AvailableBalance", DbType.Double, customerAccountVo.AvailableBalance);
@@ -3220,6 +3224,16 @@ namespace DaoCustomerPortfolio
                                 customerAccountsVo.IsWithdrwal = 1;
                         else
                             customerAccountsVo.IsWithdrwal = 0;
+
+                        if (!string.IsNullOrEmpty(dr["WERP_CFCCode"].ToString()))
+                            customerAccountsVo.CFCCategoryCode = (dr["WERP_CFCCode"].ToString());
+                        else
+                            customerAccountsVo.CFCCategoryCode = null;
+                        customerAccountsVo.CFCCategoryName = dr["WERP_CFCName"].ToString();
+                        //if (!string.IsNullOrEmpty(dr["WERP_CFCName"].ToString()))
+                        //    customerAccountsVo.CFCCategory = (dr["WERP_CFCName"].ToString());
+                        //else
+                        //    customerAccountsVo.CFCCategory = "N/A";
                         if (!string.IsNullOrEmpty(dr["CCST_Amount"].ToString()))
                             customerAccountsVo.Amount = double.Parse(dr["CCST_Amount"].ToString());
                         else
@@ -3270,9 +3284,9 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Transactiondate", DbType.DateTime, customerAccountVo.Transactiondate);
                 else
                     db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Transactiondate", DbType.DateTime, DBNull.Value);
-                
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_IsWithdrwal", DbType.Int32, customerAccountVo.IsWithdrwal);
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@WERP_CFCCode", DbType.String, customerAccountVo.CFCCategoryCode);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_ChequeNo", DbType.String, customerAccountVo.ChequeNo);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Amount", DbType.Double, customerAccountVo.Amount);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_AvailableBalance", DbType.Double, customerAccountVo.AvailableBalance);               
@@ -3385,5 +3399,26 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
+        public DataTable GetCashFlowCategory()
+        {
+            //string logoPath = "";
+            Database db;
+            DbCommand getCashflowCategoryCmd;
+            DataSet getCashflowCategoryDs;
+            // DataRow dr;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCashflowCategoryCmd = db.GetStoredProcCommand("SP_GetCashFlowCategory");
+                getCashflowCategoryDs = db.ExecuteDataSet(getCashflowCategoryCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return getCashflowCategoryDs.Tables[0];
+        }
+
     }
 }
