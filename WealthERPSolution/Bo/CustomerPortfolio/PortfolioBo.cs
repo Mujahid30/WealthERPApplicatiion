@@ -298,14 +298,14 @@ namespace BoCustomerPortfolio
             return dsGetGoldPrice;
 
         }
-        public DataTable GetRMCustomerPortfolios(int rmId,int currentPage,out int count,string nameSrchValue)
+        public DataTable GetRMCustomerPortfolios(string userType,int adviserId, int rmId, int currentPage, out int count, string nameSrchValue)
         {
             DataTable dtGetCustomerPortfolios = new DataTable();
             PortfolioDao portfolioDao = new PortfolioDao();
 
             try
             {
-                dtGetCustomerPortfolios = portfolioDao.GetRMCustomerPortfolios(rmId,currentPage,out count,nameSrchValue);
+                dtGetCustomerPortfolios = portfolioDao.GetRMCustomerPortfolios(userType,adviserId, rmId, currentPage, out count, nameSrchValue);
             }
             catch (BaseApplicationException Ex)
             {
