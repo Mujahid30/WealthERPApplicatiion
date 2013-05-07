@@ -361,30 +361,30 @@ namespace WERP_EMAIL_SMS_JOB
                 {
                     if (dr["FromSMTPEmailId"].ToString() == "admin1@wealtherp.com")
                     {
-                        if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) <= 240)
+                        if (Convert.ToInt16(dr["SendMailCount"].ToString()) <= 240)
                             _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameOne"]);
-                        else if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) >= 240)
+                        else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
                             _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameTwo"]);
                     }
                     else if (dr["FromSMTPEmailId"].ToString() == "admin2@wealtherp.com")
                     {
-                        if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) <= 240)
+                        if (Convert.ToInt16(dr["SendMailCount"].ToString()) <= 240)
                             _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameTwo"]);
-                        else if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) >= 240)
+                        else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
                             _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameThree"]);
                     }
                     else if (dr["FromSMTPEmailId"].ToString() == "admin3@wealtherp.com")
                     {
-                        if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) <= 240)
+                        if (Convert.ToInt16(dr["SendMailCount"].ToString()) <= 240)
                             _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameThree"]);
-                        else if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) >= 240)
+                        else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
                             _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFour"]);
                     }
                     else if (dr["FromSMTPEmailId"].ToString() == "admin4@wealtherp.com")
                     {
-                        if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) <= 240)
+                        if (Convert.ToInt16(dr["SendMailCount"].ToString()) <= 240)
                             _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFour"]);
-                        else if (Convert.ToInt16(dr["FromSMTPEmailId"].ToString()) >= 240)
+                        else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
                             _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFive"]);
                     }
 
