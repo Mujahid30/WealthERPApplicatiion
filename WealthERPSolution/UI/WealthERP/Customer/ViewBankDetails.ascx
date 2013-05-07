@@ -149,7 +149,7 @@
         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView DataKeyNames="CB_CustBankAccId,CB_AccountNum,CB_HoldingAmount,XMOH_ModeOfHoldingCode,PAIC_AssetInstrumentCategoryCode,CB_BranchAdrState,WERPBM_BankCode"
+        <MasterTableView DataKeyNames="CB_CustBankAccId,CB_AccountNum,WERPBDTM_BankName,CB_HoldingAmount,XMOH_ModeOfHoldingCode,PAIC_AssetInstrumentCategoryCode,CB_BranchAdrState,WERPBM_BankCode"
             EditMode="EditForms" CommandItemDisplay="Top" Width="100%">
             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                 AddNewRecordText="Add New Bank Details" ShowRefreshButton="false" ShowExportToCsvButton="false"
@@ -204,6 +204,11 @@
                     ShowFilterIcon="false" AutoPostBackOnFilter="true" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn Visible="false" UniqueName="details" HeaderStyle-Width="150px"
+                    HeaderText="bankname" DataField="details" SortExpression="details"
+                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
                 <telerik:GridButtonColumn Visible="false" UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Record?"
                     ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
                     HeaderStyle-Width="80px" Text="Delete">
@@ -217,7 +222,7 @@
                     HeaderText="MICR" DataField="CB_MICR" SortExpression="CB_MICR" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
-                </telerik:GridBoundColumn>
+                </telerik:GridBoundColumn>                
                 <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrCountry" HeaderStyle-Width="150px"
                     HeaderText="Branch Country" DataField="CB_BranchAdrCountry" SortExpression="CB_BranchAdrCountry"
                     AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
