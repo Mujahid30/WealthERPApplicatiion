@@ -149,17 +149,17 @@ namespace BoCommon
 
         public void SendErrorExceptionMail(int adviserId,string startFrom,int schemeplanCode, string errorMsg , string processName)
         {
-            bool isCompleted = false;
-            EmailVo emailVo = new EmailVo();
-            string excepMailTo = "ssourabh@ampsys.in,bmohanty@ampsys.in,vshenoy@ampsys.in,mjamwal@ampsys.in,dyadav@ampsys.in";
+            //bool isCompleted = false;
+            //EmailVo emailVo = new EmailVo();
+            //string excepMailTo = "ssourabh@ampsys.in,bmohanty@ampsys.in,vshenoy@ampsys.in,mjamwal@ampsys.in,dyadav@ampsys.in";
 
-            emailVo.Subject = "Error Log";
-            emailVo.Body = errorMsg + "  for " + adviserId.ToString() + "  " + "Level: " + startFrom + "and Scheme Plan Code = " + schemeplanCode + "Path: " + processName;
-            emailVo.To = excepMailTo;
-            emailVo.HasAttachment = 0;
-            //emailVo.CustomerId = customerId;
-            emailVo.AdviserId = adviserId;
-            isCompleted = AddToEmailQueue(emailVo);
+            //emailVo.Subject = "Error Log";
+            //emailVo.Body = errorMsg + "  for " + adviserId.ToString() + "  " + "Level: " + startFrom + "and Scheme Plan Code = " + schemeplanCode + "Path: " + processName;
+            //emailVo.To = excepMailTo;
+            //emailVo.HasAttachment = 0;
+            ////emailVo.CustomerId = customerId;
+            //emailVo.AdviserId = adviserId;
+            //isCompleted = AddToEmailQueue(emailVo);
         }
 
     }
