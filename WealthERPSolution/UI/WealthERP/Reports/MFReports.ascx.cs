@@ -1030,6 +1030,8 @@ namespace WealthERP.Reports
         {
             String allCustomerId = SelectedCustomets4Email.Value;
             CustomerVo custVo = new CustomerVo();
+            AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
+            RMVo customerRMVo = new RMVo();
             char[] separator = new char[] { ',' };
             int customerId = 0;
             string[] strSplitArr = allCustomerId.Split(separator);
@@ -1037,17 +1039,19 @@ namespace WealthERP.Reports
             int groupCustomerId = 0;
             int parentrequestId=0;
             List<MFReportVo> mfReportVoList=new List<MFReportVo>();
+            MFReportEmailVo mfReportEmailVo = new MFReportEmailVo();
             DateTime fromDateRangeRpt;
             DateTime toDateRangeRpt;
 
             CalculateDateRange(out fromDateRangeRpt, out toDateRangeRpt);
-            taskRequestManagementBo.CreateTaskRequest(1,userVo.UserId,out parentrequestId);
+            
             
             foreach (string arrStr in strSplitArr)
             {
                 if (!String.IsNullOrEmpty(arrStr))
                 {
                     customerId = int.Parse(arrStr);
+                    taskRequestManagementBo.CreateTaskRequest(1, userVo.UserId, out parentrequestId);
                     //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
                     if (rbnGroup.Checked == true)
                     {                      
@@ -1055,6 +1059,7 @@ namespace WealthERP.Reports
                     }
                   
                      custVo = customerBo.GetCustomer(customerId);
+                     customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(custVo.RmId);
                      foreach (ListItem chkItems in chkAsOnReportList.Items)
                      {
                          if (chkItems.Selected == true)
@@ -1071,12 +1076,20 @@ namespace WealthERP.Reports
                            mfReportVoList.Add(GetReportInputData(chkItems,customerId,groupCustomerId, ref fromDateRangeRpt,ref toDateRangeRpt,"RANGE"));
                          }
 
-                     }   
+                    }
+
+                    mfReportEmailVo.AdviserId = advisorVo.advisorId;
+                    mfReportEmailVo.CustomerId = custVo.CustomerId;
+                    mfReportEmailVo.CustomerEmail = custVo.Email;
+                    mfReportEmailVo.RMEmail = customerRMVo.Email;
+                    mfReportEmailVo.ReportTypeName = "Mutual Fund";
+
+                    taskRequestManagementBo.CreateBulkReportRequest(mfReportVoList,mfReportEmailVo, parentrequestId, 1, userVo.UserId);
 
                 }
             }
 
-            taskRequestManagementBo.CreateBulkReportRequest(mfReportVoList, parentrequestId, 1, userVo.UserId);
+           
 
         }
 
@@ -1084,17 +1097,19 @@ namespace WealthERP.Reports
         //{
         //}
 
+       
+
         private MFReportVo GetReportInputData(ListItem chkItems,int customerId, int groupCustomerId, ref DateTime dtFrom, ref DateTime dtTo,string reportDateType)
         {
 
             MFReportVo mfReportVo = new MFReportVo();               
             mfReport.ReportName = chkItems.Value.Trim();
-            if (reportDateType == "RANGE")
+            if (reportDateType == "ASON")
             {
                 mfReport.FromDate = Convert.ToDateTime(txtEmailAsOnDate.Text.Trim());
                 mfReport.ToDate = mfReport.FromDate;
             }
-            else if (reportDateType == "ASON")
+            else if (reportDateType == "RANGE")
             {
                 mfReport.FromDate = dtFrom;
                 mfReport.ToDate = dtTo;
@@ -1103,7 +1118,7 @@ namespace WealthERP.Reports
             mfReport.AdviserId = advisorVo.advisorId;
             mfReport.CustomerId = customerId;
             mfReport.GroupHeadId = groupCustomerId;
-            if (groupCustomerId != 0)
+           if (groupCustomerId != 0)
             {
                 mfReport.PortfolioIds = GetGroupCustomerAllPortfolio(groupCustomerId);
             }
@@ -1189,7 +1204,7 @@ namespace WealthERP.Reports
             else //if (Request.Form[ctrlPrefix + "hidDateType"] == "AS_ON")
             {
                 fromDate = Convert.ToDateTime(txtEmailFromDate.Text);
-                toDate = Convert.ToDateTime(txtEmailFromDate.Text);
+                toDate = Convert.ToDateTime(txtEmailToDate.Text);
             }
         }
 
