@@ -57,12 +57,12 @@ namespace BoCommon
         /// <param name="subreportype"></param>
         /// <param name="fromDate"></param>
         /// <returns></returns>
-        public void CreateBulkReportRequest(List<MFReportVo> mfReportVoList, int parentRequestId, int taskId, int userId)
+        public void CreateBulkReportRequest(List<MFReportVo> mfReportVoList,MFReportEmailVo mfReportEmailVo, int parentRequestId, int taskId, int userId)
         {
             WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
             try
             {
-                requestManagementDao.CreateBulkReportRequest(mfReportVoList, parentRequestId, taskId, userId);
+                requestManagementDao.CreateBulkReportRequest(mfReportVoList,mfReportEmailVo, parentRequestId, taskId, userId);
 
             }
             catch (BaseApplicationException ex)
