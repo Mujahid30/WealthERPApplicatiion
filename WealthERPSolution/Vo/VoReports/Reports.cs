@@ -25,6 +25,16 @@ namespace VoReports
         public string FilterBy;
 
     }
+    public struct MFReportEmailVo
+    {
+        public int AdviserId;
+        public int CustomerId;
+        public string RMEmail;
+        public string CustomerEmail;
+        public string ReportTypeName;
+
+    }
+
     public struct EquityReportVo
     {
         public string CustomerName;
