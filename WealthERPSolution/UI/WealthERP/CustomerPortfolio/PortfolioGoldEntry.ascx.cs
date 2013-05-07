@@ -132,7 +132,7 @@ namespace WealthERP.CustomerPortfolio
                 genDictPortfolioDetails.Add(int.Parse(dr["CP_PortfolioId"].ToString()), int.Parse(dr["CP_IsMainPortfolio"].ToString()));
             }
 
-            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            var keyValuePair = genDictPortfolioDetails.FirstOrDefault(x => x.Key == portfolioId);
 
             hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
             Session["genDictPortfolioDetails"] = genDictPortfolioDetails;

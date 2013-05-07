@@ -148,7 +148,7 @@ namespace WealthERP.CustomerPortfolio
             //select entry.Value;
 
 
-            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            var keyValuePair = genDictPortfolioDetails.FirstOrDefault(x => x.Key == portfolioId);
             //int value = keyValuePair.Value;
 
             hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
@@ -163,7 +163,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
             }
-            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+            var keyValuePair = genDictPortfolioDetails.FirstOrDefault(x => x.Key == portfolioId);
             //int value = keyValuePair.Value;           
             hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
             hdnIsCustomerLogin.Value = userVo.UserType;

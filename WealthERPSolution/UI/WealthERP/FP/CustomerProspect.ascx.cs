@@ -1482,6 +1482,10 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails.Value += Math.Round(double.Parse(txtOthersGISA.Text.Trim()),0);
                 }
+                if (txtVehicleInsuranceSA.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtVehicleInsuranceSA.Text.Trim()), 0);
+                }
                 //Adjusted Sum Assured for GI
                 if (txtHealthInsuranceCoverA.Text.Trim() != string.Empty)
                 {
@@ -1499,6 +1503,10 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtOthersGIA.Text.Trim()),0);
                 }
+                if (txtVehicleInsuranceA.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtVehicleInsuranceA.Text.Trim()), 0);
+                }
 
                 //Adjusted PremiumTotal For GI
                 if (txtAdjustedHealthPremium.Text.Trim() != string.Empty)
@@ -1513,11 +1521,15 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails.AdjustedPremiumValue += Math.Round(double.Parse(txtPersonalAccidentPremium.Text.Trim()), 0);
                 }
+                
                 if (txtAdjustedOtherGIPremium.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails.AdjustedPremiumValue += Math.Round(double.Parse(txtAdjustedOtherGIPremium.Text.Trim()), 0);
                 }
-
+                if (txtVehicleInsurancePremium.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += Math.Round(double.Parse(txtVehicleInsurancePremium.Text.Trim()), 0);
+                }
                 //Grand Total PremiumTotal For GI
 
                 if (txtToalHealthInsurancePremium.Text.Trim() != string.Empty)
