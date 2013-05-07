@@ -334,7 +334,7 @@
 </table>
 <div id="DivTransaction" runat="server" visible="false">
     <telerik:RadGrid ID="gvCashSavingTransaction" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
+        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik" 
         EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
         EnableViewState="true" ShowFooter="true" OnItemCommand="gvCashSavingTransaction_ItemCommand"
         OnItemDataBound="gvCashSavingTransaction_ItemDataBound" OnNeedDataSource="gvCashSavingTransaction_OnNeedDataSource">
@@ -380,8 +380,8 @@
                     AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn Visible="true" DataField="CCST_Amount" AllowFiltering="false"
-                    HeaderText="Deposit Amount" HeaderStyle-Width="70px" UniqueName="" SortExpression=""
+                <telerik:GridBoundColumn Visible="true" DataField="CCST_Amount" AllowFiltering="false" 
+                    HeaderText="Deposit Amount" HeaderStyle-Width="70px" UniqueName="CCST_Amount" SortExpression="CCST_Amount"
                     AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -501,7 +501,7 @@
                                 </asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator2" CssClass="rfvPCG"
                                     ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtAmount"
-                                    ValidationExpression="^[0-9]+$"></asp:RegularExpressionValidator>
+                                    ValidationExpression="^[0-9]{10}"></asp:RegularExpressionValidator>
                             </td>
                             <td colspan="2">
                                 &nbsp;

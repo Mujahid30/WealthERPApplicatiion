@@ -52,7 +52,7 @@ namespace WealthERP.Customer
             {
                 Pagetype = Request.QueryString["name"].ToString();
             }
-            if (Request.QueryString["BankId"] != null)
+          if (Request.QueryString["BankId"] != null)
             {
                 bankId = int.Parse(Request.QueryString["BankId"].ToString());
             }
@@ -179,7 +179,7 @@ namespace WealthERP.Customer
                 else
                 drTransaction["WERP_CFCCode"] = customeraccountVo.CFCCategoryCode.ToString();
                 drTransaction["WERP_CFCName"] = customeraccountVo.CFCCategoryName.ToString();
-                drTransaction["CCST_Amount"] = customeraccountVo.Amount.ToString();
+                drTransaction["CCST_Amount"] = double.Parse(customeraccountVo.Amount.ToString());
                 dtTransaction.Rows.Add(drTransaction);
             }
             if (TransactionList.Count > 0)
