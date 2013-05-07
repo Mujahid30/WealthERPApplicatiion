@@ -41,6 +41,7 @@ namespace WealthERP.Customer
         int bankId = 0;
         string accountNum;
         double amount;
+        string bankname;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -63,6 +64,10 @@ namespace WealthERP.Customer
             if (Request.QueryString["amount"] != null)
             {
                 amount = double.Parse(Request.QueryString["amount"].ToString());
+            }
+            if (Request.QueryString["bankname"] != null)
+            {
+                bankname = Request.QueryString["bankname"].ToString();
             }
             if (Pagetype == "Add")
             {
@@ -94,6 +99,7 @@ namespace WealthERP.Customer
 
                 lblheader.Text = "Add/Update Balance";
                 lblAccId.Text = accountNum.ToString();
+                lblBankName.Text = bankname.ToString();
                 txtholdingAmt.Text = amount.ToString();
                 //lblAccId.Text = customeraccountVo.AccountNum.ToString();
                 ddlAccountDetails.Visible = false;
@@ -146,7 +152,14 @@ namespace WealthERP.Customer
                 customeraccountVo = new CustomerAccountsVo();
                 customeraccountVo = TransactionList[i];
                 drTransaction["CCST_TransactionId"] = customeraccountVo.TransactionId.ToString();
-                drTransaction["CCST_ExternalTransactionId"] = customeraccountVo.ExternalTransactionId.ToString();
+                if (customeraccountVo.ExternalTransactionId == null)
+                {
+                    drTransaction["CCST_ExternalTransactionId"] = "N/A";
+                }
+                else
+                {
+                    drTransaction["CCST_ExternalTransactionId"] = customeraccountVo.ExternalTransactionId.ToString();
+                }
                 drTransaction["CCST_Transactiondate"] = customeraccountVo.Transactiondate.ToString();
                 if (customeraccountVo.CCST_Desc == null)
                 {
@@ -187,6 +200,7 @@ namespace WealthERP.Customer
                 gvCashSavingTransaction.DataSource = dtTransaction;
                 gvCashSavingTransaction.DataBind();
                 gvCashSavingTransaction.Visible = true;
+                imgBtnrgHoldings.Visible = true;
                 // BindDDLBankDetails();
             }
             else
@@ -194,6 +208,8 @@ namespace WealthERP.Customer
                 gvCashSavingTransaction.DataSource = dtTransaction;
                 gvCashSavingTransaction.DataBind();
                 gvCashSavingTransaction.Visible = true;
+                imgBtnrgHoldings.Visible = false;
+
             }
         }
 
@@ -376,8 +392,8 @@ namespace WealthERP.Customer
                 bool isdeleted = false;
                 accountId = int.Parse(gvCashSavingTransaction.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CCST_TransactionId"].ToString());
                 isdeleted = customerAccountBo.DeleteCustomerBankTransaction(accountId);
-                if (isdeleted == false)
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot delete the bank is associate with a folio');", true);
+                //if (isdeleted == false)
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot delete the bank is associate with a folio');", true);
             }
             BindTransactionGrid(bankId);
         }

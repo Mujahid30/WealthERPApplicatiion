@@ -153,6 +153,7 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label lblAccId;
         protected global::System.Web.UI.WebControls.Button btnUpdate;
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnBack;
+        protected global::System.Web.UI.WebControls.Label lblBankName;
     }
     
 }

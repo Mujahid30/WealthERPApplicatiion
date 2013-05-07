@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddBankDetails.ascx.cs"
-    Inherits="WealthERP.Customer.AddBankDetails" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind= "AddBankDetails.ascx.cs" 
+  Inherits="WealthERP.Customer.AddBankDetails" %>    
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
@@ -107,6 +107,12 @@
                             <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAccountDetails_SelectedIndexChanged"
                                 CssClass="cmbField" runat="server" ID="ddlAccountDetails" AppendDataBoundItems="true">
                             </asp:DropDownList>
+                        </td>
+                        <td class="leftField" align="left">
+                            <asp:Label ID="Label5" CssClass="FieldName" runat="server" Text="Bank Name:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="lblBankName" runat="server" CssClass="Field"></asp:Label>
                         </td>
                     </tr>
                     <tr runat="server" id="trHoldingAndTrnx" visible="false">
@@ -310,7 +316,7 @@
                                         </asp:RequiredFieldValidator>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" CssClass="rfvPCG"
                                             ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtAmount"
-                                            ValidationExpression="\d[10]"></asp:RegularExpressionValidator>
+                                            ValidationExpression="^[0-9]+$"></asp:RegularExpressionValidator>
                                         <%--ValidationExpression="^[0-9]+$"--%>
                                     </td>
                                     <td colspan="2">
@@ -334,7 +340,7 @@
 </table>
 <div id="DivTransaction" runat="server" visible="false">
     <telerik:RadGrid ID="gvCashSavingTransaction" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik" 
+        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
         EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
         EnableViewState="true" ShowFooter="true" OnItemCommand="gvCashSavingTransaction_ItemCommand"
         OnItemDataBound="gvCashSavingTransaction_ItemDataBound" OnNeedDataSource="gvCashSavingTransaction_OnNeedDataSource">
@@ -380,9 +386,10 @@
                     AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn Visible="true" DataField="CCST_Amount" AllowFiltering="false" 
-                    HeaderText="Deposit Amount" HeaderStyle-Width="70px" UniqueName="CCST_Amount" SortExpression="CCST_Amount"
-                    AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                <telerik:GridBoundColumn Visible="true" DataField="CCST_Amount" AllowFiltering="false"
+                    HeaderText="Deposit Amount" HeaderStyle-Width="70px" UniqueName="CCST_Amount"
+                    SortExpression="CCST_Amount" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                    CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn Visible="false" DataField="CB_HoldingAmount" AllowFiltering="false"
@@ -481,6 +488,7 @@
                                 <asp:DropDownList AutoPostBack="false" CssClass="cmbField" runat="server" ID="ddlCFCCategory"
                                     AppendDataBoundItems="false">
                                 </asp:DropDownList>
+                                <span id="Span2" class="spnRequiredField">*</span>
                                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlCFCCategory"
                                     ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Category" Operator="NotEqual"
                                     ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
@@ -501,7 +509,7 @@
                                 </asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator2" CssClass="rfvPCG"
                                     ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtAmount"
-                                    ValidationExpression="^[0-9]{10}"></asp:RegularExpressionValidator>
+                                    ValidationExpression="^[0-9]+$"></asp:RegularExpressionValidator>
                             </td>
                             <td colspan="2">
                                 &nbsp;
