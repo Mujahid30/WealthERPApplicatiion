@@ -55,7 +55,8 @@ namespace VoCustomerPortfolio
         private string m_ExternalTransactionId;
         private int m_TransactionId;
         private int m_CustBankAccId;
-
+        private string m_CFCCategoryName;
+        private string m_CFCCategoryCode;
         #endregion Fields
 
 
@@ -414,7 +415,17 @@ namespace VoCustomerPortfolio
             get { return m_CustBankAccId; }
             set { m_CustBankAccId = value; }
         }
-       
+
+        public string CFCCategoryName
+        {
+            get { return m_CFCCategoryName; }
+            set { m_CFCCategoryName = value; } 
+        }
+        public string CFCCategoryCode
+        {
+            get { return m_CFCCategoryCode; }
+            set { m_CFCCategoryCode = value; }
+        }
         #endregion Properties
 
 
