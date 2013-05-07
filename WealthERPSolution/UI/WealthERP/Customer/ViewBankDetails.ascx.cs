@@ -16,6 +16,7 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
 using Telerik.Web.UI;
+using System.Web.UI.HtmlControls;
 
 
 namespace WealthERP.Customer
@@ -64,6 +65,9 @@ namespace WealthERP.Customer
             customerVo = (CustomerVo)Session["CustomerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
 
+            string accountNum = string.Empty;
+            double amount = 0.0;
+
             RMVo customerRMVo = new RMVo();
             if (!String.IsNullOrEmpty(Session[SessionContents.CurrentUserRole].ToString()))
             {
@@ -98,22 +102,8 @@ namespace WealthERP.Customer
         private void BindTransactionGrid()
         {
             DataTable dtBankAccId = new DataTable();
-            dtBankAccId = (DataTable)Session["BankAccId"];
-            //int im = 0;
-            //string s = string.Empty;
-            //foreach (DataRow dr in dtBankAccId.Rows)
-            //{
-            //    s = dr["CB_CustBankAccId"].ToString()+","+s;
-            //    im = im + 1;
-            //}
-
-            ////SessionBo.CheckSession();
-            //string custBankAccIds = string.Empty;
-            custBankAccId = Convert.ToInt32(ViewState["BankId"]);
-
-            // customerVo = (CustomerVo)Session["customerVo"];
-            //customerBankAccountVo = (CustomerBankAccountVo)Session["CustomerBankAccountVo"];
-            //CustBankAccId = customeraccountVo.CustBankAccId;
+            dtBankAccId = (DataTable)Session["BankAccId"];      
+            custBankAccId = Convert.ToInt32(ViewState["BankId"]);           
             TransactionList = customerAccountBo.GetCustomerBankTransaction(custBankAccId);
             DataTable dtTransaction = new DataTable();
             dtTransaction.Columns.Add("CCST_TransactionId");
@@ -158,6 +148,7 @@ namespace WealthERP.Customer
                 //btnTransferFolio.Visible = false;
                 //btnMoveFolio.Visible = false;
                 gvCashSavingTransaction.Visible = true;
+              
             }
             else
             {
@@ -248,7 +239,7 @@ namespace WealthERP.Customer
                 gvBankDetails.DataBind();
                 gvBankDetails.Visible = true;
                 DivAction.Visible = true;
-                BindDDLBankDetails();
+               // BindDDLBankDetails();
                 Session["BankAccId"] = dsCustomerBankAccountDetails.Tables[0];
                 //}
                 //else
@@ -283,8 +274,7 @@ namespace WealthERP.Customer
         {
             ddlAccountDetails.DataSource = dsCustomerBankAccountDetails.Tables[1];
             ddlAccountDetails.DataTextField = "details";
-            ddlAccountDetails.DataValueField = "accNo";
-
+            ddlAccountDetails.DataValueField = "CB_CustBankAccId";
             ddlAccountDetails.DataBind();
             ddlAccountDetails.Items.Insert(0, "Select");
 
@@ -303,7 +293,6 @@ namespace WealthERP.Customer
 
             if (ViewState["BankId"] != null)
                 ViewState.Remove("BankId");
-
             ViewState["BankId"] = ddlAccountDetails.SelectedValue;
         }
 
@@ -363,6 +352,9 @@ namespace WealthERP.Customer
                 ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
                 ddlPortfolio.DataBind();
 
+                HtmlTableRow trheadingCaption = (HtmlTableRow)gefi.FindControl("trheadingCaption");
+                trheadingCaption.Visible = true;
+             
                 #region fornomineebinding
                 BindNominees();
                 RadGrid gv = (RadGrid)item.FindControl("gvNominees");
@@ -372,10 +364,12 @@ namespace WealthERP.Customer
                 {
                     gv.DataSource = dtCustomerAssociates;
                     gv.DataBind();
+                    gv.Visible = true;
                     lblNoNominee.Visible = false;
                 }
                 else
                 {
+                    gv.Visible = false;
                     lblNoNominee.Visible = true;
                 }
 
@@ -385,13 +379,14 @@ namespace WealthERP.Customer
 
                 RadGrid gvrlist = (RadGrid)gefi.FindControl("gvJointHolders");
                 RadioButton rtbu = (RadioButton)e.Item.FindControl("rbtnYes");
-                if (rtbu.Checked)
-                {
-                    gvrlist.Visible = false;
-                }
-                else
+                RadioButton rbtno = (RadioButton)e.Item.FindControl("rbtnNo");
+                if (rtbu.Checked==true)
                 {
                     gvrlist.Visible = true;
+                }
+               if(rbtno.Checked==true)
+                {
+                    gvrlist.Visible = false;
                 }
                 #endregion
             }
@@ -476,6 +471,10 @@ namespace WealthERP.Customer
                 ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
                 ddlPortfolio.DataBind();
 
+
+                HtmlTableRow trheadingCaption = (HtmlTableRow)editedItem.FindControl("trheadingCaption");
+                trheadingCaption.Visible = false;
+
                 #region fornomineebinding
                 BindNominees();
                 RadGrid gv = (RadGrid)e.Item.FindControl("gvNominees");
@@ -497,14 +496,15 @@ namespace WealthERP.Customer
                 #region bindjoint
                 RadGrid gvrlist = (RadGrid)e.Item.FindControl("gvJointHolders");
                 RadioButton rtbu = (RadioButton)e.Item.FindControl("rbtnYes");
+                RadioButton rbtno = (RadioButton)e.Item.FindControl("rbtnNo");
                 // dtCustomerAssociates = (DataTable)Cache["gvjoinholder" + customerVo.CustomerId];
-                if (rtbu.Checked)
+                if (rtbu.Checked==true)
                 {
                     // gvrlist.DataSource = dtCustomerAssociates;
                     gvrlist.Visible = false;
                     //  gvrlist.DataBind();
                 }
-                else
+                if (rbtno.Checked == true)               
                 {
                     gvrlist.Visible = false;
                 }
@@ -710,10 +710,8 @@ namespace WealthERP.Customer
                 txtMicr.Text = "";
                 ddlAccountType.SelectedIndex = 0;
                 ddlModeofOperation.SelectedIndex = 0;
-
-                //isInserted = customerBo.InsertProductAMCSchemeMappingDetalis(customerId, strExternalCode, strExternalType, createdDate, editedDate, deletedDate);
+               
             }
-
             if (e.CommandName == "Delete")
             {
                 bool isdeleted = false;
@@ -721,6 +719,21 @@ namespace WealthERP.Customer
                 isdeleted = customerBankAccountBo.DeleteCustomerBankAccount(bankId);
                 if (isdeleted == false)
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot delete the bank is associate');", true);
+            }
+            if (e.CommandName == "viewTransaction")
+            {
+                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
+                string name = "viewTransaction";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalSetUPPage", "loadcontrol('AddBankDetails','?name=" + name + "&bankId=" + bankId + "');", true);             
+            }
+            if (e.CommandName == "Editbalance")
+            {
+                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
+                string accountNum = (gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_AccountNum"].ToString());
+                double amount = double.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_HoldingAmount"].ToString());
+                string name = "Editbalance";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankDetails", "loadcontrol('AddBankDetails','?name=" + name + "&accountNum=" + accountNum + "&amount=" + amount + "');", true);
+
             }
             BindBankDetails(customerId);
         }

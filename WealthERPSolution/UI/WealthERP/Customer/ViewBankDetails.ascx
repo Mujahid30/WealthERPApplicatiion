@@ -141,7 +141,7 @@
     <telerik:RadGrid ID="gvBankDetails" runat="server" GridLines="None" Width="99%" AllowPaging="true"
         PageSize="10" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
         AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
-        Skin="Telerik" OnItemDataBound="gvBankDetails_ItemDataBound" EnableEmbeddedSkins="true"
+        Skin="Telerik" OnItemDataBound="gvBankDetails_ItemDataBound" EnableEmbeddedSkins="false"
         OnItemCommand="gvBankDetails_ItemCommand" EnableHeaderContextMenu="false" OnPreRender="gvBankDetails_PreRender"
         EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="false" OnNeedDataSource="gvBankDetails_NeedDataSource"
         EditItemStyle-Width="600px">
@@ -149,8 +149,8 @@
         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView DataKeyNames="CB_CustBankAccId,XMOH_ModeOfHoldingCode,PAIC_AssetInstrumentCategoryCode,CB_BranchAdrState,WERPBM_BankCode"
-            EditMode="PopUp" CommandItemDisplay="Top">
+        <MasterTableView DataKeyNames="CB_CustBankAccId,CB_AccountNum,CB_HoldingAmount,XMOH_ModeOfHoldingCode,PAIC_AssetInstrumentCategoryCode,CB_BranchAdrState,WERPBM_BankCode"
+            EditMode="EditForms" CommandItemDisplay="Top" Width="100%">
             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                 AddNewRecordText="Add New Bank Details" ShowRefreshButton="false" ShowExportToCsvButton="false"
                 ShowAddNewRecordButton="true" ShowExportToPdfButton="false" />
@@ -158,15 +158,23 @@
             <%--  AddNewRecordText="Add New Bank Details"--%>
             <Columns>
                 <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
-                    HeaderStyle-Width="50px">
+                    HeaderStyle-Width="30px">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkId" runat="server" />
                         <%--<asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("WERPTransactionId").ToString()%>' />--%>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
-                <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
+                <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" EditText="View/Edit"
                     UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
                 </telerik:GridEditCommandColumn>
+                <telerik:GridButtonColumn ButtonType="LinkButton" Text="View Transaction" UniqueName="ButtonColumn"
+                    CommandName="viewTransaction">
+                    <HeaderStyle Width="100px" />
+                </telerik:GridButtonColumn>
+                 <telerik:GridButtonColumn ButtonType="LinkButton" Text="Edit Balance" UniqueName="ButtonColumn"
+                    CommandName="Editbalance">
+                    <HeaderStyle Width="80px" />
+                </telerik:GridButtonColumn>
                 <telerik:GridBoundColumn Visible="false" UniqueName="CB_CustBankAccId" HeaderStyle-Width="80px"
                     HeaderText="CB_CustBankAccId" DataField="CB_CustBankAccId" SortExpression="CB_CustBankAccId"
                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
@@ -194,6 +202,7 @@
                 <telerik:GridBoundColumn UniqueName="CB_HoldingAmount" HeaderStyle-Width="80px" HeaderText="Holding Amount"
                     DataField="CB_HoldingAmount" SortExpression="CB_HoldingAmount" AllowFiltering="false"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridButtonColumn Visible="false" UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Record?"
                     ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
@@ -320,13 +329,13 @@
                             </td>
                             <td class="rightField">
                                 <asp:DropDownList ID="ddlModeofOperation" runat="server" CssClass="cmbField" Enabled="false">
-                                    <asp:ListItem Text="Select" Value="0">
+                                    <asp:ListItem Text="Select" Value="0" Selected="trues">
                                     </asp:ListItem>
                                 </asp:DropDownList>
                                 <span id="Span2" class="spnRequiredField">*</span>
-                                <%--<asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlModeofOperation"
+                               <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlModeofOperation"
                                     ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a ModeofHolding"
-                                    Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
+                                    Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                             </td>
                             <td colspan="2">
                                 &nbsp;
@@ -370,35 +379,24 @@
                             <td colspan="2">
                                 &nbsp;
                             </td>
-                        </tr>
-                        <%--<tr>
-                        <td>
-                            <cc1:ModalPopupExtender id="ModalPopupExtender1" runat="server" targetcontrolid="btnShowModalPopup"
-                            popupcontrolid="divPopUp" backgroundcssclass="popUpStyle" popupdraghandlecontrolid="panelDragHandle"
-                            dropshadow="true">
-                      </cc1:ModalPopupExtender>--%>
-                        <%--<tr id="trJointHolder" runat="server" visible="true">
-                            <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
-                                <div class="divSectionHeading" style="vertical-align: text-bottom">
-                                    Joint Holders
-                                </div>
-                            </td>
-                        </tr>--%>
-                        <%--<tr id="trJointHolderlist" runat="server">
-                           
-                        </tr>--%>
+                        </tr>                       
                         <tr id="trNoJointHolder" runat="server" visible="false">
                             <td class="Message" colspan="2">
                                 <asp:Label ID="lblNoJointHolder" runat="server" Text="You have no Joint Holder" CssClass="FieldName"></asp:Label>
                             </td>
                         </tr>
-                        <tr id="trNomineeCaption" runat="server" visible="true">
+                        <tr id="trheadingCaption" runat="server" visible="true">
                             <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
                                 <div class="divSectionHeading" style="vertical-align: text-bottom">
                                     Nominees &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                     &nbsp; &nbsp; &nbsp; &nbsp; Joint Holders
                                 </div>
+                               <%-- <td>
+                                  <div class="divSectionHeading" style="vertical-align: text-bottom">
+                                  Joint Holders
+                                  </div>
+                                  </td>--%>
                             </td>
                             <%-- <td colspan="1" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
                                 <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -406,7 +404,7 @@
                                 </div>
                             </td>--%>
                         </tr>
-                        <tr id="trNominees" runat="server">
+                        <tr>
                             <td>
                                 <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" Width="100%" AllowPaging="true"
                                     AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true" AllowAutomaticDeletes="True"
@@ -624,7 +622,7 @@
     </telerik:RadGrid>
 </div>
 <%--<table width="100%">--%>
-    <div id="DivAction" runat="server" visible="true">
+<div id="DivAction" runat="server" visible="true">
     <table width="100%">
         <tr>
             <td class="SubmitCell">
@@ -632,8 +630,8 @@
                     OnClick="btnDelete_Click" />
             </td>
         </tr>
-        </table>
-    </div>
+    </table>
+</div>
 <%--</table>--%>
 <div>
     <%--<table>--%>
