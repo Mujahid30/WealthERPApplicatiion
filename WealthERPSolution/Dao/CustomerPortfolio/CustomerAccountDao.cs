@@ -3088,7 +3088,10 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CreatecustomerBanktransactionCmd = db.GetStoredProcCommand("SP_CreateCustomerBankTransaction");
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CB_CustBankAccId", DbType.Int32, customerAccountVo.AccountId);
+                if(customerAccountVo.ExternalTransactionId!=null)
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ExternalTransactionId", DbType.String, customerAccountVo.ExternalTransactionId);
+                else
+                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ExternalTransactionId", DbType.String, DBNull.Value);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Transactiondate", DbType.DateTime, customerAccountVo.Transactiondate);
                 if (customerAccountVo.CCST_Desc != null)
                     db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
