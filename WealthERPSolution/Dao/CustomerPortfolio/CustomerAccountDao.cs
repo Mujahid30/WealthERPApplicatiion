@@ -3102,8 +3102,11 @@ namespace DaoCustomerPortfolio
                 if (!string.IsNullOrEmpty("@WERP_CFCCode".ToString()))
                     db.AddInParameter(CreatecustomerBanktransactionCmd, "@WERP_CFCCode", DbType.String, customerAccountVo.CFCCategoryCode);
                 else
-                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@WERP_CFCCode", DbType.String, DBNull.Value);             
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@WERP_CFCCode", DbType.String, DBNull.Value); 
+                if(customerAccountVo.ChequeNo!=null)
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ChequeNo", DbType.String, customerAccountVo.ChequeNo);
+                else
+                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ChequeNo", DbType.String, DBNull.Value);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Amount", DbType.Double, customerAccountVo.Amount);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_AvailableBalance", DbType.Double, customerAccountVo.AvailableBalance);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_CreatedBy", DbType.Int32, userId);
