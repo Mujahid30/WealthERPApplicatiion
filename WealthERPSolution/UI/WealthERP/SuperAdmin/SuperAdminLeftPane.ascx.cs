@@ -153,7 +153,12 @@ namespace WealthERP.SuperAdmin
                 }
                 else if (e.Item.Value == "MFNP_Tranx_Compare")
                 {
+                    Session["UserType"] = "SuperAdmin";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MFNPAndTransactionCompare', 'none')", true);
+                }
+                else if (e.Item.Value == "Upload_FolioTranx_Reconcilation")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('UploadFolioTrxnReconcilation', 'none')", true);
                 } 
 
 

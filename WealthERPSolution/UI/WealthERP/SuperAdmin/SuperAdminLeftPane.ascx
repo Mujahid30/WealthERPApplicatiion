@@ -34,6 +34,8 @@
                 <Items>
                     <telerik:RadPanelItem Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
                     </telerik:RadPanelItem>
+                    <telerik:RadPanelItem Text="Upload Folio/Tranx Reconcilation" Value="Upload_FolioTranx_Reconcilation">
+                    </telerik:RadPanelItem>
                 </Items>
                 </telerik:RadPanelItem>
                  <telerik:RadPanelItem Text="Gold Price Maintenance" Value="Gold_Price_Monito">
@@ -52,8 +54,8 @@
                 </telerik:RadPanelItem>
                  <telerik:RadPanelItem Text="View EQ Trade A/c Exceptions" Value="View_EQ_TRADE_Account">
                 </telerik:RadPanelItem>
-                 <telerik:RadPanelItem Text="View EQ Transaction Exceptions" Value="View_EQ_Transaction">
-                </telerik:RadPanelItem>
+                 <%--<telerik:RadPanelItem Text="View EQ Transaction Exceptions" Value="View_EQ_Transaction">
+                </telerik:RadPanelItem>--%>
                 <telerik:RadPanelItem Text="View Systematic Transaction Exceptions" Value="View_Systematic_Transaction">
                 </telerik:RadPanelItem>
                 </Items>
