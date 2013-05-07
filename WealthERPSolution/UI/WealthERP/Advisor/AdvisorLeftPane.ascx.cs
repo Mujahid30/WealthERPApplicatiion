@@ -555,6 +555,16 @@ namespace WealthERP.Advisor
                     Session.Remove("LinkAction");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
                 }
+                else if (e.Item.Value == "Manage Portfolio")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolio','login');", true);
+                }
+                else if (e.Item.Value == "Add Portfolio")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolioSetup','login');", true);
+                }
                 else if (e.Item.Value == "Manage Group Account")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerFamily','login');", true);
@@ -579,6 +589,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF Folios")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','login');", true);
+                }
+                else if (e.Item.Value == "FP Offline Form")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineForm','login');", true);
                 }
                 else if (e.Item.Value == "Customer_Report")
                 {
@@ -932,10 +947,12 @@ namespace WealthERP.Advisor
                 //}
                 else if (e.Item.Value == "Manage Portfolio")
                 {
+                    Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolio','login');", true);
                 }
                 else if (e.Item.Value == "Add Portfolio")
                 {
+                    Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolioSetup','login');", true);
                 }
                 //else if (e.Item.Value == "Alert Configuration")
@@ -977,6 +994,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "FP Offline Form")
                 {
+                    Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineForm','login');", true);
                 }
                 else if (e.Item.Value == "MF MIS")
@@ -1306,6 +1324,21 @@ namespace WealthERP.Advisor
                 {
                     Session.Remove("LinkAction");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
+                }
+                else if (e.Item.Value == "Manage Portfolio")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolio','login');", true);
+                }
+                else if (e.Item.Value == "Add Portfolio")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolioSetup','login');", true);
+                }
+                else if (e.Item.Value == "FP Offline Form")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineForm','login');", true);
                 }
                 else if (e.Item.Value == "Customer_Report")
                 {
