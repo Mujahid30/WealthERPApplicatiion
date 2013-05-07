@@ -708,6 +708,42 @@ namespace DaoSuperAdmin
             return ds;
 
         }
+        public DataSet UploadFolioTransactionReconcilation(int adviserId, DateTime fromDate, DateTime toDate)
+        {
+            DataSet ds = new DataSet();
+            Database db;
+            DbCommand cmd;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_UploadFolioTransactionReconcilation");
+                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmd, "@FromDate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmd, "@ToDate", DbType.DateTime, toDate);
+                ds = db.ExecuteDataSet(cmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "SuperAdminOpsBo:UploadFolioTransactionReconcilation()");
+
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
 
     }
 }
