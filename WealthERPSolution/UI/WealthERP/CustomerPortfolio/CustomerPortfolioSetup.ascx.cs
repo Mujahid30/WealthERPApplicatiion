@@ -33,17 +33,33 @@ namespace WealthERP.CustomerPortfolio
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
 
+        int userId = 0;
+        int rmID = 0;
+        int AdviserId = 0;
+        string userType;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            SessionBo.CheckSession();
+            SessionBo.CheckSession(); 
             userVo = (UserVo)Session["UserVo"];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             rmVo = (RMVo)Session[SessionContents.RmVo];
-            txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+            //txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
             BindPortfolioTypeDropDown();
+            userId = userVo.UserId;
             if (!IsPostBack)
             {
+                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                {
+                    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                {
+                    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                }
                
                 if (Request.QueryString["action"] == "EditCustomerPortfolio")
                 {
@@ -120,7 +136,8 @@ namespace WealthERP.CustomerPortfolio
                 newCustomerPortfolioVo.PortfolioName = txtPortfolioName.Text;
                 newCustomerPortfolioVo.PortfolioTypeCode = ddlPortfolioType.SelectedValue;
 
-                portfolioBo.CreateCustomerPortfolio(newCustomerPortfolioVo, rmVo.UserId);
+
+                portfolioBo.CreateCustomerPortfolio(newCustomerPortfolioVo, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -159,7 +176,7 @@ namespace WealthERP.CustomerPortfolio
                 newCustomerPortfolioVo.PortfolioName = txtPortfolioName.Text;
                 newCustomerPortfolioVo.PortfolioTypeCode = ddlPortfolioType.SelectedValue;
 
-                portfolioBo.UpdateCustomerPortfolio(newCustomerPortfolioVo, rmVo.UserId);
+                portfolioBo.UpdateCustomerPortfolio(newCustomerPortfolioVo, userId);
             }
             catch (BaseApplicationException Ex)
             {
