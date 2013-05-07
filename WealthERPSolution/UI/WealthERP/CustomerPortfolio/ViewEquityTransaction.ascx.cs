@@ -108,7 +108,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else if (eqTransactionVo.TransactionCode == 13)
                 {
-                    ddlTranType.SelectedValue = "HLD";
+                    ddlTranType.SelectedValue = "HOLD";
                 }
 
                 LoadEquityTradeNumbers();
