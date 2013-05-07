@@ -122,7 +122,7 @@
 <table width="100%">
     <tr>
         <td colspan="4">
-            <asp:Panel ID="pnlFolioRecon" runat="server" Width="98%" Visible="true">
+            <asp:Panel ID="pnlFolioRecon" runat="server" Width="98%" Visible="true" ScrollBars="Horizontal">
                 <table>
                     <tr>
                         <td>
@@ -174,21 +174,21 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Account Opening Date"
                                                 DataField="CMFA_AccountOpeningDate" UniqueName="CMFA_AccountOpeningDate" SortExpression="CMFA_AccountOpeningDate"
-                                                AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" DataFormatString="{0:d}"
+                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" DataFormatString="{0:d}"
                                                 DataType="System.DateTime" CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="CreatedOn" DataField="CMFA_CreatedOn"
                                                 UniqueName="CMFA_CreatedOn" SortExpression="CMFA_CreatedOn" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
+                                                AllowFiltering="false" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
                                                 CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="ModifiedOn" DataField="CMFA_ModifiedOn"
                                                 UniqueName="CMFA_ModifiedOn" SortExpression="CMFA_ModifiedOn" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
+                                                AllowFiltering="false" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
                                                 CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                         </Columns>
                                     </MasterTableView>
@@ -257,7 +257,7 @@
                                                 UniqueName="CMFT_TransactionDate" SortExpression="CMFT_TransactionDate" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 DataFormatString="{0:d}" DataType="System.DateTime">
-                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Type" DataField="Type"
                                                 UniqueName="Type" SortExpression="Type" AutoPostBackOnFilter="true" AllowFiltering="true"
@@ -289,15 +289,15 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="CreatedOn" DataField="CMFT_CreatedOn"
                                                 UniqueName="CMFT_CreatedOn" SortExpression="CMFT_CreatedOn" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
+                                                AllowFiltering="false" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
                                                 CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="ModifiedOn" DataField="CMFT_ModifiedOn"
                                                 UniqueName="CMFT_ModifiedOn" SortExpression="CMFT_ModifiedOn" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
+                                                AllowFiltering="false" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
                                                 CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                         </Columns>
                                     </MasterTableView>
@@ -347,7 +347,7 @@
                                                 FooterStyle-HorizontalAlign="Left">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="C_PANNum" DataField="C_PANNum"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="PAN No." DataField="C_PANNum"
                                                 UniqueName="C_PANNum" SortExpression="C_PANNum" AutoPostBackOnFilter="true" AllowFiltering="true"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterText="Grand Total:"
                                                 FooterStyle-HorizontalAlign="Left">
@@ -371,21 +371,21 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="ProfilingDate" DataField="C_ProfilingDate"
                                                 UniqueName="C_ProfilingDate" SortExpression="C_ProfilingDate" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
+                                                AllowFiltering="false" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
                                                 CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="CreatedOn" DataField="C_CreatedOn"
                                                 UniqueName="C_CreatedOn" SortExpression="C_CreatedOn" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
+                                                AllowFiltering="false" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
                                                 CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="ModifiedOn" DataField="C_Modifiedon"
                                                 UniqueName="C_Modifiedon" SortExpression="C_Modifiedon" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
+                                                AllowFiltering="false" ShowFilterIcon="false" DataFormatString="{0:d}" DataType="System.DateTime"
                                                 CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                         </Columns>
                                     </MasterTableView>
