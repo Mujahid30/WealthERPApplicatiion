@@ -21,12 +21,14 @@ namespace WealthERP.CustomerPortfolio
     public partial class CustomerPortfolio : System.Web.UI.UserControl
     {
         string path = "";
+        AdvisorVo advisorVo = new AdvisorVo();
         CustomerVo customerVo = new CustomerVo();
         PortfolioBo portfolioBo = new PortfolioBo();
         List<CustomerPortfolioVo> customerPortfolioList = new List<CustomerPortfolioVo>();
         CustomerPortfolioVo customerPortfolioVo;
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
+        string userType;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,7 +37,17 @@ namespace WealthERP.CustomerPortfolio
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
             rmVo = (RMVo)Session["RMVo"];
-           if(!IsPostBack)
+            advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                userType = "advisor";
+
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                userType = "rm";
+            else
+                userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+
+            if(!IsPostBack)
                 BindGridView();
            
         }
@@ -43,8 +55,15 @@ namespace WealthERP.CustomerPortfolio
         private void BindGridView()
         {
             int count;
+             int rmID = 0;
+            int AdviserId = 0;
 
-            DataTable dt = portfolioBo.GetRMCustomerPortfolios(rmVo.RMId, mypager.CurrentPage, out count, hdnNameFilter.Value);
+            if (userType == "advisor" || userType == "ops")
+                AdviserId = advisorVo.advisorId;
+            else if (userType == "rm")
+                rmID = rmVo.RMId;
+
+            DataTable dt = portfolioBo.GetRMCustomerPortfolios(userType, AdviserId, rmID, mypager.CurrentPage, out count, hdnNameFilter.Value);
             lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
             gvCustomerPortfolio.DataSource = dt;
             gvCustomerPortfolio.DataBind();
