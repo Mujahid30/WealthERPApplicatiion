@@ -2272,12 +2272,18 @@ namespace WealthERP.Customer
                 DataTable dtBankName = new DataTable();
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList ddlAccountType = (DropDownList)gefi.FindControl("ddlAccountType");
-                dtAccType = XMLBo.GetBankAccountTypes(path);
+                dtAccType = customerBankAccountBo.AssetBankaccountType();
                 ddlAccountType.DataSource = dtAccType;
-                ddlAccountType.DataTextField = "BankAccountType";
-                ddlAccountType.DataValueField = "BankAccountTypeCode";
+                ddlAccountType.DataValueField = dtAccType.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                ddlAccountType.DataTextField = dtAccType.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
                 ddlAccountType.DataBind();
                 ddlAccountType.Items.Insert(0, new ListItem("Select", "Select"));
+                //dtAccType = XMLBo.GetBankAccountTypes(path);
+                //ddlAccountType.DataSource = dtAccType;
+                //ddlAccountType.DataTextField = "BankAccountType";
+                //ddlAccountType.DataValueField = "BankAccountTypeCode";
+                //ddlAccountType.DataBind();
+                //ddlAccountType.Items.Insert(0, new ListItem("Select", "Select"));
                 //newly added for bank drop downlist start
                 DropDownList ddlBankName = (DropDownList)gefi.FindControl("ddlBankName");
                 //strSelectedbank = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_BankName"].ToString();
@@ -2344,15 +2350,21 @@ namespace WealthERP.Customer
                 ddlBankName.DataBind();
                 ddlBankName.SelectedItem.Text = strSelectedbank;
                 //newly added for bank drop downlist end
-
-
                 DropDownList ddlAccountType = (DropDownList)editedItem.FindControl("ddlAccountType");
-                dtAccType = XMLBo.GetBankAccountTypes(path);
+                dtAccType = customerBankAccountBo.AssetBankaccountType();
                 ddlAccountType.DataSource = dtAccType;
-                ddlAccountType.DataTextField = "BankAccountType";
-                ddlAccountType.DataValueField = "BankAccountTypeCode";
+                ddlAccountType.DataValueField = dtAccType.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                ddlAccountType.DataTextField = dtAccType.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
                 ddlAccountType.DataBind();
                 ddlAccountType.SelectedValue = strAccountType;
+
+                //DropDownList ddlAccountType = (DropDownList)editedItem.FindControl("ddlAccountType");
+                //dtAccType = XMLBo.GetBankAccountTypes(path);
+                //ddlAccountType.DataSource = dtAccType;
+                //ddlAccountType.DataTextField = "BankAccountType";
+                //ddlAccountType.DataValueField = "BankAccountTypeCode";
+                //ddlAccountType.DataBind();
+                //ddlAccountType.SelectedValue = strAccountType;
 
                 DropDownList ddlModeOfOperation = (DropDownList)editedItem.FindControl("ddlModeOfOperation");
                 dtModeOfOpn = XMLBo.GetModeOfHolding(path);
