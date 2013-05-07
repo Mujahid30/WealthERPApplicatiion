@@ -469,7 +469,44 @@ namespace BoSuperAdmin
             }
             return ds;
         }
-        
 
+
+        /// <summary>
+        /// Get Folio and Transaction details of Uploaded data
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="nullable"></param>
+        /// <param name="nullable_3"></param>
+        /// <returns></returns>
+        public DataSet UploadFolioTransactionReconcilation(int adviserId, DateTime fromDate, DateTime toDate)
+        {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            DataSet ds = new DataSet();
+            try
+            {
+
+                ds = superAdminOpsDao.UploadFolioTransactionReconcilation(adviserId, fromDate, toDate);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "SuperAdminOpsBo:UploadFolioTransactionReconcilation()");
+
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
     }
 }
