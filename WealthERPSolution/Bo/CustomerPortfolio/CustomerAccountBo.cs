@@ -2118,6 +2118,53 @@ namespace BoCustomerPortfolio
             return bResult;
 
         }
+        public DataTable GetCashFlowCategory()
+        {
+            DataTable dt = new DataTable();
+            //UserVo userVo = null;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            try
+            {
+                //  userVo = userDao.Getselectlist();
+                dt = customerAccountDao.GetCashFlowCategory();
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dt;
+        }
+        public bool CheckTransactionExistanceOnHoldingAdd(int CBAccountNumber)
+        {
+            bool bResult = false;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+
+            try
+            {
+                bResult = customerAccountDao.CheckTransactionExistanceOnHoldingAdd(CBAccountNumber);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:CheckTransactionExistanceOnHoldingAdd()");
+                object[] objects = new object[2];            
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+
+        }
     }
 }
