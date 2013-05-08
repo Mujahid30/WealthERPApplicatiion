@@ -156,12 +156,14 @@ namespace WealthERP.SuperAdmin
                     Session["UserType"] = "SuperAdmin";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MFNPAndTransactionCompare', 'none')", true);
                 }
+                else if (e.Item.Value == "MIS_Reconciliation")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MutualFundMIS', 'none')", true);
+                }
                 else if (e.Item.Value == "Upload_FolioTranx_Reconcilation")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('UploadFolioTrxnReconcilation', 'none')", true);
                 } 
-
-
             }
             catch (BaseApplicationException Ex)
             {

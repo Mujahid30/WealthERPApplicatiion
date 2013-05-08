@@ -37,6 +37,10 @@
                     <telerik:RadPanelItem Text="Upload Folio/Tranx Reconcilation" Value="Upload_FolioTranx_Reconcilation">
                     </telerik:RadPanelItem>
                 </Items>
+                 <Items>
+                    <telerik:RadPanelItem Text="MIS Reconciliation" Value="MIS_Reconciliation">
+                    </telerik:RadPanelItem>
+                </Items>
                 </telerik:RadPanelItem>
                  <telerik:RadPanelItem Text="Gold Price Maintenance" Value="Gold_Price_Monito">
                 </telerik:RadPanelItem>
