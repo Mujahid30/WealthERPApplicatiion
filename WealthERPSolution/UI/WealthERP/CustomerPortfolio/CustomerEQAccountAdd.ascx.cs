@@ -15,6 +15,7 @@ using VoUser;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using DaoCustomerPortfolio;
+using BoOps;
 using System.Web.Services;
 namespace WealthERP.CustomerPortfolio
 {
@@ -38,10 +39,13 @@ namespace WealthERP.CustomerPortfolio
         int isDefault = 0;
         string path;
         string Id;
+        string account;
+        int CB_CustBankAccId;
+        MFOrderBo mforderBo = new MFOrderBo();
         Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
 
         CustomerAccountDao checkAccDao = new CustomerAccountDao();
-
+        CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         [WebMethod]
         public static bool CheckTradeNoAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
@@ -102,7 +106,7 @@ namespace WealthERP.CustomerPortfolio
                         }
                     }
                 }
-
+                BindCustomerBankList();
             }
             catch (BaseApplicationException Ex)
             {
@@ -186,6 +190,8 @@ namespace WealthERP.CustomerPortfolio
                     txtBrokeragePerSpeculative.Text = "0";
                 if (txtOtherCharges.Text == "")
                     txtOtherCharges.Text = "0";
+                customerAccountsVo.BankName = ddlBankList.SelectedValue.ToString();
+                customerAccountsVo.BankAccountNum = account;
                 if (txtBrokeragePerDelivery.Text != "" || txtBrokeragePerSpeculative.Text != "" || txtOtherCharges.Text != "")
                 {
 
@@ -373,8 +379,100 @@ namespace WealthERP.CustomerPortfolio
 
 
         }
+        /// <summary>
+        /// getting customer banklist
+        /// </summary>
+        private void BindCustomerBankList()
+        {
 
+            DataSet ds = mforderBo.GetEQCustomerBank(customerVo.CustomerId);
+            ddlBankList.DataSource = ds;
+            ddlBankList.DataValueField = ds.Tables[0].Columns["WERPBM_BankCode"].ToString();
+            ddlBankList.DataTextField = ds.Tables[0].Columns["WERPBM_BankName"].ToString();
+            ddlBankList.DataBind();
+            ddlBankList.Items.Insert(0, new ListItem("Select", "0"));
+        }
 
+        /// <summary>
+        /// Getting account number according to bank
+        /// </summary>
+        private void BindAccountNum()
+        {
+            DataTable dtAccountNo = new DataTable();
+            int customerId = customerVo.CustomerId;
+            string bankId = (ddlBankList.SelectedValue);
+            account = ddlAccountNum.SelectedValue.ToString();
+            DataSet dsbindAccount = new DataSet();
+            dsbindAccount = customerAccountBo.GetEQAccountNumber(customerId, bankId);
+            if (dsbindAccount.Tables.Count > 0)
+            {
+                dtAccountNo = dsbindAccount.Tables[0];
+                ddlAccountNum.DataSource = dtAccountNo;
+                ddlAccountNum.DataValueField = dtAccountNo.Columns["CB_AccountNum"].ToString();
+                ddlAccountNum.DataTextField = dtAccountNo.Columns["CB_AccountNum"].ToString();
+                ddlAccountNum.DataBind();
+                // ddlAccountNum.SelectedValue = account;
+            }
+            ddlAccountNum.Items.Insert(0, new ListItem("Select", "0"));
+
+            
+        }
+
+        /// <summary>
+        /// getting the bank list and binding
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void ddlBankList_SelectedIndexChanged(object sender, EventArgs e)
+        {   
+            //empty string initialization for bankcode
+            string bankCode =string.Empty;
+            //0 initialization for int customerid
+            int customerId=0;
+            try
+            {
+                // see if the selectedindex is not zero
+                if (ddlBankList.SelectedIndex != 0)
+                {
+                    // check if the customerid is not 0
+                    if (customerVo.CustomerId != 0)
+                        customerId = customerVo.CustomerId;
+                    // see if the selectedindex is not 0
+                    if (ddlBankList.SelectedIndex != 0)
+                        bankCode = ddlBankList.SelectedValue;
+                    // initialze dataset
+                    DataSet dsbankDetails = new DataSet();
+                    // create dataset wrt to the geteqbankdetails
+                    dsbankDetails = customerPortfolioBo.getBankEQDetailsForCustomer(customerId, bankCode);
+                    // check if the dataset for bank is not null
+                    if (dsbankDetails != null)
+                        // bind the account number
+                        BindAccountNum();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerEQAccountAdd.ascx:ddlBankList_SelectedIndexChanged(object sender, EventArgs e)");
+                object[] objects = new object[4];
+                objects[0] = sender;
+                objects[1] = e;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        protected void ddlAccountNum_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
+        
+        }
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             string TradeAccNo;
@@ -387,7 +485,7 @@ namespace WealthERP.CustomerPortfolio
                 CustomerAccountAssociationVo AccountAssociationVo = new CustomerAccountAssociationVo();
                 customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
                 oldaccountID = customerAccountsVo.TradeNum;
-               newAccountVo.TradeNum = txtTradeNum.Text.ToString();
+                newAccountVo.TradeNum = txtTradeNum.Text.ToString();
                if (oldaccountID == txtTradeNum.Text)
                {
                    newAccountVo.AccountId = customerAccountsVo.AccountId;
@@ -400,9 +498,6 @@ namespace WealthERP.CustomerPortfolio
                    newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
                    if (txtAccountStartingDate.Text != "")
                        newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
-
-
-
                    if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
@@ -416,18 +511,13 @@ namespace WealthERP.CustomerPortfolio
                    if (ControlHost.CheckTradeNoAvailabilityForUpdate(TradeAccNo, BrokerCode, PortfolioId))
                    {
                        newAccountVo.AccountId = customerAccountsVo.AccountId;
-
                        newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedValue);
                        newAccountVo.BrokerCode = ddlBrokerCode.SelectedValue;
-
                        newAccountVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
                        newAccountVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
                        newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
                        if (txtAccountStartingDate.Text != "")
                            newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
-
-
-
                        if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
                            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
@@ -436,14 +526,8 @@ namespace WealthERP.CustomerPortfolio
                    {
 
                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Trade account already exists');", true);
-
                    }
-
-
-
-               }
-
-
+                }
             }
             catch (BaseApplicationException Ex)
             {
