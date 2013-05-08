@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind= "AddBankDetails.ascx.cs" 
-  Inherits="WealthERP.Customer.AddBankDetails" %>    
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddBankDetails.ascx.cs"
+    Inherits="WealthERP.Customer.AddBankDetails" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
@@ -103,15 +103,13 @@
                             <asp:Label ID="Label1" CssClass="FieldName" runat="server" Text="Account No./Bank Name:"></asp:Label>
                         </td>
                         <td>
-                            <asp:Label ID="lblAccId" runat="server" CssClass="Field"></asp:Label>
-                            /
+                            <asp:Label ID="lblAccId" runat="server" CssClass="Field"></asp:Label>                           
                             <asp:Label ID="lblBankName" runat="server" CssClass="Field"></asp:Label>
                             <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAccountDetails_SelectedIndexChanged"
                                 CssClass="cmbField" runat="server" ID="ddlAccountDetails" AppendDataBoundItems="true">
                             </asp:DropDownList>
-                            
                         </td>
-                       <%-- <td class="leftField" align="left">
+                        <%-- <td class="leftField" align="left">
                             <asp:Label ID="lb" CssClass="FieldName" runat="server" Text="Bank Name:"></asp:Label>
                         </td>--%>
                         <td>

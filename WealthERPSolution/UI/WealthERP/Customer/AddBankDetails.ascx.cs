@@ -99,8 +99,8 @@ namespace WealthERP.Customer
             {
 
                 lblheader.Text = "Add/Update Balance";
-                lblAccId.Text = accountNum.ToString();
-                lblBankName.Text = bankname.ToString();
+                lblAccId.Text = accountNum.ToString() + "/" + bankname.ToString();
+                //lblBankName.Text = bankname.ToString();
                 txtholdingAmt.Text = amount.ToString();
                 //lblAccId.Text = customeraccountVo.AccountNum.ToString();
                 ddlAccountDetails.Visible = false;
