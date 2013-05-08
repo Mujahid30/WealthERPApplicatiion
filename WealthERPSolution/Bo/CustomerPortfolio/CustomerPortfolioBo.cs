@@ -3568,5 +3568,21 @@ namespace BoCustomerPortfolio
             }
             return dsgetBankDetails;
         }
+
+        public DataSet getBankEQDetailsForCustomer(int customerId,string bankId)
+        {
+
+            DataSet dsgetBankDetails = new DataSet();
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+                //dsgetBankDetails = customerPortfolioDao.getBankEQDetailsForCustomer(customerId, bankId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsgetBankDetails;
+        }
     }
 }
