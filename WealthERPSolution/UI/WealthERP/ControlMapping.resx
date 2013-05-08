@@ -1561,4 +1561,8 @@
     <value>SuperAdmin//UploadFolioTrxnReconcilation.ascx</value>
     <comment>SuperAdmin//UploadFolioTrxnReconcilation.ascx</comment>
   </data>
+  <data name="AddBankAccount" xml:space="preserve">
+    <value>Customer//AddBankAccount.ascx</value>
+    <comment>Customer//AddBankAccount.ascx</comment>
+  </data>
 </root>

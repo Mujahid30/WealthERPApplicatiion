@@ -70,6 +70,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer//AddBankAccount.ascx.
+        /// </summary>
+        internal static string AddBankAccount {
+            get {
+                return ResourceManager.GetString("AddBankAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//AddBankDetails.ascx.
         /// </summary>
         internal static string AddBankDetails {

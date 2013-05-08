@@ -852,6 +852,7 @@
     </Compile>
     <Compile Include="Advisor\MFNPAndTransactionCompare.ascx.cs">
       <DependentUpon>MFNPAndTransactionCompare.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Advisor\MFNPAndTransactionCompare.ascx.designer.cs">
       <DependentUpon>MFNPAndTransactionCompare.ascx</DependentUpon>
@@ -1857,6 +1858,13 @@
     </Compile>
     <Compile Include="CustomerPortfolio\ViewMutualFundPortfolioTransactions.ascx.designer.cs">
       <DependentUpon>ViewMutualFundPortfolioTransactions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\AddBankAccount.ascx.cs">
+      <DependentUpon>AddBankAccount.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\AddBankAccount.ascx.designer.cs">
+      <DependentUpon>AddBankAccount.ascx</DependentUpon>
     </Compile>
     <Compile Include="Customer\AddBankDetails.ascx.cs">
       <DependentUpon>AddBankDetails.ascx</DependentUpon>
@@ -5896,6 +5904,7 @@
     <Content Include="CustomerPortfolio\RMMultipleTransactionView.ascx" />
     <Content Include="CustomerPortfolio\ViewGeneralInsuranceDetails.ascx" />
     <Content Include="CustomerPortfolio\ViewMFPortfolioValuation.ascx" />
+    <Content Include="Customer\AddBankAccount.ascx" />
     <Content Include="Customer\AddDematAccountDetails.ascx" />
     <Content Include="Customer\CompleteCustomerProfile.ascx" />
     <Content Include="Customer\CustomerAdvisorsNote.ascx" />
