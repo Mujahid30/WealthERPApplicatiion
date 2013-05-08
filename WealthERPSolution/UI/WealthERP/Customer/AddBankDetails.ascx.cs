@@ -72,11 +72,12 @@ namespace WealthERP.Customer
             if (Pagetype == "Add")
             {
                 lblheader.Text = "Add Bank Transaction/Balance";
+                
                 if (!IsPostBack)
                 {
                     BindDDLBankDetails();
                     gvCashSavingTransaction.Visible = false;
-                    DivTransaction.Visible = false;
+                    DivTransaction.Visible = false;                    
                     BindDDLCategory();
                 }
             }

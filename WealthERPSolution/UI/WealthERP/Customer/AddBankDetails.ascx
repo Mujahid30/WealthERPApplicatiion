@@ -100,19 +100,22 @@
                 <table>
                     <tr id="trAccount" runat="server">
                         <td class="leftField" align="center">
-                            <asp:Label ID="Label1" CssClass="FieldName" runat="server" Text="Account No.:"></asp:Label>
+                            <asp:Label ID="Label1" CssClass="FieldName" runat="server" Text="Account No./Bank Name:"></asp:Label>
                         </td>
                         <td>
                             <asp:Label ID="lblAccId" runat="server" CssClass="Field"></asp:Label>
+                            /
+                            <asp:Label ID="lblBankName" runat="server" CssClass="Field"></asp:Label>
                             <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAccountDetails_SelectedIndexChanged"
                                 CssClass="cmbField" runat="server" ID="ddlAccountDetails" AppendDataBoundItems="true">
                             </asp:DropDownList>
+                            
                         </td>
-                        <td class="leftField" align="left">
-                            <asp:Label ID="Label5" CssClass="FieldName" runat="server" Text="Bank Name:"></asp:Label>
-                        </td>
+                       <%-- <td class="leftField" align="left">
+                            <asp:Label ID="lb" CssClass="FieldName" runat="server" Text="Bank Name:"></asp:Label>
+                        </td>--%>
                         <td>
-                            <asp:Label ID="lblBankName" runat="server" CssClass="Field"></asp:Label>
+                            <%--<asp:Label ID="lblBankName" runat="server" CssClass="Field"></asp:Label>--%>
                         </td>
                     </tr>
                     <tr runat="server" id="trHoldingAndTrnx" visible="false">
