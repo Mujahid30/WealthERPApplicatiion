@@ -148,5 +148,18 @@ namespace BoOps
             }
             return result;
         }
+        public DataSet GetEQCustomerBank(int customerId)
+        {
+            DataSet dsGetCustomerBank;
+            try
+            {
+                dsGetCustomerBank = mfOrderDao.GetEQCustomerBank(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetCustomerBank;
+        }
     }
 }
