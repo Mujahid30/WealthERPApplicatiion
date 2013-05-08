@@ -380,7 +380,7 @@ namespace DaoOps
             Database db;
             DbCommand getCustomerBankcmd;
             try
-            {
+                {
                 //  Shantanu Dated :- 18thSept2012
                 //Don't Change this scripts As I am using same while MF Folio Add. If you want to change ,
                 //then test the folio Add Screen also..
@@ -466,6 +466,29 @@ namespace DaoOps
                 return status = true;
             else
                 return status = false;
+        }
+        public DataSet GetEQCustomerBank(int customerId)
+        {
+            DataSet dsGetCustomerBank;
+            Database db;
+            DbCommand getCustomerBankcmd;
+            try
+            {
+                //  Shantanu Dated :- 18thSept2012
+                //Don't Change this scripts As I am using same while MF Folio Add. If you want to change ,
+                //then test the folio Add Screen also..
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerBankcmd = db.GetStoredProcCommand("SP_GetBankAccountEQDetails");
+                db.AddInParameter(getCustomerBankcmd, "@C_CustomerId", DbType.Int32, customerId);
+               // db.AddInParameter(getCustomerBankcmd, "@CB_CustBankAccId", DbType.Int32, CB_CustBankAccId);
+                dsGetCustomerBank = db.ExecuteDataSet(getCustomerBankcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetCustomerBank;
         }
     }
 }
