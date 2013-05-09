@@ -243,15 +243,15 @@
             </tr>
         </table>
         <table width="100%" class="TableBackground">
-           <tr>
-                 <td class="leftField" align="right">
-            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
-            </asp:DropDownList>
-                 </td>
+            <tr>
+                <td class="leftField" align="right">
+                    <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
+                    </asp:DropDownList>
+                </td>
             </tr>
             <tr>
                 <td class="leftField" align="right">
@@ -394,25 +394,13 @@
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                         Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
                     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnUpdate_Click"
-                        Visible="False" />
+                        OnClientClick="return isValidInUpdateCase()" Visible="False" />
                 </td>
             </tr>
         </table>
-
-<table width="100%">
-<tr>
-         <td colspan="2" class="SubmitCell">
-            <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
-                Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()"/>
-           <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" onclick="btnUpdate_Click" OnClientClick="return isValidInUpdateCase()" Visible="False" />
-        </td>
-      
-    </tr>
-    </table>
-       <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
-<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
-        </ContentTemplate>
+        <asp:HiddenField ID="hdnIsMainPortfolio" runat="server" />
+        <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
+    </ContentTemplate>
 </asp:UpdatePanel>
 <input type="hidden" id="hidValid" />
 <input type="hidden" id="hidStatus" runat="server" />
