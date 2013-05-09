@@ -731,16 +731,6 @@ namespace WealthERP.Advisor
 
             }
 
-            if (rmVo.RMRole != null)
-            {
-                if(rmVo.RMRole=="RM")
-                    ChklistRMBM.Items[0].Selected=true;
-                if(rmVo.RMRole=="BM")
-                    ChklistRMBM.Items[0].Selected=true;
-                if(rmVo.RMRole=="Research")
-                    ChklistRMBM.Items[0].Selected = true;
-            }
-
             if (rmVo.IsExternal == 1)
                 chkExternalStaff.Checked = true;
             else
@@ -921,14 +911,7 @@ namespace WealthERP.Advisor
 
 
                     //*************Role Association Creation and deletion************************
-                    //if (chkOps.Checked == true)
-                    //{
-                        //rmVo.RMRole = "Ops";
-                        //userBo.CreateRoleAssociation(rmVo.UserId, 1004);
 
-                    //}
-                    //else
-                    //{
                         bool RMBMResearchRole = false;
                         string[] RoleListArray = rmVo.RMRoleList.Split(new char[] { ',' });
                         foreach (string Role in RoleListArray)
