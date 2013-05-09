@@ -292,7 +292,7 @@ namespace DaoCustomerPortfolio
 
                         if (dr["CINP_ULIPCharges"].ToString() != null && dr["CINP_ULIPCharges"].ToString() != "")
                             insuranceVo.InsuranceCharges = float.Parse(dr["CINP_ULIPCharges"].ToString());
-                        
+                        if (dr["CINP_PremiumPaymentDate"].ToString() != null && dr["CINP_PremiumPaymentDate"].ToString() != "")
                         insuranceVo.PremiumPaymentDate = Int16.Parse(dr["CINP_PremiumPaymentDate"].ToString());
                         if (dr["CINP_FirstPremiumDate"].ToString() != string.Empty)
                             insuranceVo.FirstPremiumDate = DateTime.Parse(dr["CINP_FirstPremiumDate"].ToString());
