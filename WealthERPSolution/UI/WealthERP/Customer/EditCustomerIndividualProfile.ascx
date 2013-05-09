@@ -5,6 +5,14 @@
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
 
+
+
+<script type="text/javascript">
+    function ButtonClick() {
+        window.open('PopUp.aspx?PageId=AddBankAccount &AddMFFolioLinkId= AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+        return false;
+    }
+</script>
 <script type="text/javascript">
 
     function CloseWindowsPopUp() {
@@ -421,7 +429,7 @@
                                                                     <td>
                                                                     </td>
                                                                     <td>
-                                                                        <asp:Button ID="Button3" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                                        <asp:Button ID="Button3" Text='<.%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                                             runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                                             ValidationGroup="Submit"></asp:Button>
                                                                     </td>
@@ -774,12 +782,12 @@
                 <div style="width: 100%; padding-left: 10px; padding-top: 5px;">
                     <telerik:RadGrid ID="gvBankDetails" runat="server" CssClass="RadGrid" GridLines="Both"
                         Width="90%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
-                        ShowStatusBar="true" AllowAutomaticDeletes="True" Skin="Telerik" OnItemDataBound="gvBankDetails_ItemDataBound"
-                        OnNeedDataSource="gvBankDetails_NeedDataSource" OnItemCommand="gvBankDetails_ItemCommand">
+                        ShowStatusBar="true" AllowAutomaticDeletes="True" Skin="Telerik" OnItemCommand="gvBankDetails_ItemCommand" 
+                        OnNeedDataSource="gvBankDetails_NeedDataSource" >
                         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                         </ExportSettings>
                         <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,CB_BankName,BankAccountTypeCode,CB_BranchAdrState"
-                            EditMode="EditForms" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                            CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" 
                             CommandItemSettings-AddNewRecordText="Add New Bank Details">
                             <Columns>
                                 <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
@@ -861,7 +869,8 @@
                                     <HeaderStyle></HeaderStyle>
                                 </telerik:GridBoundColumn>
                             </Columns>
-                            <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
+                            <EditFormSettings EditFormType="Template"></EditFormSettings>
+                            <%--<EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
                                 <FormTemplate>
                                     <table width="100%" style="background-color: White">
                                         <tr>
@@ -924,14 +933,11 @@
                                                 <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
                                             </td>
                                             <td class="rightField">
-                                                <%-- <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" Style="width: 250px;"
-                                                    Text='<%# Bind("CB_BankName") %>'></asp:TextBox>--%>
+                                              
                                                 <asp:DropDownList ID="ddlBankName" CssClass="cmbField" runat="server">
                                                 </asp:DropDownList>
                                                 <span id="spBankName" class="spnRequiredField">*</span>
-                                                <%--<asp:RequiredFieldValidator ID="rfvBankName" ControlToValidate="txtBankName" ErrorMessage="<br />Please enter a Bank Name"
-                                                    Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
-                                                </asp:RequiredFieldValidator>--%>
+                                              
                                             </td>
                                             <td colspan="2">
                                                 &nbsp;
@@ -1070,10 +1076,12 @@
                                         </tr>
                                     </table>
                                 </FormTemplate>
-                            </EditFormSettings>
+                            </EditFormSettings>--%>
+                           <%-- OnCommand="ButtonClick"--%>
                         </MasterTableView>
                         <ClientSettings>
                             <Selecting AllowRowSelect="true" />
+                            <ClientEvents OnCommand="ButtonClick"/>
                         </ClientSettings>
                     </telerik:RadGrid>
                 </div>

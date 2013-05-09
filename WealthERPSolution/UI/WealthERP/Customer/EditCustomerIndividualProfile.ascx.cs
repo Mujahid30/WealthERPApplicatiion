@@ -1951,6 +1951,17 @@ namespace WealthERP.Customer
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
                 customerBankAccountBo.DeleteCustomerBankAccount(bankId);
             }
+            if (e.CommandName == RadGrid.InitInsertCommandName)
+            {
+                Session["customerBankAccountVo" + customerVo.CustomerId] = null;
+            }
+            if (e.CommandName == "Edit")
+            {
+                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());               
+                customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
+                Session["customerBankAccountVo"+customerVo.CustomerId] = customerBankAccountVo;              
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('AddBankAccount','?action=" + "View" + "&bankId=" + bankId + "');", true);
+            }
             BindBankDetails(customerId);
         }
 
