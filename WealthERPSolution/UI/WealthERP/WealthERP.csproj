@@ -5951,6 +5951,7 @@
     <Content Include="Emails\Templates\MT_ResetPassword.html" />
     <Content Include="Emails\Templates\ResetPassword.htm" />
     <Content Include="Emails\Templates\ResetPassword.html" />
+    <Content Include="Emails\Templates\SendMail.html" />
     <Content Include="favicon.ico" />
     <Content Include="FP\AddProspectList.ascx" />
     <Content Include="FP\ByPass.aspx" />
@@ -6162,6 +6163,7 @@
     <Content Include="Images\RiskProtection.png" />
     <Content Include="Images\rollback.png" />
     <Content Include="Images\SCBFPImage.jpg" />
+    <Content Include="Images\Schedule.png" />
     <Content Include="Images\ScreenInfo.png" />
     <Content Include="Images\Select.png" />
     <Content Include="Images\spacer.png" />
@@ -6169,6 +6171,7 @@
     <Content Include="Images\Standard Chartered Bank_AmpsysLogo.jpg" />
     <Content Include="Images\Standard Chartered_d33013900a7ff179ab7cba2826f5_grande - Copy.jpg" />
     <Content Include="Images\StandardCharted_sbc.jpg" />
+    <Content Include="Images\Status.png" />
     <Content Include="Images\submit.png" />
     <Content Include="Images\success.png" />
     <Content Include="Images\Telerik\AddButton.gif" />
