@@ -645,7 +645,9 @@ namespace WealthERP.BusinessMIS
                     }
                     else if (userType == "bm")
                     {
-                        dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(ddlAdviser.SelectedValue), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date, int.Parse(hdnType.Value), AmcCode, SchemeCode);
+                        if (string.IsNullOrEmpty(hdnadviserId.Value))
+                            hdnadviserId.Value = "0";
+                        dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date, int.Parse(hdnType.Value), AmcCode, SchemeCode);
                     }
                 }
                 else
