@@ -688,18 +688,18 @@
                                                 <table width="100%">
                                                     <tr id="trAdminRM" runat="server">
                                                         <td colspan="2" align="right">
-                                                            <asp:Button ID="btnViewReport" runat="server" OnClientClick="return validate('')"
-                                                                PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
-                                                            <div id="div1" style="display: none;">
-                                                                <p class="tip">
-                                                                    Click here to view Portfolio report.
-                                                                </p>
-                                                            </div>
                                                             <asp:Button ID="btnExportToPDF" runat="server" OnClientClick="return validate('pdf')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
                                                             <div id="div2" style="display: none;">
                                                                 <p class="tip">
                                                                     Click here to view MF report in pdf format.
+                                                                </p>
+                                                            </div>
+                                                            <asp:Button ID="btnViewReport" runat="server" OnClientClick="return validate('')"
+                                                                PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
+                                                            <div id="div1" style="display: none;">
+                                                                <p class="tip">
+                                                                    Click here to view Portfolio report.
                                                                 </p>
                                                             </div>
                                                             <asp:Button ID="btnViewInDOC" runat="server" CssClass="DOCButton" OnClientClick="return validate('doc')"
@@ -712,18 +712,18 @@
                                                     </tr>
                                                     <tr id="trCustomer" runat="server">
                                                         <td colspan="2" align="right">
-                                                            <asp:Button ID="btnCustomerViewReport" runat="server" OnClientClick="return CustomerValidate('view')"
-                                                                PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
-                                                            <div id="div4" style="display: none;">
-                                                                <p class="tip">
-                                                                    Click here to view MF report.
-                                                                </p>
-                                                            </div>
                                                             <asp:Button ID="btnCustomerExportToPDF" runat="server" OnClientClick="return CustomerValidate('pdf')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
                                                             <div id="div5" style="display: none;">
                                                                 <p class="tip">
                                                                     Click here to view MF report in pdf format.
+                                                                </p>
+                                                            </div>
+                                                            <asp:Button ID="btnCustomerViewReport" runat="server" OnClientClick="return CustomerValidate('view')"
+                                                                PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
+                                                            <div id="div4" style="display: none;">
+                                                                <p class="tip">
+                                                                    Click here to view MF report.
                                                                 </p>
                                                             </div>
                                                             <asp:Button ID="btnCustomerViewInDOC" runat="server" CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
