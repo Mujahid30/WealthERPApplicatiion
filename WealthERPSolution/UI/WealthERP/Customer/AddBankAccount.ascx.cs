@@ -69,6 +69,7 @@ namespace WealthERP.Customer
             {
                 action = Request.QueryString["action"].ToString();
             }
+
             if (!IsPostBack)
             {
                 BindPortfolio();
@@ -79,23 +80,48 @@ namespace WealthERP.Customer
                 ddlModeofOperation.SelectedValue = "SI";
                 ddlModeofOperation.Enabled = false;
             }
-
-
-            if (action == "View")
+            if (Session["customerBankAccountVo" + customerVo.CustomerId] != null)
+            {
+                customerBankAccountVo = (CustomerBankAccountVo)Session["customerBankAccountVo" + customerVo.CustomerId];
+                ddlAccountType.SelectedValue = customerBankAccountVo.AccountType;
+                txtAccountNumber.Text = customerBankAccountVo.BankAccountNum;
+                ddlBankName.SelectedValue = customerBankAccountVo.BankName;
+                txtBranchName.Text = customerBankAccountVo.BranchName;
+                txtBankAdrLine1.Text = customerBankAccountVo.BranchAdrLine1;
+                txtBankAdrLine2.Text = customerBankAccountVo.BranchAdrLine2;
+                txtBankAdrLine3.Text = customerBankAccountVo.BranchAdrLine3;
+                if (customerBankAccountVo.BranchAdrPinCode.ToString() != "")
+                {
+                    txtBankAdrPinCode.Text = customerBankAccountVo.BranchAdrPinCode.ToString();
+                }
+                else
+                    txtBankAdrPinCode.Text = "";
+                txtBankAdrCity.Text = customerBankAccountVo.BranchAdrCity;
+                if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
+                {
+                    ddlBankAdrState.SelectedValue = customerBankAccountVo.BranchAdrState;
+                }
+                else
+                    ddlBankAdrState.SelectedValue = "Select";
+                txtMicr.Text = customerBankAccountVo.MICR.ToString();
+                txtIfsc.Text = customerBankAccountVo.IFSC;
+                btnUpdate.Visible = true;
+                btnSubmit.Visible = false;
+              //s  SetVisiblity(0);
+               // lnkBtnEdit.Visible = true;
+            }        
+          if (action == "View")
             {
                 BtnSetVisiblity(0);
                 //lnkBack.Visible = true;
                 ViewBankAccountDetails();
-
             }
             else if (action == "Edit")
             {
                 BtnSetVisiblity(1);
                 EditBankAccountDetails();
             }
-
         }
-
         public void BindPortfolio()
         {
             DataSet ds = portfolioBo.GetCustomerPortfolio(customerVo.CustomerId);
