@@ -531,7 +531,15 @@ namespace WealthERP.Uploads
         public bool Validation()
         {
             bool result = true;
-            int adviserId = (int)Session["adviserId"];
+            int adviserId = 0;
+            if(userVo.UserType == "SuperAdmin")
+            {
+                adviserId = (int)Session["adviserId_Upload"];
+            }
+            else if (userVo.UserType != "")
+            {
+                adviserId = (int)Session["adviserId"];
+             }
             try
             {
                 if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))

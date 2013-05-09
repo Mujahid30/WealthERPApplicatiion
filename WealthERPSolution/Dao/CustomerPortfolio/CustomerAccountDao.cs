@@ -493,7 +493,7 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_JOINT_NAME2", DbType.String, DBNull.Value);
                 }
-                if (!string.IsNullOrEmpty(customerAccountVo.Name))
+                if (!string.IsNullOrEmpty(customerAccountVo.CPhoneOffice.ToString()))
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, customerAccountVo.CPhoneOffice);
                 }
@@ -501,7 +501,7 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, DBNull.Value);
                 }
-                if (!string.IsNullOrEmpty(customerAccountVo.Name))
+                if (!string.IsNullOrEmpty(customerAccountVo.CPhoneRes.ToString()))
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Int64, customerAccountVo.CPhoneRes);
                 }
