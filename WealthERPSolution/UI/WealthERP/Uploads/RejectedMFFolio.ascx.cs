@@ -117,7 +117,8 @@ namespace WealthERP.Uploads
                     if (hfRmId.Value != "")
                     {
                         rmId = Convert.ToInt32(hfRmId.Value);
-                    }  
+                    }
+                    Session["adviserId_Upload"] = adviserId;
                 }
                 else
                 {                  
@@ -4614,7 +4615,7 @@ namespace WealthERP.Uploads
             {
                 adviserId = int.Parse(ddlAdviser.SelectedValue);
                 DataSet dsAdviserRmDetails = superAdminOpsBo.GetAdviserRmDetails(adviserId);
-
+                Session["adviserId_Upload"] = adviserId;
                 if (dsAdviserRmDetails.Tables[0].Rows.Count > 0)
                 {
                     rmId = int.Parse(dsAdviserRmDetails.Tables[0].Rows[0]["ar_rmid"].ToString());

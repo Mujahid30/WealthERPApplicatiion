@@ -66,6 +66,7 @@ namespace WealthERP.Uploads
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            userVo = (UserVo)Session["userVo"];
             lblRefine.Visible = false;
             lblMessage.Text = "";
             if (advisorVo.IsISASubscribed == true)
@@ -761,8 +762,24 @@ namespace WealthERP.Uploads
             rbtnIndividual.Checked = true;
             trIndividualName.Visible = false;
             trNonIndividualName.Visible = false;
-            BindListBranch(advisorVo.advisorId, "adviser");
+            if (userVo.UserType != "SuperAdmin")
+            {
+                BindListBranch(advisorVo.advisorId, "adviser");
+            }
+            else
+            {
+                int adviserId=0;
+                if(Session["adviserId_Upload"] != null)
+                adviserId = (int)Session["adviserId_Upload"];
+                BindListBranch(adviserId, "adviser");
+            }
+            
             BindSubTypeDropDown();
+            //if (userVo.UserType == "SuperAdmin")
+            //{
+            //    advisorVo.advisorId = 1000;
+            //}
+
         }
 
         private void BindRMforBranchDropdown(int branchId, int branchHeadId)

@@ -69,7 +69,7 @@ namespace WealthERP.Uploads
                     trGridView.Visible = true;
                    
                     Panel2.ScrollBars = ScrollBars.Horizontal;
-
+                    Session["adviserId_Upload"] = adviserId;
                 }
                 else
                 {
@@ -722,7 +722,7 @@ namespace WealthERP.Uploads
                 trReprocess.Visible = false;
                 BindEquityTransactionGrid(ProcessId);
                 //imgBtnrgHoldings.Visible = true;
-
+                Session["adviserId_Upload"] = adviserId;
             }
             else
             {

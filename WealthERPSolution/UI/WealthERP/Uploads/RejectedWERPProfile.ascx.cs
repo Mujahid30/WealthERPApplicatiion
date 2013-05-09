@@ -131,6 +131,7 @@ namespace WealthERP.Uploads
                     trGridView.Visible = true;
 
                     Panel2.ScrollBars = ScrollBars.Horizontal;
+                    Session["adviserId_Upload"] = adviserId;
                 }
                 else
                 {
@@ -901,6 +902,7 @@ namespace WealthERP.Uploads
                 ProcessId = int.Parse(hdnProcessIdFilter.Value);
                 // Bind Grid
                 BindWerpProfileGrid(ProcessId);
+                Session["adviserId_Upload"] = adviserId;
             }
             else
             {
