@@ -6,8 +6,11 @@
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+
 <script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
@@ -16,9 +19,9 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-    $('#ctrl_PortfolioReports_btnView').bubbletip($('#div1'), { deltaDirection: 'left' });
-    $('#ctrl_PortfolioReports_btnViewInPDF').bubbletip($('#div2'), { deltaDirection: 'left' });
-    $('#ctrl_PortfolioReports_btnViewInDOC').bubbletip($('#div3'), { deltaDirection: 'left' });
+        $('#ctrl_PortfolioReports_btnView').bubbletip($('#div1'), { deltaDirection: 'left' });
+        $('#ctrl_PortfolioReports_btnViewInPDF').bubbletip($('#div2'), { deltaDirection: 'left' });
+        $('#ctrl_PortfolioReports_btnViewInDOC').bubbletip($('#div3'), { deltaDirection: 'left' });
     });
 </script>
 
@@ -98,7 +101,7 @@
         else if (type == 'pdf')
             window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
         else if (type == 'doc')
-            window.document.forms[0].action = "/Reports/Display.aspx?mail=4"; 
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=4";
         else
             window.document.forms[0].action = "/Reports/Display.aspx?mail=0";
         setTimeout(function() {
@@ -241,54 +244,53 @@
     </tr>
     <tr id="trAdminRmButton" runat="server">
         <td colspan="2" align="right">
-         <asp:Button ID="btnView" runat="server"  OnClientClick="return validate('')"
-                PostBackUrl="~/Reports/Display.aspx" CssClass="CrystalButton" />&nbsp;&nbsp;
-                <div id="div1" style="display: none;">
+            <asp:Button ID="btnViewInPDF" runat="server" OnClientClick="return validate('pdf')"
+                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+            <div id="div2" style="display: none;">
+                <p class="tip">
+                    Click here to view Portfolio report in pdf format.
+                </p>
+            </div>
+            <asp:Button ID="btnView" runat="server" OnClientClick="return validate('')" PostBackUrl="~/Reports/Display.aspx"
+                CssClass="CrystalButton" />&nbsp;&nbsp;
+            <div id="div1" style="display: none;">
                 <p class="tip">
                     Click here to view Portfolio report.
                 </p>
             </div>
             <%--<asp:Button ID="btnMail" runat="server" Text="Email Report" OnClientClick="return validate('mail')"
                 PostBackUrl="~/Reports/Display.aspx?mail=1" CssClass="PCGMediumButton" />--%>
-            <asp:Button ID="btnViewInPDF" runat="server"   OnClientClick="return validate('pdf')"
-                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton"  />&nbsp;&nbsp;
-                 <div id="div2" style="display: none;">
-                <p class="tip">
-                   Click here to view Portfolio report in pdf format.
-                </p>
-      </div>
-            <asp:Button ID="btnViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return validate('doc')"
+            <asp:Button ID="btnViewInDOC" runat="server" CssClass="DOCButton" OnClientClick="return validate('doc')"
                 PostBackUrl="~/Reports/Display.aspx?mail=4" />&nbsp;&nbsp;
-                    <div id="div3" style="display: none;">
+            <div id="div3" style="display: none;">
                 <p class="tip">
                     Click here to view Portfolio report in word doc.</p>
-     </div>  
-    </td>
+            </div>
+        </td>
     </tr>
-    <tr id="trCustomerButton" runat="server" >
+    <tr id="trCustomerButton" runat="server">
         <td colspan="2" align="right">
-         <asp:Button ID="btnCustomerViewReport" runat="server"  OnClientClick="return CustomerValidate('view')"
-         PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
-                <div id="div4" style="display: none;">
+            <asp:Button ID="btnCustomerExportToPDF" runat="server" OnClientClick="return CustomerValidate('pdf')"
+                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+            <div id="div5" style="display: none;">
+                <p class="tip">
+                    Click here to view portfolio report in pdf format.
+                </p>
+            </div>
+            <asp:Button ID="btnCustomerViewReport" runat="server" OnClientClick="return CustomerValidate('view')"
+                PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
+            <div id="div4" style="display: none;">
                 <p class="tip">
                     Click here to view Portfolio report.
                 </p>
             </div>
-           
-            <asp:Button ID="btnCustomerExportToPDF" runat="server"  OnClientClick="return CustomerValidate('pdf')"
-             PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
-                 <div id="div5" style="display: none;">
-                <p class="tip">
-                   Click here to view portfolio report in pdf format.
-                </p>
-      </div>
-            <asp:Button ID="btnCustomerViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
+            <asp:Button ID="btnCustomerViewInDOC" runat="server" CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
                 PostBackUrl="~/Reports/Display.aspx?mail=4" />&nbsp;&nbsp;
-                    <div id="div6" style="display: none;">
+            <div id="div6" style="display: none;">
                 <p class="tip">
                     Click here to view Portfolio report in word doc.</p>
-     </div>  
-    </td>
+            </div>
+        </td>
     </tr>
     <tr>
         <td>
@@ -308,7 +310,7 @@
                                         Text="Step 1 : Select Customer"></asp:Label>
                                 </td>
                             </tr>
-                            <tr Id="trAdminCustomer" runat="server">
+                            <tr id="trAdminCustomer" runat="server">
                                 <td class="leftField">
                                     <asp:Label ID="lblGroupHead" runat="server" CssClass="FieldName" Text="Group Head :"></asp:Label>
                                 </td>
@@ -334,10 +336,11 @@
                                 </td>
                             </tr>
                             <tr id="trCustomerGrHead" runat="server">
-                            <td>
-                            <asp:Label ID="lblCustomerGrHead" runat="server" Text="" CssClass="FieldName"></asp:Label>
-                            </td>
-                            <td></td>
+                                <td>
+                                    <asp:Label ID="lblCustomerGrHead" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
@@ -362,9 +365,10 @@
                                         </tr>
                                         <tr id="tr1" runat="server">
                                             <td id="Td3" runat="server" class="leftField">
-                                                <asp:Label ID="lblGroupPortfolio" runat="server" CssClass="FieldName" Text="Portfolio :"></asp:Label> &nbsp;  
+                                                <asp:Label ID="lblGroupPortfolio" runat="server" CssClass="FieldName" Text="Portfolio :"></asp:Label>
+                                                &nbsp;
                                             </td>
-                                            <td id="Td4" runat="server"  class="rightfield">
+                                            <td id="Td4" runat="server" class="rightfield">
                                                 <asp:DropDownList ID="ddlGroupPortfolioGroup" runat="server" CssClass="cmbField"
                                                     OnSelectedIndexChanged="ddlGroupPortfolioGroup_SelectedIndexChanged" AutoPostBack="True">
                                                     <asp:ListItem Text="Managed" Value="MANAGED" Selected="True"></asp:ListItem>
@@ -428,11 +432,12 @@
                                         few characters of customer name.</span>--%>
                                 </td>
                             </tr>
-                             <tr id="trCustomerInd" runat="server">
-                            <td>
-                            <asp:Label ID="lblCustomerIndi" runat="server" CssClass="FieldName" Text=""></asp:Label>
-                            </td>
-                            <td></td>
+                            <tr id="trCustomerInd" runat="server">
+                                <td>
+                                    <asp:Label ID="lblCustomerIndi" runat="server" CssClass="FieldName" Text=""></asp:Label>
+                                </td>
+                                <td>
+                                </td>
                             </tr>
                         </table>
                         <table border="0">
@@ -451,7 +456,7 @@
                             <tr id="trPortfolioDetails" runat="server" visible="false">
                                 <td colspan="2">
                                     <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio :"></asp:Label>
-                                     <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolioGroup_SelectedIndexChanged"
+                                    <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolioGroup_SelectedIndexChanged"
                                         AutoPostBack="true">
                                         <asp:ListItem Text="Managed" Value="MANAGED" Selected="True">Managed</asp:ListItem>
                                         <asp:ListItem Text="UnManaged" Value="UN_MANAGED">UnManaged</asp:ListItem>
@@ -493,14 +498,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:110px">
+                    <td style="width: 110px">
                         <asp:Label ID="Label4" runat="server" CssClass="FieldName">Report sub type: </asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">                            
-                             <asp:ListItem Text="" Value="ASSET_ALLOCATION_REPORT" Selected="True">Asset Summary</asp:ListItem>
-                             <asp:ListItem Text="" Value="COMPREHENSIVE_NETWORTH_REPORT">Comprehensive Networth</asp:ListItem>
-                             <asp:ListItem Text="" Value="MULTI_ASSET_SUMMARY_REPORT">Net Worth</asp:ListItem>
+                        <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">
+                            <asp:ListItem Text="" Value="ASSET_ALLOCATION_REPORT" Selected="True">Asset Summary</asp:ListItem>
+                            <asp:ListItem Text="" Value="COMPREHENSIVE_NETWORTH_REPORT">Comprehensive Networth</asp:ListItem>
+                            <asp:ListItem Text="" Value="MULTI_ASSET_SUMMARY_REPORT">Net Worth</asp:ListItem>
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -592,7 +597,8 @@
                                     <asp:Label ID="lblAsOnDate" runat="server" CssClass="FieldName">As on date :</asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtAsOnDate" runat="server" OnTextChanged="ChckBussDate_Textchanged"  AutoPostBack="true" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtAsOnDate" runat="server" OnTextChanged="ChckBussDate_Textchanged"
+                                        AutoPostBack="true" CssClass="txtField"></asp:TextBox>
                                     <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAsOnDate"
                                         Format="dd/MM/yyyy">
                                     </ajaxToolkit:CalendarExtender>
@@ -613,7 +619,7 @@
     </tr>
     <tr>
         <td>
-          <%--  <asp:Button ID="btnView" runat="server" Text="View Report" OnClientClick="return validate('')"
+            <%--  <asp:Button ID="btnView" runat="server" Text="View Report" OnClientClick="return validate('')"
                 PostBackUrl="~/Reports/Display.aspx" CssClass="PCGMediumButton" />--%>
             &nbsp;
             <%--<asp:Button ID="btnMail" runat="server" Text="Email Report" OnClientClick="return validate('mail')"
@@ -624,7 +630,9 @@
 </table>
 <div style="margin: 6px">
     <label id="lbl" class="HeaderTextSmall">
-        Note: Only historical data is accessible from this screen. Recent data for the last 2 Business day will not be available. To view the recent data View Dashboards & Net Positions.</label>
+        Note: Only historical data is accessible from this screen. Recent data for the last
+        2 Business day will not be available. To view the recent data View Dashboards &
+        Net Positions.</label>
 </div>
 <asp:HiddenField ID="hidFromDate" Value="" runat="server" />
 <asp:HiddenField ID="hidToDate" Value="" runat="server" />
@@ -634,6 +642,7 @@
 <asp:HiddenField ID="hndCustomerLogin" runat="server" />
 <asp:HiddenField ID="hdnCustomerId1" runat="server" />
 <asp:HiddenField ID="hdnValuationDate" runat="server" />
+
 <script>
     if (document.getElementById("<%= rbtnPickDate.ClientID %>").checked) {
         document.getElementById("<%= rbtnPickDate.ClientID %>").style.display = 'block';
