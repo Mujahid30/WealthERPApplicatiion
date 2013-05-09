@@ -278,6 +278,13 @@
     </tr>
     <tr id="trAdminRmButton" runat="server">
         <td colspan="2" align="right">
+            <asp:Button ID="btnViewInPDF" runat="server" OnClientClick="return validate('pdf')"
+                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+            <div id="div2" style="display: none;">
+                <p class="tip">
+                    Click here to view equity report in pdf format.
+                </p>
+            </div>
             <asp:Button ID="btnView" runat="server" OnClientClick="return validate('')" PostBackUrl="~/Reports/Display.aspx"
                 CssClass="CrystalButton" />&nbsp;&nbsp;
             <div id="div1" style="display: none;">
@@ -287,13 +294,6 @@
             </div>
             <%--<asp:Button ID="btnMail" runat="server" Text="Email Report" OnClientClick="return validate('mail')"
                 PostBackUrl="~/Reports/Display.aspx?mail=1" CssClass="PCGMediumButton" />--%>
-            <asp:Button ID="btnViewInPDF" runat="server" OnClientClick="return validate('pdf')"
-                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
-            <div id="div2" style="display: none;">
-                <p class="tip">
-                    Click here to view equity report in pdf format.
-                </p>
-            </div>
             <asp:Button ID="btnViewInDOC" runat="server" CssClass="DOCButton" OnClientClick="return validate('doc')"
                 PostBackUrl="~/Reports/Display.aspx?mail=4" />&nbsp;&nbsp;
             <div id="div3" style="display: none;">
@@ -304,18 +304,18 @@
     </tr>
     <tr id="trCustomerButton" runat="server">
         <td colspan="2" align="right">
-            <asp:Button ID="btnCustomerViewReport" runat="server" OnClientClick="return CustomerValidate('view')"
-                PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
-            <div id="div4" style="display: none;">
-                <p class="tip">
-                    Click here to view equity report.
-                </p>
-            </div>
             <asp:Button ID="btnCustomerExportToPDF" runat="server" OnClientClick="return CustomerValidate('pdf')"
                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
             <div id="div5" style="display: none;">
                 <p class="tip">
                     Click here to view equity report in pdf format.
+                </p>
+            </div>
+            <asp:Button ID="btnCustomerViewReport" runat="server" OnClientClick="return CustomerValidate('view')"
+                PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
+            <div id="div4" style="display: none;">
+                <p class="tip">
+                    Click here to view equity report.
                 </p>
             </div>
             <asp:Button ID="btnCustomerViewInDOC" runat="server" CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
@@ -706,3 +706,4 @@
     }
    
 </script>
+
