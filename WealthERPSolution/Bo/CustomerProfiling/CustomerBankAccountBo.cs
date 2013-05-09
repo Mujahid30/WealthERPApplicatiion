@@ -297,6 +297,22 @@ namespace BoCustomerProfiling
 
             return dt;
         }
-        
+         public CustomerBankAccountVo GetCusomerIndBankAccount( int customerBankAccId)
+         {      
+            CustomerBankAccountDao customerBankAccountDao = new CustomerBankAccountDao();
+            CustomerBankAccountVo customerBankAccountVo = new CustomerBankAccountVo();
+            try
+            {
+                //  userVo = userDao.Getselectlist();
+                customerBankAccountVo = customerBankAccountDao.GetCusomerIndBankAccount(customerBankAccId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return customerBankAccountVo;
+        }
     }
 }
