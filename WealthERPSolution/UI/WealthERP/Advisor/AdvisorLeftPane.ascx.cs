@@ -555,6 +555,14 @@ namespace WealthERP.Advisor
                     Session.Remove("LinkAction");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
                 }
+                else if (e.Item.Value == "Add FP Prospect")
+                {
+                    Session["UserType"] = "adviser";
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
+                }
                 else if (e.Item.Value == "Manage Portfolio")
                 {
                     Session["UserType"] = "adviser";
@@ -932,6 +940,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add FP Prospect")
                 {
+                    Session["UserType"] = "rm";
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
@@ -1324,6 +1333,14 @@ namespace WealthERP.Advisor
                 {
                     Session.Remove("LinkAction");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
+                }
+                else if (e.Item.Value == "Add FP Prospect")
+                {
+                    Session["UserType"] = "adviser";
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
                 }
                 else if (e.Item.Value == "Manage Portfolio")
                 {

@@ -117,6 +117,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
+                                            </telerik:RadPanelItem>
                                              <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Portfolio" Value="Add Portfolio">
@@ -494,6 +496,8 @@
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
                                             </telerik:RadPanelItem>
                                              <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
                                                 <Items>
