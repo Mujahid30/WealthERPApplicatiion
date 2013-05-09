@@ -141,6 +141,7 @@ namespace DaoCustomerProfiling
                 accountList = new List<CustomerBankAccountVo>();
                 getCustomerBankCmd = db.GetStoredProcCommand("SP_GetCustomerBankAccounts");
                 db.AddInParameter(getCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
+                //db.AddInParameter(getCustomerBankCmd, "@CB_CustBankAccId", DbType.Int32, customerBankAccId);
                 getCustomerBankDs = db.ExecuteDataSet(getCustomerBankCmd);
                 if (getCustomerBankDs.Tables[0].Rows.Count > 0)
                 {
@@ -473,6 +474,80 @@ namespace DaoCustomerProfiling
             }
             return getBankAccountDs.Tables[0];
         }
+
+        public CustomerBankAccountVo GetCusomerIndBankAccount(int customerBankAccId)
+        {
+            CustomerBankAccountVo customerBankAccountVo = null;
+            Database db;
+            DataSet getCustomerBankDs;
+            DbCommand getCustomerBankAccCmd;
+            DataRow dr;           
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerBankAccCmd = db.GetStoredProcCommand("SP_GetCustomerIndividualBankAccounts");                
+                db.AddInParameter(getCustomerBankAccCmd, "@CB_CustBankAccId", DbType.Int32, customerBankAccId);
+                getCustomerBankDs = db.ExecuteDataSet(getCustomerBankAccCmd);
+
+                if (getCustomerBankDs.Tables[0].Rows.Count > 0)
+                {
+                    customerBankAccountVo = new CustomerBankAccountVo();
+                    dr = getCustomerBankDs.Tables[0].Rows[0];
+                    if (dr["CB_CustBankAccId"].ToString() != "")
+                        customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
+                    customerBankAccountVo.BankName = dr["WERPBM_BankCode"].ToString();
+                    //if (dr["XBAT_BankAccountTypeCode"].ToString() == "SB")
+                    //{
+
+                    //    customerBankAccountVo.AccountType = "SV";
+                    //}
+                    //else
+                    customerBankAccountVo.AccountType = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    //customerBankAccountVo.AccountTypeCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
+                    customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString();
+                    customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
+                    customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
+                    customerBankAccountVo.BranchAdrLine2 = dr["CB_BranchAdrLine2"].ToString();
+                    customerBankAccountVo.BranchAdrLine3 = dr["CB_BranchAdrLine3"].ToString();
+                    if (dr["CB_BranchAdrPinCode"].ToString() != "")
+                        customerBankAccountVo.BranchAdrPinCode = int.Parse(dr["CB_BranchAdrPinCode"].ToString());
+                    customerBankAccountVo.BranchAdrCity = dr["CB_BranchAdrCity"].ToString();
+                    customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
+                    customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
+                    if (dr["CB_Balance"].ToString() != "")
+                        customerBankAccountVo.Balance = float.Parse(dr["CB_Balance"].ToString());
+                    if (dr["CB_MICR"].ToString() != "")
+                        customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
+                    customerBankAccountVo.IFSC = dr["CB_IFSC"].ToString();
+                }
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:GetCusomerBankAccount()");
+                object[] objects = new object[2];
+                objects[0] = customerBankAccId;              
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return customerBankAccountVo;
+
+        }
+
+
         //public List<CustomerAccountsVo> GetCustomerBankTransaction(int CustBankAccId)
         //{
 
