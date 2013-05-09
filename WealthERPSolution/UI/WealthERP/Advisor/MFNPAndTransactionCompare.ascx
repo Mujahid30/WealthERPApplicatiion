@@ -172,41 +172,41 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="NP Holding Units" DataField="MfNpHoldings"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="NP Holding Units (A)" DataField="MfNpHoldings"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="MfNpHoldings" SortExpression="MfNpHoldings"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="NP Realized units"
-                                                DataField="MfNpRealized" HeaderStyle-HorizontalAlign="Right" UniqueName="MfNpRealized"
-                                                SortExpression="MfNpRealized" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
-                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Tranx Holding Units"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Tranx Holding Units (B)"
                                                 DataField="TranxHoldings" HeaderStyle-HorizontalAlign="Right" UniqueName="TranxHoldings"
                                                 SortExpression="TranxHoldings" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
                                                 Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Tranx Realized Units"
-                                                DataField="TranxRealized" HeaderStyle-HorizontalAlign="Right" UniqueName="TranxRealized"
-                                                SortExpression="TranxRealized" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
-                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Holding Difference"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Holding Difference  (B-A)"
                                                 DataField="HoldingDiff" HeaderStyle-HorizontalAlign="Right" UniqueName="HoldingDiff"
                                                 SortExpression="HoldingDiff" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
                                                 Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Realized Difference"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="NP Realized Units (C)"
+                                                DataField="MfNpRealized" HeaderStyle-HorizontalAlign="Right" UniqueName="MfNpRealized"
+                                                SortExpression="MfNpRealized" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Tranx Realized Units (D)"
+                                                DataField="TranxRealized" HeaderStyle-HorizontalAlign="Right" UniqueName="TranxRealized"
+                                                SortExpression="TranxRealized" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
+                                                Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Realized Difference (D-C)"
                                                 DataField="RealizedDiff" HeaderStyle-HorizontalAlign="Right" UniqueName="RealizedDiff"
                                                 SortExpression="RealizedDiff" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N3}"
