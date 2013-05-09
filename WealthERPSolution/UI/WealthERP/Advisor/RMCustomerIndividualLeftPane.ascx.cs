@@ -1006,6 +1006,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewBankDetails", "loadcontrol('ViewBankDetails','none');", true);
                 }
+                else if (e.Item.Value == "Add_Bank_Account")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('AddBankAccount','none');", true);
+                }
                 else if (e.Item.Value == "Add Bank Details")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankDetails", "loadcontrol('AddBankDetails','name=Add');", true);
