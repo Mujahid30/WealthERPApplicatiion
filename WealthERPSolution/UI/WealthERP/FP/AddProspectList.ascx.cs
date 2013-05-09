@@ -29,6 +29,7 @@ namespace WealthERP.FP
         CustomerBo customerBo = new CustomerBo();
         List<CustomerFamilyVo> customerFamilyVoList = new List<CustomerFamilyVo>();
         CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
+        AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         UserVo userVo = new UserVo();
         UserVo tempuservo;
         DataTable dt = new DataTable();
@@ -42,7 +43,8 @@ namespace WealthERP.FP
         //For TaxSlab
         int years = 0;
         DataSet dsGetSlab = new DataSet();
-
+        string userType;
+        int bmID = 0;
         //For Edit 
         int totalRecordsCount;
         protected void Page_Init()
@@ -56,6 +58,9 @@ namespace WealthERP.FP
 
                 if (Session[SessionContents.CurrentUserRole].ToString() != "")
                     Role = Session[SessionContents.CurrentUserRole].ToString();
+                advisorVo = (AdvisorVo)Session["advisorVo"];
+                rmVo = (RMVo)Session[SessionContents.RmVo];
+                userVo = (UserVo)Session["userVo"];
 
                 if ((Role != "") && (Role == "Admin" || Role == "Ops"))
                 {
@@ -68,8 +73,17 @@ namespace WealthERP.FP
 
                 btnDelete.Enabled = false;
                 int customerId = 0;
-                advisorVo = (AdvisorVo)Session["advisorVo"];
+                bmID = rmVo.RMId;
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                {
+                    userType = "advisor";
+                }
 
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                {
+                   
+                    userType = "rm";
+                }
               
                 if (Session["customerVo"] != null)
                     customerVo = (CustomerVo)Session["customerVo"];
@@ -98,6 +112,17 @@ namespace WealthERP.FP
                 rmVo = (RMVo)Session["rmVo"];
                 if (!IsPostBack)
                 {
+                    if (userType == "advisor")
+                    {
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                    }
+                    else if (userType == "rm")
+                    {
+                        lblRM.Visible = false;
+                        rcbRM.Visible = false;
+                        BindBranch(advisorVo.advisorId, rmVo.RMId);
+                    }
                     //if(Role == "
                    
                     if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
@@ -185,7 +210,7 @@ namespace WealthERP.FP
                         {
                             // View things have been handled here
 
-                            BindBranch(advisorVo.advisorId, customerVo.RmId);
+                           
 
                             aplToolBar.Visible = true;                         
                             btnSubmit.Visible = false;
@@ -210,6 +235,8 @@ namespace WealthERP.FP
                             txtLastName.Enabled = false;
                             txtMiddleName.Enabled = false;
                             ddlPickBranch.Enabled = false;
+                            rcbRM.Enabled = false;
+                            ddlPickBranch.Enabled = false;
                             dpDOB.Enabled = false;
                             txtPanNumber.Enabled = false;
                             txtAddress1.Enabled = false;
@@ -233,7 +260,7 @@ namespace WealthERP.FP
                         {
                             // Edit thing have been handled here
 
-                            BindBranch(advisorVo.advisorId, customerVo.RmId);
+                            //BindBranch(advisorVo.advisorId, customerVo.RmId);
 
                             aplToolBar.Visible = true;
                             btnConvertToCustomer.Visible = true;
@@ -242,6 +269,8 @@ namespace WealthERP.FP
                                 btnConvertToCustomer.Enabled = true;
                             else
                                 btnConvertToCustomer.Enabled = false;
+                            rcbRM.Enabled = false;
+                            ddlPickBranch.Enabled = false;
                             rtb.Visible = false;
                             btnSubmit.Visible = true;
                             btnSubmitAddDetails.Visible = true;
@@ -261,10 +290,10 @@ namespace WealthERP.FP
                         }
                        
                     }
-                    else
-                    {
-                        BindBranch(advisorVo.advisorId, rmVo.RMId);
-                    }
+                    //else
+                    //{
+                    //    BindBranch(advisorVo.advisorId, rmVo.RMId);
+                    //}
                     //RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = true;
                 }
                
@@ -1002,7 +1031,11 @@ namespace WealthERP.FP
             try
             {
                 customerVo.CustomerId = customerId;
-                customerVo.RmId = rmVo.RMId;
+                if (userType == "advisor")
+                    customerVo.RmId = int.Parse(rcbRM.SelectedValue);
+                else if (userType == "rm")
+                    customerVo.RmId = rmVo.RMId;
+                customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
                 customerVo.Type = "IND";
                 customerVo.FirstName = txtFirstName.Text.ToString();
                 customerVo.MiddleName = txtMiddleName.Text.ToString();
@@ -1012,7 +1045,6 @@ namespace WealthERP.FP
                 userVo.FirstName = txtFirstName.Text.ToString();
                 userVo.MiddleName = txtMiddleName.Text.ToString();
                 userVo.LastName = txtLastName.Text.ToString();
-                customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
 
                 if (txtSlab.Text != "")
                     customerVo.TaxSlab = int.Parse(txtSlab.Text);
@@ -1118,12 +1150,17 @@ namespace WealthERP.FP
                 customerVo.CustomerId = int.Parse(drChildCustomer["C_CustomerId"].ToString());
             else
                 customerVo.CustomerId = familyVo.AssociateCustomerId;
-            customerVo.RmId = rmVo.RMId;
+
+            if (userType == "advisor")
+                customerVo.RmId = int.Parse(rcbRM.SelectedValue);
+            else if (userType == "rm")
+                customerVo.RmId = rmVo.RMId;
+            customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
             customerVo.Type = "IND";
             customerVo.FirstName = drChildCustomer["FirstName"].ToString();
             customerVo.MiddleName = drChildCustomer["MiddleName"].ToString();
             customerVo.LastName = drChildCustomer["LastName"].ToString();
-            customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+
             if (dpDOB.SelectedDate != null && drChildCustomer["DOB"].ToString() != null && drChildCustomer["DOB"].ToString() != string.Empty)
             {
                 customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
@@ -1192,7 +1229,12 @@ namespace WealthERP.FP
                 List<int> customerIds = new List<int>();
                 try
                 {
-                    customerVo.RmId = rmVo.RMId;
+                    if (userType == "advisor")
+                        customerVo.RmId = int.Parse(rcbRM.SelectedValue);
+                    else if (userType == "rm")
+                        customerVo.RmId = rmVo.RMId;
+
+                    customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
                     customerVo.Type = "IND";
                     customerVo.FirstName = txtFirstName.Text.ToString();
                     customerVo.MiddleName = txtMiddleName.Text.ToString();
@@ -1200,7 +1242,7 @@ namespace WealthERP.FP
                     userVo.FirstName = txtFirstName.Text.ToString();
                     userVo.MiddleName = txtMiddleName.Text.ToString();
                     userVo.LastName = txtLastName.Text.ToString();
-                    customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+                    
                     if (!string.IsNullOrEmpty(txtSlab.Text.Trim()))
                         customerVo.TaxSlab = int.Parse(txtSlab.Text.Trim());
 
@@ -1282,13 +1324,17 @@ namespace WealthERP.FP
         protected void CreateCustomerForAddProspect(UserVo userVo, RMVo rmVo, int createdById, DataRow drChildCustomer, int ParentCustomerId)
         {
             customerVo = new CustomerVo();
-            customerVo.RmId = rmVo.RMId;
+            if (userType == "advisor")
+                customerVo.RmId = int.Parse(rcbRM.SelectedValue);
+            else if (userType == "rm")
+                customerVo.RmId = rmVo.RMId;
+            customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
             customerVo.Type = "IND";
             customerVo.FirstName = drChildCustomer["FirstName"].ToString();
             customerVo.MiddleName = drChildCustomer["MiddleName"].ToString();
             customerVo.LastName = drChildCustomer["LastName"].ToString();
             userVo.FirstName = drChildCustomer["FirstName"].ToString();
-            customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+            
             if (dpDOB.SelectedDate != null && drChildCustomer["DOB"].ToString() != null && drChildCustomer["DOB"].ToString() != string.Empty)
             {
                 customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
@@ -1908,6 +1954,128 @@ namespace WealthERP.FP
             }
             return result;
         }
+        private void BindBranchDropDown()
+        {
 
+            RMVo rmVo = new RMVo();
+            rmVo = (RMVo)Session[SessionContents.RmVo];
+            int bmID = rmVo.RMId;
+            try
+            {
+                UploadCommonBo uploadsCommonDao = new UploadCommonBo();
+                DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+                if (ds != null)
+                {
+                    ddlPickBranch.DataSource = ds;
+                    ddlPickBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
+                    ddlPickBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
+                    ddlPickBranch.DataBind();
+                }
+                //ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        private void BindRMDropDown()
+        {
+            try
+            {
+                AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+                DataTable dt = advisorStaffBo.GetAdviserRM(advisorVo.advisorId);
+                if (dt.Rows.Count > 0)
+                {
+                    rcbRM.DataSource = dt;
+                    rcbRM.DataValueField = dt.Columns["AR_RMId"].ToString();
+                    rcbRM.DataTextField = dt.Columns["RMName"].ToString();
+                    rcbRM.DataBind();
+                }
+                //ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindRMDropDown()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        protected void ddlPickBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (userType == "advisor")
+            {
+                if (ddlPickBranch.SelectedIndex == -1)
+                {
+                    BindRMforBranchDropdown(0, bmID);
+                }
+                else
+                {
+                    BindRMforBranchDropdown(int.Parse(ddlPickBranch.SelectedValue.ToString()), 0);
+                }
+            }
+        }
+        private void BindRMforBranchDropdown(int branchId, int branchHeadId)
+        {
+
+            try
+            {
+
+                DataSet ds = advisorBranchBo.GetAllRMsWithOutBMRole(branchId, branchHeadId);
+                if (ds != null)
+                {
+                    rcbRM.DataSource = ds.Tables[0]; ;
+                    rcbRM.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
+                    rcbRM.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
+                    rcbRM.DataBind();
+                }
+                //ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdviserEQMIS.ascx:BindRMforBranchDropdown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+       
     }
 }

@@ -3,7 +3,6 @@
 <%@ Register TagPrefix="qsf" Namespace="Telerik" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
-
 <%--<script type="text/javascript">
     function DateCheck() {
         if (document.getElementById("<%=dpDOB.ClientID%>").value == "") {
@@ -12,7 +11,6 @@
         }
     }
 </script>--%>
-
 <%--<script type="text/javascript">
     function ValidationError(txtbox) {
         var RegExp = "^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"
@@ -24,16 +22,16 @@
 
 <script type="text/javascript">
     function ConvertToCustomerConfirmation() {
-    if (confirm("Are you sure you want to convert to Customer ?"))
-        return true;
-    else
-        return false;
+        if (confirm("Are you sure you want to convert to Customer ?"))
+            return true;
+        else
+            return false;
     }
 
 </script>
 
 <script type="text/javascript">
-//***********************Deletion of Child Customer**************
+    //***********************Deletion of Child Customer**************
     function showmessage() {
         if (confirm("Are you sure  to delete this Family Member?")) {
             document.getElementById("ctrl_AddProspectList_hdnMsgValue").value = 1;
@@ -113,6 +111,32 @@
             <asp:ValidationSummary runat="server" ID="vsErrorSummary" EnableClientScript="true" Tooltip="Error Summary" ShowSummary="true" />
             </td>
         </tr>--%>
+        <tr id="trBranchRM" runat="server">
+            <td align="right">
+                <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch : "></asp:Label>
+            </td>
+            <td align="left">
+                <telerik:RadComboBox ID="ddlPickBranch" runat="server" ExpandAnimation-Type="Linear"
+                    ShowToggleImage="True" EmptyMessage="Pick a Branch here" Skin="Telerik" 
+                    EnableEmbeddedSkins="false" 
+                    onselectedindexchanged="ddlPickBranch_SelectedIndexChanged">
+                    <ExpandAnimation Type="InExpo"></ExpandAnimation>
+                </telerik:RadComboBox>
+                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator4" ControlToValidate="ddlPickBranch"
+                    ErrorMessage="Please pick a branch" CssClass="validator" Style="display: none" />
+            </td>
+            <td align="right">
+                <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM : "></asp:Label>
+            </td>
+            <td align="left">
+                <telerik:RadComboBox ID="rcbRM" runat="server" ExpandAnimation-Type="Linear" ShowToggleImage="True"
+                    EmptyMessage="Pick a RM" Skin="Telerik" EnableEmbeddedSkins="false">
+                    <ExpandAnimation Type="InExpo"></ExpandAnimation>
+                </telerik:RadComboBox>
+                <asp:RequiredFieldValidator runat="server" ID="rfvRM" ControlToValidate="rcbRM" ErrorMessage="Please pick a RM"
+                    CssClass="validator" Style="display: none" />
+            </td>
+        </tr>
         <tr>
             <td align="right">
                 <asp:Label ID="lblFirstName" runat="server" CssClass="FieldName" Text="First Name : "></asp:Label>
@@ -148,7 +172,6 @@
                     <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                     </DateInput>
                 </telerik:RadDatePicker>
-               
             </td>
             <td align="right">
                 <asp:Label ID="lblEmailId" runat="server" Text="Email Id : " CssClass="FieldName"></asp:Label>
@@ -157,19 +180,9 @@
                 <asp:TextBox ID="txtEmail" runat="server" Text="" />
                 <!--<span id="Span2" class="spnRequiredField">*</span> -->
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
-                ErrorMessage="<br>Please enter a valid Email ID" Display="Dynamic" runat="server" EnableClientScript="true" 
-                ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Font-Size="11px" ></asp:RegularExpressionValidator>
-            </td>
-            <td align="right">
-                <asp:Label ID="lblPickBranch" runat="server" Text="Branch Name : " CssClass="FieldName"></asp:Label>
-            </td>
-            <td align="left">
-                <telerik:RadComboBox ID="ddlPickBranch" runat="server" ExpandAnimation-Type="Linear"
-                    ShowToggleImage="True" EmptyMessage="Pick a Branch here" Skin="Telerik" EnableEmbeddedSkins="false">
-                    <ExpandAnimation Type="InExpo"></ExpandAnimation>
-                </telerik:RadComboBox>
-                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator4" ControlToValidate="ddlPickBranch"
-                    ErrorMessage="Please pick a branch" CssClass="validator" Style="display: none" />
+                    ErrorMessage="<br>Please enter a valid Email ID" Display="Dynamic" runat="server"
+                    EnableClientScript="true" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                    Font-Size="11px"></asp:RegularExpressionValidator>
             </td>
         </tr>
         <tr>
@@ -219,16 +232,18 @@
             </td>
             <td align="left">
                 <asp:TextBox ID="txtPinCode" runat="server" Text="" MaxLength="6" /><br />
-                <asp:RegularExpressionValidator id="RegExpValforPincode" ControlToValidate="txtPinCode" ValidationExpression="\d+" Display="Static" EnableClientScript="true" 
-                    ErrorMessage="Please enter numbers only" Font-Size="11px" runat="server"/>
+                <asp:RegularExpressionValidator ID="RegExpValforPincode" ControlToValidate="txtPinCode"
+                    ValidationExpression="\d+" Display="Static" EnableClientScript="true" ErrorMessage="Please enter numbers only"
+                    Font-Size="11px" runat="server" />
             </td>
             <td align="right">
                 <asp:Label ID="lblMobileNo" runat="server" Text="MobileNo : " CssClass="FieldName"></asp:Label>
             </td>
             <td align="left">
                 <asp:TextBox ID="txtMobileNo" runat="server" Text="" MaxLength="10" /><br />
-                   <asp:RegularExpressionValidator id="RegExpValforMobNo" ControlToValidate="txtMobileNo" ValidationExpression="\d+" Display="Static" EnableClientScript="true" 
-                    ErrorMessage="Please enter numbers only" Font-Size="11px" runat="server"/>  
+                <asp:RegularExpressionValidator ID="RegExpValforMobNo" ControlToValidate="txtMobileNo"
+                    ValidationExpression="\d+" Display="Static" EnableClientScript="true" ErrorMessage="Please enter numbers only"
+                    Font-Size="11px" runat="server" />
             </td>
             <td align="right">
                 <asp:Label ID="lblProspectAddDate" runat="server" Text="Prospect Add Date : " CssClass="FieldName"></asp:Label>
@@ -258,34 +273,29 @@
                 <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female"
                     GroupName="rbtnGender" />
             </td>
-            
             <td class="leftField">
                 <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable(%):"></asp:Label>
             </td>
             <td class="rightField">
                 <asp:TextBox ID="txtSlab" runat="server" CssClass="txtField"></asp:TextBox>
-                <asp:CompareValidator ID="cmpareSlabForOther" ControlToValidate="txtSlab"
-                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Tax slab."
+                <asp:CompareValidator ID="cmpareSlabForOther" ControlToValidate="txtSlab" runat="server"
+                    Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Tax slab."
                     Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-                    
-                
             </td>
-            <td >
-                <asp:Button ID="btnGetSlab" runat="server" Text="Get the slab" 
-                    CssClass="PCGMediumButton" onclick="btnGetSlab_Click"  />
+            <td>
+                <asp:Button ID="btnGetSlab" runat="server" Text="Get the slab" CssClass="PCGMediumButton"
+                    OnClick="btnGetSlab_Click" />
             </td>
         </tr>
-        
-        </table>
+    </table>
 </div>
 <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="false">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true"
         ErrorMessage="Is Required">
         <TargetControls>
             <telerik:TargetInput ControlID="txtFirstName" />
-           
             <telerik:TargetInput ControlID="txtChildFirstName" />
-           <%-- <telerik:TargetInput ControlID="txtGridEmailId" />--%>
+            <%-- <telerik:TargetInput ControlID="txtGridEmailId" />--%>
             <telerik:TargetInput ControlID="txtPanNumber" />
         </TargetControls>
         <Validation IsRequired="True"></Validation>
@@ -300,7 +310,6 @@
     <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior1" Validation-IsRequired="true"
         ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ErrorMessage="Invalid Email">
         <TargetControls>
-           
             <%--<telerik:TargetInput ControlID="txtGridEmailId" />--%>
         </TargetControls>
         <Validation IsRequired="True"></Validation>
@@ -310,140 +319,129 @@
     EnableEmbeddedSkins="false">
 </telerik:RadAjaxLoadingPanel>
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-<table width="100%" runat="server" id="tblChildCustomer">
-    <tr>
-        <td>
-            <div style="float: left; width: 100%;" id="Div2" runat="server">
-                <asp:Label ID="Label2" runat="server" CssClass="HeaderText" Text="Family Member Details"></asp:Label>
-                <hr />
-                <telerik:RadAjaxPanel ID="ChildCustomerGridPanel" runat="server" Width="100%" HorizontalAlign="Center"
-                    LoadingPanelID="FamilyMemberDetailsLoading" EnablePageHeadUpdate="False">
-                    <telerik:RadGrid ID="RadGrid1" runat="server" Width="96%" GridLines="None" AutoGenerateColumns="False"
-                        PageSize="13" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
-                        ShowStatusBar="True" OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
-                        OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound"
-                        Skin="Telerik" EnableEmbeddedSkins="false">
-                        <PagerStyle Mode="NextPrevAndNumeric" Position="Bottom" />
-                        <MasterTableView DataKeyNames="C_CustomerId" AllowMultiColumnSorting="True" Width="100%"
-                            CommandItemDisplay="Top" AutoGenerateColumns="false" EditMode="InPlace">
-                            <CommandItemSettings ExportToPdfText="Export to Pdf" />
-                            <Columns>
-                                <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
-                                    CancelText="Cancel" ButtonType="ImageButton" CancelImageUrl="../Images/Telerik/Cancel.gif"
-                                    InsertImageUrl="../Images/Telerik/Update.gif" UpdateImageUrl="../Images/Telerik/Update.gif"
-                                    EditImageUrl="../Images/Telerik/Edit.gif">
-                                    <HeaderStyle Width="85px"></HeaderStyle>
-                                </telerik:GridEditCommandColumn>
-                                <telerik:GridDropDownColumn UniqueName="CustomerRelationship" HeaderText="Relationship"
-                                    DataField="CustomerRelationship" DataSourceID="SqlDataSourceCustomerRelation"
-                                    HeaderStyle-HorizontalAlign="Center" ColumnEditorID="GridDropDownColumnEditor1"
-                                    ListTextField="XR_Relationship" ListValueField="XR_RelationshipCode" DropDownControlType="RadComboBox"
-                                    ReadOnly="false">
-                                </telerik:GridDropDownColumn>
-                                <telerik:GridTemplateColumn HeaderText="First Name" SortExpression="FirstName" UniqueName="FirstName"
-                                    EditFormColumnIndex="1" HeaderStyle-HorizontalAlign="Center">
-                                    <HeaderStyle Width="80px" />
-                                    <ItemTemplate>
-                                        <asp:Label runat="server" ID="lblChildFirstName" Text='<%# Eval("FirstName")%>'></asp:Label>
-                                    </ItemTemplate>
-                                    <EditItemTemplate>
-                                        <asp:TextBox runat="server" ID="txtChildFirstName" Text='<%# Bind("FirstName") %>'></asp:TextBox>
-                                    </EditItemTemplate>
-                                </telerik:GridTemplateColumn>
-                                <telerik:GridBoundColumn UniqueName="MiddleName" HeaderText="Middle Name" DataField="MiddleName"
-                                    HeaderStyle-HorizontalAlign="Center" />
-                                <telerik:GridBoundColumn UniqueName="LastName" HeaderText="Last Name" DataField="LastName"
-                                    HeaderStyle-HorizontalAlign="Center" />
-                                <telerik:GridDateTimeColumn UniqueName="DOB" PickerType="DatePicker" HeaderText="Date of Birth"
-                                    HeaderStyle-HorizontalAlign="Center" DataField="DOB" FooterText="DateTimeColumn footer"
-                                    DataFormatString="{0:dd/MM/yyyy}" EditDataFormatString="dd MMMM, yyyy" MinDate="1900-01-01">
-                                    <ItemStyle Width="120px" />
-                                    
-                                </telerik:GridDateTimeColumn>                               
-                                <telerik:GridTemplateColumn HeaderText="Email-Id" SortExpression="Email-Id" UniqueName="EmailId"
-                                    HeaderStyle-HorizontalAlign="Center" EditFormColumnIndex="1">
-                                    <HeaderStyle Width="80px" />
-                                    <ItemTemplate>
-                                        <asp:Label runat="server" ID="lblGridEmailId" Text='<%# Eval("EmailId")%>'></asp:Label>
-                                    </ItemTemplate>
-                                    <EditItemTemplate>
-                                        <asp:TextBox runat="server" ID="txtGridEmailId" onchange="ValidationError(this.value);" Text='<%# Bind("EmailId") %>'></asp:TextBox>
-                                        
-                                        <asp:RegularExpressionValidator ID="RExpForValidEmail" Display="Dynamic" runat="server" Text="Invalid Email"
-                                        ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ControlToValidate="txtGridEmailId"></asp:RegularExpressionValidator>
-                                    </EditItemTemplate>
-                                </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn HeaderText="PAN Number" SortExpression="PanNum" UniqueName="PanNum"
-                                    EditFormColumnIndex="1" HeaderStyle-HorizontalAlign="Center">
-                                    <HeaderStyle Width="80px" />
-                                     <ItemTemplate>
-                                        <asp:Label runat="server" ID="lblPanNo" Text='<%# Bind("PanNum") %>'></asp:Label>
-                                    </ItemTemplate>
-                                    <EditItemTemplate>
-                                        <asp:TextBox runat="server" ID="txtChildPanNo" MaxLength="10" Text='<%# Bind("PanNum") %>' ></asp:TextBox>
-                                    </EditItemTemplate>
-                                </telerik:GridTemplateColumn>
-                                <%--<telerik:GridBoundColumn UniqueName="PanNum" HeaderText="PAN Number" DataField="PanNum"
+    <table width="100%" runat="server" id="tblChildCustomer">
+        <tr>
+            <td>
+                <div style="float: left; width: 100%;" id="Div2" runat="server">
+                    <asp:Label ID="Label2" runat="server" CssClass="HeaderText" Text="Family Member Details"></asp:Label>
+                    <hr />
+                    <telerik:RadAjaxPanel ID="ChildCustomerGridPanel" runat="server" Width="100%" HorizontalAlign="Center"
+                        LoadingPanelID="FamilyMemberDetailsLoading" EnablePageHeadUpdate="False">
+                        <telerik:RadGrid ID="RadGrid1" runat="server" Width="96%" GridLines="None" AutoGenerateColumns="False"
+                            PageSize="13" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
+                            ShowStatusBar="True" OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
+                            OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound"
+                            Skin="Telerik" EnableEmbeddedSkins="false">
+                            <PagerStyle Mode="NextPrevAndNumeric" Position="Bottom" />
+                            <MasterTableView DataKeyNames="C_CustomerId" AllowMultiColumnSorting="True" Width="100%"
+                                CommandItemDisplay="Top" AutoGenerateColumns="false" EditMode="InPlace">
+                                <CommandItemSettings ExportToPdfText="Export to Pdf" />
+                                <Columns>
+                                    <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
+                                        CancelText="Cancel" ButtonType="ImageButton" CancelImageUrl="../Images/Telerik/Cancel.gif"
+                                        InsertImageUrl="../Images/Telerik/Update.gif" UpdateImageUrl="../Images/Telerik/Update.gif"
+                                        EditImageUrl="../Images/Telerik/Edit.gif">
+                                        <HeaderStyle Width="85px"></HeaderStyle>
+                                    </telerik:GridEditCommandColumn>
+                                    <telerik:GridDropDownColumn UniqueName="CustomerRelationship" HeaderText="Relationship"
+                                        DataField="CustomerRelationship" DataSourceID="SqlDataSourceCustomerRelation"
+                                        HeaderStyle-HorizontalAlign="Center" ColumnEditorID="GridDropDownColumnEditor1"
+                                        ListTextField="XR_Relationship" ListValueField="XR_RelationshipCode" DropDownControlType="RadComboBox"
+                                        ReadOnly="false">
+                                    </telerik:GridDropDownColumn>
+                                    <telerik:GridTemplateColumn HeaderText="First Name" SortExpression="FirstName" UniqueName="FirstName"
+                                        EditFormColumnIndex="1" HeaderStyle-HorizontalAlign="Center">
+                                        <HeaderStyle Width="80px" />
+                                        <ItemTemplate>
+                                            <asp:Label runat="server" ID="lblChildFirstName" Text='<%# Eval("FirstName")%>'></asp:Label>
+                                        </ItemTemplate>
+                                        <EditItemTemplate>
+                                            <asp:TextBox runat="server" ID="txtChildFirstName" Text='<%# Bind("FirstName") %>'></asp:TextBox>
+                                        </EditItemTemplate>
+                                    </telerik:GridTemplateColumn>
+                                    <telerik:GridBoundColumn UniqueName="MiddleName" HeaderText="Middle Name" DataField="MiddleName"
+                                        HeaderStyle-HorizontalAlign="Center" />
+                                    <telerik:GridBoundColumn UniqueName="LastName" HeaderText="Last Name" DataField="LastName"
+                                        HeaderStyle-HorizontalAlign="Center" />
+                                    <telerik:GridDateTimeColumn UniqueName="DOB" PickerType="DatePicker" HeaderText="Date of Birth"
+                                        HeaderStyle-HorizontalAlign="Center" DataField="DOB" FooterText="DateTimeColumn footer"
+                                        DataFormatString="{0:dd/MM/yyyy}" EditDataFormatString="dd MMMM, yyyy" MinDate="1900-01-01">
+                                        <ItemStyle Width="120px" />
+                                    </telerik:GridDateTimeColumn>
+                                    <telerik:GridTemplateColumn HeaderText="Email-Id" SortExpression="Email-Id" UniqueName="EmailId"
+                                        HeaderStyle-HorizontalAlign="Center" EditFormColumnIndex="1">
+                                        <HeaderStyle Width="80px" />
+                                        <ItemTemplate>
+                                            <asp:Label runat="server" ID="lblGridEmailId" Text='<%# Eval("EmailId")%>'></asp:Label>
+                                        </ItemTemplate>
+                                        <EditItemTemplate>
+                                            <asp:TextBox runat="server" ID="txtGridEmailId" onchange="ValidationError(this.value);"
+                                                Text='<%# Bind("EmailId") %>'></asp:TextBox>
+                                            <asp:RegularExpressionValidator ID="RExpForValidEmail" Display="Dynamic" runat="server"
+                                                Text="Invalid Email" ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"
+                                                ControlToValidate="txtGridEmailId"></asp:RegularExpressionValidator>
+                                        </EditItemTemplate>
+                                    </telerik:GridTemplateColumn>
+                                    <telerik:GridTemplateColumn HeaderText="PAN Number" SortExpression="PanNum" UniqueName="PanNum"
+                                        EditFormColumnIndex="1" HeaderStyle-HorizontalAlign="Center">
+                                        <HeaderStyle Width="80px" />
+                                        <ItemTemplate>
+                                            <asp:Label runat="server" ID="lblPanNo" Text='<%# Bind("PanNum") %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <EditItemTemplate>
+                                            <asp:TextBox runat="server" ID="txtChildPanNo" MaxLength="10" Text='<%# Bind("PanNum") %>'></asp:TextBox>
+                                        </EditItemTemplate>
+                                    </telerik:GridTemplateColumn>
+                                    <%--<telerik:GridBoundColumn UniqueName="PanNum" HeaderText="PAN Number" DataField="PanNum"
                                     HeaderStyle-HorizontalAlign="Center" />--%>
-                                    
-                                <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
-                                    ImageUrl="../Images/Telerik/Delete.gif" ButtonType="ImageButton" />
-                            </Columns>
-                            <EditFormSettings CaptionFormatString="Edit details for employee with ID {0}" CaptionDataField="FirstName">
-                                <FormTableItemStyle Width="100%" Height="29px"></FormTableItemStyle>
-                                <FormTableStyle GridLines="None" CellSpacing="0" CellPadding="2"></FormTableStyle>
-                                <FormStyle Width="100%" BackColor="#eef2ea"></FormStyle>
-                                <EditColumn ButtonType="ImageButton" />
-                            </EditFormSettings>
-                        </MasterTableView>
-                        <ClientSettings>
-                        </ClientSettings>
-                    </telerik:RadGrid>
-                    <asp:SqlDataSource ID="SqlDataSourceCustomerRelation" runat="server" SelectCommand="SP_GetCustomerRelation"
-                        SelectCommandType="StoredProcedure" ConnectionString="<%$ ConnectionStrings:wealtherp %>">
-                    </asp:SqlDataSource>
-                </telerik:RadAjaxPanel>
-            </div>
-        </td>
-    </tr>
-</table>
+                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
+                                        ImageUrl="../Images/Telerik/Delete.gif" ButtonType="ImageButton" />
+                                </Columns>
+                                <EditFormSettings CaptionFormatString="Edit details for employee with ID {0}" CaptionDataField="FirstName">
+                                    <FormTableItemStyle Width="100%" Height="29px"></FormTableItemStyle>
+                                    <FormTableStyle GridLines="None" CellSpacing="0" CellPadding="2"></FormTableStyle>
+                                    <FormStyle Width="100%" BackColor="#eef2ea"></FormStyle>
+                                    <EditColumn ButtonType="ImageButton" />
+                                </EditFormSettings>
+                            </MasterTableView>
+                            <ClientSettings>
+                            </ClientSettings>
+                        </telerik:RadGrid>
+                        <asp:SqlDataSource ID="SqlDataSourceCustomerRelation" runat="server" SelectCommand="SP_GetCustomerRelation"
+                            SelectCommandType="StoredProcedure" ConnectionString="<%$ ConnectionStrings:wealtherp %>">
+                        </asp:SqlDataSource>
+                    </telerik:RadAjaxPanel>
+                </div>
+            </td>
+        </tr>
+    </table>
 </asp:Panel>
 <table width="100%">
     <tr>
         <td align="center">
-        
-          <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                 />  
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
             &nbsp;<asp:Button ID="btnSubmitAddDetails" runat="server" Text="Add Finance Details"
-                OnClick="btnSubmitAddDetails_Click"  />
-                &nbsp; 
-                <asp:Button ID="btnConvertToCustomer" runat="server" 
-                Text="Convert to Customer" 
-                OnClientClick="return ConvertToCustomerConfirmation()" 
-                onclick="btnConvertToCustomer_Click" />
-                <asp:Button ID="btnDelete" runat="server" Text="Delete" onclick="btnDelete_Click"/>
+                OnClick="btnSubmitAddDetails_Click" />
+            &nbsp;
+            <asp:Button ID="btnConvertToCustomer" runat="server" Text="Convert to Customer" OnClientClick="return ConvertToCustomerConfirmation()"
+                OnClick="btnConvertToCustomer_Click" />
+            <asp:Button ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" />
         </td>
     </tr>
 </table>
-
-    
 <asp:HiddenField ID="hdnIsActive" runat="server" />
 <asp:HiddenField ID="hdnIsProspect" runat="server" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnassociationcount" runat="server" />
-
 <asp:HiddenField ID="hdnDeletemsgValue" runat="server" />
 <asp:HiddenField ID="hdnassociation" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnassociationdeletecount" runat="server" />
-
 <asp:HiddenField ID="hdnGender" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAge" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnTaxSlabValue" runat="server" Visible="false" />
-
 <div style="visibility: hidden">
-<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
-    BorderStyle="None" BackColor="Transparent" ForeColor="Transparent"   />
-    
-<asp:Button ID="hiddenassociation1" runat="server" OnClick="hiddenassociation1_Click"
-    BorderStyle="None" BackColor="Transparent" />
+    <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
+        BorderStyle="None" BackColor="Transparent" ForeColor="Transparent" />
+    <asp:Button ID="hiddenassociation1" runat="server" OnClick="hiddenassociation1_Click"
+        BorderStyle="None" BackColor="Transparent" />
 </div>
