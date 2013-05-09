@@ -117,14 +117,7 @@
                             Financial Planning Reports
                         </td>
                         <td align="right" id="tdReportButtons" runat="server" style="padding-bottom: 2px;">
-                            <asp:Button ID="btnViewReport" runat="server" PostBackUrl="~/Reports/Display.aspx?mail=0"
-                                CssClass="CrystalButton" />&nbsp;&nbsp;
-                            <div id="divView" style="display: none;">
-                                <p class="tip">
-                                    Click here to view FP sectional report.
-                                </p>
-                            </div>
-                            <asp:Button ID="btnViewInPDF" runat="server" OnClientClick="return CustomerValidate('pdf')"
+                         <asp:Button ID="btnViewInPDF" runat="server" OnClientClick="return CustomerValidate('pdf')"
                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />
                             &nbsp;&nbsp;
                             <div id="divPdf" style="display: none;">
@@ -132,6 +125,14 @@
                                     Click here to view FP sectional report in PDF format.
                                 </p>
                             </div>
+                            <asp:Button ID="btnViewReport" runat="server" PostBackUrl="~/Reports/Display.aspx?mail=0"
+                                CssClass="CrystalButton" />&nbsp;&nbsp;
+                            <div id="divView" style="display: none;">
+                                <p class="tip">
+                                    Click here to view FP sectional report.
+                                </p>
+                            </div>
+                           
                             <asp:Button ID="btnViewInDOC" runat="server" CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
                                 PostBackUrl="~/Reports/Display.aspx?mail=4" />
                             &nbsp;&nbsp;
