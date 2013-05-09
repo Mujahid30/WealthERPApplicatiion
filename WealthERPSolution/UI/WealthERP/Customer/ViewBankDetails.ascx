@@ -150,7 +150,7 @@
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
         <MasterTableView DataKeyNames="CB_CustBankAccId,CB_AccountNum,WERPBDTM_BankName,CB_HoldingAmount,XMOH_ModeOfHoldingCode,PAIC_AssetInstrumentCategoryCode,CB_BranchAdrState,WERPBM_BankCode"
-            EditMode="EditForms" CommandItemDisplay="Top" Width="100%">
+            EditMode="EditForms" CommandItemDisplay="None" Width="100%">
             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                 AddNewRecordText="Add New Bank Details" ShowRefreshButton="false" ShowExportToCsvButton="false"
                 ShowAddNewRecordButton="true" ShowExportToPdfButton="false" />
