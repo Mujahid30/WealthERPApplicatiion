@@ -17,6 +17,7 @@ using System.Collections.Specialized;
 using DaoCustomerPortfolio;
 using BoOps;
 using System.Web.Services;
+using Telerik.Web.UI;
 namespace WealthERP.CustomerPortfolio
 {
     public partial class CustomerEQAccountAdd : System.Web.UI.UserControl
@@ -69,11 +70,13 @@ namespace WealthERP.CustomerPortfolio
 
                 if (!IsPostBack)
                 {
+                    gvEqMIS.Visible = false;
                     if (Session[SessionContents.PortfolioId] != null)
                     {
                         portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                         BindPortfolioDropDown();
-
+                        BindCustomerBankList();
+                        BindAccountNum();
 
 
                         dtBroker = XMLBo.GetBroker(path);
@@ -84,6 +87,7 @@ namespace WealthERP.CustomerPortfolio
 
                         if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                         {
+                            customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
                             if (Request.QueryString["action"].Trim() == "Edit")
                             {
                                 BtnSetVisiblity(1);
@@ -96,6 +100,16 @@ namespace WealthERP.CustomerPortfolio
                                 ViewEQAccountDetails();
 
                             }
+                            if (ddlBankList.SelectedIndex != 0 && ddlAccountNum.SelectedIndex != -1)
+                            {
+                                BindEQLedgerMIS(customerVo.CustomerId, customerAccountsVo.AccountId, customerAccountsVo.BankId);
+                            }
+                            else
+                            {
+                                tblMessage.Visible = true;
+                                ErrorMessage.Visible = true;
+                                ErrorMessage.InnerText = "Bank is not associated with Current trade  Account selected...!";
+                            }
 
                         }
                         else
@@ -106,7 +120,7 @@ namespace WealthERP.CustomerPortfolio
                         }
                     }
                 }
-                BindCustomerBankList();
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -129,6 +143,75 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
+        }
+
+        private void BindEQLedgerMIS(int CustomerId, int TradeAccountId, int BankAccountId)
+        {
+            DataSet dsGetEqLedgerMIS;
+            DataTable dtGetEqLedgerMIS;
+            dsGetEqLedgerMIS = customerTransactionBo.GetEquityLedgerMIS(CustomerId, TradeAccountId, BankAccountId);
+            dtGetEqLedgerMIS = dsGetEqLedgerMIS.Tables[0];
+
+            DataTable dtEqLedgerMISDetails = new DataTable();
+            dtEqLedgerMISDetails.Columns.Add("MarginDetails");
+            dtEqLedgerMISDetails.Columns.Add("Amount");
+            dtEqLedgerMISDetails.Columns.Add("CurrentValuation");
+            dtEqLedgerMISDetails.Columns.Add("ProfitLoss");
+
+            DataRow drEqLedgerMISDetails;
+            foreach (DataRow dr in dtGetEqLedgerMIS.Rows)
+            {
+                drEqLedgerMISDetails = dtEqLedgerMISDetails.NewRow();
+                if (dr["TYPE"].ToString() == "A")
+                    drEqLedgerMISDetails["MarginDetails"] = "Cheques received (deposit)";
+                else if (dr["TYPE"].ToString() == "B")
+                    drEqLedgerMISDetails["MarginDetails"] = "Withdrawl to Date";
+                else if (dr["TYPE"].ToString() == "C")
+                    drEqLedgerMISDetails["MarginDetails"] = "Amount Invested";
+                else if (dr["TYPE"].ToString() == "D")
+                    drEqLedgerMISDetails["MarginDetails"] = "Balance Margin";
+
+                if (double.Parse(dr["Amount"].ToString()) != 0)
+                    drEqLedgerMISDetails["Amount"] = Math.Round(double.Parse(dr["Amount"].ToString()),0);
+                else
+                    drEqLedgerMISDetails["Amount"] = "";
+
+                if (double.Parse(dr["CurrentValue"].ToString()) != 0)
+                    drEqLedgerMISDetails["CurrentValuation"] = Math.Round(double.Parse(dr["CurrentValue"].ToString()),0);
+                else
+                    drEqLedgerMISDetails["CurrentValuation"] = "";
+                if (double.Parse(dr["ProfitLoss"].ToString()) != 0)
+                    drEqLedgerMISDetails["ProfitLoss"] = Math.Round(double.Parse(dr["ProfitLoss"].ToString()),0);
+                else
+                    drEqLedgerMISDetails["ProfitLoss"] = "";
+
+                dtEqLedgerMISDetails.Rows.Add(drEqLedgerMISDetails);
+            }
+            if (dtEqLedgerMISDetails != null)
+            {
+                gvEqMIS.Visible = true;
+                imgbtnEqMIS.Visible = true;
+                gvEqMIS.DataSource = dtEqLedgerMISDetails;
+                gvEqMIS.DataBind();
+            }
+            else
+            {
+                gvEqMIS.Visible = false;
+                gvEqMIS.DataSource = null;
+                gvEqMIS.DataBind();
+                imgbtnEqMIS.Visible = false;
+            }
+
+            if (Cache["gvEqMIS" + userVo.UserId] == null)
+            {
+                Cache.Insert("gvEqMIS" + userVo.UserId, dtEqLedgerMISDetails);
+            }
+            else
+            {
+                Cache.Remove("gvEqMIS" + userVo.UserId);
+                Cache.Insert("gvEqMIS" + userVo.UserId, dtEqLedgerMISDetails);
+            }
+
         }
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -290,7 +373,7 @@ namespace WealthERP.CustomerPortfolio
 
         private void ViewEQAccountDetails()
         {
-            customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
+            
 
             ddlBrokerCode.SelectedValue = customerAccountsVo.BrokerCode;
             txtTradeNum.Text = customerAccountsVo.TradeNum;
@@ -301,12 +384,14 @@ namespace WealthERP.CustomerPortfolio
             txtBrokeragePerDelivery.Text = customerAccountsVo.BrokerageDeliveryPercentage.ToString();
             txtBrokeragePerSpeculative.Text = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
             txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
+            ddlBankList.SelectedValue = customerAccountsVo.BankNameInExtFile;
+            ddlAccountNum.SelectedValue = customerAccountsVo.BankId.ToString();
+
             SetVisiblity(0);
         }
 
         private void EditEQAccountDetails()
         {
-            customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
             if (customerAccountsVo.BrokerCode != "")
                 ddlBrokerCode.SelectedValue = customerAccountsVo.BrokerCode;
             else
@@ -319,6 +404,8 @@ namespace WealthERP.CustomerPortfolio
             txtBrokeragePerDelivery.Text = customerAccountsVo.BrokerageDeliveryPercentage.ToString();
             txtBrokeragePerSpeculative.Text = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
             txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
+            ddlBankList.SelectedValue = customerAccountsVo.BankNameInExtFile;
+            ddlAccountNum.SelectedValue = customerAccountsVo.BankId.ToString();
             BtnSetVisiblity(1);
             SetVisiblity(1);
 
@@ -336,7 +423,8 @@ namespace WealthERP.CustomerPortfolio
                 txtBrokeragePerDelivery.Enabled = false;
                 txtBrokeragePerSpeculative.Enabled = false;
                 txtOtherCharges.Enabled = false;
-
+                ddlBankList.Enabled = false;
+                ddlAccountNum.Enabled = false;
 
 
             }
@@ -350,7 +438,8 @@ namespace WealthERP.CustomerPortfolio
                 txtBrokeragePerDelivery.Enabled = true;
                 txtBrokeragePerSpeculative.Enabled = true;
                 txtOtherCharges.Enabled = true;
-
+                ddlBankList.Enabled = true;
+                ddlAccountNum.Enabled = true;
 
 
             }
@@ -399,16 +488,19 @@ namespace WealthERP.CustomerPortfolio
         private void BindAccountNum()
         {
             DataTable dtAccountNo = new DataTable();
+            DataSet dsbindAccount = new DataSet();
             int customerId = customerVo.CustomerId;
             string bankId = (ddlBankList.SelectedValue);
             account = ddlAccountNum.SelectedValue.ToString();
-            DataSet dsbindAccount = new DataSet();
-            dsbindAccount = customerAccountBo.GetEQAccountNumber(customerId, bankId);
+            if(ddlBankList.SelectedIndex!=0)
+                dsbindAccount = customerAccountBo.GetEQAccountNumber(customerId, bankId);
+            else
+                dsbindAccount = customerAccountBo.GetBankAccountNumber(customerId);
             if (dsbindAccount.Tables.Count > 0)
             {
                 dtAccountNo = dsbindAccount.Tables[0];
                 ddlAccountNum.DataSource = dtAccountNo;
-                ddlAccountNum.DataValueField = dtAccountNo.Columns["CB_AccountNum"].ToString();
+                ddlAccountNum.DataValueField = dtAccountNo.Columns["CB_CustBankAccId"].ToString();
                 ddlAccountNum.DataTextField = dtAccountNo.Columns["CB_AccountNum"].ToString();
                 ddlAccountNum.DataBind();
                 // ddlAccountNum.SelectedValue = account;
@@ -434,20 +526,15 @@ namespace WealthERP.CustomerPortfolio
                 // see if the selectedindex is not zero
                 if (ddlBankList.SelectedIndex != 0)
                 {
-                    // check if the customerid is not 0
-                    if (customerVo.CustomerId != 0)
-                        customerId = customerVo.CustomerId;
-                    // see if the selectedindex is not 0
-                    if (ddlBankList.SelectedIndex != 0)
-                        bankCode = ddlBankList.SelectedValue;
-                    // initialze dataset
-                    DataSet dsbankDetails = new DataSet();
-                    // create dataset wrt to the geteqbankdetails
-                    dsbankDetails = customerPortfolioBo.getBankEQDetailsForCustomer(customerId, bankCode);
-                    // check if the dataset for bank is not null
-                    if (dsbankDetails != null)
-                        // bind the account number
-                        BindAccountNum();
+                   BindAccountNum();
+                    if(customerAccountsVo!=null)
+                        BindEQLedgerMIS(customerVo.CustomerId, customerAccountsVo.AccountId, customerAccountsVo.BankId);
+                    else
+                    {
+                        tblMessage.Visible = true;
+                        ErrorMessage.Visible = true;
+                        ErrorMessage.InnerText = "Bank is not associated with Current trade  Account selected...!";
+                    }
                 }
             }
             catch (BaseApplicationException Ex)
@@ -500,7 +587,7 @@ namespace WealthERP.CustomerPortfolio
                        newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
                    if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
-                       ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
                }
                else
                {
@@ -575,6 +662,16 @@ namespace WealthERP.CustomerPortfolio
         protected void txtTradeNum_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        protected void imgbtnEqMIS_Click(object sender, ImageClickEventArgs e)
+        {
+            gvEqMIS.ExportSettings.OpenInNewWindow = true;
+            gvEqMIS.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvEqMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvEqMIS.MasterTableView.ExportToExcel();
         }
     }
 }

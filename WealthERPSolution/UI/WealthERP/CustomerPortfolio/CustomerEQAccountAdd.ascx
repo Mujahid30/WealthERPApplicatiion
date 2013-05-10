@@ -1,7 +1,8 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerEQAccountAdd.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.CustomerEQAccountAdd" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
@@ -389,7 +390,8 @@
         </table>
         <table width="100%">
             <tr>
-                <td colspan="2" class="SubmitCell">
+            <td style="width:25%">&nbsp;</td>
+                <td class="rightField">
                     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                         Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
@@ -397,11 +399,85 @@
                         OnClientClick="return isValidInUpdateCase()" Visible="False" />
                 </td>
             </tr>
+            <tr><td colspan="2"></td></tr>
+                <tr>
+        <td colspan="2">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Equity Ledger
+            </div>
+        </td>
+    </tr>
+        </table>
+        <table id="tblEqLedgerMIS" runat="server" width="100%">
+            <tr>
+                <td style="width:40%">
+                    <div runat="server" id="divEqMIS" style="margin: 2px; width: 640px;">
+                        <telerik:RadGrid ID="gvEqMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
+                            PageSize="15" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
+                            Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                            AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
+                            EnableHeaderContextFilterMenu="true">
+                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                                FileName="EQLedgerMIS" Excel-Format="ExcelML">
+                            </ExportSettings>
+                            <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
+                                GroupLoadMode="Client" ShowGroupFooter="true">
+                                <Columns>
+                                    <telerik:GridBoundColumn  HeaderText="Margin Details" DataField="MarginDetails"
+                                        UniqueName="MarginDetails" SortExpression="MarginDetails"
+                                         AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                        FooterStyle-HorizontalAlign="Left">
+                                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                    </telerik:GridBoundColumn>
+                                     <telerik:GridBoundColumn  HeaderText="Amount" DataField="Amount"
+                                        UniqueName="Amount" SortExpression="Amount"
+                                         AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                        FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                    </telerik:GridBoundColumn>
+                                     <telerik:GridBoundColumn  HeaderText="Current Valuation" DataField="CurrentValuation"
+                                        UniqueName="CurrentValuation" SortExpression="CurrentValuation"
+                                         AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                        FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                    </telerik:GridBoundColumn>
+                                     <telerik:GridBoundColumn  HeaderText="Profit/ Loss" DataField="ProfitLoss"
+                                         UniqueName="ProfitLoss" SortExpression="ProfitLoss"
+                                        AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                        FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                    </telerik:GridBoundColumn>
+                                </Columns>
+                            </MasterTableView>
+                            <HeaderStyle Width="150px" />
+                            <ClientSettings>
+                                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                <Resizing AllowColumnResize="true" />
+                            </ClientSettings>
+                        </telerik:RadGrid>
+                    </div>
+                </td>
+                <td style="width:60%" align="right" valign="top">  
+                <asp:ImageButton ID="imgbtnEqMIS" ImageUrl="~/Images/Export_Excel.png" runat="server"
+                 AlternateText="Excel" ToolTip="Export To Excel" Visible="false" OnClientClick="setFormat('excel')"
+                 Height="25px" Width="25px" OnClick="imgbtnEqMIS_Click"></asp:ImageButton>
+                </td>
+            </tr>
         </table>
         <asp:HiddenField ID="hdnIsMainPortfolio" runat="server" />
         <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
+    visible="false">
+    <tr>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+            </div>
+        </td>
+    </tr>
+</table>
 <input type="hidden" id="hidValid" />
 <input type="hidden" id="hidStatus" runat="server" />
 <table width="100%" class="TableBackground" border="1">
