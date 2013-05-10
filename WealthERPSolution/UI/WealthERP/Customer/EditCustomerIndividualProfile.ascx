@@ -5,14 +5,12 @@
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
 
-
-
 <script type="text/javascript">
     function ButtonClick() {
-        window.open('PopUp.aspx?PageId=AddBankAccount &AddMFFolioLinkId= AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-        return false;
+        return true;
     }
 </script>
+
 <script type="text/javascript">
 
     function CloseWindowsPopUp() {
@@ -135,8 +133,7 @@
         </td>
         <td class="rightField">
             <%--<asp:TextBox ID="txtProfilingDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>--%>
-            
-              <telerik:RadDatePicker ID="txtProfilingDate" CssClass="txtField" runat="server" Culture="English (United States)"
+            <telerik:RadDatePicker ID="txtProfilingDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
@@ -145,7 +142,6 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            
         </td>
     </tr>
     <tr>
@@ -290,18 +286,7 @@
                     <tr>
                         <td>
                             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                                <table>
-                                    <tr>
-                                        <td align="left">
-                                            Family Associates
-                                        </td>
-                                        <%-- <td align="left">
-                                            <asp:ImageButton ID="btnImgAddExMember" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
-                                                AlternateText="Add" runat="server" ToolTip="Click here to Add Associate" Height="15px"
-                                                Width="15px" OnClick="btnImgAddExMember_Click"></asp:ImageButton>
-                                        </td>--%>
-                                    </tr>
-                                </table>
+                                Family Associates
                             </div>
                         </td>
                     </tr>
@@ -337,9 +322,9 @@
                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Association?"
-                                             ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                             Text="Delete">
-                                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                                ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                                Text="Delete">
+                                                <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                                             </telerik:GridButtonColumn>
                                         </Columns>
                                         <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
@@ -768,109 +753,112 @@
         </asp:UpdatePanel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="rpvBankDeatils" runat="server">
-        <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-            <ContentTemplate>
-                <div style="width: 100%; padding-left: 10px; padding-top: 5px;" class="divSectionHeading">
-                    <table>
-                        <tr>
-                            <td>
-                                <span>Customer Bank Details</span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div style="width: 100%; padding-left: 10px; padding-top: 5px;">
-                    <telerik:RadGrid ID="gvBankDetails" runat="server" CssClass="RadGrid" GridLines="Both"
-                        Width="90%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
-                        ShowStatusBar="true" AllowAutomaticDeletes="True" Skin="Telerik" OnItemCommand="gvBankDetails_ItemCommand" 
-                        OnNeedDataSource="gvBankDetails_NeedDataSource" >
-                        <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
-                        </ExportSettings>
-                        <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,CB_BankName,BankAccountTypeCode,CB_BranchAdrState"
-                            CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" 
-                            CommandItemSettings-AddNewRecordText="Add New Bank Details">
-                            <Columns>
-                                <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
-                                    UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
-                                </telerik:GridEditCommandColumn>
-                                <telerik:GridBoundColumn UniqueName="CB_BankName" HeaderStyle-Width="100px" HeaderText="Bank Name"
-                                    DataField="CB_BankName" SortExpression="CB_BankName" AllowFiltering="true" ShowFilterIcon="false"
-                                    AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn UniqueName="CB_BranchName" HeaderStyle-Width="100px" HeaderText="Branch Name"
-                                    DataField="CB_BranchName" SortExpression="CB_BranchName" AllowFiltering="true"
-                                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn UniqueName="XBAT_BankAccountTypeCode" HeaderStyle-Width="100px"
-                                    HeaderText="Account Type" DataField="XBAT_BankAccountTypeCode" SortExpression="XBAT_BankAccountTypeCode"
-                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn UniqueName="XMOH_ModeOfHoldingCode" HeaderStyle-Width="100px"
-                                    HeaderText="Mode Of Operation" DataField="XMOH_ModeOfHoldingCode" SortExpression="XMOH_ModeOfHoldingCode"
-                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn UniqueName="CB_AccountNum" HeaderStyle-Width="100px" HeaderText="Account Number"
-                                    DataField="CB_AccountNum" SortExpression="CB_AccountNum" AllowFiltering="true"
-                                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridButtonColumn Visible="false" UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Scheme?"
-                                    ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                    Text="Delete">
-                                    <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                                </telerik:GridButtonColumn>
-                                <telerik:GridBoundColumn Visible="false" UniqueName="CB_IFSC" HeaderStyle-Width="150px"
-                                    HeaderText="IFSC" DataField="CB_IFSC" SortExpression="CB_IFSC" AllowFiltering="true"
-                                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" UniqueName="CB_MICR" HeaderStyle-Width="150px"
-                                    HeaderText="MICR" DataField="CB_MICR" SortExpression="CB_MICR" AllowFiltering="true"
-                                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrCountry" HeaderStyle-Width="150px"
-                                    HeaderText="Branch Country" DataField="CB_BranchAdrCountry" SortExpression="CB_BranchAdrCountry"
-                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrState" HeaderStyle-Width="150px"
-                                    HeaderText="Branch State" DataField="CB_BranchAdrState" SortExpression="CB_BranchAdrState"
-                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrCity" HeaderStyle-Width="150px"
-                                    HeaderText="Branch City" DataField="CB_BranchAdrCity" SortExpression="CB_BranchAdrCity"
-                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrPinCode" HeaderStyle-Width="150px"
-                                    HeaderText="PinCode" DataField="CB_BranchAdrPinCode" SortExpression="CB_BranchAdrPinCode"
-                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrLine3" HeaderStyle-Width="150px"
-                                    HeaderText="Branch Line3" DataField="CB_BranchAdrLine3" SortExpression="CB_BranchAdrLine3"
-                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrLine2" HeaderStyle-Width="150px"
-                                    HeaderText="Branch Line2" DataField="CB_BranchAdrLine2" SortExpression="CB_BranchAdrLine2"
-                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrLine1" HeaderStyle-Width="150px"
-                                    HeaderText="Branch Line1" DataField="CB_BranchAdrLine1" SortExpression="CB_BranchAdrLine1"
-                                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                    <HeaderStyle></HeaderStyle>
-                                </telerik:GridBoundColumn>
-                            </Columns>
-                            <EditFormSettings EditFormType="Template"></EditFormSettings>
-                            <%--<EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
+        <%-- <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+            <ContentTemplate>--%>
+        <table width="100%">
+            <tr style="padding-top: 5px;">
+                <td>
+                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+                        Customer Bank Details
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div style="width: 100%; padding-left: 10px; padding-top: 5px;">
+            <telerik:RadGrid ID="gvBankDetails" runat="server" CssClass="RadGrid" GridLines="Both"
+                Width="90%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                ShowStatusBar="true" AllowAutomaticDeletes="True" Skin="Telerik" OnItemCommand="gvBankDetails_ItemCommand"
+                OnNeedDataSource="gvBankDetails_NeedDataSource">
+                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
+                </ExportSettings>
+                <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,CB_BankName,BankAccountTypeCode,CB_BranchAdrState"
+                    CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add New Bank Details">
+                    <EditFormSettings EditFormType="Template" FormTableStyle-BorderStyle="None">
+                        <FormTemplate>
+                        </FormTemplate>
+                    </EditFormSettings>
+                    <Columns>
+                        <telerik:GridButtonColumn ButtonType="LinkButton" Text="Edit/View" UniqueName="ButtonColumn"
+                            CommandName="Edit">
+                            <HeaderStyle Width="100px" />
+                        </telerik:GridButtonColumn>
+                        <telerik:GridBoundColumn UniqueName="CB_BankName" HeaderStyle-Width="100px" HeaderText="Bank Name"
+                            DataField="CB_BankName" SortExpression="CB_BankName" AllowFiltering="true" ShowFilterIcon="false"
+                            AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="CB_BranchName" HeaderStyle-Width="100px" HeaderText="Branch Name"
+                            DataField="CB_BranchName" SortExpression="CB_BranchName" AllowFiltering="true"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="XBAT_BankAccountTypeCode" HeaderStyle-Width="100px"
+                            HeaderText="Account Type" DataField="XBAT_BankAccountTypeCode" SortExpression="XBAT_BankAccountTypeCode"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="XMOH_ModeOfHoldingCode" HeaderStyle-Width="100px"
+                            HeaderText="Mode Of Operation" DataField="XMOH_ModeOfHoldingCode" SortExpression="XMOH_ModeOfHoldingCode"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="CB_AccountNum" HeaderStyle-Width="100px" HeaderText="Account Number"
+                            DataField="CB_AccountNum" SortExpression="CB_AccountNum" AllowFiltering="true"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridButtonColumn Visible="false" UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Scheme?"
+                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                            Text="Delete">
+                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                        </telerik:GridButtonColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="CB_IFSC" HeaderStyle-Width="150px"
+                            HeaderText="IFSC" DataField="CB_IFSC" SortExpression="CB_IFSC" AllowFiltering="true"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="CB_MICR" HeaderStyle-Width="150px"
+                            HeaderText="MICR" DataField="CB_MICR" SortExpression="CB_MICR" AllowFiltering="true"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrCountry" HeaderStyle-Width="150px"
+                            HeaderText="Branch Country" DataField="CB_BranchAdrCountry" SortExpression="CB_BranchAdrCountry"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrState" HeaderStyle-Width="150px"
+                            HeaderText="Branch State" DataField="CB_BranchAdrState" SortExpression="CB_BranchAdrState"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrCity" HeaderStyle-Width="150px"
+                            HeaderText="Branch City" DataField="CB_BranchAdrCity" SortExpression="CB_BranchAdrCity"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrPinCode" HeaderStyle-Width="150px"
+                            HeaderText="PinCode" DataField="CB_BranchAdrPinCode" SortExpression="CB_BranchAdrPinCode"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrLine3" HeaderStyle-Width="150px"
+                            HeaderText="Branch Line3" DataField="CB_BranchAdrLine3" SortExpression="CB_BranchAdrLine3"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrLine2" HeaderStyle-Width="150px"
+                            HeaderText="Branch Line2" DataField="CB_BranchAdrLine2" SortExpression="CB_BranchAdrLine2"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="CB_BranchAdrLine1" HeaderStyle-Width="150px"
+                            HeaderText="Branch Line1" DataField="CB_BranchAdrLine1" SortExpression="CB_BranchAdrLine1"
+                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                    </Columns>
+                    <%--<EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
                                 <FormTemplate>
                                     <table width="100%" style="background-color: White">
                                         <tr>
@@ -1077,18 +1065,17 @@
                                     </table>
                                 </FormTemplate>
                             </EditFormSettings>--%>
-                           <%-- OnCommand="ButtonClick"--%>
-                        </MasterTableView>
-                        <ClientSettings>
-                            <Selecting AllowRowSelect="true" />
-                            <ClientEvents OnCommand="ButtonClick"/>
-                        </ClientSettings>
-                    </telerik:RadGrid>
-                </div>
-            </ContentTemplate>
+                    <%-- OnCommand="ButtonClick"--%>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="true" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </div>
+        <%--</ContentTemplate>
             <Triggers>
             </Triggers>
-        </asp:UpdatePanel>
+        </asp:UpdatePanel>--%>
     </telerik:RadPageView>
     <telerik:RadPageView ID="rpvCorrespondenceAddress" runat="server">
         <asp:Panel ID="pnlCorrespondenceAddress" runat="server">
@@ -1432,19 +1419,19 @@
                     <td class="leftField">
                         <asp:Label ID="Label38" CssClass="FieldName" runat="server" Text="Mobile1:"></asp:Label>
                     </td>
-                    <td >
+                    <td>
                         <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                      <asp:RegularExpressionValidator ValidationGroup="btnEdit" ControlToValidate="txtMobile1" Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit"  ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
-                          
+                        <asp:RegularExpressionValidator ValidationGroup="btnEdit" ControlToValidate="txtMobile1"
+                            Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit" ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="Label43" CssClass="FieldName" runat="server" Text="Mobile2:"></asp:Label>
                     </td>
-                    <td >
+                    <td>
                         <asp:TextBox ID="txtMobile2" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                       <asp:RegularExpressionValidator ValidationGroup="btnEdit" ControlToValidate="txtMobile2" Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit"  ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
-                      
-                                         </td>
+                        <asp:RegularExpressionValidator ValidationGroup="btnEdit" ControlToValidate="txtMobile2"
+                            Display="Dynamic" ErrorMessage="Telephone Number must be 7-11 digit" ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
+                    </td>
                 </tr>
                 <tr>
                     <td class="leftField">
@@ -1595,7 +1582,8 @@
     </tr>
     <tr>
         <td colspan="3" class="SubmitCell">
-            <asp:Button ID="btnEdit" runat="server" ValidationGroup="btnEdit" Text="Save" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerIndividualProfile_btnEdit');"
+            <asp:Button ID="btnEdit" runat="server" ValidationGroup="btnEdit" Text="Save" CssClass="PCGButton"
+                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerIndividualProfile_btnEdit');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EditCustomerIndividualProfile_btnEdit');"
                 OnClick="btnEdit_Click" />
         </td>

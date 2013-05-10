@@ -1953,14 +1953,18 @@ namespace WealthERP.Customer
             }
             if (e.CommandName == RadGrid.InitInsertCommandName)
             {
-                Session["customerBankAccountVo" + customerVo.CustomerId] = null;
+                Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=AddBankAccount&bankId=" + bankId + "&action=" + "Add" + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
+
             }
             if (e.CommandName == "Edit")
             {
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());               
-                customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
-                Session["customerBankAccountVo"+customerVo.CustomerId] = customerBankAccountVo;              
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('AddBankAccount','?action=" + "View" + "&bankId=" + bankId + "');", true);
+                //customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
+                //Session["customerBankAccountVo"+customerVo.CustomerId] = customerBankAccountVo;
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('PopUp.aspx','?action=" + "View" + "&bankId=" + bankId + "');", true);
+
+                Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=AddBankAccount&bankId=" + bankId + "&action=" + "View" + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
+             // return;
             }
             BindBankDetails(customerId);
         }
