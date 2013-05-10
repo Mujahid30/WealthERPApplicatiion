@@ -585,6 +585,10 @@ namespace WealthERP.CustomerPortfolio
                    newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
                    if (txtAccountStartingDate.Text != "")
                        newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
+                   if (ddlBankList.SelectedIndex != 0)
+                       newAccountVo.BankNameInExtFile = ddlBankList.SelectedValue;
+                   if (ddlAccountNum.SelectedIndex != 0)
+                       newAccountVo.BankId = int.Parse(ddlAccountNum.SelectedValue);
                    if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
@@ -592,7 +596,7 @@ namespace WealthERP.CustomerPortfolio
                else
                {
                    TradeAccNo = txtTradeNum.Text;
-                   BrokerCode = customerAccountsVo.BrokerCode.ToString();
+                    BrokerCode = customerAccountsVo.BrokerCode.ToString();
                    PortfolioId = customerAccountsVo.PortfolioId;
 
                    if (ControlHost.CheckTradeNoAvailabilityForUpdate(TradeAccNo, BrokerCode, PortfolioId))
@@ -605,6 +609,10 @@ namespace WealthERP.CustomerPortfolio
                        newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
                        if (txtAccountStartingDate.Text != "")
                            newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
+                       if(ddlBankList.SelectedIndex!=0)
+                            newAccountVo.BankNameInExtFile = ddlBankList.SelectedValue;
+                       if(ddlAccountNum.SelectedIndex !=0)
+                            newAccountVo.BankId = int.Parse(ddlAccountNum.SelectedValue);
                        if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
                            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
