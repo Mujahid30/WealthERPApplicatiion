@@ -261,7 +261,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Cash and Savings" Value="Cash and Savings">
+                                    <telerik:RadPanelItem runat="server" Text="Cash and Savings" Value="Cash and Savings" Visible="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Cash and Savings" Value="Add Cash and Savings">
                                             </telerik:RadPanelItem>
