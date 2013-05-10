@@ -3284,12 +3284,12 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateCustomerBankTransactionCmd = db.GetStoredProcCommand("SP_UpdateCustomerBankTransaction");
-                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_TransactionId", DbType.Int32, customerAccountVo.AccountId);
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_TransactionId", DbType.Int32, TransactionId);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_ExternalTransactionId", DbType.String, customerAccountVo.ExternalTransactionId);
-                if(customerAccountVo.Transactiondate!=DateTime.MinValue)
+                if(customerAccountVo.Transactiondate!=null)
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Transactiondate", DbType.DateTime, customerAccountVo.Transactiondate);
                 else
-                    db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Transactiondate", DbType.DateTime, DBNull.Value);
+                  customerAccountVo.Transactiondate= DateTime.MinValue;
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_IsWithdrwal", DbType.Int32, customerAccountVo.IsWithdrwal);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@WERP_CFCCode", DbType.String, customerAccountVo.CFCCategoryCode);
