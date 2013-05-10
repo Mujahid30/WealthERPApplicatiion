@@ -3425,6 +3425,38 @@ namespace DaoCustomerPortfolio
             }
             return getCashflowCategoryDs.Tables[0];
         }
+        public DataSet GetBankAccountNumber(int customerId)
+        {
+            DbCommand getBankAccountNoCmd;
+            DataSet ds;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBankAccountNoCmd = db.GetStoredProcCommand("SPROC_GetBankAccountNumber");
+                db.AddInParameter(getBankAccountNoCmd, "@CustomerId", DbType.Int32, customerId);
+                ds = db.ExecuteDataSet(getBankAccountNoCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:GetBankAccountNumber()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
 
     }
 }
