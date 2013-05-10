@@ -43,8 +43,9 @@
 </table>
 <table class="TableBackground" width="100%">
     <tr>
-        <td id="tdAdviser" runat="server" align="left" style="width: 30%" valign="top">
+        <td id="tdAdviser" runat="server" align="right"  valign="top">
             <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Select Adviser:"></asp:Label>
+            </td><td align="left">
             <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" 
                 AutoPostBack="true" onselectedindexchanged="ddlAdviser_SelectedIndexChanged">
             </asp:DropDownList>
@@ -53,24 +54,27 @@
                 Operator="NotEqual" ValidationGroup="btnGo" ValueToCompare="Select">
             </asp:CompareValidator>
         </td>
-        <td colspan="2" class="leftField" style="width: 70%">
+        <td colspan="4" class="leftField" >
         </td>
     </tr>
     <tr id="trBranchRM" runat="server">
-        <td align="left" style="width: 30%">
+        <td align="right" >
             <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
+            </td><td>
             <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
                 CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
-        <td align="left" style="width: 30%">
+        <td align="right">
             <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
+            </td><td>
             <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Style="vertical-align: middle">
             </asp:DropDownList>
         </td>
-        <td align="left" style="width: 40%">
+        <td align="right" >
             <asp:Label ID="lblAsonDate" runat="server" CssClass="FieldName" Text="As on Date: "></asp:Label>
+            </td><td>
             <%--<asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName"> </asp:Label>--%>
             <telerik:RadDatePicker ID="txtAsOnDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
@@ -84,16 +88,18 @@
         </td>
     </tr>
     <tr id="TrCustomerType" runat="server">
-        <td align="left" style="width: 30%">
+        <td align="right" >
             <asp:Label ID="lblGrpOrInd" runat="server" CssClass="FieldName" Text="Search for :"></asp:Label>
+            </td><td>
             <asp:DropDownList ID="ddlSelectCustomer" runat="server" CssClass="cmbField" Style="vertical-align: middle"
                 AutoPostBack="true" OnSelectedIndexChanged="ddlSelectCustomer_SelectedIndexChanged">
                 <asp:ListItem Value="All Customer" Text="All Customer"></asp:ListItem>
                 <asp:ListItem Value="Pick Customer" Text="Pick Customer"></asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td align="left" style="width: 30%">
+        <td align="right" >
             <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="FieldName" Text="Customer Type: "></asp:Label>
+            </td><td>
             <asp:DropDownList ID="ddlCustomerType" Style="vertical-align: middle" runat="server"
                 CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlCustomerType_SelectedIndexChanged">
                 <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
@@ -101,8 +107,9 @@
                 <asp:ListItem Value="1" Text="Individual"></asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td id="trCustomerSearch" runat="server" align="left" style="width: 40%" onkeypress="return keyPress(this, event)">
+        <td id="trCustomerSearch" runat="server" align="right"  onkeypress="return keyPress(this, event)">
             <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer: "></asp:Label>
+            </td><td>
             <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtIndividualCustomer"
@@ -122,10 +129,10 @@
         </td>
     </tr>
     <tr>
-        <td align="left" style="width: 30%">
+        <td align="left" >
             <asp:Button ID="btnGo" runat="Server" Text="Go" CssClass="PCGButton" OnClick="btnGo_Click" ValidationGroup="btnGo"/>
         </td>
-        <td class="leftField" style="width: 30%" colspan="2">
+        <td class="leftField"colspan="4">
             &nbsp;
         </td>
     </tr>

@@ -75,7 +75,10 @@ namespace WealthERP.Advisor
                     GetLatestValuationDate();
                 genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
                 strValuationDate = genDict[Constants.MFDate.ToString()].ToShortDateString();
-                txtAsOnDate.SelectedDate = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString());
+                if (strValuationDate == "01/01/0001")
+                    txtAsOnDate.SelectedDate = DateTime.Now;
+                else
+                    txtAsOnDate.SelectedDate = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString());
                 hdnDate.Value = txtAsOnDate.SelectedDate.ToString();
 
             }
@@ -103,6 +106,7 @@ namespace WealthERP.Advisor
             else
             {
                 tdAdviser.Visible = false;
+                ddlAdviser.Visible = false;
                 advisorId = advisorVo.advisorId;
                 rmId = rmVo.RMId;
             }
@@ -112,6 +116,7 @@ namespace WealthERP.Advisor
                 ddlCustomerType.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
                 trCustomerSearch.Visible = false;
+                txtIndividualCustomer.Visible = false;
                 pnlMfNPTranxCompare.Visible = false;
                 if (userType == "advisor")
                 {
@@ -326,10 +331,12 @@ namespace WealthERP.Advisor
             if (ddlCustomerType.SelectedIndex == 0)
             {
                 trCustomerSearch.Visible = false;
+                txtIndividualCustomer.Visible = false;
             }
             else
             {
                 trCustomerSearch.Visible = true;
+                txtIndividualCustomer.Visible = true;
                 if (ddlCustomerType.SelectedItem.Value == "0")
                 {
                     customerType = "GROUP";
@@ -396,6 +403,7 @@ namespace WealthERP.Advisor
                 ddlCustomerType.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
                 trCustomerSearch.Visible = false;
+                txtIndividualCustomer.Visible = false;
                 rquiredFieldValidatorIndivudialCustomer.Visible = false;
                 ddlCustomerType.SelectedIndex = 0;
 
@@ -406,6 +414,7 @@ namespace WealthERP.Advisor
                 lblSelectTypeOfCustomer.Visible = true;
                 txtIndividualCustomer.Text = string.Empty;
                 trCustomerSearch.Visible = false;
+                txtIndividualCustomer.Visible = false;
                 rquiredFieldValidatorIndivudialCustomer.Visible = true;
                 ddlCustomerType.SelectedIndex = 0;
             }
