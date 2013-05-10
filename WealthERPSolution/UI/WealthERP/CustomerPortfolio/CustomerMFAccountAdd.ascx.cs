@@ -93,10 +93,13 @@ namespace WealthERP.CustomerPortfolio
 
                     if (!IsPostBack)
                     {
+
+                        BindDropDowns(path);
                         if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                         {
                             if (Request.QueryString["action"].Trim() == "Edit")
                             {
+                                
                                 EditFolioDetails();
                                 imgAddNominee.Visible = true;
                                 imgAddJointHolder.Visible = true;
@@ -105,6 +108,7 @@ namespace WealthERP.CustomerPortfolio
                             }
                             else if (Request.QueryString["action"].Trim() == "View")
                             {
+                               
                                 ViewFolioDetails();
                                 imgAddNominee.Visible = false;
                                 imgAddJointHolder.Visible = false;
@@ -938,8 +942,7 @@ namespace WealthERP.CustomerPortfolio
                         customerAccountsVo.BankAccountNum = txtAccNo.Text;
                     if (ddlModeOfOpn.SelectedIndex != -1)
                         customerAccountsVo.ModeOfOperation = ddlModeOfOpn.SelectedValue.ToString();
-                    if (!string.IsNullOrEmpty(txtBankName.Text))
-                        customerAccountsVo.BankName = txtBankName.Text;
+              
                     if (!string.IsNullOrEmpty(txtBranchName.Text))
                         customerAccountsVo.BranchName = txtBranchName.Text;
                     if (!string.IsNullOrEmpty(txtBLine1.Text))
@@ -1558,7 +1561,7 @@ namespace WealthERP.CustomerPortfolio
 
             if (dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString().Trim() != "")
                 ddlModeOfOpn.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString().Trim();
-            ddlAccType.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XBAT_BankAccountTypeCode"].ToString().Trim();
+            ddlAccType.SelectedValue = dsbankDetails.Tables[0].Rows[0]["PAIC_AssetInstrumentCategoryCode"].ToString().Trim();
             txtPinCode.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrPinCode"].ToString();
             txtMicr.Text = dsbankDetails.Tables[0].Rows[0]["CB_MICR"].ToString();
             txtIfsc.Text = dsbankDetails.Tables[0].Rows[0]["CB_IFSC"].ToString();
@@ -1569,13 +1572,22 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                dsAccountType = customerAccountBo.GetAccountType();
-                    //XMLBo.GetBankAccountTypes(path);
-                ddlAccType.DataSource = dsAccountType;
-                ddlAccType.DataTextField = "XBAT_BankAccountTye";
-                ddlAccType.DataValueField = "XBAT_BankAccountTypeCode";
+                //dsAccountType = customerAccountBo.GetAccountType();
+                //    //XMLBo.GetBankAccountTypes(path);
+                //ddlAccType.DataSource = dsAccountType;
+                //ddlAccType.DataTextField = "XBAT_BankAccountTye";
+                //ddlAccType.DataValueField = "XBAT_BankAccountTypeCode";
+                //ddlAccType.DataBind();
+                //ddlAccType.Items.Insert(0, new ListItem("Select", "0"));
+                DataTable dt = new DataTable();
+
+                dt = customerBankAccountBo.AssetBankaccountType();
+                ddlAccType.DataSource = dt;
+                ddlAccType.DataValueField = dt.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                ddlAccType.DataTextField = dt.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
                 ddlAccType.DataBind();
-                ddlAccType.Items.Insert(0, new ListItem("Select", "0"));
+                ddlAccType.Items.Insert(0, new ListItem("Select", "Select"));
+
 
                 dtModeofOperation = XMLBo.GetModeOfHolding(path);
                 ddlModeOfOpn.DataSource = dtModeofOperation;
