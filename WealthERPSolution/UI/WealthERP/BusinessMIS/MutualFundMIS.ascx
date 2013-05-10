@@ -556,7 +556,7 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="R & T Name" DataField="PASC_AMC_ExternalCode" UniqueName="RnTName"
+                <telerik:GridBoundColumn HeaderText="R & T Name" DataField="RnTName" UniqueName="RnTName"
                     SortExpression="RnTName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
                     CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
