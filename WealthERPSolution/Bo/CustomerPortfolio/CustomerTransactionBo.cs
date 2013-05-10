@@ -1969,5 +1969,37 @@ namespace BoCustomerPortfolio
         }
 
 
+
+        public DataSet GetEquityLedgerMIS(int CustomerId, int TradeAccountId, int BankAccountId)
+        {
+            DataSet dsGetEqLedgerMIS;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                dsGetEqLedgerMIS = customerTransactionDao.GetEquityLedgerMIS(CustomerId, TradeAccountId, BankAccountId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetLastTradeDate()");
+                object[] objects = new object[3];
+                objects[0] = CustomerId;
+                objects[1] = TradeAccountId;
+                objects[2] = BankAccountId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetEqLedgerMIS;
+        }
     }
 }
