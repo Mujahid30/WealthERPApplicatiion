@@ -886,6 +886,12 @@ namespace DaoCustomerPortfolio
                         AccountVo.OtherCharges = double.Parse(dr["CETA_OtherCharges"].ToString());
                     else
                         AccountVo.OtherCharges = 0;
+                    if (dr["CB_CustBankAccId"].ToString() != "")
+                        AccountVo.BankId = int.Parse(dr["CB_CustBankAccId"].ToString());
+                    if (dr["CB_AccountNum"].ToString() != "")
+                        AccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
+                    if (dr["WERPBM_BankCode"].ToString() != "")
+                        AccountVo.BankNameInExtFile = dr["WERPBM_BankCode"].ToString();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -4053,6 +4059,43 @@ namespace DaoCustomerPortfolio
             return mfBalanceList;
         }
 
+        public DataSet GetEquityLedgerMIS(int CustomerId, int TradeAccountId, int BankAccountId)
+        {
+            DataSet dsGetEqLedgerMIS;
+            Database db;
+            DbCommand getEqLedgerMISCmd;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getEqLedgerMISCmd = db.GetStoredProcCommand("SPROC_GetEquityLedgerMIS");
+                db.AddInParameter(getEqLedgerMISCmd, "@CustomerId", DbType.Int32, CustomerId);
+                db.AddInParameter(getEqLedgerMISCmd, "@TradeAccountId", DbType.Int32, TradeAccountId);
+                db.AddInParameter(getEqLedgerMISCmd, "@BankAccountId", DbType.Int32, BankAccountId);
+
+                dsGetEqLedgerMIS = db.ExecuteDataSet(getEqLedgerMISCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetLastTradeDate()");
+                object[] objects = new object[3];
+                objects[0] = CustomerId;
+                objects[1] = TradeAccountId;
+                objects[2] = BankAccountId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetEqLedgerMIS;
+        }
     }
 }
