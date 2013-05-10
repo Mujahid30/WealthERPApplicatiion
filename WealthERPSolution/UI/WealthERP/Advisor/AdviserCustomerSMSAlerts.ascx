@@ -66,8 +66,7 @@
     }
 
     function HideColumn(columnNo) {
-        var lblDisclaimer = document.getElementById("<%=lblDisclaimer.ClientID %>");
-        lblDisclaimer.style.display = 'none';
+         
         var dgTest = document.getElementById("<%=gvCustomerSMSAlerts.ClientID %>");
         try {
             for (var i = 0; i < dgTest.rows.length; i++) {
@@ -80,8 +79,7 @@
     }
 
     function ShowColumn(columnNo) {
-        var lblDisclaimer = document.getElementById("<%=lblDisclaimer.ClientID %>");
-        lblDisclaimer.style.display = 'block';
+        
         var dgTest = document.getElementById("<%=gvCustomerSMSAlerts.ClientID %>");
         try {
             for (var i = 0; i < dgTest.rows.length; i++) {
@@ -188,7 +186,7 @@
                             <input id="chkBoxAll"  name="vehicle" value="Bike" type="checkbox" onclick="checkAllBoxes()" />
                         </HeaderTemplate>
                             <FooterTemplate>
-                                <asp:Button ID="btnDeleteSelected" OnClientClick="return TestCheckBox();" CssClass="FieldName" OnClick="btnDeleteSelected_Click"
+                                <asp:Button ID="btnDeleteSelected" CssClass="FieldName" OnClick="btnDeleteSelected_Click"
                                     runat="server" Text="Delete" />
                             </FooterTemplate>
                         </asp:TemplateField>
@@ -233,14 +231,14 @@
                         </tr>
                     </table>
                 </div>
-                <table>
+               <%-- <table>
                     <tr>
                         <td align="left">
                             <asp:Label ID="lblDisclaimer" runat="server" CssClass="FieldName" Text="Note: Change of phone number would reflect in the corresponding Customer Profile"
                                 Style="display: none" ForeColor="Red"></asp:Label>
                         </td>
                     </tr>
-                </table>
+                </table>--%>
             <%--</asp:Panel>--%>
         </td>
     </tr>

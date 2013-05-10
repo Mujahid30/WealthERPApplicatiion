@@ -273,7 +273,7 @@ namespace WealthERP.Advisor
             {
                 //lblNoRecords.Visible = true;
                 divNoRecords.Visible = true;
-                lblDisclaimer.Visible = false;
+                //lblDisclaimer.Visible = false;
                 btnSend.Visible = false;
                 //DivPager.Visible = false;
                 //trPageCount.Visible = false;
