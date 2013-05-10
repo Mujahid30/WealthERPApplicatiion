@@ -320,6 +320,9 @@ namespace WealthERP.Customer
                 ddlCFCCategory.DataBind();
                 ddlCFCCategory.SelectedValue = strCasflowcategory;
 
+                RadDatePicker dpTransactionDate = (RadDatePicker)e.Item.FindControl("dpTransactionDate");
+                dpTransactionDate.SelectedDate = customeraccountVo.Transactiondate;
+
             }
         }
         protected void gvCashSavingTransaction_ItemCommand(object source, GridCommandEventArgs e)
@@ -332,10 +335,26 @@ namespace WealthERP.Customer
                 RadDatePicker dpTransactionDate = (RadDatePicker)e.Item.FindControl("dpTransactionDate");
                 TextBox txtDescripton = (TextBox)e.Item.FindControl("txtDescripton");
                 TextBox txtChequeNo = (TextBox)e.Item.FindControl("txtChequeNo");
+                DateTime date = Convert.ToDateTime(dpTransactionDate.SelectedDate);
                 DropDownList ddlCFCCategory = (DropDownList)e.Item.FindControl("ddlCFCCategory");
                 TextBox txtAmount = (TextBox)e.Item.FindControl("txtAmount");
                 TextBox txtExternalTransactionId = (TextBox)e.Item.FindControl("txtExternalTransactionId");
                 customeraccountVo = new CustomerAccountsVo();
+                customeraccountVo.ExternalTransactionId = txtExternalTransactionId.Text.ToString();
+                customeraccountVo.Transactiondate = date;
+                customeraccountVo.CCST_Desc = txtDescripton.Text.ToString();
+                customeraccountVo.ChequeNo = txtChequeNo.Text.ToString();
+                customeraccountVo.CFCCategoryCode = ddlCFCCategory.SelectedItem.Value.ToString();
+                customeraccountVo.Amount = double.Parse(txtAmount.Text.ToString());               
+                customeraccountVo.AccountId = bankId;
+                if (rbtnN.Checked)
+                {
+                    customeraccountVo.IsWithdrwal = 0;
+                }
+                if (rbtnY.Checked)
+                {
+                    customeraccountVo.IsWithdrwal = 1;
+                }
                 accountId = int.Parse(gvCashSavingTransaction.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CCST_TransactionId"].ToString());
                 customerAccountBo.UpdateCustomerBankTransaction(customeraccountVo, accountId);
 
@@ -365,16 +384,16 @@ namespace WealthERP.Customer
                 customeraccountVo.ChequeNo = txtChequeNo.Text.ToString();
                 customeraccountVo.CFCCategoryCode = ddlCFCCategory.SelectedItem.Value.ToString();
                 customeraccountVo.Amount = double.Parse(txtAmount.Text.ToString());
-                int i;
-                dtBankAccId = (DataTable)Session["BankAccId"];
-                if (dtBankAccId.Rows.Count > 0)
-                {
-                    for (i = 0; i < dtBankAccId.Rows.Count; i++)
-                    {
-                        custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
-                    }
-                }
-                customeraccountVo.AccountId = custBankAccId;
+                //int i;
+                //dtBankAccId = (DataTable)Session["BankAccId"];
+                //if (dtBankAccId.Rows.Count > 0)
+                //{
+                //    for (i = 0; i < dtBankAccId.Rows.Count; i++)
+                //    {
+                //        custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
+                //    }
+                //}
+                customeraccountVo.AccountId = bankId;
                 if (rbtnN.Checked)
                 {
                     customeraccountVo.IsWithdrwal = 0;
@@ -405,48 +424,49 @@ namespace WealthERP.Customer
         /// <param name="e"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-             int i;
-             DataTable dtBankAccId = new DataTable();
-            dtBankAccId = (DataTable)Session["BankAccId"];
-            if (dtBankAccId.Rows.Count > 0)
-            {
-                for (i = 0; i < dtBankAccId.Rows.Count; i++)
-                {
-                    custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
-                }
-            }
+            // int i;
+             //DataTable dtBankAccId = new DataTable();
+             //dtBankAccId = (DataTable)Session["BankAccId"];
+             //if (dtBankAccId.Rows.Count > 0)
+             //{
+             //    for (i = 0; i < dtBankAccId.Rows.Count; i++)
+             //    {
+             //        custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
+             //    }
+             //}
+            
             customeraccountVo = new CustomerAccountsVo();
             int customerId = 0;
             customerVo = (CustomerVo)Session["customerVo"];
             customerId = customerVo.CustomerId;
-            customeraccountVo.AccountId = custBankAccId;
+            customeraccountVo.AccountId = int.Parse(ddlAccountDetails.SelectedValue);
             customeraccountVo.Amount = double.Parse(txtholdingAmt.Text.ToString());
             customerAccountBo.InsertholdingAmountCustomerBank(customeraccountVo, customerId);
         }
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            int i;
+            //int i;
             bool accountId;
-            DataTable dtBankAccId = new DataTable();
-            dtBankAccId = (DataTable)Session["BankAccId"];
-            if (dtBankAccId.Rows.Count > 0)
-            {
-                for (i = 0; i < dtBankAccId.Rows.Count; i++)
-                {
-                    custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
-                }
-            }
+            //DataTable dtBankAccId = new DataTable();
+            //dtBankAccId = (DataTable)Session["BankAccId"];
+            //if (dtBankAccId.Rows.Count > 0)
+            //{
+            //    for (i = 0; i < dtBankAccId.Rows.Count; i++)
+            //    {
+            //        custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
+            //    }
+            //}
             customeraccountVo = new CustomerAccountsVo();
             int customerId = 0;
             customerVo = (CustomerVo)Session["customerVo"];
             customerId = customerVo.CustomerId;
-            accountId = customerAccountBo.CheckTransactionExistanceOnHoldingAdd(custBankAccId);
+            accountId = customerAccountBo.CheckTransactionExistanceOnHoldingAdd(bankId);
             if (accountId == false)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Transaction all ready exist first delete Transactions !!');", true);
             }
             else
-            customeraccountVo.AccountId = custBankAccId;
+            customeraccountVo.AccountId = bankId;
             customeraccountVo.Amount = double.Parse(txtholdingAmt.Text.ToString());
             customerAccountBo.InsertholdingAmountCustomerBank(customeraccountVo, customerId);
         }
@@ -482,16 +502,17 @@ namespace WealthERP.Customer
             {
                 customeraccountVo.Amount = 0;
             }
-            int i;
-            dtBankAccId = (DataTable)Session["BankAccId"];
-            if (dtBankAccId.Rows.Count > 0)
-            {
-                for (i = 0; i < dtBankAccId.Rows.Count; i++)
-                {                  
-                 custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
-                }
-            }
-            customeraccountVo.AccountId = custBankAccId;            
+            //int i;
+            //dtBankAccId = (DataTable)Session["BankAccId"];
+            //if (dtBankAccId.Rows.Count > 0)
+            //{
+            //    for (i = 0; i < dtBankAccId.Rows.Count; i++)
+            //    {
+            //        custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
+            //    }
+            //}
+
+            customeraccountVo.AccountId = int.Parse(ddlAccountDetails.SelectedValue);            
             if (rbtnN.Checked)
             {
                 customeraccountVo.IsWithdrwal = 0;

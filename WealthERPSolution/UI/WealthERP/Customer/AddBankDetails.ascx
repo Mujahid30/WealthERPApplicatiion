@@ -41,7 +41,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             url: "ControlHost.aspx/CheckTransactionExistanceOnHoldingAdd",
-            data: "{ 'CBBankAccountNum': '" + $("#<%=ddlAccountDetails.ClientID %>").val() + "','CBBankAccountNum': '" + $("#<%=txtholdingAmt.ClientID %>").val() + "' }",
+            data: "{ 'CBBankAccountNum': '" + $("#<%=ddlAccountDetails.ClientID %>").val() + "'}",
             error: function(xhr, status, error) {
                 //                alert("Please select AMC!");
             },
@@ -138,7 +138,7 @@
                     </tr>
                     <tr id="trholdingamount" runat="server" visible="false">
                         <td class="leftField">
-                            <asp:Label ID="lblamount" runat="server" CssClass="FieldName" Text="Holdindg Amount:"></asp:Label>
+                            <asp:Label ID="lblamount" runat="server" CssClass="FieldName" Text="Holdings Amount:"></asp:Label>
                         </td>
                         <td class="rightField">
                             <asp:TextBox ID="txtholdingAmt" onblur="return chkTransactionExists()" runat="server"
@@ -310,14 +310,19 @@
                                         <asp:Label ID="Label3" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" Text='<%# Bind("CCST_Amount") %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" MaxLength="20" Text='<%# Bind("CCST_Amount") %>'></asp:TextBox>
                                         <span id="Span4" class="spnRequiredField">*</span>
                                         <asp:RequiredFieldValidator ID="rfvAmount" ControlToValidate="txtAmount" ValidationGroup="btnSubmitTransaction"
                                             ErrorMessage="<br />Please enter a Amount" Display="Dynamic" runat="server" CssClass="rfvPCG">
                                         </asp:RequiredFieldValidator>
+                                        <br />
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" CssClass="rfvPCG"
-                                            ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtAmount"
-                                            ValidationExpression="^[0-9]+$"></asp:RegularExpressionValidator>
+                                            ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtAmount" ValidationGroup="btnSubmitTransaction"
+                                            ValidationExpression="^\d{1,3}\,(\d{3}\,)*\d{3}(\.\d{1,2})?$ "></asp:RegularExpressionValidator>
+                                             <%--<asp:RangeValidator runat="server" ID="RangeValidator1" ControlToValidate="txtAmount"
+                                                Type="Integer" MinimumValue="10" MaximumValue="100" CssClass="rfvPCG" ErrorMessage="Page Range between 10-100 Acceptable"
+                                                ValidationGroup="BtnSubmitpage">
+                                            </asp:RangeValidator>--%>
                                         <%--ValidationExpression="^[0-9]+$"--%>
                                     </td>
                                     <td colspan="2">
@@ -349,7 +354,7 @@
         </ExportSettings>
         <MasterTableView TableLayout="Auto" DataKeyNames="CCST_TransactionId,WERP_CFCCode"
             AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-            CommandItemDisplay="Top" EditMode="EditForms">
+            CommandItemDisplay="None" EditMode="EditForms">
             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                 AddNewRecordText="Add Transaction" ShowRefreshButton="false" ShowExportToCsvButton="false"
                 ShowAddNewRecordButton="true" ShowExportToPdfButton="false" />
@@ -432,7 +437,7 @@
                                 <asp:Label ID="lblTransactionDate" runat="server" CssClass="FieldName" Text="Transaction Date:"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <telerik:RadDatePicker ID="dpTransactionDate" runat="server" Culture="English (United States)"
+                                <telerik:RadDatePicker  ID="dpTransactionDate" runat="server" Culture="English (United States)"
                                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                                     <Calendar ID="Calendar2" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
