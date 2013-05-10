@@ -936,6 +936,7 @@ namespace DaoCustomerPortfolio
                 if (AccountVo.AccountOpeningDate != DateTime.MinValue)
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CETA_AccountOpeningDate", DbType.DateTime, AccountVo.AccountOpeningDate);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(updateMFFolioDetailsCmd, "@BankId", DbType.Int32, AccountVo.BankId);
                 if (db.ExecuteNonQuery(updateMFFolioDetailsCmd) != 0)
                     blResult = true;
             }
