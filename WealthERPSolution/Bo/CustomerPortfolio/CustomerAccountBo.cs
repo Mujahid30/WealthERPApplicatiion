@@ -2166,5 +2166,34 @@ namespace BoCustomerPortfolio
             return bResult;
 
         }
+
+        public DataSet GetBankAccountNumber(int customerId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataSet ds;
+            try
+            {
+                ds = customerAccountDao.GetBankAccountNumber(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:GetBankAccountNumber()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
     }
 }
