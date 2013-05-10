@@ -45,8 +45,8 @@
                 <asp:DropDownList ID="ddlPortfolioId" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span>
-                <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAccountType"
-                    ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Account Type"
+                <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPortfolioId"
+                    ValidationGroup="btnSubmit" ErrorMessage="<br />Please select Portfolio"
                     Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
             </td>
             <td colspan="2">
@@ -350,10 +350,10 @@
                 <td>
                     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                        Text="Submit" Visible="true" OnClick="btnSubmit_Click" />
+                        Text="Submit" Visible="true" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
                     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                        Text="Update" Visible="false" OnClick="btnUpdate_Click" />
+                        Text="Update" Visible="false" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit" />
                 </td>
             </tr>
             <%--<td>
