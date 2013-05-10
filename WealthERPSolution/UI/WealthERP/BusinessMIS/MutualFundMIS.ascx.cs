@@ -608,6 +608,12 @@ namespace WealthERP.BusinessMIS
 
         public void BindAMCWISEAUMDetails()
         {
+            divGvSchemeWiseAUM.Visible = false;
+            divGvFolioWiseAUM.Visible = false;
+            divRgvFolioWiseAUM.Visible = false;
+            divRgvSchemeWiseAUM.Visible = false;
+
+
             int rmgerId = 0;
             int brId = 0;
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
