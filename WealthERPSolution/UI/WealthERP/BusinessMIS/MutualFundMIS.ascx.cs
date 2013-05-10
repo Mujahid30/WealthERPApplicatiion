@@ -902,14 +902,14 @@ namespace WealthERP.BusinessMIS
                 divRgvSchemeWiseAUM.Visible = true;
 
 
-                if (Cache["gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString()] == null)
+                if (Cache["rgvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString()] == null)
                 {
-                    Cache.Insert("gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
+                    Cache.Insert("rgvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
                 }
                 else
                 {
-                    Cache.Remove("gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString());
-                    Cache.Insert("gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
+                    Cache.Remove("rgvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString());
+                    Cache.Insert("rgvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
                 }
             }
         }
@@ -971,14 +971,14 @@ namespace WealthERP.BusinessMIS
                 rgvFolioWiseAUM.DataBind();
                 divRgvFolioWiseAUM.Visible = true;
 
-                if (Cache["gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()] == null)
+                if (Cache["rgvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()] == null)
                 {
-                    Cache.Insert("gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
+                    Cache.Insert("rgvFolioWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
                 }
                 else
                 {
-                    Cache.Remove("gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString());
-                    Cache.Insert("gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
+                    Cache.Remove("rgvFolioWiseAUMDetails" + advisorVo.advisorId.ToString());
+                    Cache.Insert("rgvFolioWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
                 }
             }
         }
@@ -1532,8 +1532,8 @@ namespace WealthERP.BusinessMIS
         protected void rgvSchemeWiseAUM_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dtProcessLogDetails = new DataSet();
-            dtProcessLogDetails = (DataSet)Cache["gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()];
-            gvFolioWiseAUM.DataSource = dtProcessLogDetails;
+            dtProcessLogDetails = (DataSet)Cache["rgvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            rgvSchemeWiseAUM.DataSource = dtProcessLogDetails;
         }
 
         protected void rgvSchemeWiseAUM_ItemDataBound(object sender, GridItemEventArgs e)
@@ -1549,8 +1549,8 @@ namespace WealthERP.BusinessMIS
         protected void rgvFolioWiseAUM_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dtProcessLogDetails = new DataSet();
-            dtProcessLogDetails = (DataSet)Cache["gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()];
-            gvFolioWiseAUM.DataSource = dtProcessLogDetails;
+            dtProcessLogDetails = (DataSet)Cache["rgvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            rgvFolioWiseAUM.DataSource = dtProcessLogDetails;
         }
 
         protected void rgvFolioWiseAUM_PreRender(object sender, EventArgs e)

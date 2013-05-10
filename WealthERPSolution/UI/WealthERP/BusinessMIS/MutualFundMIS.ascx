@@ -395,7 +395,7 @@
 <div runat="server" id="divRgvFolioWiseAUM" style="overflow: scroll;" visible="false">
     <telerik:RadGrid ID="rgvFolioWiseAUM" runat="server"
         GridLines="None" AutoGenerateColumns="False" PageSize="10" AllowSorting="true"
-        AllowPaging="True" ShowStatusBar="True"
+        AllowPaging="True" ShowStatusBar="True"  OnNeedDataSource="rgvFolioWiseAUM_OnNeedDataSource"
         ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true"
         AllowAutomaticInserts="false" ExportSettings-FileName="FolioWiseAUM Details"
         >
@@ -517,7 +517,7 @@
 <div runat="server" style="overflow: scroll;" id="divRgvSchemeWiseAUM" visible="false">
     <telerik:RadGrid ID="rgvSchemeWiseAUM" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true"
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px" AllowFilteringByColumn="true" OnNeedDataSource="rgvSchemeWiseAUM_OnNeedDataSource"
         AllowAutomaticInserts="false" ExportSettings-FileName="SchemeWiseAUM Details"
        >
         <ExportSettings HideStructureColumns="true">
@@ -532,11 +532,11 @@
                             ItemStyle-Width="12px" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>--%>
-                <telerik:GridBoundColumn HeaderText="AMC" DataField="PA_AMCName" UniqueName="AMC" SortExpression="AMC"
+               <%-- <telerik:GridBoundColumn HeaderText="AMC" DataField="AMC" UniqueName="AMC" SortExpression="AMC"
                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="250px" HeaderText="Scheme" DataField="PASP_SchemePlanName"
+                </telerik:GridBoundColumn>--%>
+                <telerik:GridBoundColumn HeaderStyle-Width="250px" HeaderText="Scheme" DataField="Scheme"
                     UniqueName="Scheme" SortExpression="Scheme" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -546,22 +546,22 @@
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Category" DataField="PAIC_AssetInstrumentCategoryName" UniqueName="Category"
+                <telerik:GridBoundColumn HeaderText="Category" DataField="Category" UniqueName="Category"
                     SortExpression="Category" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
                     CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="SubCategory" DataField="PAISC_AssetInstrumentSubCategoryName" UniqueName="SubCategory"
+                <telerik:GridBoundColumn HeaderText="SubCategory" DataField="Subcategory" UniqueName="SubCategory"
                     SortExpression="SubCategory" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="R & T Name" DataField="PASC_AMC_ExternalType" UniqueName="RnTName"
+                <telerik:GridBoundColumn HeaderText="R & T Name" DataField="PASC_AMC_ExternalCode" UniqueName="RnTName"
                     SortExpression="RnTName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
                     CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Curr NAV" DataField="CMFNP_CurrentValue"
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Curr NAV" DataField="MarketPrice"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="MarketPrice" SortExpression="MarketPrice"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -578,7 +578,7 @@
                     DataFormatString="{0:N3}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="AUM" DataField="CMFNP_CurrentValue"
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="AUM" DataField="AUM"
                     HeaderStyle-HorizontalAlign="Center" UniqueName="AUM" SortExpression="AUM" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
