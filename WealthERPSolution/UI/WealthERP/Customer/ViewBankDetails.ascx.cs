@@ -725,7 +725,7 @@ namespace WealthERP.Customer
                 double amount = double.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_HoldingAmount"].ToString());
                 string bankname = (gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WERPBDTM_BankName"].ToString());
                 string name = "Editbalance";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankDetails", "loadcontrol('AddBankDetails','?name=" + name + "&accountNum=" + accountNum + "&amount=" + amount + "&bankname=" + bankname + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankDetails", "loadcontrol('AddBankDetails','?name=" + name + "&accountNum=" + accountNum + "&amount=" + amount + "&bankname=" + bankname + "&bankId=" + bankId + "');", true);
 
             }
             if (e.CommandName == "Edit")
