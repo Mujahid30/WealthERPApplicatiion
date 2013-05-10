@@ -48,6 +48,11 @@ namespace WealthERP
                 AddMFFolioLinkId = Request.QueryString["AddMFOrderEntryLinkId"].ToString();
                 Session["AddMFOrderEntryLinkIdLinkAction"] = AddMFOrderEntryLinkId;
             }
+           
+            path = Getpagepath(pageID.Trim());           
+            UserControl uc1 = new UserControl();
+            uc1 = (UserControl)this.Page.LoadControl(path);
+
 
             if (pageID.Trim() == "CustomerProofView")
             {
@@ -56,10 +61,15 @@ namespace WealthERP
                 customerProofFileName = Request.QueryString["strFileName"].ToString();
                 strAdvisorIdWithFielName = Request.QueryString["strAdvisorIdWithFielName"].ToString();
             }
+            else if (pageID.Trim() == "AddBankAccount")
+            {
+                string bankId = Request.QueryString["bankId"].ToString();
+                string action = Request.QueryString["action"].ToString();
+                uc1.ID = "ctrl_" + pageID.Trim() + "-" + bankId + "-" + action;
+            }
 
-            path = Getpagepath(pageID.Trim());           
-            UserControl uc1 = new UserControl();
-            uc1 = (UserControl)this.Page.LoadControl(path);
+
+           
 
             if (!string.IsNullOrEmpty(customerImageProofPath))
             {
