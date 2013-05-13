@@ -369,7 +369,7 @@
         <td style="width: 40%">
             <div runat="server" id="divEqMIS" style="margin: 2px; width: 640px;">
                 <telerik:RadGrid ID="gvEqMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-                 PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                 PageSize="15" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                  Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                  AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvEqMIS_OnNeedDataSource"  
                  EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
