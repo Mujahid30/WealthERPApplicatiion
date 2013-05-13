@@ -3092,7 +3092,11 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ExternalTransactionId", DbType.String, customerAccountVo.ExternalTransactionId);
                 else
                     db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ExternalTransactionId", DbType.String, DBNull.Value);
-                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Transactiondate", DbType.DateTime, customerAccountVo.Transactiondate);
+                if (customerAccountVo.Transactiondate != null)
+                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Transactiondate", DbType.DateTime, customerAccountVo.Transactiondate);
+                else
+                    customerAccountVo.Transactiondate = DateTime.MinValue;
+               
                 if (customerAccountVo.CCST_Desc != null)
                     db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
                 else
@@ -3178,7 +3182,7 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
-        public List<CustomerAccountsVo> GetCustomerBankTransaction(int CustBankAccIds)
+        public List<CustomerAccountsVo> GetCustomerBankTransaction(int CustBankAccIds, int customerId)
         {
 
             List<CustomerAccountsVo> accountList = null;
@@ -3195,6 +3199,7 @@ namespace DaoCustomerPortfolio
                 getCustomerBankTransactionCmd = db.GetStoredProcCommand("SP_GetCustomerBankTransaction");
 
                 db.AddInParameter(getCustomerBankTransactionCmd, "@CB_CustBankAccId", DbType.Int32, CustBankAccIds);
+                db.AddInParameter(getCustomerBankTransactionCmd, "@CustomerId", DbType.Int32, customerId);
                 getCustomerBankTransactionDs = db.ExecuteDataSet(getCustomerBankTransactionCmd);
                 if (getCustomerBankTransactionDs.Tables[0].Rows.Count > 0)
                 {
