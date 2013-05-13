@@ -619,7 +619,7 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrCity", DbType.String, DBNull.Value);
                 }
-                if (!string.IsNullOrEmpty(customerAccountVo.BranchAdrState))
+                if ((!string.IsNullOrEmpty(customerAccountVo.BranchAdrState)) && (customerAccountVo.BranchAdrState!="0"))
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrState", DbType.String, customerAccountVo.BranchAdrState);
                 }
