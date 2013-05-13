@@ -61,9 +61,9 @@ namespace WealthERP.Customer
             {
                 currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
             }
-            if (Request.QueryString["BankId"] != null)
+            if (Request.QueryString["bankId"] != null)
             {
-                bankId = int.Parse(Request.QueryString["BankId"].ToString());
+                bankId = int.Parse(Request.QueryString["bankId"].ToString());
             }
             if (Request.QueryString["action"] != null)
             {
