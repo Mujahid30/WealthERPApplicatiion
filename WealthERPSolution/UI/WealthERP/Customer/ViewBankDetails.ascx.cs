@@ -92,62 +92,62 @@ namespace WealthERP.Customer
 
         private void BindTransactionGrid()
         {
-            DataTable dtBankAccId = new DataTable();
-            dtBankAccId = (DataTable)Session["BankAccId"];      
-            custBankAccId = Convert.ToInt32(ViewState["BankId"]);           
-            TransactionList = customerAccountBo.GetCustomerBankTransaction(custBankAccId);
-            DataTable dtTransaction = new DataTable();
-            dtTransaction.Columns.Add("CCST_TransactionId");
-            dtTransaction.Columns.Add("CCST_ExternalTransactionId");
-            dtTransaction.Columns.Add("CCST_Transactiondate");
-            dtTransaction.Columns.Add("CCST_Desc");
-            dtTransaction.Columns.Add("CCST_ChequeNo");
-            dtTransaction.Columns.Add("CCST_IsWithdrwal");// original costumer name from folio uploads
-            dtTransaction.Columns.Add("CCST_Amount");
-            // dtTransaction.Columns.Add("CCST_AvailableBalance");
-            dtTransaction.Columns.Add("CB_HoldingAmount");
+        //    DataTable dtBankAccId = new DataTable();
+        //    dtBankAccId = (DataTable)Session["BankAccId"];      
+        //    custBankAccId = Convert.ToInt32(ViewState["BankId"]);           
+        //    TransactionList = customerAccountBo.GetCustomerBankTransaction(custBankAccId);
+        //    DataTable dtTransaction = new DataTable();
+        //    dtTransaction.Columns.Add("CCST_TransactionId");
+        //    dtTransaction.Columns.Add("CCST_ExternalTransactionId");
+        //    dtTransaction.Columns.Add("CCST_Transactiondate");
+        //    dtTransaction.Columns.Add("CCST_Desc");
+        //    dtTransaction.Columns.Add("CCST_ChequeNo");
+        //    dtTransaction.Columns.Add("CCST_IsWithdrwal");// original costumer name from folio uploads
+        //    dtTransaction.Columns.Add("CCST_Amount");
+        //    // dtTransaction.Columns.Add("CCST_AvailableBalance");
+        //    dtTransaction.Columns.Add("CB_HoldingAmount");
 
-            DataRow drTransaction;
-            for (int i = 0; i < TransactionList.Count; i++)
-            {
-                drTransaction = dtTransaction.NewRow();
-                customeraccountVo = new CustomerAccountsVo();
-                customeraccountVo = TransactionList[i];
-                drTransaction["CCST_TransactionId"] = customeraccountVo.TransactionId.ToString();
-                drTransaction["CCST_ExternalTransactionId"] = customeraccountVo.ExternalTransactionId.ToString();
-                drTransaction["CCST_Transactiondate"] = customeraccountVo.Transactiondate.ToString();
-                drTransaction["CCST_Desc"] = customeraccountVo.CCST_Desc.ToString().Trim();
-                drTransaction["CCST_ChequeNo"] = customeraccountVo.ChequeNo.ToString().Trim();
-                if (customeraccountVo.IsWithdrwal == 0)
-                {
-                    drTransaction["CCST_IsWithdrwal"] = "CR";
+        //    DataRow drTransaction;
+        //    for (int i = 0; i < TransactionList.Count; i++)
+        //    {
+        //        drTransaction = dtTransaction.NewRow();
+        //        customeraccountVo = new CustomerAccountsVo();
+        //        customeraccountVo = TransactionList[i];
+        //        drTransaction["CCST_TransactionId"] = customeraccountVo.TransactionId.ToString();
+        //        drTransaction["CCST_ExternalTransactionId"] = customeraccountVo.ExternalTransactionId.ToString();
+        //        drTransaction["CCST_Transactiondate"] = customeraccountVo.Transactiondate.ToString();
+        //        drTransaction["CCST_Desc"] = customeraccountVo.CCST_Desc.ToString().Trim();
+        //        drTransaction["CCST_ChequeNo"] = customeraccountVo.ChequeNo.ToString().Trim();
+        //        if (customeraccountVo.IsWithdrwal == 0)
+        //        {
+        //            drTransaction["CCST_IsWithdrwal"] = "CR";
 
-                }
-                else
-                {
-                    drTransaction["CCST_IsWithdrwal"] = "DR";
-                }
-                //drTransaction["CCST_IsWithdrwal"] = customeraccountVo.IsWithdrwal.ToString();
-                drTransaction["CCST_Amount"] = customeraccountVo.Amount.ToString();
-                dtTransaction.Rows.Add(drTransaction);
+        //        }
+        //        else
+        //        {
+        //            drTransaction["CCST_IsWithdrwal"] = "DR";
+        //        }
+        //        //drTransaction["CCST_IsWithdrwal"] = customeraccountVo.IsWithdrwal.ToString();
+        //        drTransaction["CCST_Amount"] = customeraccountVo.Amount.ToString();
+        //        dtTransaction.Rows.Add(drTransaction);
 
-            }
-            if (TransactionList.Count > 0)
-            {
-                gvCashSavingTransaction.DataSource = dtTransaction;
-                gvCashSavingTransaction.DataBind();
-                //btnTransferFolio.Visible = false;
-                //btnMoveFolio.Visible = false;
-                gvCashSavingTransaction.Visible = true;
+        //    }
+        //    if (TransactionList.Count > 0)
+        //    {
+        //        gvCashSavingTransaction.DataSource = dtTransaction;
+        //        gvCashSavingTransaction.DataBind();
+        //        //btnTransferFolio.Visible = false;
+        //        //btnMoveFolio.Visible = false;
+        //        gvCashSavingTransaction.Visible = true;
               
-            }
-            else
-            {
-                gvCashSavingTransaction.DataSource = dtTransaction;
-                gvCashSavingTransaction.DataBind();
-                gvCashSavingTransaction.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        gvCashSavingTransaction.DataSource = dtTransaction;
+        //        gvCashSavingTransaction.DataBind();
+        //        gvCashSavingTransaction.Visible = true;
 
-            }
+        //    }
         }
         public void BindBankDetails(int customerIdForGettingBankDetails)
         {
@@ -215,29 +215,39 @@ namespace WealthERP.Customer
                 //        drCustomerBankAccount[17] = customerBankAccountVo.WERPBMBankName.ToString();
                 //    dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
                 //}
-
-                if (Cache["gvDetailsForBank" + userVo.UserId + customerVo.CustomerId] == null)
+                if (dsCustomerBankAccountDetails.Tables[0].Rows.Count > 0)
                 {
-                    Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dsCustomerBankAccountDetails.Tables[0]);
+                    if (Cache["gvDetailsForBank" + userVo.UserId + customerVo.CustomerId] == null)
+                    {
+                        Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dsCustomerBankAccountDetails.Tables[0]);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId);
+                        Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dsCustomerBankAccountDetails.Tables[0]);
+                    }
+
+                    gvBankDetails.DataSource = dsCustomerBankAccountDetails.Tables[0];
+                    gvBankDetails.DataBind();
+                    gvBankDetails.Visible = true;
+                    DivAction.Visible = true;
+                    imgBtnrgHoldings.Visible = true;
                 }
                 else
                 {
-                    Cache.Remove("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId);
-                    Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dsCustomerBankAccountDetails.Tables[0]);
-                }
-                             
-                gvBankDetails.DataSource = dsCustomerBankAccountDetails.Tables[0];
-                gvBankDetails.DataBind();
-                gvBankDetails.Visible = true;
-                DivAction.Visible = true;
-               // BindDDLBankDetails();
-                Session["BankAccId"] = dsCustomerBankAccountDetails.Tables[0];
-                //}
-                //else
-                //{
-                //    gvBankDetails.DataSource = null;
-                //    gvBankDetails.DataBind();
-                //}
+                    gvBankDetails.DataSource = dsCustomerBankAccountDetails.Tables[0];
+                    gvBankDetails.DataBind();
+                    gvBankDetails.Visible = true;
+                    DivAction.Visible = false;
+                    imgBtnrgHoldings.Visible = false;
+                    // BindDDLBankDetails();
+                    Session["BankAccId"] = dsCustomerBankAccountDetails.Tables[0];
+                    //}
+                    //else
+                    //{
+                    //    gvBankDetails.DataSource = null;
+                    //    gvBankDetails.DataBind();
+                }    //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -976,7 +986,7 @@ namespace WealthERP.Customer
             {
                 gvBankDetails.MasterTableView.IsItemInserted = false;
                 gvBankDetails.Rebind();
-                imgBtnrgHoldings.Visible = true;
+                //imgBtnrgHoldings.Visible = true;
             }
         }
         protected void gvCashSavingTransaction_ItemCommand(object source, GridCommandEventArgs e)
