@@ -63,9 +63,13 @@ namespace WealthERP
             }
             else if (pageID.Trim() == "AddBankAccount")
             {
-                string bankId = Request.QueryString["bankId"].ToString();
-                string action = Request.QueryString["action"].ToString();
-                uc1.ID = "ctrl_" + pageID.Trim() + "-" + bankId + "-" + action;
+                if (Request.QueryString["action"] != null)
+                {
+                    string bankId = Request.QueryString["bankId"].ToString();
+                    string action = Request.QueryString["action"].ToString();
+                    uc1.ID = "ctrl_" + pageID.Trim() + "-" + bankId + "-" + action;
+                }
+               
             }
 
 
