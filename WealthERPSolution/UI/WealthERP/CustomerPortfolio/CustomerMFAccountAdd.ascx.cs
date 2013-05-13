@@ -192,7 +192,7 @@ namespace WealthERP.CustomerPortfolio
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
             BindCustomerBankList();
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
-            ddlBankList.SelectedValue = customerAccountsVo.BankId.ToString();
+            ddlBankList.SelectedItem.Text = customerAccountsVo.BankName.ToString();
             txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
                 rbtnYes.Checked = true;
@@ -364,6 +364,8 @@ namespace WealthERP.CustomerPortfolio
             {
                 ddlBankList.SelectedValue = "0";
             }
+           
+            
             txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
             {
@@ -436,6 +438,16 @@ namespace WealthERP.CustomerPortfolio
 
             if (customerAccountsVo.CDOB != DateTime.MinValue)
                 rdpDOB.SelectedDate = customerAccountsVo.CDOB;
+
+            BindALLBankListForCustomer();
+            if (!string.IsNullOrEmpty(customerAccountsVo.BankName))
+            {
+                ddlALLBankList.SelectedItem.Text = customerAccountsVo.BankName.ToString();
+            }
+            else
+            {
+                ddlALLBankList.SelectedValue = "0";
+            }
 
 
             ViewState["ModeOfHolding"] = ddlModeOfHolding.SelectedValue;
@@ -965,7 +977,7 @@ namespace WealthERP.CustomerPortfolio
                         customerAccountsVo.BranchAdrCountry = ddlBCountry.SelectedValue;
                     customerAccountsVo.XCT_CustomerTypeCode = ddlCustomerType.SelectedValue;
                     customerAccountsVo.XCST_CustomerSubTypeCode = ddlCustomerSubType.SelectedValue;
-
+                    customerAccountsVo.BankName = ddlALLBankList.SelectedValue;
                     if (rbtnNo.Checked)
                         customerAccountsVo.IsJointHolding = 0;
                     else
