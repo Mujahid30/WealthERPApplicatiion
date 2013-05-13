@@ -722,7 +722,7 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(createCustomerEQAccountCmd, "@WERPBM_BankCode", DbType.String, DBNull.Value);
                 }
-                if (!string.IsNullOrEmpty(customerAccountVo.BankId.ToString()))
+                if (customerAccountVo.BankId != 0)
                 {
                     db.AddInParameter(createCustomerEQAccountCmd, "@CB_AccountNum", DbType.String, customerAccountVo.BankId);
                 }
