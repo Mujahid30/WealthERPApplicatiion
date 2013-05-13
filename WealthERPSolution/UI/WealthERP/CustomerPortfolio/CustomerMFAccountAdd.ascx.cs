@@ -192,6 +192,7 @@ namespace WealthERP.CustomerPortfolio
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
             BindCustomerBankList();
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
+            if (!string.IsNullOrEmpty(customerAccountsVo.BankName))
             ddlBankList.SelectedItem.Text = customerAccountsVo.BankName.ToString();
             txtInvestorName.Text = customerAccountsVo.Name;
             if (customerAccountsVo.IsJointHolding == 1)
@@ -446,7 +447,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
-                ddlALLBankList.SelectedValue = "0";
+                ddlALLBankList.SelectedValue = "TBC";
             }
 
 
