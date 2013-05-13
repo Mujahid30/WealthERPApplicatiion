@@ -128,6 +128,7 @@ namespace WealthERP.Uploads
             }
             else
             {
+                Session["adviserId_Upload"] = adviserId;
                // divConditional.Visible = false;
                 tdLblAdviser.Visible = false;
                 tdDdlAdviser.Visible = false;
