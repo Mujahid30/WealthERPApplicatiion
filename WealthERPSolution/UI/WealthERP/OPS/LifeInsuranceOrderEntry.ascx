@@ -38,8 +38,8 @@
 </script>
 <script  language="javascript" type="text/javascript">
 
-       function openpopupAddBank() {  
-               window.open('PopUp.aspx?PageId=ViewBankDetails', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+       function openpopupAddBank() {
+           window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
                return false;  
    }
     function openpopupAddCustomer() {
