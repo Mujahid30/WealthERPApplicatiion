@@ -283,7 +283,7 @@
                             Add MF Folio
                         </td>
                         <td align="right">
-                            <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click">Edit</asp:LinkButton>
+                            <asp:LinkButton ID="lnkEdit" Visible="false"  runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click">Edit</asp:LinkButton>
                         </td>
                     </tr>
                 </table>
