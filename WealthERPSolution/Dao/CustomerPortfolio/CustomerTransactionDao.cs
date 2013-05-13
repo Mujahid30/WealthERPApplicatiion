@@ -3158,7 +3158,7 @@ namespace DaoCustomerPortfolio
                 if (dsGetMFTransaction.Tables[1].Rows.Count > 0)
                 {
                     dr1 = dsGetMFTransaction.Tables[1].Rows[0];
-                    AccountVo.AccountType = dr1["XBAT_BankAccountTypeCode"].ToString();
+                    AccountVo.AccountType = dr1["PAIC_AssetInstrumentCategoryCode"].ToString();
                     AccountVo.BankAccountNum = dr1["CB_AccountNum"].ToString();
                     AccountVo.ModeOfOperation = dr1["XMOH_ModeOfHoldingCode"].ToString();
                     if (!string.IsNullOrEmpty(dr1["WERPBDTM_BankName"].ToString()))
@@ -3906,6 +3906,38 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
+
+        public DataSet GetEquityMISDetails(int EQAccountId)
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getLastTradeDateCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getLastTradeDateCmd = db.GetStoredProcCommand("SPROC_GetEquityMISDetails");
+                ds = db.ExecuteDataSet(getLastTradeDateCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetEquityMISDetails(int EQAccountId)");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+
         public DataSet GetLastMFTradeDate()
         {
             DataSet ds = null;
