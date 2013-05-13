@@ -1196,6 +1196,9 @@ namespace WealthERP.CustomerPortfolio
                     if (txtAccountDate.SelectedDate.ToString() != "")
                         newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountDate.SelectedDate.ToString());
                     newAccountVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
+                    newAccountVo.CustomerId = customerVo.CustomerId;
+                    if (ddlAccType.SelectedIndex != -1)
+                        customerAccountsVo.AccountType = ddlAccType.SelectedValue.ToString();
 
                     //End
 
