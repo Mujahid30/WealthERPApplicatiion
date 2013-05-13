@@ -389,6 +389,7 @@ namespace WealthERP.CustomerPortfolio
             txtBrokeragePerSpeculative.Text = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
             txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
             ddlBankList.SelectedValue = customerAccountsVo.BankNameInExtFile;
+            BindAccountNum();
             ddlAccountNum.SelectedValue = customerAccountsVo.BankId.ToString();
 
             SetVisiblity(0);
@@ -409,6 +410,7 @@ namespace WealthERP.CustomerPortfolio
             txtBrokeragePerSpeculative.Text = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
             txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
             ddlBankList.SelectedValue = customerAccountsVo.BankNameInExtFile;
+            BindAccountNum();
             ddlAccountNum.SelectedValue = customerAccountsVo.BankId.ToString();
             BtnSetVisiblity(1);
             SetVisiblity(1);
@@ -483,7 +485,7 @@ namespace WealthERP.CustomerPortfolio
             ddlBankList.DataValueField = ds.Tables[0].Columns["WERPBM_BankCode"].ToString();
             ddlBankList.DataTextField = ds.Tables[0].Columns["WERPBM_BankName"].ToString();
             ddlBankList.DataBind();
-            ddlBankList.Items.Insert(0, new ListItem("Select", "0"));
+            ddlBankList.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
         /// <summary>
@@ -496,10 +498,9 @@ namespace WealthERP.CustomerPortfolio
             int customerId = customerVo.CustomerId;
             string bankId = (ddlBankList.SelectedValue);
             account = ddlAccountNum.SelectedValue.ToString();
-            if(ddlBankList.SelectedIndex!=0)
+            if (ddlBankList.SelectedIndex != 0)
                 dsbindAccount = customerAccountBo.GetEQAccountNumber(customerId, bankId);
-            //else
-            //    dsbindAccount = customerAccountBo.GetBankAccountNumber(customerId);
+                
             if (dsbindAccount.Tables.Count > 0)
             {
                 dtAccountNo = dsbindAccount.Tables[0];
@@ -663,7 +664,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
-
+            customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
             EditEQAccountDetails();
 
         }
