@@ -17,9 +17,11 @@
         window.open('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
     }
-
+    </script>
+    
+    <script type="text/javascript" language="javascript">
     function openpopupAddBank() {
-        window.open('PopUp.aspx?PageId=ViewBankDetails &AddMFOrderEntryLinkId= AddBankFromOrderScreen', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+        window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
     }
 </script>
