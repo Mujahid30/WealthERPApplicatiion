@@ -347,6 +347,24 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Button btnUpdate;
         
         /// <summary>
+        /// hdnIsMainPortfolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsMainPortfolio;
+        
+        /// <summary>
+        /// hdnIsCustomerLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsCustomerLogin;
+        
+        /// <summary>
         /// tblEqLedgerMIS control.
         /// </summary>
         /// <remarks>
@@ -381,24 +399,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgbtnEqMIS;
-        
-        /// <summary>
-        /// hdnIsMainPortfolio control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnIsMainPortfolio;
-        
-        /// <summary>
-        /// hdnIsCustomerLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnIsCustomerLogin;
         
         /// <summary>
         /// tblMessage control.

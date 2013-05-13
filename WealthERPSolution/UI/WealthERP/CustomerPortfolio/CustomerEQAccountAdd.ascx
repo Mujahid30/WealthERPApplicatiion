@@ -2,11 +2,12 @@
     Inherits="WealthERP.CustomerPortfolio.CustomerEQAccountAdd" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
-<style>
+<style type="text/css">
     body
     {
         background-color: #EBEFF9;
@@ -71,50 +72,6 @@
             success: function(msg) {
 
                 if (msg.d) {
-        .error
-        {
-            color: Red;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        .success
-        {
-            color: Green;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        input
-        {
-            border: 1px solid #ccc;
-            color: #333333;
-            font-size: 12px;
-            margin-top: 2px;
-            padding: 3px;
-            width: 200px;
-        }
-        .left-td
-        {
-            text-align: right;
-            width: 52%;
-            padding-left:100px;
-            color:#16518A;
-            
-        }
-        .rightField
-        {
-           
-            text-align: left;
-        }
-        .spnRequiredField
-        {
-            color: #FF0033;
-            font-size: x-small;
-        }
-    </style>
-    
-  
-    <script type="text/javascript">
-        function checkLoginId() {
 
                     $("#hidValid").val("1");
                     $("#spnLoginStatus").removeClass();
@@ -129,39 +86,29 @@
                 }
             }
 
-          });
-      }
-      function isValidInUpdateCase() {
-          var hdnIsCustomerLogin = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsCustomerLogin').value;
-          var hdnIsMainPortfolio = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsMainPortfolio').value;
+        });
+    }
+    function isValidInUpdateCase() {
+        var hdnIsCustomerLogin = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsMainPortfolio').value;
 
-          if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
-              alert('Permisssion denied for Manage Portfolio !!');
-              return false;
-          }
-          else {
-              return true;
-          }
-      }
-        
-        function isValid() {
-            var hdnIsCustomerLogin = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsCustomerLogin').value;
-            var hdnIsMainPortfolio = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsMainPortfolio').value;
-      
         if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
             alert('Permisssion denied for Manage Portfolio !!');
             return false;
-        });
-    }
-    function isValid() {
-        if (document.getElementById('hidValid').value == '1') {
-            Page_ClientValidate();
-            return Page_IsValid;
         }
         else {
-            Page_ClientValidate();
-            alert('Your Selected Trade Number is not available. Please choose some other Trade Number');
+            return true;
+        }
+    }
+
+    function isValid() {
+        var hdnIsCustomerLogin = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsCustomerLogin').value;
+        var hdnIsMainPortfolio = document.getElementById('ctrl_CustomerEQAccountAdd_hdnIsMainPortfolio').value;
+
+        if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
+            alert('Permisssion denied for Manage Portfolio !!');
             return false;
+        }
         else {
 
 
@@ -175,7 +122,7 @@
                 return false;
             }
         }
-        }
+    }
 </script>
 
 <script type="text/javascript">
@@ -390,7 +337,9 @@
         </table>
         <table width="100%">
             <tr>
-            <td style="width:25%">&nbsp;</td>
+                <td style="width: 25%">
+                    &nbsp;
+                </td>
                 <td class="rightField">
                     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
@@ -399,30 +348,37 @@
                         OnClientClick="return isValidInUpdateCase()" Visible="False" />
                 </td>
             </tr>
-            <tr><td colspan="2"></td></tr>
-                <tr>
-        <td colspan="2">
-            <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Equity Ledger
-            </div>
-        </td>
-    </tr>
-        </table>
-        <table id="tblEqLedgerMIS" runat="server" width="100%">
             <tr>
-                <td style="width:40%">
-                    <div runat="server" id="divEqMIS" style="margin: 2px; width: 640px;">
-                        <telerik:RadGrid ID="gvEqMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-                            PageSize="15" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
-                            Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                            AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
-                            EnableHeaderContextFilterMenu="true">
-                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                                FileName="EQLedgerMIS" Excel-Format="ExcelML">
-                            </ExportSettings>
-                            <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                                CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-                                GroupLoadMode="Client" ShowGroupFooter="true">
+                <td colspan="2">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+                        Equity Ledger
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <asp:HiddenField ID="hdnIsMainPortfolio" runat="server" />
+        <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
+    </ContentTemplate>
+</asp:UpdatePanel>
+<table id="tblEqLedgerMIS" runat="server" width="100%">
+    <tr>
+        <td style="width: 40%">
+            <div runat="server" id="divEqMIS" style="margin: 2px; width: 640px;">
+                <telerik:RadGrid ID="gvEqMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
+                 PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                 Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                 AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvEqMIS_OnNeedDataSource"  
+                 EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
+                    <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
+                        filename="EQ Ledger MIS" excel-format="ExcelML">
+                    </exportsettings>
+                    <mastertableview width="100%" allowmulticolumnsorting="True" autogeneratecolumns="false"
+                        commanditemdisplay="None" groupsdefaultexpanded="false" expandcollapsecolumn-groupable="true"
+                        grouploadmode="Client" showgroupfooter="true">
                                 <Columns>
                                     <telerik:GridBoundColumn  HeaderText="Margin Details" DataField="MarginDetails"
                                         UniqueName="MarginDetails" SortExpression="MarginDetails"
@@ -449,26 +405,22 @@
                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                     </telerik:GridBoundColumn>
                                 </Columns>
-                            </MasterTableView>
-                            <HeaderStyle Width="150px" />
-                            <ClientSettings>
+                            </mastertableview>
+                    <headerstyle width="150px" />
+                    <clientsettings>
                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                 <Resizing AllowColumnResize="true" />
-                            </ClientSettings>
-                        </telerik:RadGrid>
-                    </div>
-                </td>
-                <td style="width:60%" align="right" valign="top">  
-                <asp:ImageButton ID="imgbtnEqMIS" ImageUrl="~/Images/Export_Excel.png" runat="server"
-                 AlternateText="Excel" ToolTip="Export To Excel" Visible="false" OnClientClick="setFormat('excel')"
-                 Height="25px" Width="25px" OnClick="imgbtnEqMIS_Click"></asp:ImageButton>
-                </td>
-            </tr>
-        </table>
-        <asp:HiddenField ID="hdnIsMainPortfolio" runat="server" />
-        <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
-    </ContentTemplate>
-</asp:UpdatePanel>
+                            </clientsettings>
+                </telerik:RadGrid>
+            </div>
+        </td>
+        <td style="width: 60%" align="right" valign="top">
+            <asp:ImageButton ID="imgbtnEqMIS" ImageUrl="~/Images/Export_Excel.png" runat="server"
+                AlternateText="Excel" ToolTip="Export To Excel" Visible="false" OnClientClick="setFormat('excel')"
+                Height="25px" Width="25px" OnClick="imgbtnEqMIS_Click"></asp:ImageButton>
+        </td>
+    </tr>
+</table>
 <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
     visible="false">
     <tr>

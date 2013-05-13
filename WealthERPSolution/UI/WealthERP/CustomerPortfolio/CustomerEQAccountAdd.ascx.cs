@@ -685,6 +685,15 @@ namespace WealthERP.CustomerPortfolio
         {
 
         }
+        protected void gvEqMIS_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtEqLedgerMISDetails = new DataTable();
+            dtEqLedgerMISDetails = (DataTable)Cache["gvEqMIS" + userVo.UserId];
+            gvEqMIS.DataSource = dtEqLedgerMISDetails;
+            gvEqMIS.Visible = true;
+            imgbtnEqMIS.Visible = true;
+
+        }
         protected void imgbtnEqMIS_Click(object sender, ImageClickEventArgs e)
         {
             gvEqMIS.ExportSettings.OpenInNewWindow = true;
