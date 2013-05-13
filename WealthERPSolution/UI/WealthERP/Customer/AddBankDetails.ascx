@@ -63,6 +63,9 @@
             }
         });
     }
+
+   
+    
 </script>
 
 <table width="100%">
@@ -103,7 +106,7 @@
                             <asp:Label ID="Label1" CssClass="FieldName" runat="server" Text="Account No./Bank Name:"></asp:Label>
                         </td>
                         <td>
-                            <asp:Label ID="lblAccId" runat="server" CssClass="Field"></asp:Label>                           
+                            <asp:Label ID="lblAccId" runat="server" CssClass="Field"></asp:Label>
                             <asp:Label ID="lblBankName" runat="server" CssClass="Field"></asp:Label>
                             <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAccountDetails_SelectedIndexChanged"
                                 CssClass="cmbField" runat="server" ID="ddlAccountDetails" AppendDataBoundItems="true">
@@ -144,19 +147,22 @@
                             <asp:TextBox ID="txtholdingAmt" onblur="return chkTransactionExists()" runat="server"
                                 CssClass="txtField" Text='<%# Bind("CB_HoldingAmount") %>'></asp:TextBox>
                             <span id="spnLoginStatus" class="spnRequiredField">*</span>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="rfvPCG"
-                                ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtholdingAmt"
-                                ValidationExpression="^[0-9]+$"></asp:RegularExpressionValidator>
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtAmount" ValidationGroup="btnSubmit"
+                                            ErrorMessage="<br />Please enter a Amount" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                        </asp:RequiredFieldValidator>
+                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="rfvPCG"
+                                    ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtholdingAmt"
+                                    ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                                Text="Submit" Visible="false" OnClick="btnSubmit_Click" />
+                                Text="Submit" Visible="false" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
                             <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                                Text="Update" Visible="false" OnClick="btnUpdate_Click" />
+                                Text="Update" Visible="false" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit"/>
                         </td>
                     </tr>
                 </table>
@@ -232,7 +238,7 @@
                                                 ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
                                             </Calendar>
                                             <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                            <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                            <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy" runat="server">
                                             </DateInput>
                                         </telerik:RadDatePicker>
                                         <span id="Span1" class="spnRequiredField">*</span>
@@ -285,7 +291,8 @@
                                         <asp:DropDownList AutoPostBack="false" CssClass="cmbField" runat="server" ID="ddlCFCCategory"
                                             AppendDataBoundItems="false">
                                         </asp:DropDownList>
-                                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlCFCCategory"
+                                        <span id="Span2" class="spnRequiredField">*</span>
+                                        <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlCFCCategory"
                                             ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Category" Operator="NotEqual"
                                             ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                                     </td>
@@ -317,9 +324,9 @@
                                         </asp:RequiredFieldValidator>
                                         <br />
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" CssClass="rfvPCG"
-                                            ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtAmount" ValidationGroup="btnSubmitTransaction"
-                                            ValidationExpression="^\d{1,3}\,(\d{3}\,)*\d{3}(\.\d{1,2})?$ "></asp:RegularExpressionValidator>
-                                             <%--<asp:RangeValidator runat="server" ID="RangeValidator1" ControlToValidate="txtAmount"
+                                            ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtAmount"
+                                            ValidationGroup="btnSubmitTransaction" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                        <%--<asp:RangeValidator runat="server" ID="RangeValidator1" ControlToValidate="txtAmount"
                                                 Type="Integer" MinimumValue="10" MaximumValue="100" CssClass="rfvPCG" ErrorMessage="Page Range between 10-100 Acceptable"
                                                 ValidationGroup="BtnSubmitpage">
                                             </asp:RangeValidator>--%>
@@ -337,7 +344,8 @@
                     <td align="left">
                         <asp:Button ID="btnSubmitTransaction" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                             onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                            Text="Submit" OnClick="btnSubmitTransaction_Click" ValidationGroup="btnSubmitTransaction" />
+                            Text="Submit" OnClick="btnSubmitTransaction_Click" ValidationGroup="btnSubmitTransaction"
+                           />
                     </td>
                 </tr>
             </table>
@@ -437,7 +445,7 @@
                                 <asp:Label ID="lblTransactionDate" runat="server" CssClass="FieldName" Text="Transaction Date:"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <telerik:RadDatePicker  ID="dpTransactionDate" runat="server" Culture="English (United States)"
+                                <telerik:RadDatePicker ID="dpTransactionDate" runat="server" Culture="English (United States)"
                                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                                     <Calendar ID="Calendar2" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
@@ -515,7 +523,7 @@
                                 </asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator2" CssClass="rfvPCG"
                                     ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtAmount"
-                                    ValidationExpression="^[0-9]+$"></asp:RegularExpressionValidator>
+                                    ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                             </td>
                             <td colspan="2">
                                 &nbsp;

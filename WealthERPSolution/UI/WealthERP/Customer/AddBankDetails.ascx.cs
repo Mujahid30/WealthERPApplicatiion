@@ -48,7 +48,7 @@ namespace WealthERP.Customer
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
-
+            customerVo = (CustomerVo)Session["CustomerVo"];
             if (Request.QueryString["name"] != null)
             {
                 Pagetype = Request.QueryString["name"].ToString();
@@ -116,25 +116,25 @@ namespace WealthERP.Customer
         private void BindTransactionGrid(int bankId)
         {
             DataTable dtBankAccId = new DataTable();
-            if (bankId == 0)
-            {
-                int i;
-                dtBankAccId = (DataTable)Session["BankAccId"];
-                if (dtBankAccId.Rows.Count > 0)
-                {
-                    for (i = 0; i < dtBankAccId.Rows.Count; i++)
-                    {
-                       custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
-                    }
-                }
+            //if (bankId == 0)
+            //{
+                //int i;
+                //dtBankAccId = (DataTable)Session["BankAccId"];
+                //if (dtBankAccId.Rows.Count > 0)
+                //{
+                //    for (i = 0; i < dtBankAccId.Rows.Count; i++)
+                //    {
+                //       custBankAccId = Convert.ToInt32(dtBankAccId.Rows[i]["CB_CustBankAccId"].ToString());
+                //    }
+                //}
                 //(Session["BankAccId"]);
                 // custBankAccId = Convert.ToInt32(ViewState["BankId"]);
-                TransactionList = customerAccountBo.GetCustomerBankTransaction(custBankAccId);
-            }
-            else
-            {
-                TransactionList = customerAccountBo.GetCustomerBankTransaction(bankId);
-            }
+            //    TransactionList = customerAccountBo.GetCustomerBankTransaction(custBankAccId);
+            //}
+            //else
+           // {
+                TransactionList = customerAccountBo.GetCustomerBankTransaction(bankId,customerVo.CustomerId);
+           // }
             DataTable dtTransaction = new DataTable();
             dtTransaction.Columns.Add("CCST_TransactionId");
             dtTransaction.Columns.Add("CCST_ExternalTransactionId");
@@ -442,6 +442,7 @@ namespace WealthERP.Customer
             customeraccountVo.AccountId = int.Parse(ddlAccountDetails.SelectedValue);
             customeraccountVo.Amount = double.Parse(txtholdingAmt.Text.ToString());
             customerAccountBo.InsertholdingAmountCustomerBank(customeraccountVo, customerId);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBankDetails','none');", true);
         }
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -469,6 +470,7 @@ namespace WealthERP.Customer
             customeraccountVo.AccountId = bankId;
             customeraccountVo.Amount = double.Parse(txtholdingAmt.Text.ToString());
             customerAccountBo.InsertholdingAmountCustomerBank(customeraccountVo, customerId);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBankDetails','none');", true);
         }
         /// <summary>
         /// This Button use to Add Transaction Detail
@@ -512,7 +514,8 @@ namespace WealthERP.Customer
             //    }
             //}
 
-            customeraccountVo.AccountId = int.Parse(ddlAccountDetails.SelectedValue);            
+            customeraccountVo.AccountId = int.Parse(ddlAccountDetails.SelectedValue);
+            bankId = customeraccountVo.AccountId;
             if (rbtnN.Checked)
             {
                 customeraccountVo.IsWithdrwal = 0;
@@ -522,7 +525,7 @@ namespace WealthERP.Customer
                 customeraccountVo.IsWithdrwal = 1;
             }
             customerAccountBo.CreatecustomerBankTransaction(customeraccountVo, userId);
-            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AddBankDetails','name=View');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AddBankDetails','?name=" + "viewTransaction" + "');", true);
         }
         //protected void Holding_CheckedChanged(object sender, EventArgs e)
         //{
