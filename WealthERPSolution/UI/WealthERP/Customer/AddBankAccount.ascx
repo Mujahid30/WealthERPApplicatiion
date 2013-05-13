@@ -124,9 +124,17 @@
             </td>
             <td>
                 <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
-                    Text="Yes" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged " />
-                <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
-                    Text="No" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged" Checked="true" />
+                    Text="Yes" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged" />
+              <%--  <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                    Text="No" AutoPostBack="true"
+                    oncheckedchanged="rbtnNo_CheckedChanged" />--%>
+                     <%--<asp:RadioButton ID="rbtnN" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                    Text="No" AutoPostBack="true"
+                    OnCheckedChanged="rbtnYes_CheckedChanged" />--%>
+                    
+                         <asp:RadioButton ID="RadioButton1" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                    Text="No" AutoPostBack="true" Checked="true"
+                    OnCheckedChanged="rbtnYes_CheckedChanged" />
                 <%--OnCheckedChanged="rbtnYes_CheckedChanged"--%>
             </td>
         </tr>
@@ -345,7 +353,6 @@
                 <asp:TextBox ID="txtIfsc" runat="server" CssClass="txtField" MaxLength="11" Text='<%# Bind("CB_IFSC") %>'></asp:TextBox>
             </td>
         </tr>
-        <tr>
             <tr>
                 <td>
                     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"

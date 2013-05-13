@@ -65,10 +65,12 @@ namespace WealthERP.Customer
             if (Request.QueryString["action"] != null)
             {
                 action = Request.QueryString["action"].ToString();
+              
             }
           
             if (!IsPostBack)
             {
+                ViewState["Action"] = action;
                 BindPortfolio();
                 BindAccountType();
                 BindModeofOperation();
@@ -113,17 +115,20 @@ namespace WealthERP.Customer
             //}
           
                 //Session["customerBankAccountVo" + customerVo.CustomerId] = null;
-           
-          if (action == "View")
+
+            if (ViewState["Action"] !=null)
             {
-                BtnSetVisiblity(0);
-                //lnkBack.Visible = true;
-                ViewBankAccountDetails();
-            }
-            else if (action == "Edit")
-            {
-                BtnSetVisiblity(1);
-                EditBankAccountDetails();
+                if (ViewState["Action"].ToString() == "View")
+                {                    
+                    //lnkBack.Visible = true;
+                    ViewBankAccountDetails();
+                    BtnSetVisiblity(0);
+                }
+                else if (ViewState["Action"].ToString() == "Edit")
+                {                    
+                    EditBankAccountDetails();
+                    BtnSetVisiblity(1);
+                }
             }
         }
         public void BindPortfolio()
@@ -278,7 +283,7 @@ namespace WealthERP.Customer
                 customerBankAccountVo.MICR = long.Parse(txtMicr.Text.ToString());
             customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
             customerBankAccountVo.Balance = 0;
-            if (rbtnNo.Checked)
+            if (RadioButton1.Checked)
             {
                 customerBankAccountVo.IsJointHolding = 0;
             }
@@ -348,7 +353,7 @@ namespace WealthERP.Customer
             customerId = customerVo.CustomerId;
             customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
             customerBankAccountVo.AccountType = ddlAccountType.SelectedItem.Value.ToString();
-            if (rbtnNo.Checked)
+            if (RadioButton1.Checked)
             {
                 customerBankAccountVo.IsJointHolding = 0;
             }
@@ -430,11 +435,13 @@ namespace WealthERP.Customer
                     }
                     ddlModeofOperation.SelectedIndex = 0;
                 }
-                if (rbtnNo.Checked == true)
+                if (RadioButton1.Checked == true)
                 {
                     ddlModeofOperation.SelectedValue = "SI";
                     ddlModeofOperation.Enabled = false;
                     gvJointHolders.Visible = false;
+                    trjointholder.Visible = false;
+                    trgvjointHolder.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -472,6 +479,7 @@ namespace WealthERP.Customer
         }
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
         {
+              ViewState["Action"]  = "Edit";
             EditBankAccountDetails();
         }
         protected void lnkBtnBack_Click(object sender, EventArgs e)
@@ -480,40 +488,61 @@ namespace WealthERP.Customer
 
         }
 
-        private void EditBankAccountDetails()
+        protected void EditBankAccountDetails()
         {
-            customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
-            ddlAccountType.SelectedValue = customerBankAccountVo.AccountType;
-            txtAccountNumber.Text = customerBankAccountVo.BankAccountNum;
-            ddlBankName.SelectedValue = customerBankAccountVo.BankName;
-            txtBranchName.Text = customerBankAccountVo.BranchName;
-            txtBankAdrLine1.Text = customerBankAccountVo.BranchAdrLine1;
-            txtBankAdrLine2.Text = customerBankAccountVo.BranchAdrLine2;
-            txtBankAdrLine3.Text = customerBankAccountVo.BranchAdrLine3;
-            if (customerBankAccountVo.BranchAdrPinCode.ToString() != "")
-            {
-                txtBankAdrPinCode.Text = customerBankAccountVo.BranchAdrPinCode.ToString();
-            }
-            else
-                txtBankAdrPinCode.Text = "";
-            txtBankAdrCity.Text = customerBankAccountVo.BranchAdrCity;
-            if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
-            {
-                ddlBankAdrState.SelectedValue = customerBankAccountVo.BranchAdrState;
-            }
-            else
-                ddlBankAdrState.SelectedValue = "Select";
-            txtMicr.Text = customerBankAccountVo.MICR.ToString();
-            txtIfsc.Text = customerBankAccountVo.IFSC;
+            //customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
+            //ddlAccountType.SelectedValue = customerBankAccountVo.AccountType;
+            //txtAccountNumber.Text = customerBankAccountVo.BankAccountNum;
+            //ddlBankName.SelectedValue = customerBankAccountVo.BankName;
+            ////if (customerBankAccountVo.IsJointHolding == 1)
+            ////{                
+            ////    rbtnYes.Checked = true;
+            ////    RadioButton1.Checked = false;
+            ////}
+            ////else
+            ////{
+            ////    RadioButton1.Checked = true;
+            ////    rbtnYes.Checked = false;
+            ////}
+            //txtBranchName.Text = customerBankAccountVo.BranchName;
+            //txtBankAdrLine1.Text = customerBankAccountVo.BranchAdrLine1;
+            //txtBankAdrLine2.Text = customerBankAccountVo.BranchAdrLine2;
+            //txtBankAdrLine3.Text = customerBankAccountVo.BranchAdrLine3;
+            //if (customerBankAccountVo.BranchAdrPinCode.ToString() != "")
+            //{
+            //    txtBankAdrPinCode.Text = customerBankAccountVo.BranchAdrPinCode.ToString();
+            //}
+            //else
+            //    txtBankAdrPinCode.Text = "";
+            //txtBankAdrCity.Text = customerBankAccountVo.BranchAdrCity;
+            //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
+            //{
+            //    ddlBankAdrState.SelectedValue = customerBankAccountVo.BranchAdrState;
+            //}
+            //else
+            //    ddlBankAdrState.SelectedValue = "Select";
+            //txtMicr.Text = customerBankAccountVo.MICR.ToString();
+            //txtIfsc.Text = customerBankAccountVo.IFSC;
             BtnSetVisiblity(1);
             SetVisiblity(1);
         }
-        private void ViewBankAccountDetails()
+        protected void ViewBankAccountDetails()
         {
             customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
             ddlAccountType.SelectedValue = customerBankAccountVo.AccountType;
             txtAccountNumber.Text = customerBankAccountVo.BankAccountNum;
             ddlBankName.SelectedValue = customerBankAccountVo.BankName;
+            if (customerBankAccountVo.IsJointHolding == 1)
+            {
+                rbtnYes.Checked = true;
+
+            }
+            else
+            {
+                RadioButton1.Checked = true;
+
+            }
+
             txtBranchName.Text = customerBankAccountVo.BranchName;
             txtBankAdrLine1.Text = customerBankAccountVo.BranchAdrLine1;
             txtBankAdrLine2.Text = customerBankAccountVo.BranchAdrLine2;
@@ -551,6 +580,8 @@ namespace WealthERP.Customer
                 txtBankAdrPinCode.Enabled = false;
                 txtBankAdrCity.Enabled = false;
                 ddlBankAdrState.Enabled = false;
+                //RadioButton1.Enabled = false;
+                //rbtnYes.Enabled = false;
                 txtMicr.Enabled = false;
                 txtIfsc.Enabled = false;
             }
@@ -568,6 +599,8 @@ namespace WealthERP.Customer
                 txtBankAdrPinCode.Enabled = true;
                 txtBankAdrCity.Enabled = true;
                 ddlBankAdrState.Enabled = true;
+               // RadioButton1.Enabled = true;
+                //rbtnYes.Enabled = true;
                 txtMicr.Enabled = true;
                 txtIfsc.Enabled = true;
 
@@ -596,6 +629,11 @@ namespace WealthERP.Customer
                 lnkBtnBack.Visible = true;
             }
 
+
+        }
+
+        protected void RadioButton1o_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
     }
