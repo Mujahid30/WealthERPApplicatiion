@@ -2033,13 +2033,13 @@ namespace BoCustomerPortfolio
 
         }
 
-        public List<CustomerAccountsVo> GetCustomerBankTransaction(int CustBankAccIds)
+        public List<CustomerAccountsVo> GetCustomerBankTransaction(int CustBankAccIds,int customerId)
         {
             List<CustomerAccountsVo> customerAccountlist = null;
              CustomerAccountDao customerAccountDao = new CustomerAccountDao();
             try
             {
-                customerAccountlist = customerAccountDao.GetCustomerBankTransaction(CustBankAccIds);
+                customerAccountlist = customerAccountDao.GetCustomerBankTransaction(CustBankAccIds, customerId);
 
             }
             catch (BaseApplicationException Ex)
