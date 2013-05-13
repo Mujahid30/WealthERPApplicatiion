@@ -4544,7 +4544,7 @@ namespace WealthERP.Uploads
                 ddlListCompany.Items.Add("KARVY");
                 ddlListCompany.Items.Add("Templeton");
                 //ddlListCompany.Items.Add("Deutsche");
-                ddlListCompany.Items.Add("Sundaram");
+                //ddlListCompany.Items.Add("Sundaram");
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
             }
             //List Added For ODIN 
