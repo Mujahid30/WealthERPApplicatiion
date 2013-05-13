@@ -1162,8 +1162,8 @@ namespace WealthERP.CustomerPortfolio
                         newAccountVo.BankAccountNum = txtAccNo.Text;
                     if (ddlModeOfOpn.SelectedIndex != -1)
                         newAccountVo.ModeOfOperation = ddlModeOfOpn.SelectedValue.ToString();
-                    if (!string.IsNullOrEmpty(txtBankName.Text))
-                        newAccountVo.BankName = txtBankName.Text;
+                    if (!string.IsNullOrEmpty(ddlALLBankList.SelectedValue))
+                        newAccountVo.BankName = ddlALLBankList.SelectedValue;
                     if (!string.IsNullOrEmpty(txtBranchName.Text))
                         newAccountVo.BranchName = txtBranchName.Text;
                     if (!string.IsNullOrEmpty(txtBLine1.Text))
