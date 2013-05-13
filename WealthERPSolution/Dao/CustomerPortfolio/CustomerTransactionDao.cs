@@ -3419,11 +3419,11 @@ namespace DaoCustomerPortfolio
                 }
                 if (!string.IsNullOrEmpty(AccountVo.AccountType))
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@XBAT_BankAccountTypeCode", DbType.String, AccountVo.AccountType);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, AccountVo.AccountType);
                 }
                 else
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@XBAT_BankAccountTypeCode", DbType.String, DBNull.Value);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, DBNull.Value);
                 }
 
                 if (!string.IsNullOrEmpty(AccountVo.BankAccountNum))
@@ -3519,6 +3519,11 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CB_IFSC", DbType.String, DBNull.Value);
                 }
+
+             
+
+               
+                
 
 
                 #endregion
