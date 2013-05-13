@@ -130,7 +130,7 @@ namespace WealthERP.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section ReportFooterSection3 {
+        public CrystalDecisions.CrystalReports.Engine.Section PageFooterSection2 {
             get {
                 return this.ReportDefinition.Sections[10];
             }
@@ -138,17 +138,9 @@ namespace WealthERP.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section PageFooterSection2 {
-            get {
-                return this.ReportDefinition.Sections[11];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
-                return this.ReportDefinition.Sections[12];
+                return this.ReportDefinition.Sections[11];
             }
         }
         
