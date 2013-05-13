@@ -936,7 +936,27 @@ namespace DaoCustomerPortfolio
                 if (AccountVo.AccountOpeningDate != DateTime.MinValue)
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CETA_AccountOpeningDate", DbType.DateTime, AccountVo.AccountOpeningDate);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@ModifiedBy", DbType.Int32, userId);
-                db.AddInParameter(updateMFFolioDetailsCmd, "@BankId", DbType.Int32, AccountVo.BankId);
+                //db.AddInParameter(updateMFFolioDetailsCmd, "@BankId", DbType.Int32, AccountVo.BankId);
+                //db.AddInParameter(updateMFFolioDetailsCmd, "@WERPBM_BankCode", DbType.Int32, AccountVo.BankNameInExtFile);
+
+                if (!string.IsNullOrEmpty(AccountVo.BankNameInExtFile))
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@WERPBM_BankCode", DbType.String, AccountVo.BankNameInExtFile);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@WERPBM_BankCode", DbType.String, DBNull.Value);
+                }
+                if (AccountVo.BankId != 0)
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@BankId", DbType.String, AccountVo.BankId);
+                }
+                else
+                {
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@BankId", DbType.String, DBNull.Value);
+                }
+
+
                 if (db.ExecuteNonQuery(updateMFFolioDetailsCmd) != 0)
                     blResult = true;
             }

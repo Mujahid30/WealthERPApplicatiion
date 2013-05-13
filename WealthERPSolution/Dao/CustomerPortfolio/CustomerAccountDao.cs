@@ -714,17 +714,17 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(createCustomerEQAccountCmd, "@CETA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
                 }
-                if (!string.IsNullOrEmpty(customerAccountVo.BankName))
+                if (!string.IsNullOrEmpty(customerAccountVo.BankNameInExtFile))
                 {
-                    db.AddInParameter(createCustomerEQAccountCmd, "@WERPBM_BankCode", DbType.String, customerAccountVo.BankName);
+                    db.AddInParameter(createCustomerEQAccountCmd, "@WERPBM_BankCode", DbType.String, customerAccountVo.BankNameInExtFile);
                 }
                 else
                 {
                     db.AddInParameter(createCustomerEQAccountCmd, "@WERPBM_BankCode", DbType.String, DBNull.Value);
                 }
-                if (!string.IsNullOrEmpty(customerAccountVo.BankAccountNum))
+                if (!string.IsNullOrEmpty(customerAccountVo.BankId.ToString()))
                 {
-                    db.AddInParameter(createCustomerEQAccountCmd, "@CB_AccountNum", DbType.String, customerAccountVo.BankAccountNum);
+                    db.AddInParameter(createCustomerEQAccountCmd, "@CB_AccountNum", DbType.String, customerAccountVo.BankId);
                 }
                 else
                 {

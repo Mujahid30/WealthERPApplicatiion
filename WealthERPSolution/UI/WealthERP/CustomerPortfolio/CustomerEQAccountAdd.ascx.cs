@@ -77,8 +77,6 @@ namespace WealthERP.CustomerPortfolio
                         BindPortfolioDropDown();
                         BindCustomerBankList();
                         BindAccountNum();
-
-
                         dtBroker = XMLBo.GetBroker(path);
                         ddlBrokerCode.DataSource = dtBroker;
                         ddlBrokerCode.DataTextField = "Broker";
@@ -87,6 +85,7 @@ namespace WealthERP.CustomerPortfolio
 
                         if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                         {
+                          
                             customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
                             if (Request.QueryString["action"].Trim() == "Edit")
                             {
@@ -171,17 +170,17 @@ namespace WealthERP.CustomerPortfolio
                 else if (dr["TYPE"].ToString() == "D")
                     drEqLedgerMISDetails["MarginDetails"] = "Balance Margin";
 
-                if (double.Parse(dr["Amount"].ToString()) != 0)
-                    drEqLedgerMISDetails["Amount"] = Math.Round(double.Parse(dr["Amount"].ToString()),0);
+                if (Math.Round(decimal.Parse(dr["Amount"].ToString()),0) != 0)
+                    drEqLedgerMISDetails["Amount"] = Math.Round(decimal.Parse(dr["Amount"].ToString()), 0);
                 else
                     drEqLedgerMISDetails["Amount"] = "";
 
-                if (double.Parse(dr["CurrentValue"].ToString()) != 0)
-                    drEqLedgerMISDetails["CurrentValuation"] = Math.Round(double.Parse(dr["CurrentValue"].ToString()),0);
+                if (Math.Round(decimal.Parse(dr["CurrentValue"].ToString()), 0) != 0)
+                    drEqLedgerMISDetails["CurrentValuation"] = Math.Round(decimal.Parse(dr["CurrentValue"].ToString()), 0);
                 else
                     drEqLedgerMISDetails["CurrentValuation"] = "";
-                if (double.Parse(dr["ProfitLoss"].ToString()) != 0)
-                    drEqLedgerMISDetails["ProfitLoss"] = Math.Round(double.Parse(dr["ProfitLoss"].ToString()),0);
+                if (Math.Round(decimal.Parse(dr["ProfitLoss"].ToString()), 0) != 0)
+                    drEqLedgerMISDetails["ProfitLoss"] = Math.Round(decimal.Parse(dr["ProfitLoss"].ToString()), 0);
                 else
                     drEqLedgerMISDetails["ProfitLoss"] = "";
 
@@ -273,8 +272,13 @@ namespace WealthERP.CustomerPortfolio
                     txtBrokeragePerSpeculative.Text = "0";
                 if (txtOtherCharges.Text == "")
                     txtOtherCharges.Text = "0";
-                customerAccountsVo.BankName = ddlBankList.SelectedValue.ToString();
-                customerAccountsVo.BankAccountNum = account;
+
+                if (ddlBankList.SelectedIndex != 0)
+                    customerAccountsVo.BankNameInExtFile = ddlBankList.SelectedValue;
+                if (ddlAccountNum.SelectedIndex != 0)
+                    customerAccountsVo.BankId = int.Parse(ddlAccountNum.SelectedValue);
+                //customerAccountsVo.BankName = ddlBankList.SelectedValue.ToString();
+                //customerAccountsVo.BankAccountNum = account;
                 if (txtBrokeragePerDelivery.Text != "" || txtBrokeragePerSpeculative.Text != "" || txtOtherCharges.Text != "")
                 {
 
@@ -494,8 +498,8 @@ namespace WealthERP.CustomerPortfolio
             account = ddlAccountNum.SelectedValue.ToString();
             if(ddlBankList.SelectedIndex!=0)
                 dsbindAccount = customerAccountBo.GetEQAccountNumber(customerId, bankId);
-            else
-                dsbindAccount = customerAccountBo.GetBankAccountNumber(customerId);
+            //else
+            //    dsbindAccount = customerAccountBo.GetBankAccountNumber(customerId);
             if (dsbindAccount.Tables.Count > 0)
             {
                 dtAccountNo = dsbindAccount.Tables[0];
@@ -527,14 +531,7 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlBankList.SelectedIndex != 0)
                 {
                    BindAccountNum();
-                    if(customerAccountsVo!=null)
-                        BindEQLedgerMIS(customerVo.CustomerId, customerAccountsVo.AccountId, customerAccountsVo.BankId);
-                    else
-                    {
-                        tblMessage.Visible = true;
-                        ErrorMessage.Visible = true;
-                        ErrorMessage.InnerText = "Bank is not associated with Current trade  Account selected...!";
-                    }
+                   
                 }
             }
             catch (BaseApplicationException Ex)
@@ -557,8 +554,24 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void ddlAccountNum_SelectedIndexChanged(object sender, EventArgs e)
         {
-          
-        
+            if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+            {
+                customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
+                if (Request.QueryString["action"].Trim() == "Edit")
+                {
+                    if (ddlAccountNum.SelectedIndex > 0)
+                    {
+                        if (customerAccountsVo != null)
+                            BindEQLedgerMIS(customerVo.CustomerId, customerAccountsVo.AccountId, int.Parse(ddlAccountNum.SelectedValue));
+                        else
+                        {
+                            tblMessage.Visible = true;
+                            ErrorMessage.Visible = true;
+                            ErrorMessage.InnerText = "Bank is not associated with Current trade  Account selected...!";
+                        }
+                    }
+                }
+            }
         }
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
