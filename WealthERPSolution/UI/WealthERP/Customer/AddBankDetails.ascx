@@ -147,12 +147,13 @@
                             <asp:TextBox ID="txtholdingAmt" onblur="return chkTransactionExists()" runat="server"
                                 CssClass="txtField" Text='<%# Bind("CB_HoldingAmount") %>'></asp:TextBox>
                             <span id="spnLoginStatus" class="spnRequiredField">*</span>
-                              <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtAmount" ValidationGroup="btnSubmit"
-                                            ErrorMessage="<br />Please enter a Amount" Display="Dynamic" runat="server" CssClass="rfvPCG">
-                                        </asp:RequiredFieldValidator>
-                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="rfvPCG"
-                                    ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtholdingAmt"
-                                    ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtholdingAmt"
+                                ValidationGroup="btnSubmit" ErrorMessage="<br />Please enter a Amount" Display="Dynamic"
+                                runat="server" CssClass="rfvPCG">
+                            </asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="rfvPCG"
+                                ErrorMessage="Please enter a valid amount" Display="Dynamic" runat="server" ControlToValidate="txtholdingAmt"
+                                ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                         </td>
                     </tr>
                     <tr>
@@ -162,7 +163,7 @@
                                 Text="Submit" Visible="false" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
                             <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                                Text="Update" Visible="false" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit"/>
+                                Text="Update" Visible="false" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit" />
                         </td>
                     </tr>
                 </table>
@@ -344,8 +345,7 @@
                     <td align="left">
                         <asp:Button ID="btnSubmitTransaction" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                             onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                            Text="Submit" OnClick="btnSubmitTransaction_Click" ValidationGroup="btnSubmitTransaction"
-                           />
+                            Text="Submit" OnClick="btnSubmitTransaction_Click" ValidationGroup="btnSubmitTransaction" />
                     </td>
                 </tr>
             </table>

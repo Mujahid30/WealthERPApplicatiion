@@ -462,7 +462,7 @@ namespace WealthERP.Customer
             customerVo = (CustomerVo)Session["customerVo"];
             customerId = customerVo.CustomerId;
             accountId = customerAccountBo.CheckTransactionExistanceOnHoldingAdd(bankId);
-            if (accountId == false)
+            if (accountId == true)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Transaction all ready exist first delete Transactions !!');", true);
             }
