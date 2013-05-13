@@ -749,8 +749,8 @@
                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn Visible="false" DataField="CB_HoldingAmount" AllowFiltering="false"
-                    HeaderText="Available Balance" HeaderStyle-Width="50px" UniqueName="CB_HoldingAmount"
-                    SortExpression="CB_HoldingAmount" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                    HeaderText="Available Balance" HeaderStyle-Width="50px" UniqueName="CB_HoldingAmount" DataFormatString="{0:N2}"
+                    SortExpression="CB_HoldingAmount" AutoPostBackOnFilter="true" ShowFilterIcon="false" 
                     CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
