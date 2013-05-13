@@ -39,7 +39,7 @@ namespace WealthERP.Customer
         DataTable dtCustomerAssociates;
         DataTable dtCustomerAssociatesRaw;
         DataRow drCustomerAssociates;
-        int bankId;
+        int bankId=0;
         static int portfolioId;
         int custBankAccId;
         string path;
@@ -57,10 +57,7 @@ namespace WealthERP.Customer
             customerVo = (CustomerVo)Session["CustomerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             RMVo customerRMVo = new RMVo();
-            if (!String.IsNullOrEmpty(Session[SessionContents.CurrentUserRole].ToString()))
-            {
-                currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
-            }
+
             if (Request.QueryString["bankId"] != null)
             {
                 bankId = int.Parse(Request.QueryString["bankId"].ToString());
