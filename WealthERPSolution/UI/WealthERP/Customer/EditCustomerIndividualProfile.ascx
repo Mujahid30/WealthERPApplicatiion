@@ -414,7 +414,7 @@
                                                                     <td>
                                                                     </td>
                                                                     <td>
-                                                                        <asp:Button ID="Button3" Text='<.%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                                        <asp:Button ID="Button3" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                                             runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                                             ValidationGroup="Submit"></asp:Button>
                                                                     </td>
