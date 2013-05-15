@@ -384,7 +384,7 @@
                                         UniqueName="MarginDetails" SortExpression="MarginDetails"
                                          AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                         FooterStyle-HorizontalAlign="Left">
-                                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                     </telerik:GridBoundColumn>
                                      <telerik:GridBoundColumn  HeaderText="Amount" DataField="Amount"
                                         UniqueName="Amount" SortExpression="Amount"
