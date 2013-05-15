@@ -429,7 +429,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createEquityNetPositionCmd, "@PEM_ScripCode", DbType.Int32, eqPortfolioVo.EQCode);
                 db.AddInParameter(createEquityNetPositionCmd, "@CENP_NetHoldings", DbType.Decimal, eqPortfolioVo.Quantity);
                 db.AddInParameter(createEquityNetPositionCmd, "@CENP_MarketPrice", DbType.Decimal, eqPortfolioVo.MarketPrice);
-                db.AddInParameter(createEquityNetPositionCmd, "@CENP_CurrentValue", DbType.Double, Math.Round(eqPortfolioVo.CurrentValue));
+                db.AddInParameter(createEquityNetPositionCmd, "@CENP_CurrentValue", DbType.Decimal, eqPortfolioVo.CurrentValue);
                 db.AddInParameter(createEquityNetPositionCmd, "@CENP_ValuationDate", DbType.DateTime, eqPortfolioVo.ValuationDate);
                 db.AddInParameter(createEquityNetPositionCmd, "@CENP_SaleQuantity", DbType.Decimal, eqPortfolioVo.SalesQuantity);
                 db.AddInParameter(createEquityNetPositionCmd, "@CENP_AveragePrice", DbType.Decimal, eqPortfolioVo.AveragePrice);
