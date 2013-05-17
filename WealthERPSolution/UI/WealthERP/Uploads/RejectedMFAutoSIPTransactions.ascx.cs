@@ -196,6 +196,7 @@ namespace WealthERP.Uploads
                     gvAutoSIPReject.DataSource = dtrr;                   
                 }
                 btnExport.Visible = true;
+                pnlAutoSIP.Visible = true;
             }
         }
 
