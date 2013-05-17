@@ -43,9 +43,11 @@ namespace WealthERP.Uploads
         protected void Page_Load(object sender, EventArgs e)
         {
             adviserVo = (AdvisorVo)Session["advisorVo"];
+            pnlAutoSIP.Visible = false;
 
             if (!Page.IsPostBack)
             {
+                
                 DataSet dsRejectedSIPDetails = new DataSet();
                 if (Cache["RejectedAutoSIPDetails" + adviserVo.advisorId.ToString()] != null)
                     Cache["RejectedAutoSIPDetails" + adviserVo.advisorId.ToString()] = dsRejectedSIPDetails;
@@ -54,7 +56,7 @@ namespace WealthERP.Uploads
                 txtFromSIP.SelectedDate = fromDate.Date;
                 txtToSIP.SelectedDate = DateTime.Now;
 
-                BindRejectedSIPGrid();
+                //BindRejectedSIPGrid();
             }
         }
 
@@ -85,6 +87,12 @@ namespace WealthERP.Uploads
                 gvAutoSIPReject.DataSource = dsRejectedSIP.Tables[0];
                 gvAutoSIPReject.DataBind();
                 gvAutoSIPReject.Visible = true;
+                if (dsRejectedSIP.Tables[0].Rows.Count > 0)
+                {
+                    btnExport.Visible = true;
+                    pnlAutoSIP.Visible = true;
+                }
+
             //}
             //else
             //{
@@ -107,16 +115,7 @@ namespace WealthERP.Uploads
             BindRejectedSIPGrid();            
         }
 
-        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-        {
-            gvAutoSIPReject.ExportSettings.OpenInNewWindow = true;
-            gvAutoSIPReject.ExportSettings.IgnorePaging = true;
-            gvAutoSIPReject.ExportSettings.HideStructureColumns = true;
-            gvAutoSIPReject.ExportSettings.ExportOnlyData = true;
-            gvAutoSIPReject.ExportSettings.FileName = "Rejected Auto SIP Details";
-            gvAutoSIPReject.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvAutoSIPReject.MasterTableView.ExportToExcel();
-        }
+
 
         protected void gvAutoSIPReject_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -196,7 +195,19 @@ namespace WealthERP.Uploads
                 {
                     gvAutoSIPReject.DataSource = dtrr;                   
                 }
+                btnExport.Visible = true;
             }
+        }
+
+        protected void btnExport_Click(object sender, ImageClickEventArgs e)
+        {
+            gvAutoSIPReject.ExportSettings.OpenInNewWindow = true;
+            gvAutoSIPReject.ExportSettings.IgnorePaging = true;
+            gvAutoSIPReject.ExportSettings.HideStructureColumns = true;
+            gvAutoSIPReject.ExportSettings.ExportOnlyData = true;
+            gvAutoSIPReject.ExportSettings.FileName = "Rejected Auto SIP Details";
+            gvAutoSIPReject.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvAutoSIPReject.MasterTableView.ExportToExcel();
         }
     }
 }

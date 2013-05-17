@@ -23,8 +23,9 @@
                         </td>
                         <td align="right" style="width: 10px">
                             <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px" 
+                                onclick="btnExport_Click"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -96,7 +97,7 @@
     </table>
 </div>
 <br />
-<asp:Panel ID="Panel3" runat="server" class="Landscape" Width="100%"
+<asp:Panel ID="pnlAutoSIP" runat="server" class="Landscape" Width="100%"
     ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="6">
      <tr>
