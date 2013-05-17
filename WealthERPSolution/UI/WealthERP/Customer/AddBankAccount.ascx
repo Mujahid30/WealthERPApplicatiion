@@ -181,7 +181,7 @@
                     AllowPaging="true" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
                     AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
                     Skin="Telerik" EnableEmbeddedSkins="true" EnableHeaderContextFilterMenu="true"
-                    AllowFilteringByColumn="false">
+                    AllowFilteringByColumn="false" OnItemDataBound="gvJointHolders_ItemDataBound">
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
@@ -229,7 +229,7 @@
                 <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" Width="100%" AllowPaging="true"
                     AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true" AllowAutomaticDeletes="True"
                     AllowAutomaticInserts="false" AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="true"
-                    EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="false">
+                    EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="false" OnItemDataBound="gvNominees_ItemDataBound">
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
@@ -238,6 +238,7 @@
                             <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="Select" HeaderStyle-Width="30px">
                                 <ItemTemplate>
                                     <asp:CheckBox ID="chkId0" runat="server" />
+                                    <asp:HiddenField ID="hdnchkBxnom" runat="server" Value='<%# Eval("AssociationId").ToString()%>' />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn UniqueName="Name" HeaderStyle-Width="80px" HeaderText="Name"

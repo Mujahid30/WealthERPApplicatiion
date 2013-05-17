@@ -22,6 +22,8 @@ namespace WealthERP.Customer
 {
     public partial class AddBankAccount : System.Web.UI.UserControl
     {
+
+        string strVisibility = string.Empty;
         DataSet dsCustomerBankAccountDetails = new DataSet();
         UserVo userVo = null;
         RMVo rmVo = null;
@@ -39,16 +41,18 @@ namespace WealthERP.Customer
         DataTable dtCustomerAssociates;
         DataTable dtCustomerAssociatesRaw;
         DataRow drCustomerAssociates;
-        int bankId=0;
+        int bankId = 0;
         static int portfolioId;
         int custBankAccId;
         string path;
         DataRow dr;
         DataTable dt;
         string action;
-        DataSet dsBankDetails;
+        string mode;
         string currentUserRole = string.Empty;
         string viewForm = string.Empty;
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -65,9 +69,13 @@ namespace WealthERP.Customer
             if (Request.QueryString["action"] != null)
             {
                 action = Request.QueryString["action"].ToString();
-              
+                strVisibility = "View";
+                
             }
-          
+            if (Request.QueryString["strModeOfOperation"] != null)
+            {
+                mode = Request.QueryString["strModeOfOperation"].ToString();
+            }
             if (!IsPostBack)
             {
                 ViewState["Action"] = action;
@@ -113,19 +121,22 @@ namespace WealthERP.Customer
             //    //s  SetVisiblity(0);
             //    // lnkBtnEdit.Visible = true;
             //}
-          
-                //Session["customerBankAccountVo" + customerVo.CustomerId] = null;
 
-            if (ViewState["Action"] !=null)
+            //Session["customerBankAccountVo" + customerVo.CustomerId] = null;
+
+            if (ViewState["Action"] != null)
             {
                 if (ViewState["Action"].ToString() == "View")
-                {                    
+                {
                     //lnkBack.Visible = true;
                     ViewBankAccountDetails();
                     BtnSetVisiblity(0);
+                    rbtnomyes.Enabled = false;
+                    rbtnomNo.Enabled = false;
+                    ViewState["Action"] = null;
                 }
                 else if (ViewState["Action"].ToString() == "Edit")
-                {                    
+                {
                     EditBankAccountDetails();
                     BtnSetVisiblity(1);
                 }
@@ -185,28 +196,45 @@ namespace WealthERP.Customer
         {
             try
             {
+                //if (rbtnomyes.Checked == true)
+                //    strVisibility = "Edit";
+                //dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRelForCashAndSavings(customerVo.CustomerId, strVisibility);
+
+                //string expressionForRowsWithoutFM;
+                //expressionForRowsWithoutFM = "CCSAA_AssociationType LIKE" + "'%Nominee%'";
+
+
+                //DataTable dtWithoutFM = new DataTable();
+
+                //DataView dvMFTransactionsProcessed = new DataView(dsCustomerAssociates.Tables[0], expressionForRowsWithoutFM, "CCSAA_AssociationType", DataViewRowState.CurrentRows);
+                //dtWithoutFM = dvMFTransactionsProcessed.ToTable();
+
+
                 dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
-                dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
-                dtCustomerAssociates = new DataTable();
-                dtCustomerAssociates.Columns.Add("MemberCustomerId");
-                dtCustomerAssociates.Columns.Add("AssociationId");
-                dtCustomerAssociates.Columns.Add("Name");
-                dtCustomerAssociates.Columns.Add("Relationship");
+                //dtCustomerAssociates.Rows.Clear();
+                dtCustomerAssociatesRaw = new DataTable();
+                //dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                //dtCustomerAssociates.Rows.Clear();
+                dtCustomerAssociates = dsCustomerAssociates.Tables[0];
 
-                foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
+                dtCustomerAssociatesRaw.Columns.Clear();
+                dtCustomerAssociatesRaw.Columns.Add("MemberCustomerId");
+                dtCustomerAssociatesRaw.Columns.Add("AssociationId");
+                dtCustomerAssociatesRaw.Columns.Add("Name");
+                dtCustomerAssociatesRaw.Columns.Add("Relationship");
+
+                foreach (DataRow dr in dtCustomerAssociates.Rows)
                 {
-
-                    drCustomerAssociates = dtCustomerAssociates.NewRow();
+                    drCustomerAssociates = dtCustomerAssociatesRaw.NewRow();
                     drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
                     drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
                     drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
                     drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
-                    dtCustomerAssociates.Rows.Add(drCustomerAssociates);
+                    dtCustomerAssociatesRaw.Rows.Add(drCustomerAssociates);
                 }
-
-                if (dtCustomerAssociates.Rows.Count > 0)
+                if (dtCustomerAssociatesRaw.Rows.Count > 0)
                 {
-                    gvNominees.DataSource = dtCustomerAssociates;
+                    gvNominees.DataSource = dtCustomerAssociatesRaw;
                     gvNominees.DataBind();
                     gvNominees.Visible = true;
                     trNoNominee.Visible = false;
@@ -293,7 +321,18 @@ namespace WealthERP.Customer
             }
             accountId = customerBankAccountBo.CreateCustomerBankAccount(customerBankAccountVo, customerId, userId);
             customerAccountAssociationVo.AccountId = accountId;
-
+            foreach (GridDataItem gvr in this.gvNominees.Items)
+            {
+                CheckBox chkIdn = (CheckBox)gvr.FindControl("chkId0");
+                if (chkIdn.Checked)
+                {
+                    i++;
+                    customerAccountAssociationVo.AssociationId = int.Parse(gvJointHolders.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString());
+                    //  customerAccountAssociationVo.AssociationId = AssociationId;
+                    customerAccountAssociationVo.AssociationType = "Nominee";
+                    customerAccountBo.CreatecustomerBankAccountAssociation(customerAccountAssociationVo, userVo.UserId);
+                }
+            }
             if (gvJointHolders.Items.Count > 0)
             {
                 foreach (GridDataItem item in gvJointHolders.Items)
@@ -347,6 +386,7 @@ namespace WealthERP.Customer
         }
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            int i = 0;
             int customerId = 0;
             //  bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
             customerVo = (CustomerVo)Session["customerVo"];
@@ -382,7 +422,38 @@ namespace WealthERP.Customer
                 customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
             else
                 customerBankAccountVo.MICR = 0;
-            customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId);
+
+            customerAccountAssociationVo.AccountId = bankId;
+            if (customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId))
+            {
+                customerBankAccountBo.DeleteCustomerBankAccountAssociates(bankId);
+                foreach (GridDataItem gvr in this.gvNominees.Items)
+                {
+                    CheckBox chkIdn = (CheckBox)gvr.FindControl("chkId0");
+                    if (chkIdn.Checked)
+                    {
+                        i++;
+                        customerAccountAssociationVo.AssociationId = int.Parse(gvJointHolders.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString());
+                        //  customerAccountAssociationVo.AssociationId = AssociationId;
+                        customerAccountAssociationVo.AssociationType = "Nominee";
+                        customerAccountBo.CreatecustomerBankAccountAssociation(customerAccountAssociationVo, userVo.UserId);
+                    }
+                }
+                if (gvJointHolders.Items.Count > 0)
+                {
+                    foreach (GridDataItem item in gvJointHolders.Items)
+                    {
+                        CheckBox chkId = (CheckBox)item.FindControl("chkId");
+                        if (chkId.Checked)
+                        {
+                            i++;
+                            customerAccountAssociationVo.AssociationId = int.Parse(gvJointHolders.MasterTableView.DataKeyValues[item.ItemIndex]["AssociationId"].ToString());
+                            customerAccountAssociationVo.AssociationType = "Joint Holder";
+                            customerAccountBo.CreatecustomerBankAccountAssociation(customerAccountAssociationVo, userVo.UserId);
+                        }
+                    }
+                }
+            }
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBankDetails','');", true);
         }
         protected void rbtnYes_CheckedChanged(object sender, EventArgs e)
@@ -392,37 +463,56 @@ namespace WealthERP.Customer
                 if (rbtnYes.Checked == true)
                 {
                     ddlModeofOperation.Enabled = true;
+                    //strVisibility = "Edit";
+                    //dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRelForCashAndSavings(customerVo.CustomerId, strVisibility);
+
+                    //string expressionForRowsWithoutFM;
+                    //expressionForRowsWithoutFM = "CCSAA_AssociationType LIKE" + "'%Joint Holder%'";
+
+
+                    //DataTable dtWithoutFM = new DataTable();
+
+                    //DataView dvMFTransactionsProcessed = new DataView(dsCustomerAssociates.Tables[0], expressionForRowsWithoutFM, "CCSAA_AssociationType", DataViewRowState.CurrentRows);
+                    //dtWithoutFM = dvMFTransactionsProcessed.ToTable();
+
+
                     dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
                     //dtCustomerAssociates.Rows.Clear();
-                    dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
-                    dtCustomerAssociates = new DataTable();
-                    dtCustomerAssociates.Columns.Clear();
-                    dtCustomerAssociates.Columns.Add("MemberCustomerId");
-                    dtCustomerAssociates.Columns.Add("AssociationId");
-                    dtCustomerAssociates.Columns.Add("Name");
-                    dtCustomerAssociates.Columns.Add("Relationship");
-                    foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
+                    dtCustomerAssociatesRaw = new DataTable();
+                    //dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                    //dtCustomerAssociates.Rows.Clear();
+                    dtCustomerAssociates = dsCustomerAssociates.Tables[0];
+
+                    dtCustomerAssociatesRaw.Columns.Clear();
+                    dtCustomerAssociatesRaw.Columns.Add("MemberCustomerId");
+                    dtCustomerAssociatesRaw.Columns.Add("AssociationId");
+                    dtCustomerAssociatesRaw.Columns.Add("Name");
+                    dtCustomerAssociatesRaw.Columns.Add("Relationship");
+
+                    foreach (DataRow dr in dtCustomerAssociates.Rows)
                     {
-                        drCustomerAssociates = dtCustomerAssociates.NewRow();
+                        drCustomerAssociates = dtCustomerAssociatesRaw.NewRow();
                         drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
                         drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
                         drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
                         drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
-                        dtCustomerAssociates.Rows.Add(drCustomerAssociates);
+                        dtCustomerAssociatesRaw.Rows.Add(drCustomerAssociates);
                     }
-                    if (dtCustomerAssociates.Rows.Count > 0)
+                    if (dtCustomerAssociatesRaw.Rows.Count > 0)
                     {
-                        if (Cache["gvjoinholder" + customerVo.CustomerId] == null)
-                        {
-                            Cache.Insert("gvjoinholder" + customerVo.CustomerId, dtCustomerAssociates);
-                        }
-                        else
-                        {
-                            Cache.Remove("gvjoinholder" + customerVo.CustomerId);
-                            Cache.Insert("gvjoinholder" + customerVo.CustomerId, dtCustomerAssociates);
-                        }
-                        gvJointHolders.DataSource = dtCustomerAssociates;
+                        //if (Cache["gvjoinholder" + customerVo.CustomerId] == null)
+                        //{
+                        //    Cache.Insert("gvjoinholder" + customerVo.CustomerId, dtCustomerAssociates);
+                        //}
+                        //else
+                        //{
+                        //    Cache.Remove("gvjoinholder" + customerVo.CustomerId);
+                        //    Cache.Insert("gvjoinholder" + customerVo.CustomerId, dtCustomerAssociates);
+                        //}
+                        gvJointHolders.DataSource = dtCustomerAssociatesRaw;
                         gvJointHolders.DataBind();
+                        Session["jointholder"] = dtCustomerAssociatesRaw;
+                        gvJointHolders.Visible = true;
                         trgvjointHolder.Visible = true;
                         trjointholder.Visible = true;
                     }
@@ -443,6 +533,7 @@ namespace WealthERP.Customer
                     trjointholder.Visible = false;
                     trgvjointHolder.Visible = false;
                 }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -479,8 +570,133 @@ namespace WealthERP.Customer
         }
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
         {
-              ViewState["Action"]  = "Edit";
-            EditBankAccountDetails();
+            rbtnomyes.Enabled = true;
+            rbtnomNo.Enabled = true;
+
+            dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+            dtCustomerAssociatesRaw = new DataTable();
+            //dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+            //dtCustomerAssociates.Rows.Clear();
+            dtCustomerAssociates = dsCustomerAssociates.Tables[0];
+
+            dtCustomerAssociatesRaw.Columns.Clear();
+            dtCustomerAssociatesRaw.Columns.Add("MemberCustomerId");
+            dtCustomerAssociatesRaw.Columns.Add("AssociationId");
+            dtCustomerAssociatesRaw.Columns.Add("Name");
+            dtCustomerAssociatesRaw.Columns.Add("Relationship");
+
+            foreach (DataRow dr in dtCustomerAssociates.Rows)
+            {
+                drCustomerAssociates = dtCustomerAssociatesRaw.NewRow();
+                drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
+                drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
+                drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                dtCustomerAssociatesRaw.Rows.Add(drCustomerAssociates);
+            }
+
+
+            ViewState["Action"] = "Edit";
+            ViewState["newTable"] = dtCustomerAssociatesRaw;
+
+            strVisibility = "Edit";
+            //dt=(DataTable)Cache["gvjoinholder" + customerVo.CustomerId];
+            DataSet ds = new DataSet();
+             dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRelForCashAndSavings(customerVo.CustomerId, "Edit");
+
+            string strJH;
+            strJH = "CCSAA_AssociationType LIKE" + "'%Joint Holder%'";
+
+
+            DataTable dtJH = new DataTable();
+
+            DataView dvJH = new DataView(dsCustomerAssociates.Tables[0], strJH, "CCSAA_AssociationType", DataViewRowState.CurrentRows);
+            dtJH = dvJH.ToTable();
+
+            string strNOM;
+            strNOM = "CCSAA_AssociationType LIKE" + "'%Nominee%'";
+
+
+            DataTable dtNOM = new DataTable();
+
+            DataView dvNOM = new DataView(dsCustomerAssociates.Tables[0], strNOM, "CCSAA_AssociationType", DataViewRowState.CurrentRows);
+            dtNOM = dvNOM.ToTable();
+
+            if (rbtnYes.Checked == true)
+            {
+                ddlModeofOperation.Enabled = true;               
+               // ddlModeofOperation.SelectedItem.Value=customerBankAccountVo.ModeOfOperation;
+                ddlModeofOperation.SelectedValue = mode;
+                gvJointHolders.DataSource = dtCustomerAssociatesRaw;
+                gvJointHolders.DataBind();
+                DataTable dtJh = (DataTable)ViewState["dtJH"];
+                if (dtJh != null)
+                {
+                    DataRow[] drjointDt;
+                    foreach (GridDataItem item in this.gvJointHolders.Items)
+                    {
+                        CheckBox chkId = (CheckBox)item.FindControl("chkId");
+                        int assosiationId = int.Parse(gvJointHolders.MasterTableView.DataKeyValues[item.ItemIndex]["AssociationId"].ToString());
+                        drjointDt = dtJh.Select("AssociationId=" + assosiationId.ToString());
+                        if (drjointDt.Count() > 0)
+                        {
+                            chkId.Checked = true;
+                        }                     
+
+                    }
+                }
+                trjointholder.Visible = true;
+                trgvjointHolder.Visible = true;
+                gvJointHolders.Visible = true;
+
+            }
+            else
+            {
+                ddlModeofOperation.Enabled = false;
+                gvJointHolders.Visible = false;
+                trgvjointHolder.Visible = false;
+                trjointholder.Visible = false;
+            }
+
+            if (rbtnomyes.Checked == true)
+            {
+                ViewState["newTable"] = dtCustomerAssociatesRaw;
+                //ddlModeofOperation.Enabled = true;
+                //ddlModeofOperation.SelectedIndex = 0;
+                
+                gvNominees.DataSource = dtCustomerAssociatesRaw;
+                gvNominees.DataBind();
+                DataTable dtNom = (DataTable)ViewState["dtNOM"];
+                if (dtNom != null)
+                {
+                    DataRow[] drNomineeDt;
+                    foreach (GridDataItem item in this.gvNominees.Items)
+                    {
+                        CheckBox chkIdn = (CheckBox)item.FindControl("chkId0");
+                        int assosiationId = int.Parse(gvNominees.MasterTableView.DataKeyValues[item.ItemIndex]["AssociationId"].ToString());
+                        drNomineeDt = dtNom.Select("AssociationId=" + assosiationId.ToString());
+                        if (drNomineeDt.Count() > 0)
+                        {
+                            chkIdn.Checked = true;
+                        }                                       
+
+                    }
+                }
+                trgvNominees.Visible = true;
+                gvNominees.Visible = true;
+                trNomineeCaption.Visible = true;
+
+            }
+            else
+            {
+                // ddlModeofOperation.Enabled = false;
+                gvNominees.Visible = false;
+                trNomineeCaption.Visible = false;
+                trgvNominees.Visible = false;
+            }
+            //ViewBankAccountDetails();
+            BtnSetVisiblity(1);
+            SetVisiblity(1);
         }
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
@@ -535,12 +751,21 @@ namespace WealthERP.Customer
             if (customerBankAccountVo.IsJointHolding == 1)
             {
                 rbtnYes.Checked = true;
+                ddlModeofOperation.SelectedValue = customerBankAccountVo.ModeOfOperation;
+                RadioButton1.Checked = false;
+                trjointholder.Visible = true;
+                trgvjointHolder.Visible = true;
+                gvJointHolders.Visible = true;
 
             }
             else
             {
                 RadioButton1.Checked = true;
-
+                ddlModeofOperation.SelectedValue = "SI";
+                rbtnYes.Checked = false;
+                trjointholder.Visible = false;
+                trgvjointHolder.Visible = false;
+                gvJointHolders.Visible = false;
             }
 
             txtBranchName.Text = customerBankAccountVo.BranchName;
@@ -552,16 +777,112 @@ namespace WealthERP.Customer
                 txtBankAdrPinCode.Text = customerBankAccountVo.BranchAdrPinCode.ToString();
             }
             else
-            txtBankAdrPinCode.Text = "";
+                txtBankAdrPinCode.Text = "";
             txtBankAdrCity.Text = customerBankAccountVo.BranchAdrCity;
             if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
             {
                 ddlBankAdrState.SelectedValue = customerBankAccountVo.BranchAdrState;
             }
             else
-             ddlBankAdrState.SelectedValue ="Select";
+                ddlBankAdrState.SelectedValue = "Select";
             txtMicr.Text = customerBankAccountVo.MICR.ToString();
             txtIfsc.Text = customerBankAccountVo.IFSC;
+
+            DataSet ds = new DataSet();
+            ds = dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRelForCashAndSavings(customerBankAccountVo.CustBankAccId, strVisibility);
+
+            if (strVisibility == "View")
+                ViewState["JointHold"] = ds;
+            strVisibility = string.Empty;
+
+            string expressionForRowsWithoutFM;
+            expressionForRowsWithoutFM = "CCSAA_AssociationType LIKE" + "'%Joint Holder%'";
+
+            string expressionForRowsWithoutFMNOM;
+            expressionForRowsWithoutFMNOM = "CCSAA_AssociationType LIKE" + "'%Nominee%'";
+
+
+            DataTable dtJH = new DataTable();
+
+            DataTable dtNOM = new DataTable();
+
+            DataView dvJH = new DataView(ds.Tables[0], expressionForRowsWithoutFM, "CCSAA_AssociationType", DataViewRowState.CurrentRows);
+            dtJH = dvJH.ToTable();
+
+            DataView dvNOM = new DataView(ds.Tables[0], expressionForRowsWithoutFMNOM, "CCSAA_AssociationType", DataViewRowState.CurrentRows);
+            dtNOM = dvNOM.ToTable();
+
+
+            gvJointHolders.DataSource = dtJH;
+            ViewState["dtJH"] = dtJH;
+            gvJointHolders.DataBind();
+            if (dtJH != null)
+            {
+                DataRow[] drJointDt;
+                foreach (GridDataItem item in this.gvJointHolders.Items)
+                {
+                    CheckBox chkId = (CheckBox)item.FindControl("chkId");
+                    int assosiationId = int.Parse(gvJointHolders.MasterTableView.DataKeyValues[item.ItemIndex]["AssociationId"].ToString());
+                    drJointDt = dtJH.Select("AssociationId=" + assosiationId.ToString());
+                    if (drJointDt.Count() > 0)
+                    {
+                        chkId.Checked = true;
+                    }
+
+
+                    // if(gvNominees.MasterTableView.DataKeyValues[selectedRow-1]["AssociationId"].ToString()==dr["AssociationId"].ToString())
+                    //if (gvNominees.MasterTableView.DataKeyValues[selectedRow - 1]["AssociationId"].ToString() == dr["AssociationId"].ToString())
+                    //   chkBoxnom.Checked = true;
+
+
+                }
+            }
+
+            //trjointholder.Visible = true;
+            //trgvjointHolder.Visible = true;
+            //gvJointHolders.Visible = true;
+
+            gvNominees.DataSource = dtNOM;
+            gvNominees.DataBind();
+            ViewState["dtNOM"] = dtNOM;
+
+            if (dtNOM != null)
+            {
+                DataRow[] drNomineeDt;
+                foreach (GridDataItem item in this.gvNominees.Items)
+                {
+                    CheckBox chkIdn = (CheckBox)item.FindControl("chkId0");
+                    int assosiationId = int.Parse(gvNominees.MasterTableView.DataKeyValues[item.ItemIndex]["AssociationId"].ToString());
+                    drNomineeDt = dtNOM.Select("AssociationId=" + assosiationId.ToString());
+                    if (drNomineeDt.Count() > 0)
+                    {
+                        chkIdn.Checked = true;
+                    }               
+                }
+            }
+            if (dtNOM.Rows.Count>0)
+            {
+                rbtnomyes.Checked = true;
+                rbtnomNo.Checked = false;
+                trNomineeCaption.Visible = true;
+                trgvNominees.Visible = true;
+                gvNominees.Visible = true;
+                //trNomineeCaption.Visible = false;
+                //trgvNominees.Visible = false;
+                //gvNominees.Visible = false;
+            }
+            else
+            {
+                rbtnomyes.Checked = false;
+                rbtnomNo.Checked = true;
+                trNomineeCaption.Visible = false;
+                trgvNominees.Visible = false;
+                gvNominees.Visible = false;
+               
+            }
+            //trNomineeCaption.Visible = true;
+            //trgvNominees.Visible = true;
+            //gvNominees.Visible = true;
             SetVisiblity(0);
         }
         private void SetVisiblity(int p)
@@ -574,14 +895,14 @@ namespace WealthERP.Customer
                 txtAccountNumber.Enabled = false;
                 ddlBankName.Enabled = false;
                 txtBranchName.Enabled = false;
-                txtBankAdrLine1.Enabled =false;
-                txtBankAdrLine2.Enabled=false;
+                txtBankAdrLine1.Enabled = false;
+                txtBankAdrLine2.Enabled = false;
                 txtBankAdrLine3.Enabled = false;
                 txtBankAdrPinCode.Enabled = false;
                 txtBankAdrCity.Enabled = false;
                 ddlBankAdrState.Enabled = false;
-                //RadioButton1.Enabled = false;
-                //rbtnYes.Enabled = false;
+                RadioButton1.Enabled = false;
+                rbtnYes.Enabled = false;
                 txtMicr.Enabled = false;
                 txtIfsc.Enabled = false;
             }
@@ -599,8 +920,8 @@ namespace WealthERP.Customer
                 txtBankAdrPinCode.Enabled = true;
                 txtBankAdrCity.Enabled = true;
                 ddlBankAdrState.Enabled = true;
-               // RadioButton1.Enabled = true;
-                //rbtnYes.Enabled = true;
+                RadioButton1.Enabled = true;
+                rbtnYes.Enabled = true;
                 txtMicr.Enabled = true;
                 txtIfsc.Enabled = true;
 
@@ -635,6 +956,82 @@ namespace WealthERP.Customer
         protected void RadioButton1o_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void gvJointHolders_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            //if (e.Item is GridDataItem)
+            //{
+            //    DataTable dt = new DataTable();
+            //    if (strVisibility == "Edit")
+            //    {
+            //        gvJointHolders.MasterTableView.Columns[0].Visible = true;
+            //        dt = (DataTable)ViewState["dtJH"];
+            //        CheckBox chkBox = e.Item.FindControl("chkId") as CheckBox;
+
+            //        int selectedRow = e.Item.ItemIndex + 1;
+            //        if (dt != null)
+            //        {
+            //            foreach (DataRow dr in dt.Rows)
+            //            {
+            //                if (gvJointHolders.MasterTableView.DataKeyValues[selectedRow - 1]["AssociationId"].ToString() == dr["AssociationId"].ToString())
+            //                    chkBox.Checked = true;
+
+            //            }
+            //        }
+
+            //        //ViewState["dtJH"] = null;
+            //    }
+            //    else if (strVisibility == "")
+            //    {
+            //        //gvJointHolders.MasterTableView.Columns[0].Visible = false;
+            //    }
+            //}
+        }
+
+        protected void gvNominees_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            //    if (e.Item is GridDataItem)
+            //    {
+            //        DataTable dt = new DataTable();
+            //        if (strVisibility == "Edit")
+            //        {
+            //            gvNominees.MasterTableView.Columns[0].Visible = true;
+            //            dt = (DataTable)ViewState["dtNOM"];
+            //            CheckBox chkBoxnom = e.Item.FindControl("chkId0") as CheckBox;
+
+            //            int selectedRow = e.Item.ItemIndex ;
+            //            //if (dt != null)
+            //            //{
+            //            //    DataRow[] drNomineeDt;
+            //            //    foreach (GridDataItem item in gvNominees.Items)
+            //            //    {
+
+            //            //        int assosiationId = int.Parse(gvNominees.MasterTableView.DataKeyValues[selectedRow - 1]["AssociationId"].ToString());
+            //            //        drNomineeDt = dt.Select("AssociationId=" + assosiationId.ToString());
+            //            //        selectedRow = selectedRow + 1;
+            //            //        if (drNomineeDt.Count() > 0)
+            //            //        {
+            //            //            chkBoxnom.Checked = true;
+            //            //        }
+
+
+            //                   // if(gvNominees.MasterTableView.DataKeyValues[selectedRow-1]["AssociationId"].ToString()==dr["AssociationId"].ToString())
+            //                    //if (gvNominees.MasterTableView.DataKeyValues[selectedRow - 1]["AssociationId"].ToString() == dr["AssociationId"].ToString())
+            //                     //   chkBoxnom.Checked = true;
+
+
+            //            //    }
+            //            //}
+
+            //            //ViewState["dtNOM"] = null;
+            //        }
+            //        else if (strVisibility == "")
+            //        {
+            //            //gvJointHolders.MasterTableView.Columns[0].Visible = false;
+            //        }
+            //    }
+            //}
         }
     }
 }
