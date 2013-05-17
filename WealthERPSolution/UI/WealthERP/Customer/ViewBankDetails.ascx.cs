@@ -527,6 +527,40 @@ namespace WealthERP.Customer
                     buttonDelete.Enabled = true;
                 }
             }
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                LinkButton button = dataItem["ButtonColumn1"].Controls[0] as LinkButton;
+                LinkButton buttonBalance = dataItem["ButtonColumn"].Controls[0] as LinkButton;
+                TableCell cell = (TableCell)dataItem["CB_IsFromTransaction"];
+                string flag=cell.Text;
+                if (flag == "&nbsp;")
+                    flag = null;
+               if (flag=="0")
+               {
+
+                   dataItem["ButtonColumn1"].Enabled = false;
+                   button.Enabled = false;
+                   button.Attributes["onclick"] = "return alert('Already have Holding Amount')";                
+
+               }
+               else if (flag == "1")
+               {
+                   dataItem["ButtonColumn"].Enabled = false;
+                   buttonBalance.Enabled = false;
+                   buttonBalance.Attributes["onclick"] = "return alert('Already have Transaction')";
+               }
+               else
+               {
+                   dataItem["ButtonColumn1"].Enabled = true;
+                   button.Enabled = true;
+                   dataItem["ButtonColumn"].Enabled = true;
+                   buttonBalance.Enabled = true;
+               }
+
+            }
+
+
         }
         protected void gvBankDetails_ItemCommand(object source, GridCommandEventArgs e)
         {
@@ -714,23 +748,25 @@ namespace WealthERP.Customer
                
             }
 
-            bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
+            //bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
 
             if (e.CommandName == "Delete")
             {
                 bool isdeleted = false;
-               
+                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
                 isdeleted = customerBankAccountBo.DeleteCustomerBankAccount(bankId);
                 if (isdeleted == false)
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot delete the bank is associate');", true);
             }
             if (e.CommandName == "viewTransaction")
-            {               
+            {
+                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());            
                 string name = "viewTransaction";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalSetUPPage", "loadcontrol('AddBankDetails','?name=" + name + "&bankId=" + bankId + "');", true);             
             }
             if (e.CommandName == "Editbalance")
-            {                
+            {
+                bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());             
                 string accountNum = (gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_AccountNum"].ToString());
                 double amount = double.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_HoldingAmount"].ToString());
                 string bankname = (gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WERPBDTM_BankName"].ToString());
@@ -741,8 +777,9 @@ namespace WealthERP.Customer
             if (e.CommandName == "Edit")
             {
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
+                string  strModeOfOperation = gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XMOH_ModeOfHoldingCode"].ToString();
                 string name = "";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('AddBankAccount','?action=" + "View" + "&bankId=" + bankId + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBankAccount", "loadcontrol('AddBankAccount','?action=" + "View" + "&bankId=" + bankId + "&strModeOfOperation=" + strModeOfOperation + "');", true);
             }
             BindBankDetails(customerId);
         }

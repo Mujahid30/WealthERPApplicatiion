@@ -167,7 +167,7 @@
                 <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" EditText="View/Edit"
                     UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
                 </telerik:GridEditCommandColumn>
-                <telerik:GridButtonColumn ButtonType="LinkButton" Text="View Transaction" UniqueName="ButtonColumn"
+                <telerik:GridButtonColumn ButtonType="LinkButton" Text="View Transaction" UniqueName="ButtonColumn1"
                     CommandName="viewTransaction">
                     <HeaderStyle Width="100px" />
                 </telerik:GridButtonColumn>
@@ -200,7 +200,7 @@
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="CB_HoldingAmount" HeaderStyle-Width="80px" HeaderText="Holding Amount"
-                    DataField="CB_HoldingAmount" SortExpression="CB_HoldingAmount" AllowFiltering="false" Aggregate="Sum" DataFormatString="{0:N3}"
+                    DataField="CB_HoldingAmount" SortExpression="CB_HoldingAmount" AllowFiltering="false" Aggregate="Sum" DataFormatString="{0:N2}"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -214,6 +214,9 @@
                     HeaderStyle-Width="80px" Text="Delete">
                     <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                 </telerik:GridButtonColumn>
+                 <telerik:GridBoundColumn DataField="CB_IsFromTransaction"  HeaderText="Flag" UniqueName="CB_IsFromTransaction" Visible="false">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn Visible="false" UniqueName="CB_IFSC" HeaderStyle-Width="150px"
                     HeaderText="IFSC" DataField="CB_IFSC" SortExpression="CB_IFSC" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
