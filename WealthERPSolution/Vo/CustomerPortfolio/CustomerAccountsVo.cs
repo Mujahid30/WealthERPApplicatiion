@@ -57,6 +57,7 @@ namespace VoCustomerPortfolio
         private int m_CustBankAccId;
         private string m_CFCCategoryName;
         private string m_CFCCategoryCode;
+        private string m_WERPBMBankName;
         #endregion Fields
 
 
@@ -130,7 +131,13 @@ namespace VoCustomerPortfolio
             get { return m_PanNumber; }
             set { m_PanNumber = value; }
         }
+        public string WERPBMBankName
+        {
+            get { return m_WERPBMBankName; }
+            set { m_WERPBMBankName = value; }
 
+
+        }
         public string XCT_CustomerTypeCode
         {
             get { return m_XCT_CustomerTypeCode; }
