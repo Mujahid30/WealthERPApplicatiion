@@ -99,7 +99,7 @@ namespace WealthERP.Customer
             {
 
                 lblheader.Text = "Add/Update Balance";
-                lblAccId.Text = accountNum.ToString() + "/" + bankname.ToString();
+                lblAccId.Text = bankname.ToString() + "/" + accountNum.ToString();
                 //lblBankName.Text = bankname.ToString();
                 txtholdingAmt.Text = amount.ToString();
                 //lblAccId.Text = customeraccountVo.AccountNum.ToString();
@@ -136,6 +136,9 @@ namespace WealthERP.Customer
                 TransactionList = customerAccountBo.GetCustomerBankTransaction(bankId,customerVo.CustomerId);
            // }
             DataTable dtTransaction = new DataTable();
+            dtTransaction.Columns.Add("WERPBM_BankCode");
+            dtTransaction.Columns.Add("WERPBDTM_BankName");
+            dtTransaction.Columns.Add("CB_AccountNum");
             dtTransaction.Columns.Add("CCST_TransactionId");
             dtTransaction.Columns.Add("CCST_ExternalTransactionId");
             dtTransaction.Columns.Add("CCST_Transactiondate");
@@ -153,6 +156,13 @@ namespace WealthERP.Customer
                 customeraccountVo = new CustomerAccountsVo();
                 customeraccountVo = TransactionList[i];
                 drTransaction["CCST_TransactionId"] = customeraccountVo.TransactionId.ToString();
+                if (!string.IsNullOrEmpty(customeraccountVo.BankName))
+                    drTransaction["WERPBM_BankCode"] = customeraccountVo.BankName.ToString();
+                if (!string.IsNullOrEmpty(customeraccountVo.WERPBMBankName))
+                    drTransaction["WERPBDTM_BankName"] = customeraccountVo.WERPBMBankName.ToString();
+                if (!string.IsNullOrEmpty(customeraccountVo.BankName))
+                    drTransaction["CB_AccountNum"] = customeraccountVo.BankAccountNum.ToString();
+
                 if (customeraccountVo.ExternalTransactionId == null)
                 {
                     drTransaction["CCST_ExternalTransactionId"] = "N/A";
@@ -198,8 +208,17 @@ namespace WealthERP.Customer
             }
             if (TransactionList.Count > 0)
             {
+                if (Cache["gvCashSavingTransaction" + customerVo.CustomerId] == null)
+                {
+                    Cache.Insert("gvCashSavingTransaction" + customerVo.CustomerId, dtTransaction);
+                }
+                else
+                {
+                    Cache.Remove("gvCashSavingTransaction" + customerVo.CustomerId);
+                    Cache.Insert("gvCashSavingTransaction" + customerVo.CustomerId, dtTransaction);
+                }
                 gvCashSavingTransaction.DataSource = dtTransaction;
-                gvCashSavingTransaction.DataBind();
+                gvCashSavingTransaction.DataBind(); 
                 gvCashSavingTransaction.Visible = true;
                 imgBtnrgHoldings.Visible = true;
                 // BindDDLBankDetails();
@@ -229,7 +248,7 @@ namespace WealthERP.Customer
             ddlAccountDetails.DataBind();
             // ViewState["BankId"] = dsCustomerBankAccountDetails.Tables[1];
             Session["BankAccId"] = dsCustomerBankAccountDetails.Tables[1];
-            ddlAccountDetails.Items.Insert(0, "Select");
+           // ddlAccountDetails.Items.Insert(0, "Select");
         }
 
         public void ddlAccountDetails_SelectedIndexChanged(object sender, EventArgs e)
@@ -242,8 +261,9 @@ namespace WealthERP.Customer
                 DivTransaction.Visible = false;
             }
             else
+            {
                 trHoldingAndTrnx.Visible = false;
-
+            }
             if (ViewState["BankId"] != null)
                 ViewState.Remove("BankId");
             bankId = int.Parse(ddlAccountDetails.SelectedValue);
@@ -339,6 +359,8 @@ namespace WealthERP.Customer
                 DropDownList ddlCFCCategory = (DropDownList)e.Item.FindControl("ddlCFCCategory");
                 TextBox txtAmount = (TextBox)e.Item.FindControl("txtAmount");
                 TextBox txtExternalTransactionId = (TextBox)e.Item.FindControl("txtExternalTransactionId");
+                RadioButton rbtnY = (RadioButton)e.Item.FindControl("rbtnYes");
+                RadioButton rbtnN = (RadioButton)e.Item.FindControl("rbtnNo");
                 customeraccountVo = new CustomerAccountsVo();
                 customeraccountVo.ExternalTransactionId = txtExternalTransactionId.Text.ToString();
                 customeraccountVo.Transactiondate = date;
@@ -461,12 +483,12 @@ namespace WealthERP.Customer
             int customerId = 0;
             customerVo = (CustomerVo)Session["customerVo"];
             customerId = customerVo.CustomerId;
-            accountId = customerAccountBo.CheckTransactionExistanceOnHoldingAdd(bankId);
-            if (accountId == true)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Transaction all ready exist first delete Transactions !!');", true);
-            }
-            else
+            //accountId = customerAccountBo.CheckTransactionExistanceOnHoldingAdd(bankId);
+            //if (accountId == true)
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Transaction all ready exist first delete Transactions !!');", true);
+            //}
+            //else
             customeraccountVo.AccountId = bankId;
             customeraccountVo.Amount = double.Parse(txtholdingAmt.Text.ToString());
             customerAccountBo.InsertholdingAmountCustomerBank(customeraccountVo, customerId);
@@ -553,12 +575,10 @@ namespace WealthERP.Customer
             DataTable dtgvTransaction = new DataTable();
             if (Cache["gvCashSavingTransaction" + customerVo.CustomerId] != null)
             {
-                dtgvTransaction = (DataTable)Cache["gvCashSavingTransaction" + customerVo.CustomerId];
-                if (dtgvTransaction != null)
-                {
-                    gvCashSavingTransaction.DataSource = dtgvTransaction;
-                    gvCashSavingTransaction.Visible = true;
-                }
+                dtgvTransaction = (DataTable)Cache["gvCashSavingTransaction" + customerVo.CustomerId];              
+                gvCashSavingTransaction.DataSource = dtgvTransaction;
+                gvCashSavingTransaction.Visible = true;
+               
             }
         }
 

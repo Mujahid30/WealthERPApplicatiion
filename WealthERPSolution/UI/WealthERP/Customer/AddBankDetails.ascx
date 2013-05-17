@@ -46,17 +46,19 @@
                 //                alert("Please select AMC!");
             },
             success: function(msg) {
-
+               
                 if (msg.d) {
 
                     $("#<%= hidValidCheck.ClientID %>").val("1");
                     $("#spnLoginStatus").html("");
+                    document.getElementById("<%= btnSubmit.ClientID %>").disabled = false;
                 }
                 else {
 
                     $("#<%= hidValidCheck.ClientID %>").val("0");
                     $("#spnLoginStatus").removeClass();
                     alert("Transaction is all ready Exists First delete Transactions");
+                    document.getElementById("<%= btnSubmit.ClientID %>").disabled = true;
                     return false;
                 }
 
@@ -103,13 +105,15 @@
                 <table>
                     <tr id="trAccount" runat="server">
                         <td class="leftField" align="center">
-                            <asp:Label ID="Label1" CssClass="FieldName" runat="server" Text="Account No./Bank Name:"></asp:Label>
+                            <asp:Label ID="Label1" CssClass="FieldName" runat="server" Text="Bank Name/Account No.:"></asp:Label>
                         </td>
                         <td>
-                            <asp:Label ID="lblAccId" runat="server" CssClass="Field"></asp:Label>
                             <asp:Label ID="lblBankName" runat="server" CssClass="Field"></asp:Label>
+                            <asp:Label ID="lblAccId" runat="server" CssClass="Field"></asp:Label>
                             <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAccountDetails_SelectedIndexChanged"
                                 CssClass="cmbField" runat="server" ID="ddlAccountDetails" AppendDataBoundItems="true">
+                                <asp:ListItem Text="Select" Value="0">Select</asp:ListItem>
+                                
                             </asp:DropDownList>
                         </td>
                         <%-- <td class="leftField" align="left">
@@ -160,7 +164,7 @@
                         <td>
                             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                                Text="Submit" Visible="false" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
+                                Text="Submit" Visible="false"  OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
                             <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 Text="Update" Visible="false" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit" />
@@ -355,7 +359,7 @@
 <div id="DivTransaction" runat="server" visible="false">
     <telerik:RadGrid ID="gvCashSavingTransaction" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
-        EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
+        EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
         EnableViewState="true" ShowFooter="true" OnItemCommand="gvCashSavingTransaction_ItemCommand"
         OnItemDataBound="gvCashSavingTransaction_ItemDataBound" OnNeedDataSource="gvCashSavingTransaction_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true">
@@ -370,6 +374,16 @@
                 <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="50px" EditText="View/Edit"
                     UniqueName="editColumn" CancelText="Cancel" UpdateText="Update">
                 </telerik:GridEditCommandColumn>
+                <telerik:GridBoundColumn DataField="WERPBDTM_BankName" AllowFiltering="true" HeaderStyle-Width="80px"
+                    HeaderText="Bank" UniqueName="WERPBDTM_BankName" SortExpression="WERPBDTM_BankName"
+                    AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="CB_AccountNum" AllowFiltering="false" HeaderStyle-Width="80px"
+                    HeaderText="Account No." UniqueName="CB_AccountNum" SortExpression="CB_AccountNum"
+                    AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn DataField="CCST_ExternalTransactionId" AllowFiltering="false"
                     HeaderStyle-Width="80px" HeaderText="Transaction Id" UniqueName="CCST_ExternalTransactionId"
                     SortExpression="CCST_ExternalTransactionId" AutoPostBackOnFilter="true" ShowFilterIcon="false">
@@ -388,17 +402,17 @@
                 <telerik:GridBoundColumn DataField="CCST_ChequeNo" AllowFiltering="false" HeaderText="Cheque No."
                     UniqueName="CCST_ChequeNo" SortExpression="CCST_ChequeNo" AutoPostBackOnFilter="true"
                     HeaderStyle-Width="70px" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn DataField="CCST_IsWithdrwal" AllowFiltering="false" HeaderText="Type"
                     HeaderStyle-Width="70px" UniqueName="CCST_IsWithdrwal" SortExpression="CCST_IsWithdrwal"
                     AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="8px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn DataField="WERP_CFCName" AllowFiltering="false" HeaderText="Category"
                     HeaderStyle-Width="70px" UniqueName="WERP_CFCName" SortExpression="WERP_CFCName"
                     AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="8px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn Visible="true" DataField="CCST_Amount" AllowFiltering="false"
                     HeaderText="Deposit Amount" HeaderStyle-Width="70px" UniqueName="CCST_Amount"
