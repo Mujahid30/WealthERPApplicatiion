@@ -444,6 +444,7 @@ namespace WealthERP.CustomerPortfolio
             if (!string.IsNullOrEmpty(customerAccountsVo.BankName))
             {
                 ddlALLBankList.SelectedItem.Text = customerAccountsVo.BankName.ToString();
+                ddlALLBankList.SelectedValue = customerAccountsVo.MCmgcxpBankCode;
             }
             else
             {
@@ -1199,7 +1200,9 @@ namespace WealthERP.CustomerPortfolio
                     newAccountVo.CustomerId = customerVo.CustomerId;
                     if (ddlAccType.SelectedIndex != -1)
                         customerAccountsVo.AccountType = ddlAccType.SelectedValue.ToString();
-
+                    if(ddlALLBankList.SelectedIndex!=-1)
+                        customerAccountsVo.MCmgcxpBankCode= ddlALLBankList.SelectedValue.ToString();
+                    
                     //End
 
                     if (customerTransactionBo.UpdateCustomerMFFolioDetails(newAccountVo, userVo.UserId))

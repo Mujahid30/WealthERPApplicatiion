@@ -3194,6 +3194,8 @@ namespace DaoCustomerPortfolio
                         AccountVo.MICR = int.Parse(dr1["CB_MICR"].ToString());
                     if (!string.IsNullOrEmpty(dr1["CB_IFSC"].ToString()))
                         AccountVo.IFSC = dr1["CB_IFSC"].ToString();
+                    if (!string.IsNullOrEmpty(dr1["WERPBM_BankCode"].ToString()))
+                        AccountVo.MCmgcxpBankCode = dr1["WERPBM_BankCode"].ToString();
                 }
 
             }
@@ -3520,7 +3522,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CB_IFSC", DbType.String, DBNull.Value);
                 }
 
-             
+              
 
                
                 

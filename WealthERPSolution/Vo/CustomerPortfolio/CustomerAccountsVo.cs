@@ -76,7 +76,7 @@ namespace VoCustomerPortfolio
         private string m_CMGCXP_BankAddress2;
         private string m_CMGCXP_BankAddress3;
         private string m_CMGCXP_BankCity;
-
+        public string MCmgcxpBankCode{get;set;}
 
 
         private string m_GroupHead;
