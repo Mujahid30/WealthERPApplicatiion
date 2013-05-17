@@ -314,5 +314,35 @@ namespace BoCustomerProfiling
 
             return customerBankAccountVo;
         }
+         public bool DeleteCustomerBankAccountAssociates(int CB_CustBankAccId)
+         {
+             bool blResult = false;
+             CustomerBankAccountDao customerBankAccountDao = new CustomerBankAccountDao();
+             try
+             {
+
+                 blResult = customerBankAccountDao.DeleteCustomerBankAccountAssociates(CB_CustBankAccId);
+
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:DeleteCustomerBankAccountAssociates()");
+                 object[] objects = new object[1];
+                 objects[0] = CB_CustBankAccId;
+
+                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+
+             }
+             return blResult;
+         }
     }
 }
