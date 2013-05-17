@@ -154,11 +154,20 @@ namespace WealthERP.Uploads
         #region Mapfolio code
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-
+            int adviserId = 0;
             if (advisorVo != null && advisorVo.advisorId > 0)
             {
+                if (userVo.UserType != "SuperAdmin")
+                {
+                    adviserId = advisorVo.advisorId;
+                }
+                else
+                {
+                    if (Session["adviserId_Upload"] != null)
+                        adviserId = (int)Session["adviserId_Upload"];
+                }
                 CustomerBo customerBo = new CustomerBo();
-                DataSet dsCustomers = customerBo.SearchCustomers(advisorVo.advisorId, txtCustomerName.Text);
+                DataSet dsCustomers = customerBo.SearchCustomers(adviserId, txtCustomerName.Text);
                 gvCustomers.DataSource = dsCustomers;
                 gvCustomers.DataBind();
                 gvCustomers.Visible = true;
