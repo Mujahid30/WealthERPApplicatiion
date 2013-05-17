@@ -506,8 +506,11 @@ namespace DaoCustomerProfiling
                     customerBankAccountVo.AccountType = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     //customerBankAccountVo.AccountTypeCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
-                    customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString();
+                    customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHoldingCode"].ToString();
+                    customerBankAccountVo.ModeOfOperationCode = dr["XMOH_ModeOfHolding"].ToString();
                     customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
+                    if (dr["CB_IsHeldJointly"].ToString() != "")
+                    customerBankAccountVo.IsJointHolding = int.Parse(dr["CB_IsHeldJointly"].ToString());
                     customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
                     customerBankAccountVo.BranchAdrLine2 = dr["CB_BranchAdrLine2"].ToString();
                     customerBankAccountVo.BranchAdrLine3 = dr["CB_BranchAdrLine3"].ToString();
@@ -521,6 +524,9 @@ namespace DaoCustomerProfiling
                     if (dr["CB_MICR"].ToString() != "")
                         customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
                     customerBankAccountVo.IFSC = dr["CB_IFSC"].ToString();
+
+
+
                 }
             }
 
@@ -608,5 +614,41 @@ namespace DaoCustomerProfiling
         //    return accountList;
 
         //}
+
+        public bool DeleteCustomerBankAccountAssociates(int CB_CustBankAccId)
+        {
+            bool blResult = false;
+            Database db;
+            DbCommand deletecustomerbankCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deletecustomerbankCmd = db.GetStoredProcCommand("SP_DeleteCustomerBankAccountAssociates");
+                db.AddInParameter(deletecustomerbankCmd, "@CB_CustBankAccId", DbType.Int32, CB_CustBankAccId);
+
+                if (db.ExecuteNonQuery(deletecustomerbankCmd) != 0)
+                    blResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:UpdateCustomerBankAccount()");
+                object[] objects = new object[1];
+                objects[0] = CB_CustBankAccId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+
     }
 }
