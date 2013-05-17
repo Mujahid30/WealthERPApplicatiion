@@ -37,6 +37,8 @@ namespace VoCustomerProfiling
         private float m_InterestRate;
 
 
+
+
         #endregion Fields
 
         #region Properties
