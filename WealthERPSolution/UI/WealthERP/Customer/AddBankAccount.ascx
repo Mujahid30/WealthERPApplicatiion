@@ -5,6 +5,15 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+
+<script language="javascript" type="text/javascript">
+ 
+    function ClosePopUp() {
+
+        window.close();
+        return true;
+    }
+</script>
 <table style: width="100%;">
     <tr>
         <td>

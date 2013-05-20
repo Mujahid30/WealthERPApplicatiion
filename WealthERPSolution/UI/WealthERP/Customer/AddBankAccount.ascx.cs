@@ -368,19 +368,30 @@ namespace WealthERP.Customer
 
                 }
             }
-            txtAccountNumber.Text = "";
-            txtBankAdrLine1.Text = "";
-            txtBankAdrLine2.Text = "";
-            txtBankAdrLine3.Text = "";
-            txtBankAdrPinCode.Text = "";
-            txtBankAdrCity.Text = "";
-            ddlBankName.SelectedIndex = 0;
-            txtBranchName.Text = "";
-            txtIfsc.Text = "";
-            txtMicr.Text = "";
-            ddlAccountType.SelectedIndex = 0;
-            ddlModeofOperation.SelectedIndex = 0;
-
+            //txtAccountNumber.Text = "";
+            //txtBankAdrLine1.Text = "";
+            //txtBankAdrLine2.Text = "";
+            //txtBankAdrLine3.Text = "";
+            //txtBankAdrPinCode.Text = "";
+            //txtBankAdrCity.Text = "";
+            //ddlBankName.SelectedIndex = 0;
+            //txtBranchName.Text = "";
+            //txtIfsc.Text = "";
+            //txtMicr.Text = "";
+            //ddlAccountType.SelectedIndex = 0;
+            //ddlModeofOperation.SelectedValue = "SI";
+            //ddlModeofOperation.Enabled = false;
+            //rbtnomNo.Checked = true;
+            //RadioButton1.Checked = true;
+            //trNomineeCaption.Visible = false;
+            //trjointholder.Visible = false;
+            //trgvjointHolder.Visible = false;
+            //trgvNominees.Visible = false;
+            //gvNominees.DataSource = null;
+            //gvNominees.DataBind();
+            //gvJointHolders.DataSource = null;
+            //gvJointHolders.DataBind();
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "ClosePopUp();", true);
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBankDetails','');", true);
 
         }
@@ -430,7 +441,7 @@ namespace WealthERP.Customer
                 foreach (GridDataItem gvr in this.gvNominees.Items)
                 {
                     CheckBox chkIdn = (CheckBox)gvr.FindControl("chkId0");
-                    if (chkIdn.Checked)
+                    if (chkIdn.Checked && rbtnomyes.Checked)
                     {
                         i++;
                         customerAccountAssociationVo.AssociationId = int.Parse(gvJointHolders.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString());
@@ -454,6 +465,7 @@ namespace WealthERP.Customer
                     }
                 }
             }
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "ClosePopUp();", true);
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBankDetails','');", true);
         }
         protected void rbtnYes_CheckedChanged(object sender, EventArgs e)
@@ -560,7 +572,15 @@ namespace WealthERP.Customer
             {
                 trNomineeCaption.Visible = true;
                 trgvNominees.Visible = true;
-                BindNominees();
+                if (ViewState["Action"] != null)
+                {
+                    if (ViewState["Action"].ToString() != "Edit")
+                    {
+                        BindNominees();
+                    }
+
+                }
+                   
             }
             if (rbtnomNo.Checked == true)
             {
