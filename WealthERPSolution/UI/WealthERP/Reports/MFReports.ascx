@@ -110,14 +110,14 @@
                     continue;
                 }
             }
-            
+
 
             if (boolCheck == 'N') {
                 alert("Please select at lease one report");
                 return false;
             } else return true;
-                     
-            
+
+
         }
 
 
@@ -1240,6 +1240,18 @@
                                                         &nbsp;&nbsp;
                                                     </td>
                                                 </tr>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </ContentTemplate>
+                            </ajaxToolkit:TabPanel>
+                            <ajaxToolkit:TabPanel ID="TabPanel1" runat="server" HeaderText="Email Reports" Width="100%">
+                                <HeaderTemplate>
+                                    Request Status</HeaderTemplate>
+                                <ContentTemplate>
+                                    <table>
+                                        <tr>
+                                            <td>
                                             </td>
                                         </tr>
                                     </table>
