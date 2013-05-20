@@ -208,7 +208,7 @@ SelectedIndex="3">
                 <tr id="tdIncomeExpenseError" runat="server">
                     <td id="tdIncomeError" align="center" runat="server" style="width:50%"> 
                         <br />                                        
-                        <asp:Label ID="lblIncomeError" runat="server" CssClass="failure-msg" 
+                        <asp:Label ID="lblIncomeError" runat="server" CssClass="failure-msg" style="width:100%;" 
                         Text="No records found for Income"></asp:Label>
                         <br /><br />
                     </td>
@@ -300,7 +300,7 @@ SelectedIndex="3">
               </td>             
             </tr>
             <tr >
-                <td align="center">
+                <td align="center" width="100%">
                     <asp:Label ID="lblCashFlowError" runat="server" CssClass="failure-msg" 
                             Text="No records found for Annual Cash Flow" Visible="false">
                     </asp:Label>
@@ -589,8 +589,8 @@ SelectedIndex="3">
             <tr id="trGEInsuranceError" runat="server" align="center">
                  <td align="center">
                      <br />
-                    <asp:Label ID="lblGEInsuranceError" runat="server" CssClass="failure-msg" 
-                     Text="No records found for Life General Insurance Details">
+                    <asp:Label ID="lblGEInsuranceError" runat="server" CssClass="failure-msg" style="width:80%"
+                     Text="No records found for General Insurance Details">
                     </asp:Label>
                 </td>
             </tr>
