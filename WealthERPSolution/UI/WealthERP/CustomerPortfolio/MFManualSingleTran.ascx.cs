@@ -239,8 +239,11 @@ namespace WealthERP.CustomerPortfolio
             {
                 if (flag != 0)
                 {
-                    amcCode = int.Parse(ddlAMC.SelectedValue);
-                    dsgetfolioNo = productMfBo.GetFolioNumber(portfolioId, amcCode, 1);
+                    if (ddlAMC.SelectedIndex != 0)
+                    {
+                        amcCode = int.Parse(ddlAMC.SelectedValue);
+                        dsgetfolioNo = productMfBo.GetFolioNumber(portfolioId, amcCode, 1);
+                    }
                 }
                 else
                 {
