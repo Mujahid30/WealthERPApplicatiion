@@ -84,5 +84,35 @@ namespace BoCommon
                 throw exBase;
             }
         }
+
+
+        public DataSet GetRequestStatusList(int userId, DateTime requestDate)
+        {
+            DataSet dsRequestList = null;
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+            try
+            {
+                dsRequestList = requestManagementDao.GetRequestStatusList(userId, requestDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "WERPTaskRequestManagementBo.cs:GetRequestStatusList(int userId,DateTime requestDate)");
+                object[] objects = new object[1];
+                objects[0] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsRequestList;
+
+
+        }
     }
 }
