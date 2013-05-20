@@ -116,10 +116,10 @@
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                         </td>
-                        <td style="width: 10px" align="right">
+                      <%--  td style="width: 10px" align="right">
                             <img src="../Images/helpImage.png" height="20px" width="25px" style="float: right;"
                                 class="flip" />
-                        </td>
+                        </td>--%>
                     </tr>
                 </table>
             </div>
