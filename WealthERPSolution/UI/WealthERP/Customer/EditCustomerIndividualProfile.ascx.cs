@@ -1956,6 +1956,10 @@ namespace WealthERP.Customer
                 Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=AddBankAccount&bankId=" + bankId + "&action=" + "Add" + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
 
             }
+            if (e.CommandName == RadGrid.RebindGridCommandName)
+            {
+                gvBankDetails.Rebind();
+            }
             if (e.CommandName == "Edit")
             {
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());               

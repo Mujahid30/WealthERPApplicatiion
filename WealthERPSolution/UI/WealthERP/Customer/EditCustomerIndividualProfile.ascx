@@ -772,7 +772,7 @@
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,CB_BankName,BankAccountTypeCode,CB_BranchAdrState"
-                    CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add New Bank Details">
+                    CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="true" CommandItemSettings-AddNewRecordText="Add New Bank Details">
                     <EditFormSettings EditFormType="Template" FormTableStyle-BorderStyle="None">
                         <FormTemplate>
                         </FormTemplate>
