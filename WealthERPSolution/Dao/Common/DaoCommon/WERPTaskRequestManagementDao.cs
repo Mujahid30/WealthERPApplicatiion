@@ -158,6 +158,46 @@ namespace DaoCommon
 
         }
 
+        /// <summary>
+        /// Get all the request list and status for a particular date
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="requestDate"></param>
+        public DataSet GetRequestStatusList(int userId,DateTime requestDate)
+        {
+            Database db;
+            DbCommand cmdGetRequestList;
+            DataSet dsRequestList = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetRequestList = db.GetStoredProcCommand("SPROC_GetTaskRequestStatusList");
+                db.AddInParameter(cmdGetRequestList, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(cmdGetRequestList, "@RequestDate", DbType.Date, requestDate);
+                dsRequestList = db.ExecuteDataSet(cmdGetRequestList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "WERPTaskRequestManagementDao.cs:GetRequestStatusList(int userId,DateTime requestDate)");
+                object[] objects = new object[1];
+                objects[0] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsRequestList;
+
+ 
+        }
+
 
     }
 }
