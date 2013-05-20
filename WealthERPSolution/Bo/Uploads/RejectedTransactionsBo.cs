@@ -116,6 +116,35 @@ namespace BoUploads
             return rejectedTransactions;
         }
 
+        public bool MapRejectedSIPFoliosToCustomer(int mfSipFolioStagingId, int customerId, int userId)
+        {
+            RejectedTransactionsDao rejectedTransactionsDao = new RejectedTransactionsDao();
+            bool rejectedTransactions;
+            try
+            {
+                rejectedTransactions = rejectedTransactionsDao.MapRejectedSIPFoliosToCustomer(mfSipFolioStagingId, customerId, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadBo.cs:MapRejectedSIPFoliosToCustomer()");
+
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return rejectedTransactions;
+        }
+
         public bool MapEquityToCustomer(int transactionStagingId, int customerId, int userId)
         {
             RejectedTransactionsDao rejectedTransactionsDao = new RejectedTransactionsDao();

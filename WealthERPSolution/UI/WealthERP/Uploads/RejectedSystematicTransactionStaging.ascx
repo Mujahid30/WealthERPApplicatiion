@@ -17,6 +17,38 @@
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+
+<script language="javascript" type="text/javascript">
+    function ShowPopup() {
+        var form = document.forms[0];
+        var folioId = "";
+        var count = 0
+        for (var i = 0; i < form.elements.length; i++) {
+            if (form.elements[i].type == 'checkbox') {
+                if (form.elements[i].checked == true) {
+                    count++;
+                    hiddenField = form.elements[i].id.replace("chkId", "hdnchkBx");
+                    hiddenFieldValues = document.getElementById(hiddenField).value;
+                    var splittedValues = hiddenFieldValues.split("-");
+                    if (count == 1) {
+                        folioId = splittedValues[0];
+                    }
+                    else {
+                        folioId = folioId + "~" + splittedValues[0];
+                    }
+                    RejectReasonCode = splittedValues[1];
+                }
+            }
+        }
+        if (count == 0) {
+            alert("Please select one record.")
+            return false;
+        }
+        window.open('Uploads/MapToCustomers.aspx?SIPFolioid=' + folioId + '', '_blank', 'width=550,height=450,scrollbars=yes,location=no')
+        return false;
+    }
+</script>
+
 <table width="100%">
     <tr>
         <td>
@@ -218,30 +250,8 @@
         </tr>
     </table>
 </div>
-<%--<table style="width: 100%" class="TableBackground">
-    <tr>
-        <td>
-            <%--var totalChkBoxes = parseInt('<%= gvSIPReject.Rows.Count %>');--%>
-<%-- <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back To Upload Log"
-                OnClick="lnkBtnBackToUploadLog_Click"></asp:LinkButton>
-       &nbsp;&nbsp;&nbsp;--%>
-<%-- <asp:LinkButton runat="server" ID="lnkBtnBackToUploadGrid" Visible="false" CssClass="LinkButtons"
-                Text="Back" OnClick="lnkBtnBack_Click"></asp:LinkButton>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:LinkButton ID="LinkInputRejects" runat="server" Text="View Input Rejects" Visible="false"
-                CssClass="LinkButtons" OnClick="LinkInputRejects_Click"></asp:LinkButton>
-        </td>
-    </tr>
-</table>--%>
+
+
 <table width="100%" cellspacing="" cellpadding="2">
     <tr>
         <td align="center">
@@ -280,153 +290,7 @@
         </td>
     </tr>
 </table>
-<%--      
-    <telerik:RadAjaxPanel ID="RadAjaxPanel3" runat="server" Width="98%" EnableHistory="True"
-    HorizontalAlign="NotSet" LoadingPanelID="RejectedSIPLoading">
 
-<telerik:RadGrid ID="gvSIPReject" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="15" AllowSorting="True" AllowPaging="True" HeaderStyle-Wrap="true" HeaderStyle-VerticalAlign="Top" 
-        ShowStatusBar="True" ShowFooter="true" Width="100%"
-        Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" 
-        
-        AllowAutomaticInserts="false">
-        <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
-           
-            <Columns>
-            
-             <telerik:GridTemplateColumn UniqueName="RejectCode" HeaderStyle-HorizontalAlign="Center" AllowFiltering="true"  DataField="RejectCode" HeaderText="Reject Reason" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:CheckBox ID="chkBx" runat="server" CssClass="CmbField" Text='<%# Eval("WRR_RejectReasonDescription").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                    <EditItemTemplate>    
-                        <asp:DropDownList CssClass="CmbField" ID="DropDownList1" runat="server"></asp:DropDownList>    
-                    </EditItemTemplate>  
-                </telerik:GridTemplateColumn>
-                
-          <telerik:GridTemplateColumn UniqueName="RejectCode" HeaderStyle-HorizontalAlign="Center" AllowFiltering="true"  DataField="RejectCode" HeaderText="Reject Reason" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblRejectCode" runat="server" CssClass="CmbField" Text='<%# Eval("WRR_RejectReasonDescription").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                    <EditItemTemplate>    
-                        <asp:DropDownList CssClass="CmbField" ID="ddlRejectCode" runat="server"></asp:DropDownList>    
-                    </EditItemTemplate>  
-                </telerik:GridTemplateColumn>
-              
-                
-                
-             <%--     <custom:MyCustomFilteringColumn DataField="Reject" FilterControlWidth="180px" HeaderText="Reject Reason">
-                        <headerstyle width="25%" />
-                        <itemtemplate>
-                       <asp:Label ID="lblRejectCode" runat="server" CssClass="CmbField" Text='<%# Eval("WRR_RejectReasonDescription").ToString() %>'></asp:Label>
-                        </itemtemplate>
-                    </custom:MyCustomFilteringColumn>--%>
-<%--      <telerik:GridTemplateColumn UniqueName="ProcessId" HeaderStyle-HorizontalAlign="Center" AllowFiltering="true" HeaderStyle-Width="120px" DataField="SIPProcessId" HeaderText="ProcessId" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblProcessId" runat="server" CssClass="CmbField" Text='<%# Eval("WUPL_ProcessId").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                <telerik:GridTemplateColumn UniqueName="ADUL_FileName" HeaderStyle-HorizontalAlign="Center" AllowFiltering="false"  DataField="File" HeaderText="File Name" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblADUL_FileName" runat="server" CssClass="CmbField" Text='<%# Eval("ADUL_FileName").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                <telerik:GridTemplateColumn UniqueName="SystematicType" HeaderStyle-HorizontalAlign="Center" AllowFiltering="false" DataField="SIPType" HeaderText="Source Type" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblSystematicType" runat="server" CssClass="CmbField" Text='<%# Eval("SystematicType").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                <telerik:GridTemplateColumn UniqueName="CMFSCS_InvName" HeaderStyle-HorizontalAlign="Center" AllowFiltering="false"  DataField="CMFSCS_InvName" HeaderText="Investor Name" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCMFSCS_InvName" runat="server" CssClass="CmbField" Text='<%# Eval("CMFSCS_InvName").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                <telerik:GridTemplateColumn UniqueName="CMFSCS_FolioNum" HeaderStyle-HorizontalAlign="Center" AllowFiltering="false" HeaderStyle-Width="90px" DataField="Cash" HeaderText="Folio Number" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCMFSCS_FolioNum" runat="server" CssClass="CmbField" Text='<%# Eval("CMFSCS_FolioNum").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                <telerik:GridTemplateColumn UniqueName="CMFSCS_PRODUCT" HeaderStyle-HorizontalAlign="Center" AllowFiltering="false" HeaderStyle-Width="90px" DataField="PRODUCT" HeaderText="Scheme Code" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCMFSCS_PRODUCT" runat="server" CssClass="CmbField" Text='<%# Eval("CMFSCS_PRODUCT").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                <telerik:GridTemplateColumn UniqueName="CMFSCS_SchemeName" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"  DataField="SchemeName" HeaderText="Scheme Plan Name" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCMFSCS_SchemeName" runat="server" CssClass="CmbField" Text='<%# Eval("CMFSCS_SchemeName").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                
-                    <telerik:GridTemplateColumn UniqueName="CMFSCS_SystematicCode" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="120px"  DataField="SystematicCode" HeaderText="Systematic Type" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCMFSCS_SystematicCode" runat="server" CssClass="CmbField" Text='<%# Eval("CMFSCS_SystematicCode").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                
-                    <telerik:GridTemplateColumn UniqueName="CMFSCS_StartDate" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="80px"  DataField="StartDate" HeaderText="Start Date" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCMFSCS_StartDate" runat="server" CssClass="CmbField" Text='<%# Eval("CMFSCS_StartDate").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                
-                   <telerik:GridTemplateColumn UniqueName="CMFSCS_ToDate" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="80px"  DataField="ToDate" HeaderText="End Date" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCMFSCS_ToDate" runat="server" CssClass="CmbField" Text='<%# Eval("CMFSCS_ToDate").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                
-                   <telerik:GridTemplateColumn UniqueName="CMFSCS_SystematicDate" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="100px" DataField="SystematicDate" HeaderText="Systematic Date" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCMFSCS_SystematicDate" runat="server" CssClass="CmbField" Text='<%# Eval("CMFSCS_SystematicDate").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                
-                   <telerik:GridTemplateColumn UniqueName="XF_Frequency" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="70px" DataField="XFFrequency" HeaderText="Frequency" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblXF_Frequency" runat="server" CssClass="CmbField" Text='<%# Eval("XF_Frequency").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-           
-                 <telerik:GridTemplateColumn UniqueName="CMFSCS_Amount" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="70px" DataField="Amount" HeaderText="Amount" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCMFSCS_Amount" runat="server" CssClass="CmbField" Text='<%# Eval("CMFSCS_Amount").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-            <telerik:GridTemplateColumn UniqueName="CMFSCS_TARGET_SCH" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="50px" DataField="TARGET_SCH" HeaderText="Target Scheme" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCMFSCS_TARGET_SCH" runat="server" CssClass="CmbField" Text='<%# Eval("CMFSCS_TARGET_SCH").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-           
-              
-            </Columns>
-                
-        </MasterTableView>
-        <HeaderStyle Width="140px" VerticalAlign="Top" Wrap="false" />
-        <ClientSettings>
-            <Scrolling AllowScroll="True" UseStaticHeaders="True" EnableVirtualScrollPaging="false" SaveScrollPosition="true" FrozenColumnsCount="1">                
-            </Scrolling>
-            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-        </ClientSettings>
-    </telerik:RadGrid>
-     </telerik:RadAjaxPanel>
-          
-   --%>
 <asp:Panel ID="Panel3" Visible="false" runat="server" class="Landscape" Width="100%"
     ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="2">
@@ -455,7 +319,12 @@
                                     <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="chkId" runat="server" />
+                                 
+                        <asp:CheckBox ID="chkId" runat="server" />
+                        <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFSCS_ID").ToString() + "-" +  Eval("WRR_RejectReasonCode").ToString()%>' />
+                        <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("WUPL_ProcessId").ToString() %>' />
+                        <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("CMFSCS_ID").ToString() %>' />
+              
                                     <%--<asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("WERPTransactionId").ToString()%>' />--%>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
@@ -829,6 +698,8 @@
                     CssClass="PCGLongButton" OnClientClick="SelectProcessId();" />
                 <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                     OnClick="btnDelete_Click" />
+                        <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
+        OnClientClick="return ShowPopup()" />
             </td>
         </tr>
     </div>

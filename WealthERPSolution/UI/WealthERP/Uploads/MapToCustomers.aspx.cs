@@ -36,6 +36,7 @@ namespace WealthERP.Uploads
         //int testVar = 0;
         int MFTransactionStagingId = 0;
         int MFFolioStagingId = 0;
+        int MFSIPFolioStagingId = 0;
         ArrayList Stagingtableid = new ArrayList();
         ArrayList DistinctProcessId = new ArrayList();
         string configPath;
@@ -84,6 +85,11 @@ namespace WealthERP.Uploads
             if (transactionId != null)
             {
                 string[] testArray = transactionId.Split('~');
+            }
+            string SIPFolioid = Convert.ToString(Request.Params["SIPFolioid"]);
+            if (SIPFolioid != null)
+            {
+                string[] testArraySIPFolio = SIPFolioid.Split('~');
             }
             //MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
             Stagingtableid = (ArrayList)Session["Stagingtableid"];
@@ -186,6 +192,7 @@ namespace WealthERP.Uploads
             int customerId = 0;
             string[] testArrayFolio = new string[0];
             string[] testArray = new string[0];
+            string[] testArraySIPFolio = new string[0];
             customerId = Convert.ToInt32(e.CommandArgument);
             UserVo userVo = (UserVo)Session["userVo"];
             userId = userVo.UserId;
@@ -207,11 +214,24 @@ namespace WealthERP.Uploads
             {
                 testArray = transactionId.Split('~');
             }
+             string SIPFolioid = Convert.ToString(Request.Params["SIPFolioid"]);
+            if (SIPFolioid != null)
+            {
+                testArraySIPFolio = SIPFolioid.Split('~');
+            }
 
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
             try
             {
                 if (transactionId != null)
+                {
+                    for (i = 0; i < testArray.Length; i++)
+                    {
+                        MFTransactionStagingId = int.Parse(testArray[i]);
+                        insertioncomplete = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
+                    }
+                }
+                 if (SIPFolioid != null)
                 {
                     for (i = 0; i < testArray.Length; i++)
                     {
@@ -225,6 +245,14 @@ namespace WealthERP.Uploads
                     {
                         MFFolioStagingId = int.Parse(testArrayFolio[i]);
                         insertioncomplete = rejectedTransactionsBo.MapRejectedFoliosToCustomer(MFFolioStagingId, customerId, userId);
+                    }
+                }
+                if (SIPFolioid != null)
+                {
+                    for (i = 0; i < testArraySIPFolio.Length; i++)
+                    {
+                        MFSIPFolioStagingId = int.Parse(testArraySIPFolio[i]);
+                        insertioncomplete = rejectedTransactionsBo.MapRejectedSIPFoliosToCustomer(MFSIPFolioStagingId, customerId, userId);
                     }
                 }
             }
