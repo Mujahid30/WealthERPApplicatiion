@@ -141,7 +141,7 @@ namespace WealthERP.Customer
             dtTransaction.Columns.Add("CB_AccountNum");
             dtTransaction.Columns.Add("CCST_TransactionId");
             dtTransaction.Columns.Add("CCST_ExternalTransactionId");
-            dtTransaction.Columns.Add("CCST_Transactiondate");
+            dtTransaction.Columns.Add("CCST_Transactiondate",typeof(DateTime));
             dtTransaction.Columns.Add("CCST_Desc");
             dtTransaction.Columns.Add("CCST_ChequeNo");
             dtTransaction.Columns.Add("CCST_IsWithdrwal");
@@ -285,10 +285,16 @@ namespace WealthERP.Customer
             {
                 trAddTransaction.Visible = true;
                 DivTransaction.Visible = false;
-                btnSubmit.Visible = false;
-                BindTransactionGrid(bankId);
+                btnSubmit.Visible = false;              
                 gvCashSavingTransaction.Visible = false;
                 trholdingamount.Visible = false;
+                imgBtnrgHoldings.Visible = false;
+            }
+            if (DisplayType == "Select")
+            {
+                trAddTransaction.Visible = false;
+                trholdingamount.Visible = false;
+                btnSubmit.Visible = false;
             }
 
         }
@@ -333,6 +339,8 @@ namespace WealthERP.Customer
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DataTable dtCFCCategory = new DataTable();
                 DropDownList ddlCFCCategory = (DropDownList)editedItem.FindControl("ddlCFCCategory");
+                RadioButton rbtnY = (RadioButton)e.Item.FindControl("rbtnYes");
+                RadioButton rbtnN = (RadioButton)e.Item.FindControl("rbtnNo");
                 dtCFCCategory = customerAccountBo.GetCashFlowCategory();
                 ddlCFCCategory.DataSource = dtCFCCategory;
                 ddlCFCCategory.DataValueField = dtCFCCategory.Columns["WERP_CFCCode"].ToString();
@@ -340,9 +348,16 @@ namespace WealthERP.Customer
                 ddlCFCCategory.DataBind();
                 ddlCFCCategory.SelectedValue = strCasflowcategory;
 
+                rbtnN.Enabled = false;
+                rbtnY.Enabled = false;
                 RadDatePicker dpTransactionDate = (RadDatePicker)e.Item.FindControl("dpTransactionDate");
                 dpTransactionDate.SelectedDate = customeraccountVo.Transactiondate;
 
+            }
+            else
+            {
+                rbtnN.Enabled = true;
+                rbtnY.Enabled = true;
             }
         }
         protected void gvCashSavingTransaction_ItemCommand(object source, GridCommandEventArgs e)

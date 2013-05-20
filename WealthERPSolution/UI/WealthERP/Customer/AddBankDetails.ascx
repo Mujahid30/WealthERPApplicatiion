@@ -112,9 +112,16 @@
                             <asp:Label ID="lblAccId" runat="server" CssClass="Field"></asp:Label>
                             <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAccountDetails_SelectedIndexChanged"
                                 CssClass="cmbField" runat="server" ID="ddlAccountDetails" AppendDataBoundItems="true">
-                                <asp:ListItem Text="Select" Value="0">Select</asp:ListItem>
-                                
+                                <asp:ListItem Text="Select" Value="0" Selected="False">Select</asp:ListItem>
                             </asp:DropDownList>
+                           <%-- <asp:RequiredFieldValidator ID="rfvAccountNumber" ControlToValidate="ddlAccountDetails"
+                                ValidationGroup="btnSubmit" ErrorMessage="<br />Please enter a Account Number"
+                                Display="Dynamic" runat="server" CssClass="rfvPCG">
+                            </asp:RequiredFieldValidator>--%>
+                            <%-- <span id="Span3" class="spnRequiredField">*</span>--%>
+                             <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlAccountDetails"
+                                    ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Bank/Account"
+                                    Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                         </td>
                         <%-- <td class="leftField" align="left">
                             <asp:Label ID="lb" CssClass="FieldName" runat="server" Text="Bank Name:"></asp:Label>
@@ -130,10 +137,14 @@
                         <td>
                             <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAccountSelect_SelectedIndexChanged"
                                 CssClass="cmbField" runat="server" ID="ddlAccountSelect" AppendDataBoundItems="true">
-                                <asp:ListItem Text="Select" Value="0">Select</asp:ListItem>
+                                <asp:ListItem Text="Select" Value="Select">Select</asp:ListItem>
                                 <asp:ListItem Text="TotalBalance" Value="TB">Total Balance </asp:ListItem>
                                 <asp:ListItem Text="IndividualTransaction" Value="IT">Individual Transaction</asp:ListItem>
                             </asp:DropDownList>
+                           <%--  <span id="Span5" class="spnRequiredField">*</span>
+                             <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlAccountSelect"
+                                    ErrorMessage="<br />Please select a Edit modes"
+                                    Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
                         </td>
                         <%-- <td>
                 <asp:RadioButton ID="rbtnholding" runat="server" CssClass="cmbField" GroupName="rbtnHolding"
@@ -164,7 +175,7 @@
                         <td>
                             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                                Text="Submit" Visible="false"  OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
+                                Text="Submit" Visible="false" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
                             <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 Text="Update" Visible="false" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit" />
@@ -392,7 +403,7 @@
                 <telerik:GridBoundColumn DataField="CCST_Transactiondate" AllowFiltering="false"
                     HeaderStyle-Width="80px" HeaderText="Transaction Date" UniqueName="CCST_Transactiondate"
                     SortExpression="CCST_Transactiondate" AutoPostBackOnFilter="true" ShowFilterIcon="false"
-                    DataFormatString="{0:dd/MM/yyyy}">
+                    DataFormatString="{0:d}">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn DataField="CCST_Desc" HeaderText="Description" HeaderStyle-Width="70px"
                     AllowFiltering="false" UniqueName="CCST_Desc" SortExpression="CCST_Desc" AutoPostBackOnFilter="true"
