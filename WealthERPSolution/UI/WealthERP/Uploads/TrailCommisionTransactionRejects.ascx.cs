@@ -301,6 +301,7 @@ namespace WealthERP.Uploads
                     // Success Message
                     //trErrorMessage.Visible = true;
                     //lblError.Text = "Reprocess Done Successfully!";
+                    BindTrailCommissionRejectedGrid(processId);
                     NeedSource();
                     GVTrailTransactionRejects.MasterTableView.Rebind();
                     msgReprocessComplete.Visible = true;

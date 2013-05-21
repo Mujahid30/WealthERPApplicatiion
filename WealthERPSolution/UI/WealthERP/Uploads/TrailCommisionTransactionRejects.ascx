@@ -5,6 +5,62 @@
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+
+<script language="javascript" type="text/javascript">
+    function checkAllBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+
+        var gvControl = document.getElementById('<%= GVTrailTransactionRejects.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "ChkOne";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("ChkALL");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+</script>
+<script language="javascript" type="text/javascript">
+    function ShowPopup() {
+        var form = document.forms[0];
+        var folioId = "";
+        var count = 0
+        for (var i = 0; i < form.elements.length; i++) {
+            if (form.elements[i].type == 'checkbox') {
+                if (form.elements[i].checked == true) {
+                    count++;
+                    hiddenField = form.elements[i].id.replace("ChkOne", "hdnchkBx");
+                    hiddenFieldValues = document.getElementById(hiddenField).value;
+                    var splittedValues = hiddenFieldValues.split("-");
+                    if (count == 1) {
+                        folioId = splittedValues[0];
+                    }
+                    else {
+                        folioId = folioId + "~" + splittedValues[0];
+                    }
+                    RejectReasonCode = splittedValues[1];
+                }
+            }
+        }
+        if (count == 0) {
+            alert("Please select one record.")
+            return false;
+        }
+        window.open('Uploads/MapToCustomers.aspx?TrailFolioid=' + folioId + '', '_blank', 'width=550,height=450,scrollbars=yes,location=no')
+        return false;
+    }
+</script>
 <table width="100%">
     <tr>
         <td>
@@ -158,14 +214,32 @@
                     <MasterTableView AllowFilteringByColumn="true" DataKeyNames="CMFTCCS_Id,A_AdviserId,Adul_ProcessId"
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                            <telerik:GridTemplateColumn AllowFiltering="false">
+                          <%--  <telerik:GridTemplateColumn AllowFiltering="false">
                                 <HeaderTemplate>
                                     <asp:CheckBox runat="server" ID="ChkALL" AutoPostBack="True" OnCheckedChanged="ToggleSelectedState" />
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <asp:CheckBox runat="server" ID="ChkOne" AutoPostBack="True" OnCheckedChanged="ToggleRowSelection" />
                                 </ItemTemplate>
+                            </telerik:GridTemplateColumn>--%>
+                            
+                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
+                                HeaderStyle-Width="50px">
+                                <HeaderTemplate>
+                                    <input id="ChkALL" name="ChkALL" type="checkbox" onclick="checkAllBoxes()" />
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                 
+                     
+                        <asp:CheckBox runat="server" ID="ChkOne" />
+                        <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFTCCS_Id").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
+                        <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("Adul_ProcessId").ToString() %>' />
+                        <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("CMFTCCS_Id").ToString() %>' />
+              
+                                    <%--<asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("WERPTransactionId").ToString()%>' />--%>
+                                </ItemTemplate>
                             </telerik:GridTemplateColumn>
+                            
                             <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="true"
                                 HeaderText="Reject Reason" UniqueName="RejectReasonCode" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -261,6 +335,8 @@
                 OnClick="btnReprocess_Click" OnClientClick="Loading(true);" />
             <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
+                 <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
+        OnClientClick="return ShowPopup()" />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">

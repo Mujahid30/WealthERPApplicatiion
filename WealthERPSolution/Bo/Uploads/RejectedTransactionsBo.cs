@@ -144,7 +144,35 @@ namespace BoUploads
             }
             return rejectedTransactions;
         }
+        public bool MapRejectedTrailFoliosToCustomer(int mfTrailFolioStagingId, int customerId, int userId)
+        {
+            RejectedTransactionsDao rejectedTransactionsDao = new RejectedTransactionsDao();
+            bool rejectedTransactions;
+            try
+            {
+                rejectedTransactions = rejectedTransactionsDao.MapRejectedTrailFoliosToCustomer(mfTrailFolioStagingId, customerId, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
+                FunctionInfo.Add("Method", "CamsUploadBo.cs:MapRejectedTrailFoliosToCustomer()");
+
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return rejectedTransactions;
+        }
+        
         public bool MapEquityToCustomer(int transactionStagingId, int customerId, int userId)
         {
             RejectedTransactionsDao rejectedTransactionsDao = new RejectedTransactionsDao();

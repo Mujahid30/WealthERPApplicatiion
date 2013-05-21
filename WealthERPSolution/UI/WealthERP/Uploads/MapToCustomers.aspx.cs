@@ -37,6 +37,7 @@ namespace WealthERP.Uploads
         int MFTransactionStagingId = 0;
         int MFFolioStagingId = 0;
         int MFSIPFolioStagingId = 0;
+        int MFTrailFolioStagingid = 0;
         ArrayList Stagingtableid = new ArrayList();
         ArrayList DistinctProcessId = new ArrayList();
         string configPath;
@@ -90,6 +91,11 @@ namespace WealthERP.Uploads
             if (SIPFolioid != null)
             {
                 string[] testArraySIPFolio = SIPFolioid.Split('~');
+            }
+            string TrailFolioid = Convert.ToString(Request.Params["TrailFolioid"]);
+            if (TrailFolioid != null)
+            {
+                string[] testArrayTrailFolio = TrailFolioid.Split('~');
             }
             //MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
             Stagingtableid = (ArrayList)Session["Stagingtableid"];
@@ -193,6 +199,8 @@ namespace WealthERP.Uploads
             string[] testArrayFolio = new string[0];
             string[] testArray = new string[0];
             string[] testArraySIPFolio = new string[0];
+            string[] testArrayTrailFolio = new string[0];
+            
             customerId = Convert.ToInt32(e.CommandArgument);
             UserVo userVo = (UserVo)Session["userVo"];
             userId = userVo.UserId;
@@ -219,6 +227,11 @@ namespace WealthERP.Uploads
             {
                 testArraySIPFolio = SIPFolioid.Split('~');
             }
+            string TrailFolioid = Convert.ToString(Request.Params["TrailFolioid"]);
+            if (TrailFolioid != null)
+            {
+                testArrayTrailFolio = TrailFolioid.Split('~');
+            }
 
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
             try
@@ -233,10 +246,10 @@ namespace WealthERP.Uploads
                 }
                  if (SIPFolioid != null)
                 {
-                    for (i = 0; i < testArray.Length; i++)
+                    for (i = 0; i < testArraySIPFolio.Length; i++)
                     {
-                        MFTransactionStagingId = int.Parse(testArray[i]);
-                        insertioncomplete = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
+                        MFSIPFolioStagingId= int.Parse(testArraySIPFolio[i]);
+                        insertioncomplete = rejectedTransactionsBo.MapRejectedSIPFoliosToCustomer(MFSIPFolioStagingId, customerId, userId);
                     }
                 }
                 if (folioId != null)
@@ -247,12 +260,12 @@ namespace WealthERP.Uploads
                         insertioncomplete = rejectedTransactionsBo.MapRejectedFoliosToCustomer(MFFolioStagingId, customerId, userId);
                     }
                 }
-                if (SIPFolioid != null)
+                if (TrailFolioid != null)
                 {
-                    for (i = 0; i < testArraySIPFolio.Length; i++)
+                    for (i = 0; i < testArrayTrailFolio.Length; i++)
                     {
-                        MFSIPFolioStagingId = int.Parse(testArraySIPFolio[i]);
-                        insertioncomplete = rejectedTransactionsBo.MapRejectedSIPFoliosToCustomer(MFSIPFolioStagingId, customerId, userId);
+                        MFTrailFolioStagingid = int.Parse(testArrayTrailFolio[i]);
+                        insertioncomplete = rejectedTransactionsBo.MapRejectedTrailFoliosToCustomer(MFTrailFolioStagingid, customerId, userId);
                     }
                 }
             }
@@ -263,7 +276,8 @@ namespace WealthERP.Uploads
 
             if (insertioncomplete)
             {
-                gvCustomers.Visible = false;
+                ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "ClosePopUp();", true);
+                divMapToCustomer.Visible = false;
                 lblMessage.Visible = true;
                 lblMessage.Text = "Customer is mapped";
                 lblMessage.CssClass = "SuccessMsg";
@@ -282,6 +296,8 @@ namespace WealthERP.Uploads
             int i;
             string[] testArrayFolio = new string[0];
             string[] testArray = new string[0];
+            string[] testArraySIPFolio = new string[0];
+            string[] testArrayTrailFolio = new string[0];
             bool result = true;
             UserVo userVo = (UserVo)Session["userVo"];
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
@@ -291,6 +307,19 @@ namespace WealthERP.Uploads
             string transactionId = Convert.ToString(Request.Params["id"]);
             if (transactionId != null)
                 testArray = transactionId.Split('~');
+
+
+            string SIPFolioid = Convert.ToString(Request.Params["SIPFolioid"]);
+            if (SIPFolioid != null)
+            {
+                testArraySIPFolio = SIPFolioid.Split('~');
+            }
+            string TrailFolioid = Convert.ToString(Request.Params["TrailFolioid"]);
+            if (TrailFolioid != null)
+            {
+                testArrayTrailFolio = TrailFolioid.Split('~');
+            }
+
             int userId = userVo.UserId;
 
             if (transactionId != null)
@@ -307,6 +336,22 @@ namespace WealthERP.Uploads
                 {
                     MFFolioStagingId = int.Parse(testArrayFolio[i]);
                     result = rejectedTransactionsBo.MapRejectedFoliosToCustomer(MFFolioStagingId, customerId, userId);
+                }
+            }
+            if (TrailFolioid != null)
+            {
+                for (i = 0; i < testArrayTrailFolio.Length; i++)
+                {
+                    MFTrailFolioStagingid = int.Parse(testArrayTrailFolio[i]);
+                    result = rejectedTransactionsBo.MapRejectedTrailFoliosToCustomer(MFTrailFolioStagingid, customerId, userId);
+                }
+            }
+            if (SIPFolioid != null)
+            {
+                for (i = 0; i < testArray.Length; i++)
+                {
+                    MFSIPFolioStagingId = int.Parse(testArraySIPFolio[i]);
+                    result = rejectedTransactionsBo.MapRejectedSIPFoliosToCustomer(MFSIPFolioStagingId, customerId, userId);
                 }
             }
 

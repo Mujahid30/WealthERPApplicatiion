@@ -886,6 +886,7 @@ namespace WealthERP.Uploads
             if(blResult==true)
            // if (error == "")
             {
+                BindRejectedSIPGrid(processId);
                 NeedSource();
                 gvSIPReject.MasterTableView.Rebind();
                 msgReprocessComplete.Visible = true;
