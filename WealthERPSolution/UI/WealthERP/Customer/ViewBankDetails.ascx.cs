@@ -1090,7 +1090,7 @@ namespace WealthERP.Customer
                 accountId = int.Parse(gvCashSavingTransaction.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CCST_TransactionId"].ToString());
                 isdeleted = customerAccountBo.DeleteCustomerBankTransaction(accountId);
                 if (isdeleted == false)
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot delete the bank is associate with a folio');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot delete the bank is associate with a folio/trade account');", true);
             }
             BindTransactionGrid();
         }
