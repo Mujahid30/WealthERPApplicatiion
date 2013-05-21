@@ -236,6 +236,23 @@ namespace WealthERP.Customer
                 {
                     gvNominees.DataSource = dtCustomerAssociatesRaw;
                     gvNominees.DataBind();
+
+                    DataTable dtNOM = (DataTable)ViewState["dtNOM"];
+                    if (dtNOM != null)
+                    {
+                        DataRow[] drjointDt;
+                        foreach (GridDataItem item in this.gvNominees.Items)
+                        {
+                            CheckBox chkId = (CheckBox)item.FindControl("chkId0");
+                            int assosiationId = int.Parse(gvNominees.MasterTableView.DataKeyValues[item.ItemIndex]["AssociationId"].ToString());
+                            drjointDt = dtNOM.Select("AssociationId=" + assosiationId.ToString());
+                            if (drjointDt.Count() > 0)
+                            {
+                                chkId.Checked = true;
+                            }
+
+                        }
+                    }
                     gvNominees.Visible = true;
                     trNoNominee.Visible = false;
                     trNomineeCaption.Visible = true;
@@ -327,7 +344,7 @@ namespace WealthERP.Customer
                 if (chkIdn.Checked)
                 {
                     i++;
-                    customerAccountAssociationVo.AssociationId = int.Parse(gvJointHolders.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString());
+                    customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString());
                     //  customerAccountAssociationVo.AssociationId = AssociationId;
                     customerAccountAssociationVo.AssociationType = "Nominee";
                     customerAccountBo.CreatecustomerBankAccountAssociation(customerAccountAssociationVo, userVo.UserId);
@@ -444,7 +461,7 @@ namespace WealthERP.Customer
                     if (chkIdn.Checked && rbtnomyes.Checked)
                     {
                         i++;
-                        customerAccountAssociationVo.AssociationId = int.Parse(gvJointHolders.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString());
+                        customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString());
                         //  customerAccountAssociationVo.AssociationId = AssociationId;
                         customerAccountAssociationVo.AssociationType = "Nominee";
                         customerAccountBo.CreatecustomerBankAccountAssociation(customerAccountAssociationVo, userVo.UserId);
@@ -572,14 +589,14 @@ namespace WealthERP.Customer
             {
                 trNomineeCaption.Visible = true;
                 trgvNominees.Visible = true;
-                if (ViewState["Action"] != null)
-                {
-                    if (ViewState["Action"].ToString() != "Edit")
-                    {
+                //if (ViewState["Action"] != null)
+               // {
+                //    if (ViewState["Action"].ToString() != "Edit")
+                //    {
                         BindNominees();
-                    }
+                //    }
 
-                }
+               // }
                    
             }
             if (rbtnomNo.Checked == true)
