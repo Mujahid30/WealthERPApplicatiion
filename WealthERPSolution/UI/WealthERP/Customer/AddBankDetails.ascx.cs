@@ -42,6 +42,7 @@ namespace WealthERP.Customer
         string accountNum;
         double amount;
         string bankname;
+        double holdingAmount=0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -253,9 +254,10 @@ namespace WealthERP.Customer
 
         public void ddlAccountDetails_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+           
             if (ddlAccountDetails.SelectedIndex != 0)
             {
+               // txtholdingAmt.Text = amount.ToString();
                 trHoldingAndTrnx.Visible = true;
                 trAddTransaction.Visible = false;
                 DivTransaction.Visible = false;
@@ -263,10 +265,37 @@ namespace WealthERP.Customer
             else
             {
                 trHoldingAndTrnx.Visible = false;
+               
+            }
+            if (ddlAccountDetails.SelectedValue == "0")
+            {
+                trHoldingAndTrnx.Visible = false;
+                trholdingamount.Visible = false;
+                btnSubmit.Visible = false;
+                trAddTransaction.Visible = false;
+                DivTransaction.Visible = false;
             }
             if (ViewState["BankId"] != null)
                 ViewState.Remove("BankId");
             bankId = int.Parse(ddlAccountDetails.SelectedValue);
+            if (bankId != 0)
+            {  
+               
+                holdingAmount =customerAccountBo.GetHoldingBalance(bankId);
+                txtholdingAmt.Text = holdingAmount.ToString();
+
+            }
+            else {
+                txtholdingAmt.Text = "0";
+                }
+            //{
+            //    txtholdingAmt.Text = customeraccountVo.Amount.ToString(); 
+            //}
+            //else
+            //{
+            //    txtholdingAmt.Text="0";
+            //}
+ 
             //  Session["BankAccId"] = ddlAccountDetails.SelectedValue.ToString();
         }
 
@@ -275,7 +304,7 @@ namespace WealthERP.Customer
             DisplayType = ddlAccountSelect.SelectedValue;
             if (DisplayType == "TB")
             {
-                gvCashSavingTransaction.Visible = true;
+                gvCashSavingTransaction.Visible = true;              
                 btnSubmit.Visible = true;
                 trAddTransaction.Visible = false;
                 trholdingamount.Visible = true;

@@ -46,7 +46,7 @@
                 //                alert("Please select AMC!");
             },
             success: function(msg) {
-               
+
                 if (msg.d) {
 
                     $("#<%= hidValidCheck.ClientID %>").val("1");
@@ -99,29 +99,29 @@
     </tr>
 </table>
 <table width="100%" class="TableBackground">
-    <tr>
-        <td align="center">
-            <div>
-                <table>
+    <%--<tr>
+        <td align="center" style="padding-right: 5px;">--%>
+           <%-- <div>
+                <table>--%>
                     <tr id="trAccount" runat="server">
-                        <td class="leftField" align="center">
+                        <td class="leftField" style="width: 500px" align="right">
                             <asp:Label ID="Label1" CssClass="FieldName" runat="server" Text="Bank Name/Account No.:"></asp:Label>
                         </td>
-                        <td>
+                        <td colspan="4" style="width: 50px">
                             <asp:Label ID="lblBankName" runat="server" CssClass="Field"></asp:Label>
                             <asp:Label ID="lblAccId" runat="server" CssClass="Field"></asp:Label>
                             <asp:DropDownList AutoPostBack="true" OnSelectedIndexChanged="ddlAccountDetails_SelectedIndexChanged"
                                 CssClass="cmbField" runat="server" ID="ddlAccountDetails" AppendDataBoundItems="true">
                                 <asp:ListItem Text="Select" Value="0" Selected="False">Select</asp:ListItem>
                             </asp:DropDownList>
-                           <%-- <asp:RequiredFieldValidator ID="rfvAccountNumber" ControlToValidate="ddlAccountDetails"
+                            <%-- <asp:RequiredFieldValidator ID="rfvAccountNumber" ControlToValidate="ddlAccountDetails"
                                 ValidationGroup="btnSubmit" ErrorMessage="<br />Please enter a Account Number"
                                 Display="Dynamic" runat="server" CssClass="rfvPCG">
                             </asp:RequiredFieldValidator>--%>
                             <%-- <span id="Span3" class="spnRequiredField">*</span>--%>
-                             <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlAccountDetails"
-                                    ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Bank/Account"
-                                    Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                            <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlAccountDetails"
+                                ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Bank/Account"
+                                Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                         </td>
                         <%-- <td class="leftField" align="left">
                             <asp:Label ID="lb" CssClass="FieldName" runat="server" Text="Bank Name:"></asp:Label>
@@ -141,7 +141,7 @@
                                 <asp:ListItem Text="TotalBalance" Value="TB">Total Balance </asp:ListItem>
                                 <asp:ListItem Text="IndividualTransaction" Value="IT">Individual Transaction</asp:ListItem>
                             </asp:DropDownList>
-                           <%--  <span id="Span5" class="spnRequiredField">*</span>
+                            <%--  <span id="Span5" class="spnRequiredField">*</span>
                              <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlAccountSelect"
                                     ErrorMessage="<br />Please select a Edit modes"
                                     Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
@@ -172,7 +172,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style="width: 400px" align="right">
                             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
                                 Text="Submit" Visible="false" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
@@ -181,10 +181,10 @@
                                 Text="Update" Visible="false" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit" />
                         </td>
                     </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
+              <%--  </table>
+            </div>--%>
+       <%-- </td>
+    </tr>--%>
 </table>
 <%--<table  width="100%">
     <tr>
@@ -224,7 +224,7 @@
 </table>--%>
             <table width="100%" class="TableBackground">
                 <tr>
-                    <td align="center">
+                    <td align="center" colspan="5">
                         <div id="DIVAddtransaction" visible="false">
                             <table>
                                 <tr>
@@ -309,8 +309,8 @@
                                         </asp:DropDownList>
                                         <span id="Span2" class="spnRequiredField">*</span>
                                         <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlCFCCategory"
-                                            ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Category" Operator="NotEqual"
-                                            ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                                            ValidationGroup="btnSubmitTransaction" ErrorMessage="<br />Please select a Category"
+                                            Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                                     </td>
                                 </tr>
                                 <tr>
