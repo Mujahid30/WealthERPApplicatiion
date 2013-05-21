@@ -365,6 +365,7 @@ namespace WealthERP.Customer
             {
                 int accountId = int.Parse(gvCashSavingTransaction.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CCST_TransactionId"].ToString());
                 strCasflowcategory = gvCashSavingTransaction.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WERP_CFCCode"].ToString();
+                string rdbType = gvCashSavingTransaction.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CCST_IsWithdrwal"].ToString();
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DataTable dtCFCCategory = new DataTable();
                 DropDownList ddlCFCCategory = (DropDownList)editedItem.FindControl("ddlCFCCategory");
@@ -376,6 +377,18 @@ namespace WealthERP.Customer
                 ddlCFCCategory.DataTextField = dtCFCCategory.Columns["WERP_CFCName"].ToString();
                 ddlCFCCategory.DataBind();
                 ddlCFCCategory.SelectedValue = strCasflowcategory;
+
+                if (rdbType == "CR")
+                {
+                    rbtnY.Checked = false;
+                    rbtnN.Checked = true;
+                }
+                else
+                {
+
+                    rbtnY.Checked = true;
+                    rbtnN.Checked = false;
+                }
 
                 rbtnN.Enabled = false;
                 rbtnY.Enabled = false;

@@ -375,7 +375,7 @@
         OnItemDataBound="gvCashSavingTransaction_ItemDataBound" OnNeedDataSource="gvCashSavingTransaction_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView TableLayout="Auto" DataKeyNames="CCST_TransactionId,WERP_CFCCode"
+        <MasterTableView TableLayout="Auto" DataKeyNames="CCST_TransactionId,WERP_CFCCode,CCST_IsWithdrwal"
             AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None" EditMode="EditForms">
             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
@@ -517,7 +517,7 @@
                                 <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnIs_Withdrwal"
                                     Text="DR" AutoPostBack="false" />
                                 <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnIs_Withdrwal"
-                                    Text="CR" AutoPostBack="false" Checked="true" />
+                                    Text="CR" AutoPostBack="false"/>
                                 <%--OnCheckedChanged="rbtnYes_CheckedChanged"--%>
                             </td>
                             <td class="leftField">
