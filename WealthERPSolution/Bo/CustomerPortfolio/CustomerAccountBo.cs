@@ -2231,5 +2231,42 @@ namespace BoCustomerPortfolio
             }
             return ds;
         }
+        public double GetHoldingBalance(int CB_CustBankAccId)
+        {
+
+            double Amount;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            try
+            {
+                Amount = customerAccountDao.GetHoldingBalance(CB_CustBankAccId);
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetHoldingBalance()");
+
+
+                object[] objects = new object[3];
+                objects[0] = CB_CustBankAccId;
+               
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return Amount;
+
+        }
     }
 }
