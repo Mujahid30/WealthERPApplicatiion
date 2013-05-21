@@ -3504,6 +3504,27 @@ namespace DaoCustomerPortfolio
             }
             return ds;
         }
+        public double GetHoldingBalance(int CB_CustBankAccId)
+        {
+            Database db;
+            DbCommand GetHoldingBalanceCmd;            
+            double Amount = 0.0;
+           
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetHoldingBalanceCmd = db.GetStoredProcCommand("SP_GetHoldingAmount");
+                db.AddInParameter(GetHoldingBalanceCmd, "@CB_CustBankAccId", DbType.Int32, CB_CustBankAccId);
+                db.AddOutParameter(GetHoldingBalanceCmd,"@CB_HoldingAmount", DbType.Double,100000);            
+                if (db.ExecuteNonQuery(GetHoldingBalanceCmd) != 0)
+                    Amount = double.Parse(db.GetParameterValue(GetHoldingBalanceCmd, "CB_HoldingAmount").ToString());
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return Amount;
+        }
     }
 }
