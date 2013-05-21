@@ -756,7 +756,7 @@ namespace WealthERP.Customer
                 bankId = int.Parse(gvBankDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CB_CustBankAccId"].ToString());
                 isdeleted = customerBankAccountBo.DeleteCustomerBankAccount(bankId);
                 if (isdeleted == false)
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot delete the bank is associate');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Cannot delete the bank is associate Folio/Trade Account');", true);
             }
             if (e.CommandName == "viewTransaction")
             {
