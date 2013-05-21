@@ -18,6 +18,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using DanLudwig;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using Telerik.Web.UI;
 
 namespace WealthERP.Reports
 {
@@ -52,6 +53,10 @@ namespace WealthERP.Reports
         bool strFromCustomerDashBoard = false;
         WERPTaskRequestManagementBo taskRequestManagementBo = new WERPTaskRequestManagementBo();
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
+
+        DataSet dsRequestListStatus = null;
+        DataTable dtRequestStatusList = new DataTable();
+
 
         public enum Constants
         {
@@ -157,7 +162,7 @@ namespace WealthERP.Reports
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             // cvAsOnDate.ValueToCompare = DateTime.Now.ToShortDateString();
 
-            GetRequestStatusList(151586, Convert.ToDateTime("2013-05-08"));
+            //GetRequestStatusList(151586, Convert.ToDateTime("2013-05-08"));
 
             if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
             {
@@ -1212,8 +1217,6 @@ namespace WealthERP.Reports
 
         private DataTable GetRequestStatusList(int userId,DateTime requestedDate)
         {
-            DataSet dsRequestListStatus = null;
-            DataTable dtRequestStatusList = new DataTable();
             dsRequestListStatus = taskRequestManagementBo.GetRequestStatusList(userId, requestedDate);
             dtRequestStatusList = PrepareFinalRequestStatsuDataTable(dsRequestListStatus);
             return dtRequestStatusList;
@@ -1265,19 +1268,24 @@ namespace WealthERP.Reports
                         switch (Convert.ToInt32(drParameter["WTP_Id"].ToString()))
                         {
                             case 1006:
-                                drFinalStatus["CustomerName"] = drRequest["WRD_InputParameterValue"].ToString();
+                                //drFinalStatus["CustomerName"] = drRequest["WRD_InputParameterValue"].ToString();
+                                drFinalStatus["CustomerName"] = drParameter["WRD_InputParameterValue"].ToString();
                                 break;
                             case 1009:
-                                drFinalStatus["CustomerName"] = drRequest["WRD_InputParameterValue"].ToString();
+                                //drFinalStatus["CustomerName"] = drRequest["WRD_InputParameterValue"].ToString();
+                                drFinalStatus["CustomerName"] = drParameter["WRD_InputParameterValue"].ToString();
                                 break;
                             case 1000:
-                                drFinalStatus["ReportName"] = drRequest["WRD_InputParameterValue"].ToString();
+                                //drFinalStatus["ReportName"] = drRequest["WRD_InputParameterValue"].ToString();
+                                drFinalStatus["ReportName"] = drParameter["WRD_InputParameterValue"].ToString();
                                 break;
                             case 1001:
-                                drFinalStatus["FromDate"] = drRequest["WRD_InputParameterValue"].ToString();
+                                //drFinalStatus["FromDate"] = drRequest["WRD_InputParameterValue"].ToString();
+                                drFinalStatus["FromDate"] = drParameter["WRD_InputParameterValue"].ToString();
                                 break;
                             case 1002:
-                                drFinalStatus["ToDate"] = drRequest["WRD_InputParameterValue"].ToString();
+                                //drFinalStatus["ToDate"] = drRequest["WRD_InputParameterValue"].ToString();
+                                drFinalStatus["ToDate"] = drParameter["WRD_InputParameterValue"].ToString();
                                 break;
 
                         }
@@ -1288,9 +1296,13 @@ namespace WealthERP.Reports
                     {
                         foreach (DataRow drlog in dvRequestLog.Table.Rows)
                         {
-                            drFinalStatus["ExecutionStartTime"] = drRequest["WRL_ExecuteStartTime"].ToString();
-                            drFinalStatus["ExecutionEndTime"] = drRequest["WRL_EndTime"].ToString();
-                            drFinalStatus["Message"] = drRequest["WRL_Message"].ToString();
+                            //drFinalStatus["ExecutionStartTime"] = drRequest["WRL_ExecuteStartTime"].ToString();
+                            //drFinalStatus["ExecutionEndTime"] = drRequest["WRL_EndTime"].ToString();
+                            //drFinalStatus["Message"] = drRequest["WRL_Message"].ToString();
+
+                            drFinalStatus["ExecutionStartTime"] = drlog["WRL_ExecuteStartTime"].ToString();
+                            drFinalStatus["ExecutionEndTime"] = drlog["WRL_EndTime"].ToString();
+                            drFinalStatus["Message"] = drlog["WRL_Message"].ToString();
                         }
                     }
                     else
@@ -1321,9 +1333,67 @@ namespace WealthERP.Reports
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            if (Cache["gvRequestStatus" + advisorVo.advisorId] == null)
+            {
+                Cache.Insert("gvRequestStatus" + advisorVo.advisorId, dtFinalRequestListStatus);
+            }
+            else
+            {
+                Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
+                Cache.Insert("gvRequestStatus" + advisorVo.advisorId, dtFinalRequestListStatus);
+            }
+
+            if (dtFinalRequestListStatus.Rows.Count!=0)
+            {
+                btnExportFilteredData.Visible = true;
+                divGvRequestStatus.Visible = true;
+            }
+            else
+            {
+                btnExportFilteredData.Visible = false;
+                divGvRequestStatus.Visible = true;
+            }
+
             return dtFinalRequestListStatus;
+
+           
         }
 
+
+        protected void btnShowRequestStausGrid_Click(object sender, EventArgs e)
+        {
+            BindGvRequestStatus();
+            gvRequestStatus.DataSource=dtRequestStatusList;
+            gvRequestStatus.DataBind();
+        }
+
+        public void BindGvRequestStatus()
+        {
+            //GetRequestStatusList(151586, Convert.ToDateTime("2013-05-08"));
+            GetRequestStatusList(userVo.UserId, Convert.ToDateTime(rdpShowRequestStausGrid.SelectedDate));
+        }
+
+        protected void gvRequestStatus_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtGvSchemeDetails = new DataTable();
+            dtGvSchemeDetails = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
+            gvRequestStatus.DataSource = dtGvSchemeDetails;
+        }
+
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            DataSet dtGvSchemeDetails = new DataSet();
+            dtGvSchemeDetails = (DataSet)Cache["gvRequestStatus" + advisorVo.advisorId];
+            gvRequestStatus.DataSource = dtGvSchemeDetails;
+
+            gvRequestStatus.ExportSettings.OpenInNewWindow = true;
+            gvRequestStatus.ExportSettings.IgnorePaging = true;
+            gvRequestStatus.ExportSettings.HideStructureColumns = true;
+            gvRequestStatus.ExportSettings.ExportOnlyData = true;
+            gvRequestStatus.ExportSettings.FileName = "RequestStatus Details";
+            gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvRequestStatus.MasterTableView.ExportToExcel();
+        }
 
     }
 }
