@@ -1396,6 +1396,11 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
+                            if(dr[2].ToString()=="Bank Details")
+                            {
+                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            }
+
                         }
                     }
                 }
@@ -1419,7 +1424,7 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[2].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if (dr[2].ToString().ToLower() == "vault proof")
+                            if (dr[2].ToString().ToLower() == "vault proof" || dr[2].ToString() == "Add Bank Account" || dr[2].ToString() == "Add Bank Transaction/Balance" || dr[2].ToString() == "View Bank Transaction")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
