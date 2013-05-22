@@ -202,6 +202,7 @@ namespace WealthERP.Reports
                 //}
                 if (!IsPostBack)
                 {
+                    rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
                     lblNote2.Visible = true;
                     ddlMFTransactionTypeBind();
                     if (CustomerLogin == true)
@@ -1365,6 +1366,7 @@ namespace WealthERP.Reports
             BindGvRequestStatus();
             gvRequestStatus.DataSource=dtRequestStatusList;
             gvRequestStatus.DataBind();
+            divSectionHeading.Style.Add("width", "57%");
         }
 
         public void BindGvRequestStatus()
@@ -1382,9 +1384,9 @@ namespace WealthERP.Reports
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            DataSet dtGvSchemeDetails = new DataSet();
-            dtGvSchemeDetails = (DataSet)Cache["gvRequestStatus" + advisorVo.advisorId];
-            gvRequestStatus.DataSource = dtGvSchemeDetails;
+            DataTable dtGvRequestStatus = new DataTable();
+            dtGvRequestStatus = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
+            gvRequestStatus.DataSource = dtGvRequestStatus;
 
             gvRequestStatus.ExportSettings.OpenInNewWindow = true;
             gvRequestStatus.ExportSettings.IgnorePaging = true;

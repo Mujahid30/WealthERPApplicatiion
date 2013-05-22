@@ -57,10 +57,6 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAdminRM;
-
-        protected global::Telerik.Web.UI.RadGrid gvRequestStatus;
-        protected global::Telerik.Web.UI.RadDatePicker rdpShowRequestStausGrid;
-        protected global::System.Web.UI.WebControls.Button btnShowRequestStausGrid;
         
         /// <summary>
         /// btnExportToPDF control.
@@ -421,10 +417,7 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPortfolios;
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvRequestStatus;
-
-        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
-
+        
         /// <summary>
         /// divGroupCustomers control.
         /// </summary>
@@ -1198,6 +1191,60 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanel1;
+        
+        /// <summary>
+        /// rdpShowRequestStausGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker rdpShowRequestStausGrid;
+        
+        /// <summary>
+        /// btnShowRequestStausGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnShowRequestStausGrid;
+        
+        /// <summary>
+        /// btnExportFilteredData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
+        
+        /// <summary>
+        /// divSectionHeading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSectionHeading;
+        
+        /// <summary>
+        /// divGvRequestStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvRequestStatus;
+        
+        /// <summary>
+        /// gvRequestStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvRequestStatus;
         
         /// <summary>
         /// lblNote1 control.
