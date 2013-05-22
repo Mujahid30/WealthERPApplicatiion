@@ -34,8 +34,7 @@
 
 
     function ClosePopUp() {
-        isClose = false;
-        doUnload();
+       
         window.close();
     }
 </script>
