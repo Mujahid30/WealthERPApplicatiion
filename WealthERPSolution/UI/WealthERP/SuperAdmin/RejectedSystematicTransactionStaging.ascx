@@ -524,7 +524,7 @@
                 CssClass="PCGLongButton" OnClientClick="return ShowDropDownValueInGridView()" />
             <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
-            <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
+            <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer" Visible="false"
                 OnClientClick="return ShowPopup()" />
         </td>
     </tr>
