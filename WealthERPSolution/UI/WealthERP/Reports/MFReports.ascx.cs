@@ -18,7 +18,6 @@ using CrystalDecisions.CrystalReports.Engine;
 using DanLudwig;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
-using Telerik.Web.UI;
 
 namespace WealthERP.Reports
 {
@@ -53,10 +52,6 @@ namespace WealthERP.Reports
         bool strFromCustomerDashBoard = false;
         WERPTaskRequestManagementBo taskRequestManagementBo = new WERPTaskRequestManagementBo();
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
-
-        DataSet dsRequestListStatus = null;
-        DataTable dtRequestStatusList = new DataTable();
-
 
         public enum Constants
         {
@@ -162,8 +157,6 @@ namespace WealthERP.Reports
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             // cvAsOnDate.ValueToCompare = DateTime.Now.ToShortDateString();
 
-            //GetRequestStatusList(151586, Convert.ToDateTime("2013-05-08"));
-
             if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
             {
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -202,7 +195,6 @@ namespace WealthERP.Reports
                 //}
                 if (!IsPostBack)
                 {
-                    rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
                     lblNote2.Visible = true;
                     ddlMFTransactionTypeBind();
                     if (CustomerLogin == true)
@@ -300,12 +292,12 @@ namespace WealthERP.Reports
                     CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
                     DataSet ds = customerTransactionBo.GetLastMFTradeDate();
                     DateTime AsonDate = new DateTime();
-
+                   
                     if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                     {
                         //AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
                         //AsonDate = AsonDate.AddDays(-1);
-
+                       
                         //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                         ////txtAsOnDate1 = DateTime.Parse(txtAsOnDate.Text.ToString());
                         //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
@@ -337,7 +329,7 @@ namespace WealthERP.Reports
                     txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
                     txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
                     txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
-
+                    
                 }
                 //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
                 //{
@@ -541,7 +533,7 @@ namespace WealthERP.Reports
                     btnViewInDOC.Enabled = false;
                     btnViewReport.Enabled = false;
                 }
-
+              
 
             }
             else
@@ -1045,15 +1037,15 @@ namespace WealthERP.Reports
             string[] strSplitArr = allCustomerId.Split(separator);
             //bool isForGroupCustomer = false;
             int groupCustomerId = 0;
-            int parentrequestId = 0;
-            List<MFReportVo> mfReportVoList = new List<MFReportVo>();
+            int parentrequestId=0;
+            List<MFReportVo> mfReportVoList=new List<MFReportVo>();
             MFReportEmailVo mfReportEmailVo = new MFReportEmailVo();
             DateTime fromDateRangeRpt;
             DateTime toDateRangeRpt;
 
             CalculateDateRange(out fromDateRangeRpt, out toDateRangeRpt);
-
-
+            
+            
             foreach (string arrStr in strSplitArr)
             {
                 if (!String.IsNullOrEmpty(arrStr))
@@ -1062,27 +1054,27 @@ namespace WealthERP.Reports
                     taskRequestManagementBo.CreateTaskRequest(1, userVo.UserId, out parentrequestId);
                     //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
                     if (rbnGroup.Checked == true)
-                    {
+                    {                      
                         groupCustomerId = int.Parse(arrStr);
                     }
+                  
+                     custVo = customerBo.GetCustomer(customerId);
+                     customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(custVo.RmId);
+                     foreach (ListItem chkItems in chkAsOnReportList.Items)
+                     {
+                         if (chkItems.Selected == true)
+                         { 
+                           mfReportVoList.Add(GetReportInputData(chkItems,customerId,groupCustomerId, ref fromDateRangeRpt,ref toDateRangeRpt,"ASON"));
+                         }
 
-                    custVo = customerBo.GetCustomer(customerId);
-                    customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(custVo.RmId);
-                    foreach (ListItem chkItems in chkAsOnReportList.Items)
-                    {
-                        if (chkItems.Selected == true)
-                        {
-                            mfReportVoList.Add(GetReportInputData(chkItems, customerId, groupCustomerId, ref fromDateRangeRpt, ref toDateRangeRpt, "ASON"));
-                        }
-
-                    }
+                     }
 
                     foreach (ListItem chkItems in chkRangeReportList.Items)
                     {
-                        if (chkItems.Selected == true)
-                        {
-                            mfReportVoList.Add(GetReportInputData(chkItems, customerId, groupCustomerId, ref fromDateRangeRpt, ref toDateRangeRpt, "RANGE"));
-                        }
+                         if (chkItems.Selected == true)
+                         { 
+                           mfReportVoList.Add(GetReportInputData(chkItems,customerId,groupCustomerId, ref fromDateRangeRpt,ref toDateRangeRpt,"RANGE"));
+                         }
 
                     }
 
@@ -1092,12 +1084,12 @@ namespace WealthERP.Reports
                     mfReportEmailVo.RMEmail = customerRMVo.Email;
                     mfReportEmailVo.ReportTypeName = "Mutual Fund";
 
-                    taskRequestManagementBo.CreateBulkReportRequest(mfReportVoList, mfReportEmailVo, parentrequestId, 1, userVo.UserId);
+                    taskRequestManagementBo.CreateBulkReportRequest(mfReportVoList,mfReportEmailVo, parentrequestId, 1, userVo.UserId);
 
                 }
             }
 
-
+           
 
         }
 
@@ -1105,12 +1097,12 @@ namespace WealthERP.Reports
         //{
         //}
 
+       
 
-
-        private MFReportVo GetReportInputData(ListItem chkItems, int customerId, int groupCustomerId, ref DateTime dtFrom, ref DateTime dtTo, string reportDateType)
+        private MFReportVo GetReportInputData(ListItem chkItems,int customerId, int groupCustomerId, ref DateTime dtFrom, ref DateTime dtTo,string reportDateType)
         {
 
-            MFReportVo mfReportVo = new MFReportVo();
+            MFReportVo mfReportVo = new MFReportVo();               
             mfReport.ReportName = chkItems.Value.Trim();
             if (reportDateType == "ASON")
             {
@@ -1126,7 +1118,7 @@ namespace WealthERP.Reports
             mfReport.AdviserId = advisorVo.advisorId;
             mfReport.CustomerId = customerId;
             mfReport.GroupHeadId = groupCustomerId;
-            if (groupCustomerId != 0)
+           if (groupCustomerId != 0)
             {
                 mfReport.PortfolioIds = GetGroupCustomerAllPortfolio(groupCustomerId);
             }
@@ -1134,11 +1126,11 @@ namespace WealthERP.Reports
             {
                 mfReport.PortfolioIds = GetCustomerAllPortfolio(customerId);
             }
+                          
+         return mfReport;
+          }
 
-            return mfReport;
-        }
-
-
+        
 
         /// <summary>
         /// This Returns all portfolio Id of all customers of One Group Head Author:Pramod
@@ -1204,197 +1196,16 @@ namespace WealthERP.Reports
 
         private void CalculateDateRange(out DateTime fromDate, out DateTime toDate)
         {
-            if (rdoDatePeriod.Checked == true)
+            if (rdoDatePeriod.Checked==true)
             {
                 dtBo.CalculateFromToDatesUsingPeriod(ddlEmailDatePeriod.SelectedValue, out fromDate, out toDate);
-
+                
             }
             else //if (Request.Form[ctrlPrefix + "hidDateType"] == "AS_ON")
             {
                 fromDate = Convert.ToDateTime(txtEmailFromDate.Text);
                 toDate = Convert.ToDateTime(txtEmailToDate.Text);
             }
-        }
-
-        private DataTable GetRequestStatusList(int userId,DateTime requestedDate)
-        {
-            dsRequestListStatus = taskRequestManagementBo.GetRequestStatusList(userId, requestedDate);
-            dtRequestStatusList = PrepareFinalRequestStatsuDataTable(dsRequestListStatus);
-            return dtRequestStatusList;
-
-        }
-        private DataTable PrepareFinalRequestStatsuDataTable(DataSet dsRequestStatusList)
-        {
-            DataTable dtRequestList = dsRequestStatusList.Tables[0];
-            DataTable dtRequestInputParameterList = dsRequestStatusList.Tables[1];
-            DataTable dtRequestLog = dsRequestStatusList.Tables[2];
-            DataTable dtFinalRequestListStatus = new DataTable();
-            dtFinalRequestListStatus.Columns.Add("RequestId");
-            dtFinalRequestListStatus.Columns.Add("TaskName");
-            dtFinalRequestListStatus.Columns.Add("RequeTime");
-            dtFinalRequestListStatus.Columns.Add("RequestStatus");
-            dtFinalRequestListStatus.Columns.Add("AttemptCount");
-            dtFinalRequestListStatus.Columns.Add("DependentRequestId");
-            dtFinalRequestListStatus.Columns.Add("ParentRequestId");
-            dtFinalRequestListStatus.Columns.Add("CreatedOn");
-
-            dtFinalRequestListStatus.Columns.Add("CustomerName");
-            dtFinalRequestListStatus.Columns.Add("ReportName");
-            dtFinalRequestListStatus.Columns.Add("FromDate");
-            dtFinalRequestListStatus.Columns.Add("ToDate");
-
-            dtFinalRequestListStatus.Columns.Add("ExecutionStartTime");
-            dtFinalRequestListStatus.Columns.Add("ExecutionEndTime");
-            dtFinalRequestListStatus.Columns.Add("Message");
-            try
-            {
-
-                foreach (DataRow drRequest in dtRequestList.Rows)
-                {
-                    DataRow drFinalStatus = dtFinalRequestListStatus.NewRow();
-                    Int32 requestId = Convert.ToInt32(drRequest["WR_RequestId"].ToString());
-                    drFinalStatus["RequestId"] = requestId;
-                    drFinalStatus["TaskName"] = drRequest["WT_Task"].ToString();
-                    drFinalStatus["RequeTime"] = drRequest["WR_RequestDateTime"].ToString();
-                    drFinalStatus["RequestStatus"] = drRequest["WR_Status"].ToString();
-                    drFinalStatus["AttemptCount"] = drRequest["WR_AttemptCount"].ToString();
-                    drFinalStatus["DependentRequestId"] = drRequest["WR_DependentOn"].ToString();
-                    drFinalStatus["ParentRequestId"] = drRequest["WR_ParentRequestId"].ToString();
-                    drFinalStatus["CreatedOn"] = drRequest["WR_CreatedOn"].ToString();
-                    DataView dvRequestInputParameter = new DataView(dtRequestInputParameterList, "WR_RequestId='" + requestId.ToString() + "'", "WR_RequestId", DataViewRowState.CurrentRows);
-                    DataView dvRequestLog = new DataView(dtRequestLog, "WR_RequestId='" + requestId.ToString() + "'", "WR_RequestId", DataViewRowState.CurrentRows);
-
-                    foreach (DataRow drParameter in dvRequestInputParameter.Table.Rows)
-                    {
-                        switch (Convert.ToInt32(drParameter["WTP_Id"].ToString()))
-                        {
-                            case 1006:
-                                //drFinalStatus["CustomerName"] = drRequest["WRD_InputParameterValue"].ToString();
-                                drFinalStatus["CustomerName"] = drParameter["WRD_InputParameterValue"].ToString();
-                                break;
-                            case 1009:
-                                //drFinalStatus["CustomerName"] = drRequest["WRD_InputParameterValue"].ToString();
-                                drFinalStatus["CustomerName"] = drParameter["WRD_InputParameterValue"].ToString();
-                                break;
-                            case 1000:
-                                //drFinalStatus["ReportName"] = drRequest["WRD_InputParameterValue"].ToString();
-                                drFinalStatus["ReportName"] = drParameter["WRD_InputParameterValue"].ToString();
-                                break;
-                            case 1001:
-                                //drFinalStatus["FromDate"] = drRequest["WRD_InputParameterValue"].ToString();
-                                drFinalStatus["FromDate"] = drParameter["WRD_InputParameterValue"].ToString();
-                                break;
-                            case 1002:
-                                //drFinalStatus["ToDate"] = drRequest["WRD_InputParameterValue"].ToString();
-                                drFinalStatus["ToDate"] = drParameter["WRD_InputParameterValue"].ToString();
-                                break;
-
-                        }
-
-                    }
-
-                    if (dvRequestLog.Table.Rows.Count > 0)
-                    {
-                        foreach (DataRow drlog in dvRequestLog.Table.Rows)
-                        {
-                            //drFinalStatus["ExecutionStartTime"] = drRequest["WRL_ExecuteStartTime"].ToString();
-                            //drFinalStatus["ExecutionEndTime"] = drRequest["WRL_EndTime"].ToString();
-                            //drFinalStatus["Message"] = drRequest["WRL_Message"].ToString();
-
-                            drFinalStatus["ExecutionStartTime"] = drlog["WRL_ExecuteStartTime"].ToString();
-                            drFinalStatus["ExecutionEndTime"] = drlog["WRL_EndTime"].ToString();
-                            drFinalStatus["Message"] = drlog["WRL_Message"].ToString();
-                        }
-                    }
-                    else
-                    {
-                        drFinalStatus["ExecutionStartTime"] = String.Empty;
-                        drFinalStatus["ExecutionEndTime"] = String.Empty;
-                        drFinalStatus["Message"] = String.Empty;
-
-                    }
-
-                    dtFinalRequestListStatus.Rows.Add(drFinalStatus);
-                }
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "MFReports.ascx.cs:PrepareFinalRequestStatsuDataTable()");
-                object[] objects = new object[1];
-                objects[0] = dsRequestStatusList;                
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            if (Cache["gvRequestStatus" + advisorVo.advisorId] == null)
-            {
-                Cache.Insert("gvRequestStatus" + advisorVo.advisorId, dtFinalRequestListStatus);
-            }
-            else
-            {
-                Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
-                Cache.Insert("gvRequestStatus" + advisorVo.advisorId, dtFinalRequestListStatus);
-            }
-
-            if (dtFinalRequestListStatus.Rows.Count!=0)
-            {
-                btnExportFilteredData.Visible = true;
-                divGvRequestStatus.Visible = true;
-            }
-            else
-            {
-                btnExportFilteredData.Visible = false;
-                divGvRequestStatus.Visible = true;
-            }
-
-            return dtFinalRequestListStatus;
-
-           
-        }
-
-
-        protected void btnShowRequestStausGrid_Click(object sender, EventArgs e)
-        {
-            BindGvRequestStatus();
-            gvRequestStatus.DataSource=dtRequestStatusList;
-            gvRequestStatus.DataBind();
-            divSectionHeading.Style.Add("width", "57%");
-        }
-
-        public void BindGvRequestStatus()
-        {
-            //GetRequestStatusList(151586, Convert.ToDateTime("2013-05-08"));
-            GetRequestStatusList(userVo.UserId, Convert.ToDateTime(rdpShowRequestStausGrid.SelectedDate));
-        }
-
-        protected void gvRequestStatus_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
-        {
-            DataTable dtGvSchemeDetails = new DataTable();
-            dtGvSchemeDetails = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
-            gvRequestStatus.DataSource = dtGvSchemeDetails;
-        }
-
-        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-        {
-            DataTable dtGvRequestStatus = new DataTable();
-            dtGvRequestStatus = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
-            gvRequestStatus.DataSource = dtGvRequestStatus;
-
-            gvRequestStatus.ExportSettings.OpenInNewWindow = true;
-            gvRequestStatus.ExportSettings.IgnorePaging = true;
-            gvRequestStatus.ExportSettings.HideStructureColumns = true;
-            gvRequestStatus.ExportSettings.ExportOnlyData = true;
-            gvRequestStatus.ExportSettings.FileName = "RequestStatus Details";
-            gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvRequestStatus.MasterTableView.ExportToExcel();
         }
 
     }

@@ -1184,69 +1184,6 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.Button btnEmailReport;
         
         /// <summary>
-        /// TabPanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel1;
-        
-        /// <summary>
-        /// rdpShowRequestStausGrid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker rdpShowRequestStausGrid;
-        
-        /// <summary>
-        /// btnShowRequestStausGrid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShowRequestStausGrid;
-        
-        /// <summary>
-        /// btnExportFilteredData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
-        
-        /// <summary>
-        /// divSectionHeading control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSectionHeading;
-        
-        /// <summary>
-        /// divGvRequestStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvRequestStatus;
-        
-        /// <summary>
-        /// gvRequestStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid gvRequestStatus;
-        
-        /// <summary>
         /// lblNote1 control.
         /// </summary>
         /// <remarks>
