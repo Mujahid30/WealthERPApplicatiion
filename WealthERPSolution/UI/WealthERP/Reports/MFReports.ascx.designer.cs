@@ -23,31 +23,31 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// Label7 control.
+        /// RadTabStrip2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip2;
         
         /// <summary>
-        /// tabViewAndEmailReports control.
+        /// ReportDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tabViewAndEmailReports;
+        protected global::Telerik.Web.UI.RadMultiPage ReportDetails;
         
         /// <summary>
-        /// tabpnlViewReports control.
+        /// RadPageView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabpnlViewReports;
+        protected global::Telerik.Web.UI.RadPageView RadPageView1;
         
         /// <summary>
         /// trAdminRM control.
@@ -131,6 +131,15 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerName;
         
         /// <summary>
+        /// Td1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td1;
+        
+        /// <summary>
         /// lblCustomerName control.
         /// </summary>
         /// <remarks>
@@ -147,6 +156,15 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAdvisorRadioList;
+        
+        /// <summary>
+        /// Td2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td2;
         
         /// <summary>
         /// lblGrpOrInd control.
@@ -176,6 +194,15 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.RadioButton rdoIndividual;
         
         /// <summary>
+        /// Td3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td3;
+        
+        /// <summary>
         /// trCustomerRadioList control.
         /// </summary>
         /// <remarks>
@@ -183,6 +210,15 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerRadioList;
+        
+        /// <summary>
+        /// Td4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td4;
         
         /// <summary>
         /// lblCustometGroupOrInd control.
@@ -212,6 +248,15 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.RadioButton rdoCustomerIndivisual;
         
         /// <summary>
+        /// Td5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td5;
+        
+        /// <summary>
         /// trIndCustomer control.
         /// </summary>
         /// <remarks>
@@ -219,6 +264,15 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIndCustomer;
+        
+        /// <summary>
+        /// Td6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td6;
         
         /// <summary>
         /// lblCustomer control.
@@ -257,6 +311,15 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
+        /// Td7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td7;
+        
+        /// <summary>
         /// trGroupCustomer control.
         /// </summary>
         /// <remarks>
@@ -264,6 +327,15 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trGroupCustomer;
+        
+        /// <summary>
+        /// Td8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td8;
         
         /// <summary>
         /// lblGCustomer control.
@@ -302,6 +374,15 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
+        /// Td9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td9;
+        
+        /// <summary>
         /// trCustomerDetails control.
         /// </summary>
         /// <remarks>
@@ -311,13 +392,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerDetails;
         
         /// <summary>
-        /// Td1 control.
+        /// Td10 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td1;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td10;
         
         /// <summary>
         /// lblPAN control.
@@ -338,13 +419,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.TextBox txtCustomerPAN;
         
         /// <summary>
-        /// Td2 control.
+        /// Td11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td2;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td11;
         
         /// <summary>
         /// lblAddress control.
@@ -365,22 +446,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.TextBox txtCustomerAddress;
         
         /// <summary>
-        /// tr1 control.
+        /// Td12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr1;
-        
-        /// <summary>
-        /// Td3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td3;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td12;
         
         /// <summary>
         /// lblPortfolio control.
@@ -464,13 +536,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trTranFilter1;
         
         /// <summary>
-        /// Td4 control.
+        /// Td13 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td4;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td13;
         
         /// <summary>
         /// lblsortby control.
@@ -482,13 +554,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.Label lblsortby;
         
         /// <summary>
-        /// Td5 control.
+        /// Td14 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td5;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td14;
         
         /// <summary>
         /// rddate control.
@@ -518,13 +590,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trTranFilter2;
         
         /// <summary>
-        /// Td6 control.
+        /// Td15 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td6;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td15;
         
         /// <summary>
         /// lblFilterBy control.
@@ -536,13 +608,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.Label lblFilterBy;
         
         /// <summary>
-        /// Td7 control.
+        /// Td16 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td7;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td16;
         
         /// <summary>
         /// ddlMFTransactionType control.
@@ -608,6 +680,15 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.HtmlControls.HtmlTable trRange;
         
         /// <summary>
+        /// Td17 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td17;
+        
+        /// <summary>
         /// lblFromDate control.
         /// </summary>
         /// <remarks>
@@ -651,6 +732,15 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        
+        /// <summary>
+        /// Td18 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td18;
         
         /// <summary>
         /// lblToDate control.
@@ -716,6 +806,24 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.HtmlControls.HtmlTable trPeriod;
         
         /// <summary>
+        /// Tr2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow Tr2;
+        
+        /// <summary>
+        /// Td19 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td19;
+        
+        /// <summary>
         /// lblPeriod control.
         /// </summary>
         /// <remarks>
@@ -723,6 +831,15 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPeriod;
+        
+        /// <summary>
+        /// Td20 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td20;
         
         /// <summary>
         /// ddlPeriod control.
@@ -752,6 +869,24 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.HtmlControls.HtmlTable trAsOn;
         
         /// <summary>
+        /// Tr3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow Tr3;
+        
+        /// <summary>
+        /// Td21 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td21;
+        
+        /// <summary>
         /// lblAsOnDate control.
         /// </summary>
         /// <remarks>
@@ -759,6 +894,15 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAsOnDate;
+        
+        /// <summary>
+        /// Td22 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td22;
         
         /// <summary>
         /// txtAsOnDate control.
@@ -797,13 +941,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
-        /// tabpnlEmailReports control.
+        /// RadPageView2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabpnlEmailReports;
+        protected global::Telerik.Web.UI.RadPageView RadPageView2;
         
         /// <summary>
         /// Label1 control.
@@ -1182,6 +1326,78 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEmailReport;
+        
+        /// <summary>
+        /// RadPageView3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadPageView RadPageView3;
+        
+        /// <summary>
+        /// rdpShowRequestStausGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker rdpShowRequestStausGrid;
+        
+        /// <summary>
+        /// RequiredFieldValidator6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
+        
+        /// <summary>
+        /// btnShowRequestStausGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnShowRequestStausGrid;
+        
+        /// <summary>
+        /// btnExportFilteredData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
+        
+        /// <summary>
+        /// pnlGvRequestStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlGvRequestStatus;
+        
+        /// <summary>
+        /// dvAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvAll;
+        
+        /// <summary>
+        /// gvRequestStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvRequestStatus;
         
         /// <summary>
         /// lblNote1 control.
