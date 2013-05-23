@@ -32,8 +32,6 @@
     window.onload = EnableDisableValidators;
 </script>
 
-
-
 <script language="javascript" type="text/javascript">
     //Business Rules to happen on policy type change
     function ChangeGroupPolicy(value) {
@@ -69,7 +67,7 @@
                 if (gridViewControls[i].type == "text") {
                     gridViewControls[i].disabled = true;
                     gridViewControls[i].value = '';
-                }Error
+                } Error
                 // if this input type is checkbox, uncheck
                 if (gridViewControls[i].type == "checkbox") {
                     gridViewControls[i].checked = false;
@@ -249,29 +247,31 @@
     }
 
 </script>
+
 <table width="100%">
     <tr>
         <td>
-        <div class="divPageHeading">
-            <table cellspacing="0" cellpadding="3" width="100%">
-                <tr>
-                    <td align="left">
-                        General Insurance Add Screen
-                    </td>
-                    <td align="right">
-                        <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
-                            OnClick="lnkBtnBack_Click"></asp:LinkButton> &nbsp;&nbsp;
-                        <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit"
-                            OnClick="lnkBtnEdit_Click"></asp:LinkButton> &nbsp;&nbsp;
-                    </td>
-                </tr>
-            </table>
-        </div>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            General Insurance Add Screen
+                        </td>
+                        <td align="right">
+                            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
+                                OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                            &nbsp;&nbsp;
+                            <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit"
+                                OnClick="lnkBtnEdit_Click"></asp:LinkButton>
+                            &nbsp;&nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
 </table>
-
-<table style="width: 100%;">    
+<table style="width: 100%;">
     <tr>
         <td align="right" style="width: 22%">
             <asp:Label ID="lblAssetCategory" runat="server" Text="Asset Category:" CssClass="FieldName"></asp:Label>
@@ -310,14 +310,13 @@
             </div>
         </td>
     </tr>
-
     <tr>
         <td align="right" style="width: 22%">
             <asp:Label ID="lblPolicyIssuer" runat="server" Text="Insurer:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 22%" colspan="2">
-            <asp:DropDownList ID="ddlPolicyIssuer" CausesValidation="true" runat="server" CssClass="cmbField" Width="80%"
-                OnSelectedIndexChanged="ddlPolicyIssuer_OnSelectedIndexChanged" AutoPostBack="true">
+            <asp:DropDownList ID="ddlPolicyIssuer" CausesValidation="true" runat="server" CssClass="cmbField"
+                Width="80%" OnSelectedIndexChanged="ddlPolicyIssuer_OnSelectedIndexChanged" AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
             </asp:DropDownList>
             <span id="span1" class="spnRequiredField">*</span>
@@ -342,8 +341,10 @@
             <span id="span5" class="spnRequiredField">*</span>
             <%--  <asp:Button ID="btnAddScheme" runat="server" Text="++" OnClick="btnAddScheme_OnClick"
     ValidationGroup="btnAddScheme"  />--%>
-            <asp:ImageButton ID="btnAddScheme" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" runat="server" ToolTip="Add policy Name"
-                OnClick="btnAddScheme_OnClick" ValidationGroup="btnAddScheme" Height="3.2%" Width="3.2%"/>
+            <asp:ImageButton ID="btnAddScheme" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Add policy Name" OnClick="btnAddScheme_OnClick" ValidationGroup="btnAddScheme"
+                Height="15px" Width="15px" Visible="true" />
+            <%-- 3.2% ~/App_Themes/Maroon/Images/user_add.png--%>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please select a Scheme Name:"
                 ControlToValidate="txtPolicyParticular" Operator="NotEqual" ValueToCompare="Select"
                 Display="Dynamic" CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
@@ -389,7 +390,6 @@
             </telerik:RadWindow>
         </td>
     </tr>
-            
     <tr>
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -438,8 +438,8 @@
                 GroupName="PolicyTerm" class="cmbField" />
             <asp:RadioButton ID="rdbPolicyTermMonth" Text="Month" runat="server" onClick="return EnableDisableDaysMonths()"
                 GroupName="PolicyTerm" Checked="true" class="cmbField" />--%>
-            <asp:TextBox Width="30px" ID="txtPolicyTerm" runat="server" CssClass="txtField"
-            AutoPostBack="true" ontextchanged="txtPolicyTerm_TextChanged"></asp:TextBox>
+            <asp:TextBox Width="30px" ID="txtPolicyTerm" runat="server" CssClass="txtField" AutoPostBack="true"
+                OnTextChanged="txtPolicyTerm_TextChanged"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator1"
                 runat="server" ControlToValidate="txtPolicyTerm" ErrorMessage="Please Enter Valid Term"
@@ -476,8 +476,8 @@
         </td>
         <td class="rightField" style="width: 22%">
             <telerik:RadDatePicker Enabled="false" ID="txtMaturityDate" CssClass="txtField" runat="server"
-                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false" MaxDate="2200-01-01"
-                ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                MaxDate="2200-01-01" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
