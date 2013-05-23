@@ -187,9 +187,9 @@
         <tr id="trgvjointHolder" runat="server" visible="false">
             <td>
                 <telerik:RadGrid ID="gvJointHolders" runat="server" GridLines="None" Width="100%"
-                    AllowPaging="true" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
+                    AllowPaging="true" AllowSorting="false" AutoGenerateColumns="false" ShowStatusBar="true"
                     AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
-                    Skin="Telerik" EnableEmbeddedSkins="true" EnableHeaderContextFilterMenu="true"
+                    Skin="Telerik" EnableEmbeddedSkins="true" EnableHeaderContextFilterMenu="false" 
                     AllowFilteringByColumn="false" OnItemDataBound="gvJointHolders_ItemDataBound">
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                     <ExportSettings HideStructureColumns="true">
@@ -203,12 +203,12 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn UniqueName="Name" HeaderStyle-Width="80px" HeaderText="Name"
-                                DataField="Name" SortExpression="Name" AllowFiltering="false" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true">
+                                DataField="Name" AllowFiltering="false" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="false">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Relationship" HeaderStyle-Width="90px" HeaderText="Relationship"
-                                DataField="Relationship" SortExpression="Relationship" AllowFiltering="false"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                DataField="Relationship" AllowFiltering="false"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="false">
                             </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
@@ -236,9 +236,9 @@
         <tr id="trgvNominees" runat="server" visible="false">
             <td>
                 <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" Width="100%" AllowPaging="true"
-                    AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true" AllowAutomaticDeletes="True"
+                    AllowSorting="false" AutoGenerateColumns="false" ShowStatusBar="true" AllowAutomaticDeletes="True"
                     AllowAutomaticInserts="false" AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="true"
-                    EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="false" OnItemDataBound="gvNominees_ItemDataBound">
+                    EnableHeaderContextFilterMenu="false" AllowFilteringByColumn="false" OnItemDataBound="gvNominees_ItemDataBound">
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
@@ -251,12 +251,12 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn UniqueName="Name" HeaderStyle-Width="80px" HeaderText="Name"
-                                DataField="Name" SortExpression="Name" AllowFiltering="false" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true">
+                                DataField="Name" AllowFiltering="false" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="false">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Relationship" HeaderStyle-Width="90px" HeaderText="Relationship"
-                                DataField="Relationship" SortExpression="Relationship" AllowFiltering="false"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                DataField="Relationship" AllowFiltering="false"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="false">
                             </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
