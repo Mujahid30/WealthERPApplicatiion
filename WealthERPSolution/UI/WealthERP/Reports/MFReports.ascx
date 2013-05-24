@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="MFReports.ascx.cs" Inherits="WealthERP.Reports.MFReports" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register TagPrefix="demo" Namespace="DanLudwig.Controls.Web" Assembly="DanLudwig.Controls.AspAjax.ListBox" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
     <Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
@@ -1282,49 +1282,50 @@
             </div>
         </telerik:RadPageView>
         <telerik:RadPageView ID="RadPageView3" runat="server" Style="margin-top: 20px">
-        <table width="100%">
-                    <tr align="left">
-                        <td style="width:10%">
-                            <p class="FieldName">Requested Date :
-                            </p>
-                        </td>
-                        <td class="rightField" style="width:15%">
-                            <telerik:RadDatePicker ID="rdpShowRequestStausGrid" CssClass="txtField" runat="server"
-                                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                                ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                                </Calendar>
-                                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                                </DateInput>
-                            </telerik:RadDatePicker>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" Display="Dynamic"
-                                ValidationGroup="btnShowRequestStausGrid" ControlToValidate="rdpShowRequestStausGrid"
-                                ErrorMessage="Please select a date"></asp:RequiredFieldValidator>
-                        </td>
-                        <td style="width: 2%">
-                            <span id="Span5" class="spnRequiredField">* </span>
-                        </td>
-                        <td  style="width:10%">
-                            <asp:Button ID="btnShowRequestStausGrid" CssClass="PCGButton" Text="GO" runat="server"
-                                ValidationGroup="btnShowRequestStausGrid" OnClick="btnShowRequestStausGrid_Click">
-                            </asp:Button>
-                        </td>
-                        <td  style="width:63%" align="right">
+            <table width="100%">
+                <tr align="left">
+                    <td style="width: 10%">
+                        <p class="FieldName">
+                            Requested Date :
+                        </p>
+                    </td>
+                    <td class="rightField" style="width: 15%">
+                        <telerik:RadDatePicker ID="rdpShowRequestStausGrid" CssClass="txtField" runat="server"
+                            Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                            ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                            <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                            </Calendar>
+                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                            <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                            </DateInput>
+                        </telerik:RadDatePicker>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" Display="Dynamic"
+                            ValidationGroup="btnShowRequestStausGrid" ControlToValidate="rdpShowRequestStausGrid"
+                            ErrorMessage="Please select a date"></asp:RequiredFieldValidator>
+                    </td>
+                    <td style="width: 2%">
+                        <span id="Span5" class="spnRequiredField">* </span>
+                    </td>
+                    <td style="width: 10%">
+                        <asp:Button ID="btnShowRequestStausGrid" CssClass="PCGButton" Text="GO" runat="server"
+                            ValidationGroup="btnShowRequestStausGrid" OnClick="btnShowRequestStausGrid_Click">
+                        </asp:Button>
+                    </td>
+                    <td style="width: 63%" align="right">
                         <asp:ImageButton ID="btnExportFilteredData" Visible="false" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                        </td>
-                    </tr>
-           </table>
-            <asp:Panel ID="pnlGvRequestStatus" Visible="false" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
-                
+                            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                            OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                    </td>
+                </tr>
+            </table>
+            <asp:Panel ID="pnlGvRequestStatus" Visible="false" runat="server" class="Landscape"
+                Width="99%" ScrollBars="Horizontal">
                 <table width="100%">
                     <tr>
                         <td>
                             <div id="dvAll" runat="server" style="width: 640px">
-                                <table width="100%">                                    
+                                <table width="100%">
                                     <tr>
                                         <td colspan="4">
                                             <telerik:RadGrid ID="gvRequestStatus" runat="server" CssClass="RadGrid" GridLines="None"
@@ -1431,22 +1432,20 @@
         </telerik:RadPageView>
     </telerik:RadMultiPage>
 </div>
-
 <table border="0" width="100%" height="100%" style="">
-   <tr>
-   <td>
-   <div style="margin: 6px">
-    <label id="lblNote1" runat="server" class="HeaderTextSmall" style="display: none">
-        Note: Only historical data is accessible from this screen. Recent data for the last
-        2 Business day will not be available. To view the recent data View Dashboards &
-        Net Positions.</label>
-    <label id="lblNote2" runat="server" class="HeaderTextSmall" style="display: none">
-        Note: You can view the recent data, as on last business date.</label>
-</div>
-   </td>
-   </tr>
+    <tr>
+        <td>
+            <div style="margin: 6px">
+                <label id="lblNote1" runat="server" class="HeaderTextSmall" style="display: none">
+                    Note: Only historical data is accessible from this screen. Recent data for the last
+                    2 Business day will not be available. To view the recent data View Dashboards &
+                    Net Positions.</label>
+                <label id="lblNote2" runat="server" class="HeaderTextSmall" style="display: none">
+                    Note: You can view the recent data, as on last business date.</label>
+            </div>
+        </td>
+    </tr>
 </table>
-
 <asp:HiddenField ID="hidFromDate" Value="" runat="server" />
 <asp:HiddenField ID="hidToDate" Value="" runat="server" />
 <asp:HiddenField ID="hidDateType" Value="" runat="server" />
@@ -1458,4 +1457,3 @@
 <asp:HiddenField ID="hndSelfOrGroup" runat="server" />
 <asp:HiddenField ID="hidBMLogin" runat="server" />
 <asp:HiddenField ID="hdnValuationDate" runat="server" />
-

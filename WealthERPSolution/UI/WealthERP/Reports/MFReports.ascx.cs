@@ -76,7 +76,7 @@ namespace WealthERP.Reports
             {
                 ScriptManager.GetCurrent(Page).EnablePartialRendering = false;
                 //Response.Cache.SetNoStore();
-            }
+            }            
         }
 
 
@@ -1295,10 +1295,10 @@ namespace WealthERP.Reports
                     drFinalStatus["DependentRequestId"] = drRequest["WR_DependentOn"].ToString();
                     drFinalStatus["ParentRequestId"] = drRequest["WR_ParentRequestId"].ToString();
                     drFinalStatus["CreatedOn"] = drRequest["WR_CreatedOn"].ToString();
-                    DataView dvRequestInputParameter = new DataView(dtRequestInputParameterList, "WR_RequestId='" + requestId.ToString() + "'", "WR_RequestId", DataViewRowState.CurrentRows);
+                    DataView dvRequestInputParameter = new DataView(dtRequestInputParameterList, "WR_RequestId=" + requestId.ToString(), "WR_RequestId", DataViewRowState.CurrentRows);
                     DataView dvRequestLog = new DataView(dtRequestLog, "WR_RequestId='" + requestId.ToString() + "'", "WR_RequestId", DataViewRowState.CurrentRows);
 
-                    foreach (DataRow drParameter in dvRequestInputParameter.Table.Rows)
+                    foreach (DataRow drParameter in dvRequestInputParameter.ToTable().Rows)
                     {
                         switch (Convert.ToInt32(drParameter["WTP_Id"].ToString()))
                         {
@@ -1329,7 +1329,7 @@ namespace WealthERP.Reports
 
                     if (dvRequestLog.Table.Rows.Count > 0)
                     {
-                        foreach (DataRow drlog in dvRequestLog.Table.Rows)
+                        foreach (DataRow drlog in dvRequestLog.ToTable().Rows)
                         {
                             //drFinalStatus["ExecutionStartTime"] = drRequest["WRL_ExecuteStartTime"].ToString();
                             //drFinalStatus["ExecutionEndTime"] = drRequest["WRL_EndTime"].ToString();
