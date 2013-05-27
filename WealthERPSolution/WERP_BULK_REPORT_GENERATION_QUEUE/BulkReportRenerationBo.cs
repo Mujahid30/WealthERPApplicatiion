@@ -545,7 +545,7 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
 
                             if (dtReturnsPortfolio.Rows.Count > 0)
                             {
-                                crmain.SetDataSource(dtReturnsPortfolio);
+                                crmain.SetDataSource(dsReturnsPortfolioHoldings.Tables[0]);
                                 setLogo(adviserLogoPath);
                                 crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRR);
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
