@@ -160,7 +160,7 @@ namespace WERP_EMAIL_SMS_JOB
                             else
                                 Emailer.SendMail(To, Cc, Bcc, Subject, Body, Attachments, emailFrom, dtAdviserSMTP, out fromSMTPEmail);
 
-
+                            
                             Trace("Updating email status " + Id.ToString());
 
                             Params = new SqlParameter[4];
@@ -174,6 +174,12 @@ namespace WERP_EMAIL_SMS_JOB
                             Params[3].DbType = DbType.String;
 
                             Utils.ExecuteNonQuery("sproc_UpdateOutgoingEmailStatus", Params);
+
+                            if (emailTypeCode == "RT")
+                            {
+                                UpdateBulkMailRequestLog(Convert.ToInt32(sourceId), "SUCCESS",1);
+
+                            }
                         }
                         catch (Exception Ex)
                         {
@@ -189,6 +195,12 @@ namespace WERP_EMAIL_SMS_JOB
                             Params[2].DbType = DbType.String;
 
                             Utils.ExecuteNonQuery("sproc_UpdateOutgoingEmailStatus", Params);
+
+                            if (emailTypeCode == "RT")
+                            {
+                                UpdateBulkMailRequestLog(Convert.ToInt32(sourceId), Msg,0);
+
+                            }
                         }
 
                         Thread.Sleep(_InterMessageDelay);
@@ -228,6 +240,19 @@ namespace WERP_EMAIL_SMS_JOB
             DataSet dsSMTPDetails = Utils.ExecuteDataSet("SP_GetAdviserSMTPSettings", Params);
             dtAdviserSMTP = dsSMTPDetails.Tables[0];
             return dtAdviserSMTP;
+        }
+
+        private void UpdateBulkMailRequestLog(Int32 requestId, string message,int requestStatus)
+        {
+            SqlParameter[] Params = new SqlParameter[3];
+            Params[0] = new SqlParameter("RequestId", requestId);
+            Params[0].DbType = DbType.Int32;
+            Params[1] = new SqlParameter("Message", message);
+            Params[1].DbType = DbType.String;
+            Params[2] = new SqlParameter("RequestStatus", requestStatus);
+            Params[2].DbType = DbType.Int16;
+            Utils.ExecuteNonQuery("SPROC_UpdateBulkMailRequestStatus", Params);
+ 
         }
 
         private void Trace(string Msg)
