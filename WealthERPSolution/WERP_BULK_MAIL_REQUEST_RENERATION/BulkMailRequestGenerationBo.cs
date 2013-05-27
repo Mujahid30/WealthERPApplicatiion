@@ -41,8 +41,8 @@ namespace WERP_BULK_MAIL_REQUEST_RENERATION
                     {
                         CreateTaskRequestLOG(requestId, out logId);
                         ProcessBulkMailRequest(requestId, dependentRequestId);
-                        UpdateTaskRequestLOG(logId, "SUCCESS");
-                        UpdateTaskRequestStatus(requestId, 1);
+                        UpdateTaskRequestLOG(logId, "MAIL REQUEST SENT");
+                        //UpdateTaskRequestStatus(requestId, 1);
                     }
                     else
                     {
