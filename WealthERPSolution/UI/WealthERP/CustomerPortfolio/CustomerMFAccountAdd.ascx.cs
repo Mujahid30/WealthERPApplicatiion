@@ -245,7 +245,16 @@ namespace WealthERP.CustomerPortfolio
             ddlBCountry.Text = ddlBCountry.SelectedValue;
             txtIfsc.Text = customerAccountsVo.IFSC;
             txtExternalFileBankName.Text = customerAccountsVo.BankNameInExtFile;
-
+            BindALLBankListForCustomer();
+            if (!string.IsNullOrEmpty(customerAccountsVo.BankName))
+            {
+                ddlALLBankList.SelectedItem.Text = customerAccountsVo.BankName.ToString();
+                ddlALLBankList.SelectedValue = customerAccountsVo.MCmgcxpBankCode;
+            }
+            else
+            {
+                ddlALLBankList.SelectedValue = "TBC";
+            }
             BindCustomerSubType();
 
             if (customerAccountsVo.XCT_CustomerTypeCode != "0")
