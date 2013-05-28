@@ -1340,7 +1340,7 @@ namespace WealthERP.Reports
             //bool isForGroupCustomer = false;
             int groupCustomerId = 0;
             int parentrequestId = 0;
-            List<MFReportVo> mfReportVoList = new List<MFReportVo>();
+            List<MFReportVo> mfReportVoList = null;
             MFReportEmailVo mfReportEmailVo = new MFReportEmailVo();
             DateTime fromDateRangeRpt;
             DateTime toDateRangeRpt;
@@ -1352,6 +1352,8 @@ namespace WealthERP.Reports
             {
                 if (!String.IsNullOrEmpty(arrStr))
                 {
+                    mfReportVoList = new List<MFReportVo>();
+                    mfReportEmailVo = new MFReportEmailVo();
                     customerId = int.Parse(arrStr);
                     taskRequestManagementBo.CreateTaskRequest(1, userVo.UserId, out parentrequestId);
                     //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
