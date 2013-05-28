@@ -81,31 +81,37 @@ namespace WealthERP.Reports
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
+            //DataTable dtGvRequestStatus = new DataTable();
+            //dtGvRequestStatus = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
+            //gvRequestStatus.DataSource = dtGvRequestStatus;
+
             DataTable dtGvRequestStatus = new DataTable();
             dtGvRequestStatus = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
             gvRequestStatus.DataSource = dtGvRequestStatus;
 
-            gvRequestStatus.ExportSettings.OpenInNewWindow = true;
-            gvRequestStatus.ExportSettings.IgnorePaging = true;
-            gvRequestStatus.ExportSettings.HideStructureColumns = true;
-            gvRequestStatus.ExportSettings.ExportOnlyData = true;
-            gvRequestStatus.ExportSettings.FileName = "RequestStatus Details";
-            gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvRequestStatus.MasterTableView.ExportToExcel();
+            //gvRequestStatus.ExportSettings.OpenInNewWindow = true;
+            //gvRequestStatus.ExportSettings.IgnorePaging = true;
+            //gvRequestStatus.ExportSettings.HideStructureColumns = true;
+            //gvRequestStatus.ExportSettings.ExportOnlyData = true;
+            //gvRequestStatus.ExportSettings.FileName = "RequestStatus Details";
+            //gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            //gvRequestStatus.MasterTableView.ExportToExcel();
         }
 
         protected void gvRequestStatus_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtGvSchemeDetails = new DataTable();
-            if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
+            if (advisorVo != null)
             {
-                dtGvSchemeDetails = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
-                gvRequestStatus.DataSource = dtGvSchemeDetails;
-                RadTabStrip2.Tabs[2].Selected = true;
-                tabViewAndEmailReports.SelectedIndex = 2;
-                //pnlGvRequestStatus.Visible = true;
+                if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
+                {
+                    dtGvSchemeDetails = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
+                    gvRequestStatus.DataSource = dtGvSchemeDetails;
+                    RadTabStrip2.Tabs[2].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 2;
+                    //pnlGvRequestStatus.Visible = true;
+                }
             }
-
            
 
             //
@@ -317,6 +323,8 @@ namespace WealthERP.Reports
                     //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                     {
+                        RadTabStrip2.Tabs[1].Visible = false;
+
                         dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
@@ -346,6 +354,8 @@ namespace WealthERP.Reports
                         LBCustomer.DataTextField = "C_FirstName";
                         LBCustomer.DataValueField = "C_CustomerId";
                         LBCustomer.DataBind();
+
+                        
                     }
                 }
                 #endregion
@@ -577,7 +587,6 @@ namespace WealthERP.Reports
             }
 
             gvRequestStatus.Rebind();
-
         }
 
         private void GetLatestValuationDate()
@@ -631,6 +640,12 @@ namespace WealthERP.Reports
         {
             BindGvRequestStatus();
             gvRequestStatus.DataSource = dtRequestStatusList;
+
+            if (dtRequestStatusList.Rows.Count != 0)
+                btnExportFilteredData.Visible = true;
+            else
+                btnExportFilteredData.Visible = false;            
+
             gvRequestStatus.DataBind();
             RadTabStrip2.Tabs[2].Selected = true;
             gvRequestStatus.CurrentPageIndex = 0;
