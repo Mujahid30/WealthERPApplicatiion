@@ -24,20 +24,20 @@
             isClose = true;
         }
     }
-    function somefunction() {
-        isClose = true;
-    }
-    function doUnload() {
-        if (!isClose) {
-            window.opener.Reprocess();
-        }
-    }
+//    function somefunction() {
+//        isClose = true;
+//    }
+//    function doUnload() {
+//        if (!isClose) {
+//            window.opener.Reprocess();
+//        }
+//    }
 
 
-    function ClosePopUp() {
+//    function ClosePopUp() {
 
-        window.close();
-    }
+//        window.close();
+//    }
 
     function GetCustomerId(source, eventArgs) {
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
