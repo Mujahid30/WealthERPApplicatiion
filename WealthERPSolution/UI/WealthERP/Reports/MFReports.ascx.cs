@@ -695,7 +695,7 @@ namespace WealthERP.Reports
 
 
             //new gr
-            RadTabStrip2.Tabs[activeTabIndex].Selected = true;
+            RadTabStrip2.Tabs[0].Selected = true;
             tabViewAndEmailReports.SelectedIndex = 0;
 
         }
@@ -1161,8 +1161,17 @@ namespace WealthERP.Reports
             //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
 
             //new gr
-            RadTabStrip2.Tabs[1].Selected = true;
-            tabViewAndEmailReports.SelectedIndex = 1;
+            if (RadTabStrip2.Tabs[1].Selected != false)
+            {
+                RadTabStrip2.Tabs[1].Selected = true;
+                tabViewAndEmailReports.SelectedIndex = 1;
+            }
+            else
+            {
+                RadTabStrip2.Tabs[0].Selected = true;
+                tabViewAndEmailReports.SelectedIndex = 0;
+            }
+
         }
 
         protected void rbnIndivisual_CheckedChanged(object sender, EventArgs e)
@@ -1194,8 +1203,16 @@ namespace WealthERP.Reports
             //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
 
             //new gr
-            RadTabStrip2.Tabs[1].Selected = true;
-            tabViewAndEmailReports.SelectedIndex = 1;
+            if (RadTabStrip2.Tabs[1].Selected != false)
+            {
+                RadTabStrip2.Tabs[1].Selected = true;
+                tabViewAndEmailReports.SelectedIndex = 1;
+            }
+            else
+            {
+                RadTabStrip2.Tabs[0].Selected = true;
+                tabViewAndEmailReports.SelectedIndex = 0;
+            }    
 
 
         }
@@ -1275,8 +1292,18 @@ namespace WealthERP.Reports
             //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
 
             //new gr
-            RadTabStrip2.Tabs[1].Selected = true;
-            tabViewAndEmailReports.SelectedIndex = 1;
+
+            //new gr
+            if (RadTabStrip2.Tabs[1].Selected != false)
+            {
+                RadTabStrip2.Tabs[1].Selected = true;
+                tabViewAndEmailReports.SelectedIndex = 1;
+            }
+            else
+            {
+                RadTabStrip2.Tabs[0].Selected = true;
+                tabViewAndEmailReports.SelectedIndex = 0;
+            }           
 
         }
 
@@ -1562,6 +1589,17 @@ namespace WealthERP.Reports
 
 
                 }
+
+                dtFinalRequestListStatus.Columns.Add("statusYN", typeof(string));
+
+                foreach (System.Data.DataRow dr in dtFinalRequestListStatus.Rows)
+                {
+                    if (Convert.ToInt32(dr["RequestStatus"]) == 1)
+                        dr["statusYN"] = "Yes";
+                    else
+                        dr["statusYN"] = "No";
+                }
+
 
                 //if (dtFinalRequestListStatus.Rows.Count != 0)
                 //    pnlGvRequestStatus.Visible = false;
