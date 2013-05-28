@@ -669,10 +669,11 @@
     </tr>
 </table>
 <div>
-    <telerik:RadTabStrip ID="RadTabStrip2" runat="server" Skin="Telerik" MultiPageID="tabViewAndEmailReports"
-        SelectedIndex="0">
+ 
+    <telerik:RadTabStrip ID="RadTabStrip2" runat="server" Skin="Telerik" MultiPageID="tabViewAndEmailReports" EnableTheming="True"  EnableEmbeddedSkins="False"
+        SelectedIndex="0" EnableViewState="true">
         <Tabs>
-            <telerik:RadTab runat="server" Text="View & Eamil" Value="tabpnlViewReports" TabIndex="0">
+            <telerik:RadTab runat="server" Text="View & Email" Value="tabpnlViewReports" TabIndex="0">
             </telerik:RadTab>
             <telerik:RadTab runat="server" Text="Bulk Mail Request" Value="tabpnlEmailReports"
                 TabIndex="1">
