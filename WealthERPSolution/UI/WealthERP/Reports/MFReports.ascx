@@ -392,8 +392,8 @@
     function getAllcustomerID(type) {
 
         if (type == 'mail') {
-            alert(hi);
-            var listBoxRef = document.getElementById("<%= RadListBoxDestination.ClientID %>");
+
+            var listBoxRef = document.getElementById("<%= LBSelectCustomer.ClientID %>");
             var functionReturn = '';
             for (var i = 0; i < listBoxRef.options.length; i++) {
 
@@ -490,7 +490,7 @@
     //Advisor Login MFreport RadioButton Selection change Validation...................
 
     function ChangeCustomerSelectionTextBox(value) {
-        alert('hi');
+
         switch (value) {
             case 'rdoGroup':
                 {
@@ -693,8 +693,7 @@
         SelectedIndex="0" Width="100%">
         <telerik:RadPageView ID="RadPageView1" runat="server" Style="margin-top: 20px">
             <asp:Panel ID="pnlReportView" runat="server" Width="100%">
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>
+              
                         <table width="100%">
                             <tr>
                                 <td width="100%">
@@ -1058,8 +1057,9 @@
                                 </td>
                             </tr>
                         </table>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
+                    
+              
+
             </asp:Panel>
         </telerik:RadPageView>
         <telerik:RadPageView ID="RadPageView2" runat="server" Style="margin-top: 20px">
@@ -1457,7 +1457,7 @@
 <asp:HiddenField ID="hdnValuationDate" runat="server" />
 
 <script type="text/javascript">
-
+   
     if (document.getElementById("<%= rbtnPickDate.ClientID %>").checked) {
         document.getElementById("<%= rbtnPickDate.ClientID %>").style.display = 'inline';
         document.getElementById("<%= trRange.ClientID %>").style.display = 'block';
@@ -1472,7 +1472,7 @@
         document.getElementById("<%= trAsOn.ClientID %>").style.display = 'none';
     }
 
-
+   
     //Code to maintain the state of the customer selection textbox on postback
     if (document.getElementById("<%= rdoGroup.ClientID %>") != null) {
         if (document.getElementById("<%= rdoGroup.ClientID %>").checked) {
@@ -1485,7 +1485,7 @@
             document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'block';
         }
     }
-
+    
     ChangeDates();
 </script>
 
