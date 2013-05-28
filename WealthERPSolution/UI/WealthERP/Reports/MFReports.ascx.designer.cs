@@ -35,6 +35,8 @@ namespace WealthERP.Reports
 
         protected global::Telerik.Web.UI.RadListBox LBCustomer;
 
+        protected global::Telerik.Web.UI.RadListBox RadListBoxDestination;
+
         /// <summary>
         /// tabViewAndEmailReports control.
         /// </summary>

@@ -97,15 +97,18 @@ namespace WealthERP.Reports
         protected void gvRequestStatus_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtGvSchemeDetails = new DataTable();
-            dtGvSchemeDetails = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
-            gvRequestStatus.DataSource = dtGvSchemeDetails;
+            if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
+            {
+                dtGvSchemeDetails = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
+                gvRequestStatus.DataSource = dtGvSchemeDetails;
+                RadTabStrip2.Tabs[2].Selected = true;
+                tabViewAndEmailReports.SelectedIndex = 2;
+                //pnlGvRequestStatus.Visible = true;
+            }
 
-            RadTabStrip2.Tabs[2].Selected = true;
-            tabViewAndEmailReports.SelectedIndex = 2;
+           
 
-            pnlGvRequestStatus.Visible = true;
-
-
+            //
         }
 
         /// <summary>
@@ -179,7 +182,7 @@ namespace WealthERP.Reports
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session["UserVo"];
-
+            pnlGvRequestStatus.Visible = true;
 
 
             //ddlReportSubType.Attributes.Add("onchange", "ChangeDates()");
@@ -337,16 +340,25 @@ namespace WealthERP.Reports
 
                     }
 
-
-                    LBCustomer.DataSource = dtGroupCustomerList;
-                    LBCustomer.DataTextField = "C_FirstName";
-                    LBCustomer.DataValueField = "C_CustomerId";
-                    LBCustomer.DataBind();
+                    if (!Page.IsPostBack)
+                    {
+                        LBCustomer.DataSource = dtGroupCustomerList;
+                        LBCustomer.DataTextField = "C_FirstName";
+                        LBCustomer.DataValueField = "C_CustomerId";
+                        LBCustomer.DataBind();
+                    }
                 }
                 #endregion
 
                 if (!IsPostBack)
                 {
+
+                    if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
+                    {
+                        Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
+                    }
+                    pnlGvRequestStatus.Visible = false;
+                                        
                     rbtnGrp.Checked = true;
                     rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
                     lblNote2.Visible = true;
@@ -621,14 +633,15 @@ namespace WealthERP.Reports
             gvRequestStatus.DataSource = dtRequestStatusList;
             gvRequestStatus.DataBind();
             RadTabStrip2.Tabs[2].Selected = true;
+            gvRequestStatus.CurrentPageIndex = 0;
+            gvRequestStatus.Rebind();
             if (dtRequestStatusList.Rows.Count != 0)
             {
-                gvRequestStatus.CurrentPageIndex = 0;
-                gvRequestStatus.Rebind();
-                pnlGvRequestStatus.Visible = true;
+               
+                //pnlGvRequestStatus.Visible = true;
             }
-            else
-                pnlGvRequestStatus.Visible = false;
+            //else
+            //    pnlGvRequestStatus.Visible = false;
         }
 
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
@@ -1269,7 +1282,13 @@ namespace WealthERP.Reports
 
         protected void btnEmailReport_Click(object sender, EventArgs e)
         {
-            String allCustomerId = SelectedCustomets4Email.Value;
+            String allCustomerId = string.Empty;
+
+            foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+            {
+                allCustomerId = allCustomerId + ListItem.Value.ToString() + ",";
+               
+            }     
             CustomerVo custVo = new CustomerVo();
             AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
             RMVo customerRMVo = new RMVo();
@@ -1522,9 +1541,9 @@ namespace WealthERP.Reports
 
                     }
 
-                    if (dvRequestLog.Table.Rows.Count > 0)
+                    if (dvRequestLog.ToTable().Rows.Count > 0)
                     {
-                        foreach (DataRow drlog in dvRequestLog.Table.Rows)
+                        foreach (DataRow drlog in dvRequestLog.ToTable().Rows)
                         {
                             drFinalStatus["ExecutionStartTime"] = drlog["WRL_ExecuteStartTime"].ToString();
                             drFinalStatus["ExecutionEndTime"] = drlog["WRL_EndTime"].ToString();
@@ -1544,10 +1563,10 @@ namespace WealthERP.Reports
 
                 }
 
-                if (dtFinalRequestListStatus.Rows.Count != 0)
-                    pnlGvRequestStatus.Visible = false;
-                else
-                    pnlGvRequestStatus.Visible = true;
+                //if (dtFinalRequestListStatus.Rows.Count != 0)
+                //    pnlGvRequestStatus.Visible = false;
+                //else
+                //    pnlGvRequestStatus.Visible = true;
 
                 if (Cache["gvRequestStatus" + advisorVo.advisorId] == null)
                 {
