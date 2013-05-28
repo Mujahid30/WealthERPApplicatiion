@@ -114,6 +114,19 @@ namespace WealthERP.Uploads
 
             }
 
+
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+            {
+                txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+            }
+
             if (rdbtnMapFolio.Checked)
             {
                 divMapToCustomer.Visible = true;
@@ -144,7 +157,7 @@ namespace WealthERP.Uploads
                 lblMessage.Visible = true;
                 lblMessage.CssClass = "Error";
                 lblMessage.Text = "your session has expired.Please close this window and login again.";
-                btnSearch.Enabled = false;
+                //btnSearch.Enabled = false;
                 gvCustomers.Visible = false;
             }
         }
@@ -160,6 +173,43 @@ namespace WealthERP.Uploads
             {
                 divCreateNewCustomer.Visible = true;
                 divMapToCustomer.Visible = false;
+            }
+        }
+
+
+        protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
+            {
+                ////trJointHoldersList.Visible = false;
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+                ////ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+              
+                //customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));               
+
+                int adviserId = 0;
+                if (advisorVo != null && advisorVo.advisorId > 0)
+                {
+                    if (userVo.UserType != "SuperAdmin")
+                    {
+                        adviserId = advisorVo.advisorId;
+                    }
+                    else
+                    {
+                        if (Session["adviserId_Upload"] != null)
+                            adviserId = (int)Session["adviserId_Upload"];
+                    }
+                    CustomerBo customerBo = new CustomerBo();
+                    DataSet dsCustomers = customerBo.SearchCustomers(adviserId, txtCustomerName.Text);
+                    gvCustomers.DataSource = dsCustomers;
+                    gvCustomers.DataBind();
+                    gvCustomers.Visible = true;
+                    if (dsCustomers.Tables[0].Rows.Count >= 100)
+                        lblRefine.Visible = true;
+                    else
+                        lblRefine.Visible = false;
+                }
+
             }
         }
 

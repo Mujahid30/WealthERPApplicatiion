@@ -1,7 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MapToCustomers.aspx.cs"
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MapToCustomers.aspx.cs"
     Inherits="WealthERP.Uploads.MapToCustomers" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -34,8 +35,14 @@
 
 
     function ClosePopUp() {
-       
+
         window.close();
+    }
+
+    function GetCustomerId(source, eventArgs) {
+        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+
+        return false;
     }
 </script>
 
@@ -84,10 +91,29 @@
                                 Customer Name
                             </td>
                             <td>
-                                <asp:TextBox ID="txtCustomerName" CssClass="txtField" runat="server"></asp:TextBox>
+                                <%--                                <asp:TextBox ID="txtCustomerName" CssClass="txtField" runat="server"></asp:TextBox>
+--%>
                             </td>
                             <td>
-                                <asp:Button ID="btnSearch" runat="server" CssClass="PCGButton" Text="Search" OnClick="btnSearch_Click" />
+                                <%--<asp:Button ID="btnSearch" runat="server" CssClass="PCGButton" Text="Search" OnClick="btnSearch_Click" />--%>
+                            </td>
+                            <td class="rightField" style="width: 20%">
+                                <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
+                                    onclientClick="ShowIsa()" AutoPostBack="True">
+                                </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
+                                <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
+                                    WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
+                                </cc1:TextBoxWatermarkExtender>
+                                <ajaxtoolkit:autocompleteextender id="txtCustomerName_autoCompleteExtender" runat="server"
+                                    targetcontrolid="txtCustomerName" servicemethod="GetCustomerName" servicepath="~/CustomerPortfolio/AutoComplete.asmx"
+                                    minimumprefixlength="1" enablecaching="False" completionsetcount="5" completioninterval="100"
+                                    completionlistcssclass="AutoCompleteExtender_CompletionList" completionlistitemcssclass="AutoCompleteExtender_CompletionListItem"
+                                    completionlisthighlighteditemcssclass="AutoCompleteExtender_HighlightedItem"
+                                    usecontextkey="True" onclientitemselected="GetCustomerId" delimitercharacters=""
+                                    enabled="True" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtCustomerName"
+                                    ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
+                                    CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
@@ -279,12 +305,13 @@
                         Display="Dynamic" runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
                     <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"></asp:Label>
-                </td>               
+                </td>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <td>
-                        <asp:CheckBox CssClass="cmbField" ID="chkUseDummyPan" runat="server" Text="Generate Dummy Pan" AutoPostBack="true" OnCheckedChanged="chkUseDummyPan_CheckedChanged" />
-                           <%-- <asp:RadioButton ToolTip="Pan Not Available" CssClass="txtField" runat="server" ID="rbtnNo"
+                            <asp:CheckBox CssClass="cmbField" ID="chkUseDummyPan" runat="server" Text="Generate Dummy Pan"
+                                AutoPostBack="true" OnCheckedChanged="chkUseDummyPan_CheckedChanged" />
+                            <%-- <asp:RadioButton ToolTip="Pan Not Available" CssClass="txtField" runat="server" ID="rbtnNo"
                                 Text="No" Checked="true" GroupName="btnDummyPan" OnCheckedChanged="rbtnHavePanNo_CheckedChanged"
                                 AutoPostBack="true" />
                             <asp:RadioButton AutoPostBack="true" ToolTip="Pan Available" CssClass="txtField"
@@ -345,6 +372,8 @@
             </tr>
         </table>
     </div>
+    
+<asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
     </form>
 </body>
 </html>
