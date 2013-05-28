@@ -540,7 +540,6 @@ namespace WealthERP.Reports
                         txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                         txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
                         txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                        RadTabStrip2.Tabs[1].Visible = false;
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
                     {
@@ -632,12 +631,6 @@ namespace WealthERP.Reports
         {
             BindGvRequestStatus();
             gvRequestStatus.DataSource = dtRequestStatusList;
-
-            if (dtRequestStatusList.Rows.Count != 0)
-                btnExportFilteredData.Visible = true;
-            else
-                btnExportFilteredData.Visible = false;
-
             gvRequestStatus.DataBind();
             RadTabStrip2.Tabs[2].Selected = true;
             gvRequestStatus.CurrentPageIndex = 0;
@@ -1584,18 +1577,6 @@ namespace WealthERP.Reports
                     Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
                     Cache.Insert("gvRequestStatus" + advisorVo.advisorId, dtFinalRequestListStatus);
                 }
-
-
-                dtFinalRequestListStatus.Columns.Add("statusYN", typeof(string));
-
-                foreach (System.Data.DataRow dr in dtFinalRequestListStatus.Rows)
-                {
-                    if (Convert.ToInt32(dr["RequestStatus"]) == 1)
-                        dr["statusYN"] = "Yes";
-                    else
-                        dr["statusYN"] = "No";
-                }
-
 
             }
             catch (BaseApplicationException Ex)
