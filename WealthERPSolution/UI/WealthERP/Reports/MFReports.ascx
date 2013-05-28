@@ -1328,7 +1328,7 @@
                                             <tr>
                                                 <td colspan="4">
                                                     <telerik:RadGrid ID="gvRequestStatus" runat="server" CssClass="RadGrid" GridLines="None"
-                                                        AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                                                        AllowPaging="True" PageSize="30" AllowSorting="True" AutoGenerateColumns="false"
                                                         ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                                                         AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvRequestStatus_NeedDataSource"
                                                         EnableEmbeddedSkins="false" EnableHeaderContextMenu="false" EnableHeaderContextFilterMenu="true"
@@ -1337,32 +1337,32 @@
                                                         </ExportSettings>
                                                         <MasterTableView CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
                                                             <Columns>
-                                                                <telerik:GridBoundColumn UniqueName="TaskName" HeaderStyle-Width="139px" HeaderText="Task Name"
+                                                                <telerik:GridBoundColumn UniqueName="TaskName" HeaderStyle-Width="139px" HeaderText="Request Type"
                                                                     DataField="TaskName" SortExpression="TaskName" AllowFiltering="true" ShowFilterIcon="false"
                                                                     AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn UniqueName="CreatedOn" HeaderText="Requested Date" DataFormatString="{0:d}"
+                                                                <telerik:GridBoundColumn UniqueName="CreatedOn" HeaderText="Requested Dt" DataFormatString="{0:d}"
                                                                     HeaderStyle-Width="130px" DataField="CreatedOn" SortExpression="CreatedOn" AllowFiltering="true"
                                                                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn UniqueName="CustomerName" HeaderStyle-Width="137px" HeaderText="Customer Name"
+                                                                <telerik:GridBoundColumn UniqueName="CustomerName" HeaderStyle-Width="137px" HeaderText="Customer"
                                                                     DataField="CustomerName" SortExpression="CustomerName" AllowFiltering="true"
                                                                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn UniqueName="ReportName" HeaderStyle-Width="200px" HeaderText="Report Name"
+                                                                <telerik:GridBoundColumn UniqueName="ReportName" HeaderStyle-Width="200px" HeaderText="Request Description"
                                                                     DataField="ReportName" SortExpression="ReportName" AllowFiltering="true" ShowFilterIcon="false"
                                                                     AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn UniqueName="FromDate" HeaderText="From Date" DataFormatString="{0:d}"
+                                                                <telerik:GridBoundColumn UniqueName="FromDate" HeaderText="Criteria - From Date" DataFormatString="{0:d}"
                                                                     HeaderStyle-Width="100px" DataField="FromDate" SortExpression="FromDate" AllowFiltering="true"
                                                                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn UniqueName="ToDate" HeaderText="To Date" DataFormatString="{0:d}"
+                                                                <telerik:GridBoundColumn UniqueName="ToDate" HeaderText="Criteria - To Date" DataFormatString="{0:d}"
                                                                     HeaderStyle-Width="100px" DataField="ToDate" SortExpression="ToDate" AllowFiltering="true"
                                                                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
@@ -1372,7 +1372,7 @@
                                                             AutoPostBackOnFilter="true">
                                                             <HeaderStyle></HeaderStyle>
                                                         </telerik:GridBoundColumn>--%>
-                                                                <telerik:GridBoundColumn UniqueName="RequestId" HeaderStyle-Width="100px" HeaderText="Request ID"
+                                                                <telerik:GridBoundColumn UniqueName="RequestId" HeaderStyle-Width="100px" HeaderText="ID"
                                                                     DataField="RequestId" SortExpression="RequestId" AllowFiltering="false" ShowFilterIcon="false"
                                                                     AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
@@ -1387,23 +1387,23 @@
                                                                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn UniqueName="RequestStatus" HeaderText="Request Status" HeaderStyle-Width="100px"
+                                                                <telerik:GridBoundColumn UniqueName="RequestStatus" HeaderText="Request Sts" HeaderStyle-Width="100px"
                                                                     DataField="RequestStatus" SortExpression="RequestStatus" AllowFiltering="true"
                                                                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
-                                                                <telerik:GridBoundColumn UniqueName="AttemptCount" HeaderStyle-Width="100px" HeaderText="Attempt Count"
+                                                                <telerik:GridBoundColumn UniqueName="AttemptCount" HeaderStyle-Width="100px" HeaderText="Nbr of Attempts"
                                                                     DataField="AttemptCount" SortExpression="AttemptCount" AllowFiltering="false"
                                                                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="ExecutionStartTime" HeaderStyle-Width="130px"
-                                                                    HeaderText="Execution StartTime" DataField="ExecutionStartTime" SortExpression="ExecutionStartTime"
+                                                                    HeaderText="Processing Start Time" DataField="ExecutionStartTime" SortExpression="ExecutionStartTime"
                                                                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="ExecutionEndTime" HeaderStyle-Width="130px"
-                                                                    HeaderText="Execution EndTime" DataField="ExecutionEndTime" SortExpression="ExecutionEndTime"
+                                                                    HeaderText="Processing End Time" DataField="ExecutionEndTime" SortExpression="ExecutionEndTime"
                                                                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
