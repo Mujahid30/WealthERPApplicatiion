@@ -110,7 +110,7 @@ namespace WealthERP.Reports
                     {
                         return ReportType.EquityReports;
                     }
-                    else if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != null)
+                    else if (Request.Form["ctrl_MFReports_btnExportToPDF"] != null || Request.Form["ctrl_MFReports_btnViewReport"] != null)
                     {
                         return ReportType.MFReports;
                     }
@@ -148,6 +148,7 @@ namespace WealthERP.Reports
         protected void Page_Init(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            string mfPageClientId = "ctrl_MFReports$";
             if (Session["rmVo"] != null)
                 rmVo = (RMVo)Session["rmVo"];
 
@@ -166,16 +167,16 @@ namespace WealthERP.Reports
             }
 
             //if (Request.Form["ctrl_MFReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$btnEMailReport"] != null)
-            if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != null
-                || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnExportToPDF"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerViewReport"] != null
-                || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerExportToPDF"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewInDOC"] != null
-                || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerViewInDOC"] != null)
+            if (Request.Form[mfPageClientId + "btnExportToPDF"] != null || Request.Form[mfPageClientId + "btnViewReport"] != null ||
+                Request.Form[mfPageClientId + "btnEmailReport"] != null || Request.Form[mfPageClientId + "btnCustomerViewReport"] != null ||
+                Request.Form[mfPageClientId + "btnCustomerExportToPDF"] != null || Request.Form[mfPageClientId + "btnViewInDOC"] != null ||
+                Request.Form[mfPageClientId + "btnCustomerViewInDOC "] != null)
             {
                 CurrentReportType = ReportType.MFReports;
                 if (Request.QueryString["Mail"] == "1")
-                    ctrlPrefix = "ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$";
+                    ctrlPrefix = "ctrl_MFReports$";
                 else
-                    ctrlPrefix = "ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$";
+                    ctrlPrefix = "ctrl_MFReports$";
                 if (Request.Form["ctrl_MFReports$hndCustomerLogin"] == "true" || Request.Form["ctrl_MFReports$hidBMLogin"] == "true")
                 {
                     btnSendMail.Visible = false;
