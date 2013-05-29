@@ -43,6 +43,9 @@
         if (type == 'mail')
             getAllcustomerID(type);
 
+        if (args.keyCode == 13) {
+            return false;
+        }
 
 
         if (type == 'mail') {
@@ -651,7 +654,6 @@
         width: 175px; /*margin-left: 0px;*/
     }
 </style>
-
 <table width="100%" class="TableBackground" style="padding-bottom: 6px;">
     <tr>
         <td>
@@ -660,6 +662,12 @@
                     <tr>
                         <td align="left">
                             MF Reports
+                        </td>
+                        <td  align="right">
+                             <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                    OnClientClick="setFormat('excel')" Height="22px" Width="25px"></asp:ImageButton>
+
                         </td>
                     </tr>
                 </table>
@@ -670,8 +678,8 @@
 <div>
     <telerik:RadTabStrip ID="RadTabStrip2" EnableTheming="True" Skin="Telerik" EnableEmbeddedSkins="False"
         runat="server" MultiPageID="tabViewAndEmailReports" SelectedIndex="0">
-        <Tabs>
-            <telerik:RadTab runat="server" Text="View & Eamil" Value="tabpnlViewReports" TabIndex="0">
+        <tabs>
+            <telerik:RadTab runat="server" Text="View & Email" Value="tabpnlViewReports" TabIndex="0">
             </telerik:RadTab>
             <telerik:RadTab runat="server" Text="Bulk Mail Request" Value="tabpnlEmailReports"
                 TabIndex="1">
@@ -679,7 +687,7 @@
             <telerik:RadTab runat="server" Text="Bulk Mail Status" Value="tabpnlRequestStatus"
                 TabIndex="2">
             </telerik:RadTab>
-        </Tabs>
+        </tabs>
     </telerik:RadTabStrip>
     <telerik:RadMultiPage ID="tabViewAndEmailReports" EnableViewState="false" runat="server"
         SelectedIndex="0" Width="100%">
@@ -1054,6 +1062,14 @@
             <asp:Panel ID="pnlEmailView" runat="server" Width="100%">
                 <table width="100%" height="100%" cellpadding="3">
                     <tr>
+                        <td align="center">
+                            <div id="msgEmailSentComplete" runat="server" class="success-msg" align="center"
+                                visible="false">
+                                Email Successfully Sent
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="E-Mail report for :"></asp:Label>
                             <%--  <asp:RadioButton runat="server" ID="rbnGroup"
@@ -1288,12 +1304,12 @@
                                 <telerik:RadDatePicker ID="rdpShowRequestStausGrid" CssClass="txtField" runat="server"
                                     Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
                                     ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                                    </Calendar>
-                                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                                    </DateInput>
+                                    <calendar id="Calendar1" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
+                                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
+                                    </calendar>
+                                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                                    <dateinput id="DateInput1" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                                    </dateinput>
                                 </telerik:RadDatePicker>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" Display="Dynamic"
                                     ValidationGroup="btnShowRequestStausGrid" ControlToValidate="rdpShowRequestStausGrid"
@@ -1308,10 +1324,7 @@
                                 </asp:Button>
                             </td>
                             <td style="width: 63%" align="right">
-                                <asp:ImageButton Visible="false" ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                            </td>
+                                                       </td>
                         </tr>
                         <tr>
                             <td colspan="5">
@@ -1327,9 +1340,9 @@
                                                         AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvRequestStatus_NeedDataSource"
                                                         EnableEmbeddedSkins="false" EnableHeaderContextMenu="false" EnableHeaderContextFilterMenu="true"
                                                         AllowFilteringByColumn="true">
-                                                        <ExportSettings HideStructureColumns="false" ExportOnlyData="true">
-                                                        </ExportSettings>
-                                                        <MasterTableView CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
+                                                        <exportsettings hidestructurecolumns="false" exportonlydata="true">
+                                                        </exportsettings>
+                                                        <mastertableview commanditemdisplay="None" commanditemsettings-showrefreshbutton="false">
                                                             <Columns>
                                                                 <telerik:GridBoundColumn UniqueName="TaskName" HeaderStyle-Width="139px" HeaderText="Request Type"
                                                                     DataField="TaskName" SortExpression="TaskName" AllowFiltering="true" ShowFilterIcon="false"
@@ -1412,12 +1425,12 @@
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
                                                             </Columns>
-                                                        </MasterTableView>
-                                                        <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+                                                        </mastertableview>
+                                                        <clientsettings reordercolumnsonclient="True" allowcolumnsreorder="True" enablerowhoverstyle="true">
                                                             <Scrolling AllowScroll="false" />
                                                             <Resizing AllowColumnResize="true" />
                                                             <Selecting AllowRowSelect="true" />
-                                                        </ClientSettings>
+                                                        </clientsettings>
                                                     </telerik:RadGrid>
                                                 </td>
                                             </tr>

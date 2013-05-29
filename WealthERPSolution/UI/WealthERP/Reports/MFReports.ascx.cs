@@ -79,24 +79,7 @@ namespace WealthERP.Reports
         }
 
 
-        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-        {
-            //DataTable dtGvRequestStatus = new DataTable();
-            //dtGvRequestStatus = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
-            //gvRequestStatus.DataSource = dtGvRequestStatus;
 
-            DataTable dtGvRequestStatus = new DataTable();
-            dtGvRequestStatus = (DataTable)Cache["gvRequestStatus" + advisorVo.advisorId];
-            gvRequestStatus.DataSource = dtGvRequestStatus;
-
-            //gvRequestStatus.ExportSettings.OpenInNewWindow = true;
-            //gvRequestStatus.ExportSettings.IgnorePaging = true;
-            //gvRequestStatus.ExportSettings.HideStructureColumns = true;
-            //gvRequestStatus.ExportSettings.ExportOnlyData = true;
-            //gvRequestStatus.ExportSettings.FileName = "RequestStatus Details";
-            //gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            //gvRequestStatus.MasterTableView.ExportToExcel();
-        }
 
         protected void gvRequestStatus_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
@@ -112,7 +95,7 @@ namespace WealthERP.Reports
                     //pnlGvRequestStatus.Visible = true;
                 }
             }
-           
+
 
             //
         }
@@ -324,7 +307,7 @@ namespace WealthERP.Reports
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                     {
                         RadTabStrip2.Tabs[1].Visible = false;
-
+                        RadTabStrip2.Tabs[2].Visible = false;
                         dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
@@ -355,7 +338,7 @@ namespace WealthERP.Reports
                         LBCustomer.DataValueField = "C_CustomerId";
                         LBCustomer.DataBind();
 
-                        
+
                     }
                 }
                 #endregion
@@ -368,7 +351,7 @@ namespace WealthERP.Reports
                         Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
                     }
                     pnlGvRequestStatus.Visible = false;
-                                        
+
                     rbtnGrp.Checked = true;
                     rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
                     lblNote2.Visible = true;
@@ -642,17 +625,17 @@ namespace WealthERP.Reports
             gvRequestStatus.DataSource = dtRequestStatusList;
 
             if (dtRequestStatusList.Rows.Count != 0)
-                btnExportFilteredData.Visible = true;
+                imgBtnrgHoldings.Visible = true;
             else
-                btnExportFilteredData.Visible = false;            
-
+                imgBtnrgHoldings.Visible = false;
+            gvRequestStatus.MasterTableView.UseAllDataFields = false;
             gvRequestStatus.DataBind();
             RadTabStrip2.Tabs[2].Selected = true;
             gvRequestStatus.CurrentPageIndex = 0;
             gvRequestStatus.Rebind();
             if (dtRequestStatusList.Rows.Count != 0)
             {
-               
+
                 //pnlGvRequestStatus.Visible = true;
             }
             //else
@@ -1227,7 +1210,7 @@ namespace WealthERP.Reports
             {
                 RadTabStrip2.Tabs[0].Selected = true;
                 tabViewAndEmailReports.SelectedIndex = 0;
-            }    
+            }
 
 
         }
@@ -1318,7 +1301,7 @@ namespace WealthERP.Reports
             {
                 RadTabStrip2.Tabs[0].Selected = true;
                 tabViewAndEmailReports.SelectedIndex = 0;
-            }           
+            }
 
         }
 
@@ -1329,8 +1312,8 @@ namespace WealthERP.Reports
             foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
             {
                 allCustomerId = allCustomerId + ListItem.Value.ToString() + ",";
-               
-            }     
+
+            }
             CustomerVo custVo = new CustomerVo();
             AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
             RMVo customerRMVo = new RMVo();
@@ -1393,7 +1376,7 @@ namespace WealthERP.Reports
                 }
             }
 
-
+            msgEmailSentComplete.Visible = true;
 
         }
 
@@ -1653,6 +1636,15 @@ namespace WealthERP.Reports
             return dtFinalRequestListStatus;
         }
 
-
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvRequestStatus.ExportSettings.OpenInNewWindow = true;
+            gvRequestStatus.ExportSettings.IgnorePaging = true;
+            gvRequestStatus.ExportSettings.HideStructureColumns = true;
+            gvRequestStatus.ExportSettings.ExportOnlyData = true;
+            gvRequestStatus.ExportSettings.FileName = "Upload History Details";
+            gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvRequestStatus.MasterTableView.ExportToExcel();
+        }
     }
 }
