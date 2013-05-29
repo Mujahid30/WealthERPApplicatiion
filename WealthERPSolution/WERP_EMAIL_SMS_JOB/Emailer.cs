@@ -436,6 +436,8 @@ namespace WERP_EMAIL_SMS_JOB
                 }
 
                 //mail.From = email.From;
+            
+                email.To.Remove(email.To.First());
 
                 foreach (MailAddress toEmail in email.To)
                 {
