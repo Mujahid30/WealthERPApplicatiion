@@ -169,6 +169,8 @@ namespace WealthERP.Reports
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+
             SessionBo.CheckSession();
             userVo = (UserVo)Session["UserVo"];
             pnlGvRequestStatus.Visible = true;
@@ -345,7 +347,7 @@ namespace WealthERP.Reports
 
                 if (!IsPostBack)
                 {
-
+                    imgBtnrgHoldings.Visible = false;
                     if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
                     {
                         Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
@@ -630,8 +632,13 @@ namespace WealthERP.Reports
                 imgBtnrgHoldings.Visible = false;
             gvRequestStatus.MasterTableView.UseAllDataFields = false;
             gvRequestStatus.DataBind();
-            RadTabStrip2.Tabs[2].Selected = true;
-            gvRequestStatus.CurrentPageIndex = 0;
+
+            //new gr
+          
+                RadTabStrip2.Tabs[2].Selected = true;
+                tabViewAndEmailReports.SelectedIndex = 2;
+           
+
             gvRequestStatus.Rebind();
             if (dtRequestStatusList.Rows.Count != 0)
             {
@@ -1369,7 +1376,7 @@ namespace WealthERP.Reports
                     mfReportEmailVo.CustomerId = custVo.CustomerId;
                     mfReportEmailVo.CustomerEmail = custVo.Email;
                     mfReportEmailVo.RMEmail = customerRMVo.Email;
-                    mfReportEmailVo.ReportTypeName = "Mutual Fund";
+                    mfReportEmailVo.ReportTypeName = "Mutual Fund Portfolio Statement";
 
                     taskRequestManagementBo.CreateBulkReportRequest(mfReportVoList, mfReportEmailVo, parentrequestId, 1, userVo.UserId);
 
@@ -1558,10 +1565,10 @@ namespace WealthERP.Reports
                                 drFinalStatus["ReportName"] = drParameter["WRD_InputParameterValue"].ToString();
                                 break;
                             case 1001:
-                                drFinalStatus["FromDate"] = drParameter["WRD_InputParameterValue"].ToString();
+                                drFinalStatus["FromDate"] =Convert.ToDateTime(drParameter["WRD_InputParameterValue"].ToString());
                                 break;
                             case 1002:
-                                drFinalStatus["ToDate"] = drParameter["WRD_InputParameterValue"].ToString();
+                                drFinalStatus["ToDate"] =Convert.ToDateTime(drParameter["WRD_InputParameterValue"].ToString());
                                 break;
 
                         }
@@ -1642,8 +1649,8 @@ namespace WealthERP.Reports
             gvRequestStatus.ExportSettings.IgnorePaging = true;
             gvRequestStatus.ExportSettings.HideStructureColumns = true;
             gvRequestStatus.ExportSettings.ExportOnlyData = true;
-            gvRequestStatus.ExportSettings.FileName = "Upload History Details";
-            gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvRequestStatus.ExportSettings.FileName = "Bulk Mail Status Details";
+            //gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvRequestStatus.MasterTableView.ExportToExcel();
         }
     }
