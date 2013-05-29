@@ -30,6 +30,7 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                 Params[1] = new SqlParameter("@DaemonCode", daemonCode);
                 Params[1].DbType = DbType.String;
                 DS = Utils.ExecuteDataSet("SPROC_GetWERPRequestList", Params);
+                //DS = Utils.ExecuteDataSet("SPROC_GetWERPRequestList_Test", Params);
 
             }
             catch (BaseApplicationException Ex)
@@ -63,6 +64,7 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                 
                 Database DB = DatabaseFactory.CreateDatabase("wealtherp");
                 DbCommand CMD = DB.GetStoredProcCommand("SPROC_GetWERPSubRequestWithParameterValues");
+                //DbCommand CMD = DB.GetStoredProcCommand("SPROC_GetWERPSubRequestWithParameterValues_Test");
                 DB.AddInParameter(CMD, "@TaskRequestId", DbType.Int32, parentRequestId);
                 DB.AddInParameter(CMD, "@DaemonCode", DbType.String, daemonCode);
                 //DB.AddOutParameter(CMD, "@RequestLogId", DbType.Int32, 1000000);

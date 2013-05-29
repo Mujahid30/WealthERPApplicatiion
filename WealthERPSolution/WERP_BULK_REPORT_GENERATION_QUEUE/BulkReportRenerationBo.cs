@@ -216,8 +216,8 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
             if (advisorVo.LogoPath != null && advisorVo.LogoPath != string.Empty)
                 advisorLogo = advisorVo.LogoPath;
 
-            string adviserLogoPath = logoPath + advisorLogo;
-            if (!File.Exists(logoPath))
+            string adviserLogoPath = logoPath + @"\" + advisorLogo;
+            if (!File.Exists(adviserLogoPath))
                 adviserLogoPath = logoPath + @"\spacer.png";
 
             crmain.Database.Tables["Images"].SetDataSource(ImageTable(adviserLogoPath));
