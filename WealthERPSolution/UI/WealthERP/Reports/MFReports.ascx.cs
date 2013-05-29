@@ -215,6 +215,8 @@ namespace WealthERP.Reports
 
                     //new gr
                     RadTabStrip2.Tabs[1].Visible = false;
+                    RadTabStrip2.Tabs[2].Visible = false;
+
 
                 }
                 else
