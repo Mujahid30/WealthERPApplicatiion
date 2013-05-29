@@ -1072,7 +1072,7 @@
                         <td align="center">
                             <div id="msgEmailSentComplete" runat="server" class="success-msg" align="center"
                                 visible="false">
-                                Request Send Successfully
+                                Request Sent Successfully
                             </div>
                         </td>
                     </tr>
@@ -1383,6 +1383,11 @@
                                                                 AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="StatusYN" HeaderText="Status Completed(Y/N)"
+                                                                DataField="StatusYN" HeaderStyle-Width="100px" SortExpression="StatusYN" AllowFiltering="true"
+                                                                ShowFilterIcon="false" AutoPostBackOnFilter="true" ItemStyle-Wrap="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
                                                             <telerik:GridBoundColumn UniqueName="Message" HeaderText="Message" DataField="Message"
                                                                 HeaderStyle-Width="500px" SortExpression="Message" AllowFiltering="true" ShowFilterIcon="false"
                                                                 AutoPostBackOnFilter="true" ItemStyle-Wrap="true">
@@ -1403,14 +1408,9 @@
                                                                 AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
-                                                            <telerik:GridBoundColumn UniqueName="ParentRequestId" HeaderText="ParentRequestId"
+                                                            <telerik:GridBoundColumn UniqueName="Parent Request Id" HeaderText="ParentRequestId"
                                                                 HeaderStyle-Width="107px" DataField="ParentRequestId" SortExpression="ParentRequestId"
                                                                 AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                                                <HeaderStyle></HeaderStyle>
-                                                            </telerik:GridBoundColumn>
-                                                            <telerik:GridBoundColumn UniqueName="StatusYN" HeaderText="Status Completed(Y/N)"
-                                                                DataField="StatusYN" HeaderStyle-Width="100px" SortExpression="StatusYN" AllowFiltering="true"
-                                                                ShowFilterIcon="false" AutoPostBackOnFilter="true" ItemStyle-Wrap="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
                                                             <telerik:GridBoundColumn UniqueName="FromDate" HeaderText="Criteria - From Date"

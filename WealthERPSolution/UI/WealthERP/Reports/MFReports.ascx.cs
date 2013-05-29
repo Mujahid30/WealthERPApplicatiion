@@ -313,6 +313,7 @@ namespace WealthERP.Reports
                         RadTabStrip2.Tabs[1].Visible = false;
                         RadTabStrip2.Tabs[2].Visible = false;
                         dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                        imgBtnrgHoldings.Visible = false;
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
                     {
@@ -321,9 +322,8 @@ namespace WealthERP.Reports
 
                         //new gr
                         RadTabStrip2.Tabs[1].Visible = true;
-
                         dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
-
+                        imgBtnrgHoldings.Visible = true;
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                     {
@@ -332,8 +332,8 @@ namespace WealthERP.Reports
 
                         //new gr
                         RadTabStrip2.Tabs[1].Visible = false;
-
                         RadTabStrip2.Tabs[2].Visible = false;
+                        imgBtnrgHoldings.Visible = false;
                     }
 
                     if (!Page.IsPostBack)
@@ -347,7 +347,7 @@ namespace WealthERP.Reports
                     }
                 }
                 #endregion
-
+                ddlMFTransactionTypeBind();
                 if (!IsPostBack)
                 {
                     //imgBtnrgHoldings.Visible = false;
@@ -359,8 +359,7 @@ namespace WealthERP.Reports
 
                     rbtnGrp.Checked = true;
                     rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
-                    lblNote2.Visible = true;
-                    ddlMFTransactionTypeBind();
+                    lblNote2.Visible = true;                   
 
                     #region old code
                     //if (CustomerLogin == true)
