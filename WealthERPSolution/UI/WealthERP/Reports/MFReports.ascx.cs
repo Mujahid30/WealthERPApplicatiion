@@ -1314,11 +1314,12 @@ namespace WealthERP.Reports
 
         protected void btnEmailReport_Click(object sender, EventArgs e)
         {
-            String allCustomerId = string.Empty;
+            StringBuilder allCustomerId = new StringBuilder();
 
             foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
             {
-                allCustomerId = allCustomerId + ListItem.Value.ToString() + ",";
+                allCustomerId.Append(ListItem.Value);
+                allCustomerId.Append(",");
 
             }
             CustomerVo custVo = new CustomerVo();
@@ -1326,7 +1327,7 @@ namespace WealthERP.Reports
             RMVo customerRMVo = new RMVo();
             char[] separator = new char[] { ',' };
             int customerId = 0;
-            string[] strSplitArr = allCustomerId.Split(separator);
+            string[] strSplitArr = Convert.ToString(allCustomerId).Split(separator);
             //bool isForGroupCustomer = false;
             int groupCustomerId = 0;
             int parentrequestId = 0;
