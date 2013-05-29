@@ -30,6 +30,15 @@
     });
 </script>
 
+<script>
+    $(document).keypress(function(e) {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+</script>
+
 <script type="text/javascript" language="javascript">
 
 
@@ -39,13 +48,12 @@
         var panel = "";
         var isPorfolioSelected = false;
 
+
+
         //Get all customerId from ListBox For malling
         if (type == 'mail')
             getAllcustomerID(type);
 
-        if (args.keyCode == 13) {
-            return false;
-        }
 
 
         if (type == 'mail') {
@@ -1064,7 +1072,7 @@
                         <td align="center">
                             <div id="msgEmailSentComplete" runat="server" class="success-msg" align="center"
                                 visible="false">
-                                Email Successfully Sent
+                                Request Send Successfully
                             </div>
                         </td>
                     </tr>
@@ -1173,7 +1181,7 @@
                                                 <td width="100%">
                                                     <asp:CheckBoxList ID="chkAsOnReportList" runat="server" class="cmbField" Width="100%">
                                                         <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE"></asp:ListItem>
-                                                        <asp:ListItem Text="Portfolio Return-Holdoing" Value="RETURNS_PORTFOLIO"></asp:ListItem>
+                                                        <asp:ListItem Text="Portfolio Return-Holding" Value="RETURNS_PORTFOLIO"></asp:ListItem>
                                                         <asp:ListItem Text="Comprehensive" Value="COMPREHENSIVE"></asp:ListItem>
                                                         <asp:ListItem Text="Eligible Capital Gain Details" Value="ELIGIBLE_CAPITAL_GAIN_DETAILS"></asp:ListItem>
                                                         <asp:ListItem Text="Eligible Capital Gains Summary" Value="ELIGIBLE_CAPITAL_GAIN_SUMMARY"></asp:ListItem>
@@ -1290,159 +1298,159 @@
             </asp:Panel>
         </telerik:RadPageView>
         <telerik:RadPageView ID="RadPageView3" runat="server" Style="margin-top: 20px">
-            <%--  <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-                <ContentTemplate>--%>
-            <table width="100%">
-                <tr>
-                    <td style="width: 5%">
-                        <p class="FieldName">
-                            Requested Date :
-                        </p>
-                    </td>
-                    <td class="rightField" style="width: 5%">
-                        <telerik:RadDatePicker ID="rdpShowRequestStausGrid" CssClass="txtField" runat="server"
-                            Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                            ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                            <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                                ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                            </Calendar>
-                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                            <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                            </DateInput>
-                        </telerik:RadDatePicker>
-                        <br />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" Display="Dynamic"
-                            ValidationGroup="btnShowRequestStausGrid" ControlToValidate="rdpShowRequestStausGrid"
-                            ErrorMessage="Please select a date"></asp:RequiredFieldValidator>
-                    </td>
-                    <td style="width: 2%">
-                        <span id="Span5" class="spnRequiredField">* </span>
-                    </td>
-                    <td style="width: 10%">
-                        <asp:Button ID="btnShowRequestStausGrid" CssClass="PCGButton" Text="GO" runat="server"
-                            ValidationGroup="btnShowRequestStausGrid" OnClick="btnShowRequestStausGrid_Click">
-                        </asp:Button>
-                    </td>
-                    <td style="width: 78%" align="right">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="5">
-                        <asp:Panel ID="pnlGvRequestStatus" Visible="true" runat="server" class="Landscape"
-                            Width="47%" ScrollBars="Horizontal">
-                            <%--<div id="dvAll" runat="server" style="width: 640px; height: 420px">--%>
-                            <table width="100%" cellspacing="0" cellpadding="4">
-                                <tr>
-                                    <td colspan="4">
-                                        <telerik:RadGrid ID="gvRequestStatus" runat="server" CssClass="RadGrid" GridLines="None"
-                                            AllowPaging="True" Width="100%" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
-                                            ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                                            AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvRequestStatus_NeedDataSource"
-                                            EnableEmbeddedSkins="false" EnableHeaderContextMenu="false" EnableHeaderContextFilterMenu="true"
-                                            AllowFilteringByColumn="true">
-                                            <ExportSettings HideStructureColumns="false" ExportOnlyData="true">
-                                            </ExportSettings>
-                                            <MasterTableView Width="90%" CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
-                                                <Columns>
-                                                    <telerik:GridBoundColumn UniqueName="CustomerName" HeaderStyle-Width="137px" HeaderText="Customer"
-                                                        DataField="CustomerName" SortExpression="CustomerName" AllowFiltering="true"
-                                                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="TaskName" HeaderStyle-Width="139px" HeaderText="Request Type"
-                                                        DataField="TaskName" SortExpression="TaskName" AllowFiltering="true" ShowFilterIcon="false"
-                                                        AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="ReportName" HeaderStyle-Width="147px" HeaderText="Request Description"
-                                                        DataField="ReportName" SortExpression="ReportName" AllowFiltering="true" ShowFilterIcon="false"
-                                                        AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <%--  <telerik:GridBoundColumn UniqueName="CreatedOn" HeaderText="Requested Dt" 
+            <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                <ContentTemplate>
+                    <table width="100%">
+                        <tr>
+                            <td style="width: 5%">
+                                <p class="FieldName">
+                                    Requested Date :
+                                </p>
+                            </td>
+                            <td class="rightField" style="width: 5%">
+                                <telerik:RadDatePicker ID="rdpShowRequestStausGrid" CssClass="txtField" runat="server"
+                                    Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                                    ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                    </Calendar>
+                                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                    </DateInput>
+                                </telerik:RadDatePicker>
+                                <br />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" Display="Dynamic"
+                                    ValidationGroup="btnShowRequestStausGrid" ControlToValidate="rdpShowRequestStausGrid"
+                                    ErrorMessage="Please select a date"></asp:RequiredFieldValidator>
+                            </td>
+                            <td style="width: 2%">
+                                <span id="Span5" class="spnRequiredField">* </span>
+                            </td>
+                            <td style="width: 10%">
+                                <asp:Button ID="btnShowRequestStausGrid" CssClass="PCGButton" Text="GO" runat="server"
+                                    ValidationGroup="btnShowRequestStausGrid" OnClick="btnShowRequestStausGrid_Click">
+                                </asp:Button>
+                            </td>
+                            <td style="width: 78%" align="right">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <asp:Panel ID="pnlGvRequestStatus" Visible="true" runat="server" class="Landscape"
+                                    Width="47%" ScrollBars="Horizontal">
+                                    <%--<div id="dvAll" runat="server" style="width: 640px; height: 420px">--%>
+                                    <table width="100%" cellspacing="0" cellpadding="4">
+                                        <tr>
+                                            <td colspan="4">
+                                                <telerik:RadGrid ID="gvRequestStatus" runat="server" CssClass="RadGrid" GridLines="None"
+                                                    AllowPaging="True" Width="100%" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                                                    ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+                                                    AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvRequestStatus_NeedDataSource"
+                                                    EnableEmbeddedSkins="false" EnableHeaderContextMenu="false" EnableHeaderContextFilterMenu="true"
+                                                    AllowFilteringByColumn="true">
+                                                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true">
+                                                    </ExportSettings>
+                                                    <MasterTableView Width="90%" CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
+                                                        <Columns>
+                                                            <telerik:GridBoundColumn UniqueName="CustomerName" HeaderStyle-Width="137px" HeaderText="Customer"
+                                                                DataField="CustomerName" SortExpression="CustomerName" AllowFiltering="true"
+                                                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="TaskName" HeaderStyle-Width="139px" HeaderText="Request Type"
+                                                                DataField="TaskName" SortExpression="TaskName" AllowFiltering="true" ShowFilterIcon="false"
+                                                                AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="ReportName" HeaderStyle-Width="147px" HeaderText="Request Description"
+                                                                DataField="ReportName" SortExpression="ReportName" AllowFiltering="true" ShowFilterIcon="false"
+                                                                AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <%--  <telerik:GridBoundColumn UniqueName="CreatedOn" HeaderText="Requested Dt" 
                                                                     HeaderStyle-Width="130px" DataField="CreatedOn" SortExpression="CreatedOn" AllowFiltering="true"
                                                                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                     <HeaderStyle></HeaderStyle>
                                                                 </telerik:GridBoundColumn>
                                                               --%>
-                                                    <telerik:GridBoundColumn UniqueName="RequeTime" HeaderText="Requested Dt" HeaderStyle-Width="144px"
-                                                        DataField="RequeTime" SortExpression="RequeTime" AllowFiltering="false" ShowFilterIcon="false"
-                                                        AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="Message" HeaderText="Message" DataField="Message"
-                                                        HeaderStyle-Width="500px" SortExpression="Message" AllowFiltering="true" ShowFilterIcon="false"
-                                                        AutoPostBackOnFilter="true" ItemStyle-Wrap="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="RequestId" HeaderStyle-Width="100px" HeaderText="ID"
-                                                        DataField="RequestId" SortExpression="RequestId" AllowFiltering="false" ShowFilterIcon="false"
-                                                        AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="AttemptCount" HeaderStyle-Width="100px" HeaderText="Nbr of Attempts"
-                                                        DataField="AttemptCount" SortExpression="AttemptCount" AllowFiltering="false"
-                                                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="DependentRequestId" HeaderStyle-Width="104px"
-                                                        HeaderText="Dependent Request ID" DataField="DependentRequestId" SortExpression="DependentRequestId"
-                                                        AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="ParentRequestId" HeaderText="ParentRequestId"
-                                                        HeaderStyle-Width="107px" DataField="ParentRequestId" SortExpression="ParentRequestId"
-                                                        AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn Visible="false" UniqueName="RequestStatus" HeaderText="Request Sts"
-                                                        HeaderStyle-Width="100px" DataField="RequestStatus" SortExpression="RequestStatus"
-                                                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="StatusYN" HeaderText="Status Completed(Y/N)"
-                                                        DataField="StatusYN" HeaderStyle-Width="100px" SortExpression="StatusYN" AllowFiltering="true"
-                                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" ItemStyle-Wrap="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="FromDate" HeaderText="Criteria - From Date"
-                                                        HeaderStyle-Width="130px" DataField="FromDate" SortExpression="FromDate" AllowFiltering="true"
-                                                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="ToDate" HeaderText="Criteria - To Date" HeaderStyle-Width="130px"
-                                                        DataField="ToDate" SortExpression="ToDate" AllowFiltering="true" ShowFilterIcon="false"
-                                                        AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="ExecutionStartTime" HeaderStyle-Width="130px"
-                                                        HeaderText="Processing Start Time" DataField="ExecutionStartTime" SortExpression="ExecutionStartTime"
-                                                        AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn UniqueName="ExecutionEndTime" HeaderStyle-Width="130px"
-                                                        HeaderText="Processing End Time" DataField="ExecutionEndTime" SortExpression="ExecutionEndTime"
-                                                        AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                                        <HeaderStyle></HeaderStyle>
-                                                    </telerik:GridBoundColumn>
-                                                </Columns>
-                                            </MasterTableView>
-                                            <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
-                                                <Scrolling AllowScroll="false" />
-                                                <Resizing AllowColumnResize="true" />
-                                                <Selecting AllowRowSelect="true" />
-                                            </ClientSettings>
-                                        </telerik:RadGrid>
-                                    </td>
-                                </tr>
-                            </table>
-                            <%--</div>--%>
-                        </asp:Panel>
-                    </td>
-                </tr>
-            </table>
-            <%-- </ContentTemplate>
-            </asp:UpdatePanel>--%>
+                                                            <telerik:GridBoundColumn UniqueName="RequeTime" HeaderText="Requested Dt" HeaderStyle-Width="144px"
+                                                                DataField="RequeTime" SortExpression="RequeTime" AllowFiltering="false" ShowFilterIcon="false"
+                                                                AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn Visible="false" UniqueName="RequestStatus" HeaderText="Request Sts"
+                                                                HeaderStyle-Width="100px" DataField="RequestStatus" SortExpression="RequestStatus"
+                                                                AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="Message" HeaderText="Message" DataField="Message"
+                                                                HeaderStyle-Width="500px" SortExpression="Message" AllowFiltering="true" ShowFilterIcon="false"
+                                                                AutoPostBackOnFilter="true" ItemStyle-Wrap="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="RequestId" HeaderStyle-Width="100px" HeaderText="ID"
+                                                                DataField="RequestId" SortExpression="RequestId" AllowFiltering="false" ShowFilterIcon="false"
+                                                                AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="AttemptCount" HeaderStyle-Width="100px" HeaderText="Nbr of Attempts"
+                                                                DataField="AttemptCount" SortExpression="AttemptCount" AllowFiltering="false"
+                                                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="DependentRequestId" HeaderStyle-Width="104px"
+                                                                HeaderText="Dependent Request ID" DataField="DependentRequestId" SortExpression="DependentRequestId"
+                                                                AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="ParentRequestId" HeaderText="ParentRequestId"
+                                                                HeaderStyle-Width="107px" DataField="ParentRequestId" SortExpression="ParentRequestId"
+                                                                AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="StatusYN" HeaderText="Status Completed(Y/N)"
+                                                                DataField="StatusYN" HeaderStyle-Width="100px" SortExpression="StatusYN" AllowFiltering="true"
+                                                                ShowFilterIcon="false" AutoPostBackOnFilter="true" ItemStyle-Wrap="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="FromDate" HeaderText="Criteria - From Date"
+                                                                HeaderStyle-Width="130px" DataField="FromDate" SortExpression="FromDate" AllowFiltering="true"
+                                                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="ToDate" HeaderText="Criteria - To Date" HeaderStyle-Width="130px"
+                                                                DataField="ToDate" SortExpression="ToDate" AllowFiltering="true" ShowFilterIcon="false"
+                                                                AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="ExecutionStartTime" HeaderStyle-Width="130px"
+                                                                HeaderText="Processing Start Time" DataField="ExecutionStartTime" SortExpression="ExecutionStartTime"
+                                                                AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="ExecutionEndTime" HeaderStyle-Width="130px"
+                                                                HeaderText="Processing End Time" DataField="ExecutionEndTime" SortExpression="ExecutionEndTime"
+                                                                AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                        </Columns>
+                                                    </MasterTableView>
+                                                    <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+                                                        <Scrolling AllowScroll="false" />
+                                                        <Resizing AllowColumnResize="true" />
+                                                        <Selecting AllowRowSelect="true" />
+                                                    </ClientSettings>
+                                                </telerik:RadGrid>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <%--</div>--%>
+                                </asp:Panel>
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </telerik:RadPageView>
     </telerik:RadMultiPage>
 </div>

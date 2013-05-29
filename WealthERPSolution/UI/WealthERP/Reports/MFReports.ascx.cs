@@ -331,6 +331,7 @@ namespace WealthERP.Reports
                         //new gr
                         RadTabStrip2.Tabs[1].Visible = false;
 
+                        RadTabStrip2.Tabs[2].Visible = false;
                     }
 
                     if (!Page.IsPostBack)
@@ -347,7 +348,7 @@ namespace WealthERP.Reports
 
                 if (!IsPostBack)
                 {
-                    imgBtnrgHoldings.Visible = false;
+                    //imgBtnrgHoldings.Visible = false;
                     if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
                     {
                         Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
@@ -1314,12 +1315,11 @@ namespace WealthERP.Reports
 
         protected void btnEmailReport_Click(object sender, EventArgs e)
         {
-            StringBuilder allCustomerId = new StringBuilder();
+            String allCustomerId = string.Empty;
 
             foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
             {
-                allCustomerId.Append(ListItem.Value);
-                allCustomerId.Append(",");
+                allCustomerId = allCustomerId + ListItem.Value.ToString() + ",";
 
             }
             CustomerVo custVo = new CustomerVo();
@@ -1327,7 +1327,7 @@ namespace WealthERP.Reports
             RMVo customerRMVo = new RMVo();
             char[] separator = new char[] { ',' };
             int customerId = 0;
-            string[] strSplitArr = Convert.ToString(allCustomerId).Split(separator);
+            string[] strSplitArr = allCustomerId.Split(separator);
             //bool isForGroupCustomer = false;
             int groupCustomerId = 0;
             int parentrequestId = 0;
@@ -1646,13 +1646,17 @@ namespace WealthERP.Reports
 
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvRequestStatus.ExportSettings.OpenInNewWindow = true;
-            gvRequestStatus.ExportSettings.IgnorePaging = true;
-            gvRequestStatus.ExportSettings.HideStructureColumns = true;
-            gvRequestStatus.ExportSettings.ExportOnlyData = true;
-            gvRequestStatus.ExportSettings.FileName = "Bulk Mail Status Details";
-            //gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvRequestStatus.MasterTableView.ExportToExcel();
+            if (gvRequestStatus.DataSource != null)
+            {
+
+                gvRequestStatus.ExportSettings.OpenInNewWindow = true;
+                gvRequestStatus.ExportSettings.IgnorePaging = true;
+                gvRequestStatus.ExportSettings.HideStructureColumns = true;
+                gvRequestStatus.ExportSettings.ExportOnlyData = true;
+                gvRequestStatus.ExportSettings.FileName = "Bulk Mail Status Details";
+                //gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvRequestStatus.MasterTableView.ExportToExcel();
+            }
         }
     }
 }
