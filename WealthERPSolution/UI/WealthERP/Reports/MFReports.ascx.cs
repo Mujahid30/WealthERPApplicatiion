@@ -201,6 +201,7 @@ namespace WealthERP.Reports
                 {
                     if (Session["UserType"].ToString() == "Customer")
                         strFromCustomerDashBoard = true;
+                    imgBtnrgHoldings.Visible = false;
                 }
 
                 if (Session["UserType"].ToString().Trim() == "Customer" && strFromCustomerDashBoard == true)
