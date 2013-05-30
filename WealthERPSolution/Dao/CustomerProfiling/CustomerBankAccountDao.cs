@@ -496,6 +496,8 @@ namespace DaoCustomerProfiling
                     dr = getCustomerBankDs.Tables[0].Rows[0];
                     if (dr["CB_CustBankAccId"].ToString() != "")
                         customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
+                    if (dr["CP_PortfolioId"].ToString() != "")
+                        customerBankAccountVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
                     customerBankAccountVo.BankName = dr["WERPBM_BankCode"].ToString();
                     //if (dr["XBAT_BankAccountTypeCode"].ToString() == "SB")
                     //{
