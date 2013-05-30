@@ -47,9 +47,6 @@
 
         var panel = "";
         var isPorfolioSelected = false;
-
-
-        alert(type);
         //Get all customerId from ListBox For malling
         if (type == 'mail')
             getAllcustomerID(type);
@@ -493,7 +490,7 @@
     //Advisor Login MFreport RadioButton Selection change Validation...................
 
     function ChangeCustomerSelectionTextBox(value) {
-        alert(value);
+      
         switch (value) {
             case 'rdoGroup':
                 {
@@ -539,7 +536,7 @@
     function ChangeGroupOrSelf(value) {
 
         var temp = value;
-        alert(value);
+      
         if (temp == 'rdoCustomerGroup') {
 
             document.getElementById("<%= divGroupCustomers.ClientID %>").style.display = 'block';
