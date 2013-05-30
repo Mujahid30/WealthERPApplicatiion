@@ -536,7 +536,6 @@
     function ChangeGroupOrSelf(value) {
 
         var temp = value;
-      
         if (temp == 'rdoCustomerGroup') {
 
             document.getElementById("<%= divGroupCustomers.ClientID %>").style.display = 'block';

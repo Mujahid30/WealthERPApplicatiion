@@ -342,18 +342,23 @@ namespace WealthERP.Reports
 
                     if (!Page.IsPostBack)
                     {
+                        if (Session["UserType"] != null)
+                        {
+                            if (Session["UserType"].ToString() == "adviser")
+                            {
 
-                        DataRow dr = dtGroupCustomerList.NewRow();
-                        dr["C_FirstName"] = "SELECT CUSTOMER";
-                        dr["C_CustomerId"] = 0;
+                                DataRow dr = dtGroupCustomerList.NewRow();
+                                dr["C_FirstName"] = "SELECT CUSTOMER";
+                                dr["C_CustomerId"] = 0;
 
-                        dtGroupCustomerList.Rows.InsertAt(dr, 0);
+                                dtGroupCustomerList.Rows.InsertAt(dr, 0);
 
-                        LBCustomer.DataSource = dtGroupCustomerList;
-                        LBCustomer.DataTextField = "C_FirstName";
-                        LBCustomer.DataValueField = "C_CustomerId";
-                        LBCustomer.DataBind();
-
+                                LBCustomer.DataSource = dtGroupCustomerList;
+                                LBCustomer.DataTextField = "C_FirstName";
+                                LBCustomer.DataValueField = "C_CustomerId";
+                                LBCustomer.DataBind();
+                            }
+                        }
 
                     }
                 }
@@ -587,8 +592,14 @@ namespace WealthERP.Reports
             gvRequestStatus.Rebind();
             if (!IsPostBack)
             {
-                
-                LBCustomer.Items[0].Enabled = false;
+                if (Session["UserType"] != null)
+                {
+                    if (Session["UserType"].ToString() == "adviser")
+                        
+                    {
+                        LBCustomer.Items[0].Enabled = false;
+                    }
+                }
             }
         }
 
