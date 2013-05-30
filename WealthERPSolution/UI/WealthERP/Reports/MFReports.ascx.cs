@@ -99,7 +99,10 @@ namespace WealthERP.Reports
 
             //
         }
-
+        protected void ListBoxSource_Transferred(object source , Telerik.Web.UI.RadListBoxTransferredEventArgs e)
+        {
+            LBCustomer.Items.Sort();
+        }
         /// <summary>
         /// This will add selected list Items(Customer) From One Lst to Other List. Author:Pramod 
         /// </summary>
@@ -339,6 +342,13 @@ namespace WealthERP.Reports
 
                     if (!Page.IsPostBack)
                     {
+
+                        DataRow dr = dtGroupCustomerList.NewRow();
+                        dr["C_FirstName"] = "SELECT CUSTOMER";
+                        dr["C_CustomerId"] = 0;
+
+                        dtGroupCustomerList.Rows.InsertAt(dr, 0);
+
                         LBCustomer.DataSource = dtGroupCustomerList;
                         LBCustomer.DataTextField = "C_FirstName";
                         LBCustomer.DataValueField = "C_CustomerId";
@@ -360,7 +370,7 @@ namespace WealthERP.Reports
 
                     rbtnGrp.Checked = true;
                     rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
-                    lblNote2.Visible = true;                   
+                    lblNote2.Visible = true;
 
                     #region old code
                     //if (CustomerLogin == true)
@@ -575,6 +585,11 @@ namespace WealthERP.Reports
             }
 
             gvRequestStatus.Rebind();
+            if (!IsPostBack)
+            {
+                
+                LBCustomer.Items[0].Enabled = false;
+            }
         }
 
         private void GetLatestValuationDate()
@@ -1145,7 +1160,7 @@ namespace WealthERP.Reports
             //old code
             //LBSelectCustomer.Items.Clear();
             LBCustomer.Items.Clear();
-
+            RadListBoxDestination.Items.Clear();
             CustomerBo customerBo = new CustomerBo();
             DataTable dtGroupCustomerList = new DataTable();
 
@@ -1160,11 +1175,18 @@ namespace WealthERP.Reports
 
             }
 
+            DataRow dr = dtGroupCustomerList.NewRow();
+            dr["C_FirstName"]= "SELECT CUSTOMER";
+            dr["C_CustomerId"]= 0;
 
+            dtGroupCustomerList.Rows.InsertAt(dr, 0);
             LBCustomer.DataSource = dtGroupCustomerList;
             LBCustomer.DataTextField = "C_FirstName";
             LBCustomer.DataValueField = "C_CustomerId";
             LBCustomer.DataBind();
+
+            LBCustomer.Items[0].Enabled = false;
+
             //old code
             //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
 
@@ -1187,6 +1209,7 @@ namespace WealthERP.Reports
             //old code
             //LBSelectCustomer.Items.Clear();
             LBCustomer.Items.Clear();
+            RadListBoxDestination.Items.Clear();
             CustomerBo customerBo = new CustomerBo();
             DataTable dtIndiviCustomerList = new DataTable();
 
@@ -1202,10 +1225,19 @@ namespace WealthERP.Reports
             }
 
 
+
+            DataRow dr = dtIndiviCustomerList.NewRow();
+            dr["C_FirstName"] = "SELECT CUSTOMER";
+            dr["C_CustomerId"] = 0;
+
+            dtIndiviCustomerList.Rows.InsertAt(dr, 0);
+
             LBCustomer.DataSource = dtIndiviCustomerList;
             LBCustomer.DataTextField = "C_FirstName";
             LBCustomer.DataValueField = "C_CustomerId";
             LBCustomer.DataBind();
+
+            LBCustomer.Items[0].Enabled = false;
 
             //old code
             //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
@@ -1277,6 +1309,7 @@ namespace WealthERP.Reports
             //old code
             //LBSelectCustomer.Items.Clear();
             LBCustomer.Items.Clear();
+            RadListBoxDestination.Items.Clear();
             CustomerBo customerBo = new CustomerBo();
             DataTable dtIndiviCustomerList = new DataTable();
 
@@ -1291,11 +1324,19 @@ namespace WealthERP.Reports
 
             }
 
+            DataRow dr = dtIndiviCustomerList.NewRow();
+            dr["C_FirstName"] = "SELECT CUSTOMER";
+            dr["C_CustomerId"] = 0;
+
+            dtIndiviCustomerList.Rows.InsertAt(dr, 0);
 
             LBCustomer.DataSource = dtIndiviCustomerList;
             LBCustomer.DataTextField = "C_FirstName";
             LBCustomer.DataValueField = "C_CustomerId";
             LBCustomer.DataBind();
+
+            LBCustomer.Items[0].Enabled = false;
+            
             //old code
             //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
 

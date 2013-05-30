@@ -49,7 +49,7 @@
         var isPorfolioSelected = false;
 
 
-
+        alert(type);
         //Get all customerId from ListBox For malling
         if (type == 'mail')
             getAllcustomerID(type);
@@ -493,6 +493,7 @@
     //Advisor Login MFreport RadioButton Selection change Validation...................
 
     function ChangeCustomerSelectionTextBox(value) {
+        alert(value);
         switch (value) {
             case 'rdoGroup':
                 {
@@ -538,7 +539,7 @@
     function ChangeGroupOrSelf(value) {
 
         var temp = value;
-
+        alert(value);
         if (temp == 'rdoCustomerGroup') {
 
             document.getElementById("<%= divGroupCustomers.ClientID %>").style.display = 'block';
@@ -662,6 +663,18 @@
         width: 175px; /*margin-left: 0px;*/
     }
 </style>
+
+
+<telerik:radajaxmanager id="AjaxManagerMain" runat="server">
+        <ajaxsettings>
+            <telerik:ajaxsetting ajaxcontrolid="LBCustomer">
+                <updatedcontrols>
+                    <telerik:ajaxupdatedcontrol controlid="PLCustomer" loadingpanelid="AjaxLoadingPanelMain" />
+                </updatedcontrols>
+            </telerik:ajaxsetting>
+        </ajaxsettings>
+</telerik:radajaxmanager>
+
 <table width="100%" class="TableBackground" style="padding-bottom: 6px;">
     <tr>
         <td>
@@ -1095,13 +1108,13 @@
                     <tr>
                         <td>
                             <div class="clearfix" style="margin-bottom: 1em;">
-                                <asp:Panel ID="PLCustomer" runat="server" DefaultButton="AddSelected" Style="float: left">
-                                    <asp:Label ID="lblSelectCustomer" runat="server" CssClass="FieldName" Text="Select Customer :">
+                                <asp:Panel ID="PLCustomer" runat="server" DefaultButton="AddSelected" Style="float: left;padding-left:150px;">
+                                    <asp:Label ID="lblSelectCustomer" runat="server" CssClass="FieldName" Text="   ">
                                     </asp:Label>
-                                    <telerik:RadListBox EnableMarkMatches="true" runat="server" ID="LBCustomer" Height="200px"
-                                        Width="250px" AllowTransfer="true" TransferToID="RadListBoxDestination" CssClass="cmbField">
+                                    <telerik:RadListBox OnTransferred="ListBoxSource_Transferred" EnableMarkMatches="true" runat="server" ID="LBCustomer" Height="200px"
+                                        Width="250px" AllowTransfer="true"  TransferToID="RadListBoxDestination" CssClass="cmbField">
                                     </telerik:RadListBox>
-                                    <telerik:RadListBox runat="server" ID="RadListBoxDestination" Height="200px" Width="220px"
+                                    <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" ID="RadListBoxDestination" Height="200px" Width="220px"
                                         CssClass="cmbField">
                                     </telerik:RadListBox>
                                 </asp:Panel>
@@ -1277,8 +1290,8 @@
                     </tr>
                     <tr>
                         <td class="style1">
-                            <asp:Button ID="btnEmailReport" runat="server" CssClass="PCGMediumButton" OnClientClick="return validate('mail')"
-                                Text="Email Request" ValidationGroup="btnEmail" OnClick="btnEmailReport_Click" />
+                            <asp:Button ID="btnEmailReport" runat="server" CssClass="PCGMediumButton"
+                                Text="Email Request" OnClick="btnEmailReport_Click" />
                             &nbsp;&nbsp;
                         </td>
                     </tr>
