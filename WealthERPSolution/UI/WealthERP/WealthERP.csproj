@@ -7405,6 +7405,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="FusionChartXMLFiles\" />
+    <Folder Include="Images\AdviserLogo_Bulk_Mail\" />
+    <Folder Include="Images\AdviserLogo_Bulk_Report\" />
     <Folder Include="Reports\App_LocalResources\" />
     <Folder Include="Repository\" />
     <Folder Include="TempCustomerProof\" />
