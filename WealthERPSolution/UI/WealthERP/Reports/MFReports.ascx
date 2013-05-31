@@ -37,7 +37,9 @@
             return false;
         }
     });
+    
 </script>
+
 
 <script type="text/javascript" language="javascript">
 
@@ -1367,7 +1369,7 @@
                                         <tr>
                                             <td colspan="4">
                                                 <telerik:RadGrid ID="gvRequestStatus" runat="server" CssClass="RadGrid" GridLines="None"
-                                                    AllowPaging="True" Width="100%" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                                                    AllowPaging="True" Width="100%" PageSize="30" AllowSorting="True" AutoGenerateColumns="false"
                                                     ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                                                     AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvRequestStatus_NeedDataSource"
                                                     EnableEmbeddedSkins="false" EnableHeaderContextMenu="false" EnableHeaderContextFilterMenu="true"
@@ -1432,7 +1434,7 @@
                                                                 AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
-                                                            <telerik:GridBoundColumn UniqueName="Parent Request Id" HeaderText="ParentRequestId"
+                                                            <telerik:GridBoundColumn UniqueName="Parent Request Id" HeaderText="Parent Request Id"
                                                                 HeaderStyle-Width="107px" DataField="ParentRequestId" SortExpression="ParentRequestId"
                                                                 AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>

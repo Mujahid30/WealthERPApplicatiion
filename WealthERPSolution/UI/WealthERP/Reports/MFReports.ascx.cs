@@ -344,7 +344,7 @@ namespace WealthERP.Reports
                     {
                         if (Session["UserType"] != null)
                         {
-                            if (Session["UserType"].ToString() == "adviser")
+                            if (Session["UserType"].ToString().ToLower() == "adviser" || Session["UserType"].ToString().ToLower() == "ops")
                             {
 
                                 DataRow dr = dtGroupCustomerList.NewRow();
@@ -1187,17 +1187,19 @@ namespace WealthERP.Reports
             }
 
             DataRow dr = dtGroupCustomerList.NewRow();
-            dr["C_FirstName"]= "CUSTOMER LIST";
-            dr["C_CustomerId"]= 0;
+            if (dtGroupCustomerList.Rows.Count != 0)
+            {
+                dr["C_FirstName"] = "CUSTOMER LIST";
+                dr["C_CustomerId"] = 0;
 
-            dtGroupCustomerList.Rows.InsertAt(dr, 0);
-            LBCustomer.DataSource = dtGroupCustomerList;
-            LBCustomer.DataTextField = "C_FirstName";
-            LBCustomer.DataValueField = "C_CustomerId";
-            LBCustomer.DataBind();
+                dtGroupCustomerList.Rows.InsertAt(dr, 0);
+                LBCustomer.DataSource = dtGroupCustomerList;
+                LBCustomer.DataTextField = "C_FirstName";
+                LBCustomer.DataValueField = "C_CustomerId";
+                LBCustomer.DataBind();
 
-            LBCustomer.Items[0].Enabled = false;
-
+                LBCustomer.Items[0].Enabled = false;
+            }
             //old code
             //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
 
@@ -1439,6 +1441,9 @@ namespace WealthERP.Reports
             }
 
             msgEmailSentComplete.Visible = true;
+
+            RadTabStrip2.Tabs[1].Selected = true;
+            tabViewAndEmailReports.SelectedIndex = 1;
 
         }
 
