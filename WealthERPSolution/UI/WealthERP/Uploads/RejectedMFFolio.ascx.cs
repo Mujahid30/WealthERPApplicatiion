@@ -182,7 +182,7 @@ namespace WealthERP.Uploads
 
                     }
                     BindddlRejectReason();
-                    //BindGrid(ProcessId);
+                    BindGrid(ProcessId);
                 }
                 else
                 {
@@ -215,7 +215,7 @@ namespace WealthERP.Uploads
                 //    divGvCAMSProfileReject.Visible = false;
                 //}
             }
-            gvCAMSProfileReject.Visible = false;
+            gvCAMSProfileReject.Visible = true;
             trNote.Visible = false;
         }
 
