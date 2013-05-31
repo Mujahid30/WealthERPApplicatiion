@@ -1315,6 +1315,7 @@ namespace BoFPSuperlite
         {
             double outstandingLoanAmount = 0;
             DateTime currentDate = DateTime.Today;
+            double effectiveRate;
             TimeSpan tsDateDiff = new TimeSpan();
             //int noOfRemainingInstallments = 0;
             double months = 0;
@@ -1358,11 +1359,25 @@ namespace BoFPSuperlite
 
                     double noOfIns = 0;
                     noOfIns = frequencyCount;
-                    double effectiveRate = (Math.Pow((1 + (rate / 100) / noOfIns), noOfIns)) - 1;
+                    if (rate != 0)
+                    {
+                        effectiveRate = (Math.Pow((1 + (rate / 100) / noOfIns), noOfIns)) - 1;
+                    }
+                    else
+                    {
+                        effectiveRate = (Math.Pow((1), noOfIns)) - 1;
+                    }
                     double effectiveRatePerPeriod = Math.Pow(1 + effectiveRate, 1 / noOfIns) - 1;
 
                     //outstandingLoanAmount = Financial.IPmt(
-                    outstandingLoanAmount = Financial.IPmt(effectiveRatePerPeriod, Math.Round(months, 0) + 2, noOfInstallments, -loanAmount, 0, DueDate.EndOfPeriod) / effectiveRatePerPeriod;
+                    if (rate != 0)
+                    {
+                        outstandingLoanAmount = Financial.IPmt(effectiveRatePerPeriod, Math.Round(months, 0) + 2, noOfInstallments, -loanAmount, 0, DueDate.EndOfPeriod) / effectiveRatePerPeriod;
+                    }
+                    else
+                    {
+                        outstandingLoanAmount =0;
+                    }
                 }
             }
             return outstandingLoanAmount;
