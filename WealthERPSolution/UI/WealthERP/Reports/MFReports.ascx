@@ -490,7 +490,7 @@
     //Advisor Login MFreport RadioButton Selection change Validation...................
 
     function ChangeCustomerSelectionTextBox(value) {
-      
+
         switch (value) {
             case 'rdoGroup':
                 {
@@ -659,18 +659,15 @@
         width: 175px; /*margin-left: 0px;*/
     }
 </style>
-
-
-<telerik:radajaxmanager id="AjaxManagerMain" runat="server">
-        <ajaxsettings>
-            <telerik:ajaxsetting ajaxcontrolid="LBCustomer">
-                <updatedcontrols>
-                    <telerik:ajaxupdatedcontrol controlid="PLCustomer" loadingpanelid="AjaxLoadingPanelMain" />
-                </updatedcontrols>
-            </telerik:ajaxsetting>
-        </ajaxsettings>
-</telerik:radajaxmanager>
-
+<telerik:RadAjaxManager ID="AjaxManagerMain" runat="server">
+    <AjaxSettings>
+        <telerik:AjaxSetting AjaxControlID="LBCustomer">
+            <UpdatedControls>
+                <telerik:AjaxUpdatedControl ControlID="PLCustomer" LoadingPanelID="AjaxLoadingPanelMain" />
+            </UpdatedControls>
+        </telerik:AjaxSetting>
+    </AjaxSettings>
+</telerik:RadAjaxManager>
 <table width="100%" class="TableBackground" style="padding-bottom: 6px;">
     <tr>
         <td>
@@ -1087,220 +1084,238 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="E-Mail report for :"></asp:Label>
-                            <%--  <asp:RadioButton runat="server" ID="rbnGroup"
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="E-Mail report for :"></asp:Label>
+                                                <%--  <asp:RadioButton runat="server" ID="rbnGroup"
                                     Text="Group" Class="cmbField" GroupName="EmailGrpOrInd" Checked="True" OnCheckedChanged="rbnGroup_CheckedChanged"
                                     AutoPostBack="True" />
                                     --%>
-                            <asp:RadioButton runat="server" ID="rbtnGrp" Text="Group" Class="cmbField" GroupName="EmailGrpOrInd"
-                                OnCheckedChanged="rbnGroup_CheckedChanged" AutoPostBack="True" />
-                            <asp:RadioButton runat="server" ID="rbnIndivisual" Text="Individual Without Group"
-                                Class="cmbField" GroupName="EmailGrpOrInd" OnCheckedChanged="rbnIndivisual_CheckedChanged"
-                                AutoPostBack="True" />
-                            <asp:RadioButton runat="server" ID="rbnAllCustomer" AutoPostBack="True" Text="All Individual"
-                                value="chkCustomer" GroupName="EmailGrpOrInd" CssClass="cmbField" OnCheckedChanged="rbnAllCustomer_CheckedChanged" />
+                                                <asp:RadioButton runat="server" ID="rbtnGrp" Text="Group" Class="cmbField" GroupName="EmailGrpOrInd"
+                                                    OnCheckedChanged="rbnGroup_CheckedChanged" AutoPostBack="True" />
+                                                <asp:RadioButton runat="server" ID="rbnIndivisual" Text="Individual Without Group"
+                                                    Class="cmbField" GroupName="EmailGrpOrInd" OnCheckedChanged="rbnIndivisual_CheckedChanged"
+                                                    AutoPostBack="True" />
+                                                <asp:RadioButton runat="server" ID="rbnAllCustomer" AutoPostBack="True" Text="All Individual"
+                                                    value="chkCustomer" GroupName="EmailGrpOrInd" CssClass="cmbField" OnCheckedChanged="rbnAllCustomer_CheckedChanged" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="clearfix" style="margin-bottom: 1em;">
+                                                    <asp:Panel ID="PLCustomer" runat="server" DefaultButton="AddSelected" Style="float: left;
+                                                        padding-left: 150px;">
+                                                        <asp:Label ID="lblSelectCustomer" runat="server" CssClass="FieldName" Text="   ">
+                                                        </asp:Label>
+                                                        <telerik:RadListBox OnTransferred="ListBoxSource_Transferred" EnableViewState="true"
+                                                            EnableMarkMatches="true" runat="server" ID="LBCustomer" Height="200px" Width="250px"
+                                                            AllowTransfer="true" TransferToID="RadListBoxDestination" CssClass="cmbField">
+                                                        </telerik:RadListBox>
+                                                        <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" ID="RadListBoxDestination"
+                                                            Height="200px" Width="220px" CssClass="cmbField">
+                                                        </telerik:RadListBox>
+                                                    </asp:Panel>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr style="display: none;">
+                                            <td>
+                                                <div visible="false" style="float: left; margin: 0.5em; width: 138px; font-size: 0.9em;
+                                                    text-align: center;">
+                                                    <p>
+                                                        <asp:Button ID="AddSelected" runat="server" CssClass="PCGButton" Font-Bold="True"
+                                                            OnClick="AddSelected_Click" Text="&gt;" />
+                                                    </p>
+                                                    <p>
+                                                        <asp:Button ID="RemoveSelected" runat="server" CssClass="PCGButton" Font-Bold="True"
+                                                            OnClick="RemoveSelected_Click" Text="&lt;" />
+                                                    </p>
+                                                    <p>
+                                                        <asp:Button ID="SelectAll" runat="server" CssClass="PCGButton" Font-Bold="True" OnClick="SelectAll_Click"
+                                                            Text="&gt;&gt;" />
+                                                    </p>
+                                                    <p>
+                                                        <asp:Button ID="RemoveAll" runat="server" CssClass="PCGButton" Font-Bold="True" OnClick="RemoveAll_Click"
+                                                            Text="&lt;&lt;" />
+                                                    </p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr style="display: none;">
+                                            <td>
+                                                <asp:Panel ID="PLSelectCustomer" Visible="false" runat="server" DefaultButton="RemoveSelected"
+                                                    Style="float: left">
+                                                    <asp:Label ID="lblSelectedCustomer" runat="server" CssClass="HeaderTextSmall" Text="Selected Customers"></asp:Label>
+                                                    <asp:UpdatePanel Visible="false" ID="UPSelectCustomer" runat="server">
+                                                        <Triggers>
+                                                            <asp:AsyncPostBackTrigger ControlID="AddSelected" EventName="Click" />
+                                                            <asp:AsyncPostBackTrigger ControlID="RemoveSelected" EventName="Click" />
+                                                            <asp:AsyncPostBackTrigger ControlID="SelectAll" EventName="Click" />
+                                                            <asp:AsyncPostBackTrigger ControlID="RemoveAll" EventName="Click" />
+                                                        </Triggers>
+                                                        <ContentTemplate>
+                                                            <demo:ListBox ID="LBSelectCustomer" runat="server" CssClass="DemoListBox" HorizontalScrollEnabled="true"
+                                                                Rows="12" ScrollStateEnabled="true" SelectionMode="Multiple">
+                                                            </demo:ListBox>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                </asp:Panel>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div class="clearfix" style="margin-bottom: 1em;">
-                                <asp:Panel ID="PLCustomer" runat="server" DefaultButton="AddSelected" Style="float: left;padding-left:150px;">
-                                    <asp:Label ID="lblSelectCustomer" runat="server" CssClass="FieldName" Text="   ">
-                                    </asp:Label>
-                                    <telerik:RadListBox OnTransferred="ListBoxSource_Transferred" EnableMarkMatches="true" runat="server" ID="LBCustomer" Height="200px"
-                                        Width="250px" AllowTransfer="true"  TransferToID="RadListBoxDestination" CssClass="cmbField">
-                                    </telerik:RadListBox>
-                                    <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" ID="RadListBoxDestination" Height="200px" Width="220px"
-                                        CssClass="cmbField">
-                                    </telerik:RadListBox>
-                                </asp:Panel>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="display: none;">
-                        <td>
-                            <div visible="false" style="float: left; margin: 0.5em; width: 138px; font-size: 0.9em;
-                                text-align: center;">
-                                <p>
-                                    <asp:Button ID="AddSelected" runat="server" CssClass="PCGButton" Font-Bold="True"
-                                        OnClick="AddSelected_Click" Text="&gt;" />
-                                </p>
-                                <p>
-                                    <asp:Button ID="RemoveSelected" runat="server" CssClass="PCGButton" Font-Bold="True"
-                                        OnClick="RemoveSelected_Click" Text="&lt;" />
-                                </p>
-                                <p>
-                                    <asp:Button ID="SelectAll" runat="server" CssClass="PCGButton" Font-Bold="True" OnClick="SelectAll_Click"
-                                        Text="&gt;&gt;" />
-                                </p>
-                                <p>
-                                    <asp:Button ID="RemoveAll" runat="server" CssClass="PCGButton" Font-Bold="True" OnClick="RemoveAll_Click"
-                                        Text="&lt;&lt;" />
-                                </p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="display: none;">
-                        <td>
-                            <asp:Panel ID="PLSelectCustomer" Visible="false" runat="server" DefaultButton="RemoveSelected"
-                                Style="float: left">
-                                <asp:Label ID="lblSelectedCustomer" runat="server" CssClass="HeaderTextSmall" Text="Selected Customers"></asp:Label>
-                                <asp:UpdatePanel Visible="false" ID="UPSelectCustomer" runat="server">
-                                    <Triggers>
-                                        <asp:AsyncPostBackTrigger ControlID="AddSelected" EventName="Click" />
-                                        <asp:AsyncPostBackTrigger ControlID="RemoveSelected" EventName="Click" />
-                                        <asp:AsyncPostBackTrigger ControlID="SelectAll" EventName="Click" />
-                                        <asp:AsyncPostBackTrigger ControlID="RemoveAll" EventName="Click" />
-                                    </Triggers>
-                                    <ContentTemplate>
-                                        <demo:ListBox ID="LBSelectCustomer" runat="server" CssClass="DemoListBox" HorizontalScrollEnabled="true"
-                                            Rows="12" ScrollStateEnabled="true" SelectionMode="Multiple">
-                                        </demo:ListBox>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                            </asp:Panel>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <table cellpadding="0" width="100%">
+                            <table width="100%">
                                 <tr>
-                                    <td width="40%">
-                                        <table id="tblAsOnDateReports" cellpadding="8" cellpadding="0" class="tblSection"
-                                            width="100%">
+                                    <td>
+                                        <table cellpadding="0" width="100%">
                                             <tr>
-                                                <td width="100%">
-                                                    <asp:Label ID="lblPickAsOnDate" runat="server" CssClass="FieldName" Text="Pick As on Date :"></asp:Label>
-                                                    <asp:TextBox ID="txtEmailAsOnDate" runat="server" OnTextChanged="ChckBussDate_Textchanged"
-                                                        AutoPostBack="True" CssClass="txtField"></asp:TextBox>
-                                                    <ajaxToolkit:CalendarExtender ID="txtEmailAsOnDate_CalendarExtender" runat="server"
-                                                        Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtEmailAsOnDate">
-                                                    </ajaxToolkit:CalendarExtender>
-                                                    <ajaxToolkit:TextBoxWatermarkExtender ID="txtEmailAsOnDate_TextBoxWatermarkExtender"
-                                                        runat="server" Enabled="True" TargetControlID="txtEmailAsOnDate" WatermarkText="dd/mm/yyyy">
-                                                    </ajaxToolkit:TextBoxWatermarkExtender>
-                                                    <asp:RequiredFieldValidator ID="txtEmailAsOnDate_RequiredFieldValidator" runat="server"
-                                                        ControlToValidate="txtEmailAsOnDate" CssClass="rfvPCG" Display="Dynamic" ErrorMessage="&lt;br /&gt;Please select a From Date"
-                                                        ValidationGroup="btnEmail"></asp:RequiredFieldValidator>
-                                                    <br />
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td width="100%">
-                                                    <asp:CheckBoxList ID="chkAsOnReportList" runat="server" class="cmbField" Width="100%">
-                                                        <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE"></asp:ListItem>
-                                                        <asp:ListItem Text="Portfolio Return-Holding" Value="RETURNS_PORTFOLIO"></asp:ListItem>
-                                                        <asp:ListItem Text="Comprehensive" Value="COMPREHENSIVE"></asp:ListItem>
-                                                        <asp:ListItem Text="Eligible Capital Gain Details" Value="ELIGIBLE_CAPITAL_GAIN_DETAILS"></asp:ListItem>
-                                                        <asp:ListItem Text="Eligible Capital Gains Summary" Value="ELIGIBLE_CAPITAL_GAIN_SUMMARY"></asp:ListItem>
-                                                        <asp:ListItem Text="Portfolio Composition" Value="COMPOSITION_REPORT"></asp:ListItem>
-                                                        <asp:ListItem Text="Realized" Value="REALIZED_REPORT"></asp:ListItem>
-                                                    </asp:CheckBoxList>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td width="60%">
-                                        <table id="tblDateRangeReports" cellpadding="8" cellspacing="1" class="tblSection"
-                                            width="100%">
-                                            <tr>
-                                                <td width="100%">
-                                                    <asp:RadioButton ID="rdoDateRange" runat="server" Checked="True" class="cmbField"
-                                                        GroupName="DatePick" onclick="DisplayEmailDates('DATE_RANGE')" />
-                                                    <asp:Label ID="lblEmailDateRangeRdo" runat="server" CssClass="Field" Text="Pick a Date Range"></asp:Label>
-                                                    <asp:RadioButton ID="rdoDatePeriod" runat="server" class="cmbField" GroupName="DatePick"
-                                                        onclick="DisplayEmailDates('PERIOD')" />
-                                                    <asp:Label ID="lblEmailDatePeriodRdo" runat="server" CssClass="Field" Text="Pick a Period"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td width="100%">
-                                                    <table id="tblEmailDateRange" style="display: block">
+                                                <td width="40%">
+                                                    <table id="tblAsOnDateReports" cellpadding="8" cellpadding="0" class="tblSection"
+                                                        width="100%">
                                                         <tr>
-                                                            <td>
-                                                                <asp:Label ID="lblEmailFromDate" runat="server" CssClass="FieldName" Text="From"></asp:Label>
-                                                                <asp:TextBox ID="txtEmailFromDate" runat="server" CssClass="txtField"></asp:TextBox>
-                                                                <ajaxToolkit:CalendarExtender ID="txtEmailFromDate_CalendarExtender" runat="server"
-                                                                    Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtEmailFromDate">
+                                                            <td width="100%">
+                                                                <asp:Label ID="lblPickAsOnDate" runat="server" CssClass="FieldName" Text="Pick As on Date :"></asp:Label>
+                                                                <asp:TextBox ID="txtEmailAsOnDate" runat="server" OnTextChanged="ChckBussDate_Textchanged"
+                                                                    AutoPostBack="True" CssClass="txtField"></asp:TextBox>
+                                                                <ajaxToolkit:CalendarExtender ID="txtEmailAsOnDate_CalendarExtender" runat="server"
+                                                                    Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtEmailAsOnDate">
                                                                 </ajaxToolkit:CalendarExtender>
-                                                                <ajaxToolkit:TextBoxWatermarkExtender ID="txtEmailFromDate_TextBoxWatermarkExtender"
-                                                                    runat="server" Enabled="True" TargetControlID="txtEmailFromDate" WatermarkText="dd/mm/yyyy">
+                                                                <ajaxToolkit:TextBoxWatermarkExtender ID="txtEmailAsOnDate_TextBoxWatermarkExtender"
+                                                                    runat="server" Enabled="True" TargetControlID="txtEmailAsOnDate" WatermarkText="dd/mm/yyyy">
                                                                 </ajaxToolkit:TextBoxWatermarkExtender>
-                                                                <asp:RequiredFieldValidator ID="txtEmailFromDate_RequiredFieldValidator" runat="server"
-                                                                    ControlToValidate="txtEmailFromDate" CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select From Date"
+                                                                <asp:RequiredFieldValidator ID="txtEmailAsOnDate_RequiredFieldValidator" runat="server"
+                                                                    ControlToValidate="txtEmailAsOnDate" CssClass="rfvPCG" Display="Dynamic" ErrorMessage="&lt;br /&gt;Please select a From Date"
                                                                     ValidationGroup="btnEmail"></asp:RequiredFieldValidator>
-                                                            </td>
-                                                            <td>
-                                                                <asp:Label ID="lblEmailToDate" runat="server" CssClass="FieldName" Text="To:"></asp:Label>
-                                                                <asp:TextBox ID="txtEmailToDate" runat="server" CssClass="txtField"></asp:TextBox>
-                                                                <ajaxToolkit:CalendarExtender ID="txtEmailToDate_CalendarExtender" runat="server"
-                                                                    Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtEmailToDate">
-                                                                </ajaxToolkit:CalendarExtender>
-                                                                <ajaxToolkit:TextBoxWatermarkExtender ID="txtEmailToDate_TextBoxWatermarkExtender"
-                                                                    runat="server" Enabled="True" TargetControlID="txtEmailToDate" WatermarkText="dd/mm/yyyy">
-                                                                </ajaxToolkit:TextBoxWatermarkExtender>
-                                                                <asp:RequiredFieldValidator ID="txtEmailToDate_RequiredFieldValidator" runat="server"
-                                                                    ControlToValidate="txtEmailToDate" CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select To Date"
-                                                                    ValidationGroup="btnEmail"></asp:RequiredFieldValidator>
-                                                                <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToCompare="txtEmailFromDate"
-                                                                    ControlToValidate="txtEmailToDate" CssClass="cvPCG" Display="Dynamic" ErrorMessage="To Date should not be less than From Date"
-                                                                    Operator="GreaterThanEqual" Type="Date" ValidationGroup="btnEmail"></asp:CompareValidator>
+                                                                <br />
+                                                                <br />
                                                             </td>
                                                         </tr>
-                                                    </table>
-                                                    <table id="tblEmailDatePeriod" style="display: none">
                                                         <tr>
-                                                            <td>
-                                                                <asp:Label ID="lblEmailDatePeriod" runat="server" CssClass="FieldName">Period: </asp:Label>
-                                                            </td>
-                                                            <td>
-                                                                <asp:DropDownList ID="ddlEmailDatePeriod" runat="server" CssClass="cmbField">
-                                                                </asp:DropDownList>
-                                                                <span id="Span3" class="spnRequiredField">*</span>
-                                                                <asp:CompareValidator ID="ddlEmailDatePeriod_CompareValidator" runat="server" ControlToValidate="ddlEmailDatePeriod"
-                                                                    CssClass="rfvPCG" Display="Dynamic" ErrorMessage="&lt;br /&gt;Please select a Period"
-                                                                    Operator="NotEqual" ValidationGroup="btnEmail" ValueToCompare="Select a Period"></asp:CompareValidator>
+                                                            <td width="100%">
+                                                                <asp:CheckBoxList ID="chkAsOnReportList" runat="server" class="cmbField" Width="100%">
+                                                                    <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE"></asp:ListItem>
+                                                                    <asp:ListItem Text="Portfolio Return-Holding" Value="RETURNS_PORTFOLIO"></asp:ListItem>
+                                                                    <asp:ListItem Text="Comprehensive" Value="COMPREHENSIVE"></asp:ListItem>
+                                                                    <asp:ListItem Text="Eligible Capital Gain Details" Value="ELIGIBLE_CAPITAL_GAIN_DETAILS"></asp:ListItem>
+                                                                    <asp:ListItem Text="Eligible Capital Gains Summary" Value="ELIGIBLE_CAPITAL_GAIN_SUMMARY"></asp:ListItem>
+                                                                    <asp:ListItem Text="Portfolio Composition" Value="COMPOSITION_REPORT"></asp:ListItem>
+                                                                    <asp:ListItem Text="Realized" Value="REALIZED_REPORT"></asp:ListItem>
+                                                                </asp:CheckBoxList>
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <asp:CheckBoxList ID="chkRangeReportList" runat="server" class="cmbField" Width="100%">
-                                                        <asp:ListItem Text="Transaction Report" Value="TRANSACTION_REPORT"></asp:ListItem>
-                                                        <asp:ListItem Text="Dividend Statement" Value="DIVIDEND_STATEMENT"></asp:ListItem>
-                                                        <asp:ListItem Text="Dividend Summary" Value="DIVIDEND_SUMMARY"></asp:ListItem>
-                                                        <asp:ListItem Text="Capital Gain Details" Value="CAPITAL_GAIN_DETAILS"></asp:ListItem>
-                                                        <asp:ListItem Text="Capital Gain Summary" Value="CAPITAL_GAIN_SUMMARY"></asp:ListItem>
-                                                        <asp:ListItem Text="Closing Balance Report" Value="TRANSACTION_REPORT_OPEN_CLOSE_BALANCE"></asp:ListItem>
-                                                    </asp:CheckBoxList>
+                                                <td width="60%">
+                                                    <table id="tblDateRangeReports" cellpadding="8" cellspacing="1" class="tblSection"
+                                                        width="100%">
+                                                        <tr>
+                                                            <td width="100%">
+                                                                <asp:RadioButton ID="rdoDateRange" runat="server" Checked="True" class="cmbField"
+                                                                    GroupName="DatePick" onclick="DisplayEmailDates('DATE_RANGE')" />
+                                                                <asp:Label ID="lblEmailDateRangeRdo" runat="server" CssClass="Field" Text="Pick a Date Range"></asp:Label>
+                                                                <asp:RadioButton ID="rdoDatePeriod" runat="server" class="cmbField" GroupName="DatePick"
+                                                                    onclick="DisplayEmailDates('PERIOD')" />
+                                                                <asp:Label ID="lblEmailDatePeriodRdo" runat="server" CssClass="Field" Text="Pick a Period"></asp:Label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="100%">
+                                                                <table id="tblEmailDateRange" style="display: block">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <asp:Label ID="lblEmailFromDate" runat="server" CssClass="FieldName" Text="From"></asp:Label>
+                                                                            <asp:TextBox ID="txtEmailFromDate" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                            <ajaxToolkit:CalendarExtender ID="txtEmailFromDate_CalendarExtender" runat="server"
+                                                                                Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtEmailFromDate">
+                                                                            </ajaxToolkit:CalendarExtender>
+                                                                            <ajaxToolkit:TextBoxWatermarkExtender ID="txtEmailFromDate_TextBoxWatermarkExtender"
+                                                                                runat="server" Enabled="True" TargetControlID="txtEmailFromDate" WatermarkText="dd/mm/yyyy">
+                                                                            </ajaxToolkit:TextBoxWatermarkExtender>
+                                                                            <asp:RequiredFieldValidator ID="txtEmailFromDate_RequiredFieldValidator" runat="server"
+                                                                                ControlToValidate="txtEmailFromDate" CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select From Date"
+                                                                                ValidationGroup="btnEmail"></asp:RequiredFieldValidator>
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:Label ID="lblEmailToDate" runat="server" CssClass="FieldName" Text="To:"></asp:Label>
+                                                                            <asp:TextBox ID="txtEmailToDate" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                            <ajaxToolkit:CalendarExtender ID="txtEmailToDate_CalendarExtender" runat="server"
+                                                                                Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtEmailToDate">
+                                                                            </ajaxToolkit:CalendarExtender>
+                                                                            <ajaxToolkit:TextBoxWatermarkExtender ID="txtEmailToDate_TextBoxWatermarkExtender"
+                                                                                runat="server" Enabled="True" TargetControlID="txtEmailToDate" WatermarkText="dd/mm/yyyy">
+                                                                            </ajaxToolkit:TextBoxWatermarkExtender>
+                                                                            <asp:RequiredFieldValidator ID="txtEmailToDate_RequiredFieldValidator" runat="server"
+                                                                                ControlToValidate="txtEmailToDate" CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select To Date"
+                                                                                ValidationGroup="btnEmail"></asp:RequiredFieldValidator>
+                                                                            <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToCompare="txtEmailFromDate"
+                                                                                ControlToValidate="txtEmailToDate" CssClass="cvPCG" Display="Dynamic" ErrorMessage="To Date should not be less than From Date"
+                                                                                Operator="GreaterThanEqual" Type="Date" ValidationGroup="btnEmail"></asp:CompareValidator>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                                <table id="tblEmailDatePeriod" style="display: none">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <asp:Label ID="lblEmailDatePeriod" runat="server" CssClass="FieldName">Period: </asp:Label>
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:DropDownList ID="ddlEmailDatePeriod" runat="server" CssClass="cmbField">
+                                                                            </asp:DropDownList>
+                                                                            <span id="Span3" class="spnRequiredField">*</span>
+                                                                            <asp:CompareValidator ID="ddlEmailDatePeriod_CompareValidator" runat="server" ControlToValidate="ddlEmailDatePeriod"
+                                                                                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="&lt;br /&gt;Please select a Period"
+                                                                                Operator="NotEqual" ValidationGroup="btnEmail" ValueToCompare="Select a Period"></asp:CompareValidator>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <asp:CheckBoxList ID="chkRangeReportList" runat="server" class="cmbField" Width="100%">
+                                                                    <asp:ListItem Text="Transaction Report" Value="TRANSACTION_REPORT"></asp:ListItem>
+                                                                    <asp:ListItem Text="Dividend Statement" Value="DIVIDEND_STATEMENT"></asp:ListItem>
+                                                                    <asp:ListItem Text="Dividend Summary" Value="DIVIDEND_SUMMARY"></asp:ListItem>
+                                                                    <asp:ListItem Text="Capital Gain Details" Value="CAPITAL_GAIN_DETAILS"></asp:ListItem>
+                                                                    <asp:ListItem Text="Capital Gain Summary" Value="CAPITAL_GAIN_SUMMARY"></asp:ListItem>
+                                                                    <asp:ListItem Text="Closing Balance Report" Value="TRANSACTION_REPORT_OPEN_CLOSE_BALANCE"></asp:ListItem>
+                                                                </asp:CheckBoxList>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
                                                 </td>
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td class="style1">
+                                        <asp:Button ID="btnEmailReport" runat="server" CssClass="PCGMediumButton" Text="Email Request"
+                                            OnClick="btnEmailReport_Click" />
+                                        &nbsp;&nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="margin: 6px">
+                                            <label id="lblNote1" runat="server" class="HeaderTextSmall" style="display: none">
+                                                Note: Only historical data is accessible from this screen. Recent data for the last
+                                                2 Business day will not be available. To view the recent data View Dashboards &
+                                                Net Positions.</label>
+                                            <label id="lblNote2" runat="server" class="HeaderTextSmall" style="display: none">
+                                                Note: You can view the recent data, as on last business date.</label>
+                                        </div>
+                                    </td>
+                                </tr>
                             </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="style1">
-                            <asp:Button ID="btnEmailReport" runat="server" CssClass="PCGMediumButton"
-                                Text="Email Request" OnClick="btnEmailReport_Click" />
-                            &nbsp;&nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="margin: 6px">
-                                <label id="lblNote1" runat="server" class="HeaderTextSmall" style="display: none">
-                                    Note: Only historical data is accessible from this screen. Recent data for the last
-                                    2 Business day will not be available. To view the recent data View Dashboards &
-                                    Net Positions.</label>
-                                <label id="lblNote2" runat="server" class="HeaderTextSmall" style="display: none">
-                                    Note: You can view the recent data, as on last business date.</label>
-                            </div>
                         </td>
                     </tr>
                 </table>
@@ -1393,7 +1408,7 @@
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
                                                             <telerik:GridBoundColumn UniqueName="StatusYN" HeaderText="Status Completed(Y/N)"
-                                                                DataField="StatusYN" HeaderStyle-Width="100px" SortExpression="StatusYN" AllowFiltering="true"
+                                                                DataField="StatusYN" HeaderStyle-Width="145px" SortExpression="StatusYN" AllowFiltering="true"
                                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" ItemStyle-Wrap="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
@@ -1407,13 +1422,13 @@
                                                                 AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
-                                                            <telerik:GridBoundColumn UniqueName="AttemptCount" HeaderStyle-Width="100px" HeaderText="Nbr of Attempts"
+                                                            <telerik:GridBoundColumn UniqueName="AttemptCount" HeaderStyle-Width="120px" HeaderText="No. of Attempts"
                                                                 DataField="AttemptCount" SortExpression="AttemptCount" AllowFiltering="false"
                                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
-                                                            <telerik:GridBoundColumn UniqueName="DependentRequestId" HeaderStyle-Width="104px"
-                                                                HeaderText="Dependent Request ID" DataField="DependentRequestId" SortExpression="DependentRequestId"
+                                                            <telerik:GridBoundColumn UniqueName="DependentRequestId" HeaderStyle-Width="120px"
+                                                                HeaderText="Dependent Req ID" DataField="DependentRequestId" SortExpression="DependentRequestId"
                                                                 AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
@@ -1433,12 +1448,12 @@
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
                                                             <telerik:GridBoundColumn UniqueName="ExecutionStartTime" HeaderStyle-Width="130px"
-                                                                HeaderText="Processing Start Time" DataField="ExecutionStartTime" SortExpression="ExecutionStartTime"
+                                                                HeaderText="Process Start Time" DataField="ExecutionStartTime" SortExpression="ExecutionStartTime"
                                                                 AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
                                                             <telerik:GridBoundColumn UniqueName="ExecutionEndTime" HeaderStyle-Width="130px"
-                                                                HeaderText="Processing End Time" DataField="ExecutionEndTime" SortExpression="ExecutionEndTime"
+                                                                HeaderText="Process End Time" DataField="ExecutionEndTime" SortExpression="ExecutionEndTime"
                                                                 AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>

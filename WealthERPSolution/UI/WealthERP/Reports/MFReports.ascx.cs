@@ -348,7 +348,7 @@ namespace WealthERP.Reports
                             {
 
                                 DataRow dr = dtGroupCustomerList.NewRow();
-                                dr["C_FirstName"] = "SELECT CUSTOMER";
+                                dr["C_FirstName"] = "CUSTOMER LIST";
                                 dr["C_CustomerId"] = 0;
 
                                 dtGroupCustomerList.Rows.InsertAt(dr, 0);
@@ -1171,7 +1171,7 @@ namespace WealthERP.Reports
             //old code
             //LBSelectCustomer.Items.Clear();
             LBCustomer.Items.Clear();
-            RadListBoxDestination.Items.Clear();
+            //RadListBoxDestination.Items.Clear();
             CustomerBo customerBo = new CustomerBo();
             DataTable dtGroupCustomerList = new DataTable();
 
@@ -1187,7 +1187,7 @@ namespace WealthERP.Reports
             }
 
             DataRow dr = dtGroupCustomerList.NewRow();
-            dr["C_FirstName"]= "SELECT CUSTOMER";
+            dr["C_FirstName"]= "CUSTOMER LIST";
             dr["C_CustomerId"]= 0;
 
             dtGroupCustomerList.Rows.InsertAt(dr, 0);
@@ -1220,7 +1220,7 @@ namespace WealthERP.Reports
             //old code
             //LBSelectCustomer.Items.Clear();
             LBCustomer.Items.Clear();
-            RadListBoxDestination.Items.Clear();
+            //RadListBoxDestination.Items.Clear();
             CustomerBo customerBo = new CustomerBo();
             DataTable dtIndiviCustomerList = new DataTable();
 
@@ -1238,7 +1238,7 @@ namespace WealthERP.Reports
 
 
             DataRow dr = dtIndiviCustomerList.NewRow();
-            dr["C_FirstName"] = "SELECT CUSTOMER";
+            dr["C_FirstName"] = "CUSTOMER LIST";
             dr["C_CustomerId"] = 0;
 
             dtIndiviCustomerList.Rows.InsertAt(dr, 0);
@@ -1320,7 +1320,7 @@ namespace WealthERP.Reports
             //old code
             //LBSelectCustomer.Items.Clear();
             LBCustomer.Items.Clear();
-            RadListBoxDestination.Items.Clear();
+            //RadListBoxDestination.Items.Clear();
             CustomerBo customerBo = new CustomerBo();
             DataTable dtIndiviCustomerList = new DataTable();
 
@@ -1336,7 +1336,7 @@ namespace WealthERP.Reports
             }
 
             DataRow dr = dtIndiviCustomerList.NewRow();
-            dr["C_FirstName"] = "SELECT CUSTOMER";
+            dr["C_FirstName"] = "CUSTOMER LIST";
             dr["C_CustomerId"] = 0;
 
             dtIndiviCustomerList.Rows.InsertAt(dr, 0);
