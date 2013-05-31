@@ -782,6 +782,7 @@ namespace WealthERP.Customer
         protected void ViewBankAccountDetails()
         {
             customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
+            ddlPortfolioId.SelectedValue = customerBankAccountVo.PortfolioId.ToString();
             ddlAccountType.SelectedValue = customerBankAccountVo.AccountType;
             txtAccountNumber.Text = customerBankAccountVo.BankAccountNum;
             ddlBankName.SelectedValue = customerBankAccountVo.BankName;
