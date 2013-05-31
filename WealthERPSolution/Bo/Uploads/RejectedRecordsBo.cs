@@ -170,6 +170,35 @@ namespace BoUploads
             return dsRejectReasonList;
 
         }
+
+
+        public DataSet GetRejectReasonMFList(int uploadFileType)
+        {
+            DataSet dsRejectReasonMFList;
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            try
+            {
+                dsRejectReasonMFList = rejecetedRecords.GetRejectReasonMFList(uploadFileType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:GetRejectReasonList()");
+                object[] objects = new object[9];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsRejectReasonMFList;
+
+        }
         public DataSet GetRejectReasonEquityList(int uploadFileType)
         {
             DataSet dsRejectReasonEquityList;
@@ -385,13 +414,13 @@ namespace BoUploads
             return result;
         }
 
-        public bool UpdateMFFolioStaging(int CPS_Id,int StagingID, int MainStagingId, string PanNumber, string Folio, string broker)
+        public bool UpdateMFFolioStaging(int StagingID, int MainStagingId, string PanNumber, string Folio, string broker)
         {
             bool result = false;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                result = rejecetedRecords.UpdateMFFolioStaging(CPS_Id,StagingID,MainStagingId, PanNumber, Folio,broker);
+                result = rejecetedRecords.UpdateMFFolioStaging(StagingID,MainStagingId, PanNumber, Folio,broker);
             }
             catch (BaseApplicationException Ex)
             {
@@ -622,13 +651,13 @@ namespace BoUploads
             return dsWERPRejectedTransactions;
         }
 
-        public DataSet GetRejectedMFTransactionStaging(int adviserId, int processId)
+        public DataSet GetRejectedMFTransactionStaging(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
         {
             DataSet dsWERPRejectedTransactions;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedMFTransactionStaging(adviserId, processId);
+                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedMFTransactionStaging(adviserId, processId, fromDate, toDate, rejectReasonCode);
 
             }
             catch (BaseApplicationException Ex)
@@ -1437,6 +1466,48 @@ namespace BoUploads
 
             return dsWERPRejectedTransactions;
         }
+        public DataSet GetRejectedMFTransactionStagings(int adviserId, int processId)
+        {
+            DataSet dsWERPRejectedTransactions;
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            try
+            {
+                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedMFTransactionStagings(adviserId, processId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:getWERPRejectedTransactions()");
+
+                object[] objects = new object[10];
+                objects[0] = processId;
+                //objects[1] = CurrentPage;
+                //objects[2] = SortExpression;
+                //objects[3] = RejectReasonFilter;
+                //objects[4] = fileNameFilter;
+                //objects[5] = FolioFilter;
+                //objects[6] = TransactionTypeFilter;
+                //objects[7] = investorNameFileter;
+                //objects[8] = sourceTypeFilter;
+                //objects[9] = schemeNameFilter;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsWERPRejectedTransactions;
+        }
+
     }
 
     
