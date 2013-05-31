@@ -174,7 +174,7 @@ namespace WealthERP.Uploads
                     if (ProcessId != 0)
                     {
                         divConditional.Visible = false;
-                        BindGrid(ProcessId);
+                        //BindGrid(ProcessId);
                     }
                     else
                     {
@@ -328,7 +328,7 @@ namespace WealthERP.Uploads
         {
             try
             {
-                int selectedPage = 1;
+                int selectedPage = 0;
                 //if (ProcessId != 0)
                 //{
                 //    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserId, ProcessId, fromDate, toDate, rejectReasonCode);
