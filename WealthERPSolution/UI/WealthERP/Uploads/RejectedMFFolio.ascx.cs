@@ -69,7 +69,7 @@ namespace WealthERP.Uploads
         string extracttype;
 
         DataTable dtgvWERPMF = new DataTable();
-       // DataSet dsRejectedRecords = new DataSet();
+        // DataSet dsRejectedRecords = new DataSet();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -80,13 +80,13 @@ namespace WealthERP.Uploads
             adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             adviserId = adviserVo.advisorId;
             rmVo = (RMVo)Session[SessionContents.RmVo];
-            userVo = (UserVo)Session[SessionContents.UserVo];           
+            userVo = (UserVo)Session[SessionContents.UserVo];
             if (Request.QueryString["processId"] != null)
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
             if (Request.QueryString["adviserId"] != null)
             {
                 adviserId = Int32.Parse(Request.QueryString["adviserId"].ToString());
-                 if (rmVo == null)
+                if (rmVo == null)
                 {
                     DataSet dsAdviserRmDetails = superAdminOpsBo.GetAdviserRmDetails(adviserId);
 
@@ -121,7 +121,7 @@ namespace WealthERP.Uploads
                     Session["adviserId_Upload"] = adviserId;
                 }
                 else
-                {                  
+                {
                     // Panel2.Visible = false;
                     adviserId = 1000;
                 }
@@ -129,15 +129,15 @@ namespace WealthERP.Uploads
             else
             {
                 Session["adviserId_Upload"] = adviserId;
-               // divConditional.Visible = false;
+                // divConditional.Visible = false;
                 tdLblAdviser.Visible = false;
                 tdDdlAdviser.Visible = false;
                 if (adviserVo.advisorId != 1000)
                 {
                     adviserId = adviserVo.advisorId;
                 }
-                if(rmVo != null)
-                rmId = rmVo.RMId;
+                if (rmVo != null)
+                    rmId = rmVo.RMId;
                 //tdBtnViewRejetcs.Visible = true;
                 //tdTxtToDate.Visible = true;
                 //tdlblToDate.Visible = true;
@@ -159,26 +159,30 @@ namespace WealthERP.Uploads
             }
             if (!IsPostBack)
             {
-            //    if (ProcessId != 0)
-            //    {
-                   
-            //    }
-                DateTime fromDate = DateTime.Now.AddDays(-30);
-                txtFromTran.SelectedDate = fromDate.Date;
+                //    if (ProcessId != 0)
+                //    {
+
+                //    }
+                txtFromTran.SelectedDate = DateTime.Now.AddMonths(-1).Date;
                 txtToTran.SelectedDate = DateTime.Now;
+                //DateTime fromDate = DateTime.Now.AddDays(-30);
+                //txtFromTran.SelectedDate = fromDate.Date;
+                //txtToTran.SelectedDate = DateTime.Now;
 
                 if (adviserId != 1000)
                 {
                     if (ProcessId != 0)
                     {
                         divConditional.Visible = false;
+                        BindGrid(ProcessId);
                     }
                     else
                     {
                         divConditional.Visible = true;
+
                     }
                     BindddlRejectReason();
-                    BindGrid(ProcessId);
+                    //BindGrid(ProcessId);
                 }
                 else
                 {
@@ -191,7 +195,6 @@ namespace WealthERP.Uploads
                     {
                         divGvCAMSProfileReject.Visible = false;
                         BindAdviserDropDownList();
-
                         tdBtnViewRejetcs.Visible = false;
                         tdTxtToDate.Visible = false;
                         tdlblToDate.Visible = false;
@@ -212,6 +215,8 @@ namespace WealthERP.Uploads
                 //    divGvCAMSProfileReject.Visible = false;
                 //}
             }
+            gvCAMSProfileReject.Visible = false;
+            trNote.Visible = false;
         }
 
         protected void BindAdviserDropDownList()
@@ -258,9 +263,9 @@ namespace WealthERP.Uploads
         {
             string newPan = string.Empty;
             string newFolio = string.Empty;
-            string newbroker = string.Empty; 
+            string newbroker = string.Empty;
             int StagingId = 0;
-            int CPS_Id = 0;
+            // int CPS_Id = 0;
             int MainStagingId = 0;
             bool blResult = false;
             rejectedRecordsBo = new RejectedRecordsBo();
@@ -289,10 +294,12 @@ namespace WealthERP.Uploads
                     selectedRow = gdi.ItemIndex + 1;
                     StagingId = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CMFFS_Id"].ToString()));
                     MainStagingId = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CMFFS_MainStagingId"].ToString()));
-                    CPS_Id = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CPS_Id"].ToString()));
-                    blResult = rejectedRecordsBo.UpdateMFFolioStaging(CPS_Id, StagingId, MainStagingId, newPan, newFolio, newbroker);
+                    // CPS_Id = int.Parse((gvCAMSProfileReject.MasterTableView.DataKeyValues[selectedRow - 1]["CPS_Id"].ToString()));
+                    blResult = rejectedRecordsBo.UpdateMFFolioStaging(StagingId, MainStagingId, newPan, newFolio, newbroker);
                 }
             }
+
+
             if (blResult)
             {
                 // Success Message
@@ -301,6 +308,10 @@ namespace WealthERP.Uploads
             {
                 // Failure Message
             }
+            BindGrid(ProcessId);
+            //NeedSource();
+            //gvCAMSProfileReject.Rebind(); 
+
             // BindGrid
             if (Request.QueryString["processId"] != null)
             {
@@ -308,24 +319,41 @@ namespace WealthERP.Uploads
             }
             if (Request.QueryString["filetypeid"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
-            BindGrid(ProcessId);
+            //BindGrid(ProcessId);
+            //gvCAMSProfileReject.MasterTableView.Rebind();
         }
+
 
         private void BindGrid(int ProcessId)
         {
             try
             {
+                int selectedPage = 1;
+                //if (ProcessId != 0)
+                //{
+                //    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserId, ProcessId, fromDate, toDate, rejectReasonCode);
+                //}
+                //else
+                //{
+                //    rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
+                //    fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
+                //    toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
+                //    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserId, ProcessId, fromDate, toDate, rejectReasonCode);
+                //}
                 if (ProcessId == null || ProcessId == 0)
                 {
-                   
+
                     rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
+                    fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
+                    toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
+                    selectedPage = gvCAMSProfileReject.CurrentPageIndex;
+                    // dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserId, ProcessId, fromDate, toDate, rejectReasonCode);
                 }
 
 
                 Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
                 Dictionary<string, string> genDictRejectReason = new Dictionary<string, string>();
                 Dictionary<string, string> genDictIsCustomerExisting = new Dictionary<string, string>();
-
                 rejectedRecordsBo = new RejectedRecordsBo();
                 dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserId, ProcessId, fromDate, toDate, rejectReasonCode);
 
@@ -335,7 +363,7 @@ namespace WealthERP.Uploads
                     divGvCAMSProfileReject.Visible = true;
                     imgBtnrgHoldings.Visible = true;
                     divBtnActionSection.Visible = true;
-                
+
                     if (Cache["RejectedMFFolioDetails" + adviserId.ToString()] == null)
                     {
                         Cache.Insert("RejectedMFFolioDetails" + adviserId.ToString(), dsRejectedRecords.Tables[0]);
@@ -346,10 +374,12 @@ namespace WealthERP.Uploads
                         Cache.Insert("RejectedMFFolioDetails" + adviserId.ToString(), dsRejectedRecords.Tables[0]);
                     }
 
-                    gvCAMSProfileReject.CurrentPageIndex = 0;
+                    gvCAMSProfileReject.CurrentPageIndex = selectedPage;
                     gvCAMSProfileReject.DataSource = dsRejectedRecords.Tables[0];
                     gvCAMSProfileReject.DataBind();
-                   
+                    gvCAMSProfileReject.Visible = true;
+                    trNote.Visible = true;
+
 
                 }
                 else
@@ -358,9 +388,11 @@ namespace WealthERP.Uploads
                     divBtnActionSection.Visible = false;
                     divGvCAMSProfileReject.Visible = false;
                     imgBtnrgHoldings.Visible = false;
+                    gvCAMSProfileReject.Visible = false;
+                    trNote.Visible = false;
                 }
 
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -403,7 +435,7 @@ namespace WealthERP.Uploads
                 rejectedRecordsBo = new RejectedRecordsBo();
                 rejectedRecordsBo.DeleteMFRejectedFolios(StagingID);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Selected item deleted !!');", true);
-                
+
             }
             BindGrid(ProcessId);
         }
@@ -605,14 +637,12 @@ namespace WealthERP.Uploads
 
         protected void gvCAMSProfileReject_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-
-
             string rcbType = string.Empty;
-           // trMessage.Visible = false;
-           // DataSet dtRejectedMFFolioDetails = new DataSet();
+            // trMessage.Visible = false;
+            // DataSet dtRejectedMFFolioDetails = new DataSet();
             DataTable dtrr = new DataTable();
             dtrr = (DataTable)Cache["RejectedMFFolioDetails" + adviserId.ToString()];
-           // dtrr = dtRejectedMFFolioDetails.Tables[0];
+            // dtrr = dtRejectedMFFolioDetails.Tables[0];
             if (ViewState["RejectReason"] != null)
                 rcbType = ViewState["RejectReason"].ToString();
             if (!string.IsNullOrEmpty(rcbType))
@@ -620,26 +650,30 @@ namespace WealthERP.Uploads
                 DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "ADUL_ProcessId,CMFFS_INV_NAME,CMFSFS_PANNum,CMFSFS_FolioNum,PA_AMCName,CMFSS_BrokerCode,CMFFS_BANK_NAME,CMGCXP_ADDRESS1,CMGCXP_CITY,CMGCXP_PINCODE,CMGCXP_PHONE_OFF,CMGCXP_PHONE_RES,CMGCXP_DOB", DataViewRowState.CurrentRows);
                 // DataView dvStaffList = dtMIS.DefaultView;
                 gvCAMSProfileReject.DataSource = dvStaffList.ToTable();
-
+                gvCAMSProfileReject.Visible = true;
+                trNote.Visible = true;
             }
             else
             {
                 gvCAMSProfileReject.DataSource = dtrr;
+                gvCAMSProfileReject.Visible = true;
+                trNote.Visible = true;
 
             }
-           
+
         }
-           
+
         protected void btnViewTran_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
-            if (txtFromTran.SelectedDate != null)
-                fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
+            if (!string.IsNullOrEmpty(txtFromTran.SelectedDate.ToString()))
+                if (txtFromTran.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtFromTran.SelectedDate.ToString());
             if (txtToTran.SelectedDate != null)
                 toDate = DateTime.Parse(txtToTran.SelectedDate.ToString());
-                BindGrid(ProcessId);
-                ViewState.Remove("RejectReason");
-                divLobAdded.Visible = false;
+            gvCAMSProfileReject.CurrentPageIndex = 0;
+            BindGrid(ProcessId);
+            ViewState.Remove("RejectReason");
+            divLobAdded.Visible = false;
         }
 
         public void Reprocess(int processID, int filetypeId, string InputInsertionStatus, string FirstStagingStatus, string SecondStagingStatus, string WERPInsertionStatus)
@@ -700,7 +734,7 @@ namespace WealthERP.Uploads
                                 packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
                                 bool stdProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserId, packagePath, configPath);  //StandardProfileUploadBo.StdCommonProfileChecks(processID, adviserId, packagePath, configPath);
                                 if (stdProCommonChecksResult)
-                                {  
+                                {
                                     // Insert Customer Details into WERP Tables
                                     bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                     if (camsProCreateCustomerResult)
@@ -770,7 +804,7 @@ namespace WealthERP.Uploads
                                     bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserId, processID, rmId, processlogVo.BranchId, xmlPath, out countCustCreated);
                                     if (camsProCreateCustomerResult)
                                     {
-                                         //Create new Bank Accounts newly added 
+                                        //Create new Bank Accounts newly added 
                                         packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
                                         bool CreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(processID, packagePath, configPath, adviserId);
 
@@ -4455,7 +4489,7 @@ namespace WealthERP.Uploads
         protected void RefreshCombos()
         {
             dtgvWERPMF = (DataTable)Cache["RejectedMFFolioDetails" + adviserId.ToString()];
-           // dtgvWERPMF = dsRejectedRecords.Tables[0];
+            // dtgvWERPMF = dsRejectedRecords.Tables[0];
             DataView view = new DataView(dtgvWERPMF);
             DataTable distinctValues = view.ToTable();
             DataRow[] rows = distinctValues.Select(gvCAMSProfileReject.MasterTableView.FilterExpression.ToString());
@@ -4470,7 +4504,7 @@ namespace WealthERP.Uploads
                 GridFilteringItem filterItem = (GridFilteringItem)e.Item;
                 RadComboBox RadComboBoxIN = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
                 dtgvWERPMF = (DataTable)Cache["RejectedMFFolioDetails" + adviserId.ToString()];
-               
+
                 Session["dt"] = dtgvWERPMF;
                 DataTable dtcustMIS = new DataTable();
                 dtcustMIS.Columns.Add("RejectReason");
@@ -4481,7 +4515,7 @@ namespace WealthERP.Uploads
                 {
                     drcustMIS = dtcustMIS.NewRow();
                     drcustMIS["RejectReason"] = dr["RejectReason"].ToString();
-                  
+
                     dtcustMIS.Rows.Add(drcustMIS);
                 }
                 //combo.Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("ALL", "0"));
@@ -4491,9 +4525,9 @@ namespace WealthERP.Uploads
                 RadComboBoxIN.DataValueField = dtcustMIS.Columns["RejectReason"].ToString();
                 RadComboBoxIN.DataTextField = dtcustMIS.Columns["RejectReason"].ToString();
                 //RadComboBoxIN.ClearSelection();
-               RadComboBoxIN.DataBind();
+                RadComboBoxIN.DataBind();
 
-           }
+            }
 
         }
         protected void RadComboBoxRR_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
@@ -4539,7 +4573,7 @@ namespace WealthERP.Uploads
                 Combo.SelectedValue = ViewState["RejectReason"].ToString();
             }
 
-        } 
+        }
 
 
 
@@ -4631,9 +4665,12 @@ namespace WealthERP.Uploads
                 tdlblFromDate.Visible = true;
                 tdlblRejectReason.Visible = true;
                 tdDDLRejectReason.Visible = true;
+                divConditional.Visible = false;
                 BindddlRejectReason();
 
-                //BindGrid(ProcessId);
+                BindGrid(ProcessId);
+                gvCAMSProfileReject.Visible = true;
+                trNote.Visible = true;
             }
             else
             {
@@ -4647,6 +4684,7 @@ namespace WealthERP.Uploads
                 tdDDLRejectReason.Visible = false;
 
                 divGvCAMSProfileReject.Visible = false;
+                trNote.Visible = false;
             }
 
         }

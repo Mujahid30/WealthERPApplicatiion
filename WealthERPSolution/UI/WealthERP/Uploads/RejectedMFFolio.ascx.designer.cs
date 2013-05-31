@@ -197,7 +197,7 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trProfileMessage;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLblAdviser;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDdlAdviser;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNote;
         /// <summary>
         /// lblEmptyMsg control.
         /// </summary>

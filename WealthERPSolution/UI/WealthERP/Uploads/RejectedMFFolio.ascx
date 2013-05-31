@@ -8,6 +8,13 @@
 </asp:ScriptManager>
 
 <script type="text/javascript">
+    function GridCreated(sender, args) {
+        var scrollArea = sender.GridDataDiv;
+        var dataHeight = sender.get_masterTableView().get_element().clientHeight;
+        if (dataHeight < 420) {
+            scrollArea.style.height = dataHeight + 17 + "px";
+        }
+    }
     function GetSelectedNames() {
         var TargetBaseControl = null;
         var count = 0;
@@ -118,6 +125,14 @@
     }
 </script>
 
+<style id="Style1" type="text/css" runat="server">
+    .rgDataDiv
+    {
+        height: auto;
+        width: 101.5% !important;
+        margin-right: 15%;
+    }
+</style>
 <table width="100%">
     <tr>
         <td>
@@ -250,8 +265,8 @@
         OnClick="LinkInputRejects_Click"></asp:LinkButton>
 </div>
 <br />
-<div style="width: 100%; height: 400px; overflow: scroll" id="divGvCAMSProfileReject"
-    runat="server">
+<div id="divGvCAMSProfileReject" runat="server">
+    <%-- style="width: 100%; height: auto; overflow: scroll"--%>
     <telerik:RadGrid ID="gvCAMSProfileReject" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         EnableViewState="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="1050px"
@@ -260,7 +275,7 @@
         OnNeedDataSource="gvCAMSProfileReject_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView DataKeyNames="CPS_Id,CMFFS_Id,CMFFS_MainStagingId,ADUL_ProcessId,CMFSS_BrokerCode,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
+        <MasterTableView DataKeyNames="CMFFS_Id,CMFFS_MainStagingId,ADUL_ProcessId,CMFSS_BrokerCode,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
             Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn HeaderStyle-Width="80px" AllowFiltering="false" UniqueName="action"
@@ -321,14 +336,14 @@
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Product Code" DataField="PASC_AMC_ExternalCode"
-                    UniqueName="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="116px" HeaderText="Product Code"
+                    DataField="PASC_AMC_ExternalCode" UniqueName="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode"
+                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="116px" HeaderText="Scheme Code" DataField="PASP_SchemePlanCode"
-                    UniqueName="PASP_SchemePlanCode" SortExpression="PASP_SchemePlanCode" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="116px" HeaderText="Scheme Code"
+                    DataField="PASP_SchemePlanCode" UniqueName="PASP_SchemePlanCode" SortExpression="PASP_SchemePlanCode"
+                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="220px" HeaderText="Reject Reason" DataField="RejectReason"
@@ -432,6 +447,8 @@
             </Columns>
         </MasterTableView>
         <ClientSettings>
+            <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="420px"></Scrolling>
+            <ClientEvents OnGridCreated="GridCreated" />
             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
             <Resizing AllowColumnResize="true" />
         </ClientSettings>
@@ -453,4 +470,19 @@
     <asp:Label ID="lblEmptyMsg" class="FieldName" runat="server" Text="There are no records to be displayed!">
     </asp:Label>
 </div>
+<table>
+    <tr id ="trNote" runat="server">
+        <td colspan="2">
+            <div id="Div2" class="Note">
+                <p>
+                    <span style="font-weight: bold">Note:</span><br />
+                    1.WERP AMC Code was not found <br />
+                      For This Type Reject Reason Please Contact to CustomerCare:
+                      E-mail:CustCare@ampsys.in or Contact:080 - 32429514
+                   
+                </p>
+            </div>
+        </td>
+    </tr>
+</table>
 <asp:HiddenField ID="hfRmId" runat="server" />
