@@ -129,11 +129,11 @@
                 <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM : "></asp:Label>
             </td>
             <td align="left">
-                <telerik:RadComboBox ID="rcbRM" runat="server" ExpandAnimation-Type="Linear" ShowToggleImage="True"
+                <telerik:RadComboBox ID="rcbRM" runat="server" ExpandAnimation-Type="Linear" ShowToggleImage="True" 
                     EmptyMessage="Pick a RM" Skin="Telerik" EnableEmbeddedSkins="false">
                     <ExpandAnimation Type="InExpo"></ExpandAnimation>
                 </telerik:RadComboBox>
-                <asp:RequiredFieldValidator runat="server" ID="rfvRM" ControlToValidate="rcbRM" ErrorMessage="Please pick a RM"
+                <asp:RequiredFieldValidator runat="server" ID="rfvRM" ValidationGroup="ValidateInAdminCase" ControlToValidate="rcbRM" ErrorMessage="Please pick a RM"
                     CssClass="validator" Style="display: none" />
             </td>
         </tr>

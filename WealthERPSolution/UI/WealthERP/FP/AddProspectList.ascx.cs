@@ -1538,6 +1538,17 @@ namespace WealthERP.FP
         /// <returns></returns>
         protected bool Validation()
         {
+            //var notValidValidators = Page.Validators.Cast<IValidator>().Where(v => !v.IsValid);
+            if (userType == "rm")
+            {
+                foreach (BaseValidator val in Page.Validators)
+                {
+                    if (val.ValidationGroup == "ValidateInAdminCase")
+                    {
+                        val.Enabled = false;
+                    }
+                }
+            }
             if (Page.IsValid)
             {
                 return true;
