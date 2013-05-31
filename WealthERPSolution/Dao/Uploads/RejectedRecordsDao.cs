@@ -118,6 +118,35 @@ namespace DaoUploads
             return dsGetRejectReasonList;
         }
 
+        public DataSet GetRejectReasonMFList(int uploadFileType)
+        {
+            DataSet dsGetRejectReasonMFList;
+            Database db;
+            DbCommand getGetRejectReasonListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetRejectReasonListCmd = db.GetStoredProcCommand("SP_GetRejectReasonList");
+                db.AddInParameter(getGetRejectReasonListCmd, "@uploadFileType", DbType.Int32, uploadFileType);
+                dsGetRejectReasonMFList = db.ExecuteDataSet(getGetRejectReasonListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:GetRejectReasonList()");
+                object[] objects = new object[9];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetRejectReasonMFList;
+        }
         public DataSet GetRejectReasonEquityList(int uploadFileType)
         {
             DataSet dsGetRejectReasonEquityList;
@@ -205,7 +234,7 @@ namespace DaoUploads
                 //else
                 //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DBNull.Value);
                 #endregion
-                
+                getCAMSRejectedProfilesCmd.CommandTimeout = 60 * 60;
                 dsGetCAMSRejectedProfiles = db.ExecuteDataSet(getCAMSRejectedProfilesCmd);
                
 
@@ -475,7 +504,7 @@ namespace DaoUploads
             return result;
         }
 
-        public bool UpdateMFFolioStaging(int CPS_Id, int StagingID, int MainStagingId, string PanNumber, string Folio, string broker)
+        public bool UpdateMFFolioStaging(int StagingID, int MainStagingId, string PanNumber, string Folio, string broker)
         {
             bool result = false;
             Database db;
@@ -498,10 +527,10 @@ namespace DaoUploads
                     db.AddInParameter(UpdateProfilesCmd, "@broker", DbType.String, broker);
                 else
                     db.AddInParameter(UpdateProfilesCmd, "@broker", DbType.String, DBNull.Value);
-                if (CPS_Id != 0)
-                    db.AddInParameter(UpdateProfilesCmd, "@CPS_Id", DbType.Int32, CPS_Id);
-                else
-                    db.AddInParameter(UpdateProfilesCmd, "@CPS_Id", DbType.Int32, DBNull.Value);
+                //if (CPS_Id != 0)
+                //    db.AddInParameter(UpdateProfilesCmd, "@CPS_Id", DbType.Int32, CPS_Id);
+                //else
+                //    db.AddInParameter(UpdateProfilesCmd, "@CPS_Id", DbType.Int32, DBNull.Value);
 
                 db.ExecuteNonQuery(UpdateProfilesCmd);
                 result = true;
@@ -839,7 +868,7 @@ namespace DaoUploads
             return dsGetWERPRejectedTransactions;
         }
 
-        public DataSet GetRejectedMFTransactionStaging(int adviserId, int processId)
+        public DataSet GetRejectedMFTransactionStaging(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
         {
             DataSet dsGetMFRejectedTransactions;
             Database db;
@@ -856,6 +885,19 @@ namespace DaoUploads
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
                 else
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
+                if (fromDate != DateTime.MinValue)
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@fromDate", DbType.DateTime, fromDate);
+                else
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@fromDate", DbType.DateTime, DBNull.Value);
+
+                if (toDate != DateTime.MinValue)
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@toDate", DbType.DateTime, toDate);
+                else
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@toDate", DbType.DateTime, DBNull.Value);
+                if (rejectReasonCode != 0)
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
+                else
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonCode", DbType.Int32, DBNull.Value);
 
                 //if (RejectReasonFilter != "")
                 //    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
@@ -913,7 +955,6 @@ namespace DaoUploads
 
             return dsGetMFRejectedTransactions;
         }
-
         public DataSet GetRejectedTradeAccountStaging(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PANFilter)
         {
             DataSet dsGetWERPRejectedTransactions;
@@ -2074,5 +2115,80 @@ namespace DaoUploads
             }
             return dsGetFolioDetails;
         }
+        public DataSet GetRejectedMFTransactionStagings(int adviserId, int processId)
+        {
+            DataSet dsGetMFRejectedTransactions;
+            Database db;
+            DbCommand getMFRejectedTransactionsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetUploadRejectsMFTransactionStagings");
+                //db.AddInParameter(getMFRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(getMFRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
+                db.AddInParameter(getMFRejectedTransactionsCmd, "@adviserId", DbType.Int32, adviserId);
+
+                if (processId != 0)
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
+                else
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
+
+                //if (RejectReasonFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+
+                //if (fileNameFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@fileNameFilter", DbType.String, fileNameFilter);
+
+                //if (FolioFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@folioFilter", DbType.String, FolioFilter);
+
+                //if (TransactionTypeFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
+
+                //if (investorNameFileter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@investorNameFileter", DbType.String, investorNameFileter);
+
+                //if (sourceTypeFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@sourceTypeFilter", DbType.String, sourceTypeFilter);
+
+                //if (schemeNameFilter != "")
+                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@schemeNameFilter", DbType.String, schemeNameFilter);
+                getMFRejectedTransactionsCmd.CommandTimeout = 60 * 60;
+                dsGetMFRejectedTransactions = db.ExecuteDataSet(getMFRejectedTransactionsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:getWERPRejectedTransactions()");
+
+                object[] objects = new object[10];
+                //objects[0] = processId;
+                //objects[1] = CurrentPage;
+                //objects[2] = SortExpression;
+                //objects[3] = RejectReasonFilter;
+                //objects[4] = fileNameFilter;
+                //objects[5] = FolioFilter;
+                //objects[6] = TransactionTypeFilter;
+                //objects[7] = investorNameFileter;
+                //objects[8] = sourceTypeFilter;
+                //objects[9] = schemeNameFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            //Count = Int32.Parse(dsGetMFRejectedTransactions.Tables[1].Rows[0]["CNT"].ToString());
+
+            return dsGetMFRejectedTransactions;
+        }
+
     }
 }
