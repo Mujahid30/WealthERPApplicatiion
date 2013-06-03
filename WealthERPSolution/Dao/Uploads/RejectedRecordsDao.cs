@@ -867,8 +867,7 @@ namespace DaoUploads
 
             return dsGetWERPRejectedTransactions;
         }
-
-        public DataSet GetRejectedMFTransactionStaging(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
+        public DataSet GetRejectedMFTransactionStaging(int adviserId, int processId)
         {
             DataSet dsGetMFRejectedTransactions;
             Database db;
@@ -885,19 +884,19 @@ namespace DaoUploads
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
                 else
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
-                if (fromDate != DateTime.MinValue)
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@fromDate", DbType.DateTime, fromDate);
-                else
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@fromDate", DbType.DateTime, DBNull.Value);
 
-                if (toDate != DateTime.MinValue)
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@toDate", DbType.DateTime, toDate);
-                else
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@toDate", DbType.DateTime, DBNull.Value);
-                if (rejectReasonCode != 0)
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonCode", DbType.Int32, rejectReasonCode);
-                else
-                    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonCode", DbType.Int32, DBNull.Value);
+
+
+
+
+
+
+
+
+
+
+
+
 
                 //if (RejectReasonFilter != "")
                 //    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
@@ -955,6 +954,7 @@ namespace DaoUploads
 
             return dsGetMFRejectedTransactions;
         }
+       
         public DataSet GetRejectedTradeAccountStaging(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PANFilter)
         {
             DataSet dsGetWERPRejectedTransactions;
