@@ -651,13 +651,13 @@ namespace BoUploads
             return dsWERPRejectedTransactions;
         }
 
-        public DataSet GetRejectedMFTransactionStaging(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
+        public DataSet GetRejectedMFTransactionStaging(int adviserId, int processId)
         {
             DataSet dsWERPRejectedTransactions;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedMFTransactionStaging(adviserId, processId, fromDate, toDate, rejectReasonCode);
+                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedMFTransactionStaging(adviserId, processId);
 
             }
             catch (BaseApplicationException Ex)
@@ -692,7 +692,6 @@ namespace BoUploads
 
             return dsWERPRejectedTransactions;
         }
-
         public DataSet GetRejectedTradeAccountStaging(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PanFilter)
         {
             DataSet dsWERPRejectedTransactions;
