@@ -150,7 +150,7 @@ namespace WealthERP.Uploads
                     if (processId!= 0)
                     {
                       divConditional.Visible = false;
-                      //BindRejectedSIPGrid(processId);
+                      BindRejectedSIPGrid(processId);
                     }
                     else
                     {
