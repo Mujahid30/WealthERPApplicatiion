@@ -23,6 +23,7 @@ using System.Configuration;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Globalization;
+using BoSuperAdmin;
 
 namespace WealthERP.Uploads
 {
@@ -39,10 +40,13 @@ namespace WealthERP.Uploads
         AdvisorVo adviserVo = new AdvisorVo();
         UploadProcessLogVo processlogVo = new UploadProcessLogVo();
         RMVo rmVo = new RMVo();
+        SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
+        int adviserId;
+        int rmId;
 
         int filetypeId;
         string ValidationProgress = "";
-       // int processId;
+        // int processId;
         int rejectReasonCode;
         DateTime fromDate;
         DateTime toDate;
@@ -71,8 +75,8 @@ namespace WealthERP.Uploads
 
 
 
-           // GetPageCount();
-           // this.BindRejectedSIPGrid(processId);
+            // GetPageCount();
+            // this.BindRejectedSIPGrid(processId);
         }
 
         //private void GetPageCount()
@@ -100,7 +104,7 @@ namespace WealthERP.Uploads
 
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             processId = 0;
@@ -120,6 +124,23 @@ namespace WealthERP.Uploads
                 LinkInputRejects.Visible = false;
             }
 
+            if (adviserVo.advisorId == 1000)
+            {
+                if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
+                {
+                    adviserId = Convert.ToInt32(ddlAdviser.SelectedValue.ToString());
+                    if (hfRmId.Value != "")
+                    {
+                        rmId = Convert.ToInt32(hfRmId.Value);
+                    }
+                    Session["adviserId_Upload"] = adviserId;
+                }
+                else
+                {
+                    adviserId = 1000;
+                }
+            }
+
             if (!Page.IsPostBack)
             {
                 DataSet dsSIP = new DataSet();
@@ -131,48 +152,76 @@ namespace WealthERP.Uploads
                 txtToSIP.SelectedDate = DateTime.Now;
 
 
-              if (adviserVo.advisorId != 1000)
-                {   BindddlRejectReason();
-                    if(processId!=0)
+                if (adviserVo.advisorId != 1000)
                 {
-                    divConditional.Visible = false;                   
-                    BindRejectedSIPGrid(processId);
-                }
-               else
+                    trAdviserSelection.Visible = false;
+                    BindddlRejectReason();
+                    if (processId != 0)
                     {
-                    divConditional.Visible = true;
-                }
-                    
-                   // BindRejectedSIPGrid(processId);
-                }
-                else
-                {
-                    if (processId!= 0)
-                    {
-                      divConditional.Visible = false;
-                      BindRejectedSIPGrid(processId);
+                        divConditional.Visible = false;
+                        BindRejectedSIPGrid(processId);
                     }
                     else
                     {
-                        tdBtnViewRejetcs.Visible = false;
-                        tdTxtToDate.Visible = false;
-                        tdlblToDate.Visible = false;
-                        tdTxtFromDate.Visible = false;
-                        tdlblFromDate.Visible = false;
-                        tdlblRejectReason.Visible = false;
-                        tdDDLRejectReason.Visible = false;
+                        divConditional.Visible = true;
+                    }
+
+                    // BindRejectedSIPGrid(processId);
+                }
+                else
+                {
+                    trAdviserSelection.Visible = true;
+                    BindAdviserDropDownList();
+                    if (processId != 0)
+                    {
+                        divConditional.Visible = false;
+                        BindRejectedSIPGrid(processId);
+                    }
+                    else
+                    {
+
+                        BindddlRejectReason();
+                        divConditional.Visible = true;
+                        //tdBtnViewRejetcs.Visible = false;
+                        //tdTxtToDate.Visible = false;
+                        //tdlblToDate.Visible = false;
+                        //tdTxtFromDate.Visible = false;
+                        //tdlblFromDate.Visible = false;
+                        //tdlblRejectReason.Visible = false;
+                        //tdDDLRejectReason.Visible = false;
                         //lblEmptyMsg.Visible = false;
                         gvSIPReject.Visible = false;
-                        Panel3.Visible = false;
+                        //Panel3.Visible = false;
                         btnExport.Visible = false;
-                                            
-                  }
+
+                    }
                 }
-              }
-           // btnExport.Visible = false;
+            }
+            // btnExport.Visible = false;
             Msgerror.Visible = false;
-           }
-     
+        }
+
+        protected void BindAdviserDropDownList()
+        {
+            DataTable dtAdviserList = new DataTable();
+            dtAdviserList = superAdminOpsBo.BindAdviserForUpload();
+
+            if (dtAdviserList.Rows.Count > 0)
+            {
+                ddlAdviser.DataSource = dtAdviserList;
+                ddlAdviser.DataTextField = "A_OrgName";
+                ddlAdviser.DataValueField = "A_AdviserId";
+                ddlAdviser.DataBind();
+            }
+            ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+        }
+
+        protected void ddlAdviser_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            Panel3.Visible = false;
+            DivAction.Visible = false;
+        }
+
         public void BindddlRejectReason()
         {
             Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
@@ -205,12 +254,20 @@ namespace WealthERP.Uploads
                     fromDate = DateTime.Parse(txtFromSIP.SelectedDate.ToString());
                 if (txtToSIP.SelectedDate != null)
                     toDate = DateTime.Parse(txtToSIP.SelectedDate.ToString());
-               rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
+                rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
             }
             DataSet dsRejectedSIP = new DataSet();
             Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
             Dictionary<string, string> genDictRejectReason = new Dictionary<string, string>();
-            dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(adviserVo.advisorId, processId,fromDate, toDate, rejectReasonCode);         
+            if (adviserVo.advisorId != 1000)
+                dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(adviserVo.advisorId, processId, fromDate, toDate, rejectReasonCode);
+            else
+            {
+                if (Request.QueryString["processId"] != null)                    
+                    dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(Convert.ToInt32(adviserVo.advisorId), processId, fromDate, toDate, rejectReasonCode);
+                else
+                    dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(Convert.ToInt32(ddlAdviser.SelectedValue), processId, fromDate, toDate, rejectReasonCode);
+            }
 
             if (dsRejectedSIP.Tables[0].Rows.Count > 0)
             {   // If Records found, then bind them to grid
@@ -233,7 +290,7 @@ namespace WealthERP.Uploads
                 gvSIPReject.Visible = true;
                 Msgerror.Visible = false;
                 Panel3.Visible = true;
-               
+
             }
             else
             {
@@ -248,9 +305,9 @@ namespace WealthERP.Uploads
                 DivAction.Visible = false;
                 trReprocess.Visible = false;
             }
-          }
+        }
 
-     protected void gvSIPReject_ItemDataBound(object sender, GridItemEventArgs e)
+        protected void gvSIPReject_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
             {
@@ -258,11 +315,11 @@ namespace WealthERP.Uploads
                 GridFilteringItem filterItem = (GridFilteringItem)e.Item;
                 RadComboBox RadComboBoxRR = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
                 RadComboBox RadComboBoxTT = (RadComboBox)filterItem.FindControl("RadComboBoxTT");
-                   
+
                 dsRejectedSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
                 DataTable dtSIP = new DataTable();
                 dtgvWERPSIP = dsRejectedSIP.Tables[0];
-                dtSIP.Columns.Add("WRR_RejectReasonDescription");                      
+                dtSIP.Columns.Add("WRR_RejectReasonDescription");
                 dtSIP.Columns.Add("CMFSCS_SystematicCode");
                 dtSIP.Columns.Add("WRR_RejectReasonCode");
                 dtSIP.Columns.Add("TransactionTypeCode");
@@ -280,7 +337,7 @@ namespace WealthERP.Uploads
                 RadComboBoxRR.DataSource = distinctValues;
                 RadComboBoxRR.DataValueField = dtSIP.Columns["WRR_RejectReasonCode"].ToString();
                 RadComboBoxRR.DataTextField = dtSIP.Columns["WRR_RejectReasonDescription"].ToString();
-                RadComboBoxRR.DataBind();                             
+                RadComboBoxRR.DataBind();
                 DataTable distinctTT = view.ToTable(true, "CMFSCS_SystematicCode");
                 RadComboBoxTT.DataSource = distinctTT;
                 RadComboBoxTT.DataValueField = dtSIP.Columns["CMFSCS_SystematicCode"].ToString();
@@ -288,54 +345,15 @@ namespace WealthERP.Uploads
                 RadComboBoxTT.DataBind();
             }
         }
-   protected void NeedSource()
-     {
-         string rcbType = string.Empty;
-         string tttype = string.Empty;
-         // btnExport.Visible = true;
-         DataSet dsSIP = new DataSet();
-         DataTable dtrr = new DataTable();
-         dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
-         if (dsSIP != null)
-         {
-             dtrr = dsSIP.Tables[0];
-             if (ViewState["WRR_RejectReasonCode"] != null)
-                 rcbType = ViewState["WRR_RejectReasonCode"].ToString();
-             if (ViewState["CMFSCS_SystematicCode"] != null)
-                 tttype = ViewState["CMFSCS_SystematicCode"].ToString();
-             if ((!string.IsNullOrEmpty(rcbType)) && (string.IsNullOrEmpty(tttype)))
-             {
-                 DataView dvStaffList = new DataView(dtrr, "WRR_RejectReasonCode = '" + rcbType + "'", "WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
-                 gvSIPReject.DataSource = dvStaffList.ToTable();
-             }
-             else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
-             {
-                 DataView dvStaffList = new DataView(dtrr, "CMFSCS_SystematicCode= '" + tttype + "'", "WRR_RejectReasonCode,WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
-                 gvSIPReject.DataSource = dvStaffList.ToTable();
-             }
-             else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
-             {
-                 DataView dvStaffList = new DataView(dtrr, "WRR_RejectReasonCode = '" + rcbType + "'and CMFSCS_SystematicCode= '" + tttype + "'", "WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
-                 gvSIPReject.DataSource = dvStaffList.ToTable();
-
-             }
-             else
-             {
-                 gvSIPReject.DataSource = dtrr;
-                 //btnExport.Visible = true;
-             }
-         }
-     }
-
-        protected void gvSIPReject_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        protected void NeedSource()
         {
             string rcbType = string.Empty;
             string tttype = string.Empty;
-            btnExport.Visible = true;
+            // btnExport.Visible = true;
             DataSet dsSIP = new DataSet();
             DataTable dtrr = new DataTable();
             dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
-            if (dsSIP!=null)
+            if (dsSIP != null)
             {
                 dtrr = dsSIP.Tables[0];
                 if (ViewState["WRR_RejectReasonCode"] != null)
@@ -347,18 +365,57 @@ namespace WealthERP.Uploads
                     DataView dvStaffList = new DataView(dtrr, "WRR_RejectReasonCode = '" + rcbType + "'", "WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
                     gvSIPReject.DataSource = dvStaffList.ToTable();
                 }
-              else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
+                else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
                 {
                     DataView dvStaffList = new DataView(dtrr, "CMFSCS_SystematicCode= '" + tttype + "'", "WRR_RejectReasonCode,WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
                     gvSIPReject.DataSource = dvStaffList.ToTable();
                 }
-              else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
+                else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
                 {
                     DataView dvStaffList = new DataView(dtrr, "WRR_RejectReasonCode = '" + rcbType + "'and CMFSCS_SystematicCode= '" + tttype + "'", "WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
                     gvSIPReject.DataSource = dvStaffList.ToTable();
 
-               }                 
-              else
+                }
+                else
+                {
+                    gvSIPReject.DataSource = dtrr;
+                    //btnExport.Visible = true;
+                }
+            }
+        }
+
+        protected void gvSIPReject_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            string rcbType = string.Empty;
+            string tttype = string.Empty;
+            btnExport.Visible = true;
+            DataSet dsSIP = new DataSet();
+            DataTable dtrr = new DataTable();
+            dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
+            if (dsSIP != null)
+            {
+                dtrr = dsSIP.Tables[0];
+                if (ViewState["WRR_RejectReasonCode"] != null)
+                    rcbType = ViewState["WRR_RejectReasonCode"].ToString();
+                if (ViewState["CMFSCS_SystematicCode"] != null)
+                    tttype = ViewState["CMFSCS_SystematicCode"].ToString();
+                if ((!string.IsNullOrEmpty(rcbType)) && (string.IsNullOrEmpty(tttype)))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "WRR_RejectReasonCode = '" + rcbType + "'", "WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
+                    gvSIPReject.DataSource = dvStaffList.ToTable();
+                }
+                else if ((string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "CMFSCS_SystematicCode= '" + tttype + "'", "WRR_RejectReasonCode,WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
+                    gvSIPReject.DataSource = dvStaffList.ToTable();
+                }
+                else if ((!string.IsNullOrEmpty(rcbType)) && (!string.IsNullOrEmpty(tttype)))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "WRR_RejectReasonCode = '" + rcbType + "'and CMFSCS_SystematicCode= '" + tttype + "'", "WUPL_ProcessId,CMFSCS_SystematicCode,ADUL_FileName,CMFSCS_InvName,CMFSCS_FolioNum,CMFSCS_SchemeName", DataViewRowState.CurrentRows);
+                    gvSIPReject.DataSource = dvStaffList.ToTable();
+
+                }
+                else
                 {
                     gvSIPReject.DataSource = dtrr;
                     btnExport.Visible = true;
@@ -857,14 +914,14 @@ namespace WealthERP.Uploads
                     if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                     {
                         StagingID += Convert.ToString(gvSIPReject.MasterTableView.DataKeyValues[gvr.ItemIndex]["WUPL_ProcessId"]) + "~";
-                        
+
                     }
                 }
 
                 string[] a = StagingID.Split('~');
 
 
-                foreach(string word in a) 
+                foreach (string word in a)
                 //foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     if (word != "")
@@ -883,15 +940,15 @@ namespace WealthERP.Uploads
                 }
 
             }
-            if(blResult==true)
-           // if (error == "")
+            if (blResult == true)
+            // if (error == "")
             {
                 BindRejectedSIPGrid(processId);
                 NeedSource();
                 gvSIPReject.MasterTableView.Rebind();
                 msgReprocessComplete.Visible = true;
-                msgDelete.Visible = false;         
-                                          
+                msgDelete.Visible = false;
+
             }
             else
             {
@@ -903,7 +960,7 @@ namespace WealthERP.Uploads
                 //lblError.Text = "ErrorStatus:" + error;
             }
 
-           
+
         }
 
 
@@ -966,36 +1023,36 @@ namespace WealthERP.Uploads
                 msgReprocessComplete.Visible = false;
                 msgReprocessincomplete.Visible = false;
                 msgDelete.Visible = true;
-               
+
             }
-           
+
         }
 
 
         private void CustomerSIPTransactionDelete()
         {
-           // int i = 0;
-            
+            // int i = 0;
+
             foreach (GridDataItem gvr in this.gvSIPReject.Items)
             {
                 if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                 {
-                int  StagingID = int.Parse(gvSIPReject.MasterTableView.DataKeyValues[gvr.ItemIndex]["CMFSCS_ID"].ToString());
+                    int StagingID = int.Parse(gvSIPReject.MasterTableView.DataKeyValues[gvr.ItemIndex]["CMFSCS_ID"].ToString());
                     //i = i + 1;
-                uploadsCommonBo.DeleteMFSIPTransactionStaging(StagingID);
-                //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
-                    
+                    uploadsCommonBo.DeleteMFSIPTransactionStaging(StagingID);
+                    //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
+
                 }
-               
+
             }
-          BindRejectedSIPGrid(processId); 
+            BindRejectedSIPGrid(processId);
         }
 
         protected void LinkInputRejects_Click(object sender, EventArgs e)
         {
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionInputRejects','processId=" + processId + "');", true);
 
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RejectedSystematicTransactionInputRejects", "loadcontrol('RejectedSystematicTransactionInputRejects','processId=" + processId  + " ');", true);           
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RejectedSystematicTransactionInputRejects", "loadcontrol('RejectedSystematicTransactionInputRejects','processId=" + processId + " ');", true);
 
         }
 
@@ -1019,18 +1076,47 @@ namespace WealthERP.Uploads
         }
         protected void btnViewSIP_Click(object sender, EventArgs e)
         {
-           // if (!string.IsNullOrEmpty(txtFromSIP.SelectedDate.ToString()))
-            if (txtFromSIP.SelectedDate != null)
-                fromDate = DateTime.Parse(txtFromSIP.SelectedDate.ToString());
-            if (txtToSIP.SelectedDate != null)
-                toDate = DateTime.Parse(txtToSIP.SelectedDate.ToString());
+            if (adviserVo.advisorId == 1000)
+            {
+                if (ddlAdviser.SelectedIndex == 0)
+                {
+                    Response.Write("<script>alert('Please select an adviser');</script>");
+                }
 
-            BindRejectedSIPGrid(processId);
-            msgDelete.Visible = false;
-            msgReprocessComplete.Visible = false;
-            msgReprocessincomplete.Visible = false;
-            ViewState.Remove("WRR_RejectReasonCode");
-            ViewState.Remove("CMFSCS_SystematicCode");
+                else
+                {
+
+                    // if (!string.IsNullOrEmpty(txtFromSIP.SelectedDate.ToString()))
+                    if (txtFromSIP.SelectedDate != null)
+                        fromDate = DateTime.Parse(txtFromSIP.SelectedDate.ToString());
+                    if (txtToSIP.SelectedDate != null)
+                        toDate = DateTime.Parse(txtToSIP.SelectedDate.ToString());
+
+                    BindRejectedSIPGrid(processId);
+                    msgDelete.Visible = false;
+                    msgReprocessComplete.Visible = false;
+                    msgReprocessincomplete.Visible = false;
+                    ViewState.Remove("WRR_RejectReasonCode");
+                    ViewState.Remove("CMFSCS_SystematicCode");
+                }
+            }
+
+            else
+            {
+
+                // if (!string.IsNullOrEmpty(txtFromSIP.SelectedDate.ToString()))
+                if (txtFromSIP.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtFromSIP.SelectedDate.ToString());
+                if (txtToSIP.SelectedDate != null)
+                    toDate = DateTime.Parse(txtToSIP.SelectedDate.ToString());
+
+                BindRejectedSIPGrid(processId);
+                msgDelete.Visible = false;
+                msgReprocessComplete.Visible = false;
+                msgReprocessincomplete.Visible = false;
+                ViewState.Remove("WRR_RejectReasonCode");
+                ViewState.Remove("CMFSCS_SystematicCode");
+            }
         }
         protected void rcbContinents1_PreRender(object sender, EventArgs e)
         {
@@ -1043,32 +1129,32 @@ namespace WealthERP.Uploads
         protected void rcbContinents2_PreRender(object sender, EventArgs e)
         { }
         protected void rcbContinents3_PreRender(object sender, EventArgs e)
-        {                 
+        {
         }
         protected void rcbContinents4_PreRender(object sender, EventArgs e)
         { }
         protected void rcbContinents5_PreRender(object sender, EventArgs e)
         { }
         protected void rcbContinents6_PreRender(object sender, EventArgs e)
-         {}
-       protected void rcbContinents7_PreRender(object sender, EventArgs e)
-              {
-                  RadComboBox Combo = sender as RadComboBox;
-                  if (ViewState["CMFSCS_SystematicCode"] != null)
-                  {
-                      Combo.SelectedValue = ViewState["CMFSCS_SystematicCode"].ToString();
-                 }                           
-              }
+        { }
+        protected void rcbContinents7_PreRender(object sender, EventArgs e)
+        {
+            RadComboBox Combo = sender as RadComboBox;
+            if (ViewState["CMFSCS_SystematicCode"] != null)
+            {
+                Combo.SelectedValue = ViewState["CMFSCS_SystematicCode"].ToString();
+            }
+        }
 
-       public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-       {
-           gvSIPReject.ExportSettings.OpenInNewWindow = true;
-           gvSIPReject.ExportSettings.IgnorePaging = true;
-           gvSIPReject.ExportSettings.HideStructureColumns = true;
-           gvSIPReject.ExportSettings.ExportOnlyData = true;
-           gvSIPReject.ExportSettings.FileName = "Rejected SIP Details";
-           gvSIPReject.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-           gvSIPReject.MasterTableView.ExportToExcel();
-       }
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvSIPReject.ExportSettings.OpenInNewWindow = true;
+            gvSIPReject.ExportSettings.IgnorePaging = true;
+            gvSIPReject.ExportSettings.HideStructureColumns = true;
+            gvSIPReject.ExportSettings.ExportOnlyData = true;
+            gvSIPReject.ExportSettings.FileName = "Rejected SIP Details";
+            gvSIPReject.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvSIPReject.MasterTableView.ExportToExcel();
+        }
     }
 }

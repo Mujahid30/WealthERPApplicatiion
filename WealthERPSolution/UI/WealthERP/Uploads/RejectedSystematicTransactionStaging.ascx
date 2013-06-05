@@ -1,9 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RejectedSystematicTransactionStaging.ascx.cs"
     Inherits="WealthERP.Uploads.RejectedSystematicTransactionStaging" %>
-<%--<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
-<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
-<%@ Register TagPrefix="qsf" Namespace="Telerik" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>--%>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
 <script src="Scripts/jquery-1.2.6.js" type="text/javascript"></script>
@@ -136,7 +132,7 @@
             Inputs[n].checked) {
             count++;
         }
-        if (count == 0){ 
+        if (count == 0) {
             alert('Please select a record to reprocess!');
             return false;
         }
@@ -168,6 +164,7 @@
         }
     }
 </script>
+
 <script language="javascript" type="text/javascript">
     //    Function to call btnReprocess_Click method to refresh user control
     function Reprocess() {
@@ -175,6 +172,8 @@
     }
 </script>
 
+<table id="tableAdviserSelection" runat="server">
+</table>
 <div id="divConditional" runat="server">
     <table class="TableBackground" cellspacing="0" cellpadding="2">
         <tr>
@@ -184,7 +183,7 @@
        <td id="tdDdlAdviser" runat="server" align="left">
      <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged" ></asp:DropDownList>
      </td>--%>
-            <td id="tdlblRejectReason" runat="server">
+            <td id="tdlblRejectReason" runat="server" align="right">
                 <asp:Label runat="server" class="FieldName" Text="Select reject reason :" ID="lblRejectReason"></asp:Label>
             </td>
             <td id="tdDDLRejectReason" runat="server">
@@ -197,13 +196,13 @@
             <td id="tdTxtFromDate" runat="server">
                 <telerik:RadDatePicker ID="txtFromSIP" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput1" EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
-                        DateFormat="d/M/yyyy">
-                    </DateInput>
+                    <calendar id="Calendar1" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
+                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
+                    </calendar>
+                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                    <dateinput id="DateInput1" emptymessage="dd/mm/yyyy" runat="server" displaydateformat="d/M/yyyy"
+                        dateformat="d/M/yyyy">
+                    </dateinput>
                 </telerik:RadDatePicker>
                 <div id="dvTransactionDate" runat="server" class="dvInLine">
                     <span id="Span1" class="spnRequiredField">*</span>
@@ -221,13 +220,13 @@
             <td id="tdTxtToDate" runat="server">
                 <telerik:RadDatePicker ID="txtToSIP" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput2" runat="server" EmptyMessage="dd/mm/yyyy" DisplayDateFormat="d/M/yyyy"
-                        DateFormat="d/M/yyyy">
-                    </DateInput>
+                    <calendar id="Calendar2" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
+                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
+                    </calendar>
+                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                    <dateinput id="DateInput2" runat="server" emptymessage="dd/mm/yyyy" displaydateformat="d/M/yyyy"
+                        dateformat="d/M/yyyy">
+                    </dateinput>
                 </telerik:RadDatePicker>
                 <div id="Div1" runat="server" class="dvInLine">
                     <span id="Span2" class="spnRequiredField">*</span>
@@ -248,10 +247,20 @@
                 <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewSIP_Click" />
             </td>
         </tr>
+        <tr id="trAdviserSelection" runat="server">
+            <td align="right" style="width: 20%">
+                <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+            </td>
+            <td id="tdDdlAdviser" runat="server" align="left">
+                <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged">
+                </asp:DropDownList>
+            </td>
+            <td colspan="5">
+            </td>
+        </tr>
     </table>
 </div>
-
-
 <table width="100%" cellspacing="" cellpadding="2">
     <tr>
         <td align="center">
@@ -290,7 +299,6 @@
         </td>
     </tr>
 </table>
-
 <asp:Panel ID="Panel3" Visible="false" runat="server" class="Landscape" Width="100%"
     ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="2">
@@ -307,11 +315,11 @@
                     Skin="Telerik" OnItemDataBound="gvSIPReject_ItemDataBound" EnableEmbeddedSkins="false"
                     Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
                     ShowFooter="true" OnNeedDataSource="gvSIPReject_NeedDataSource" OnPreRender="gvSIPReject_PreRender">
-                    <ExportSettings HideStructureColumns="true">
-                    </ExportSettings>
-                    <MasterTableView TableLayout="Auto" DataKeyNames="CMFSCS_ID,WUPL_ProcessId,CMFSCS_FolioNum"
-                        AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                        CommandItemDisplay="None">
+                    <exportsettings hidestructurecolumns="true">
+                    </exportsettings>
+                    <mastertableview tablelayout="Auto" datakeynames="CMFSCS_ID,WUPL_ProcessId,CMFSCS_FolioNum"
+                        allowfilteringbycolumn="true" width="100%" allowmulticolumnsorting="True" autogeneratecolumns="false"
+                        commanditemdisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
                                 HeaderStyle-Width="50px">
@@ -319,13 +327,10 @@
                                     <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                 
-                        <asp:CheckBox ID="chkId" runat="server" />
-                        <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFSCS_ID").ToString() + "-" +  Eval("WRR_RejectReasonCode").ToString()%>' />
-                        <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("WUPL_ProcessId").ToString() %>' />
-                        <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("CMFSCS_ID").ToString() %>' />
-              
-                                    <%--<asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("WERPTransactionId").ToString()%>' />--%>
+                                    <asp:CheckBox ID="chkId" runat="server" />
+                                    <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFSCS_ID").ToString() + "-" +  Eval("WRR_RejectReasonCode").ToString()%>' />
+                                    <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("WUPL_ProcessId").ToString() %>' />
+                                    <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("CMFSCS_ID").ToString() %>' />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="true"
@@ -338,7 +343,6 @@
                                         IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
                                         EnableViewState="true" OnPreRender="rcbContinents1_PreRender" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("WRR_RejectReasonCode").CurrentFilterValue %>'
                                         runat="server">
-                                        <%--OnPreRender="rcbContinents_PreRender"--%>
                                         <Items>
                                             <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
                                         </Items>
@@ -348,7 +352,7 @@
                                         <script type="text/javascript">
                                             function InvesterNameIndexChanged(sender, args) {
                                                 var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
-                                                //////                                                    sender.value = args.get_item().get_value();
+
                                                 tableView.filter("WRR_RejectReasonCode", args.get_item().get_value(), "EqualTo");
                                             } 
                                         </script>
@@ -380,55 +384,11 @@
                                 HeaderStyle-Width="80px" UniqueName="CMFSCS_FolioNum" SortExpression="CMFSCS_FolioNum"
                                 AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                                <%--<FilterTemplate>
-                                    <telerik:RadComboBox ID="RadComboBoxFolioN" Width="90px" CssClass="cmbField" AllowFiltering="true"
-                                        AutoPostBack="true" OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged"
-                                        IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
-                                        EnableViewState="true" OnPreRender="rcbContinents5_PreRender" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("CMFSCS_FolioNum").CurrentFilterValue %>'
-                                        runat="server">
-                                        <%--OnPreRender="rcbContinents_PreRender"--%>
-                                <%-- <Items>
-                                            <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
-                                        </Items>
-                                    </telerik:RadComboBox>
-                                    <telerik:RadScriptBlock ID="RadScriptBlock5" runat="server">
-
-                                        <script type="text/javascript">
-                                            function FolioIndexChanged(sender, args) {
-                                                var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
-                                                tableView.filter("CMFSCS_FolioNum", args.get_item().get_value(), "EqualTo");
-                                            } 
-                                        </script>
-
-                                    </telerik:RadScriptBlock>
-                                </FilterTemplate>--%>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSCS_SchemeName" ShowFilterIcon="false" FilterControlWidth="250px"
                                 AllowFiltering="true" HeaderStyle-Width="250px" HeaderText="Scheme" UniqueName="CMFSCS_SchemeName"
                                 CurrentFilterFunction="Contains" SortExpression="CMFSCS_SchemeName" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                <%-- <FilterTemplate>
-                                    <telerik:RadComboBox ID="RadComboBoxSN" Width="290px" CssClass="cmbField" AllowFiltering="true"
-                                        AutoPostBack="true" OnSelectedIndexChanged="ddlSchemeName_SelectedIndexChanged"
-                                        IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
-                                        EnableViewState="true" OnPreRender="rcbContinents6_PreRender" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("CMFSCS_SchemeName").CurrentFilterValue %>'
-                                        runat="server">
-                                        <%--OnPreRender="rcbContinents_PreRender"--%>
-                                <%-- <Items>
-                                            <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
-                                        </Items>
-                                    </telerik:RadComboBox>
-                                    <telerik:RadScriptBlock ID="RadScriptBlock6" runat="server">
-
-                                        <script type="text/javascript">
-                                            function SCNIndexChanged(sender, args) {
-                                                var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
-                                                tableView.filter("CMFSCS_SchemeName", args.get_item().get_value(), "EqualTo");
-                                            } 
-                                        </script>
-
-                                    </telerik:RadScriptBlock>
-                                </FilterTemplate>--%>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSCS_SystematicCode" AllowFiltering="true"
                                 HeaderText="Transaction Type" HeaderStyle-Width="100px" UniqueName="CMFSCS_SystematicCode"
@@ -441,7 +401,6 @@
                                         IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
                                         EnableViewState="true" OnPreRender="rcbContinents7_PreRender" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("CMFSCS_SystematicCode").CurrentFilterValue %>'
                                         runat="server">
-                                        <%--OnPreRender="rcbContinents_PreRender"--%>
                                         <Items>
                                             <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
                                         </Items>
@@ -459,15 +418,15 @@
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSCS_StartDate" HeaderText="Start Date" AllowFiltering="false"
-                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CMFSCS_StartDate" DataFormatString="{0:d}"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="CMFSCS_StartDate" FooterStyle-HorizontalAlign="Left">
+                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CMFSCS_StartDate"
+                                DataFormatString="{0:d}" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="CMFSCS_StartDate" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSCS_ToDate" HeaderText="End Date" AllowFiltering="false"
-                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CMFSCS_ToDate" DataFormatString="{0:d}"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="CMFSCS_ToDate" FooterStyle-HorizontalAlign="Left">
+                                HeaderStyle-Width="100px" HeaderStyle-Wrap="false" SortExpression="CMFSCS_ToDate"
+                                DataFormatString="{0:d}" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="CMFSCS_ToDate" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFSCS_SystematicDate" HeaderText="Systematic Date"
@@ -494,202 +453,16 @@
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                         </Columns>
-                    </MasterTableView>
-                    <ClientSettings>
+                    </mastertableview>
+                    <clientsettings>
                         <Resizing AllowColumnResize="false" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    </ClientSettings>
+                    </clientsettings>
                 </telerik:RadGrid>
             </td>
         </tr>
     </table>
 </asp:Panel>
-<%--  <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-                    <table width="100%" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <asp:Panel ID="Panel1" runat="server">
-                                    <asp:GridView ID="gvSIPReject" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                                        ShowFooter="true" CssClass="GridViewStyle" AllowSorting="true" DataKeyNames="CMFSCS_ID,WUPL_ProcessId,CMFSCS_FolioNum">
-                                        <FooterStyle CssClass="FooterStyle" />
-                                        <RowStyle CssClass="RowStyle" />
-                                        <EditRowStyle HorizontalAlign="Left" CssClass="EditRowStyle" />
-                                        <SelectedRowStyle CssClass="SelectedRowStyle" />
-                                        <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                                        <HeaderStyle CssClass="HeaderStyle" />
-                                        <AlternatingRowStyle CssClass="AltRowStyle" />
-                                        <Columns>
-                                            <asp:TemplateField HeaderText="Select">
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
-                                                    <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:CheckBox ID="chkId" runat="server" />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                                                    <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true"
-                                                        runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
-                                                    </asp:DropDownList>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("WRR_RejectReasonDescription").ToString() %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
-                                                    <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="cmbField" runat="server"
-                                                        OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
-                                                    </asp:DropDownList>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("WUPL_ProcessId").ToString() %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblHdrFileName" runat="server" Text="File Name"></asp:Label>
-                                                    <asp:DropDownList ID="ddlFileName" AutoPostBack="true" CssClass="cmbLongField" runat="server"
-                                                        OnSelectedIndexChanged="ddlFileName_SelectedIndexChanged">
-                                                    </asp:DropDownList>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblFileName" runat="server" Text='<%# Eval("ADUL_FileName").ToString() %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblHdrSourceType" runat="server" Text="Source Type"></asp:Label>
-                                                    <%--    <asp:DropDownList ID="ddlSourceType" AutoPostBack="true" CssClass="cmbField" runat="server"
-                                   >
-                                </asp:DropDownList>--%>
-<%--   </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblSourceType" runat="server" Text='<%# Eval("SystematicType").ToString() %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderStyle-Wrap="false">
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblInvName" runat="server" Text="Investor Name"></asp:Label><br />
-                                                    <asp:DropDownList ID="ddlInvName" AutoPostBack="true" CssClass="cmbLongField" runat="server"
-                                                        OnSelectedIndexChanged="ddlInvName_SelectedIndexChanged">
-                                                    </asp:DropDownList>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblInvNameData" runat="server" Text='<%# Bind("CMFSCS_InvName") %>'></asp:Label>
-                                                </ItemTemplate>
-                                                <HeaderStyle Wrap="False" />
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblHdrFolioNumber" runat="server" Text="Folio Number"></asp:Label>
-                                                    <asp:DropDownList ID="ddlFolioNumber" AutoPostBack="true" CssClass="cmbField" runat="server"
-                                                        OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged">
-                                                    </asp:DropDownList>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblFolioNumber" runat="server" Text='<%# Bind("CMFSCS_FolioNum") %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <%--  <asp:BoundField DataField="Scheme" HeaderText="Scheme" DataFormatString="{0:f4}"
-                            ItemStyle-Wrap="false">
-                            <ItemStyle Wrap="False" />
-                        </asp:BoundField>--%>
-<%-- <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblHdrSchemeName" runat="server" Text="Scheme Name"></asp:Label>
-                                                    <asp:DropDownList ID="ddlSchemeName" AutoPostBack="true" CssClass="cmbLongField"
-                                                        runat="server" OnSelectedIndexChanged="ddlSchemeName_SelectedIndexChanged">
-                                                    </asp:DropDownList>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblSchemeName" runat="server" Text='<%# Bind("CMFSCS_SchemeName") %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblHdrTransactionType" runat="server" Text="Transaction Type"></asp:Label>
-                                                    <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbField"
-                                                        runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
-                                                    </asp:DropDownList>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblTransactionType" runat="server" Text='<%# Bind("CMFSCS_SystematicCode") %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblStartDate" runat="server" Text="Start Date"></asp:Label>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblStartDate" runat="server" Text='<%# Bind("CMFSCS_StartDate") %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblToDate" runat="server" Text="End Date"></asp:Label>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblToDate" runat="server" Text='<%# Bind("CMFSCS_ToDate") %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblSystematicDate" runat="server" Text="Systematic Date"></asp:Label>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblSystematicDate" runat="server" Text='<%# Bind("CMFSCS_SystematicDate") %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblFrequency" runat="server" Text="Frequency"></asp:Label>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblFrequency" runat="server" Text='<%# Bind("XF_Frequency") %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblAmount" runat="server" Text="Amount"></asp:Label>--%>
-<%-- <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbField"
-                                    runat="server" >
-                                </asp:DropDownList>--%>
-<%--  </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblAmount" runat="server" Text='<%# Bind("CMFSCS_Amount") %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    <asp:Label ID="lblTARGET_SCH" runat="server" Text="Target Scheme"></asp:Label>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblTARGET_SCH" runat="server" Text='<%# Bind("CMFSCS_TARGET_SCH") %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>--%>
-<%--<asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lblHdrTransactionType" runat="server" Text="Transaction Type"></asp:Label>
-                                <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbField"
-                                    runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblTransactionType" runat="server" Text='<%# Bind("XF_Frequency") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>--%>
-<%-- </Columns>
-                                    </asp:GridView>
-                                </asp:Panel>
-                            </td>
-                        </tr>
-                    </table>
-                </asp:Panel>--%>
 <table width="100%">
     <div id="DivAction" runat="server" visible="false">
         <tr id="trReprocess" runat="server">
@@ -698,33 +471,12 @@
                     CssClass="PCGLongButton" OnClientClick="SelectProcessId();" />
                 <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                     OnClick="btnDelete_Click" />
-                        <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
-        OnClientClick="return ShowPopup()" />
+                <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
+                    OnClientClick="return ShowPopup()" />
             </td>
         </tr>
     </div>
-    <%-- <tr id="trMessage" runat="server" visible="false">
-        <td class="Message">
-            <label id="lblEmptyMsg" class="FieldName" visible="false">
-                There are no records to be displayed!</label>
-        </td>
-    </tr>--%>
-    <%-- <tr id="trErrorMessage" runat="server" visible="false">
-        <td class="Message">
-            <asp:Label ID="lblError" CssClass="Message" runat="server">
-            </asp:Label>
-        </td>
-    </tr>--%>
 </table>
-<%--<div id="DivPager" runat="server" style="display: none">
-    <table style="width: 100%">
-        <tr align="center">
-            <td>
-                <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-            </td>
-        </tr>
-    </table>
-</div>--%>
 <asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnFolioFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnInvNameFilter" runat="server" Visible="false" />
@@ -734,3 +486,4 @@
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnRejectReasonFilter" runat="server" Visible="false" />
+<asp:HiddenField ID="hfRmId" runat="server" />
