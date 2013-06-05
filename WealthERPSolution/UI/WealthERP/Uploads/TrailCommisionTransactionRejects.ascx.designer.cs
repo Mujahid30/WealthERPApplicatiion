@@ -8,13 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.Uploads
-{
-
-
-    public partial class TrailCommisionTransactionRejects
-    {
-
+namespace WealthERP.Uploads {
+    
+    
+    public partial class TrailCommisionTransactionRejects {
+        
         /// <summary>
         /// RadStyleSheetManager1 control.
         /// </summary>
@@ -23,7 +21,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
-
+        
         /// <summary>
         /// RadScriptManager1 control.
         /// </summary>
@@ -32,43 +30,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
-
-        /// <summary>
-        /// msgReprocessComplete control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessComplete;
-
-        /// <summary>
-        /// msgDelete control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgDelete;
-
-        /// <summary>
-        /// msgReprocessincomplete control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessincomplete;
-
-        /// <summary>
-        /// Panel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
-
+        
         /// <summary>
         /// lnkBtnBack control.
         /// </summary>
@@ -77,7 +39,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnBack;
-
+        
         /// <summary>
         /// imgBtnrgHoldings control.
         /// </summary>
@@ -86,7 +48,250 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnrgHoldings;
-
+        
+        /// <summary>
+        /// divConditional control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
+        
+        /// <summary>
+        /// tdlblRejectReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRejectReason;
+        
+        /// <summary>
+        /// lblRejectReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRejectReason;
+        
+        /// <summary>
+        /// tdDDLRejectReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDLRejectReason;
+        
+        /// <summary>
+        /// ddlRejectReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRejectReason;
+        
+        /// <summary>
+        /// tdlblFromDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblFromDate;
+        
+        /// <summary>
+        /// lblFromSIP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFromSIP;
+        
+        /// <summary>
+        /// tdTxtFromDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtFromDate;
+        
+        /// <summary>
+        /// txtFromMFT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker txtFromMFT;
+        
+        /// <summary>
+        /// dvTransactionDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvTransactionDate;
+        
+        /// <summary>
+        /// rfvtxtSIPDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtSIPDate;
+        
+        /// <summary>
+        /// CompareValidator9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator9;
+        
+        /// <summary>
+        /// tdlblToDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblToDate;
+        
+        /// <summary>
+        /// lblToTran control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblToTran;
+        
+        /// <summary>
+        /// tdTxtToDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtToDate;
+        
+        /// <summary>
+        /// txtToMFT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker txtToMFT;
+        
+        /// <summary>
+        /// Div1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+        
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
+        /// CompareValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
+        
+        /// <summary>
+        /// CompareValidator14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator14;
+        
+        /// <summary>
+        /// tdBtnViewRejetcs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBtnViewRejetcs;
+        
+        /// <summary>
+        /// btnViewTrail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewTrail;
+        
+        /// <summary>
+        /// msgReprocessComplete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessComplete;
+        
+        /// <summary>
+        /// msgDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgDelete;
+        
+        /// <summary>
+        /// msgReprocessincomplete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessincomplete;
+        
+        /// <summary>
+        /// Msgerror control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Msgerror;
+        
+        /// <summary>
+        /// Panel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel2;
+        
         /// <summary>
         /// GVTrailTransactionRejects control.
         /// </summary>
@@ -95,7 +300,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid GVTrailTransactionRejects;
-
+        
         /// <summary>
         /// trReprocess control.
         /// </summary>
@@ -104,7 +309,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trReprocess;
-
+        
         /// <summary>
         /// btnReprocess control.
         /// </summary>
@@ -113,7 +318,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnReprocess;
-
+        
         /// <summary>
         /// btnDelete control.
         /// </summary>
@@ -122,7 +327,16 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDelete;
-
+        
+        /// <summary>
+        /// btnMapToCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMapToCustomer;
+        
         /// <summary>
         /// trMessage control.
         /// </summary>
@@ -131,7 +345,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMessage;
-
+        
         /// <summary>
         /// trErrorMessage control.
         /// </summary>
@@ -140,7 +354,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trErrorMessage;
-
+        
         /// <summary>
         /// lblError control.
         /// </summary>
@@ -149,16 +363,14 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblError;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBtnViewRejetcs;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblToDate;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblFromDate;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRejectReason;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDLRejectReason;
-        protected global::Telerik.Web.UI.RadDatePicker txtFromMFT;
-        protected global::Telerik.Web.UI.RadDatePicker txtToMFT;
-        protected global::System.Web.UI.WebControls.ImageButton btnExport;
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Msgerror;
-        protected global::System.Web.UI.WebControls.DropDownList ddlRejectReason;
+        
+        /// <summary>
+        /// hfRmId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfRmId;
     }
 }

@@ -23,11 +23,13 @@ using System.Configuration;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Globalization;
+using BoSuperAdmin;
 
 namespace WealthERP.Uploads
 {
     public partial class TrailCommisionTransactionRejects : System.Web.UI.UserControl
     {
+        SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
         UploadCommonBo uploadsCommonBo;
         AdvisorVo advisorVo;
         CustomerVo customerVo;
@@ -38,17 +40,39 @@ namespace WealthERP.Uploads
         DateTime toDate;
         int rejectReasonCode;
         //int processId;
+        int adviserId;
+        int rmId;
+        RMVo rmVo;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            rmVo = (RMVo)Session[SessionContents.RmVo];
             customerVo = (CustomerVo)Session["customerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             processId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
                 processId = Int32.Parse(Request.QueryString["processId"].ToString());
+
+            if (Request.QueryString["adviserId"] != null)
+            {
+                adviserId = Int32.Parse(Request.QueryString["adviserId"].ToString());
+                if (rmVo == null)
+                {
+                    DataSet dsAdviserRmDetails = superAdminOpsBo.GetAdviserRmDetails(adviserId);
+
+                    if (dsAdviserRmDetails.Tables[0].Rows.Count > 0)
+                    {
+                        rmId = int.Parse(dsAdviserRmDetails.Tables[0].Rows[0]["ar_rmid"].ToString());
+                        hfRmId.Value = rmId.ToString();
+                    }
+
+                }
+            }
+
             if (!IsPostBack)
             {
-               
+
                 txtFromMFT.SelectedDate = DateTime.Now.AddMonths(-1).Date;
                 txtToMFT.SelectedDate = DateTime.Now;
                 if (advisorVo.advisorId != 1000)
@@ -69,6 +93,10 @@ namespace WealthERP.Uploads
                     if (processId != 0)
                     {
                         divConditional.Visible = false;
+                        BindTrailCommissionRejectedGrid(processId);
+
+                        GVTrailTransactionRejects.Visible = true;
+                        Panel2.Visible = true;
                     }
                     else
                     {
@@ -131,7 +159,10 @@ namespace WealthERP.Uploads
                 trReprocess.Visible = true;
                 if (processId != 0)
                 {
-                    dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId, fromDate, toDate, rejectReasonCode);
+                    if (advisorVo.advisorId != 1000)
+                        dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId, fromDate, toDate, rejectReasonCode);
+                    else
+                        dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(adviserId, processId, fromDate, toDate, rejectReasonCode);
                 }
                 else
                 {
@@ -280,44 +311,44 @@ namespace WealthERP.Uploads
                 }
             }
 
-                //    DataSet ds = uploadsCommonBo.GetSIPUploadRejectDistinctProcessIdForAdviser(advisorVo.advisorId);
-                //    foreach (DataRow dr in ds.Tables[0].Rows)
-                //    {
-                //        processIdReprocessAll = int.Parse(dr["WUPL_ProcessId"].ToString());
-                //        processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
+            //    DataSet ds = uploadsCommonBo.GetSIPUploadRejectDistinctProcessIdForAdviser(advisorVo.advisorId);
+            //    foreach (DataRow dr in ds.Tables[0].Rows)
+            //    {
+            //        processIdReprocessAll = int.Parse(dr["WUPL_ProcessId"].ToString());
+            //        processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
 
-                //        blResult = MFTrailTransactionInsertion(processIdReprocessAll);
+            //        blResult = MFTrailTransactionInsertion(processIdReprocessAll);
 
-                //        if (blResult == false)
-                //        {
-                //            error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
-                //        }
-                //    }
+            //        if (blResult == false)
+            //        {
+            //            error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
+            //        }
+            //    }
 
-                //}
+            //}
 
-                if (error == "")
-                {
-                    // Success Message
-                    //trErrorMessage.Visible = true;
-                    //lblError.Text = "Reprocess Done Successfully!";
-                    BindTrailCommissionRejectedGrid(processId);
-                    NeedSource();
-                    GVTrailTransactionRejects.MasterTableView.Rebind();
-                    msgReprocessComplete.Visible = true;
+            if (error == "")
+            {
+                // Success Message
+                //trErrorMessage.Visible = true;
+                //lblError.Text = "Reprocess Done Successfully!";
+                BindTrailCommissionRejectedGrid(processId);
+                NeedSource();
+                GVTrailTransactionRejects.MasterTableView.Rebind();
+                msgReprocessComplete.Visible = true;
 
-                }
-                else
-                {
-                    // Failure Message
-                    trErrorMessage.Visible = true;
-                    msgReprocessincomplete.Visible = true;
-                    lblError.Text = "ErrorStatus:" + error;
-                }
-
-               // BindTrailCommissionRejectedGrid(processId);
             }
-        
+            else
+            {
+                // Failure Message
+                trErrorMessage.Visible = true;
+                msgReprocessincomplete.Visible = true;
+                lblError.Text = "ErrorStatus:" + error;
+            }
+
+            // BindTrailCommissionRejectedGrid(processId);
+        }
+
 
 
         public bool MFTrailTransactionInsertion(int UploadProcessId)
@@ -441,7 +472,7 @@ namespace WealthERP.Uploads
         protected void NeedSource()
         {
 
-            string rcbType = string.Empty;           
+            string rcbType = string.Empty;
             DataSet dsRejectedSIP = new DataSet();
             DataTable dtrr = new DataTable();
             dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + advisorVo.advisorId.ToString()];
@@ -457,15 +488,15 @@ namespace WealthERP.Uploads
                 }
                 else
                 {
-                    GVTrailTransactionRejects.DataSource = dtrr;                
+                    GVTrailTransactionRejects.DataSource = dtrr;
 
                 }
             }
-        
-        
+
+
         }
 
-       
+
         protected void GVTrailTransactionRejects_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             string rcbType = string.Empty;

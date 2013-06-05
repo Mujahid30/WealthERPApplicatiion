@@ -352,3 +352,5 @@
         </td>
     </tr>
 </table>
+
+<asp:HiddenField ID="hfRmId" runat="server" />
