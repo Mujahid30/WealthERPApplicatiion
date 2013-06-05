@@ -70,6 +70,24 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Associates//AddAssociates.ascx.
+        /// </summary>
+        internal static string AddAssociates {
+            get {
+                return ResourceManager.GetString("AddAssociates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Associates//AddAssociatesDetails.ascx.
+        /// </summary>
+        internal static string AddAssociatesDetails {
+            get {
+                return ResourceManager.GetString("AddAssociatesDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//AddBankAccount.ascx.
         /// </summary>
         internal static string AddBankAccount {
@@ -93,6 +111,15 @@ namespace WealthERP {
         internal static string AddBranch {
             get {
                 return ResourceManager.GetString("AddBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Associates//AddBranchRMAgentAssociation.ascx.
+        /// </summary>
+        internal static string AddBranchRMAgentAssociation {
+            get {
+                return ResourceManager.GetString("AddBranchRMAgentAssociation", resourceCulture);
             }
         }
         
@@ -2986,11 +3013,29 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Associates//ViewAgentCode.ascx.
+        /// </summary>
+        internal static string ViewAgentCode {
+            get {
+                return ResourceManager.GetString("ViewAgentCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//ViewAllBankDetails.ascx.
         /// </summary>
         internal static string ViewAllBankDetails {
             get {
                 return ResourceManager.GetString("ViewAllBankDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Associates//ViewAssociates.ascx.
+        /// </summary>
+        internal static string ViewAssociates {
+            get {
+                return ResourceManager.GetString("ViewAssociates", resourceCulture);
             }
         }
         

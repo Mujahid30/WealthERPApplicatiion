@@ -1565,4 +1565,24 @@
     <value>Customer//AddBankAccount.ascx</value>
     <comment>Customer//AddBankAccount.ascx</comment>
   </data>
+  <data name="AddAssociates" xml:space="preserve">
+    <value>Associates//AddAssociates.ascx</value>
+    <comment>Associates//AddAssociates.ascx</comment>
+  </data>
+  <data name="AddAssociatesDetails" xml:space="preserve">
+    <value>Associates//AddAssociatesDetails.ascx</value>
+    <comment>Associates//AddAssociatesDetails.ascx</comment>
+  </data>
+  <data name="AddBranchRMAgentAssociation" xml:space="preserve">
+    <value>Associates//AddBranchRMAgentAssociation.ascx</value>
+    <comment>Associates//AddBranchRMAgentAssociation.ascx</comment>
+  </data>
+  <data name="ViewAgentCode" xml:space="preserve">
+    <value>Associates//ViewAgentCode.ascx</value>
+    <comment>Associates//ViewAgentCode.ascx</comment>
+  </data>
+  <data name="ViewAssociates" xml:space="preserve">
+    <value>Associates//ViewAssociates.ascx</value>
+    <comment>Associates//ViewAssociates.ascx</comment>
+  </data>
 </root>

@@ -1109,6 +1109,41 @@
     <Compile Include="Alerts\NotificationDashboard.ascx.designer.cs">
       <DependentUpon>NotificationDashboard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Associates\AddAssociates.ascx.cs">
+      <DependentUpon>AddAssociates.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Associates\AddAssociates.ascx.designer.cs">
+      <DependentUpon>AddAssociates.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Associates\AddAssociatesDetails.ascx.cs">
+      <DependentUpon>AddAssociatesDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Associates\AddAssociatesDetails.ascx.designer.cs">
+      <DependentUpon>AddAssociatesDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Associates\AddBranchRMAgentAssociation.ascx.cs">
+      <DependentUpon>AddBranchRMAgentAssociation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Associates\AddBranchRMAgentAssociation.ascx.designer.cs">
+      <DependentUpon>AddBranchRMAgentAssociation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Associates\ViewAgentCode.ascx.cs">
+      <DependentUpon>ViewAgentCode.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Associates\ViewAgentCode.ascx.designer.cs">
+      <DependentUpon>ViewAgentCode.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Associates\ViewAssociates.ascx.cs">
+      <DependentUpon>ViewAssociates.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Associates\ViewAssociates.ascx.designer.cs">
+      <DependentUpon>ViewAssociates.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Base\Caching.cs" />
     <Compile Include="Base\Contants.cs" />
     <Compile Include="Advisor\ChangeLoginId.ascx.cs">
@@ -5799,6 +5834,11 @@
     <Content Include="App_Themes\Yellow\Telerik\Window\WindowHorizontalSprites.png" />
     <Content Include="App_Themes\Yellow\Telerik\Window\WindowVerticalSprites.gif" />
     <Content Include="App_Themes\Yellow\Telerik\Window\WindowVerticalSprites.png" />
+    <Content Include="Associates\AddAssociates.ascx" />
+    <Content Include="Associates\AddAssociatesDetails.ascx" />
+    <Content Include="Associates\AddBranchRMAgentAssociation.ascx" />
+    <Content Include="Associates\ViewAgentCode.ascx" />
+    <Content Include="Associates\ViewAssociates.ascx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\BoAdvisorProfiling.dll" />
     <Content Include="bin\BoAdvisorProfiling.pdb" />
