@@ -149,7 +149,7 @@ namespace WealthERP.SuperAdmin
 
                 else if (e.Item.Value == "View_Systematic_Transaction")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStagingSA', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging', 'none')", true);
                 }
                 else if (e.Item.Value == "MFNP_Tranx_Compare")
                 {
