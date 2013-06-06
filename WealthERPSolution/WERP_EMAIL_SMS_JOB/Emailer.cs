@@ -387,33 +387,40 @@ namespace WERP_EMAIL_SMS_JOB
                         else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
                             _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFive"]);
                     }
+                    else if (dr["FromSMTPEmailId"].ToString() == "admin5@wealtherp.com")
+                    {
+                        if (Convert.ToInt16(dr["SendMailCount"].ToString()) <= 240)
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFive"]);
+                        else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameSeven"]);
+                    }
                     else if (dr["FromSMTPEmailId"].ToString() == "admin7@wealtherp.com")
                     {
                         if (Convert.ToInt16(dr["SendMailCount"].ToString()) <= 240)
-                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFour"]);
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameSeven"]);
                         else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
-                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFive"]);
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameEight"]);
                     }
                     else if (dr["FromSMTPEmailId"].ToString() == "admin8@wealtherp.com")
                     {
                         if (Convert.ToInt16(dr["SendMailCount"].ToString()) <= 240)
-                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFour"]);
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameEight"]);
                         else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
-                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFive"]);
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameNine"]);
                     }
                     else if (dr["FromSMTPEmailId"].ToString() == "admin9@wealtherp.com")
                     {
                         if (Convert.ToInt16(dr["SendMailCount"].ToString()) <= 240)
-                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFour"]);
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameNine"]);
                         else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
-                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFive"]);
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameTen"]);
                     }
                     else if (dr["FromSMTPEmailId"].ToString() == "admin10@wealtherp.com")
                     {
                         if (Convert.ToInt16(dr["SendMailCount"].ToString()) <= 240)
-                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFour"]);
-                        else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
-                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFive"]);
+                            _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameTen"]);
+                        //else if (Convert.ToInt16(dr["SendMailCount"].ToString()) >= 240)
+                        //    _SMTPUsername = Encryption.Decrypt(ConfigurationSettings.AppSettings["SMTPUsernameFive"]);
                     }
 
                 }
