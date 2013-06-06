@@ -283,6 +283,11 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                               <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_InvName" HeaderText="InvName"
+                                UniqueName="CMFTTCS_InvName" SortExpression="CMFTTCS_InvName" AutoPostBackOnFilter="true"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderText="Scheme Plan Name"
                                 FilterControlWidth="220px" UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
