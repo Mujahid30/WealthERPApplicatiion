@@ -160,6 +160,10 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_Units", DbType.Double, mforderVo.Units);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_Units", DbType.Double, DBNull.Value);
+                if (!string.IsNullOrEmpty(mforderVo.ARNNo.ToString().Trim()))
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, mforderVo.ARNNo);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, DBNull.Value);
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
 
 
@@ -332,6 +336,10 @@ namespace DaoOps
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_Units", DbType.Double, mforderVo.Units);
                 else
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_Units", DbType.Double, DBNull.Value);
+                if (!string.IsNullOrEmpty(mforderVo.ARNNo.ToString().Trim()))
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, mforderVo.ARNNo);
+                else
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, DBNull.Value);
 
 
                 db.ExecuteNonQuery(UpdateMFOrderTrackingCmd);
@@ -489,6 +497,24 @@ namespace DaoOps
                 throw (Ex);
             }
             return dsGetCustomerBank;
+        }
+        public DataSet GetARNNo(int adviserId)
+        {
+            DataSet dsARNNo;
+            Database db;
+            DbCommand getArnNocmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getArnNocmd = db.GetStoredProcCommand("SPROC_GetARNNo");
+                db.AddInParameter(getArnNocmd, "@AdviserId", DbType.Int32, adviserId);
+                dsARNNo = db.ExecuteDataSet(getArnNocmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsARNNo;
         }
     }
 }
