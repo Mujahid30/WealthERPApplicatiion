@@ -97,6 +97,7 @@ namespace VoReports
         public string ChequeDate;
         public string ChequeNo;
         public string SchemeSwitch;
+        public string ArnNo;
         
     }
 
