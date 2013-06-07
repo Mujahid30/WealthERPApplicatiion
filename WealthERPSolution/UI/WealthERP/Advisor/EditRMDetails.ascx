@@ -248,7 +248,11 @@
             }
         }
     }
-   
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -323,7 +327,7 @@
             <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Staff Name:"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField" onkeypress="return keyPress(this, event)" ></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvName" ValidationGroup="btnUpdate" ControlToValidate="txtFirstName"
                 ErrorMessage="<br />Please Enter the Name" Display="Dynamic" runat="server" CssClass="rfvPCG">
@@ -332,12 +336,12 @@
                 Enabled="True" TargetControlID="txtFirstName" WatermarkText="First Name">
             </cc1:TextBoxWatermarkExtender>
             &nbsp;
-            <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtMiddleName_TextBoxWatermarkExtender" runat="server"
                 Enabled="True" TargetControlID="txtMiddleName" WatermarkText="Middle Name">
             </cc1:TextBoxWatermarkExtender>
             &nbsp;
-            <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtLastName_TextBoxWatermarkExtender" runat="server"
                 Enabled="True" TargetControlID="txtLastName" WatermarkText="Last Name">
             </cc1:TextBoxWatermarkExtender>
@@ -348,7 +352,7 @@
             <asp:Label ID="lblStaffCode" runat="server" CssClass="FieldName" Text="StaffCode :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtStaffCode" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtStaffCode" runat="server" CssClass="txtField" onkeypress="return keyPress(this, event)"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -356,7 +360,7 @@
             <asp:Label ID="lblCTC" runat="server" CssClass="FieldName" Text="CTC Per Month :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtCTC" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtCTC" runat="server" CssClass="txtField" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator15" ControlToValidate="txtCTC"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
@@ -424,14 +428,14 @@
             <asp:Label ID="lblPhoneDirectNumber" runat="server" CssClass="FieldName" Text="Telephone Number Direct :"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
-            <asp:TextBox ID="txtPhDirectISD" runat="server" CssClass="txtField" Width="55px"
+            <asp:TextBox ID="txtPhDirectISD" runat="server" CssClass="txtField" Width="55px" onkeypress="return keyPress(this, event)"
                 MaxLength="3"></asp:TextBox>
-            <asp:TextBox ID="txtPhDirectSTD" runat="server" CssClass="txtField" Width="55px"
+            <asp:TextBox ID="txtPhDirectSTD" runat="server" CssClass="txtField" Width="55px" onkeypress="return keyPress(this, event)"
                 MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPhDirectSTD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px"
+            <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px" onkeypress="return keyPress(this, event)"
                 MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtPhDirectPhoneNumber"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
@@ -451,7 +455,7 @@
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtExtSTD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtPhExtPhoneNumber" runat="server" CssClass="txtField" Width="150px"
+            <asp:TextBox ID="txtPhExtPhoneNumber" runat="server" CssClass="txtField" Width="150px" onkeypress="return keyPress(this, event)"
                 MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtPhExtPhoneNumber"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
@@ -471,7 +475,7 @@
             <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtResiSTD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtPhResiPhoneNumber" runat="server" CssClass="txtField" Width="150px"
+            <asp:TextBox ID="txtPhResiPhoneNumber" runat="server" CssClass="txtField" Width="150px" onkeypress="return keyPress(this, event)"
                 MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtPhResiPhoneNumber"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
@@ -491,7 +495,7 @@
             <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtFaxSTD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtFaxNumber" runat="server" CssClass="txtField" Width="150px" MaxLength="8"></asp:TextBox>
+            <asp:TextBox ID="txtFaxNumber" runat="server" CssClass="txtField" Width="150px" MaxLength="8" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtFaxNumber"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
@@ -502,7 +506,7 @@
             <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Mobile Number :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+            <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
                 ValidationGroup="btnUpdate" ValidationExpression="^\d{10,10}$"></asp:RegularExpressionValidator>
@@ -513,7 +517,7 @@
             <asp:Label ID="lblEmail" runat="server" CssClass="FieldName" Text="Email Id :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEmail"
                 ValidationGroup="btnUpdate" ErrorMessage="Please enter an Email ID" Display="Dynamic"
