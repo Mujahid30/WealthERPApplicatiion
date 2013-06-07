@@ -1445,6 +1445,10 @@ namespace WealthERP.OPS
                         mforderVo.Units = double.Parse(dr["CMFOD_Units"].ToString());
                     else
                         mforderVo.Units = 0;
+                    if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
+                        mforderVo.ARNNo = dr["CMFOD_ARNNo"].ToString();
+                    else
+                        mforderVo.ARNNo = "";
 
                 }
                 Session["orderVo"] = orderVo;
