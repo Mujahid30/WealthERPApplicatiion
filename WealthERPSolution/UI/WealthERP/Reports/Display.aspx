@@ -138,7 +138,6 @@
                                             <td>
                                                 <asp:DropDownList ID="ddlFormat" runat="server">
                                                     <asp:ListItem Value="PDF">PDF </asp:ListItem>
-                                                    <asp:ListItem Value="Excel">MS Excel</asp:ListItem>
                                                     <asp:ListItem Value="Word">MS Word</asp:ListItem>
                                                     <asp:ListItem Value="RTF">Rich Text Format</asp:ListItem>
                                                 </asp:DropDownList>
