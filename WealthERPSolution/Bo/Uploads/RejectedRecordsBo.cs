@@ -1465,6 +1465,38 @@ namespace BoUploads
 
             return dsWERPRejectedTransactions;
         }
+
+        public bool UpdateMFTrasactionStaging(int CMFTSId, string newScheme)
+        {
+            bool result = false;
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            try
+            {
+                result = rejecetedRecords.UpdateMFTrasactionStaging(CMFTSId, newScheme);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:UpdateMFTrasactionStaging()");
+
+                object[] objects = new object[2];
+                objects[0] = CMFTSId;
+                objects[1] = newScheme;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return result;
+        }
         public DataSet GetRejectedMFTransactionStagings(int adviserId, int processId)
         {
             DataSet dsWERPRejectedTransactions;
