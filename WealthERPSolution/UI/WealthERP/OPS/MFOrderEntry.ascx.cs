@@ -88,7 +88,7 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
                 gvJointHoldersList.Visible = false;
-                //trRegretMsg.Visible = false;
+                BindARNNo(advisorVo.advisorId);
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
@@ -121,30 +121,6 @@ namespace WealthERP.OPS
                     customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
                     customerVo = customerBo.GetCustomer(customerId);
 
-                    //ISAList = customerBo.GetISaList(customerId);
-                    //if (ISAList != null)
-                    //{
-                    //    string formatstring = "";
-                    //    string[] arr = new string[ISAList.Rows.Count];
-                    //    int i;
-                    //    for (i = 0; i < ISAList.Rows.Count; i++)
-                    //    {
-                    //        if (!string.IsNullOrEmpty(formatstring))
-                    //        {
-                    //            formatstring = formatstring + "," + arr[i];
-                    //        }
-                    //        else
-                    //        {
-                    //            formatstring = arr[i];
-                    //        }
-                    //    }
-                    //    lblIsaNo.Text = formatstring;
-
-                    //}
-                    //else
-                    //{
-                    //    trRegretMsg.Visible = true;
-                    //}
                     hdnCustomerId.Value = customerVo.CustomerId.ToString();
                     txtCustomerName.Text = customerVo.FirstName + customerVo.MiddleName + customerVo.LastName;
                     lblGetBranch.Text = customerVo.BranchName;
@@ -198,6 +174,19 @@ namespace WealthERP.OPS
 
 
             //ShowHideFields(1);
+        }
+
+        private void BindARNNo(int adviserId)
+        {
+            DataSet dsArnNo = mfOrderBo.GetARNNo(adviserId);
+            if (dsArnNo.Tables[0].Rows.Count > 0)
+            {
+                ddlARNNo.DataSource = dsArnNo;
+                ddlARNNo.DataValueField = dsArnNo.Tables[0].Columns["Id"].ToString();
+                ddlARNNo.DataTextField = dsArnNo.Tables[0].Columns["Identifier"].ToString();
+                ddlARNNo.DataBind();
+            }
+            ddlARNNo.Items.Insert(0, new ListItem("Select", "Select"));
         }
         protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
         {
@@ -494,6 +483,10 @@ namespace WealthERP.OPS
                     //btnViewReport.Visible = true;
                     //btnViewInPDF.Visible = true;
                     //btnViewInDOC.Visible = true;
+                    if (mforderVo.ARNNo != null)
+                        ddlARNNo.SelectedItem.Text = mforderVo.ARNNo;
+                    else
+                        ddlARNNo.SelectedIndex = 0;
                     lnlBack.Visible = true;
                     lnkDelete.Visible = true;
                 }
@@ -732,6 +725,11 @@ namespace WealthERP.OPS
                     txtCorrAdrCity.Text = mforderVo.City;
                     ddlCorrAdrState.SelectedItem.Text = mforderVo.State;
                     txtCorrAdrPinCode.Text = mforderVo.Pincode;
+
+                    if (mforderVo.ARNNo != null)
+                        ddlARNNo.SelectedItem.Text = mforderVo.ARNNo;
+                    else
+                        ddlARNNo.SelectedIndex = 0;
 
                     Session["mforderVo"] = mforderVo;
                     Session["orderVo"] = orderVo;
@@ -1941,6 +1939,8 @@ namespace WealthERP.OPS
                 else
                     mforderVo.EndDate = DateTime.MinValue;
             }
+            if (ddlARNNo.SelectedIndex != 0)
+                mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
             Session["orderVo"] = orderVo;
             Session["mforderVo"] = mforderVo;
 
@@ -2024,6 +2024,7 @@ namespace WealthERP.OPS
                 ddlCorrAdrState.Enabled = false;
                 txtCorrAdrPinCode.Enabled = false;
                 ddlCorrAdrCountry.Enabled = false;
+                ddlARNNo.Enabled = false;
 
                 btnSubmit.Enabled = false;
                 btnAddMore.Visible = false;
@@ -2081,6 +2082,7 @@ namespace WealthERP.OPS
                 ddlCorrAdrState.Enabled = true;
                 txtCorrAdrPinCode.Enabled = true;
                 ddlCorrAdrCountry.Enabled = true;
+                ddlARNNo.Enabled = true;
 
                 btnSubmit.Enabled = true;
                 btnAddMore.Visible = false;
@@ -2308,6 +2310,8 @@ namespace WealthERP.OPS
             else
                 mforderVo.Pincode = "";
             mforderVo.Country = ddlCorrAdrCountry.SelectedValue;
+            if (ddlARNNo.SelectedIndex != 0)
+                mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
         }
 
         protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
@@ -2372,7 +2376,7 @@ namespace WealthERP.OPS
 
         private void DisplayTransactionSlip()
         {
-            string schemeSwitch = ""; string bankName = "";
+            string schemeSwitch = ""; string bankName = ""; string arnno = ""; 
             if (!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(hdnCustomerId.Value);
             if (!string.IsNullOrEmpty(hdnPortfolioId.Value.ToString().Trim()))
@@ -2381,6 +2385,8 @@ namespace WealthERP.OPS
                 schemeSwitch = ddlSchemeSwitch.SelectedItem.Text;
             if (ddlBankName.SelectedIndex != -1 && ddlBankName.SelectedIndex != 0)
                 bankName = ddlBankName.SelectedItem.Text;
+            if (ddlARNNo.SelectedIndex != 0)
+                arnno = ddlARNNo.SelectedItem.Text;
 
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Display", "loadcontrol('Display','action=Order');", true);
             //Response.Write("<script type='text/javascript'>detailedresults= window.open('Display.aspx?PageId=Display&result1=" + var1 + "&result2=" + var2 + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
@@ -2389,7 +2395,7 @@ namespace WealthERP.OPS
                 "&BankName=" + bankName + "&BranchName=" + txtBranchName.Text + "&Amount=" + txtAmount.Text + "&ChequeNo=" + txtPaymentNumber.Text + "&ChequeDate=" + txtPaymentInstDate.SelectedDate +
                 "&StartDateSIP=" + txtstartDateSIP.SelectedDate + "&StartDateSTP=" + txtstartDateSTP.SelectedDate + "&NewAmount=" + txtNewAmount.Text +
                 "&EndDateSIP=" + txtendDateSIP.SelectedDate + "&EndDateSTP=" + txtendDateSTP.SelectedDate + "&SchemeSwitch=" + schemeSwitch +
-                "&RbtnUnits=" + rbtUnit.Checked + "&RbtnAmounts=" + rbtAmount.Checked + "&mail=" + mail + 
+                "&RbtnUnits=" + rbtUnit.Checked + "&RbtnAmounts=" + rbtAmount.Checked + "&ArnNo=" + arnno + "&mail=" + mail + 
                 "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
         }
 

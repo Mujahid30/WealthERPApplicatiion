@@ -8,8 +8,8 @@
 
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
-        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();      
-       
+        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+
         return false;
     }
 
@@ -17,9 +17,9 @@
         window.open('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
     }
-    </script>
-    
-    <script type="text/javascript" language="javascript">
+</script>
+
+<script type="text/javascript" language="javascript">
     function openpopupAddBank() {
         window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
@@ -54,17 +54,17 @@
     function ShowIsa() {
 
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
-      
+
         if (hdn == "True") {
 
             document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
             document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'visible';
-          
+
         }
         else {
             document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
             document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
-           
+
         }
 
     }
@@ -75,7 +75,7 @@
 
     }
     function CheckSubscription() {
-  
+
         document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
         document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
     }
@@ -108,10 +108,10 @@
                             </div>
                             <asp:Button ID="btnViewInPDF" runat="server" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('pdf')"
                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
-                             <asp:Button id="btnreport" runat="server" CssClass="CrystalButton"  Visible="false"
+                            <asp:Button ID="btnreport" runat="server" CssClass="CrystalButton" Visible="false"
                                 OnClick="btnreport_Click" />
-                             <asp:Button id="btnpdfReport" runat="server" CssClass="PDFButton"  
-                                Visible="false" onclick="btnpdfReport_Click"  />
+                            <asp:Button ID="btnpdfReport" runat="server" CssClass="PDFButton" Visible="false"
+                                OnClick="btnpdfReport_Click" />
                             <div id="div2" style="display: none;">
                                 <p class="tip">
                                     Click here to view order details.
@@ -123,10 +123,10 @@
                                 <p class="tip">
                                     Click here to view order details in word doc.</p>
                             </div>
-                            <asp:Button ID="btnViewInPDFNew" runat="server" ValidationGroup="MFSubmit" CssClass="PDFButton" Visible="false"
-                                OnClientClick="return CustomerValidate('pdf')" PostBackUrl="~/Reports/Display.aspx?mail=2" />
-                            <asp:Button ID="btnViewInDOCNew" runat="server" ValidationGroup="MFSubmit" CssClass="DOCButton" Visible="false"
-                                OnClientClick="return CustomerValidate('doc')" PostBackUrl="~/Reports/Display.aspx?mail=4" />
+                            <asp:Button ID="btnViewInPDFNew" runat="server" ValidationGroup="MFSubmit" CssClass="PDFButton"
+                                Visible="false" OnClientClick="return CustomerValidate('pdf')" PostBackUrl="~/Reports/Display.aspx?mail=2" />
+                            <asp:Button ID="btnViewInDOCNew" runat="server" ValidationGroup="MFSubmit" CssClass="DOCButton"
+                                Visible="false" OnClientClick="return CustomerValidate('doc')" PostBackUrl="~/Reports/Display.aspx?mail=4" />
                         </td>
                     </tr>
                 </table>
@@ -209,27 +209,42 @@
             <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
-  <tr id="trIsa" runat="server">
+    <tr>
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblARNNo" runat="server" CssClass="FieldName" Text="ARN No:"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 20%">
+            <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="true">
+            </asp:DropDownList>
+        </td>
+        <td class="leftField" style="width: 20%">
+            
+        </td>
+        <td class="rightField" style="width: 20%">
+            
+        </td>
+    </tr>
+    <tr id="trIsa" runat="server">
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblIsa" runat="server" CssClass="FieldName" Text="ISA No:"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlCustomerISAAccount" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlCustomerISAAccount_SelectedIndexChanged">
-            </asp:DropDownList>&nbsp
-            <asp:ImageButton ID="btnIsa" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
-                AlternateText="Add" runat="server" ToolTip="Click here to Request ISA" OnClick="ISA_Onclick"
-                Height="15px" Width="15px"></asp:ImageButton>
-        </td>
-        
-        <td class="rightField" style="width: 20%">
-                    
+            </asp:DropDownList>
+            &nbsp
+            <asp:ImageButton ID="btnIsa" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" AlternateText="Add"
+                runat="server" ToolTip="Click here to Request ISA" OnClick="ISA_Onclick" Height="15px"
+                Width="15px"></asp:ImageButton>
         </td>
         <td class="rightField" style="width: 20%">
-        
+            
+        </td>
+        <td class="rightField" style="width: 20%">
+            
         </td>
     </tr>
- <%-- <tr id="trRegretMsg" runat="server">
+    <%-- <tr id="trRegretMsg" runat="server">
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblRegretMsg" runat="server" CssClass="FieldName" Text="ISA not Created for this Adviser"></asp:Label>
         </td>
@@ -245,45 +260,44 @@
         
         </td> 
     </tr>--%>
-  <tr id="trJointHoldersList" runat="server">
-    <td class="leftField" style="width: 20%">
-           
+    <tr id="trJointHoldersList" runat="server">
+        <td class="leftField" style="width: 20%">
         </td>
-   <td colspan="4">
-   <%-- <asp:Panel ID="pnlJointholders" runat="server" ScrollBars="Horizontal">--%>
-                <telerik:RadGrid ID="gvJointHoldersList" Height="70px" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    Width="45%" PageSize="4" AllowSorting="false" AllowPaging="True"  ShowStatusBar="True"
-                    ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
-                    AllowAutomaticInserts="false" ExportSettings-FileName="Count">
-                    <MasterTableView Width="100%" AllowMultiColumnSorting="false" AutoGenerateColumns="false"
-                        CommandItemDisplay="None">
-                        <Columns>
-                            <telerik:GridBoundColumn DataField="AccountNumber" HeaderText="Account Number" UniqueName="AccountNumber"
-                                SortExpression="Account Number">
-                                <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Customer" HeaderText="Customer" AllowFiltering="false"
-                                HeaderStyle-HorizontalAlign="Left" UniqueName="Customer">
-                                <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="ModeOfHolding" HeaderText="Mode Of Holding" AllowFiltering="false"
-                                HeaderStyle-HorizontalAlign="Left" UniqueName="ModeOfHolding">
-                                <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                        </Columns>
-                    </MasterTableView>
-                    <ClientSettings>
-                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    </ClientSettings>
-                </telerik:RadGrid>
-           <%-- </asp:Panel>  --%>
-   </td>
-   <%--<td></td>
+        <td colspan="4">
+            <%-- <asp:Panel ID="pnlJointholders" runat="server" ScrollBars="Horizontal">--%>
+            <telerik:RadGrid ID="gvJointHoldersList" Height="70px" runat="server" GridLines="None"
+                AutoGenerateColumns="False" Width="45%" PageSize="4" AllowSorting="false" AllowPaging="True"
+                ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
+                AllowFilteringByColumn="false" AllowAutomaticInserts="false" ExportSettings-FileName="Count">
+                <MasterTableView Width="100%" AllowMultiColumnSorting="false" AutoGenerateColumns="false"
+                    CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridBoundColumn DataField="AccountNumber" HeaderText="Account Number" UniqueName="AccountNumber"
+                            SortExpression="Account Number">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Customer" HeaderText="Customer" AllowFiltering="false"
+                            HeaderStyle-HorizontalAlign="Left" UniqueName="Customer">
+                            <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="ModeOfHolding" HeaderText="Mode Of Holding" AllowFiltering="false"
+                            HeaderStyle-HorizontalAlign="Left" UniqueName="ModeOfHolding">
+                            <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+            <%-- </asp:Panel>  --%>
+        </td>
+        <%--<td></td>
    <td></td>
    <td></td>
    <td></td>--%>
-   </tr>
-         <tr>
+    </tr>
+    <tr>
         <td colspan="5">
         </td>
     </tr>

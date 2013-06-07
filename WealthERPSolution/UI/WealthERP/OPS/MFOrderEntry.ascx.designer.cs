@@ -221,6 +221,24 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label lblGetBranch;
         
         /// <summary>
+        /// lblARNNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblARNNo;
+        
+        /// <summary>
+        /// ddlARNNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlARNNo;
+        
+        /// <summary>
         /// trIsa control.
         /// </summary>
         /// <remarks>
