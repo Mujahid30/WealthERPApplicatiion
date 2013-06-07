@@ -1056,7 +1056,8 @@ namespace WealthERP.FP
                     ChartAsset.DataBind();
 
                     tdAssetErrorMsg.Visible = true;
-                    lblAssetErrorMsg.Visible = false;
+                    divAssetErrorMsg.Visible = false;
+                    //lblAssetErrorMsg.Visible = false;
 
                     /* ***************ASSET CHART BINDING END**************** */
 
@@ -1249,13 +1250,15 @@ namespace WealthERP.FP
                     ChartCashFlow.Series[0].ToolTip = "#VALX: #VALY";                    
                     ChartCashFlow.DataBind();
 
-                    lblCashFlowError.Visible = false;
+                    divCashFlowError.Visible = false;
+                    //lblCashFlowError.Visible = false;
                 }
                 else
                 {
                     ChartCashFlow.DataSource = null;
                     ChartCashFlow.Visible = false;
-                    lblCashFlowError.Visible = true;
+                    divCashFlowError.Visible = true;
+                    //lblCashFlowError.Visible = true;
                     //tdgvrIncome.Visible = false;
                     //tdRedGridExpense.Visible = false;
                 }

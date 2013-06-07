@@ -795,5 +795,8 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divErrAreaChart;
+
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCashFlowError;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAssetErrorMsg;
     }
 }
