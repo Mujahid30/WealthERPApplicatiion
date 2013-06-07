@@ -746,6 +746,54 @@ namespace WealthERP.Uploads
             }
             ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
         }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            string newScheme = string.Empty;
+            int CMFTSId = 0;
+            bool blResult = false;
+            rejectedRecordsBo = new RejectedRecordsBo();
+            GridFooterItem footerRow = (GridFooterItem)gvWERPTrans.MasterTableView.GetItems(GridItemType.Footer)[0];
+            foreach (GridDataItem dr in gvWERPTrans.Items)
+            {
+                if (((TextBox)footerRow.FindControl("txtSchemeFooter")).Text.Trim() == "")
+                {
+                    newScheme = ((TextBox)dr.FindControl("txtScheme")).Text;
+                }
+                else
+                {
+                    newScheme = ((TextBox)footerRow.FindControl("txtSchemeFooter")).Text;
+                }
+
+                CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
+                if (checkBox.Checked)
+                {
+                    int selectedRow = 0;
+                    GridDataItem gdi;
+                    gdi = (GridDataItem)checkBox.NamingContainer;
+                    selectedRow = gdi.ItemIndex + 1;
+                    CMFTSId = int.Parse((gvWERPTrans.MasterTableView.DataKeyValues[selectedRow - 1]["CMFTSId"].ToString()));
+                    blResult = rejectedRecordsBo.UpdateMFTrasactionStaging(CMFTSId, newScheme);
+                }
+            }
+            if (blResult)
+            {
+                // Success Message
+            }
+            else
+            {
+                // Failure Message
+            }
+            // BindGrid
+            if (Request.QueryString["processId"] != null)
+            {
+                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+            }
+            if (Request.QueryString["filetypeid"] != null)
+                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+            //BindGrid(ProcessId);
+            BindEquityTransactionGrid(ProcessId);
+        }
     }
 
 }

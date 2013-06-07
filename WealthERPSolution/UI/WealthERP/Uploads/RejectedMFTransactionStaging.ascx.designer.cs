@@ -77,6 +77,51 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.Panel Panel2;
         
         /// <summary>
+        /// trAdviserSelection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAdviserSelection;
+        
+        /// <summary>
+        /// lblAdviser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdviser;
+        
+        /// <summary>
+        /// tdDdlAdviser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDdlAdviser;
+        
+        /// <summary>
+        /// ddlAdviser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
+        
+        /// <summary>
+        /// trGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGridView;
+        
+        /// <summary>
         /// gvWERPTrans control.
         /// </summary>
         /// <remarks>
@@ -86,15 +131,6 @@ namespace WealthERP.Uploads {
         protected global::Telerik.Web.UI.RadGrid gvWERPTrans;
         
         /// <summary>
-        /// RadAjaxLoadingPanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel1;
-        
-        /// <summary>
         /// trReprocess control.
         /// </summary>
         /// <remarks>
@@ -102,12 +138,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trReprocess;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGridView;
-
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAdviserSelection;
-
         
-                
         /// <summary>
         /// btnReprocess control.
         /// </summary>
@@ -170,7 +201,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trErrorMessage;
-        protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
+        
         /// <summary>
         /// lblError control.
         /// </summary>
@@ -188,5 +219,14 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnProcessIdFilter;
+        
+        /// <summary>
+        /// hfRmId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfRmId;
     }
 }
