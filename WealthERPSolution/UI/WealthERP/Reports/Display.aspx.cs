@@ -3229,7 +3229,7 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Equity Holding Report";
+                                Headername = "Group Equity Holding Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
@@ -4227,13 +4227,13 @@ namespace WealthERP.Reports
 
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
-                        if (Request.Form["ctrl_MFReports$ddlPortfolioGroup"] == "ALL")
+                        if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "ALL")
                         {
                             portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
                             portfolioIDs = portfolioIDs + ",";
 
                         }
-                        else if (Request.Form["ctrl_MFReports$ddlPortfolioGroup"] == "MANAGED")
+                        else if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "MANAGED")
                         {
                             if (custPortfolio.PortfolioName == "MyPortfolio")
                             {
@@ -4241,7 +4241,7 @@ namespace WealthERP.Reports
                                 portfolioIDs = portfolioIDs + ",";
                             }
                         }
-                        else if (Request.Form["ctrl_MFReports$ddlPortfolioGroup"] == "UN_MANAGED")
+                        else if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "UN_MANAGED")
                         {
                             if (custPortfolio.PortfolioName != "MyPortfolio")
                             {
