@@ -44,6 +44,7 @@ namespace VoOps
         private DateTime m_StartDate;
         private DateTime m_EndDate;
         private string m_PanNo;
+        private string m_ARNNo;
         
         #endregion
 
@@ -227,7 +228,11 @@ namespace VoOps
             get { return m_PanNo; }
             set { m_PanNo = value; }
         }
-
+        public string ARNNo
+        {
+            get { return m_ARNNo; }
+            set { m_ARNNo = value; }
+        }
         #endregion
 
     }
