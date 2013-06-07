@@ -2115,6 +2115,47 @@ namespace DaoUploads
             }
             return dsGetFolioDetails;
         }
+        public bool UpdateMFTrasactionStaging(int CMFTSId, string newScheme)
+        {
+            bool result = false;
+            Database db;
+            DbCommand UpdateTrnxCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateTrnxCmd = db.GetStoredProcCommand("SPROC_UpdateMFTrasactionStaging");
+                db.AddInParameter(UpdateTrnxCmd, "@CMFTS_Id", DbType.Int32, CMFTSId);
+                if (newScheme != "")
+                    db.AddInParameter(UpdateTrnxCmd, "@Scheme", DbType.String, newScheme);
+                else
+                    db.AddInParameter(UpdateTrnxCmd, "@Scheme", DbType.String, DBNull.Value);
+
+                db.ExecuteNonQuery(UpdateTrnxCmd);
+                result = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:UpdateMFTrasactionStaging()");
+
+                object[] objects = new object[2];
+                objects[0] = CMFTSId;
+                objects[1] = newScheme;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return result;
+        }
         public DataSet GetRejectedMFTransactionStagings(int adviserId, int processId)
         {
             DataSet dsGetMFRejectedTransactions;
@@ -2132,27 +2173,6 @@ namespace DaoUploads
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
                 else
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
-
-                //if (RejectReasonFilter != "")
-                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
-
-                //if (fileNameFilter != "")
-                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@fileNameFilter", DbType.String, fileNameFilter);
-
-                //if (FolioFilter != "")
-                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@folioFilter", DbType.String, FolioFilter);
-
-                //if (TransactionTypeFilter != "")
-                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
-
-                //if (investorNameFileter != "")
-                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@investorNameFileter", DbType.String, investorNameFileter);
-
-                //if (sourceTypeFilter != "")
-                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@sourceTypeFilter", DbType.String, sourceTypeFilter);
-
-                //if (schemeNameFilter != "")
-                //    db.AddInParameter(getMFRejectedTransactionsCmd, "@schemeNameFilter", DbType.String, schemeNameFilter);
                 getMFRejectedTransactionsCmd.CommandTimeout = 60 * 60;
                 dsGetMFRejectedTransactions = db.ExecuteDataSet(getMFRejectedTransactionsCmd);
             }
@@ -2168,25 +2188,11 @@ namespace DaoUploads
                 FunctionInfo.Add("Method", "RejectedRecordsDao.cs:getWERPRejectedTransactions()");
 
                 object[] objects = new object[10];
-                //objects[0] = processId;
-                //objects[1] = CurrentPage;
-                //objects[2] = SortExpression;
-                //objects[3] = RejectReasonFilter;
-                //objects[4] = fileNameFilter;
-                //objects[5] = FolioFilter;
-                //objects[6] = TransactionTypeFilter;
-                //objects[7] = investorNameFileter;
-                //objects[8] = sourceTypeFilter;
-                //objects[9] = schemeNameFilter;
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
-            //Count = Int32.Parse(dsGetMFRejectedTransactions.Tables[1].Rows[0]["CNT"].ToString());
-
             return dsGetMFRejectedTransactions;
         }
 
