@@ -161,5 +161,18 @@ namespace BoOps
             }
             return dsGetCustomerBank;
         }
+        public DataSet GetARNNo(int adviserId)
+        {
+            DataSet dsARNNo;
+            try
+            {
+                dsARNNo = mfOrderDao.GetARNNo(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsARNNo;
+        }
     }
 }
