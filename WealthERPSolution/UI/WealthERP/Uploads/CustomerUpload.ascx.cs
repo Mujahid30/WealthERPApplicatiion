@@ -104,7 +104,7 @@ namespace WealthERP.Uploads
             Message_lbl.Visible = false;
 
             lblFileType.Visible = false;
-
+            
             string lastUploadDate = "";
             btn_Upload.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             this.Page.Culture = "en-US";
@@ -8167,6 +8167,8 @@ namespace WealthERP.Uploads
             int processid = processlogVo.ProcessId;
             int filetype = processlogVo.FileTypeId;
             string extracttype = processlogVo.ExtractTypeCode;
+            string type = ddlUploadType.SelectedItem.Text;
+            
 
 
             if (filetype == (int)Contants.UploadTypes.StandardProfile && (extracttype == "PO" || extracttype == "PAF"))
@@ -8191,7 +8193,7 @@ namespace WealthERP.Uploads
                filetype == (int)Contants.UploadTypes.DeutscheProfile || filetype == (int)Contants.UploadTypes.StandardProfile)
                && (extracttype == "FO"))
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "&filetypeid=" + filetype + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "&filetypeid=" + filetype + "&extractType=" + type + "');", true);
             }
 
             else if ((filetype == (int)Contants.UploadTypes.CAMSTransaction || filetype == (int)Contants.UploadTypes.KarvyTransaction || filetype == (int)Contants.UploadTypes.TempletonTransaction ||
