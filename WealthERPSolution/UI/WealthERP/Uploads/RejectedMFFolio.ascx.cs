@@ -28,7 +28,7 @@ namespace WealthERP.Uploads
 
         RejectedRecordsDao rejectedRecordsDao;
         AdvisorLOBBo advisorLOBBo = new AdvisorLOBBo();
-        int ProcessId;
+        int ProcessId=0;
         int filetypeId;
         RejectedRecordsBo rejectedRecordsBo;
         DataSet dsRejectedRecords;
@@ -136,16 +136,8 @@ namespace WealthERP.Uploads
                 {
                     adviserId = adviserVo.advisorId;
                 }
-                if (rmVo != null)
-                    rmId = rmVo.RMId;
-                //tdBtnViewRejetcs.Visible = true;
-                //tdTxtToDate.Visible = true;
-                //tdlblToDate.Visible = true;
-                //tdTxtFromDate.Visible = true;
-
-                //tdlblFromDate.Visible = true;
-                //tdlblRejectReason.Visible = true;
-                //tdDDLRejectReason.Visible = true;
+                if(rmVo != null)
+                rmId = rmVo.RMId;
             }
             if (Session["userVo"] != null)
             {
@@ -174,12 +166,17 @@ namespace WealthERP.Uploads
                     if (ProcessId != 0)
                     {
                         divConditional.Visible = false;
-                        //BindGrid(ProcessId);
+                        tblProcessIdDetails.Visible = true;
+                        lblProcessIdValue.Text = ProcessId.ToString();
+                        if (Request.QueryString["extractType"] != null)
+                            lblExtractTypeValue.Text = Request.QueryString["extractType"];
+                        else
+                            lblExtractTypeValue.Text = "";
                     }
                     else
                     {
                         divConditional.Visible = true;
-
+                        tblProcessIdDetails.Visible = false;
                     }
                     BindddlRejectReason();
                     BindGrid(ProcessId);
@@ -189,6 +186,7 @@ namespace WealthERP.Uploads
                     if (ProcessId != 0)
                     {
                         divConditional.Visible = false;
+                        tblProcessIdDetails.Visible = false;
                         BindGrid(ProcessId);
                     }
                     else

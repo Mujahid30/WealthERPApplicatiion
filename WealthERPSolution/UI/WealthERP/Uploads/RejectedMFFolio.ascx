@@ -264,6 +264,21 @@
     <asp:LinkButton ID="LinkInputRejects" runat="server" Text="View Input Rejects" CssClass="LinkButtons"
         OnClick="LinkInputRejects_Click"></asp:LinkButton>
 </div>
+<table id="tblProcessIdDetails" runat="server">
+<tr><td colspan="2"></td></tr> 
+
+<tr>
+<td>
+<asp:Label ID="lblProcessId" Text="Process Id: " CssClass="HeaderTextSmall" runat="server"></asp:Label>
+<asp:Label ID="lblProcessIdValue"  CssClass="HeaderTextSmall" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</td> 
+<td>
+<asp:Label ID="lblExtractType" Text="Extract Type: " CssClass="HeaderTextSmall" runat="server"></asp:Label>
+<asp:Label ID="lblExtractTypeValue"  CssClass="HeaderTextSmall" runat="server"></asp:Label>
+</td>
+</tr>
+
+</table>
 <br />
 <div id="divGvCAMSProfileReject" runat="server">
     <%-- style="width: 100%; height: auto; overflow: scroll"--%>
