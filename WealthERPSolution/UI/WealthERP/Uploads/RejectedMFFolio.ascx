@@ -273,11 +273,22 @@
 <asp:Label ID="lblProcessIdValue"  CssClass="HeaderTextSmall" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </td> 
 <td>
-<asp:Label ID="lblExtractType" Text="Extract Type: " CssClass="HeaderTextSmall" runat="server"></asp:Label>
-<asp:Label ID="lblExtractTypeValue"  CssClass="HeaderTextSmall" runat="server"></asp:Label>
+<asp:Label ID="lblRTName" Text="File Type: " CssClass="HeaderTextSmall" runat="server"></asp:Label>
+<asp:Label ID="lblGetRTName"  CssClass="HeaderTextSmall" runat="server"></asp:Label>
 </td>
 </tr>
 
+<tr>
+<td>
+<asp:Label ID="lbluploaddate" Text="Upload Date: " CssClass="HeaderTextSmall" runat="server"></asp:Label>
+<asp:Label ID="lblGetUploadDate"  CssClass="HeaderTextSmall" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</td> 
+<td>
+<asp:Label ID="lblExtractType" Text="Extract Type: " CssClass="HeaderTextSmall" runat="server"></asp:Label>
+<asp:Label ID="lblExtractTypeValue"  CssClass="HeaderTextSmall" runat="server"></asp:Label>
+
+</td>
+</tr>
 </table>
 <br />
 <div id="divGvCAMSProfileReject" runat="server">

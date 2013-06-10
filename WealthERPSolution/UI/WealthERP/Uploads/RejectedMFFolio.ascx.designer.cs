@@ -14,6 +14,15 @@ namespace WealthERP.Uploads {
     public partial class RejectedMFFolio {
         
         /// <summary>
+        /// Style1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Style1;
+        
+        /// <summary>
         /// lnkBtnBack control.
         /// </summary>
         /// <remarks>
@@ -329,6 +338,42 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.Label lblProcessIdValue;
         
         /// <summary>
+        /// lblRTName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRTName;
+        
+        /// <summary>
+        /// lblGetRTName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGetRTName;
+        
+        /// <summary>
+        /// lbluploaddate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbluploaddate;
+        
+        /// <summary>
+        /// lblGetUploadDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGetUploadDate;
+        
+        /// <summary>
         /// lblExtractType control.
         /// </summary>
         /// <remarks>
@@ -418,8 +463,6 @@ namespace WealthERP.Uploads {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divProfileMessage;
         
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trProfileMessage;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNote;
         /// <summary>
         /// lblEmptyMsg control.
         /// </summary>
@@ -428,6 +471,15 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEmptyMsg;
+        
+        /// <summary>
+        /// trNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNote;
         
         /// <summary>
         /// hfRmId control.

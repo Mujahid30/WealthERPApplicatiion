@@ -172,6 +172,14 @@ namespace WealthERP.Uploads
                             lblExtractTypeValue.Text = Request.QueryString["extractType"];
                         else
                             lblExtractTypeValue.Text = "";
+                        if (Request.QueryString["uploadDate"] != null)
+                            lblGetUploadDate.Text = Request.QueryString["uploadDate"];
+                        else
+                            lblGetUploadDate.Text = "";
+                        if (Request.QueryString["RTName"] != null)
+                            lblGetRTName.Text = Request.QueryString["RTName"];
+                        else
+                            lblGetRTName.Text = "";
                     }
                     else
                     {
