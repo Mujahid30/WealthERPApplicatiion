@@ -61,6 +61,10 @@
       <Project>{BDC3E1C8-29A7-4311-8AEE-4901A0A13892}</Project>
       <Name>VOAssociates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vo\User\VoUser.csproj">
+      <Project>{5A775261-8919-4080-81AA-545763D709DB}</Project>
+      <Name>VoUser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
