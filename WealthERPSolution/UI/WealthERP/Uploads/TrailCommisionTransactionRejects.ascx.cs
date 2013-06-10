@@ -70,12 +70,47 @@ namespace WealthERP.Uploads
                 }
             }
 
+            if (advisorVo.advisorId == 1000)
+            {
+                if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
+                {
+                    adviserId = Convert.ToInt32(ddlAdviser.SelectedValue.ToString());
+                    if (hfRmId.Value != "")
+                    {
+                        rmId = Convert.ToInt32(hfRmId.Value);
+                    }
+                    Panel2.Visible = true;
+
+                    Panel2.ScrollBars = ScrollBars.Horizontal;
+                    Session["adviserId_Upload"] = adviserId;
+                }
+                else
+                {
+                    trReprocess.Visible = false;
+                    Panel2.Visible = false;
+                    Panel2.ScrollBars = ScrollBars.None;
+                    // Panel2.Visible = false;
+                    adviserId = 1000;
+                    //rmId = rmVo.RMId;
+                }
+            }
+            else
+            {
+                trReprocess.Visible = true;
+                Panel2.Visible = true;
+                Panel2.ScrollBars = ScrollBars.Horizontal;
+                //Panel2.Visible = true;
+                trAdviserSelection.Visible = false;
+                adviserId = advisorVo.advisorId;
+            }
+
+
             if (!IsPostBack)
             {
 
                 txtFromMFT.SelectedDate = DateTime.Now.AddMonths(-1).Date;
                 txtToMFT.SelectedDate = DateTime.Now;
-                if (advisorVo.advisorId != 1000)
+                if (adviserId != 1000)
                 {
                     BindddlRejectReason();
                     trAdviserSelection.Visible = false;
@@ -179,8 +214,8 @@ namespace WealthERP.Uploads
                 trReprocess.Visible = true;
                 if (processId != 0)
                 {
-                    if (advisorVo.advisorId != 1000)
-                        dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId, fromDate, toDate, rejectReasonCode);
+                    if (adviserId != 1000)
+                        dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(adviserId, processId, fromDate, toDate, rejectReasonCode);
                     else
                         dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(adviserId, processId, fromDate, toDate, rejectReasonCode);
                 }
@@ -189,12 +224,12 @@ namespace WealthERP.Uploads
                     rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
                     fromDate = DateTime.Parse(txtFromMFT.SelectedDate.ToString());
                     toDate = DateTime.Parse(txtToMFT.SelectedDate.ToString());
-                    if (advisorVo.advisorId != 1000)
-                        dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId, fromDate, toDate, rejectReasonCode);
+                    if (adviserId != 1000)
+                        dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(adviserId, processId, fromDate, toDate, rejectReasonCode);
                     else
                     {
                         if (Request.QueryString["processId"] != null)
-                            dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId, fromDate, toDate, rejectReasonCode);
+                            dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(adviserId, processId, fromDate, toDate, rejectReasonCode);
 
                         else
                             dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(Convert.ToInt32(ddlAdviser.SelectedValue), processId, fromDate, toDate, rejectReasonCode);
@@ -203,14 +238,14 @@ namespace WealthERP.Uploads
                 }
                 if (dsRejectedSIP.Tables[0].Rows.Count > 0)
                 {
-                    if (Cache["TrailCommissionRejectDetails" + advisorVo.advisorId.ToString()] == null)
+                    if (Cache["TrailCommissionRejectDetails" + adviserId.ToString()] == null)
                     {
-                        Cache.Insert("TrailCommissionRejectDetails" + advisorVo.advisorId.ToString(), dsRejectedSIP);
+                        Cache.Insert("TrailCommissionRejectDetails" + adviserId.ToString(), dsRejectedSIP);
                     }
                     else
                     {
-                        Cache.Remove("TrailCommissionRejectDetails" + advisorVo.advisorId.ToString());
-                        Cache.Insert("TrailCommissionRejectDetails" + advisorVo.advisorId.ToString(), dsRejectedSIP);
+                        Cache.Remove("TrailCommissionRejectDetails" + adviserId.ToString());
+                        Cache.Insert("TrailCommissionRejectDetails" + adviserId.ToString(), dsRejectedSIP);
                     }
                     GVTrailTransactionRejects.CurrentPageIndex = 0;
                     GVTrailTransactionRejects.DataSource = dsRejectedSIP;
@@ -282,7 +317,7 @@ namespace WealthERP.Uploads
         }
         protected void btnViewTrail_Click(object sender, EventArgs e)
         {
-            if (advisorVo.advisorId == 1000)
+            if (adviserId == 1000)
             {
                 if (ddlAdviser.SelectedIndex == 0)
                 {
@@ -415,7 +450,7 @@ namespace WealthERP.Uploads
 
             packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\callOnReprocess.dtsx");
 
-            TempletonTrailCommonStagingChk = uploadsCommonBo.TrailCommissionCommonStagingCheck(advisorVo.advisorId, UploadProcessId, packagePath, configPath);
+            TempletonTrailCommonStagingChk = uploadsCommonBo.TrailCommissionCommonStagingCheck(adviserId, UploadProcessId, packagePath, configPath);
             uploadProcessLogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "TN");
 
             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(uploadProcessLogVo);
@@ -449,7 +484,7 @@ namespace WealthERP.Uploads
                 DataTable dtRejectedSIP = new DataTable();
                 GridFilteringItem filterItem = (GridFilteringItem)e.Item;
                 RadComboBox RadComboBoxRR = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
-                dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + advisorVo.advisorId.ToString()];
+                dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + adviserId.ToString()];
                 dtRejectedSIP = dsRejectedSIP.Tables[0];
                 DataTable dtTSIP = new DataTable();
                 dtTSIP.Columns.Add("RejectReasonCode");
@@ -510,7 +545,7 @@ namespace WealthERP.Uploads
         {
             DataSet dsRejectedSIP = new DataSet();
             DataTable dtRejectedSIP = new DataTable();
-            dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + advisorVo.advisorId.ToString()];
+            dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + adviserId.ToString()];
             dtRejectedSIP = dsRejectedSIP.Tables[0];
             DataView view = new DataView(dtRejectedSIP);
             DataTable distinctValues = view.ToTable();
@@ -523,7 +558,7 @@ namespace WealthERP.Uploads
             string rcbType = string.Empty;
             DataSet dsRejectedSIP = new DataSet();
             DataTable dtrr = new DataTable();
-            dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + advisorVo.advisorId.ToString()];
+            dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + adviserId.ToString()];
             if (dsRejectedSIP != null)
             {
                 dtrr = dsRejectedSIP.Tables[0];
@@ -552,7 +587,7 @@ namespace WealthERP.Uploads
             imgBtnrgHoldings.Visible = true;
             DataSet dsRejectedSIP = new DataSet();
             DataTable dtrr = new DataTable();
-            dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + advisorVo.advisorId.ToString()];
+            dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + adviserId.ToString()];
             if (dsRejectedSIP != null)
             {
                 dtrr = dsRejectedSIP.Tables[0];
@@ -576,7 +611,7 @@ namespace WealthERP.Uploads
         {
             DataSet dsRejectedSIP = new DataSet();
 
-            dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + advisorVo.advisorId.ToString()];
+            dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + adviserId.ToString()];
             GVTrailTransactionRejects.ExportSettings.OpenInNewWindow = true;
             GVTrailTransactionRejects.DataSource = dsRejectedSIP;
             GVTrailTransactionRejects.ExportSettings.IgnorePaging = true;
@@ -590,6 +625,10 @@ namespace WealthERP.Uploads
         {
             Panel2.Visible = false;
             trReprocess.Visible = false;
+            if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
+            {
+                Session["adviserId_Upload"] = ddlAdviser.SelectedValue;
+            }
         }
     }
 }
