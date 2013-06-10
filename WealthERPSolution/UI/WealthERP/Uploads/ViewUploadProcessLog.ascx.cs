@@ -255,6 +255,8 @@ namespace WealthERP.Uploads
                 filetypeId = Int32.Parse(gvProcessLog.MasterTableView.DataKeyValues[selectedRow - 1]["WUXFT_XMLFileTypeId"].ToString());
                 string extracttype = gvProcessLog.MasterTableView.DataKeyValues[selectedRow - 1]["XUET_ExtractTypeCode"].ToString();
                 string type = gvProcessLog.MasterTableView.DataKeyValues[selectedRow - 1]["XUET_ExtractType"].ToString();
+                DateTime uploadDate = DateTime.Parse(gvProcessLog.MasterTableView.DataKeyValues[selectedRow - 1]["ADUL_StartTime"].ToString());
+                string RTName = gvProcessLog.MasterTableView.DataKeyValues[selectedRow - 1]["WUXFT_XMLFileName"].ToString();
                 //XMLConversionStatus = gvProcessLog.Rows[selectedRow].Cells[18].Text.Trim();
                 //InputInsertionStatus = gvProcessLog.Rows[selectedRow].Cells[19].Text.Trim();
                 //FirstStagingStatus = gvProcessLog.Rows[selectedRow].Cells[20].Text.Trim();
@@ -313,7 +315,7 @@ namespace WealthERP.Uploads
                         && (extracttype == "PO" || extracttype == "PAF"))
                     {
                        // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processID + "&filetypeid=" + filetypeId + "&adviserId=" + adviserId + "&extractType=" + type + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processID + "&filetypeid=" + filetypeId + "&adviserId=" + adviserId + "&extractType=" + type + "&uploadDate=" + uploadDate + "&RTName=" + RTName + "');", true);
                     }
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId == (int)Contants.UploadTypes.KarvyProfile || filetypeId == (int)Contants.UploadTypes.TempletonProfile ||

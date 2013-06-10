@@ -178,7 +178,7 @@
                     OnItemDataBound="gvProcessLog_ItemDataBound" OnNeedDataSource="gvProcessLog_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode,XUET_ExtractType"
+                    <MasterTableView DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode,XUET_ExtractType,ADUL_StartTime,WUXFT_XMLFileName"
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
