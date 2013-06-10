@@ -89,13 +89,7 @@
 <div id="divConditional" runat="server">
     <table class="TableBackground" cellspacing="0" cellpadding="2">
         <tr>
-            <%--  <td id="tdLblAdviser" runat="server" align="right">
-            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
-        </td>
-       <td id="tdDdlAdviser" runat="server" align="left">
-     <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged" ></asp:DropDownList>
-     </td>--%>
-            <td id="tdlblRejectReason" runat="server">
+            <td id="tdlblRejectReason" runat="server" align="right">
                 <asp:Label runat="server" class="FieldName" Text="Select reject reason :" ID="lblRejectReason"></asp:Label>
             </td>
             <td id="tdDDLRejectReason" runat="server">
@@ -157,6 +151,18 @@
             </td>
             <td id="tdBtnViewRejetcs" runat="server">
                 <asp:Button ID="btnViewTrail" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewTrail_Click" />
+            </td>
+        </tr>
+         <tr id="trAdviserSelection" runat="server">
+            <td align="right" style="width: 20%">
+                <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+            </td>
+            <td id="tdDdlAdviser" runat="server" align="left">
+                <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged">
+                </asp:DropDownList>
+            </td>
+            <td colspan="5">
             </td>
         </tr>
     </table>

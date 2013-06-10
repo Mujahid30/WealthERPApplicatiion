@@ -78,6 +78,7 @@ namespace WealthERP.Uploads
                 if (advisorVo.advisorId != 1000)
                 {
                     BindddlRejectReason();
+                    trAdviserSelection.Visible = false;
                     if (processId != 0)
                     {
                         divConditional.Visible = false;
@@ -90,6 +91,9 @@ namespace WealthERP.Uploads
                 }
                 else
                 {
+                    BindddlRejectReason();
+                    BindAdviserDropDownList();
+                    trAdviserSelection.Visible = true;
                     if (processId != 0)
                     {
                         divConditional.Visible = false;
@@ -100,6 +104,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
+
                         imgBtnrgHoldings.Visible = false;
                         GVTrailTransactionRejects.Visible = false;
                         Panel2.Visible = false;
@@ -108,6 +113,21 @@ namespace WealthERP.Uploads
                 //imgBtnrgHoldings.Visible = false;
                 //Msgerror.Visible = false;
             }
+        }
+
+        protected void BindAdviserDropDownList()
+        {
+            DataTable dtAdviserList = new DataTable();
+            dtAdviserList = superAdminOpsBo.BindAdviserForUpload();
+
+            if (dtAdviserList.Rows.Count > 0)
+            {
+                ddlAdviser.DataSource = dtAdviserList;
+                ddlAdviser.DataTextField = "A_OrgName";
+                ddlAdviser.DataValueField = "A_AdviserId";
+                ddlAdviser.DataBind();
+            }
+            ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
         }
 
         public void BindddlRejectReason()
@@ -169,7 +189,17 @@ namespace WealthERP.Uploads
                     rejectReasonCode = int.Parse(ddlRejectReason.SelectedValue);
                     fromDate = DateTime.Parse(txtFromMFT.SelectedDate.ToString());
                     toDate = DateTime.Parse(txtToMFT.SelectedDate.ToString());
-                    dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId, fromDate, toDate, rejectReasonCode);
+                    if (advisorVo.advisorId != 1000)
+                        dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId, fromDate, toDate, rejectReasonCode);
+                    else
+                    {
+                        if (Request.QueryString["processId"] != null)
+                            dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(advisorVo.advisorId, processId, fromDate, toDate, rejectReasonCode);
+
+                        else
+                            dsRejectedSIP = uploadsCommonBo.GetTrailCommissionRejectRejectDetails(Convert.ToInt32(ddlAdviser.SelectedValue), processId, fromDate, toDate, rejectReasonCode);
+                    }
+
                 }
                 if (dsRejectedSIP.Tables[0].Rows.Count > 0)
                 {
@@ -252,10 +282,28 @@ namespace WealthERP.Uploads
         }
         protected void btnViewTrail_Click(object sender, EventArgs e)
         {
-            BindTrailCommissionRejectedGrid(processId);
-            ViewState.Remove("RejectReasonCode");
-            msgDelete.Visible = false;
-            msgReprocessincomplete.Visible = false;
+            if (advisorVo.advisorId == 1000)
+            {
+                if (ddlAdviser.SelectedIndex == 0)
+                {
+                    Response.Write("<script>alert('Please select an adviser');</script>");
+                }
+
+                else
+                {
+                    BindTrailCommissionRejectedGrid(processId);
+                    ViewState.Remove("RejectReasonCode");
+                    msgDelete.Visible = false;
+                    msgReprocessincomplete.Visible = false;
+                }
+            }
+            else
+            {
+                BindTrailCommissionRejectedGrid(processId);
+                ViewState.Remove("RejectReasonCode");
+                msgDelete.Visible = false;
+                msgReprocessincomplete.Visible = false;
+            }
 
         }
         protected void btnReprocess_Click(object sender, EventArgs e)
@@ -537,5 +585,11 @@ namespace WealthERP.Uploads
             GVTrailTransactionRejects.MasterTableView.ExportToExcel();
         }
 
+
+        protected void ddlAdviser_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            Panel2.Visible = false;
+            trReprocess.Visible = false;
+        }
     }
 }
