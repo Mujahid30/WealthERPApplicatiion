@@ -151,6 +151,11 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging', 'none')", true);
                 }
+                else if (e.Item.Value == "View_Trail_Commission_Exceptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('TrailCommisionTransactionRejects', 'none')", true);
+                }
+                    
                 else if (e.Item.Value == "MFNP_Tranx_Compare")
                 {
                     Session["UserType"] = "SuperAdmin";

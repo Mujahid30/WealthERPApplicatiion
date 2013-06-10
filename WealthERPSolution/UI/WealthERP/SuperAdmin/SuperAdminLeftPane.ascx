@@ -62,6 +62,8 @@
                 </telerik:RadPanelItem>
                 <telerik:RadPanelItem Text="View Systematic Transaction Exceptions" Value="View_Systematic_Transaction">
                 </telerik:RadPanelItem>
+                 <telerik:RadPanelItem Text="View Trail Commission Exceptions" Value="View_Trail_Commission_Exceptions">
+                </telerik:RadPanelItem>
                 </Items>
                  </telerik:RadPanelItem>
             </Items>
