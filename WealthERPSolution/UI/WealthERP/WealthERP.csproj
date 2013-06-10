@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="BOAssociates, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BOAssociates\bin\Debug\BOAssociates.dll</HintPath>
+    </Reference>
     <Reference Include="BoValuation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -50,6 +54,10 @@
       <HintPath>bin\CrystalDecisions.Web.dll</HintPath>
     </Reference>
     <Reference Include="DanLudwig.Controls.AspAjax.ListBox, Version=0.3.3856.27484, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DAOAssociates, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DAOAssociates\bin\Debug\DAOAssociates.dll</HintPath>
+    </Reference>
     <Reference Include="Financial, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="FusionCharts, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, processorArchitecture=MSIL" />
@@ -96,6 +104,10 @@
     <Reference Include="Telerik.Web.UI, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL" />
     <Reference Include="VoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VOAssociates, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\VOAssociates\bin\Debug\VOAssociates.dll</HintPath>
+    </Reference>
     <Reference Include="VoCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoCustomerAnalytics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoCustomerGoalProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
