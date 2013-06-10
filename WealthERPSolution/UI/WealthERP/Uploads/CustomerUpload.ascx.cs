@@ -8168,7 +8168,8 @@ namespace WealthERP.Uploads
             int filetype = processlogVo.FileTypeId;
             string extracttype = processlogVo.ExtractTypeCode;
             string type = ddlUploadType.SelectedItem.Text;
-            
+            string RTName = ddlListCompany.SelectedItem.Text;
+            DateTime uploadDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
 
 
             if (filetype == (int)Contants.UploadTypes.StandardProfile && (extracttype == "PO" || extracttype == "PAF"))
@@ -8193,7 +8194,7 @@ namespace WealthERP.Uploads
                filetype == (int)Contants.UploadTypes.DeutscheProfile || filetype == (int)Contants.UploadTypes.StandardProfile)
                && (extracttype == "FO"))
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "&filetypeid=" + filetype + "&extractType=" + type + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "&filetypeid=" + filetype + "&extractType=" + type + "&uploadDate=" + uploadDate + "&RTName=" + RTName + "');", true);
             }
 
             else if ((filetype == (int)Contants.UploadTypes.CAMSTransaction || filetype == (int)Contants.UploadTypes.KarvyTransaction || filetype == (int)Contants.UploadTypes.TempletonTransaction ||
