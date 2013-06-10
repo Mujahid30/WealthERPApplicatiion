@@ -895,7 +895,7 @@ namespace WealthERP.Uploads
             if (Request.QueryString["processId"] != null)
             {
                 processId = Int32.Parse(Request.QueryString["processId"].ToString());
-                processlogVo = uploadsCommonBo.GetProcessLogInfo(processId);
+              //  processlogVo = uploadsCommonBo.GetProcessLogInfo(processId);
 
                 blResult = MFWERPSIPTransactionInsertion(processId);
 
@@ -928,7 +928,7 @@ namespace WealthERP.Uploads
                     {
                         //processIdReprocessAll = int.Parse(dr["WUPL_ProcessId"].ToString());
                         processIdReprocessAll = Convert.ToInt32(word);
-                        processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
+                       // processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
 
                         blResult = MFWERPSIPTransactionInsertion(processIdReprocessAll);
 
@@ -974,14 +974,26 @@ namespace WealthERP.Uploads
             bool camsSIPCommonStagingToWERP = false;
             bool updateProcessLog = false;
             string packagePath;
+            string fileType="CA";
 
 
             processlogVo = uploadsCommonBo.GetProcessLogInfo(UploadProcessId);
-
+            if (processlogVo.FileTypeId == 20)
+            {
+                fileType = "CA";
+            }
+            else if (processlogVo.FileTypeId == 26)
+            {
+                fileType = "WPT";
+            }
+            else if (processlogVo.FileTypeId == 27)
+            {
+                fileType = "KA";
+            }
             packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
 
-            camsSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(UploadProcessId, packagePath, configPath, "CA");
-            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "CA");
+            camsSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(UploadProcessId, packagePath, configPath, fileType);
+            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, fileType);
 
             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
             if (camsSIPCommonStagingChk)
@@ -993,7 +1005,7 @@ namespace WealthERP.Uploads
                 {
                     processlogVo.IsInsertionToWERPComplete = 1;
                     processlogVo.EndTime = DateTime.Now;
-                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "CA");
+                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, fileType);
                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                 }
             }
