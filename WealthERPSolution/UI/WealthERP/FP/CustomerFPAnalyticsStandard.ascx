@@ -210,7 +210,7 @@
                 <tr id="tdIncomeExpenseError" runat="server">
                     <td id="tdIncomeError" align="center" runat="server" style="width: 50%">
                         <br />
-                         <div id="div1" runat="server" style="width: 50%" class="failure-msg">
+                         <div id="divIncomeError" runat="server" style="width: 50%" class="failure-msg">
                          No records found for Income
                         </div>
                         <%--<asp:Label ID="lblIncomeError" runat="server" CssClass="failure-msg" Style="width: 100%;"

@@ -798,5 +798,6 @@ namespace WealthERP.FP {
 
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCashFlowError;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAssetErrorMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divIncomeError;
     }
 }

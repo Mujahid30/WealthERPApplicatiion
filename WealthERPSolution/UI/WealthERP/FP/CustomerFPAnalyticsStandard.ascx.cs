@@ -865,7 +865,8 @@ namespace WealthERP.FP
                     gvrIncome.DataSource = dtIncomeForGrid;
                     gvrIncome.DataBind();
                     tdIncomeError.Visible = true;
-                    lblIncomeError.Visible = false;
+                    divIncomeError.Visible = false;
+                    //lblIncomeError.Visible = false;
                     divIncome.Visible = true;
                 }
                 else
