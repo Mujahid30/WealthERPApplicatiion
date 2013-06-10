@@ -383,11 +383,12 @@ namespace WERP_BULK_MAIL_REQUEST_RENERATION
                 Params[1] = new SqlParameter("@DaemonCode", daemonCode);
                 Params[1].DbType = DbType.String;
                 DS = Utils.ExecuteDataSet("SPROC_GetWERPRequestList", Params);
+                //DS = Utils.ExecuteDataSet("SPROC_GetWERPRequestList_Test", Params);
+
 
             }
             catch (BaseApplicationException Ex)
             {
-
                 throw Ex;
             }
             catch (Exception Ex)
