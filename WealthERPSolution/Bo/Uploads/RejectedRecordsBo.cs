@@ -909,14 +909,14 @@ namespace BoUploads
         /// <param name="CurrentPage"></param>For paging purpose
         /// <param name="Count"></param>No of records for paging purpose
         /// <returns></returns>
-        public DataSet GetProfileFolioInputRejects(int ProcessId, string UploadExternalType, int CurrentPage, out int Count)
+        public DataSet GetProfileFolioInputRejects(int ProcessId, string UploadExternalType)
         {
             DataSet dsRejectedRecords;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
 
             try
             {
-                dsRejectedRecords = rejecetedRecords.GetProfileFolioInputRejects(ProcessId, UploadExternalType, CurrentPage, out Count);
+                dsRejectedRecords = rejecetedRecords.GetProfileFolioInputRejects(ProcessId, UploadExternalType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -931,8 +931,7 @@ namespace BoUploads
 
                 object[] objects = new object[3];
                 objects[0] = ProcessId;
-                objects[1] = CurrentPage;
-                objects[2] = UploadExternalType;
+                objects[1] = UploadExternalType;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -980,14 +979,14 @@ namespace BoUploads
         /// <param name="Count"></param>No of records for paging purpose
         /// <returns></returns>
         
-        public DataSet GetTransInputRejects(int ProcessId, string UploadExternalType, int CurrentPage, out int Count)
+        public DataSet GetTransInputRejects(int ProcessId, string UploadExternalType)
         {
             DataSet dsRejectedRecords;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
 
             try
             {
-                dsRejectedRecords = rejecetedRecords.GetTransInputRejects(ProcessId, UploadExternalType, CurrentPage, out Count);
+                dsRejectedRecords = rejecetedRecords.GetTransInputRejects(ProcessId, UploadExternalType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1002,8 +1001,7 @@ namespace BoUploads
 
                 object[] objects = new object[3];
                 objects[0] = ProcessId;
-                objects[1] = CurrentPage;
-                objects[2] = UploadExternalType;
+                objects[1] = UploadExternalType;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

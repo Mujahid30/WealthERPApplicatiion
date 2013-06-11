@@ -1255,7 +1255,7 @@ namespace DaoUploads
         /// <param name="CurrentPage"></param>For paging purpose
         /// <param name="Count"></param>No of records for paging purpose
         /// <returns></returns>
-        public DataSet GetProfileFolioInputRejects(int ProcessId, string UploadExternalType, int CurrentPage, out int Count)
+        public DataSet GetProfileFolioInputRejects(int ProcessId, string UploadExternalType)
         {
             DataSet dsProfileFolioRejectedRecords;
             Database db;
@@ -1277,7 +1277,6 @@ namespace DaoUploads
                     cmdgetRejectedRecords = db.GetStoredProcCommand("");
 
                 db.AddInParameter(cmdgetRejectedRecords, "@ProcessId", DbType.Int32, ProcessId);
-                db.AddInParameter(cmdgetRejectedRecords, "@currentPage", DbType.Int32, CurrentPage);
 
                 dsProfileFolioRejectedRecords = db.ExecuteDataSet(cmdgetRejectedRecords);
 
@@ -1296,8 +1295,7 @@ namespace DaoUploads
 
                 object[] objects = new object[3];
                 objects[0] = ProcessId;
-                objects[1] = CurrentPage;
-                objects[2] = UploadExternalType;
+                objects[1] = UploadExternalType;
 
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -1306,7 +1304,6 @@ namespace DaoUploads
                 throw exBase;
             }
 
-            Count = Int32.Parse(dsProfileFolioRejectedRecords.Tables[1].Rows[0]["CNT"].ToString());
 
             return dsProfileFolioRejectedRecords;
         }
@@ -1350,7 +1347,7 @@ namespace DaoUploads
         /// <param name="CurrentPage"></param>For paging purpose
         /// <param name="Count"></param>No of records for paging purpose
         /// <returns></returns>
-        public DataSet GetTransInputRejects(int ProcessId, string UploadExternalType, int CurrentPage, out int Count)
+        public DataSet GetTransInputRejects(int ProcessId, string UploadExternalType)
         {
             DataSet dsTransRejectedRecords;
             Database db;
@@ -1371,7 +1368,6 @@ namespace DaoUploads
                     cmdgetRejectedRecords = db.GetStoredProcCommand("");
 
                 db.AddInParameter(cmdgetRejectedRecords, "@ProcessId", DbType.Int32, ProcessId);
-                db.AddInParameter(cmdgetRejectedRecords, "@currentPage", DbType.Int32, CurrentPage);
 
                 dsTransRejectedRecords = db.ExecuteDataSet(cmdgetRejectedRecords);
 
@@ -1390,8 +1386,7 @@ namespace DaoUploads
 
                 object[] objects = new object[3];
                 objects[0] = ProcessId;
-                objects[1] = CurrentPage;
-                objects[2] = UploadExternalType;
+                objects[1] = UploadExternalType;
 
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -1399,8 +1394,6 @@ namespace DaoUploads
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
-            Count = Int32.Parse(dsTransRejectedRecords.Tables[1].Rows[0]["CNT"].ToString());
 
             return dsTransRejectedRecords;
         }
