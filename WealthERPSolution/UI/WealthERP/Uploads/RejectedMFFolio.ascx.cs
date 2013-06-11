@@ -100,11 +100,24 @@ namespace WealthERP.Uploads
             }
             if (Request.QueryString["filetypeid"] != null)
             {
+                string uploadType = string.Empty;
+                rejectedRecordsBo = new RejectedRecordsBo();
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
-                LinkInputRejects.Visible = true;
+                if (filetypeId == 2)
+                    uploadType = "CA";
+                else if (filetypeId == 4)
+                    uploadType = "KA";
+                else if (filetypeId == 16)
+                    uploadType = "TN";
+                else if (filetypeId == 21)
+                    uploadType = "SU";
+                dsRejectedRecords = rejectedRecordsBo.GetProfileFolioInputRejects(ProcessId, uploadType);
+                if (dsRejectedRecords.Tables[0].Rows.Count != 0)
+                    LinkInputRejects.Visible = true;
+                else
+                    LinkInputRejects.Visible = false;
             }
-            else
-                LinkInputRejects.Visible = false;
+
 
 
             if (adviserId == 1000)
@@ -617,7 +630,7 @@ namespace WealthERP.Uploads
 
         protected void LinkInputRejects_Click(object sender, EventArgs e)
         {
-            if (filetypeId == (int)Contants.UploadTypes.CAMSProfile)
+            if (filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId ==21)
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CAMSProfileFolioInputRejects','processId=" + ProcessId + "');", true);
             else if (filetypeId == (int)Contants.UploadTypes.KarvyProfile)
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('KarvyProfileFolioInputRejects','processId=" + ProcessId + "');", true);
