@@ -23,6 +23,8 @@ namespace WealthERP.SuperAdmin
             imgBtnTransaction.Visible = false;
             btnFolio.Visible = false;
             pnlCustomer.Visible = false;
+            pnlsystematic.Visible = false;
+            pnlTrail.Visible = false;
             imgbtnCustomer.Visible = false;
             txtFromDate.SelectedDate = DateTime.Now;
             txtToDate.SelectedDate = DateTime.Now;
@@ -81,6 +83,8 @@ namespace WealthERP.SuperAdmin
                 pnlFolioRecon.Visible = true;
                 btnFolio.Visible = true;
                 pnlTransaction.Visible = false;
+                pnlTrail.Visible = false;
+                pnlsystematic.Visible = false;
                 imgBtnTransaction.Visible = false;
                 pnlCustomer.Visible = false;
                 imgbtnCustomer.Visible = false;
@@ -112,6 +116,8 @@ namespace WealthERP.SuperAdmin
                 pnlFolioRecon.Visible = false;
                 btnFolio.Visible = false;
                 pnlTransaction.Visible = true;
+                pnlsystematic.Visible = true;
+                pnlTrail.Visible = false;
                 imgBtnTransaction.Visible = true;
                 pnlCustomer.Visible = false;
                 imgbtnCustomer.Visible = false;
@@ -142,6 +148,8 @@ namespace WealthERP.SuperAdmin
                 pnlFolioRecon.Visible = false;
                 btnFolio.Visible = false;
                 pnlTransaction.Visible = false;
+                pnlTrail.Visible = false;
+                pnlsystematic.Visible = false;
                 imgBtnTransaction.Visible = false;
                 pnlCustomer.Visible = true;
                 imgbtnCustomer.Visible = true;
@@ -167,6 +175,71 @@ namespace WealthERP.SuperAdmin
                     gvCustomer.DataBind();
                 }
             }
+            if (ddlType.SelectedValue == "Systematic")
+            {
+                pnlFolioRecon.Visible = false;
+                btnFolio.Visible = false;
+                pnlTransaction.Visible = false;
+                pnlTrail.Visible = false;
+                imgBtnTransaction.Visible = false;
+                pnlCustomer.Visible = false;
+                pnlsystematic.Visible = true;
+                imgbtnCustomer.Visible = true;
+                dt = dsFoliotransaction.Tables[3];
+                if (dt != null)
+                {
+                    gvSystematic.DataSource = dt;
+                    gvSystematic.DataBind();
+                    gvSystematic.Visible = true;
+                    if (Cache["gvSystematic" + userVo.UserId] == null)
+                    {
+                        Cache.Insert("gvSystematic" + userVo.UserId, dt);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvSystematic" + userVo.UserId);
+                        Cache.Insert("gvSystematic" + userVo.UserId, dt);
+                    }
+                }
+                else
+                {
+                    gvSystematic.DataSource = null;
+                    gvSystematic.DataBind();
+                }
+            }
+            if (ddlType.SelectedValue == "Trail")
+            {
+                pnlFolioRecon.Visible = false;
+                btnFolio.Visible = false;
+                pnlTransaction.Visible = false;
+                pnlTrail.Visible = true;
+                pnlsystematic.Visible = false;
+                imgBtnTransaction.Visible = false;
+                pnlCustomer.Visible = false;              
+                imgbtnCustomer.Visible = true;
+                dt = dsFoliotransaction.Tables[4];
+                if (dt != null)
+                {
+                    gvTrail.DataSource = dt;
+                    gvTrail.DataBind();
+                    gvTrail.Visible = true;
+                    if (Cache["gvTrail" + userVo.UserId] == null)
+                    {
+                        Cache.Insert("gvTrail" + userVo.UserId, dt);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvTrail" + userVo.UserId);
+                        Cache.Insert("gvTrail" + userVo.UserId, dt);
+                    }
+                }
+                else
+                {
+                    gvTrail.DataSource = null;
+                    gvTrail.DataBind();
+                }
+            }
+
         }
         /// <summary>
         /// Exporting Upploaded Transaction Details
@@ -211,6 +284,24 @@ namespace WealthERP.SuperAdmin
             imgBtnTransaction.Visible = true;
         }
 
+        protected void gvSystematic_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["gvSystematic" + userVo.UserId];
+            gvSystematic.DataSource = dt;
+            pnlsystematic.Visible = true;
+            gvSystematic.Visible = true;
+            imgBtnTransaction.Visible = true;
+        }
+        protected void gvTrail_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["gvTrail" + userVo.UserId];
+            gvTrail.DataSource = dt;
+            pnlTrail.Visible = true;
+            gvTrail.Visible = true;
+            imgBtnTransaction.Visible = true;
+        }
         protected void imgbtnCustomer_Click(object sender, ImageClickEventArgs e)
         {
             gvCustomer.ExportSettings.OpenInNewWindow = true;
