@@ -83,11 +83,10 @@ namespace WealthERP.Uploads
                 hdnCurrentPage.Value = "";
             }
 
-            int Count;
 
             try
             {
-                dsRejectedRecords = rejectedRecordsBo.GetProfileFolioInputRejects(processID, "DT", mypager.CurrentPage, out Count);
+                dsRejectedRecords = rejectedRecordsBo.GetProfileFolioInputRejects(processID, "DT");
             }
             catch (Exception Ex)
             {
@@ -103,8 +102,6 @@ namespace WealthERP.Uploads
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
-            if (Count > 0)
                 DivPager.Style.Add("display", "visible");
 
             if (dsRejectedRecords.Tables[0].Rows.Count > 0)
