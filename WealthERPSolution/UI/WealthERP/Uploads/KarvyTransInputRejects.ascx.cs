@@ -14,6 +14,7 @@ using BoUploads;
 using BoCommon;
 using WealthERP.Base;
 using System.Configuration;
+using Telerik.Web.UI;
 
 namespace WealthERP.Uploads
 {
@@ -25,42 +26,7 @@ namespace WealthERP.Uploads
 
         int processID;
 
-        protected override void OnInit(EventArgs e)
-        {
-            ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-            mypager.EnableViewState = true;
-            base.OnInit(e);
-        }
-
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            GetPageCount();
-            this.BindRejectedRecordsGrid();
-        }
-
-        private void GetPageCount()
-        {
-            string upperlimit;
-            string lowerlimit;
-            int rowCount = 0;
-            if (hdnRecordCount.Value != "")
-                rowCount = Convert.ToInt32(hdnRecordCount.Value);
-            if (rowCount > 0)
-            {
-
-                int ratio = rowCount / 10;
-                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = ((mypager.CurrentPage - 1) * 10).ToString();
-                upperlimit = (mypager.CurrentPage * 10).ToString();
-                if (mypager.CurrentPage == mypager.PageCount)
-                    upperlimit = hdnRecordCount.Value;
-                string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                lblCurrentPage.Text = PageRecords;
-
-                hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-            }
-        }
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
@@ -69,9 +35,9 @@ namespace WealthERP.Uploads
 
             if (!IsPostBack)
             {
+                if (Request.QueryString["processId"]!=null)
                 processID = Int32.Parse(Request.QueryString["processId"].ToString());
-                trError.Visible = false;
-
+                
                 BindRejectedRecordsGrid();
             }
         }
@@ -79,17 +45,21 @@ namespace WealthERP.Uploads
         void BindRejectedRecordsGrid()
         {
             DataSet dsRejectedRecords;
-            if (hdnCurrentPage.Value.ToString() != "")
-            {
-                mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-                hdnCurrentPage.Value = "";
-            }
-
-            int Count;
-
+          
             try
             {
-                dsRejectedRecords = rejectedRecordsBo.GetTransInputRejects(processID, "KA", mypager.CurrentPage, out Count);
+                dsRejectedRecords = rejectedRecordsBo.GetTransInputRejects(processID, "KA");
+
+
+                if (Cache["gvRejectedRecords" + userVo.UserId] == null)
+                {
+                    Cache.Insert("gvRejectedRecords" + userVo.UserId, dsRejectedRecords.Tables[0]);
+                }
+                else
+                {
+                    Cache.Remove("gvRejectedRecords" + userVo.UserId);
+                    Cache.Insert("gvRejectedRecords" + userVo.UserId, dsRejectedRecords.Tables[0]);
+                }
             }
             catch (Exception Ex)
             {
@@ -105,28 +75,46 @@ namespace WealthERP.Uploads
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
-            if (Count > 0)
-                DivPager.Style.Add("display", "visible");
 
             if (dsRejectedRecords.Tables[0].Rows.Count > 0)
             {
-                trInputNullMessage.Visible = false;
-                gvRejectedRecords.DataSource = dsRejectedRecords.Tables[0];
+                imgBtnrgHoldings.Visible = true;
+                 gvRejectedRecords.DataSource = dsRejectedRecords.Tables[0];
                 gvRejectedRecords.DataBind();
             }
             else
             {
-                trInputNullMessage.Visible = true;
+                imgBtnrgHoldings.Visible = false;
                 gvRejectedRecords.DataSource = null;
                 gvRejectedRecords.DataBind();
             }
+            divGvRejectedRecords.Visible = true;
 
-            this.GetPageCount();
         }
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
+        }
+        protected void gvRejectedRecords_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtgvTransaction = new DataTable();
+
+            dtgvTransaction = (DataTable)Cache["gvRejectedRecords" + userVo.UserId];
+            gvRejectedRecords.DataSource = dtgvTransaction;
+            gvRejectedRecords.Visible = true;
+
+
+        }
+
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvRejectedRecords.ExportSettings.OpenInNewWindow = true;
+            gvRejectedRecords.ExportSettings.IgnorePaging = true;
+            gvRejectedRecords.ExportSettings.HideStructureColumns = true;
+            gvRejectedRecords.ExportSettings.ExportOnlyData = true;
+            gvRejectedRecords.ExportSettings.FileName = "Transaction Detail";
+            gvRejectedRecords.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvRejectedRecords.MasterTableView.ExportToExcel();
         }
     }
 }
