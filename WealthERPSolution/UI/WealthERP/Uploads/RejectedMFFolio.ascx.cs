@@ -173,7 +173,7 @@ namespace WealthERP.Uploads
                 //DateTime fromDate = DateTime.Now.AddDays(-30);
                 //txtFromTran.SelectedDate = fromDate.Date;
                 //txtToTran.SelectedDate = DateTime.Now;
-
+                LinkInputRejects.Visible = false;
                 if (adviserId != 1000)
                 {
                     if (ProcessId != 0)
@@ -233,8 +233,10 @@ namespace WealthERP.Uploads
                 //{
                 //    divGvCAMSProfileReject.Visible = false;
                 //}
+                gvCAMSProfileReject.Visible = false;
+                divBtnActionSection.Visible = false;
             }
-            gvCAMSProfileReject.Visible = true;
+            //gvCAMSProfileReject.Visible = true;
             trNote.Visible = false;
         }
 
