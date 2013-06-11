@@ -1265,7 +1265,7 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 if (UploadExternalType == "KA")
                     cmdgetRejectedRecords = db.GetStoredProcCommand("SP_GetKarvyProfileFolioInputRejects");
-                else if (UploadExternalType == "CA")
+                else if (UploadExternalType == "CA" || UploadExternalType == "SU")
                     cmdgetRejectedRecords = db.GetStoredProcCommand("SP_GetCAMSProfileFolioInputRejects");
                 else if (UploadExternalType == "DT")
                     cmdgetRejectedRecords = db.GetStoredProcCommand("SP_GetDeutscheProfileFolioInputRejects");
