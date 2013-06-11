@@ -4363,8 +4363,6 @@ namespace WealthERP.Uploads
                     msgUploadComplete.Visible = true;
                 }
             }
-
-
         }
 
         protected void ddlUploadType_SelectedIndexChanged(object sender, EventArgs e)
@@ -8186,7 +8184,7 @@ namespace WealthERP.Uploads
             }
             else if (filetype == 2 || extracttype == "PAF")
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "&filetypeid=" + filetype + "&adviserId=" + adviserId + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "&filetypeid=" + filetype + "&adviserId=" + adviserId + "&extractType=" + type + "&uploadDate=" + uploadDate + "&RTName=" + RTName + "');", true);
 
             }
 
@@ -8232,7 +8230,7 @@ namespace WealthERP.Uploads
             //}
             else if (filetype == 28 || filetype == 29 || filetype == 30 || filetype == 31 || filetype == 32)
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TrailCommisionTransactionRejects','processId=" + processid + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TrailCommisionTransactionRejects','processId=" + processid + "&adviserId=" + adviserId + "');", true);
             }
         }
 
