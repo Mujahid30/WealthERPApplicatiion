@@ -1,96 +1,109 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CAMSTransInputRejects.ascx.cs" 
-Inherits="WealthERP.Uploads.CAMSTransInputRejects" %>
-
-<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-<link href="../CSS/GridViewCss.css" rel="stylesheet" type="text/css" />
-
-<div class="divPageHeading">
-    <table cellspacing="0" cellpadding="3" width="100%">
-        <tr>
-            <td class="HeaderCell">               
-                <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="CAMS Transaction Input Rejects"></asp:Label>
-            </td>
-        </tr>
-    </table>
-</div>
-<table style="width: 100%;" class="TableBackground">
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CAMSTransInputRejects.ascx.cs"
+    Inherits="WealthERP.Uploads.CAMSTransInputRejects" %>
+    
+    
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
+<telerik:RadScriptManager ID="scptMgr" runat="server">
+</telerik:RadScriptManager>
+<table width="100%">
     <tr>
         <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left"  style="width: 50%">
+                            CAMS Transaction Input Rejects
+                        </td>
+                          <td align="right"  style="width: 48%">
+                            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="View ProcessLog"
+                                OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                        </td>
+                        <td align="right"  style="width: 2%">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="22px" Width="25px"></asp:ImageButton>
+                        </td>
+                      
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
-   <%-- <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="CAMS Transaction Input Rejects"></asp:Label>
-        </td>
-    </tr>--%>
-    <tr>
-        <td>
-            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="View ProcessLog"
-                OnClick="lnkBtnBack_Click"></asp:LinkButton>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:GridView ID="gvRejectedRecords" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                CssClass="GridViewStyle" ShowFooter="true" DataKeyNames="CAMSTransInputId" >
-                <FooterStyle CssClass="FooterStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <EditRowStyle HorizontalAlign="Left" CssClass="EditRowStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>
-                    <asp:BoundField DataField="ProcessId" HeaderText="PROCESS ID" />
-                    <asp:BoundField DataField="INV_NAME" HeaderText="INVESTOR NAME" />
-                    <asp:BoundField DataField="FOLIO_NUMBER" HeaderText = "FOLIO NUMBER" />
-                    <asp:BoundField DataField="TRANSACTION_NUMBER" HeaderText = "TRANSACTION NUMBER" />
-                    <asp:BoundField DataField="PRODUCT_CODE" HeaderText="PRODUCT CODE" />
-                    <asp:BoundField DataField="SCHEME_NAME" HeaderText="SCHEME NAME"  />
-                    <asp:BoundField DataField="POST_DATE" HeaderText="POST_DATE" />
-                    <asp:BoundField DataField="PRICE" HeaderText="PRICE" />
-                    <asp:BoundField DataField="UNITS" HeaderText="UNITS" />
-                    <asp:BoundField DataField="AMOUNT" HeaderText="AMOUNT" />
-                    <asp:BoundField DataField="STT" HeaderText="STT" />
-                    
-                </Columns>
-            </asp:GridView>
-        </td>
-    </tr>
-    <tr id="trInputNullMessage" runat="server" visible="false">
-        <td class="Message">
-            <label id="lblEmptyTranEmptyMsg" class="FieldName">
-                There are no records to be displayed !
-            </label>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-    <tr id="trError" runat="server" visible="false">
-        <td class="Message">
-            <asp:Label ID="lblError" CssClass="Error" runat="server"></asp:Label>
+</table><br />
+<div runat="server" id="divGvRejectedRecords" visible="false" style="width:99%;overflow:scroll;">
+    <telerik:RadGrid ID="gvRejectedRecords" runat="server" GridLines="None" AutoGenerateColumns="False"
+        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+        AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS"
+        OnNeedDataSource="gvRejectedRecords_NeedDataSource">
+        <ExportSettings HideStructureColumns="true">
+        </ExportSettings>
+        <MasterTableView DataKeyNames="CAMSTransInputId" Width="100%" AllowMultiColumnSorting="True"
+            AutoGenerateColumns="false" CommandItemDisplay="None">
+            <Columns>
+                <telerik:GridBoundColumn DataField="ProcessId" HeaderText="PROCESS ID" UniqueName="ProcessId"
+                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="INV_NAME" HeaderText="INVESTOR NAME" UniqueName="INV_NAME"
+                    SortExpression="INV_NAME" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="FOLIO_NUMBER" HeaderText="FOLIO NUMBER" UniqueName="FOLIO_NUMBER"
+                    SortExpression="FOLIO_NUMBER" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="TRANSACTION_NUMBER" HeaderText="TRANSACTION NUMBER"
+                    UniqueName="TRANSACTION_NUMBER" AllowFiltering="true" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="PRODUCT_CODE" HeaderText="PRODUCT CODE" UniqueName="PRODUCT_CODE"
+                    SortExpression="PRODUCT_CODE" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="SCHEME_NAME" HeaderText="SCHEME NAME" UniqueName="SCHEME_NAME"
+                    SortExpression="SCHEME_NAME" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="POST_DATE" HeaderText="POST DATE" UniqueName="POST_DATE"
+                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="PRICE" HeaderText="PRICE" UniqueName="PRICE"
+                    SortExpression="PRICE" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="UNITS" HeaderText="UNITS" UniqueName="UNITS"
+                    SortExpression="UNITS" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="AMOUNT" HeaderText="AMOUNT" UniqueName="AMOUNT"
+                    AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="STT" HeaderText="STT" UniqueName="STT" SortExpression="STT"
+                    AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+            </Columns>
+        </MasterTableView>
+        <ClientSettings>
+            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+        </ClientSettings>
+    </telerik:RadGrid>
+</div><br />
+<table>
+    <tr id ="trNote" runat="server">
+        <td colspan="2">
+            <div id="Div2" class="Note">
+                <p>
+                    <span style="font-weight: bold">Note:</span><br />
+                    1.Please remove these records from the file and reupload <br />
+                      2. Clean the file before uploading 
+                </p>
+            </div>
         </td>
     </tr>
 </table>
-<div id="DivPager" runat="server" style="display: none">
-    <table style="width: 100%">
-        <tr align="center">
-            <td>
-                <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-            </td>
-        </tr>
-    </table>
-</div>
-<asp:HiddenField ID="hdnRecordCount" runat="server" />
-<asp:HiddenField ID="hdnCurrentPage" runat="server" />
-<asp:HiddenField ID="hdnSort" runat="server" Value="ADUL_StartTime DESC" />
-
