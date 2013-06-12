@@ -342,6 +342,10 @@ namespace WealthERP.Reports
 
                     if (!Page.IsPostBack)
                     {
+                        txtEmailAsOnDate.SelectedDate = DateTime.Now;
+                        txtEmailAsOnDate.Calendar.SpecialDays.Clear();
+                        txtEmailAsOnDate.MaxDate = DateTime.Today;
+
                         if (Session["UserType"] != null)
                         {
                             if (Session["UserType"].ToString().ToLower() == "adviser" || Session["UserType"].ToString().ToLower() == "ops")
@@ -643,16 +647,10 @@ namespace WealthERP.Reports
             }
         }
 
-        public void BindGvRequestStatus()
+        public void BindGvRequestStatus(int userId, DateTime dtSelectedRequestDate)
         {
             //GetRequestStatusList(151586, Convert.ToDateTime("2013-05-27"));
-            GetRequestStatusList(userVo.UserId, Convert.ToDateTime(rdpShowRequestStausGrid.SelectedDate));
-        }
-
-
-        protected void btnShowRequestStausGrid_Click(object sender, EventArgs e)
-        {
-            BindGvRequestStatus();
+            GetRequestStatusList(userId, dtSelectedRequestDate);
             gvRequestStatus.DataSource = dtRequestStatusList;
 
             if (dtRequestStatusList.Rows.Count != 0)
@@ -663,10 +661,10 @@ namespace WealthERP.Reports
             gvRequestStatus.DataBind();
 
             //new gr
-          
-                RadTabStrip2.Tabs[2].Selected = true;
-                tabViewAndEmailReports.SelectedIndex = 2;
-           
+
+            RadTabStrip2.Tabs[2].Selected = true;
+            tabViewAndEmailReports.SelectedIndex = 2;
+
 
             gvRequestStatus.Rebind();
             if (dtRequestStatusList.Rows.Count != 0)
@@ -676,6 +674,13 @@ namespace WealthERP.Reports
             }
             //else
             //    pnlGvRequestStatus.Visible = false;
+        }
+
+
+        protected void btnShowRequestStausGrid_Click(object sender, EventArgs e)
+        {
+            BindGvRequestStatus(userVo.UserId, Convert.ToDateTime(rdpShowRequestStausGrid.SelectedDate));
+         
         }
 
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
@@ -1368,7 +1373,19 @@ namespace WealthERP.Reports
             }
 
         }
+        protected void btnViewStatus_Click(object sender, EventArgs e)
+        {
+            rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
+            BindGvRequestStatus(userVo.UserId, DateTime.Now);
 
+
+            RadTabStrip2.TabIndex = 2;
+           
+            tabViewAndEmailReports.SelectedIndex = 2;
+            RadTabStrip2.Tabs[2].Selected = true;
+            RadTabStrip2.SelectedIndex = 2;
+
+        }
         protected void btnEmailReport_Click(object sender, EventArgs e)
         {
             String allCustomerId = string.Empty;
@@ -1444,7 +1461,7 @@ namespace WealthERP.Reports
 
             RadTabStrip2.Tabs[1].Selected = true;
             tabViewAndEmailReports.SelectedIndex = 1;
-
+            RadListBoxDestination.Items.Clear();
         }
 
         //protected void btnEmailReport_Click(object sender, EventArgs e)
@@ -1593,6 +1610,8 @@ namespace WealthERP.Reports
             dtFinalRequestListStatus.Columns.Add("ExecutionStartTime");
             dtFinalRequestListStatus.Columns.Add("ExecutionEndTime");
             dtFinalRequestListStatus.Columns.Add("Message");
+            dtFinalRequestListStatus.Columns.Add("statusYN");
+
             try
             {
 
@@ -1608,6 +1627,16 @@ namespace WealthERP.Reports
                     drFinalStatus["DependentRequestId"] = drRequest["WR_DependentOn"].ToString();
                     drFinalStatus["ParentRequestId"] = drRequest["WR_ParentRequestId"].ToString();
                     drFinalStatus["CreatedOn"] = drRequest["WR_CreatedOn"].ToString();
+
+                    if (drFinalStatus["RequestStatus"].ToString() == "1")
+                    {
+                        drFinalStatus["statusYN"] = "Yes";
+                    }
+                    else
+                    {
+                        drFinalStatus["statusYN"] = "No";
+                    }
+
                     DataView dvRequestInputParameter = new DataView(dtRequestInputParameterList, "WR_RequestId=" + requestId.ToString(), "WR_RequestId", DataViewRowState.CurrentRows);
                     DataView dvRequestLog = new DataView(dtRequestLog, "WR_RequestId='" + requestId.ToString() + "'", "WR_RequestId", DataViewRowState.CurrentRows);
 
@@ -1657,15 +1686,15 @@ namespace WealthERP.Reports
 
                 }
 
-                dtFinalRequestListStatus.Columns.Add("statusYN", typeof(string));
+                //dtFinalRequestListStatus.Columns.Add("statusYN", typeof(string));
 
-                foreach (System.Data.DataRow dr in dtFinalRequestListStatus.Rows)
-                {
-                    if (Convert.ToInt32(dr["RequestStatus"]) == 1)
-                        dr["statusYN"] = "Yes";
-                    else
-                        dr["statusYN"] = "No";
-                }
+                //foreach (System.Data.DataRow dr in dtFinalRequestListStatus.Rows)
+                //{
+                //    if (Convert.ToInt32(dr["RequestStatus"]) == 1)
+                //        dr["statusYN"] = "Yes";
+                //    else
+                //        dr["statusYN"] = "No";
+                //}
 
 
                 //if (dtFinalRequestListStatus.Rows.Count != 0)

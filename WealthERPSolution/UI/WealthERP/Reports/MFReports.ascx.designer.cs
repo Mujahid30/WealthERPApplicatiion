@@ -30,6 +30,11 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadAjaxManager AjaxManagerMain;
+
+
+        protected global::Telerik.Web.UI.RadDatePicker txtEmailToDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtEmailFromDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtEmailAsOnDate;
         
         /// <summary>
         /// imgBtnrgHoldings control.
@@ -1028,7 +1033,7 @@ namespace WealthERP.Reports {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgEmailSentComplete;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow msgEmailSentComplete;
         
         /// <summary>
         /// Label1 control.
@@ -1190,7 +1195,6 @@ namespace WealthERP.Reports {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmailAsOnDate;
         
         /// <summary>
         /// txtEmailAsOnDate_CalendarExtender control.
@@ -1280,7 +1284,6 @@ namespace WealthERP.Reports {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmailFromDate;
         
         /// <summary>
         /// txtEmailFromDate_CalendarExtender control.
@@ -1325,7 +1328,6 @@ namespace WealthERP.Reports {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmailToDate;
         
         /// <summary>
         /// txtEmailToDate_CalendarExtender control.
@@ -1587,5 +1589,14 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnValuationDate;
+
+
+        protected global::System.Web.UI.WebControls.Label tarCount;
+
+        protected global::System.Web.UI.WebControls.Label srcCount;
+        protected global::System.Web.UI.WebControls.Label timeInsideLabel;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+
+      
     }
 }
