@@ -98,26 +98,7 @@ namespace WealthERP.Uploads
 
                 }
             }
-            if (Request.QueryString["filetypeid"] != null)
-            {
-                string uploadType = string.Empty;
-                rejectedRecordsBo = new RejectedRecordsBo();
-                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
-                if (filetypeId == 2)
-                    uploadType = "CA";
-                else if (filetypeId == 4)
-                    uploadType = "KA";
-                else if (filetypeId == 16)
-                    uploadType = "TN";
-                else if (filetypeId == 21)
-                    uploadType = "SU";
-                dsRejectedRecords = rejectedRecordsBo.GetProfileFolioInputRejects(ProcessId, uploadType);
-                if (dsRejectedRecords.Tables[0].Rows.Count != 0)
-                    LinkInputRejects.Visible = true;
-                else
-                    LinkInputRejects.Visible = false;
-            }
-
+            
 
 
             if (adviserId == 1000)
@@ -238,6 +219,27 @@ namespace WealthERP.Uploads
             }
             //gvCAMSProfileReject.Visible = true;
             trNote.Visible = false;
+
+            if (Request.QueryString["filetypeid"] != null)
+            {
+                string uploadType = string.Empty;
+                rejectedRecordsBo = new RejectedRecordsBo();
+                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+                if (filetypeId == 2)
+                    uploadType = "CA";
+                else if (filetypeId == 4)
+                    uploadType = "KA";
+                else if (filetypeId == 16)
+                    uploadType = "TN";
+                else if (filetypeId == 21)
+                    uploadType = "SU";
+                dsRejectedRecords = rejectedRecordsBo.GetProfileFolioInputRejects(ProcessId, uploadType);
+                if (dsRejectedRecords.Tables[0].Rows.Count != 0)
+                    LinkInputRejects.Visible = true;
+                else
+                    LinkInputRejects.Visible = false;
+            }
+
         }
 
         protected void BindAdviserDropDownList()
