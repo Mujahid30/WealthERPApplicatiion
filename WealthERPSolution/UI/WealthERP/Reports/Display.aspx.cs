@@ -313,7 +313,7 @@ namespace WealthERP.Reports
             }
             if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
             {
-                orderTransaction.ChequeDate=DateTime.Parse(Request.QueryString["ChequeDate"]);
+                orderTransaction.ChequeDate=DateTime.Parse(Request.QueryString["ChequeDate"]).ToString();
             }
             if (!string.IsNullOrEmpty(Request.QueryString["ChequeNo"].ToString().Trim()))
             {
@@ -2759,7 +2759,7 @@ namespace WealthERP.Reports
         private string convertUSCurrencyFormat(double value)
         {
             string strValues = string.Empty;
-            if (value > 0)
+            if (value != 0)
                 strValues = value.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
             else
                 strValues = value.ToString();

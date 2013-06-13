@@ -173,12 +173,12 @@ namespace BoReports
             DataRow drHLVbasedAnalysis;
             drHLVbasedAnalysis = dtHLVAnalysis.NewRow();
             drHLVbasedAnalysis["HLV_Type"] = "HLV based on income";
-            drHLVbasedAnalysis["HLV_Values"] = convertUSCurrencyFormat(Math.Round(double.Parse(HLVbasedIncome.ToString()), 2));
+            drHLVbasedAnalysis["HLV_Values"] = convertUSCurrencyFormat(Math.Round(double.Parse(HLVbasedIncome.ToString()), 0));
             dtHLVAnalysis.Rows.Add(drHLVbasedAnalysis);
 
             drHLVbasedAnalysis = dtHLVAnalysis.NewRow();
             drHLVbasedAnalysis["HLV_Type"] = "Income(annual)";
-            drHLVbasedAnalysis["HLV_Values"] = convertUSCurrencyFormat(Math.Round(double.Parse((totalIncomeAnnual).ToString()), 2));
+            drHLVbasedAnalysis["HLV_Values"] = convertUSCurrencyFormat(Math.Round(double.Parse((totalIncomeAnnual).ToString()), 0));
             dtHLVAnalysis.Rows.InsertAt(drHLVbasedAnalysis, 0);
             dtHLVAnalysis.Rows.RemoveAt(1);
             dsCustomerFPReportDetails.Tables.Add(dtHLVAnalysis);
@@ -191,12 +191,12 @@ namespace BoReports
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Financial Net Worth";
-            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(netWorth, 2));
+            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(netWorth, 0));
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Insurance Cover Recommended(HLV – Financial Net Worth)";
-            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(double.Parse((HLVbasedIncome - netWorth).ToString()), 2));
+            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(double.Parse((HLVbasedIncome - netWorth).ToString()), 0));
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
@@ -206,7 +206,7 @@ namespace BoReports
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Insurance Cover Required";
-            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(double.Parse(((HLVbasedIncome - netWorth) - sumAssuredLI).ToString()), 2));
+            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(double.Parse(((HLVbasedIncome - netWorth) - sumAssuredLI).ToString()), 0));
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             dsCustomerFPReportDetails.Tables.Add(dtHLVBasedIncome);
@@ -269,7 +269,7 @@ namespace BoReports
 
             if (totalEquity > 0)
             {
-                strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalEquity) + " in Equity";
+                strInvestment = "Your current investments are ` " + convertUSCurrencyFormat(totalEquity) + " in Equity";
             }
             else
                 strInvestment = string.Empty;
@@ -279,35 +279,35 @@ namespace BoReports
                 if (!string.IsNullOrEmpty(strInvestment))
                 {
                     if (totalFixedIncome > 0 || totalOther > 0)
-                        strInvestment += ", " + "Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
+                        strInvestment += ", " + "` " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
                     else if (totalFixedIncome == 0 && totalOther == 0)
                     {
-                        strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
+                        strInvestment += " and " + "` " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
                     }
                    
                 }
                 else
-                    strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
+                    strInvestment = "Your current investments are ` " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
             }
             if (totalFixedIncome > 0)
             {
                 if (!string.IsNullOrEmpty(strInvestment))
                 {
                     if (totalOther > 0)
-                        strInvestment += ", " + "Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in Fixed Income ";
+                        strInvestment += ", " + "` " + convertUSCurrencyFormat(totalFixedIncome) + " in Fixed Income ";
                     else
-                        strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in Fixed Income ";
+                        strInvestment += " and " + "` " + convertUSCurrencyFormat(totalFixedIncome) + " in Fixed Income ";
                 }
                 else
-                    strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in Fixed Income ";
+                    strInvestment = "Your current investments are ` " + convertUSCurrencyFormat(totalFixedIncome) + " in Fixed Income ";
 
             }
             if (totalOther > 0)
             {
                 if (!string.IsNullOrEmpty(strInvestment))
-                    strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalOther) + " in Others";
+                    strInvestment += " and " + "` " + convertUSCurrencyFormat(totalOther) + " in Others";
                 else
-                    strInvestment = "Your current investments is Rs. " + convertUSCurrencyFormat(totalOther) + " in Others";
+                    strInvestment = "Your current investments is ` " + convertUSCurrencyFormat(totalOther) + " in Others";
 
             }
 
@@ -317,7 +317,7 @@ namespace BoReports
                 {
                     if (dr["LoanValues"] != null)
                     {
-                        strHomeLoan = "Principal Outstanding is Rs. " + convertUSCurrencyFormat(double.Parse(dr["LoanValues"].ToString()));
+                        strHomeLoan = "Principal Outstanding is ` " + convertUSCurrencyFormat(double.Parse(dr["LoanValues"].ToString()));
                     }
 
                 }
@@ -325,7 +325,7 @@ namespace BoReports
                 {
                     if (dr["LoanValues"] != null)
                     {
-                        strAutoLoan = "Principal Outstanding is Rs. " + convertUSCurrencyFormat(double.Parse(dr["LoanValues"].ToString()));
+                        strAutoLoan = "Principal Outstanding is ` " + convertUSCurrencyFormat(double.Parse(dr["LoanValues"].ToString()));
                     }
 
 
@@ -341,7 +341,7 @@ namespace BoReports
             {
                 drCurrentObservation = dtCurrentObservation.NewRow();
                 drCurrentObservation["ObjType"] = "Net Worth";
-                drCurrentObservation["ObjSummary"] = "Your current Net Worth is Rs. " + convertUSCurrencyFormat(netWorth).ToString();
+                drCurrentObservation["ObjSummary"] = "Your current Net Worth is ` " + convertUSCurrencyFormat(netWorth).ToString();
                 dtCurrentObservation.Rows.Add(drCurrentObservation);
 
             }
@@ -349,14 +349,14 @@ namespace BoReports
             {
                 drCurrentObservation = dtCurrentObservation.NewRow();
                 drCurrentObservation["ObjType"] = "Cash flow";
-                drCurrentObservation["ObjSummary"] = "Your current surplus is Rs. " + convertUSCurrencyFormat(surplus).ToString() + " per year";
+                drCurrentObservation["ObjSummary"] = "Your current surplus is ` " + convertUSCurrencyFormat(surplus).ToString() + " per year";
                 dtCurrentObservation.Rows.Add(drCurrentObservation);
             }
             if (Math.Abs(lifeProtectionTotal) > 0)
             {
                 drCurrentObservation = dtCurrentObservation.NewRow();
                 drCurrentObservation["ObjType"] = "Protection";
-                drCurrentObservation["ObjSummary"] = "You have Life insurance protection of Rs. " + convertUSCurrencyFormat(lifeProtectionTotal).ToString();
+                drCurrentObservation["ObjSummary"] = "You have Life insurance protection of ` " + convertUSCurrencyFormat(lifeProtectionTotal).ToString();
                 dtCurrentObservation.Rows.Add(drCurrentObservation);
             }
             if (Math.Abs(totalMF) > 0 || Math.Abs(totalEquity) > 0 || Math.Abs(totalFixedIncome) > 0 || Math.Abs(totalOther) > 0)
@@ -578,7 +578,7 @@ namespace BoReports
         private string convertUSCurrencyFormat(double value)
         {
             string strValues = string.Empty;
-            if (value > 999)
+            if (value !=0)
                 strValues = value.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
             else
                 strValues = value.ToString();
