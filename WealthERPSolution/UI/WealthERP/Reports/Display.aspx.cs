@@ -313,7 +313,7 @@ namespace WealthERP.Reports
             }
             if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
             {
-                ChequeDate = Request.QueryString["ChequeDate"];
+                orderTransaction.ChequeDate=DateTime.Parse(Request.QueryString["ChequeDate"]);
             }
             if (!string.IsNullOrEmpty(Request.QueryString["ChequeNo"].ToString().Trim()))
             {
@@ -569,6 +569,8 @@ namespace WealthERP.Reports
                          crmain.SetParameterValue("OrgTelephone", "Mobile :--");
                      }
                      crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
+                     crmain.SetParameterValue("OrgAddress", advisorVo.AddressLine1 + " " +advisorVo.AddressLine2+" "+advisorVo.AddressLine3+" "+ advisorVo.PinCode);
+                    
 
                     crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(orderTransaction.amcCode) ? orderTransaction.amcCode : string.Empty);
                     crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(customerVo.PANNum) ? customerVo.PANNum : string.Empty);
@@ -583,8 +585,8 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(orderTransaction.Scheme) ? orderTransaction.Scheme : string.Empty);
 
                     crmain.SetParameterValue("ChequeNo", !string.IsNullOrEmpty(orderTransaction.ChequeNo) ? orderTransaction.ChequeNo : string.Empty);
-                    crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(orderTransaction.ChequeDate) ? orderTransaction.ChequeDate : string.Empty);
-                    crmain.SetParameterValue("Amount", string.Empty);
+                    crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(orderTransaction.ChequeDate.ToString().Trim()) ? orderTransaction.ChequeDate.ToString() : string.Empty);
+                    crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(orderTransaction.Amount) ? orderTransaction.Amount : string.Empty);
                     if (ds.Tables[1].Rows.Count > 0)
                         crmain.SetParameterValue("JointHolder", "1");
                     else
