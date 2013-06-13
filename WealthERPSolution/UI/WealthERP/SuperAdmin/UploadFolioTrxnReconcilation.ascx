@@ -62,7 +62,7 @@
                 <asp:ListItem Value="Folio" Text="Folio"></asp:ListItem>
                 <asp:ListItem Value="Tranx" Text="Transaction"></asp:ListItem>
                 <asp:ListItem Value="Customer" Text="Customer"></asp:ListItem>
-                <asp:ListItem Value="Systematic" Text="Systematic"></asp:ListItem>
+               <%-- <asp:ListItem Value="Systematic" Text="Systematic"></asp:ListItem>--%>
                 <asp:ListItem Value="Trail" Text="Trail"></asp:ListItem>
             </asp:DropDownList>
         </td>
@@ -542,11 +542,11 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Tranx No." DataField="CMFTTCS_TransactionNo"
+                                           <%-- <telerik:GridBoundColumn visible ="false" HeaderStyle-Width="150px" HeaderText="Tranx No." DataField="CMFTTCS_TransactionNo"
                                                 UniqueName="CMFTTCS_TransactionNo" SortExpression="CMFTTCS_TransactionNo" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
+                                            </telerik:GridBoundColumn>--%>
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Units" DataField="CMFTTCS_Units"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="CMFTTCS_Units" SortExpression="CMFTTCS_Units"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
