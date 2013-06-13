@@ -431,6 +431,14 @@ namespace WealthERP.Reports {
                 return this.DataDefinition.ParameterFields[32];
             }
         }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_OrgAddress {
+            get {
+                return this.DataDefinition.ParameterFields[33];
+            }
+        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
