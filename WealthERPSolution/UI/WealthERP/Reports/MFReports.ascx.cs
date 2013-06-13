@@ -519,10 +519,10 @@ namespace WealthERP.Reports
                     txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
                     txtFromDate.Text = LatestValuationdate.ToShortDateString();
                     txtToDate.Text = LatestValuationdate.ToShortDateString();
-                    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
-                    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
+                    txtEmailAsOnDate.SelectedDate = LatestValuationdate;
+                    txtEmailAsOnDate.SelectedDate = LatestValuationdate;
+                    txtEmailFromDate.SelectedDate = LatestValuationdate;
+                    txtEmailToDate.SelectedDate = LatestValuationdate;
 
                 }
                 //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
@@ -1477,7 +1477,7 @@ namespace WealthERP.Reports
             mfReport.ReportName = chkItems.Value.Trim();
             if (reportDateType == "ASON")
             {
-                mfReport.FromDate = Convert.ToDateTime(txtEmailAsOnDate.Text.Trim());
+                mfReport.FromDate = Convert.ToDateTime(txtEmailAsOnDate.SelectedDate);
                 mfReport.ToDate = mfReport.FromDate;
             }
             else if (reportDateType == "RANGE")
@@ -1574,8 +1574,8 @@ namespace WealthERP.Reports
             }
             else //if (Request.Form[ctrlPrefix + "hidDateType"] == "AS_ON")
             {
-                fromDate = Convert.ToDateTime(txtEmailFromDate.Text);
-                toDate = Convert.ToDateTime(txtEmailToDate.Text);
+                fromDate = Convert.ToDateTime(txtEmailFromDate.SelectedDate);
+                toDate = Convert.ToDateTime(txtEmailToDate.SelectedDate);
             }
         }
 
