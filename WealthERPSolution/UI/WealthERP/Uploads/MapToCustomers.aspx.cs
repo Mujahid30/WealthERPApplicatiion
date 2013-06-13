@@ -115,27 +115,22 @@ namespace WealthERP.Uploads
             }
 
 
-            if (Session[SessionContents.CurrentUserRole] != null)
-            {
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            if (userVo.UserType.ToLower() == "admin" || userVo.UserType.ToLower() == "ops")
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
 
                 }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+            else if (userVo.UserType.ToLower() == "superadmin")
                 {
-                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-                }
-            }
-            else
-            {
-                advisorVo.advisorId=Convert.ToInt32(Session["adviserId_Upload"]);
-                txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-            }
 
+                    int advisorId = Convert.ToInt32(Session["adviserId_Upload"]);
+                    txtCustomerName_autoCompleteExtender.ContextKey = advisorId.ToString();
+                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                }
+           
+
+           
             if (rdbtnMapFolio.Checked)
             {
                 divMapToCustomer.Visible = true;
