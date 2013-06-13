@@ -31,6 +31,7 @@
         }
     }
 </script>
+
 <script language="javascript" type="text/javascript">
     function ShowPopup() {
         var form = document.forms[0];
@@ -61,6 +62,7 @@
         return false;
     }
 </script>
+
 <table width="100%">
     <tr>
         <td>
@@ -153,7 +155,7 @@
                 <asp:Button ID="btnViewTrail" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewTrail_Click" />
             </td>
         </tr>
-         <tr id="trAdviserSelection" runat="server">
+        <tr id="trAdviserSelection" runat="server">
             <td align="right" style="width: 20%">
                 <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
             </td>
@@ -220,7 +222,7 @@
                     <MasterTableView AllowFilteringByColumn="true" DataKeyNames="CMFTCCS_Id,A_AdviserId,Adul_ProcessId"
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                          <%--  <telerik:GridTemplateColumn AllowFiltering="false">
+                            <%--  <telerik:GridTemplateColumn AllowFiltering="false">
                                 <HeaderTemplate>
                                     <asp:CheckBox runat="server" ID="ChkALL" AutoPostBack="True" OnCheckedChanged="ToggleSelectedState" />
                                 </HeaderTemplate>
@@ -228,24 +230,19 @@
                                     <asp:CheckBox runat="server" ID="ChkOne" AutoPostBack="True" OnCheckedChanged="ToggleRowSelection" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>--%>
-                            
-                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
+                            <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
                                 HeaderStyle-Width="50px">
                                 <HeaderTemplate>
                                     <input id="ChkALL" name="ChkALL" type="checkbox" onclick="checkAllBoxes()" />
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                 
-                     
-                        <asp:CheckBox runat="server" ID="ChkOne" />
-                        <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFTCCS_Id").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
-                        <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("Adul_ProcessId").ToString() %>' />
-                        <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("CMFTCCS_Id").ToString() %>' />
-              
+                                    <asp:CheckBox runat="server" ID="ChkOne" />
+                                    <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFTCCS_Id").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
+                                    <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("Adul_ProcessId").ToString() %>' />
+                                    <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("CMFTCCS_Id").ToString() %>' />
                                     <%--<asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("WERPTransactionId").ToString()%>' />--%>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            
                             <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="true"
                                 HeaderText="Reject Reason" UniqueName="RejectReasonCode" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -274,7 +271,7 @@
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Adul_ProcessId" AllowFiltering="false" HeaderText="Process Id"
+                            <telerik:GridBoundColumn DataField="Adul_ProcessId" AllowFiltering="true" HeaderText="Process Id"
                                 UniqueName="ProcessId" SortExpression="Adul_ProcessId" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -289,7 +286,7 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                               <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_InvName" HeaderText="InvName"
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_InvName" HeaderText="InvName"
                                 UniqueName="CMFTTCS_InvName" SortExpression="CMFTTCS_InvName" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -318,7 +315,7 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_Units" HeaderText="Units"
-                                UniqueName="units"  DataFormatString="{0:N2}">
+                                UniqueName="units" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_Amount" HeaderText="Amount"
@@ -346,8 +343,8 @@
                 OnClick="btnReprocess_Click" OnClientClick="Loading(true);" />
             <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
-                 <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
-        OnClientClick="return ShowPopup()" />
+            <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
+                OnClientClick="return ShowPopup()" />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">
@@ -363,5 +360,4 @@
         </td>
     </tr>
 </table>
-
 <asp:HiddenField ID="hfRmId" runat="server" />
