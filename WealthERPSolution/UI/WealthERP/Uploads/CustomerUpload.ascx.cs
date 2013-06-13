@@ -134,6 +134,7 @@ namespace WealthERP.Uploads
             {
                 trAdviserSelection.Visible = false;
                 adviserId = adviserVo.advisorId;
+                if (rmVo!=null)
                 rmId = rmVo.RMId;
             }
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
@@ -8179,7 +8180,7 @@ namespace WealthERP.Uploads
                 filetype == (int)Contants.UploadTypes.DeutscheProfile  || filetype == 21)
                 && (extracttype == "PO" || extracttype == "PAF"))
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "&filetypeid=" + filetype + "&adviserId=" + adviserId + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "&filetypeid=" + filetype + "&adviserId=" + adviserId + "&extractType=" + type + "&uploadDate=" + uploadDate + "&RTName=" + RTName + "');", true);
 
             }
             else if (filetype == 2 || extracttype == "PAF")
