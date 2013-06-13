@@ -76,7 +76,7 @@
                     <asp:Label ID="lblMessage" runat="server" Text="" Visible="false" class="maroon"></asp:Label>
                     <%--<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="javascript:window.close();return false;"><br />Close Window</asp:HyperLink>
                --%>
-                    <asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="return ClosePopUp()"><br />Close Window</asp:HyperLink>
+                    <asp:HyperLink Visible="false" ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="return ClosePopUp()"><br />Close Window</asp:HyperLink>
                 </td>
             </tr>
         </table>
